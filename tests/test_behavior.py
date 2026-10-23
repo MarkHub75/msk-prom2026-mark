@@ -232,3 +232,55 @@ class ImmobilityTests(unittest.TestCase):
 
 if __name__=='__main__':unittest.main()
 
+
+class RetainUprightPolicyTests(unittest.TestCase):
+    def test_default_still_abstains_after_unknown_bridge(self):
+        e=BehaviorEngine();e.update(batch(0,[person()]))
+        e.update(batch(500,[person(points=False)]))
+        out=[]
+        for t in (1000,1500,2000):out+=e.update(batch(t,[person(True)]))
+        self.assertEqual(out,[])
+
+    def test_opt_in_uses_only_prior_observed_upright_timestamp(self):
+        e=BehaviorEngine({'retain_upright_during_unknown':True})
+        e.update(batch(0,[person()]))
+        e.update(batch(500,[person(points=False)]))
+        for t in (1000,1500):self.assertEqual(e.update(batch(t,[person(True)])),[])
+        out=e.update(batch(2000,[person(True)]))
+        self.assertEqual([v['type'] for v in out],['suspected_fall'])
+        self.assertEqual(out[0]['start_media_ms'],1000)
+
+    def test_expired_upright_does_not_support_later_fall(self):
+        e=BehaviorEngine({'retain_upright_during_unknown':True})
+        e.update(batch(0,[person()]))
+        for t in (500,1000,1500):e.update(batch(t,[person(points=False)]))
+        for t in (2000,2500,3000):self.assertEqual(e.update(batch(t,[person(True)])),[])
+
+    def test_unknown_during_lying_restarts_duration_without_counting_unknown(self):
+        e=BehaviorEngine({'retain_upright_during_unknown':True})
+        e.update(batch(0,[person()]))
+        e.update(batch(500,[person(True)]))
+        e.update(batch(750,[person(True,points=False)]))
+        for t in (1000,1500):self.assertEqual(e.update(batch(t,[person(True)])),[])
+        out=e.update(batch(2000,[person(True)]))
+        self.assertEqual(out[0]['type'],'suspected_fall')
+        self.assertEqual(out[0]['start_media_ms'],1000)
+
+    def test_gap_or_missing_person_does_not_bridge_prior_upright(self):
+        for gap_kind in ('explicit','missing-person','epoch','ambiguous-match'):
+            with self.subTest(gap_kind=gap_kind):
+                e=BehaviorEngine({'retain_upright_during_unknown':True})
+                e.update(batch(0,[person()]))
+                if gap_kind=='explicit':e.on_gap(dict(camera_id='c1',stream_epoch='e1',media_time_ms=500))
+                elif gap_kind=='missing-person':e.update(batch(500,[]))
+                elif gap_kind=='ambiguous-match':e.update(batch(500,[person(points=False),person(points=False)]))
+                else:e.update(batch(0,[person(points=False)],epoch='e2'))
+                epoch='e2' if gap_kind=='epoch' else 'e1'
+                for t in (1000,1500,2000):self.assertEqual(e.update(batch(t,[person(True)],epoch=epoch)),[])
+
+    def test_flag_requires_explicit_boolean_and_does_not_change_baseline_checkpoint(self):
+        baseline=BehaviorEngine()
+        self.assertNotIn('retain_upright_during_unknown',baseline.config)
+        baseline.restore_state(baseline.export_state())
+        for invalid in (1,None,'true'):
+            with self.assertRaises(ValueError):BehaviorEngine({'retain_upright_during_unknown':invalid})

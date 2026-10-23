@@ -90,6 +90,8 @@ class BehaviorEngine:
             raise ValueError("immobility_min_points must be between 1 and 12")
         if self.config["immobility_max_speed"] < 0:
             raise ValueError("immobility_max_speed must be nonnegative")
+        if "retain_upright_during_unknown" in self.config and type(self.config["retain_upright_during_unknown"]) is not bool:
+            raise ValueError("retain_upright_during_unknown must be boolean")
         self.cameras = {}
 
     def _posture(self, person):
@@ -287,7 +289,12 @@ class BehaviorEngine:
         else:
             self._reset_motion(track)
             track.candidates.pop("lying",None)
-            track.last_upright=None
+            # Experimental H-FALL-02 only: an observed but undecidable posture
+            # does not become lying evidence. Keep the last *observed upright*
+            # timestamp only within the existing finite transition window.
+            if (not self.config.get("retain_upright_during_unknown",False) or
+                    track.last_upright is not None and t-track.last_upright>self.config["transition_ms"]):
+                track.last_upright=None
             track.fall_candidate=False
         if posture=="lying":
             events.extend(self._immobility(track,person,batch))
