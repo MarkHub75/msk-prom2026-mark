@@ -32,6 +32,12 @@ PYTHONPATH=. /workspace/.venvs/linq-sdk/bin/python -m ml.linq.compile \
 
 A completed compile report still records `linq_status=NOT_RUN` and `runtime_abi_verified=false`. Its tensor specs describe conditioned ONNX and must be checked against actual TPU metadata. The adapter expects `model_id`, `program_sha256`, `inputs` and `outputs`; preserve the detection manifest and pass its dedicated `linq` block merged with `model_id` after runtime ABI verification.
 
+## Completed local compilation experiment
+
+Helmet ONNX `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47` completed current SDK conditioning, `calibrate_torch`, quantization and TPU_H1M O1 compilation in 72.66 seconds. Program is `/workspace/artifacts/linq-sdk/helmet-compile/model.tpu`, SHA256 `408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa`. Full local compile metadata is alongside it in `compile-report.json`; downloaded wheel hashes are in `/workspace/artifacts/linq-sdk/package-inventory.json`.
+
+This is a **compiler smoke**, using exactly one real bus photograph after the same RGB letterbox preprocessor. It proves the selected full decoded detection graph passes this compiler build; it does not validate quantized detector accuracy. The SDK upgraded opset 13 to 17 during conditioning. Conditioned ONNX ABI: `images` float32 `[1,3,640,640]` -> `output0` float32 `[1,6,8400]`. Actual TPU runtime ABI and hardware execution remain unverified. Replace this calibration with a representative separate PPE corpus before claiming accuracy.
+
 ## First access on the Arch laptop
 
 1. Check TUN presence, installed OpenVPN client, current resolver and network manager. Ubuntu package/systemd commands from the supplied PDF are not Arch instructions.
