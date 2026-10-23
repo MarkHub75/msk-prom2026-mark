@@ -13,6 +13,21 @@ from test_delivery import event
 
 
 class LocalEventSinkTests(unittest.TestCase):
+    def test_concurrent_conflicting_bodies_cannot_both_be_acknowledged(self):
+        from concurrent.futures import ThreadPoolExecutor
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            with local_event_sink(root/'receiver',root/'evidence') as receiver:
+                value=event()
+                def send(body):
+                    try:HttpEventSink(receiver['event_url']).publish(body);return 'ACK'
+                    except HTTPError:return 'REJECTED'
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    results=list(pool.map(send,[value,{**value,'severity':'different-payload'}]))
+                self.assertCountEqual(results,['ACK','REJECTED'])
+                with sqlite3.connect(receiver['database']) as db:
+                    self.assertEqual(db.execute('SELECT count(*) FROM received').fetchone()[0],1)
+
     def test_commit_dedup_revision_and_evidence_over_http(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);evidence=root/'state/evidence';evidence.mkdir(parents=True)

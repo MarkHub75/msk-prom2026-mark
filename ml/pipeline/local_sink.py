@@ -37,6 +37,7 @@ def local_event_sink(directory,evidence_root):
                 body=json.dumps(event,sort_keys=True,allow_nan=False)
                 with sqlite3.connect(database) as db:
                     db.execute('PRAGMA synchronous=FULL')
+                    db.execute('BEGIN IMMEDIATE')
                     old=db.execute('SELECT body FROM received WHERE event_id=? AND revision=?',key).fetchone()
                     if old and old[0]!=body:raise ValueError('immutable revision mismatch')
                     db.execute('INSERT OR IGNORE INTO received VALUES(?,?,?)',(*key,body))
@@ -48,6 +49,19 @@ def local_event_sink(directory,evidence_root):
             except Exception:self.send_error(400,'invalid event')
         def do_GET(self):
             path=unquote(urlsplit(self.path).path)
+            if path=='/api/v1/ml/events' or path.startswith('/api/v1/ml/events/'):
+                with sqlite3.connect(database) as db:
+                    if path=='/api/v1/ml/events':
+                        rows=db.execute('SELECT body FROM received r WHERE revision=(SELECT MAX(revision) FROM received WHERE event_id=r.event_id) ORDER BY event_id').fetchall()
+                        value=[json.loads(row[0]) for row in rows]
+                    else:
+                        event_id=path.removeprefix('/api/v1/ml/events/')
+                        row=db.execute('SELECT body FROM received WHERE event_id=? ORDER BY revision DESC LIMIT 1',(event_id,)).fetchone()
+                        if row is None:self.send_error(404);return
+                        value=json.loads(row[0])
+                data=json.dumps(value,allow_nan=False).encode()
+                self.send_response(200);self.send_header('Content-Type','application/json')
+                self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
             if not path.startswith('/evidence/') or '\\' in path:self.send_error(404);return
             candidate=(evidence_root/path.removeprefix('/evidence/')).resolve()
             if (not candidate.is_relative_to(evidence_root) or candidate.suffix not in ('.jpg','.json') or

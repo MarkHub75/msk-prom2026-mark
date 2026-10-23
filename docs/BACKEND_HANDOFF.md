@@ -2,6 +2,8 @@
 
 Используется существующий EventMutation v1: `ml/contracts/schemas/event.schema.json`. Новый несовместимый формат не вводится. Пример `docs/examples/event.synthetic.json` явно синтетический: он показывает контракт и не подтверждает нарушение или запуск модели. Реальные события конкретного прогона сохраняются вне Git в `<state-dir>/events.jsonl`, наблюдения — в `observations.jsonl`.
 
+ACK также описан в `ml/contracts/schemas/ack.schema.json`. Исполняемая проверка POST/ACK/журнала/JPEG — `ml.pipeline.backend_probe`; параметры и фактические ограничения доступа к backend Марка приведены в docs/BACKEND_CHECK.md. Local-test не подтверждает интеграцию команды.
+
 ## Получение и подтверждение
 
 ML отправляет `POST /api/v1/ml/events`, полный URL задаётся параметром `--backend-url`. Тело — одно событие, `Content-Type: application/json`, заголовок `Idempotency-Key: <event_id>:<revision>`. При необходимости токен берётся только из `MOSPROM_BACKEND_TOKEN`. Для удалённого подключения с токеном нужен HTTPS; HTTP redirects запрещены. Секреты не передаются в аргументах команды или событиях.

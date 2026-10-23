@@ -1,5 +1,38 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
+## LATEST CHECKPOINT — backend contract and controlled recovery stage
+
+The user resumed after c8dd54a2. This section supersedes the historical video checkpoint below. Autonomous work for this stage is saved; stop after the report and wait for the user's next instruction. Actual Mark-backend integration remains BLOCKED BY MISSING ENDPOINT/SOURCE, not a claimed PASS.
+
+Git started clean on matvey_cv at c8dd54a2, matching origin/matvey_cv. Local working tree has no Mark backend source or configured event/journal/media URL. Only origin/matvey_cv is locally tracked. GitHub connector returned 404 for remote repo access; noninteractive git ls-remote failed (return 128), without printing raw errors/credentials. The user was asked for a backend URL/branch/localpath or private config FILEPATH, never secret values. No backend information arrived before checkpoint. No VPN/SSH/NetworkManager/auth setup was changed, no push or main modification performed.
+
+Implemented without changing models/scenarios:
+
+- Existing EventMutation v1 retained; committed ACK schema added at ml/contracts/schemas/ack.schema.json. HttpEventSink requires committed:true, matching string event_id and actual integer revision (bool/float rejected). Its shared prepare_payload preserves the established evidence URL mapping.
+- Pending/retried HTTP delivery binds receiver+media-prefix by SHA256 in SQLite. Endpoint or evidence-prefix changes stop before sending. Tokens are not part of the digest and can rotate; URLs/credentials are not persisted in delivery metadata. Legacy delivered outboxes without identity cannot be rebound while pending; use a new state-dir, do not reset delivered flags.
+- ml.pipeline.backend_probe checks explicitly configured POST/ACK, duplicate same revision, configured GET-journal and exact JPEG bytes. Stable labelled test incident UUID survives restart; actual captured fixture source/model provenance is preserved. No API route guessing. report.json is the last successful check; last-attempt.json also records preflight failures. Only safe exception types are logged.
+- Existing LOCAL_TEST receiver now has GET journal/latest-revision reads and transactional conflicting-body protection. It is NOT Mark's backend. HTTP COMMIT/ACK loss -> samebody retry, out-of-order journal and concurrent conflict checks are covered by tests.
+- Existing LinQ client now exports connection_setup_ms, serialize_ms, publish_confirm_ms, response_wait_ms, close_ms, total_ms with finite typed allowlisting. Cache/reconcile stay distinct from initial inference. Agent commit e2555e5f merged; agent made no live calls.
+
+Actual REAL-video client-disconnect test:
+
+- Existing /workspace/artifacts/video-mvp/industrial-001 continued to ORIGINAL frame 13 / PTS 518.962075848 ms of 4_tr6.mp4. No completed frame 0 or earlier stock/model probes were repeated.
+- First model Pose UUID 31ae5ede-0c72-40d0-acf3-bee2a960679c was published once with broker confirmation, then ONLY THIS CLIENT connection was deliberately closed. Core persisted UNKNOWN, worker exit 3, unchanged source cursor. No physical VPN outage or autossh/systemd restart was triggered.
+- A fresh worker invocation reconciled SAME UUID receive-only to COMPLETED / status 0 / matching response ID. Helmet UUID 87c8c191-e314-4739-bc3f-79c2dcd31d82 then completed normally, status 0 / matching ID. Exactly 2 new model requests, no recovered-task republish, cursor advanced only after correlated results. This does not confirm a positive industrial violation.
+- Evidence/harness: /workspace/artifacts/video-mvp/industrial-001/client-disconnect-check/{intent.json,injected.json,after-disconnect.json,report.json,disconnect.*,reconcile.*}. One-shot intent blocks re-injection; do NOT rerun this completed experiment. If an experiment is interrupted, inspect the saved UUID and resume normal worker instead of generating another request.
+
+Measured ordinary Helmet call: 10429.70 ms total; setup 3286.22 ms, serialization 5.93 ms, publish+confirm 4495.98 ms, response wait 958.25 ms, close 1650.23 ms. N=1 normal sample, no p95 or chip-time claim. Whole REAL frame with artificial failure+recovery took 30052.86 ms, not normal FPS. /workspace/artifacts/backend-integration-001/performance.json records phase shares. Setup+close=47.3%; theoretical complete removal upper bound ~1.90x, NOT an implemented/measured optimization. Proposal only: persistent sequential connection/channel after backend integration and A/B safety benchmark; inspect float32 transfer, decouple slow dispatch, measure long-file export costs. Historical 0.046 FPS is repeated-image control, never realtime. Mark-backend latency is unknown.
+
+Backend verification actually executed: /workspace/artifacts/backend-integration-001/local-contract-review.json. Configured receiver is explicitly LOCAL_TEST_NOT_MARK_BACKEND; canonical labelled prior LinQ fixture was replayed, NO new neural calls in this HTTP check. POST, committedACK, duplicateACK, GET latest journal, GET JPEG / SHA256 and probe restart passed; 1 stored revision / 1 notification. Does not verify Mark ownership, teamfrontend, remotehosting or remote push dedup. Actual external connection cannot be completed until backend endpoints/source are supplied.
+
+Read README.md, docs/BACKEND_CHECK.md, docs/BACKEND_HANDOFF.md, docs/PERFORMANCE.md. Prepared backend command is in BACKEND_CHECK and uses explicit confirmed event/journal/media URLs; synthetic or repeated-image test events remain labelled. Authentication stays runtime-only through MOSPROM_BACKEND_TOKEN or a user-specified external config file, never source/Git/logs.
+
+Final checks: python -m unittest discover -s tests -q -> 231 tests PASS. Tests include existing 217 plus phase/recovery, HTTP ACK loss after commit, stable destination, typedACK, probe/journal/evidence, one-shot diagnostic guard and concurrent conflicting revisions. Root fixed review findings: early preflight failure cannot leave stale latest PASS, and TEST receiver immutable check is serialized. Native agents completed, no active delegated tasks. Sourcevideos/models/rawruntime/secrets remain outside Git; artifacts retained, server left running. Latest root integration commit: git log -1 on matvey_cv.
+
+Next action requires user/team data: actual POST URL, journal URL/response shape and evidence prefix, or Mark backend branch/localpath and startup instructions. Keep the prepared source/payload; do not invent another backend, retrain or repeat completed network/model experiments. Real industrial positive/fall/lying quality and real VPN auto-recovery remain unverified. Stop here.
+
+## Previous video checkpoint (historical)
+
 ## LATEST CHECKPOINT — video MVP iteration
 
 The user explicitly resumed after 0c4cb5ff and requested the video MVP. This section supersedes ALL old pause instructions and pending statuses below. At the end of this iteration stop and wait for the next user decision; do not start new features, research, training or experiments automatically.

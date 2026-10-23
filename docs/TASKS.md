@@ -1,5 +1,16 @@
 # Active ML/CV task register
 
+## Latest backend/recovery stage
+
+- Baseline c8dd54a2 clean and matched origin/matvey_cv. Mark backend code/URL not supplied; GitHub connector404 and noninteractive remote-head read failed. Actual external backend integration remains OPEN, not a local-test PASS.
+- DELIVERY: committed ACK schema, strict revision type, durable destination/media-prefix digest, ACK-loss replay and no silent endpoint change.
+- CHECK: prepared backend_probe for explicit POST/ACK/journal/JPEG and stable labelled probe UUID. Local-test HTTP passed with1revision/1notification; Mark's journal/frontend/media have not been contacted.
+- RELIABILITY: e2555e5f merged. REALnewframe13 of4_tr6: confirmed publish -> clientclose ->UNKNOWN, cursor unchanged ->receive-only SAMEUUID completion ->Helmet completion.2freshRPCs total, no retry publication. Physical VPN/SSH untouched; do not rerun this one-shot test.
+- PERFORMANCE: one ordinary Helmet call10.430s; setup3.286s, publish/confirm4.496s, responsewait0.958s, close1.650s. Proposals documented, no realtime/speedup claim.
+- VERIFICATION:231tests PASS. README, ACK schema, handoff/check and performance docs updated. Await actual backend endpoint/source; no new models/types or automatic follow-on work.
+
+This section supersedes earlier task-stage statuses below.
+
 ## Latest video-MVP iteration
 
 | Item | Owner | Result |

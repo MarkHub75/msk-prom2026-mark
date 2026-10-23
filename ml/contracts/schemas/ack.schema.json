@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CommittedEventAck v1",
+  "type": "object",
+  "required": ["committed", "event_id", "revision"],
+  "properties": {
+    "committed": {"const": true},
+    "event_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1}
+  }
+}
