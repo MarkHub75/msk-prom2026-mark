@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EventMutation v1", "type": "object",
+  "required": ["schema_version", "event_id", "revision", "camera_id", "stream_epoch", "track_key", "type", "state", "start_media_ms", "confirmed_media_ms", "evidence"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "event_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "camera_id": {"type": "string", "minLength": 1},
+    "stream_epoch": {"type": "string", "minLength": 1},
+    "track_key": {"type": "string"},
+    "type": {"enum": ["missing_helmet", "suspected_fall", "prolonged_lying"]},
+    "state": {"enum": ["open", "closed", "interrupted"]},
+    "start_media_ms": {"type": "number", "minimum": 0},
+    "confirmed_media_ms": {"type": "number", "minimum": 0},
+    "evidence": {"type": "object", "required": ["status"], "properties": {
+      "status": {"enum": ["pending", "ready", "unavailable", "partial"]},
+      "snapshot_ref": {"type": ["string", "null"]},
+      "clip_ref": {"type": ["string", "null"]},
+      "frame_id": {"type": ["integer", "null"]}
+    }}
+  }
+}

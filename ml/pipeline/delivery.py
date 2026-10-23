@@ -18,18 +18,37 @@ class Outbox:
             delivered INTEGER NOT NULL DEFAULT 0, attempts INTEGER NOT NULL DEFAULT 0,
             next_attempt REAL NOT NULL DEFAULT 0, last_error TEXT,
             PRIMARY KEY(event_id, revision))''')
+        self.db.execute('CREATE TABLE IF NOT EXISTS checkpoints (name TEXT PRIMARY KEY, body TEXT NOT NULL)')
         self.db.commit()
 
+    def checkpoint(self):
+        row = self.db.execute("SELECT body FROM checkpoints WHERE name='behavior'").fetchone()
+        return json.loads(row[0]) if row else None
+
+    def last_evidence(self, event_id):
+        row = self.db.execute('SELECT body FROM outbox WHERE event_id=? ORDER BY revision DESC LIMIT 1', (event_id,)).fetchone()
+        return json.loads(row[0]).get('evidence') if row else None
+
+    def commit_batch(self, events, state):
+        with self.db:
+            for event in events:
+                self._enqueue(event)
+            self.db.execute("INSERT OR REPLACE INTO checkpoints(name,body) VALUES('behavior',?)",
+                            (json.dumps(state, allow_nan=False),))
+
     def enqueue(self, event):
+        with self.db:
+            self._enqueue(event)
+
+    def _enqueue(self, event):
         validate_event(event)
         body = json.dumps(event, allow_nan=False, sort_keys=True)
-        with self.db:
-            old = self.db.execute('SELECT body FROM outbox WHERE event_id=? AND revision=?',
-                                  (event['event_id'], event['revision'])).fetchone()
-            if old and old[0] != body:
-                raise ValueError('event revision is immutable')
-            self.db.execute('INSERT OR IGNORE INTO outbox(event_id,revision,body) VALUES(?,?,?)',
-                            (event['event_id'], event['revision'], body))
+        old = self.db.execute('SELECT body FROM outbox WHERE event_id=? AND revision=?',
+                              (event['event_id'], event['revision'])).fetchone()
+        if old and old[0] != body:
+            raise ValueError('event revision is immutable')
+        self.db.execute('INSERT OR IGNORE INTO outbox(event_id,revision,body) VALUES(?,?,?)',
+                        (event['event_id'], event['revision'], body))
 
     def dispatch(self, sink, limit=20):
         rows = self.db.execute('''SELECT event_id, revision, body, attempts FROM outbox

@@ -1,0 +1,23 @@
+{
+  "confirm_helmet_ms": 2000,
+  "confirm_lying_ms": 3000,
+  "confirm_fall_ms": 1000,
+  "transition_ms": 1500,
+  "max_gap_ms": 750,
+  "track_exit_ms": 2000,
+  "min_score": 0.5,
+  "keypoint_score": 0.5,
+  "min_torso_px": 10,
+  "orientation_ratio": 1.3,
+  "lying_bbox_ratio": 1.15,
+  "upright_bbox_ratio": 0.85,
+  "match_distance": 0.75,
+  "match_ambiguity": 0.08,
+  "allow_bbox_head_association": false,
+  "zone_id": null,
+  "rule_version": "behavior-v1",
+  "floor_polygon": null,
+  "confirm_immobility_ms": 3000,
+  "immobility_min_points": 6,
+  "immobility_max_speed": 0.04
+}

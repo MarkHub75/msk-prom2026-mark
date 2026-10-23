@@ -33,10 +33,15 @@ def run_video(args, pipeline):
     from ml.detection import preprocess, decode
     manifests = [json.loads(Path(path).read_text()) for path in args.manifest]
     backends = []
-    for manifest in manifests:
+    for manifest, manifest_path in zip(manifests, args.manifest):
         if args.backend == 'native':
             from ml.detection import NativeReferenceBackend
+            import torch
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
             weights = manifest.get('weights_path') or manifest.get('weights', {}).get('path')
+            if not weights and manifest.get('artifacts', {}).get('weights', {}).get('file'):
+                weights = Path(manifest_path).resolve().parent / manifest['artifacts']['weights']['file']
             if not weights:
                 raise ValueError('native manifest requires weights_path')
             backends.append(NativeReferenceBackend(weights, manifest, device=args.device))
@@ -54,6 +59,7 @@ def run_video(args, pipeline):
     start = time.monotonic()
     live_source = LatestFrameSource(cap) if live else None
     latencies, events_count, processed, failures = [], 0, 0, 0
+    last_batch = None
     try:
         while not args.max_frames or processed < args.max_frames:
             if live_source:
@@ -71,7 +77,7 @@ def run_video(args, pipeline):
             if not live and frame_id and media_ms <= previous_pts:
                 raise ValueError('video timestamps do not advance')
             previous_pts = media_ms
-            if media_ms - last_sample < 1000 / args.sample_fps:
+            if media_ms - last_sample + 1e-6 < 1000 / args.sample_fps:
                 continue
             last_sample = media_ms
             if not live and args.realtime:
@@ -101,6 +107,7 @@ def run_video(args, pipeline):
                      'ingested_at': datetime.now(timezone.utc).isoformat(), 'request_id': f'{epoch}:{frame_id}',
                      'model_id': '+'.join(model_ids), 'model_ids': model_ids, 'backend': args.backend,
                      'status': 'gap' if errors or stale else 'ok', 'detections': [] if errors or stale else detections}
+            last_batch = batch
             mutations = pipeline.process(batch, rgb if batch['status'] == 'ok' else None)
             processed += 1
             failures += int(batch['status'] != 'ok')
@@ -108,10 +115,26 @@ def run_video(args, pipeline):
             latencies.append(elapsed_ms)
             for event in mutations:
                 print(json.dumps(event, allow_nan=False))
+        if last_batch is not None:
+            gap = {**last_batch, 'frame_id': last_batch['frame_id'] + 1, 'media_time_ms': last_batch['media_time_ms'] + .001, 'status': 'gap', 'detections': [], 'reason': 'source_ended'}
+            for event in pipeline.process(gap):
+                print(json.dumps(event, allow_nan=False))
+                events_count += 1
         return {'execution_backend': args.backend, 'processed_frames': processed, 'failed_or_stale_frames': failures,
                 'event_mutations': events_count, 'frame_cycle_p50_ms': float(np.percentile(latencies, 50)) if latencies else None,
                 'frame_cycle_p95_ms': float(np.percentile(latencies, 95)) if latencies else None,
                 'wall_seconds': time.monotonic() - start, **pipeline.outbox.counts()}
+    except Exception:
+        if last_batch is not None:
+            gap = {**last_batch, 'frame_id': last_batch['frame_id'] + 1,
+                   'media_time_ms': last_batch['media_time_ms'] + .001,
+                   'status': 'gap', 'detections': [], 'reason': 'worker_error'}
+            try:
+                for event in pipeline.process(gap):
+                    print(json.dumps(event, allow_nan=False))
+            except Exception:
+                pass
+        raise
     finally:
         if live_source:
             live_source.close()
