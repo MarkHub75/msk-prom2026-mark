@@ -38,7 +38,7 @@ def dequantize_output(array,spec):
     return result
 
 
-def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir):
+def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir,output_name_map=None):
     import torch
     import onnxruntime as ort
     from tpu_framework import QuantizedModel
@@ -48,11 +48,13 @@ def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir):
     with np.load(input_npz,allow_pickle=False) as data:
         inputs={name:np.ascontiguousarray(data[name]) for name in data.files}
     graph=QuantizedModel.load(str(quantized_path)).as_torch_graph(batch_size=1)
-    input_names=list(graph.get_inputs_anchors())
-    output_names=list(graph.get_outputs_anchors())
+    input_anchors=graph.get_inputs_anchors()
+    output_anchors=graph.get_outputs_anchors()
+    input_names=list(input_anchors)
+    output_names=list(output_anchors)
     if set(inputs)!=set(input_names):
         raise ValueError('simulation input names differ from graph anchors')
-    coded={name:quantize_input(inputs[name],scales[name+':0']) for name in input_names}
+    coded={name:quantize_input(inputs[name],scales[input_anchors[name]+':0']) for name in input_names}
     with torch.no_grad():
         raw=graph.gm(**{name:torch.from_numpy(value) for name,value in coded.items()})
     if isinstance(raw,dict):
@@ -64,15 +66,19 @@ def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir):
         raw_outputs={output_names[0]:raw}
     else:raise ValueError('multiple outputs need mapped tensors')
     raw_outputs={name:value.detach().cpu().numpy() for name,value in raw_outputs.items()}
-    outputs={name:dequantize_output(value,scales[name+':0']) for name,value in raw_outputs.items()}
+    outputs={name:dequantize_output(value,scales[output_anchors[name]+':0']) for name,value in raw_outputs.items()}
     options=ort.SessionOptions();options.intra_op_num_threads=4;options.inter_op_num_threads=1
     session=ort.InferenceSession(str(source_onnx),sess_options=options,providers=['CPUExecutionProvider'])
     reference=dict(zip([x.name for x in session.get_outputs()],session.run(None,inputs)))
+    if output_name_map is not None:
+        if set(output_name_map)!=set(reference) or set(output_name_map.values())!=set(outputs):
+            raise ValueError('explicit source-to-conditioned output mapping differs from tensors')
+        outputs={name:outputs[conditioned] for name,conditioned in output_name_map.items()}
     if set(reference)!=set(outputs):raise ValueError('source and simulation output names differ')
     report={'kind':'quantized_torch_scaled_smoke_NOT_HARDWARE',
             'runtime_codec_confirmed':False,'calibration_separation_verified':False,
             'io_policy':'round(input*input_data_scale); output*recorded_output_data_scale',
-            'outputs':{},'seconds':time.perf_counter()-started}
+            'output_name_map':output_name_map,'simulation_anchor_map':output_anchors,'outputs':{},'seconds':time.perf_counter()-started}
     for name,value in outputs.items():
         ref=reference[name]
         if ref.shape!=value.shape:raise ValueError('source and simulated tensor shapes differ')
@@ -93,8 +99,10 @@ def main():
     p.add_argument('--quantized',required=True);p.add_argument('--scales',required=True)
     p.add_argument('--inputs',required=True);p.add_argument('--source-onnx',required=True)
     p.add_argument('--output',required=True)
+    p.add_argument('--compile-report',help='Compile report with explicit original-to-conditioned output_name_map')
     a=p.parse_args()
-    print(json.dumps(simulate(a.quantized,a.scales,a.inputs,a.source_onnx,a.output),indent=2))
+    mapping=json.loads(Path(a.compile_report).read_text())['output_name_map'] if a.compile_report else None
+    print(json.dumps(simulate(a.quantized,a.scales,a.inputs,a.source_onnx,a.output,mapping),indent=2))
 
 
 if __name__=='__main__':main()
