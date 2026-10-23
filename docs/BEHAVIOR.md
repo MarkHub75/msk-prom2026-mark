@@ -490,3 +490,31 @@ non-greedy matching, revision deduplication, unrun videos and censoring. No actu
 prediction set was scored by the behavior agent during GT freezing. Data search
 and further source acquisition stopped on the orchestrator's new instruction;
 all saved primary-source metadata remains available for the Data Orchestrator.
+
+### H-FALL-02: explicit host-policy candidate, baseline unchanged
+
+After the orchestrator reported E00 on all 20 frozen URFall development clips
+(no fall alerts, 0/10 reference falls recalled), one bounded host-policy
+hypothesis is available as `retain_upright_during_unknown=true`. The option is
+**off by default** and absent from the baseline config dictionary, so existing
+baseline session fingerprints/checkpoints are not changed merely by upgrading
+this code. It requires an actual JSON boolean. The candidate must receive a
+separate rule version/configuration and a separate evaluation state.
+
+An observed person with undecidable pose may retain only the last genuinely
+observed upright **timestamp**, until the existing `transition_ms` expires.
+Unknown frames never count as upright or lying observations, never extend that
+window, and always reset pending lying/immobility confirmation. A fresh observed
+lying run still needs its full confirmation duration. A missing person, explicit
+or excessive gap, source epoch change or ambiguous track association still
+clears the retained history. No confidence, tracking, duration, visibility or
+external-event rule is otherwise relaxed.
+
+Six additional tests cover default abstention, opt-in unknown bridging, finite
+expiry, interruption of pending lying, gap/missing-person/epoch/ambiguity resets,
+boolean validation and unchanged baseline checkpoint configuration. All 43
+behavior tests pass. These are policy-contract tests, not measured improvement.
+The orchestrator must replay the **same saved 3,274 native observations** against
+the frozen source reference, selecting H-FALL-02 only if fall recall improves
+without additional false positives. This is the second and final allocated fall
+hypothesis alongside H-FALL-01 PTQ, not permission for further threshold search.
