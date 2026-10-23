@@ -30,3 +30,7 @@ Candidate manifests intentionally have runtime_abi_verified=false. Do not flip t
 Machine-readable evidence: [validation/2026-10-23.json](validation/2026-10-23.json). Operational instructions: [INTEGRATION.md](INTEGRATION.md), [LINQ.md](LINQ.md).
 
 Portable transfer package: `/workspace/artifacts/linq-handoff.zip`, including helmet and preferred pose-split programs, manifests with runtime_abi_verified=false, float golden tensors, source and official ResNet50 smoke assets. It contains no VPN profiles or credential material. SHA256 and size are in the validation report.
+
+## Continuation checkpoint
+
+See [../RESUME.md](../RESUME.md) for exact state and restart steps. All three native agents completed their current isolated coding stages, changes merged into matvey_cv. Combined tests:96 PASS. Capture/comparison/integrity tooling is implemented; actual stock Jupyter call remains not captured by the orchestrator. The small current-source Jupyter kit has not yet been packaged. No new tasks should run until the user resumes.
