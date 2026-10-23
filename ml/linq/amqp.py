@@ -24,7 +24,7 @@ from uuid import UUID, uuid4
 import numpy as np
 
 from .notebook import capture_call, _arrays, _file_hash, _name, _save_report
-from .journal import DEFAULT_JOURNAL_DIR, TERMINAL, RequestJournal, atomic_json
+from .journal import DEFAULT_JOURNAL_DIR, TERMINAL, RequestJournal, atomic_json, fsync_directory
 
 FORMAT_VERSION = "0.0.1"
 _MAX_BYTES = 128 * 1024 * 1024
@@ -212,7 +212,7 @@ class AmqpRunner:
             "publish_attempted":False,"publish_confirmed":False,"remote_completion":"not_submitted",
             "required_format_version":FORMAT_VERSION,"timings":{},"outputs":{},
             "journal_request_id":request_id,"journal_path":str(self.journal.path(request_id)),
-            "journal_state":"NOT_SUBMITTED","purpose":self.purpose,"broker_ready":False}
+            "journal_state":"NOT_SUBMITTED","purpose":self.purpose,"broker_ready":False,"durable_response":False}
         if record is not None:
             summary.update(journal_state=record['state'],purpose=record['purpose'],
                 publish_attempted=record['state']!='NOT_SUBMITTED',
@@ -236,6 +236,8 @@ class AmqpRunner:
     def _associate(self,request_id,capture_id):
         if self.capture_dir is None:return
         directory=Path(self.capture_dir).resolve();directory.mkdir(parents=True,exist_ok=True,mode=0o700)
+        # Persist the context's parent entry too, not only files inside the context.
+        fsync_directory(directory.parent)
         pointer={'schema_version':'1.0','journal_request_id':request_id,
                  'journal_path':str(self.journal.path(request_id)),'purpose':self.purpose}
         path=directory/'request-pointer.json'
@@ -281,7 +283,7 @@ class AmqpRunner:
         try:state=self.journal.load(request_id)['state']
         except Exception:state=summary.get('journal_state','UNKNOWN')
         if channel is not None and reply_queue is not None:
-            if state in {'NOT_SUBMITTED','COMPLETED','SERVICE_FAILED'}:
+            if state=='NOT_SUBMITTED' or (state in TERMINAL and summary.get('durable_response') is True):
                 try:
                     channel.queue_delete(queue=reply_queue)
                     summary['reply_queue_cleanup']='deleted'
@@ -328,6 +330,7 @@ class AmqpRunner:
             # Fsync numeric response AND terminal metadata before any broker ACK.
             record=self.journal.complete(request_id,outputs,status_code=status,response_id=response_id)
             summary['journal_state']=record['state']
+            summary['durable_response']=True
             summary['outputs']={name:{'shape':list(value.shape),'dtype':value.dtype.name} for name,value in outputs.items()}
             try:channel.basic_ack(delivery_tag=method.delivery_tag)
             except Exception as error:summary['ack_error_type']=type(error).__name__
@@ -407,7 +410,7 @@ class AmqpRunner:
                     outputs=self.journal.outputs(request_id)
                     summary.update(status='completed' if record['state']=='COMPLETED' else 'failed',
                         status_code=record['status_code'],response_id=record['response_id'],
-                        remote_completion='response_received',cached_response=True,
+                        remote_completion='response_received',cached_response=True,durable_response=True,
                         outputs={name:{'shape':list(value.shape),'dtype':value.dtype.name} for name,value in outputs.items()})
                     if record['state']=='SERVICE_FAILED':
                         raise AmqpError('service_reported_failure','cached_response',status_code=record['status_code'])

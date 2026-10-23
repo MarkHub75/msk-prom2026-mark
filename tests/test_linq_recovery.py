@@ -203,3 +203,39 @@ class RequestRecoveryTests(unittest.TestCase):
         record=json.loads(value)
         self.assertEqual(len(record['program_uri_sha256']),64)
         self.assertEqual(record['input_artifact']['file'],'inputs.npz')
+
+
+    def test_late_terminal_fsync_failure_retains_unacked_reply_even_if_json_visible(self):
+        from ml.linq import journal as journal_module
+        original=journal_module.fsync_directory
+        def fail_terminal_directory_sync(path):
+            request_id=self.runner.last_response['request_id']
+            state_file=self.runner.journal.path(request_id)/'request.json'
+            if state_file.exists() and json.loads(state_file.read_text()).get('state')=='COMPLETED':
+                raise OSError('simulated directory fsync failure after atomic replace')
+            return original(path)
+        with patch.object(journal_module,'fsync_directory',side_effect=fail_terminal_directory_sync):
+            with self.assertRaises(amqp.AmqpError):self.runner(self.inputs)
+        request_id=self.runner.last_response['request_id']
+        self.assertEqual(self.runner.journal.load(request_id)['state'],'COMPLETED')
+        self.assertFalse(self.runner.last_response['durable_response'])
+        self.assertEqual(self.channel.acked,[])
+        self.assertEqual(self.channel.deleted,[])
+        self.assertEqual(self.runner.last_response['reply_queue_cleanup'],'retained_for_recovery')
+        self.assertEqual(self.connection.closed,1)
+
+    def test_capture_context_parent_fsynced_before_network(self):
+        context=Path(self.journal_dir)/'fresh-context'
+        self.runner.capture_dir=context
+        original_connect=self.pika.BlockingConnection
+        original_sync=amqp.fsync_directory
+        synced=[]
+        def sync(path):
+            synced.append(Path(path));return original_sync(path)
+        def connect(parameters):
+            self.assertIn(context.parent,synced)
+            self.assertTrue((context/'request-pointer.json').exists())
+            return original_connect(parameters)
+        self.pika.BlockingConnection=connect
+        with patch.object(amqp,'fsync_directory',side_effect=sync):self.runner(self.inputs)
+        self.assertTrue(self.runner.last_response['durable_response'])
