@@ -38,3 +38,4 @@ models/*
 data/videos/*
 !data/videos/README.md
 results/**/raw/
+data/coco128/

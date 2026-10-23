@@ -8,7 +8,8 @@ $ErrorActionPreference = 'Stop'
 $Forwards = @(
     '127.0.0.1:8888:hackathon.lin-q.ru:80',   # JupyterHub
     '127.0.0.1:5672:10.0.114.30:5672',        # RabbitMQ AMQP (TPU API)
-    '127.0.0.1:15672:10.0.114.30:15672'       # RabbitMQ management UI/API
+    '127.0.0.1:15672:10.0.114.30:15672',      # RabbitMQ management UI/API
+    '127.0.0.1:9443:cloud.lin-q.ru:443'       # LinQ Nextcloud (SDK/API downloads); unreachable via Happ
 )
 $Remote = if ($env:LINQ_TUNNEL_REMOTE) { $env:LINQ_TUNNEL_REMOTE } else { 'sl1m@192.168.1.31' }
 $Key = Join-Path $env:USERPROFILE '.ssh\linq_matvey'
