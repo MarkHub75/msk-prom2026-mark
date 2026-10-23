@@ -1,4 +1,0 @@
-2026-10-23T04:05:16.353510Z ERROR codex_core::tools::router: error=collab spawn failed: agent thread limit reached
-2026-10-23T04:38:10.558631Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }
-2026-10-23T05:34:02.963426Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: multiple operations target D:\msk-prom2026-mark\training_strategy\_WORK\AUTHOR_HANDOFF.md
-2026-10-23T05:40:51.155745Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out

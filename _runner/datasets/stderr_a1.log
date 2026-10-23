@@ -1,3 +1,0 @@
-2026-10-23T03:46:24.056849Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: multiple operations target D:\msk-prom2026-mark\datasets\_WORK\W2-09.md
-2026-10-23T04:15:32.826205Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\datasets\RAW_FACTS.md:
-Полныеper-classvalues доступны в[_WORK/MATERIALS/W2-13/QUANTILES.csv](_WORK/MATERIALS/W2-13/QUANTILES.csv) иSCALE_SUMMARY.json, не теряются при переносе папки.

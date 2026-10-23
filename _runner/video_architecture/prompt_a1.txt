@@ -1,8 +1,0 @@
-A previous run of this deep research in this folder was interrupted.
-The current working directory is the designated topic folder for topic 'video_architecture'. It contains two input files:
-- 'Context-prompt.md' - the shared research contract. The topic prompt refers to it as 'Context Prompt.md'.
-- 'prompt-video-architecture.md' - the topic prompt.
-Read both files completely. Together they form one task. After reading both files, read _WORK/RUN_STATE.md and the existing files in this folder, and continue the task from where it stopped. Reuse completed work; do not restart finished stages.
-Execute the whole task autonomously in this folder exactly as they describe: plan, first wave, fresh-context critic, second wave, collector, author, editor, machine compressor. This folder is the topic folder: write the six final files directly here and service files into _WORK.
-This is a non-interactive unattended run. Nobody will answer questions, so never wait for user input. Make reasonable decisions and record them in _WORK/RUN_STATE.md.
-Finish with a short final message in Russian.
