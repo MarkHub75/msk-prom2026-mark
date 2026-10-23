@@ -1515,10 +1515,343 @@
   "real_linq_inference": "NOT_RUN",
   "backend_team_integration": "NOT_RUN",
   "local_synthetic_tensor_to_http_ack_test": "PASS",
-  "unittest_count": 57,
+  "unittest_count": 61,
   "caveats": [
     "Initial CUDA TF32 parity failed; explicit FP32 passed; original reports retained outside Git.",
     "Compiler ABI is conditioned ONNX metadata; actual TPU runtime ABI remains unverified.",
     "Main Python environment unchanged; compiler and preparation packages installed in isolated environments."
-  ]
+  ],
+  "native_video_smoke_preferred_split": {
+    "execution_backend": "native",
+    "processed_frames": 40,
+    "failed_or_stale_frames": 0,
+    "event_mutations": 0,
+    "frame_cycle_p50_ms": 36.01883421652019,
+    "frame_cycle_p95_ms": 41.62083028350025,
+    "wall_seconds": 1.9980789460241795,
+    "pending": 0,
+    "delivered": 0
+  },
+  "pose_original_quantization_smoke": {
+    "status": "FAIL",
+    "reason": "all keypoint confidences collapsed to zero",
+    "diagnostic": {
+      "kind": "quantized_torch_scaled_smoke_NOT_HARDWARE",
+      "calibration_is_same_single_image": true,
+      "io_policy": "round(input*images_data_scale); output*per_channel_output_data_scale; codec needs vendor/runtime confirmation",
+      "shape": [
+        1,
+        56,
+        8400
+      ],
+      "finite": true,
+      "max_abs_diff": 205.598876953125,
+      "mean_abs_diff": 2.5749735832214355,
+      "coordinates": {
+        "quant_min": 0.0,
+        "quant_max": 637.1031494140625,
+        "reference_max": 637.102783203125,
+        "max_abs_diff": 169.58612060546875,
+        "count_ge_025": 33597,
+        "reference_count_ge_025": 33600
+      },
+      "class_scores": {
+        "quant_min": 0.0,
+        "quant_max": 0.8832689523696899,
+        "reference_max": 0.8832617998123169,
+        "max_abs_diff": 0.11758045852184296,
+        "count_ge_025": 30,
+        "reference_count_ge_025": 30
+      },
+      "keypoint_max_abs_diff": 205.598876953125,
+      "keypoint_confidence_max": 0.0,
+      "reference_keypoint_confidence_max": 0.9989079236984253
+    }
+  },
+  "pose_split_correction": {
+    "manifest": {
+      "schema_version": "1.0",
+      "model_id": "pose-split-v1",
+      "decoder": "split_pose_v8",
+      "classes": [
+        "person"
+      ],
+      "source_classes": [
+        "person"
+      ],
+      "input": {
+        "name": "images",
+        "shape": [
+          1,
+          3,
+          640,
+          640
+        ],
+        "layout": "NCHW",
+        "dtype": "float32",
+        "scale": 0.00392156862745098
+      },
+      "output_layout": "BCN",
+      "nms_in_graph": false,
+      "padding_value": 114,
+      "thresholds": {
+        "confidence": 0.25,
+        "iou": 0.45,
+        "max_detections": 300
+      },
+      "artifacts": {
+        "weights": {
+          "file": "weights.pt",
+          "sha256": "c6fa93dd1ee4a2c18c900a45c1d864a1c6f7aba75d84f91648a30b7fb641d212"
+        },
+        "onnx": {
+          "file": "weights.onnx",
+          "sha256": "802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00"
+        }
+      },
+      "versions": {
+        "ultralytics": "8.4.184",
+        "torch": "2.14.1+cu126",
+        "onnx": "1.23.2"
+      },
+      "opset": 13,
+      "source": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n-pose.pt",
+      "linq_status": "NOT_RUN",
+      "keypoint_count": 17,
+      "keypoint_order": "COCO-17",
+      "split_outputs": {
+        "boxes": "/model.22/Mul_2_output_0",
+        "class_scores": "/model.22/Sigmoid_output_0",
+        "keypoint_xy": "/model.22/Mul_4_output_0",
+        "keypoint_scores": "/model.22/Sigmoid_1_output_0"
+      },
+      "output_shapes": {
+        "/model.22/Mul_2_output_0": [
+          1,
+          4,
+          8400
+        ],
+        "/model.22/Sigmoid_output_0": [
+          1,
+          1,
+          8400
+        ],
+        "/model.22/Mul_4_output_0": [
+          1,
+          17,
+          2,
+          8400
+        ],
+        "/model.22/Sigmoid_1_output_0": [
+          1,
+          17,
+          1,
+          8400
+        ]
+      },
+      "source_onnx_sha256": "398cc23eac1b4702656d2ec4486d7aa1e5bda8563d33babaa9017ab3fdd5b02f",
+      "graph_surgery": {
+        "kind": "pre_concat_output_extraction",
+        "removed_outputs": [
+          "/model.22/Concat_4_output_0",
+          "output0"
+        ],
+        "host_operations": "concatenate/reshape only; no repeated sigmoid, coordinate or neural decode"
+      }
+    },
+    "linq_compile": {
+      "model_id": "pose-split-v1",
+      "linq_status": "NOT_RUN",
+      "compile_status": "PASS",
+      "preset": "O1",
+      "target": "TPU_H1M",
+      "stages": {
+        "compile": {
+          "status": "PASS"
+        }
+      },
+      "calibration_sha256": "028d5e8325942e8a438a41396583aff1a4b14d1ac445f1e4450ace65a4d83faf",
+      "source_onnx_sha256": "802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00",
+      "inputs": [
+        {
+          "name": "images",
+          "shape": [
+            1,
+            3,
+            640,
+            640
+          ],
+          "dtype": "float32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "/model.22/Mul_2_output_0",
+          "shape": [
+            1,
+            4,
+            8400
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "/model.22/Sigmoid_output_0",
+          "shape": [
+            1,
+            1,
+            8400
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "/model.22/Mul_4_output_0",
+          "shape": [
+            1,
+            17,
+            2,
+            8400
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "/model.22/Sigmoid_1_output_0",
+          "shape": [
+            1,
+            17,
+            1,
+            8400
+          ],
+          "dtype": "float32"
+        }
+      ],
+      "program_sha256": "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b",
+      "runtime_abi_verified": false,
+      "total_ms": 73774.35834798962
+    },
+    "simulation": {
+      "kind": "quantized_torch_scaled_smoke_NOT_HARDWARE",
+      "runtime_codec_confirmed": false,
+      "calibration_separation_verified": false,
+      "io_policy": "round(input*input_data_scale); output*recorded_output_data_scale",
+      "output_name_map": null,
+      "simulation_anchor_map": {
+        "/model.22/Mul_2_output_0": "n_/model.22/Mul_2_output_0",
+        "/model.22/Sigmoid_output_0": "n_/model.22/Sigmoid_output_0",
+        "/model.22/Mul_4_output_0": "n_/model.22/Mul_4_output_0",
+        "/model.22/Sigmoid_1_output_0": "n_/model.22/Sigmoid_1_output_0"
+      },
+      "outputs": {
+        "/model.22/Mul_2_output_0": {
+          "shape": [
+            1,
+            4,
+            8400
+          ],
+          "finite": true,
+          "quant_min": 0.0,
+          "quant_max": 637.0,
+          "reference_min": 1.9376945495605469,
+          "reference_max": 637.102783203125,
+          "mean_abs_diff": 4.713089942932129,
+          "max_abs_diff": 170.51290893554688,
+          "count_ge_025": 33597,
+          "reference_count_ge_025": 33600
+        },
+        "/model.22/Sigmoid_output_0": {
+          "shape": [
+            1,
+            1,
+            8400
+          ],
+          "finite": true,
+          "quant_min": 0.0,
+          "quant_max": 0.8832689523696899,
+          "reference_min": 0.0,
+          "reference_max": 0.8832617998123169,
+          "mean_abs_diff": 0.000430642714491114,
+          "max_abs_diff": 0.1188143938779831,
+          "count_ge_025": 30,
+          "reference_count_ge_025": 30
+        },
+        "/model.22/Mul_4_output_0": {
+          "shape": [
+            1,
+            17,
+            2,
+            8400
+          ],
+          "finite": true,
+          "quant_min": -28.75,
+          "quant_max": 729.5,
+          "reference_min": -20.079936981201172,
+          "reference_max": 738.2537841796875,
+          "mean_abs_diff": 2.9803199768066406,
+          "max_abs_diff": 206.01539611816406,
+          "count_ge_025": 284859,
+          "reference_count_ge_025": 285105
+        },
+        "/model.22/Sigmoid_1_output_0": {
+          "shape": [
+            1,
+            17,
+            1,
+            8400
+          ],
+          "finite": true,
+          "quant_min": 0.004364013671875,
+          "quant_max": 0.9990234375,
+          "reference_min": 0.00341758131980896,
+          "reference_max": 0.9989079236984253,
+          "mean_abs_diff": 0.03646886721253395,
+          "max_abs_diff": 0.7634471654891968,
+          "count_ge_025": 81886,
+          "reference_count_ge_025": 86617
+        }
+      },
+      "seconds": 2.800209949258715
+    },
+    "decoded_comparison": {
+      "kind": "decoded_same_image_quantized_simulation_NOT_HARDWARE",
+      "reference_count": 3,
+      "quantized_count": 3,
+      "matched": [
+        {
+          "box_iou": 0.8723041182288866,
+          "reference_score": 0.8832617998123169,
+          "quantized_score": 0.8832689523696899,
+          "reference_visible_keypoints_ge_05": 16,
+          "quantized_visible_keypoints_ge_05": 16,
+          "mean_xy_error_both_visible_pixels": 4.124794542154218,
+          "max_confidence_error": 0.023428916931152344
+        },
+        {
+          "box_iou": 0.7811742006712564,
+          "reference_score": 0.8746024966239929,
+          "quantized_score": 0.8693591952323914,
+          "reference_visible_keypoints_ge_05": 17,
+          "quantized_visible_keypoints_ge_05": 17,
+          "mean_xy_error_both_visible_pixels": 4.311390551457811,
+          "max_confidence_error": 0.042314887046813965
+        },
+        {
+          "box_iou": 0.9108386084536272,
+          "reference_score": 0.8691445589065552,
+          "quantized_score": 0.8554494380950928,
+          "reference_visible_keypoints_ge_05": 9,
+          "quantized_visible_keypoints_ge_05": 9,
+          "mean_xy_error_both_visible_pixels": 2.781942602975554,
+          "max_confidence_error": 0.04489302635192871
+        }
+      ],
+      "input_is_same_calibration_image": true,
+      "target_accuracy_claim": false
+    },
+    "acceptance": "SIMULATION_SMOKE_ONLY; hardware runtime and target accuracy NOT_RUN"
+  },
+  "handoff": {
+    "path": "/workspace/artifacts/linq-handoff.zip",
+    "sha256": "1d6557e95da1aaf9875ef4b12cb3ea9559943011a9c97ee2a7750c934e22ab4c",
+    "bytes": 65376049,
+    "hash_inventory_verified": true
+  }
 }
