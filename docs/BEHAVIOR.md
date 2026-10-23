@@ -435,3 +435,58 @@ to it and call the result independent event precision/recall. The orchestrator
 must freeze the policy crosswalk and review eligibility before baseline scoring;
 source-audit counts and unit tests are not ML accuracy. Final independent test,
 public-demo rights, representative safe hours and double annotation remain open.
+
+### Frozen source-reference diagnostic GT and bounded scorer
+
+`ml.quality.temporal.evaluation.bind_urfall_review(reference, blind_review)` binds
+only explicit prediction-blind semantic review records with matching media
+hashes. The current sidecar produces **10 suspected-fall reference episodes and
+zero eligible three-second floor-lying positives** across the 20 developmental
+videos. ADL-10's controlled bed lying is not a floor violation; short fall tails
+are not lengthened. This is source-reference diagnostic GT with sampled RGB
+review, **not fully exhaustive independent-human final-test annotation**.
+
+The separate offline schema `temporal-episode-gt-v1` leaves all production event
+schemas unchanged. Episodes include video ID, onset lower/upper support, observed
+end and censoring. Videos carry exhaustive source-label known/unknown windows,
+protected group/split and original actor/camera limitations. Actor ownership is
+not spatially adjudicated here: this is explicitly a source-single-person
+**video-level episode diagnostic**. It cannot prove person-owned event quality.
+
+```bash
+python -m ml.quality.temporal.evaluation bind-urfall \
+  --reference /workspace/datasets/quality/temporal/urfall-reference.json \
+  --review /workspace/datasets/quality/temporal/blind-review.json \
+  --output /workspace/datasets/quality/temporal/episode-gt.source-reference.json
+python -m ml.quality.temporal.evaluation evaluate \
+  --truth /workspace/datasets/quality/temporal/episode-gt.source-reference.json \
+  --predictions /path/to/offline-event-envelopes.jsonl \
+  --evaluated-videos /path/to/actually-evaluated-video-ids.json \
+  --allow-source-reference --output /path/to/temporal-diagnostic.json
+```
+
+Prediction rows are offline envelopes `{"video_id":"fall-01-cam0","event":{...}}`
+containing an unchanged public event. The evaluated-video census is mandatory:
+unrun clips are listed, never silently counted as model misses. Call
+`evaluate(gt,predictions,evaluated_video_ids,deadline_ms=5000,
+allow_source_reference=True)` explicitly to acknowledge limited source truth.
+Without that acknowledgement the tool refuses to advertise final-quality scores.
+
+The scorer deduplicates incident revisions, checks source identity/coverage and
+uses maximum-cardinality one-to-one matching. For a fixed confirmation time,
+**definite** matching requires validity for the whole onset support and deadline;
+**possible** matching requires at least one onset within that support. It reports
+per-type TP/FP/FN, precision/recall/F1 lower/upper bounds. A point estimate appears
+only when the bounds agree; it never chooses a midpoint onset. Unknown-reference
+assertions and left-censored truths are reported separately. No-positive-class
+recall stays undefined. Unmatched strict timely assertions can include genuine
+but late or repeated alerts, so they are not relabelled as measured semantic
+false alarms per operational hour. Delivery latency and model-observation unknown
+rate remain unmeasured.
+
+The 24 temporal-tool/scorer tests pass. They test label holes, ADL-positive source
+states, grouping leakage, bounded downloads, onset uncertainty, deadlines,
+non-greedy matching, revision deduplication, unrun videos and censoring. No actual
+prediction set was scored by the behavior agent during GT freezing. Data search
+and further source acquisition stopped on the orchestrator's new instruction;
+all saved primary-source metadata remains available for the Data Orchestrator.
