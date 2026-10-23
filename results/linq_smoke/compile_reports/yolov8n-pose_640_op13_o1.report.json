@@ -1,0 +1,212 @@
+{
+ "tag": "yolov8n-pose_640_op13_o1",
+ "source_onnx": "yolov8n-pose_640_op13.onnx",
+ "sdk": {
+  "tpu_framework_bin": "2026.9.45",
+  "tpu_compiler_bin": "2026.9.493",
+  "dnn_quant_bin": "2026.9.98",
+  "onnx_direct_bin": "2026.8.23",
+  "torch": "2.9.1",
+  "onnx": "1.16.2"
+ },
+ "timings_s": {
+  "conditioning": 1.1,
+  "calibration": 17.9,
+  "quantize": 3.6,
+  "compile": 60.9
+ },
+ "requested": {
+  "onnx": "models/yolov8n-pose_640_op13.onnx",
+  "preset": "O1",
+  "n_calib_src": 50,
+  "cut_at": "",
+  "tag": "",
+  "activation_percentile": null,
+  "samplewise_percentile": null,
+  "skip_compile": false
+ },
+ "calibration": {
+  "source": "coco128 person images + hflip + 0.8 centre crop",
+  "n_src_images": 50,
+  "n_frames": 150,
+  "tensor": [
+   [
+    150,
+    3,
+    640,
+    640
+   ],
+   "float32"
+  ],
+  "test_images": [
+   "000000000536.jpg",
+   "000000000542.jpg",
+   "000000000544.jpg",
+   "000000000564.jpg",
+   "000000000569.jpg",
+   "000000000572.jpg",
+   "000000000589.jpg",
+   "000000000623.jpg",
+   "000000000009.jpg",
+   "000000000025.jpg",
+   "000000000030.jpg",
+   "000000000034.jpg"
+  ],
+  "applied_params": {
+   "device": "cpu"
+  },
+  "regular_model_params": {
+   "percentile": "default 100.0"
+  }
+ },
+ "fakequant_vs_fp32": [
+  {
+   "image": "000000000536.jpg",
+   "max_abs_out_diff": 238.494873046875,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9042219673625606,
+   "mean_abs_score_diff": 0.01025627056757609
+  },
+  {
+   "image": "000000000542.jpg",
+   "max_abs_out_diff": 260.3567199707031,
+   "n_ref": 9,
+   "n_test": 9,
+   "matched": 8,
+   "recall_vs_ref": 0.8888888888888888,
+   "precision_vs_ref": 0.8888888888888888,
+   "mean_iou": 0.8121685967139634,
+   "mean_abs_score_diff": 0.06865831464529037
+  },
+  {
+   "image": "000000000544.jpg",
+   "max_abs_out_diff": 259.5299987792969,
+   "n_ref": 5,
+   "n_test": 5,
+   "matched": 5,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8278668031195593,
+   "mean_abs_score_diff": 0.043665635585784915
+  },
+  {
+   "image": "000000000564.jpg",
+   "max_abs_out_diff": 213.5,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8684956241611395,
+   "mean_abs_score_diff": 0.050119951367378235
+  },
+  {
+   "image": "000000000569.jpg",
+   "max_abs_out_diff": 249.60015869140625,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8627310351603273,
+   "mean_abs_score_diff": 0.021426022052764893
+  },
+  {
+   "image": "000000000572.jpg",
+   "max_abs_out_diff": 288.28436279296875,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8725189714886133,
+   "mean_abs_score_diff": 0.006733328104019165
+  },
+  {
+   "image": "000000000589.jpg",
+   "max_abs_out_diff": 333.5194091796875,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9412601607091313,
+   "mean_abs_score_diff": 0.008139431476593018
+  },
+  {
+   "image": "000000000623.jpg",
+   "max_abs_out_diff": 192.31651306152344,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8941565378842922,
+   "mean_abs_score_diff": 0.005688726902008057
+  },
+  {
+   "image": "000000000009.jpg",
+   "max_abs_out_diff": 274.96417236328125,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000025.jpg",
+   "max_abs_out_diff": 317.0479736328125,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000030.jpg",
+   "max_abs_out_diff": 354.5008850097656,
+   "n_ref": 0,
+   "n_test": 1,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 0.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000034.jpg",
+   "max_abs_out_diff": 345.23846435546875,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  }
+ ],
+ "fakequant_summary": {
+  "mean_recall_vs_fp32": 0.9861111111111112,
+  "mean_iou": 0.8729274620749483
+ },
+ "program": {
+  "file": "yolov8n-pose_640_op13_o1_b1_o1_h1m.tpu",
+  "bytes": 2908465,
+  "renaming": {
+   "images": "images",
+   "output0": "output0"
+  },
+  "tensor_descriptions": {
+   "images": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x7f3031bf4b60>",
+   "output0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x7f30ac10e5a0>"
+  }
+ }
+}

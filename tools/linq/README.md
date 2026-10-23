@@ -1,4 +1,4 @@
-# tools/linq — работа с LinQ TPU
+﻿# tools/linq — работа с LinQ TPU
 
 Контракт и факты — `docs/linq/LINQ_CONTRACT.md`. Окружение — `docs/ENVIRONMENT.md`.
 
@@ -20,13 +20,14 @@
 | `linq_tpu.py` | везде | клиент API TPU (`TpuClient.infer`, `submit/collect`), `ping`, `run` |
 | `export_onnx.py` | Windows .venv | `.pt` → статический ONNX (opset 13, nms=False) + `.json` с контрактом |
 | `reference_cpu.py` | Windows .venv | эталон onnxruntime FP32 с тем же пре/постпроцессингом |
-| `yolo_io.py` | везде | letterbox-препроцессинг, decode/NMS, сверка рамок (`match_dets`) |
+| `yolo_io.py` | везде | letterbox-препроцессинг, decode/NMS, сверка рамок и ключевых точек (`match_dets`) |
 | `sdk/setup_sdk_wsl.sh` | WSL | поставить SDK `tpu_framework 2026.9.45` в `~/linq_sdk/venv` |
 | `sdk/compile_yolo.py` | WSL venv | ONNX → (разрез) → калибровка → `.qm` → fake-quant проверка → `.tpu` |
 | `upload_program.py` | Windows | `.tpu` → `/auto/cache/<login>/mosprom_*.tpu` (sha256-проверка, без перезаписи чужого) |
 | `run_images.py` | Windows | картинки → TPU → детекции + сверка с CPU, время |
 | `run_video.py` (+ `remote/video_worker.py`) | Windows | видео → загрузка в Jupyter → покадровый TPU-прогон там → JSONL сюда |
 | `remote/smoke_resnet.py` | LinQ Jupyter | пример вендора resnet50 + замер |
+| `remote/bench_tpu.py` | LinQ Jupyter | задержка/пропускная способность программы, диагностика CPU-квоты |
 
 ## Команды (по порядку)
 
@@ -35,11 +36,12 @@ tools\linq\tunnel\Connect-LinQ.cmd
 .venv\Scripts\python.exe tools\linq\linq_tpu.py ping                       # брокер жив, сколько воркеров
 .venv\Scripts\python.exe tools\linq\export_onnx.py --model yolov8n.pt --imgsz 640
 wsl -d Ubuntu -- bash /mnt/d/msk-prom2026-mark/tools/linq/sdk/setup_sdk_wsl.sh     # один раз
-wsl -d Ubuntu -- bash -c "cd /mnt/d/msk-prom2026-mark && ~/linq_sdk/venv/bin/python tools/linq/sdk/compile_yolo.py models/yolov8n_640_op13.onnx --preset O1"
-.venv\Scripts\python.exe tools\linq\upload_program.py models\linq\yolov8n_640_op13_o1\yolov8n_640_op13_o1_b1_o1_h1m.tpu
-.venv\Scripts\python.exe tools\linq\run_images.py --program mosprom_yolov8n_640_op13_o1_b1_o1_h1m.tpu --onnx models\yolov8n_640_op13.onnx IMG1 IMG2
-.venv\Scripts\python.exe tools\linq\run_video.py data\videos\clip.mp4 --program mosprom_yolov8n_640_op13_o1_b1_o1_h1m.tpu --step 5
+wsl -d Ubuntu -- bash -c "cd /mnt/d/msk-prom2026-mark && ~/linq_sdk/venv/bin/python tools/linq/sdk/compile_yolo.py models/yolov8n_640_op13.onnx --preset O1 --cut-at /model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0 --activation-percentile 99.99 --tag det640_cut_ap9999"
+.venv\Scripts\python.exe tools\linq\upload_program.py models\linq\det640_cut_ap9999\det640_cut_ap9999_b1_o1_h1m.tpu
+.venv\Scripts\python.exe tools\linq\run_images.py --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --onnx models\yolov8n_640_op13.onnx --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx IMG1 IMG2
+.venv\Scripts\python.exe tools\linq\run_video.py data\videos\clip.mp4 --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx --step 5   # pose: --task pose
 ```
 
+Компиляции — строго по одной (две параллельно + 960 убили ноутбук по памяти).
 Секреты читаются из `.env` (`LINQ_JUPYTER_*`), в вывод не попадают. Брокер: `LINQ_AMQP_HOST`
 (по умолчанию `127.0.0.1` через туннель, `10.0.114.30` внутри Jupyter).

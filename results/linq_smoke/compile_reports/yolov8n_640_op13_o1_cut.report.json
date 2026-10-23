@@ -1,0 +1,230 @@
+{
+ "tag": "yolov8n_640_op13_o1_cut",
+ "source_onnx": "yolov8n_640_op13.onnx",
+ "sdk": {
+  "tpu_framework_bin": "2026.9.45",
+  "tpu_compiler_bin": "2026.9.493",
+  "dnn_quant_bin": "2026.9.98",
+  "onnx_direct_bin": "2026.8.23",
+  "torch": "2.9.1",
+  "onnx": "1.16.2"
+ },
+ "timings_s": {
+  "conditioning": 1.6,
+  "calibration": 19.2,
+  "quantize": 2.9,
+  "compile": 28.0
+ },
+ "requested": {
+  "onnx": "models/yolov8n_640_op13.onnx",
+  "preset": "O1",
+  "n_calib_src": 50,
+  "cut_at": "/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0",
+  "tag": "",
+  "activation_percentile": null,
+  "samplewise_percentile": null,
+  "skip_compile": false
+ },
+ "cut": {
+  "head_outputs": [
+   "/model.22/dfl/conv/Conv_output_0",
+   "/model.22/Sigmoid_output_0"
+  ],
+  "tail_ops": [
+   "Add",
+   "Concat",
+   "Div",
+   "Mul",
+   "Reshape",
+   "Slice",
+   "Sub"
+  ],
+  "tail_onnx": "yolov8n_640_op13_o1_cut_tail.onnx"
+ },
+ "calibration": {
+  "source": "coco128 person images + hflip + 0.8 centre crop",
+  "n_src_images": 50,
+  "n_frames": 150,
+  "tensor": [
+   [
+    150,
+    3,
+    640,
+    640
+   ],
+   "float32"
+  ],
+  "test_images": [
+   "000000000536.jpg",
+   "000000000542.jpg",
+   "000000000544.jpg",
+   "000000000564.jpg",
+   "000000000569.jpg",
+   "000000000572.jpg",
+   "000000000589.jpg",
+   "000000000623.jpg",
+   "000000000009.jpg",
+   "000000000025.jpg",
+   "000000000030.jpg",
+   "000000000034.jpg"
+  ],
+  "applied_params": {
+   "device": "cpu"
+  },
+  "regular_model_params": {
+   "percentile": "default 100.0"
+  }
+ },
+ "fakequant_vs_fp32": [
+  {
+   "image": "000000000536.jpg",
+   "max_abs_out_diff": 247.0069580078125,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9797160554064835,
+   "mean_abs_score_diff": 0.03237287203470866
+  },
+  {
+   "image": "000000000542.jpg",
+   "max_abs_out_diff": 345.3103942871094,
+   "n_ref": 12,
+   "n_test": 11,
+   "matched": 10,
+   "recall_vs_ref": 0.8333333333333334,
+   "precision_vs_ref": 0.9090909090909091,
+   "mean_iou": 0.8253413878059968,
+   "mean_abs_score_diff": 0.10581976175308228
+  },
+  {
+   "image": "000000000544.jpg",
+   "max_abs_out_diff": 284.3570556640625,
+   "n_ref": 11,
+   "n_test": 8,
+   "matched": 8,
+   "recall_vs_ref": 0.7272727272727273,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9356725994253485,
+   "mean_abs_score_diff": 0.06229734420776367
+  },
+  {
+   "image": "000000000564.jpg",
+   "max_abs_out_diff": 442.81707763671875,
+   "n_ref": 28,
+   "n_test": 14,
+   "matched": 14,
+   "recall_vs_ref": 0.5,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8719854526443443,
+   "mean_abs_score_diff": 0.16151115724018641
+  },
+  {
+   "image": "000000000569.jpg",
+   "max_abs_out_diff": 413.14825439453125,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9769757772154891,
+   "mean_abs_score_diff": 0.052964210510253906
+  },
+  {
+   "image": "000000000572.jpg",
+   "max_abs_out_diff": 289.94903564453125,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9309377636593723,
+   "mean_abs_score_diff": 0.0716309944788615
+  },
+  {
+   "image": "000000000589.jpg",
+   "max_abs_out_diff": 303.0579833984375,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9726891802707113,
+   "mean_abs_score_diff": 0.024080276489257812
+  },
+  {
+   "image": "000000000623.jpg",
+   "max_abs_out_diff": 336.02001953125,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8693291018146048,
+   "mean_abs_score_diff": 0.030824005603790283
+  },
+  {
+   "image": "000000000009.jpg",
+   "max_abs_out_diff": 265.3301696777344,
+   "n_ref": 4,
+   "n_test": 5,
+   "matched": 3,
+   "recall_vs_ref": 0.75,
+   "precision_vs_ref": 0.6,
+   "mean_iou": 0.9074419072691864,
+   "mean_abs_score_diff": 0.047004481156667076
+  },
+  {
+   "image": "000000000025.jpg",
+   "max_abs_out_diff": 284.9232482910156,
+   "n_ref": 2,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 0.5,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.7433628680488399,
+   "mean_abs_score_diff": 0.14531922340393066
+  },
+  {
+   "image": "000000000030.jpg",
+   "max_abs_out_diff": 233.91607666015625,
+   "n_ref": 1,
+   "n_test": 2,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 0.5,
+   "mean_iou": 0.9714958440444831,
+   "mean_abs_score_diff": 0.2137356996536255
+  },
+  {
+   "image": "000000000034.jpg",
+   "max_abs_out_diff": 314.1075134277344,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9786499841547436,
+   "mean_abs_score_diff": 0.003514587879180908
+  }
+ ],
+ "fakequant_summary": {
+  "mean_recall_vs_fp32": 0.8592171717171717,
+  "mean_iou": 0.9136331601466336
+ },
+ "program": {
+  "file": "yolov8n_640_op13_o1_cut_b1_o1_h1m.tpu",
+  "bytes": 2795348,
+  "renaming": {
+   "images": "images",
+   "n_/model.22/dfl/conv/Conv_output_0": "/model.22/dfl/conv/Conv_output_0",
+   "n_/model.22/Sigmoid_output_0": "/model.22/Sigmoid_output_0"
+  },
+  "tensor_descriptions": {
+   "images": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x78c2287e0c50>",
+   "/model.22/dfl/conv/Conv_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x78c2287e0fb0>",
+   "/model.22/Sigmoid_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x78c2287e0da0>"
+  }
+ }
+}

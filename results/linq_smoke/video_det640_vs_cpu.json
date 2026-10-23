@@ -1,0 +1,71 @@
+{
+ "recall_vs_ref": 0.9554166666666667,
+ "precision_vs_ref": 0.9949999999999999,
+ "mean_iou": 0.9074325344398051,
+ "mean_abs_score_diff": 0.04168817688498581,
+ "frames_compared": 40,
+ "cpu_dets": 57,
+ "tpu_dets": 51,
+ "jsonl_frames": 400,
+ "example": {
+  "frame_idx": 0,
+  "ts_ms": 0.0,
+  "detections": [
+   {
+    "cls": 0,
+    "name": "person",
+    "score": 0.88720703125,
+    "bbox_xyxy": [
+     131.9,
+     373.5,
+     291.4,
+     634.5
+    ]
+   },
+   {
+    "cls": 0,
+    "name": "person",
+    "score": 0.8134765625,
+    "bbox_xyxy": [
+     270.1,
+     431.5,
+     458.6,
+     634.5
+    ]
+   },
+   {
+    "cls": 0,
+    "name": "person",
+    "score": 0.8134765625,
+    "bbox_xyxy": [
+     401.1,
+     372.9,
+     567.9,
+     604.9
+    ]
+   },
+   {
+    "cls": 0,
+    "name": "person",
+    "score": 0.7646484375,
+    "bbox_xyxy": [
+     1043.0,
+     382.0,
+     1119.1,
+     469.0
+    ]
+   },
+   {
+    "cls": 0,
+    "name": "person",
+    "score": 0.446533203125,
+    "bbox_xyxy": [
+     448.8,
+     353.5,
+     486.8,
+     416.9
+    ]
+   }
+  ]
+ }
+}

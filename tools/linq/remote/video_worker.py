@@ -16,8 +16,15 @@ import sys
 import time
 from collections import deque
 
-import cv2
-import numpy as np
+# The LinQ Jupyter container shows 64 CPUs but its cgroup quota is 1.5 CPU: default thread
+# pools (OpenMP/BLAS/onnxruntime/OpenCV) oversubscribe it and everything crawls.
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
+
+import cv2  # noqa: E402
+import numpy as np  # noqa: E402
+
+cv2.setNumThreads(1)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yolo_io  # noqa: E402
@@ -38,7 +45,16 @@ def main() -> None:
     ap.add_argument("--classes", default="", help="comma list of COCO ids to keep (detect)")
     ap.add_argument("--input-name", default="images")
     ap.add_argument("--output-name", default="", help="TPU output tensor name (default: the only one)")
+    ap.add_argument("--tail", default="", help="tail ONNX for cut programs (decode on CPU, onnxruntime)")
     a = ap.parse_args()
+    tail = None
+    if a.tail:
+        import onnxruntime as ort
+        so = ort.SessionOptions()
+        so.log_severity_level = 3
+        so.intra_op_num_threads = 1
+        so.inter_op_num_threads = 1
+        tail = ort.InferenceSession(a.tail, so, providers=["CPUExecutionProvider"])
 
     nc, kpt = (1, (17, 3)) if a.task == "pose" else (80, None)
     classes = [int(c) for c in a.classes.split(",") if c] or None
@@ -62,8 +78,11 @@ def main() -> None:
             if not r.ok:
                 raise RuntimeError(f"TPU error frame {fidx}: {r.worker.get('error_message')}")
             rtts.append(r.rtt_s)
-            y = r.outputs[a.output_name] if a.output_name else next(iter(r.outputs.values()))
             t0 = time.perf_counter()
+            if tail is not None:
+                y = tail.run(None, {i.name: r.outputs[i.name] for i in tail.get_inputs()})[0]
+            else:
+                y = r.outputs[a.output_name] if a.output_name else next(iter(r.outputs.values()))
             dets = yolo_io.postprocess(y, meta, a.conf, a.iou, nc=nc, kpt_shape=kpt, classes=classes)
             t_post += time.perf_counter() - t0
             out_f.write(json.dumps({"frame_idx": fidx, "ts_ms": round(ts, 1), "detections": dets}) + "\n")

@@ -1,0 +1,243 @@
+{
+ "tag": "pose640_cut_ap9999",
+ "source_onnx": "yolov8n-pose_640_op13.onnx",
+ "sdk": {
+  "tpu_framework_bin": "2026.9.45",
+  "tpu_compiler_bin": "2026.9.493",
+  "dnn_quant_bin": "2026.9.98",
+  "onnx_direct_bin": "2026.8.23",
+  "torch": "2.9.1",
+  "onnx": "1.16.2"
+ },
+ "timings_s": {
+  "conditioning": 0.8,
+  "calibration": 201.3,
+  "quantize": 3.6,
+  "compile": 35.6
+ },
+ "requested": {
+  "onnx": "models/yolov8n-pose_640_op13.onnx",
+  "preset": "O1",
+  "n_calib_src": 50,
+  "cut_at": "/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0",
+  "tag": "pose640_cut_ap9999",
+  "activation_percentile": 99.99,
+  "samplewise_percentile": null,
+  "skip_compile": false
+ },
+ "cut": {
+  "head_outputs": [
+   "/model.22/dfl/conv/Conv_output_0",
+   "/model.22/Sigmoid_output_0",
+   "/model.22/Concat_output_0"
+  ],
+  "tail_ops": [
+   "Add",
+   "Concat",
+   "Div",
+   "Mul",
+   "Reshape",
+   "Sigmoid",
+   "Slice",
+   "Sub"
+  ],
+  "tail_onnx": "pose640_cut_ap9999_tail.onnx"
+ },
+ "calibration": {
+  "source": "coco128 person images + hflip + 0.8 centre crop",
+  "n_src_images": 50,
+  "n_frames": 150,
+  "tensor": [
+   [
+    150,
+    3,
+    640,
+    640
+   ],
+   "float32"
+  ],
+  "test_images": [
+   "000000000536.jpg",
+   "000000000542.jpg",
+   "000000000544.jpg",
+   "000000000564.jpg",
+   "000000000569.jpg",
+   "000000000572.jpg",
+   "000000000589.jpg",
+   "000000000623.jpg",
+   "000000000009.jpg",
+   "000000000025.jpg",
+   "000000000030.jpg",
+   "000000000034.jpg"
+  ],
+  "applied_params": {
+   "device": "cpu",
+   "activation_percentile": 99.99
+  },
+  "regular_model_params": {
+   "percentile": "default 100.0"
+  }
+ },
+ "fakequant_vs_fp32": [
+  {
+   "image": "000000000536.jpg",
+   "max_abs_out_diff": 180.61553955078125,
+   "mean_kpt_err_rel_diag": 0.006330307866693069,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.971684147874083,
+   "mean_abs_score_diff": 0.008582631746927897
+  },
+  {
+   "image": "000000000542.jpg",
+   "max_abs_out_diff": 198.77647399902344,
+   "mean_kpt_err_rel_diag": 0.022184625272796427,
+   "n_ref": 9,
+   "n_test": 9,
+   "matched": 9,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9021969907021943,
+   "mean_abs_score_diff": 0.021156542830997042
+  },
+  {
+   "image": "000000000544.jpg",
+   "max_abs_out_diff": 168.9283447265625,
+   "mean_kpt_err_rel_diag": 0.012035212925103131,
+   "n_ref": 5,
+   "n_test": 5,
+   "matched": 5,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9520944447357925,
+   "mean_abs_score_diff": 0.03113524317741394
+  },
+  {
+   "image": "000000000564.jpg",
+   "max_abs_out_diff": 158.10275268554688,
+   "mean_kpt_err_rel_diag": 0.010096530062323873,
+   "n_ref": 2,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 0.5,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9968560929350406,
+   "mean_abs_score_diff": 0.019189417362213135
+  },
+  {
+   "image": "000000000569.jpg",
+   "max_abs_out_diff": 223.21060180664062,
+   "mean_kpt_err_rel_diag": 0.01547092286577769,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9346854818947565,
+   "mean_abs_score_diff": 0.016002655029296875
+  },
+  {
+   "image": "000000000572.jpg",
+   "max_abs_out_diff": 250.06475830078125,
+   "mean_kpt_err_rel_diag": 0.01562896523657576,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8945520557678728,
+   "mean_abs_score_diff": 0.006706297397613525
+  },
+  {
+   "image": "000000000589.jpg",
+   "max_abs_out_diff": 212.65704345703125,
+   "mean_kpt_err_rel_diag": 0.012488195286848424,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9869380272576566,
+   "mean_abs_score_diff": 0.026786625385284424
+  },
+  {
+   "image": "000000000623.jpg",
+   "max_abs_out_diff": 162.86367797851562,
+   "mean_kpt_err_rel_diag": 0.012555254705932632,
+   "n_ref": 1,
+   "n_test": 2,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 0.5,
+   "mean_iou": 0.86408495821166,
+   "mean_abs_score_diff": 0.011058032512664795
+  },
+  {
+   "image": "000000000009.jpg",
+   "max_abs_out_diff": 226.10781860351562,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000025.jpg",
+   "max_abs_out_diff": 223.83807373046875,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000030.jpg",
+   "max_abs_out_diff": 299.30181884765625,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  },
+  {
+   "image": "000000000034.jpg",
+   "max_abs_out_diff": 242.64288330078125,
+   "n_ref": 0,
+   "n_test": 0,
+   "matched": 0,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": null,
+   "mean_abs_score_diff": null
+  }
+ ],
+ "fakequant_summary": {
+  "mean_recall_vs_fp32": 0.9375,
+  "mean_iou": 0.937886524922382
+ },
+ "program": {
+  "file": "pose640_cut_ap9999_b1_o1_h1m.tpu",
+  "bytes": 2903111,
+  "renaming": {
+   "images": "images",
+   "n_/model.22/dfl/conv/Conv_output_0": "/model.22/dfl/conv/Conv_output_0",
+   "n_/model.22/Sigmoid_output_0": "/model.22/Sigmoid_output_0",
+   "n_/model.22/Concat_output_0": "/model.22/Concat_output_0"
+  },
+  "tensor_descriptions": {
+   "images": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x75e8a82e8bf0>",
+   "/model.22/Sigmoid_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x75e7f9a3e9f0>",
+   "/model.22/dfl/conv/Conv_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x75e8a82e8bc0>",
+   "/model.22/Concat_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x75e8a82e9160>"
+  }
+ }
+}

@@ -44,7 +44,17 @@ def default_host() -> str:
 
 
 def default_login() -> str:
-    return os.environ.get("JUPYTERHUB_USER") or os.environ.get("LINQ_JUPYTER_USER", "").lower()
+    if not (os.environ.get("JUPYTERHUB_USER") or os.environ.get("LINQ_JUPYTER_USER")):
+        try:  # outside Jupyter: take the login from the repo .env
+            from pathlib import Path
+            from dotenv import load_dotenv
+            load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+        except ImportError:
+            pass
+    login = os.environ.get("JUPYTERHUB_USER") or os.environ.get("LINQ_JUPYTER_USER", "").lower()
+    if not login:
+        raise RuntimeError("Jupyter login unknown: set LINQ_JUPYTER_USER in .env")
+    return login
 
 
 def program_uri(program: str, login: str | None = None) -> str:

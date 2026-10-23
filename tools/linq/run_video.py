@@ -34,6 +34,7 @@ def main() -> int:
     ap.add_argument("--task", choices=["detect", "pose"], default="detect")
     ap.add_argument("--classes", default="0,2,5,7,67")
     ap.add_argument("--inflight", type=int, default=8)
+    ap.add_argument("--tail", help="local tail ONNX for cut programs (uploaded next to the worker)")
     ap.add_argument("--out")
     ap.add_argument("--timeout", type=float, default=3600)
     a = ap.parse_args()
@@ -47,17 +48,25 @@ def main() -> int:
     jr = JupyterRemote.from_env()
     for f in WORKER_FILES:
         jr.upload(f, f"{REMOTE_DIR}/{f.name}", progress=False)
+    if a.tail:
+        jr.upload(a.tail, f"{REMOTE_DIR}/tails/{Path(a.tail).name}", progress=False)
     jr.upload(video, f"{REMOTE_DIR}/videos/{video.name}")
     t_upload = time.monotonic() - t0
 
-    remote_out = f"{REMOTE_ABS}/out/{tag}.jsonl"
+    rc, home, _ = jr.exec("echo $HOME", timeout=30)
+    remote_abs = REMOTE_ABS.replace("~", home.strip(), 1)  # quoted args never expand "~"
+    remote_out = f"{remote_abs}/out/{tag}.jsonl"
+    pidfile = f"{remote_out}.pid"
     args = ["python", "video_worker.py", "--video", f"videos/{video.name}", "--program", a.program,
             "--out", remote_out, "--size", str(a.size), "--step", str(a.step), "--task", a.task,
             "--inflight", str(a.inflight)]
     if a.task == "detect" and a.classes:
         args += ["--classes", a.classes]
-    cmd = (f"mkdir -p {REMOTE_ABS}/out && cd {REMOTE_ABS} && rm -f {remote_out}.progress && "
-           f"setsid nohup {' '.join(shlex.quote(x) for x in args)} > {remote_out}.log 2>&1 < /dev/null & echo started")
+    if a.tail:
+        args += ["--tail", f"tails/{Path(a.tail).name}"]
+    cmd = (f"mkdir -p {remote_abs}/out && cd {remote_abs} && rm -f {remote_out}.progress && "
+           f"(setsid nohup {' '.join(shlex.quote(x) for x in args)} > {remote_out}.log 2>&1 < /dev/null & "
+           f"echo $! > {pidfile}) && echo started")
     rc, so, se = jr.exec(cmd, timeout=60)
     if rc != 0:
         raise SystemExit(f"start failed: {se}")
@@ -65,8 +74,9 @@ def main() -> int:
     rel = f"{REMOTE_DIR}/out/{tag}.jsonl"
     while True:
         time.sleep(3)
+        # pid file, not pgrep -f: the polling shell's own command line would match the pattern
         rc, so, _ = jr.exec(f"cat {remote_out}.progress 2>/dev/null; echo; "
-                            f"pgrep -f {shlex.quote(remote_out)} >/dev/null && echo RUNNING || echo STOPPED", timeout=30)
+                            f"kill -0 $(cat {pidfile}) 2>/dev/null && echo RUNNING || echo STOPPED", timeout=30)
         lines = [l for l in so.splitlines() if l.strip()]
         state = lines[-1] if lines else "?"
         prog = lines[0] if len(lines) > 1 else "{}"

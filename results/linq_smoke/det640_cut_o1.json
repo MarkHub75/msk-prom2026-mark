@@ -1,0 +1,1634 @@
+{
+ "program": "mosprom_yolov8n_640_op13_o1_cut_b1_o1_h1m.tpu",
+ "onnx": "yolov8n_640_op13.onnx",
+ "tail": "yolov8n_640_op13_o1_cut_tail.onnx",
+ "images": {
+  "000000000536.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.9430955052375793,
+     "bbox_xyxy": [
+      290.7,
+      132.3,
+      447.8,
+      333.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.895243227481842,
+     "bbox_xyxy": [
+      86.3,
+      67.6,
+      180.1,
+      333.8
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8950103521347046,
+     "bbox_xyxy": [
+      172.9,
+      81.3,
+      276.2,
+      332.6
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.90380859375,
+     "bbox_xyxy": [
+      291.9,
+      130.2,
+      448.0,
+      333.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      175.5,
+      82.8,
+      275.6,
+      329.2
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      84.7,
+      69.3,
+      179.7,
+      333.7
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 3,
+    "n_test": 3,
+    "matched": 3,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9667326071378274,
+    "mean_abs_score_diff": 0.03237287203470866
+   },
+   "max_abs_raw_diff": 247.0069580078125,
+   "ms": {
+    "tpu_rtt_median": 3320.0,
+    "full_cycle_median": 3337.6,
+    "cpu_onnx": 42.9
+   }
+  },
+  "000000000542.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8240390419960022,
+     "bbox_xyxy": [
+      225.1,
+      192.4,
+      291.7,
+      374.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8019458055496216,
+     "bbox_xyxy": [
+      453.5,
+      194.9,
+      492.2,
+      352.5
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.7498077154159546,
+     "bbox_xyxy": [
+      147.7,
+      210.6,
+      196.1,
+      373.4
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.7198968529701233,
+     "bbox_xyxy": [
+      180.6,
+      208.0,
+      229.6,
+      349.1
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.702896237373352,
+     "bbox_xyxy": [
+      317.4,
+      210.1,
+      358.8,
+      344.3
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.6483441591262817,
+     "bbox_xyxy": [
+      353.9,
+      212.5,
+      394.8,
+      339.6
+     ]
+    },
+    {
+     "cls": 4,
+     "name": "airplane",
+     "score": 0.6321506500244141,
+     "bbox_xyxy": [
+      190.8,
+      5.8,
+      628.3,
+      325.4
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5576784014701843,
+     "bbox_xyxy": [
+      277.1,
+      206.8,
+      308.8,
+      346.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.3503660559654236,
+     "bbox_xyxy": [
+      283.0,
+      117.6,
+      333.8,
+      182.7
+     ]
+    },
+    {
+     "cls": 4,
+     "name": "airplane",
+     "score": 0.3036860227584839,
+     "bbox_xyxy": [
+      0.5,
+      128.6,
+      524.9,
+      334.3
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.27609527111053467,
+     "bbox_xyxy": [
+      298.4,
+      210.6,
+      329.5,
+      347.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.25291645526885986,
+     "bbox_xyxy": [
+      453.7,
+      119.6,
+      495.2,
+      221.5
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.77392578125,
+     "bbox_xyxy": [
+      453.7,
+      197.2,
+      490.3,
+      351.2
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.75390625,
+     "bbox_xyxy": [
+      231.7,
+      194.7,
+      286.7,
+      378.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.60107421875,
+     "bbox_xyxy": [
+      188.5,
+      209.2,
+      223.3,
+      346.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.60107421875,
+     "bbox_xyxy": [
+      318.3,
+      211.0,
+      356.8,
+      343.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.60107421875,
+     "bbox_xyxy": [
+      354.0,
+      212.3,
+      394.3,
+      338.8
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5,
+     "bbox_xyxy": [
+      277.7,
+      210.2,
+      308.8,
+      344.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5,
+     "bbox_xyxy": [
+      149.7,
+      224.7,
+      190.0,
+      373.2
+     ]
+    },
+    {
+     "cls": 4,
+     "name": "airplane",
+     "score": 0.32177734375,
+     "bbox_xyxy": [
+      115.0,
+      65.7,
+      624.7,
+      326.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      301.0,
+      214.7,
+      328.5,
+      352.2
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      368.2,
+      101.3,
+      406.7,
+      189.3
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      288.2,
+      117.8,
+      350.5,
+      185.7
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 12,
+    "n_test": 11,
+    "matched": 10,
+    "recall_vs_ref": 0.8333333333333334,
+    "precision_vs_ref": 0.9090909090909091,
+    "mean_iou": 0.8195419896284012,
+    "mean_abs_score_diff": 0.10581976175308228
+   },
+   "max_abs_raw_diff": 345.3103942871094,
+   "ms": {
+    "tpu_rtt_median": 3805.0,
+    "full_cycle_median": 3817.8,
+    "cpu_onnx": 134.6
+   }
+  },
+  "000000000544.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.9041610956192017,
+     "bbox_xyxy": [
+      249.7,
+      241.8,
+      363.8,
+      407.5
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8995844125747681,
+     "bbox_xyxy": [
+      107.6,
+      302.2,
+      236.5,
+      408.8
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8946775197982788,
+     "bbox_xyxy": [
+      23.9,
+      270.3,
+      126.7,
+      411.2
+     ]
+    },
+    {
+     "cls": 35,
+     "name": "baseball glove",
+     "score": 0.6691662073135376,
+     "bbox_xyxy": [
+      211.4,
+      325.3,
+      238.4,
+      355.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5643014311790466,
+     "bbox_xyxy": [
+      23.7,
+      237.5,
+      63.7,
+      296.6
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.4512867331504822,
+     "bbox_xyxy": [
+      146.5,
+      193.0,
+      179.8,
+      239.5
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.41367292404174805,
+     "bbox_xyxy": [
+      193.9,
+      210.4,
+      226.1,
+      238.2
+     ]
+    },
+    {
+     "cls": 34,
+     "name": "baseball bat",
+     "score": 0.3847428262233734,
+     "bbox_xyxy": [
+      222.5,
+      299.2,
+      277.1,
+      308.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.3224914073944092,
+     "bbox_xyxy": [
+      16.9,
+      193.8,
+      43.4,
+      242.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.2834925055503845,
+     "bbox_xyxy": [
+      0.2,
+      219.7,
+      32.1,
+      297.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.27591127157211304,
+     "bbox_xyxy": [
+      247.6,
+      187.1,
+      276.2,
+      236.2
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.90380859375,
+     "bbox_xyxy": [
+      252.7,
+      239.7,
+      362.7,
+      408.3
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      26.0,
+      273.7,
+      125.0,
+      413.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.81640625,
+     "bbox_xyxy": [
+      106.3,
+      305.7,
+      234.7,
+      408.3
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5,
+     "bbox_xyxy": [
+      23.8,
+      237.6,
+      65.1,
+      295.3
+     ]
+    },
+    {
+     "cls": 35,
+     "name": "baseball glove",
+     "score": 0.5,
+     "bbox_xyxy": [
+      209.7,
+      325.8,
+      239.0,
+      355.2
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.43115234375,
+     "bbox_xyxy": [
+      195.3,
+      212.9,
+      225.5,
+      238.6
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.39892578125,
+     "bbox_xyxy": [
+      2.0,
+      221.5,
+      31.3,
+      296.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.302490234375,
+     "bbox_xyxy": [
+      17.0,
+      193.3,
+      42.7,
+      241.8
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 11,
+    "n_test": 8,
+    "matched": 8,
+    "recall_vs_ref": 0.7272727272727273,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9162525239648223,
+    "mean_abs_score_diff": 0.06229734420776367
+   },
+   "max_abs_raw_diff": 284.3570556640625,
+   "ms": {
+    "tpu_rtt_median": 3726.5,
+    "full_cycle_median": 3741.6,
+    "cpu_onnx": 125.5
+   }
+  },
+  "000000000564.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8978899717330933,
+     "bbox_xyxy": [
+      236.7,
+      336.2,
+      384.6,
+      609.4
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.6229107975959778,
+     "bbox_xyxy": [
+      302.3,
+      308.7,
+      356.6,
+      337.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.6011468172073364,
+     "bbox_xyxy": [
+      70.6,
+      284.4,
+      118.7,
+      306.1
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.5866165161132812,
+     "bbox_xyxy": [
+      122.6,
+      283.7,
+      169.7,
+      307.2
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.5529732704162598,
+     "bbox_xyxy": [
+      188.1,
+      257.0,
+      237.3,
+      282.9
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.5364084839820862,
+     "bbox_xyxy": [
+      381.1,
+      282.5,
+      433.8,
+      303.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.5095024704933167,
+     "bbox_xyxy": [
+      91.1,
+      257.9,
+      137.7,
+      283.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.49790072441101074,
+     "bbox_xyxy": [
+      327.0,
+      281.6,
+      377.2,
+      303.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.49482983350753784,
+     "bbox_xyxy": [
+      110.6,
+      233.0,
+      155.0,
+      256.9
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.48832961916923523,
+     "bbox_xyxy": [
+      157.1,
+      232.8,
+      201.2,
+      256.1
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.47708186507225037,
+     "bbox_xyxy": [
+      358.9,
+      308.1,
+      414.5,
+      337.5
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.47499075531959534,
+     "bbox_xyxy": [
+      21.3,
+      285.0,
+      67.9,
+      306.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.4711277186870575,
+     "bbox_xyxy": [
+      42.3,
+      259.8,
+      88.1,
+      285.3
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.45660024881362915,
+     "bbox_xyxy": [
+      436.3,
+      280.3,
+      487.7,
+      303.3
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.4555131793022156,
+     "bbox_xyxy": [
+      140.0,
+      258.6,
+      186.8,
+      281.9
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.4461381435394287,
+     "bbox_xyxy": [
+      0.0,
+      260.5,
+      40.2,
+      285.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.4221945106983185,
+     "bbox_xyxy": [
+      247.5,
+      308.5,
+      300.6,
+      336.5
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.4184463620185852,
+     "bbox_xyxy": [
+      455.9,
+      203.1,
+      520.0,
+      290.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.40688201785087585,
+     "bbox_xyxy": [
+      204.5,
+      232.4,
+      249.1,
+      255.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3743463456630707,
+     "bbox_xyxy": [
+      63.3,
+      234.9,
+      107.9,
+      258.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3739321231842041,
+     "bbox_xyxy": [
+      386.4,
+      253.9,
+      441.8,
+      286.6
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.35909610986709595,
+     "bbox_xyxy": [
+      16.8,
+      235.5,
+      60.7,
+      258.2
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.32241514325141907,
+     "bbox_xyxy": [
+      231.9,
+      252.9,
+      294.8,
+      304.5
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.32065385580062866,
+     "bbox_xyxy": [
+      38.1,
+      310.7,
+      93.9,
+      353.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3169505000114441,
+     "bbox_xyxy": [
+      475.4,
+      306.2,
+      520.0,
+      335.9
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.316349059343338,
+     "bbox_xyxy": [
+      418.7,
+      307.4,
+      475.5,
+      337.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.2575039863586426,
+     "bbox_xyxy": [
+      251.1,
+      230.9,
+      300.0,
+      258.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.252697229385376,
+     "bbox_xyxy": [
+      491.8,
+      280.4,
+      519.8,
+      305.2
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      234.7,
+      335.7,
+      396.0,
+      610.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.43115234375,
+     "bbox_xyxy": [
+      248.8,
+      308.7,
+      300.2,
+      337.1
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.43115234375,
+     "bbox_xyxy": [
+      72.4,
+      284.7,
+      119.2,
+      307.6
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.36474609375,
+     "bbox_xyxy": [
+      381.7,
+      282.6,
+      433.0,
+      303.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.36474609375,
+     "bbox_xyxy": [
+      122.3,
+      284.4,
+      169.9,
+      307.3
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.36474609375,
+     "bbox_xyxy": [
+      188.3,
+      257.0,
+      235.9,
+      281.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      298.5,
+      309.7,
+      355.3,
+      344.5
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      356.2,
+      307.8,
+      414.8,
+      351.8
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      140.8,
+      260.3,
+      186.7,
+      282.3
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      203.0,
+      233.3,
+      248.8,
+      262.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.302490234375,
+     "bbox_xyxy": [
+      326.6,
+      282.6,
+      377.0,
+      303.7
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.302490234375,
+     "bbox_xyxy": [
+      436.3,
+      281.0,
+      488.5,
+      303.0
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.302490234375,
+     "bbox_xyxy": [
+      22.6,
+      285.6,
+      67.5,
+      307.6
+     ]
+    },
+    {
+     "cls": 56,
+     "name": "chair",
+     "score": 0.302490234375,
+     "bbox_xyxy": [
+      90.3,
+      258.6,
+      137.0,
+      283.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 28,
+    "n_test": 14,
+    "matched": 14,
+    "recall_vs_ref": 0.5,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.8739291312318727,
+    "mean_abs_score_diff": 0.16151115724018641
+   },
+   "max_abs_raw_diff": 442.81707763671875,
+   "ms": {
+    "tpu_rtt_median": 3539.0,
+    "full_cycle_median": 3564.0,
+    "cpu_onnx": 120.6
+   }
+  },
+  "000000000569.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8693704605102539,
+     "bbox_xyxy": [
+      86.3,
+      271.8,
+      169.9,
+      415.1
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.81640625,
+     "bbox_xyxy": [
+      85.3,
+      271.3,
+      169.7,
+      414.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 1,
+    "n_test": 1,
+    "matched": 1,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9769757772154891,
+    "mean_abs_score_diff": 0.052964210510253906
+   },
+   "max_abs_raw_diff": 413.14825439453125,
+   "ms": {
+    "tpu_rtt_median": 3484.5,
+    "full_cycle_median": 3496.6,
+    "cpu_onnx": 123.4
+   }
+  },
+  "000000000572.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 28,
+     "name": "suitcase",
+     "score": 0.9097836017608643,
+     "bbox_xyxy": [
+      287.8,
+      379.0,
+      427.0,
+      601.6
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.845528244972229,
+     "bbox_xyxy": [
+      139.0,
+      63.5,
+      285.7,
+      617.9
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.7837998867034912,
+     "bbox_xyxy": [
+      70.7,
+      251.5,
+      206.4,
+      597.9
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 28,
+     "name": "suitcase",
+     "score": 0.81640625,
+     "bbox_xyxy": [
+      289.3,
+      379.7,
+      425.0,
+      599.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.75390625,
+     "bbox_xyxy": [
+      142.0,
+      66.7,
+      281.3,
+      594.7
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.75390625,
+     "bbox_xyxy": [
+      72.7,
+      253.3,
+      204.7,
+      605.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 3,
+    "n_test": 3,
+    "matched": 3,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9385966652371088,
+    "mean_abs_score_diff": 0.0716309944788615
+   },
+   "max_abs_raw_diff": 289.94903564453125,
+   "ms": {
+    "tpu_rtt_median": 3547.5,
+    "full_cycle_median": 3569.8,
+    "cpu_onnx": 153.5
+   }
+  },
+  "000000000589.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8902912139892578,
+     "bbox_xyxy": [
+      347.7,
+      189.2,
+      493.4,
+      364.4
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      350.3,
+      188.0,
+      493.3,
+      364.0
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 1,
+    "n_test": 1,
+    "matched": 1,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9726891802707113,
+    "mean_abs_score_diff": 0.024080276489257812
+   },
+   "max_abs_raw_diff": 303.0579833984375,
+   "ms": {
+    "tpu_rtt_median": 3617.0,
+    "full_cycle_median": 3629.9,
+    "cpu_onnx": 88.9
+   }
+  },
+  "000000000623.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 77,
+     "name": "teddy bear",
+     "score": 0.691300630569458,
+     "bbox_xyxy": [
+      0.9,
+      10.8,
+      357.6,
+      499.8
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5485700368881226,
+     "bbox_xyxy": [
+      164.7,
+      1.4,
+      343.4,
+      492.4
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 77,
+     "name": "teddy bear",
+     "score": 0.67822265625,
+     "bbox_xyxy": [
+      1.0,
+      14.1,
+      356.2,
+      500.0
+     ]
+    },
+    {
+     "cls": 0,
+     "name": "person",
+     "score": 0.5,
+     "bbox_xyxy": [
+      164.1,
+      1.3,
+      341.7,
+      433.8
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 2,
+    "n_test": 2,
+    "matched": 2,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9290994596641129,
+    "mean_abs_score_diff": 0.030824005603790283
+   },
+   "max_abs_raw_diff": 336.02001953125,
+   "ms": {
+    "tpu_rtt_median": 3305.0,
+    "full_cycle_median": 3310.2,
+    "cpu_onnx": 97.3
+   }
+  },
+  "000000000009.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 45,
+     "name": "bowl",
+     "score": 0.9011707901954651,
+     "bbox_xyxy": [
+      306.4,
+      0.9,
+      627.9,
+      240.7
+     ]
+    },
+    {
+     "cls": 50,
+     "name": "broccoli",
+     "score": 0.8160544633865356,
+     "bbox_xyxy": [
+      254.8,
+      231.8,
+      566.4,
+      474.9
+     ]
+    },
+    {
+     "cls": 45,
+     "name": "bowl",
+     "score": 0.5488680601119995,
+     "bbox_xyxy": [
+      0.0,
+      8.8,
+      527.6,
+      457.5
+     ]
+    },
+    {
+     "cls": 52,
+     "name": "hot dog",
+     "score": 0.4326309561729431,
+     "bbox_xyxy": [
+      0.3,
+      111.9,
+      230.1,
+      303.0
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 45,
+     "name": "bowl",
+     "score": 0.8662109375,
+     "bbox_xyxy": [
+      317.3,
+      2.3,
+      629.0,
+      237.0
+     ]
+    },
+    {
+     "cls": 50,
+     "name": "broccoli",
+     "score": 0.75390625,
+     "bbox_xyxy": [
+      257.0,
+      237.3,
+      568.7,
+      475.7
+     ]
+    },
+    {
+     "cls": 45,
+     "name": "bowl",
+     "score": 0.5927734375,
+     "bbox_xyxy": [
+      10.7,
+      15.0,
+      447.0,
+      444.0
+     ]
+    },
+    {
+     "cls": 45,
+     "name": "bowl",
+     "score": 0.4072265625,
+     "bbox_xyxy": [
+      9.7,
+      192.7,
+      611.0,
+      475.0
+     ]
+    },
+    {
+     "cls": 50,
+     "name": "broccoli",
+     "score": 0.3056640625,
+     "bbox_xyxy": [
+      328.3,
+      411.5,
+      423.7,
+      479.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 4,
+    "n_test": 5,
+    "matched": 3,
+    "recall_vs_ref": 0.75,
+    "precision_vs_ref": 0.6,
+    "mean_iou": 0.8978080681401112,
+    "mean_abs_score_diff": 0.047004481156667076
+   },
+   "max_abs_raw_diff": 265.3301696777344,
+   "ms": {
+    "tpu_rtt_median": 3484.5,
+    "full_cycle_median": 3500.5,
+    "cpu_onnx": 79.6
+   }
+  },
+  "000000000025.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 23,
+     "name": "giraffe",
+     "score": 0.8992254734039307,
+     "bbox_xyxy": [
+      383.4,
+      64.3,
+      597.6,
+      358.1
+     ]
+    },
+    {
+     "cls": 23,
+     "name": "giraffe",
+     "score": 0.33579081296920776,
+     "bbox_xyxy": [
+      49.1,
+      356.8,
+      153.6,
+      414.4
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 23,
+     "name": "giraffe",
+     "score": 0.75390625,
+     "bbox_xyxy": [
+      386.0,
+      60.3,
+      547.3,
+      357.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 2,
+    "n_test": 1,
+    "matched": 1,
+    "recall_vs_ref": 0.5,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.7433628680488399,
+    "mean_abs_score_diff": 0.14531922340393066
+   },
+   "max_abs_raw_diff": 286.2503356933594,
+   "ms": {
+    "tpu_rtt_median": 3429.5,
+    "full_cycle_median": 3442.4,
+    "cpu_onnx": 113.6
+   }
+  },
+  "000000000030.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 75,
+     "name": "vase",
+     "score": 0.8919583559036255,
+     "bbox_xyxy": [
+      240.0,
+      155.2,
+      408.3,
+      351.5
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 75,
+     "name": "vase",
+     "score": 0.67822265625,
+     "bbox_xyxy": [
+      239.7,
+      151.0,
+      408.3,
+      352.7
+     ]
+    },
+    {
+     "cls": 58,
+     "name": "potted plant",
+     "score": 0.32177734375,
+     "bbox_xyxy": [
+      203.0,
+      33.0,
+      459.7,
+      348.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 1,
+    "n_test": 2,
+    "matched": 1,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 0.5,
+    "mean_iou": 0.9714958440444831,
+    "mean_abs_score_diff": 0.2137356996536255
+   },
+   "max_abs_raw_diff": 233.91607666015625,
+   "ms": {
+    "tpu_rtt_median": 3585.5,
+    "full_cycle_median": 3601.6,
+    "cpu_onnx": 120.3
+   }
+  },
+  "000000000034.jpg": {
+   "cpu_fp32": [
+    {
+     "cls": 22,
+     "name": "zebra",
+     "score": 0.9286143183708191,
+     "bbox_xyxy": [
+      0.0,
+      18.5,
+      444.0,
+      400.0
+     ]
+    }
+   ],
+   "tpu": [
+    {
+     "cls": 22,
+     "name": "zebra",
+     "score": 0.93212890625,
+     "bbox_xyxy": [
+      2.7,
+      21.0,
+      442.7,
+      402.3
+     ]
+    }
+   ],
+   "match": {
+    "n_ref": 1,
+    "n_test": 1,
+    "matched": 1,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": 0.9786499841547436,
+    "mean_abs_score_diff": 0.003514587879180908
+   },
+   "max_abs_raw_diff": 314.1075134277344,
+   "ms": {
+    "tpu_rtt_median": 3742.0,
+    "full_cycle_median": 3753.5,
+    "cpu_onnx": 88.3
+   }
+  },
+  "blank_gray_1280x720.jpg": {
+   "cpu_fp32": [],
+   "tpu": [],
+   "match": {
+    "n_ref": 0,
+    "n_test": 0,
+    "matched": 0,
+    "recall_vs_ref": 1.0,
+    "precision_vs_ref": 1.0,
+    "mean_iou": null,
+    "mean_abs_score_diff": null
+   },
+   "max_abs_raw_diff": 349.06756591796875,
+   "ms": {
+    "tpu_rtt_median": 3539.0,
+    "full_cycle_median": 3548.8,
+    "cpu_onnx": 143.6
+   }
+  }
+ },
+ "output_contract": {
+  "/model.22/dfl/conv/Conv_output_0": {
+   "shape": [
+    1,
+    1,
+    4,
+    8400
+   ],
+   "dtype": "float32"
+  },
+  "/model.22/Sigmoid_output_0": {
+   "shape": [
+    1,
+    80,
+    8400
+   ],
+   "dtype": "float32"
+  }
+ },
+ "summary": {
+  "mean_recall_vs_cpu": 0.8592171717171717,
+  "mean_precision_vs_cpu": 0.9174242424242425,
+  "mean_iou": 0.9154278415615437,
+  "mean_abs_score_diff": 0.07925621786760906
+ }
+}

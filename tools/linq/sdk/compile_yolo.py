@@ -70,6 +70,12 @@ def strip_initializer_inputs(m: onnx.ModelProto) -> None:
         m.graph.input.remove(i)
 
 
+def strip_unused_initializers(m: onnx.ModelProto) -> None:
+    used = {i for n in m.graph.node for i in n.input}
+    for init in [i for i in m.graph.initializer if i.name not in used]:
+        m.graph.initializer.remove(init)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("onnx")
@@ -109,6 +115,7 @@ def main() -> None:
         cut = [c for c in a.cut_at.split(",") if c]
         head = tfw.get_sub_model(model, [in_name], cut)
         tail = tfw.get_sub_model(model, cut, [o.name for o in model.graph.output])
+        strip_unused_initializers(tail)  # get_sub_model keeps every weight of the full model
         onnx.save(head, out / f"{tag}_head.onnx")
         onnx.save(tail, out / f"{tag}_tail.onnx")
         rep["cut"] = {"head_outputs": cut, "tail_ops": sorted({n.op_type for n in tail.graph.node}),

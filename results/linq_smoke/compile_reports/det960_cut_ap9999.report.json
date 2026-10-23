@@ -1,0 +1,231 @@
+{
+ "tag": "det960_cut_ap9999",
+ "source_onnx": "yolov8n_960_op13.onnx",
+ "sdk": {
+  "tpu_framework_bin": "2026.9.45",
+  "tpu_compiler_bin": "2026.9.493",
+  "dnn_quant_bin": "2026.9.98",
+  "onnx_direct_bin": "2026.8.23",
+  "torch": "2.9.1",
+  "onnx": "1.16.2"
+ },
+ "timings_s": {
+  "conditioning": 0.8,
+  "calibration": 315.1,
+  "quantize": 3.5,
+  "compile": 63.0
+ },
+ "requested": {
+  "onnx": "models/yolov8n_960_op13.onnx",
+  "preset": "O1",
+  "n_calib_src": 34,
+  "cut_at": "/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0",
+  "tag": "det960_cut_ap9999",
+  "activation_percentile": 99.99,
+  "samplewise_percentile": null,
+  "skip_compile": false
+ },
+ "cut": {
+  "head_outputs": [
+   "/model.22/dfl/conv/Conv_output_0",
+   "/model.22/Sigmoid_output_0"
+  ],
+  "tail_ops": [
+   "Add",
+   "Concat",
+   "Div",
+   "Mul",
+   "Reshape",
+   "Slice",
+   "Sub"
+  ],
+  "tail_onnx": "det960_cut_ap9999_tail.onnx"
+ },
+ "calibration": {
+  "source": "coco128 person images + hflip + 0.8 centre crop",
+  "n_src_images": 34,
+  "n_frames": 102,
+  "tensor": [
+   [
+    102,
+    3,
+    960,
+    960
+   ],
+   "float32"
+  ],
+  "test_images": [
+   "000000000415.jpg",
+   "000000000419.jpg",
+   "000000000428.jpg",
+   "000000000431.jpg",
+   "000000000436.jpg",
+   "000000000443.jpg",
+   "000000000446.jpg",
+   "000000000459.jpg",
+   "000000000009.jpg",
+   "000000000025.jpg",
+   "000000000030.jpg",
+   "000000000034.jpg"
+  ],
+  "applied_params": {
+   "device": "cpu",
+   "activation_percentile": 99.99
+  },
+  "regular_model_params": {
+   "percentile": "default 100.0"
+  }
+ },
+ "fakequant_vs_fp32": [
+  {
+   "image": "000000000415.jpg",
+   "max_abs_out_diff": 299.8050842285156,
+   "n_ref": 3,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 0.3333333333333333,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9917130245173643,
+   "mean_abs_score_diff": 0.0010478496551513672
+  },
+  {
+   "image": "000000000419.jpg",
+   "max_abs_out_diff": 308.52520751953125,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9635113717585553,
+   "mean_abs_score_diff": 0.026475965976715088
+  },
+  {
+   "image": "000000000428.jpg",
+   "max_abs_out_diff": 402.0673828125,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.974396600078027,
+   "mean_abs_score_diff": 0.10156641403834026
+  },
+  {
+   "image": "000000000431.jpg",
+   "max_abs_out_diff": 398.509765625,
+   "n_ref": 3,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 0.6666666666666666,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9620969578819402,
+   "mean_abs_score_diff": 0.23270368576049805
+  },
+  {
+   "image": "000000000436.jpg",
+   "max_abs_out_diff": 170.13189697265625,
+   "n_ref": 3,
+   "n_test": 3,
+   "matched": 3,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8934513973227397,
+   "mean_abs_score_diff": 0.16146117448806763
+  },
+  {
+   "image": "000000000443.jpg",
+   "max_abs_out_diff": 451.7074890136719,
+   "n_ref": 6,
+   "n_test": 6,
+   "matched": 6,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9591342889863306,
+   "mean_abs_score_diff": 0.11835239827632904
+  },
+  {
+   "image": "000000000446.jpg",
+   "max_abs_out_diff": 287.85382080078125,
+   "n_ref": 3,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 0.6666666666666666,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.8985412581271032,
+   "mean_abs_score_diff": 0.02067716419696808
+  },
+  {
+   "image": "000000000459.jpg",
+   "max_abs_out_diff": 375.1056823730469,
+   "n_ref": 2,
+   "n_test": 3,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 0.6666666666666666,
+   "mean_iou": 0.8968307213421756,
+   "mean_abs_score_diff": 0.295762300491333
+  },
+  {
+   "image": "000000000009.jpg",
+   "max_abs_out_diff": 323.062255859375,
+   "n_ref": 6,
+   "n_test": 7,
+   "matched": 5,
+   "recall_vs_ref": 0.8333333333333334,
+   "precision_vs_ref": 0.7142857142857143,
+   "mean_iou": 0.9340984702440327,
+   "mean_abs_score_diff": 0.017892593145370485
+  },
+  {
+   "image": "000000000025.jpg",
+   "max_abs_out_diff": 385.6551513671875,
+   "n_ref": 2,
+   "n_test": 2,
+   "matched": 2,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9425905531451787,
+   "mean_abs_score_diff": 0.20080271363258362
+  },
+  {
+   "image": "000000000030.jpg",
+   "max_abs_out_diff": 377.88262939453125,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9726010139996173,
+   "mean_abs_score_diff": 0.0526280403137207
+  },
+  {
+   "image": "000000000034.jpg",
+   "max_abs_out_diff": 387.2424621582031,
+   "n_ref": 1,
+   "n_test": 1,
+   "matched": 1,
+   "recall_vs_ref": 1.0,
+   "precision_vs_ref": 1.0,
+   "mean_iou": 0.9583950400517965,
+   "mean_abs_score_diff": 0.16342955827713013
+  }
+ ],
+ "fakequant_summary": {
+  "mean_recall_vs_fp32": 0.875,
+  "mean_iou": 0.9456133914545717
+ },
+ "program": {
+  "file": "det960_cut_ap9999_b1_o1_h1m.tpu",
+  "bytes": 2817797,
+  "renaming": {
+   "images": "images",
+   "n_/model.22/dfl/conv/Conv_output_0": "/model.22/dfl/conv/Conv_output_0",
+   "n_/model.22/Sigmoid_output_0": "/model.22/Sigmoid_output_0"
+  },
+  "tensor_descriptions": {
+   "images": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x7f43d05b52b0>",
+   "/model.22/Sigmoid_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x7f42fc4ce6f0>",
+   "/model.22/dfl/conv/Conv_output_0": "<tpu_tlm_is.base.tensor_description.TensorDescription object at 0x7f43d05b4fb0>"
+  }
+ }
+}
