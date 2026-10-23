@@ -1,0 +1,21 @@
+{
+  "counts": {
+    "SOURCES.md": 184,
+    "RAW_FACTS.md": 270,
+    "OPEN_QUESTIONS.md": 64,
+    "CRITIC.md": 0,
+    "ID_MAP.md": 0,
+    "COLLECTOR_HANDOFF.md": 0
+  },
+  "bytes": {
+    "SOURCES.md": 201654,
+    "RAW_FACTS.md": 705160,
+    "OPEN_QUESTIONS.md": 83599,
+    "CRITIC.md": 58552,
+    "ID_MAP.md": 34340,
+    "COLLECTOR_HANDOFF.md": 8175
+  },
+  "issues": [],
+  "arithmetic": "passed",
+  "note": "Локальные ссылки и арифметика сборки; нового внешнего поиска или испытания нет."
+}

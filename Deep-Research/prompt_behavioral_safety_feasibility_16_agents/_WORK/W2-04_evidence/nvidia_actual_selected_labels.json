@@ -1,0 +1,151 @@
+[
+  {
+    "split": "train",
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_00238",
+    "anomaly_type": "near miss forklift person",
+    "total_frames": 144,
+    "video_duration_sec": 6.0,
+    "fps": 24.0,
+    "video_path": "videos/video_00238.mp4",
+    "source_video": {
+      "access": "bundled",
+      "path": "videos/video_00238.mp4"
+    },
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": true,
+        "anomaly_type": "near miss forklift person",
+        "dense_caption": "A forklift drives down a warehouse aisle and nearly collides with two employees standing in its path, forcing them to step aside quickly. 00:00 - 00:02: Two warehouse employees in safety vests stand in the aisle discussing a clipboard while a forklift approaches from the distance. 00:02 - 00:04: The forklift continues to drive forward toward the two employees, who remain stationary and focused on their documents. 00:04 - 00:07: As the forklift closes the distance rapidly, the employees notice it and quickly step out of the way to avoid a collision.",
+        "scene_caption": "The scene takes place indoors within a large warehouse aisle, flanked by towering orange industrial shelving units filled with boxed inventory. The camera is positioned at a fixed, eye-level angle looking down the center of the aisle. The area is brightly lit with cool, overhead industrial lighting, and the general activity involves personnel in safety vests coordinating logistics and operating a forklift.",
+        "pas_queries": [
+          "person wearing yellow vest and grey shirt",
+          "person wearing yellow vest and black pants",
+          "person wearing yellow vest and blue shirt",
+          "person wearing black pants and brown shoes",
+          "person wearing yellow vest and black boots"
+        ],
+        "caption_queries": [
+          "warehouse aisle with orange industrial shelving units",
+          "two employees discussing a clipboard in a warehouse",
+          "forklift driving down a warehouse aisle toward people",
+          "personnel in safety vests coordinating logistics in a warehouse",
+          "warehouse employees stepping aside for an approaching forklift"
+        ],
+        "anomaly_queries": [
+          "person in yellow safety vest nearly hit by a forklift",
+          "forklift almost colliding with warehouse employees",
+          "person in yellow vest stepping out of the way of a forklift",
+          "forklift driving rapidly toward stationary employees",
+          "warehouse personnel in safety vests avoiding a forklift collision"
+        ],
+        "action_queries": [
+          "a forklift driving",
+          "people standing in a path",
+          "people stepping aside",
+          "a forklift nearly hitting people"
+        ],
+        "chunk_file": "chunk_000.mp4"
+      }
+    ]
+  },
+  {
+    "split": "train",
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_00298",
+    "anomaly_type": "normal",
+    "total_frames": 144,
+    "video_duration_sec": 6.0,
+    "fps": 24.0,
+    "video_path": "videos/video_00298.mp4",
+    "source_video": {
+      "access": "bundled",
+      "path": "videos/video_00298.mp4"
+    },
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "dense_caption": "An empty warehouse aisle with shelves of boxes and a forklift in the distance. Three workers wearing hard hats enter the aisle. One worker in a yellow safety vest bends over to organize boxes on a pallet. The worker in the yellow vest lifts a box from the pallet. Another worker in a yellow vest walks further down the aisle toward the forklift.",
+        "scene_caption": "The scene takes place indoors within a warehouse aisle, flanked by tall industrial shelving units filled with boxes and pallets. The camera is positioned from a fixed, high-mounted angle, providing a wide view of the corridor. Lighting is bright and artificial, typical of a commercial facility. The general activity involves workers moving and organizing inventory in the aisle.",
+        "pas_queries": [
+          "person wearing black hoodie",
+          "person wearing black pants",
+          "person wearing white headwear",
+          "person wearing black sneakers",
+          "person wearing black hoodie and black pants"
+        ],
+        "caption_queries": [
+          "warehouse aisle with tall industrial shelving units",
+          "forklift in the distance of a warehouse corridor",
+          "industrial shelving units filled with boxes and pallets",
+          "workers in a commercial facility with bright artificial lighting",
+          "wide view of a warehouse corridor with inventory"
+        ],
+        "anomaly_queries": [
+          "person in yellow safety vest organizing boxes on a pallet",
+          "worker in yellow vest lifting a box",
+          "workers wearing hard hats entering a warehouse aisle",
+          "person in yellow vest walking toward a forklift",
+          "workers moving and organizing inventory in a warehouse"
+        ],
+        "action_queries": [
+          "a group of people entering an aisle",
+          "a person bending over to organize boxes",
+          "a person lifting a box from a pallet",
+          "a person walking down an aisle"
+        ],
+        "chunk_file": "chunk_000.mp4"
+      },
+      {
+        "chunk_index": 1,
+        "start_time_sec": 1.0,
+        "end_time_sec": 6.0,
+        "start_frame": 24,
+        "end_frame": 143,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "dense_caption": "Two warehouse workers wearing hard hats walk down a warehouse aisle. The worker in the high-visibility vest bends down to pick up a box from a pallet. The worker in the high-visibility vest lifts a cardboard box and holds it. The worker in the high-visibility vest carries the box while another worker in a black shirt works near the shelves. A yellow forklift is visible in the background moving through the aisle.",
+        "scene_caption": "The scene takes place indoors within a warehouse aisle, flanked by tall industrial shelving units filled with boxes and pallets. The camera is positioned from a high-mounted, fixed angle, looking down the length of the corridor. The lighting is bright and artificial, consistent with an industrial workspace, and the general activity involves workers managing inventory and operating a forklift.",
+        "pas_queries": [
+          "person wearing black hoodie",
+          "person wearing black pants",
+          "person wearing white headwear",
+          "person wearing black sneakers",
+          "person wearing black hoodie and black pants"
+        ],
+        "caption_queries": [
+          "yellow forklift moving through a warehouse aisle",
+          "industrial shelving units filled with boxes and pallets",
+          "warehouse workers managing inventory in a corridor",
+          "high angle view of a warehouse aisle",
+          "workers operating a forklift in an industrial workspace"
+        ],
+        "anomaly_queries": [
+          "person in high-visibility vest picking up a box",
+          "person in black shirt working near warehouse shelves",
+          "workers wearing hard hats walking in a warehouse",
+          "person lifting a cardboard box from a pallet",
+          "worker carrying a box through a warehouse aisle"
+        ],
+        "action_queries": [
+          "people walking",
+          "a person bending down to pick up a box",
+          "a person lifting and carrying a box",
+          "a forklift moving"
+        ],
+        "chunk_file": "chunk_001.mp4"
+      }
+    ]
+  }
+]

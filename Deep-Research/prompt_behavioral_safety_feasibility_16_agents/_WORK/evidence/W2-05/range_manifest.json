@@ -1,0 +1,234 @@
+[
+  {
+    "action": "walk",
+    "url": "https://www.wisdom.weizmann.ac.il/~vision/VideoAnalysis/Demos/SpaceTimeActions/DB/walk.zip",
+    "archive_size_head": 51996002,
+    "tail_range": [
+      51930466,
+      51996001
+    ],
+    "range_headers": {
+      "Date": "Fri, 23 Oct 2026 15:04:32 GMT",
+      "Last-Modified": "Thu, 01 Dec 2005 09:37:29 GMT",
+      "ETag": "\"3196562-406d933870840\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "65536",
+      "Content-Range": "bytes 51930466-51996001/51996002",
+      "Connection": "close",
+      "Content-Type": "application/zip",
+      "Set-Cookie": "TS019853ed=01ea19d35b19cf9c2a75bbb2a65707634b486eb863d6c2745ba3bd2026d38193baf29dde080b3902bc410357e60b9316297bd7b667; Path=/; Domain=.www.wisdom.weizmann.ac.il"
+    },
+    "members": [
+      {
+        "name": "shahar_walk.avi",
+        "method": 8,
+        "crc": 1100486933,
+        "compressed": 7008425,
+        "size": 9414144,
+        "offset": 0
+      },
+      {
+        "name": "daria_walk.avi",
+        "method": 8,
+        "crc": 3230982938,
+        "compressed": 4874199,
+        "size": 6536192,
+        "offset": 7008470
+      },
+      {
+        "name": "denis_walk.avi",
+        "method": 8,
+        "crc": 1825388701,
+        "compressed": 3975333,
+        "size": 5291520,
+        "offset": 11882713
+      },
+      {
+        "name": "eli_walk.avi",
+        "method": 8,
+        "crc": 356091120,
+        "compressed": 5897154,
+        "size": 7936512,
+        "offset": 15858090
+      },
+      {
+        "name": "ido_walk.avi",
+        "method": 8,
+        "crc": 530630240,
+        "compressed": 2422260,
+        "size": 3346944,
+        "offset": 21755286
+      },
+      {
+        "name": "ira_walk.avi",
+        "method": 8,
+        "crc": 642068988,
+        "compressed": 5078215,
+        "size": 6847488,
+        "offset": 24177588
+      },
+      {
+        "name": "lena_walk1.avi",
+        "method": 8,
+        "crc": 3904665383,
+        "compressed": 6908787,
+        "size": 9336320,
+        "offset": 29255845
+      },
+      {
+        "name": "lena_walk2.avi",
+        "method": 8,
+        "crc": 2957690683,
+        "compressed": 6510451,
+        "size": 8792064,
+        "offset": 36164676
+      },
+      {
+        "name": "lyova_walk.avi",
+        "method": 8,
+        "crc": 3100673961,
+        "compressed": 2851843,
+        "size": 3891712,
+        "offset": 42675171
+      },
+      {
+        "name": "moshe_walk.avi",
+        "method": 8,
+        "crc": 2681218596,
+        "compressed": 6468283,
+        "size": 8714240,
+        "offset": 45527058
+      }
+    ],
+    "selected": {
+      "name": "daria_walk.avi",
+      "method": 8,
+      "crc": 3230982938,
+      "compressed": 4874199,
+      "size": 6536192,
+      "offset": 7008470
+    },
+    "data_range": [
+      7008514,
+      11882712
+    ],
+    "actual_avi_bytes": 6536192,
+    "sha256": "009fce023da7e907f6de97bc561e9cd7fb74117fa8f7aa11c8c00a30ec6d18dd"
+  },
+  {
+    "action": "run",
+    "url": "https://www.wisdom.weizmann.ac.il/~vision/VideoAnalysis/Demos/SpaceTimeActions/DB/run.zip",
+    "archive_size_head": 30591544,
+    "tail_range": [
+      30526008,
+      30591543
+    ],
+    "range_headers": {
+      "Date": "Fri, 23 Oct 2026 15:04:38 GMT",
+      "Last-Modified": "Thu, 01 Dec 2005 09:38:32 GMT",
+      "ETag": "\"1d2ca38-406d937485600\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "65536",
+      "Content-Range": "bytes 30526008-30591543/30591544",
+      "Connection": "close",
+      "Content-Type": "application/zip",
+      "Set-Cookie": "TS019853ed=01ea19d35b1b7f47df78651f107d9aae1f0ce88f01cb6744b69cd3b40fd39307ed8e0fae56ab71a8fce4fc3036d150cdd3bb032a3b; Path=/; Domain=.www.wisdom.weizmann.ac.il"
+    },
+    "members": [
+      {
+        "name": "lena_run1.avi",
+        "method": 8,
+        "crc": 1219632909,
+        "compressed": 3053132,
+        "size": 4124672,
+        "offset": 0
+      },
+      {
+        "name": "lena_run2.avi",
+        "method": 8,
+        "crc": 2969930501,
+        "compressed": 3295976,
+        "size": 4435968,
+        "offset": 3053175
+      },
+      {
+        "name": "lyova_run.avi",
+        "method": 8,
+        "crc": 1380139357,
+        "compressed": 2055359,
+        "size": 2802688,
+        "offset": 6349194
+      },
+      {
+        "name": "moshe_run.avi",
+        "method": 8,
+        "crc": 3497715665,
+        "compressed": 3719271,
+        "size": 5058048,
+        "offset": 8404596
+      },
+      {
+        "name": "shahar_run.avi",
+        "method": 8,
+        "crc": 1520509780,
+        "compressed": 3927124,
+        "size": 5291520,
+        "offset": 12123910
+      },
+      {
+        "name": "daria_run.avi",
+        "method": 8,
+        "crc": 3501792128,
+        "compressed": 2442088,
+        "size": 3269120,
+        "offset": 16051078
+      },
+      {
+        "name": "denis_run.avi",
+        "method": 8,
+        "crc": 3404342489,
+        "compressed": 2395645,
+        "size": 3191296,
+        "offset": 18493209
+      },
+      {
+        "name": "eli_run.avi",
+        "method": 8,
+        "crc": 3779146525,
+        "compressed": 4447120,
+        "size": 5991424,
+        "offset": 20888897
+      },
+      {
+        "name": "ido_run.avi",
+        "method": 8,
+        "crc": 3109974968,
+        "compressed": 2023914,
+        "size": 2802688,
+        "offset": 25336058
+      },
+      {
+        "name": "ira_run.avi",
+        "method": 8,
+        "crc": 3565776431,
+        "compressed": 3230883,
+        "size": 4358144,
+        "offset": 27360013
+      }
+    ],
+    "selected": {
+      "name": "daria_run.avi",
+      "method": 8,
+      "crc": 3501792128,
+      "compressed": 2442088,
+      "size": 3269120,
+      "offset": 16051078
+    },
+    "data_range": [
+      16051121,
+      18493208
+    ],
+    "actual_avi_bytes": 3269120,
+    "sha256": "e9958bccbdca9e34eb96a59e236e7e1bb6b7e06f4eac187326913a4a4bb44822"
+  }
+]

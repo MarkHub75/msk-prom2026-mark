@@ -1,0 +1,112 @@
+[
+  {
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_00238",
+    "anomaly_type": "near miss forklift person",
+    "fps": 24.0,
+    "video_duration_sec": 6.0,
+    "video_path": "videos/video_00238.mp4",
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": true,
+        "anomaly_type": "near miss forklift person",
+        "chunk_file": "chunk_000.mp4"
+      }
+    ]
+  },
+  {
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_00239",
+    "anomaly_type": "near miss forklift person",
+    "fps": 24.0,
+    "video_duration_sec": 6.0,
+    "video_path": "videos/video_00239.mp4",
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "chunk_file": "chunk_000.mp4"
+      },
+      {
+        "chunk_index": 1,
+        "start_time_sec": 1.0,
+        "end_time_sec": 6.0,
+        "start_frame": 24,
+        "end_frame": 143,
+        "is_anomaly": true,
+        "anomaly_type": "near miss forklift person",
+        "chunk_file": "chunk_001.mp4"
+      }
+    ]
+  },
+  {
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_00298",
+    "anomaly_type": "normal",
+    "fps": 24.0,
+    "video_duration_sec": 6.0,
+    "video_path": "videos/video_00298.mp4",
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "chunk_file": "chunk_000.mp4"
+      },
+      {
+        "chunk_index": 1,
+        "start_time_sec": 1.0,
+        "end_time_sec": 6.0,
+        "start_frame": 24,
+        "end_frame": 143,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "chunk_file": "chunk_001.mp4"
+      }
+    ]
+  },
+  {
+    "dataset": "NV-VAD-v1",
+    "video_id": "video_01037",
+    "anomaly_type": "normal",
+    "fps": 24.0,
+    "video_duration_sec": 6.0,
+    "video_path": "videos/video_01037.mp4",
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "start_time_sec": 0.0,
+        "end_time_sec": 5.0,
+        "start_frame": 0,
+        "end_frame": 119,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "chunk_file": "chunk_000.mp4"
+      },
+      {
+        "chunk_index": 1,
+        "start_time_sec": 1.0,
+        "end_time_sec": 6.0,
+        "start_frame": 24,
+        "end_frame": 143,
+        "is_anomaly": false,
+        "anomaly_type": "normal",
+        "chunk_file": "chunk_001.mp4"
+      }
+    ]
+  }
+]

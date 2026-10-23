@@ -1,0 +1,32 @@
+[
+  {
+    "member": {
+      "name": "ekramalam-GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos-5abac76/Subject 1/Fall/11.mp4",
+      "crc32": 2161755430,
+      "compressed_size": 5931157,
+      "size": 5961144,
+      "method": 8,
+      "offset": 166257217
+    },
+    "local": "_WORK/W1-09_samples/positive_S1_F11.mp4",
+    "archive_sha256": "c25e4fc9b669cb588b6145d2cfd94f2d403083293c08bc85fa863111372bfea7",
+    "local_sha256": "c25e4fc9b669cb588b6145d2cfd94f2d403083293c08bc85fa863111372bfea7",
+    "equal": true,
+    "crc_valid": true
+  },
+  {
+    "member": {
+      "name": "ekramalam-GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos-5abac76/Subject 3/ADL/08.mp4",
+      "crc32": 2690842309,
+      "compressed_size": 5168884,
+      "size": 5172948,
+      "method": 8,
+      "offset": 618436859
+    },
+    "local": "_WORK/W1-09_samples/negative_S3_A08.mp4",
+    "archive_sha256": "b383bb83a22b286cfc65fdd934137ee8b29e84aef7be0b540271d7c69d10fa8b",
+    "local_sha256": "b383bb83a22b286cfc65fdd934137ee8b29e84aef7be0b540271d7c69d10fa8b",
+    "equal": true,
+    "crc_valid": true
+  }
+]

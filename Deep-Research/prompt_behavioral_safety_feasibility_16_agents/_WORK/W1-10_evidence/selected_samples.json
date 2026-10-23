@@ -1,0 +1,275 @@
+[
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85a2f"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "_media_type": "video",
+    "_rand": 0.9995751715053247,
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.201Z"
+    },
+    "filepath": "data/0_te23.mp4",
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85a17"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Walkway Violation"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "tags": [
+      "test"
+    ],
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 6391494,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 23.001489459767605,
+      "total_frame_count": 241,
+      "duration": 10.477582,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85a2d"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "_media_type": "video",
+    "_rand": 0.9997028977459832,
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.201Z"
+    },
+    "filepath": "data/0_te21.mp4",
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85a15"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Walkway Violation"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "tags": [
+      "test"
+    ],
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 6455941,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 24.112064437051306,
+      "total_frame_count": 252,
+      "duration": 10.4512,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85ac1"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "_media_type": "video",
+    "_rand": 0.9998214664563561,
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.201Z"
+    },
+    "filepath": "data/4_te1.mp4",
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85a60"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Walkway"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "tags": [
+      "test"
+    ],
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 13209619,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 25.0,
+      "total_frame_count": 173,
+      "duration": 6.92,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85b00"
+    },
+    "filepath": "data/0_tr1.mp4",
+    "tags": [
+      "train"
+    ],
+    "_media_type": "video",
+    "_rand": 0.999983471541829,
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85aff"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Walkway Violation"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "created_at": {
+      "$date": "2026-01-27T20:42:02.998Z"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 25865947,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 24.83,
+      "total_frame_count": 348,
+      "duration": 14.015304,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231b91651488c3f85ef9"
+    },
+    "filepath": "data/4_tr1.mp4",
+    "tags": [
+      "train"
+    ],
+    "_media_type": "video",
+    "_rand": 0.9996394447180319,
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231b91651488c3f85d9f"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Walkway"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.139Z"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 22466611,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 24.99,
+      "total_frame_count": 315,
+      "duration": 12.605042,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85ab9"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "_media_type": "video",
+    "_rand": 0.9992808645514787,
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.201Z"
+    },
+    "filepath": "data/3_te1.mp4",
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85a58"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Carrying Overload with Forklift"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "tags": [
+      "test"
+    ],
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 24506317,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 25.0,
+      "total_frame_count": 250,
+      "duration": 10.0,
+      "encoding_str": "avc1"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6979231a91651488c3f85af6"
+    },
+    "_dataset_id": {
+      "$oid": "6979231a91651488c3f85afe"
+    },
+    "_media_type": "video",
+    "_rand": 0.9991075810512058,
+    "created_at": {
+      "$date": "2026-01-27T20:42:03.201Z"
+    },
+    "filepath": "data/7_te1.mp4",
+    "ground_truth": {
+      "_id": {
+        "$oid": "6979231a91651488c3f85a95"
+      },
+      "_cls": "Classification",
+      "tags": [],
+      "label": "Safe Carrying"
+    },
+    "last_modified_at": {
+      "$date": "2026-01-27T21:11:58.912Z"
+    },
+    "tags": [
+      "test"
+    ],
+    "metadata": {
+      "_cls": "VideoMetadata",
+      "size_bytes": 4458655,
+      "mime_type": "video/mp4",
+      "frame_width": 1920,
+      "frame_height": 1080,
+      "frame_rate": 24.86309713244735,
+      "total_frame_count": 177,
+      "duration": 7.118984,
+      "encoding_str": "avc1"
+    }
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "task": "W1-01",
+    "path": "_WORK/W1-01.md",
+    "bytes": 44747,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-02",
+    "path": "_WORK/W1-02.md",
+    "bytes": 38726,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-03",
+    "path": "_WORK/W1-03.md",
+    "bytes": 39301,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-04",
+    "path": "_WORK/W1-04.md",
+    "bytes": 30538,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-05",
+    "path": "_WORK/W1-05.md",
+    "bytes": 31454,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-06",
+    "path": "_WORK/W1-06.md",
+    "bytes": 39292,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-07",
+    "path": "_WORK/W1-07.md",
+    "bytes": 42896,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-08",
+    "path": "_WORK/W1-08.md",
+    "bytes": 61080,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-09",
+    "path": "_WORK/W1-09.md",
+    "bytes": 32048,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-10",
+    "path": "_WORK/W1-10.md",
+    "bytes": 29268,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-11",
+    "path": "_WORK/W1-11.md",
+    "bytes": 54583,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-12",
+    "path": "_WORK/W1-12.md",
+    "bytes": 32375,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-13",
+    "path": "_WORK/W1-13.md",
+    "bytes": 34536,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-14",
+    "path": "_WORK/W1-14.md",
+    "bytes": 37056,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-15",
+    "path": "_WORK/W1-15.md",
+    "bytes": 42292,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  },
+  {
+    "task": "W1-16",
+    "path": "_WORK/W1-16.md",
+    "bytes": 48567,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "state": "completed"
+  }
+]

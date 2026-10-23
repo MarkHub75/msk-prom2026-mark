@@ -1,0 +1,107 @@
+[
+  {
+    "file": "barbecue.mp4",
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "average_rate": "2997/100",
+    "time_base": "1/29970",
+    "frames": 902,
+    "first": {
+      "frame": 0,
+      "pts": 0,
+      "time_base": "1/29970",
+      "seconds": 0.0
+    },
+    "last": {
+      "frame": 901,
+      "pts": 901000,
+      "time_base": "1/29970",
+      "seconds": 30.063396730063396
+    },
+    "decode": "EOF no exception",
+    "xml_rate": "29",
+    "xml_frames": 903,
+    "xml_first_last": [
+      0,
+      902
+    ],
+    "xml_empty": 10,
+    "xml_nonempty": 893,
+    "xml_outside": [],
+    "xml_missing": [],
+    "xml_extra": [
+      902
+    ]
+  },
+  {
+    "file": "Car1.mp4",
+    "width": 854,
+    "height": 480,
+    "codec": "h264",
+    "average_rate": "2997/100",
+    "time_base": "1/29970",
+    "frames": 630,
+    "first": {
+      "frame": 0,
+      "pts": 0,
+      "time_base": "1/29970",
+      "seconds": 0.0
+    },
+    "last": {
+      "frame": 629,
+      "pts": 629000,
+      "time_base": "1/29970",
+      "seconds": 20.987654320987655
+    },
+    "decode": "EOF no exception",
+    "xml_rate": "29",
+    "xml_frames": 631,
+    "xml_first_last": [
+      0,
+      630
+    ],
+    "xml_empty": 0,
+    "xml_nonempty": 631,
+    "xml_outside": [],
+    "xml_missing": [],
+    "xml_extra": [
+      630
+    ]
+  },
+  {
+    "file": "non_fire_patrolbot_onboard.mp4",
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "average_rate": "2997/100",
+    "time_base": "1/29970",
+    "frames": 341,
+    "first": {
+      "frame": 0,
+      "pts": 0,
+      "time_base": "1/29970",
+      "seconds": 0.0
+    },
+    "last": {
+      "frame": 340,
+      "pts": 340000,
+      "time_base": "1/29970",
+      "seconds": 11.344678011344678
+    },
+    "decode": "EOF no exception",
+    "xml_rate": "29",
+    "xml_frames": 342,
+    "xml_first_last": [
+      0,
+      341
+    ],
+    "xml_empty": 342,
+    "xml_nonempty": 0,
+    "xml_outside": [],
+    "xml_missing": [],
+    "xml_extra": [
+      341
+    ]
+  }
+]

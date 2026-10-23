@@ -1,0 +1,66 @@
+[
+  {
+    "name": "pos/posVideo11.870.avi",
+    "method": 8,
+    "crc32": "verified",
+    "compressed": 634310,
+    "uncompressed": 660282,
+    "offset": 570346007,
+    "url": "https://zenodo.org/api/records/836749/files/fire_videos.1406.zip/content",
+    "payload_range": [
+      570346080,
+      570980389
+    ],
+    "sha256": "37a3c9ff44fd568a3e517a866e0f2f187fbda7c9932b55d09b463be638ead42e",
+    "decoded_frames": 178,
+    "width": 400,
+    "height": 256,
+    "rate": "15",
+    "codec": "mpeg4",
+    "first": {
+      "frame": 0,
+      "pts": 0,
+      "time_base": "1/15",
+      "seconds": 0.0
+    },
+    "last": {
+      "frame": 177,
+      "pts": 177,
+      "time_base": "1/15",
+      "seconds": 11.8
+    },
+    "decode": "complete EOF; no exception"
+  },
+  {
+    "name": "neg/negsVideo2.859.avi",
+    "method": 8,
+    "crc32": "verified",
+    "compressed": 2281822,
+    "uncompressed": 2418108,
+    "offset": 117530808,
+    "url": "https://zenodo.org/api/records/836749/files/fire_videos.1406.zip/content",
+    "payload_range": [
+      117530881,
+      119812702
+    ],
+    "sha256": "4ba3a1bdfb199ad18191d3c306bb476b593fa07c1bdb34b6028c9008c8b2d5df",
+    "decoded_frames": 155,
+    "width": 320,
+    "height": 240,
+    "rate": "10",
+    "codec": "mjpeg",
+    "first": {
+      "frame": 0,
+      "pts": 0,
+      "time_base": "1/10",
+      "seconds": 0.0
+    },
+    "last": {
+      "frame": 154,
+      "pts": 154,
+      "time_base": "1/10",
+      "seconds": 15.4
+    },
+    "decode": "complete EOF; no exception"
+  }
+]

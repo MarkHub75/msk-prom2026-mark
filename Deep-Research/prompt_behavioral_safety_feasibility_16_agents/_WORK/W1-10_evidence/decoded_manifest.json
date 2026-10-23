@@ -1,0 +1,37 @@
+{
+  "0_te23": {
+    "frame_count_decoded": 241,
+    "first_pts_sec": 0.0,
+    "last_pts_sec": 10.39757015046767,
+    "delta_counts": {
+      "0.040667": 7,
+      "0.072895": 1,
+      "0.040006": 189,
+      "0.039955": 24,
+      "0.080012": 13,
+      "0.079961": 6
+    },
+    "selected_pts_sec": {
+      "0": 0.0,
+      "50": 2.037566083773892,
+      "100": 4.037566083773892,
+      "150": 6.037566083773892
+    },
+    "note": "decoded all frames, visually inspected only selected stills"
+  },
+  "4_te1": {
+    "frame_count_decoded": 173,
+    "first_pts_sec": 0.0,
+    "last_pts_sec": 6.88,
+    "delta_counts": {
+      "0.04": 172
+    },
+    "selected_pts_sec": {
+      "0": 0.0,
+      "50": 2.0,
+      "100": 4.0,
+      "150": 6.0
+    },
+    "note": "decoded all frames, visually inspected only selected stills"
+  }
+}

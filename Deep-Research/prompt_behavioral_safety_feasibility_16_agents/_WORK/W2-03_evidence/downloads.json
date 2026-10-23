@@ -1,0 +1,90 @@
+[
+  {
+    "path": "Subject 1/Fall/13.mp4",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%201/Fall/13.mp4",
+    "local": "Subject1_Fall_13.mp4",
+    "status": 200,
+    "bytes": 1389022,
+    "sha256": "955a1e53161fc84b53604815fed71ea872cc18fba0473e4e184c85bf3fe59a67"
+  },
+  {
+    "path": "Subject 1/ADL/16.mp4",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%201/ADL/16.mp4",
+    "local": "Subject1_ADL_16.mp4",
+    "status": 200,
+    "bytes": 3582225,
+    "sha256": "e4e8574c3f9da325757a17f123807ff2ffe31abca4bbbb146a67e5d5f82dad77"
+  },
+  {
+    "path": "Subject 4/ADL/05.mp4",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%204/ADL/05.mp4",
+    "local": "Subject4_ADL_05.mp4",
+    "status": 200,
+    "bytes": 7978111,
+    "sha256": "d7bd6f68df5f0c526ab2a1ada10eac780fd429e7cfb58cc14b673eaf1d682d69"
+  },
+  {
+    "path": "Subject 1/ADL.csv",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%201/ADL.csv",
+    "local": "Subject1_ADL.csv",
+    "status": 200,
+    "bytes": 2598,
+    "sha256": "9899703edb31776c5b837449f1a9c0efd9f1d84369f0b1443b63253abc38e3a2"
+  },
+  {
+    "path": "Subject 2/Fall.csv",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%202/Fall.csv",
+    "local": "Subject2_Fall.csv",
+    "status": 200,
+    "bytes": 3309,
+    "sha256": "b6829461084e99183014ac72447ebd6879038e1093a23054f396de4426fbde60"
+  },
+  {
+    "path": "Subject 3/Fall.csv",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%203/Fall.csv",
+    "local": "Subject3_Fall.csv",
+    "status": 200,
+    "bytes": 2943,
+    "sha256": "02a9a5f5c5f0b178510f6e512cf200b8f8a626ecea5c61a1e713046d73046470"
+  },
+  {
+    "path": "Subject 4/Fall.csv",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%204/Fall.csv",
+    "local": "Subject4_Fall.csv",
+    "status": 200,
+    "bytes": 2399,
+    "sha256": "d8cbc7f404dcf0cf674f18fa4c963a382aa64e7c93f2053194915bd0bdb5b4e5"
+  },
+  {
+    "path": "Subject 4/ADL.csv",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%204/ADL.csv",
+    "local": "Subject4_ADL.csv",
+    "status": 200,
+    "bytes": 3092,
+    "sha256": "9b9a4aef43725126d8f8d9cf04a393ba98dfea9f30554e6391cc0584ea661c2d"
+  },
+  {
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/README.md",
+    "local": "README.md",
+    "status": 200,
+    "bytes": 1878,
+    "sha256": "a44e39594aee1348d6b054397386ed0c534d25caab3c7fbd98d73ad451c14d03"
+  },
+  {
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/LICENSE",
+    "local": "LICENSE",
+    "status": 200,
+    "bytes": 1067,
+    "sha256": "ab15c1660a04e4f064151734856ad5be23af79552e45afe53dba5b857bcb310b"
+  },
+  {
+    "path": "Subject 3/Fall/07.mp4",
+    "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%203/Fall/07.mp4",
+    "local": "Subject3_Fall_07.mp4",
+    "status": 200,
+    "bytes": 9262980,
+    "sha256": "86a20851a1d3bfacbe11d8977972f95a256893b80cd4de66dc7bb224a4dca55b"
+  }
+]

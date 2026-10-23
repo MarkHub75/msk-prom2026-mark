@@ -1,0 +1,11 @@
+ILLUSTRATIVE ONLY, not product measurements
+N=6, cards=7, reference=4
+precision_adjudicated=0.750000
+review_coverage=0.833333
+determinate_coverage=0.666667
+unknown=0.166667, unchecked=0.166667
+truth_bounds=[0.500000,0.833333]
+recall_determinate=0.750000
+timely_response_all_reference=0.250000
+conditional_response_median_seconds=55, n=2/N_reference=4
+All balance and cash-flow assertions passed.

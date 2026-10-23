@@ -1,0 +1,24 @@
+{
+  "access_date": "2026-10-23",
+  "primary_source": "https://data.mendeley.com/datasets/xjmtb22pff/1",
+  "data_license_declared_by_primary_source": "CC BY 4.0",
+  "mirror_revision": "7369ff1830b5f6c00f7d7383eeeaa90704bfc5b5",
+  "review_status": "development/review; not blind test",
+  "observations": "Two same-view CCTV clips; no moving forklift established. Safe Walkway applies to target actor, not all persons. No metric floor calibration. Only selected stills visually reviewed.",
+  "clips": [
+    {
+      "file": "0_te23.mp4",
+      "url": "https://huggingface.co/datasets/Voxel51/Safe_and_Unsafe_Behaviours/resolve/7369ff1830b5f6c00f7d7383eeeaa90704bfc5b5/data/0_te23.mp4",
+      "bytes": 6391494,
+      "sha256": "e2c053d84413775e6becaf0dc2a1dd69cbfbb47a5747704345ede650d1987a7f",
+      "purpose": "positive occupancy candidate; actor already outside at start"
+    },
+    {
+      "file": "4_te1.mp4",
+      "url": "https://huggingface.co/datasets/Voxel51/Safe_and_Unsafe_Behaviours/resolve/7369ff1830b5f6c00f7d7383eeeaa90704bfc5b5/data/4_te1.mp4",
+      "bytes": 13209619,
+      "sha256": "11049609f60c52702b90541e6d50146f5ff56d951c9fbf748cd164accb21226a",
+      "purpose": "negative target on walkway; other worker near machine requires separate allowance"
+    }
+  ]
+}

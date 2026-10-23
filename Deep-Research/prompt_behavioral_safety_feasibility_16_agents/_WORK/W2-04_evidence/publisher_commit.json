@@ -1,0 +1,101 @@
+{
+  "sha": "fb4b7895a92913023ef222fdf0957b8ce2015766",
+  "node_id": "C_kwDOI4LNrdoAKGZiNGI3ODk1YTkyOTEzMDIzZWYyMjJmZGYwOTU3YjhjZTIwMTU3NjY",
+  "commit": {
+    "author": {
+      "name": "ABYZOU",
+      "email": "89259176+keremberke@users.noreply.github.com",
+      "date": "2023-02-27T20:22:46Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2023-02-27T20:22:46Z"
+    },
+    "message": "Update _coverpage.md",
+    "tree": {
+      "sha": "f0237992282089efb2e11b9d6318e46915085d7a",
+      "url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/git/trees/f0237992282089efb2e11b9d6318e46915085d7a"
+    },
+    "url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/git/commits/fb4b7895a92913023ef222fdf0957b8ce2015766",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJj/REWCRBK7hj4Ov3rIwAAGVsIAAMKj9TZQHij2YO+o4bQlT0G\nBLk15vCqJh/GVf99kURTopAL2VghPyOOuE8rAQ3FrIvWHSUb+f7sgzH/C5+2JUub\nwTEeekk/798gho+U2du/+0y140b2soJrGd+puCjKTbHIBk5s12ysfYFWifwQHPWS\nNUBLdLXoFzT3PgfI59C6XnbIk53y5uD2eoNDlIGllDsLSNyQM+vRdGw9bxi6oM1i\nwaPmgcurkRUHomZcqhRUkYrvNdieyUsOmNaakP2cMHHxqPF5StBgJmVfIpnCNTkZ\nnrBsMHIpZ3JHtOx05fHLfxL7NB7Hy90Xq7ns1ULKMh2+Bdx2PMwA1xQYY/LPWz0=\n=RV/g\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree f0237992282089efb2e11b9d6318e46915085d7a\nparent e3eee3b05cf9fe4e1d25e06c40bc3ff8743c75ae\nauthor ABYZOU <89259176+keremberke@users.noreply.github.com> 1677529366 +0300\ncommitter GitHub <noreply@github.com> 1677529366 +0300\n\nUpdate _coverpage.md",
+      "verified_at": "2024-11-10T07:17:33Z"
+    }
+  },
+  "url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/commits/fb4b7895a92913023ef222fdf0957b8ce2015766",
+  "html_url": "https://github.com/keremberke/awesome-yolov8-models/commit/fb4b7895a92913023ef222fdf0957b8ce2015766",
+  "comments_url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/commits/fb4b7895a92913023ef222fdf0957b8ce2015766/comments",
+  "author": {
+    "login": "keremberke",
+    "id": 89259176,
+    "node_id": "MDQ6VXNlcjg5MjU5MTc2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/89259176?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/keremberke",
+    "html_url": "https://github.com/keremberke",
+    "followers_url": "https://api.github.com/users/keremberke/followers",
+    "following_url": "https://api.github.com/users/keremberke/following{/other_user}",
+    "gists_url": "https://api.github.com/users/keremberke/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/keremberke/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/keremberke/subscriptions",
+    "organizations_url": "https://api.github.com/users/keremberke/orgs",
+    "repos_url": "https://api.github.com/users/keremberke/repos",
+    "events_url": "https://api.github.com/users/keremberke/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/keremberke/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "e3eee3b05cf9fe4e1d25e06c40bc3ff8743c75ae",
+      "url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/commits/e3eee3b05cf9fe4e1d25e06c40bc3ff8743c75ae",
+      "html_url": "https://github.com/keremberke/awesome-yolov8-models/commit/e3eee3b05cf9fe4e1d25e06c40bc3ff8743c75ae"
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "additions": 2,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "ffc630450690b3293eb8b082634540318a8ab0b4",
+      "filename": "_coverpage.md",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/keremberke/awesome-yolov8-models/blob/fb4b7895a92913023ef222fdf0957b8ce2015766/_coverpage.md",
+      "raw_url": "https://github.com/keremberke/awesome-yolov8-models/raw/fb4b7895a92913023ef222fdf0957b8ce2015766/_coverpage.md",
+      "contents_url": "https://api.github.com/repos/keremberke/awesome-yolov8-models/contents/_coverpage.md?ref=fb4b7895a92913023ef222fdf0957b8ce2015766",
+      "patch": "@@ -5,5 +5,6 @@\n \n > Easy-to-use finetuned YOLOv8 models.\n \n-[Demo](https://huggingface.co/models?other=awesome-yolov8-models)\n+[Demo](https://huggingface.co/spaces/keremberke/awesome-yolov8-models)\n+[Github](https://github.com/keremberke/awesome-yolov8-models)\n [Get Started](#about-the-project)"
+    }
+  ]
+}

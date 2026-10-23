@@ -1,0 +1,25 @@
+{
+  "artifact": "report_human_case_analytics.md",
+  "words_draft": 12247,
+  "words_report": 13002,
+  "bytes_utf8": 189458,
+  "local_links": 316,
+  "external_links": 103,
+  "ids_by_prefix": {
+    "S": 99,
+    "F": 184,
+    "Q": 13,
+    "K": 2,
+    "E": 11
+  },
+  "tables": 15,
+  "lost_ids": [],
+  "numeric_literals_removed": {},
+  "numeric_literals_added": {
+    "4.0": 1,
+    "4": 1,
+    "95": 1
+  },
+  "errors": [],
+  "scope": "Own-artifact link/identifier/preservation check; no network or product tests."
+}

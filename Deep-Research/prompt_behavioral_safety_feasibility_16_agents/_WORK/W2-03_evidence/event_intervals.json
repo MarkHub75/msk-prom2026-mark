@@ -1,0 +1,36 @@
+[
+  {
+    "artifact_id": "W2-03-F01",
+    "actor_id": "S3",
+    "rule": "observed_transition_then_gross_low_motion",
+    "episode_id": "W2-03-F01-E1",
+    "low_motion_start_frame": 76,
+    "low_motion_end_frame": 268,
+    "start_pts": 2.560033333333333,
+    "last_observed_pts": 8.992066666666666,
+    "max_observed_hold_seconds": 6.432033333333333,
+    "H_eligible_range": "0 < H <= 6.432033; structural duration bound only; not recommended threshold",
+    "eligibility": "conditional on frozen operational low-motion definition and visibility acceptance; manual gross-posture reference only",
+    "right_censored": true,
+    "clear_observed": false,
+    "rearm_observed": false,
+    "onset_boundary_uncertainty_frames": 2
+  },
+  {
+    "artifact_id": "W2-03-F06",
+    "actor_id": "S1",
+    "rule": "observed_transition_then_gross_low_motion",
+    "episode_id": "W2-03-F06-E1",
+    "low_motion_start_frame": 114,
+    "low_motion_end_frame": 180,
+    "start_pts": 3.8893666666666666,
+    "last_observed_pts": 6.0974,
+    "max_observed_hold_seconds": 2.2080333333333337,
+    "H_eligible_range": "0 < H <= 2.208033; structural duration bound only; not recommended threshold",
+    "eligibility": "conditional on frozen operational low-motion definition and visibility acceptance; manual gross-posture reference only",
+    "right_censored": true,
+    "clear_observed": false,
+    "rearm_observed": false,
+    "onset_boundary_uncertainty_frames": 2
+  }
+]

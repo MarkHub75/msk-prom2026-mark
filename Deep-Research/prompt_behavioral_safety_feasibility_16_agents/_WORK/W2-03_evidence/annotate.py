@@ -1,0 +1,23 @@
+﻿from pathlib import Path
+import csv,json
+r=Path('_WORK/W2-03_evidence')
+spec={
+'Subject3_Fall_07':('W2-03-F01','S3',[(0,28,'upright','gross_body_visible','standing; no low-posture event'),(29,59,'descent','gross_body_visible','lowering into seated/sideways position; observable fall-like transition, intent unknown'),(60,75,'settling','gross_body_visible','lying; limbs/body still settling'),(76,268,'low_motion_gross_posture','gross_body_visible_near_lower_left_border','stable lying silhouette; fingers/breathing not resolved; EOF right-censored')]),
+'Subject1_Fall_13':('W2-03-F02','S1',[(0,7,'upright','border_partial','standing; initial head touches top edge'),(8,38,'descent','gross_body_visible','lowering/backward transition'),(39,127,'low_posture_unknown_motion','head_lower_border_clipped','head/torso become cropped by bottom edge; cannot validate whole-body low motion; no reacquisition')]),
+'Subject1_ADL_16':('W2-03-F03','S1',[(0,7,'seated','gross_body_visible','starts seated'),(8,35,'bend_reach','gross_body_visible','leans forward and reaches to floor from chair'),(36,47,'low_bent','gross_body_visible','low head; seated supported posture'),(48,69,'return_upright_seated','gross_body_visible','returns to seated upright'),(70,103,'seated','gross_body_visible','no fall event; right-censored seated recording')]),
+'Subject4_ADL_05':('W2-03-F04','S4',[(0,14,'walk','head_top_border_partial','walk into doorway view'),(15,47,'walk_stand','gross_body_visible','standing/walking'),(48,79,'bend_to_floor','gross_body_visible','deliberate supported bend; hands to floor'),(80,118,'supported_plank','head_hands_near_bottom_border','exercise support; substantial posture change remains'),(119,153,'pushup_down','head_torso_bottom_border_partial','low torso goes beyond lower crop; visibility limited'),(154,172,'pushup_up','head_hands_near_bottom_border','torso rises'),(173,192,'pushup_down','head_torso_bottom_border_partial','second low phase'),(193,219,'pushup_up','head_hands_near_bottom_border','torso rises again; no fall positive')]),
+'negative_S3_A08':('W2-03-F05','S3',[(0,8,'seated_initial_occupancy','gross_body_visible','no standing prehistory'),(9,55,'controlled_recline','gross_body_visible','supported reclining; source ADL/intentional lying'),(56,145,'lying_small_adjustments','gross_body_visible','lying after controlled transition; hand/head adjustments; no independent medical state label')]),
+'positive_S1_F11':('W2-03-F06','S1',[(0,23,'upright','gross_body_visible','standing'),(24,69,'descent_settle','gross_body_visible','lowers and reclines'),(70,92,'lying_bent_legs','gross_body_visible','lying with knees bent; do not credit full remaining clip as still'),(93,113,'leg_straightening_settle','gross_body_visible','large leg posture change then settle'),(114,180,'low_motion_gross_posture','gross_body_visible','conservative stable gross silhouette interval; EOF right-censored')])}
+rows=[]; events=[]
+for stem,(fid,actor,phases) in spec.items():
+ pts=list(csv.DictReader((r/(stem+'_pts.csv')).open()))
+ for a,b,phase,vis,note in phases:
+  rows.append(dict(artifact_id=fid,clip=stem,actor_id=actor,frame_start=a,frame_end_inclusive=b,pts_start_seconds=pts[a]['seconds'],pts_end_seconds=pts[b]['seconds'],phase=phase,visibility=vis,annotation_origin='W2-03 own visual all-frame sheet review; one annotator; not adjudicated',note=note))
+ assert phases[0][0]==0 and phases[-1][1]==len(pts)-1 and all(x[1]+1==y[0] for x,y in zip(phases,phases[1:]))
+ if stem in ['Subject3_Fall_07','positive_S1_F11']:
+  a,b=phases[-1][:2]; start=float(pts[a]['seconds']);end=float(pts[b]['seconds']);events.append(dict(artifact_id=fid,actor_id=actor,rule='observed_transition_then_gross_low_motion',episode_id=fid+'-E1',low_motion_start_frame=a,low_motion_end_frame=b,start_pts=start,last_observed_pts=end,max_observed_hold_seconds=end-start,H_eligible_range=f'0 < H <= {end-start:.6f}; structural duration bound only; not recommended threshold',eligibility='conditional on frozen operational low-motion definition and visibility acceptance; manual gross-posture reference only',right_censored=True,clear_observed=False,rearm_observed=False,onset_boundary_uncertainty_frames=2))
+with (r/'own_phase_visibility.csv').open('w',encoding='utf8',newline='') as f:
+ w=csv.DictWriter(f,fieldnames=rows[0]);w.writeheader();w.writerows(rows)
+(r/'event_intervals.json').write_text(json.dumps(events,indent=2),encoding='utf8')
+print(json.dumps(events,indent=2))
+z=json.loads((r/'zenodo_record.json').read_text()); print('ZENODO',z.get('metadata',{}).get('license'),z.get('metadata',{}).get('publication_date'),z.get('metadata',{}).get('related_identifiers'))

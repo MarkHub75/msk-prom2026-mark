@@ -1,0 +1,54 @@
+[
+  {
+    "author_record": {
+      "filename": "0_te23.mp4",
+      "id": "a5f9d29f-535e-488f-b55f-8b870974ac39",
+      "folder_id": "4550d475-bdba-45a3-8494-6eab10ad5e3e",
+      "content_details": {
+        "id": "836550bb-6b83-46b3-a125-b2956c60035b",
+        "sha256_hash": "e2c053d84413775e6becaf0dc2a1dd69cbfbb47a5747704345ede650d1987a7f",
+        "content_type": "video/mp4",
+        "size": 6391494,
+        "created_date": "2024-06-09T20:18:23.159Z",
+        "download_url": "https://data.mendeley.com/public-files/datasets/xjmtb22pff/files/a5f9d29f-535e-488f-b55f-8b870974ac39/file_downloaded",
+        "view_url": "https://data.mendeley.com/public-files/datasets/xjmtb22pff/files/a5f9d29f-535e-488f-b55f-8b870974ac39/file_viewed",
+        "download_expiry_time": "2126-10-23T15:08:51.537131464Z"
+      },
+      "metrics": {
+        "downloads": 0,
+        "previews": 0
+      },
+      "size": 6391494,
+      "status": "COMPLETED"
+    },
+    "local_sha256": "e2c053d84413775e6becaf0dc2a1dd69cbfbb47a5747704345ede650d1987a7f",
+    "local_bytes": 6391494,
+    "sha256_match": true
+  },
+  {
+    "author_record": {
+      "filename": "4_te1.mp4",
+      "id": "07d51de0-0f53-4e81-930b-2f12897ee191",
+      "folder_id": "5599660e-373c-4010-a348-13c67c2eaad3",
+      "content_details": {
+        "id": "f81b40d7-5d81-417a-b7af-c5d7e80f1efa",
+        "sha256_hash": "11049609f60c52702b90541e6d50146f5ff56d951c9fbf748cd164accb21226a",
+        "content_type": "video/mp4",
+        "size": 13209619,
+        "created_date": "2024-06-09T20:26:40.943Z",
+        "download_url": "https://data.mendeley.com/public-files/datasets/xjmtb22pff/files/07d51de0-0f53-4e81-930b-2f12897ee191/file_downloaded",
+        "view_url": "https://data.mendeley.com/public-files/datasets/xjmtb22pff/files/07d51de0-0f53-4e81-930b-2f12897ee191/file_viewed",
+        "download_expiry_time": "2126-10-23T15:08:51.540613884Z"
+      },
+      "metrics": {
+        "downloads": 0,
+        "previews": 0
+      },
+      "size": 13209619,
+      "status": "COMPLETED"
+    },
+    "local_sha256": "11049609f60c52702b90541e6d50146f5ff56d951c9fbf748cd164accb21226a",
+    "local_bytes": 13209619,
+    "sha256_match": true
+  }
+]

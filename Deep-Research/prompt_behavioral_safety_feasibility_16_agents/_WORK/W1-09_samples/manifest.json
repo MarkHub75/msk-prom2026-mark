@@ -1,0 +1,41 @@
+{
+  "access_date": "2026-10-23",
+  "commit": "5abac7693229900cf80f722e878fbb119211fc1c",
+  "purpose": "internal research and decode QA; public presentation rights not established",
+  "samples": [
+    {
+      "local": "positive_S1_F11.mp4",
+      "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%201/Fall/11.mp4",
+      "bytes": 5961144,
+      "sha256": "c25e4fc9b669cb588b6145d2cfd94f2d403083293c08bc85fa863111372bfea7",
+      "width": 1280,
+      "height": 720,
+      "average_rate": "905000/30487",
+      "base_rate": "60",
+      "time_base": "1/30000",
+      "stream_duration_units": 182922,
+      "decoded_frames": 181,
+      "first_pts_seconds": 0.03333333333333333,
+      "last_pts_seconds": 6.0974,
+      "minimum_step": 0.03173333333333339,
+      "maximum_step": 0.064
+    },
+    {
+      "local": "negative_S3_A08.mp4",
+      "url": "https://raw.githubusercontent.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos/5abac7693229900cf80f722e878fbb119211fc1c/Subject%203/ADL/08.mp4",
+      "bytes": 5172948,
+      "sha256": "b383bb83a22b286cfc65fdd934137ee8b29e84aef7be0b540271d7c69d10fa8b",
+      "width": 1280,
+      "height": 720,
+      "average_rate": "876000/29377",
+      "base_rate": "60",
+      "time_base": "1/30000",
+      "stream_duration_units": 146885,
+      "decoded_frames": 146,
+      "first_pts_seconds": 0.0,
+      "last_pts_seconds": 4.864066666666667,
+      "minimum_step": 0.03160000000000007,
+      "maximum_step": 0.04800000000000004
+    }
+  ]
+}

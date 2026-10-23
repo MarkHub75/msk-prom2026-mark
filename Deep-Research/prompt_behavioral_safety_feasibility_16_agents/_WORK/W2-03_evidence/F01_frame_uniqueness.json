@@ -1,0 +1,7 @@
+{
+  "scope": "decoded RGB hashes; uniqueness is not proof of capture authenticity",
+  "frames": 269,
+  "unique_entire_clip": 269,
+  "tail_frames_76_268": 193,
+  "unique_tail": 193
+}
