@@ -278,3 +278,160 @@ on the available artifact set, with **zero artifact-related skips**:
 No behavior-engine change was needed for these captured observations. The audit
 adds acceptance checks and guidance, not a new violation type, relaxed ownership
 or a claimed production quality result.
+
+## Temporal quality sprint: audited source intake (2026-10-23/24)
+
+The complete `/workspace/ML_24H_PLAYBOOK.md` was read before this intake. Existing
+research was inspected read-only. No GPU, model inference, TPU request, backend
+change, external event type change or final-test evaluation was performed.
+
+### Available source references and rights
+
+| Source | Primary-source audit | Current local use |
+|---|---|---|
+| [URFall](https://fenix.ur.edu.pl/~mkepski/ds/uf.html) | Author RGB/depth sequences, synchronization CSV and depth-frame posture labels; CC BY-NC-SA 4.0 with explicit non-commercial academic-use restriction | 20 deterministic development/validation clips and source reference; no redistribution/public-demo/commercial clearance claimed |
+| [Mendeley Safe/Unsafe v1](https://data.mendeley.com/datasets/xjmtb22pff/1) | Dataset CC BY 4.0; clip-level classes, two IP cameras; company/employee permissions are author claims | Eight existing research clips copied without modifying archive; all already-viewed development |
+| [OmniFall canonical repository](https://huggingface.co/datasets/simplexsigil2/omnifall) | Dense temporal CSV annotations, subject/view fields; [label guidelines](https://huggingface.co/datasets/simplexsigil2/omnifall/blob/83572a37b9e3081df8c06a56874b1d1f2a19386c/LABELS.md) state VIA relabeling; original video rights remain separate | Guidelines/structure/class-map metadata only, heldout media/labels/predictions not acquired |
+
+OmniFall's requested `j-c1/omnifall` card points to `simplexsigil2/omnifall`.
+Canonical revision is `83572a37b9e3081df8c06a56874b1d1f2a19386c`. Its card header
+says CC BY-NC 4.0 while body says annotations/splits CC BY-NC-SA 4.0: retain that
+conflict and restricted noncommercial/share-alike scope, not blanket commercial
+permission. Staged source videos must be obtained from their original owners;
+the synthetic tar alone is 9,716,480,000 bytes and was not fetched. Public CSV
+labels exist, but no bounded original-video heldout subset has yet been obtained.
+A primary CAUCAFall page was accessible; attempted Mendeley file APIs returned
+403/404. No contact, authentication bypass or giant archive download was used.
+URFall is not one of OmniFall's eight staged sources.
+
+### Freeze before predictions and CPU preparation
+
+The original first-four fall/ADL selection was extended **explicitly before model
+outputs** to first-ten fall + first-ten ADL. The previous selection is preserved
+under `selection-history/`. Selection is source-ID-prefix based, not selected for
+model success. All 20 sequences stay in one protected component:
+`urfall-all-unknown-subjects-shared-cam0`. `cam0` is a front-view role; the fall
+laboratory and ADL home scenes differ, and physical camera/actor identity is not
+independently established. No claim of actor-, camera- or source-independent
+validation/test follows from splitting these clips. `split=validation` means
+this is developmental data, never sealed final test.
+
+**Intake:** 26,348,304 bytes of native MP4; 27,445,711 total downloaded bytes
+including CSV and metadata, below the approved 100 MB intake. The 20 MP4s contain
+3,274 frames / 109.133333 seconds, not 20 independent people or 20 true falls.
+
+Important visual discovery: linked native MP4s are **640×240 DEPTH|RGB montages**.
+The left 320×240 panel is depth; only the right 320×240 RGB panel was cropped on
+CPU for model input. Derived RGB MP4 frame counts and decoded presentation PTS
+were checked against the original preview. Hashes, crop `[320,0,320,240]`, H264
+CRF18 transformation, and native paths remain recorded. These low-resolution,
+compressed previews are not the full-resolution RGB PNG archives; target quality
+claims must disclose the source representation.
+
+Frame CSVs preserve both exact decoded video PTS and independent author
+synchronization timestamps joined by **1-based source frame ID**. Their maximum
+observed disagreement is 73.667 ms. Use the explicit mapping, not hardcoded
+frame/24 or silently interchangeable clocks. Source label holes remain unknown:
+59 frames / 1.966666 seconds total, about 1.802% of this selected duration.
+
+### What the labels establish, and what they do not
+
+URFall author labels are `-1` not lying, `0` temporary transition, `1` lying.
+They are supplied independently of our model outputs; the page does not detail
+who annotated them or establish a second human adjudication protocol. Import
+preserves source states and unknowns before any event-policy crosswalk.
+
+- The ten fall clips each contain one author `0` transition followed by `1`.
+  All ten falling windows are exactly one second in these source labels; they
+  must **not** be treated as validated exact visual onset. Candidate onset support
+  spans the source transition window, not its first-frame midpoint or clip start.
+- The `1` tail in every one of the ten fall clips is shorter than the current
+  three-second prolonged-lying rule. They are right-censored, insufficient
+  followup for a fully observable three-second-positive episode. Do not pad,
+  loop, repeat frames, or count these as ten valid prolonged-lying positives.
+- **ADL-10 is a crucial exception:** author CSV also has `0` then `1`, but blinded
+  RGB inspection shows controlled sitting then lying **on a bed**, not an
+  accidental fall or lying on the floor. Its 3.367-second lying tail is not an
+  industrial floor-violation positive. Neither the ADL folder nor a literal
+  source `0/1` alone is an exhaustive violation label.
+- ADL-01/02 show crouching; ADL-03 squat/recovery; ADL-04/05/06 bending/picking up;
+  ADL-07/08 sitting on a chair; ADL-09 sitting on a bed; ADL-10 controlled sit/lie.
+  These are useful hard-negative **review candidates**, not newly fabricated
+  exact per-frame action annotations.
+- Blind review used RGB contact sheets at every tenth frame plus final frame,
+  without model predictions. Its coarse action/onset supports and visibility
+  caveats are saved separately. The reviewer is also a behavior-model developer;
+  this is not a second independent human review or an untouched final test.
+  Body truncation/occlusion and insufficient torso/head observability are kept
+  visible instead of being converted into guaranteed detector observations.
+
+The offline `urfall-reference.json` exports native posture intervals, source
+annotation hashes, actor-local placeholder, unknown actor group, camera/scene
+provenance, onset-support intervals and left/right censoring. Its 22
+`episode_candidates` are **not 22 accepted violation episodes**: 11 native
+transition windows include ADL-10, and 11 lying-state intervals include the same
+bed example and short followup. Candidate scoring status explicitly requires RGB
+semantic/visibility review and an agreed event policy. Exact onset latency is
+not claimed. `blind-review.json` separately records 10 visually staged falls and
+hard-negative actions, with coarse bounds rather than invented exact onsets.
+
+### Existing industrial clips and missing directions
+
+All eight Mendeley clips total 155,778,705 bytes. Their exact research hashes
+were rechecked; raw copies live outside Git. Source train/test names are retained
+as provenance only. The saved research already found inferred camera views in
+both source partitions. Conservatively keep the **entire factory component**
+together; unknown camera, actor and session IDs are not invented from filenames.
+Clip-level safe/unsafe walkway labels do not supply actor tracks, a zone polygon,
+site policy, event onset, separate run labels or a reviewed safe-hour denominator.
+The full unreviewed episode scope is explicitly unknown; metrics are N/A.
+
+Production **Running and Zone intrusion are NOT_IMPLEMENTED**. A stored zone ID
+or a floor polygon for lying does not implement intrusion. OmniFall `walk`
+explicitly includes jogging/running, so its label cannot provide independent
+run-vs-walk GT. No camera polygon/rule provenance and blind actor/entry timestamps
+were available for a defensible running/zone experiment; none was invented.
+Their precision/recall are `null`/N/A, not zero or a measured baseline. External
+JSON/event schemas remain frozen.
+
+### Reproducible commands and handoff
+
+```bash
+python -m ml.quality.temporal.acquire \
+  --root /workspace/datasets/quality/temporal --count 10 --max-bytes 100000000
+# Prefix expansion requires --extend-selection; it is never silent.
+python -m ml.quality.temporal.urfall \
+  --root /workspace/datasets/quality/temporal --contacts
+python -m ml.quality.temporal.audit reference \
+  --input /workspace/datasets/quality/temporal/urfall-reference.json \
+  --output /workspace/datasets/quality/temporal/reference-audit.json --verify-media
+python -m ml.quality.temporal.audit mendeley \
+  --source Deep-Research/datasets/_WORK/MATERIALS/W2-10 \
+  --root /workspace/datasets/quality/temporal --copy-media
+python -m unittest discover -s tests -p 'test_temporal_quality*.py' -v
+```
+
+API: `acquire(root,count,max_bytes,extend_selection=False)` freezes source IDs;
+`urfall.prepare(root)` returns and writes the reference; `audit_reference(ref,
+verify_media=False)` checks exhaustive known/unknown coverage, source groups and
+exact-copy split isolation without looking at predictions. Mendeley intake never
+writes the historical source archive. No source videos or annotations are added
+to Git.
+
+Artifacts ready for the orchestrator's E00 CPU/GPU inference, not yet quality
+scores:
+
+- `processed/urfall/*-cam0-rgb.mp4` and `*-frames.csv`;
+- `selection.json`, `selection-history/`, `download-ledger.json`;
+- `urfall-reference.json`, `reference-audit.json`, `blind-review.json`;
+- `mendeley-intake.json`, `source-audit.json`, and private RGB audit sheets.
+
+Twelve focused reference/coverage/leakage/download-bound tests pass. The actual
+20-video reference audit passes with one group and explicit unknown duration.
+Existing `ml.pipeline.evaluation` expects fully observed exact episode intervals
+and cannot itself handle these coarse onset bounds, censored followup, semantic
+bed exception or unreviewed actor coverage. Do not feed raw imported candidates
+to it and call the result independent event precision/recall. The orchestrator
+must freeze the policy crosswalk and review eligibility before baseline scoring;
+source-audit counts and unit tests are not ML accuracy. Final independent test,
+public-demo rights, representative safe hours and double annotation remain open.
