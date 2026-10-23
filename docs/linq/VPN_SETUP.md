@@ -49,8 +49,7 @@ TLS-рукопожатие успешно завершается, затем с�
 Предыдущее содержимое .env сохранено внутри secrets/linq/.env.before-codex-2026-10-24.
 Пароли, закрытые ключи и сертификаты в эти файлы не включены.
 
-Файлы запуска:
-
-`C:\Users\user\Documents\Codex\2026-10-24\computer-use-openvpn-cloud-code-cli\outputs`
+Файлы запуска: `tools/linq/tunnel/` (Connect-LinQ.cmd, Stop-LinQ.cmd, LinQ.ps1, README.md).
+Туннель пробрасывает также RabbitMQ (API TPU): `127.0.0.1:5672` и `:15672`.
 
 Коммиты в рамках диагностики не создавались.

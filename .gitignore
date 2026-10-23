@@ -1,4 +1,4 @@
-# Local Git metadata and generated caches
+﻿# Local Git metadata and generated caches
 **/.git/
 __pycache__/
 *.py[cod]
@@ -23,3 +23,18 @@ Thumbs.db
 *.pfx
 
 secrets/
+
+# LinQ smoke: large or vendor artifacts never go to git
+vendor/*
+!vendor/linq/
+vendor/linq/*
+!vendor/linq/README.md
+models/*
+!models/README.md
+*.pt
+*.onnx
+*.qm
+*.tpu
+data/videos/*
+!data/videos/README.md
+results/**/raw/
