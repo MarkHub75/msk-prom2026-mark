@@ -59,9 +59,18 @@ class RequestJournal:
         self.root.mkdir(parents=True,exist_ok=True,mode=0o700)
         directory.mkdir(mode=0o700)
         fsync_directory(self.root)
+        # Store only explicitly selected numeric input arrays, never headers/auth.
+        temporary=directory/('.inputs.'+uuid4().hex+'.tmp')
+        try:
+            fd=os.open(temporary,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+            with os.fdopen(fd,'wb') as file:
+                np.savez(file,**inputs);file.flush();os.fsync(file.fileno())
+            os.replace(temporary,directory/'inputs.npz');fsync_directory(directory)
+        finally:temporary.unlink(missing_ok=True)
         record={'schema_version':'1.0','request_id':request_id,'state':'NOT_SUBMITTED',
                 'purpose':purpose,'program_uri_sha256':program_uri_sha256,'reply_queue':reply_queue,
-                'inputs':tensor_metadata(inputs),'output_names':list(output_names),
+                'inputs':tensor_metadata(inputs),'input_artifact':{'file':'inputs.npz','sha256':_hash(directory/'inputs.npz')},
+                'output_names':list(output_names),
                 'capture_dir':str(Path(capture_dir).resolve()) if capture_dir is not None else None,
                 'capture_id':capture_id,'created_at':datetime.now(timezone.utc).isoformat()}
         atomic_json(directory/'request.json',record)

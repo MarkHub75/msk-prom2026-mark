@@ -152,6 +152,8 @@ class AmqpTransportTests(unittest.TestCase):
         params=self.parameters[0]
         self.assertEqual((params.host,params.port),('127.0.0.1',15672))
         self.assertEqual((params.connection_attempts,params.retry_delay),(1,0))
+        self.assertEqual(params.heartbeat,5)
+        self.assertFalse(hasattr(self.original,'heartbeat'))
         self.assertTrue(0<params.socket_timeout<=1)
         self.assertTrue(0<params.stack_timeout<=1)
         self.assertTrue(0<params.blocked_connection_timeout<=1)
