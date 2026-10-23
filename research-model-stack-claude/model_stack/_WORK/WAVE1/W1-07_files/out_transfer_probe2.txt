@@ -1,0 +1,30 @@
+Overriding model.yaml nc=80 with nc=4
+Transferred 493/499 items from pretrained weights
+A no-overlap: ['Transferred 493/499 items from pretrained weights']
+Overriding model.yaml nc=80 with nc=1
+Remapped 1/1 cls head rows from pretrained weights by class name
+Transferred 499/499 items from pretrained weights
+B nc=1 person: ['Remapped 1/1 cls head rows from pretrained weights by class name', 'Transferred 499/499 items from pretrained weights']
+Overriding model.yaml nc=80 with nc=4
+Transferred 493/499 items from pretrained weights
+C placeholder tgt names: ['Transferred 493/499 items from pretrained weights']
+Overriding model.yaml nc=80 with nc=4
+Overriding model.yaml nc=80 with nc=6
+Remapped 3/6 cls head rows from pretrained weights by class name
+Transferred 499/499 items from pretrained weights
+D nc4->nc6 3 overlaps: ['Remapped 3/6 cls head rows from pretrained weights by class name', 'Transferred 499/499 items from pretrained weights']
+  D row checks: tgt[0]==own[3](vest): True tgt[2]==own[0](person): True tgt[4]==own[1](helmet): True
+Overriding model.yaml nc=80 with nc=4
+Remapped 4/4 cls head rows from pretrained weights by class name
+Transferred 499/499 items from pretrained weights
+E same nc, reordered: ['Remapped 4/4 cls head rows from pretrained weights by class name', 'Transferred 499/499 items from pretrained weights']
+  E: tgt[1]==own[0]: True tgt[3]==own[1]: True
+Overriding model.yaml nc=80 with nc=4
+Transferred 493/499 items from pretrained weights
+F source placeholder names: ['Transferred 493/499 items from pretrained weights']
+Overriding model.yaml nc=80 with nc=4
+G freeze=10: frozen params 1115760/2590620 (43.1%)
+G freeze=11: frozen params 1365488/2590620 (52.7%)
+G freeze=[0, 1, 2]: frozen params 11792/2590620 (0.5%)
+G freeze=['23.cv2']: frozen params 381904/2590620 (14.7%)
+n layers: 24 last layer type: Detect layer10: C2PSA layer9: SPPF

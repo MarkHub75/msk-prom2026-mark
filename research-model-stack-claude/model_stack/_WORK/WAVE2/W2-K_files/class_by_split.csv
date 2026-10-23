@@ -1,0 +1,12 @@
+class,id,train_boxes,val_boxes,test_boxes,train_images,val_images,test_images
+helmet,0,1341,201,192,830,107,110
+gloves,1,1146,136,163,562,68,75
+vest,2,1269,171,178,828,109,111
+boots,3,1235,151,211,530,64,75
+goggles,4,419,47,52,385,44,51
+none,5,651,81,65,347,43,35
+Person,6,1770,239,236,1067,139,133
+no_helmet,7,400,45,40,232,27,24
+no_goggle,8,337,41,33,216,25,24
+no_gloves,9,442,56,58,190,23,23
+no_boots,10,88,4,23,28,2,6

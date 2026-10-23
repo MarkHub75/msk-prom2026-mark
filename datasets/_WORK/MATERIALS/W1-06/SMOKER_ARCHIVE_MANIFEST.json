@@ -1,0 +1,6746 @@
+[
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0004.jpg",
+    "size": 57529,
+    "crc": 2939710700,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0014.jpg",
+    "size": 62605,
+    "crc": 3465930085,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0018.jpg",
+    "size": 70018,
+    "crc": 3269952107,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0026.jpg",
+    "size": 67574,
+    "crc": 3090546617,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0032.jpg",
+    "size": 61634,
+    "crc": 1302118778,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0036.jpg",
+    "size": 66747,
+    "crc": 716909291,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0041.jpg",
+    "size": 69734,
+    "crc": 3772576169,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0049.jpg",
+    "size": 66698,
+    "crc": 517415664,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0053.jpg",
+    "size": 61041,
+    "crc": 2745280931,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0058.jpg",
+    "size": 76714,
+    "crc": 814192441,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0062.jpg",
+    "size": 42798,
+    "crc": 1635904093,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0069.jpg",
+    "size": 62525,
+    "crc": 2520066531,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0075.jpg",
+    "size": 64339,
+    "crc": 4014202601,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0081.jpg",
+    "size": 82966,
+    "crc": 3018317144,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0085.jpg",
+    "size": 79777,
+    "crc": 4154508215,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0091.jpg",
+    "size": 62013,
+    "crc": 3006195039,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0095.jpg",
+    "size": 69490,
+    "crc": 1089165040,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0104.jpg",
+    "size": 47597,
+    "crc": 499400874,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0107.jpg",
+    "size": 47832,
+    "crc": 3137821469,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0116.jpg",
+    "size": 60245,
+    "crc": 363210135,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0120.jpg",
+    "size": 66061,
+    "crc": 126865293,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0124.jpg",
+    "size": 59646,
+    "crc": 4022881092,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0130.jpg",
+    "size": 77200,
+    "crc": 2686507067,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0133.jpg",
+    "size": 69663,
+    "crc": 4011026906,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0140.jpg",
+    "size": 69223,
+    "crc": 1261239996,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0147.jpg",
+    "size": 87217,
+    "crc": 3041212211,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0153.jpg",
+    "size": 68473,
+    "crc": 1708001545,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0159.jpg",
+    "size": 55883,
+    "crc": 2135852663,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0163.jpg",
+    "size": 65162,
+    "crc": 3349341317,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0167.jpg",
+    "size": 75072,
+    "crc": 3396671973,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0172.jpg",
+    "size": 68602,
+    "crc": 1639261535,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0180.jpg",
+    "size": 62531,
+    "crc": 2647533606,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0185.jpg",
+    "size": 58432,
+    "crc": 4012692344,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0190.jpg",
+    "size": 69743,
+    "crc": 2633543553,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0194.jpg",
+    "size": 52578,
+    "crc": 261448584,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0202.jpg",
+    "size": 75489,
+    "crc": 1624689441,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0207.jpg",
+    "size": 58505,
+    "crc": 1558359078,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0212.jpg",
+    "size": 70672,
+    "crc": 4272295834,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0216.jpg",
+    "size": 80939,
+    "crc": 1112722671,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0223.jpg",
+    "size": 88806,
+    "crc": 2154959310,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0228.jpg",
+    "size": 53372,
+    "crc": 847303864,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0233.jpg",
+    "size": 64290,
+    "crc": 2228434018,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0239.jpg",
+    "size": 75604,
+    "crc": 1224086081,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0246.jpg",
+    "size": 66417,
+    "crc": 644449670,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0251.jpg",
+    "size": 75675,
+    "crc": 1176979787,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0255.jpg",
+    "size": 61805,
+    "crc": 3736069112,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0259.jpg",
+    "size": 74306,
+    "crc": 1336014374,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0268.jpg",
+    "size": 59106,
+    "crc": 1527294599,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0275.jpg",
+    "size": 59924,
+    "crc": 399963879,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0281.jpg",
+    "size": 66309,
+    "crc": 833511441,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0284.jpg",
+    "size": 79865,
+    "crc": 1707176794,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0289.jpg",
+    "size": 71892,
+    "crc": 2969840509,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0294.jpg",
+    "size": 83341,
+    "crc": 1594311958,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0301.jpg",
+    "size": 74596,
+    "crc": 3131972185,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0306.jpg",
+    "size": 59441,
+    "crc": 3927380370,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0310.jpg",
+    "size": 64334,
+    "crc": 3830168591,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0315.jpg",
+    "size": 66367,
+    "crc": 3205989539,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0321.jpg",
+    "size": 72058,
+    "crc": 3459606375,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0327.jpg",
+    "size": 67586,
+    "crc": 2251483768,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0329.jpg",
+    "size": 63694,
+    "crc": 760196187,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0333.jpg",
+    "size": 74002,
+    "crc": 4247096385,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0336.jpg",
+    "size": 71751,
+    "crc": 3543107181,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0344.jpg",
+    "size": 73478,
+    "crc": 367182836,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0351.jpg",
+    "size": 65747,
+    "crc": 83819082,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0354.jpg",
+    "size": 71342,
+    "crc": 3936747433,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0357.jpg",
+    "size": 56203,
+    "crc": 1000939471,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0368.jpg",
+    "size": 57638,
+    "crc": 2393332350,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0373.jpg",
+    "size": 57701,
+    "crc": 158261986,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0378.jpg",
+    "size": 70689,
+    "crc": 1441842491,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0382.jpg",
+    "size": 72816,
+    "crc": 2815749917,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0388.jpg",
+    "size": 75265,
+    "crc": 2964608362,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0393.jpg",
+    "size": 81229,
+    "crc": 1520943725,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0399.jpg",
+    "size": 73904,
+    "crc": 3381282795,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0406.jpg",
+    "size": 72594,
+    "crc": 3165928786,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0410.jpg",
+    "size": 52559,
+    "crc": 2656136102,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0414.jpg",
+    "size": 70631,
+    "crc": 2069140951,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0422.jpg",
+    "size": 74232,
+    "crc": 2227902527,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0426.jpg",
+    "size": 76201,
+    "crc": 2347264547,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0433.jpg",
+    "size": 61150,
+    "crc": 1362658777,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0437.jpg",
+    "size": 67292,
+    "crc": 846045426,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0442.jpg",
+    "size": 61210,
+    "crc": 409396606,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0446.jpg",
+    "size": 68383,
+    "crc": 735172363,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0455.jpg",
+    "size": 59146,
+    "crc": 1611949359,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0460.jpg",
+    "size": 74275,
+    "crc": 390211777,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0465.jpg",
+    "size": 64433,
+    "crc": 576861057,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0469.jpg",
+    "size": 69852,
+    "crc": 3072351078,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0478.jpg",
+    "size": 60472,
+    "crc": 1372538743,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0482.jpg",
+    "size": 71215,
+    "crc": 3275028120,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0487.jpg",
+    "size": 79421,
+    "crc": 4127243068,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0493.jpg",
+    "size": 73044,
+    "crc": 2727816879,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0500.jpg",
+    "size": 75333,
+    "crc": 1372995066,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0504.jpg",
+    "size": 81297,
+    "crc": 163117224,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0509.jpg",
+    "size": 63735,
+    "crc": 4217152996,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0514.jpg",
+    "size": 69620,
+    "crc": 4043503733,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0515.jpg",
+    "size": 55949,
+    "crc": 3406876953,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0518.jpg",
+    "size": 49854,
+    "crc": 3886377911,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0519.jpg",
+    "size": 76440,
+    "crc": 4225018327,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0521.jpg",
+    "size": 66020,
+    "crc": 1050113011,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0522.jpg",
+    "size": 71648,
+    "crc": 2268581058,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0525.jpg",
+    "size": 79225,
+    "crc": 3099036639,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0529.jpg",
+    "size": 55215,
+    "crc": 2337922482,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0530.jpg",
+    "size": 86217,
+    "crc": 3207610439,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0531.jpg",
+    "size": 72543,
+    "crc": 484476427,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0532.jpg",
+    "size": 68565,
+    "crc": 4053534184,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0533.jpg",
+    "size": 85279,
+    "crc": 3293255469,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0534.jpg",
+    "size": 54441,
+    "crc": 1995480710,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0535.jpg",
+    "size": 79470,
+    "crc": 49736265,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0538.jpg",
+    "size": 62679,
+    "crc": 3815706742,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0543.jpg",
+    "size": 88880,
+    "crc": 2001659468,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0549.jpg",
+    "size": 101118,
+    "crc": 809017181,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0553.jpg",
+    "size": 69429,
+    "crc": 2364261523,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/notsmoking_0558.jpg",
+    "size": 71275,
+    "crc": 1519425122,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0020.jpg",
+    "size": 71541,
+    "crc": 2850507909,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0024.jpg",
+    "size": 73260,
+    "crc": 3794552183,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0030.jpg",
+    "size": 72315,
+    "crc": 4014688203,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0033.jpg",
+    "size": 68301,
+    "crc": 772735027,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0045.jpg",
+    "size": 79695,
+    "crc": 1116565883,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0056.jpg",
+    "size": 79390,
+    "crc": 3908239549,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0060.jpg",
+    "size": 57804,
+    "crc": 2539768669,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0061.jpg",
+    "size": 61294,
+    "crc": 702254905,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0063.jpg",
+    "size": 77536,
+    "crc": 282005954,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0067.jpg",
+    "size": 64582,
+    "crc": 547970839,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0068.jpg",
+    "size": 70490,
+    "crc": 3869418614,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0069.jpg",
+    "size": 66129,
+    "crc": 1901265850,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0070.jpg",
+    "size": 42829,
+    "crc": 1415198696,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0071.jpg",
+    "size": 76834,
+    "crc": 2401611498,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0074.jpg",
+    "size": 116225,
+    "crc": 361195376,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0083.jpg",
+    "size": 115691,
+    "crc": 29666696,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0089.jpg",
+    "size": 85416,
+    "crc": 982231754,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0096.jpg",
+    "size": 96922,
+    "crc": 332411725,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0100.jpg",
+    "size": 79273,
+    "crc": 1660048945,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0111.jpg",
+    "size": 77335,
+    "crc": 1908597098,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0122.jpg",
+    "size": 70737,
+    "crc": 922782255,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0132.jpg",
+    "size": 75735,
+    "crc": 3325636446,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0144.jpg",
+    "size": 73593,
+    "crc": 4263828743,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0154.jpg",
+    "size": 73155,
+    "crc": 779198581,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0160.jpg",
+    "size": 82500,
+    "crc": 4068149347,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0172.jpg",
+    "size": 89857,
+    "crc": 1285046290,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0177.jpg",
+    "size": 86525,
+    "crc": 3991974596,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0182.jpg",
+    "size": 82607,
+    "crc": 1003028790,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0189.jpg",
+    "size": 83012,
+    "crc": 3713378048,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0192.jpg",
+    "size": 67156,
+    "crc": 1074488872,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0196.jpg",
+    "size": 72146,
+    "crc": 3673768738,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0205.jpg",
+    "size": 62750,
+    "crc": 1850886781,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0210.jpg",
+    "size": 84535,
+    "crc": 638824646,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0217.jpg",
+    "size": 65129,
+    "crc": 3074934045,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0218.jpg",
+    "size": 89902,
+    "crc": 2644144080,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0222.jpg",
+    "size": 93967,
+    "crc": 3025057600,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0234.jpg",
+    "size": 78348,
+    "crc": 3914899622,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0237.jpg",
+    "size": 92781,
+    "crc": 2572967340,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0241.jpg",
+    "size": 67743,
+    "crc": 1438878993,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0244.jpg",
+    "size": 103960,
+    "crc": 1111511500,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0254.jpg",
+    "size": 98440,
+    "crc": 2427646571,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0260.jpg",
+    "size": 68010,
+    "crc": 108831149,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0277.jpg",
+    "size": 63039,
+    "crc": 2020718200,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0282.jpg",
+    "size": 98456,
+    "crc": 1310458825,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0287.jpg",
+    "size": 63002,
+    "crc": 2352823680,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0291.jpg",
+    "size": 72965,
+    "crc": 3024599169,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0292.jpg",
+    "size": 81809,
+    "crc": 2349873564,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0298.jpg",
+    "size": 62900,
+    "crc": 4256155737,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0308.jpg",
+    "size": 60818,
+    "crc": 2990421429,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0321.jpg",
+    "size": 71105,
+    "crc": 1802066105,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0325.jpg",
+    "size": 69115,
+    "crc": 627855757,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0330.jpg",
+    "size": 54133,
+    "crc": 3652687966,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0334.jpg",
+    "size": 68736,
+    "crc": 1518231831,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0339.jpg",
+    "size": 63814,
+    "crc": 2045960034,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0340.jpg",
+    "size": 64445,
+    "crc": 1761467486,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0342.jpg",
+    "size": 60053,
+    "crc": 807643639,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0346.jpg",
+    "size": 82202,
+    "crc": 713009604,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0349.jpg",
+    "size": 74628,
+    "crc": 657109756,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0352.jpg",
+    "size": 82826,
+    "crc": 828660798,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0361.jpg",
+    "size": 71303,
+    "crc": 2381082286,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0369.jpg",
+    "size": 66021,
+    "crc": 324629583,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0374.jpg",
+    "size": 84348,
+    "crc": 3300902976,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0375.jpg",
+    "size": 82402,
+    "crc": 2471957997,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0381.jpg",
+    "size": 71204,
+    "crc": 1890596560,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0385.jpg",
+    "size": 74046,
+    "crc": 1254651210,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0391.jpg",
+    "size": 90268,
+    "crc": 302983394,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0397.jpg",
+    "size": 79011,
+    "crc": 356332495,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0403.jpg",
+    "size": 68151,
+    "crc": 3558384188,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0407.jpg",
+    "size": 65340,
+    "crc": 860644895,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0409.jpg",
+    "size": 64740,
+    "crc": 853892305,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0412.jpg",
+    "size": 67300,
+    "crc": 2411708517,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0413.jpg",
+    "size": 88726,
+    "crc": 3041084772,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0423.jpg",
+    "size": 53016,
+    "crc": 878744735,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0425.jpg",
+    "size": 59588,
+    "crc": 4165851088,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0426.jpg",
+    "size": 57782,
+    "crc": 182304451,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0429.jpg",
+    "size": 73730,
+    "crc": 3722856838,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0437.jpg",
+    "size": 66174,
+    "crc": 123375302,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0441.jpg",
+    "size": 65415,
+    "crc": 3514862206,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0443.jpg",
+    "size": 63417,
+    "crc": 562477504,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0446.jpg",
+    "size": 65408,
+    "crc": 92431946,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0447.jpg",
+    "size": 65931,
+    "crc": 4023256158,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0451.jpg",
+    "size": 71351,
+    "crc": 2834925438,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0457.jpg",
+    "size": 76982,
+    "crc": 3061303853,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0464.jpg",
+    "size": 76849,
+    "crc": 1181893933,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0469.jpg",
+    "size": 74496,
+    "crc": 2905862813,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0471.jpg",
+    "size": 47119,
+    "crc": 216142224,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0472.jpg",
+    "size": 62015,
+    "crc": 747474110,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0474.jpg",
+    "size": 75360,
+    "crc": 1486745748,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0477.jpg",
+    "size": 70492,
+    "crc": 2212029787,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0479.jpg",
+    "size": 70388,
+    "crc": 1286702893,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0482.jpg",
+    "size": 58778,
+    "crc": 3039112466,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0484.jpg",
+    "size": 64785,
+    "crc": 41374892,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0486.jpg",
+    "size": 87453,
+    "crc": 3459675319,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0490.jpg",
+    "size": 66196,
+    "crc": 2226224799,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0496.jpg",
+    "size": 69991,
+    "crc": 3144502142,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0506.jpg",
+    "size": 77859,
+    "crc": 1478158228,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0511.jpg",
+    "size": 61252,
+    "crc": 691009125,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0515.jpg",
+    "size": 82881,
+    "crc": 1233006432,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0521.jpg",
+    "size": 71708,
+    "crc": 1035949137,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0522.jpg",
+    "size": 64376,
+    "crc": 3432991173,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0527.jpg",
+    "size": 89011,
+    "crc": 1044194735,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0528.jpg",
+    "size": 98231,
+    "crc": 1706862526,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0533.jpg",
+    "size": 74930,
+    "crc": 1490947231,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0536.jpg",
+    "size": 84758,
+    "crc": 665758579,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0540.jpg",
+    "size": 83713,
+    "crc": 2177402533,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0541.jpg",
+    "size": 78464,
+    "crc": 1205054675,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0546.jpg",
+    "size": 59498,
+    "crc": 3056795364,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0547.jpg",
+    "size": 51199,
+    "crc": 2789571891,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0551.jpg",
+    "size": 101635,
+    "crc": 3624406533,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0553.jpg",
+    "size": 76177,
+    "crc": 1931025592,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0555.jpg",
+    "size": 63755,
+    "crc": 3067977943,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/smoking_0559.jpg",
+    "size": 79829,
+    "crc": 2083597993,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0001.jpg",
+    "size": 72106,
+    "crc": 905032983,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0002.jpg",
+    "size": 76225,
+    "crc": 2347183491,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0003.jpg",
+    "size": 84723,
+    "crc": 1055032188,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0005.jpg",
+    "size": 73653,
+    "crc": 2418607455,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0007.jpg",
+    "size": 45508,
+    "crc": 1616105801,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0008.jpg",
+    "size": 60310,
+    "crc": 2952594737,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0009.jpg",
+    "size": 95562,
+    "crc": 1274975231,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0010.jpg",
+    "size": 65431,
+    "crc": 3867132894,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0011.jpg",
+    "size": 88888,
+    "crc": 27739251,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0012.jpg",
+    "size": 62807,
+    "crc": 2985714027,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0013.jpg",
+    "size": 82984,
+    "crc": 3978648280,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0015.jpg",
+    "size": 81848,
+    "crc": 3871374921,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0016.jpg",
+    "size": 67390,
+    "crc": 2401863199,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0019.jpg",
+    "size": 93276,
+    "crc": 129731255,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0020.jpg",
+    "size": 77076,
+    "crc": 4071400204,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0021.jpg",
+    "size": 70242,
+    "crc": 1593659139,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0022.jpg",
+    "size": 72613,
+    "crc": 3665455820,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0023.jpg",
+    "size": 61066,
+    "crc": 4073808050,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0025.jpg",
+    "size": 94741,
+    "crc": 2883415228,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0027.jpg",
+    "size": 72504,
+    "crc": 100801162,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0028.jpg",
+    "size": 66253,
+    "crc": 1802185831,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0030.jpg",
+    "size": 68242,
+    "crc": 561454507,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0031.jpg",
+    "size": 42315,
+    "crc": 1258447235,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0033.jpg",
+    "size": 50900,
+    "crc": 527933220,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0035.jpg",
+    "size": 76772,
+    "crc": 740703717,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0037.jpg",
+    "size": 88207,
+    "crc": 306739863,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0038.jpg",
+    "size": 79726,
+    "crc": 2431535244,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0039.jpg",
+    "size": 79903,
+    "crc": 3512741786,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0040.jpg",
+    "size": 53832,
+    "crc": 3563713433,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0042.jpg",
+    "size": 59138,
+    "crc": 427148509,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0043.jpg",
+    "size": 76836,
+    "crc": 3716909347,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0045.jpg",
+    "size": 55074,
+    "crc": 4176861882,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0046.jpg",
+    "size": 46675,
+    "crc": 3849290211,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0047.jpg",
+    "size": 87590,
+    "crc": 3081819151,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0050.jpg",
+    "size": 74206,
+    "crc": 1327480625,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0051.jpg",
+    "size": 75059,
+    "crc": 66390184,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0054.jpg",
+    "size": 86078,
+    "crc": 4261695027,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0055.jpg",
+    "size": 78378,
+    "crc": 2326712453,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0056.jpg",
+    "size": 94627,
+    "crc": 3428945105,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0059.jpg",
+    "size": 74678,
+    "crc": 475920016,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0060.jpg",
+    "size": 87018,
+    "crc": 1358876440,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0061.jpg",
+    "size": 73331,
+    "crc": 2980292491,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0064.jpg",
+    "size": 37367,
+    "crc": 571890132,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0065.jpg",
+    "size": 58027,
+    "crc": 746879834,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0066.jpg",
+    "size": 78008,
+    "crc": 1195771996,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0067.jpg",
+    "size": 64889,
+    "crc": 3434890750,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0068.jpg",
+    "size": 57122,
+    "crc": 705127305,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0070.jpg",
+    "size": 72901,
+    "crc": 2693164588,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0072.jpg",
+    "size": 73128,
+    "crc": 1951252894,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0074.jpg",
+    "size": 74724,
+    "crc": 3808405290,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0076.jpg",
+    "size": 71426,
+    "crc": 881310389,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0077.jpg",
+    "size": 69984,
+    "crc": 385798285,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0079.jpg",
+    "size": 67894,
+    "crc": 3744376231,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0080.jpg",
+    "size": 60720,
+    "crc": 1118592047,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0082.jpg",
+    "size": 73949,
+    "crc": 3294654055,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0083.jpg",
+    "size": 69169,
+    "crc": 1708777509,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0086.jpg",
+    "size": 54855,
+    "crc": 4125851534,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0087.jpg",
+    "size": 75941,
+    "crc": 2698985110,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0088.jpg",
+    "size": 87165,
+    "crc": 1349243747,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0089.jpg",
+    "size": 65232,
+    "crc": 478447244,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0090.jpg",
+    "size": 56611,
+    "crc": 2907183343,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0093.jpg",
+    "size": 80862,
+    "crc": 1353336196,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0094.jpg",
+    "size": 91016,
+    "crc": 2343782345,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0097.jpg",
+    "size": 75833,
+    "crc": 621426904,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0098.jpg",
+    "size": 64869,
+    "crc": 1850827665,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0099.jpg",
+    "size": 128965,
+    "crc": 947968017,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0101.jpg",
+    "size": 55697,
+    "crc": 747239090,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0102.jpg",
+    "size": 96378,
+    "crc": 14443849,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0103.jpg",
+    "size": 73392,
+    "crc": 4201413975,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0106.jpg",
+    "size": 64784,
+    "crc": 2758404432,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0109.jpg",
+    "size": 66228,
+    "crc": 1420810122,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0110.jpg",
+    "size": 64107,
+    "crc": 3016136497,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0111.jpg",
+    "size": 70768,
+    "crc": 3066278076,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0112.jpg",
+    "size": 73784,
+    "crc": 3153716268,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0113.jpg",
+    "size": 65653,
+    "crc": 3645174237,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0117.jpg",
+    "size": 50372,
+    "crc": 2387117148,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0118.jpg",
+    "size": 74576,
+    "crc": 924866395,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0119.jpg",
+    "size": 60295,
+    "crc": 639367945,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0121.jpg",
+    "size": 77628,
+    "crc": 707829044,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0123.jpg",
+    "size": 103793,
+    "crc": 3204933513,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0125.jpg",
+    "size": 71948,
+    "crc": 3441678121,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0126.jpg",
+    "size": 71318,
+    "crc": 1048068492,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0127.jpg",
+    "size": 95558,
+    "crc": 2584213733,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0128.jpg",
+    "size": 65787,
+    "crc": 279301186,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0129.jpg",
+    "size": 69405,
+    "crc": 2935312725,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0131.jpg",
+    "size": 86741,
+    "crc": 3356751937,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0132.jpg",
+    "size": 70574,
+    "crc": 2380732723,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0135.jpg",
+    "size": 52863,
+    "crc": 3906262029,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0136.jpg",
+    "size": 69291,
+    "crc": 1760383455,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0138.jpg",
+    "size": 61148,
+    "crc": 681642179,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0139.jpg",
+    "size": 89621,
+    "crc": 841731577,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0142.jpg",
+    "size": 73963,
+    "crc": 1411543224,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0143.jpg",
+    "size": 71576,
+    "crc": 4085087759,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0144.jpg",
+    "size": 73281,
+    "crc": 1723815535,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0146.jpg",
+    "size": 75045,
+    "crc": 2875471938,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0148.jpg",
+    "size": 85114,
+    "crc": 1274894055,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0149.jpg",
+    "size": 63186,
+    "crc": 70729567,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0150.jpg",
+    "size": 58377,
+    "crc": 3123660578,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0152.jpg",
+    "size": 48979,
+    "crc": 1911678366,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0154.jpg",
+    "size": 69033,
+    "crc": 3185099873,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0156.jpg",
+    "size": 73341,
+    "crc": 2166185347,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0157.jpg",
+    "size": 71076,
+    "crc": 1726167607,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0160.jpg",
+    "size": 81248,
+    "crc": 1844594958,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0161.jpg",
+    "size": 65128,
+    "crc": 1854570178,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0162.jpg",
+    "size": 62403,
+    "crc": 2984822207,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0164.jpg",
+    "size": 67104,
+    "crc": 2324770235,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0166.jpg",
+    "size": 50280,
+    "crc": 3502834998,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0168.jpg",
+    "size": 70936,
+    "crc": 1377541344,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0169.jpg",
+    "size": 76232,
+    "crc": 2193924541,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0170.jpg",
+    "size": 55727,
+    "crc": 2864736157,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0173.jpg",
+    "size": 78968,
+    "crc": 3835895834,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0174.jpg",
+    "size": 70742,
+    "crc": 2775238534,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0175.jpg",
+    "size": 65270,
+    "crc": 2202994458,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0176.jpg",
+    "size": 75090,
+    "crc": 2520077681,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0178.jpg",
+    "size": 79618,
+    "crc": 1016540689,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0179.jpg",
+    "size": 66289,
+    "crc": 1673407304,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0181.jpg",
+    "size": 103815,
+    "crc": 3936706498,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0183.jpg",
+    "size": 63000,
+    "crc": 3199843109,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0184.jpg",
+    "size": 84443,
+    "crc": 1323463297,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0186.jpg",
+    "size": 78216,
+    "crc": 1289473257,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0187.jpg",
+    "size": 75228,
+    "crc": 4128475191,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0188.jpg",
+    "size": 62573,
+    "crc": 2211424843,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0189.jpg",
+    "size": 51284,
+    "crc": 2057354430,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0191.jpg",
+    "size": 89678,
+    "crc": 3940026748,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0193.jpg",
+    "size": 64668,
+    "crc": 2488293627,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0195.jpg",
+    "size": 64128,
+    "crc": 1669149639,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0196.jpg",
+    "size": 78916,
+    "crc": 2427435680,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0197.jpg",
+    "size": 61359,
+    "crc": 2685612034,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0199.jpg",
+    "size": 92578,
+    "crc": 1114177335,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0200.jpg",
+    "size": 89399,
+    "crc": 3366764479,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0201.jpg",
+    "size": 82181,
+    "crc": 71637272,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0203.jpg",
+    "size": 79371,
+    "crc": 1051588773,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0204.jpg",
+    "size": 71975,
+    "crc": 1406975413,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0206.jpg",
+    "size": 63426,
+    "crc": 2437107746,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0208.jpg",
+    "size": 74759,
+    "crc": 3209288514,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0210.jpg",
+    "size": 71084,
+    "crc": 1045250214,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0211.jpg",
+    "size": 87001,
+    "crc": 1674512734,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0214.jpg",
+    "size": 89053,
+    "crc": 478189674,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0215.jpg",
+    "size": 78714,
+    "crc": 3956184043,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0218.jpg",
+    "size": 103161,
+    "crc": 1451675600,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0219.jpg",
+    "size": 75035,
+    "crc": 4129643370,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0220.jpg",
+    "size": 79607,
+    "crc": 797942383,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0221.jpg",
+    "size": 77112,
+    "crc": 988135149,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0224.jpg",
+    "size": 106799,
+    "crc": 597318901,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0225.jpg",
+    "size": 60690,
+    "crc": 1670558380,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0226.jpg",
+    "size": 66720,
+    "crc": 836050714,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0227.jpg",
+    "size": 63840,
+    "crc": 2452955779,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0229.jpg",
+    "size": 77714,
+    "crc": 272830534,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0230.jpg",
+    "size": 70856,
+    "crc": 2942339473,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0231.jpg",
+    "size": 54719,
+    "crc": 2792695710,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0232.jpg",
+    "size": 64917,
+    "crc": 3527602846,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0234.jpg",
+    "size": 81053,
+    "crc": 3955827538,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0236.jpg",
+    "size": 61940,
+    "crc": 1069500814,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0237.jpg",
+    "size": 72294,
+    "crc": 2607811213,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0240.jpg",
+    "size": 76438,
+    "crc": 2776020374,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0241.jpg",
+    "size": 54494,
+    "crc": 2753619497,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0242.jpg",
+    "size": 58178,
+    "crc": 3190611634,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0243.jpg",
+    "size": 81058,
+    "crc": 3318399184,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0244.jpg",
+    "size": 63616,
+    "crc": 2123951428,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0245.jpg",
+    "size": 68558,
+    "crc": 3541943636,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0247.jpg",
+    "size": 66206,
+    "crc": 3481326079,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0249.jpg",
+    "size": 69519,
+    "crc": 3186604723,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0250.jpg",
+    "size": 69953,
+    "crc": 599173161,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0253.jpg",
+    "size": 57412,
+    "crc": 2812760475,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0254.jpg",
+    "size": 64899,
+    "crc": 2457385423,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0256.jpg",
+    "size": 62313,
+    "crc": 2674966008,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0257.jpg",
+    "size": 56427,
+    "crc": 3406324462,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0260.jpg",
+    "size": 68767,
+    "crc": 285935477,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0261.jpg",
+    "size": 67791,
+    "crc": 1985031426,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0262.jpg",
+    "size": 74223,
+    "crc": 165192941,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0264.jpg",
+    "size": 58746,
+    "crc": 3186187629,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0265.jpg",
+    "size": 76320,
+    "crc": 1727864508,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0266.jpg",
+    "size": 57576,
+    "crc": 526904869,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0267.jpg",
+    "size": 61521,
+    "crc": 4230309051,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0269.jpg",
+    "size": 80162,
+    "crc": 2977234189,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0270.jpg",
+    "size": 56506,
+    "crc": 2507902341,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0271.jpg",
+    "size": 70871,
+    "crc": 2316966363,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0273.jpg",
+    "size": 63378,
+    "crc": 500671413,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0274.jpg",
+    "size": 60267,
+    "crc": 1932854151,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0276.jpg",
+    "size": 70287,
+    "crc": 675535869,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0277.jpg",
+    "size": 71441,
+    "crc": 2854594991,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0279.jpg",
+    "size": 70294,
+    "crc": 645229978,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0280.jpg",
+    "size": 85040,
+    "crc": 2593075656,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0282.jpg",
+    "size": 70303,
+    "crc": 4146230407,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0285.jpg",
+    "size": 72515,
+    "crc": 945546988,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0286.jpg",
+    "size": 56519,
+    "crc": 1315520270,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0287.jpg",
+    "size": 52009,
+    "crc": 2451199920,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0288.jpg",
+    "size": 63269,
+    "crc": 548087882,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0290.jpg",
+    "size": 69816,
+    "crc": 3464369835,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0292.jpg",
+    "size": 67994,
+    "crc": 3251889700,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0293.jpg",
+    "size": 51376,
+    "crc": 952703054,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0295.jpg",
+    "size": 85988,
+    "crc": 1316248750,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0296.jpg",
+    "size": 71657,
+    "crc": 203061448,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0297.jpg",
+    "size": 68705,
+    "crc": 3109281985,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0299.jpg",
+    "size": 63112,
+    "crc": 2136942473,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0300.jpg",
+    "size": 70320,
+    "crc": 3173159118,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0302.jpg",
+    "size": 55845,
+    "crc": 710424330,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0303.jpg",
+    "size": 95897,
+    "crc": 3613675187,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0304.jpg",
+    "size": 75904,
+    "crc": 3344010831,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0305.jpg",
+    "size": 72159,
+    "crc": 570599491,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0308.jpg",
+    "size": 66364,
+    "crc": 3839313546,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0309.jpg",
+    "size": 77122,
+    "crc": 2749552907,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0311.jpg",
+    "size": 78362,
+    "crc": 383842191,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0312.jpg",
+    "size": 72123,
+    "crc": 20894622,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0314.jpg",
+    "size": 61841,
+    "crc": 109538611,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0316.jpg",
+    "size": 74311,
+    "crc": 319429034,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0317.jpg",
+    "size": 76185,
+    "crc": 2626055439,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0318.jpg",
+    "size": 76167,
+    "crc": 3233985850,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0320.jpg",
+    "size": 62430,
+    "crc": 3360719654,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0322.jpg",
+    "size": 77633,
+    "crc": 2795799510,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0323.jpg",
+    "size": 68775,
+    "crc": 1854547763,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0324.jpg",
+    "size": 102425,
+    "crc": 737839569,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0325.jpg",
+    "size": 69747,
+    "crc": 581515451,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0326.jpg",
+    "size": 75909,
+    "crc": 749853146,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0330.jpg",
+    "size": 73039,
+    "crc": 2373276110,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0331.jpg",
+    "size": 55777,
+    "crc": 2391118123,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0332.jpg",
+    "size": 73671,
+    "crc": 1271860813,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0334.jpg",
+    "size": 71700,
+    "crc": 3933322850,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0335.jpg",
+    "size": 68892,
+    "crc": 1683660772,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0337.jpg",
+    "size": 59870,
+    "crc": 1976556838,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0339.jpg",
+    "size": 62948,
+    "crc": 2047534108,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0340.jpg",
+    "size": 71518,
+    "crc": 2891538017,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0341.jpg",
+    "size": 69936,
+    "crc": 1692536998,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0342.jpg",
+    "size": 75529,
+    "crc": 4143337766,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0343.jpg",
+    "size": 77844,
+    "crc": 3787769384,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0346.jpg",
+    "size": 76821,
+    "crc": 2035529706,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0347.jpg",
+    "size": 57241,
+    "crc": 1606332624,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0348.jpg",
+    "size": 76805,
+    "crc": 1018432487,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0349.jpg",
+    "size": 66594,
+    "crc": 3889319264,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0350.jpg",
+    "size": 74509,
+    "crc": 1737136218,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0352.jpg",
+    "size": 81305,
+    "crc": 923150235,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0353.jpg",
+    "size": 87333,
+    "crc": 1948163215,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0355.jpg",
+    "size": 75190,
+    "crc": 1579145444,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0356.jpg",
+    "size": 65415,
+    "crc": 667885403,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0359.jpg",
+    "size": 70021,
+    "crc": 1593253914,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0361.jpg",
+    "size": 73068,
+    "crc": 3249616632,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0362.jpg",
+    "size": 70414,
+    "crc": 819082399,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0363.jpg",
+    "size": 73029,
+    "crc": 4216859343,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0364.jpg",
+    "size": 68052,
+    "crc": 3929454049,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0365.jpg",
+    "size": 78274,
+    "crc": 987460108,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0366.jpg",
+    "size": 84808,
+    "crc": 1188651669,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0367.jpg",
+    "size": 74945,
+    "crc": 1673416275,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0370.jpg",
+    "size": 66165,
+    "crc": 1128792067,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0371.jpg",
+    "size": 75126,
+    "crc": 3988484510,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0372.jpg",
+    "size": 66061,
+    "crc": 4279985088,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0375.jpg",
+    "size": 80581,
+    "crc": 3251347794,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0376.jpg",
+    "size": 82717,
+    "crc": 2774321066,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0379.jpg",
+    "size": 70595,
+    "crc": 4222341959,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0380.jpg",
+    "size": 60202,
+    "crc": 2058004179,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0381.jpg",
+    "size": 78455,
+    "crc": 3546247531,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0383.jpg",
+    "size": 71608,
+    "crc": 3283951152,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0384.jpg",
+    "size": 76122,
+    "crc": 3682335376,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0386.jpg",
+    "size": 81795,
+    "crc": 274804803,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0387.jpg",
+    "size": 63710,
+    "crc": 2833831999,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0389.jpg",
+    "size": 49915,
+    "crc": 1861046431,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0390.jpg",
+    "size": 75779,
+    "crc": 1165838730,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0391.jpg",
+    "size": 73534,
+    "crc": 619415234,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0392.jpg",
+    "size": 70762,
+    "crc": 1456330740,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0394.jpg",
+    "size": 75722,
+    "crc": 236216489,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0395.jpg",
+    "size": 74230,
+    "crc": 4125184563,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0396.jpg",
+    "size": 62072,
+    "crc": 1670099620,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0397.jpg",
+    "size": 56920,
+    "crc": 905517275,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0400.jpg",
+    "size": 55901,
+    "crc": 1292376633,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0401.jpg",
+    "size": 63863,
+    "crc": 488015754,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0402.jpg",
+    "size": 66945,
+    "crc": 2682375588,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0404.jpg",
+    "size": 51227,
+    "crc": 1465850173,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0405.jpg",
+    "size": 66954,
+    "crc": 1508349195,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0407.jpg",
+    "size": 57485,
+    "crc": 458844776,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0408.jpg",
+    "size": 57097,
+    "crc": 3268554204,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0411.jpg",
+    "size": 68830,
+    "crc": 20310867,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0412.jpg",
+    "size": 73561,
+    "crc": 2650846094,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0413.jpg",
+    "size": 69979,
+    "crc": 3354399008,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0415.jpg",
+    "size": 74269,
+    "crc": 2971056651,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0416.jpg",
+    "size": 85571,
+    "crc": 2743206568,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0418.jpg",
+    "size": 64518,
+    "crc": 3584264130,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0419.jpg",
+    "size": 92592,
+    "crc": 667176786,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0421.jpg",
+    "size": 71539,
+    "crc": 2820202013,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0423.jpg",
+    "size": 68465,
+    "crc": 2250744412,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0424.jpg",
+    "size": 92366,
+    "crc": 4036385526,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0425.jpg",
+    "size": 82298,
+    "crc": 2732025828,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0427.jpg",
+    "size": 63325,
+    "crc": 1082821479,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0429.jpg",
+    "size": 77101,
+    "crc": 1526084729,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0430.jpg",
+    "size": 68544,
+    "crc": 2936451093,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0431.jpg",
+    "size": 68507,
+    "crc": 3091610750,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0434.jpg",
+    "size": 56571,
+    "crc": 4146653661,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0435.jpg",
+    "size": 53845,
+    "crc": 1129261,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0436.jpg",
+    "size": 65255,
+    "crc": 4250019607,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0438.jpg",
+    "size": 64090,
+    "crc": 3115582511,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0439.jpg",
+    "size": 80376,
+    "crc": 2851689255,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0441.jpg",
+    "size": 54872,
+    "crc": 2372226441,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0443.jpg",
+    "size": 80151,
+    "crc": 3704185880,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0444.jpg",
+    "size": 62833,
+    "crc": 3409566528,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0445.jpg",
+    "size": 76024,
+    "crc": 3930359413,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0447.jpg",
+    "size": 75428,
+    "crc": 1839315993,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0448.jpg",
+    "size": 55820,
+    "crc": 2022950852,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0450.jpg",
+    "size": 84846,
+    "crc": 3816635111,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0451.jpg",
+    "size": 64311,
+    "crc": 3399522142,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0452.jpg",
+    "size": 68748,
+    "crc": 1223942426,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0453.jpg",
+    "size": 58339,
+    "crc": 2804545366,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0454.jpg",
+    "size": 68701,
+    "crc": 4163103615,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0456.jpg",
+    "size": 58575,
+    "crc": 1055080357,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0458.jpg",
+    "size": 58181,
+    "crc": 3418495922,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0459.jpg",
+    "size": 56271,
+    "crc": 2448520653,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0461.jpg",
+    "size": 69884,
+    "crc": 1999847353,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0463.jpg",
+    "size": 63258,
+    "crc": 1379440474,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0464.jpg",
+    "size": 66416,
+    "crc": 4288003772,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0466.jpg",
+    "size": 92463,
+    "crc": 2155061663,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0468.jpg",
+    "size": 76330,
+    "crc": 3420185222,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0470.jpg",
+    "size": 80401,
+    "crc": 1168657731,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0471.jpg",
+    "size": 69127,
+    "crc": 321839183,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0472.jpg",
+    "size": 63751,
+    "crc": 3352456652,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0473.jpg",
+    "size": 78252,
+    "crc": 1245750381,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0474.jpg",
+    "size": 72020,
+    "crc": 1711171598,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0475.jpg",
+    "size": 69809,
+    "crc": 1987584586,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0476.jpg",
+    "size": 96034,
+    "crc": 254979703,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0479.jpg",
+    "size": 65048,
+    "crc": 3487393771,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0480.jpg",
+    "size": 59951,
+    "crc": 4219189980,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0483.jpg",
+    "size": 58154,
+    "crc": 1136721743,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0484.jpg",
+    "size": 83832,
+    "crc": 4042124146,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0485.jpg",
+    "size": 56732,
+    "crc": 2053489860,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0486.jpg",
+    "size": 69746,
+    "crc": 3377353685,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0489.jpg",
+    "size": 82500,
+    "crc": 1878129367,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0490.jpg",
+    "size": 64640,
+    "crc": 2586744408,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0491.jpg",
+    "size": 61718,
+    "crc": 2432008560,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0492.jpg",
+    "size": 55622,
+    "crc": 1804828105,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0495.jpg",
+    "size": 84463,
+    "crc": 998687368,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0496.jpg",
+    "size": 52486,
+    "crc": 2238615011,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0497.jpg",
+    "size": 76259,
+    "crc": 4095435205,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0499.jpg",
+    "size": 79449,
+    "crc": 1383185716,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0503.jpg",
+    "size": 53059,
+    "crc": 818935989,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0505.jpg",
+    "size": 71039,
+    "crc": 3603655773,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0506.jpg",
+    "size": 73790,
+    "crc": 1619024807,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0507.jpg",
+    "size": 62946,
+    "crc": 1317208746,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0510.jpg",
+    "size": 58997,
+    "crc": 2988859062,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0511.jpg",
+    "size": 72303,
+    "crc": 2823925035,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0512.jpg",
+    "size": 54443,
+    "crc": 2817523141,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0513.jpg",
+    "size": 53157,
+    "crc": 3407736615,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0516.jpg",
+    "size": 75753,
+    "crc": 3556809797,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0520.jpg",
+    "size": 72678,
+    "crc": 2877499968,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0523.jpg",
+    "size": 66023,
+    "crc": 2114182816,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0524.jpg",
+    "size": 72495,
+    "crc": 1018416581,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0526.jpg",
+    "size": 69416,
+    "crc": 3398084861,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0527.jpg",
+    "size": 65700,
+    "crc": 3825643640,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0536.jpg",
+    "size": 74185,
+    "crc": 4158116092,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0537.jpg",
+    "size": 76596,
+    "crc": 2675153967,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0540.jpg",
+    "size": 71442,
+    "crc": 2817291637,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0541.jpg",
+    "size": 81193,
+    "crc": 3855649056,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0544.jpg",
+    "size": 80467,
+    "crc": 2845681086,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0545.jpg",
+    "size": 68629,
+    "crc": 1982962202,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0546.jpg",
+    "size": 61684,
+    "crc": 2946715851,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0548.jpg",
+    "size": 90152,
+    "crc": 2273183711,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0550.jpg",
+    "size": 82818,
+    "crc": 1192889840,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0551.jpg",
+    "size": 61812,
+    "crc": 896318345,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0552.jpg",
+    "size": 79243,
+    "crc": 2871849744,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0555.jpg",
+    "size": 64371,
+    "crc": 1571722682,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0556.jpg",
+    "size": 75465,
+    "crc": 1738761723,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0559.jpg",
+    "size": 114664,
+    "crc": 3383032068,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/notsmoking_0560.jpg",
+    "size": 73465,
+    "crc": 2309458421,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0001.jpg",
+    "size": 57359,
+    "crc": 1405862376,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0002.jpg",
+    "size": 71794,
+    "crc": 2903700839,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0003.jpg",
+    "size": 60292,
+    "crc": 2280014483,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0004.jpg",
+    "size": 60816,
+    "crc": 1117098694,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0005.jpg",
+    "size": 77860,
+    "crc": 528118939,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0007.jpg",
+    "size": 46824,
+    "crc": 508927857,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0008.jpg",
+    "size": 72570,
+    "crc": 3861274746,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0010.jpg",
+    "size": 55669,
+    "crc": 2592644774,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0011.jpg",
+    "size": 62710,
+    "crc": 3903568776,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0012.jpg",
+    "size": 53477,
+    "crc": 588426074,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0013.jpg",
+    "size": 77187,
+    "crc": 987781018,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0014.jpg",
+    "size": 75971,
+    "crc": 566159129,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0015.jpg",
+    "size": 80375,
+    "crc": 2171379493,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0016.jpg",
+    "size": 56269,
+    "crc": 3218638976,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0017.jpg",
+    "size": 83226,
+    "crc": 924977178,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0019.jpg",
+    "size": 74501,
+    "crc": 902291646,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0021.jpg",
+    "size": 61933,
+    "crc": 3005131852,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0022.jpg",
+    "size": 68651,
+    "crc": 1313500877,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0023.jpg",
+    "size": 70103,
+    "crc": 3944979945,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0025.jpg",
+    "size": 55758,
+    "crc": 3456077082,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0027.jpg",
+    "size": 79121,
+    "crc": 1349259095,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0028.jpg",
+    "size": 90468,
+    "crc": 98023225,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0029.jpg",
+    "size": 110262,
+    "crc": 593692927,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0032.jpg",
+    "size": 82042,
+    "crc": 1062461585,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0034.jpg",
+    "size": 72685,
+    "crc": 674142403,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0035.jpg",
+    "size": 121580,
+    "crc": 3515087572,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0037.jpg",
+    "size": 95754,
+    "crc": 1512086416,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0039.jpg",
+    "size": 86867,
+    "crc": 2980597272,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0041.jpg",
+    "size": 65686,
+    "crc": 1847419210,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0042.jpg",
+    "size": 94841,
+    "crc": 2196456870,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0044.jpg",
+    "size": 53879,
+    "crc": 1388913392,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0046.jpg",
+    "size": 77712,
+    "crc": 500232507,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0048.jpg",
+    "size": 94803,
+    "crc": 1689969521,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0049.jpg",
+    "size": 51968,
+    "crc": 2018567997,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0052.jpg",
+    "size": 76295,
+    "crc": 207462075,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0053.jpg",
+    "size": 93456,
+    "crc": 476374865,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0054.jpg",
+    "size": 68643,
+    "crc": 572635351,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0055.jpg",
+    "size": 66999,
+    "crc": 3684171147,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0057.jpg",
+    "size": 63540,
+    "crc": 2747607572,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0058.jpg",
+    "size": 57890,
+    "crc": 2417769536,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0059.jpg",
+    "size": 68670,
+    "crc": 590552133,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0062.jpg",
+    "size": 69558,
+    "crc": 1659640443,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0064.jpg",
+    "size": 77636,
+    "crc": 2252095171,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0065.jpg",
+    "size": 87513,
+    "crc": 1516127990,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0066.jpg",
+    "size": 60609,
+    "crc": 1097956099,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0072.jpg",
+    "size": 86183,
+    "crc": 2200999071,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0075.jpg",
+    "size": 85420,
+    "crc": 2725652951,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0077.jpg",
+    "size": 60552,
+    "crc": 701644945,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0078.jpg",
+    "size": 97866,
+    "crc": 4141770775,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0079.jpg",
+    "size": 87244,
+    "crc": 3654015407,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0080.jpg",
+    "size": 57779,
+    "crc": 2514126099,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0082.jpg",
+    "size": 109626,
+    "crc": 2027490735,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0084.jpg",
+    "size": 80097,
+    "crc": 2055314232,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0085.jpg",
+    "size": 73688,
+    "crc": 1424471605,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0086.jpg",
+    "size": 75411,
+    "crc": 717149014,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0087.jpg",
+    "size": 88493,
+    "crc": 800289438,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0090.jpg",
+    "size": 93442,
+    "crc": 3092503998,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0091.jpg",
+    "size": 82690,
+    "crc": 2503674652,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0092.jpg",
+    "size": 57416,
+    "crc": 327242812,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0094.jpg",
+    "size": 76338,
+    "crc": 1832832212,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0095.jpg",
+    "size": 87828,
+    "crc": 3111154507,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0097.jpg",
+    "size": 86841,
+    "crc": 3925450116,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0098.jpg",
+    "size": 71273,
+    "crc": 458687406,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0099.jpg",
+    "size": 91441,
+    "crc": 1133678505,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0101.jpg",
+    "size": 82680,
+    "crc": 1693032399,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0103.jpg",
+    "size": 63356,
+    "crc": 4063081927,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0104.jpg",
+    "size": 79496,
+    "crc": 2540361349,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0106.jpg",
+    "size": 71549,
+    "crc": 3421316761,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0107.jpg",
+    "size": 79729,
+    "crc": 1790421356,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0108.jpg",
+    "size": 115990,
+    "crc": 476243077,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0109.jpg",
+    "size": 61481,
+    "crc": 3262003589,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0110.jpg",
+    "size": 99534,
+    "crc": 2668597488,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0112.jpg",
+    "size": 72926,
+    "crc": 1391113967,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0114.jpg",
+    "size": 72515,
+    "crc": 1088508775,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0115.jpg",
+    "size": 80509,
+    "crc": 919910743,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0116.jpg",
+    "size": 82719,
+    "crc": 1084481344,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0117.jpg",
+    "size": 89236,
+    "crc": 4123450927,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0118.jpg",
+    "size": 85724,
+    "crc": 101941405,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0120.jpg",
+    "size": 73925,
+    "crc": 4242732716,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0121.jpg",
+    "size": 81567,
+    "crc": 2977472276,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0123.jpg",
+    "size": 74958,
+    "crc": 957224112,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0124.jpg",
+    "size": 83193,
+    "crc": 2989584293,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0125.jpg",
+    "size": 99759,
+    "crc": 3060400938,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0126.jpg",
+    "size": 58570,
+    "crc": 2087122998,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0128.jpg",
+    "size": 86463,
+    "crc": 3436817296,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0130.jpg",
+    "size": 69955,
+    "crc": 3609048615,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0131.jpg",
+    "size": 77134,
+    "crc": 3155935255,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0133.jpg",
+    "size": 81621,
+    "crc": 216337442,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0134.jpg",
+    "size": 126287,
+    "crc": 2533112664,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0135.jpg",
+    "size": 88162,
+    "crc": 3020383283,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0136.jpg",
+    "size": 70760,
+    "crc": 3822994562,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0137.jpg",
+    "size": 81501,
+    "crc": 1022897032,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0138.jpg",
+    "size": 86247,
+    "crc": 1628511778,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0140.jpg",
+    "size": 101408,
+    "crc": 2364707551,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0141.jpg",
+    "size": 102457,
+    "crc": 2688398567,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0142.jpg",
+    "size": 63252,
+    "crc": 1230196519,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0143.jpg",
+    "size": 85804,
+    "crc": 2609653216,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0146.jpg",
+    "size": 112736,
+    "crc": 4237010657,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0147.jpg",
+    "size": 73514,
+    "crc": 1518383674,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0148.jpg",
+    "size": 82256,
+    "crc": 4018913199,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0149.jpg",
+    "size": 77248,
+    "crc": 1779946727,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0151.jpg",
+    "size": 85603,
+    "crc": 4279270679,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0152.jpg",
+    "size": 71945,
+    "crc": 3560794251,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0155.jpg",
+    "size": 86436,
+    "crc": 2594277637,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0156.jpg",
+    "size": 68688,
+    "crc": 1542451049,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0158.jpg",
+    "size": 85002,
+    "crc": 1608212403,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0159.jpg",
+    "size": 62004,
+    "crc": 1729462629,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0162.jpg",
+    "size": 89835,
+    "crc": 3253624864,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0164.jpg",
+    "size": 102634,
+    "crc": 3067937437,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0165.jpg",
+    "size": 84547,
+    "crc": 1624664244,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0166.jpg",
+    "size": 68978,
+    "crc": 286940965,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0167.jpg",
+    "size": 69775,
+    "crc": 1990500894,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0168.jpg",
+    "size": 53357,
+    "crc": 960945202,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0169.jpg",
+    "size": 74006,
+    "crc": 2700300818,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0171.jpg",
+    "size": 106008,
+    "crc": 2824862634,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0173.jpg",
+    "size": 87164,
+    "crc": 1777610353,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0174.jpg",
+    "size": 68041,
+    "crc": 3578869512,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0175.jpg",
+    "size": 80670,
+    "crc": 1507119029,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0178.jpg",
+    "size": 136495,
+    "crc": 1101512477,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0179.jpg",
+    "size": 70553,
+    "crc": 1027310825,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0180.jpg",
+    "size": 102999,
+    "crc": 3752038879,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0181.jpg",
+    "size": 110384,
+    "crc": 3341348801,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0183.jpg",
+    "size": 94167,
+    "crc": 967682767,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0184.jpg",
+    "size": 104586,
+    "crc": 643410968,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0186.jpg",
+    "size": 107332,
+    "crc": 1488934268,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0187.jpg",
+    "size": 80537,
+    "crc": 3578889672,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0188.jpg",
+    "size": 79520,
+    "crc": 1891439458,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0191.jpg",
+    "size": 79271,
+    "crc": 3220399490,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0193.jpg",
+    "size": 61170,
+    "crc": 592843306,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0194.jpg",
+    "size": 81874,
+    "crc": 614406961,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0195.jpg",
+    "size": 82591,
+    "crc": 1938552316,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0198.jpg",
+    "size": 106115,
+    "crc": 3140279638,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0200.jpg",
+    "size": 83792,
+    "crc": 3633921388,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0201.jpg",
+    "size": 72538,
+    "crc": 4035947863,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0202.jpg",
+    "size": 76602,
+    "crc": 2605314310,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0203.jpg",
+    "size": 80685,
+    "crc": 3214586793,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0204.jpg",
+    "size": 86346,
+    "crc": 2585524554,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0207.jpg",
+    "size": 87865,
+    "crc": 4047175224,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0208.jpg",
+    "size": 87827,
+    "crc": 1047579383,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0209.jpg",
+    "size": 96200,
+    "crc": 259002394,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0212.jpg",
+    "size": 65319,
+    "crc": 3342644131,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0213.jpg",
+    "size": 81098,
+    "crc": 4293675385,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0214.jpg",
+    "size": 75596,
+    "crc": 92338960,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0215.jpg",
+    "size": 73014,
+    "crc": 2348728396,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0216.jpg",
+    "size": 72012,
+    "crc": 2784552747,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0219.jpg",
+    "size": 68144,
+    "crc": 239530126,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0220.jpg",
+    "size": 74249,
+    "crc": 2132824386,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0221.jpg",
+    "size": 90173,
+    "crc": 1552984542,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0223.jpg",
+    "size": 64355,
+    "crc": 1098359121,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0225.jpg",
+    "size": 83090,
+    "crc": 2563948565,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0226.jpg",
+    "size": 70376,
+    "crc": 2566807848,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0227.jpg",
+    "size": 105483,
+    "crc": 806414658,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0228.jpg",
+    "size": 87706,
+    "crc": 1579232588,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0229.jpg",
+    "size": 79885,
+    "crc": 1451860613,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0230.jpg",
+    "size": 65653,
+    "crc": 75850451,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0231.jpg",
+    "size": 79387,
+    "crc": 946120616,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0232.jpg",
+    "size": 107757,
+    "crc": 1262714851,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0233.jpg",
+    "size": 68231,
+    "crc": 2091346366,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0235.jpg",
+    "size": 78202,
+    "crc": 1731688113,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0236.jpg",
+    "size": 85992,
+    "crc": 131412065,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0238.jpg",
+    "size": 60212,
+    "crc": 1581307401,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0239.jpg",
+    "size": 54907,
+    "crc": 2512796474,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0242.jpg",
+    "size": 76758,
+    "crc": 86688742,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0243.jpg",
+    "size": 78224,
+    "crc": 1438666819,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0245.jpg",
+    "size": 84432,
+    "crc": 2413111,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0247.jpg",
+    "size": 99371,
+    "crc": 1098616109,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0248.jpg",
+    "size": 90450,
+    "crc": 2066742445,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0249.jpg",
+    "size": 89640,
+    "crc": 679675260,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0250.jpg",
+    "size": 78224,
+    "crc": 2807843873,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0251.jpg",
+    "size": 78422,
+    "crc": 3601656258,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0252.jpg",
+    "size": 67484,
+    "crc": 3291071962,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0253.jpg",
+    "size": 89686,
+    "crc": 3191549287,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0256.jpg",
+    "size": 102275,
+    "crc": 590013232,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0257.jpg",
+    "size": 70267,
+    "crc": 3914859434,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0258.jpg",
+    "size": 77002,
+    "crc": 3089415052,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0259.jpg",
+    "size": 78145,
+    "crc": 3510743881,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0262.jpg",
+    "size": 113624,
+    "crc": 502299047,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0263.jpg",
+    "size": 67918,
+    "crc": 1001227537,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0265.jpg",
+    "size": 77932,
+    "crc": 1942822951,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0266.jpg",
+    "size": 72344,
+    "crc": 1105753068,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0267.jpg",
+    "size": 96019,
+    "crc": 2814850566,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0269.jpg",
+    "size": 60611,
+    "crc": 3563171646,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0270.jpg",
+    "size": 59143,
+    "crc": 2853673669,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0271.jpg",
+    "size": 88057,
+    "crc": 1476130697,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0272.jpg",
+    "size": 41811,
+    "crc": 2259363159,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0273.jpg",
+    "size": 79818,
+    "crc": 2895348020,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0274.jpg",
+    "size": 60297,
+    "crc": 4081669925,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0275.jpg",
+    "size": 94321,
+    "crc": 1644428268,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0276.jpg",
+    "size": 52047,
+    "crc": 2333803403,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0278.jpg",
+    "size": 63368,
+    "crc": 2385896995,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0283.jpg",
+    "size": 64850,
+    "crc": 2874203480,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0284.jpg",
+    "size": 45578,
+    "crc": 217736241,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0285.jpg",
+    "size": 76929,
+    "crc": 745027592,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0286.jpg",
+    "size": 63025,
+    "crc": 2737555133,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0288.jpg",
+    "size": 67223,
+    "crc": 2936285089,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0289.jpg",
+    "size": 67308,
+    "crc": 148062238,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0290.jpg",
+    "size": 53740,
+    "crc": 2403957348,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0293.jpg",
+    "size": 72414,
+    "crc": 1416877207,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0294.jpg",
+    "size": 56479,
+    "crc": 3992000013,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0295.jpg",
+    "size": 55628,
+    "crc": 1090944694,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0296.jpg",
+    "size": 62778,
+    "crc": 1820033059,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0297.jpg",
+    "size": 68068,
+    "crc": 3250335237,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0299.jpg",
+    "size": 78371,
+    "crc": 1486730572,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0302.jpg",
+    "size": 54752,
+    "crc": 1869974245,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0304.jpg",
+    "size": 72084,
+    "crc": 4290065503,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0305.jpg",
+    "size": 77908,
+    "crc": 1711671412,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0306.jpg",
+    "size": 49834,
+    "crc": 497951120,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0307.jpg",
+    "size": 35929,
+    "crc": 3391378691,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0309.jpg",
+    "size": 77848,
+    "crc": 3383935700,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0310.jpg",
+    "size": 56213,
+    "crc": 1799761626,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0312.jpg",
+    "size": 66933,
+    "crc": 2474019163,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0313.jpg",
+    "size": 66726,
+    "crc": 3894969383,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0314.jpg",
+    "size": 47126,
+    "crc": 3717308177,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0315.jpg",
+    "size": 54239,
+    "crc": 2672799054,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0316.jpg",
+    "size": 50973,
+    "crc": 1624903360,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0317.jpg",
+    "size": 66138,
+    "crc": 1473978513,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0318.jpg",
+    "size": 69301,
+    "crc": 1915278939,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0319.jpg",
+    "size": 66680,
+    "crc": 331614070,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0323.jpg",
+    "size": 87071,
+    "crc": 2269099486,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0324.jpg",
+    "size": 73876,
+    "crc": 1042002987,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0326.jpg",
+    "size": 42698,
+    "crc": 1604316388,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0327.jpg",
+    "size": 57931,
+    "crc": 1483745180,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0328.jpg",
+    "size": 76634,
+    "crc": 1257122671,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0331.jpg",
+    "size": 97042,
+    "crc": 2719937181,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0333.jpg",
+    "size": 71319,
+    "crc": 3648644168,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0335.jpg",
+    "size": 81235,
+    "crc": 3560934081,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0336.jpg",
+    "size": 91691,
+    "crc": 1856666821,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0337.jpg",
+    "size": 68935,
+    "crc": 4116547602,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0338.jpg",
+    "size": 77201,
+    "crc": 1985355931,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0341.jpg",
+    "size": 64657,
+    "crc": 2374279847,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0343.jpg",
+    "size": 67401,
+    "crc": 2296682355,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0344.jpg",
+    "size": 76349,
+    "crc": 3459573166,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0347.jpg",
+    "size": 75391,
+    "crc": 271669999,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0348.jpg",
+    "size": 70153,
+    "crc": 2623778521,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0350.jpg",
+    "size": 86690,
+    "crc": 1862729018,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0353.jpg",
+    "size": 71259,
+    "crc": 2915955917,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0354.jpg",
+    "size": 73432,
+    "crc": 4288188174,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0355.jpg",
+    "size": 78520,
+    "crc": 3486548978,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0356.jpg",
+    "size": 84769,
+    "crc": 2303535463,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0357.jpg",
+    "size": 64680,
+    "crc": 1107759703,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0358.jpg",
+    "size": 73485,
+    "crc": 2504389022,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0359.jpg",
+    "size": 82752,
+    "crc": 3454335847,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0360.jpg",
+    "size": 75641,
+    "crc": 3442781230,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0363.jpg",
+    "size": 66382,
+    "crc": 301855844,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0364.jpg",
+    "size": 72890,
+    "crc": 553755723,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0365.jpg",
+    "size": 75793,
+    "crc": 514037534,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0366.jpg",
+    "size": 62419,
+    "crc": 3687149034,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0367.jpg",
+    "size": 86845,
+    "crc": 163882278,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0370.jpg",
+    "size": 97574,
+    "crc": 3986183026,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0371.jpg",
+    "size": 54659,
+    "crc": 4164310122,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0373.jpg",
+    "size": 54855,
+    "crc": 1582406435,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0376.jpg",
+    "size": 72962,
+    "crc": 2931170633,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0379.jpg",
+    "size": 62567,
+    "crc": 2288381400,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0380.jpg",
+    "size": 81017,
+    "crc": 2707419814,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0382.jpg",
+    "size": 73257,
+    "crc": 1587227077,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0383.jpg",
+    "size": 61695,
+    "crc": 311691030,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0384.jpg",
+    "size": 54477,
+    "crc": 1670286893,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0386.jpg",
+    "size": 83104,
+    "crc": 1984982770,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0387.jpg",
+    "size": 78995,
+    "crc": 1112447196,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0388.jpg",
+    "size": 74757,
+    "crc": 1674088901,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0389.jpg",
+    "size": 54719,
+    "crc": 1931240181,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0392.jpg",
+    "size": 68225,
+    "crc": 3553170350,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0393.jpg",
+    "size": 80909,
+    "crc": 2167586799,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0394.jpg",
+    "size": 69903,
+    "crc": 1192576029,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0395.jpg",
+    "size": 83803,
+    "crc": 2642588295,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0396.jpg",
+    "size": 73243,
+    "crc": 3359958062,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0399.jpg",
+    "size": 77559,
+    "crc": 1164346180,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0401.jpg",
+    "size": 73909,
+    "crc": 3777324718,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0402.jpg",
+    "size": 63450,
+    "crc": 3922920252,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0404.jpg",
+    "size": 61628,
+    "crc": 751144750,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0405.jpg",
+    "size": 64502,
+    "crc": 1485813141,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0408.jpg",
+    "size": 56091,
+    "crc": 3890007390,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0410.jpg",
+    "size": 88109,
+    "crc": 591168604,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0414.jpg",
+    "size": 75806,
+    "crc": 2655846339,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0415.jpg",
+    "size": 68946,
+    "crc": 1327300096,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0416.jpg",
+    "size": 78789,
+    "crc": 3542508157,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0418.jpg",
+    "size": 98397,
+    "crc": 289084398,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0419.jpg",
+    "size": 68617,
+    "crc": 680734484,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0420.jpg",
+    "size": 72938,
+    "crc": 2433091360,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0421.jpg",
+    "size": 85791,
+    "crc": 1108843851,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0422.jpg",
+    "size": 56593,
+    "crc": 1535759537,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0427.jpg",
+    "size": 73590,
+    "crc": 1479417977,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0428.jpg",
+    "size": 85037,
+    "crc": 3932286680,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0430.jpg",
+    "size": 80182,
+    "crc": 1673781898,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0431.jpg",
+    "size": 107534,
+    "crc": 3743808310,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0432.jpg",
+    "size": 74795,
+    "crc": 3899160263,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0433.jpg",
+    "size": 88124,
+    "crc": 3331935624,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0434.jpg",
+    "size": 60772,
+    "crc": 3965245891,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0435.jpg",
+    "size": 46602,
+    "crc": 1383258666,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0438.jpg",
+    "size": 96318,
+    "crc": 4174108562,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0439.jpg",
+    "size": 76515,
+    "crc": 250611205,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0440.jpg",
+    "size": 69331,
+    "crc": 3947382376,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0442.jpg",
+    "size": 60167,
+    "crc": 2294434944,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0444.jpg",
+    "size": 57394,
+    "crc": 755492920,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0448.jpg",
+    "size": 79491,
+    "crc": 1602253855,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0449.jpg",
+    "size": 94209,
+    "crc": 1898280051,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0450.jpg",
+    "size": 68731,
+    "crc": 1010673254,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0452.jpg",
+    "size": 61859,
+    "crc": 931352416,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0453.jpg",
+    "size": 63447,
+    "crc": 3653875041,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0455.jpg",
+    "size": 81777,
+    "crc": 1863788883,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0456.jpg",
+    "size": 75300,
+    "crc": 2072905123,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0458.jpg",
+    "size": 56117,
+    "crc": 1076035010,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0459.jpg",
+    "size": 79822,
+    "crc": 2015984473,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0461.jpg",
+    "size": 66725,
+    "crc": 1281740676,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0462.jpg",
+    "size": 71578,
+    "crc": 84033819,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0463.jpg",
+    "size": 67410,
+    "crc": 487168015,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0465.jpg",
+    "size": 70648,
+    "crc": 3356709195,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0466.jpg",
+    "size": 93694,
+    "crc": 1242211711,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0468.jpg",
+    "size": 66369,
+    "crc": 409163067,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0470.jpg",
+    "size": 77995,
+    "crc": 3010677472,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0473.jpg",
+    "size": 51302,
+    "crc": 1240302016,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0475.jpg",
+    "size": 55882,
+    "crc": 1343947967,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0476.jpg",
+    "size": 59471,
+    "crc": 4138905263,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0478.jpg",
+    "size": 65025,
+    "crc": 3697421853,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0480.jpg",
+    "size": 70093,
+    "crc": 3715361064,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0483.jpg",
+    "size": 57301,
+    "crc": 3165194723,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0485.jpg",
+    "size": 49945,
+    "crc": 1426861427,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0488.jpg",
+    "size": 93873,
+    "crc": 3093122211,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0489.jpg",
+    "size": 50367,
+    "crc": 1429820028,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0491.jpg",
+    "size": 101420,
+    "crc": 1691577360,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0492.jpg",
+    "size": 73937,
+    "crc": 1756564810,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0493.jpg",
+    "size": 90313,
+    "crc": 2824585465,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0495.jpg",
+    "size": 80407,
+    "crc": 3299493176,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0497.jpg",
+    "size": 83234,
+    "crc": 723701478,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0498.jpg",
+    "size": 89387,
+    "crc": 2278869934,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0499.jpg",
+    "size": 84788,
+    "crc": 1597054916,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0500.jpg",
+    "size": 79396,
+    "crc": 1757580616,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0501.jpg",
+    "size": 74515,
+    "crc": 2472068408,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0502.jpg",
+    "size": 58127,
+    "crc": 2995241199,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0503.jpg",
+    "size": 81124,
+    "crc": 2862802869,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0504.jpg",
+    "size": 85757,
+    "crc": 2265408715,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0505.jpg",
+    "size": 114817,
+    "crc": 3303867275,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0508.jpg",
+    "size": 47167,
+    "crc": 1264156127,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0509.jpg",
+    "size": 89485,
+    "crc": 3946798825,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0510.jpg",
+    "size": 106055,
+    "crc": 515529768,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0512.jpg",
+    "size": 66744,
+    "crc": 1641630599,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0517.jpg",
+    "size": 72194,
+    "crc": 151080267,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0518.jpg",
+    "size": 80369,
+    "crc": 1157890338,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0523.jpg",
+    "size": 79724,
+    "crc": 3036536354,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0524.jpg",
+    "size": 102238,
+    "crc": 59361008,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0526.jpg",
+    "size": 47014,
+    "crc": 2239640957,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0529.jpg",
+    "size": 102001,
+    "crc": 3638876715,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0530.jpg",
+    "size": 82482,
+    "crc": 3723342546,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0531.jpg",
+    "size": 74662,
+    "crc": 3738626885,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0532.jpg",
+    "size": 84130,
+    "crc": 2267429668,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0535.jpg",
+    "size": 86610,
+    "crc": 825095235,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0537.jpg",
+    "size": 76444,
+    "crc": 1118882827,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0538.jpg",
+    "size": 65019,
+    "crc": 1156771765,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0539.jpg",
+    "size": 98044,
+    "crc": 1456755269,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0543.jpg",
+    "size": 121669,
+    "crc": 1505915342,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0544.jpg",
+    "size": 65703,
+    "crc": 1017721521,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0548.jpg",
+    "size": 59013,
+    "crc": 840943463,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0549.jpg",
+    "size": 63731,
+    "crc": 2404960616,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0550.jpg",
+    "size": 81455,
+    "crc": 3807785274,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0552.jpg",
+    "size": 77427,
+    "crc": 3761590601,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0554.jpg",
+    "size": 52064,
+    "crc": 3600524547,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0557.jpg",
+    "size": 80570,
+    "crc": 709909677,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Training/smoking_0560.jpg",
+    "size": 67026,
+    "crc": 280865367,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0006.jpg",
+    "size": 64056,
+    "crc": 3331695770,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0017.jpg",
+    "size": 63493,
+    "crc": 3443097539,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0024.jpg",
+    "size": 56000,
+    "crc": 3644281252,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0029.jpg",
+    "size": 80402,
+    "crc": 2654423517,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0034.jpg",
+    "size": 47367,
+    "crc": 2344508676,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0044.jpg",
+    "size": 51627,
+    "crc": 290925781,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0048.jpg",
+    "size": 69070,
+    "crc": 614472608,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0052.jpg",
+    "size": 55978,
+    "crc": 1634721915,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0057.jpg",
+    "size": 59134,
+    "crc": 238555188,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0063.jpg",
+    "size": 44329,
+    "crc": 4064516275,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0071.jpg",
+    "size": 54839,
+    "crc": 4207120010,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0073.jpg",
+    "size": 101334,
+    "crc": 1305168672,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0078.jpg",
+    "size": 65923,
+    "crc": 2329077886,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0084.jpg",
+    "size": 69365,
+    "crc": 2213412560,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0092.jpg",
+    "size": 61488,
+    "crc": 869111782,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0096.jpg",
+    "size": 65948,
+    "crc": 2577125512,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0100.jpg",
+    "size": 62170,
+    "crc": 1575817117,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0105.jpg",
+    "size": 62859,
+    "crc": 659208387,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0108.jpg",
+    "size": 52062,
+    "crc": 2698912737,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0114.jpg",
+    "size": 75761,
+    "crc": 932890151,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0115.jpg",
+    "size": 62490,
+    "crc": 2479727209,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0122.jpg",
+    "size": 101468,
+    "crc": 983029563,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0134.jpg",
+    "size": 56132,
+    "crc": 2542331368,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0137.jpg",
+    "size": 58489,
+    "crc": 459339801,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0141.jpg",
+    "size": 37930,
+    "crc": 2393950620,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0145.jpg",
+    "size": 59146,
+    "crc": 2585545461,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0151.jpg",
+    "size": 91303,
+    "crc": 3574589684,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0155.jpg",
+    "size": 73648,
+    "crc": 1387175896,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0158.jpg",
+    "size": 78165,
+    "crc": 2520033964,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0165.jpg",
+    "size": 74993,
+    "crc": 582853012,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0171.jpg",
+    "size": 55930,
+    "crc": 211301826,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0177.jpg",
+    "size": 61396,
+    "crc": 626007385,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0182.jpg",
+    "size": 54949,
+    "crc": 1248971508,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0192.jpg",
+    "size": 57998,
+    "crc": 3322354421,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0198.jpg",
+    "size": 81614,
+    "crc": 2393535876,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0205.jpg",
+    "size": 80280,
+    "crc": 1941550229,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0209.jpg",
+    "size": 90486,
+    "crc": 2239863946,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0213.jpg",
+    "size": 90818,
+    "crc": 2862365911,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0217.jpg",
+    "size": 75822,
+    "crc": 3329420600,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0222.jpg",
+    "size": 82681,
+    "crc": 355190827,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0235.jpg",
+    "size": 56557,
+    "crc": 2724624780,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0238.jpg",
+    "size": 63217,
+    "crc": 510902289,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0248.jpg",
+    "size": 73510,
+    "crc": 392750594,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0252.jpg",
+    "size": 67934,
+    "crc": 1733432988,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0258.jpg",
+    "size": 69950,
+    "crc": 102158676,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0263.jpg",
+    "size": 65368,
+    "crc": 1971609903,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0272.jpg",
+    "size": 73280,
+    "crc": 896696512,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0278.jpg",
+    "size": 77999,
+    "crc": 4143418638,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0283.jpg",
+    "size": 69894,
+    "crc": 1103899468,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0291.jpg",
+    "size": 55751,
+    "crc": 2346750405,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0298.jpg",
+    "size": 63881,
+    "crc": 2969320070,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0307.jpg",
+    "size": 65929,
+    "crc": 2332305679,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0313.jpg",
+    "size": 64608,
+    "crc": 3358828918,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0319.jpg",
+    "size": 67407,
+    "crc": 3893687351,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0328.jpg",
+    "size": 59766,
+    "crc": 2475667863,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0338.jpg",
+    "size": 82482,
+    "crc": 3000161501,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0345.jpg",
+    "size": 86424,
+    "crc": 3373780789,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0358.jpg",
+    "size": 76294,
+    "crc": 1941309401,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0360.jpg",
+    "size": 63206,
+    "crc": 2606404441,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0369.jpg",
+    "size": 68991,
+    "crc": 2234309306,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0374.jpg",
+    "size": 76928,
+    "crc": 1073417818,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0377.jpg",
+    "size": 61773,
+    "crc": 819697603,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0385.jpg",
+    "size": 76689,
+    "crc": 1039585415,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0398.jpg",
+    "size": 43571,
+    "crc": 3991888914,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0403.jpg",
+    "size": 65383,
+    "crc": 1884366380,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0409.jpg",
+    "size": 54991,
+    "crc": 2125346425,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0417.jpg",
+    "size": 82252,
+    "crc": 2813234133,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0420.jpg",
+    "size": 64076,
+    "crc": 3765901345,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0428.jpg",
+    "size": 59871,
+    "crc": 251534622,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0432.jpg",
+    "size": 85269,
+    "crc": 210779182,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0440.jpg",
+    "size": 60304,
+    "crc": 2642241547,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0449.jpg",
+    "size": 80750,
+    "crc": 1635456261,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0457.jpg",
+    "size": 66606,
+    "crc": 1071446407,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0462.jpg",
+    "size": 58392,
+    "crc": 3438383790,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0467.jpg",
+    "size": 74642,
+    "crc": 3313649491,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0477.jpg",
+    "size": 76725,
+    "crc": 618129923,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0481.jpg",
+    "size": 68217,
+    "crc": 3224453405,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0488.jpg",
+    "size": 90580,
+    "crc": 572859308,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0494.jpg",
+    "size": 75724,
+    "crc": 2637518652,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0498.jpg",
+    "size": 58107,
+    "crc": 467851649,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0501.jpg",
+    "size": 62790,
+    "crc": 546859117,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0502.jpg",
+    "size": 69729,
+    "crc": 190419872,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0508.jpg",
+    "size": 67580,
+    "crc": 3486496967,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0517.jpg",
+    "size": 82570,
+    "crc": 1936314102,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0528.jpg",
+    "size": 69463,
+    "crc": 3290512247,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0539.jpg",
+    "size": 64021,
+    "crc": 2279916496,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0542.jpg",
+    "size": 71760,
+    "crc": 2822841894,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0547.jpg",
+    "size": 94003,
+    "crc": 9802646,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0554.jpg",
+    "size": 61224,
+    "crc": 592798030,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/notsmoking_0557.jpg",
+    "size": 62852,
+    "crc": 2969095369,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0006.jpg",
+    "size": 57451,
+    "crc": 27812846,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0009.jpg",
+    "size": 68570,
+    "crc": 4105685291,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0018.jpg",
+    "size": 66201,
+    "crc": 2779862177,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0026.jpg",
+    "size": 61373,
+    "crc": 188593208,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0031.jpg",
+    "size": 83843,
+    "crc": 373060170,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0036.jpg",
+    "size": 65504,
+    "crc": 3813507045,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0038.jpg",
+    "size": 56599,
+    "crc": 2150765994,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0040.jpg",
+    "size": 79414,
+    "crc": 862201073,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0043.jpg",
+    "size": 64142,
+    "crc": 2666623862,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0047.jpg",
+    "size": 72685,
+    "crc": 4204533756,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0050.jpg",
+    "size": 66795,
+    "crc": 590104226,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0051.jpg",
+    "size": 62202,
+    "crc": 3889544113,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0073.jpg",
+    "size": 50936,
+    "crc": 1382050665,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0076.jpg",
+    "size": 84790,
+    "crc": 1328156913,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0081.jpg",
+    "size": 63341,
+    "crc": 2875949198,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0088.jpg",
+    "size": 84082,
+    "crc": 4004204556,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0093.jpg",
+    "size": 84848,
+    "crc": 1563317713,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0102.jpg",
+    "size": 79108,
+    "crc": 3429757810,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0105.jpg",
+    "size": 81506,
+    "crc": 974480520,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0113.jpg",
+    "size": 70454,
+    "crc": 1432294600,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0119.jpg",
+    "size": 93405,
+    "crc": 3496231123,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0127.jpg",
+    "size": 82407,
+    "crc": 1765154852,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0129.jpg",
+    "size": 59105,
+    "crc": 2500220410,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0139.jpg",
+    "size": 85284,
+    "crc": 4286192721,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0145.jpg",
+    "size": 95069,
+    "crc": 597423602,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0150.jpg",
+    "size": 82305,
+    "crc": 832412418,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0153.jpg",
+    "size": 53229,
+    "crc": 1735652086,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0157.jpg",
+    "size": 57195,
+    "crc": 3583807571,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0161.jpg",
+    "size": 67449,
+    "crc": 259834180,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0163.jpg",
+    "size": 85327,
+    "crc": 4236512503,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0170.jpg",
+    "size": 98953,
+    "crc": 651498806,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0176.jpg",
+    "size": 67345,
+    "crc": 1514817095,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0185.jpg",
+    "size": 76505,
+    "crc": 1217436346,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0190.jpg",
+    "size": 70213,
+    "crc": 130622010,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0197.jpg",
+    "size": 66772,
+    "crc": 339151212,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0199.jpg",
+    "size": 93070,
+    "crc": 2370359890,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0206.jpg",
+    "size": 95646,
+    "crc": 3367572888,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0211.jpg",
+    "size": 117919,
+    "crc": 354547768,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0224.jpg",
+    "size": 97394,
+    "crc": 588235589,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0240.jpg",
+    "size": 94820,
+    "crc": 1818423192,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0246.jpg",
+    "size": 84824,
+    "crc": 1501319306,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0255.jpg",
+    "size": 90395,
+    "crc": 1444469685,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0261.jpg",
+    "size": 93426,
+    "crc": 2354808219,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0264.jpg",
+    "size": 78860,
+    "crc": 3450784488,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0268.jpg",
+    "size": 64565,
+    "crc": 793936102,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0279.jpg",
+    "size": 48711,
+    "crc": 3271815781,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0280.jpg",
+    "size": 60470,
+    "crc": 1281556252,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0281.jpg",
+    "size": 85877,
+    "crc": 1488437447,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0300.jpg",
+    "size": 58498,
+    "crc": 2418572041,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0301.jpg",
+    "size": 66791,
+    "crc": 777144601,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0303.jpg",
+    "size": 63137,
+    "crc": 1385097413,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0311.jpg",
+    "size": 58783,
+    "crc": 1181572533,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0320.jpg",
+    "size": 62061,
+    "crc": 894383417,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0322.jpg",
+    "size": 53633,
+    "crc": 1945136119,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0329.jpg",
+    "size": 84069,
+    "crc": 3983308557,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0332.jpg",
+    "size": 54208,
+    "crc": 40496988,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0345.jpg",
+    "size": 58893,
+    "crc": 2429229742,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0351.jpg",
+    "size": 73460,
+    "crc": 2620366768,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0362.jpg",
+    "size": 61122,
+    "crc": 2256767233,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0368.jpg",
+    "size": 95128,
+    "crc": 3363053542,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0372.jpg",
+    "size": 78236,
+    "crc": 3011451746,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0377.jpg",
+    "size": 52905,
+    "crc": 1949763593,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0378.jpg",
+    "size": 65046,
+    "crc": 2411775591,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0390.jpg",
+    "size": 74897,
+    "crc": 3165771225,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0398.jpg",
+    "size": 84997,
+    "crc": 4264608461,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0400.jpg",
+    "size": 53166,
+    "crc": 2214058328,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0406.jpg",
+    "size": 58769,
+    "crc": 451134063,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0411.jpg",
+    "size": 71577,
+    "crc": 629543249,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0417.jpg",
+    "size": 74238,
+    "crc": 3536864913,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0424.jpg",
+    "size": 71375,
+    "crc": 90357508,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0436.jpg",
+    "size": 109002,
+    "crc": 3606352124,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0445.jpg",
+    "size": 75715,
+    "crc": 1433953000,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0454.jpg",
+    "size": 70628,
+    "crc": 410676164,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0460.jpg",
+    "size": 75392,
+    "crc": 2705297603,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0467.jpg",
+    "size": 71702,
+    "crc": 1577933618,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0481.jpg",
+    "size": 69971,
+    "crc": 563669124,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0487.jpg",
+    "size": 59993,
+    "crc": 3524358744,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0494.jpg",
+    "size": 69849,
+    "crc": 1423559194,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0507.jpg",
+    "size": 69990,
+    "crc": 538365317,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0513.jpg",
+    "size": 62035,
+    "crc": 734692015,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0514.jpg",
+    "size": 63550,
+    "crc": 582897482,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0516.jpg",
+    "size": 62252,
+    "crc": 3115086458,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0519.jpg",
+    "size": 73195,
+    "crc": 47825017,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0520.jpg",
+    "size": 66151,
+    "crc": 2876952179,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0525.jpg",
+    "size": 97358,
+    "crc": 3483146677,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0534.jpg",
+    "size": 80029,
+    "crc": 2349640003,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0542.jpg",
+    "size": 77325,
+    "crc": 2204584789,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0545.jpg",
+    "size": 67868,
+    "crc": 1503577669,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0556.jpg",
+    "size": 64175,
+    "crc": 1240187353,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Validation/smoking_0558.jpg",
+    "size": 71155,
+    "crc": 2700164943,
+    "directory": false
+  },
+  {
+    "name": "Smoker Detection/Testing/",
+    "size": 0,
+    "crc": 0,
+    "directory": true
+  },
+  {
+    "name": "Smoker Detection/Training/",
+    "size": 0,
+    "crc": 0,
+    "directory": true
+  },
+  {
+    "name": "Smoker Detection/Validation/",
+    "size": 0,
+    "crc": 0,
+    "directory": true
+  },
+  {
+    "name": "Smoker Detection/",
+    "size": 0,
+    "crc": 0,
+    "directory": true
+  }
+]

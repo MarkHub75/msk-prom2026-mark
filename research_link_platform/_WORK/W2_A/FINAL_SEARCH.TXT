@@ -1,0 +1,203 @@
+Фреймворк для тензорного процессора LinQ H1 компании «ХайТэк» включен в реестр отечественного ПО — DSMedia.pro (https://dsmedia.pro/company/lin-q/news/frejmvork-dlja-tenzornogo-processora-linq-h1-kompanii-hajtek-vkljuchen-v-reestr-otechestvennogo-programmnogo-obespechenija-minci)
+citeturn156search0 [wordlim: 200] Published: 5 months ago; Crawled: last week; # Фреймворк для тензорного процессора LinQ H1 включен в реестр отечественного программного обеспечения Минцифры России
+
+# Фреймворк для тензорного процессора LinQ H1 включен в реестр отечественного программного обеспечения Минцифры России
+
+ХайТэк
+
+06.05.2026
+
+Технологический стек российской компании «ХайТэк», разрабатывающей аппаратные ИИ-модули для ускорения нейронных сетей, получил официальное подтверждение российского происхождения.
+
+Фреймворк LinQ H1, программная часть экосистемы компании «ХайТэк», включен в реестр Минцифры вслед за тензорным процессором собственной архитектуры, который ранее был внесен в реестр Минпромтогра как отечественная электронная компонентная база. --------------------------------------------------------------------------------
+TPU Monitoring Library  |  Google Cloud Documentation (https://docs.cloud.google.com/tpu/docs/tpu-monitoring-library?hl=en)
+citeturn156search1 [wordlim: 200] Crawled: 2 days ago; The TPU monitoring functionality is integrated with the LibTPU SDK, so it is included when you install LibTPU or when you install a framework such as JAX or TorchTPU (`torch_tpu`) that uses LibTPU. ... When you install the latest JAX release (released monthly), it pins a compatible LibTPU version and its monitoring features:
+It's designed to help you understand your TPU utilization, identify bottlenecks, and debug performance issues. It gives you more detailed information than interruption metrics, goodput metrics, and other metrics.
+
+## Get started with the TPU Monitoring Library
+
+Accessing these insights is straightforward. The TPU monitoring functionality is integrated with the LibTPU SDK, so it is included when you install LibTPU or when you install a framework such as JAX or TorchTPU (`torch_tpu`) that uses LibTPU.
+
+### Install LibTPU
+    
+    `pip install libtpu
+    `
+
+### Install a framework
+
+LibTPU updates are coordinated with framework releases. Choose your framework to install a compatible LibTPU version and its monitoring features:
+
+### JAX
+
+When you install the latest JAX release (released monthly), it pins a compatible LibTPU version and its monitoring features:
+    
+    `pip install -U "jax[tpu]"
+    `
+
+### TorchTPU
+
+For PyTorch workloads, TorchTPU (`torch_tpu`) declares `libtpu` as a package dependency and uses the `libtpu` package installed in your environment. --------------------------------------------------------------------------------
+Introducing TorchTPU · TechFeed (https://techfeed.moeein.me/fa/articles/pytorch-introducing-torchtpu)
+citeturn156search2 [wordlim: 200] Published: 3 days ago; Crawled: yesterday; Notable features of the TPU programming model: ... To validate this promise, we built an automated testing framework using Hugging Face models across NLP, vision, audio, multimodal, and generative diffusion domains. ... With TorchTPU now publicly available on GitHub, this initial open-source release represents only the beginning of our development journey.
+  * Bidirectional Inter-Chip Interconnect (ICI) – 19.2 TBps in TPU 8t and 8i, allowing fast communication between TPU chips within user-configured TPU Slices, which are logical subgroups of a TPU Pod, comprising of a preconfigured number of TPU chips connected in a 3D torus (for TPU 7, TPUv 8t) or Boardfly (TPU 8i) configuration.
+  * Bidirectional Data-Center-Network (DCN) – 400 GBps in TPU 8t, allowing communication between TPU chips across Slices.
+
+TPUs are programmed with the XLA compiler stack through two different entry points: StableHLO (higher-level IR for ML ops) and Mosaic (lower-level IR for custom kernels). The actual TPU ISA is proprietary, subject to change, and not publicly available. Effectively, one can think of StableHLO and (even more so) of Mosaic as equivalent to PTX. See picture below for a high-level sketch.
+--------------------------------------------------------------------------------
+Google and Meta Open-Source TorchTPU: Decoupling Model Code from Silicon (https://tech.yahoo.com/ai/meta-ai/articles/google-meta-open-source-torchtpu-211827488.html)
+citeturn156search3 [wordlim: 200] Published: 3 days ago; Crawled: yesterday; While this release changes how developers interact with specialized hardware, the underlying engineering was not developed for this announcement. ... The PyTorch blog warns that while models may run out of the box, one cannot achieve peak TPU performance with a simple device swap. ... The industry now faces a contest defined by runtime cost and ecosystem depth rather than simple framework compatibility.
+
+# Google and Meta Open-Source TorchTPU: Decoupling Model Code from Silicon
+
+Forkast News
+
+Blair Hayes
+
+Tue, October 20, 2026 at 9:18 PM UTC
+
+Google and Meta officially open-sourced TorchTPU at the PyTorch Conference North America in San Jose on October 20, 2026. While this release changes how developers interact with specialized hardware, the underlying engineering was not developed for this announcement. Google published its deep dive, TorchTPU deep dive, on April 7, 2026. The code arrived today, but the technical foundation has been maturing for months.
+
+This development addresses a core component of our infrastructure bottleneck thesis, which identifies tooling as a primary constraint on enterprise AI deployment. By decoupling model code from specific hardware, TorchTPU aims to lower the friction of moving workloads between different compute environments. The mechanism relies on the PrivateUse1 backend interface, allowing developers to use familiar PyTorch tensors on TPUs without wrappers or subclasses. --------------------------------------------------------------------------------
+Google opens TorchTPU to run native PyTorch workloads on TPUs - TechEnclave (https://techenclave.com/news/items/google-opens-torchtpu-to-run-native-pytorch-workloads-on-tpus)
+citeturn156search4 [wordlim: 200] Published: today; Crawled: today; The release includes a vLLM serving backend; Ironwood is the recommended TPU hardware, with older generations experimental. ... PyTorch is a widely used framework for building and running machine-learning models; TPUs are Google's specialised AI processors.
+
+# Google opens TorchTPU to run native PyTorch workloads on TPUs
+
+TechEnclave News Desk
+
+The release includes a vLLM serving backend; Ironwood is the recommended TPU hardware, with older generations experimental.
+
+Image vLLM / Inferact and Google
+
+Google has open-sourced TorchTPU, its stack for running PyTorch workloads on Tensor Processing Units. PyTorch is a widely used framework for building and running machine-learning models; TPUs are Google's specialised AI processors. The release makes TPUs a native target rather than requiring a separate model implementation.
+
+Developed with Meta's PyTorch team, TorchTPU supports familiar APIs, eager-mode debugging and compilation through torch.compile. Google also describes integrations with Hugging Face and serving tools, giving developers a route to train and deploy models while retaining more of their existing software workflow.
+
+Inferact and Google separately released vllm-torchtpu, a plugin for the open-source vLLM model server. It keeps vLLM's scheduler, API server and model definitions while providing TPU-specific execution and kernels underneath. --------------------------------------------------------------------------------
+PDF document (https://device.report/m/76b1e416caff102f8488a23e8d17d4074ff47ac646aa264ec3514e15fc4d1c40)
+citeturn156search5 [wordlim: 200] Crawled: 3 weeks ago;     Cam Lock (H1) ...     LINQ's adjustable platform and frame allow the bed to accommodate a variety of mattresses, positioning the top of the mattress at the user's preferred height. ... INSTALL CAM LOCKS, CAM STUDS, AND DOWELS
+    
+    14"
+    
+    Platform Position Frame Position Platform Height Mattress Size
+    
+    High High 14" | 36 cm 810"
+    
+    11"
+    
+    Platform Position Frame Position Platform Height Mattress Size
+    
+    Low High 11" | 28 cm 12"
+    
+    11"
+    
+    Platform Position Frame Position Platform Height Mattress Size
+    
+    High Low 11" | 28 cm 12"
+    
+    8"
+    
+    Platform Position Frame Position Platform Height Mattress Size
+    
+    Low Low 8" | 21 cm 1416" Mattress
+    
+    A PLATFORM: The inner bed support system,
+    
+    which includes the side and center supports and
+    
+    A
+    
+    slat system, can be positioned at two heights.
+    
+    B FRAME: The outer wood frame that surrounds
+    
+    the platform and attaches to the headboard,
+    
+    B
+    
+    can be positioned at two heights.
+    
+    NEED [email protected] | 7
+    
+    ASSEMBLY
+    
+    STEP 1. INSTALL CAM LOCKS, CAM STUDS, AND DOWELS
+    
+    Lay the Side Rails (C1 & C2) and the Footboard and Headboard Rails (C3 & C4) on a soft, nonmarring surface, like carpet. Insert 8 Dowels (H3) and 4 Cam Studs (H2) into the holes on the ends of the Rails, as shown. Place 4 Cam Locks (H1) into the large holes at the ends of the Rails, ensuring that the hole in the Cam Lock (H1) lines up with the hole on the end of the Rails.
+    Scan to watch the LINQ assembly video.
+    
+    CAM LOCK  H1
+    
+    QTY 4
+    
+    CAM STUD  H2
+    
+    QTY 4
+    
+    DOWEL  H3
+    
+    QTY 8
+    
+    bdiusa.com/linq-assembly
+    
+    C2
+    
+    C1
+    
+    H2
+    
+    C3
+    
+    H1 H2
+    
+    H3 H2
+    
+    H3 H1
+    
+    C4 H2 H1
+    
+    H1 H3
+    
+    8 | BDIUSA.COM
+    
+    LINQ BEDS
+    
+    STEP 2. CONNECT RAILS
+    Connect the Side Rails (C1 and C2) to the Headboard Rail (C4). Tighten each Cam Lock (H1) with a 6mm Hex Wrench (T2). Connect the Footboard Rail (C3) to the ends of the Side Rails. Tighten each Cam Lock (H1) with a 6mm Hex Wrench (T2).
+--------------------------------------------------------------------------------
+Google and AWS Open PyTorch Backends for Their AI Chips, Easing Moves Beyond NVIDIA GPUs | XenoSpectrum (https://xenospectrum.com/en/google-torchtpu-pytorch-chip-portability/)
+citeturn156search6 [wordlim: 200] Published: 2 days ago; Crawled: 2 days ago; It is an execution backend that lets the AI development framework PyTorch run on Google's own AI chip, the TPU. ... However, it is at a different development stage from a formal general release, so its available features and maturity need to be evaluated separately.
+--------------------------------------------------------------------------------
+LINQ® 9190/9194 (https://images.webfronts.com/cache/mevuuvnompdh.pdf)
+citeturn156search12 [wordlim: 200] Published: 6 months ago; Congratulations on the purchase of your LINQ Mirror from BDI. ... Mounting Cleat (C1) | QTY: 1 --- | ---Wood Screw (H1) | QTY: 2 --- | ---9190 9194 Mirror (C2) | QTY: 1 --- | ---TOOLS REQUIRED
+--------------------------------------------------------------------------------
+TorchTPU: PyTorch on TPUs Without the Friction · AI Beat (https://ai-beat.github.io/news/2026/10/torchtpu-pytorch-tpus/)
+citeturn156search7 [wordlim: 200] Published: 2 days ago; Crawled: yesterday; google tpu pytorch inference hardware open-source ... It’s not unusable, but it demands a mental context-switch that makes TPUs feel like a different framework.Google published a detailed technical post on TorchTPU back in April, outlining the design and promising an open-source release.
+--------------------------------------------------------------------------------
+Releases · pytorch/xla · GitHub (https://github.com/pytorch/xla/releases)
+citeturn156search8 [wordlim: 200] Crawled: yesterday; Starting from 2.1, PyTorch/XLA will release our TPU whl on the pypi.
+--------------------------------------------------------------------------------
+Google launches TorchTPU to run PyTorch apps on TPUs — NQ Brief (https://nqbrief.com/en/tech/google-torchtpu-pytorch-tpu-launch/)
+citeturn156search9 [wordlim: 200] Published: 3 days ago; Crawled: 2 days ago; Alongside the release, Google published a "TPU Agent Suite" to support application migration and bug fixing, and updated its on-device AI runtime LiteRT for better integration with PyTorch apps. ... In 2022, Meta handed the framework over to the non-profit Linux Foundation.
+--------------------------------------------------------------------------------
+LTSV-LINQ-1.09 - LINQ-style query interface for LTSV files - metacpan.org (https://web.prod-hz.metacpan.org/dist/LTSV-LINQ)
+citeturn156search10 [wordlim: 200] Published: 5 months ago; Crawled: 5 months ago;   * lib/LTSV/LINQ.pm: FromLTSV and ToLTSV on Perl 5.005_03 now use a unique numbered package glob per call (LTSV::LINQ::FH::H1, LTSV::LINQ::FH::H2, ...) instead of \do{local *_}, which always resolves to *main::_ and caused IO slot collision when two iterators were open concurrently (e.g. ... To install LTSV::LINQ, copy and paste the appropriate command in to your terminal. ... For more information on module installation, please visit the detailed CPAN module installation guide.
+--------------------------------------------------------------------------------
+TorchTPU Open Source: Google Challenges Nvidia's PyTorch (https://bytevyte.com/torchtpu-open-source-google-pytorch/)
+citeturn156search11 [wordlim: 200] Published: 2 days ago; Crawled: yesterday; Google also revealed that TPUs are now usable with the vLLM and SGLang serving engines, the TorchTitan training framework, and the Ray and Hugging Face libraries.In Transformers v5, a single parameter, device_map='tpu', moves a model onto a TPU. ... Google named Meta, Hugging Face, Inferact (maker of vLLM) and RadixArk (maker of SGLang) as partners on the release.
+--------------------------------------------------------------------------------
+LinQ Minerals Limited (https://linqminerals.com/wp-content/uploads/6A1285705_LNQ.pdf)
+citeturn156search13 [wordlim: 200] Published: last year; LinQ Minerals Limited ... Dam, and additional targets at the Mag H1, Woolshed, and Fields prospects (Figure 6).
+--------------------------------------------------------------------------------
+ISSN(Online): 2320-9801 (https://ijircce.com/admin/main/storage/app/pdf/LAhxgJbgBGaXdSTUKF8MuC3c14yD4nMS008qRimD.pdf)
+citeturn156search14 [wordlim: 200] Published: 5 months ago; Emgu.CV.CvInvoke.CompareHist(H1, H2, Method); ... PLINQ automatically parallelizes local LINQ queries. ... offloads the burden of both partitioning and collating to the Framework.
+--------------------------------------------------------------------------------
+Lokal undervisningsplan (https://www.eucsyd.dk/media/31813/lup-hovedforloeb-datatekniker-201218.pdf)
+citeturn156search15 [wordlim: 200] Published: 1.4 years ago; |  | UVM-Fag i uger  |  | LINQ og Entity Framework (Vuf)  | * Databaseprogrammering  | * Serversideprogrammering  | Softwaretest og -sikkerhed  | * GUI-programmering  | * Embedded Controller I  | * Embedded Controller II  | Serverteknologi - Linux ... De grundlæggende programmeringsteknikker er indøvet på H1 og H2.
+--------------------------------------------------------------------------------
+Guía #5: Conectando a Fuentes de Datos con LINQ (https://www.udb.edu.sv/udb_files/recursos_guias/informatica-tecnologico/lenguaje-de-programacion-ii/2020/i/guia-5.pdf)
+citeturn156search16 [wordlim: 200] Published: 6.7 years ago; Guía #10: Conectando a Fuentes de Datos con LINQ ...         <h1 id="logo"><a href="/">Página  Principal</a></h1>
+--------------------------------------------------------------------------------
+untitled (https://courts.mt.gov/External/leg/1987/house/03-17-htax.pdf)
+citeturn156search17 [wordlim: 200] Published: 15.1 years ago; l' to th@ }mnta.::a h1! ... d for til .. instAllation Qr tl41ntenance of ... linQ 17 •
+

@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Accuracy Considerations &#8212; NVIDIA TensorRT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=0abb5746"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js?v=edc4054a"></script>
+    <script src="../_static/external-links.js"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'inference-library/accuracy-considerations';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '10.16.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+<script type="text/javascript" src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+
+    <link rel="icon" href="../_static/favicon.ico"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with Dynamic Shapes" href="work-dynamic-shapes.html" />
+    <link rel="prev" title="Working with Quantized Types" href="work-quantized-types.html" />
+
+<link rel="preload" as="image" href="https://www.nvidia.com/content/dam/1x1-00000000.png">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="May 23, 2026"/>
+
+    <meta name="docs_products" content="NVIDIA TensorRT">
+    <meta name="docs_version" content="10.16.1">
+    <meta name="docs_books" content="NVIDIA TensorRT 10.16.1">
+    
+
+
+  </head>
+
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+<img src="https://www.nvidia.com/content/dam/1x1-00000000.png" width="1" height="1" style="display:none;" alt="country_code">
+
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">📦 <strong>Archived Documentation – Reference Only</strong> — This documentation is retained for customers using legacy product versions. It is no longer actively maintained, validated, or updated, and should not be relied upon for current product capabilities, security guidance, or operational decisions. For supported and up-to-date documentation, visit the <a href='https://docs.nvidia.com/tensorrt'>NVIDIA Docs Hub: NVIDIA TensorRT</a>.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting-started/release-notes.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.1.html">10.16.1 (Latest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.0.html">10.16.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.15.1.html">10.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.14.1.html">10.14.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.3.html">10.13.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.2.html">10.13.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.0.html">10.13.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.12.0.html">10.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.11.0.html">10.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.10.0.html">10.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.9.0.html">10.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.8.0.html">10.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.7.0.html">10.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.6.0.html">10.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.5.0.html">10.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.4.0.html">10.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.3.0.html">10.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.2.0.html">10.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.1.0.html">10.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.1.html">10.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.0-ea.html">10.0.0 Early Access</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-start-guide.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/support-matrix.html">Support Matrix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installing TensorRT</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/overview.html">Installation Guide Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installing-tensorrt/installing.html">Installing TensorRT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-pip.html">Method 1: Python Package Index (pip)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-debian.html">Method 2: Debian Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-rpm.html">Method 3: RPM Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-tar.html">Method 4: Tar File Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-zip.html">Method 5: Zip File Installation (Windows)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-container.html">Method 6: Container Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-alternative.html">Alternative Installation Methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/upgrading.html">Upgrading TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/uninstalling.html">Uninstalling TensorRT</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../architecture/architecture-overview.html">Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/capabilities.html">TensorRT’s Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/how-trt-works.html">How TensorRT Works</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inference Library</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-api-docs.html">C++ API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-api-docs.html">Python API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample-support-guide.html">Sample Support Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced.html">Advanced Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="version-compatibility.html">Version Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refitting-engines.html">Refitting an Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precision-control.html">Algorithm Selection and Reproducible Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-formats-sparsity.html">I/O Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engine-tools.html">Engine Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weight-streaming.html">Weight Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-device.html">Tiling Optimization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="work-quantized-types.html">Working with Quantized Types</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Accuracy Considerations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="work-dynamic-shapes.html">Working with Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="dynamic-shapes-basics.html">Dynamic Shapes: Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic-shapes-advanced.html">Dynamic Shapes: Advanced Topics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="extending-custom-layers.html">Extending TensorRT with Custom Layers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins-cpp.html">Adding Custom Layers Using the C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins-python.html">Adding Custom Layers using the Python API (TensorRT &gt;= 10.6)</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="plugins-advanced.html">Enabling Timing Caching and Using Custom Tactics</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="plugins-api-migration.html">Plugin API Description</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="work-with-loops.html">Working with Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="work-with-conditionals.html">Working with Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="work-with-dla.html">Working with DLA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="capture-replay.html">TensorRT API Capture and Replay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="work-with-transformers.html">Working with Transformers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance/best-practices.html">Best Practices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance/benchmarking.html">Performance Benchmarking using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/measurement-techniques.html">Advanced Performance Measurement Techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/hw-sw-environment.html">Hardware/Software Environment for Performance Measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/optimization.html">Optimizing TensorRT Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/overhead-layer-optimization.html">Overhead of Shape Change and Optimization Profile Switching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/accuracy-builder.html">Improving Model Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/builder-performance.html">Optimizing Builder Performance</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/c-api.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python-api.html">Python API</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/migration-guide.html">Migrating from TensorRT 8.x to 10.x</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-python-api.html">Migrating Python Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-c-api.html">Migrating C++ Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-trtexec.html">Migrating <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> Usage from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-safety-runtime.html">Migrating Safety Runtime Code from TensorRT 8.x to 10.x</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/onnx-graphsurgeon-api.html">ONNX GraphSurgeon API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/polygraphy-api.html">Polygraphy API</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/data-format-desc.html">Data Format Descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/command-line-programs.html">Command-Line Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/operators.html">Operators Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/additional-resources.html">Additional Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/sla.html">LICENSE AGREEMENT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/glossary.html">Glossary</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Accuracy Considerations</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="header-article-item">
+  <div class="d-flex justify-content-end w-100">
+    <a href="https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5" id="openPopupButton">Is this page helpful?</a>
+  </div>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="accuracy-considerations">
+<span id="id1"></span><h1>Accuracy Considerations<a class="headerlink" href="#accuracy-considerations" title="Link to this heading">#</a></h1>
+<section id="reduced-precision-data-types">
+<span id="reduced-precision-formats"></span><h2>Reduced Precision Data Types<a class="headerlink" href="#reduced-precision-data-types" title="Link to this heading">#</a></h2>
+<p>The choice of floating-point precision can significantly impact both performance and accuracy. In addition to a standard single-precision floating-point (FP32), TensorRT supports three reduced precision formats: TensorFloat-32 (TF32), half-precision floating-point (FP16), and Brain Floating Point (BF16).</p>
+<p>TF32, enabled by default in TensorRT, uses an 8-bit exponent and a 10-bit mantissa, combining the dynamic range of FP32 with the computational efficiency of FP16. FP16, with a 5-bit exponent and a 10-bit mantissa, offers significant speed and memory efficiency benefits but can exhibit reduced precision due to its limited precision and range. BF16, featuring an 8-bit exponent and a 7-bit mantissa, provides a larger dynamic range than FP16 but with lower precision. The larger exponent makes BF16 suitable for scenarios where overflow is a concern, but precision can be reduced. Each format offers unique trade-offs, and the choice depends on the specific task requirements, such as the need for speed, memory efficiency, or numerical accuracy.</p>
+<a class="reference internal image-reference" href="../_images/reduced-precision-format.png"><img alt="Reduced Precision Data Types" src="../_images/reduced-precision-format.png" style="width: 5in; height: 3in;" />
+</a>
+<section id="impact-of-ulp-on-large-magnitude-values">
+<span id="impact-ulp-lm-values"></span><h3>Impact of ULP on Large-Magnitude Values<a class="headerlink" href="#impact-of-ulp-on-large-magnitude-values" title="Link to this heading">#</a></h3>
+<p>ULP, “Unit in the Last Place,” measures precision in floating-point arithmetic. It represents the smallest difference between two distinct floating-point numbers. ULP quantifies the gap between consecutive representable numbers in a given floating-point format. The size of this gap varies depending on the magnitude of the numbers being represented.</p>
+<p>For large-magnitude values, the ULP can become quite large. This means that the difference between two consecutive floating-point numbers becomes significant. High ULP can lead to substantial rounding errors when numerical computations involve large-magnitude values. These errors accumulate and can cause numerical instability, ultimately degrading the accuracy of the computations.</p>
+<p>In some models, the magnitude of the data increases as it passes through the network layers, especially in the absence of normalization layers. For instance, cascaded convolutional layers without normalization can amplify magnitudes, challenging reduced precision formats to maintain accuracy.</p>
+</section>
+<section id="fp16-overflow">
+<span id="id2"></span><h3>FP16 Overflow<a class="headerlink" href="#fp16-overflow" title="Link to this heading">#</a></h3>
+<p>FP16 has a narrower range of representable values than FP32, TF32, and BF16, making it more susceptible to overflow. FP16’s 5-bit exponent limits its maximum value to 65,504, whereas FP32, TF32, and BF16 use an 8-bit exponent, offering a broader range. Overflow in FP16 results in Inf (infinity) values, which can propagate errors and lead to NaN (not-a-number) values, severely degrading model accuracy.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">IReduceLayer</span></code> is prone to overflows due to accumulating all values along a certain axis (except for min-reduce and max-reduce).</p>
+</section>
+<section id="sensitive-calculations">
+<span id="sensitive-calculation"></span><h3>Sensitive Calculations<a class="headerlink" href="#sensitive-calculations" title="Link to this heading">#</a></h3>
+<p>Certain model calculations are highly sensitive to precision changes. Using reduced precision formats for these calculations can cause significant accuracy loss due to their reduced precision.</p>
+<p>For example, Sigmoid or Softmax amplify small numerical differences due to their exponential component.</p>
+</section>
+<section id="mitigation-strategies">
+<span id="id3"></span><h3>Mitigation Strategies<a class="headerlink" href="#mitigation-strategies" title="Link to this heading">#</a></h3>
+<p>To mitigate accuracy loss when using reduced precision during inference, consider the following strategies:</p>
+<dl class="simple">
+<dt><strong>Mixed Precision Inference</strong></dt><dd><p>Combine FP16, BF16, TF32, and FP32 operations. Perform critical, precision-sensitive calculations in FP32 and use reduced precision for less sensitive operations to gain performance benefits. Linear operations are particularly good candidates for reduced precision because, besides the reduced bandwidth, their compute is accelerated by the Tensor Cores. This can be achieved by adding <code class="docutils literal notranslate"><span class="pre">ICastLayer</span></code> in a strongly typed mode or setting layer precision constraints in a weakly typed mode. For more information, refer to the <a class="reference internal" href="precision-control.html#strongly-typed-networks"><span class="std std-ref">Strongly Typed Networks</span></a> and <a class="reference internal" href="precision-control.html#reduced-precision-weakly-typed-networks"><span class="std std-ref">Reduced Precision in Weakly-Typed Networks</span></a> sections.</p>
+</dd>
+<dt><strong>Control Computation Precision</strong></dt><dd><p>In addition to setting a layer’s input/output precisions, it is sometimes possible to control the internal computation precision. For more information, refer to the <a class="reference internal" href="precision-control.html#control-compute-precision"><span class="std std-ref">Control of Computational Precision</span></a> section.</p>
+</dd>
+<dt><strong>Magnitude Adjustment</strong></dt><dd><p>Scale the input data to prevent the accuracy loss associated with high-magnitude data.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="precision-control.html#reduced-precision-weakly-typed-networks"><span class="std std-ref">Reduced Precision in Weakly-Typed Networks</span></a></dt><dd><p>How TensorRT selects precisions automatically and how to constrain per-layer precision.</p>
+</dd>
+<dt><a class="reference internal" href="precision-control.html#control-compute-precision"><span class="std std-ref">Control of Computational Precision</span></a></dt><dd><p>Controlling internal accumulation precision for GEMM and normalization layers.</p>
+</dd>
+<dt><a class="reference internal" href="../performance/accuracy-builder.html#model-accuracy"><span class="std std-ref">Improving Model Accuracy</span></a></dt><dd><p>Step-by-step checklist for diagnosing and improving accuracy in best practices.</p>
+</dd>
+<dt><a class="reference internal" href="../architecture/how-trt-works.html#works"><span class="std std-ref">How TensorRT Works</span></a></dt><dd><p>Why different builds or precisions can produce non-bitwise-identical results (see Determinism section).</p>
+</dd>
+<dt><a class="reference internal" href="../reference/troubleshooting.html#troubleshooting"><span class="std std-ref">Troubleshooting</span></a></dt><dd><p>Debugging NaN/Inf with FP16/BF16, calibration warnings, and reporting accuracy issues.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="quantized-data-types">
+<span id="quantized-formats"></span><h2>Quantized Data Types<a class="headerlink" href="#quantized-data-types" title="Link to this heading">#</a></h2>
+<section id="uniform-and-non-uniform-distributions-in-quantized-types">
+<span id="uniform-non-dist-quantized"></span><h3>Uniform and Non-Uniform Distributions in Quantized Types<a class="headerlink" href="#uniform-and-non-uniform-distributions-in-quantized-types" title="Link to this heading">#</a></h3>
+<p>Integer formats, such as INT8 and INT4, use uniform quantization, which means the range of values is divided into equal-sized intervals. This method is simple and efficient but might not optimally capture the distribution of weights and activations.</p>
+<p>Floating point formats such as FP8E4M3 and FP4E2M1 have non-uniform distributions with more values concentrated near 0, which better aligns with the typical distribution of neural network weights and activations.</p>
+</section>
+<section id="quantization-errors">
+<span id="id4"></span><h3>Quantization Errors<a class="headerlink" href="#quantization-errors" title="Link to this heading">#</a></h3>
+<p>Quantization introduces two sources of error that can significantly impact the accuracy of deep learning models: rounding errors and clamping errors.</p>
+<p><strong>Rounding Errors</strong> occur when continuous values are approximated to the nearest quantized value, causing a loss of information. TensorRT uses the round-to-nearest-even method, which rounds to the nearest even value in case of ties, helping reduce bias in the quantization process.</p>
+<p><strong>Clamping Errors</strong> occur when values exceed the quantization range and are clipped to the nearest boundary, causing a loss of dynamic range. There is a tradeoff between the clamping error and the rounding error, and this is expressed in the scale selection: Setting a scale that allows fewer values to be clipped means a higher rounding error.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="work-quantized-types.html#work-with-quantized-types"><span class="std std-ref">Working with Quantized Types</span></a></dt><dd><p>Comprehensive guide to PTQ, QAT, calibration, Q/DQ placement, and quantization workflows.</p>
+</dd>
+<dt><a class="reference internal" href="dynamic-shapes-advanced.html#int8-calib-dynamic-shapes"><span class="std std-ref">INT8 Calibration with Dynamic Shapes</span></a></dt><dd><p>Calibration optimization profile requirements when using dynamic input shapes.</p>
+</dd>
+<dt><a class="reference internal" href="work-with-dla.html#work-with-dla"><span class="std std-ref">Working with DLA</span></a></dt><dd><p>DLA-specific precision constraints (FP16 and INT8 only) and per-layer accuracy behavior.</p>
+</dd>
+<dt><a class="reference internal" href="work-with-transformers.html#work-with-transformers"><span class="std std-ref">Working with Transformers</span></a></dt><dd><p>Precision support for multi-head attention fusion (FP16/BF16/FP8/INT8) and numerical considerations.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="work-quantized-types.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Working with Quantized Types</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="work-dynamic-shapes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Working with Dynamic Shapes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduced-precision-data-types">Reduced Precision Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impact-of-ulp-on-large-magnitude-values">Impact of ULP on Large-Magnitude Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fp16-overflow">FP16 Overflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitive-calculations">Sensitive Calculations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigation-strategies">Mitigation Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantized-data-types">Quantized Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-and-non-uniform-distributions-in-quantized-types">Uniform and Non-Uniform Distributions in Quantized Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantization-errors">Quantization Errors</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+<script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on May 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

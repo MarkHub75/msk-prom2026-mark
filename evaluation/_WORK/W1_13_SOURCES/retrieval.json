@@ -1,0 +1,96 @@
+[
+  {
+    "file": "bootstrap-1.17.1.html",
+    "url": "https://docs.scipy.org/doc/scipy-1.17.1/reference/generated/scipy.stats.bootstrap.html",
+    "final_url": "https://docs.scipy.org/doc/scipy-1.17.1/reference/generated/scipy.stats.bootstrap.html",
+    "status": 404,
+    "access_utc": "2026-10-23T03:29:10.009252+00:00",
+    "bytes": 342
+  },
+  {
+    "file": "_resampling.py",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/c59ed93db11e721de841c00f44b8d8b9c16a2548/scipy/stats/_resampling.py",
+    "final_url": "https://raw.githubusercontent.com/scipy/scipy/c59ed93db11e721de841c00f44b8d8b9c16a2548/scipy/stats/_resampling.py",
+    "status": 404,
+    "access_utc": "2026-10-23T03:29:10.611226+00:00",
+    "bytes": 14
+  },
+  {
+    "file": "_binomtest.py",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/c59ed93db11e721de841c00f44b8d8b9c16a2548/scipy/stats/_binomtest.py",
+    "final_url": "https://raw.githubusercontent.com/scipy/scipy/c59ed93db11e721de841c00f44b8d8b9c16a2548/scipy/stats/_binomtest.py",
+    "status": 404,
+    "access_utc": "2026-10-23T03:29:11.250825+00:00",
+    "bytes": 14
+  },
+  {
+    "file": "Cameron_Miller_JHR_2015.pdf",
+    "url": "https://cameron.econ.ucdavis.edu/research/Cameron_Miller_JHR_2015.pdf",
+    "final_url": "https://cameron.econ.ucdavis.edu/research/Cameron_Miller_JHR_2015.pdf",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:15.345540+00:00",
+    "bytes": 711978,
+    "sha256": "bef4a50190bcc37677e49f5a4384b291c083b28d0d6a27665a79f70e2cf99526"
+  },
+  {
+    "file": "field2007jrssb.pdf",
+    "url": "https://bemlar.ism.ac.jp/zhuang/Refs/Refs/field2007jrssb.pdf",
+    "final_url": "https://bemlar.ism.ac.jp/zhuang/Refs/Refs/field2007jrssb.pdf",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:18.676189+00:00",
+    "bytes": 621739,
+    "sha256": "25fe4a7be9eb85f9a860bee2cbb05e6509d24dde30b806d69e1a50b1f679650b"
+  },
+  {
+    "file": "cawley10a.pdf",
+    "url": "https://jmlr.csail.mit.edu/papers/volume11/cawley10a/cawley10a.pdf",
+    "final_url": "https://jmlr.csail.mit.edu/papers/volume11/cawley10a/cawley10a.pdf",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:20.351969+00:00",
+    "bytes": 759286,
+    "sha256": "db01ac8fabef3064a0297bfcf64fb9791bf35c4d03be7a51f5862260adfca206"
+  },
+  {
+    "file": "0184b0cd3cfb185989f858a1d9f5c1eb-Paper.pdf",
+    "url": "https://proceedings.mlsys.org/paper_files/paper/2021/file/0184b0cd3cfb185989f858a1d9f5c1eb-Paper.pdf",
+    "final_url": "https://proceedings.mlsys.org/paper_files/paper/2021/file/0184b0cd3cfb185989f858a1d9f5c1eb-Paper.pdf",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:22.368644+00:00",
+    "bytes": 891227,
+    "sha256": "7befbc13cc306daa9fa7dbff71b2c3da1aca245a22c7ebc1c7def28593ae857f"
+  },
+  {
+    "file": "poisson.test.html",
+    "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/poisson.test.html",
+    "final_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/poisson.test.html",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:22.937909+00:00",
+    "bytes": 4607,
+    "sha256": "5c3b19f97894c9d5c0375343d88dbd62d2fb483f79682749519be69fef401725"
+  },
+  {
+    "file": "mcnemar.html",
+    "url": "https://www.statsmodels.org/stable/generated/statsmodels.stats.contingency_tables.mcnemar.html",
+    "final_url": "https://www.statsmodels.org/stable/generated/statsmodels.stats.contingency_tables.mcnemar.html",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:23.985835+00:00",
+    "bytes": 35606,
+    "sha256": "03c61c14cd07c492bb35f87dca5fe4899f2e9a0fac500ff90ce914dd48ed0560"
+  },
+  {
+    "file": "_resampling.py",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/527eb7fd7953a1de068f94bf8b322f249b9405ae/scipy/stats/_resampling.py",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:47.133641+00:00",
+    "bytes": 106090,
+    "sha256": "4ef9a44edbaa2a51f83b55df26b58fe65f1936298a06559f91dd716104b2abf1"
+  },
+  {
+    "file": "_binomtest.py",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/527eb7fd7953a1de068f94bf8b322f249b9405ae/scipy/stats/_binomtest.py",
+    "status": 200,
+    "access_utc": "2026-10-23T03:29:47.771559+00:00",
+    "bytes": 13199,
+    "sha256": "5a537537c22fb9a4ce089e5b5c5acc7a890f0553a4384f9b28c995e94f546c13"
+  }
+]

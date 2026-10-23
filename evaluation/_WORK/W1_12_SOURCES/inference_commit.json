@@ -1,0 +1,125 @@
+{
+  "sha": "3fbc329939999c13d0a7b5e67fb2092287e06047",
+  "node_id": "C_kwDOCNryVdoAKDNmYmMzMjk5Mzk5OTljMTNkMGE3YjVlNjdmYjIwOTIyODdlMDYwNDc",
+  "commit": {
+    "author": {
+      "name": "Pablo Gonzalez",
+      "email": "pgmpablo97@gmail.com",
+      "date": "2026-09-02T17:02:36Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-09-02T17:02:36Z"
+    },
+    "message": "Update model names in report (#2661)",
+    "tree": {
+      "sha": "f42c3ff05430a92ce7b4b28868260ccf81512301",
+      "url": "https://api.github.com/repos/mlcommons/inference/git/trees/f42c3ff05430a92ce7b4b28868260ccf81512301"
+    },
+    "url": "https://api.github.com/repos/mlcommons/inference/git/commits/3fbc329939999c13d0a7b5e67fb2092287e06047",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqmFasCRC1aQ7uu5UhlAAA0X0QACr0aGf/W6ND6tcjyBbP6IN+\nkqWY2C/rEX6exlZohSBBKHxhXJOKuc1kcXwUIXKlmfobr5MGOEEQKOVs0aoEHq1z\nEL/CxAPZPSqHZa31q3vMY+3bzgZ29Sm58bbT/wiqyLQuV2T1Spf1OYmu10gttm9y\njy59uimtk1x0aeSbCPvLIo+WOYwHC7OQh266BzAEtKufSzTXChNCU++9RblOe9D/\nu394Q35RLuCwqDuM2smZ4txXuPs4bYehOplBMGI1EWW+oJEdbkZbCgmkaDQox5kj\n/s8lGMqGLPC9PCDzWUHFXMBZXm2cN8oUlBaKsq6478mZbe4flsyjZfjkdqW1g3qp\n14A05lpckowruQ3gN4Ycblu7rN9yh/7Mon1L2zT81desHBlLIkguSveeaZAw2hTq\n3bT4mgiGQ4YzuK7EPYz8Sb6vngjl8c1TcGzgimCARI5znSpbei7w5Rxm0q9BdrPp\nA6C7qR2Ls8HQne6gMoKbqPruulNXWxI3dG2KIFnZ1Vi462L9BVZiuLLDEzMhEdmD\nuEirLM2JwrF/KTRVhD2oo3afUok5TusV25Q3ScclzT9Ou1DY97ClOKmOA5M6QRcI\n2fDCC8/FR5uMZFr2cEhIjkLU3q1GYVXPj0O1amONMitwunyWFi8jrqsnqoiEgTd6\ngWz1eS434TVr8Hy/BSOC\n=shLp\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree f42c3ff05430a92ce7b4b28868260ccf81512301\nparent f98c6a7c321d0fb26753b89ab1031e563568703a\nauthor Pablo Gonzalez <pgmpablo97@gmail.com> 1788368556 -0500\ncommitter GitHub <noreply@github.com> 1788368556 -0500\n\nUpdate model names in report (#2661)",
+      "verified_at": "2026-09-02T17:02:37Z"
+    }
+  },
+  "url": "https://api.github.com/repos/mlcommons/inference/commits/3fbc329939999c13d0a7b5e67fb2092287e06047",
+  "html_url": "https://github.com/mlcommons/inference/commit/3fbc329939999c13d0a7b5e67fb2092287e06047",
+  "comments_url": "https://api.github.com/repos/mlcommons/inference/commits/3fbc329939999c13d0a7b5e67fb2092287e06047/comments",
+  "author": {
+    "login": "pgmpablo157321",
+    "id": 30699846,
+    "node_id": "MDQ6VXNlcjMwNjk5ODQ2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/30699846?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pgmpablo157321",
+    "html_url": "https://github.com/pgmpablo157321",
+    "followers_url": "https://api.github.com/users/pgmpablo157321/followers",
+    "following_url": "https://api.github.com/users/pgmpablo157321/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pgmpablo157321/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pgmpablo157321/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pgmpablo157321/subscriptions",
+    "organizations_url": "https://api.github.com/users/pgmpablo157321/orgs",
+    "repos_url": "https://api.github.com/users/pgmpablo157321/repos",
+    "events_url": "https://api.github.com/users/pgmpablo157321/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pgmpablo157321/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "f98c6a7c321d0fb26753b89ab1031e563568703a",
+      "url": "https://api.github.com/repos/mlcommons/inference/commits/f98c6a7c321d0fb26753b89ab1031e563568703a",
+      "html_url": "https://github.com/mlcommons/inference/commit/f98c6a7c321d0fb26753b89ab1031e563568703a"
+    }
+  ],
+  "stats": {
+    "total": 48,
+    "additions": 30,
+    "deletions": 18
+  },
+  "files": [
+    {
+      "sha": "6e0dd3eb37659028835f4ccae5c035048d21726d",
+      "filename": "tools/submission/generate_final_report.py",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 18,
+      "changes": 36,
+      "blob_url": "https://github.com/mlcommons/inference/blob/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fgenerate_final_report.py",
+      "raw_url": "https://github.com/mlcommons/inference/raw/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fgenerate_final_report.py",
+      "contents_url": "https://api.github.com/repos/mlcommons/inference/contents/tools%2Fsubmission%2Fgenerate_final_report.py?ref=3fbc329939999c13d0a7b5e67fb2092287e06047",
+      "patch": "@@ -170,12 +170,12 @@ def main():\n             \"pointpainting\",\n             \"deepseek-r1\",\n             \"whisper\",\n-            \"wan-2.2-t2v-a14b\",\n-            \"qwen3-vl-235b-a22b\",\n-            \"qwen3.6-27b\",\n+            \"text_to_video\",\n+            \"VLM\",\n+            \"agentic edge\",\n             \"gpt-oss-120b\",\n-            \"e2e-rag-qna\",\n-            \"e2e-rag-db\",\n+            \"end to end question-answering\",\n+            \"end to end vector-database\",\n         ],\n         [\"SingleStream\", \"MultiStream\", \"Server\", \"Offline\", \"Interactive\"],\n         [\n@@ -212,8 +212,8 @@ def main():\n                 \"deepseek-r1\": [\"Server\", \"Offline\", \"Interactive\"],\n                 \"whisper\": [\"Offline\"],\n                 \"gpt-oss-120b\": [\"Offline\", \"Interactive\", \"Server\"],\n-                \"qwen3-vl-235b-a22b\": [\"Server\", \"Offline\", \"Interactive\"],\n-                \"wan-2.2-t2v-a14b\": [\"Offline\", \"SingleStream\"],\n+                \"VLM\": [\"Server\", \"Offline\", \"Interactive\"],\n+                \"text_to_video\": [\"Offline\", \"SingleStream\"],\n             },\n             \"edge\": {\n                 \"resnet\": [\"SingleStream\", \"MultiStream\", \"Offline\"],\n@@ -257,11 +257,11 @@ def main():\n                 \"deepseek-r1\": [\"Server\", \"Offline\", \"Interactive\"],\n                 \"whisper\": [\"Offline\"],\n                 \"gpt-oss-120b\": [\"Offline\", \"Interactive\", \"Server\"],\n-                \"qwen3-vl-235b-a22b\": [\"Server\", \"Offline\", \"Interactive\"],\n-                \"qwen3.6-27b\": [],\n-                \"wan-2.2-t2v-a14b\": [\"Offline\", \"SingleStream\"],\n-                \"e2e-rag-qna\": [\"Offline\"],\n-                \"e2e-rag-db\": [\"Offline\"],\n+                \"VLM\": [\"Server\", \"Offline\", \"Interactive\"],\n+                \"agentic edge\": [],\n+                \"text_to_video\": [\"Offline\", \"SingleStream\"],\n+                \"end to end question-answering\": [\"Offline\"],\n+                \"end to end vector-database\": [\"Offline\"],\n             },\n             \"edge\": {\n                 \"resnet\": [\"SingleStream\", \"MultiStream\", \"Offline\"],\n@@ -281,11 +281,11 @@ def main():\n                 \"llama3.1-8b\": [],\n                 \"deepseek-r1\": [],\n                 \"gpt-oss-120b\": [],\n-                \"qwen3-vl-235b-a22b\": [],\n-                \"qwen3.6-27b\": [\"SingleStream\"],\n-                \"wan-2.2-t2v-a14b\": [],\n-                \"e2e-rag-qna\": [],\n-                \"e2e-rag-db\": [],\n+                \"VLM\": [],\n+                \"agentic edge\": [\"SingleStream\"],\n+                \"text_to_video\": [],\n+                \"end to end question-answering\": [],\n+                \"end to end vector-database\": [],\n             },\n         }\n     elif args.version == \"5.0\":\n@@ -312,7 +312,7 @@ def main():\n                 \"rgat\": [\"Offline\"],\n                 \"pointpainting\": [],\n                 \"gpt-oss-120b\": [\"Offline\"],\n-                \"qwen3-vl-235b-a22b\": [\"Server\", \"Offline\"],\n+                \"VLM\": [\"Server\", \"Offline\"],\n                 \"dlrm-v3\": [\"Server\", \"Offline\"],\n             },\n             \"edge\": {"
+    },
+    {
+      "sha": "a2d537d4caa8499ca13825d493cfb9155938fb4e",
+      "filename": "tools/submission/submission_checker/constants.py",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 0,
+      "changes": 10,
+      "blob_url": "https://github.com/mlcommons/inference/blob/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fsubmission_checker%2Fconstants.py",
+      "raw_url": "https://github.com/mlcommons/inference/raw/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fsubmission_checker%2Fconstants.py",
+      "contents_url": "https://api.github.com/repos/mlcommons/inference/contents/tools%2Fsubmission%2Fsubmission_checker%2Fconstants.py?ref=3fbc329939999c13d0a7b5e67fb2092287e06047",
+      "patch": "@@ -1997,6 +1997,16 @@\n         \"Offline\": \"Tasks/s\",\n     }\n }\n+\n+# Maps a raw MlperfModel name to the task/category label used for reporting\n+MLPERF_MODEL_TASK_MAPPING = {\n+    \"wan-2.2-t2v-a14b\": \"text_to_video\",\n+    \"qwen3-vl-235b-a22b\": \"VLM\",\n+    \"e2e-rag-qna\": \"end to end question-answering\",\n+    \"e2e-rag-db\": \"end to end vector-database\",\n+    \"qwen3.6-27b\": \"agentic edge\",\n+}\n+\n UNIT_DICT = {\n     \"SingleStream\": \"Latency (ms)\",\n     \"MultiStream\": \"Latency (ms)\","
+    },
+    {
+      "sha": "f3eb84ea0013e83f52896dc924ad0c8a35e2af31",
+      "filename": "tools/submission/submission_checker/results.py",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/mlcommons/inference/blob/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fsubmission_checker%2Fresults.py",
+      "raw_url": "https://github.com/mlcommons/inference/raw/3fbc329939999c13d0a7b5e67fb2092287e06047/tools%2Fsubmission%2Fsubmission_checker%2Fresults.py",
+      "contents_url": "https://api.github.com/repos/mlcommons/inference/contents/tools%2Fsubmission%2Fsubmission_checker%2Fresults.py?ref=3fbc329939999c13d0a7b5e67fb2092287e06047",
+      "patch": "@@ -129,6 +129,8 @@ def add_result(self, submission_logs: SubmissionLogs):\n         row[\"design_power_watts\"] = submission_logs.loader_data.get(\n             \"design_power_watts\", \"\")\n         row[\"PrivateID\"] = submission_logs.loader_data.get(\"private_id\", \"\")\n+        row[\"MlperfModel\"] = MLPERF_MODEL_TASK_MAPPING.get(\n+            row[\"MlperfModel\"], row[\"MlperfModel\"])\n         self.rows.append(row.copy())\n         if row[\"has_power\"]:\n             row[\"Result\"] = submission_logs.loader_data[\"power_metric\"]"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"query\": \"\\\"Исследование тензорных вычислителей\\\" \\\"Рудь\\\"\",\n  \"results\": [\n    {\n      \"position\": 1,\n      \"site_name\": \"elib.spbstu.ru\",\n      \"snippet\": \"Детальная информация. Таблица Карточка RUSMARC. Название, Исследование тензорных вычислителей ... Рудь Иван Васильевич. Научный руководитель, Громов Виктор ...\",\n      \"title\": \"Исследование тензорных вычислителей компании «ХайТэк» на ...\",\n      \"url\": \"https://elib.spbstu.ru/dl/3/2026/vr/vr26-931.pdf/info\"\n    }\n  ],\n  \"total_results\": 1,\n  \"page\": 0\n}"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

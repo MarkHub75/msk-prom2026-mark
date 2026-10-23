@@ -1,0 +1,343 @@
+{
+ "summary": {
+  "phash<=0 train-train": {
+   "pairs": 9,
+   "imgs_in_first": 18
+  },
+  "phash<=0 train-val": {
+   "pairs": 0,
+   "imgs_in_first": 0
+  },
+  "phash<=0 train-test": {
+   "pairs": 1,
+   "imgs_in_first": 1
+  },
+  "phash<=0 val-test": {
+   "pairs": 0,
+   "imgs_in_first": 0
+  },
+  "phash<=0 val-val": {
+   "pairs": 0,
+   "imgs_in_first": 0
+  },
+  "phash<=0 test-test": {
+   "pairs": 1,
+   "imgs_in_first": 2
+  },
+  "phash<=4 train-train": {
+   "pairs": 107,
+   "imgs_in_first": 130
+  },
+  "phash<=4 train-val": {
+   "pairs": 15,
+   "imgs_in_first": 13
+  },
+  "phash<=4 train-test": {
+   "pairs": 16,
+   "imgs_in_first": 15
+  },
+  "phash<=4 val-test": {
+   "pairs": 7,
+   "imgs_in_first": 5
+  },
+  "phash<=4 val-val": {
+   "pairs": 0,
+   "imgs_in_first": 0
+  },
+  "phash<=4 test-test": {
+   "pairs": 2,
+   "imgs_in_first": 4
+  },
+  "phash<=8 train-train": {
+   "pairs": 448,
+   "imgs_in_first": 257
+  },
+  "phash<=8 train-val": {
+   "pairs": 84,
+   "imgs_in_first": 76
+  },
+  "phash<=8 train-test": {
+   "pairs": 102,
+   "imgs_in_first": 84
+  },
+  "phash<=8 val-test": {
+   "pairs": 10,
+   "imgs_in_first": 7
+  },
+  "phash<=8 val-val": {
+   "pairs": 2,
+   "imgs_in_first": 4
+  },
+  "phash<=8 test-test": {
+   "pairs": 5,
+   "imgs_in_first": 9
+  },
+  "phash<=10 train-train": {
+   "pairs": 767,
+   "imgs_in_first": 314
+  },
+  "phash<=10 train-val": {
+   "pairs": 139,
+   "imgs_in_first": 117
+  },
+  "phash<=10 train-test": {
+   "pairs": 185,
+   "imgs_in_first": 127
+  },
+  "phash<=10 val-test": {
+   "pairs": 19,
+   "imgs_in_first": 11
+  },
+  "phash<=10 val-val": {
+   "pairs": 6,
+   "imgs_in_first": 8
+  },
+  "phash<=10 test-test": {
+   "pairs": 12,
+   "imgs_in_first": 20
+  }
+ },
+ "val_test_vs_train": {
+  "val_with_train_neighbor_p4_d6": [
+   25,
+   143
+  ],
+  "val_with_train_neighbor_p8_d10": [
+   46,
+   143
+  ],
+  "test_with_train_neighbor_p4_d6": [
+   26,
+   141
+  ],
+  "test_with_train_neighbor_p8_d10": [
+   48,
+   141
+  ]
+ },
+ "closest_pairs_top40": [
+  [
+   0,
+   "test/image834.jpg",
+   "train/image833.jpg"
+  ],
+  [
+   0,
+   "val/image798.jpg",
+   "train/image175.jpg"
+  ],
+  [
+   2,
+   "test/image1003.jpg",
+   "train/image1002.jpg"
+  ],
+  [
+   2,
+   "test/image1019.jpg",
+   "train/image1020.jpg"
+  ],
+  [
+   2,
+   "test/image1088.jpg",
+   "train/image1087.jpg"
+  ],
+  [
+   2,
+   "test/image1089.jpg",
+   "train/image1087.jpg"
+  ],
+  [
+   2,
+   "test/image913.jpg",
+   "train/image912.jpg"
+  ],
+  [
+   2,
+   "test/image927.jpg",
+   "train/image926.jpg"
+  ],
+  [
+   2,
+   "val/image1010.jpg",
+   "train/image1011.jpg"
+  ],
+  [
+   2,
+   "val/image1049.jpg",
+   "train/image1050.jpg"
+  ],
+  [
+   2,
+   "val/image1096.jpg",
+   "train/image1095.jpg"
+  ],
+  [
+   2,
+   "val/image1109.jpg",
+   "train/image1108.jpg"
+  ],
+  [
+   2,
+   "val/image942.jpg",
+   "train/image941.jpg"
+  ],
+  [
+   4,
+   "test/image40.jpg",
+   "train/image42.jpg"
+  ],
+  [
+   4,
+   "test/image696.jpg",
+   "train/image716.jpg"
+  ],
+  [
+   4,
+   "test/image860.jpg",
+   "train/image857.jpg"
+  ],
+  [
+   4,
+   "test/image910.jpg",
+   "train/image911.jpg"
+  ],
+  [
+   4,
+   "test/image965.jpg",
+   "train/image959.jpg"
+  ],
+  [
+   4,
+   "test/image98.jpg",
+   "train/image97.jpg"
+  ],
+  [
+   4,
+   "val/image1057.jpg",
+   "train/image1056.jpg"
+  ],
+  [
+   4,
+   "val/image1072.jpg",
+   "train/image1073.jpg"
+  ],
+  [
+   4,
+   "val/image1083.jpg",
+   "train/image1080.jpg"
+  ],
+  [
+   4,
+   "val/image1085.jpg",
+   "train/image1084.jpg"
+  ],
+  [
+   4,
+   "val/image1091.jpg",
+   "train/image1087.jpg"
+  ],
+  [
+   4,
+   "val/image1107.jpg",
+   "train/image1108.jpg"
+  ],
+  [
+   4,
+   "val/image12.jpg",
+   "train/image79.jpg"
+  ],
+  [
+   4,
+   "val/image31.jpg",
+   "train/image42.jpg"
+  ],
+  [
+   6,
+   "test/image1009.jpg",
+   "train/image268.jpg"
+  ],
+  [
+   6,
+   "test/image1023.jpg",
+   "train/image1022.jpg"
+  ],
+  [
+   6,
+   "test/image1065.jpg",
+   "train/image1066.jpg"
+  ],
+  [
+   6,
+   "test/image1074.jpg",
+   "train/image1075.jpg"
+  ],
+  [
+   6,
+   "test/image1076.jpg",
+   "train/image1077.jpg"
+  ],
+  [
+   6,
+   "test/image1114.jpg",
+   "train/image1113.jpg"
+  ],
+  [
+   6,
+   "test/image63.jpg",
+   "train/image56.jpg"
+  ],
+  [
+   6,
+   "test/image708.jpg",
+   "train/image713.jpg"
+  ],
+  [
+   6,
+   "test/image922.jpg",
+   "train/image975.jpg"
+  ],
+  [
+   6,
+   "test/image934.jpg",
+   "train/image932.jpg"
+  ],
+  [
+   6,
+   "test/image935.jpg",
+   "train/image932.jpg"
+  ],
+  [
+   6,
+   "test/image943.jpg",
+   "train/image944.jpg"
+  ],
+  [
+   6,
+   "val/image705.jpg",
+   "train/image676.jpg"
+  ]
+ ],
+ "hist_min_dist_val_test_to_train": [
+  2,
+  0,
+  11,
+  0,
+  14,
+  0,
+  17,
+  0,
+  19,
+  0,
+  22,
+  0,
+  25,
+  0,
+  23,
+  0,
+  66,
+  0,
+  69,
+  0,
+  16
+ ]
+}

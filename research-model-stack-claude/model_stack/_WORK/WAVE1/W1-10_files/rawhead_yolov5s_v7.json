@@ -1,0 +1,41 @@
+{
+ "cut_outputs": {
+  "/model.24/m.0/Conv_output_0": [
+   1,
+   255,
+   80,
+   80
+  ],
+  "/model.24/m.1/Conv_output_0": [
+   1,
+   255,
+   40,
+   40
+  ],
+  "/model.24/m.2/Conv_output_0": [
+   1,
+   255,
+   20,
+   20
+  ]
+ },
+ "raw_range": [
+  -18.751131057739258,
+  6.959362983703613
+ ],
+ "cut_ops": {
+  "Conv": 60,
+  "Sigmoid": 57,
+  "Mul": 57,
+  "Add": 7,
+  "Concat": 13,
+  "MaxPool": 3,
+  "Resize": 2
+ },
+ "maxabs_decode_vs_full_xywh": 0.00018310546875,
+ "maxabs_decode_vs_full_objcls": 1.3716635294258595e-07,
+ "full_xywh_range": [
+  -0.3402862548828125,
+  636.9556274414062
+ ]
+}

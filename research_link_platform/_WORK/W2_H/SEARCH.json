@@ -1,0 +1,10 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"query\": \"site:lin-q.ru (\\\"память\\\" OR \\\"памяти\\\") (\\\"распределение\\\" OR \\\"граф\\\" OR \\\"multi\\\" OR \\\"HP1M\\\")\",\n  \"results\": [\n    {\n      \"position\": 1,\n      \"site_name\": \"lin-q.ru\",\n      \"snippet\": \"Оперативная память LPDDR4 – до 16 ГБ ... Программа предназначена для преобразования оригинальных графов нейронных сетей в набор инструкций ускорителя тензорных ...\",\n      \"title\": \"Модули ускорения LinQ\",\n      \"url\": \"https://lin-q.ru/sol\"\n    },\n    {\n      \"position\": 2,\n      \"site_name\": \"lin-q.ru\",\n      \"snippet\": \"Встроенная память до 16 МБ; Производительность 24 TOPs (int8) на ... Расчет графа на TPU. Framework. КОМПАНИЯ. О нас · Партнеры · Карьера. РЕШЕНИЯ. Ускорители\",\n      \"title\": \"Технологический стек процессора LinQ\",\n      \"url\": \"https://lin-q.ru/tech\"\n    }\n  ],\n  \"total_results\": 2,\n  \"page\": 0\n}"
+    }
+  ],
+  "structuredContent": null,
+  "isError": false
+}

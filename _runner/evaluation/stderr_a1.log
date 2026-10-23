@@ -1,0 +1,4 @@
+2026-10-23T04:20:51.615141Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }
+2026-10-23T04:45:32.216769Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\evaluation\report_human_evaluation.md:
+Ни RTX 4070 из исходного контекста команды, ни найденный пример производителя не превращают методический план в результат системы.
+2026-10-23T04:46:48.887808Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }

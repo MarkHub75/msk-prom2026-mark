@@ -1,0 +1,241 @@
+GitHub - linqgg/unity-sdk · GitHub (https://github.com/linqgg/unity-sdk)
+citeturn146search0 [wordlim: 200] Crawled: last month; # Official LinQ Unity SDK
+# Official LinQ Unity SDK
+
+🛠 In order for us to provide optimal support, we would kindly ask you to submit any issues to support@galactica.games or create an issue.
+
+> When submitting an issue please specify your game identifier (asset), production steps, logs, code snippets, and any additional relevant information.
+
+## Overview
+
+This SDK and list of helpers inside allow you to implement native payments in your Unity game, using our infrastructure for anti-fraud checks and tokenization cards. We encapsulate different libraries and external APIs inside and provide convenient and simple APIs for processing user payments.
+
+Also, we provide additional services for quick checks of user location, or in which country they have an account in the App Store for better tunning user experience. The set of such functions will be adjusted with time.
+
+## Requirements
+
+The current version is written and tested on Unity version 2021.3 and release 26f1. Later versions should be supported too, but create an issue if any difficulty appears.
+
+Unity SDK uses External Dependency Manager for Unity (EDM4U) from Google for managing native libraries required for work, including CocoaPod binaries for iOS. This manager should be installed via Package Manager before SDK is installed, as Unity can not automatically resolve dependencies from external sources except its own.
+
+For work with JSON, which is required for web-request to external APIs need to install a special JSON.NET package from Newtonsoft.
+
+## Installation
+
+Before installing SDK, be sure that you have installed the required packages, using `Window > Package Manager`.
+
+EDM4U can be installed via the command line using the prompt `openupm add com.google.external-dependency-manager` or need to manually add Scoped Registry in `Player Setting > Package Manager` (see screenshot).
+
+Or you can manually edit the config in `Packages/manifest.json` using the next config:
+    
+    "scopedRegistries": [
+      {
+        "name": "package.openupm.com",
+        "url": "https://package.openupm.com",
+        "scopes": [
+          "com.google.external-dependency-manager"
+        ]
+      }
+    ]
+
+## Getting Started
+
+To start using SDK need to configure it and initialize it. SDK sends requests to our backend under the hood which requires authentification for requests. We provide a special Mobile SDK Secret Key for each game, that has to be set up in the SDK config.
+
+### Setup
+
+Configuration stored in the special asset, that has to be placed by the path `Assets/Resources/Settings/LinqSettings.asset`. For quick setup we provide an Editor menu, so to start configuring SDK you have to select `LinQ > Edit Settings` and set `Remote URL` and `Secret Key`.
+
+> Remote URL for the stage is `https://services.stage.galactica.games` when for production the same, except `staging` word, i.e.: `https://services.galactica.games`.
+
+To initialize SDK we provide a special Initializer, which has to be placed on the game scene. To add it to the scene use menu `LinQ > Create Initializer`.
+
+In case you are using your system for configuring the game, you may initialize the SDK manually, providing proper details.
+    
+    `LinqSDK.InitSDK("https://services.stage.galactica.games", "secret-key");
+    `
+
+### Usage
+
+To use SDK you need to prepare card data and billing address, that the user provided via your own UX elements. We do not require any additional steps here, except the rule that card data should not be transferred to any game backend service as it will break PCI DCI policy.
+
+Also, before processing payment you have to initiate payment intent, which can be done via backend API with the method `putReplenishOrder`. The method will return `order.id`, that is intent identifier itself.
+
+To proceed with SDK collect the data as in the example, please:
+    
+    // Card Details
+    var details = new PaymentDetails()
+    {
+      CardNumber = "4242424242424242",
+      Expiration = "12/27",
+      HolderName = "Kevon Chang",
+      Protection = "123",
+    };
+    
+    // Billing Address
+    var address = new BillingAddress()
+
+### Error Handling
+
+In case the SDK request fails it generates an appropriate exception with an error message. To avoid hanging, you must handle such exceptions using `try/catch` constructions.
+    
+    try {
+      var response = await LinqSDK.CheckoutByOrdinaryCard(order, details, address);
+      Debug.Log("Success: " + response.Status);
+    } catch (InvalidOperationException e) {
+      Debug.Log("Failure: " + e.Message);
+    }
+
+ApplePay part works the same way but provides more custom exceptions.
+
+  * `PaymentFailureException` – when payment was authorized by the user but failed on the provider side.
+  * `PaymentDiscardException` – when a user closes the Apple Pay payment sheet.
+  * `PaymentUnknownException` – when ApplePay is not supported on the device (applicable for Unity Editor as well).
+    
+    `try {
+      var response = await LinqSDK.CheckoutByApplePayCard(order);
+      // Success
+    } catch (PaymentUnknownException e) {
+      Debug.Log("Unknown: " + e.Message);
+      // do nothing
+    } catch (PaymentFailureException e) {
+--------------------------------------------------------------------------------
+linq-cli/CHANGELOG.md at main · linq-team/linq-cli · GitHub (https://github.com/linq-team/linq-cli/blob/main/CHANGELOG.md)
+citeturn146search1 [wordlim: 200] Crawled: 3 weeks ago;   * upgrade @linqapp/sdk to 0.15.1 (095900b) ...   * cache GitHub token and handle non-TTY in signup (bfdd3b6)
+
+# 2.1.0 (2026-05-21)
+
+### Features
+
+  * token management commands + login UX cleanup (#32) (4760f65)
+
+## 2.0.2 (2026-05-20)
+
+### Bug Fixes
+
+  * restore message + phone IDs in list output, clarify direction (#31) (9566e64)
+
+## 2.0.1 (2026-05-19)
+
+### Bug Fixes
+
+  * lower shared line contact limit copy to 20 (b7fe66e)
+
+# 2.0.0 (2026-05-14)
+
+  * feat!: redesigned CLI experience (b128ecc)
+
+### BREAKING CHANGES
+
+  * linq signup and linq login now use email verification. Old CLI installs cannot sign up new users.
+
+# 1.3.0 (2026-04-07)
+
+### Features
+
+  * show message IDs in messages list output (66cb534)
+
+# 1.2.0 (2026-04-04)
+
+### Features
+
+  * upgrade @linqapp/sdk to 0.15.1 (095900b)
+
+## 1.1.4 (2026-04-03)
+
+### Bug Fixes
+
+  * show full IDs and descriptive missing-flag errors (#25) (1d105c0)
+
+## 1.1.3 (2026-02-24)
+
+### Bug Fixes
+
+  * add Sentry instrumentation for signup funnel (0012554)
+
+## 1.1.2 (2026-02-16)
+
+### Bug Fixes
+
+  * use human-readable names for release artifacts (#7) (33c2694)
+
+## 1.1.1 (2026-02-16)
+
+### Bug Fixes
+
+  * cache GitHub token and handle non-TTY in signup (bfdd3b6)
+
+# 1.1.0 (2026-02-16)
+
+### Features
+
+  * multi-profile config with dedicated sandbox profile (0f4a204)
+
+## 1.0.2 (2026-02-16)
+
+### Bug Fixes
+
+  * replace manual prompt with ephemeral webhook in signup flow (f68561a)
+
+## 1.0.1 (2026-02-15)
+
+### Bug Fixes
+
+  * enrich telemetry with non-PII partner context (#6) (807b4fb)
+
+# Changelog
+
+All notable changes to this project will be documented in this file.--------------------------------------------------------------------------------
+Модули ускорения LinQ (https://lin-q.ru/sol)
+citeturn146search2 [wordlim: 200] Crawled: last month; Скачать ... Программа предназначена для преобразования оригинальных графов нейронных сетей в набор инструкций ускорителя тензорных вычислений микропроцессора LinQ H. ... ПО «Фреймворк для работы тензорного процессора IVA H1 с высокопроизводительной специализированной архитектурой» является неотъемлемой частью OEM-продукции (аппаратные системы на базе микропроцессоров LinQ H) и его стоимость определяется условиями поставки соответствующего аппаратного обеспечения.
+Основными функциями программы является предоставление пользовательского доступа к процессам квантования и компиляции с помощью API языка Python 3.8 и интерфейса командной строки.
+
+Image
+
+ПО «Фреймворк для работы тензорного процессора IVA H1 с высокопроизводительной специализированной архитектурой» является неотъемлемой частью OEM-продукции (аппаратные системы на базе микропроцессоров LinQ H) и его стоимость определяется условиями поставки соответствующего аппаратного обеспечения.
+Для получения информации по продукту и запроса цены Вы можете обратиться по телефону +7 (495) 137-59-95 или по почте: info@lin-q.ru--------------------------------------------------------------------------------
+ (https://www.cnews.ru/book/pagination/7053/relevant_documents/0/0)
+citeturn146search3 [wordlim: 200] Crawled: last week; 06.05.2026  |  | Фреймворк для тензорного процессора LinQ H1 компании «ХайТэк» включен в реестр отечественного программного обеспечения Минцифры России Технологический стек российской компании «ХайТэк», разрабатывающей аппаратные ИИ-модули для ускорения нейронных сетей, получил официальное подтверждение российского происхождения. ... Целью сотрудничества является объединение усилий в продвижении и внедрении ExeMES на российских промышленных предприятиях.
+--------------------------------------------------------------------------------
+Cysharp/ZLinq: 5k+ stars, 200+ forks | GitGenius (https://www.gitgenius.co/repos/Cysharp/ZLinq)
+citeturn146search4 [wordlim: 200] Crawled: 3 weeks ago; # Cysharp/ZLinq ... View on GitHub ↗Jump to charts ↓Open shareable report →[Button: README badge] ... Type:Library / SDK Category(s):Core & Utility Libraries ML Frameworks & Libraries Languages & Runtimes
+--------------------------------------------------------------------------------
+Средства разработки программного обеспечения : Каталог совместимости российского ПО (https://catalog.arppsoft.ru/section/6074709?page=21)
+citeturn146search5 [wordlim: 200] Crawled: 3 months ago; Axiom Spring - Модульный фреймворк для разработки приложений на Java и расширение, которое упрощает настройку и развертывание приложений на базе Spring Framework и Spring Boot.Фреймворк для работы тензорного процессора IVA H1 с высокопроизводительной специализированной архитектурой
+--------------------------------------------------------------------------------
+@linqapp/sdk - npm (https://www.npmjs.com/package/%40linqapp/sdk)
+citeturn146search6 [wordlim: 200] Crawled: 2 weeks ago; `npm i @linqapp/sdk` ... github.com/linq-team/linq-node
+--------------------------------------------------------------------------------
+Linq Technologies Incorporated · GitHub (https://git.hubp.de/linq-team)
+citeturn146search7 [wordlim: 200] Crawled: last month; Linq TypeScript SDK
+--------------------------------------------------------------------------------
+Каталог совместимости российского ПО (https://catalog.arppsoft.ru/products/6043587?page=71)
+citeturn146search8 [wordlim: 200] Crawled: 3 weeks ago; Централизованная корпоративная система управления идентификацией и доступом в приложениях SSO KeyID ПАО Ростелеком ... Телематическая платформа ППДК ГЛОНАСС (далее - ППДК ГЛОНАСС) ... Фреймворк для работы тензорного процессора IVA H1 с высокопроизводительной специализированной архитектурой
+--------------------------------------------------------------------------------
+ahmetb/go-linq: 3.5k+ stars, 200+ forks | GitGenius (https://www.gitgenius.co/repos/ahmetb/go-linq)
+citeturn146search9 [wordlim: 200] Crawled: 2 weeks ago; # ahmetb/go-linq ... View on GitHub ↗Jump to charts ↓[Button: README badge] ... Type:Library / SDK Category(s):Core & Utility Libraries Languages & Runtimes
+--------------------------------------------------------------------------------
+Корпорация «ХайТэк» — DSMedia.pro (https://dsmedia.pro/company/corp-ht)
+citeturn146search10 [wordlim: 200] Crawled: last month; Фреймворк для тензорного процессора LinQ H1 включен в реестр отечественного программного обеспечения Минцифры России ... ПАК для работы с искусственным интеллектом создадут «Базальт СПО», «ХайТэк» и «Норси-Транс»
+--------------------------------------------------------------------------------
+Интернет-издание о высоких технологиях - CNews (https://www.cnews.ru/book/mutual/97/7053)
+citeturn146search11 [wordlim: 200] Crawled: last week; 06.05.2026  |  | Фреймворк для тензорного процессора LinQ H1 компании «ХайТэк» включен в реестр отечественного программного обеспечения Минцифры России ... 02.09.2025  |  | Минпромторг включил тензорный процессор LinQ H в реестр российской промышленной продукции ... 07.02.2025  |  | В реестр российской электроники добавят оборудование и компоненты для работы с ИИ.
+--------------------------------------------------------------------------------
+Course syllabus: (https://api.asapkerala.gov.in/uploads/course/syllabus/Full-Stack-.NET-with-Mean-Stack-_Syllabus-1711530468355-49087905.pdf)
+citeturn146search12 [wordlim: 200] Published: 3.0 years ago; C# Console and Windows Forms Development with LINQ and& ADO.NET ... NET Core Software Development Kit (SDK); Setting up a GitHub Account; Tour of Visual Studiox.
+--------------------------------------------------------------------------------
+Introduction to DocumentDB, a JSON database | Microsoft Docs (https://www.ascent.tech/wp-content/uploads/documents/microsoft/documentdb/documentdb.pdf)
+citeturn146search13 [wordlim: 200] Published: 9.9 years ago; 11/22/2016 • 7 min to read • Edit on GitHub ... NET API and SDK ... - Added LINQ support for StringEnumConverter, IsoDateTimeConverter and UnixDateTimeConverter while translating predicates.
+--------------------------------------------------------------------------------
+Характеристика (https://theseems.ru/curriculum_vitae_ru.pdf)
+citeturn146search14 [wordlim: 200] Published: last year; Д Е К  А  Б  Р  Ь 2021 — Н А С Т О Я Щ Е Е В Р Е М Я ... GitHub ... Топ-1 университет 2020 года по версии Forbes, учусь в бакалавриате на 2 ... Вдохновленная Linq, библиотека ClinQ (Java) предлагает fluent-методы ... Оболочка над Telegram Java SDK
+--------------------------------------------------------------------------------
+Иван Межецкий — Unity-разработчик (https://geeklink.io/pdf-resume/download/2025/05/27/ivan-ox1ugmh3xg-unity-razrabotchik-gruziya-tbilisi.pdf)
+citeturn146search15 [wordlim: 200] Published: 1.4 years ago; NET, Addressables, C#, DOTween, Git, GitHub Actions, LINQ, SQL, UniTask, Unity, VContainer, Zenject. ...   — Автоматизировал создание версий во время сборки, модифицировав CI-скрипт для GitHub Actions, что упростило процесс тестирования и выпуска новых версий приложения ...   — Разработал и запустил 4 гиперказуальные игры для WebGL в качестве одиночного разработчика, получившие средний рейтинг 4/5 на платформе Yandex Games, обеспечив надлежащее качество игры за счет оптимизации пост-релизной операционной поддержки и интеграции сторонних SDK-функций
+--------------------------------------------------------------------------------
+Alexey Akhundov (https://theseems.ru/curriculum_vitae_en.pdf)
+citeturn146search16 [wordlim: 200] Published: 2.8 years ago; Inspired by Linq, ClinQ library provides users with ﬂuent methods ... Java, Telegram SDK Wrapper ... GitHub repositories and ﬁnds developers bearing some sort of resem-
+--------------------------------------------------------------------------------
+НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ (https://ela.kpi.ua/server/api/core/bitstreams/cc1e1768-e007-4a6b-9ee7-69d6f217edf6/content)
+citeturn146search17 [wordlim: 200] Published: 8.4 years ago; виведення, LINQ, JSON, XML  тощо. ... SDK, які необхідна для побудови та запуску додатків . ... кодом на GitHub.
+

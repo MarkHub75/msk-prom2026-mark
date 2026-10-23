@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Performance Benchmarking using trtexec &#8212; NVIDIA TensorRT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=0abb5746"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js?v=edc4054a"></script>
+    <script src="../_static/external-links.js"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'performance/benchmarking';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '10.16.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+<script type="text/javascript" src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+
+    <link rel="icon" href="../_static/favicon.ico"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Performance Measurement Techniques" href="measurement-techniques.html" />
+    <link rel="prev" title="Best Practices" href="best-practices.html" />
+
+<link rel="preload" as="image" href="https://www.nvidia.com/content/dam/1x1-00000000.png">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="May 23, 2026"/>
+
+    <meta name="docs_products" content="NVIDIA TensorRT">
+    <meta name="docs_version" content="10.16.1">
+    <meta name="docs_books" content="NVIDIA TensorRT 10.16.1">
+    
+
+
+  </head>
+
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+<img src="https://www.nvidia.com/content/dam/1x1-00000000.png" width="1" height="1" style="display:none;" alt="country_code">
+
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">📦 <strong>Archived Documentation – Reference Only</strong> — This documentation is retained for customers using legacy product versions. It is no longer actively maintained, validated, or updated, and should not be relied upon for current product capabilities, security guidance, or operational decisions. For supported and up-to-date documentation, visit the <a href='https://docs.nvidia.com/tensorrt'>NVIDIA Docs Hub: NVIDIA TensorRT</a>.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting-started/release-notes.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.1.html">10.16.1 (Latest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.0.html">10.16.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.15.1.html">10.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.14.1.html">10.14.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.3.html">10.13.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.2.html">10.13.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.0.html">10.13.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.12.0.html">10.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.11.0.html">10.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.10.0.html">10.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.9.0.html">10.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.8.0.html">10.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.7.0.html">10.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.6.0.html">10.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.5.0.html">10.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.4.0.html">10.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.3.0.html">10.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.2.0.html">10.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.1.0.html">10.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.1.html">10.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.0-ea.html">10.0.0 Early Access</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-start-guide.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/support-matrix.html">Support Matrix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installing TensorRT</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/overview.html">Installation Guide Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installing-tensorrt/installing.html">Installing TensorRT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-pip.html">Method 1: Python Package Index (pip)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-debian.html">Method 2: Debian Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-rpm.html">Method 3: RPM Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-tar.html">Method 4: Tar File Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-zip.html">Method 5: Zip File Installation (Windows)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-container.html">Method 6: Container Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-alternative.html">Alternative Installation Methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/upgrading.html">Upgrading TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/uninstalling.html">Uninstalling TensorRT</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../architecture/architecture-overview.html">Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/capabilities.html">TensorRT’s Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/how-trt-works.html">How TensorRT Works</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inference Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/c-api-docs.html">C++ API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/python-api-docs.html">Python API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/sample-support-guide.html">Sample Support Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/advanced.html">Advanced Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/version-compatibility.html">Version Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/refitting-engines.html">Refitting an Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/precision-control.html">Algorithm Selection and Reproducible Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/io-formats-sparsity.html">I/O Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/engine-tools.html">Engine Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/weight-streaming.html">Weight Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/multi-device.html">Tiling Optimization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-quantized-types.html">Working with Quantized Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/accuracy-considerations.html">Accuracy Considerations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/work-dynamic-shapes.html">Working with Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/dynamic-shapes-basics.html">Dynamic Shapes: Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/dynamic-shapes-advanced.html">Dynamic Shapes: Advanced Topics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/extending-custom-layers.html">Extending TensorRT with Custom Layers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-cpp.html">Adding Custom Layers Using the C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-python.html">Adding Custom Layers using the Python API (TensorRT &gt;= 10.6)</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-advanced.html">Enabling Timing Caching and Using Custom Tactics</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-api-migration.html">Plugin API Description</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-loops.html">Working with Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-conditionals.html">Working with Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-dla.html">Working with DLA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/capture-replay.html">TensorRT API Capture and Replay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-transformers.html">Working with Transformers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="best-practices.html">Best Practices</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Performance Benchmarking using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="measurement-techniques.html">Advanced Performance Measurement Techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hw-sw-environment.html">Hardware/Software Environment for Performance Measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimizing TensorRT Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overhead-layer-optimization.html">Overhead of Shape Change and Optimization Profile Switching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accuracy-builder.html">Improving Model Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builder-performance.html">Optimizing Builder Performance</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/c-api.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python-api.html">Python API</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/migration-guide.html">Migrating from TensorRT 8.x to 10.x</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-python-api.html">Migrating Python Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-c-api.html">Migrating C++ Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-trtexec.html">Migrating <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> Usage from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-safety-runtime.html">Migrating Safety Runtime Code from TensorRT 8.x to 10.x</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/onnx-graphsurgeon-api.html">ONNX GraphSurgeon API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/polygraphy-api.html">Polygraphy API</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/data-format-desc.html">Data Format Descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/command-line-programs.html">Command-Line Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/operators.html">Operators Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/additional-resources.html">Additional Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/sla.html">LICENSE AGREEMENT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/glossary.html">Glossary</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="best-practices.html" class="nav-link">Best Practices</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Performance Benchmarking using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code></span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="header-article-item">
+  <div class="d-flex justify-content-end w-100">
+    <a href="https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5" id="openPopupButton">Is this page helpful?</a>
+  </div>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="performance-benchmarking-using-trtexec">
+<span id="performance-benchmarking"></span><h1>Performance Benchmarking using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code><a class="headerlink" href="#performance-benchmarking-using-trtexec" title="Link to this heading">#</a></h1>
+<p>This section introduces how to use <code class="docutils literal notranslate"><span class="pre">trtexec</span></code>, a command-line tool designed for TensorRT performance benchmarking, to get the inference performance measurements of your deep learning models.</p>
+<p>If you use the TensorRT NGC container, <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> is installed at <code class="docutils literal notranslate"><span class="pre">/opt/tensorrt/bin/trtexec</span></code>.</p>
+<p>If you manually installed TensorRT, <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> is part of the installation.</p>
+<p>Alternatively, you can build <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> from source code using the <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main">TensorRT OSS repository</a>.</p>
+<section id="performance-benchmarking-with-an-onnx-file">
+<span id="trtexec-measure-performance-onnx"></span><h2>Performance Benchmarking with an ONNX File<a class="headerlink" href="#performance-benchmarking-with-an-onnx-file" title="Link to this heading">#</a></h2>
+<p>If your model is already in the ONNX format, the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> tool can measure its performance directly. In this example, we will use the <a class="reference external" href="https://github.com/onnx/models/blob/main/validated/vision/classification/resnet/model/resnet50-v1-12.onnx">ResNet-50 v1 ONNX model</a> from the ONNX model zoo to showcase how to use trtexec to measure its performance.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> command to measure the performance of ResNet-50 with batch size 4 is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--onnx<span class="o">=</span>resnet50-v1-12.onnx<span class="w"> </span>--shapes<span class="o">=</span>data:4x3x224x224<span class="w"> </span>--fp16<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useCudaGraph<span class="w"> </span>--useSpinWait
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--onnx</span></code> flag specifies the path to the ONNX file.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--shapes</span></code> flag specifies the input tensor shapes.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--fp16</span></code> flag enables FP16 tactics.</p></li>
+<li><p>The other flags have been added to make performance results more stable.</p></li>
+</ul>
+<p>The value for the <code class="docutils literal notranslate"><span class="pre">--shapes</span></code> flag is in the format of <code class="docutils literal notranslate"><span class="pre">name1:shape1,name2:shape2,..</span></code>. If you do not know the input tensor names and shapes, you can get this information by visualizing the ONNX model using tools such as <a class="reference external" href="https://github.com/lutzroeder/netron">Netron</a> or by running a <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy">Polygraphy</a> model inspection.</p>
+<p>For example, running <code class="docutils literal notranslate"><span class="pre">polygraphy</span> <span class="pre">inspect</span> <span class="pre">model</span> <span class="pre">resnet50-v1-12.onnx</span></code> prints out:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[I] Loading model: /home/pohanh/trt/resnet50-v1-12.onnx
+[I] ==== ONNX Model ====
+    Name: mxnet_converted_model | ONNX Opset: 12
+    ---- 1 Graph Input(s) ----
+    {data [dtype=float32, shape=(&#39;N&#39;, 3, 224, 224)]}
+    ---- 1 Graph Output(s) ----
+    {resnetv17_dense0_fwd [dtype=float32, shape=(&#39;N&#39;, 1000)]}
+    ---- 299 Initializer(s) ----
+    ---- 175 Node(s) ----
+</pre></div>
+</div>
+<p>It shows that the ONNX model has a graph input tensor named <code class="docutils literal notranslate"><span class="pre">data</span></code> whose shape is <code class="docutils literal notranslate"><span class="pre">('N',</span> <span class="pre">3,</span> <span class="pre">224,</span> <span class="pre">224)</span></code>, where <code class="docutils literal notranslate"><span class="pre">'N'</span></code> represents that the dimension can be dynamic. Therefore, the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> flag to specify the input shapes with batch size 4 would be <code class="docutils literal notranslate"><span class="pre">--shapes=data:4x3x224x224</span></code>.</p>
+<p>After running the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> command, <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> will parse your ONNX file, build a TensorRT plan file, measure the performance of this plan file, and then print a performance summary as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[04/25/2024-23:57:45] [I] === Performance summary ===
+[04/25/2024-23:57:45] [I] Throughput: 507.399 qps
+[04/25/2024-23:57:45] [I] Latency: min = 1.96301 ms, max = 1.97534 ms, mean = 1.96921 ms, median = 1.96917 ms, percentile(90%) = 1.97122 ms, percentile(95%) = 1.97229 ms, percentile(99%) = 1.97424 ms
+[04/25/2024-23:57:45] [I] Enqueue Time: min = 0.0032959 ms, max = 0.0340576 ms, mean = 0.00421173 ms, median = 0.00415039 ms, percentile(90%) = 0.00463867 ms, percentile(95%) = 0.00476074 ms, percentile(99%) = 0.0057373 ms
+[04/25/2024-23:57:45] [I] H2D Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[04/25/2024-23:57:45] [I] GPU Compute Time: min = 1.96301 ms, max = 1.97534 ms, mean = 1.96921 ms, median = 1.96917 ms, percentile(90%) = 1.97122 ms, percentile(95%) = 1.97229 ms, percentile(99%) = 1.97424 ms
+[04/25/2024-23:57:45] [I] D2H Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[04/25/2024-23:57:45] [I] Total Host Walltime: 3.00355 s
+[04/25/2024-23:57:45] [I] Total GPU Compute Time: 3.00108 s
+[04/25/2024-23:57:45] [I] Explanations of the performance metrics are printed in the verbose logs.
+</pre></div>
+</div>
+<p>It prints many performance metrics, but the most important are <strong>Throughput</strong> and median <strong>Latency</strong>. In this case, the ResNet-50 model with batch size 4 can run with a throughput of <strong>507 inferences per second</strong> (2028 images per second since the batch size is 4) and a median latency of <strong>1.969 ms</strong>.</p>
+<p>Refer to the <a class="reference internal" href="measurement-techniques.html#advanced-performance-measurement"><span class="std std-ref">Advanced Performance Measurement Techniques</span></a> section for explanations about what <strong>Throughput</strong> and <strong>Latency</strong> mean to your deep learning inference applications. Refer to the <a class="reference internal" href="../reference/command-line-programs.html#trtexec"><span class="std std-ref">trtexec</span></a> section for detailed explanations about other trtexec flags and other performance metrics that trtexec reports.</p>
+</section>
+<section id="performance-benchmarking-with-onnx-quantization">
+<span id="trtexec-measure-performance-onnx-quantization"></span><h2>Performance Benchmarking with ONNX+Quantization<a class="headerlink" href="#performance-benchmarking-with-onnx-quantization" title="Link to this heading">#</a></h2>
+<p>To enjoy the additional performance benefit from quantizations, Quantize/Dequantize operations need to be inserted into the ONNX model to tell TensorRT where to quantize/dequantize the tensors and what scaling factors to use.</p>
+<p>Our recommended tool for ONNX quantization is the <code class="docutils literal notranslate"><span class="pre">ModelOptimizer</span></code> package. You can install it by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--extra-index-url<span class="w"> </span>https://pypi.nvidia.com<span class="w"> </span>nvidia-modelopt
+</pre></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">ModelOptimizer</span></code>, you can get a quantized ONNX model by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>modelopt.onnx.quantization<span class="w"> </span>--onnx_path<span class="w"> </span>resnet50-v1-12.onnx<span class="w"> </span>--quantize_mode<span class="w"> </span>int8<span class="w"> </span>--output_path<span class="w"> </span>resnet50-v1-12-quantized.onnx
+</pre></div>
+</div>
+<p>It loads the original ONNX model from <code class="docutils literal notranslate"><span class="pre">resnet50-v1-12.onnx</span></code>, runs calibration using random data, inserts Quantize/Dequantize ops into the graph, and then saves the ONNX model with Quantize/Dequantize ops to <code class="docutils literal notranslate"><span class="pre">resnet50-v1-12-quantized.onnx</span></code>.</p>
+<p>Now that the new ONNX model contains the INT8 Quantize/Dequantize ops, we can run <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> again using a similar command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--onnx<span class="o">=</span>resnet50-v1-12-quantized.onnx<span class="w"> </span>--shapes<span class="o">=</span>data:4x3x224x224<span class="w"> </span>--stronglyTyped<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useCudaGraph<span class="w"> </span>--useSpinWait
+</pre></div>
+</div>
+<p>We use the <code class="docutils literal notranslate"><span class="pre">--stronglyTyped</span></code> flag instead of the <code class="docutils literal notranslate"><span class="pre">--fp16</span></code> flag to require TensorRT to strictly follow the data types in the quantized ONNX model, including all the INT8 Quantize/Dequantize ops.</p>
+<p>Here is an example output after running this <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> command with the quantized ONNX model:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[04/26/2024-00:31:43] [I] === Performance summary ===
+[04/26/2024-00:31:43] [I] Throughput: 811.74 qps
+[04/26/2024-00:31:43] [I] Latency: min = 1.22559 ms, max = 1.23608 ms, mean = 1.2303 ms, median = 1.22998 ms, percentile(90%) = 1.23193 ms, percentile(95%) = 1.23291 ms, percentile(99%) = 1.23395 ms
+[04/26/2024-00:31:43] [I] Enqueue Time: min = 0.00354004 ms, max = 0.00997925 ms, mean = 0.00431524 ms, median = 0.00439453 ms, percentile(90%) = 0.00463867 ms, percentile(95%) = 0.00476074 ms, percentile(99%) = 0.00512695 ms
+[04/26/2024-00:31:43] [I] H2D Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[04/26/2024-00:31:43] [I] GPU Compute Time: min = 1.22559 ms, max = 1.23608 ms, mean = 1.2303 ms, median = 1.22998 ms, percentile(90%) = 1.23193 ms, percentile(95%) = 1.23291 ms, percentile(99%) = 1.23395 ms
+[04/26/2024-00:31:43] [I] D2H Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[04/26/2024-00:31:43] [I] Total Host Walltime: 3.00219 s
+[04/26/2024-00:31:43] [I] Total GPU Compute Time: 2.99824 s
+[04/26/2024-00:31:43] [I] Explanations of the performance metrics are printed in the verbose logs.
+</pre></div>
+</div>
+<p>The Throughput is <strong>811 inferences per second</strong>, and the median Latency is <strong>1.23 ms</strong>. The Throughput has improved by 60% compared to the FP16 performance results in the previous section.</p>
+</section>
+<section id="per-layer-runtime-and-layer-information">
+<span id="per-layer-runtime-info"></span><h2>Per-Layer Runtime and Layer Information<a class="headerlink" href="#per-layer-runtime-and-layer-information" title="Link to this heading">#</a></h2>
+<p>In previous sections, we described using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> to measure the end-to-end latency. This section will show an example of per-layer runtime and per-layer information using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code>. This will help you determine how much latency each layer contributes to the end-to-end latency and in what layers the performance bottlenecks are.</p>
+<p>This is an example <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> command to print per-layer runtime and per-layer information using the quantized ResNet-50 ONNX model:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--onnx<span class="o">=</span>resnet50-v1-12-quantized.onnx<span class="w"> </span>--shapes<span class="o">=</span>data:4x3x224x224<span class="w"> </span>--stronglyTyped<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useCudaGraph<span class="w"> </span>--useSpinWait<span class="w"> </span>--profilingVerbosity<span class="o">=</span>detailed<span class="w"> </span>--dumpLayerInfo<span class="w"> </span>--dumpProfile<span class="w"> </span>--separateProfileRun
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--profilingVerbosity=detailed</span></code> flag enables detailed layer information capturing, <code class="docutils literal notranslate"><span class="pre">--dumpLayerInfo</span></code> flag shows the per-layer information in the log, and <code class="docutils literal notranslate"><span class="pre">--dumpProfile</span> <span class="pre">--separateProfileRun</span></code> flags show the per-layer runtime latencies in the log.</p>
+<p>The following code is an example log of the per-layer information for one of the convolution layers in the quantized ResNet-50 model:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Name: resnetv17_stage1_conv0_weight + resnetv17_stage1_conv0_weight_QuantizeLinear + resnetv17_stage1_conv0_fwd, LayerType: CaskConvolution, Inputs: [ { Name: resnetv17_pool0_fwd_QuantizeLinear_Output_1, Location: Device, Dimensions: [4,64,56,56], Format/Datatype: Thirty-two wide channel vectorized row major Int8 format }], Outputs: [ { Name: resnetv17_stage1_relu0_fwd_QuantizeLinear_Output, Location: Device, Dimensions: [4,64,56,56], Format/Datatype: Thirty-two wide channel vectorized row major Int8 format }], ParameterType: Convolution, Kernel: [1,1], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [0,0], PostPadding: [0,0], Stride: [1,1], Dilation: [1,1], OutMaps: 64, Groups: 1, Weights: {&quot;Type&quot;: &quot;Int8&quot;, &quot;Count&quot;: 4096}, Bias: {&quot;Type&quot;: &quot;Float&quot;, &quot;Count&quot;: 64}, HasBias: 1, HasReLU: 1, HasSparseWeights: 0, HasDynamicFilter: 0, HasDynamicBias: 0, HasResidual: 0, ConvXAsActInputIdx: -1, BiasAsActInputIdx: -1, ResAsActInputIdx: -1, Activation: RELU, TacticName: sm80_xmma_fprop_implicit_gemm_interleaved_i8i8_i8i32_f32_nchw_vect_c_32kcrs_vect_c_32_nchw_vect_c_32_tilesize96x64x64_stage3_warpsize2x2x1_g1_tensor16x8x32_simple_t1r1s1, TacticValue: 0x483ad1560c6e5e27, StreamId: 0, Metadata: [ONNX Layer: resnetv17_stage1_conv0_fwd]
+</pre></div>
+</div>
+<p>The log shows the layer name, the input and output tensor names, tensor shapes, tensor data types, convolution parameters, tactic names, and metadata. The <code class="docutils literal notranslate"><span class="pre">Metadata</span></code> field shows which ONNX ops this layer corresponds to. Since TensorRT has graph fusion optimizations, one engine layer can correspond to multiple ONNX ops in the original model.</p>
+<p>The following code is an example log of the per-layer runtime latencies for the last few layers in the quantized ResNet-50 model:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[04/26/2024-00:42:55] [I]    Time(ms)     Avg.(ms)   Median(ms)   Time(%)   Layer
+[04/26/2024-00:42:55] [I]       56.57       0.0255       0.0256       1.8   resnetv17_stage4_conv7_weight + resnetv17_stage4_conv7_weight_QuantizeLinear + resnetv17_stage4_conv7_fwd
+[04/26/2024-00:42:55] [I]      103.86       0.0468       0.0471       3.3   resnetv17_stage4_conv8_weight + resnetv17_stage4_conv8_weight_QuantizeLinear + resnetv17_stage4_conv8_fwd
+[04/26/2024-00:42:55] [I]       46.93       0.0211       0.0215       1.5   resnetv17_stage4_conv9_weight + resnetv17_stage4_conv9_weight_QuantizeLinear + resnetv17_stage4_conv9_fwd + resnetv17_stage4__plus2 + resnetv17_stage4_activation2
+[04/26/2024-00:42:55] [I]       34.64       0.0156       0.0154       1.1   resnetv17_pool1_fwd
+[04/26/2024-00:42:55] [I]       63.21       0.0285       0.0287       2.0   resnetv17_dense0_weight + resnetv17_dense0_weight_QuantizeLinear + transpose_before_resnetv17_dense0_fwd + resnetv17_dense0_fwd + resnetv17_dense0_bias + ONNXTRT_Broadcast + unsqueeze_node_after_resnetv17_dense0_bias + ONNXTRT_Broadcast_ONNXTRT_Broadcast_output + (Unnamed Layer* 851) [ElementWise]
+[04/26/2024-00:42:55] [I]     3142.40       1.4149       1.4162     100.0   Total
+</pre></div>
+</div>
+<p>It shows that the median latency of the <code class="docutils literal notranslate"><span class="pre">resnetv17_pool1_fwd</span></code> layer is 0.0154 ms and contributes to 1.1% of the end-to-end latency. With this log, you can identify what layers take the largest portion of the end-to-end latency and are the performance bottleneck.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Total</span></code> latency reported in the per-layer runtime log is the summation of the per-layer latencies. It is typically slightly longer than the reported end-to-end latency due to the overheads caused by measuring per-layer latencies. For example, the <code class="docutils literal notranslate"><span class="pre">Total</span></code> median latency is 1.4162 ms, but the end-to-end latency shown in the previous section is 1.23 ms.</p>
+</section>
+<section id="performance-benchmarking-with-tensorrt-plan-file">
+<span id="performance-benchmark-trt-plan"></span><h2>Performance Benchmarking with TensorRT Plan File<a class="headerlink" href="#performance-benchmarking-with-tensorrt-plan-file" title="Link to this heading">#</a></h2>
+<p>If you construct the TensorRT <code class="docutils literal notranslate"><span class="pre">INetworkDefinition</span></code> using TensorRT APIs and build the plan file in a separate script, you can still use <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> to measure the plan file’s performance.</p>
+<p>For example, if the plan file is saved as <code class="docutils literal notranslate"><span class="pre">resnet50-v1-12-quantized.plan</span></code>, then you can run the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> command to measure the performance using this plan file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--loadEngine<span class="o">=</span>resnet50-v1-12-quantized.plan<span class="w"> </span>--shapes<span class="o">=</span>data:4x3x224x224<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useCudaGraph<span class="w"> </span>--useSpinWait
+</pre></div>
+</div>
+<p>The performance summary output is similar to those in the previous sections.</p>
+</section>
+<section id="duration-and-number-of-iterations">
+<span id="duration-iterations"></span><h2>Duration and Number of Iterations<a class="headerlink" href="#duration-and-number-of-iterations" title="Link to this heading">#</a></h2>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> warms up for at least 200 ms and runs inference for at least 10 iterations or at least 3 seconds, whichever is longer. You can modify these parameters by adding the <code class="docutils literal notranslate"><span class="pre">--warmUp=500</span></code>, <code class="docutils literal notranslate"><span class="pre">--iterations=100</span></code>, and <code class="docutils literal notranslate"><span class="pre">--duration=60</span></code> flags, which mean running the warm-up for at least 500 ms and running the inference for at least 100 iterations or at least 60 seconds, whichever is longer.</p>
+<p>Refer to the <a class="reference internal" href="../reference/command-line-programs.html#trtexec"><span class="std std-ref">trtexec</span></a> section or run <code class="docutils literal notranslate"><span class="pre">trtexec</span> <span class="pre">--help</span></code> for a detailed explanation about other <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> flags.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="best-practices.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Best Practices</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="measurement-techniques.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Advanced Performance Measurement Techniques</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-benchmarking-with-an-onnx-file">Performance Benchmarking with an ONNX File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-benchmarking-with-onnx-quantization">Performance Benchmarking with ONNX+Quantization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#per-layer-runtime-and-layer-information">Per-Layer Runtime and Layer Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-benchmarking-with-tensorrt-plan-file">Performance Benchmarking with TensorRT Plan File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duration-and-number-of-iterations">Duration and Number of Iterations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+<script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on May 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

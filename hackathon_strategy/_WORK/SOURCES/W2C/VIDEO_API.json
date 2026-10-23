@@ -1,0 +1,1666 @@
+{
+  "acl_access": {
+    "allowed": true,
+    "err_code": null,
+    "err_text": ""
+  },
+  "advert": [],
+  "appearance": {
+    "color": "00A1E7",
+    "auto_start": true,
+    "show_subscription": true,
+    "show_author": true,
+    "show_title": true,
+    "show_hd": false,
+    "show_logotype": false,
+    "show_full_tab": true,
+    "show_avatar": true,
+    "show_top_panel": true,
+    "show_share_button": true,
+    "show_social_buttons": true,
+    "show_endscreen": true,
+    "show_related": true,
+    "show_category_recommended": true,
+    "show_user_recommended": true,
+    "show_pg_rating": false,
+    "available_pause_click": true,
+    "available_title_click": false,
+    "available_logo_click": false,
+    "available_author_click": false,
+    "available_related_click": true,
+    "plugin_modifying": true,
+    "forbid_html_controls": false,
+    "show_adult_stub": true,
+    "available_link_stub": true,
+    "available_special_source": false,
+    "advert_skin_type": null,
+    "show_preloader": true,
+    "enable_embed_logo": true,
+    "cookies_mail": false,
+    "forbid_html_fullscreen": false,
+    "allow_auto_seek": true,
+    "forbid_timeline_preview": false,
+    "allow_push_subscribe": false,
+    "enable_playlist": false,
+    "show_logo_with_controls": false,
+    "mini_player": true,
+    "cinema_mode": true,
+    "disable_ads_button_title": null
+  },
+  "author": {
+    "id": 32099196,
+    "url": "https://rutube.ru/video/person/32099196/",
+    "avatar_url": "https://pic.rtbcdn.ru/user/8a/cb/8acb8743ba7145e0106d08b478866324.jpg",
+    "logo": null,
+    "update_ts": "2024-12-24T21:00:50.561282",
+    "name": "ЦИФРОВОЙ ПРОРЫВ"
+  },
+  "audiotracks": [],
+  "black_rabbit": false,
+  "captions": [],
+  "category": {
+    "id": 17,
+    "category_url": "/video/category/17/",
+    "update_ts": "2025-10-05T10:30:05.681169",
+    "name": "Обучение",
+    "short_name": "education",
+    "for_kids": false
+  },
+  "count_load_time": false,
+  "cuepoints": [],
+  "description": "",
+  "drm_token": null,
+  "duration": 11580011,
+  "effective_video": "ce1ce8c6459fe7bece7d31c378f98668",
+  "episode": null,
+  "fts": 0,
+  "gpmd_id": 8,
+  "has_video": true,
+  "html": "<iframe width=\"720\" height=\"405\" src=\"https://rutube.ru/embed/ce1ce8c6459fe7bece7d31c378f98668\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowfullscreen allow=\"encrypted-media\"></iframe>",
+  "iframe_url": null,
+  "id": 288568396,
+  "is_adult": false,
+  "is_harm_health": false,
+  "is_hidden": false,
+  "is_licensed": true,
+  "is_spatial": false,
+  "limits": [],
+  "live_streams": {},
+  "log_level": 1,
+  "meta": {
+    "advert_rule_id": 1467,
+    "advert_limit_rule_id": null,
+    "quality_rule_id": 35,
+    "theme_id": 492,
+    "stat_rule_ids": [
+      548,
+      547,
+      544,
+      504,
+      462,
+      442,
+      417
+    ],
+    "appearance_id": 1,
+    "alternative_video_id": null,
+    "special_access": []
+  },
+  "mobile": false,
+  "origin_type": "rtb",
+  "pg_rating": {
+    "age": 12,
+    "logo": "https://pic.rtbcdn.ru/agerestriction/99/0e/990e87f25d8689833de24c0eb7eaec81.png"
+  },
+  "player": "rutube",
+  "purchase_ttl": null,
+  "referer": "https://rutube.ru",
+  "remove_unseekable_blocks": true,
+  "season": null,
+  "skin": null,
+  "stat_api": null,
+  "stat": [
+    {
+      "name": "statstart",
+      "url_template": "https://tns-counter.ru/e/ec01&cid=rutube&typ=1&tms=rutube_w&hid=&idc=104&idlc=ce1ce8c6459fe7bece7d31c378f98668&urlc=https%3A%2F%2Frutube.ru%2Fvideo%2Fce1ce8c6459fe7bece7d31c378f98668%2F&ver=0&type=2&view=1&fts={{contentCurrentPosition}}&media=%D0%A6%D0%98%D0%A4%D0%A0%D0%9E%D0%92%D0%9E%D0%99%20%D0%9F%D0%A0%D0%9E%D0%A0%D0%AB%D0%92",
+      "start": 0.1,
+      "count": 0,
+      "delay": 1,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://931221.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://ac.rutube.ru/api/v1/ev?cid={{ru_cid}}&ev_type=play_start",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://wcm.weborama-tech.ru/fcgi-bin/dispatch.fcgi?a.A=co&a.si=10232&a.cp=1&a.ct=d&a.cid={{ru_cid}}&a.opt=N1%3A{{ru_session_id}},N2%3A{{viewer_id}},N3%3A{user_auth},N4%3A{sso_source},N5%3A{sso_id},N6%3A{{cid}},N7%3A{{touch_point}},N8%3A{{device_type}},N9%3A{{screen_name}},N10%3A{{page_url}},N11%3A{{event_timestamp}},N12%3Aplayer-success-play_start,N13%3A{event_context},N14%3A{event_element_location},N15%3A{event_element_link},N16%3A{channel_id},N17%3A{content_category_id},N18%3A{content_subcategory_id},N19%3Ace1ce8c6459fe7bece7d31c378f98668,N20%3A{content_type},N21%3Af3a23d52a424e7e40fc5b2263b4703a9",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statend",
+      "url_template": "https://951221.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statend",
+      "url_template": "https://tns-counter.ru/e/ec01&cid=rutube&typ=1&tms=rutube_w&hid=&idc=104&idlc=ce1ce8c6459fe7bece7d31c378f98668&urlc=https%3A%2F%2Frutube.ru%2Fvideo%2Fce1ce8c6459fe7bece7d31c378f98668%2F&ver=0&type=2&view=0&fts={{contentCurrentPosition}}&media=%D0%A6%D0%98%D0%A4%D0%A0%D0%9E%D0%92%D0%9E%D0%99%20%D0%9F%D0%A0%D0%9E%D0%A0%D0%AB%D0%92",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statresume",
+      "url_template": "https://931221.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statpause",
+      "url_template": "https://951221.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statpause",
+      "url_template": "https://tns-counter.ru/e/ec01&cid=rutube&typ=1&tms=rutube_w&hid=&idc=104&idlc=ce1ce8c6459fe7bece7d31c378f98668&urlc=https%3A%2F%2Frutube.ru%2Fvideo%2Fce1ce8c6459fe7bece7d31c378f98668%2F&ver=0&type=2&view=3&fts={{contentCurrentPosition}}&media=%D0%A6%D0%98%D0%A4%D0%A0%D0%9E%D0%92%D0%9E%D0%99%20%D0%9F%D0%A0%D0%9E%D0%A0%D0%AB%D0%92",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "adstartpreroll",
+      "url_template": "https://931222.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "adstartmidroll",
+      "url_template": "https://931222.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "adstartpostroll",
+      "url_template": "https://931222.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "statload",
+      "url_template": "https://ads.gpm-ssp.ru/sspmatch?country=RU&p=47346",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "heartbeat",
+      "url_template": "https://tns-counter.ru/e/ec01&cid=rutube&typ=1&tms=rutube_w&hid=&idc=104&idlc=ce1ce8c6459fe7bece7d31c378f98668&urlc=https%3A%2F%2Frutube.ru%2Fvideo%2Fce1ce8c6459fe7bece7d31c378f98668%2F&ver=0&type=2&view=2&fts={{contentCurrentPosition}}&media=%D0%A6%D0%98%D0%A4%D0%A0%D0%9E%D0%92%D0%9E%D0%99%20%D0%9F%D0%A0%D0%9E%D0%A0%D0%AB%D0%92",
+      "start": 0,
+      "count": 0,
+      "delay": 30,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "watchtime",
+      "url_template": "https://941221.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 30,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "player_load_after_ad",
+      "url_template": "https://951222.log.rutube.ru",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "ad_end",
+      "url_template": "https://ac.rutube.ru/api/v1/ev?cid={{ru_cid}}&ac_request_id={{ac_request_id}}&ad_type={{adformat}}&ev_type=complete",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": ""
+    },
+    {
+      "name": "showendscreen",
+      "url_template": "https://mc.yandex.ru/watch/53182297/1?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fshow_endscreen&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_id%22%3A%22{{endscreen_videos}}%22%2C%22user_id%22%3A%22%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "clickendscreen",
+      "url_template": "https://mc.yandex.ru/watch/53182297/1?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fclick_endscreen&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_id%22%3A%22{{click_video}}%22%2C%22user_id%22%3A%22%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPLAYERSTART&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22cid%22%3A%22{{cid}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0.1,
+      "count": 1,
+      "delay": 1,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://mc.yandex.ru/watch/39751470?ut=noindex&page-ref={{dl}}&page-url=ce1ce8c6459fe7bece7d31c378f98668&page-title=%D0%97%D0%B0%D1%89%D0%B8%D1%82%D1%8B%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B9.%20%D0%9C%D0%B8%D0%BD%D0%BF%D1%80%D0%BE%D0%BC%D1%82%D0%BE%D1%80%D0%B3%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8.%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B&cnt=1&site-info=%7B%22__ym%22%3A%7B%22ecommerce%22%3A%5B%7B%22detail%22%3A%7B%22products%22%3A%5B%7B%22name%22%3A%22%D0%97%D0%B0%D1%89%D0%B8%D1%82%D1%8B%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B9.%20%D0%9C%D0%B8%D0%BD%D0%BF%D1%80%D0%BE%D0%BC%D1%82%D0%BE%D1%80%D0%B3%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8.%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B%22%2C%22id%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%2C%22brand%22%3A%22user_32099196%22%2C%22category%22%3A%22category_education%2Frightholderid_%2Ftv0%2Fs0%2Fe0%7D%22%2C%22variant%22%3A%22rutube.ru%22%2C%22coupon%22%3A%22{{dl}}%22%7D%5D%7D%7D%5D%7D%7D",
+      "start": 0.1,
+      "count": 1,
+      "delay": 1,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statend",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2F100PROC&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statmiddle",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2F50PROC&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "button_recomendation_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=button_recomendation&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statfirstQuartile",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2F25PROC&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statthirdQuartile",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2F75PROC&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPLAYERLOAD&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22cid%22%3A%22{{cid}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22resource_id%22%3A%22{{resource_id}}%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://mc.yandex.ru/watch/39751470?ut=noindex&wmode=5&callback=_ymjsp{{random}}&page-ref={{dl}}&page-url=ce1ce8c6459fe7bece7d31c378f98668&page-title=%D0%97%D0%B0%D1%89%D0%B8%D1%82%D1%8B%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B9.%20%D0%9C%D0%B8%D0%BD%D0%BF%D1%80%D0%BE%D0%BC%D1%82%D0%BE%D1%80%D0%B3%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8.%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPLAYERLOAD&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22cid%22%3A%22{{cid}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%2C%22resource_id%22%3A%22{{resource_id}}%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://ssp.rutube.ru/api/v1/isync",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adreceivepreroll",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fad_load&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22type_ad%22%3A%22preroll%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPLAYERSTART&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22cid%22%3A%22{{cid}}%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%7D",
+      "start": 0.1,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statembedload",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-url=ce1ce8c6459fe7bece7d31c378f98668&page-ref={{dl}}&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstart",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fads_view&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstart",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fads_view&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adreceive",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fads_request&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adreceive",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fads_request&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://www.tns-counter.ru/V13a****rutube_ru/ru/UTF-8/tmsec=rutube_rutube-start/{{random_int}}",
+      "start": 0.1,
+      "count": 0,
+      "delay": 1,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statend",
+      "url_template": "https://www.tns-counter.ru/V13a****rutube_ru/ru/UTF-8/tmsec=rutube_rutube-end/{{random_int}}",
+      "start": 0.1,
+      "count": 0,
+      "delay": 1,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://www.tns-counter.ru/V13a****rutube_ru/ru/UTF-8/tmsec=rutube_rutube-load/{{random_int}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "firstplaybutton",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Ffirst_play_button&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstartmidroll",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fadstartmidroll&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22type_ad%22%3A%22midroll%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstartpostroll",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fadstartpostroll&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22type_ad%22%3A%22postroll%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstartpreroll",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fadstartpreroll&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22type_ad%22%3A%22preroll%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adsend",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fadsend&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "clickendscreenAction",
+      "url_template": "https://mc.yandex.ru/watch/53182297/1?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FclickendscreenAction&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_id%22%3A%22{{click_video}}%22%2C%22user_id%22%3A%22%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "cancelendscreen",
+      "url_template": "https://mc.yandex.ru/watch/53182297/1?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2Fcancelendscreen&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22video_id%22%3A%22{{click_video}}%22%2C%22user_id%22%3A%22%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statevent",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2F3_seconds&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 3,
+      "count": 1,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statevent",
+      "url_template": "https://mc.yandex.ru/watch/53182297?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPlayerStart30sec&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%2C%22url_location%22%3A%22{{url_location}}%22%2C%22video_land%22%3A%22ce1ce8c6459fe7bece7d31c378f98668%22%7D",
+      "start": 30,
+      "count": 1,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statevent",
+      "url_template": "https://mc.yandex.ru/watch/39751470?page-ref={{dl}}&page-url=goal%3A%2F%2Frutube.ru%2FPlayerStart30sec&ut=noindex&site-info=%7B%22fingerprintId%22%3A%22{{fingerprint_id}}%22%2C%22ref-url%22%3A%22rutube.ru%22%7D",
+      "start": 30,
+      "count": 1,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "button_recomendation_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=button_recomendation&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "preload_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=preload&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_rutube_view",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=smotret_na_rutube&event_action=SH&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id=&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&user_agent={{user_agent_cl}}&cvid={{cvid}}&player_version={{appv}}&event_referrer={{doc_ref}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_player_50_1_sec",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mrc_player_50_1&event_action=SC&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "player_backlight_on",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_backlight_on&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "MP_button_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mini_player&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "publisher_feed_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=publisher_feed&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&content_id=ce1ce8c6459fe7bece7d31c378f98668",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "player_backlight_off",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_backlight_off&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "new_frag",
+      "url_template": "https://goya.rutube.ru/online/ce1ce8c6459fe7bece7d31c378f98668/?user=&s=&cid={{cid}}&pid={{pid}}&mid={{mid}}&live={{live}}&rightholderid=&authorid=32099196&pos={{contentCurrentPosition}}&wt={{watchtime}}&bigtv=0&ref=https%3A%2F%2Frutube.ru&session=7c541030dded48d6a2bcdec31825e8ea&track=288568396&tv=0&event_source={{event_source}}&viewid=f3a23d52a424e7e40fc5b2263b4703a9&m=AVOD&p=&ps=&pe=&swt=ASrAwKfSjXB_UHxbXaRQ2Q&ewt=1792825451&l=1&ot=rtb&ar=&url_location={{url_location}}&abtag={{ab_tag}}&id_website={{id_website}}&id_distribution={{id_distribution}}&yclid={{yclid}}&yclid_p={{yclid_p}}&rline_id={{rline_id}}&dur=11580&fnum={{frag_num}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "hb_intervals_stat",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=heartbeat&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action={{event_action}}&range_start={{range_start}}&range_end={{range_end}}&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&player_autoplay={{auto_play}}&touch_point={{touch_point}}&video_watchtime={{watchtime}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&final={{final}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&background_player={{is_backgr_player}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&dvt={{dvt}}&batch_id={{batch_id}}&api_method={{api_method}}&ot=rtb&ydevid={{ydevid}}&authorid=32099196&tv=0&dur=11580&e=1792825451&s=&live={{live}}",
+      "start": 10,
+      "count": 4,
+      "delay": 10,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "MP_back_button_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_back&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_rutube_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=smotret_na_rutube&event_action=CK&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id=&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&user_agent={{user_agent_cl}}&cvid={{cvid}}&player_version={{appv}}&event_referrer={{doc_ref}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "from_beginning_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=from_beginning&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "MP_close",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mini_player_back&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "onboarding_preload_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=onboarding_preload&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "preload_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=preload&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "esch_replay_video_off",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=more_loop_off&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstart",
+      "url_template": "https://yast.rutube.ru/gowast/show/288568396/?cid={{cid}}&pid={{pid}}&mid={{mid}}&format={{format}}&live={{live}}&rightholderid=&authorid=32099196&userid={{viewer_id}}&referer={{dl}}&bigtv=0&adposition=0&adformat={{adformat}}&fingerprintId={{fingerprint_id}}&campaign_id={{campaign_id}}&referral_rutube={{referral_rutube}}&resource_id={{resource_id}}&id_website={{id_website}}&id_distribution={{id_distribution}}&ar=&viewid=f3a23d52a424e7e40fc5b2263b4703a9&rhld=&ads_owner_id={{ads_owner_id}}&playerver={{appv}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "hb_intervals_stat",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=heartbeat&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action={{event_action}}&range_start={{range_start}}&range_end={{range_end}}&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&player_autoplay={{auto_play}}&touch_point={{touch_point}}&video_watchtime={{watchtime}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&final={{final}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&background_player={{is_backgr_player}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&dvt={{dvt}}&batch_id={{batch_id}}&api_method={{api_method}}&ot=rtb&ydevid={{ydevid}}&authorid=32099196&tv=0&dur=11580&e=1792825451&s=&live={{live}}",
+      "start": 40,
+      "count": 0,
+      "delay": 40,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "publisher_feed_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=publisher_feed&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&content_id=ce1ce8c6459fe7bece7d31c378f98668",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "esch_replay_video_on",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=more_loop_on&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "player_zoom",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_zoom&event_action={{zoom_action}}&player_screen_size={{zoom_value}}&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_credits_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=credits_watch&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "publisher_feed_auto",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=publisher_feed&event_action=AUT&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&content_id=ce1ce8c6459fe7bece7d31c378f98668",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "full_preload_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=full_preload&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&video_watchtime={{watchtime}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "from_beginning_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=from_beginning&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adsend",
+      "url_template": "https://yast.rutube.ru/gowast/request/288568396/?cid={{cid}}&pid={{pid}}&mid={{mid}}&format={{format}}&live={{live}}&rightholderid=&authorid=32099196&userid={{viewer_id}}&referer={{dl}}&bigtv=0&adposition=0&adformat={{adformat}}&referral_rutube={{referral_rutube}}&resource_id={{resource_id}}&id_website={{id_website}}&id_distribution={{id_distribution}}&ar=&viewid=f3a23d52a424e7e40fc5b2263b4703a9&rhld=&ads_owner_id={{ads_owner_id}}&playerver={{appv}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "skip_credits_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=credits_skip&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_credits_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=credits_watch&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "simple_preload_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=simple_preload&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&video_watchtime={{watchtime}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://goya.rutube.ru/online/ce1ce8c6459fe7bece7d31c378f98668/?start=1&user=&s=&cid={{cid}}&pid={{pid}}&mid={{mid}}&live={{live}}&rightholderid=&authorid=32099196&bigtv=0&ref=https%3A%2F%2Frutube.ru&session=7c541030dded48d6a2bcdec31825e8ea&track=288568396&tv=0&viewid=f3a23d52a424e7e40fc5b2263b4703a9&m=AVOD&p=&ps=&pe=&swt=ASrAwKfSjXB_UHxbXaRQ2Q&ewt=1792825451&l=1&ot=rtb&ar=&fingerprintId={{fingerprint_id}}&referral_rutube={{referral_rutube}}&resource_id={{resource_id}}&url_location={{url_location}}&abtag={{ab_tag}}&appver={{appv}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&ydevid={{ydevid}}&id_website={{id_website}}&yclid={{yclid}}&id_distribution={{id_distribution}}&yclid_p={{yclid_p}}&rline_id={{rline_id}}&dur=11580&user_subscription_id=&listnasrv=na&iscs=0&contentsubscript=0&ad_sdkver={{ad_sdkver}}&rhld=&promo_id={{promo_id}}&player_screen_size={{screen_size}}&pos={{contentCurrentPosition}}&touch_point={{touch_point}}",
+      "start": 0.1,
+      "count": 0,
+      "delay": 1,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_choice_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=episodes&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&cvid={{cvid}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "skip_intro_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=intro_skip&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "next_video",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=next_video&event_action=CK&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "next_episode_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=next_episode&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&event_referrer={{doc_ref}}&content_next_item_id={{vl_video_id}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watchtime",
+      "url_template": "https://goya.rutube.ru/online/ce1ce8c6459fe7bece7d31c378f98668/?user=&s=&cid={{cid}}&pid={{pid}}&mid={{mid}}&live={{live}}&rightholderid=&authorid=32099196&pos={{contentCurrentPosition}}&wt={{watchtime}}&wt2={{wt}}&bigtv=0&ref=https%3A%2F%2Frutube.ru&session=7c541030dded48d6a2bcdec31825e8ea&track=288568396&tv=0&event_source={{event_source}}&viewid=f3a23d52a424e7e40fc5b2263b4703a9&m=AVOD&p=&ps=&pe=&swt=ASrAwKfSjXB_UHxbXaRQ2Q&ewt=1792825451&l=1&ot=rtb&ar=&url_location={{url_location}}&abtag={{ab_tag}}&appver={{appv}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&id_website={{id_website}}&id_distribution={{id_distribution}}&ydevid={{ydevid}}&yclid={{yclid}}&yclid_p={{yclid_p}}&rline_id={{rline_id}}&dur=11580&user_subscription_id=&listnasrv=na&iscs=0&contentsubscript=0&player_screen_size={{screen_size}}&touch_point={{touch_point}}",
+      "start": 0,
+      "count": 0,
+      "delay": 10,
+      "method": "get",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "MP_back_button_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_back&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "skip_intro_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=intro_skip&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adreceive",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=load&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&event_ancestors={{aOris}}&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&ads_duration={{ad_dur}}&ads_framework={{ads_framework}}&skip={{ads_skipt}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&video_current_position={{contentCurrentPosition}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}&ads_quality={{ad_quality}}&ads_avail_qualities={{ad_avail_qualities}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_author",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_author&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&content_next_item_id={{rec_vl}}&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&rec_vl={{rec_vl}}&cvid={{cvid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "cbanner_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=communication_banner&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&content_next_item_id={{epk_params}}&content_in_list_position={{anums_lp}}&is_embed={{is_embed}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_button_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=episode_button&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "unsubscribe_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=unsubscribe&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "sub_notify_off",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=notification_off&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_player_100_1_sec",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mrc_player_100_1&event_action=SC&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_intro_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=intro_watch&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_author_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_author&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&content_next_item_id={{vl_video_id}}&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&vl_video_id={{vl_video_id}}&cvid={{cvid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "previous_video",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=previous_video&event_action=CK&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_nextvideo_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{vl_video_id}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "cbanner_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=communication_banner&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&content_next_item_id={{epk_params}}&content_in_list_position={{ind_lp}}_{{num_lp}}&is_embed={{is_embed}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_rule_response",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=ad_rule_response&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&ads_section={{ads_section}}&ads_rule={{ads_rule_id}}&ads_type={{adformat}}&user_subscription_id=na&content_subscription=0&content_id=ce1ce8c6459fe7bece7d31c378f98668&device_model={{dvm}}&operating_system={{os}}&ads_view_id={{ads_viewid}}&rightholder_id=&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_intro_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=intro_watch&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_button_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=episode_button&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_recomendation_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{vl_video_id}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "onboarding_preload_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=onboarding_preload&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&is_embed={{is_embed}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_player_100_2_sec",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mrc_player_100_2&event_action=SC&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "cbanner_close",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=communication_banner_close&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&content_next_item_id={{epk_params}}&is_embed={{is_embed}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "subscribe_show",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=subscribe&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adsend",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=request&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&event_ancestors={{aOris}}&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&video_current_position={{contentCurrentPosition}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "pause_recomendation_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=pause_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{vl_video_id}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstart",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=play_start&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=PL&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&background_player={{is_backgr_player}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&dvt={{dvt}}&batch_id={{batch_id}}&api_method={{api_method}}&ot=rtb&ydevid={{ydevid}}&authorid=32099196&tv=0&dur=11580&e=1792825451&s=&live={{live}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_end",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=end&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&device_orientation={{device_orientation}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&player_speed={{play_speed}}&player_quality={{video_quality}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&ads_watchtime={{ad_wt}}&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&ads_url_template={{ads_url_template}}&event_ancestors={{aOris}}&ad_id={{ad_id}}&player_version={{appv}}&ads_owner_id={{ads_owner_id}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "subscribe_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=subscribe&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "next_episode_auto",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=next_episode&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=AUT&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&event_referrer={{doc_ref}}&content_next_item_id={{vl_video_id}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "sub_notify_on",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=notification_on&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "next_episode_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=next_episode&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&event_ancestors={{aOris}}&cvid={{cvid}}&event_referrer={{doc_ref}}&content_next_item_id={{vl_video_id}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_movie_view",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=watch_movie&event_action=SH&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_choice_open",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=season_and_episodes&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&cvid={{cvid}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_choice_view",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=season_and_episodes&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&cvid={{cvid}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_click",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=click&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&device_orientation={{device_orientation}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&element_location={{aOris}}&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&channel_id={{channel_id}}&ch_id={{channel_id}}&event_ancestors={{aOris}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&player_version={{appv}}&ads_url_template={{ads_url_template}}&ads_framework={{ads_framework}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&ad_id={{ad_id}}&ads_owner_id={{ads_owner_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "skip_credits_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=credits_skip&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "watch_movie_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=watch_movie&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_end_close",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=bounce&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&device_orientation={{device_orientation}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&player_speed={{play_speed}}&player_quality={{video_quality}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&ads_watchtime={{ad_wt}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&cvid={{cvid}}&event_ancestors={{aOris}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&player_version={{appv}}&ad_id={{ad_id}}&ads_owner_id={{ads_owner_id}}&ads_url_template={{ads_url_template}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_nextvideo_auto",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=AUT&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&content_next_item_id={{vl_video_id}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&cvid={{cvid}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "season_choice_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=season&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=CK&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name=Raichu&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&pageload_id={{pageload_id}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}&batch_id={{batch_id}}&api_method={{api_method}}&cvid={{cvid}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statstop_close",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=statstop_close&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=STP&range_start={{range_start}}&range_end={{range_end}}&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&player_autoplay={{auto_play}}&touch_point={{touch_point}}&video_watchtime={{watchtime}}&final={{final}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&authorid=32099196&tv=0&dur=11580&e=1792825451&s=&live={{live}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_player_50_2_sec",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=mrc_player_50_2&event_action=SC&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_nextvideo",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_nextvideo&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{rec_vl}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_skip",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=skip&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&ads_view_id={{ads_viewid}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&content_playlist_id={{playlist_id}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&ads_watchtime={{ad_wt}}&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_volume={{audio_vol}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&player_version={{appv}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&user_subscription_id=na&content_subscription=0&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_menu_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=episode_chose&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_off_show",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_off&event_action=show&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&ads_url_template={{ads_url_template}}&ad_id={{ad_id}}&player_volume={{audio_vol}}&player_version={{appv}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&ads_framework={{ads_framework}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&safe_mode={{ad_safe_mode}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&rightholder_id=&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "endscreen_recomendation",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=endscreen_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{rec_vl}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "episod_desc_click",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=timecode_episode&event_action=CK&player_version={{appv}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&content_playlist_id={{playlist_id}}&page_url={{full_url}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&user_agent={{user_agent_cl}}&user_id={{viewer_id}}&cid={{ru_cid}}&uuid={{cid}}&session_id={{ru_session_id}}&event_referrer={{doc_ref}}&event_ancestors={{aOris}}&cvid={{cvid}}&user_subscription_id={{cs_id_list}}&viewport_width={{viewport_width}}&is_embed={{is_embed}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "statload",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=player_load&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=LD&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&content_playlist_id={{playlist_id}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&event_referrer={{doc_ref}}&player_autoplay={{auto_play}}&os={{os}}&dvn={{dvn}}&dvm={{dvm}}&background_player={{is_backgr_player}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&pageload_id={{pageload_id}}&dvt={{dvt}}&content_type={{content_type}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_off_click",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_off&event_action=click&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&ad_id={{ad_id}}&ads_owner_id={{ads_owner_id}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&safe_mode={{ad_safe_mode}}&player_version={{appv}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "pause_recomendation",
+      "url_template": "https://goya.rutube.ru/v2/online/ce1ce8c6459fe7bece7d31c378f98668/?event_name=pause_recomendation&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&event_action=SH&player_volume={{audio_vol}}&player_speed={{play_speed}}&player_quality={{video_quality}}&player_subs={{subs_lang}}&content_playlist_id={{playlist_id}}&touch_point={{touch_point}}&player_screen_size={{screen_size}}&device_orientation={{device_orientation}}&player_name={{player_name}}&uuid={{cid}}&video_current_position={{contentCurrentPosition}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&event_ancestors={{aOris}}&player_version={{appv}}&rightholder_id=&user_subscription_id=na&safe_mode={{ad_safe_mode}}&video_track_id=288568396&content_next_item_id={{rec_vl}}&pageload_id={{pageload_id}}&batch_id={{batch_id}}&api_method={{api_method}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_75",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=75&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_imp_ad_50_2_sec",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_mrc_imp&event_action=ad_50_2_sec&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "adstart",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=start&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}&ads_quality={{ad_quality}}&ads_avail_qualities={{ad_avail_qualities}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_25",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=25&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_50",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=50&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "ad_error",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=error&player_screen_size={{screen_size}}&player_volume={{audio_vol}}&device_orientation={{device_orientation}}&video_current_position={{contentCurrentPosition}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&cid={{ru_cid}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&player_speed={{play_speed}}&player_quality={{video_quality}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&content_id=ce1ce8c6459fe7bece7d31c378f98668&ads_url_template={{ads_url_template}}&event_ancestors={{aOris}}&ad_id={{ad_id}}&player_version={{appv}}&ads_owner_id={{ads_owner_id}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&operating_system={{os}}&device_manufacturer={{dvn}}&device_model={{dvm}}&player_width={{width}}&player_height={{height}}&ads_error_code={{ad_errorcode}}&ads_trace_id={{ad_traceid}}&ads_request_id={{ads_request_id}}&player_autoplay={{auto_play}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}&ads_quality={{ad_quality}}&ads_avail_qualities={{ad_avail_qualities}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_imp_ad_50_1_sec",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_mrc_imp&event_action=ad_50_1_sec&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_imp_ad_100_1_sec",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_mrc_imp&event_action=ad_100_1_sec&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "mrc_imp_ad_100_2_sec",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising_mrc_imp&event_action=ad_100_2_sec&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    },
+    {
+      "name": "close_on_click",
+      "url_template": "https://goya.rutube.ru/v2/adonline/ce1ce8c6459fe7bece7d31c378f98668/?event_name=advertising&event_action=close_on_click&content_id=ce1ce8c6459fe7bece7d31c378f98668&cid={{ru_cid}}&video_current_position={{contentCurrentPosition}}&ads_duration={{ad_dur}}&touch_point={{touch_point}}&player_view_id=f3a23d52a424e7e40fc5b2263b4703a9&player_name={{player_name}}&campaign_id={{campaign_id}}&rightholder_id=&ads_type={{adformat}}&ads_rule={{ads_rule_id}}&ads_rule_lim={{ads_rule_lim}}&skip={{ads_skipt}}&session_id={{ru_session_id}}&user_id={{viewer_id}}&event_timestamp={{VTSmmm}}&event_timezone={{time_zone}}&page_url={{full_url}}&uuid={{cid}}&host=https%3A%2F%2Frutube.ru&cvid={{cvid}}&player_screen_size={{screen_size}}&event_ancestors={{aOris}}&ads_owner_id={{ads_owner_id}}&player_version={{appv}}&player_width={{width}}&player_height={{height}}&ad_id={{ad_id}}&ads_url_template={{ads_url_template}}&player_volume={{audio_vol}}&ads_framework={{ads_framework}}&event_referrer={{doc_ref}}&device_manufacturer={{dvn}}&device_model={{dvm}}&device_orientation={{device_orientation}}&player_autoplay={{auto_play}}&operating_system={{os}}&ads_request_id={{ads_request_id}}&user_subscription_id=na&content_subscription=0&ads_view_id={{ads_viewid}}&safe_mode={{ad_safe_mode}}&video_track_id=288568396&dvt={{dvt}}&ac_request_id={{ac_request_id}}&ydevid={{ydevid}}",
+      "start": 0,
+      "count": 0,
+      "delay": 0,
+      "method": "post",
+      "body": "",
+      "ev_type": "system"
+    }
+  ],
+  "stream_type": null,
+  "tags": [
+    {
+      "id": 2049518,
+      "name": "В настоящее время применяют меры защиты информации"
+    },
+    {
+      "id": 2572524,
+      "name": "департамент защиты гостайны минпромторга россии"
+    },
+    {
+      "id": 2635667,
+      "name": "Департамент защиты гостайны минпромторга россии"
+    },
+    {
+      "id": 2507028,
+      "name": "департамент защиты государственной тайны минпромторга россии"
+    },
+    {
+      "id": 2674377,
+      "name": "Департамент защиты государственной тайны минпромторга россии"
+    },
+    {
+      "id": 3013159,
+      "name": "Заключение минпромторга на спецодежду"
+    },
+    {
+      "id": 2484231,
+      "name": "запрос в минпромторг отсутствие российских аналогов образец"
+    },
+    {
+      "id": 2701137,
+      "name": "Запрос в минпромторг отсутствие российских аналогов образец"
+    },
+    {
+      "id": 2971368,
+      "name": "Минпромторг россии виртуальная приемная"
+    },
+    {
+      "id": 2997346,
+      "name": "Оборудование в реестре минпромторга"
+    },
+    {
+      "id": 2562988,
+      "name": "получение заключения минпромторга по 719 постановлению"
+    },
+    {
+      "id": 2641638,
+      "name": "Получение заключения минпромторга по 719 постановлению"
+    },
+    {
+      "id": 3087485,
+      "name": "Реестр евразийских производителей минпромторга"
+    },
+    {
+      "id": 1722495,
+      "name": "Реестр минпромторга россии официальный сайт"
+    },
+    {
+      "id": 2891515,
+      "name": "Реестр минпромторга российских производителей"
+    },
+    {
+      "id": 1775511,
+      "name": "Реестр минпромторга российских производителей официальный сайт"
+    },
+    {
+      "id": 1750913,
+      "name": "Реестр минпромторга российских производителей серверов"
+    },
+    {
+      "id": 1702893,
+      "name": "Реестр минпромторга товаров российского происхождения"
+    },
+    {
+      "id": 2965921,
+      "name": "Реестр отечественных производителей минпромторга"
+    },
+    {
+      "id": 3054579,
+      "name": "Список минпромторга российских производителей"
+    }
+  ],
+  "thumbnail_url": "https://pic.rtbcdn.ru/video/2024-10-10/84/aa/84aa2d5a759b5a699a7021ec505c883f.jpg",
+  "title": "Защиты решений. Минпромторг России. Объекты",
+  "tv_show_id": null,
+  "tv": {},
+  "video_balancer": {
+    "default": "https://bl.rutube.ru/route/ce1ce8c6459fe7bece7d31c378f98668.m3u8?guids=895718b2-4231-4063-875a-7d6539e3a4e2_1280x720_2861459_D11580011_B2611285A128000_F50A48000_avc1.640020_mp4a.40.2,eb23c643-3f69-4cd6-9129-ffacaf3327a4_856x480_488168_D11580011_B353474A128000_F25A44100_avc1.4d401f_mp4a.40.2,9d041c35-ba06-4598-9eeb-201f2e77e257_432x232_318634_D11580011_B247551A64000_F50A44100_avc1.42c01f_mp4a.40.2,df191f6e-7f31-465b-86d4-f5a3efd773ba_256x144_189318_D11580011_B118235A64000_F50A44100_avc1.42c01f_mp4a.40.2&sign=vPscksyqWTBYfIvJmr1ZEA&expire=1792825451&guarantee=4&scheme=https",
+    "m3u8": "https://bl.rutube.ru/route/ce1ce8c6459fe7bece7d31c378f98668.m3u8?guids=895718b2-4231-4063-875a-7d6539e3a4e2_1280x720_2861459_D11580011_B2611285A128000_F50A48000_avc1.640020_mp4a.40.2,eb23c643-3f69-4cd6-9129-ffacaf3327a4_856x480_488168_D11580011_B353474A128000_F25A44100_avc1.4d401f_mp4a.40.2,9d041c35-ba06-4598-9eeb-201f2e77e257_432x232_318634_D11580011_B247551A64000_F50A44100_avc1.42c01f_mp4a.40.2,df191f6e-7f31-465b-86d4-f5a3efd773ba_256x144_189318_D11580011_B118235A64000_F50A44100_avc1.42c01f_mp4a.40.2&sign=vPscksyqWTBYfIvJmr1ZEA&expire=1792825451&guarantee=4&scheme=https"
+  },
+  "video_id": "ce1ce8c6459fe7bece7d31c378f98668",
+  "video_url": "https://rutube.ru/video/ce1ce8c6459fe7bece7d31c378f98668/",
+  "view_id": "f3a23d52a424e7e40fc5b2263b4703a9",
+  "viewer": null,
+  "yast_live_online": null,
+  "yast": null,
+  "allow_p2p": false,
+  "gpmd_puid1": 41,
+  "views_history": null
+}

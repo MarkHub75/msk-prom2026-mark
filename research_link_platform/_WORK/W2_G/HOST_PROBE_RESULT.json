@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-23T02:02:24.533122+00:00",
+  "python": "3.11.9",
+  "numpy": "2.4.2",
+  "native_loaded": false,
+  "device_context_normal": [
+    "tpu_create_device",
+    "tpu_init_device",
+    "tpu_is_device_valid",
+    "tpu_destroy_device"
+  ],
+  "device_context_exception": [
+    "tpu_create_device",
+    "tpu_init_device",
+    "tpu_is_device_valid"
+  ],
+  "output_is_view_mutation_visible": true,
+  "output_lifetime": {
+    "values_after_ctx_gc": [
+      1.25,
+      -2.5
+    ],
+    "owns_data": false,
+    "base_chain": [
+      "ndarray",
+      "ndarray",
+      "memoryview"
+    ],
+    "original_pointer_alive": true
+  },
+  "non_mapping": "ValueError: Input data must be a mapping, got:<class 'list'>",
+  "wrong_dtype": "accepted by historical Python method with fake native registration",
+  "non_contiguous": "accepted by historical Python method with fake native registration",
+  "missing_input": "accepted by historical Python method with fake native registration",
+  "unknown_name": "KeyError('unknown')"
+}

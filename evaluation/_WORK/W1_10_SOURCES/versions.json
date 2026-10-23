@@ -1,0 +1,32 @@
+{
+  "ort": {
+    "error": "HTTP Error 403: rate limit exceeded",
+    "repo": "microsoft/onnxruntime",
+    "tag": "v1.20.1",
+    "sha": "5c1b7ccbff7e5141c1da7a9d963d660e5741c319",
+    "date": "unknown; GitHub API rate limited; SHA obtained by git ls-remote tag"
+  },
+  "ultra": {
+    "error": "HTTP Error 403: rate limit exceeded",
+    "repo": "ultralytics/ultralytics",
+    "tag": "v8.3.0",
+    "sha": "6e43d1e1e5db72afbf686dee6745669bcb124b0a",
+    "date": "unknown; GitHub API rate limited; SHA obtained by git ls-remote tag",
+    "tag_object_sha": "a46b49a27a97d44c642882a405c8b57979e6d368",
+    "resolution": "git ls-remote --tags v8.3.0*; peeled commit; initial tag-object raw downloads failed and later downloads succeeded"
+  },
+  "onnx": {
+    "error": "HTTP Error 403: rate limit exceeded",
+    "repo": "onnx/onnx",
+    "tag": "v1.17.0",
+    "sha": "b8baa8446686496da4cc8fda09f2b6fe65c2a02c",
+    "date": "unknown; GitHub API rate limited; SHA obtained by git ls-remote tag"
+  },
+  "torch": {
+    "error": "HTTP Error 403: rate limit exceeded",
+    "repo": "pytorch/pytorch",
+    "tag": "v2.5.1",
+    "sha": "a8d6afb511a69687bbb2b7e88a3cf67917e1697e",
+    "date": "unknown; GitHub API rate limited; SHA obtained by git ls-remote tag"
+  }
+}

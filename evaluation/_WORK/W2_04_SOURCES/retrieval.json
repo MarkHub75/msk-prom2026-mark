@@ -1,0 +1,29 @@
+[
+  {
+    "source_id": "W2-04-S01",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/v1.17.1/scipy/sparse/csgraph/_matching.pyx",
+    "access_utc": "2026-10-23T04:00:12.898626+00:00",
+    "status": 200,
+    "bytes": 33477,
+    "sha256": "e74e8f794b85be233f30d62fe062490e2eff0c54bbcf3f9c77047413add207dd",
+    "saved": "scipy_matching_v1.17.1.pyx"
+  },
+  {
+    "source_id": "W2-04-S02",
+    "url": "https://docs.scipy.org/doc/scipy-1.17.0/reference/generated/scipy.sparse.csgraph.maximum_bipartite_matching.html",
+    "access_utc": "2026-10-23T04:00:13.517481+00:00",
+    "status": 200,
+    "bytes": 35272,
+    "sha256": "0cbc561b33ee1f1728a5bc38c131e93851a4de2ce815d3e6e294b5fe7d29c135",
+    "saved": "scipy_maximum_matching_1.17.0.html"
+  },
+  {
+    "source_id": "W2-04-S03",
+    "url": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.flow.min_cost_flow.html",
+    "access_utc": "2026-10-23T04:00:18.880774+00:00",
+    "status": 200,
+    "bytes": 38917,
+    "sha256": "a614ac4cf7a5911ad6f515e7de6ef5c76baba1e34151c4577e7f7c8f131fb81c",
+    "saved": "networkx_min_cost_flow.html"
+  }
+]

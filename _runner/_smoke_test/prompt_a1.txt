@@ -1,0 +1,5 @@
+This is a short environment smoke test for an unattended Codex run. Do only the following, then stop:
+1) Perform one web search for: LinQ HiTech AI accelerator lin-q.ru
+2) If you have a tool to spawn sub-agents, spawn exactly one sub-agent, if possible with reasoning effort medium, and ask it to write the file subagent_hello.md in this folder with one line stating its model name and effort.
+3) Write smoke_result.md in this folder, briefly in English: which model and reasoning effort you run with; whether web search worked (quote one result title and URL); whether sub-agent spawning is available, the exact tool name, and whether you could set model and reasoning effort for the sub-agent; the maximum number of concurrent sub-agents if you know it; any limits or errors you noticed.
+Nobody will answer questions. Do not wait for input.

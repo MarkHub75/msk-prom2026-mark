@@ -1,0 +1,1116 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Troubleshooting &#8212; NVIDIA TensorRT</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=0abb5746"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js?v=edc4054a"></script>
+    <script src="../_static/external-links.js"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=65e89d2a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/troubleshooting';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '10.16.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+<script type="text/javascript" src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+
+    <link rel="icon" href="../_static/favicon.ico"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Format Descriptions" href="data-format-desc.html" />
+    <link rel="prev" title="Polygraphy API" href="../api/polygraphy-api.html" />
+
+<link rel="preload" as="image" href="https://www.nvidia.com/content/dam/1x1-00000000.png">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="May 23, 2026"/>
+
+    <meta name="docs_products" content="NVIDIA TensorRT">
+    <meta name="docs_version" content="10.16.1">
+    <meta name="docs_books" content="NVIDIA TensorRT 10.16.1">
+    
+
+
+  </head>
+
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+<img src="https://www.nvidia.com/content/dam/1x1-00000000.png" width="1" height="1" style="display:none;" alt="country_code">
+
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">📦 <strong>Archived Documentation – Reference Only</strong> — This documentation is retained for customers using legacy product versions. It is no longer actively maintained, validated, or updated, and should not be relied upon for current product capabilities, security guidance, or operational decisions. For supported and up-to-date documentation, visit the <a href='https://docs.nvidia.com/tensorrt'>NVIDIA Docs Hub: NVIDIA TensorRT</a>.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA TensorRT - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="NVIDIA TensorRT - Home"/>
+  
+  
+    <p class="title logo__title">NVIDIA TensorRT</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="https://docs.nvidia.com/tensorrt/">Documentation Home</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting-started/release-notes.html">Release Notes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.1.html">10.16.1 (Latest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.16.0.html">10.16.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.15.1.html">10.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.14.1.html">10.14.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.3.html">10.13.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.2.html">10.13.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.13.0.html">10.13.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.12.0.html">10.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.11.0.html">10.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.10.0.html">10.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.9.0.html">10.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.8.0.html">10.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.7.0.html">10.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.6.0.html">10.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.5.0.html">10.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.4.0.html">10.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.3.0.html">10.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.2.0.html">10.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.1.0.html">10.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.1.html">10.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/release-notes-10/10.0.0-ea.html">10.0.0 Early Access</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-start-guide.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/support-matrix.html">Support Matrix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installing TensorRT</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/overview.html">Installation Guide Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installing-tensorrt/installing.html">Installing TensorRT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-pip.html">Method 1: Python Package Index (pip)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-debian.html">Method 2: Debian Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-rpm.html">Method 3: RPM Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-tar.html">Method 4: Tar File Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-zip.html">Method 5: Zip File Installation (Windows)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-container.html">Method 6: Container Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing-tensorrt/install-alternative.html">Alternative Installation Methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/upgrading.html">Upgrading TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing-tensorrt/uninstalling.html">Uninstalling TensorRT</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../architecture/architecture-overview.html">Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/capabilities.html">TensorRT’s Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/how-trt-works.html">How TensorRT Works</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inference Library</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/c-api-docs.html">C++ API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/python-api-docs.html">Python API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/sample-support-guide.html">Sample Support Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/advanced.html">Advanced Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/version-compatibility.html">Version Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/refitting-engines.html">Refitting an Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/precision-control.html">Algorithm Selection and Reproducible Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/io-formats-sparsity.html">I/O Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/engine-tools.html">Engine Inspector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/weight-streaming.html">Weight Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/multi-device.html">Tiling Optimization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-quantized-types.html">Working with Quantized Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/accuracy-considerations.html">Accuracy Considerations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/work-dynamic-shapes.html">Working with Dynamic Shapes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/dynamic-shapes-basics.html">Dynamic Shapes: Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/dynamic-shapes-advanced.html">Dynamic Shapes: Advanced Topics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inference-library/extending-custom-layers.html">Extending TensorRT with Custom Layers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-cpp.html">Adding Custom Layers Using the C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-python.html">Adding Custom Layers using the Python API (TensorRT &gt;= 10.6)</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-advanced.html">Enabling Timing Caching and Using Custom Tactics</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../inference-library/plugins-api-migration.html">Plugin API Description</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-loops.html">Working with Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-conditionals.html">Working with Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-dla.html">Working with DLA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/capture-replay.html">TensorRT API Capture and Replay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inference-library/work-with-transformers.html">Working with Transformers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance/best-practices.html">Best Practices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance/benchmarking.html">Performance Benchmarking using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/measurement-techniques.html">Advanced Performance Measurement Techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/hw-sw-environment.html">Hardware/Software Environment for Performance Measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/optimization.html">Optimizing TensorRT Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/overhead-layer-optimization.html">Overhead of Shape Change and Optimization Profile Switching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/accuracy-builder.html">Improving Model Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/builder-performance.html">Optimizing Builder Performance</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/c-api.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/python-api.html">Python API</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/migration-guide.html">Migrating from TensorRT 8.x to 10.x</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-python-api.html">Migrating Python Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-c-api.html">Migrating C++ Code from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-trtexec.html">Migrating <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> Usage from TensorRT 8.x to 10.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/tensorrt-8x-to-10x-safety-runtime.html">Migrating Safety Runtime Code from TensorRT 8.x to 10.x</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/onnx-graphsurgeon-api.html">ONNX GraphSurgeon API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/polygraphy-api.html">Polygraphy API</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-format-desc.html">Data Format Descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-line-programs.html">Command-Line Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operators.html">Operators Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional-resources.html">Additional Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sla.html">LICENSE AGREEMENT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Troubleshooting</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+<div class="header-article-item">
+  <div class="d-flex justify-content-end w-100">
+    <a href="https://surveys.hotjar.com/4904bf71-6484-47a7-83ff-4715cceabdb5" id="openPopupButton">Is this page helpful?</a>
+  </div>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="troubleshooting">
+<span id="id1"></span><h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h1>
+<p>This guide helps you diagnose and resolve common issues when working with TensorRT. It provides solutions to frequently encountered problems, explains error messages, and offers strategies for debugging TensorRT applications.</p>
+<p><strong>What You Will Find</strong>:</p>
+<ul class="simple">
+<li><p><strong>Frequently Asked Questions (FAQs)</strong> - Quick answers to common questions about engine building, deployment, and performance</p></li>
+<li><p><strong>Understanding Error Messages</strong> - Explanations of common error messages and how to resolve them</p></li>
+<li><p><strong>Reporting Issues</strong> - How to gather diagnostic information and report bugs effectively</p></li>
+</ul>
+<p><strong>How to Use This Guide</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Start with FAQs</strong> - Check if your question has already been answered</p></li>
+<li><p><strong>Search for Error Messages</strong> - Use Ctrl+F to find specific error messages you’re encountering</p></li>
+<li><p><strong>Follow Systematic Debugging</strong> - Use the debugging strategies provided for complex issues</p></li>
+<li><p><strong>Gather Diagnostics</strong> - Collect necessary information before reporting issues</p></li>
+</ol>
+<p><strong>Getting Additional Help</strong>:</p>
+<p>If this guide doesn’t resolve your issue:</p>
+<ul class="simple">
+<li><p>Post questions on the <a class="reference external" href="https://devtalk.nvidia.com/">NVIDIA Developer Forum</a> with the <code class="docutils literal notranslate"><span class="pre">tensorrt</span></code> tag</p></li>
+<li><p>Open an issue on the <a class="reference external" href="https://github.com/NVIDIA/TensorRT/issues">TensorRT GitHub repository</a></p></li>
+<li><p>Contact your NVIDIA support engineer if you have enterprise support</p></li>
+</ul>
+<section id="faqs">
+<span id="faq"></span><h2>FAQs<a class="headerlink" href="#faqs" title="Link to this heading">#</a></h2>
+<p>This section provides answers to the most frequently asked questions about TensorRT. Questions are organized by topic for easy navigation.</p>
+<dl>
+<dt><strong>Q: How do I create an optimized engine for several batch sizes?</strong></dt><dd><p>A: While TensorRT allows an engine optimized for a given batch size to run at any smaller size, the performance for those smaller sizes cannot be as well optimized. To optimize for multiple batch sizes, create optimization profiles at the dimensions assigned to <code class="docutils literal notranslate"><span class="pre">OptProfilerSelector::kOPT</span></code>.</p>
+</dd>
+<dt><strong>Q: Are calibration tables portable across TensorRT versions?</strong></dt><dd><p>A: No. Internal implementations are continually optimized and can change between versions. For this reason, calibration tables are not guaranteed to be binary compatible with different versions of TensorRT. Applications must build new INT8 calibration tables when using a new version of TensorRT.</p>
+</dd>
+<dt><strong>Q: Are engines portable across TensorRT versions?</strong></dt><dd><p>A: By default, no. Refer to the <a class="reference internal" href="../inference-library/version-compatibility.html#version-compat"><span class="std std-ref">Version Compatibility</span></a> section for instructions on configuring engines for forward compatibility.</p>
+</dd>
+<dt><strong>Q: How do I choose the optimal workspace size?</strong></dt><dd><p>A: Some TensorRT algorithms require additional workspace on the GPU. The method <code class="docutils literal notranslate"><span class="pre">IBuilderConfig::setMemoryPoolLimit()</span></code> controls the maximum amount of workspace that can be allocated and prevents algorithms that require more workspace from being considered by the builder. At runtime, the space is allocated automatically when creating an <code class="docutils literal notranslate"><span class="pre">IExecutionContext</span></code>. The amount allocated is no more than is required, even if the amount set in <code class="docutils literal notranslate"><span class="pre">IBuilderConfig::setMemoryPoolLimit()</span></code> is much higher. Applications should, therefore, allow the TensorRT builder as much workspace as they can afford; at runtime, TensorRT allocates no more than this and typically less. The workspace size can need to be limited to less than the full device memory size if device memory is needed for other purposes during the engine build.</p>
+</dd>
+<dt><strong>Q: How do I use TensorRT on multiple GPUs?</strong></dt><dd><p>A: Each <code class="docutils literal notranslate"><span class="pre">ICudaEngine</span></code> object is bound to a specific GPU when it is instantiated, either by the builder or on deserialization. To select the GPU, use <code class="docutils literal notranslate"><span class="pre">cudaSetDevice()</span></code> before calling the builder or deserializing the engine. Each <code class="docutils literal notranslate"><span class="pre">IExecutionContext</span></code> is bound to the same GPU as the engine from which it was created. When calling <code class="docutils literal notranslate"><span class="pre">execute()</span></code> or <code class="docutils literal notranslate"><span class="pre">enqueue()</span></code>, ensure that the thread is associated with the correct device by calling <code class="docutils literal notranslate"><span class="pre">cudaSetDevice()</span></code> if necessary.</p>
+</dd>
+<dt><strong>Q: How do I get the version of TensorRT from the library file?</strong></dt><dd><p>A: There is a symbol in the symbol table named <code class="docutils literal notranslate"><span class="pre">tensorrt_version_#_#_#_#</span></code> that contains the TensorRT version number. One possible way to read this symbol on Linux is to use the <code class="docutils literal notranslate"><span class="pre">nm</span></code> command like in the following example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>nm<span class="w"> </span>-D<span class="w"> </span>libnvinfer.so.*<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tensorrt_version
+00000000abcd1234<span class="w"> </span>B<span class="w"> </span>tensorrt_version_#_#_#_#
+</pre></div>
+</div>
+</dd>
+<dt><strong>Q: What can I do if my network produces the wrong answer?</strong></dt><dd><p>A: There are several reasons why your network can be generating incorrect answers. Here are some troubleshooting approaches that can help diagnose the problem:</p>
+<ul class="simple">
+<li><p>Turn on <code class="docutils literal notranslate"><span class="pre">VERBOSE</span></code>-level messages from the log stream and check what TensorRT is reporting.</p></li>
+<li><p>Check that your input preprocessing generates exactly the input format the network requires.</p></li>
+<li><p>If you are using reduced precision, run the network in FP32. If it produces the correct result, lower precision can have an insufficient dynamic range for the network.</p></li>
+<li><p>Try marking intermediate tensors in the network as outputs and verify if they match your expectations.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Marking tensors as outputs can inhibit optimizations and, therefore, can change the results.</p>
+</div>
+<p>You can use <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy">NVIDIA Polygraphy</a> to assist you with debugging and diagnosis.</p>
+</dd>
+<dt><strong>Q: How do I implement batch normalization in TensorRT?</strong></dt><dd><p>A: Batch normalization can be implemented using a sequence of <code class="docutils literal notranslate"><span class="pre">IElementWiseLayer</span></code> in TensorRT. More specifically:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>adjustedScale = scale / sqrt(variance + epsilon)
+batchNorm = (input + bias - (adjustedScale * mean)) * adjustedScale
+</pre></div>
+</div>
+</dd>
+<dt><strong>Q: Why does my network run slower when using DLA than without DLA?</strong></dt><dd><p>A: DLA was designed to maximize energy efficiency. Depending on the features supported by DLA and the features supported by the GPU, either implementation can be more performant. Your chosen implementation depends on your latency or throughput requirements and power budget. Since all DLA engines are independent of the GPU and each other, you could also use both implementations to increase the throughput of your network further.</p>
+</dd>
+<dt><strong>Q: Does TensorRT support INT4 quantization or INT16 quantization?</strong></dt><dd><p>A: TensorRT supports INT4 quantization for GEMM weight-only quantization. TensorRT does not support INT16 quantization.</p>
+</dd>
+<dt><strong>Q: What should I do if the ONNX parser does not support a layer my network requires?</strong></dt><dd><p>A: The TensorRT ONNX parser is an open-source project. You can add support for custom operators through TensorRT plugins. UFF and Caffe parsers have been removed; use the ONNX workflow instead.</p>
+</dd>
+<dt><strong>Q: Can I use multiple TensorRT builders to compile on different targets?</strong></dt><dd><p>A: TensorRT assumes that all resources for the device it is building on are available for optimization purposes. Concurrent use of multiple TensorRT builders (such as multiple trtexec instances) to compile on different targets (DLA0, DLA1, and GPU) can oversubscribe system resources causing undefined behavior (meaning, inefficient plans, builder failure, or system instability).</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> with the <code class="docutils literal notranslate"><span class="pre">-saveEngine</span></code> argument, it is recommended to compile for different targets (DLA and GPU) separately and save their plan files. Such plan files can then be reused for loading (using <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> with the <code class="docutils literal notranslate"><span class="pre">--loadEngine</span></code> argument) and submitting multiple inference jobs on the respective targets (DLA0, DLA1, and GPU). This two-step process alleviates over-subscription of system resources during the build phase while also allowing execution of the plan file to proceed without interference by the builder.</p>
+</dd>
+<dt><strong>Q: Which layers are accelerated by Tensor Cores?</strong></dt><dd><p>A: Most math-bound operations will be accelerated with tensor cores - convolution, deconvolution, fully connected, and matrix multiply. In some cases, particularly for small channel counts or small group sizes, another implementation can be faster and be selected instead of a tensor core implementation.</p>
+</dd>
+<dt><strong>Q: Why are reformatting layers observed, although there is “”no warning message that no implementation obeys reformatting-free rules”?</strong></dt><dd><p>A: Reformat-free network I/O does not mean reformatting layers are not inserted into the entire network. Only the input and output network tensors can be configured not to require reformatting layers; in other words, TensorRT can insert reformatting layers for internal tensors to improve performance.</p>
+</dd>
+</dl>
+</section>
+<section id="understanding-error-messages">
+<span id="error-messaging"></span><h2>Understanding Error Messages<a class="headerlink" href="#understanding-error-messages" title="Link to this heading">#</a></h2>
+<p>If an error occurs during execution, TensorRT reports an error message intended to help debug the problem. The following sections discuss some common error messages that developers can encounter.</p>
+<p><strong>ONNX Parser Error Messages</strong></p>
+<p>The following table captures the common ONNX parser error messages. For specific ONNX node support information, refer to the <a class="reference external" href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">Operators’ support document</a>.</p>
+<div class="pst-scrollable-table-container"><table class="table-expandable table-compact table" id="id9">
+<caption><span class="caption-number">Table 18 </span><span class="caption-text">Common ONNX Parser Error Messages</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Message</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;X&gt;</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">an</span> <span class="pre">initializer!</span></code></p></td>
+<td rowspan="2"><p>These error messages signify that an ONNX node input tensor is expected to be an initializer in TensorRT. A possible fix is to run constant folding on the model using TensorRT’s <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy">Polygraphy</a> tool:
+<code class="docutils literal notranslate"><span class="pre">polygraphy</span> <span class="pre">surgeon</span> <span class="pre">sanitize</span> <span class="pre">model.onnx</span> <span class="pre">--fold-constants</span> <span class="pre">--output</span> <span class="pre">model_folded.onnx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!inputs.at(X).is_weights()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getPluginCreator()</span> <span class="pre">could</span> <span class="pre">not</span> <span class="pre">find</span> <span class="pre">Plugin</span> <span class="pre">&lt;operator</span> <span class="pre">name&gt;</span> <span class="pre">version</span> <span class="pre">1</span></code></p></td>
+<td><p>This is an error stating that the ONNX parser does not have an import function defined for a particular operator and did not find a corresponding plugin in the loaded registry for the operator.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>TensorRT Core Library Error Messages</strong></p>
+<p>The following table captures the common TensorRT core library error messages.</p>
+<div class="pst-scrollable-table-container"><table class="table-expandable table-compact table" id="id10">
+<caption><span class="caption-number">Table 19 </span><span class="caption-text">Common TensorRT Core Library Error Messages</span><a class="headerlink" href="#id10" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Error Message</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Installation Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">initialization</span> <span class="pre">failure</span> <span class="pre">with</span> <span class="pre">error</span> <span class="pre">&lt;code&gt;.</span> <span class="pre">Please</span> <span class="pre">check</span> <span class="pre">the</span> <span class="pre">CUDA</span> <span class="pre">installation:</span> <span class="pre">http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html.</span></code></p></td>
+<td><p>This error can occur if the CUDA or NVIDIA driver installation corrupts. Refer to the URL for instructions on installing CUDA and the NVIDIA driver on your OS.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="4"><p>Builder Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Internal</span> <span class="pre">error:</span> <span class="pre">could</span> <span class="pre">not</span> <span class="pre">find</span> <span class="pre">any</span> <span class="pre">implementation</span> <span class="pre">for</span> <span class="pre">node</span> <span class="pre">&lt;name&gt;.</span> <span class="pre">Try</span> <span class="pre">increasing</span> <span class="pre">the</span> <span class="pre">workspace</span> <span class="pre">size</span> <span class="pre">with</span> <span class="pre">IBuilderConfig::setMemoryPoolLimit().</span></code></p></td>
+<td><p>This error occurs because there is no layer implementation for the given node in the network that can operate with the given workspace size. This usually occurs because the workspace size is insufficient, but could also indicate a bug. If increasing the workspace size as suggested does not help, report a bug (refer to <a class="reference internal" href="#reporting-tensorrt-issues"><span class="std std-ref">Reporting TensorRT Issues</span></a>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;layer-name&gt;:</span> <span class="pre">(kernel|bias)</span> <span class="pre">weights</span> <span class="pre">have</span> <span class="pre">non-zero</span> <span class="pre">count</span> <span class="pre">but</span> <span class="pre">null</span> <span class="pre">values</span></code>
+<code class="docutils literal notranslate"><span class="pre">&lt;layer-name&gt;:</span> <span class="pre">(kernel|bias)</span> <span class="pre">weights</span> <span class="pre">have</span> <span class="pre">zero</span> <span class="pre">count</span> <span class="pre">but</span> <span class="pre">non-null</span> <span class="pre">values</span></code></p></td>
+<td><p>This error occurs when a mismatch between the values and count fields in a Weights data structure is passed to the builder. If the count is 0, the values field must contain a null pointer; otherwise, the count must be non-zero, and values must contain a non-null pointer.</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Builder</span> <span class="pre">was</span> <span class="pre">created</span> <span class="pre">on</span> <span class="pre">a</span> <span class="pre">device</span> <span class="pre">different</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">device.</span></code>                                                                                           | This error can occur if you create an <code class="docutils literal notranslate"><span class="pre">IBuilder</span></code> targeting one GPU, called <code class="docutils literal notranslate"><span class="pre">cudaSetDevice()</span></code>, to target a different GPU and then attempt to use the <code class="docutils literal notranslate"><span class="pre">IBuilder</span></code> to create an engine.</dt><dd><div class="line-block">
+<div class="line">Ensure you only use the <code class="docutils literal notranslate"><span class="pre">IBuilder</span></code> when targeting the GPU used to create the <code class="docutils literal notranslate"><span class="pre">IBuilder</span></code>.</div>
+</div>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>You can encounter error messages indicating that the tensor dimensions do not match the semantics of the given layer. Carefully read the documentation on <a class="reference external" href="../_static/c-api/namespacenvinfer1.html">NvInfer.h</a> on the usage of each layer and the expected dimensions of the tensor inputs and outputs to the layer.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>INT8 Calibration Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tensor</span> <span class="pre">&lt;X&gt;</span> <span class="pre">is</span> <span class="pre">uniformly</span> <span class="pre">zero.</span></code></p></td>
+<td><p>This warning occurs and should be treated as an error when data distribution for a tensor is uniformly zero. In a network, the output tensor distribution can be uniformly zero under the following scenarios:
+- Constant tensor with all zero values;  not an error.
+- Activation (ReLU) output with all negative inputs: not an error.
+- Data distribution is forced to all zero due to a computation error in the previous layer; emit a warning here. <a class="footnote-reference brackets" href="#f1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+- The user does not provide any calibration images; emit a warning here. <a class="footnote-reference brackets" href="#f1" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">not</span> <span class="pre">find</span> <span class="pre">scales</span> <span class="pre">for</span> <span class="pre">tensor</span> <span class="pre">&lt;X&gt;.</span></code></p></td>
+<td><p>This error indicates that a calibration failure occurred with no scaling factors detected. This could be due to a lack of an INT8 calibrator or insufficient custom scales for network layers.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p>Engine Compatibility Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">engine</span> <span class="pre">plan</span> <span class="pre">file</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">compatible</span> <span class="pre">with</span> <span class="pre">this</span> <span class="pre">version</span> <span class="pre">of</span> <span class="pre">TensorRT,</span> <span class="pre">expecting</span> <span class="pre">(format|library)</span> <span class="pre">version</span> <span class="pre">&lt;X&gt;</span> <span class="pre">got</span> <span class="pre">&lt;Y&gt;;</span> <span class="pre">please</span> <span class="pre">rebuild.</span></code></p></td>
+<td><p>This error can occur if you are running TensorRT using an engine PLAN file that is incompatible with the current version of TensorRT. Ensure you use the same TensorRT version when generating and running the engine.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">engine</span> <span class="pre">plan</span> <span class="pre">file</span> <span class="pre">is</span> <span class="pre">generated</span> <span class="pre">on</span> <span class="pre">an</span> <span class="pre">incompatible</span> <span class="pre">device,</span> <span class="pre">expecting</span> <span class="pre">compute</span> <span class="pre">&lt;X&gt;</span> <span class="pre">to</span> <span class="pre">get</span> <span class="pre">compute</span> <span class="pre">&lt;Y&gt;;</span> <span class="pre">please</span> <span class="pre">rebuild.</span></code></p></td>
+<td><p>This error can occur if you build an engine on a device with a computing capability different from the device used to run the engine.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">an</span> <span class="pre">engine</span> <span class="pre">plan</span> <span class="pre">file</span> <span class="pre">across</span> <span class="pre">different</span> <span class="pre">models</span> <span class="pre">of</span> <span class="pre">devices</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">recommended</span> <span class="pre">and</span> <span class="pre">is</span> <span class="pre">likely</span> <span class="pre">to</span> <span class="pre">affect</span> <span class="pre">performance</span> <span class="pre">or</span> <span class="pre">even</span> <span class="pre">cause</span> <span class="pre">errors.</span></code></p></td>
+<td><p>This warning can occur if you build an engine on a device with the same computing capability but not identical to the engine running. As the warning indicates, using a device of the same model is highly recommended when generating the engine and deploying it to avoid compatibility issues.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p>Out Of Memory Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GPU</span> <span class="pre">memory</span> <span class="pre">allocation</span> <span class="pre">failed</span> <span class="pre">during</span> <span class="pre">initialization</span> <span class="pre">of</span> <span class="pre">(tensor|layer):</span> <span class="pre">&lt;name&gt;</span> <span class="pre">GPU</span> <span class="pre">memory.</span></code></p></td>
+<td rowspan="3"><p>These error messages can occur if insufficient GPU memory is available to instantiate a TensorRT engine. Verify that the GPU has sufficient memory to contain the required layer weights and activation tensors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Allocation</span> <span class="pre">failed</span> <span class="pre">during</span> <span class="pre">the</span> <span class="pre">deserialization</span> <span class="pre">of</span> <span class="pre">weights.</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPU</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">meet</span> <span class="pre">the</span> <span class="pre">minimum</span> <span class="pre">memory</span> <span class="pre">requirements</span> <span class="pre">to</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">engine</span> <span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>FP16 Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">network</span> <span class="pre">needs</span> <span class="pre">native</span> <span class="pre">FP16,</span> <span class="pre">and</span> <span class="pre">the</span> <span class="pre">platform</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">have</span> <span class="pre">native</span> <span class="pre">FP16.</span></code></p></td>
+<td><p>This error message can occur if you attempt to deserialize an engine that uses FP16 arithmetic on a GPU that does not support FP16 arithmetic. You either must rebuild the engine without FP16 precision inference or upgrade your GPU to a model that supports FP16 precision inference.</p></td>
+</tr>
+<tr class="row-even"><td><p>Plugin Errors</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">layer</span> <span class="pre">&lt;name&gt;</span> <span class="pre">returned</span> <span class="pre">non-zero</span> <span class="pre">initialization.</span></code></p></td>
+<td><p>This error can occur if a plugin layer’s initialize() method returns a non-zero value. Refer to the implementation of that layer to debug this error further. For more information, refer to the <a class="reference external" href="../_static/operators/index.html">NVIDIA TensorRT Operator’s</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="code-analysis-tools">
+<span id="code-analysis-tools-overview"></span><h2>Code Analysis Tools<a class="headerlink" href="#code-analysis-tools" title="Link to this heading">#</a></h2>
+<section id="compiler-sanitizers">
+<span id="id4"></span><h3>Compiler Sanitizers<a class="headerlink" href="#compiler-sanitizers" title="Link to this heading">#</a></h3>
+<p>Google sanitizers are a set of <a class="reference external" href="https://github.com/google/sanitizers">code analysis tools</a>.</p>
+<section id="issues-with-dlopen-and-address-sanitizer">
+<span id="issues-dlopen-address-sanitizer"></span><h4>Issues With <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> And Address Sanitizer<a class="headerlink" href="#issues-with-dlopen-and-address-sanitizer" title="Link to this heading">#</a></h4>
+<p>There is a known issue with sanitizers, which is <a class="reference external" href="https://github.com/google/sanitizers/issues/89">documented here</a>. When using <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> on TensorRT under a sanitizer, there will be reports of memory leaks unless one of two solutions is adopted:</p>
+<ol class="arabic simple">
+<li><p>Do not call <code class="docutils literal notranslate"><span class="pre">dlclose</span></code> when running under the sanitizers.</p></li>
+<li><p>Pass the flag <code class="docutils literal notranslate"><span class="pre">RTLD_NODELETE</span></code> to <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> when running under sanitizers.</p></li>
+</ol>
+</section>
+<section id="issues-with-dlopen-and-thread-sanitizer">
+<span id="issues-dlopen-thread-sanitizer"></span><h4>Issues with <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> and Thread Sanitizer<a class="headerlink" href="#issues-with-dlopen-and-thread-sanitizer" title="Link to this heading">#</a></h4>
+<p>The thread sanitizer can list errors when using <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> from multiple threads. To suppress this warning, create a file called <code class="docutils literal notranslate"><span class="pre">tsan.supp</span></code> and add the following to the file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>race::dlopen
+</pre></div>
+</div>
+<p>When running applications under thread sanitizer, set the environment variable using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TSAN_OPTIONS</span><span class="o">=</span><span class="s2">&quot;suppressions=tsan.supp&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="issues-with-cuda-and-address-sanitizer">
+<span id="issues-cuda-address-sanitizer"></span><h4>Issues with CUDA and Address Sanitizer<a class="headerlink" href="#issues-with-cuda-and-address-sanitizer" title="Link to this heading">#</a></h4>
+<p>The address sanitizer has a known issue with CUDA applications, which is <a class="reference external" href="https://github.com/google/sanitizers/issues/629">documented here</a>. To successfully run CUDA libraries such as TensorRT under the address sanitizer, add the option <code class="docutils literal notranslate"><span class="pre">protect_shadow_gap=0</span></code> to the <code class="docutils literal notranslate"><span class="pre">ASAN_OPTIONS</span></code> environment variable.</p>
+<p>A known bug in CUDA 11.4 can trigger mismatched allocation and free errors in the address sanitizer. To disable these errors, add <code class="docutils literal notranslate"><span class="pre">alloc_dealloc_mismatch=0</span></code> to <code class="docutils literal notranslate"><span class="pre">ASAN_OPTIONS</span></code>.</p>
+</section>
+<section id="issues-with-undefined-behavior-sanitizer">
+<span id="issues-undefine-behavior-sanitizer"></span><h4>Issues with Undefined Behavior Sanitizer<a class="headerlink" href="#issues-with-undefined-behavior-sanitizer" title="Link to this heading">#</a></h4>
+<p><a class="reference external" href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html">UndefinedBehaviorSanitizer (UBSan)</a> reports false positives with the <code class="docutils literal notranslate"><span class="pre">-fvisibility=hidden</span></code> option, as <a class="reference external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80963">documented here</a>. Add the <code class="docutils literal notranslate"><span class="pre">-fno-sanitize=vptr</span></code> option to avoid UBSan reporting such false positives.</p>
+</section>
+</section>
+<section id="valgrind">
+<span id="valgrind-overview"></span><h3>Valgrind<a class="headerlink" href="#valgrind" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.valgrind.org/">Valgrind</a> is a framework for dynamic analysis tools that can automatically detect memory management and threading bugs in applications.</p>
+<p>Some versions of Valgrind and glibc are affected by a <a class="reference external" href="https://stackoverflow.com/questions/1542457/memory-leak-reported-by-valgrind-in-dlopen">bug</a>, which causes false memory leaks to be reported when <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> is used, which can generate spurious errors when running a TensorRT application under Valgrind’s <code class="docutils literal notranslate"><span class="pre">memcheck</span></code> tool. To work around this, add the following to a Valgrind suppressions file as <a class="reference external" href="https://valgrind.org/docs/manual/manual-core.html#manual-core.suppress">documented here</a>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    Memory leak errors with dlopen
+    Memcheck:Leak
+    match-leak-kinds: definite
+    ...
+    fun:*dlopen*
+    ...
+}
+</pre></div>
+</div>
+<p>A known bug in CUDA 11.4 can trigger mismatched allocation and free errors in Valgrind. To disable these errors, add the option <code class="docutils literal notranslate"><span class="pre">--show-mismatched-frees=no</span></code> to the Valgrind command line.</p>
+</section>
+<section id="compute-sanitizer">
+<span id="id7"></span><h3>Compute Sanitizer<a class="headerlink" href="#compute-sanitizer" title="Link to this heading">#</a></h3>
+<p>When running a TensorRT application under compute-sanitizer, <code class="docutils literal notranslate"><span class="pre">cuGetProcAddress</span></code> can fail with error code <code class="docutils literal notranslate"><span class="pre">500</span></code> due to missing functions. This error can be ignored or suppressed with <code class="docutils literal notranslate"><span class="pre">--report-api-errors</span></code> no option. This is due to CUDA backward compatibility checking if a function is usable on the CUDA toolkit/driver combination. The functions are introduced later in CUDA but unavailable on the current platform.</p>
+</section>
+</section>
+<section id="understanding-formats-printed-in-logs">
+<span id="format-printed-logs"></span><h2>Understanding Formats Printed in Logs<a class="headerlink" href="#understanding-formats-printed-in-logs" title="Link to this heading">#</a></h2>
+<p>In logs from TensorRT, formats are printed as a type followed by stride and vectorization information. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Half(60,1:8,12,3)
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Half</span></code> indicates that the element type is <code class="docutils literal notranslate"><span class="pre">DataType::kHALF</span></code>, a 16-bit floating point</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:8</span></code> indicates the format packs eight elements per vector and that vectorization is along the second axis.</p></li>
+</ul>
+<p>The rest of the numbers are strides in units of vectors. For this tensor, the mapping of a coordinate <code class="docutils literal notranslate"><span class="pre">(n,c,h,w)</span></code> to an address is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>((half*)base_address) + (60*n + 1*floor(c/8) + 12*h + 3*w) * 8 + (c mod 8)
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">1:</span></code> is common to NHWC formats. For example, here is another example of an NCHW format:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Int8(105,15:4,3,1)
+</pre></div>
+</div>
+<p>The INT8 indicates that the element type is <code class="docutils literal notranslate"><span class="pre">DataType::kINT8</span></code>, and the <code class="docutils literal notranslate"><span class="pre">:4</span></code> indicates a vector size of 4. For this tensor, the mapping of a coordinate <code class="docutils literal notranslate"><span class="pre">(n,c,h,w)</span></code> to an address is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(int8_t*)base_address + (105*n + 15*floor(c/4) + 3*h + w) * 4 + (c mod 4)
+</pre></div>
+</div>
+<p>Scalar formats have a vector size of 1. For brevity, printing omits the <code class="docutils literal notranslate"><span class="pre">:1</span></code>.</p>
+<p>In general, the coordinates to address mappings have the following form:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(type*)base_address + (vec_coordinate · strides) * vec_size + vec_mod
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>the dot denotes an inner product</p></li>
+<li><p>strides are the printed strides, that is, strides in units of vectors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vec_size</span></code> is the number of elements per vector</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vec_coordinate</span></code> is the original coordinate with the coordinate along the vectorized axis divided by <code class="docutils literal notranslate"><span class="pre">vec_size</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vec_mod</span></code> is the original coordinate along the vectorized axis modulo <code class="docutils literal notranslate"><span class="pre">vec_size</span></code></p></li>
+</ul>
+</section>
+<section id="reporting-tensorrt-issues">
+<span id="id8"></span><h2>Reporting TensorRT Issues<a class="headerlink" href="#reporting-tensorrt-issues" title="Link to this heading">#</a></h2>
+<p>If you encounter issues when using TensorRT, check the <a class="reference internal" href="#faq"><span class="std std-ref">FAQs</span></a> and the <a class="reference internal" href="#error-messaging"><span class="std std-ref">Understanding Error Messages</span></a> sections to look for similar failing patterns. For example, many engine building failures can be solved by sanitizing and constant-folding the ONNX model using <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy">Polygraphy</a> with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>polygraphy<span class="w"> </span>surgeon<span class="w"> </span>sanitize<span class="w"> </span>model.onnx<span class="w"> </span>--fold-constants<span class="w"> </span>--output<span class="w"> </span>model_folded.onnx
+</pre></div>
+</div>
+<p>In addition, it is highly recommended that you first try our latest TensorRT release before filing an issue if you have not done so, because the issue may have been fixed in the latest release.</p>
+<section id="channels-for-tensorrt-issue-reporting">
+<span id="channel-issue-reporting"></span><h3>Channels for TensorRT Issue Reporting<a class="headerlink" href="#channels-for-tensorrt-issue-reporting" title="Link to this heading">#</a></h3>
+<p>If neither the <a class="reference internal" href="#faq"><span class="std std-ref">FAQs</span></a> nor the <a class="reference internal" href="#error-messaging"><span class="std std-ref">Understanding Error Messages</span></a> sections help, you can report the issue through the <a class="reference external" href="https://forums.developer.nvidia.com/c/ai-data-science/deep-learning/tensorrt/92">NVIDIA Developer Forum</a> or the <a class="reference external" href="https://github.com/NVIDIA/TensorRT/issues">TensorRT GitHub Issue</a> page. These channels are constantly monitored to provide feedback on the issues you encounter.</p>
+<p>Here are the steps to report an issue on the NVIDIA Developer Forum:</p>
+<ol class="arabic simple">
+<li><p>Register for the <a class="reference external" href="https://developer.nvidia.com/">NVIDIA Developer website</a>.</p></li>
+<li><p>Log in to the developer site.</p></li>
+<li><p>Click on your name in the upper right corner.</p></li>
+<li><p>Click <strong>My Account</strong> &gt; <strong>My Bugs</strong> and select <strong>Submit a New Bug</strong>.</p></li>
+<li><p>Fill out the bug reporting page. Be descriptive and provide the steps to reproduce the problem.</p></li>
+<li><p>Click <strong>Submit a bug</strong>.</p></li>
+</ol>
+<p>When reporting an issue, provide setup details and include the following information:</p>
+<ul class="simple">
+<li><p>Environment information:</p>
+<ul>
+<li><p>OS or Linux distro and version</p></li>
+<li><p>GPU type</p></li>
+<li><p>NVIDIA driver version</p></li>
+<li><p>CUDA version</p></li>
+<li><p>cuDNN version</p></li>
+<li><p>Python version (if Python is used).</p></li>
+<li><p>TensorFlow, PyTorch, and ONNX versions (if any of them are used).</p></li>
+<li><p>TensorRT version</p></li>
+<li><p>NGC TensorRT container version (if TensorRT container is used).</p></li>
+<li><p>Jetson (if used), include OS and hardware versions</p></li>
+</ul>
+</li>
+<li><p>A thorough description of the issue.</p></li>
+<li><p>Steps to reproduce the issue:</p>
+<ul>
+<li><p>ONNX file (if ONNX is used).</p></li>
+<li><p>A TensorRT API Capture (if ONNX is not used). For more information, refer to the <a class="reference internal" href="../inference-library/capture-replay.html#capture-replay"><span class="std std-ref">TensorRT API Capture and Replay</span></a> section.</p></li>
+<li><p>Minimal commands or scripts to trigger the issue</p></li>
+<li><p>Verbose logs by enabling <code class="docutils literal notranslate"><span class="pre">kVERBOSE</span></code> in <code class="docutils literal notranslate"><span class="pre">ILogger</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>Depending on the type of the issue, providing more information listed below can expedite the response and debugging process.</p>
+</section>
+<section id="reporting-a-functional-issue">
+<span id="report-functional-issue"></span><h3>Reporting a Functional Issue<a class="headerlink" href="#reporting-a-functional-issue" title="Link to this heading">#</a></h3>
+<p>When reporting functional issues, such as linker errors, segmentation faults, engine building failures, inference failures, and so on, provide the scripts and commands to reproduce the issue and a detailed description of the environment. Having more details helps us debug the functional issue faster.</p>
+<p>If you are not using ONNX, it is recommended to capture the TensorRT API calls and attach the JSON and BIN files. For more information, refer to the <a class="reference internal" href="../inference-library/capture-replay.html#capture-replay"><span class="std std-ref">TensorRT API Capture and Replay</span></a> section.</p>
+<p>Since the TensorRT engine is specific to a specific TensorRT version and a specific GPU type, do not build the engine in one environment and use it to run it in another environment with different GPUs or dependency software stack, such as TensorRT version, CUDA version, cuDNN version. Also, ensure the application is linked to the correct TensorRT and cuDNN shared object files by checking the environment variable <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> (or <code class="docutils literal notranslate"><span class="pre">%PATH%</span></code> on Windows).</p>
+</section>
+<section id="reporting-an-accuracy-issue">
+<span id="report-accuracy-issue"></span><h3>Reporting an Accuracy Issue<a class="headerlink" href="#reporting-an-accuracy-issue" title="Link to this heading">#</a></h3>
+<p>When reporting an accuracy issue, provide the scripts and the commands used to calculate the accuracy metrics. Describe the expected accuracy level and share the steps to get the expected results using other frameworks like ONNX-Runtime.</p>
+<p>The <a class="reference external" href="https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy">Polygraphy</a> tool can debug the accuracy issue and produce a minimal failing case. For instructions, refer to the <a class="reference external" href="https://github.com/NVIDIA/TensorRT/blob/main/tools/Polygraphy/how-to/debug_accuracy.md">documentation on Debugging TensorRT Accuracy Issues</a>. Having a Polygraphy command that shows the accuracy issue or having a minimal failing case expedites the time it takes for us to debug your accuracy issue.</p>
+<p>Note that it is not practical to expect bitwise identical results between TensorRT and other frameworks like PyTorch, TensorFlow, or ONNX-Runtime even in FP32 precision since the order of the computations on the floating-point numbers can result in slight differences in output values. In practice, small numeric differences should not significantly affect the accuracy metric of the application, such as the mAP score for object-detection networks or the BLEU score for translation networks. If you encounter a significant drop in the accuracy metric between TensorRT and other frameworks such as PyTorch, TensorFlow, or ONNX-Runtime, it can be a genuine TensorRT bug.</p>
+<p>If you are seeing NaNs or infinite values in TensorRT engine output when FP16/BF16 precision is enabled, it is possible that intermediate layer outputs in the network overflow in FP16/BF16. Some approaches to help mitigate this include:</p>
+<ul class="simple">
+<li><p>Ensuring that network weights and inputs are restricted to a reasonably narrow range (such as <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">1]</span></code> instead of <code class="docutils literal notranslate"><span class="pre">[-100,</span> <span class="pre">100]</span></code>). This can require making changes to the network and retraining.</p>
+<ul>
+<li><p>Consider pre-processing input by scaling or clipping it to the restricted range before passing it to the network for inference.</p></li>
+</ul>
+</li>
+<li><p>Overriding precision for individual layers vulnerable to overflows (such as Reduce and Element-Wise Power ops) to FP32.</p></li>
+</ul>
+<p>Polygraphy can help you diagnose common problems by using reduced precision. Refer to Polygraphy’s <a class="reference external" href="https://github.com/NVIDIA/TensorRT/blob/main/tools/Polygraphy/how-to/work_with_reduced_precision.md">Working with Reduced Precision</a> how-to guide for more information.</p>
+<p>For possible solutions to accuracy issues, refer to the <a class="reference internal" href="../performance/accuracy-builder.html#model-accuracy"><span class="std std-ref">Improving Model Accuracy</span></a> section and the <a class="reference internal" href="../inference-library/work-quantized-types.html#work-with-quantized-types"><span class="std std-ref">Working with Quantized Types</span></a> section for instructions about using INT8/FP8 precision.</p>
+</section>
+<section id="reporting-a-performance-issue">
+<span id="report-performance-issue"></span><h3>Reporting a Performance Issue<a class="headerlink" href="#reporting-a-performance-issue" title="Link to this heading">#</a></h3>
+<p>If you are reporting a performance issue, share the full <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> logs using this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--onnx<span class="o">=</span>&lt;onnx_file&gt;<span class="w"> </span>&lt;precision_and_shape_flags&gt;<span class="w"> </span>--verbose<span class="w"> </span>--profilingVerbosity<span class="o">=</span>detailed<span class="w"> </span>--dumpLayerInfo<span class="w"> </span>--dumpProfile<span class="w"> </span>--separateProfileRun<span class="w"> </span>--useCudaGraph<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useSpinWait<span class="w"> </span>--duration<span class="o">=</span><span class="m">60</span>
+</pre></div>
+</div>
+<p>The verbose logs help us to identify the performance issue. If possible, also share the <a class="reference external" href="https://developer.nvidia.com/nsight-systems">Nsight Systems</a> profiling files using these commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>trtexec<span class="w"> </span>--onnx<span class="o">=</span>&lt;onnx_file&gt;<span class="w"> </span>&lt;precision_and_shape_flags&gt;<span class="w"> </span>--verbose<span class="w"> </span>--profilingVerbosity<span class="o">=</span>detailed<span class="w"> </span>--dumpLayerInfo<span class="w"> </span>--saveEngine<span class="o">=</span>&lt;engine_path&gt;
+nsys<span class="w"> </span>profile<span class="w"> </span>--cuda-graph-trace<span class="o">=</span>node<span class="w"> </span>-o<span class="w"> </span>&lt;output_profile&gt;<span class="w"> </span>trtexec<span class="w"> </span>--loadEngine<span class="o">=</span>&lt;engine_path&gt;<span class="w"> </span>&lt;precision_and_shape_flags&gt;<span class="w"> </span>--useCudaGraph<span class="w"> </span>--noDataTransfers<span class="w"> </span>--useSpinWait<span class="w"> </span>--warmUp<span class="o">=</span><span class="m">0</span><span class="w"> </span>--duration<span class="o">=</span><span class="m">0</span><span class="w"> </span>--iterations<span class="o">=</span><span class="m">20</span>
+</pre></div>
+</div>
+<p>Refer to the <a class="reference internal" href="command-line-programs.html#trtexec"><span class="std std-ref">trtexec</span></a> section for more instructions on using the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> tool and the meaning of these flags.</p>
+<p>If you do not use <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> to measure performance, provide the scripts and commands you use to measure it. Compare the performance measurement from your script with that from the <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> tool. If the two numbers differ, your scripts can have some issues with the performance measurement methodology.</p>
+<p>Refer to the <a class="reference internal" href="../performance/hw-sw-environment.html#hw-sw-environment-performance-measure"><span class="std std-ref">Hardware/Software Environment for Performance Measurements</span></a> section for some environmental factors affecting performance.</p>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Evaluating the calibration input or validating the previous layer outputs is recommended.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../api/polygraphy-api.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Polygraphy API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data-format-desc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Format Descriptions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faqs">FAQs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-error-messages">Understanding Error Messages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-analysis-tools">Code Analysis Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compiler-sanitizers">Compiler Sanitizers</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-with-dlopen-and-address-sanitizer">Issues With <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> And Address Sanitizer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-with-dlopen-and-thread-sanitizer">Issues with <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> and Thread Sanitizer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-with-cuda-and-address-sanitizer">Issues with CUDA and Address Sanitizer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#issues-with-undefined-behavior-sanitizer">Issues with Undefined Behavior Sanitizer</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#valgrind">Valgrind</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-sanitizer">Compute Sanitizer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-formats-printed-in-logs">Understanding Formats Printed in Logs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-tensorrt-issues">Reporting TensorRT Issues</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#channels-for-tensorrt-issue-reporting">Channels for TensorRT Issue Reporting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-a-functional-issue">Reporting a Functional Issue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-an-accuracy-issue">Reporting an Accuracy Issue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-a-performance-issue">Reporting a Performance Issue</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+<script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2021-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on May 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

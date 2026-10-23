@@ -1,0 +1,392 @@
+queue
+Toggle navigation
+API References
+GStreamer core
+GStreamer Libraries
+GStreamer Plugins
+Application manual
+Tutorials
+queue
+Data is queued until one of the limits specified by the
+max-size-buffers
+,
+max-size-bytes
+and/or
+max-size-time
+properties has been reached. Any attempt to push
+more buffers into the queue will block the pushing thread until more space
+becomes available.
+The queue will create a new thread on the source pad to decouple the
+processing on sink and source pad.
+You can query how many buffers are queued by reading the
+current-level-buffers
+property. If you set
+notify-levels
+to TRUE,
+you can track changes by connecting to the notify::current-level-buffers signal
+(which like all signals will be emitted from the streaming thread). The same
+applies to the
+current-level-time
+and
+current-level-bytes
+properties.
+The default queue size limits are 200 buffers, 10MB of data, or
+one second worth of data, whichever is reached first.
+As said earlier, the queue blocks by default when one of the specified
+maximums (bytes, time, buffers) has been reached. You can set the
+leaky
+property to specify that instead of blocking it should
+leak (drop) new or old buffers.
+The
+underrun
+signal is emitted when the queue has less data than
+the specified minimum thresholds require (by default: when the queue is
+empty). The
+overrun
+signal is emitted when the queue is filled
+up. Both signals are emitted from the context of the streaming thread.
+Hierarchy
+GObject
+╰──
+GInitiallyUnowned
+╰──
+GstObject
+╰──
+GstElement
+╰──
+queue
+Factory details
+Authors:
+– Erik Walthinsen
+Classification:
+–
+Generic
+Rank
+– none
+Plugin
+– coreelements
+Package
+– GStreamer
+Pad Templates
+sink
+ANY
+Presence
+–
+always
+Direction
+–
+sink
+Object type
+–
+GstPad
+src
+ANY
+Presence
+–
+always
+Direction
+–
+src
+Object type
+–
+GstPad
+Signals
+overrun
+overrun_callback (
+GstElement
+*
+queue,
+gpointer
+udata)
+def overrun_callback (queue, udata):
+    #python callback for the 'overrun' signal
+function overrun_callback(queue:
+GstElement
+*
+queue, udata:
+gpointer
+udata): {
+    // javascript callback for the 'overrun' signal
+}
+Reports that the buffer became full (overrun).
+A buffer is full if the total amount of data inside it (num-buffers, time,
+size) is higher than the boundary values which can be set through the
+GObject properties.
+Parameters:
+queue
+–
+the queue instance
+udata
+–
+No description available
+Flags:
+Run First
+pushing
+pushing_callback (
+GstElement
+*
+queue,
+gpointer
+udata)
+def pushing_callback (queue, udata):
+    #python callback for the 'pushing' signal
+function pushing_callback(queue:
+GstElement
+*
+queue, udata:
+gpointer
+udata): {
+    // javascript callback for the 'pushing' signal
+}
+Reports when the queue has enough data to start pushing data again on the
+source pad.
+Parameters:
+queue
+–
+the queue instance
+udata
+–
+No description available
+Flags:
+Run First
+running
+running_callback (
+GstElement
+*
+queue,
+gpointer
+udata)
+def running_callback (queue, udata):
+    #python callback for the 'running' signal
+function running_callback(queue:
+GstElement
+*
+queue, udata:
+gpointer
+udata): {
+    // javascript callback for the 'running' signal
+}
+Reports that enough (min-threshold) data is in the queue. Use this signal
+together with the underrun signal to pause the pipeline on underrun and
+wait for the queue to fill-up before resume playback.
+Parameters:
+queue
+–
+the queue instance
+udata
+–
+No description available
+Flags:
+Run First
+underrun
+underrun_callback (
+GstElement
+*
+queue,
+gpointer
+udata)
+def underrun_callback (queue, udata):
+    #python callback for the 'underrun' signal
+function underrun_callback(queue:
+GstElement
+*
+queue, udata:
+gpointer
+udata): {
+    // javascript callback for the 'underrun' signal
+}
+Reports that the buffer became empty (underrun).
+A buffer is empty if the total amount of data inside it (num-buffers, time,
+size) is lower than the boundary values which can be set through the
+GObject properties.
+Parameters:
+queue
+–
+the queue instance
+udata
+–
+No description available
+Flags:
+Run First
+Properties
+current-level-buffers
+“current-level-buffers”
+guint
+Current number of buffers in the queue
+Flags :	
+	
+		
+				Read
+Default value :	0
+current-level-bytes
+“current-level-bytes”
+guint
+Current amount of data in the queue (bytes)
+Flags :	
+	
+		
+				Read
+Default value :	0
+current-level-time
+“current-level-time”
+guint64
+Current amount of data in the queue (in ns)
+Flags :	
+	
+		
+				Read
+Default value :	0
+flush-on-eos
+“flush-on-eos”
+gboolean
+Discard all data in the queue when an EOS event is received, and pass
+on the EOS event as soon as possible (instead of waiting until all
+buffers in the queue have been processed, which is the default behaviour).
+Flushing the queue on EOS might be useful when capturing and encoding
+from a live source, to finish up the recording quickly in cases when
+the encoder is slow. Note that this might mean some data from the end of
+the recording data might be lost though (never more than the configured
+max. sizes though).
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	false
+Since
+: 1.2
+leaky
+“leaky”
+Queue-leaky
+*
+Where the queue leaks, if at all
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	no (0)
+max-size-buffers
+“max-size-buffers”
+guint
+Max. number of buffers in the queue (0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	200
+max-size-bytes
+“max-size-bytes”
+guint
+Max. amount of data in the queue (bytes, 0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	10485760
+max-size-time
+“max-size-time”
+guint64
+Max. amount of data in the queue (in ns, 0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	1000000000
+min-threshold-buffers
+“min-threshold-buffers”
+guint
+Min. number of buffers in the queue to allow reading (0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	0
+min-threshold-bytes
+“min-threshold-bytes”
+guint
+Min. amount of data in the queue to allow reading (bytes, 0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	0
+min-threshold-time
+“min-threshold-time”
+guint64
+Min. amount of data in the queue to allow reading (in ns, 0=disable)
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	0
+notify-levels
+“notify-levels”
+gboolean
+Whether to emit
+notify:property-name
+signals on levels changes or not
+Default:
+FALSE
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	false
+Since
+: 1.26
+silent
+“silent”
+gboolean
+Don't emit queue signals. Makes queues more lightweight if no signals are
+needed.
+Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+Default value :	false
+Named constants
+Queue-leaky
+Buffer dropping scheme to avoid the queue to block when full.
+Members
+no
+(
+0
+) – Not Leaky
+upstream
+(
+1
+) – Leaky on upstream (new buffers)
+downstream
+(
+2
+) – Leaky on downstream (old buffers)
+The results of the search are

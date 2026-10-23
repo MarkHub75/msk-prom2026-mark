@@ -1,0 +1,108 @@
+{
+  "archive_bytes": 5835796,
+  "sha256": "ebac83a98d36b32c54d00efa9e8591279bb80232711fdd385d5dbac09cf462a9",
+  "xml_files": 8102,
+  "unique_image_filenames": 8102,
+  "object_count": 76008,
+  "classes": {
+    "gloves-on": 2669,
+    "hands": 15850,
+    "safety-shoes-on": 1150,
+    "safety-suit-off": 6,
+    "halmet-off-yellow": 10,
+    "person": 4351,
+    "tools-off": 2903,
+    "head": 11985,
+    "face": 8950,
+    "ear": 7730,
+    "brown-female": 250,
+    "safety-vest-on": 525,
+    "halmet-on-blue": 82,
+    "halmet-on-white": 312,
+    "safety-suit-on": 234,
+    "halmet-on-yellow": 276,
+    "tools-on": 1739,
+    "glasses-vision-off": 163,
+    "white-male": 2424,
+    "brown-male": 605,
+    "other-shoes-on": 3287,
+    "face-mask-medical-on": 635,
+    "white-female": 2039,
+    "halmet-on-orange": 95,
+    "ear-mufs-on": 211,
+    "face-guard-on": 123,
+    "halmet-on-red": 82,
+    "face-mask-medical-off": 35,
+    "asian-female": 1211,
+    "asian-male": 930,
+    "black-female": 775,
+    "gloves-off": 121,
+    "black-male": 1107,
+    "glasses-safety-on": 373,
+    "halmet-on-black": 27,
+    "glasses-vision-on": 1357,
+    "foot": 759,
+    "asian-children": 53,
+    "helmet": 4,
+    "safety-shoes-off": 22,
+    "fork-lift": 14,
+    "other-shoes-off": 101,
+    "glasses-safety-off": 52,
+    "medical-suit-on": 157,
+    "brown-children": 12,
+    "halmet-on-grey": 10,
+    "halmet-off-red": 5,
+    "halmet-off-orange": 9,
+    "ear-mufs-off": 107,
+    "halmet-off-blue": 4,
+    "safety-vest-off": 5,
+    "face-guard-off": 11,
+    "white-children": 39,
+    "halmet-off-black": 1,
+    "black-children": 6,
+    "halmet-on-green": 3,
+    "tools": 5,
+    "halmet-on-pink": 1,
+    "helmet-yellow-on": 1,
+    "halmet-off-white": 5
+  },
+  "parse_errors": [],
+  "geometry_errors": [
+    {
+      "file": "20240329/pexels-photo-258626.xml",
+      "name": "person",
+      "bbox": [
+        1725,
+        4430,
+        1874,
+        4664
+      ],
+      "size": [
+        3456,
+        4608
+      ]
+    },
+    {
+      "file": "20240329/pexels-photo-259265.xml",
+      "name": "tools-off",
+      "bbox": [
+        1559,
+        123,
+        3509,
+        1358
+      ],
+      "size": [
+        3504,
+        2336
+      ]
+    }
+  ],
+  "empty_xml": [
+    "20240329/pexels-photo-4480451.xml",
+    "20240329/pexels-photo-4614217.xml"
+  ],
+  "flags": {
+    "('0', '0')": 71949,
+    "('1', '0')": 4059
+  }
+}

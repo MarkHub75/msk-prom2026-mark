@@ -1,0 +1,14 @@
+[
+  {
+    "file": "PINNED_CFG.CFG",
+    "url": "https://raw.githubusercontent.com/pjreddie/darknet/f6afaabcdf85f77e7aff2ec55c020c0e297c77f9/cfg/yolov3-tiny.cfg",
+    "sha256": "84eb7a675ef87c906019ff5a6e0effe275d175adb75100dcb47f0727917dc2c7",
+    "utc": "2026-10-23T01:59:26.769216+00:00"
+  },
+  {
+    "file": "PINNED_KERAS.PY",
+    "url": "https://raw.githubusercontent.com/qqwweee/keras-yolo3/e6598d13c703029b2686bc2eb8d5c09badf42992/yolo3/model.py",
+    "sha256": "91df7df201d4ff6261a80b115377d07b81e40257c46c3e2fc9ef2281ec88a501",
+    "utc": "2026-10-23T01:59:27.397724+00:00"
+  }
+]

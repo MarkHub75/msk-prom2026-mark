@@ -1,0 +1,18 @@
+[train] images=13 label_missing(bg)=2 label_empty(bg)=0 corrupt=0 boxes=14 tiny(<4px@640)=1 box_out_of_image=1 exact_dup_rows=1
+[val] images=2 label_missing(bg)=0 label_empty(bg)=0 corrupt=0 boxes=2 tiny(<4px@640)=0 box_out_of_image=0 exact_dup_rows=0
+train class histogram: {'helmet': 7, 'False': 6, 'vest': 1}
+ERROR NAME_NOT_STR: class 1: YAML parsed name as bool False (YAML 1.1 bool/null/number); Ultralytics str()s it -> 'False'. Quote it in the yaml
+ERROR COORD_RANGE: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\labels\train\abs_px.txt: not normalized/out of range ['160', '120', '64',
+WARN  IMG_MODE: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\images\train\alpha.png: mode RGBA (alpha/palette dropped/converted by cv2 IM
+ERROR CLASS_RANGE: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\labels\train\cls_eq_nc.txt: class 3.0 outside 0..2 (Ultralytics drops the
+WARN  EXIF_ROTATED: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\images\train\exif6.jpg: EXIF orientation 6: Ultralytics trains on the RO
+ERROR LABEL_PARSE: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\labels\train\six_cols.txt: 6 columns in row '0 0.5 0.5 0.2 0.2 0.9' (Ultr
+ERROR NO_IMAGES_DIR: C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\w108-synth\pics\train\stray.jpg: path has no 'images' component, label path cannot
+WARN  CLASS_EMPTY: val: class 1 has 0 instances
+WARN  CLASS_EMPTY: val: class 2 has 0 instances
+ERROR LEAK_TRAIN_VAL: 1 byte-identical images in both train and val
+ERROR ORDER_MISMATCH: names differ between yamls:
+  {0: 'helmet', 1: 'False', 2: 'vest'}
+  {0: 'vest', 1: 'helmet', 2: 'no'}
+  -> merging label files without remap silently relabels classes
+SUMMARY: 7 errors, 4 warnings

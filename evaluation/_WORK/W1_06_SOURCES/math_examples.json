@@ -1,0 +1,36 @@
+{
+  "kind": "mathematical examples only; no model or dataset run",
+  "zero_95_one_sided": [
+    {
+      "camera_hours": 1,
+      "upper_per_camera_hour": 2.995732273553991
+    },
+    {
+      "camera_hours": 10,
+      "upper_per_camera_hour": 0.2995732273553991
+    },
+    {
+      "camera_hours": 100,
+      "upper_per_camera_hour": 0.029957322735539908
+    },
+    {
+      "camera_hours": 300,
+      "upper_per_camera_hour": 0.00998577424517997
+    }
+  ],
+  "two_sided_zero_95_factor": 3.6888794541139363,
+  "prevalence_examples": [
+    {
+      "p": 0.1,
+      "sensitivity": 0.9,
+      "specificity": 0.99,
+      "ppv": 0.9090909090909092
+    },
+    {
+      "p": 0.001,
+      "sensitivity": 0.9,
+      "specificity": 0.99,
+      "ppv": 0.08264462809917356
+    }
+  ]
+}

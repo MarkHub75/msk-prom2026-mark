@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "paths": 32398,
+  "unique_paths": 32398,
+  "groups": {
+    "images": 8099,
+    "labels": 8099,
+    "meta-data": 8099,
+    "train_files.txt": 1,
+    "val_files.txt": 1,
+    "voc_labels": 8099
+  },
+  "bytes_by_group": {
+    "images": 14203596226,
+    "labels": 2998015,
+    "meta-data": 10672761,
+    "train_files.txt": 175811,
+    "val_files.txt": 43916,
+    "voc_labels": 19863513
+  },
+  "manifest_sha256": "de54fdd338e6714bc3b6a884efc41a44e999da07a2af6241f0682637b9963746"
+}

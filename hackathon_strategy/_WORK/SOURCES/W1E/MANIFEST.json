@@ -1,0 +1,66 @@
+{
+  "checked_at": "2026-10-23T06:48:41.671901+00:00",
+  "timezone": "Europe/Moscow",
+  "access_date": "2026-10-23",
+  "loadgen_commit": "3fbc329939999c13d0a7b5e67fb2092287e06047",
+  "loadgen_commit_date": "2026-09-02T17:02:36Z",
+  "loadgen_pinned_url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/loadgen/README.md",
+  "loadgen_hash_matches_pinned": true,
+  "policy_commit": "d3eba2f21026d868ad65cdcad2bb81e4a17ce3d3",
+  "files": [
+    {
+      "file": "EXTRACTS.md",
+      "bytes": 6541,
+      "sha256": "3988bb2e370a1f9e8b4207f95443a2320dda8f4bd352b655177b49a9e42271fd",
+      "local_mtime_utc": "2026-10-23T06:48:41.707278+00:00"
+    },
+    {
+      "file": "inference_rules.adoc",
+      "bytes": 79883,
+      "sha256": "94c69f01f1e0be24dc057180af6db878d1f5339fd31d54cbe5c386f8e198ce08",
+      "local_mtime_utc": "2026-10-23T06:44:04.644441+00:00"
+    },
+    {
+      "file": "LOADGEN_COMMIT.json",
+      "bytes": 10830,
+      "sha256": "d2a4b5bc4071bf4f3868f0f07e53ca840a6e2f2ed709c5af28b4a2363aad2816",
+      "local_mtime_utc": "2026-10-23T06:48:41.003807+00:00"
+    },
+    {
+      "file": "MLPERF_COMMIT.json",
+      "bytes": 8149,
+      "sha256": "f329a6150a35a328431ff8279aac92d839d853d4dd694fb4e9ef369e80840a80",
+      "local_mtime_utc": "2026-10-23T06:44:05.419330+00:00"
+    },
+    {
+      "file": "ORT_PROFILING.html",
+      "bytes": 47230,
+      "sha256": "c951b83556c74a5873a04c4091321f88e3ab83b908d617d26a35b419d4bfb6e9",
+      "local_mtime_utc": "2026-10-23T06:44:06.748823+00:00"
+    },
+    {
+      "file": "ORT_PROVIDERS.html",
+      "bytes": 48866,
+      "sha256": "8d1b80c7672acb23c240e2b5ffb64f4d1e2752eee09361d487e9651b8c297065",
+      "local_mtime_utc": "2026-10-23T06:44:06.128443+00:00"
+    },
+    {
+      "file": "README.md",
+      "bytes": 11396,
+      "sha256": "074479dbeb369205ccc8800450c647893b4901c247e0e4ee7f321f05254e9305",
+      "local_mtime_utc": "2026-10-23T06:44:07.326063+00:00"
+    },
+    {
+      "file": "WEB_OPEN1.json",
+      "bytes": 28255,
+      "sha256": "5be976f1d5bd8ed67a38d652f98140cb6126328dd3aaa7e3922f81ca5d3781bf",
+      "local_mtime_utc": "2026-10-23T06:44:12.629199+00:00"
+    },
+    {
+      "file": "WEB_SEARCH.json",
+      "bytes": 17253,
+      "sha256": "c7f1d15ae0a7d71d0f2475661f77d456ac7dd01d073497799a29bed74c599482",
+      "local_mtime_utc": "2026-10-23T06:44:12.605047+00:00"
+    }
+  ]
+}

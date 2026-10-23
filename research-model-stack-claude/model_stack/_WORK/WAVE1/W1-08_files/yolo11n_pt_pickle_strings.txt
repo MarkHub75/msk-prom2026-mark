@@ -1,0 +1,12 @@
+n strings: 928
+top-level keys region (first 14): ['date', '2024-09-25T21:10:26.629566', 'version', '8.2.100', 'license', 'AGPL-3.0 License (https://ultralytics.com/license)', 'docs', 'https://docs.ultralytics.com', 'epoch', 'best_fitness', 'model', 'training', '_parameters', '_buffers']
+names idx: [688]
+train_args idx: [786]
+nc idx: [634, 646, 682]
+task idx: [771, 782, 787]
+ema idx: [783]
+optimizer idx: [785, 810]
+stride idx: [38]
+yaml idx: [645]
+after first 'names': ['names', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush', '502', 'args', 'task', 'detect', 'data', '/usr/src/ultralytics/ultralytics/cfg/datasets/coco.yaml', 'imgsz', 'single_cls', 'model']
+globals: ['__builtin__ set', 'collections OrderedDict', 'torch FloatStorage', 'torch HalfStorage', 'torch LongStorage', 'torch Size', 'torch._utils _rebuild_parameter', 'torch._utils _rebuild_tensor_v2', 'torch.nn.modules.activation SiLU', 'torch.nn.modules.batchnorm BatchNorm2d', 'torch.nn.modules.container ModuleList', 'torch.nn.modules.container Sequential', 'torch.nn.modules.conv Conv2d', 'torch.nn.modules.linear Identity', 'torch.nn.modules.pooling MaxPool2d', 'torch.nn.modules.upsampling Upsample', 'ultralytics.nn.modules.block Attention', 'ultralytics.nn.modules.block Bottleneck', 'ultralytics.nn.modules.block C2PSA', 'ultralytics.nn.modules.block C3k', 'ultralytics.nn.modules.block C3k2', 'ultralytics.nn.modules.block DFL', 'ultralytics.nn.modules.block PSABlock', 'ultralytics.nn.modules.block SPPF', 'ultralytics.nn.modules.conv Concat']

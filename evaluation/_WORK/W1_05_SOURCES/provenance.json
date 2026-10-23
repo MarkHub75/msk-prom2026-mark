@@ -1,0 +1,26 @@
+[
+  {
+    "repo": "activitynet/ActivityNet",
+    "sha": "82304fa9f4a7219421df13dae6347a445c4cf5bc",
+    "path": "Evaluation/eval_detection.py",
+    "url": "https://raw.githubusercontent.com/activitynet/ActivityNet/82304fa9f4a7219421df13dae6347a445c4cf5bc/Evaluation/eval_detection.py",
+    "local": "_WORK\\W1_05_SOURCES\\ActivityNet_eval_detection.py",
+    "access": "2026-10-23T06:10:14.068350+03:00"
+  },
+  {
+    "repo": "activitynet/ActivityNet",
+    "sha": "82304fa9f4a7219421df13dae6347a445c4cf5bc",
+    "path": "Evaluation/utils.py",
+    "url": "https://raw.githubusercontent.com/activitynet/ActivityNet/82304fa9f4a7219421df13dae6347a445c4cf5bc/Evaluation/utils.py",
+    "local": "_WORK\\W1_05_SOURCES\\ActivityNet_utils.py",
+    "access": "2026-10-23T06:10:14.601100+03:00"
+  },
+  {
+    "repo": "TUT-ARG/sed_eval",
+    "sha": "0cb1b6d11ceec4fe500cc9b31079c9d8666ed6eb",
+    "path": "sed_eval/sound_event.py",
+    "url": "https://raw.githubusercontent.com/TUT-ARG/sed_eval/0cb1b6d11ceec4fe500cc9b31079c9d8666ed6eb/sed_eval/sound_event.py",
+    "local": "_WORK\\W1_05_SOURCES\\sed_eval_sound_event.py",
+    "access": "2026-10-23T06:10:15.304916+03:00"
+  }
+]

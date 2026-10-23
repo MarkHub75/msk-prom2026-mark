@@ -1,0 +1,65 @@
+[
+  {
+    "name": "DOCS_HTML",
+    "url": "https://lin-q.ru/docs",
+    "time": "2026-10-23T01:56:28.583440+00:00",
+    "error": "HTTPSConnectionPool(host='lin-q.ru', port=443): Max retries exceeded with url: /docs (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "name": "SOL_HTML",
+    "url": "https://lin-q.ru/sol",
+    "time": "2026-10-23T01:56:28.971941+00:00",
+    "error": "HTTPSConnectionPool(host='lin-q.ru', port=443): Max retries exceeded with url: /sol (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "name": "GUIDE",
+    "url": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+    "time": "2026-10-23T01:56:29.384217+00:00",
+    "error": "HTTPSConnectionPool(host='files.lin-q.ru', port=443): Max retries exceeded with url: /tpu/docs/Framework_manual_H1.pdf (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "name": "REPO",
+    "url": "https://api.github.com/repos/sherstpasha/linq-cv-bench",
+    "time": "2026-10-23T01:56:29.747747+00:00",
+    "status": 200,
+    "type": "application/json; charset=utf-8",
+    "length": 5357,
+    "sha256": "e274e61e64b984fb65227b57385f8ab0d0c894613b5dfd4e60699a95ef0eea63"
+  },
+  {
+    "name": "COMMITS",
+    "url": "https://api.github.com/repos/sherstpasha/linq-cv-bench/commits?per_page=5",
+    "time": "2026-10-23T01:56:35.442665+00:00",
+    "status": 200,
+    "type": "application/json; charset=utf-8",
+    "length": 17155,
+    "sha256": "169514c091e96430bb5a12aa5db77646b9b4e62979895880376c5489b6017641"
+  },
+  {
+    "name": "TREE",
+    "url": "https://api.github.com/repos/sherstpasha/linq-cv-bench/git/trees/3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140?recursive=1",
+    "time": "2026-10-23T01:56:36.711484+00:00",
+    "status": 200,
+    "type": "application/json; charset=utf-8",
+    "length": 15374,
+    "sha256": "da56dd17dc6f2c400b3ec9fc98c221e75ca0edac02d2091e5fe437ac9362c7b8"
+  },
+  {
+    "name": "MLPERF_QUANT",
+    "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v0.7/master/open/IVATech/code/mobilenet/v1/quantize/quantize.sh",
+    "time": "2026-10-23T01:56:37.954917+00:00",
+    "status": 200,
+    "type": "text/plain; charset=utf-8",
+    "length": 1264,
+    "sha256": "570d6d77cc59dceade0403f0513959204720ff024812071c91e4417ecc6d8480"
+  },
+  {
+    "name": "BUILDER",
+    "url": "https://raw.githubusercontent.com/sherstpasha/linq-cv-bench/3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140/scr/detection/build_yolov8_program.py",
+    "time": "2026-10-23T01:56:39.108126+00:00",
+    "status": 200,
+    "type": "text/plain; charset=utf-8",
+    "length": 12808,
+    "sha256": "db6aea75d43827b7f21a87585c2d2b86e88fadbaf5179da778d8fad4cd48d0bf"
+  }
+]

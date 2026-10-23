@@ -1,0 +1,37 @@
+{
+  "2e3ecb488da8886d3200d402b2b08890c6d2879923839444e9b74fa43a551440": [
+    "train/MOT17-02-DPM/gt/gt.txt",
+    "train/MOT17-02-FRCNN/gt/gt.txt",
+    "train/MOT17-02-SDP/gt/gt.txt"
+  ],
+  "f8cfbe36ef38a2e1857d7ebfe7d754b2355a3ffb9e1f9cedea435e86e4fbc948": [
+    "train/MOT17-04-DPM/gt/gt.txt",
+    "train/MOT17-04-FRCNN/gt/gt.txt",
+    "train/MOT17-04-SDP/gt/gt.txt"
+  ],
+  "ed74c54176b21b38cb690eda79a4755cf16e4c4a9ca2f019b0ba8904636174f5": [
+    "train/MOT17-05-DPM/gt/gt.txt",
+    "train/MOT17-05-FRCNN/gt/gt.txt",
+    "train/MOT17-05-SDP/gt/gt.txt"
+  ],
+  "592f0d5b519c03b35bb1578c33d726460f63abb91ea0c515f87e8d6d76be001d": [
+    "train/MOT17-09-DPM/gt/gt.txt",
+    "train/MOT17-09-FRCNN/gt/gt.txt",
+    "train/MOT17-09-SDP/gt/gt.txt"
+  ],
+  "f8cca05d98fa36d8b6f2b807e03d32407d00d40299d679e4da320e42862677c0": [
+    "train/MOT17-10-DPM/gt/gt.txt",
+    "train/MOT17-10-FRCNN/gt/gt.txt",
+    "train/MOT17-10-SDP/gt/gt.txt"
+  ],
+  "4952d6e4efc705c90688e434fd138a55ada2c0d5f576ba3847ee102fc18aff93": [
+    "train/MOT17-11-DPM/gt/gt.txt",
+    "train/MOT17-11-FRCNN/gt/gt.txt",
+    "train/MOT17-11-SDP/gt/gt.txt"
+  ],
+  "4827603ef87bbd61123cb4c5f194b3bf23531bd78ed9cd916084e53dca998013": [
+    "train/MOT17-13-DPM/gt/gt.txt",
+    "train/MOT17-13-FRCNN/gt/gt.txt",
+    "train/MOT17-13-SDP/gt/gt.txt"
+  ]
+}

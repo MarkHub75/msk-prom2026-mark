@@ -1,0 +1,112 @@
+[
+  {
+    "file": "HF_API.JSON",
+    "url": "https://huggingface.co/api/models/onnxmodelzoo/tiny-yolov3-11",
+    "started": "2026-10-23T01:56:12.521833+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/api/models/onnxmodelzoo/tiny-yolov3-11",
+    "size": 809,
+    "sha256": "b0acb0fd8148f08ab3c68527166de737baf44c8bf971ca9d8ae71e1b1a32af61",
+    "finished": "2026-10-23T01:56:13.640820+00:00"
+  },
+  {
+    "file": "ONNX_API.JSON",
+    "url": "https://api.github.com/repos/onnx/models/commits/main",
+    "started": "2026-10-23T01:56:12.522868+00:00",
+    "status": 200,
+    "final_url": "https://api.github.com/repos/onnx/models/commits/main",
+    "size": 7555,
+    "sha256": "8785978e4560d6a58c3f065d31ae9180819f566967b54e8b4d2c24b1b4399f78",
+    "finished": "2026-10-23T01:56:13.892241+00:00"
+  },
+  {
+    "file": "DARKNET_API.JSON",
+    "url": "https://api.github.com/repos/pjreddie/darknet/commits/master",
+    "started": "2026-10-23T01:56:12.522868+00:00",
+    "status": 200,
+    "final_url": "https://api.github.com/repos/pjreddie/darknet/commits/master",
+    "size": 5395,
+    "sha256": "6b22535dc5a166a568d074ac222142e0dcae1a6d1346aea1832b0f58aab785b8",
+    "finished": "2026-10-23T01:56:13.892241+00:00"
+  },
+  {
+    "file": "tiny-yolov3-11.onnx",
+    "url": "https://huggingface.co/onnxmodelzoo/tiny-yolov3-11/resolve/main/tiny-yolov3-11.onnx",
+    "started": "2026-10-23T01:56:12.522868+00:00",
+    "status": 200,
+    "final_url": "https://us.aws.cdn.hf.co/xet-bridge-us/68dc5f965cda5c4e376b72c9/8c0ea7a6bbcbcb2da5d99ecd386a37c5b9c299aafdd9bebed36d4aa6150e473c?user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27tiny-yolov3-11.onnx%3B+filename%3D%22tiny-yolov3-11.onnx%22%3B&xip=rF8ZtUQhSuE&Expires=1792724173&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjhkYzVmOTY1Y2RhNWM0ZTM3NmI3MmM5LzhjMGVhN2E2YmJjYmNiMmRhNWQ5OWVjZDM4NmEzN2M1YjljMjk5YWFmZGQ5YmViZWQzNmQ0YWE2MTUwZTQ3M2NcXD91c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3dGlueS15b2xvdjMtMTEub25ueCUzQitmaWxlbmFtZSUzRCUyMnRpbnkteW9sb3YzLTExLm9ubnglMjIlM0ImeGlwPXJGOFp0VVFoU3VFIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJFcG9jaFRpbWUiOjE3OTI3MjQxNzN9fX1dfQ__&Signature=MEQCIBtrI1bIXQ1X8PwJLptHNax257ki7koPR%7Ev23c-Yaz4OAiBIZoXPNDIl9tE-WSWSJ-Wmuh9ShBJgEmo9kodBsI0Scw__&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+    "size": 35511756,
+    "sha256": "f715cc2d99740d22d312777e20d9de2b2ecdc250155be8fd3752ce7e8b823521",
+    "finished": "2026-10-23T01:56:18.069885+00:00"
+  },
+  {
+    "file": "yolov3-tiny.weights",
+    "url": "https://data.pjreddie.com/files/yolov3-tiny.weights",
+    "started": "2026-10-23T01:56:12.522868+00:00",
+    "status": 200,
+    "final_url": "https://data.pjreddie.com/files/yolov3-tiny.weights",
+    "size": 35434956,
+    "sha256": "dccea06f59b781ec1234ddf8d1e94b9519a97f4245748a7d4db75d5b7080a42c",
+    "finished": "2026-10-23T01:56:15.949878+00:00"
+  },
+  {
+    "file": "yolov3-tiny.cfg",
+    "url": "https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3-tiny.cfg",
+    "started": "2026-10-23T01:56:13.640820+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3-tiny.cfg",
+    "size": 1915,
+    "sha256": "84eb7a675ef87c906019ff5a6e0effe275d175adb75100dcb47f0727917dc2c7",
+    "finished": "2026-10-23T01:56:14.405707+00:00"
+  },
+  {
+    "file": "DARKNET_IMAGE.C",
+    "url": "https://raw.githubusercontent.com/pjreddie/darknet/master/src/image.c",
+    "started": "2026-10-23T01:56:13.892241+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/pjreddie/darknet/master/src/image.c",
+    "size": 38928,
+    "sha256": "22c98f9a2cc27ee418aa1ac55723f0021a04dd968395d90cccf40bdda4932948",
+    "finished": "2026-10-23T01:56:14.887421+00:00"
+  },
+  {
+    "file": "DARKNET_LICENSE",
+    "url": "https://raw.githubusercontent.com/pjreddie/darknet/master/LICENSE",
+    "started": "2026-10-23T01:56:13.892241+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/pjreddie/darknet/master/LICENSE",
+    "size": 515,
+    "sha256": "2021f0b8d6426fbf9a2f0126f1e8a7d3b1d7027c871b9979fa2543b9557000c4",
+    "finished": "2026-10-23T01:56:15.974787+00:00"
+  },
+  {
+    "file": "ONNX_README.MD",
+    "url": "https://raw.githubusercontent.com/onnx/models/main/validated/vision/object_detection_segmentation/tiny-yolov3/README.md",
+    "started": "2026-10-23T01:56:14.405707+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/onnx/models/main/validated/vision/object_detection_segmentation/tiny-yolov3/README.md",
+    "size": 3415,
+    "sha256": "f69aa6c330ba913541dae87e7ea17133dfd3f76d7dc3c1fd605601a24555a894",
+    "finished": "2026-10-23T01:56:15.318864+00:00"
+  },
+  {
+    "file": "HF_README.MD",
+    "url": "https://huggingface.co/onnxmodelzoo/tiny-yolov3-11/raw/main/README.md",
+    "started": "2026-10-23T01:56:14.887421+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/onnxmodelzoo/tiny-yolov3-11/raw/main/README.md",
+    "size": 3590,
+    "sha256": "8d740de94e3bd34212e098dd7f56e00900ea93d339353ff337fba1f88eb04155",
+    "finished": "2026-10-23T01:56:15.969423+00:00"
+  },
+  {
+    "file": "OMZ_README.MD",
+    "url": "https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/models/public/yolo-v3-tiny-onnx/README.md",
+    "started": "2026-10-23T01:56:15.318864+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/models/public/yolo-v3-tiny-onnx/README.md",
+    "size": 4893,
+    "sha256": "7b5a43e8ac7cae95434646edf5b0e164b019cfb9076d647db42461d472469bbd",
+    "finished": "2026-10-23T01:56:16.221112+00:00"
+  }
+]

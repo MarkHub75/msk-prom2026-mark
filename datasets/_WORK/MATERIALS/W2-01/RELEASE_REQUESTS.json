@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://www.kaggle.com/api/v1/datasets/download/mugheesahmad/sh17-dataset-for-ppe-detection?fileName=labels/pexels-photo-5691469.txt",
+    "status": 200,
+    "bytes": 39,
+    "name": "labels/pexels-photo-5691469.txt",
+    "type": "text/plain"
+  },
+  {
+    "url": "https://www.kaggle.com/api/v1/datasets/download/mugheesahmad/sh17-dataset-for-ppe-detection?fileName=voc_labels/pexels-photo-5691469.xml",
+    "status": 200,
+    "bytes": 431,
+    "name": "voc_labels/pexels-photo-5691469.xml",
+    "type": "text/xml"
+  },
+  {
+    "url": "https://www.kaggle.com/api/v1/datasets/download/mugheesahmad/sh17-dataset-for-ppe-detection?fileName=meta-data/pexels-photo-5691469.json",
+    "status": 200,
+    "bytes": 1331,
+    "name": "meta-data/pexels-photo-5691469.json",
+    "type": "application/json"
+  },
+  {
+    "url": "https://www.kaggle.com/api/v1/datasets/download/mugheesahmad/sh17-dataset-for-ppe-detection?fileName=labels/building-construction-building-site-constructing.txt",
+    "status": 200,
+    "bytes": 39,
+    "name": "labels/building-construction-building-site-constructing.txt",
+    "type": "text/plain"
+  }
+]

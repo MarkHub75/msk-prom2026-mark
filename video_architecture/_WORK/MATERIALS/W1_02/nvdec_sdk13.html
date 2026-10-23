@@ -1,0 +1,914 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NVDEC Application Note</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scrollspy-patch.js?v=edc4054a"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '13.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="_static/version-patch.js?v=c24f8c5d"></script>
+    <script src="_static/geoip/geoip.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+ 
+<script src="//assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVDEC Application Note - Home"/>
+    <script>document.write(`<img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVDEC Application Note - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVDEC Application Note</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="../../../../PDF/nvdec-application-note.pdf">PDF (landing)</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVDEC Application Note - Home"/>
+    <script>document.write(`<img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVDEC Application Note - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVDEC Application Note</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <a class="nav-link nav-external" href="../../../../PDF/nvdec-application-note.pdf">PDF (landing)</a>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="nvdec-application-note">
+<h1>NVDEC Application Note<a class="headerlink" href="#nvdec-application-note" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<span id="document-content"></span><section id="introduction">
+<h2><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>NVIDIA GPUs and NVIDIA Jetson platforms contain a hardware-based decoder (referred to as NVDEC in this document) which provides fully accelerated hardware-based video decoding for several popular codecs. With complete decoding offloaded to NVDEC, the graphics engine and CPU are free for other operations.</p>
+<p>NVDEC supports much faster than real-time decoding which makes it suitable for transcoding scenarios in addition to video playback.</p>
+<p>The hardware capabilities available in NVDEC are exposed through APIs referred to as NVDECODE APIs in this document. This document provides information about the capabilities of the NVDEC engine and the features exposed through NVDECODE APIs.</p>
+</section>
+<section id="nvdec-capabilities">
+<h2><span class="section-number">2. </span>NVDEC Capabilities<a class="headerlink" href="#nvdec-capabilities" title="Link to this heading">#</a></h2>
+<p>At a high level, <a class="reference internal" href="#nvdec-hardware-capabilities"><span class="std std-ref">NVDEC Hardware Capabilities</span></a> summarizes the capabilities of the NVDEC engine exposed through NVDECODE APIs.</p>
+<table class="table-no-stripes compact longtable docutils align-default" id="nvdec-hardware-capabilities">
+<caption><span class="caption-text">NVDEC Hardware Capabilities</span><a class="headerlink" href="#nvdec-hardware-capabilities" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 26.3%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+<col style="width: 10.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Hardware Features</p></th>
+<th class="head"><p>1<sup>st</sup> Gen Maxwell GPUs</p></th>
+<th class="head"><p>2<sup>nd</sup> Gen Maxwell GPUs</p></th>
+<th class="head"><p>Pascal GPUs</p></th>
+<th class="head"><p>Volta  GPUs</p></th>
+<th class="head"><p>Turing/ GA100/ Hopper GPUs</p></th>
+<th class="head"><p>GA10x<sup>3</sup> and ADA GPUs</p></th>
+<th class="head"><p>Blackwell GPUs/ Jetson Thor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VC1 Simple, Main &amp; Advanced profiles</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MPEG4 Simple and Advanced Simple Profiles</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MPEG2 Simple &amp; Main profiles</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H.264 Baseline, Main, High Profiles</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H.264 8192x8192 Decoding support</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H264 High10/High422 profiles</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>VP8</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+<td><p>Y<sup>1</sup></p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HEVC Main and Main 10 Profile<sup>1</sup></p></td>
+<td><p>N</p></td>
+<td><p>Y<sup>1</sup></p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HEVC 444 decoding</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HEVC main 422 10/12 profiles</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HEVC 8192x8192 Decoding support</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y<sup>1</sup></p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>VP9 8192x8192 Decoding support</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y<sup>1</sup></p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>VP9 Profile 0<sup>1</sup></p></td>
+<td><p>N</p></td>
+<td><p>Y<sup>1</sup></p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Multiple NVDECs<sup>2</sup></p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>AV1 Main Profile decoding</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>Y</strong>: Supported, <strong>N</strong>: Unsupported</p></li>
+<li><p><sup>1</sup>: Present in select GPUs</p></li>
+<li><p><sup>2</sup>: Present in select GPUs</p></li>
+<li><p><sup>3</sup>: GA10x GPUs include all GPUs based on Ampere architecture except GA100</p></li>
+</ul>
+</section>
+<section id="nvdec-performance">
+<h2><span class="section-number">3. </span>NVDEC Performance<a class="headerlink" href="#nvdec-performance" title="Link to this heading">#</a></h2>
+<p>NVDEC natively supports multiple hardware decoding contexts with negligible context-switching penalty. As a result, subject to the hardware performance limit and available memory, an application can decode multiple videos simultaneously.</p>
+<p>The hardware and software maintain the context for each decoding session, allowing many simultaneous decoding sessions to run in parallel with minimal context switch penalty. <a class="reference internal" href="#nvdec-decoding-performance"><span class="std std-ref">NVDEC Decoding Performance</span></a> provides indicative data of the decoding performance of NVDEC in GPUs based on Maxwell, Pascal, Turing, Ampere and Blackwell architectures as well as Jetson platforms based on Thor for AV1, HEVC, VP9, and H.264 encoded bitstreams. The performance varies across GPU classes (e.g. Quadro, Tesla), and scales (almost) linearly with the clock speeds for each hardware.</p>
+<table class="table-no-stripes compact docutils align-left" id="nvdec-decoding-performance">
+<caption><span class="caption-text">NVDEC Decoding Performance (Indicative)</span><a class="headerlink" href="#nvdec-decoding-performance" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><div class="line-block">
+<div class="line">GPU Architecture/</div>
+<div class="line">Jetson Platform</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Codec</div>
+<div class="line"><br /></div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Performance in frames/second</div>
+<div class="line"><br /></div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>Pascal</p></td>
+<td><p>H.264</p></td>
+<td><p>694</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9</p></td>
+<td><p>846</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC</p></td>
+<td><p>810</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC Main10</p></td>
+<td><p>789</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>Turing</p></td>
+<td><p>H.264</p></td>
+<td><p>771</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9</p></td>
+<td><p>932</p></td>
+</tr>
+<tr class="row-even"><td><p>VP9 10 bit</p></td>
+<td><p>925</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC</p></td>
+<td><p>1316</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC Main10</p></td>
+<td><p>1158</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="6"><p>Ampere</p></td>
+<td><p>H.264</p></td>
+<td><p>748</p></td>
+</tr>
+<tr class="row-even"><td><p>VP9</p></td>
+<td><p>1075</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9 10 bit</p></td>
+<td><p>1120</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC</p></td>
+<td><p>1415</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC Main10</p></td>
+<td><p>1299</p></td>
+</tr>
+<tr class="row-even"><td><p>AV1</p></td>
+<td><p>790</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="6"><p>Ada</p></td>
+<td><p>H.264</p></td>
+<td><p>903</p></td>
+</tr>
+<tr class="row-even"><td><p>VP9</p></td>
+<td><p>1290</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9 10 bit</p></td>
+<td><p>1342</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC</p></td>
+<td><p>1641</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC Main10</p></td>
+<td><p>1520</p></td>
+</tr>
+<tr class="row-even"><td><p>AV1</p></td>
+<td><p>1018</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="6"><p>Blackwell</p></td>
+<td><p>H.264</p></td>
+<td><p>2172</p></td>
+</tr>
+<tr class="row-even"><td><p>VP9</p></td>
+<td><p>1445</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9 10 bit</p></td>
+<td><p>1498</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC</p></td>
+<td><p>1872</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC Main10</p></td>
+<td><p>1818</p></td>
+</tr>
+<tr class="row-even"><td><p>AV1</p></td>
+<td><p>1119</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="6"><p>Jetson Thor</p></td>
+<td><p>H.264</p></td>
+<td><p>1434</p></td>
+</tr>
+<tr class="row-even"><td><p>VP9</p></td>
+<td><p>1019</p></td>
+</tr>
+<tr class="row-odd"><td><p>VP9 10 bit</p></td>
+<td><p>1016</p></td>
+</tr>
+<tr class="row-even"><td><p>HEVC</p></td>
+<td><p>1293</p></td>
+</tr>
+<tr class="row-odd"><td><p>HEVC Main10</p></td>
+<td><p>1130</p></td>
+</tr>
+<tr class="row-even"><td><p>AV1</p></td>
+<td><p>794</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>All the measurement is done on the highest video clocks as reported by nvidia-smi (i.e. 1544 MHz, 1860 MHz, 1665 MHz, 2160 MHz, 2362 MHz for Pascal, Turing, Ampere, Ada, and Blackwell GPUs respectively and 1691 MHz for Jetson Thor platform). The performance should scale according to the video clocks as reported by nvidia-smi on target GPU. Information on nvidia-smi can be found at <a class="reference external" href="https://developer.nvidia.com/nvidia-system-management-interface">https://developer.nvidia.com/nvidia-system-management-interface</a> .</p></li>
+<li><p>Resolution/Input format: 1920x1080/YUV 4:2:0</p></li>
+<li><p>Software: Windows 11/Jetson Linux 38.2 for GPUs/Jetson platform, Video Codec SDK v13.0</p></li>
+<li><p>Hopper and GA100 GPUs contain NVDEC with same architecture as Turing. As a result, the decoding performance on Hopper and GA100 GPUs is same as that of Turing GPUs, scaled by the clock speed. To view the clocks available on your GPU, please use the tool nvidia-smi included with the NVIDIA driver.</p></li>
+</ul>
+<p>While first-generation Maxwell GPUs had one NVDEC engine per chip, certain variants of the second-generation Maxwell, Pascal, Volta and Ada GPUs have two/three NVDEC engines per chip. This increases the aggregate decoder performance of the GPU. NVIDIA driver takes care of load balancing among multiple NVDEC engines on the chip, so that applications don’t require any special code to take advantage of multiple decoders and automatically benefit from higher decoder capacity on higher-end GPU hardware. The decode performance listed in <a class="reference internal" href="#nvdec-decoding-performance"><span class="std std-ref">NVDEC Decoding Performance</span></a> is given per NVDEC engine. Thus, if a Quadro or Tesla GPU has 2 NVDECs, multiply the corresponding number in <a class="reference internal" href="#nvdec-decoding-performance"><span class="std std-ref">NVDEC Decoding Performance</span></a> by the number of NVDECs per chip to get aggregate maximum performance (applicable only when running multiple simultaneous decode sessions). Note that performance with a single decoding session cannot exceed performance per NVDEC, regardless of the number of NVDECs present on the GPU. All GeForce products consist of a single NVDEC.</p>
+</section>
+<section id="programming-nvdec">
+<h2><span class="section-number">4. </span>Programming NVDEC<a class="headerlink" href="#programming-nvdec" title="Link to this heading">#</a></h2>
+<p>The NVDECODE API provides access to the video decoding features of NVDEC described in the previous chapters. The API includes implementations of commonly used post-processing operations such as scaling, cropping, aspect ratio conversion, deinterlacing and color space conversion to the decoded output.</p>
+<p>Refer to the SDK release notes for information regarding the required driver version.</p>
+<p>Various capabilities of NVDEC are exposed to the application software via the NVIDIA proprietary application programming interface (NVDECODE APIs). Refer to the Video Decoder Programming guide for details on using these APIs.</p>
+<p>For a complete list of GPUs supporting hardware accelerated decoding refer to <a class="reference external" href="https://developer.nvidia.com/nvidia-video-codec-sdk">https://developer.nvidia.com/nvidia-video-codec-sdk</a>.</p>
+</section>
+<section id="ffmpeg-support">
+<h2><span class="section-number">5. </span>FFmpeg Support<a class="headerlink" href="#ffmpeg-support" title="Link to this heading">#</a></h2>
+<p>FFmpeg is the most popular multimedia transcoding tool used extensively for video and audio transcoding. Note that FFmpeg is open-source project and its usage is governed by specific licenses and terms and conditions.</p>
+<p>The video hardware accelerators in NVIDIA GPUs can be effectively used with FFmpeg to significantly speed up the video decoding, encoding and end-to-end transcoding at very high performance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Video Codec SDK v13.0 does not support using video hardware accelerators with FFmpeg on Jetson platforms.</p>
+</div>
+<p class="rubric-h1 rubric">Notices</p>
+<p class="rubric-h2 rubric">Notice</p>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgment, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p class="rubric-h2 rubric">Trademarks</p>
+<p>NVIDIA, the NVIDIA logo, and cuBLAS, CUDA, CUDA Toolkit, cuDNN, DALI, DIGITS, DGX, DGX-1, DGX-2, DGX Station, DLProf, GPU, Jetson, Kepler, Maxwell, NCCL, Nsight Compute, Nsight Systems, NVCaffe, NVIDIA Deep Learning SDK, NVIDIA Developer Program, NVIDIA GPU Cloud, NVLink, NVSHMEM, PerfWorks, Pascal, SDK Manager, Tegra, TensorRT, TensorRT Inference Server, Tesla, TF-TRT, Triton Inference Server, Turing, and Volta are trademarks and/or registered trademarks of NVIDIA Corporation in the United States and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#document-content">1. Introduction</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nvdec-capabilities">2. NVDEC Capabilities</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nvdec-performance">3. NVDEC Performance</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-nvdec">4. Programming NVDEC</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ffmpeg-support">5. FFmpeg Support</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+  </body>
+</html>

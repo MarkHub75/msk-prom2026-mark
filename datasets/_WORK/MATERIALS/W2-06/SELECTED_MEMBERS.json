@@ -1,0 +1,170 @@
+[
+  {
+    "member": "CHV_dataset/annotations/ppe_1224.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1224.txt",
+    "bytes": 380,
+    "sha256": "a69e8088b13051ad949c0a430d8f0a096acef8d541efde58434e2f50cd1c7a85"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0311.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0311.txt",
+    "bytes": 114,
+    "sha256": "0ba56e7a122e39458994de3994a57f3881c0bd35901b09027c81b4a55ce91dd0"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0071.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0071.txt",
+    "bytes": 76,
+    "sha256": "3072fc5b2d355fa2416e8e8b8818f07a7611bf7afd91eef552c56797bc93ed56"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0841.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0841.txt",
+    "bytes": 342,
+    "sha256": "ede4d53510224d49c9c870925818dde079799259a3d2a196647efaffff77a073"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0471.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0471.txt",
+    "bytes": 228,
+    "sha256": "96be54a3dcf611bd9d6078e40be6a7fd97db2855b6f58d029f29d7276249c0b2"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0062.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0062.txt",
+    "bytes": 76,
+    "sha256": "91d629765e2b25cfc869b24dcff85411a10ccc21f945a89ebd2d8b7b140a1d3b"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1092.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1092.txt",
+    "bytes": 76,
+    "sha256": "e4ba41d35556e0f49ebcee6269ef00bc227ed20df4bbd2ed72df6926a5babf56"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0825.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0825.txt",
+    "bytes": 114,
+    "sha256": "578254fc3f755c6059a854e16375d2189d4927382f29d0769a6e5b33ef8782fd"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1319.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1319.txt",
+    "bytes": 570,
+    "sha256": "abc1db8d52e101672b8dc3f013b3e598aab485ee1df0967c8bf494bbf2b34979"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1043.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1043.txt",
+    "bytes": 76,
+    "sha256": "f8f7d5690287c04f823fc675cf764a84d48d4593b352cd518cec3165bb15e15a"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0638.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0638.txt",
+    "bytes": 190,
+    "sha256": "21f417c7fcfd853f7c78c59d52155d8f6822785fb2ab02c5a258d9a21707ecaa"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0983.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0983.txt",
+    "bytes": 684,
+    "sha256": "59359ce11bb3dcbef99bd6dce2166dcbc07a5eb0648523698049ccb7b7574369"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0346.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0346.txt",
+    "bytes": 152,
+    "sha256": "7ca9091e7185e307a53f44f4bbfa5041f3b4253194e4d083b1f41fdb3feaab82"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1059.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1059.txt",
+    "bytes": 342,
+    "sha256": "e939cca6d4a35446bf9ecd5f8909de2c7248e7c7fd835ccab04b3830f4954bfb"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0027.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0027.txt",
+    "bytes": 342,
+    "sha256": "fec2f78db7db347340837137a90e1e7ec886f97aabdd72945b0ed59d10564284"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1274.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1274.txt",
+    "bytes": 266,
+    "sha256": "42b26d06a7236c411fcce1af02e20a05441a7b4beb8602efa7b4766e1a04eff2"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1117.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1117.txt",
+    "bytes": 76,
+    "sha256": "62e4f0123769a6704a476fdbfc6add3c35e9cecd3bc06b24a159435c213efb22"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0545.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0545.txt",
+    "bytes": 342,
+    "sha256": "b478c0e071a38aadb8255e1e16f17549fe87930f07b8af9d2fd44fccd8d67fb6"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0183.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0183.txt",
+    "bytes": 874,
+    "sha256": "df1728758e27ceb790345f11ec13b393f9b1583d2cb7db019b8d20a5280b8380"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0052.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0052.txt",
+    "bytes": 227,
+    "sha256": "cdc2ffe718808cbdb91847859b1f1a9007c78c62664c7d44748642ebeeb8abef"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0497.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0497.txt",
+    "bytes": 114,
+    "sha256": "56f6f7ac80fa9247311beccdcb4e940a0fd05621745f8d54df928190f815e2cd"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0864.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0864.txt",
+    "bytes": 342,
+    "sha256": "dd097581a2450ac9a8583cd139751e389db3846f6ab7f106fb9b1a154715ab50"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_0083.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0083.txt",
+    "bytes": 304,
+    "sha256": "ecaca02bdff033127d78176fb1b99aa60b6b9fd10dd5358ff8a8b6ab45ae9be7"
+  },
+  {
+    "member": "CHV_dataset/annotations/ppe_1002.txt",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_1002.txt",
+    "bytes": 266,
+    "sha256": "bc67f61c9ef35cedb8884233c74aad3d51537e20f00ed02beee20fc2e9d8bb59"
+  },
+  {
+    "member": "CHV_dataset/images/ppe_0027.jpg",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0027.jpg",
+    "bytes": 111592,
+    "sha256": "12ca418dbeffc07ebedc5872cb6cd2ed016048ca6bbb9acd88dc8cef0b0b9dc8"
+  },
+  {
+    "member": "CHV_dataset/images/ppe_0071.jpg",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0071.jpg",
+    "bytes": 174706,
+    "sha256": "dea1c9a08a6a50179b472ff295a350f6b0f2b260a61f77a4228d24396440bf82"
+  },
+  {
+    "member": "CHV_dataset/images/ppe_0183.jpg",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0183.jpg",
+    "bytes": 90037,
+    "sha256": "19ef5ceb30af81f983a067a661003dd65e76acef5b5a3d2801ef47cb94da35ab"
+  },
+  {
+    "member": "CHV_dataset/images/ppe_0311.jpg",
+    "local": "MATERIALS\\W2-06\\pairs\\ppe_0311.jpg",
+    "bytes": 117998,
+    "sha256": "446b906e7fdc6b5f5aa9f956244889f10feccf2ccfc188a920a59c0046b7a12f"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "HOME",
+    "url": "https://lin-q.ru/",
+    "start_utc": "2026-10-23T02:08:35.656652+00:00",
+    "method": "urllib HTTPS GET; no cookies/login/form submission",
+    "error": "URLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)'))",
+    "end_utc": "2026-10-23T02:08:36.271002+00:00"
+  },
+  {
+    "name": "SOL",
+    "url": "https://lin-q.ru/sol",
+    "start_utc": "2026-10-23T02:08:35.657652+00:00",
+    "method": "urllib HTTPS GET; no cookies/login/form submission",
+    "error": "URLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)'))",
+    "end_utc": "2026-10-23T02:08:36.264287+00:00"
+  },
+  {
+    "name": "HR",
+    "url": "https://lin-q.ru/hr",
+    "start_utc": "2026-10-23T02:08:35.657652+00:00",
+    "method": "urllib HTTPS GET; no cookies/login/form submission",
+    "error": "URLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)'))",
+    "end_utc": "2026-10-23T02:08:36.284985+00:00"
+  },
+  {
+    "name": "FOOTER",
+    "url": "https://lin-q.ru/footer",
+    "start_utc": "2026-10-23T02:08:35.657652+00:00",
+    "method": "urllib HTTPS GET; no cookies/login/form submission",
+    "error": "URLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)'))",
+    "end_utc": "2026-10-23T02:08:36.268351+00:00"
+  },
+  {
+    "name": "CASE",
+    "url": "https://hackathon2026.otkroimosprom.ru/",
+    "start_utc": "2026-10-23T02:08:35.658652+00:00",
+    "method": "urllib HTTPS GET; no cookies/login/form submission",
+    "error": "URLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)'))",
+    "end_utc": "2026-10-23T02:08:36.470558+00:00"
+  }
+]

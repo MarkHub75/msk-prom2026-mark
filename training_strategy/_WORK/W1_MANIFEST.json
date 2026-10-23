@@ -1,0 +1,92 @@
+﻿[
+    {
+        "file":  "W1/01_BASELINE.md",
+        "bytes":  34137,
+        "modified":  "2026-10-23T06:07:56.0636126+03:00",
+        "sha256":  "C5C5875770E0A40B07D8B974B001226C64F7E4616A32F3F8CF54F042AF0E456A"
+    },
+    {
+        "file":  "W1/02_FINETUNING.md",
+        "bytes":  33477,
+        "modified":  "2026-10-23T06:46:50.7237833+03:00",
+        "sha256":  "970891E07B88B4FB6CF253283D5902A1D19C54DCD4D334D9BE020ACF3BBA80FA"
+    },
+    {
+        "file":  "W1/03_FEWSHOT_PARTIAL.md",
+        "bytes":  43337,
+        "modified":  "2026-10-23T06:47:15.3961245+03:00",
+        "sha256":  "C842F069AC6901F2740A3AF06D21F1079151E27AFE275A40A094A94673DDA5FA"
+    },
+    {
+        "file":  "W1/04_IMBALANCE.md",
+        "bytes":  41029,
+        "modified":  "2026-10-23T06:47:45.0418009+03:00",
+        "sha256":  "A05B77771E9C1443FA24812FA93B7EFB2B5F572DF697375AAAE48226433423FE"
+    },
+    {
+        "file":  "W1/05_AUGMENTATION.md",
+        "bytes":  36106,
+        "modified":  "2026-10-23T06:54:11.0193969+03:00",
+        "sha256":  "5ADCBD57922F129A26759835B6896AD491B549FDB2960A96AF4D5F42812A7B55"
+    },
+    {
+        "file":  "W1/06_SCALE.md",
+        "bytes":  30206,
+        "modified":  "2026-10-23T06:54:07.4265561+03:00",
+        "sha256":  "2DACC59E6BC810E7778D516BEA2760A6AE54A19202867C256283633DD9EBB412"
+    },
+    {
+        "file":  "W1/07_DOMAIN.md",
+        "bytes":  41732,
+        "modified":  "2026-10-23T06:56:11.1668885+03:00",
+        "sha256":  "FEC49CF9CA2288553BE3014AF6F20074398ADA96F5128FE62B1C09BB1141D1E5"
+    },
+    {
+        "file":  "W1/08_ACTIVE.md",
+        "bytes":  36901,
+        "modified":  "2026-10-23T07:01:28.1200626+03:00",
+        "sha256":  "800BCB81F0AEFF37C638D789B3A635028AA2FF0928230BEB91FB958AA1714C02"
+    },
+    {
+        "file":  "W1/09_PSEUDO.md",
+        "bytes":  39125,
+        "modified":  "2026-10-23T07:01:39.2833841+03:00",
+        "sha256":  "17A73B16834749A837CAF2BC2EE5248CD7DD901FA8F89711337B3F5761DCCEA6"
+    },
+    {
+        "file":  "W1/10_TEACHER.md",
+        "bytes":  44906,
+        "modified":  "2026-10-23T07:05:55.8404356+03:00",
+        "sha256":  "6549B91A3D73FD19710ADE6189F7452149A6D922841FB9A3D124CD5474FE98A3"
+    },
+    {
+        "file":  "W1/11_SYNTHETIC.md",
+        "bytes":  35143,
+        "modified":  "2026-10-23T07:08:03.3901984+03:00",
+        "sha256":  "CECC0B92257625780311A6D4D8172884EFF197C3566DBC2FA1CCEF9E40EC77DB"
+    },
+    {
+        "file":  "W1/12_OPTIMIZATION.md",
+        "bytes":  37881,
+        "modified":  "2026-10-23T07:08:34.6159089+03:00",
+        "sha256":  "880709D4EDE4D7A409491748F825EC643F1A87AE52B120F775D9A0A30C44773D"
+    },
+    {
+        "file":  "W1/13_COMPRESSION.md",
+        "bytes":  31544,
+        "modified":  "2026-10-23T07:10:36.4863589+03:00",
+        "sha256":  "A3E92F9DD58206B20FFBD72017B9A887CEC6C4C3989C0C40B58E2C746716E6E8"
+    },
+    {
+        "file":  "W1/14_COMPUTE.md",
+        "bytes":  36787,
+        "modified":  "2026-10-23T07:13:54.9107881+03:00",
+        "sha256":  "BDF5D92DC33B851D2028F207EB6F960178A923BE503F4985DF5483BC118335B6"
+    },
+    {
+        "file":  "W1/15_SELECTION.md",
+        "bytes":  41703,
+        "modified":  "2026-10-23T07:14:47.8356612+03:00",
+        "sha256":  "CA95304AFCDCD5BF65D2E75C8D4FC688DFE1C7461D57808F6272E104DF703968"
+    }
+]

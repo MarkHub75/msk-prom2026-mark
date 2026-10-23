@@ -1,0 +1,118 @@
+[
+  {
+    "file": "ULTRA_V830_EXPORTER.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/v8.3.0/ultralytics/engine/exporter.py",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 57019,
+    "sha256": "04562fbfbeb791b126e6ad3e018221f7bf6f2f471c53844dbce376c3caad9b5b"
+  },
+  {
+    "file": "ULTRA_V830_HEAD.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/v8.3.0/ultralytics/nn/modules/head.py",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 26627,
+    "sha256": "c7463c953285a980b8a0037525327ec90e37b085c4229df97660b5e2f76d4279"
+  },
+  {
+    "file": "ULTRA_V830_BLOCK.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/v8.3.0/ultralytics/nn/modules/block.py",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 41832,
+    "sha256": "b617083dc9c6451c430c3b30cb026c7f36dec2bf577d3af397f52f4a5f9b2777"
+  },
+  {
+    "file": "ULTRA_V830_TAL.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/v8.3.0/ultralytics/utils/tal.py",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 16877,
+    "sha256": "102b2ef79c44a8e22d9b13033786130f716c52222c40d5b2d29642dd37ef15f9"
+  },
+  {
+    "file": "ULTRA_V830_DEFAULT.yaml",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/v8.3.0/ultralytics/cfg/default.yaml",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 8314,
+    "sha256": "b64067ddce9db8a185c8436e50b9167acb00a9a6b1a3d6adb8ec57ab75db22d3"
+  },
+  {
+    "file": "ULTRA_V830_TAG.json",
+    "url": "https://api.github.com/repos/ultralytics/ultralytics/git/ref/tags/v8.3.0",
+    "time_utc": "2026-10-23T01:50:39.733538+00:00",
+    "status": 200,
+    "bytes": 341,
+    "sha256": "859c351cbebd1a29e5906b21d2814f98ccf204264944d015e1d11173448dcc53"
+  },
+  {
+    "file": "YOLO5_V70_EXPORT.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/yolov5/v7.0/export.py",
+    "time_utc": "2026-10-23T01:50:40.575922+00:00",
+    "status": 200,
+    "bytes": 31551,
+    "sha256": "db7228296e49f58f88651446e31fce7d879d24ee1b5d40be4623084203a13872"
+  },
+  {
+    "file": "YOLO5_V70_YOLO.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/yolov5/v7.0/models/yolo.py",
+    "time_utc": "2026-10-23T01:50:40.593984+00:00",
+    "status": 200,
+    "bytes": 17766,
+    "sha256": "f980f2206e7225f2653d046ed888e230dd7cd8e51b5952b056e6823bea68f84f"
+  },
+  {
+    "file": "ONNX_V1160_DEFS.cc",
+    "url": "https://raw.githubusercontent.com/onnx/onnx/v1.16.0/onnx/defs/tensor/defs.cc",
+    "time_utc": "2026-10-23T01:50:40.604253+00:00",
+    "status": 200,
+    "bytes": 162757,
+    "sha256": "40f42990f758ffd84317888f3b7b8f346c399444dc6bd13e1fd5777ca99ee3b8"
+  },
+  {
+    "file": "FRONTEND_PYPI.json",
+    "url": "https://pypi.org/pypi/onnx-direct/json",
+    "time_utc": "2026-10-23T01:50:40.615693+00:00",
+    "status": 404,
+    "bytes": 24,
+    "sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40"
+  },
+  {
+    "file": "FRAMEWORK_PYPI.json",
+    "url": "https://pypi.org/pypi/tpu-framework/json",
+    "time_utc": "2026-10-23T01:50:40.650872+00:00",
+    "status": 404,
+    "bytes": 24,
+    "sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40"
+  },
+  {
+    "file": "LINQ_SOL.html",
+    "url": "https://lin-q.ru/sol",
+    "time_utc": "2026-10-23T01:50:40.655882+00:00",
+    "error": "HTTPSConnectionPool(host='lin-q.ru', port=443): Max retries exceeded with url: /sol (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "file": "LINQ_DOCS.html",
+    "url": "https://lin-q.ru/docs",
+    "time_utc": "2026-10-23T01:50:41.226223+00:00",
+    "error": "HTTPSConnectionPool(host='lin-q.ru', port=443): Max retries exceeded with url: /docs (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "file": "GH_ONNX_DIRECT_REPOS.json",
+    "url": "https://api.github.com/search/repositories?q=onnx_direct",
+    "time_utc": "2026-10-23T01:50:41.448357+00:00",
+    "status": 200,
+    "bytes": 181010,
+    "sha256": "ee1e487dd278dc7f54049e1f28a0041af47425f3a8582da23c7d8a9c169e134f"
+  },
+  {
+    "file": "GH_TPU_FRAMEWORK_REPOS.json",
+    "url": "https://api.github.com/search/repositories?q=tpu_framework",
+    "time_utc": "2026-10-23T01:50:41.459893+00:00",
+    "status": 200,
+    "bytes": 169368,
+    "sha256": "046834612cbfdf239fcdd192601642a11a34aad03610390a7490a4af681e06d1"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "images": 7581,
+  "labels": 7581,
+  "missing_image_stems": [],
+  "missing_annotation_stems": [],
+  "split_counts": {
+    "train.txt": 5457,
+    "val.txt": 607,
+    "test.txt": 1517,
+    "trainval.txt": 6064
+  },
+  "split_intersections": {
+    "train.txt & val.txt": 0,
+    "train.txt & trainval.txt": 5457,
+    "test.txt & train.txt": 0,
+    "test.txt & val.txt": 0,
+    "test.txt & trainval.txt": 0,
+    "trainval.txt & val.txt": 607
+  },
+  "notices_members": [],
+  "sample_xml_files": 20,
+  "sample_class_counts": {
+    "hat": 24,
+    "person": 190
+  }
+}

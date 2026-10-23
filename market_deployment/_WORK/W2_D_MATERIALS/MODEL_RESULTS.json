@@ -1,0 +1,77 @@
+{
+  "all_numerical_costs_are_assumptions": true,
+  "known_price_LinQ": false,
+  "NPV_factor": 2.4868519909842224,
+  "rows": [
+    {
+      "name": "conservative",
+      "H": 60,
+      "q": 0,
+      "H_ai": 40,
+      "S": 144000,
+      "O_A": 549024.0,
+      "G": 0,
+      "C_A": -549024.0,
+      "NPV_A_constant": -1665341.4274981217,
+      "NPV_A_unknown_term": "-(P+L)",
+      "TCO_A3_constant": 1947072.0,
+      "NPV_N_constant": -2750968.162283997
+    },
+    {
+      "name": "base",
+      "H": 120,
+      "q": 0.5,
+      "H_ai": 20,
+      "S": 96000,
+      "O_A": 309024.0,
+      "G": 576000.0,
+      "C_A": 266976.0,
+      "NPV_A_constant": 363929.7971450038,
+      "NPV_A_unknown_term": "-(P+L)",
+      "TCO_A3_constant": 1227072.0,
+      "NPV_N_constant": -721696.9376408715
+    },
+    {
+      "name": "optimistic",
+      "H": 160,
+      "q": 1,
+      "H_ai": 10,
+      "S": 72000,
+      "O_A": 189024.0,
+      "G": 1536000,
+      "C_A": 1346976.0,
+      "NPV_A_constant": 3049729.947407964,
+      "NPV_A_unknown_term": "-(P+L)",
+      "TCO_A3_constant": 867072.0,
+      "NPV_N_constant": 1964103.2126220888
+    },
+    {
+      "name": "unfit_cameras",
+      "H": 120,
+      "q": 0.5,
+      "H_ai": 40,
+      "S": 192000,
+      "O_A": 597024.0,
+      "G": 576000.0,
+      "C_A": -21024.0,
+      "NPV_A_constant": -532283.5762584523,
+      "NPV_A_unknown_term": "-(P+L)",
+      "TCO_A3_constant": 2271072.0,
+      "NPV_N_constant": -1617910.3110443274
+    },
+    {
+      "name": "base_q0",
+      "H": 120,
+      "q": 0,
+      "H_ai": 20,
+      "S": 96000,
+      "O_A": 309024.0,
+      "G": 0,
+      "C_A": -309024.0,
+      "NPV_A_constant": -1068496.9496619082,
+      "NPV_A_unknown_term": "-(P+L)",
+      "TCO_A3_constant": 1227072.0,
+      "NPV_N_constant": -2154123.6844477835
+    }
+  ]
+}

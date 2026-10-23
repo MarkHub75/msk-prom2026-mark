@@ -1,0 +1,50 @@
+{
+  "artifact": {
+    "comment_text": null,
+    "core-metadata": {
+      "sha256": "2d8da0f6323d5173e63b54f8b117b8cfcb0149d4c6d443309607572f37517c31"
+    },
+    "digests": {
+      "blake2b_256": "b27a1305243ab47f724fdd99ddef7309a594e669af7f0e655e11bdd2c325dfae",
+      "md5": "8b38a58cf4a261a765e395edf783ee1e",
+      "sha256": "daecc2072b82b6a942acbdaa9a2e00c05234c61fef976b22713983c020b07992"
+    },
+    "downloads": -1,
+    "filename": "av-16.0.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8b38a58cf4a261a765e395edf783ee1e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 40549383,
+    "upload_time": "2025-10-13T12:26:00",
+    "upload_time_iso_8601": "2025-10-13T12:26:00.897065Z",
+    "url": "https://files.pythonhosted.org/packages/b2/7a/1305243ab47f724fdd99ddef7309a594e669af7f0e655e11bdd2c325dfae/av-16.0.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+  },
+  "observed_sha256": "daecc2072b82b6a942acbdaa9a2e00c05234c61fef976b22713983c020b07992",
+  "action": "download into memory; ZIP metadata and binary strings read; no install/load/execute",
+  "libraries": {
+    "av.libs/libavcodec-49be5967.so.62.11.100": [
+      "--disable-static --enable-shared --libdir=/tmp/vendor/lib --prefix=/tmp/vendor --disable-programs --disable-doc --disable-libxml2 --disable-lzma --disable-libtheora --disable-libfreetype --disable-libfontconfig --disable-libbluray --disable-libopenjpeg --disable-mediafoundation --enable-version3 --enable-gmp --enable-alsa --enable-gnutls --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopus --enable-libspeex --enable-libsvtav1 --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libopenh264 --enable-libxcb --enable-zlib --enable-libx264 --enable-libx265 --enable-nvenc --enable-nvdec --disable-encoder='avui,dca,mlp,opus,s302m,sonic,sonic_ls,truehd,vorbis' --disable-decoder=sonic --disable-libjack --disable-indev=jack",
+      "libavcodec license: LGPL version 3 or later"
+    ],
+    "av.libs/libavdevice-91584ae1.so.62.1.100": [
+      "--disable-static --enable-shared --libdir=/tmp/vendor/lib --prefix=/tmp/vendor --disable-programs --disable-doc --disable-libxml2 --disable-lzma --disable-libtheora --disable-libfreetype --disable-libfontconfig --disable-libbluray --disable-libopenjpeg --disable-mediafoundation --enable-version3 --enable-gmp --enable-alsa --enable-gnutls --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopus --enable-libspeex --enable-libsvtav1 --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libopenh264 --enable-libxcb --enable-zlib --enable-libx264 --enable-libx265 --enable-nvenc --enable-nvdec --disable-encoder='avui,dca,mlp,opus,s302m,sonic,sonic_ls,truehd,vorbis' --disable-decoder=sonic --disable-libjack --disable-indev=jack",
+      "libavdevice license: LGPL version 3 or later"
+    ],
+    "av.libs/libavfilter-b680d008.so.11.4.100": [
+      "--disable-static --enable-shared --libdir=/tmp/vendor/lib --prefix=/tmp/vendor --disable-programs --disable-doc --disable-libxml2 --disable-lzma --disable-libtheora --disable-libfreetype --disable-libfontconfig --disable-libbluray --disable-libopenjpeg --disable-mediafoundation --enable-version3 --enable-gmp --enable-alsa --enable-gnutls --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopus --enable-libspeex --enable-libsvtav1 --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libopenh264 --enable-libxcb --enable-zlib --enable-libx264 --enable-libx265 --enable-nvenc --enable-nvdec --disable-encoder='avui,dca,mlp,opus,s302m,sonic,sonic_ls,truehd,vorbis' --disable-decoder=sonic --disable-libjack --disable-indev=jack",
+      "libavfilter license: LGPL version 3 or later"
+    ],
+    "av.libs/libavformat-5bf2a196.so.62.3.100": [
+      "--disable-static --enable-shared --libdir=/tmp/vendor/lib --prefix=/tmp/vendor --disable-programs --disable-doc --disable-libxml2 --disable-lzma --disable-libtheora --disable-libfreetype --disable-libfontconfig --disable-libbluray --disable-libopenjpeg --disable-mediafoundation --enable-version3 --enable-gmp --enable-alsa --enable-gnutls --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopus --enable-libspeex --enable-libsvtav1 --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libopenh264 --enable-libxcb --enable-zlib --enable-libx264 --enable-libx265 --enable-nvenc --enable-nvdec --disable-encoder='avui,dca,mlp,opus,s302m,sonic,sonic_ls,truehd,vorbis' --disable-decoder=sonic --disable-libjack --disable-indev=jack",
+      "libavformat license: LGPL version 3 or later"
+    ],
+    "av.libs/libavutil-b5680d75.so.60.8.100": [
+      "--disable-static --enable-shared --libdir=/tmp/vendor/lib --prefix=/tmp/vendor --disable-programs --disable-doc --disable-libxml2 --disable-lzma --disable-libtheora --disable-libfreetype --disable-libfontconfig --disable-libbluray --disable-libopenjpeg --disable-mediafoundation --enable-version3 --enable-gmp --enable-alsa --enable-gnutls --enable-libaom --enable-libdav1d --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopus --enable-libspeex --enable-libsvtav1 --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libopenh264 --enable-libxcb --enable-zlib --enable-libx264 --enable-libx265 --enable-nvenc --enable-nvdec --disable-encoder='avui,dca,mlp,opus,s302m,sonic,sonic_ls,truehd,vorbis' --disable-decoder=sonic --disable-libjack --disable-indev=jack",
+      "libavutil license: LGPL version 3 or later"
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+v8.4.0 - New YOLO26 Models Release	Latest	v8.4.0	2026-01-13T22:56:46Z
+v8.3.0 - New YOLO11 Models Release (#76)		v8.3.0	2024-09-29T17:59:56Z
+v8.2.0 - YOLOv8-World and YOLOv9-C/E Models		v8.2.0	2024-04-17T05:32:48Z
+v8.1.0 - YOLOv8 Oriented Bounding Boxes (OBB)		v8.1.0	2024-01-10T03:09:06Z
+Initial Release		v0.0.0	2023-01-02T11:48:17Z

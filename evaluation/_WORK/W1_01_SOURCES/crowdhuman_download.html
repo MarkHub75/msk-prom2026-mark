@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CrowdHuman Dataset</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+    <section id="links">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <p>CrowdHuman_train01.zip
+                <a href="https://pan.baidu.com/s/1e-61WDiCqQibBVTIWqrssQ">[Baidu Drive]</a> 
+                <a href="https://drive.google.com/file/d/134QOvaatwKdy0iIeNqA_p-xkAhkV4F8Y/view">[Google Drive]</a>
+            </p>
+            <p>CrowdHuman_train02.zip
+                <a href="https://pan.baidu.com/s/1OnndpWXiZxsCB3VtWEYE3w">[Baidu Drive]</a>
+                <a href="https://drive.google.com/file/d/17evzPh7gc1JBNvnW1ENXLy5Kr4Q_Nnla/view">[Google Drive]</a>
+            </p>
+            <p>CrowdHuman_train03.zip 
+                <a href="https://pan.baidu.com/s/1kkfOlHV_xXKNbJUlLSkyXA">[Baidu Drive]</a>
+                <a href="https://drive.google.com/file/d/1tdp0UCgxrqy1B6p8LkR-Iy0aIJ8l4fJW/view">[Google Drive]</a>
+            </p>
+            <p>CrowdHuman_val.zip
+                <a href="https://pan.baidu.com/s/1kVBchjxOWu9sM5h8OAxfQw">[Baidu Drive]</a>
+                <a href="https://drive.google.com/file/d/18jFI789CoHTppQ7vmRSFEdnGaSQZ4YzO/view">[Google Drive]</a>
+            </p>
+            <p>annotation_train.odgt
+                <a href="https://pan.baidu.com/s/1wShABN_jYEiTRPM6_9-Cxg">[Baidu Dirve]</a>
+                <a href="https://drive.google.com/file/d/1UUTea5mYqvlUObsC1Z8CFldHJAtLtMX3/view">[Google Drive]</a>
+            </p>
+            <p>annotation_val.odgt
+                <a href="https://pan.baidu.com/s/1eObuAFcZyUw6PmUtpGS9vw">[Baidu Drive]</a>
+                <a href="https://drive.google.com/file/d/10WIRwu8ju8GRLuCkZ_vT6hnNxs5ptwoL/view">[Google Drive]</a>
+            </p>
+            <p>CrowdHuman_test.zip<br>
+                <a href="https://pan.baidu.com/s/133YKdndDTl9AWBRiVJJVRA">[Baidu Drive]</a> Fetch Code: cr7k<br>
+                <a href="https://drive.google.com/file/d/1tQG3E_RrRI4wIGskorLTmDiWHH2okVvk/view">[Google Drive]</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="format" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <!--div class="col-lg-12 mx-auto"-->
+          <div id='preview-contents' class='note-content'>
+            <link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'>
+            <style>.note-content  {font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, Song, sans-serif;}</style>
+            <p></p>
+
+            <h2 id="crowdhuman-dataset">CrowdHuman dataset</h2>
+            <p>We support <code>annotation_train.odgt</code> and <code>annotation_val.odgt</code> which contains the annotations of our dataset.</p>
+
+            <h3 id="what-is-odgt">What is odgt?</h3>
+            <p><code>odgt</code> is a file format that <strong>each line of it is a JSON</strong>, this JSON contains the whole annotations for the relative image. We prefer using this format since it is reader-friendly.</p>
+
+            <h3 id="annotation-format">Annotation format</h3>
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">JSON{
+</div><div class="hljs-line">    <span class="hljs-attr">"ID"</span> : image_filename,
+</div><div class="hljs-line">    <span class="hljs-attr">"gtboxes"</span> : [gtbox], 
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">gtbox{
+</div><div class="hljs-line">    <span class="hljs-attr">"tag"</span> : <span class="hljs-string">"person"</span> or <span class="hljs-string">"mask"</span>, 
+</div><div class="hljs-line">    <span class="hljs-attr">"vbox"</span>: [x, y, w, h],
+</div><div class="hljs-line">    <span class="hljs-attr">"fbox"</span>: [x, y, w, h],
+</div><div class="hljs-line">    <span class="hljs-attr">"hbox"</span>: [x, y, w, h],
+</div><div class="hljs-line">    <span class="hljs-attr">"extra"</span> : extra, 
+</div><div class="hljs-line">    <span class="hljs-attr">"head_attr"</span> : head_attr, 
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">extra{
+</div><div class="hljs-line">    <span class="hljs-attr">"ignore"</span>: <span class="hljs-number">0</span> or <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"box_id"</span>: int,
+</div><div class="hljs-line">    <span class="hljs-attr">"occ"</span>: int,
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">head_attr{
+</div><div class="hljs-line">    <span class="hljs-attr">"ignore"</span>: <span class="hljs-number">0</span> or <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"unsure"</span>: int,
+</div><div class="hljs-line">    <span class="hljs-attr">"occ"</span>: int,
+</div><div class="hljs-line">}
+</div></code></pre>
+
+            <ul><li><code>Keys</code> in <code>extra</code> and <code>head_attr</code> are <strong>optional</strong>,  it means some of them may not exist</li>
+            <li><code>extra/head_attr</code> contains attributes for <code>person/head</code></li>
+            <li><code>tag</code> is <code>mask</code> means that this box is <code>crowd/reflection/something like person/...</code> and need to be <code>ignore</code>(the <code>ignore</code> in <code>extra</code> is <code>1</code>)</li>
+            <li><code>vbox, fbox, hbox</code> means <code>visible box, full box, head box</code> respectively</li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="license">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <p class="lead">Terms of use: by downloading the image data you agree to the following terms:</p>
+            <ol>
+            <li>You will use the data only for non-commercial research and educational purposes.</li>
+            <li>You will NOT distribute the above images.</li>
+            <li>Megvii Technology makes no representations or warranties regarding the data, including but not limited to warranties of non-infringement or fitness for a particular purpose.</li>
+            <li>You accept full responsibility for your use of the data and shall defend and indemnify Megvii Technology, including its employees, officers and agents, against any and all claims arising from your use of the data, including but not limited to your use of any copies of copyrighted images that you may create from the data.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+  </body>
+
+</html>

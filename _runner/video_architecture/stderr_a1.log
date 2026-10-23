@@ -1,0 +1,4 @@
+2026-10-23T04:45:38.734931Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }
+2026-10-23T04:47:14.067816Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\video_architecture\_WORK\W2_03.md:
+`server_age_at_send_ms + browser_receive_to_draw_ms` — лишь нижняя оценка участков с отсутствующей сетью, не честный end-to-end timestamp. Не подписывать её total age. Можно показывать «server age at send:132ms; rendered locally:…; transport age unknown».
+2026-10-23T04:55:56.132370Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }

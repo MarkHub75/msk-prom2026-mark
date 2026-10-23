@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" dir="ltr">
+<!--<![endif]-->
+
+<head>
+<meta charset="utf-8">
+<!-- wet-boew.github.io/wet-boew/License-en.htm / wet-boew.github.io/wet-boew/Licence-fr.htm -->
+
+
+<title>Variance estimation for the Horvitz-Thompson estimator</title>
+
+<meta name="dcterms.description" content="Description" />
+<meta name="STCkeywords" content="" />
+<meta name="dcterms.creator" content="Government of Canada, Statistics Canada" />
+<meta name="dcterms.title" content="" />
+<meta name="dcterms.issued" title="W3CDTF" content="" />
+<meta name="dcterms.modified" title="W3CDTF" content="" />
+<meta name="dcterms.subject" title="gcstc" content="none" />
+<meta name="dcterms.language" title="ISO639-2" content="eng" />
+<meta name="STCtopic" content="" />
+<meta name="STCtopicID" content="" />
+<meta name="STCsubtopic" content="" />
+<meta name="STCsubtopicID" content="" />
+<meta name="STCtype" content="" />
+<meta name="STCsource" content="" />
+<meta name="STCstatus" content="" />
+<meta name="STClist" content="" />
+
+<meta content="width=device-width,initial-scale=1" name="viewport" />
+
+<meta property="dcterms:service" content="StatCan"/> 
+<meta property="dcterms:accessRights" content="2"/>
+
+<link href="/wet-boew4b/assets/favicon.ico" rel="icon" type="image/x-icon">
+<link rel="stylesheet" href="/wet-boew4b/css/wet-boew.min.css">
+<script src="/wet-boew4b/js/jquery.min.js"></script>
+
+<link rel="stylesheet" href="/wet-boew4b/css/theme.min.css">
+<link rel="stylesheet" href="/wet-boew4b/css/statcan.css">
+<link rel="stylesheet" href="/wet-boew4b/invitation-manager/Overlay.css"> 
+
+<noscript><link rel="stylesheet" href="/wet-boew4b/css/noscript.min.css" /></noscript>
+<!-- Adobe Analytics v5 production version --><!--script src="//assets.adobedtm.com/be5dfd287373/8cdb3d539c44/launch-6df9e9b447f9.min.js"></script-->
+<!-- Adobe Analytics v5 staging version --><!--script src="//assets.adobedtm.com/be5dfd287373/8cdb3d539c44/launch-dfa8abb35555-staging.min.js"></script-->
+<!-- Adobe Analytics v10 production version --><script src="//assets.adobedtm.com/be5dfd287373/8f0ead8a37e7/launch-09394abc039d.min.js"></script>
+
+<script>dataLayer1 = [];</script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/Framework/css/pubs_converted_wet4.css" title="Default" />
+<!-- TemplateBeginEditable name="Custom CSS / CSS personalize" -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  config: ["MMLorHTML.js"],
+  jax: ["input/MathML","output/HTML-CSS","output/NativeMML"],
+  extensions: ["mml2jax.js","MathMenu.js","MathZoom.js"]
+});
+</script>
+<script type="text/javascript"
+  src="//www.statcan.gc.ca/mathjax/latest_stc_mathjax.js">
+</script>
+<script>!window.MathJax && document.write(unescape('%3Cscript src="/mathjax/MathJax.js"%3E%3C/script%3E'))</script>
+<!-- TemplateEndEditable -->
+
+<!-- CustomScriptsCSSEnd -->
+</head>
+
+<body vocab="http://schema.org/" typeof="WebPage">
+
+<ul id="wb-tphp">
+<li class="wb-slc">
+<a class="wb-sl" href="#wb-cont">Skip to main content</a>
+</li>
+<li class="wb-slc visible-sm visible-md visible-lg">
+<a class="wb-sl" href="#wb-info">Skip to "About this site"</a>
+</li>
+</ul>
+<header role="banner">
+<div id="wb-bnr" class="container">
+<section id="wb-lng" class="visible-md visible-lg text-right">
+<h2 class="wb-inv">Language selection</h2>
+<div class="row">
+<div class="col-md-12">
+<ul class="list-inline margin-bottom-none">
+<li><a lang="fr" href="
+/cgi-bin/change.cgi
+">Fran&#231;ais</a></li>
+</ul>
+</div>
+</div>
+</section>
+<div class="row">
+<div class="brand col-xs-9 col-sm-5 col-md-4">
+<a href="https://www.canada.ca/en.html"><img src="/wet-boew4b/assets/sig-blk-gov-en.svg" alt="Government of Canada"><span class="wb-inv"> / <span lang="fr">Gouvernement du Canada</span></span></a>
+</div>
+<section class="wb-mb-links col-sm-offset-4 col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn">
+<h2>Search and menus</h2>
+<ul class="list-inline text-right chvrn">
+<li><a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk" role="button"><span class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span class="wb-inv">Search and menus</span></span></span></a></li>
+</ul>
+<div id="mb-pnl"></div>
+</section>
+
+<section id="wb-srch" class="col-lg-offset-2 col-md-offset-2 col-xs-6 text-right visible-md visible-lg">
+<h2 class="wb-inv">Search</h2>
+<form action="https://www.statcan.gc.ca/search/results/site-search" method="get" name="cse-search-box" role="search" class="form-inline">
+<div class="form-group wb-srch-qry">
+<label for="wb-srch-q" class="wb-inv">Search Statistics Canada</label>
+<input type="hidden" name="fq" value="stclac:2" />
+<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="27" maxlength="150" placeholder="Search Statistics Canada">
+<datalist id="wb-srch-q-ac">
+</datalist>
+</div>
+<div class="form-group submit">
+<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search</span></button>
+</div>
+</form>
+</section>
+</div>
+</div>
+
+<nav role="navigation" id="wb-sm" class="wb-menu visible-md visible-lg" data-trgt="mb-pnl" data-ajax-replace="/wet-boew4b/ajax/sitemenu-en.html" typeof="SiteNavigationElement">
+	<div class="container nvbar">
+		<h2 class="wb-inv">Topics menu</h2>
+		<div class="row">
+			<ul class="list-inline menu">
+				<li><a href="https://www150.statcan.gc.ca/n1/en/subjects?MM=1">Subjects</a></li>
+				<li><a href="https://www150.statcan.gc.ca/n1/en/type/data?MM=1">Data</a></li>
+				<li><a href="https://www150.statcan.gc.ca/n1/en/type/analysis?MM=1">Analysis</a></li>
+				<li><a href="https://www.statcan.gc.ca/en/reference?MM=1">Reference</a></li>
+				<li><a href="https://www.statcan.gc.ca/en/geography?MM=1">Geography</a></li>
+				<li><a href="https://www.statcan.gc.ca/en/census?MM=1">Census</a></li>
+				<li><a href="https://www.statcan.gc.ca/en/surveys?MM=1">Surveys and statistical programs</a></li>
+				<li><a href="https://www.statcan.gc.ca/en/about/statcan?MM=1">About StatCan</a></li>
+				<li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<nav role="navigation" id="wb-bc" class="" property="breadcrumb">
+	<div class="container">
+		<div class="row">
+
+<!-- Breadcrumb trail -->
+<ol class="breadcrumb">
+<li><a href="/start-debut-eng.html">Home</a></li>
+
+
+
+
+
+<!-- Breadcrumb trail -->
+<!-- TemplateBeginEditable name="Breadcrumb / Piste de navigation" -->
+<li><a title="Publications by Statistics Canada" href="/researchers-chercheurs/index.action?lang=eng&univ=6&search=&start=1&end=25&sort=0&themeId=0&date=&series=&author=&themeState=-1&dateState=-1&seriesState=-1&authorState=-1&showAll=false">Publications</a></li>
+<li><a href="/cgi-bin/IPS/display?cat_num=12-001-x" title="Online catalogue: catalogue number">12-001-X</a></li><li><a href="/pub/12-001-x/12-001-x2013001-eng.htm" title="Main page of Survey Methodology ">Main page</a></li><li><a href="../11831-eng.htm">Conservative variance estimation for sampling designs with zero pairwise inclusion probabilities</a></li>
+<!-- TemplateEndEditable -->
+
+<!--START header-end.html -->
+
+
+</ol>
+
+</div>
+</div>
+</nav>
+</header>
+
+<main role="main" property="mainContentOfPage" class="container">
+
+
+<div class="row">
+  <div class="col-md-3">
+       	<div class="secnavwet4"><section>
+          <h3 class="top-section">
+            <a title="Publications by Statistics Canada" href="/researchers-chercheurs/index.action?lang=eng&univ=6&search=&start=1&end=25&sort=0&themeId=0&date=&series=&author=&themeState=-1&dateState=-1&seriesState=-1&authorState=-1&showAll=false">Publications</a>
+          </h3>
+          <ul></ul>
+        </section>
+        <section>
+          <h3 data-role="list-divider">Survey Methodology</h3>
+          <ul>
+            <li>
+             <a href="/cgi-bin/IPS/display?cat_num=12-001-x" title="Online catalogue: 12-001-X">12-001-X<br />
+            Volume&#160;39, Number&#160;1<br />
+            June 2013 </a>           </li>
+            <li>
+              <a href="/pub/12-001-x/12-001-x2013001-eng.htm" title="Main page of Survey Methodology ">Main page</a>
+            </li>
+            <li>
+              <a href="/pub/12-001-x/board-gestion-eng.htm">Management and editorial boards</a>
+            </li>
+            <li>
+              <a href="/pub/12-001-x/guideline-directives-eng.htm">Guidelines for manuscripts </a>
+            </li>
+            <li><a href="/cgi-bin/IPS/display?cat_num=12-001-x&amp;CHROPG=1">Other issues in this series</a></li>
+            <li>
+              <a href="/pub/12-001-x/2013001/mi-rs-eng.htm">More information</a>
+            </li>
+            <li>
+              <a href="/pub/12-001-x/12-001-x2013001-eng.pdf">Full content in PDF</a>
+            </li>
+          </ul>
+        </section>
+         <section>
+    <h3 data-role="list-divider">Browse by</h3>
+    <ul>
+      <li class="menucontent">
+        <a class="menulink" title="Browse by author" href="/researchers-chercheurs/result-resultat?series=&sort=0&themeId=0&authorState=0&showAll=false&themeState=0&pid=&date=&lang=eng&author=&univ=7&search=12-001&start=1&dateState=0&seriesState=0&currentFilter=author&end=25#FAuthor">Author</a>
+      </li>
+      <li class="menucontent">
+        <a class="menulink" title="Browse by subject" href="/researchers-chercheurs/result-resultat?series=&sort=0&themeId=0&authorState=0&showAll=false&themeState=0&pid=&date=&lang=eng&author=&univ=7&search=12-001&start=1&dateState=0&seriesState=0&currentFilter=theme&end=25#FSubject">Subject</a>
+      </li>
+      <li class="last">
+        <a class="menulink" title="Browse by year" href="/researchers-chercheurs/result-resultat?series=&sort=0&themeId=0&authorState=0&showAll=false&themeState=0&pid=&date=&lang=eng&author=&univ=7&search=12-001&start=1&dateState=0&seriesState=0&currentFilter=date&end=25#FPubDate">Year</a>
+      </li>
+    </ul>
+  </section></div>
+  </div>
+  <div class="col-md-9">
+<h1 property="name" id="wb-cont">2&#160;Variance estimation for the Horvitz-Thompson estimator</h1>
+         
+<p>Peter M. Aronow and Cyrus Samii</p>
+    
+    <p> 
+	<a href="section1-eng.htm" title="Previous">Previous</a> | <a href="section3-eng.htm" title="Next">Next</a>
+</p> 
+
+
+
+
+<p>Consider a population <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>U</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFfeu0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyvaa
+  aa@3A72@
+  </annotation>
+ </semantics>
+</math>&#160;indexed by <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mn>1</mn><mo>,</mo><mo>&#x2026;</mo><mo>,</mo><mi>k</mi><mo>,</mo><mo>&#x2026;</mo><mi>N</mi></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaaGymai
+  aacYcacqWIMaYscaGGSaGaam4AaiaacYcacqWIMaYscaWGobaaaa@401A@
+  </annotation>
+ </semantics>
+</math>&#160;and a sampling design such that the
+probability of inclusion in the sample for unit <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>k</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aaa
+  aa@3A38@
+  </annotation>
+ </semantics>
+</math>&#160;is <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbaapaqabaGccaGGSaaa
+  aa@3D29@
+  </annotation>
+ </semantics>
+</math>&#160;and the joint inclusion probability for units <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>k</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aaa
+  aa@3A38@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>l</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamiBaa
+  aa@3A39@
+  </annotation>
+ </semantics>
+</math>&#160;is <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaOGa
+  aiOlaaaa@3E1C@
+  </annotation>
+ </semantics>
+</math>&#160;Under a measurable design, there are two
+conditions: (1) <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>&#x003E;</mo><mn>0</mn></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbaapaqabaGcpeGaeyOp
+  a4JaaGimaaaa@3E4B@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbaapaqabaaaaa@3C6F@
+  </annotation>
+ </semantics>
+</math>&#160;is known for all <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aaa
+  baaaaaaaaapeGaeyicI4Saamyvaaaa@3CB6@
+  </annotation>
+ </semantics>
+</math>&#160;and (2) <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>&#x003E;</mo><mn>0</mn></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaOWd
+  biabg6da+iaaicdaaaa@3F3C@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaaaa
+  @3D60@
+  </annotation>
+ </semantics>
+</math>&#160;is known for all <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mi>k</mi><mo>,</mo><mi>l</mi><mo>&#x2208;</mo><mi>U</mi><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aai
+  aacYcacaWGSbaeaaaaaaaaa8qacqGHiiIZcaWGvbGaaiOlaaaa@3F09@
+  </annotation>
+ </semantics>
+</math>&#160;Non-measurable designs include those for which
+either of the two conditions for a measurable design do not hold. Failure to
+meet the former condition precludes unbiased estimation of totals.</p>
+
+<p>The Horvitz-Thompson estimator of a population total is <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>s</mi></mrow>
+    </munder>
+    <mrow>
+     <mrow><mrow>
+      <msub>
+       <mi>y</mi>
+       <mi>k</mi>
+      </msub>
+      </mrow><mo>/</mo><mrow>
+      <msub>
+       <mi>&#x03C0;</mi>
+       <mi>k</mi>
+      </msub>
+      </mrow></mrow>
+     </mrow>
+   </mstyle><mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <msub>
+      <mi>I</mi>
+      <mi>k</mi>
+     </msub>
+     </mrow>
+   </mstyle><mrow><mrow>
+    <msub>
+     <mi>y</mi>
+     <mi>k</mi>
+    </msub>
+    </mrow><mo>/</mo><mrow>
+    <msub>
+     <mi>&#x03C0;</mi>
+     <mi>k</mi>
+    </msub>
+    <mo>,</mo></mrow></mrow>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qaceWG0bGbaKaacqGH9aqpdaaeqbWdaeaapeWaaSGbaeaacaWG
+  5bWdamaaBaaaleaapeGaam4AaaWdaeqaaaGcpeqaaiabec8aW9aada
+  WgaaWcbaWdbiaadUgaa8aabeaaaaaabaWdbiaadUgacqGHiiIZcaWG
+  ZbaabeqdcqGHris5aOGaeyypa0Zaaabua8aabaWdbiaadMeapaWaaS
+  baaSqaa8qacaWGRbaapaqabaaabaWdbiaadUgacqGHiiIZcaWGvbaa
+  beqdcqGHris5aOWaaSGbaeaacaWG5bWdamaaBaaaleaapeGaam4Aaa
+  WdaeqaaaGcpeqaaiabec8aW9aadaWgaaWcbaWdbiaadUgaa8aabeaa
+  kiaacYcaaaaaaa@55A9@
+  </annotation>
+ </semantics>
+</math>&#160;where <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>&#x2208;</mo><mo>&#x007B;</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>&#x007D;</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamysam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaak8qacqGHiiIZcaGG
+  7bGaaGimaiaacYcacaaIXaGaaiyFaaaa@4124@
+  </annotation>
+ </semantics>
+</math>&#160;is unit <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mi>k</mi><mo>&#x2019;</mo><mtext>s</mtext></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4AaG
+  qaaiaa=LbicaqGZbaaaa@3BF1@
+  </annotation>
+ </semantics>
+</math>&#160;inclusion indicator, the only stochastic
+component of the expression, with <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>E</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGfbGaaiikaiaadMeapaWaaSbaaSqaa8qacaWGRbaapaqa
+  baGcpeGaaiykaiabg2da9iabec8aW9aadaWgaaWcbaWdbiaadUgaa8
+  aabeaakiaacYcaaaa@4282@
+  </annotation>
+ </semantics>
+</math>&#160;the inclusion probability, and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>s</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Caa
+  aa@3A40@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>U</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyvaa
+  aa@3A22@
+  </annotation>
+ </semantics>
+</math>&#160;refer to the sample and the population,
+respectively. Define <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>E</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>I</mi>
+    <mi>l</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGfbGaaiikaiaadMeapaWaaSbaaSqaa8qacaWGRbaapaqa
+  baGcpeGaamysa8aadaWgaaWcbaWdbiaadYgaa8aabeaak8qacaGGPa
+  Gaeyypa0JaeqiWda3damaaBaaaleaapeGaam4AaiaadYgaa8aabeaa
+  kiaacYcaaaa@45A6@
+  </annotation>
+ </semantics>
+</math>&#160;which is the probability that both units <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>k</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aaa
+  aa@3A38@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>l</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamiBaa
+  aa@3A39@
+  </annotation>
+ </semantics>
+</math>&#160;from <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>U</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyvaa
+  aa@3A22@
+  </annotation>
+ </semantics>
+</math>&#160;are included in the sample. Since <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>=</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo><mtext>E</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>k</mi></mrow>
+   </msub>
+   <mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamysam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaak8qacaWGjbWdamaa
+  BaaaleaapeGaam4AaaWdaeqaaOWdbiabg2da9iaadMeapaWaaSbaaS
+  qaa8qacaWGRbaapaqabaGccaGGSaWdbiaabweacaGGOaGaamysa8aa
+  daWgaaWcbaWdbiaadUgaa8aabeaak8qacaWGjbWdamaaBaaaleaape
+  Gaam4AaaWdaeqaaOWdbiaacMcacqGH9aqpcqaHapaCpaWaaSbaaSqa
+  a8qacaWGRbGaam4AaaWdaeqaaOWdbiabg2da9iabec8aW9aadaWgaa
+  WcbaWdbiaadUgaa8aabeaaaaa@513E@
+  </annotation>
+ </semantics>
+</math>&#160;by construction. When condition 1 holds, as we
+assume throughout, the Horvitz-Thompson estimator is unbiased.</p>
+
+
+
+<h2>2.1&#160; Properties of the
+Horvitz-Thompson variance estimator under measurability</h2>
+
+
+
+<p>By Horvitz and Thompson (1952), the variance of the
+Horvitz-Thompson estimator for the total is </p>
+
+<p class="alignFormulas"><math display='block'
+      indentalign='left' xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo><mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>l</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+        <mi>I</mi>
+        <mi>k</mi>
+       </msub>
+       <mo>,</mo><msub>
+        <mi>I</mi>
+        <mi>l</mi>
+       </msub>
+       <mo stretchy='false'>)</mo></mrow>
+     </mstyle><mfrac>
+      <mrow>
+       <msub>
+        <mi>y</mi>
+        <mi>k</mi>
+       </msub>
+       </mrow>
+      <mrow>
+       <msub>
+        <mi>&#x03C0;</mi>
+        <mi>k</mi>
+       </msub>
+       </mrow>
+     </mfrac>
+     </mrow>
+   </mstyle><mfrac>
+    <mrow>
+     <msub>
+      <mi>y</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <mtext>Var</mtext></mrow>
+   </mstyle><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><msup>
+    <mrow>
+     <mrow><mo>(</mo>
+      <mrow>
+       <mfrac>
+        <mrow>
+         <msub>
+          <mi>y</mi>
+          <mi>k</mi>
+         </msub>
+         </mrow>
+        <mrow>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mi>k</mi>
+         </msub>
+         </mrow>
+       </mfrac>
+       </mrow>
+     <mo>)</mo></mrow></mrow>
+    <mn>2</mn>
+   </msup>
+   <mo>+</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>l</mi><mo>&#x2208;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi></mrow>
+      </munder>
+      <mrow>
+       <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+        <mi>I</mi>
+        <mi>k</mi>
+       </msub>
+       <mo>,</mo><msub>
+        <mi>I</mi>
+        <mi>l</mi>
+       </msub>
+       <mo stretchy='false'>)</mo><mfrac>
+        <mrow>
+         <msub>
+          <mi>y</mi>
+          <mi>k</mi>
+         </msub>
+         </mrow>
+        <mrow>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mi>k</mi>
+         </msub>
+         </mrow>
+       </mfrac>
+       <mfrac>
+        <mrow>
+         <msub>
+          <mi>y</mi>
+          <mi>l</mi>
+         </msub>
+         </mrow>
+        <mrow>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mi>l</mi>
+         </msub>
+         </mrow>
+       </mfrac>
+       </mrow>
+     </mstyle></mrow>
+   </mstyle><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaaeOvai
+  aabggacaqGYbGaaiikaiqadshagaqcaiaacMcacqGH9aqpdaaeqbqa
+  amaaqafabaGaae4qaiaab+gacaqG2bGaaiikaiaadMeadaWgaaWcba
+  aeaaaaaaaaa8qacaWGRbaapaqabaGccaGGSaGaamysamaaBaaaleaa
+  peGaamiBaaWdaeqaaOGaaiykaaWcbaWdbiaadYgacqGHiiIZcaWGvb
+  aapaqab0GaeyyeIuoakmaalaaabaGaamyEamaaBaaaleaapeGaam4A
+  aaWdaeqaaaGcbaWdbiabec8aW9aadaWgaaWcbaWdbiaadUgaa8aabe
+  aaaaaabaGaam4Aa8qacqGHiiIZcaWGvbaapaqab0GaeyyeIuoakmaa
+  laaabaGaamyEamaaBaaaleaapeGaamiBaaWdaeqaaaGcbaWdbiabec
+  8aW9aadaWgaaWcbaWdbiaadYgaa8aabeaaaaGcpeGaeyypa0Zaaabu
+  a8aabaGaaeOvaiaabggacaqGYbaaleaapeGaam4AaiabgIGiolaadw
+  faaeqaniabggHiLdGccaGGOaGaamysa8aadaWgaaWcbaWdbiaadUga
+  a8aabeaak8qacaGGPaWaaeWaa8aabaWdbmaalaaapaqaa8qacaWG5b
+  WdamaaBaaaleaapeGaam4AaaWdaeqaaaGcbaWdbiabec8aW9aadaWg
+  aaWcbaWdbiaadUgaa8aabeaaaaaak8qacaGLOaGaayzkaaWdamaaCa
+  aaleqabaWdbiaaikdaaaGccqGHRaWkpaWaaabuaeaadaaeqbqaaiaa
+  boeacaqGVbGaaeODa8qacaGGOaGaamysa8aadaWgaaWcbaWdbiaadU
+  gaa8aabeaak8qacaGGSaGaamysa8aadaWgaaWcbaWdbiaadYgaa8aa
+  beaak8qacaGGPaWaaSaaa8aabaWdbiaadMhapaWaaSbaaSqaa8qaca
+  WGRbaapaqabaaakeaapeGaeqiWda3damaaBaaaleaapeGaam4AaaWd
+  aeqaaaaak8qadaWcaaWdaeaapeGaamyEa8aadaWgaaWcbaWdbiaadY
+  gaa8aabeaaaOqaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGSbaapaqa
+  baaaaaqaa8qacaWGSbGaeyicI4SaamyvaiaacYfacaWGRbaapaqab0
+  GaeyyeIuoaaSqaaiaadUgapeGaeyicI4SaamyvaaWdaeqaniabggHi
+  LdGcpeGaaiOlaaaa@96D4@
+  </annotation>
+ </semantics>
+</math></p>
+
+<p>We label a sample from a measurable design, <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msup>
+    <mi>s</mi>
+    <mi>M</mi>
+   </msup>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Cam
+  aaCaaaleqabaGaamytaaaakiaacYcaaaa@3BF9@
+  </annotation>
+ </semantics>
+</math>&#160;and an unbiased estimator for <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaaeOvai
+  aabggacaqGYbGaaiikaiqadshagaqcaiaacMcaaaa@3E5C@
+  </annotation>
+ </semantics>
+</math>&#160;on <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msup>
+    <mi>s</mi>
+    <mi>M</mi>
+   </msup>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Cam
+  aaCaaaleqabaGaamytaaaaaaa@3B3F@
+  </annotation>
+
+ </semantics>
+</math>&#160;is</p>
+
+<p class="alignFormulas"><math display='block'
+      indentalign='left' xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mover accent='true'>
+    <mrow>
+     <mtext>Var</mtext></mrow>
+    <mo stretchy='true'>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo><mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><msup>
+       <mi>s</mi>
+       <mi>M</mi>
+      </msup>
+      </mrow>
+    </munder>
+    <mrow>
+     <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>l</mi><mo>&#x2208;</mo><msup>
+         <mi>s</mi>
+         <mi>M</mi>
+        </msup>
+        </mrow>
+      </munder>
+      <mrow>
+       <mfrac>
+        <mrow>
+         <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+          <mi>I</mi>
+          <mi>k</mi>
+         </msub>
+         <mo>,</mo><msub>
+          <mi>I</mi>
+          <mi>l</mi>
+         </msub>
+         <mo stretchy='false'>)</mo></mrow>
+        <mrow>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mrow>
+           <mi>k</mi><mi>l</mi></mrow>
+         </msub>
+         </mrow>
+       </mfrac>
+       </mrow>
+     </mstyle></mrow>
+   </mstyle><mfrac>
+    <mrow>
+     <msub>
+      <mi>y</mi>
+      <mi>k</mi>
+     </msub>
+     </mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mi>k</mi>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mfrac>
+    <mrow>
+     <msub>
+      <mi>y</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mo>=</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>l</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <msub>
+        <mi>I</mi>
+        <mi>k</mi>
+       </msub>
+       </mrow>
+     </mstyle></mrow>
+   </mstyle><msub>
+    <mi>I</mi>
+    <mi>l</mi>
+   </msub>
+   <mfrac>
+    <mrow>
+     <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+      <mi>I</mi>
+      <mi>k</mi>
+     </msub>
+     <mo>,</mo><msub>
+      <mi>I</mi>
+      <mi>l</mi>
+     </msub>
+     <mo stretchy='false'>)</mo></mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mrow>
+       <mi>k</mi><mi>l</mi></mrow>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mfrac>
+    <mrow>
+     <msub>
+      <mi>y</mi>
+      <mi>k</mi>
+     </msub>
+     </mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mi>k</mi>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mfrac>
+    <mrow>
+     <msub>
+      <mi>y</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+    <mrow>
+     <msub>
+      <mi>&#x03C0;</mi>
+      <mi>l</mi>
+     </msub>
+     </mrow>
+   </mfrac>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qadaqiaaWdaeaapeGaaeOvaiaabggacaqGYbaacaGLcmaacaGG
+  OaGabmiDayaajaGaaiykaiabg2da9maaqafapaqaa8qadaaeqbWdae
+  aapeWaaSaaa8aabaWdbiaaboeacaqGVbGaaeODaiaacIcacaWGjbWd
+  amaaBaaaleaapeGaam4AaaWdaeqaaOWdbiaacYcacaWGjbWdamaaBa
+  aaleaapeGaamiBaaWdaeqaaOWdbiaacMcaa8aabaWdbiabec8aW9aa
+  daWgaaWcbaWdbiaadUgacaWGSbaapaqabaaaaaqaa8qacaWGSbGaey
+  icI4Saam4Ca8aadaahaaadbeqaa8qacaWGnbaaaaWcbeqdcqGHris5
+  aaWcpaqaa8qacaWGRbGaeyicI4Saam4Ca8aadaahaaadbeqaa8qaca
+  WGnbaaaaWcbeqdcqGHris5aOWaaSaaa8aabaWdbiaadMhapaWaaSba
+  aSqaa8qacaWGRbaapaqabaaakeaapeGaeqiWda3damaaBaaaleaape
+  Gaam4AaaWdaeqaaaaak8qadaWcaaWdaeaapeGaamyEa8aadaWgaaWc
+  baWdbiaadYgaa8aabeaaaOqaa8qacqaHapaCpaWaaSbaaSqaa8qaca
+  WGSbaapaqabaaaaOWdbiabg2da9maaqafapaqaa8qadaaeqbWdaeaa
+  peGaamysa8aadaWgaaWcbaWdbiaadUgaa8aabeaaaeaapeGaamiBai
+  abgIGiolaadwfaaeqaniabggHiLdaal8aabaWdbiaadUgacqGHiiIZ
+  caWGvbaabeqdcqGHris5aOGaamysa8aadaWgaaWcbaWdbiaadYgaa8
+  aabeaak8qadaWcaaWdaeaapeGaae4qaiaab+gacaqG2bGaaiikaiaa
+  dMeapaWaaSbaaSqaa8qacaWGRbaapaqabaGcpeGaaiilaiaadMeapa
+  WaaSbaaSqaa8qacaWGSbaapaqabaGcpeGaaiykaaWdaeaapeGaeqiW
+  da3damaaBaaaleaapeGaam4AaiaadYgaa8aabeaaaaGcpeWaaSaaa8
+  aabaWdbiaadMhapaWaaSbaaSqaa8qacaWGRbaapaqabaaakeaapeGa
+  eqiWda3damaaBaaaleaapeGaam4AaaWdaeqaaaaak8qadaWcaaWdae
+  aapeGaamyEa8aadaWgaaWcbaWdbiaadYgaa8aabeaaaOqaa8qacqaH
+  apaCpaWaaSbaaSqaa8qacaWGSbaapaqabaaaaOWdbiaacYcaaaa@9142@
+  </annotation>
+ </semantics>
+</math></p>
+
+<p>where the only stochastic part of the expression is
+<math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>I</mi>
+    <mi>l</mi>
+   </msub>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamysam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaak8qacaWGjbWdamaa
+  BaaaleaapeGaamiBaaWdaeqaaOGaaiilaaaa@3E4E@
+  </annotation>
+ </semantics>
+</math>&#160;and unbiasedness is by <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>E</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>I</mi>
+    <mi>l</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGfbGaaiikaiaadMeapaWaaSbaaSqaa8qacaWGRbaapaqa
+  baGcpeGaamysa8aadaWgaaWcbaWdbiaadYgaa8aabeaak8qacaGGPa
+  Gaeyypa0JaeqiWda3damaaBaaaleaapeGaam4AaiaadYgaa8aabeaa
+  kiaac6caaaa@45A8@
+  </annotation>
+ </semantics>
+</math></p>
+
+
+
+<h2>2.2&#160; Properties of the
+Horvitz-Thompson variance estimator under non-measurability</h2>
+
+
+
+<p>We now examine the case where condition 2 does not hold:
+<math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>=</mo><mn>0</mn></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaOWd
+  biabg2da9iaaicdaaaa@3F3A@
+  </annotation>
+ </semantics>
+</math>&#160;for some units <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mi>k</mi><mo>,</mo><mi>l</mi><mo>&#x2208;</mo><mi>U</mi><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Aai
+  aacYcacaWGSbaeaaaaaaaaa8qacqGHiiIZcaWGvbGaaiOlaaaa@3F09@
+  </annotation>
+ </semantics>
+</math>&#160;Because <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamysam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaaaaa@3B61@
+  </annotation>
+ </semantics>
+</math>&#160;is a Bernoulli random variable with
+probability <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo><mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo><msub>
+    <mi>I</mi>
+    <mi>l</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>&#x2212;</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mi>l</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbaapaqabaGccaGGSaWd
+  biaaboeacaqGVbGaaeODaiaacIcacaWGjbWdamaaBaaaleaapeGaam
+  4AaaWdaeqaaOWdbiaacYcacaWGjbWdamaaBaaaleaapeGaamiBaaWd
+  aeqaaOWdbiaacMcacqGH9aqpcqaHapaCpaWaaSbaaSqaa8qacaWGRb
+  GaamiBaaWdaeqaaOWdbiabgkHiTiabec8aW9aadaWgaaWcbaWdbiaa
+  dUgaa8aabeaak8qacqaHapaCpaWaaSbaaSqaa8qacaWGSbaapaqaba
+  aaaa@5286@
+  </annotation>
+
+ </semantics>
+</math>&#160;for <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mi>k</mi><mo>&#x2260;</mo><mi>l</mi><mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaWGRbGaeyiyIKRaamiBaiaacYcaaaa@3DC0@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><mtext>Var</mtext><mo stretchy='false'>(</mo><msub>
+    <mi>I</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>=</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>(</mo><mn>1</mn><mo>&#x2212;</mo><msub>
+    <mi>&#x03C0;</mi>
+    <mi>k</mi>
+   </msub>
+   <mo stretchy='false'>)</mo><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGdbGaae4BaiaabAhacaGGOaGaamysa8aadaWgaaWcbaWd
+  biaadUgaa8aabeaak8qacaGGSaGaamysa8aadaWgaaWcbaWdbiaadU
+  gaa8aabeaak8qacaGGPaGaeyypa0JaaeOvaiaabggacaqGYbGaaiik
+  aiaadMeapaWaaSbaaSqaa8qacaWGRbaapaqabaGcpeGaaiykaiabg2
+  da9iabec8aW9aadaWgaaWcbaWdbiaadUgaa8aabeaak8qacaGGOaGa
+  aGymaiabgkHiTiabec8aW9aadaWgaaWcbaWdbiaadUgaa8aabeaak8
+  qacaGGPaGaaiOlaaaa@54C4@
+  </annotation>
+ </semantics>
+</math>&#160;Then, we can re-express the variance
+above&nbsp;as, </p>
+
+<p class="alignFormulas"><math display='block'
+      indentalign='left'  xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mtable>
+   <mtr>
+   <mtd columnalign='right'> <mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+      <mi>t</mi>
+      <mo>&#x005E;</mo>
+     </mover>
+     <mo stretchy='false'>)</mo></mtd>
+    <mtd columnalign='left'>
+	<mo>=</mo>
+    <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <msub>
+        <mi>&#x03C0;</mi>
+        <mi>k</mi>
+       </msub>
+       </mrow>
+     </mstyle><mo stretchy='false'>(</mo><mn>1</mn><mo>&#x2212;</mo><msub>
+      <mi>&#x03C0;</mi>
+      <mi>k</mi>
+     </msub>
+     <mo stretchy='false'>)</mo><msup>
+      <mrow><mo>(</mo>
+       <mrow>
+        <mfrac>
+         <mrow>
+          <msub>
+           <mi>y</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+         <mrow>
+          <msub>
+           <mi>&#x03C0;</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+        </mfrac>
+        </mrow>
+      <mo>)</mo></mrow>
+      <mn>2</mn>
+     </msup>
+     <mo>+</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mstyle displaystyle='true'>
+        <munder>
+         <mo>&#x2211;</mo>
+         <mrow>
+          <mi>l</mi><mo>&#x2208;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi></mrow>
+        </munder>
+        <mrow>
+         <mo stretchy='false'>(</mo><msub>
+          <mi>&#x03C0;</mi>
+          <mrow>
+           <mi>k</mi><mi>l</mi></mrow>
+         </msub>
+         <mo>&#x2212;</mo><msub>
+          <mi>&#x03C0;</mi>
+          <mi>k</mi>
+         </msub>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mi>l</mi>
+         </msub>
+         <mo stretchy='false'>)</mo><mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         <mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         </mrow>
+       </mstyle></mrow>
+     </mstyle>
+    </mtd>
+   </mtr>
+   <mtr>
+   <mtd> </mtd>
+    <mtd columnalign='left'>
+     <mo>=</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <msub>
+        <mi>&#x03C0;</mi>
+        <mi>k</mi>
+       </msub>
+       </mrow>
+     </mstyle><mo stretchy='false'>(</mo><mn>1</mn><mo>&#x2212;</mo><msub>
+      <mi>&#x03C0;</mi>
+      <mi>k</mi>
+     </msub>
+     <mo stretchy='false'>)</mo><msup>
+      <mrow><mo>(</mo>
+       <mrow>
+        <mfrac>
+         <mrow>
+          <msub>
+           <mi>y</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+         <mrow>
+          <msub>
+           <mi>&#x03C0;</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+        </mfrac>
+        </mrow>
+      <mo>)</mo></mrow>
+      <mn>2</mn>
+     </msup>
+     <mo>+</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mstyle displaystyle='true'>
+        <munder>
+         <mo>&#x2211;</mo>
+         <mrow>
+          <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi><mo>:</mo><msub>
+           <mi>&#x03C0;</mi>
+           <mrow>
+            <mi>k</mi><mi>l</mi></mrow>
+          </msub>
+          <mo>&#x003E;</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+        </munder>
+        <mrow>
+         <mo stretchy='false'>(</mo><msub>
+          <mi>&#x03C0;</mi>
+          <mrow>
+           <mi>k</mi><mi>l</mi></mrow>
+         </msub>
+         <mo>&#x2212;</mo><msub>
+          <mi>&#x03C0;</mi>
+          <mi>k</mi>
+         </msub>
+         <msub>
+          <mi>&#x03C0;</mi>
+          <mi>l</mi>
+         </msub>
+         <mo stretchy='false'>)</mo><mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         <mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         </mrow>
+       </mstyle></mrow>
+     </mstyle><mo>&#x2212;</mo><munder>
+      <munder>
+       <mrow>
+        <mstyle displaystyle='true'>
+         <munder>
+          <mo>&#x2211;</mo>
+          <mrow>
+           <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+         </munder>
+         <mrow>
+          <mstyle displaystyle='true'>
+           <munder>
+            <mo>&#x2211;</mo>
+            <mrow>
+             <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi><mo>:</mo><msub>
+              <mi>&#x03C0;</mi>
+              <mrow>
+               <mi>k</mi><mi>l</mi></mrow>
+             </msub>
+             <mo>=</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+           </munder>
+           <mrow>
+            <msub>
+             <mi>y</mi>
+             <mi>k</mi>
+            </msub>
+            <msub>
+             <mi>y</mi>
+             <mi>l</mi>
+            </msub>
+            </mrow>
+          </mstyle></mrow>
+        </mstyle></mrow>
+       <mo stretchy='true'>&#xFE38;</mo>
+      </munder>
+      <mi>A</mi>
+     </munder>
+     <mo>.</mo>
+    </mtd>
+   </mtr>
+  </mtable>
+  
+ </semantics>
+</math></p>
+
+<p>For <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>k</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaWGRbaaaa@3A58@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>l</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaWGSbaaaa@3A59@
+  </annotation>
+ </semantics>
+</math>&#160;such that <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>=</mo><mn>0</mn><mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaOWd
+  biabg2da9iaaicdacaGGSaaaaa@3FEA@
+  </annotation>
+ </semantics>
+</math>&#160;the sampling design will never permit unbiased
+estimation of the component of the variance labeled as <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>A</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaWGbbaaaa@3A2E@
+  </annotation>
+ </semantics>
+</math>&#160;above, since we will never observe <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>y</mi>
+    <mi>k</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyEam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaaaaa@3B91@
+  </annotation>
+ </semantics>
+</math>&#160;and <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>y</mi>
+    <mi>l</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyEam
+  aaBaaaleaaqaaaaaaaaaWdbiaadYgaa8aabeaaaaa@3B92@
+  </annotation>
+ </semantics>
+</math>&#160;together. We label a sample from a design
+where condition 2 fails as <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msup>
+    <mi>s</mi>
+    <mn>0</mn>
+   </msup>
+   <mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Cam
+  aaCaaaleqabaaeaaaaaaaaa8qacaaIWaaaaOWdaiaac6caaaa@3C12@
+  </annotation>
+ </semantics>
+</math>&#160;When <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mover accent='true'>
+    <mrow>
+     <mtext>Var</mtext></mrow>
+    <mo stretchy='true'>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qadaqiaaWdaeaapeGaaeOvaiaabggacaqGYbaacaGLcmaacaGG
+  OaGabmiDayaajaGaaiykaaaa@3F5D@
+  </annotation>
+ </semantics>
+</math>&#160;is applied to <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msup>
+    <mi>s</mi>
+    <mn>0</mn>
+   </msup>
+   <mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Cam
+  aaCaaaleqabaaeaaaaaaaaa8qacaaIWaaaaOWdaiaacYcaaaa@3C10@
+  </annotation>
+ </semantics>
+</math>&#160;the result is unbiased for <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo><mo>+</mo><mi>A</mi><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGwbGaaeyyaiaabkhacaGGOaGabmiDayaajaGaaiykaiab
+  gUcaRiaadgeacaGGUaaaaa@40D6@
+  </annotation>
+ </semantics>
+</math>&#160;We state this formally as follows:</p>
+
+
+
+<p><strong>Proposition 1.</strong> When <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msup>
+    <mi>s</mi>
+    <mn>0</mn>
+   </msup>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaam4Cam
+  aaCaaaleqabaaeaaaaaaaaa8qacaaIWaaaaaaa@3B47@
+  </annotation>
+ </semantics>
+</math>&#160;refers to a sample from a design with some <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>&#x03C0;</mi>
+    <mrow>
+     <mi>k</mi><mi>l</mi></mrow>
+   </msub>
+   <mo>=</mo><mn>0</mn><mo>,</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacqaHapaCpaWaaSbaaSqaa8qacaWGRbGaamiBaaWdaeqaaOWd
+  biabg2da9iaaicdacaGGSaaaaa@3FEA@
+  </annotation>
+ </semantics>
+</math></p>
+
+<p class="alignFormulas"><i><math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <mtext>E</mtext><mrow><mo>[</mo> <mrow>
+    <mover accent='true'>
+     <mrow>
+      <mtext>Var</mtext></mrow>
+     <mo stretchy='true'>&#x005E;</mo>
+    </mover>
+    <mo stretchy='false'>(</mo><mover accent='true'>
+     <mi>t</mi>
+     <mo>&#x005E;</mo>
+    </mover>
+    <mo stretchy='false'>)</mo></mrow> <mo>]</mo></mrow><mo>=</mo><mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo><mo>+</mo><mstyle displaystyle='true'>
+    <munder>
+     <mo>&#x2211;</mo>
+     <mrow>
+      <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+    </munder>
+    <mrow>
+     <mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi><mo>:</mo><msub>
+         <mi>&#x03C0;</mi>
+         <mrow>
+          <mi>k</mi><mi>l</mi></mrow>
+        </msub>
+        <mo>=</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+      </munder>
+      <mrow>
+       <msub>
+        <mi>y</mi>
+        <mi>k</mi>
+       </msub>
+       <msub>
+        <mi>y</mi>
+        <mi>l</mi>
+       </msub>
+       </mrow>
+     </mstyle></mrow>
+   </mstyle><mo>=</mo><mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+    <mi>t</mi>
+    <mo>&#x005E;</mo>
+   </mover>
+   <mo stretchy='false'>)</mo><mo>+</mo><mi>A</mi><mo>.</mo></mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaqGfbWaamWaa8aabaWdbmaaHaaapaqaa8qacaqGwbGaaeyy
+  aiaabkhaaiaawkWaaiaacIcaceWG0bGbaKaacaGGPaaacaGLBbGaay
+  zxaaGaeyypa0JaaeOvaiaabggacaqGYbGaaiikaiqadshagaqcaiaa
+  cMcacqGHRaWkdaaeqbqaamaaqafabaGaamyEa8aadaWgaaWcbaWdbi
+  aadUgaa8aabeaak8qacaWG5bWdamaaBaaaleaapeGaamiBaaWdaeqa
+  aaWdbeaacaWGSbGaeyicI4Saai4EaiaadwfacaGGCbGaam4AaiaacQ
+  dacqaHapaCpaWaaSbaaWqaa8qacaWGRbGaamiBaaWdaeqaaSGaeyyp
+  a0ZdbiaaicdacaGG9baabeqdcqGHris5aaWcbaGaam4AaiabgIGiol
+  aadwfaaeqaniabggHiLdGccqGH9aqpcaqGwbGaaeyyaiaabkhacaGG
+  OaGabmiDayaajaGaaiykaiabgUcaRiaadgeacaGGUaaaaa@6BA5@
+  </annotation>
+ </semantics>
+</math></i></p>
+
+
+
+<p><strong>Proof.</strong> The result follows from, </p>
+
+<p class="alignFormulas"><math indentalign='left' display="block" xmlns='http://www.w3.org/1998/Math/MathML'>
+ <semantics>
+  <mtable>
+   <mtr>
+   <mtd columnalign='right'>     <mtext>E</mtext><mrow><mo>[</mo> <mrow>
+      <mstyle displaystyle='true'>
+       <munder>
+        <mo>&#x2211;</mo>
+        <mrow>
+         <mi>k</mi><mo>&#x2208;</mo><msup>
+          <mi>s</mi>
+          <mn>0</mn>
+         </msup>
+         </mrow>
+       </munder>
+       <mrow>
+        <mstyle displaystyle='true'>
+         <munder>
+          <mo>&#x2211;</mo>
+          <mrow>
+           <mi>l</mi><mo>&#x2208;</mo><msup>
+            <mi>s</mi>
+            <mn>0</mn>
+           </msup>
+           </mrow>
+         </munder>
+         <mrow>
+          <mfrac>
+           <mrow>
+            <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+             <mi>I</mi>
+             <mi>k</mi>
+            </msub>
+            <mo>,</mo><msub>
+             <mi>I</mi>
+             <mi>l</mi>
+            </msub>
+            <mo stretchy='false'>)</mo></mrow>
+           <mrow>
+            <msub>
+             <mi>&#x03C0;</mi>
+             <mrow>
+              <mi>k</mi><mi>l</mi></mrow>
+            </msub>
+            </mrow>
+          </mfrac>
+          </mrow>
+        </mstyle></mrow>
+      </mstyle><mfrac>
+       <mrow>
+        <msub>
+         <mi>y</mi>
+         <mi>k</mi>
+        </msub>
+        </mrow>
+       <mrow>
+        <msub>
+         <mi>&#x03C0;</mi>
+         <mi>k</mi>
+        </msub>
+        </mrow>
+      </mfrac>
+      <mfrac>
+       <mrow>
+        <msub>
+         <mi>y</mi>
+         <mi>l</mi>
+        </msub>
+        </mrow>
+       <mrow>
+        <msub>
+         <mi>&#x03C0;</mi>
+         <mi>l</mi>
+        </msub>
+        </mrow>
+      </mfrac>
+      </mrow> <mo>]</mo></mrow></mtd>
+    <mtd columnalign='left'>
+<mo>=</mo><mtext>E</mtext><mrow><mo>[</mo> <mrow>
+      <mstyle displaystyle='true'>
+       <munder>
+        <mo>&#x2211;</mo>
+        <mrow>
+         <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+       </munder>
+       <mrow>
+        <mstyle displaystyle='true'>
+         <munder>
+          <mo>&#x2211;</mo>
+          <mrow>
+           <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>:</mo><msub>
+            <mi>&#x03C0;</mi>
+            <mrow>
+             <mi>k</mi><mi>l</mi></mrow>
+           </msub>
+           <mo>&#x003E;</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+         </munder>
+         <mrow>
+          <msub>
+           <mi>I</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+        </mstyle></mrow>
+      </mstyle><msub>
+       <mi>I</mi>
+       <mi>l</mi>
+      </msub>
+      <mfrac>
+       <mrow>
+        <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+         <mi>I</mi>
+         <mi>k</mi>
+        </msub>
+        <mo>,</mo><msub>
+         <mi>I</mi>
+         <mi>l</mi>
+        </msub>
+        <mo stretchy='false'>)</mo></mrow>
+       <mrow>
+        <msub>
+         <mi>&#x03C0;</mi>
+         <mrow>
+          <mi>k</mi><mi>l</mi></mrow>
+        </msub>
+        </mrow>
+      </mfrac>
+      <mfrac>
+       <mrow>
+        <msub>
+         <mi>y</mi>
+         <mi>k</mi>
+        </msub>
+        </mrow>
+       <mrow>
+        <msub>
+         <mi>&#x03C0;</mi>
+         <mi>k</mi>
+        </msub>
+        </mrow>
+      </mfrac>
+      <mfrac>
+       <mrow>
+        <msub>
+         <mi>y</mi>
+         <mi>l</mi>
+        </msub>
+        </mrow>
+       <mrow>
+        <msub>
+         <mi>&#x03C0;</mi>
+         <mi>l</mi>
+        </msub>
+        </mrow>
+      </mfrac>
+      </mrow> <mo>]</mo></mrow>
+    </mtd>
+   </mtr>
+   <mtr>
+   <mtd></mtd>
+    <mtd  columnalign='left'>
+     <mo>=</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mtext>Var</mtext></mrow>
+     </mstyle><mo stretchy='false'>(</mo><msub>
+      <mi>I</mi>
+      <mi>k</mi>
+     </msub>
+     <mo stretchy='false'>)</mo><msup>
+      <mrow><mo>(</mo>
+       <mrow>
+        <mfrac>
+         <mrow>
+          <msub>
+           <mi>y</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+         <mrow>
+          <msub>
+           <mi>&#x03C0;</mi>
+           <mi>k</mi>
+          </msub>
+          </mrow>
+        </mfrac>
+        </mrow>
+      <mo>)</mo></mrow>
+      <mn>2</mn>
+     </msup>
+     <mo>+</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mstyle displaystyle='true'>
+        <munder>
+         <mo>&#x2211;</mo>
+         <mrow>
+          <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi><mo>:</mo><msub>
+           <mi>&#x03C0;</mi>
+           <mrow>
+            <mi>k</mi><mi>l</mi></mrow>
+          </msub>
+          <mo>&#x003E;</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+        </munder>
+        <mrow>
+         <mtext>Cov</mtext><mo stretchy='false'>(</mo><msub>
+          <mi>I</mi>
+          <mi>k</mi>
+         </msub>
+         <mo>,</mo><msub>
+          <mi>I</mi>
+          <mi>l</mi>
+         </msub>
+         <mo stretchy='false'>)</mo><mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>k</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         <mfrac>
+          <mrow>
+           <msub>
+            <mi>y</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+          <mrow>
+           <msub>
+            <mi>&#x03C0;</mi>
+            <mi>l</mi>
+           </msub>
+           </mrow>
+         </mfrac>
+         </mrow>
+       </mstyle></mrow>
+     </mstyle>
+    </mtd>
+   </mtr>
+   <mtr>
+   <mtd></mtd>
+    <mtd  columnalign='left'>
+     <mo>=</mo><mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+      <mi>t</mi>
+      <mo>&#x005E;</mo>
+     </mover>
+     <mo stretchy='false'>)</mo><mo>+</mo><mstyle displaystyle='true'>
+      <munder>
+       <mo>&#x2211;</mo>
+       <mrow>
+        <mi>k</mi><mo>&#x2208;</mo><mi>U</mi></mrow>
+      </munder>
+      <mrow>
+       <mstyle displaystyle='true'>
+        <munder>
+         <mo>&#x2211;</mo>
+         <mrow>
+          <mi>l</mi><mo>&#x2208;</mo><mo>&#x007B;</mo><mi>U</mi><mo>&#x005C;</mo><mi>k</mi><mo>:</mo><msub>
+           <mi>&#x03C0;</mi>
+           <mrow>
+            <mi>k</mi><mi>l</mi></mrow>
+          </msub>
+          <mo>=</mo><mn>0</mn><mo>&#x007D;</mo></mrow>
+        </munder>
+        <mrow>
+         <msub>
+          <mi>y</mi>
+          <mi>k</mi>
+         </msub>
+         <msub>
+          <mi>y</mi>
+          <mi>l</mi>
+         </msub>
+         </mrow>
+       </mstyle></mrow>
+     </mstyle><mo>=</mo><mtext>Var</mtext><mo stretchy='false'>(</mo><mover accent='true'>
+      <mi>t</mi>
+      <mo>&#x005E;</mo>
+     </mover>
+     <mo stretchy='false'>)</mo><mo>+</mo><mi>A</mi><mo>.</mo>
+    </mtd>
+   </mtr>
+  </mtable>
+  
+  
+ </semantics>
+</math></p>
+
+<p>The standard Horvitz-Thompson variance estimator, if
+applied to designs with zero pairwise inclusion probabilities, can therefore
+have a positive or a negative bias. If the <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>y</mi>
+    <mi>k</mi>
+   </msub>
+   <mo>,</mo><msub>
+    <mi>y</mi>
+    <mi>l</mi>
+   </msub>
+   </mrow>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaGaamyEam
+  aaBaaaleaaqaaaaaaaaaWdbiaadUgaa8aabeaak8qacaGGSaGaamyE
+  a8aadaWgaaWcbaWdbiaadYgaa8aabeaaaaa@3EA4@
+  </annotation>
+ </semantics>
+</math>&#160;values are always nonnegative (or always
+nonpositive), then the bias is always nonnegative. When values may be positive
+or negative, <math xmlns='http://www.w3.org/1998/Math/MathML' style='background-color:#'>
+ <semantics>
+  <mi>A</mi>
+  <annotation encoding='MathType-MTEF'>MathType@MTEF@5@5@+=
+  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn
+  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr
+  4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8F4rqqrFfpeea0xe9LqFf0x
+  e9q8qqvqFr0dXdHiVc=bYP0xb9sq=fFjea0RXxb9qr0dd9q8qi0lf9
+  Fve9Fve9vapdbaqaaeGacaGaaiaabeqaamaabaabaaGcbaaeaaaaaa
+  aaa8qacaWGbbaaaa@3A2E@
+  </annotation>
+ </semantics>
+</math>&#160;is the sum of cross-products of outcomes that
+never appear together under the design sample. If the jointly exclusive
+outcomes are centered over zero, then no correlation in these outcomes would
+tend to result in small bias, positive correlation in positive bias, and
+negative correlation in negative bias. </p>
+
+
+    <p> 
+	<a href="section1-eng.htm" title="Previous">Previous</a> | <a href="section3-eng.htm" title="Next">Next</a>
+</p> 
+
+<!-- TemplateEndEditable -->
+<!-- ContentEnd -->
+
+<!--START date-start-eng.html -->
+
+<div class="clear"></div>
+
+
+  </div>
+</div>
+
+
+<div class="pagedetails">
+	<dl id="wb-dtmd">
+		<dt>Date modified:&#32;</dt>
+		<dd><time property="dateModified">
+  2017-09-20
+</time></dd>
+	</dl>
+</div>
+</main>
+
+<footer id="wb-info">
+	<h2 class="wb-inv">About this site</h2>
+	<div class="gc-contextual">
+		<div class="container">
+			<nav>
+				<h3>Statistics Canada</h3>
+				<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+					<li><a href="https://www.statcan.gc.ca/en/reference/refcentre/index">Contact StatCan</a></li>
+					<li><a href="https://www.statcan.gc.ca/en/trust">Trust Centre</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="gc-main-footer">
+		<div class="container">
+			<nav>
+				<h3>Government of Canada</h3>
+				<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+					<li><a href="https://www.canada.ca/en/contact.html">All contacts</a></li>
+					<li><a href="https://www.canada.ca/en/government/dept.html">Departments and agencies</a></li>
+					<li><a href="https://www.canada.ca/en/government/system.html">About government</a></li>
+				</ul>
+				<h4><span class="wb-inv">Themes and topics</span></h4>
+				<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+					<li><a href="https://www.canada.ca/en/services/jobs.html">Jobs</a></li>
+					<li><a href="https://www.canada.ca/en/services/immigration-citizenship.html">Immigration and citizenship</a></li>
+					<li><a href="https://travel.gc.ca/">Travel and tourism</a></li>
+					<li><a href="https://www.canada.ca/en/services/business.html">Business</a></li>
+					<li><a href="https://www.canada.ca/en/services/benefits.html">Benefits</a></li>
+					<li><a href="https://www.canada.ca/en/services/health.html">Health</a></li>
+					<li><a href="https://www.canada.ca/en/services/taxes.html">Taxes</a></li>
+					<li><a href="https://www.canada.ca/en/services/environment.html">Environment and natural resources</a></li>
+					<li><a href="https://www.canada.ca/en/services/defence.html">National security and defence</a></li>
+					<li><a href="https://www.canada.ca/en/services/culture.html">Culture, history and sport</a></li>
+					<li><a href="https://www.canada.ca/en/services/policing.html">Policing, justice and emergencies</a></li>
+					<li><a href="https://www.canada.ca/en/services/transport.html">Transport and infrastructure</a></li>
+					<li><a href="https://international.gc.ca/world-monde/index.aspx?lang=eng">Canada and the world</a></li>
+					<li><a href="https://www.canada.ca/en/services/finance.html">Money and finance</a></li>
+					<li><a href="https://www.canada.ca/en/services/science.html">Science and innovation</a></li>
+					<li><a href="https://www.canada.ca/en/services/indigenous-peoples.html">Indigenous peoples</a></li>
+					<li><a href="https://www.canada.ca/en/services/veterans.html">Veterans and military</a></li>
+					<li><a href="https://www.canada.ca/en/services/youth.html">Youth</a></li>
+					<li><a href="https://www.canada.ca/en/services/life-events.html">Manage life events</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="gc-sub-footer">
+		<div class="container d-flex align-items-center">
+			<nav>
+				<h3 class="wb-inv">Government of Canada Corporate</h3>
+				<ul>
+					<li><a href="https://www.canada.ca/en/social.html">Social media</a></li>
+					<li><a href="https://www.canada.ca/en/mobile.html">Mobile applications</a></li>
+					<li><a href="https://www.canada.ca/en/government/about-canada-ca.html">About Canada.ca</a></li>
+					<li><a href="https://www.statcan.gc.ca/en/terms-conditions">Terms and conditions</a></li>
+					<li><a href="https://www.statcan.gc.ca/en/about/transparency/privacy">Privacy</a></li>
+				</ul>
+			</nav>
+			<div class="wtrmrk align-self-end">
+				<img src="/wet-boew4b/assets/wmms-blk.svg" alt="Symbol of the Government of Canada">
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script>
+
+    modifyBreadCrum();
+    
+
+    function modifyBreadCrum(){
+        
+    let dailyEn = "n1/dai-quo/index-eng.htm";
+    let dailyFr = "n1/dai-quo/index-fra.htm";
+ 
+    let breadcrumb = document.querySelector("#wb-bc ol.breadcrumb");
+        
+    if(breadcrumb === undefined || breadcrumb === null || breadcrumb.children.length == 0){
+        return;
+    } 
+        
+    let lastListNode = breadcrumb.children[breadcrumb.children.length -1];
+    
+    if(window.location.href.indexOf("daily-quotidien") != -1 || window.location.href.indexOf("dai-quo") != -1){
+        let href = window.location.href;
+        let env = href.split("n1")[0];
+        href = href.indexOf("eng") != -1 ? env + dailyEn : env + dailyFr;
+
+        createBreadcrumAnchor(href);
+    }
+    else{
+        removeBreadcrumNotAnchor();
+    }
+
+    return;
+
+    function createBreadcrumAnchor(href){
+
+        let anchor = document.createElement("a");
+    
+        if(lastListNode.lastChild !== undefined && lastListNode.lastChild !== null){
+            if(lastListNode.lastChild.nodeName === anchor.nodeName){
+                return;
+            } 
+
+            anchor.innerHTML = lastListNode.innerHTML;
+            anchor.href = href;
+            lastListNode.innerHTML = anchor.outerHTML; 
+        }
+    }
+
+    function removeBreadcrumNotAnchor(){
+
+        let anchor = document.createElement("a");
+
+        if(lastListNode.lastChild !== undefined && lastListNode.lastChild !== null){
+            if(lastListNode.lastChild.nodeName === anchor.nodeName){
+                return;
+            } 
+        
+            breadcrumb.removeChild(lastListNode);
+        }
+
+    }
+
+    }
+
+</script>
+
+<!--[if gte IE 9 | !IE ]><!-->
+<script src="/wet-boew4b/js/wet-boew.min.js"></script>
+<script src="/wet-boew4b/js/theme.min.js"></script>
+<!--<![endif]-->
+<!--[if lt IE 9]>
+<script src="/wet-boew4b/js/ie8-wet-boew2.min.js"></script>
+<![endif]-->
+<!-- InvitationManager -->
+<script src="/wet-boew4b/invitation-manager/Overlay.js"></script>
+<script src="/wet-boew4b/invitation-manager/InvitationManager.js"></script>
+<!-- End InvitationManager -->
+<script type="text/javascript">_satellite.pageBottom();</script>
+
+<!-- CustomScriptsJSStart -->
+<!-- CustomScriptsJSEnd -->
+
+</body>
+</html>

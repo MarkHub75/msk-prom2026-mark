@@ -1,0 +1,7 @@
+2026-10-23T06:42:59.290302Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+2026-10-23T07:12:40.042974Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: multiple operations target D:\msk-prom2026-mark\hackathon_strategy\_WORK\SOURCES\W2B\PDF_BROWSER_PART1.json
+2026-10-23T07:46:14.715271Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\hackathon_strategy\_WORK\AUTHOR_DRAFT.md:
+Об­щий список сайта
+2026-10-23T07:55:28.808805Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }
+2026-10-23T08:06:23.091405Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\hackathon_strategy\_WORK\EDIT_REPORT.py:
+'Первая идёт короткая связанная':

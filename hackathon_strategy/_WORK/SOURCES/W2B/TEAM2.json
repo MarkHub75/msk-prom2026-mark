@@ -1,0 +1,315 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/bentglasstube/blosxom-plugins/blob/d6b2663593a0dfb1f63b1c9e72ea012d5e3ae2d1/wazzup-v0i3",
+          "path": "wazzup-v0i3",
+          "display_url": "https://github.com/bentglasstube/blosxom-plugins/blob/d6b2663593a0dfb1f63b1c9e72ea012d5e3ae2d1/wazzup-v0i3",
+          "display_title": "wazzup-v0i3",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "<p>\n<a class=\"wazzup\" href=\"www.sample.net/News#ManBytesDog\">Digital Rover</a>\n. . .",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    61,
+                    74
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "<ul class=\"wazzup\">\n<li><a class=\"wazzup\" href=\"www.sample.net/2005/04/24#ManBytesDog\">Digital Rover</a></li>\n. . .",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    87,
+                    100
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/bentglasstube/blosxom-plugins/blob/d6b2663593a0dfb1f63b1c9e72ea012d5e3ae2d1/wazzup-v0i5",
+          "path": "wazzup-v0i5",
+          "display_url": "https://github.com/bentglasstube/blosxom-plugins/blob/d6b2663593a0dfb1f63b1c9e72ea012d5e3ae2d1/wazzup-v0i5",
+          "display_title": "wazzup-v0i5",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "  <p>\n  <a class=\"wazzup\" href=\"www.sample.net/News#ManBytesDog\">Digital Rover</a>\n  . . .",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    65,
+                    78
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "  <ul class=\"wazzup\">\n  <li><a class=\"wazzup\" href=\"www.sample.net/2005/04/24#ManBytesDog\">Digital Rover</a></li>\n  . . .",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    91,
+                    104
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/zeetwii/llmRover/blob/5ef00f930c150aed2de46d4d27783088ad98eb48/README.md",
+          "path": "README.md",
+          "display_url": "https://github.com/zeetwii/llmRover/blob/5ef00f930c150aed2de46d4d27783088ad98eb48/README.md",
+          "display_title": "README.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "\n## Game Play\n\nAll of the game play for the workshop takes place on our Twitch channel [Defense Digital Rover](https://www.twitch.tv/defensedigitalrover).  Players take control of the rover by issuing commands via the channels stream chat.  All commands are prefaced by the ***!*** symbol.  The full list of commands are:\n\n- !move\n  - This command tells the rover to parse whatever you say after it as movement instructions.  You can tell it to move forwards, backwards, and turn, as well as chain multiple instructions together.  An example use would be *!move Go Forward 5 seconds* ",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    96,
+                    109
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/PSCurlin/pscurlin.github.io/blob/c0c98719747bbf190be4a4072361ca3af3b761d3/content/past-work/armstrong.md",
+          "path": "content/past-work/armstrong.md",
+          "display_url": "https://github.com/PSCurlin/pscurlin.github.io/blob/c0c98719747bbf190be4a4072361ca3af3b761d3/content/past-work/armstrong.md",
+          "display_title": "content/past-work/armstrong.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "    \"/img/armstrong1.jpg|Digital Armstrong rover twin in lunar environment.|100%\"\n    \"/img/armstrong2.jpg|Physical Armstrong rover in lab hallway.|65%\"\n>}}\n\nNASA will return to the Moon to conduct lunar and space science as well as prepare for human exploration missions. NASA's current rover failure response methods use hardware duplicates which are costly and time consuming to assemble. To address this, we developed and assessed a VR digital rover twin in a simulated environment using novel technologies to support lunar robotic missions like FARSIDE in case of assembly failures.\n\nWork supported by NASA-funded [NESS](https://www.colorado.edu/ness/about) and the [NASA Solar System Exploration Research Virtual Institute](https://sservi.nasa.gov/).",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    440,
+                    453
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/kangjeongdo/ngc/blob/5cf2032984527a20c352edc7d9a0cacf100cc0ba/article136.html",
+          "path": "article136.html",
+          "display_url": "https://github.com/kangjeongdo/ngc/blob/5cf2032984527a20c352edc7d9a0cacf100cc0ba/article136.html",
+          "display_title": "article136.html",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "                    rock layers, Perseverance drills for core samples and stores them in tubes for \n                    testing back on Earth.</p>\n                <p>Next, use the camera button (bottom right) in Instagram and flip to the selfie view. \n                    You’ll see yourself shoulder to shoulder with the digital rover programmed to \n                    mimic your head movements. What’s more, open your mouth and a laser shoots out. \n                    That’s Supercam breaking rocks. (In reality, the laser beam isn’t visible; on Mars it \n                    would appear as a quick zap on impact.) You’re invited to take a selfie using the ",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    324,
+                    337
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/sovithia/Makeblock/blob/8d960a8c1766fba2c2347bde3838fc38e0530296/curriculum-site/tools/extract_build_images.py",
+          "path": "curriculum-site/tools/extract_build_images.py",
+          "display_url": "https://github.com/sovithia/Makeblock/blob/8d960a8c1766fba2c2347bde3838fc38e0530296/curriculum-site/tools/extract_build_images.py",
+          "display_title": "curriculum-site/tools/extract_build_images.py",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "                      once extracted from here for Grade 8 Steps 1-2 and showed\n                      the wrong robot; someone followed them and built a Ranger.\n\n                      *** There is NO digital Rover guide. *** Grade 8 builds from\n                      the printed booklet in the add-on box (pp. 5-75) and its\n                      pages carry no diagrams for that reason. Do not \"restore\"\n                      them from this PDF.",
+              "matches": [
+                {
+                  "text": "digital Rover",
+                  "indices": [
+                    200,
+                    213
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/openbankruptcyproject/openbankruptcyproject.org/blob/8c29d4725cef3e58d7f1f7b4d33a8fe4e7acce2e/ppp/ca/page-40.html",
+          "path": "ppp/ca/page-40.html",
+          "display_url": "https://github.com/openbankruptcyproject/openbankruptcyproject.org/blob/8c29d4725cef3e58d7f1f7b4d33a8fe4e7acce2e/ppp/ca/page-40.html",
+          "display_title": "ppp/ca/page-40.html",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "<tr id=\"row-9657398106\"><td>9657398106</td><td>SHAY MERCHAV</td><td>Playa Vista</td><td class='num'>$9,274</td><td>07/28/2020</td><td>812112</td><td>Sole Proprietorship</td><td>Customers Bank</td><td>$9,379 <span style='color:#7d8590;font-size:0.78rem'>(09/29/2021)</span></td><td class='num'>1</td></tr>\n<tr id=\"row-9297058104\"><td>9297058104</td><td>SIBILIA INC</td><td>LOS ANGELES</td><td class='num'>$9,252</td><td>07/28/2020</td><td>423930</td><td>Corporation</td><td>Customers Bank</td><td>$9,394 <span style='color:#7d8590;font-size:0.78rem'>(02/23/2022)</span></td><td class='num'>2</td></tr>\n<tr id=\"row-9340838109\"><td>9340838109</td><td>GEORGE J AVELINO</td><td>Walnut</td><td class='num'>$9,225</td><td>07/28/2020</td><td>519130</td><td>Sole Proprietorship</td><td>Cross River Bank</td><td>$9,309 <span style='color:#7d8590;font-size:0.78rem'>(07/14/2021)</span></td><td class='num'>1</td></tr>\n<tr id=\"row-9341198109\"><td>9341198109</td><td>DIGITAL ROVER LLC</td><td>IRVINE</td><td class='num'>$9,194</td><td>07/28/2020</td><td>812990</td><td>Limited  Liability Company(LLC)</td><td>Wells Fargo Bank, National Association</td><td>$9,256 <span style='color:#7d8590;font-size:0.78rem'>(03/31/2021)</span></td><td class='num'>1</td></tr>\n<tr id=\"row-9509068110\"><td>9509068110</td><td>SANTOS &amp; ROBINSON ENTERPRISES</td><td>EL SEGUNDO</td><td class='num'>$9,170</td><td>07/28/2020</td><td>812310</td><td>Partnership</td><td>JPMorgan Chase Bank, National Association</td><td>$9,231 <span style='color:#7d8590;font-size:0.78rem'>(03/31/2021)</span></td><td class='num'>3</td></tr>\n<tr id=\"row-9304188107\"><td>9304188107</td><td>DONINYA INC</td><td>INGLEWOOD</td><td class='num'>$9,167</td><td>07/28/2020</td><td>541511</td><td>Corporation</td><td>Wells Fargo Bank, National Association</td><td>$9,258 <span style='color:#7d8590;font-size:0.78rem'>(07/28/2021)</span></td><td class='num'>2</td></tr>\n<tr id=\"row-9417378101\"><td>9417378101</td><td>YOUNG TAEG KWON</td><td>LOS ANGELES</td><td class='num'>$9,130</td><td>07/28/2020</td><td>812310</td><td>Sole Proprietorship</td><td>U.S. Bank, National Association</td><td>$9,200 <span style='color:#7d8590;font-size:0.78rem'>(05/04/2021)</span></td><td class='num'>2</td></tr>",
+              "matches": [
+                {
+                  "text": "DIGITAL ROVER",
+                  "indices": [
+                    954,
+                    967
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/JacksonCrawford/relational_contracts/blob/25fabc1d18b1785f0b24bb4d8263f3c3bbf5f559/nlp/1999/wired_article_12.25.1999_0078.json",
+          "path": "nlp/1999/wired_article_12.25.1999_0078.json",
+          "display_url": "https://github.com/JacksonCrawford/relational_contracts/blob/25fabc1d18b1785f0b24bb4d8263f3c3bbf5f559/nlp/1999/wired_article_12.25.1999_0078.json",
+          "display_title": "nlp/1999/wired_article_12.25.1999_0078.json",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "{\"URL\": \"https://www.wired.com/1999/12/aibo-fetches-the-personal-robot\", \"heading\": \"aibo fetches the personal robot\", \"subheading\": \"sony's robot dog is nifty. but hobbyists see the pricey toy as a sign that that fully mobile, networked slaves are on their way. by chris oakes.\", \"author\": \"chris oakes\", \"category\": \"science\", \"type\": \"article\", \"timestamp\": \"12.25.1999 03:00 AM\", \"text\": \"unless you've got us$2,500 to drop on total frivolity, you probably haven't slapped down holiday plastic for sony's millennial dog:  aibo, the intelligent pet that's garnering raves simply for being so dog-like.but in 10 or 15 years, robotic descendants of this year's digital rover may cruise your floors to great utility, no paper-training required. sit back and relax as your ibot adjusts the air temperature, puts you on a video call to your cousin, vacuums the house, monitors appliances, or takes you on a remote-controlled tour of a far-away museum.that is the brave, if vague, new world envisioned by robot enthusiasts, who see in aibo's paw prints the future of the personal robot industry.\\\"right now, personal robotics is at the same stage personal computing was in the mid-70s, when you had a band of enthusiastic novices who would be taking these 8-bit computers and hacking together all kinds of things\\\" said robot-builder and kit manufacturer craig maynard. \\\"they were throwing together digital logic in new and exciting ways, and now we've got people doing the same types of things with robotics.\\\"maynard and others see a burgeoning industry among hobbyists as the inevitable 21st century trend that will graft the robot onto the already-swinging pc and internet era.robotists credit consumer electronics hits like the vcr and camcorder for development of the technologies that are ushering in a wave of new and cheaper \\\"micro-mechanics.\\\" the products depend on the ever-advancing refinements of what are essentially robotic technologies.\\\"if you look at a camcorder or vcr, the robotics inside one of these things is amazing -- the different kinds of sensors and transducers inside, measuring tension, light levels, magnetic disturbances on the tape, maynard said. \\\"then you bring in the number of microprocessors that work to control all the manipulating arms and pulleys -- there's a lot of stuff going on inside one of those things.\\\"a singular technology propelling build-your-own robots is the five-year-old technology of the \\\"basic stamp,\\\" a kind of all-in-one processor-memory component that allowed pc-like programming of robotic controllers in the familiar basic computer language. one company manufacturing basic stamps is parallax inc.hobbyists have eagerly employed the basic stamp to customize their increasingly sophisticated creations.maynard said the cheaper, but more sophisticated, hardware show we are on the cusp of the robot age. another sign is the exploding number of robot societies forming all over the world.\\\"it's a harbinger,\\\" maynard said. \\\"it shows you that the society is ready for robotics.\\\"at the business end, the next paradigm will ignite with a hit commercial product. enter aibo, a name whose first two letters stand for artificial intelligence.sony has sold over 10,000 aibos, according to sony marketer yosh kambev.aibo is essentially sony's more-sophisticated answer to the \\\"smart\\\"-pet trend set off by toys like furby. sony has refined things a bit since last year's debut of that juvenile, but still-impressive, creation.aibo can respond to voice commands to sit, stand, or lie down, it can learn from experience and express \\\"emotions,\\\" such as anger and sadness, kambev said. in its autonomous mode, aibo can act on preprogrammed \\\"impulses\\\" to play, seek attention from its owner, or sleep.\\\"[aibo] is furby on steroids and it's pioneering,\\\" said mark medonis of beaverton, oregon. medonis has been building robots as a hobby and for a living for eight years and this year his company, medonis engineering began to sell some of the technologies he developed for his hobby robots. \\\"it's the first robot that has extensively used motors and sensors to that level.\\\"sony makes no bones about its enthusiasm for aibo's technology.\\\"the biggest innovation is the robotics. that part is the most impressive,\\\" said kambev. \\\"usually, robotics technology is used for factory work. this is the first example of robotics technology for the home. it has an artificial life program, learning capability, maturation capability. that's the difference between aibo and furby.\\\"how far can this trajectory of cheaper, smarter, smaller robotics go? for a glimpse at the future, craig maynard points to the robot world's pi\\u00e8ce de r\\u00e9sistance: the honda walking robot.he has seen the robot in action and is amazed by the 6-foot-tall humanoid that acts \\\"like [a] guy in space suit,\\\" maynard said. \\\"he can walk across the room, up stairs ... if you push they'll catch their balance. they can move, turn, and interact just like you and i can.\\\"maynard manufactures and sells (worldwide and at a brisk pace, he reports) \\\"cybugs, robotic insects designed to behave and interact with each other like the real thing.to what end, all this droidal replication of human functions? good question. even the experts don't pretend to know what the future holds.as maynard put it, \\\"you've got to imagine stuff we haven't seen before.\\\"maybe they'll take care of simple security tasks: adjust the air temperature, monitor the furnace for problems, watch for prowlers, he suggested. they might bring more real-world dimensions to computer games, and entertainment value. \\\"games could come out of computer and start interacting with people again -- versus the computer, which sits there like a big window,\\\" noted maynard.rather than having to expensively retrofit every home's electrical, plumbing, and heating infrastructure to make them smart, the robot could be the mobile brain, learning to adapt to the controls, knobs, and systems the house already has. \\\"instead of making the house match the computer, i make the computer match the house.\\\"he imagines a personal robot with a fleet of pc-like \\\"peripherals\\\": arms, legs, and other extensions to accommodate the surrounding physical world's varying interface requirements, such as different doorknobs, switches, and appliances.tapped into the internet, robots could become a consumer telepresence, standing in for people in distant places. for example, a camera-enabled robot in the louvre could be manipulated over the net by a user in new york who wants to view the museum's collections from afar.\\\"what this thing could do, how you could interact with it, i don't know, exactly. it's going to take some thinkers to figure out what people might want to do with these things.\\\"but technologically and commercially, enthusiasts are sure the industry is approaching critical mass. \\\"everything's all coming together, maynard said. \\\"it's just waiting for some young steve wozniak who's gonna find its little niche.\\\"\"}",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    662,
+                    675
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/Codenest15/BetPlus/blob/ee0c06c279367d807841c8e7d358b6ef39aab403/app/virtual/page.tsx",
+          "path": "app/virtual/page.tsx",
+          "display_url": "https://github.com/Codenest15/BetPlus/blob/ee0c06c279367d807841c8e7d358b6ef39aab403/app/virtual/page.tsx",
+          "display_title": "app/virtual/page.tsx",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "\nconst VIRTUAL_EVENTS = [\n  { id: \"vf1\", home: \"Virtual City\", away: \"Virtual United\", league: \"V-League\", minute: 12, score: \"1-0\" },\n  { id: \"vf2\", home: \"Cyber FC\", away: \"Digital Rovers\", league: \"V-League\", minute: 67, score: \"2-2\" },\n  { id: \"vf3\", home: \"Sim Stars\", away: \"Pixel FC\", league: \"V-Cup\", minute: 34, score: \"0-1\" },\n  { id: \"vh1\", label: \"Horse Race #4821\", league: \"V-Racing\", status: \"Starts 2m\" },\n  { id: \"vh2\", label: \"Greyhound #1193\", league: \"V-Racing\", status: \"Lap 3/4\" },",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    175,
+                    188
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/AI-Phil/KineticConstructs/blob/127de47a268e1d4ce5bb304f0cb7a76e35cf4eba/creation-assets/products/imagiworlds/documents.jsonl",
+          "path": "creation-assets/products/imagiworlds/documents.jsonl",
+          "display_url": "https://github.com/AI-Phil/KineticConstructs/blob/127de47a268e1d4ce5bb304f0cb7a76e35cf4eba/creation-assets/products/imagiworlds/documents.jsonl",
+          "display_title": "creation-assets/products/imagiworlds/documents.jsonl",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "{\"_id\": \"IW-SPC-002_SC_v1.0\", \"product_id\": \"IW-SPC-002\", \"product_name\": \"Star Station Odyssey AR Playset\", \"doc_type\": \"Safety & Compliance\", \"version\": \"1.0\", \"title\": \"Star Station Odyssey Safety & Compliance\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Star Station Odyssey Safety & Compliance (v1.0)\\n\\nImportant safety and compliance information.\\n\\n## Safety Precautions\\n\\n*   **WARNING: CHOKING HAZARD -- Small parts (figures, connectors, small assembly pieces). Not for children under 3 years.**\\n*   **Recommended Age:** 8+ Adult supervision recommended.\\n*   **Physical Playset:** Handle assembled station with care due to its size and multiple components. Place on a stable surface where it won't easily fall.\\n*   **Figures:** Contain passive RFID tags. Do not disassemble.\\n*   **App Usage:** Requires compatible smartphone/tablet (not included). Follow device manufacturer's safety guidelines.\\n*   **AR Play Area:** Ensure adequate clear space for moving around while viewing the AR scene on a device.\\n\\n## App Privacy\\n\\n*   Refer to App Privacy section in [Lunar Base Alpha Safety & Compliance](/document/IW-SPC-001_SC_v1.0). Camera permission required for AR, data typically processed locally. Check full Privacy Policy for details.\\n\\n## Compliance Information (Example)\\n\\n*   **Toy Safety:** Conforms to safety requirements of ASTM F963 (US), EN 71 (EU).\\n*   **RFID/Electronics:** Complies with relevant RF regulations if applicable.\\n*   **CE Mark:** Indicates conformity with applicable EU directives.\\n\\nStore this information for reference.\\nKinetic Constructs - Building Tomorrow's Play.\"}\n{\"_id\": \"IW-SPC-003_ASG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Assembly & Setup Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Set Assembly & Setup Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Set Assembly & Setup Guide (v1.0)\\n\\nAssemble your Mars exploration gear!\\n\\n## Parts List\\n\\n*   **Mars Rover Components:**\\n    *   Rover Chassis\\n    *   6x Wheels & Suspension Arms\\n    *   Robotic Arm Assembly (Multi-part)\\n    *   Camera Mast / Sensor Suite\\n    *   Power Source / RTG (Mock)\\n    *   Antenna\\n*   **Habitat Section:**\\n    *   Small Habitat Base\\n    *   Dome Structure\\n    *   Airlock Door Piece\\n*   1x Astronaut Figure\\n*   Assorted Connector Pieces / Screws (if needed)\\n*   Sticker Sheet (Rover details, NASA-like logos)\\n*   AR Marker Sheet (May be integrated or separate)\\n\\n*(Illustrations essential, especially for rover assembly)*\\n\\n## Assembly Steps\\n\\n1.  **Rover Wheels/Suspension:** Attach the 6 wheel assemblies and suspension arms to the Rover Chassis.\\n2.  **Robotic Arm:** Assemble the multi-part robotic arm and attach it to the designated point on the rover chassis.\\n3.  **Camera Mast:** Assemble and attach the Camera Mast / Sensor Suite.\\n4.  **Other Rover Details:** Attach the mock Power Source and Antenna.\\n5.  **Habitat:** Assemble the simple Habitat section (Base, Dome, Airlock).\\n6.  **Stickers:** Apply detail stickers to rover and habitat.\\n7.  **AR Markers:** If separate, place AR markers on designated spots on the rover/habitat OR note the integrated markers.\\n\\n*(Diagram: Shows assembled rover and habitat)*\\n\\n## Setup for AR Play\\n\\n1.  Place the assembled Rover and Habitat on a well-lit surface (a reddish-brown cloth could enhance theme!).\\n2.  Ensure AR markers are clearly visible to the device camera.\\n3.  Install the 'Kinetic ImagiWorlds' app.\\n4.  Have the Astronaut figure ready.\\n\\nAssembly Complete! See App User Guide (AUG).\"}\n{\"_id\": \"IW-SPC-003_AUG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"App User Guide & AR Features\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition App User Guide & AR Features\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition App User Guide & AR Features (v1.0)\\n\\nExplore the Red Planet in Augmented Reality!\\n\\n## App Installation & Connection\\n\\n1.  Install \\\"Kinetic ImagiWorlds\\\" app (iOS/Android).\\n2.  Launch, grant Camera permission.\\n3.  Select 'Space Exploration' -> 'Mars Rover Expedition'.\\n4.  App activates camera.\\n\\n## Using Augmented Reality (AR)\\n\\n1.  **Aim Camera:** Point device at the assembled Rover and Habitat.\\n2.  **Detection:** App recognizes the playset via image recognition or specific AR markers.\\n3.  **AR Overlay:** Digital Martian landscape elements appear around the physical playset:\\n    *   Reddish terrain, rocks, craters.\\n    *   Animated dust devils or atmospheric effects.\\n    *   AR interface displaying rover status (power, connection).\\n    *   Highlighting interactive zones or mission objectives.\\n\\n## AR Rover Control & Interaction\\n\\n*   **Driving Simulation:** An AR overlay control panel appears allowing you to 'drive' a digital version of the rover around the AR environment superimposed on your playset area. You might use virtual joysticks or path-drawing tools.\\n*   **Robotic Arm Mini-Game:** Target AR rock samples. Use app controls to simulate operating the rover's robotic arm to collect the sample (involves aiming and 'grab' actions).\\n*   **Camera/Sensor View:** Tap on the AR camera mast to potentially see a simulated view from the rover's perspective or get AR readouts of 'atmospheric data'.\\n\\n## Astronaut Figure Interaction\\n\\n*   Placing the Astronaut figure near the Habitat or Rover (if RFID enabled, check product version) might trigger:\\n    *   AR character appearing for mission briefings.\\n    *   Unlocking entries in a 'Mars Facts' database within the app.\\n    *   Initiating specific tasks (e.g., 'Astronaut needs to check habitat solar panels').\\n\\n## App Interface Features\\n\\n*   **Mission Control Interface:** Shows current task, rover status, map of AR area.\\n*   **Sample Analysis:** Mini-game or info screen displaying results of collected AR rock samples.\\n*   **Mars Fact Database:** Educational content unlocked through play.\\n*   **Settings:** Audio, Graphics, Controls.\\n\\nSee Gameplay & Mission Guide (GMG) for more.\"}\n{\"_id\": \"IW-SPC-003_GMG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Gameplay & Mission Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Gameplay & Mission Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Gameplay & Mission Guide (v1.0)\\n\\nYour mission guide for exploring Mars!\\n\\n## Objective\\n\\n*   Simulate operating a Mars rover, conduct scientific exploration, complete mission tasks, and learn about Mars using the AR app and playset.\\n\\n## Gameplay Loop\\n\\n1.  **Receive Task:** Get objectives from 'Mission Control' via the app interface (e.g., \\\"Drive to coordinates XYZ\\\", \\\"Analyze Rock Formation Alpha\\\", \\\"Check Habitat Power Levels\\\").\\n2.  **Plan & Execute:**\\n    *   **Driving:** Use the AR driving controls in the app to navigate the digital rover across the AR landscape to the target location.\\n    *   **Sample Collection:** Use the robotic arm mini-game to collect designated AR samples.\\n    *   **Analysis:** Trigger AR analysis tools on collected samples or specific locations.\\n    *   **Habitat Interaction:** Drive rover near habitat or place astronaut figure (if applicable) to perform checks or tasks related to the habitat.\\n3.  **Report Results:** Completing tasks automatically updates mission status in the app.\\n4.  **Learn:** Successful actions often unlock educational Mars Facts in the app's database.\\n\\n## Example Missions / Tasks\\n\\n*   **Navigation Challenge:** Drive the AR rover through a difficult patch of AR terrain (rocks, craters) to reach a target waypoint.\\n*   **Rock Sampling:** Identify specific types of AR rocks indicated by mission control and use the robotic arm tool to collect them.\\n*   **Panoramic Imaging:** Drive to a high point and use an AR camera tool to capture a panoramic image (simulated).\\n*   **Dust Storm Alert:** Receive an alert and quickly drive the AR rover back to the safety of the Habitat area before a timer runs out.\\n*   **Habitat Check:** Use AR interface elements near the physical habitat model to check simulated power, oxygen, or water levels.\\n\\n## Educational Focus\\n\\n*   Many interactions and completed missions unlock facts about:\\n    *   Martian geology (rocks, volcanoes, canyons)\\n    *   Atmosphere and weather\\n    *   History of Mars exploration (real rover missions)\\n    *   Challenges of living on Mars\\n\\nBegin your Martian adventure!\"}\n{\"_id\": \"IW-SPC-003_TG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Troubleshooting Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Troubleshooting Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Troubleshooting Guide (v1.0)\\n\\nResolving common issues on your Mars mission.\\n\\n## AR Tracking & Marker Issues\\n\\n*   **(AR Not Detecting Playset / Losing Track):** Refer to general AR troubleshooting in [Lunar Base Alpha Troubleshooting Guide](/document/IW-SPC-001_TG_v1.0) (check lighting, surface, distance, clean lens).\\n*   **AR Markers Not Recognized (If Used):**\\n    *   Ensure markers are placed correctly and are flat, clean, and undamaged.\\n    *   Make sure the camera has a clear view of the marker(s).\\n    *   Check for sufficient, even lighting.\\n*   **AR Landscape Misaligned with Physical Set:**\\n    *   Restart the AR session in the app.\\n    *   Ensure playset hasn't moved.\\n    *   Perform AR calibration/reset if available in app settings.\\n\\n## App & Gameplay Issues\\n\\n*   **(App Crashes / Freezing / Won't Start):** Refer to general app troubleshooting in [Lunar Base Alpha Troubleshooting Guide](/document/IW-SPC-001_TG_v1.0) (check requirements, restart, update).\\n*   **AR Driving Controls Unresponsive / Laggy:**\\n    *   Check device performance (close other apps).\\n    *   Ensure stable AR tracking.\\n    *   Restart app.\\n*   **Robotic Arm Mini-Game Difficult / Not Working:**\\n    *   Check for specific instructions or tutorials within the app for the mini-game.\\n    *   Ensure stable AR tracking while playing.\\n    *   Possible app bug - check for updates.\\n*   **Missions Not Progressing:**\\n    *   Make sure you have completed the exact objective (e.g., reached the precise AR coordinates, collected the correct sample).\\n    *   Check if specific figure placement is required (if applicable).\\n    *   Restart the app.\\n\\n## Physical Playset Issues\\n\\n*   **Rover Parts Falling Off (Wheels, Arm):** Ensure parts were snapped/screwed in securely during assembly.\\n*   **Habitat Unstable:** Ensure base is on flat surface.\\n\\n## Contacting Support\\n\\n*   Visit Kinetic Constructs support website or email support with model ([Mars Rover Expedition Set](/product/IW-SPC-003)), app version, device model/OS, and problem description.\"}\n{\"_id\": \"IW-SPC-003_SC_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Safety & Compliance\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Safety & Compliance\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Safety & Compliance (v1.0)\\n\\nImportant safety and compliance information.\\n\\n## Safety Precautions\\n\\n*   **WARNING: CHOKING HAZARD -- Small parts (rover components, figure, connectors). Not for children under 3 years.**\\n*   **Recommended Age:** 8+ Adult supervision recommended.\\n*   **Physical Playset:** Made from plastic. Handle assembled rover and habitat with care.\\n*   **Figure:** May contain RFID tag (check version). Do not disassemble.\\n*   **AR Markers:** If using separate markers, keep them clean and flat.\\n*   **App Usage:** Requires compatible smartphone/tablet (not included). Follow device manufacturer's safety guidelines.\\n*   **AR Play Area:** Ensure clear space when user is interacting with the AR environment via the device.\\n\\n## App Privacy\\n\\n*   Refer to App Privacy section in [Lunar Base Alpha Safety & Compliance](/document/IW-SPC-001_SC_v1.0). Camera permission required for AR. Check full Privacy Policy for details.\\n\\n## Compliance Information (Example)\\n\\n*   **Toy Safety:** Conforms to safety requirements of ASTM F963 (US), EN 71 (EU).\\n*   **RFID/Electronics:** Complies with relevant RF regulations if applicable.\\n*   **CE Mark:** Indicates conformity with applicable EU directives.\\n\\nStore this information for reference.\\nKinetic Constructs - Building Tomorrow's Play.\"}\n{\"_id\": \"IW-CAS-001_ASG_v1.0\", \"product_id\": \"IW-CAS-001\", \"product_name\": \"Castle Knights Kingdom AR Playset\", \"doc_type\": \"Assembly & Setup Guide\", \"version\": \"1.0\", \"title\": \"Castle Knights Kingdom Playset Assembly & Setup Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Castle Knights Kingdom Playset Assembly & Setup Guide (v1.0)\\n\\nBuild your medieval fortress!\\n\\n## Parts List\\n\\n*   Castle Wall Sections (Multiple types: straight, corner)\\n*   Tower Sections (Base, Middle, Top/Battlements)\\n*   Main Gatehouse Assembly (Gate, Drawbridge mechanism - simple)\\n*   Castle Keep Structure (Main building)\\n*   Walkway Sections (for battlements)\\n*   Flags & Banners\\n*   2x Knight Figures (with RFID bases)\\n*   1x Dragon Figure (with RFID base)\\n*   Connector Pieces\\n*   Sticker Sheet (Stone texture, shields)\\n\\n*(Illustrations essential for castle layout options)*\\n\\n## Assembly Steps\\n\\n1.  **Plan Layout:** Decide on your castle configuration (square, L-shape, etc.).\\n2.  **Build Walls:** Connect Wall Sections and Corner Tower Bases using connector pieces.\\n3.  **Construct Towers:** Stack Tower Sections (Base, Middle, Top) to desired height.\\n4.  **Build Gatehouse:** Assemble the Main Gatehouse and integrate into a wall section.\\n5.  **Build Keep:** Assemble the Castle Keep structure, usually placed inside the walls.\\n6.  **Add Walkways:** Connect Walkway Sections along the tops of the walls between towers.\\n7.  **Attach Flags/Banners:** Add decorative elements.\\n8.  **Apply Stickers (Optional):** Add stone texture or shield stickers.\\n\\n*(Diagram: Example castle layout)*\\n\\n## Setup for AR Play\\n\\n1.  Place assembled castle on a well-lit, stable surface with clear space around it.\\n2.  Install 'Kinetic ImagiWorlds' app on your device.\\n3.  Have Knight and Dragon figures ready.\\n\\nAssembly Complete! See App User Guide (AUG).\"}",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    6978,
+                    6991
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/fsp-imi/fsp_final_backend/blob/48c330cd9bf99ce08f0c2393b548203044345c9a/parser/data/parsed_results.json",
+          "path": "parser/data/parsed_results.json",
+          "display_url": "https://github.com/fsp-imi/fsp_final_backend/blob/48c330cd9bf99ce08f0c2393b548203044345c9a/parser/data/parsed_results.json",
+          "display_title": "parser/data/parsed_results.json",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "    {\n        \"District\": \"СЗФО\",\n        \"Region\": \"KO\",\n        \"Commands\": \"Digital Rover (Галкина, Бурылов, Кормин, Дмитриев, Галкин)\",\n        \"Results\": 131\n    },\n    {",
+              "matches": [
+                {
+                  "text": "Digital Rover",
+                  "indices": [
+                    83,
+                    96
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/shanmukh1608/Sentiment-Analysis-COVID19-Tweets/blob/0fb804fc33cacaf648cb30cd7132fa6e24daf6ae/spacy_textblob/2021-01/coronavirus-tweet-id-2021-01-17-12.csv",
+          "path": "spacy_textblob/2021-01/coronavirus-tweet-id-2021-01-17-12.csv",
+          "display_url": "https://github.com/shanmukh1608/Sentiment-Analysis-COVID19-Tweets/blob/0fb804fc33cacaf648cb30cd7132fa6e24daf6ae/spacy_textblob/2021-01/coronavirus-tweet-id-2021-01-17-12.csv",
+          "display_title": "spacy_textblob/2021-01/coronavirus-tweet-id-2021-01-17-12.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "115,2021-01-17 12:00:00+00:00,organizer march life antiabortion movement preeminent annual event ask supporter nationwide gather washington year pandemic political unresthttpstcollohycgscy,0.0\n116,2021-01-17 12:00:00+00:00,program pause due covidaustin peaybethune cookman outchicago state outcincinnatidrakeecuelonfla aampmgeorgetownivy league outionahowardiowa stlamarlong beach statenebraskanc centraloklahoma storegonradfordrichmondusfume,-0.125\n117,2021-01-17 12:00:00+00:00,norton healthcare uofl health baptist health accept appointment individual old,0.05\n118,2021-01-17 12:00:00+00:00,digital rover matchday programme read support community current lockdown include team hand laptop learner latest around rapid smart testing,0.17857142857142858\n119,2021-01-17 12:00:00+00:00,haywood county health human service agency say friday jan identify cluster connect waynesville police department,0.0\n120,2021-01-17 12:00:00+00:00,go beyond pandemic,0.0\n121,2021-01-17 12:00:00+00:00,opinion age social distancing rule strictly follow facetoface interaction limit get pandemic teach value human interaction whatever form availablehttpstcobxtpxoyscf,0.016666666666666666",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    594,
+                    607
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mainframeai/kinetic-AI-lflow-tst001/blob/e2442be44f79561693a56b965c39a62f67cf1a66/creation-assets/products/imagiworlds/documents.jsonl",
+          "path": "creation-assets/products/imagiworlds/documents.jsonl",
+          "display_url": "https://github.com/mainframeai/kinetic-AI-lflow-tst001/blob/e2442be44f79561693a56b965c39a62f67cf1a66/creation-assets/products/imagiworlds/documents.jsonl",
+          "display_title": "creation-assets/products/imagiworlds/documents.jsonl",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "{\"_id\": \"IW-SPC-002_SC_v1.0\", \"product_id\": \"IW-SPC-002\", \"product_name\": \"Star Station Odyssey AR Playset\", \"doc_type\": \"Safety & Compliance\", \"version\": \"1.0\", \"title\": \"Star Station Odyssey Safety & Compliance\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Star Station Odyssey Safety & Compliance (v1.0)\\n\\nImportant safety and compliance information.\\n\\n## Safety Precautions\\n\\n*   **WARNING: CHOKING HAZARD -- Small parts (figures, connectors, small assembly pieces). Not for children under 3 years.**\\n*   **Recommended Age:** 8+ Adult supervision recommended.\\n*   **Physical Playset:** Handle assembled station with care due to its size and multiple components. Place on a stable surface where it won't easily fall.\\n*   **Figures:** Contain passive RFID tags. Do not disassemble.\\n*   **App Usage:** Requires compatible smartphone/tablet (not included). Follow device manufacturer's safety guidelines.\\n*   **AR Play Area:** Ensure adequate clear space for moving around while viewing the AR scene on a device.\\n\\n## App Privacy\\n\\n*   Refer to App Privacy section in [Lunar Base Alpha Safety & Compliance](/document/IW-SPC-001_SC_v1.0). Camera permission required for AR, data typically processed locally. Check full Privacy Policy for details.\\n\\n## Compliance Information (Example)\\n\\n*   **Toy Safety:** Conforms to safety requirements of ASTM F963 (US), EN 71 (EU).\\n*   **RFID/Electronics:** Complies with relevant RF regulations if applicable.\\n*   **CE Mark:** Indicates conformity with applicable EU directives.\\n\\nStore this information for reference.\\nKinetic Constructs - Building Tomorrow's Play.\"}\n{\"_id\": \"IW-SPC-003_ASG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Assembly & Setup Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Set Assembly & Setup Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Set Assembly & Setup Guide (v1.0)\\n\\nAssemble your Mars exploration gear!\\n\\n## Parts List\\n\\n*   **Mars Rover Components:**\\n    *   Rover Chassis\\n    *   6x Wheels & Suspension Arms\\n    *   Robotic Arm Assembly (Multi-part)\\n    *   Camera Mast / Sensor Suite\\n    *   Power Source / RTG (Mock)\\n    *   Antenna\\n*   **Habitat Section:**\\n    *   Small Habitat Base\\n    *   Dome Structure\\n    *   Airlock Door Piece\\n*   1x Astronaut Figure\\n*   Assorted Connector Pieces / Screws (if needed)\\n*   Sticker Sheet (Rover details, NASA-like logos)\\n*   AR Marker Sheet (May be integrated or separate)\\n\\n*(Illustrations essential, especially for rover assembly)*\\n\\n## Assembly Steps\\n\\n1.  **Rover Wheels/Suspension:** Attach the 6 wheel assemblies and suspension arms to the Rover Chassis.\\n2.  **Robotic Arm:** Assemble the multi-part robotic arm and attach it to the designated point on the rover chassis.\\n3.  **Camera Mast:** Assemble and attach the Camera Mast / Sensor Suite.\\n4.  **Other Rover Details:** Attach the mock Power Source and Antenna.\\n5.  **Habitat:** Assemble the simple Habitat section (Base, Dome, Airlock).\\n6.  **Stickers:** Apply detail stickers to rover and habitat.\\n7.  **AR Markers:** If separate, place AR markers on designated spots on the rover/habitat OR note the integrated markers.\\n\\n*(Diagram: Shows assembled rover and habitat)*\\n\\n## Setup for AR Play\\n\\n1.  Place the assembled Rover and Habitat on a well-lit surface (a reddish-brown cloth could enhance theme!).\\n2.  Ensure AR markers are clearly visible to the device camera.\\n3.  Install the 'Kinetic ImagiWorlds' app.\\n4.  Have the Astronaut figure ready.\\n\\nAssembly Complete! See App User Guide (AUG).\"}\n{\"_id\": \"IW-SPC-003_AUG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"App User Guide & AR Features\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition App User Guide & AR Features\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition App User Guide & AR Features (v1.0)\\n\\nExplore the Red Planet in Augmented Reality!\\n\\n## App Installation & Connection\\n\\n1.  Install \\\"Kinetic ImagiWorlds\\\" app (iOS/Android).\\n2.  Launch, grant Camera permission.\\n3.  Select 'Space Exploration' -> 'Mars Rover Expedition'.\\n4.  App activates camera.\\n\\n## Using Augmented Reality (AR)\\n\\n1.  **Aim Camera:** Point device at the assembled Rover and Habitat.\\n2.  **Detection:** App recognizes the playset via image recognition or specific AR markers.\\n3.  **AR Overlay:** Digital Martian landscape elements appear around the physical playset:\\n    *   Reddish terrain, rocks, craters.\\n    *   Animated dust devils or atmospheric effects.\\n    *   AR interface displaying rover status (power, connection).\\n    *   Highlighting interactive zones or mission objectives.\\n\\n## AR Rover Control & Interaction\\n\\n*   **Driving Simulation:** An AR overlay control panel appears allowing you to 'drive' a digital version of the rover around the AR environment superimposed on your playset area. You might use virtual joysticks or path-drawing tools.\\n*   **Robotic Arm Mini-Game:** Target AR rock samples. Use app controls to simulate operating the rover's robotic arm to collect the sample (involves aiming and 'grab' actions).\\n*   **Camera/Sensor View:** Tap on the AR camera mast to potentially see a simulated view from the rover's perspective or get AR readouts of 'atmospheric data'.\\n\\n## Astronaut Figure Interaction\\n\\n*   Placing the Astronaut figure near the Habitat or Rover (if RFID enabled, check product version) might trigger:\\n    *   AR character appearing for mission briefings.\\n    *   Unlocking entries in a 'Mars Facts' database within the app.\\n    *   Initiating specific tasks (e.g., 'Astronaut needs to check habitat solar panels').\\n\\n## App Interface Features\\n\\n*   **Mission Control Interface:** Shows current task, rover status, map of AR area.\\n*   **Sample Analysis:** Mini-game or info screen displaying results of collected AR rock samples.\\n*   **Mars Fact Database:** Educational content unlocked through play.\\n*   **Settings:** Audio, Graphics, Controls.\\n\\nSee Gameplay & Mission Guide (GMG) for more.\"}\n{\"_id\": \"IW-SPC-003_GMG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Gameplay & Mission Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Gameplay & Mission Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Gameplay & Mission Guide (v1.0)\\n\\nYour mission guide for exploring Mars!\\n\\n## Objective\\n\\n*   Simulate operating a Mars rover, conduct scientific exploration, complete mission tasks, and learn about Mars using the AR app and playset.\\n\\n## Gameplay Loop\\n\\n1.  **Receive Task:** Get objectives from 'Mission Control' via the app interface (e.g., \\\"Drive to coordinates XYZ\\\", \\\"Analyze Rock Formation Alpha\\\", \\\"Check Habitat Power Levels\\\").\\n2.  **Plan & Execute:**\\n    *   **Driving:** Use the AR driving controls in the app to navigate the digital rover across the AR landscape to the target location.\\n    *   **Sample Collection:** Use the robotic arm mini-game to collect designated AR samples.\\n    *   **Analysis:** Trigger AR analysis tools on collected samples or specific locations.\\n    *   **Habitat Interaction:** Drive rover near habitat or place astronaut figure (if applicable) to perform checks or tasks related to the habitat.\\n3.  **Report Results:** Completing tasks automatically updates mission status in the app.\\n4.  **Learn:** Successful actions often unlock educational Mars Facts in the app's database.\\n\\n## Example Missions / Tasks\\n\\n*   **Navigation Challenge:** Drive the AR rover through a difficult patch of AR terrain (rocks, craters) to reach a target waypoint.\\n*   **Rock Sampling:** Identify specific types of AR rocks indicated by mission control and use the robotic arm tool to collect them.\\n*   **Panoramic Imaging:** Drive to a high point and use an AR camera tool to capture a panoramic image (simulated).\\n*   **Dust Storm Alert:** Receive an alert and quickly drive the AR rover back to the safety of the Habitat area before a timer runs out.\\n*   **Habitat Check:** Use AR interface elements near the physical habitat model to check simulated power, oxygen, or water levels.\\n\\n## Educational Focus\\n\\n*   Many interactions and completed missions unlock facts about:\\n    *   Martian geology (rocks, volcanoes, canyons)\\n    *   Atmosphere and weather\\n    *   History of Mars exploration (real rover missions)\\n    *   Challenges of living on Mars\\n\\nBegin your Martian adventure!\"}\n{\"_id\": \"IW-SPC-003_TG_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Troubleshooting Guide\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Troubleshooting Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Troubleshooting Guide (v1.0)\\n\\nResolving common issues on your Mars mission.\\n\\n## AR Tracking & Marker Issues\\n\\n*   **(AR Not Detecting Playset / Losing Track):** Refer to general AR troubleshooting in [Lunar Base Alpha Troubleshooting Guide](/document/IW-SPC-001_TG_v1.0) (check lighting, surface, distance, clean lens).\\n*   **AR Markers Not Recognized (If Used):**\\n    *   Ensure markers are placed correctly and are flat, clean, and undamaged.\\n    *   Make sure the camera has a clear view of the marker(s).\\n    *   Check for sufficient, even lighting.\\n*   **AR Landscape Misaligned with Physical Set:**\\n    *   Restart the AR session in the app.\\n    *   Ensure playset hasn't moved.\\n    *   Perform AR calibration/reset if available in app settings.\\n\\n## App & Gameplay Issues\\n\\n*   **(App Crashes / Freezing / Won't Start):** Refer to general app troubleshooting in [Lunar Base Alpha Troubleshooting Guide](/document/IW-SPC-001_TG_v1.0) (check requirements, restart, update).\\n*   **AR Driving Controls Unresponsive / Laggy:**\\n    *   Check device performance (close other apps).\\n    *   Ensure stable AR tracking.\\n    *   Restart app.\\n*   **Robotic Arm Mini-Game Difficult / Not Working:**\\n    *   Check for specific instructions or tutorials within the app for the mini-game.\\n    *   Ensure stable AR tracking while playing.\\n    *   Possible app bug - check for updates.\\n*   **Missions Not Progressing:**\\n    *   Make sure you have completed the exact objective (e.g., reached the precise AR coordinates, collected the correct sample).\\n    *   Check if specific figure placement is required (if applicable).\\n    *   Restart the app.\\n\\n## Physical Playset Issues\\n\\n*   **Rover Parts Falling Off (Wheels, Arm):** Ensure parts were snapped/screwed in securely during assembly.\\n*   **Habitat Unstable:** Ensure base is on flat surface.\\n\\n## Contacting Support\\n\\n*   Visit Kinetic Constructs support website or email support with model ([Mars Rover Expedition Set](/product/IW-SPC-003)), app version, device model/OS, and problem description.\"}\n{\"_id\": \"IW-SPC-003_SC_v1.0\", \"product_id\": \"IW-SPC-003\", \"product_name\": \"Mars Rover Expedition Set\", \"doc_type\": \"Safety & Compliance\", \"version\": \"1.0\", \"title\": \"Mars Rover Expedition Safety & Compliance\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Mars Rover Expedition Safety & Compliance (v1.0)\\n\\nImportant safety and compliance information.\\n\\n## Safety Precautions\\n\\n*   **WARNING: CHOKING HAZARD -- Small parts (rover components, figure, connectors). Not for children under 3 years.**\\n*   **Recommended Age:** 8+ Adult supervision recommended.\\n*   **Physical Playset:** Made from plastic. Handle assembled rover and habitat with care.\\n*   **Figure:** May contain RFID tag (check version). Do not disassemble.\\n*   **AR Markers:** If using separate markers, keep them clean and flat.\\n*   **App Usage:** Requires compatible smartphone/tablet (not included). Follow device manufacturer's safety guidelines.\\n*   **AR Play Area:** Ensure clear space when user is interacting with the AR environment via the device.\\n\\n## App Privacy\\n\\n*   Refer to App Privacy section in [Lunar Base Alpha Safety & Compliance](/document/IW-SPC-001_SC_v1.0). Camera permission required for AR. Check full Privacy Policy for details.\\n\\n## Compliance Information (Example)\\n\\n*   **Toy Safety:** Conforms to safety requirements of ASTM F963 (US), EN 71 (EU).\\n*   **RFID/Electronics:** Complies with relevant RF regulations if applicable.\\n*   **CE Mark:** Indicates conformity with applicable EU directives.\\n\\nStore this information for reference.\\nKinetic Constructs - Building Tomorrow's Play.\"}\n{\"_id\": \"IW-CAS-001_ASG_v1.0\", \"product_id\": \"IW-CAS-001\", \"product_name\": \"Castle Knights Kingdom AR Playset\", \"doc_type\": \"Assembly & Setup Guide\", \"version\": \"1.0\", \"title\": \"Castle Knights Kingdom Playset Assembly & Setup Guide\", \"language\": \"en-US\", \"format\": \"Markdown\", \"text\": \"# Castle Knights Kingdom Playset Assembly & Setup Guide (v1.0)\\n\\nBuild your medieval fortress!\\n\\n## Parts List\\n\\n*   Castle Wall Sections (Multiple types: straight, corner)\\n*   Tower Sections (Base, Middle, Top/Battlements)\\n*   Main Gatehouse Assembly (Gate, Drawbridge mechanism - simple)\\n*   Castle Keep Structure (Main building)\\n*   Walkway Sections (for battlements)\\n*   Flags & Banners\\n*   2x Knight Figures (with RFID bases)\\n*   1x Dragon Figure (with RFID base)\\n*   Connector Pieces\\n*   Sticker Sheet (Stone texture, shields)\\n\\n*(Illustrations essential for castle layout options)*\\n\\n## Assembly Steps\\n\\n1.  **Plan Layout:** Decide on your castle configuration (square, L-shape, etc.).\\n2.  **Build Walls:** Connect Wall Sections and Corner Tower Bases using connector pieces.\\n3.  **Construct Towers:** Stack Tower Sections (Base, Middle, Top) to desired height.\\n4.  **Build Gatehouse:** Assemble the Main Gatehouse and integrate into a wall section.\\n5.  **Build Keep:** Assemble the Castle Keep structure, usually placed inside the walls.\\n6.  **Add Walkways:** Connect Walkway Sections along the tops of the walls between towers.\\n7.  **Attach Flags/Banners:** Add decorative elements.\\n8.  **Apply Stickers (Optional):** Add stone texture or shield stickers.\\n\\n*(Diagram: Example castle layout)*\\n\\n## Setup for AR Play\\n\\n1.  Place assembled castle on a well-lit, stable surface with clear space around it.\\n2.  Install 'Kinetic ImagiWorlds' app on your device.\\n3.  Have Knight and Dragon figures ready.\\n\\nAssembly Complete! See App User Guide (AUG).\"}",
+              "matches": [
+                {
+                  "text": "digital rover",
+                  "indices": [
+                    6978,
+                    6991
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  }
+}

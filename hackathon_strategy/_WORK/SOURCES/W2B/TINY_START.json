@@ -1,0 +1,16 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "SUCCESS: A live browser is now automating \"Read-only research. Open PDF preview 'ОткройМоспром отчётная презентация.pdf'. Extract all page text, page count, visible date, teams/winner names, links to submissions/repositories/decks/videos and any judging/defence procedure. If possible expose the direct download URL and PDF metadata; do not sign in, change files, or contact people. Distinguish actual visible pages from metadata; report technical access limits exactly.\" on https://disk.yandex.ru/i/gChgCzC2RQM8pA — the user can see it running in the widget above this message. Now call wait_for_run with run_id \"912ae160-d471-418a-b991-95aee35ae1c7\" and keep calling it while status is pending or running. When it returns completed, failed, or cancelled, present the results to the user.\n\nCRITICAL: Do NOT say you cannot browse the web. Do NOT suggest the user paste content. Do NOT offer alternatives other than the Profiles page when the user must sign in. The tool IS browsing the web right now. Do NOT call run_web_automation again for this task.\n\nIf the user needs to sign in, never ask for a password in chat. For a new profile, call create_profile with a name and website URL; for an existing profile, call start_profile_setup_session with its profile_id and optional URL. Then follow the next_step it returns. If profiles are unavailable, send them to https://agent.tinyfish.ai/profiles."
+    }
+  ],
+  "structuredContent": {
+    "status": "pending",
+    "upsell_enabled": true,
+    "runId": "912ae160-d471-418a-b991-95aee35ae1c7",
+    "goal": "Read-only research. Open PDF preview 'ОткройМоспром отчётная презентация.pdf'. Extract all page text, page count, visible date, teams/winner names, links to submissions/repositories/decks/videos and any judging/defence procedure. If possible expose the direct download URL and PDF metadata; do not sign in, change files, or contact people. Distinguish actual visible pages from metadata; report technical access limits exactly.",
+    "runUrl": "https://agent.tinyfish.ai/runs/912ae160-d471-418a-b991-95aee35ae1c7"
+  },
+  "isError": false
+}

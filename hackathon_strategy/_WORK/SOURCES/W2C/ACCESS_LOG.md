@@ -1,0 +1,11 @@
+# W2C — пределы получения23.10.2026
+
+- `https://leader-id.ru/events/580121`: native Python requests дал `SSLError` / `SSLEOFError: [SSL: UNEXPECTED_EOF_WHILE_READING]`. Байты HTML этим способом не сохранены. Web и TinyFish fetch прочитали event body: `OPEN1.json`, `FETCH1.json`. Browser automation `cb81d2d0-ebe7-41e5-b06c-598347035080` завершилась с report о странице `Something went wrong...`; `AUTO_RESULT.json`. Несогласованность retrieval путей сохранена, общая недоступность сайта не установлена.
+- `https://files.lin-q.ru/tpu/pr/2026_linq_presentation.pdf`: native requests дал тот же TLS EOF; оригинальный PDF отсутствует. Web open сообщил inaccessible; web screenshot `content type is not application/pdf and web screenshot is not enabled`. TinyFish вернул только PDF text/metadata в `PDF2.json`. Визуальная сверка таблицы не выполнена. Ранее W1C уже имел такой же technical retrieval limit; эта ветка сделала один fresh native запрос и alternative fetch, а не цикл повторов.
+- `https://leader-id.storage.yandexcloud.net/event_doc/257258/61b9f79201508466062515.pdf`: link получен из outbound links event fetch, но его принадлежность мероприятию не установлена. Web сообщил 2 страницы без text layer; alternative fetch text=null; screenshot не выполнен из-за content-type error. Нельзя считать это полученным регламентом.
+- `https://t.me/s/a2035_drones/8282`: редирект на group landing, теперь «А2026. Соревнования дронов. Участники.»; сам исторический post8282 не прочитан.
+- `https://nkbtech.ru/`: alternative fetch вернул proxy_error; публичная Telegram-лента компании прочитана успешно и дала matching post8/defense URL.
+- `https://hacks-ai.ru/events/1077380`: alternative fetch вернул target_http_error504. Не получены case attachments/repository через этот путь.
+- CUA попытка создать iab tab вернула `Browser is not available: iab`; inventory затем `apps=[]`, `browsers=[]`. Поэтому видео этим способом не просматривалось. Нет observed runtime/Q&A.
+- Rutube страница и публичный player API успешно извлечены (`VIDEO1.json`/`VIDEO_API.json`), captions пусты, metadata доступна. Не скачан/не просмотрен video stream. `?t=4080` — ссылка автора поста, не наш observation timestamp.
+- Регистраций, логинов, сообщений внешним лицам, SDK/model runs, нагрузочных тестов и новых сдаваемых материалов не было.

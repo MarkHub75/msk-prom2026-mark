@@ -1,0 +1,132 @@
+﻿Accumulating evaluation results...
+DONE (t=0.00s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+{
+  "numpy": "2.4.2",
+  "tests": [
+    {
+      "name": "duplicate_after_TP",
+      "matches": [
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "ignored": [
+        [
+          false,
+          false
+        ]
+      ],
+      "recall": [
+        [
+          [
+            [
+              1.0
+            ]
+          ]
+        ]
+      ],
+      "AP50": 0.9999999999999999
+    },
+    {
+      "name": "FP_before_TP",
+      "matches": [
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "ignored": [
+        [
+          false,
+          false
+        ]
+      ],
+      "recall": [
+        [
+          [
+            [
+              1.0
+            ]
+          ]
+        ]
+      ],
+      "AP50": 0.5
+    },
+    {
+      "name": "absent_class",
+      "matches": [
+        [
+          0.0
+        ]
+      ],
+      "ignored": [
+        [
+          false
+        ]
+      ],
+      "recall": [
+        [
+          [
+            [
+              -1.0
+            ]
+          ]
+        ]
+      ],
+      "AP50": null
+    },
+    {
+      "name": "GT_no_detections",
+      "matches": [
+        []
+      ],
+      "ignored": [
+        []
+      ],
+      "recall": [
+        [
+          [
+            [
+              0.0
+            ]
+          ]
+        ]
+      ],
+      "AP50": 0.0
+    },
+    {
+      "name": "crowd_multiple_ignored",
+      "matches": [
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "ignored": [
+        [
+          true,
+          true
+        ]
+      ],
+      "recall": [
+        [
+          [
+            [
+              -1.0
+            ]
+          ]
+        ]
+      ],
+      "AP50": null
+    }
+  ]
+}

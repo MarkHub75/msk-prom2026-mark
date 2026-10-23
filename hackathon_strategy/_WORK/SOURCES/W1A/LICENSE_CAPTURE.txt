@@ -1,0 +1,531 @@
+Internal Error ()
+citeturn66view0 [wordlim: 200] Source: open({"ref_id":"https://www.gnu.org/licenses/agpl-3.0.txt","lineno":null}); Total lines: 1
+L0: Failed to fetch https://www.gnu.org/licenses/agpl-3.0.txt: (400) Timeout fetching
+--------------------------------------------------------------------------------
+ (https://raw.githubusercontent.com/ultralytics/ultralytics/main/LICENSE)
+citeturn66view1 [wordlim: 200] Crawled: today; Content type: text/plain; Source: open({"ref_id":"https://raw.githubusercontent.com/ultralytics/ultralytics/main/LICENSE","lineno":null}); Total lines: 585
+L0: GNU AFFERO GENERAL PUBLIC LICENSE
+L1:                        Version 3, 19 November 2007
+L2: 
+L3:  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+L4:  Everyone is permitted to copy and distribute verbatim copies
+L5:  of this license document, but changing it is not allowed.
+L6: 
+L7:                             Preamble
+L8:   The GNU Affero General Public License is a free, copyleft license for
+L9: software and other kinds of works, specifically designed to ensure
+L10: cooperation with the community in the case of network server software.
+L11:   The licenses for most software and other practical works are designed
+L12: to take away your freedom to share and change the works.  By contrast,
+L13: our General Public Licenses are intended to guarantee your freedom to
+L14: share and change all versions of a program--to make sure it remains free
+L15: software for all its users.
+L16:   When we speak of free software, we are referring to freedom, not
+L17: price.  Our General Public Licenses are designed to make sure that you
+L18: have the freedom to distribute copies of free software (and charge for
+L19: them if you wish), that you receive source code or can get it if you
+L20: want it, that you can change the software or use pieces of it in new
+L21: free programs, and that you know you can do these things.
+L22:   Developers that use our General Public Licenses protect your rights
+L23: with two steps: (1) assert copyright on the software, and (2) offer
+L24: you this License which gives you legal permission to copy, distribute
+L25: and/or modify the software.
+L26:   A secondary benefit of defending all users' freedom is that
+L27: improvements made in alternate versions of the program, if they
+L28: receive widespread use, become available for other developers to
+L29: incorporate.  Many developers of free software are heartened and
+L30: encouraged by the resulting cooperation.  However, in the case of
+L31: software used on network servers, this result may fail to come about.
+L32: The GNU General Public License permits making a modified version and
+L33: letting the public access it on a server without ever releasing its
+L34: source code to the public.
+L35:   The GNU Affero General Public License is designed specifically to
+L36: ensure that, in such cases, the modified source code becomes available
+L37: to the community.  It requires the operator of a network server to
+L38: provide the source code of the modified version running there to the
+L39: users of that server.  Therefore, public use of a modified version, on
+L40: a publicly accessible server, gives the public access to the source
+L41: code of the modified version.
+L42:   An older license, called the Affero General Public License and
+L43: published by Affero, was designed to accomplish similar goals.  This is
+L44: a different license, not a version of the Affero GPL, but Affero has
+L45: released a new version of the Affero GPL which permits relicensing under
+L46: this license.
+L47: 
+L48:   The precise terms and conditions for copying, distribution and
+L49: modification follow.
+L50: 
+L51:                        TERMS AND CONDITIONS
+L52: 
+L53:   0. Definitions.
+L54:   "This License" refers to version 3 of the GNU Affero General Public License.
+L55: 
+L56:   "Copyright" also means copyright-like laws that apply to other kinds of
+L57: works, such as semiconductor masks.
+L58: 
+L59:   "The Program" refers to any copyrightable work licensed under this
+L60: License.  Each licensee is addressed as "you".  "Licensees" and
+L61: "recipients" may be individuals or organizations.
+L62:   To "modify" a work means to copy from or adapt all or part of the work
+L63: in a fashion requiring copyright permission, other than the making of an
+L64: exact copy.  The resulting work is called a "modified version" of the
+L65: earlier work or a work "based on" the earlier work.
+L66: 
+L67:   A "covered work" means either the unmodified Program or a work based
+L68: on the Program.
+L69:   To "propagate" a work means to do anything with it that, without
+L70: permission, would make you directly or secondarily liable for
+L71: infringement under applicable copyright law, except executing it on a
+L72: computer or modifying a private copy.  Propagation includes copying,
+L73: distribution (with or without modification), making available to the
+L74: public, and in some countries other activities as well.
+L75:   To "convey" a work means any kind of propagation that enables other
+L76: parties to make or receive copies.  Mere interaction with a user through
+L77: a computer network, with no transfer of a copy, is not conveying.
+L78:   An interactive user interface displays "Appropriate Legal Notices"
+L79: to the extent that it includes a convenient and prominently visible
+L80: feature that (1) displays an appropriate copyright notice, and (2)
+L81: tells the user that there is no warranty for the work (except to the
+L82: extent that warranties are provided), that licensees may convey the
+L83: work under this License, and how to view a copy of this License.  If
+L84: the interface presents a list of user commands or options, such as a
+L85: menu, a prominent item in the list meets this criterion.
+L86:   1. Source Code.
+L87: 
+L88:   The "source code" for a work means the preferred form of the work
+L89: for making modifications to it.  "Object code" means any non-source
+L90: form of a work.
+L91: 
+L92:   A "Standard Interface" means an interface that either is an official
+L93: standard defined by a recognized standards body, or, in the case of
+L94: interfaces specified for a particular programming language, one that
+L95: is widely used among developers working in that language.
+L96:   The "System Libraries" of an executable work include anything, other
+L97: than the work as a whole, that (a) is included in the normal form of
+L98: packaging a Major Component, but which is not part of that Major
+L99: Component, and (b) serves only to enable use of the work with that
+L100: Major Component, or to implement a Standard Interface for which an
+L101: implementation is available to the public in source code form.  A
+L102: "Major Component", in this context, means a major essential component
+L103: (kernel, window system, and so on) of the specific operating system
+L104: (if any) on which the executable work runs, or a compiler used to
+L105: produce the work, or an object code interpreter used to run it.
+L106:   The "Corresponding Source" for a work in object code form means all
+L107: the source code needed to generate, install, and (for an executable
+L108: work) run the object code and to modify the work, including scripts to
+L109: control those activities.  However, it does not include the work's
+L110: System Libraries, or general-purpose tools or generally available free
+L111: programs which are used unmodified in performing those activities but
+L112: which are not part of the work.  For example, Corresponding Source
+L113: includes interface definition files associated with source files for
+L114: the work, and the source code for shared libraries and dynamically
+L115: linked subprograms that the work is specifically designed to require,
+L116: such as by intimate data communication or control flow between those
+L117: subprograms and other parts of the work.
+L118:   The Corresponding Source need not include anything that users
+L119: can regenerate automatically from other parts of the Corresponding
+L120: Source.
+L121: 
+L122:   The Corresponding Source for a work in source code form is that
+L123: same work.
+L124: 
+L125:   2. Basic Permissions.
+L126:   All rights granted under this License are granted for the term of
+L127: copyright on the Program, and are irrevocable provided the stated
+L128: conditions are met.  This License explicitly affirms your unlimited
+L129: permission to run the unmodified Program.  The output from running a
+L130: covered work is covered by this License only if the output, given its
+L131: content, constitutes a covered work.  This License acknowledges your
+L132: rights of fair use or other equivalent, as provided by copyright law.
+L133:   You may make, run and propagate covered works that you do not
+L134: convey, without conditions so long as your license otherwise remains
+L135: in force.  You may convey covered works to others for the sole purpose
+L136: of having them make modifications exclusively for you, or provide you
+L137: with facilities for running those works, provided that you comply with
+L138: the terms of this License in conveying all material for which you do
+L139: not control copyright.  Those thus making or running the covered works
+L140: for you must do so exclusively on your behalf, under your direction
+L141: and control, on terms that prohibit them from making any copies of
+L142: your copyrighted material outside their relationship with you.
+L143:   Conveying under any other circumstances is permitted solely under
+L144: the conditions stated below.  Sublicensing is not allowed; section 10
+L145: makes it unnecessary.
+L146: 
+L147:   3. Protecting Users' Legal Rights From Anti-Circumvention Law.
+L148: 
+L149:   No covered work shall be deemed part of an effective technological
+L150: measure under any applicable law fulfilling obligations under article
+L151: 11 of the WIPO copyright treaty adopted on 20 December 1996, or
+L152: similar laws prohibiting or restricting circumvention of such
+L153: measures.
+L154:   When you convey a covered work, you waive any legal power to forbid
+L155: circumvention of technological measures to the extent such circumvention
+L156: is effected by exercising rights under this License with respect to
+L157: the covered work, and you disclaim any intention to limit operation or
+L158: modification of the work as a means of enforcing, against the work's
+L159: users, your or third parties' legal rights to forbid circumvention of
+L160: technological measures.
+L161: 
+L162:   4. Conveying Verbatim Copies.
+L163:   You may convey verbatim copies of the Program's source code as you
+L164: receive it, in any medium, provided that you conspicuously and
+L165: appropriately publish on each copy an appropriate copyright notice;
+L166: keep intact all notices stating that this License and any
+L167: non-permissive terms added in accord with section 7 apply to the code;
+L168: keep intact all notices of the absence of any warranty; and give all
+L169: recipients a copy of this License along with the Program.
+L170:   You may charge any price or no price for each copy that you convey,
+L171: and you may offer support or warranty protection for a fee.
+L172: 
+L173:   5. Conveying Modified Source Versions.
+L174: 
+L175:   You may convey a work based on the Program, or the modifications to
+L176: produce it from the Program, in the form of source code under the
+L177: terms of section 4, provided that you also meet all of these conditions:
+L178: 
+L179:     a) The work must carry prominent notices stating that you modified
+L180:     it, and giving a relevant date.
+L181:     b) The work must carry prominent notices stating that it is
+L182:     released under this License and any conditions added under section
+L183:     7.  This requirement modifies the requirement in section 4 to
+L184:     "keep intact all notices".
+L185:     c) You must license the entire work, as a whole, under this
+L186:     License to anyone who comes into possession of a copy.  This
+L187:     License will therefore apply, along with any applicable section 7
+L188:     additional terms, to the whole of the work, and all its parts,
+L189:     regardless of how they are packaged.  This License gives no
+L190:     permission to license the work in any other way, but it does not
+L191:     invalidate such permission if you have separately received it.
+L192:     d) If the work has interactive user interfaces, each must display
+L193:     Appropriate Legal Notices; however, if the Program has interactive
+L194:     interfaces that do not display Appropriate Legal Notices, your
+L195:     work need not make them do so.
+L196:   A compilation of a covered work with other separate and independent
+L197: works, which are not by their nature extensions of the covered work,
+L198: and which are not combined with it such as to form a larger program,
+L199: in or on a volume of a storage or distribution medium, is called an
+L200: "aggregate" if the compilation and its resulting copyright are not
+L201: used to limit the access or legal rights of the compilation's users
+L202: beyond what the individual works permit.  Inclusion of a covered work
+L203: in an aggregate does not cause this License to apply to the other
+L204: parts of the aggregate.
+L205:   6. Conveying Non-Source Forms.
+L206: 
+L207:   You may convey a covered work in object code form under the terms
+L208: of sections 4 and 5, provided that you also convey the
+L209: machine-readable Corresponding Source under the terms of this License,
+L210: in one of these ways:
+L211: 
+L212:     a) Convey the object code in, or embodied in, a physical product
+L213:     (including a physical distribution medium), accompanied by the
+L214:     Corresponding Source fixed on a durable physical medium
+L215:     customarily used for software interchange.
+L216:     b) Convey the object code in, or embodied in, a physical product
+L217:     (including a physical distribution medium), accompanied by a
+L218:     written offer, valid for at least three years and valid for as
+L219:     long as you offer spare parts or customer support for that product
+L220:     model, to give anyone who possesses the object code either (1) a
+L221:     copy of the Corresponding Source for all the software in the
+L222:     product that is covered by this License, on a durable physical
+L223:     medium customarily used for software interchange, for a price no
+L224:     more than your reasonable cost of physically performing this
+L225:     conveying of source, or (2) access to copy the
+L226:     Corresponding Source from a network server at no charge.
+L227:     c) Convey individual copies of the object code with a copy of the
+L228:     written offer to provide the Corresponding Source.  This
+L229:     alternative is allowed only occasionally and noncommercially, and
+L230:     only if you received the object code with such an offer, in accord
+L231:     with subsection 6b.
+L232:     d) Convey the object code by offering access from a designated
+L233:     place (gratis or for a charge), and offer equivalent access to the
+L234:     Corresponding Source in the same way through the same place at no
+L235:     further charge.  You need not require recipients to copy the
+L236:     Corresponding Source along with the object code.  If the place to
+L237:     copy the object code is a network server, the Corresponding Source
+L238:     may be on a different server (operated by you or a third party)
+L239:     that supports equivalent copying facilities, provided you maintain
+L240:     clear directions next to the object code saying where to find the
+L241:     Corresponding Source.  Regardless of what server hosts the
+L242:     Corresponding Source, you remain obligated to ensure that it is
+L243:     available for as long as needed to satisfy these requirements.
+L244:     e) Convey the object code using peer-to-peer transmission, provided
+L245:     you inform other peers where the object code and Corresponding
+L246:     Source of the work are being offered to the general public at no
+L247:     charge under subsection 6d.
+L248: 
+L249:   A separable portion of the object code, whose source code is excluded
+L250: from the Corresponding Source as a System Library, need not be
+L251: included in conveying the object code work.
+L252:   A "User Product" is either (1) a "consumer product", which means any
+L253: tangible personal property which is normally used for personal, family,
+L254: or household purposes, or (2) anything designed or sold for incorporation
+L255: into a dwelling.  In determining whether a product is a consumer product,
+L256: doubtful cases shall be resolved in favor of coverage.  For a particular
+L257: product received by a particular user, "normally used" refers to a
+L258: typical or common use of that class of product, regardless of the status
+L259: of the particular user or of the way in which the particular user
+L260: actually uses, or expects or is expected to use, the product.  A product
+L261: is a consumer product regardless of whether the product has substantial
+L262: commercial, industrial or non-consumer uses, unless such uses represent
+L263: the only significant mode of use of the product.
+L264:   "Installation Information" for a User Product means any methods,
+L265: procedures, authorization keys, or other information required to install
+L266: and execute modified versions of a covered work in that User Product from
+L267: a modified version of its Corresponding Source.  The information must
+L268: suffice to ensure that the continued functioning of the modified object
+L269: code is in no case prevented or interfered with solely because
+L270: modification has been made.
+L271:   If you convey an object code work under this section in, or with, or
+L272: specifically for use in, a User Product, and the conveying occurs as
+L273: part of a transaction in which the right of possession and use of the
+L274: User Product is transferred to the recipient in perpetuity or for a
+L275: fixed term (regardless of how the transaction is characterized), the
+L276: Corresponding Source conveyed under this section must be accompanied
+L277: by the Installation Information.  But this requirement does not apply
+L278: if neither you nor any third party retains the ability to install
+L279: modified object code on the User Product (for example, the work has
+L280: been installed in ROM).
+L281:   The requirement to provide Installation Information does not include a
+L282: requirement to continue to provide support service, warranty, or updates
+L283: for a work that has been modified or installed by the recipient, or for
+L284: the User Product in which it has been modified or installed.  Access to a
+L285: network may be denied when the modification itself materially and
+L286: adversely affects the operation of the network or violates the rules and
+L287: protocols for communication across the network.
+L288:   Corresponding Source conveyed, and Installation Information provided,
+L289: in accord with this section must be in a format that is publicly
+L290: documented (and with an implementation available to the public in
+L291: source code form), and must require no special password or key for
+L292: unpacking, reading or copying.
+L293: 
+L294:   7. Additional Terms.
+L295:   "Additional permissions" are terms that supplement the terms of this
+L296: License by making exceptions from one or more of its conditions.
+L297: Additional permissions that are applicable to the entire Program shall
+L298: be treated as though they were included in this License, to the extent
+L299: that they are valid under applicable law.  If additional permissions
+L300: apply only to part of the Program, that part may be used separately
+L301: under those permissions, but the entire Program remains governed by
+L302: this License without regard to the additional permissions.
+L303:   When you convey a copy of a covered work, you may at your option
+L304: remove any additional permissions from that copy, or from any part of
+L305: it.  (Additional permissions may be written to require their own
+L306: removal in certain cases when you modify the work.)  You may place
+L307: additional permissions on material, added by you to a covered work,
+L308: for which you have or can give appropriate copyright permission.
+L309:   Notwithstanding any other provision of this License, for material you
+L310: add to a covered work, you may (if authorized by the copyright holders of
+L311: that material) supplement the terms of this License with terms:
+L312: 
+L313:     a) Disclaiming warranty or limiting liability differently from the
+L314:     terms of sections 15 and 16 of this License; or
+L315:     b) Requiring preservation of specified reasonable legal notices or
+L316:     author attributions in that material or in the Appropriate Legal
+L317:     Notices displayed by works containing it; or
+L318: 
+L319:     c) Prohibiting misrepresentation of the origin of that material, or
+L320:     requiring that modified versions of such material be marked in
+L321:     reasonable ways as different from the original version; or
+L322: 
+L323:     d) Limiting the use for publicity purposes of names of licensors or
+L324:     authors of the material; or
+L325:     e) Declining to grant rights under trademark law for use of some
+L326:     trade names, trademarks, or service marks; or
+L327: 
+L328:     f) Requiring indemnification of licensors and authors of that
+L329:     material by anyone who conveys the material (or modified versions of
+L330:     it) with contractual assumptions of liability to the recipient, for
+L331:     any liability that these contractual assumptions directly impose on
+L332:     those licensors and authors.
+L333:   All other non-permissive additional terms are considered "further
+L334: restrictions" within the meaning of section 10.  If the Program as you
+L335: received it, or any part of it, contains a notice stating that it is
+L336: governed by this License along with a term that is a further
+L337: restriction, you may remove that term.  If a license document contains
+L338: a further restriction but permits relicensing or conveying under this
+L339: License, you may add to a covered work material governed by the terms
+L340: of that license document, provided that the further restriction does
+L341: not survive such relicensing or conveying.
+L342:   If you add terms to a covered work in accord with this section, you
+L343: must place, in the relevant source files, a statement of the
+L344: additional terms that apply to those files, or a notice indicating
+L345: where to find the applicable terms.
+L346: 
+L347:   Additional terms, permissive or non-permissive, may be stated in the
+L348: form of a separately written license, or stated as exceptions;
+L349: the above requirements apply either way.
+L350: 
+L351:   8. Termination.
+L352:   You may not propagate or modify a covered work except as expressly
+L353: provided under this License.  Any attempt otherwise to propagate or
+L354: modify it is void, and will automatically terminate your rights under
+L355: this License (including any patent licenses granted under the third
+L356: paragraph of section 11).
+L357:   However, if you cease all violation of this License, then your
+L358: license from a particular copyright holder is reinstated (a)
+L359: provisionally, unless and until the copyright holder explicitly and
+L360: finally terminates your license, and (b) permanently, if the copyright
+L361: holder fails to notify you of the violation by some reasonable means
+L362: prior to 60 days after the cessation.
+L363:   Moreover, your license from a particular copyright holder is
+L364: reinstated permanently if the copyright holder notifies you of the
+L365: violation by some reasonable means, this is the first time you have
+L366: received notice of violation of this License (for any work) from that
+L367: copyright holder, and you cure the violation prior to 30 days after
+L368: your receipt of the notice.
+L369:   Termination of your rights under this section does not terminate the
+L370: licenses of parties who have received copies or rights from you under
+L371: this License.  If your rights have been terminated and not permanently
+L372: reinstated, you do not qualify to receive new licenses for the same
+L373: material under section 10.
+L374: 
+L375:   9. Acceptance Not Required for Having Copies.
+L376:   You are not required to accept this License in order to receive or
+L377: run a copy of the Program.  Ancillary propagation of a covered work
+L378: occurring solely as a consequence of using peer-to-peer transmission
+L379: to receive a copy likewise does not require acceptance.  However,
+L380: nothing other than this License grants you permission to propagate or
+L381: modify any covered work.  These actions infringe copyright if you do
+L382: not accept this License.  Therefore, by modifying or propagating a
+L383: covered work, you indicate your acceptance of this License to do so.
+L384:   10. Automatic Licensing of Downstream Recipients.
+L385: 
+L386:   Each time you convey a covered work, the recipient automatically
+L387: receives a license from the original licensors, to run, modify and
+L388: propagate that work, subject to this License.  You are not responsible
+L389: for enforcing compliance by third parties with this License.
+L390:   An "entity transaction" is a transaction transferring control of an
+L391: organization, or substantially all assets of one, or subdividing an
+L392: organization, or merging organizations.  If propagation of a covered
+L393: work results from an entity transaction, each party to that
+L394: transaction who receives a copy of the work also receives whatever
+L395: licenses to the work the party's predecessor in interest had or could
+L396: give under the previous paragraph, plus a right to possession of the
+L397: Corresponding Source of the work from the predecessor in interest, if
+L398: the predecessor has it or can get it with reasonable efforts.
+L399:   You may not impose any further restrictions on the exercise of the
+L400: rights granted or affirmed under this License.  For example, you may
+L401: not impose a license fee, royalty, or other charge for exercise of
+L402: rights granted under this License, and you may not initiate litigation
+L403: (including a cross-claim or counterclaim in a lawsuit) alleging that
+L404: any patent claim is infringed by making, using, selling, offering for
+L405: sale, or importing the Program or any portion of it.
+L406: 
+L407:   11. Patents.
+L408:   A "contributor" is a copyright holder who authorizes use under this
+L409: License of the Program or a work on which the Program is based.  The
+L410: work thus licensed is called the contributor's "contributor version".
+L411:   A contributor's "essential patent claims" are all patent claims
+L412: owned or controlled by the contributor, whether already acquired or
+L413: hereafter acquired, that would be infringed by some manner, permitted
+L414: by this License, of making, using, or selling its contributor version,
+L415: but do not include claims that would be infringed only as a
+L416: consequence of further modification of the contributor version.  For
+L417: purposes of this definition, "control" includes the right to grant
+L418: patent sublicenses in a manner consistent with the requirements of
+L419: this License.
+L420:   Each contributor grants you a non-exclusive, worldwide, royalty-free
+L421: patent license under the contributor's essential patent claims, to
+L422: make, use, sell, offer for sale, import and otherwise run, modify and
+L423: propagate the contents of its contributor version.
+L424:   In the following three paragraphs, a "patent license" is any express
+L425: agreement or commitment, however denominated, not to enforce a patent
+L426: (such as an express permission to practice a patent or covenant not to
+L427: sue for patent infringement).  To "grant" such a patent license to a
+L428: party means to make such an agreement or commitment not to enforce a
+L429: patent against the party.
+L430:   If you convey a covered work, knowingly relying on a patent license,
+L431: and the Corresponding Source of the work is not available for anyone
+L432: to copy, free of charge and under the terms of this License, through a
+L433: publicly available network server or other readily accessible means,
+L434: then you must either (1) cause the Corresponding Source to be so
+L435: available, or (2) arrange to deprive yourself of the benefit of the
+L436: patent license for this particular work, or (3) arrange, in a manner
+L437: consistent with the requirements of this License, to extend the patent
+L438: license to downstream recipients.  "Knowingly relying" means you have
+L439: actual knowledge that, but for the patent license, your conveying the
+L440: covered work in a country, or your recipient's use of the covered work
+L441: in a country, would infringe one or more identifiable patents in that
+L442: country that you have reason to believe are valid.
+L443:   If, pursuant to or in connection with a single transaction or
+L444: arrangement, you convey, or propagate by procuring conveyance of, a
+L445: covered work, and grant a patent license to some of the parties
+L446: receiving the covered work authorizing them to use, propagate, modify
+L447: or convey a specific copy of the covered work, then the patent license
+L448: you grant is automatically extended to all recipients of the covered
+L449: work and works based on it.
+L450:   A patent license is "discriminatory" if it does not include within
+L451: the scope of its coverage, prohibits the exercise of, or is
+L452: conditioned on the non-exercise of one or more of the rights that are
+L453: specifically granted under this License.  You may not convey a covered
+L454: work if you are a party to an arrangement with a third party that is
+L455: in the business of distributing software, under which you make payment
+L456: to the third party based on the extent of your activity of conveying
+L457: the work, and under which the third party grants, to any of the
+L458: parties who would receive the covered work from you, a discriminatory
+L459: patent license (a) in connection with copies of the covered work
+L460: conveyed by you (or copies made from those copies), or (b) primarily
+L461: for and in connection with specific products or compilations that
+L462: contain the covered work, unless you entered into that arrangement,
+L463: or that patent license was granted, prior to 28 March 2007.
+L464:   Nothing in this License shall be construed as excluding or limiting
+L465: any implied license or other defenses to infringement that may
+L466: otherwise be available to you under applicable patent law.
+L467: 
+L468:   12. No Surrender of Others' Freedom.
+L469:   If conditions are imposed on you (whether by court order, agreement or
+L470: otherwise) that contradict the conditions of this License, they do not
+L471: excuse you from the conditions of this License.  If you cannot convey a
+L472: covered work so as to satisfy simultaneously your obligations under this
+L473: License and any other pertinent obligations, then as a consequence you may
+L474: not convey it at all.  For example, if you agree to terms that obligate you
+L475: to collect a royalty for further conveying from those to whom you convey
+L476: the Program, the only way you could satisfy both those terms and this
+L477: License would be to refrain entirely from conveying the Program.
+L478:   13. Remote Network Interaction; Use with the GNU General Public License.
+L479:   Notwithstanding any other provision of this License, if you modify the
+L480: Program, your modified version must prominently offer all users
+L481: interacting with it remotely through a computer network (if your version
+L482: supports such interaction) an opportunity to receive the Corresponding
+L483: Source of your version by providing access to the Corresponding Source
+L484: from a network server at no charge, through some standard or customary
+L485: means of facilitating copying of software.  This Corresponding Source
+L486: shall include the Corresponding Source for any work covered by version 3
+L487: of the GNU General Public License that is incorporated pursuant to the
+L488: following paragraph.
+L489:   Notwithstanding any other provision of this License, you have
+L490: permission to link or combine any covered work with a work licensed
+L491: under version 3 of the GNU General Public License into a single
+L492: combined work, and to convey the resulting work.  The terms of this
+L493: License will continue to apply to the part which is the covered work,
+L494: but the work with which it is combined will remain governed by version
+L495: 3 of the GNU General Public License.
+L496: 
+L497:   14. Revised Versions of this License.
+L498:   The Free Software Foundation may publish revised and/or new versions of
+L499: the GNU Affero General Public License from time to time.  Such new versions
+L500: will be similar in spirit to the present version, but may differ in detail to
+L501: address new problems or concerns.
+L502:   Each version is given a distinguishing version number.  If the
+L503: Program specifies that a certain numbered version of the GNU Affero General
+L504: Public License "or any later version" applies to it, you have the
+L505: option of following the terms and conditions either of that numbered
+L506: version or of any later version published by the Free Software
+L507: Foundation.  If the Program does not specify a version number of the
+L508: GNU Affero General Public License, you may choose any version ever published
+L509: by the Free Software Foundation.
+L510:   If the Program specifies that a proxy can decide which future
+L511: versions of the GNU Affero General Public License can be used, that proxy's
+L512: public statement of acceptance of a version permanently authorizes you
+L513: to choose that version for the Program.
+L514: 
+L515:   Later license versions may give you additional or different
+L516: permissions.  However, no additional obligations are imposed on any
+L517: author or copyright holder as a result of your choosing to follow a
+L518: later version.
+L519: 
+L520:   15. Disclaimer of Warranty.
+L521:   THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+L522: APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+L523: HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+

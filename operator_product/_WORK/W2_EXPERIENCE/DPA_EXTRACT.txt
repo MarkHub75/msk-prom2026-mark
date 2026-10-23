@@ -1,0 +1,464 @@
+PAGE 1
+ 
+EXHIBIT A | Protex AI Data Processing Addendum  
+This Data Processing Addendum (“DPA”) is supplementary to and shall be construed in accordance with the Agreement.  
+1.​
+Definitions 
+1.1.​
+Capitalized terms not otherwise defined in the Agreement shall have the following meanings: 
+“Authority” means for Personal Data originating in: (a) the EEA, the European Commission; (b) the UK, the Information 
+Commissioner’s Office (or its successor); and (c) anywhere else, the appropriate data protection authority of competent 
+jurisdiction pursuant to the Data Protection Laws.  
+“Client Personal Data” means the Personal Data that is shared by the Client with Protex AI in connection with the Offering.  
+“Controller” has the meaning given to it in the Data Protection Laws. 
+“Data Protection Impact Assessment” has the meaning given to it in the Data Protection Laws. 
+“Data Protection Laws” means all data protection and privacy laws, including guidance issued by any applicable data 
+protection authority, applicable to any Personal Data, as may be amended or replaced from time to time, including without 
+limitation: (a) in the European Union, the General Data Protection Regulation 2016/679 (the "EU GDPR") and the Privacy and 
+Electronic Communications Directive 2002/58/EC (as the same may be superseded by the Regulation on Privacy and Electronic 
+Communications); (b) in the UK, the Data Protection Act 2018 as amended and the "UK GDPR" as that term is defined in the 
+Act; and (c) in the United States of America, the California Consumer Privacy Act, as amended by the California Privacy Rights 
+Act 2020. 
+“Data Subject” has the meaning given to it in the Data Protection Laws. 
+“EEA” means the European Economic Area.  
+“EU Controller-to-Processor Clauses” means the standard contractual clauses between controllers and processors for data 
+transfers to Third Countries, as approved by the European Commission Implementing Decision (EU) 2021/914 of 4 June 2021, 
+available at www.protex.ai/legal (Standard Contractual Clauses). 
+“EU Processor-to-Processor Clauses” means the standard contractual clauses between processors for data transfers to Third 
+Countries, as approved by the European Commission Implementing Decision (EU) 2021/914 of 4 June 2021, available at 
+www.protex.ai/legal (Standard Contractual Clauses). 
+“GDPR Laws” means the EU GDPR and UK GDPR, collectively. 
+“International Data Transfer Addendum” or “IDTA” means the International Data Transfer Addendum to the EU 
+Processor-to-Processor Clauses and the EU Controller-to-Processor Clauses as approved by the Information Commissioner’s 
+Office of the United Kingdom under section 119A(1) of the Data Protection Act 2018, available at www.protex.ai/legal (Standard 
+Contractual Clauses). 
+“Personal Data” has the meaning given to it in the Data Protection Laws.  
+“Personal Data Breach” means any breach of security or other action or inaction leading to the accidental or unlawful 
+destruction, loss, alteration, unauthorized disclosure of, or access to, Personal Data by Protex AI, its affiliates, sub-processors, 
+or any other identified or unidentified third party. Any other identified or unidentified third party does not include Client Affiliates or 
+Outsource Providers.  
+“Processor” has the meaning given to it in the Data Protection Laws.  
+“Standard Contractual Clauses” means the EU Processor-to-Processor Clauses, EU Controller-to-Processor Clauses and the 
+International Data Transfer Addendum, as applicable, all available at www.protex.ai/legal (Standard Contractual Clauses).  
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 1 of  8
+ 
+ 
+
+PAGE 2
+ 
+ 
+“Third Country” means in respect of Personal Data originating in: (a) the EEA, a country outside of the EEA not recognized by 
+the European Commission as providing an adequate level of protection for Personal Data (as described in the EU GDPR); and 
+(b) the UK, a country outside the UK not recognized by the Information Commissioner's Office as providing an adequate level of 
+protection for Personal Data (as described in the UK GDPR). 
+“TOMs” means the technical and organizational measures contained in Schedule 1.  
+2.​
+Data Processing 
+2.1.​
+Scope and Roles. This DPA applies when Protex AI processes Client Personal Data under the Agreement. In this context, Client 
+is the Controller and Protex AI is the Processor. Each party agrees that it will comply with all Data Protection Laws in exercising 
+its rights and performing its obligations under this Agreement, as such laws apply to a Controller and Processor respectively. 
+2.2.​
+Details of the Processing. 
+(a)​
+Subject matter: The subject matter for the processing under this DPA is Client Personal Data. 
+(b)​
+Duration: Client Personal Data will be processed under this DPA for the Term and in accordance with the Agreement. 
+(c)​
+Nature and purpose: Protex AI will process Client Personal Data to provide, operate and maintain the Offering. 
+(d)​
+Categories of Data Subject: The categories of Data Subject, whose Personal Data may be processed by Protex AI as 
+Client Personal Data include: (i) individuals at or who visit a Client Site covered by Client-side cameras connected to the 
+Protex AI Offering, which may include Client's employees, temporary workers, agents and volunteers and independent 
+contractors engaged by the Client (“Client Site Visitors”); and (ii) users of the Protex AI Offering, which may include 
+Client’s employees and those of its Affiliates. 
+(e)​
+Types of Personal Data: The types of Personal Data that Protex AI may process include: (i) user account information, 
+such as user full names, job title, phone numbers, business email addresses, account information, authentication 
+information, usage data (e.g., features used and actions taken), information collected via support and Protex Intelligence 
+functions (including support emails, user chat, responses and feedback); (ii) user device information, such as device 
+used, browser and browser version, operating system and version, IP address, and geo-location data; (iii) video / image 
+data of Client’s Site Visitors; and (iv) any other Personal Data contained in Client Personal Data submitted through the 
+Offering by Client.  
+3.​
+Instructions 
+3.1.​
+Documented Instructions. The parties agree that this DPA and the Agreement (including any instructions provided by Client to 
+Protex AI required for or related to the Offering) constitute Client's documented instructions regarding Protex AI’s processing of 
+Client Personal Data ("Documented Instructions"). 
+3.2.​
+Compliance with Documented Instructions. Protex AI will only process Client Personal Data in accordance with Documented 
+Instructions unless required to do so by applicable law, in which case Protex AI will, to the extent legally permissible, inform 
+Client of that legal requirement before processing. Protex AI shall promptly inform Client if, in Protex AI’s opinion, an instruction 
+from Client infringes the Data Protection Laws. Client acknowledges that any such opinion is not legal advice and Client shall not 
+rely on it.  
+3.3.​
+Change of Scope. If the Documented Instructions require Protex AI to perform actions that go beyond its obligations under this 
+DPA or the scope of work for the Offering set out in the Agreement, Protex AI shall inform the Client and require the Client to 
+provide different Documented Instructions, the carrying out of which will fall within the scope of the Offering or within the scope 
+of Protex AI’s obligations under this DPA. 
+4.​
+Confidentiality 
+4.1.​
+Personnel. Protex AI will take reasonable steps to ensure the reliability of any persons authorized to process any Client Personal 
+Data and shall ensure that all such persons have committed themselves to written obligations of confidentiality. 
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 2 of  8
+ 
+ 
+
+PAGE 3
+ 
+ 
+5.​
+Security 
+5.1.​
+Technical and Organizational Measures. Considering the nature, scope, context and purposes of processing, Protex AI has 
+implemented and will maintain for the Term, the administrative, physical, technical and organizational measures as set out in the 
+TOMs (as attached at Schedule 1) to protect any Client Personal Data accessed or processed by it against unauthorized or 
+unlawful processing or accidental loss, destruction, damage or disclosure. 
+5.2.​
+Client Approval of TOMs. The parties agree that for the purposes of processing Client Personal Data under this DPA and the 
+Agreement, the measures contained within the TOMs are appropriate, given the nature of the data to be processed and the 
+harm that might result from such unauthorized or unlawful processing or accidental loss, destruction, disclosure, access or 
+damage. 
+5.3.​
+Information Security Management System. Protex AI has been certified as operating an Information Security Management 
+System which complies with the requirements of ISO 27001 (ISO/IEC 27001:2022), and Protex AI will continue to maintain such 
+certification (or equivalent) for the duration of the Term. 
+6.​
+Sub-Processing 
+6.1.​
+Consent Needed. Subject to Section 6.2 (Authorization of Sub-Processors), Protex AI shall not without the prior written consent 
+of Client, engage any sub-processors for the processing of Client Personal Data under this Agreement. 
+6.2.​
+Authorization of Sub-Processors. Client consents to and authorizes: (a) Protex AI’s Affiliates, and (b) the parties listed in 
+Schedule 2 (Approved Sub-Processors) to act as sub-processors for Protex AI in the provision of the Offering and on terms 
+materially equivalent to those contained in this DPA (“Approved Sub-Processors”). Protex AI shall be fully liable for any breach 
+by the sub-processors of any of the obligations contained in this DPA. 
+7.​
+Cross-Border Transfers 
+7.1.​
+Consent to Transfer Required. Subject to Section 7.2 (Cloud Provider), if Client Personal Data originates in: (a) the EEA, or (b) 
+the UK, Protex AI will not transfer such Client Personal Data to a Third Country, without the prior written consent of Client and 
+not without procuring provision of adequate safeguards (as defined by relevant Authority from time to time) in accordance with 
+applicable Data Protection Laws. 
+7.2.​
+Cloud Provider; Sub-Processors. Client Personal Data may be hosted by the Cloud Provider in the Hosted Location agreed by 
+the parties and may be transferred to the Approved Sub-Processors located in a Third Country. Client acknowledges and 
+consents to such processing of Client Personal Data outside of: (a) the EEA, and (b) the UK, solely and to the extent necessary 
+for Protex AI to provide the Offering and for which purposes the relevant Standard Contractual Clauses shall apply. 
+7.3.​
+Standard Contractual Clauses - Client is Data Exporter. When Client is acting as a Controller and transfers Client Personal Data 
+originating in the:  
+(a)​
+EEA, to a Processor located in a Third Country, the EU Controller-to-Processor Clauses will apply; and 
+(b)​
+UK, to a Processor located in a Third Country, the Information Commissioner’s Office of the United Kingdom’s 
+International Data Transfer Addendum will apply. 
+7.4.​
+Standard Contractual Clauses - Protex AI is Data Exporter. When Protex AI is acting as a Processor and transfers Client 
+Personal Data originating in the: 
+(a)​
+EEA, to a Processor located in a Third Country, the EU Processor-to-Processor Clauses will apply; and 
+(b)​
+UK, to a Processor located in a Third Country, the Information Commissioner’s Office of the United Kingdom’s 
+International Data Transfer Addendum will apply. 
+7.5.​
+Change in Law. The parties agree that Protex AI, may at its sole discretion, update and or entirely replace paragraphs 7.3(b) 
+and 7.4(b) of this DPA, which concern transfers of Client Personal Data originating from the UK to a Third Country, if the 
+Information Commissioner's Office (or its successor) provides an alternative or replacement recognized compliance standard for 
+such transfers in accordance with the UK GDPR, to that already stated in this DPA. Protex AI will provide notice of such change 
+in writing to the Client. 
+8.​
+Data Subject Requests and Assistance 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 3 of  8
+ 
+
+PAGE 4
+ 
+ 
+8.1.​
+Notice of Requests. Protex AI will use reasonable efforts to promptly notify Client if it receives: (a) a request from a Data Subject 
+to have access to that person’s Personal Data; (b) a complaint or request relating to Client’s obligations under the Data 
+Protection Laws; or (c) any other communication relating directly or indirectly to the processing of any Personal Data in 
+connection with the Agreement. 
+8.2.​
+Protex AI Assistance. Considering the nature of processing and the information available to Protex AI, Protex AI will provide 
+reasonable support to the Client in:  
+(a)​
+complying with any legally mandated request for access to or correction of any Personal Data by a Data Subject under 
+Chapter III of each of the GDPR Laws (and where such request is submitted to Protex AI, Protex AI will promptly notify 
+Client of it); 
+(b)​
+responding to requests or demands made to Client by any court or governmental authority responsible for enforcing the 
+Data Protection Laws; and 
+(c)​
+its preparation of a Data Protection Impact Assessment. 
+9.​
+Personal Data Breach 
+9.1.​
+Notice of Personal Data Breach. In the event that Protex AI suffers or becomes aware of a Personal Data Breach it will inform 
+Client without undue delay, on becoming aware of the same, and will take reasonable steps to mitigate the effects and to 
+minimize any damages resulting from such breach. 
+9.2.​
+Information. In the event of a Personal Data Breach, Protex AI (to the extent reasonably possible), will provide the following 
+information to Client: 
+(a)​
+a description of the nature of the incident, including where possible the categories and appropriate number of Data 
+Subjects concerned and the categories and approximate number of Personal Data records concerned; 
+(b)​
+the name and contact details of the relevant Processor’s data protection officer or another contact point where more 
+information can be obtained; 
+(c)​
+a description of the likely consequences of the incident; and 
+(d)​
+a description of the measures taken and / or proposed to be taken by the relevant Processor to address the incident 
+including, where appropriate, measures to mitigate possible adverse effects. 
+Protex AI may provide such information in stages, or further update it, as investigations progress.  
+10.​
+Audit 
+10.1.​ Documentation. Protex AI agrees to maintain its ISO 27001 certification for the duration of the Term. Protex AI will use an 
+external auditor to verify that its security measures meet ISO 27001 standards in accordance with the ISO certification process. 
+On Client's written request, and subject to appropriate confidentiality obligations, Protex AI will provide to Client: (a) a copy of its 
+then-current certificate in relation to its ISO 27001 certification; and (b) any information reasonably requested by Client 
+concerning Protex AI’s processing of Client Personal Data under the Agreement and this DPA.  
+10.2.​ Audit Scope. Other than in the context of investigating a Personal Data Breach involving Client Personal Data, Client agrees to 
+exercise any right it may have to conduct an audit or inspection under Data Protection Laws (or the Standard Contractual 
+Clauses, if applicable) by requesting the information outlined in Section 10.1 (Documentation). Client acknowledges that the 
+Cloud Provider does not  permit, and certain other of Protex AI’s subprocessors may not permit, audits, in which case Client may 
+refer to the information published by Cloud Provider or the relevant subprocessor concerning those entities’ processing 
+activities. 
+11.​
+Data Return 
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 4 of  8
+ 
+ 
+
+PAGE 5
+ 
+ 
+11.1.​ Data Return. Client may download Client Personal Data manually or via the API at any time during the Subscription Term. 
+11.2.​ On Termination. On termination or expiry of the Agreement, Protex AI will retain Client Personal Data for a period of 30 days and 
+shall thereafter delete all Client Personal Data in its and / or its sub-processors' possession or control. Client acknowledges that 
+Protex AI will retain de-identified elements of Client Personal Data to improve its Offering pursuant to Section 5.3 
+(Improvements) of the Agreement. 
+12.​
+Contact 
+12.1.​ Protex AI DPO. Protex AI’s Data Protection Officer’s information is: Name: Ciarán O'Mara, Address: Kilcaskin, Grange, 
+Lisnagry, Limerick, V94 P2W1, Ireland, Email: privacy@protex.ai 
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 5 of  8
+ 
+
+PAGE 6
+ 
+ 
+Schedule 1 | TOMs 
+1.​
+Technical Measures 
+1.1.​
+Access Controls.  
+(a)​
+Access to systems processing Client Data is restricted using role-based access control (RBAC). 
+(b)​
+Administrative access is restricted to authorized personnel and protected using multi-factor authentication (MFA). 
+(c)​
+Access permissions are reviewed regularly and revoked promptly upon role changes or termination. 
+1.2.​
+Device-Level Processing and Protection.  
+(a)​
+Client has the option to configure Protex AI Devices to apply irreversible anonymisation (e.g., facial blurring or ghosting) 
+to locally processed video feeds prior to data transmission to the Protex AI backend cloud infrastructure. 
+(b)​
+Protex AI may temporarily process short video segments containing unblurred footage in the cloud for the sole purposes 
+of: (i) quality assurance of event detection; and (ii) training machine learning models to detect general environmental 
+features (e.g., persons, objects, equipment) and fine tuning of such models. Such footage is not used to identify 
+individuals. It is securely stored, access-controlled, and privacy features are applied (e.g., facial blurring) as early as 
+practicable during processing.  
+(c)​
+Only short, event-based video clips and image frames are retained, encrypted using AES-256, and uploaded to the 
+secure backend. 
+(d)​
+Devices are deployed with outbound-only network configurations and do not accept inbound connections. 
+1.3.​
+Encryption in Transit and at Rest.  
+(a)​
+All Client Data in transit is secured using SSL/TLS encryption protocols. 
+(b)​
+Client Data at rest, including video, metadata, and database records, is encrypted using AES-256 or equivalent. 
+(c)​
+Encryption keys are managed via the Cloud Provider’s key management service. 
+1.4.​
+Network Security.  
+(a)​
+AWS Web Application Firewall (WAF) and AWS Shield are deployed to protect against web threats. 
+(b)​
+Security groups enforce a deny-by-default policy and restrict traffic to specific ports and IPs. 
+(c)​
+Network architecture is segmented into public, private, and data subnets with no direct public access to sensitive 
+components. 
+1.5.​
+Identity and Session Management. 
+(a)​
+Authentication supports both SAML and OAuth 2.0-compliant Identity Providers. 
+(b)​
+Authentication tokens are short-lived and securely stored; session management is handled via AWS Cognito and Amplify. 
+(c)​
+MFA is available through both Client IdPs and Cognito. 
+1.6.​
+Authorization and Data Access Control.  
+(a)​
+Permissions are enforced throughout the application using role-based access control.​
+ 
+(b)​
+Backend and data layers restrict access down to row and column levels where applicable. 
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 6 of  8
+ 
+ 
+
+PAGE 7
+ 
+ 
+1.7.​
+Monitoring, Logging and Retention.  
+(a)​
+System access and activity are logged and monitored using AWS-native tooling. 
+(b)​
+Default retention for Client Data is 30 days post-termination. Clients may download their Client Data manually or via the 
+API at any time, and prior to closing their accounts. 
+(c)​
+Secure deletion and erasure mechanisms are in place for expired or terminated data. 
+1.8.​
+Backup & Disaster Recovery.  
+(a)​
+Automated, encrypted backups are performed regularly to a separate region within the same country. 
+(b)​
+Backup integrity is monitored; failures trigger alerts and incident responses. 
+1.9.​
+Privacy By Design.  
+(a)​
+Facial recognition is not used and footage is not used to identify individuals; unblurred footage is irreversibly anonymised 
+as early as possible during processing.  
+(b)​
+Metadata, rather than identifiable imagery, is leveraged for analytics. 
+(c)​
+System design prioritises facility-level insights over individual identification. 
+2.​
+Organizational Measures 
+2.1.​
+Security Governance.  
+(a)​
+Protex AI maintains an ISO/IEC 27001-certified Information Security Management System (ISMS). 
+(b)​
+External audits are conducted to ensure ongoing compliance and effectiveness. 
+2.2.​
+Confidentiality.  
+(a)​
+Staff accessing Personal Data are subject to written obligations of confidentiality and background checks. 
+(b)​
+Security training is mandatory during onboarding and conducted regularly thereafter. 
+2.3.​
+Subprocessor Oversight.  
+(a)​
+Subprocessors are reviewed for security and privacy compliance. 
+(b)​
+Data Processing Agreements are in place to ensure adherence to relevant legal and contractual standards. 
+2.4.​
+Incident Response.  
+(a)​
+A structured incident response process is maintained for identifying, managing, and reporting Personal Data Breaches. 
+2.5.​
+Data Subject Rights. 
+(a)​
+Protex AI supports Clients in responding to data subject rights requests including access, correction, and deletion.​
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 7 of  8
+ 
+
+PAGE 8
+ 
+ 
+Schedule 2  | Approved Sub-Processors 
+# 
+Name 
+Data Processing Location 
+Description 
+1 
+Jira 
+EU 
+Project planning software for deployment; tracking 
+and managing support requests 
+2 
+Amazon Web 
+Services 
+(AWS) 
+In Client’s region (Site specific) - Ireland if EEA or UK, 
+USA if USA, Singapore if APAC, Canada if Canada 
+Cloud infrastructure hosting Protex AI Platform 
+backend infrastructure 
+3 
+Sunix 
+India 
+Event QA and annotation services 
+4 
+Cogiotech 
+India 
+Annotation services 
+5 
+Abelling 
+Bangladesh 
+Annotation services 
+6 
+Hevo 
+EU (Germany) 
+Data Warehouse Managed Service 
+7 
+Snowflake 
+In Client’s region (Site specific) - Ireland if EEA or UK, 
+USA if USA, Singapore if APAC, Canada if Canada 
+Data Warehouse Managed Service 
+8 
+Velaris 
+EU 
+CRM - Client Success 
+9 
+Encord 
+In Client’s region (Site specific) - Ireland if EEA or UK, 
+USA if USA, Singapore if APAC, Canada if Canada 
+Data labeling platform used for annotations 
+10 
+Crisp 
+EU 
+Client support request chat interface 
+ 
+ 
+ 
+Protex AI DPA - Website  | Oct 2025 
+ 
+Page 8 of  8
+ 
+ 

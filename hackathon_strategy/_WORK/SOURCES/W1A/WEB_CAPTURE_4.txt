@@ -1,0 +1,380 @@
+ (https://firsts3.ru/mosprom-2026/public/documents/polozhenie-mosprom-2026.pdf)
+citeturn52view0 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 24; Source: open({"ref_id":"turn0view1","lineno":580}); Total lines: 658
+L459@P16: Организатором выплаты при осуществлении выплат победителям хакатона, в
+L460@P16: размере, установленном Налоговым кодексом Российской Федерации.
+L461@P16: 1.6 Денежные призы выплачиваются командам, занявшим первые, вторые и третьи
+L462@P16: места в каждом кейсе хакатона:
+L463@P16: ‧ 1 место — 250 000 (двести пятьдесят тысяч) рублей 00 копеек с учётом НДФЛ.
+L464@P16: ‧ 2 место — 150 000 (сто пятьдесят тысяч) рублей 00 копеек с учётом НДФЛ.
+L465@P16: ‧ 3 место — 100 000 (сто тысяч) рублей 00 копеек с учётом НДФЛ.
+L466@P16: Денежное вознаграждение команды распределяется между участниками команды
+L467@P16: (каждому участнику команды-победителя, предоставившему полный комплект
+L468@P16: документов в соответствии с разделом 2 настоящего Регламента) в равных долях от
+L469@P16: общей суммы денежного приза, причитающегося соответствующей команде.
+L470@P16: 2. Основания и порядок выплат денежных призов
+L471@P16: 2.1 Основанием для выплаты денежного приза является список победителей с
+L472@P16: указанием суммы выплат на каждого участника, утверждённый Организатором
+L473@P16: выплаты, и Акт приёма-передачи приза по форме в Приложении № 1 к Регламенту.
+L474@P16: 2.2 Выплата денежных призов осуществляется после размещения результатов
+L475@P16: хакатона на сайте хакатона в информационно-телекоммуникационной сети
+L476@P16: «Интернет» https://hackathon2026.otkroimosprom.ru и предоставления победителем
+L477@P16: всех данных, необходимых для выплаты денежных призов, безналичным способом,
+L478@P16: путём перечисления по банковским реквизитам победителя. Денежные призы
+L479@P16: выплачиваются при условии предоставления победителями всех необходимых
+L480@P16-17: документов в указанные в настоящем Регламенте сроки.2.3. Участники команд-победителей хакатона для получения денежного приза
+L481@P17: должны:
+L482@P17: 2.3.1 В течение 5 (пяти) рабочих дней после объявления победителей (не позднее 30
+L483@P17: октября 2026 года) направить в адрес Организатора выплаты по электронной почте
+L484@P17: hackathon@otkroimosprom.ru следующий перечень документов (копии документов):
+L485@P17: ‧ Копию паспорта РФ (разворот с фотографией и страница с отметкой о
+L486@P17: регистрации).
+L487@P17: ‧ Копию свидетельства о постановке на учёт в налоговом органе (ИНН).
+L488@P17: ‧ Копию страхового свидетельства обязательного пенсионного страхования
+L489@P17: (СНИЛС).
+L490@P17: ‧ Банковские реквизиты.
+L491@P17: ‧ Копию акта приёма-передачи приза победителю хакатона (по форме
+L492@P17: Приложения № 1 к Регламенту).
+L493@P17: ‧ Копию Согласия на обработку персональных данных (по форме
+L494@P17: Приложения № 2 к Регламенту).
+L495@P17: ‧ Копию заявления для удержания НДФЛ с призовых выплат (по форме
+L496@P17: Приложения № 3 к Регламенту).
+L497@P17: 2.3.2 В срок до 6 ноября 2026 года Организатор выплаты проводит верификацию
+L498@P17: документов победителей.
+L499@P17: 2.3.3 После успешно пройденной верификации документов в срок до 13 ноября 2026
+L500@P17: года участникам команд-победителей на электронную почту будет направлено
+L501@P17: сообщение с запросом выслать на почтовый адрес Организатора выплаты
+L502@P17: следующие документы:
+L503@P17: ‧ Подписанные акты приёма-передачи приза победителям хакатона
+L504@P17: в 2 экземплярах.
+L505@P17: ‧ Подписанное Согласие на обработку персональных данных в 1 экземпляре.
+L506@P17: ‧ Заявление для удержания НДФЛ с призовых выплат в 1 экземпляре.
+L507@P17: Наименование и почтовый адрес Организатора выплаты: ООО «КОНТАКТ».
+L508@P17: Почтовый адрес: 101000, а/я 548, ООО «КОНТАКТ».
+L509@P17: 2.4 В срок до 20 ноября 2026 года каждому участнику команд-победителей
+L510@P17: необходимо выслать в адрес Организатора выплаты письма с подписанными
+L511@P17: оригиналами документов, указанных в п. 2.3.3.
+L512@P17: 2.5 Выплата денежного приза осуществляется Организатором выплаты в течение 30
+L513@P17: (тридцати) рабочих дней с даты размещения результатов хакатона на сайте хакатона
+L514@P17: в информационно-телекоммуникационной сети «Интернет»
+L515@P17-18: https://hackathon2026.otkroimosprom.ru, но не ранее получения Организатором выплаты подписанных документов от участников команд-победителей, указанных в
+L516@P18: п. 2.3.3.
+L517@P18: 2.6 Выплата производится безналичным способом, путём перечисления на
+L518@P18: банковские реквизиты участника команды-победителя, указанные в Акте приёмапередачи приза победителю хакатона.
+L519@P18: 2.7 В случае предоставления неактуальных, недостоверных или неточных данных
+L520@P18: Организатор выплаты не гарантирует выплату приза в сроки, указанные в настоящем
+L521@P18: Регламенте.
+L522@P18: 2.8 Участники команд-победителей несут ответственность за достоверность и
+L523@P18: полноту информации, указанную в документах, передаваемых Организатору
+L524@P18: выплаты для получения денежных призов. В случае предоставления участником
+L525@P18: команды-победителя некорректных и (или) недостоверных сведений, нарушения
+L526@P18: сроков предоставления участником команды-победителя документов и (или)
+L527@P18: сведений, Организатор выплаты вправе отказать в выплате денежного приза. В
+L528@P18: таком случае доля денежного приза такого участника подлежит распределению
+L529@P18: между оставшимися участниками команды-победителя в равных долях.
+L530@P18: 2.9 Призовым фондом, не востребованным в течение 30 календарных дней с даты
+L531@P18: оглашения результатов, а также призами, от получения которых участники
+L532@P18: отказались, Организатор выплаты распоряжается по своему усмотрению. Призы не
+L533@P18: могут быть востребованы участниками повторно.
+L534@P18: 2.10 Отказ от денежного приза оформляется письменным заявлением участника,
+L535@P18: составленным в свободной форме и заверенным его личной подписью. Скан-копия
+L536@P18: заявления направляется по электронной почте hackathon@otkroimosprom.ru, а
+L537@P18: оригинал высылается почтой по адресу: 101000, г. Москва, а/я 548, ООО
+L538@P18: «КОНТАКТ». В теме электронного письма обязательно указывается: «Отказ от
+L539@P18: приза хакатона «Открой#Моспром»».
+L540@P18: 2.11 Организатор выплаты вправе запрашивать у победителя дополнительные
+L541@P18: документы и (или) сведения, необходимые для перечисления денежного приза. В
+L542@P18: случае непредоставления участником команды-победителя указанных
+L543@P18: дополнительных документов и (или) сведений Организатор выплаты вправе отказать
+L544@P18-19: в выдаче приза.Приложение № 1 к Регламенту выплат
+L545@P19: денежных призов победителям молодёжного
+L546@P19: хакатона «Открой#Моспром»
+L547@P19: Акт
+L548@P19: приёма-передачи приза победителю
+L549@P19: г. Москва «____» ______________ 2026 г.
+L550@P19: 
+L551@P19: Общество с ограниченной ответственностью «КОНТАКТ», именуемое в
+L552@P19: дальнейшем «Организатор выплаты», в лице генерального директора Чернышева
+L553@P19: Владимира Васильевича, действующего на основании Устава, с одной стороны, и
+L554@P19: ФИО:
+L555@P19: _______________________________________________________________________
+L556@P19: ___ ____________года рождения (паспорт гражданина РФ серия
+L557@P19: _______№____________,
+L558@P19: паспорт выдан:
+L559@P19: ____________________________________________________________,
+L560@P19: дата выдачи:
+L561@P19: ______________________________________________________________
+L562@P19: именуемый (-ая) в дальнейшем «Победитель хакатона», с другой стороны,
+L563@P19: заключили настоящий Акт о нижеследующем:
+L564@P19: 1. Организатор выплаты передал, а Победитель хакатона принял денежный
+L565@P19: приз в размере
+L566@P19: __________________________________________________________________
+L567@P19: __, в соответствии с условиями проводимого хакатона.
+L568@P19: 2. Организатором выплаты была удержана сумма НДФЛ и перечислена в
+L569@P19: полном размере, без учёта ограничения, предусмотренного абз. 2 ч. 4 ст. 226
+L570@P19: НК РФ, по итогам чего погашается задолженность Победителя хакатона
+L571@P19: перед бюджетом по уплате НДФЛ от получения Приза в полном объёме.
+L572@P19: Никаких иных налоговых обязанностей в связи с получением приза у
+L573@P19: Победителя хакатона не возникает.
+L574@P19: 3. Победитель хакатона никаких претензий относительно условий
+L575@P19: проводимого хакатона не имеет.
+L576@P19: 4. Настоящий Акт составлен в двух экземплярах по одному для каждой из
+L577@P19: Сторон.
+L578@P19-20:  Организатор выплаты Победитель хакатона
+L579@P20: ________________/________________
+L580@P20: ________________/________________
+L581@P20:  м.п.
+L582@P20: Приложение № 2 к Регламенту выплат
+L583@P20: денежных призов победителям
+L584@P20: молодёжного хакатона «Открой#Моспром»
+L585@P20: СОГЛАСИЕ
+L586@P20: на обработку персональных данных
+L587@P20: Я,
+L588@P20: ___________________________________________________________________,
+L589@P20: паспорт гражданина РФ серия _________№____________, дата выдачи:
+L590@P20: ____________
+L591@P20: паспорт выдан:
+L592@P20: _______________________________________________________________________
+L593@P20: __,
+L594@P20: зарегистрированный(ая) по
+L595@P20: адресу:___________________________________________
+L596@P20: _______________________________________________________________________
+L597@P20: __, в соответствии со статьёй 9 Федерального закона от 27.07.2006 № 152-ФЗ «О
+L598@P20: персональных данных», настоящим свободно, по своей воле и в своём интересе даю
+L599@P20: Согласие Обществу с ограниченной ответственностью «КОНТАКТ» (ИНН
+L600@P20: 2466276520, КПП 246601001, ОГРН 1142468054244) на обработку моих
+L601@P20: персональных данных.
+L602@P20: Перечень моих персональных данных, на обработку которых я даю Согласие:
+L603@P20: ● фамилия, имя, отчество;
+L604@P20: ● пол и возраст;
+L605@P20: ● дата рождения;
+L606@P20: ● гражданство;
+L607@P20: ● паспортные данные;
+L608@P20: ● адрес регистрации по месту жительства и адрес фактического проживания;
+L609@P20-21: ● номер телефона (домашний, мобильный);● почтовые и электронные адреса;
+L610@P21: ● страховой номер индивидуального лицевого счёта (СНИЛС);
+L611@P21: ● идентификационный номер налогоплательщика (ИНН);
+L612@P21: ● банковские реквизиты;
+L613@P21: ● иные персональные данные, предусмотренные законодательством РФ, в
+L614@P21: целях моего участия в молодёжном хакатоне «Открой#Моспром» (далее —
+L615@P21: хакатон), а также выплаты мне причитающегося денежного приза и выдачи
+L616@P21: иных наград.
+L617@P21: Настоящим даю Согласие ООО «КОНТАКТ» на размещение моих персональных
+L618@P21: данных, в том числе: фотографии, видео, фамилии, имени, отчества и иных,
+L619@P21: предоставленных мной сведений в информационно-коммуникационной сети
+L620@P21: «Интернет», на официальном сайте хакатона и в социальных сетях.
+L621@P21: Настоящим даю Согласие ООО «КОНТАКТ» на передачу моих персональных
+L622@P21: данных в целях реализации хакатона, организациям, с которыми у ООО
+L623@P21: «КОНТАКТ» есть партнёрские отношения и соглашения, и иным третьим лицам для
+L624@P21: достижения целей, на которые предоставляется настоящее Согласие.
+L625@P21: Настоящее Согласие предоставляется на осуществление любых действий или
+L626@P21: совокупности действий с использованием средств автоматизации или без
+L627@P21: использования таких средств, включая, без ограничения: сбор, запись,
+L628@P21: систематизацию, накопление, хранение, уточнение (изменение, обновление),
+L629@P21: использование, передачу (распоряжение, предоставление, доступ), обезличивание,
+L630@P21: блокирование, удаление, уничтожение.
+L631@P21: Настоящее Согласие действует со дня его подписания и до достижения целей
+L632@P21: обработки.
+L633@P21: Я уведомлен(а) о том, что вправе отозвать своё Согласие путём направления
+L634@P21: соответствующего письменного уведомления. В случае отзыва моего Согласия на
+L635@P21: обработку персональных данных, операторы данных вправе не прекращать
+L636@P21: обработку персональных данных и не уничтожать их в случаях, предусмотренных
+L637@P21: законодательством Российской Федерации, в том числе если сроки хранения
+L638@P21: персональных данных не истекли.
+L639@P21: _____________/__________________
+L640@P21: (подпись) (ФИО.)
+L641@P21-23: «___»________ 2026 г.Приложение № 3 к Регламенту выплат
+L642@P23: денежных призов победителям
+L643@P23: молодёжного хакатона «Открой#Моспром»
+L644@P23: Генеральному директору
+L645@P23: ООО «КОНТАКТ»
+L646@P23: Чернышеву Владимиру Васильевичу
+L647@P23: от____________________________________
+L648@P23: ______________________________________
+L649@P23:  (ФИО. участника)
+L650@P23: Заявление
+L651@P23: для удержания НДФЛ с призовых выплат
+L652@P23: Прошу удержать с меня налог на доходы физических лиц в размере 13%.
+L653@P23: Сумма моего выигрыша составила:
+L654@P23: Сумма НДФЛ составила:
+L655@P23:  _____________/__________________
+L656@P23:  (подпись) (ФИО.)
+L657@P23: «___»________ 2026 г.
+--------------------------------------------------------------------------------
+Internal Error ()
+citeturn52view1 [wordlim: 200] Source: open({"ref_id":"https://www.gnu.org/licenses/agpl-3.0.html","lineno":null}); Total lines: 1
+L0: Failed to fetch https://www.gnu.org/licenses/agpl-3.0.html: (400) Timeout fetching
+--------------------------------------------------------------------------------
+Ultralytics License (https://www.ultralytics.com/license)
+citeturn52view2 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://www.ultralytics.com/license","lineno":null}); Total lines: 310
+L0: 【0†Ultralytics YOLO27: Join the waitlist.】
+L1: 
+L2: Menu【1†License YOLO】
+L3: 
+L4: Licensing
+L5: # License Ultralytics YOLO for commercial deployment.
+L6: 
+L7: Get the Enterprise License you need to ship YOLO in SaaS, embedded, and customer-facing products.
+L8: 
+L9: 【2†Check if you need a license】【3†Our pricing structure】
+L10: 
+L11: Request an Ultralytics Enterprise License
+L12: 
+L13: First name*[Input: Jane]
+L14: 
+L15: Last name*[Input: Smith]
+L16: 
+L17: Business email*[Input: jane.smith@company.com]
+L18: 
+L19: Company size*Select company size[Input]
+L20: 
+L21: Company website*[Input: company.com]
+L22: 
+L23: Industry*Select industry[Input]
+L24: 
+L25: Use case*
+L26: 
+L27: [Button: Submit]
+L28:   1. Who you are
+L29:   2. Your organization
+L30:   3. Your use case
+L31: 
+L32: Request an Ultralytics Enterprise License
+L33: 
+L34: First name*[Input: Jane]
+L35: 
+L36: Last name*[Input: Smith]
+L37: 
+L38: Business email*[Input: jane.smith@company.com]
+L39: 
+L40: [Button: Next]
+L41: 
+L42: Trusted by industry leaders
+L43: 【4†Image: Duolingo†cdn.ul.run】【5†Image: Shell†cdn.ul.run】【6†Image: Siemens†cdn.ul.run】【7†Image: Renault†cdn.ul.run】【8†Image: Philips†cdn.ul.run】【9†Image: NEURA Robotics†cdn.ul.run】【10†Image: Mercado Libre†cdn.ul.run】【11†Image: Tata Steel†cdn.ul.run】【12†Image: Flock Safety†cdn.ul.run】【13†Image: Intel†cdn.ul.run】【14†Image: Defense Intelligence Agency†cdn.ul.run】【15†Image: DHL†cdn.ul.run】
+L44: 【4†Image: Duolingo†cdn.ul.run】【5†Image: Shell†cdn.ul.run】【6†Image: Siemens†cdn.ul.run】【7†Image: Renault†cdn.ul.run】【8†Image: Philips†cdn.ul.run】【9†Image: NEURA Robotics†cdn.ul.run】【10†Image: Mercado Libre†cdn.ul.run】【11†Image: Tata Steel†cdn.ul.run】【12†Image: Flock Safety†cdn.ul.run】【13†Image: Intel†cdn.ul.run】【14†Image: Defense Intelligence Agency†cdn.ul.run】【15†Image: DHL†cdn.ul.run】
+L45: 【4†Image: Duolingo†cdn.ul.run】【5†Image: Shell†cdn.ul.run】【6†Image: Siemens†cdn.ul.run】【7†Image: Renault†cdn.ul.run】【8†Image: Philips†cdn.ul.run】【9†Image: NEURA Robotics†cdn.ul.run】【10†Image: Mercado Libre†cdn.ul.run】【11†Image: Tata Steel†cdn.ul.run】【12†Image: Flock Safety†cdn.ul.run】【13†Image: Intel†cdn.ul.run】【14†Image: Defense Intelligence Agency†cdn.ul.run】【15†Image: DHL†cdn.ul.run】
+L46: ## Choosing your license
+L47: ### Do you need an Ultralytics Enterprise license?
+L48: 
+L49: AGPL-3.0 covers a lot of use cases - but there are specific triggers that require an Ultralytics Enterprise license.
+L50: 
+L51: Free
+L52: 
+L53: AGPL-3.0
+L54: 
+L55: This license is the right one for you if you are comfortable open-sourcing your entire project under AGPL-3.0.
+L56:   * Academic research and university coursework
+L57:   * Personal projects, learning, and experimentation
+L58:   * Open-source applications where you can publicly release the full source code
+L59:   * Non-profit or government research if the project is completely disclosed
+L60:   * Evaluating Ultralytics YOLO in a fully open-source environment
+L61:   * Teams that want to build in public and benefit from open collaboration
+L62: 【16†Read terms】
+L63: 
+L64: Paid
+L65: 
+L66: Ultralytics Enterprise License
+L67: An Enterprise License is required if you want to use Ultralytics YOLO without open-sourcing your entire project.
+L68:   * Internal business tools or private company applications
+L69:   * Any commercial product or service
+L70:   * Proprietary / closed-source software
+L71:   * SaaS platforms, APIs, or cloud systems that use YOLO behind the scenes
+L72:   * Embedded deployments in hardware, edge devices, robotics, cameras, or appliances
+L73:   * Using custom-trained or fine-tuned YOLO models in a proprietary or commercial setting
+L74:   * R&D projects that are not fully open-sourced
+L75:   * Customer-facing solutions where you do not want to publish code, configs, training scripts, and related components
+L76: 【17†Get a quote】
+L77: ## Not sure which license you need?
+L78: 
+L79: Answer a few quick questions and get a recommendation based on your project's use case.
+L80: 
+L81: Quick check: answer 3 questions to get a recommendation.
+L82: 
+L83: Step 1 of 4 25%
+L84: 
+L85: x
+L86: 
+L87: How are you using Ultralytics?
+L88: 
+L89: [Button: Personal project or open-sourcing your work][Button: Production or for-profit use]
+L90: ## Compare license features
+L91: 
+L92: A detailed breakdown of what each license includes across Ultralytics platform.
+L93: Features  | For community AGPL-3.0  | Recommended Ultralytics Enterprise
+L94: --- | --- | ---
+L95: Access to source code Full access to inspect, modify, and enhance the software's source code.  |  |
+L96: Commercial use Use in business or for-profit applications without open-sourcing the project under AGPL-3.0.  |  |
+L97: Private deployment Deploy in private environments without AGPL-3.0 open-source obligations.  |  |
+L98: Access to enterprise models Full access to pretrained, large-scale models trained on 1M-image Ultralytics Enterprise Dataset.  |  | Coming soon
+L99: Adaptive model training for commercialization Adjust, train, and modify models for for-profit products.  |  |
+L100: Proprietary internal use Exclusive use inside an organization without publishing source externally.  |  |
+L101: Custom terms and support Custom contractual terms and dedicated support channels.  |  |
+L102: Support level Expected support path for each license option.  | Community  | Advanced SLA
+L103: Annual fee required Whether paid annual licensing is required.  |  |
+L104: Ownership of modifications Who owns private modifications and derivative work.  | Must be open-sourced  | Licensee
+L105: ## Our solution to your industry
+L106: 【18†Computer vision in sports Discover how Ultralytics YOLO powers sports vision with player and ball tracking, performance analytics, coaching insights, and athlete rehabilitation.Learn more】【19†Computer vision for aerial imagery Transform drone and aerial imagery into real-time insights for agriculture, aquaculture, environmental monitoring, conservation, and geospatial analysis with Ultralytics YOLO.Learn more】【20†Computer vision in aerospace Bring vision AI to aerial monitoring with Ultralytics YOLO models.
+L107: Power drones, aerospace workflows, environmental conservation & geospatial industries with computer vision solutions.Learn more】【21†Computer vision in security Protect every site with Ultralytics YOLO models. Vision AI powers perimeter monitoring, threat detection, license-plate recognition, and workplace safety.Learn more】【22†Computer vision in robotics Power smarter machines with Ultralytics YOLO models.
+L108: Vision AI in robotics drives autonomous navigation, perception, object tracking, and real-time control.Learn more】【23†Computer vision in logistics Streamline logistics with Ultralytics YOLO models. Vision AI enables package inspection, sorting, vehicle tracking, and real-time warehouse safety monitoring.Learn more】【24†Computer vision in retail Reimagine retail with Ultralytics YOLO models.
+L109: Vision AI powers inventory tracking, shelf monitoring, queue management, and smarter customer insights.Learn more】【25†Computer vision in healthcare Build healthcare solutions with Ultralytics YOLO models. Vision AI in healthcare powers faster medical imaging, smarter diagnostics, and patient monitoring.Learn more】【26†Computer vision in manufacturing Optimize manufacturing with Ultralytics YOLO models.
+L110: Vision AI drives quality control, defect detection, PPE compliance, and assembly line automation.Learn more】【27†Computer vision in automotive Apply computer vision in automotive with Ultralytics YOLO models. Vision AI elevates road safety, driver assistance, and vehicle automation for smarter roads.Learn more】【28†Computer vision in agriculture Bring vision AI to smart agriculture with Ultralytics YOLO models.
+L111: Power crop monitoring, livestock tracking, and precision farming for higher, smarter yields.Learn more】
+L112: 【18†Computer vision in sports Discover how Ultralytics YOLO powers sports vision with player and ball tracking, performance analytics, coaching insights, and athlete rehabilitation.Learn more】【19†Computer vision for aerial imagery Transform drone and aerial imagery into real-time insights for agriculture, aquaculture, environmental monitoring, conservation, and geospatial analysis with Ultralytics YOLO.Learn more】【20†Computer vision in aerospace Bring vision AI to aerial monitoring with Ultralytics YOLO models.
+L113: Power drones, aerospace workflows, environmental conservation & geospatial industries with computer vision solutions.Learn more】【21†Computer vision in security Protect every site with Ultralytics YOLO models. Vision AI powers perimeter monitoring, threat detection, license-plate recognition, and workplace safety.Learn more】【22†Computer vision in robotics Power smarter machines with Ultralytics YOLO models.
+L114: Vision AI in robotics drives autonomous navigation, perception, object tracking, and real-time control.Learn more】【23†Computer vision in logistics Streamline logistics with Ultralytics YOLO models. Vision AI enables package inspection, sorting, vehicle tracking, and real-time warehouse safety monitoring.Learn more】【24†Computer vision in retail Reimagine retail with Ultralytics YOLO models.
+L115: Vision AI powers inventory tracking, shelf monitoring, queue management, and smarter customer insights.Learn more】【25†Computer vision in healthcare Build healthcare solutions with Ultralytics YOLO models. Vision AI in healthcare powers faster medical imaging, smarter diagnostics, and patient monitoring.Learn more】【26†Computer vision in manufacturing Optimize manufacturing with Ultralytics YOLO models.
+L116: Vision AI drives quality control, defect detection, PPE compliance, and assembly line automation.Learn more】【27†Computer vision in automotive Apply computer vision in automotive with Ultralytics YOLO models. Vision AI elevates road safety, driver assistance, and vehicle automation for smarter roads.Learn more】【28†Computer vision in agriculture Bring vision AI to smart agriculture with Ultralytics YOLO models.
+L117: Power crop monitoring, livestock tracking, and precision farming for higher, smarter yields.Learn more】
+L118: 【18†Computer vision in sports Discover how Ultralytics YOLO powers sports vision with player and ball tracking, performance analytics, coaching insights, and athlete rehabilitation.Learn more】【19†Computer vision for aerial imagery Transform drone and aerial imagery into real-time insights for agriculture, aquaculture, environmental monitoring, conservation, and geospatial analysis with Ultralytics YOLO.Learn more】【20†Computer vision in aerospace Bring vision AI to aerial monitoring with Ultralytics YOLO models.
+L119: Power drones, aerospace workflows, environmental conservation & geospatial industries with computer vision solutions.Learn more】【21†Computer vision in security Protect every site with Ultralytics YOLO models. Vision AI powers perimeter monitoring, threat detection, license-plate recognition, and workplace safety.Learn more】【22†Computer vision in robotics Power smarter machines with Ultralytics YOLO models.
+L120: Vision AI in robotics drives autonomous navigation, perception, object tracking, and real-time control.Learn more】【23†Computer vision in logistics Streamline logistics with Ultralytics YOLO models. Vision AI enables package inspection, sorting, vehicle tracking, and real-time warehouse safety monitoring.Learn more】【24†Computer vision in retail Reimagine retail with Ultralytics YOLO models.
+L121: Vision AI powers inventory tracking, shelf monitoring, queue management, and smarter customer insights.Learn more】【25†Computer vision in healthcare Build healthcare solutions with Ultralytics YOLO models. Vision AI in healthcare powers faster medical imaging, smarter diagnostics, and patient monitoring.Learn more】【26†Computer vision in manufacturing Optimize manufacturing with Ultralytics YOLO models.
+L122: Vision AI drives quality control, defect detection, PPE compliance, and assembly line automation.Learn more】【27†Computer vision in automotive Apply computer vision in automotive with Ultralytics YOLO models. Vision AI elevates road safety, driver assistance, and vehicle automation for smarter roads.Learn more】【28†Computer vision in agriculture Bring vision AI to smart agriculture with Ultralytics YOLO models.
+L123: Power crop monitoring, livestock tracking, and precision farming for higher, smarter yields.Learn more】
+L124: ## Frequently asked questions
+L125: 
+L126:   * ### What license do I need to use Ultralytics YOLO?
+L127: 
+L128: If you use Ultralytics YOLO code, models, architectures, training pipelines, or trained/fine-tuned models, you must either:
+L129: 
+L130:     * Open-source your entire project under AGPL-3.0, or
+L131:     * Obtain an 【29†Ultralytics Enterprise License】.
+L132: 
+L133: This applies even if you:
+L134:     * Train your own model from scratch
+L135:     * Do not use pretrained weights
+L136:     * Use YOLO only internally or for R&D
+L137:     * Deploy through a SaaS platform, API, or other private system
+L138:     * Embed it in hardware, edge devices, or commercial products
+L139: Under 【30†Ultralytics AGPL-3.0†docs.ultralytics.com】 guidance, compliance means publicly releasing the complete corresponding source code for the entire derivative work, including the larger application, modifications, scripts, configuration files, and, where applicable, model weights. If you do not want to open-source the full project, you need an Enterprise License.
+L140: Ultralytics' customer licensing explainer also states that proprietary commercial embedding is covered by Enterprise, as shown in the 【31†Chef Robotics example】.
+L141:   * ### Who can I speak to if I still have licensing questions?
+L142: 
+L143: If your query isn't addressed in the sections above, we’d love to help. Please complete the request form, and we'll get back to you within 24 hours.
+L144: 
+L145:   * ### How can I purchase an Enterprise License?
+L146: 
+L147: To purchase an Enterprise License, simply fill out the request form above, and we'll be in touch within 24 hours.
+L148: 
+L149:   * ### How many seats does the Enterprise License cover?
+L150: The Enterprise License offers flexible options depending on your needs. Licenses can be scoped for a specific project, covering all team members working on that project, or for your entire organization, covering all members. Reach out to discuss which scope best fits your use case.
+L151: 
+L152:   * ### How much does an Enterprise License cost?
+L153: Our licensing is tailored to each organization's size and specific use case, ensuring a fair and customized solution. Please fill out our license request form to receive a tailored quote based on your needs.
+L154: 
+L155:   * ### Are Ultralytics YOLO trained models licensed under the AGPL-3.0 license?
+L156: 
+L157: Yes. All Ultralytics YOLO trained models fall under the 【32†AGPL-3.0 License†github.com】 by default. The AGPL-3.0 License covers the training code and the models produced by that training code.
+L158:   * ### What are the Enterprise License terms?
+L159: 
+L160: Please see our 【29†Ultralytics Enterprise Software License Terms】 page for complete details.
+L161: 
+L162:   * ### Do I need a separate Enterprise License for each Ultralytics YOLO product?
+L163: No, a separate Enterprise License is not required for each Ultralytics product. With this license, you will have access to the complete Ultralytics YOLO source code portfolio, including YOLO26, earlier YOLO versions, and any future YOLO models that Ultralytics may release during the license term. This includes:
+L164: 
+L165:     * Pretrained models
+L166:     * Supporting documentation
+L167:     * Subsequent modifications, including enhancements, upgrades, new features, bug fixes, and repairs
+L168: If you have any other questions, please reach out to us via the request form above.
+L169: 
+L170:   * ### What are the benefits of the Enterprise License versus the AGPL-3.0 License?
+

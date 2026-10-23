@@ -1,0 +1,10 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"results\": [],\n  \"errors\": [\n    {\n      \"url\": \"https://reestr.digital.gov.ru/reestr/?EX_PAGE_N=35&EX_PAGE_S=100&PAGE_N=47&PAGE_S=40\",\n      \"error\": \"timeout\"\n    }\n  ]\n}"
+    }
+  ],
+  "structuredContent": null,
+  "isError": false
+}

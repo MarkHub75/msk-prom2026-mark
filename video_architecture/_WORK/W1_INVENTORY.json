@@ -1,0 +1,44 @@
+﻿[
+    {
+        "File":  "W1_01.md",
+        "Bytes":  58693,
+        "Characters":  41868,
+        "SourceMarkers":  23,
+        "URLReferences":  47
+    },
+    {
+        "File":  "W1_02.md",
+        "Bytes":  53773,
+        "Characters":  39372,
+        "SourceMarkers":  25,
+        "URLReferences":  30
+    },
+    {
+        "File":  "W1_03.md",
+        "Bytes":  49664,
+        "Characters":  34830,
+        "SourceMarkers":  15,
+        "URLReferences":  17
+    },
+    {
+        "File":  "W1_04.md",
+        "Bytes":  53042,
+        "Characters":  43041,
+        "SourceMarkers":  19,
+        "URLReferences":  44
+    },
+    {
+        "File":  "W1_05.md",
+        "Bytes":  58703,
+        "Characters":  41493,
+        "SourceMarkers":  21,
+        "URLReferences":  25
+    },
+    {
+        "File":  "W1_06.md",
+        "Bytes":  49871,
+        "Characters":  35931,
+        "SourceMarkers":  13,
+        "URLReferences":  15
+    }
+]

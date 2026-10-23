@@ -1,0 +1,13 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"query\": \"site:lin-q.ru \\\"Производительность\\\" \\\"Latency\\\"\",\n  \"results\": [\n    {\n      \"position\": 1,\n      \"site_name\": \"lin-q.ru\",\n      \"snippet\": \"Уточнение и формализация требований к системе: метрики производительности (latency, throughput, tail latency); требования к отказоустойчивости и надежности ...\",\n      \"title\": \"Карьера в ХайТэк\",\n      \"url\": \"https://lin-q.ru/hr\"\n    }\n  ],\n  \"total_results\": 1,\n  \"page\": 0\n}"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

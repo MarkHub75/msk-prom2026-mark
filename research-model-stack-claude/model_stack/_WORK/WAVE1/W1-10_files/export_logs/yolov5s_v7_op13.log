@@ -1,0 +1,19 @@
+[34m[1mexport: [0mdata=C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\repos\W1-10\yolov5-v7.0\data\coco128.yaml, weights=['C:/Users/User/AppData/Local/Temp/claude/C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude/adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b/scratchpad/onnx-W1-10/yolov5s_v7_op13/yolov5s.pt'], imgsz=[640], batch_size=1, device=cpu, half=False, inplace=False, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=13, verbose=False, workspace=4, nms=False, agnostic_nms=False, topk_per_class=100, topk_all=100, iou_thres=0.45, conf_thres=0.25, include=['onnx']
+YOLOv5  v7.0-0-g915bbf2 Python-3.13.9 torch-2.14.1+cpu CPU
+
+Fusing layers... 
+YOLOv5s summary: 213 layers, 7225885 parameters, 0 gradients, 16.4 GFLOPs
+
+[34m[1mPyTorch:[0m starting from C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13\yolov5s.pt with output shape (1, 25200, 85) (14.1 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.23.2...
+C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\scripts-W1-10\run_v5_export_legacy.py:8: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+  return _f(*a, **k)
+[34m[1mONNX:[0m export success  1.0s, saved as C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13\yolov5s.onnx (28.0 MB)
+
+Export complete (1.4s)
+Results saved to [1mC:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13[0m
+Detect:          python detect.py --weights C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13\yolov5s.onnx 
+Validate:        python val.py --weights C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13\yolov5s.onnx 
+PyTorch Hub:     model = torch.hub.load('ultralytics/yolov5', 'custom', 'C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5s_v7_op13\yolov5s.onnx')  
+Visualize:       https://netron.app

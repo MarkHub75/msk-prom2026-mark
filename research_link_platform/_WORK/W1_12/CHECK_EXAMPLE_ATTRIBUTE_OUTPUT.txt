@@ -1,0 +1,3 @@
+﻿Attribute at line 206 'output_tensอร์_name'
+AttributeError: 'Namespace' object has no attribute 'output_tensอร์_name'
+No third-party modules imported, no TPU access, full script NOT executed.

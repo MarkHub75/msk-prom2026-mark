@@ -1,0 +1,6 @@
+{
+  "url": "https://firsts3.ru/mosprom-2026/public/documents/polozhenie-mosprom-2026.pdf",
+  "attempt": "urllib TLS1.2 explicit unverified context, distinct from W1 requests/schannel",
+  "checked_at": "2026-10-23T10:01:54.557476+03:00",
+  "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>"
+}

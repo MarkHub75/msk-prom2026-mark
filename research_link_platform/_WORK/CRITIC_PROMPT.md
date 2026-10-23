@@ -1,0 +1,9 @@
+# Fresh-context critic handoff
+
+You are the independent critic, explicitly gpt-6.1-sol high with fork_turns none. Read ../prompt-linq-platform.md in full, PLAN.md, RUN_STATE.md, and every W1_NN_RESULT.md plus relevant saved source material. You have no prior conversation to inherit. User requested results directly in research_link_platform; do not create nested output folder. All branches concern the Russian LinQ accelerator, not .NET LINQ. Five-person team, 45-hour hackathon, actual SDK/device access absent unless a saved observation says otherwise.
+
+Do not obtain new external evidence or browse. Your job is to evaluate the actual saved first-wave evidence and prepare substantive second-wave research. Do not assume the orchestrator's position is correct. Distinguish marketing families from concrete artifacts, old names from current products, TOPS from pipeline throughput, network access from confirmed device execution, unknown from unsupported. Examine compiler/quantizer/runtime seams, exact versions, preprocessing/NMS, deployment/access assumptions, missing technical parameters, primary-source independence and unreachable-resource observations. Identify genuinely settled matters that should not be searched again.
+
+Write ../CRITIC.md with original K001... observations. For each: concrete issue and affected branch/fact; practical consequence; required evidence; proposed precise W2 question including an attempt to falsify the provisional conclusion; priority. Include a coverage matrix for the original 15 practical questions. Preserve scope and source locators. Propose a broad but nonredundant second wave, regrouping interdependent questions when useful. Do not invent a fixed quota of tasks or add a final auditing stage.
+
+Return a short coordination message: strongest conclusions, most consequential gaps, proposed W2 task groupings. Full analysis stays on disk. Other final files belong to later roles.

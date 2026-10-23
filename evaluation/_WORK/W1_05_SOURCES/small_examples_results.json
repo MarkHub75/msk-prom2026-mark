@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "case": "late long",
+      "tiou": 0.95,
+      "onset": false,
+      "offset": true
+    },
+    {
+      "case": "brief correct onset",
+      "tiou": 0.1,
+      "onset": true,
+      "offset": false
+    },
+    {
+      "case": "split first",
+      "tiou": 0.5,
+      "onset": true,
+      "offset": false
+    },
+    {
+      "case": "split second",
+      "tiou": 0.5,
+      "onset": false,
+      "offset": true
+    },
+    {
+      "case": "merged versus first",
+      "tiou": 0.4,
+      "onset": true,
+      "offset": false
+    }
+  ],
+  "collar_ambiguity": {
+    "graph": {
+      "0": [
+        0,
+        1
+      ],
+      "1": [
+        0
+      ]
+    },
+    "optimal_match": {
+      "0": 1,
+      "1": 0
+    }
+  },
+  "scope": "Extracted pinned sed_eval validator functions and matching function executed; full evaluators not executed. tIoU is own scalar implementation."
+}

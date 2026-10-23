@@ -1,0 +1,2 @@
+datasets/_WORK/MATERIALS/W2-14/construction-ppe.zip filter=lfs diff=lfs merge=lfs -text
+datasets/_WORK/MATERIALS/W1-06/Smoker[[:space:]]Detection.rar filter=lfs diff=lfs merge=lfs -text

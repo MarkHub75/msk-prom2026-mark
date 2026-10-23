@@ -1,0 +1,29 @@
+{
+  "type": "LOCAL arithmetic, NOT benchmark",
+  "raw_bytes": 2822400,
+  "compact_bytes": 2404,
+  "ratio": 1174.0432612312811,
+  "raw_vs_100000B_JPEG": 28.224,
+  "return_bps": {
+    "1": {
+      "raw": 112896000,
+      "compact": 96160
+    },
+    "50": {
+      "raw": 5644800000,
+      "compact": 4808000
+    },
+    "500": {
+      "raw": 56448000000,
+      "compact": 48080000
+    }
+  },
+  "poll_example": {
+    "J": 50,
+    "interval_s": 0.5,
+    "batch": 1,
+    "polls_s": 100,
+    "up_bps": 800000,
+    "down_bps": 1600000
+  }
+}

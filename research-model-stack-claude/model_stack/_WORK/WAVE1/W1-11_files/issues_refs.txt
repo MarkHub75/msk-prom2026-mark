@@ -1,0 +1,5 @@
+#19991 [closed] 2025-04-03 closed=2025-05-25T00:26:38Z parity mismatch torch vs onnx for yolo-detection-model | https://github.com/ultralytics/ultralytics/issues/19991 | pr=false
+#22737 [closed] 2025-11-20 closed=2025-11-21T08:17:28Z Different outputs for Onnx and .pt file | https://github.com/ultralytics/ultralytics/issues/22737 | pr=false
+#24861 [closed] 2026-06-18 closed=2026-07-19T06:00:00Z YOLO26 OBB: Inconsistent Results Between PyTorch and Exported ONNX | https://github.com/ultralytics/ultralytics/issues/24861 | pr=false
+#25481 [closed] 2026-07-28 closed=2026-07-30T13:08:54Z Add ONNX export parity test comparing PyTorch and ONNX detections | https://github.com/ultralytics/ultralytics/pull/25481 | pr=true
+#5016 [closed] 2023-09-21 closed=2023-10-23T08:17:51Z Important accuracy drop in onnx conversion, image classification: yolov8n-cls.pt vs yolov8n-cls.onnx (46% similarity) | https://github.com/ultralytics/ultralytics/issues/5016 | pr=false

@@ -1,0 +1,15 @@
+Хакатон Открой#Моспром в мессенджере MAX (https://max.ru/channel_hack_mosprom)
+citeturn112view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://max.ru/channel_hack_mosprom","lineno":null}); Total lines: 12
+L0: 【0†Image†i.oneme.ru】
+L1: 
+L2: # Хакатон Открой#Моспром
+L3: 
+L4: @channel_hack_mosprom
+L5: 
+L6: 🏭 Открой#Моспром: самый масштабный промышленный хакатон в России 📅 23 — 25 октября 🌏 Участвуй онлайн или приходи в ОЭЗ «Технополис Москва» Официальный сайт: https://hackathon2026.otkroimosprom.ru/
+L7: 
+L8: Перейти в канал 【1†Открыть в браузере†web.max.ru】
+L9: 
+L10: Если у вас установлено приложение,
+L11: вы можете сразу перейти в канал
+

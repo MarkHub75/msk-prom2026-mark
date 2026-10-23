@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1bRMw2IxC1LuRyfk3V-i4vee3pY-qjMzo",
+    "name": "pictor_ppe_crowdsourced_approach-01_test.txt",
+    "status": 200,
+    "bytes": 17117,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1oZKfeiSKen1QS3nr2CHBrexP-ZK7NT1a",
+    "name": "pictor_ppe_crowdsourced_approach-01_train.txt",
+    "status": 200,
+    "bytes": 62712,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1qzcNQpjqcy5hCSLOV6BhGtuMltTkdIqv",
+    "name": "pictor_ppe_crowdsourced_approach-01_valid.txt",
+    "status": 200,
+    "bytes": 15952,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1tN_kgsf-vA6AgWdXjB4H2v4Rdu4ktsYH",
+    "name": "pictor_ppe_crowdsourced_approach-02_test.txt",
+    "status": 200,
+    "bytes": 11938,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1uoKWqSHBBumWNM_K2-s0v9MWUT42nIaa",
+    "name": "pictor_ppe_crowdsourced_approach-02_train.txt",
+    "status": 200,
+    "bytes": 43054,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1pra92RKjfBd2X6BiCdQ3-0m2e1LWuGpn",
+    "name": "pictor_ppe_crowdsourced_approach-02_valid.txt",
+    "status": 200,
+    "bytes": 10761,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1d8FWycuVid-A9sIMGkmbeu32adA1py6j",
+    "name": "pictor_ppe_crowdsourced_approach-03_test.txt",
+    "status": 200,
+    "bytes": 11938,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1qF_Vai2nolzKF6LBri6BXavhNf419dtr",
+    "name": "pictor_ppe_crowdsourced_approach-03_train.txt",
+    "status": 200,
+    "bytes": 43054,
+    "content_type": "application/octet-stream"
+  },
+  {
+    "id": "1eLCVS2GjgoFvXP9ffqv58s439U4Lqmnx",
+    "name": "pictor_ppe_crowdsourced_approach-03_valid.txt",
+    "status": 200,
+    "bytes": 10761,
+    "content_type": "application/octet-stream"
+  }
+]

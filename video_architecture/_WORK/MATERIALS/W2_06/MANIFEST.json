@@ -1,0 +1,29 @@
+[
+  {
+    "id": "W2-06-S01",
+    "url": "https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/nvdec-video-decoder-api-prog-guide/index.html",
+    "access_utc": "2026-10-23T04:50:26.903090+00:00",
+    "sha256": "087a77ceb54e01b6344eb08673cb9401c86ba0fbc85850daba802be0466a76a9",
+    "html": "S01_NVDEC13.html",
+    "text": "S01_NVDEC13.txt",
+    "action": "downloaded and read; no runtime execution"
+  },
+  {
+    "id": "W2-06-S02",
+    "url": "https://help.axis.com/en-us/axis-image-health-analytics",
+    "access_utc": "2026-10-23T04:50:28.097053+00:00",
+    "sha256": "e16d191b39dafdcc57aebd803cb27aa26e050e3154a716ff0f1384fb4624b636",
+    "html": "S02_AXIS_HEALTH.html",
+    "text": "S02_AXIS_HEALTH.txt",
+    "action": "downloaded and read; no runtime execution"
+  },
+  {
+    "id": "W2-06-S03",
+    "url": "https://help.axis.com/en-us/axis-q9216-slv",
+    "access_utc": "2026-10-23T04:50:29.475641+00:00",
+    "sha256": "243373a499498fed6db9bd24c5afa7276823ac684f6eec62f5f273ff87c4103f",
+    "html": "S03_AXIS_TAMPER.html",
+    "text": "S03_AXIS_TAMPER.txt",
+    "action": "downloaded and read; no runtime execution"
+  }
+]

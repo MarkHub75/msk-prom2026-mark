@@ -1,0 +1,132 @@
+{
+ "no_helmet": {
+  "n": 485,
+  "IoA_in_Person>=0.5": 0.9649484536082474,
+  "IoA>=0.9": 0.8783505154639175,
+  "no_person_overlap": 0.024742268041237112,
+  "center_y_rel_person_p10/50/90": [
+   0.057,
+   0.12,
+   0.225
+  ],
+  "h_rel_person_p50": 0.183,
+  "w_rel_person_p50": 0.423
+ },
+ "no_goggle": {
+  "n": 411,
+  "IoA_in_Person>=0.5": 0.9829683698296837,
+  "IoA>=0.9": 0.9805352798053528,
+  "no_person_overlap": 0.014598540145985401,
+  "center_y_rel_person_p10/50/90": [
+   0.112,
+   0.177,
+   0.294
+  ],
+  "h_rel_person_p50": 0.074,
+  "w_rel_person_p50": 0.278
+ },
+ "no_gloves": {
+  "n": 556,
+  "IoA_in_Person>=0.5": 0.9514388489208633,
+  "IoA>=0.9": 0.8687050359712231,
+  "no_person_overlap": 0.01618705035971223,
+  "center_y_rel_person_p10/50/90": [
+   0.264,
+   0.56,
+   0.859
+  ],
+  "h_rel_person_p50": 0.146,
+  "w_rel_person_p50": 0.239
+ },
+ "no_boots": {
+  "n": 115,
+  "IoA_in_Person>=0.5": 0.9652173913043478,
+  "IoA>=0.9": 0.8782608695652174,
+  "no_person_overlap": 0.02608695652173913,
+  "center_y_rel_person_p10/50/90": [
+   0.769,
+   0.908,
+   0.951
+  ],
+  "h_rel_person_p50": 0.126,
+  "w_rel_person_p50": 0.249
+ },
+ "helmet": {
+  "n": 1734,
+  "IoA_in_Person>=0.5": 0.8996539792387543,
+  "IoA>=0.9": 0.8321799307958477,
+  "no_person_overlap": 0.07324106113033449,
+  "center_y_rel_person_p10/50/90": [
+   0.065,
+   0.111,
+   0.218
+  ],
+  "h_rel_person_p50": 0.145,
+  "w_rel_person_p50": 0.414
+ },
+ "goggles": {
+  "n": 518,
+  "IoA_in_Person>=0.5": 0.9884169884169884,
+  "IoA>=0.9": 0.9845559845559846,
+  "no_person_overlap": 0.011583011583011582,
+  "center_y_rel_person_p10/50/90": [
+   0.108,
+   0.145,
+   0.208
+  ],
+  "h_rel_person_p50": 0.062,
+  "w_rel_person_p50": 0.33
+ },
+ "gloves": {
+  "n": 1445,
+  "IoA_in_Person>=0.5": 0.9529411764705882,
+  "IoA>=0.9": 0.9190311418685121,
+  "no_person_overlap": 0.03875432525951557,
+  "center_y_rel_person_p10/50/90": [
+   0.355,
+   0.571,
+   0.673
+  ],
+  "h_rel_person_p50": 0.116,
+  "w_rel_person_p50": 0.192
+ },
+ "boots": {
+  "n": 1597,
+  "IoA_in_Person>=0.5": 0.9517845961177207,
+  "IoA>=0.9": 0.8822792736380713,
+  "no_person_overlap": 0.035691922354414526,
+  "center_y_rel_person_p10/50/90": [
+   0.776,
+   0.855,
+   0.93
+  ],
+  "h_rel_person_p50": 0.189,
+  "w_rel_person_p50": 0.323
+ },
+ "vest": {
+  "n": 1618,
+  "IoA_in_Person>=0.5": 0.9258343634116193,
+  "IoA>=0.9": 0.8467243510506799,
+  "no_person_overlap": 0.06736711990111248,
+  "center_y_rel_person_p10/50/90": [
+   0.345,
+   0.41,
+   0.648
+  ],
+  "h_rel_person_p50": 0.419,
+  "w_rel_person_p50": 0.692
+ },
+ "none": {
+  "n": 797,
+  "IoA_in_Person>=0.5": 0.9548306148055207,
+  "IoA>=0.9": 0.8506900878293601,
+  "no_person_overlap": 0.030112923462986198,
+  "center_y_rel_person_p10/50/90": [
+   0.299,
+   0.525,
+   0.689
+  ],
+  "h_rel_person_p50": 0.449,
+  "w_rel_person_p50": 0.639
+ }
+}

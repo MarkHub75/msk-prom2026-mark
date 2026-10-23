@@ -1,0 +1,161 @@
+{
+  "versions": {
+    "ultralytics": "8.4.184",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.2"
+  },
+  "pt_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+  "pt_size": 5613764,
+  "onnx": {
+    "path": "yolo11n.onnx",
+    "sha256": "ee185ae05b4cf07a960f0689e165b53b5c5bc56ad923c3335dc5d99b4e6a84c0",
+    "size": 10741196,
+    "inputs": [
+      [
+        "images",
+        [
+          1,
+          3,
+          640,
+          640
+        ]
+      ]
+    ],
+    "outputs": [
+      [
+        "output0",
+        [
+          1,
+          84,
+          8400
+        ]
+      ]
+    ],
+    "opset": [
+      [
+        "",
+        13
+      ]
+    ],
+    "op_hist": {
+      "Conv": 88,
+      "Sigmoid": 78,
+      "Mul": 79,
+      "Split": 10,
+      "Add": 16,
+      "Concat": 21,
+      "MaxPool": 3,
+      "Reshape": 11,
+      "Transpose": 3,
+      "MatMul": 2,
+      "Softmax": 2,
+      "Resize": 2,
+      "Slice": 2,
+      "Sub": 2,
+      "Div": 1
+    }
+  },
+  "images": [
+    "bus.jpg",
+    "zidane.jpg"
+  ],
+  "fp32_output_ranges": {
+    "box_min": 2.15753173828125,
+    "box_max": 637.1780395507812,
+    "cls_min": 0.0,
+    "cls_max": 0.9392049908638
+  },
+  "single_symmetric_int8_scale_for_output0": 5.017149917722687,
+  "cls_scores_above_0.25_fp32": 73,
+  "cls_scores_representable_levels_with_shared_scale": 0,
+  "variants": {
+    "A_all_ops_per_tensor_minmax": {
+      "QuantizeLinear": 332,
+      "DequantizeLinear": 510,
+      "size": 3129769,
+      "per_image": [
+        {
+          "img": "bus.jpg",
+          "fp32_cand_conf>0.25": 47,
+          "q_cand_conf>0.25": 0,
+          "box_maxabs_err_px": 370.3913879394531,
+          "cls_maxabs_err": 0.9392049908638,
+          "cls_max_fp32": 0.9392049908638,
+          "cls_max_q": 0.0,
+          "distinct_cls_values_q": 1
+        },
+        {
+          "img": "zidane.jpg",
+          "fp32_cand_conf>0.25": 26,
+          "q_cand_conf>0.25": 0,
+          "box_maxabs_err_px": 399.3844299316406,
+          "cls_maxabs_err": 0.8577837944030762,
+          "cls_max_fp32": 0.8577837944030762,
+          "cls_max_q": 0.0,
+          "distinct_cls_values_q": 1
+        }
+      ],
+      "output_producer": "DequantizeLinear",
+      "output_dq_scale": 2.4987375736236572
+    },
+    "B_all_ops_per_channel_minmax": {
+      "QuantizeLinear": 332,
+      "DequantizeLinear": 510,
+      "size": 3239795,
+      "per_image": [
+        {
+          "img": "bus.jpg",
+          "fp32_cand_conf>0.25": 47,
+          "q_cand_conf>0.25": 0,
+          "box_maxabs_err_px": 107.902587890625,
+          "cls_maxabs_err": 0.9392049908638,
+          "cls_max_fp32": 0.9392049908638,
+          "cls_max_q": 0.0,
+          "distinct_cls_values_q": 1
+        },
+        {
+          "img": "zidane.jpg",
+          "fp32_cand_conf>0.25": 26,
+          "q_cand_conf>0.25": 0,
+          "box_maxabs_err_px": 182.45184326171875,
+          "cls_maxabs_err": 0.8577837944030762,
+          "cls_max_fp32": 0.8577837944030762,
+          "cls_max_q": 0.0,
+          "distinct_cls_values_q": 1
+        }
+      ],
+      "output_producer": "DequantizeLinear",
+      "output_dq_scale": 2.4987375736236572
+    },
+    "C_ultralytics_style_conv_only": {
+      "QuantizeLinear": 174,
+      "DequantizeLinear": 349,
+      "size": 3100516,
+      "per_image": [
+        {
+          "img": "bus.jpg",
+          "fp32_cand_conf>0.25": 47,
+          "q_cand_conf>0.25": 44,
+          "box_maxabs_err_px": 337.0698547363281,
+          "cls_maxabs_err": 0.6805001497268677,
+          "cls_max_fp32": 0.9392049908638,
+          "cls_max_q": 0.8902179598808289,
+          "distinct_cls_values_q": 357
+        },
+        {
+          "img": "zidane.jpg",
+          "fp32_cand_conf>0.25": 26,
+          "q_cand_conf>0.25": 24,
+          "box_maxabs_err_px": 374.9238586425781,
+          "cls_maxabs_err": 0.557877242565155,
+          "cls_max_fp32": 0.8577837944030762,
+          "cls_max_q": 0.8512122631072998,
+          "distinct_cls_values_q": 348
+        }
+      ],
+      "output_producer": "Concat"
+    }
+  }
+}

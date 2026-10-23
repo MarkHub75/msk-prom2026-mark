@@ -1,0 +1,74 @@
+﻿[
+    {
+        "file":  "W2/01_NATIVE_KD_CONTRACT.md",
+        "bytes":  43736,
+        "modified":  "2026-10-23T07:37:24.7044781+03:00",
+        "sha256":  "190F58E8329AA71366335DE4320761D6A6ABA74183CF97174F545EF30F93BBBC"
+    },
+    {
+        "file":  "W2/02_PARTIAL_ASSIGNMENT.md",
+        "bytes":  45658,
+        "modified":  "2026-10-23T07:37:41.5177440+03:00",
+        "sha256":  "F1003D32D29F7926E2D89F91D1FBF798DA068A2B1AA98F82D59744338704CD78"
+    },
+    {
+        "file":  "W2/03_ONESTAGE_SSL.md",
+        "bytes":  39171,
+        "modified":  "2026-10-23T07:41:47.3549088+03:00",
+        "sha256":  "A155F71BEECD83410B419A67B6522287C67432C021FEB11F9FB944352E63B286"
+    },
+    {
+        "file":  "W2/04_ACQUISITION_INTERFACE.md",
+        "bytes":  32841,
+        "modified":  "2026-10-23T07:43:53.5107979+03:00",
+        "sha256":  "898CA2A0F39F6C862790A107964C35031C96D77F4C9D4E0B339E2959332A9974"
+    },
+    {
+        "file":  "W2/05_TEACHER_AUDIT.md",
+        "bytes":  36598,
+        "modified":  "2026-10-23T07:48:48.3310755+03:00",
+        "sha256":  "50BF0A09F47151E32096696E660F4F1ABA195F5AF82084E3FAA264243E0ED4D9"
+    },
+    {
+        "file":  "W2/06_DETECTION_PRETRAINING.md",
+        "bytes":  40011,
+        "modified":  "2026-10-23T07:49:07.1779706+03:00",
+        "sha256":  "35FE16CA879FB2E93FBE0189C8CD6FE14BAD0952EF51243384EAB521032ED0F4"
+    },
+    {
+        "file":  "W2/07_SOURCEFREE_ROUTE.md",
+        "bytes":  29116,
+        "modified":  "2026-10-23T07:54:40.1954999+03:00",
+        "sha256":  "C652045D4D35D94A82EB841B6E19EB06BBF4AEC97E2BC961131811A267C088FA"
+    },
+    {
+        "file":  "W2/08_SYNTHETIC_SUPERVISION.md",
+        "bytes":  28645,
+        "modified":  "2026-10-23T07:49:13.9952323+03:00",
+        "sha256":  "2E421A2C7431DF7D1A20A9C19665FC4E8897F88D1D2B0B107D0C29DD08A98FBC"
+    },
+    {
+        "file":  "W2/09_DETECTOR_QAT.md",
+        "bytes":  28482,
+        "modified":  "2026-10-23T07:55:00.3689499+03:00",
+        "sha256":  "458DB321915479DD2D621418264DAF50D0E6E008813807E3F25E10046B88654A"
+    },
+    {
+        "file":  "W2/10_PHYSICAL_PRUNING.md",
+        "bytes":  38740,
+        "modified":  "2026-10-23T07:56:25.2630489+03:00",
+        "sha256":  "9D5753E3895AC4BE032837611D2EBD0721778B3BD57EE0D6C9A18C6516CDBFFA"
+    },
+    {
+        "file":  "W2/11_CHECKPOINT_CONTROL.md",
+        "bytes":  32279,
+        "modified":  "2026-10-23T07:43:05.2571802+03:00",
+        "sha256":  "B680274C03E654AF8B27FB702D54A11F167FDCFFBB03133C5E98451D348EA0D8"
+    },
+    {
+        "file":  "W2/12_TRIAL_QUEUE.md",
+        "bytes":  50943,
+        "modified":  "2026-10-23T08:05:05.8185962+03:00",
+        "sha256":  "6D2B088105C6F1258BFB26CCF354B05FBCBFF43888E19BC1EB20283B24519F7F"
+    }
+]

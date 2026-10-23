@@ -1,0 +1,6 @@
+{
+  "comparison": "whitespace normalization only; extracted text, NOT original bytes",
+  "equal": true,
+  "w1_chars": 39604,
+  "w2_chars": 39581
+}

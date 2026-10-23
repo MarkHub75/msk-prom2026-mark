@@ -1,0 +1,2649 @@
+{
+  "rows": 160824,
+  "unique_raw_id_1": 43951,
+  "unique_raw_id_2": 2180,
+  "raw_id_2_cross_class": [
+    {
+      "id": 9,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 35,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 41,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 48,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 56,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 59,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 75,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 88,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 89,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 96,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 165,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 174,
+      "classes": [
+        "helmet",
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 176,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 182,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 187,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 191,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 204,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 206,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 215,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 219,
+      "classes": [
+        "person",
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 223,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 243,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 250,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 262,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 278,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 313,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 339,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 350,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 355,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 358,
+      "classes": [
+        "board",
+        "slogan"
+      ]
+    },
+    {
+      "id": 359,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 376,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 377,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 383,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 392,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 396,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 422,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 438,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 482,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 485,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 507,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 535,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 545,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 572,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 576,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 589,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 645,
+      "classes": [
+        "helmet",
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 658,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 685,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 691,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 708,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 709,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 714,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 723,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 729,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 750,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 752,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 771,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 796,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 797,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 800,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 835,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 853,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 889,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 898,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 949,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 954,
+      "classes": [
+        "helmet",
+        "slogan"
+      ]
+    },
+    {
+      "id": 961,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 977,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 981,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 985,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 997,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 1012,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1025,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1026,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1028,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1045,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1070,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1132,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1133,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1137,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1148,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1151,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1154,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1160,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1162,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1166,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1254,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1267,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 1281,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1315,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1321,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1350,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1359,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1363,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1367,
+      "classes": [
+        "person",
+        "scaffold"
+      ]
+    },
+    {
+      "id": 1374,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1377,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1378,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 1381,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1389,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1390,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1393,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1404,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1405,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1412,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1413,
+      "classes": [
+        "helmet",
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1457,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1459,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1497,
+      "classes": [
+        "helmet",
+        "hook"
+      ]
+    },
+    {
+      "id": 1498,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1500,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1501,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1555,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1556,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 1559,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1563,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1612,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1613,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1628,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1657,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1663,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1667,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1673,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1677,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1679,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1680,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1681,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1700,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1701,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1706,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1716,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1722,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1724,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1725,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1726,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1735,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1753,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1765,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1810,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1827,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1833,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1838,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1840,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 1881,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1888,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1895,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1928,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 1935,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1937,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1952,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 1983,
+      "classes": [
+        "person",
+        "scaffold"
+      ]
+    },
+    {
+      "id": 1986,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1987,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1994,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 1997,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 1998,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2000,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2006,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 2022,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2038,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2044,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2059,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2099,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2106,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 2135,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2169,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2183,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2224,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2226,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2232,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2251,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 2256,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2262,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2275,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2338,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 2342,
+      "classes": [
+        "person",
+        "scaffold"
+      ]
+    },
+    {
+      "id": 2365,
+      "classes": [
+        "hopper",
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2388,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2389,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2392,
+      "classes": [
+        "helmet",
+        "person",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2393,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 2407,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2413,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 2414,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2425,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2436,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2444,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2447,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2466,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2478,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 2486,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2498,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2514,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2519,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2556,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 2570,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2572,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2573,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2594,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2612,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 2625,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2628,
+      "classes": [
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 2634,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2647,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2660,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2663,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2674,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2675,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2676,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2697,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 2703,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2712,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2713,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2740,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2747,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2761,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2827,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2831,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 2839,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2863,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 2868,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 2933,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2945,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2946,
+      "classes": [
+        "board",
+        "hopper"
+      ]
+    },
+    {
+      "id": 2947,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2958,
+      "classes": [
+        "hopper",
+        "person",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2968,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 2969,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 3009,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 3012,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3031,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3041,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3079,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 3178,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3182,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3225,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3252,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3266,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3287,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3300,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3314,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3315,
+      "classes": [
+        "board",
+        "hopper",
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3316,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3318,
+      "classes": [
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3348,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3356,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3394,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3401,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 3424,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3427,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3442,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3449,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3490,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3491,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3521,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3525,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3532,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3533,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3534,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3536,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3541,
+      "classes": [
+        "hook",
+        "hopper"
+      ]
+    },
+    {
+      "id": 3546,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3563,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3564,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3579,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3595,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3639,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3665,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3674,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 3686,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3689,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3693,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3743,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3749,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3752,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3775,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3779,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 3783,
+      "classes": [
+        "hook",
+        "person"
+      ]
+    },
+    {
+      "id": 3811,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3818,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3823,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3840,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3844,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3856,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3858,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3870,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 3883,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3888,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3900,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3941,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3950,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 3952,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 3979,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 4028,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4049,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4066,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 4072,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4073,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4088,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4127,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4139,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4155,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4157,
+      "classes": [
+        "board",
+        "hopper"
+      ]
+    },
+    {
+      "id": 4159,
+      "classes": [
+        "person",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4161,
+      "classes": [
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4171,
+      "classes": [
+        "hook",
+        "hopper"
+      ]
+    },
+    {
+      "id": 4175,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4179,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4209,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4210,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4221,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4241,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 4256,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4258,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4260,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 4317,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4319,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4320,
+      "classes": [
+        "hook",
+        "vest"
+      ]
+    },
+    {
+      "id": 4345,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4362,
+      "classes": [
+        "board",
+        "hook",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4374,
+      "classes": [
+        "board",
+        "hopper",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4379,
+      "classes": [
+        "board",
+        "hopper"
+      ]
+    },
+    {
+      "id": 4387,
+      "classes": [
+        "board",
+        "hopper"
+      ]
+    },
+    {
+      "id": 4397,
+      "classes": [
+        "brick",
+        "scaffold",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4398,
+      "classes": [
+        "brick",
+        "person",
+        "slogan",
+        "vest"
+      ]
+    },
+    {
+      "id": 4408,
+      "classes": [
+        "hopper",
+        "vest"
+      ]
+    },
+    {
+      "id": 4418,
+      "classes": [
+        "helmet",
+        "vest"
+      ]
+    },
+    {
+      "id": 4420,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4427,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4437,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4438,
+      "classes": [
+        "hook",
+        "slogan"
+      ]
+    },
+    {
+      "id": 4441,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4449,
+      "classes": [
+        "helmet",
+        "person"
+      ]
+    },
+    {
+      "id": 4452,
+      "classes": [
+        "helmet",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4474,
+      "classes": [
+        "hook",
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4478,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4481,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4486,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    },
+    {
+      "id": 4487,
+      "classes": [
+        "person",
+        "vest"
+      ]
+    }
+  ],
+  "nonpositive_xyxy_if_interpreted": 0,
+  "raw_id_2_examples": {
+    "1": [
+      {
+        "line": 1,
+        "raw_id_1": 1,
+        "raw_id_2": 1,
+        "source_class": "person",
+        "raw_action": "Unknow",
+        "raw_box": [
+          1299,
+          109,
+          1353,
+          183
+        ]
+      },
+      {
+        "line": 22,
+        "raw_id_1": 16,
+        "raw_id_2": 1,
+        "source_class": "person",
+        "raw_action": "Unknow",
+        "raw_box": [
+          1380,
+          114,
+          1429,
+          183
+        ]
+      },
+      {
+        "line": 36,
+        "raw_id_1": 31,
+        "raw_id_2": 1,
+        "source_class": "person",
+        "raw_action": "stand(L)",
+        "raw_box": [
+          1456,
+          121,
+          1508,
+          193
+        ]
+      }
+    ],
+    "2": [
+      {
+        "line": 3,
+        "raw_id_1": 2,
+        "raw_id_2": 2,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1328,
+          112,
+          1346,
+          127
+        ]
+      },
+      {
+        "line": 7,
+        "raw_id_1": 4,
+        "raw_id_2": 2,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1333,
+          112,
+          1352,
+          128
+        ]
+      },
+      {
+        "line": 9,
+        "raw_id_1": 5,
+        "raw_id_2": 2,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1335,
+          112,
+          1355,
+          128
+        ]
+      }
+    ],
+    "3": [
+      {
+        "line": 14,
+        "raw_id_1": 9,
+        "raw_id_2": 3,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1360,
+          115,
+          1381,
+          132
+        ]
+      },
+      {
+        "line": 16,
+        "raw_id_1": 10,
+        "raw_id_2": 3,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1360,
+          115,
+          1381,
+          132
+        ]
+      },
+      {
+        "line": 16,
+        "raw_id_1": 10,
+        "raw_id_2": 3,
+        "source_class": "helmet",
+        "raw_action": "",
+        "raw_box": [
+          1360,
+          115,
+          1381,
+          132
+        ]
+      }
+    ],
+    "6": [
+      {
+        "line": 37,
+        "raw_id_1": 54,
+        "raw_id_2": 6,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          2,
+          11,
+          121,
+          93
+        ]
+      },
+      {
+        "line": 39,
+        "raw_id_1": 56,
+        "raw_id_2": 6,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          6,
+          11,
+          119,
+          88
+        ]
+      },
+      {
+        "line": 41,
+        "raw_id_1": 59,
+        "raw_id_2": 6,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          8,
+          10,
+          118,
+          85
+        ]
+      }
+    ],
+    "7": [
+      {
+        "line": 42,
+        "raw_id_1": 123,
+        "raw_id_2": 7,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          4,
+          10,
+          124,
+          72
+        ]
+      },
+      {
+        "line": 60,
+        "raw_id_1": 144,
+        "raw_id_2": 7,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          1,
+          10,
+          124,
+          75
+        ]
+      },
+      {
+        "line": 77,
+        "raw_id_1": 161,
+        "raw_id_2": 7,
+        "source_class": "hook",
+        "raw_action": "",
+        "raw_box": [
+          2,
+          10,
+          124,
+          75
+        ]
+      }
+    ]
+  }
+}

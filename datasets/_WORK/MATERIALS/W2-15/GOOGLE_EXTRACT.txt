@@ -1,0 +1,36 @@
+ does not include resource
+                      identifiers, attributes, or other data labels. 17. Use Restrictions for AI/ML Services (formerly Section 16 (Use
+                      Restrictions for AI/ML Services)) . a. Competitive Use. Customer will not, and will not
+                      allow End Users to use an AI/ML Service or Generated
+                      Output to develop a similar or competing product or
+                      service. Google may immediately suspend or terminate
+                      Customer's use of any AI/ML Service based on any suspected
+                      violation of the preceding sentence. This
+                      restriction does not apply to Gemini Enterprise Agent Platform
+                      (formerly Vertex AI Platform) so
+                      long as Customer does not use a Google Pre-Trained Model. b . ​​Model Restrictions. Customer will not, and
+                      will not allow End Users to, use output from an AI/ML
+              
+             Customer’s Project(s) that use Telecom Subscriber
+                      Insights. b. Additional
+                        Restrictions. Customer will not (either directly or
+                      via third parties) (i) use Telecom Subscriber Insights or
+                      any of its components to create, train, or improve
+                      (directly or indirectly) any similar or competing system,
+                      product or service; or (ii) use output data from Telecom
+                      Subscriber Insights for the purpose of creating, training,
+                      or improving (directly or indirectly) any similar or
+                      competing system, product or service. Free Evaluation Services 56. Free Evaluation Services. a. Definitions . " Free Evaluation Services " means (a)
+                       presales, evaluation, or proof-of-concept services; and (b) ad-hoc technical
+                       assistance (brief technical assistance to address imm
+            any of its components to create, train, or improve
+                      (directly or indirectly) any similar or competing system,
+                      product or service; or (ii) use output data from Telecom
+                      Subscriber Insights for the purpose of creating, training,
+                      or improving (directly or indirectly) any similar or
+                      competing system, product or service. Free Evaluation Services 56. Free Evaluation Services. a. Definitions . " Free Evaluation Services " means (a)
+                       presales, evaluation, or proof-of-concept services; and (b) ad-hoc technical
+                       assistance (brief technical assistance to address immediate, isolated
+                       technical inquiries or minor operational issues) related to Google Cloud
+                       products, in each case provided to Customer free of charge by Google
+                       Personnel. Free Evaluation Services do not incl

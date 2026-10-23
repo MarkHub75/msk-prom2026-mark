@@ -1,0 +1,2229 @@
+
+--- PAGE 1 ---
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+Supplementary Materials
+Large, Complex, and Realistic Safety Clothing and Helmet
+Detection: Dataset and Method
+Fusheng Yu†
+Jiang Li∗†
+School of Artificial Intelligence and
+Automation, HUST
+Institute of Artificial Intelligence,
+HUST
+Wuhan, China
+{yufusheng,lijfrank}@hust.edu.cn
+Xiaoping Wang∗
+Depeng Li
+Xin Zhan
+School of Artificial Intelligence and
+Automation, HUST
+Institute of Artificial Intelligence,
+HUST
+Wuhan, China
+{wangxiaoping,dpli,xinzhan}@hust.edu.cn
+Shaojin Wu
+Junjie Zhang
+School of Artificial Intelligence and
+Automation, HUST
+Institute of Artificial Intelligence,
+HUST
+Wuhan, China
+{wushaojin,zjunjie}@hust.edu.cn
+ABSTRACT
+Detecting safety clothing and helmet is paramount for ensuring
+the safety of construction workers. However, the scarcity of high-
+quality datasets has impeded the development of deep learning
+models in this domain. In this study, we construct a large, com-
+plex, and realistic safety clothing and helmet detection (SFCHD)
+dataset. SFCHD is derived from two authentic chemical plants,
+comprising 12,373 images, 7 categories, and 50,552 annotations. We
+partition the SFCHD dataset into training and testing sets with a
+ratio of 4:1 and validate its utility by applying several classic object
+detection algorithms. Furthermore, drawing inspiration from the
+attention mechanism, we design a spatial and channel attention-
+based low-light enhancement (SCALE) module. SCALE is a plug-
+and-play component with a high degree of flexibility. Extensive
+evaluations of the SCALE module on both the low-light ExDark
+and contributed SFCHD datasets have empirically demonstrated
+its efficacy in enhancing the performance of detectors under low-
+light conditions. The dataset and code are publicly available at
+https://github.com/lijfrank-open/SFCHD-SCALE.
+CCS CONCEPTS
+• Computing methodologies →Object detection.
+KEYWORDS
+Computer Industry, Object Detection, Image Processing, Construc-
+tion Safety
+∗Corresponding authors.
+†Both authors contributed equally to this research.
+Permission to make digital or hard copies of all or part of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page. Copyrights for components of this work owned by others than the
+author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or
+republish, to post on servers or to redistribute to lists, requires prior specific permission
+and/or a fee. Request permissions from permissions@acm.org.
+MM ’25, October 27–31, 2025, Toronto, Canada
+© 2025 Copyright held by the owner/author(s). Publication rights licensed to ACM.
+ACM ISBN 978-1-4503-XXXX-X/2025/08...$15.00
+https://doi.org/XXXXXXX.XXXXXXX
+ACM Reference Format:
+Fusheng Yu, Jiang Li, Xiaoping Wang, Depeng Li, Xin Zhan, Shaojin Wu,
+and Junjie Zhang. 2025. Supplementary Materials Large, Complex, and
+Realistic Safety Clothing and Helmet Detection: Dataset and Method. In
+Proceedings of the 33rd ACM International Conference on Multimedia (MM ’25).
+ACM, New York, NY, USA, 10 pages. https://doi.org/XXXXXXX.XXXXXXX
+A
+MORE IMAGES
+A.1
+Images in the SFCHD Dataset
+The SFCHD dataset encompasses 12,373 images across 40 different
+scenarios, covering 7 categories with a total of 50,552 annotated
+instances. These images are sourced from authentic construction
+sites, ensuring the practical applicability of the data. All images
+are captured from factory surveillance cameras, encompassing two
+chemical plants. To our knowledge, SFCHD is the inaugural factory
+dataset that concurrently satisfies the detection of safety clothing
+and helmet. Fig. 1 illustrates images from the SFCHD dataset.
+A.2
+Images With Different Lighting
+As illustrated in Fig. 2, we categorize the entire dataset into three
+groups: high-light, low-light, and normal-light images, based on the
+intensity of light sources around person in the images. Here, (a)-(d),
+(e)-(h), and (i)-(l) are the images based on normal-light, high-light,
+and low-light, respectively. In (e)-(h), it is extremely difficult to
+detect whether the worker is wearing safety clothing and helmet
+because the surrounding light is too high. Similarly, in (i)-(l), too
+low light around the worker makes it difficult to conduct object
+detection tasks.
+B
+MORE RELATED WORKS
+B.1
+Object Detection Dataset
+The most remarkable datasets in the field of object detection in-
+clude Pascal VOC [6, 7], MS-COCO [20], ILSVRC [34], and Open
+Image [17]. The Pascal Vision Object Class (VOC) Challenge is a
+competition to accelerate the advancement of the field of computer
+vision, and two versions of the datasets adopted in the competition,
+VOC 2007 and VOC 2012, were commonly used for standard bench-
+marks. The Microsoft Common Objects in Context (MS-COCO) is
+1
+
+
+--- PAGE 2 ---
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+MM ’25, October 27–31, 2025, Toronto, Canada
+Yu and Li et al.
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+(g)
+(h)
+Figure 1: Image examples from the SFCHD dataset.
+2
+
+
+--- PAGE 3 ---
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+Supplementary Materials
+Large, Complex, and Realistic Safety Clothing and Helmet Detection: Dataset and Method
+MM ’25, October 27–31, 2025, Toronto, Canada
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+(g)
+(h)
+Figure 2: Image examples with different lighting conditions.
+3
+
+
+--- PAGE 4 ---
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+MM ’25, October 27–31, 2025, Toronto, Canada
+Yu and Li et al.
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+(i)
+(j)
+(k)
+(l)
+Figure 2: Image examples with different lighting conditions.
+one of the most challenging object detection datasets available, in-
+cluding two commonly used versions, COCO 2005 and COCO 2018.
+MS-COCO contains 80 categories, whose annotated objects are
+divided into three categories based on scale: small objects, medium
+objects, and large objects. The ImageNet Large-Scale Visual Recog-
+nition Challenge (ILSVRC) is also a competition that includes an
+object detection task, and its dataset serves as a benchmark for
+the evaluation of algorithm performance. The number of objects
+in the LISVRC was expanded to 200 compared to the VOC dataset,
+and the number of images and annotated objects are significantly
+larger than those in the VOC dataset. The Open Image dataset was
+launched by Google in 2017 and consists of 9.2 million images with
+16 million bounding boxes for 600 categories on 1.9 million images
+used for detection, becoming one of the largest object detection
+datasets.
+Despite the multitude of datasets [6, 7, 17, 20, 34] available for the
+field of object detection, there is a relative dearth of datasets specifi-
+cally tailored to industrial scenarios. The availability of high-quality
+and authentic datasets for safety clothing and helmet detection is
+crucial for ensuring engineering safety and factory compliance.
+Although object detection algorithms have made significant strides,
+their widespread application in industrial settings is still limited due
+to the absence of high-quality datasets. To our knowledge, there
+are currently only two open-source datasets available for helmet
+detection, namely Pictor-v3 [25] and SHWD [12]. However, the util-
+ity of these datasets is constrained, and they struggle to meet the
+application demands of both academia and industry. The Pictor-v3
+dataset contains only 1,330 annotated images, which is insufficient
+to meet the contemporary requirement for large-scale data in deep
+learning. Moreover, the dataset is deficient in the inclusion of neg-
+ative samples, leading to an imbalanced data composition and a
+disproportionate emphasis on color labels. In reality, safety helmets
+come in a variety of colors, and an overemphasis on color labels
+could potentially impair the model’s ability to recognize the physi-
+cal attributes of the helmets. The SHWD dataset comprises 3,241
+images related to safety helmets, with 10,457 instances annotated.
+Although there is a marked increase in the number of images com-
+pared to Pictor-v3, most images in SHWD are downloaded from the
+web, featuring relatively simple backgrounds that do not adequately
+represent the complexity of real-world scenarios. Furthermore, due
+to the diverse origins of the data, there is a significant variation in
+image resolution within the SHWD dataset, which may adversely
+affect the model’s performance in practical applications. In this
+work, we collect a high-quality and large-scale dataset, SFCHD,
+that authentically reflects the complexity of industrial scenarios, to
+facilitate the application of object detection algorithms in the field
+of industrial safety.
+4
+
+
+--- PAGE 5 ---
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+Supplementary Materials
+Large, Complex, and Realistic Safety Clothing and Helmet Detection: Dataset and Method
+MM ’25, October 27–31, 2025, Toronto, Canada
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+B.2
+Object Detection Method
+In the field of computer vision, object detection is a fundamental
+task for many real-world applications, which are receiving wide-
+spread attention. There are many potential application scenarios
+for object detection, such as autonomous driving [9, 40], medical
+diagnosis [5], emotion detection [18], pedestrian detection [15, 33],
+etc. The early object detection algorithms are composed of hand-
+crafted feature extractors such as Histogram of Oriented Gradi-
+ents (HOG) [4], Viola Jones detector [38], and so on. These meth-
+ods have inaccurate detection results and are resistant to be ap-
+plied to different datasets. In recent years, as the rapid evolution
+of deep learning, the reintroduction of CNN based models has
+brought a new landscape to the realm of object detection. CNN-
+based [16, 41] object detection methods can be categorized into two
+main types: two-stage methods and one-stage methods. Two-stage
+algorithms [10, 11, 27, 32] have two separate steps, i.e., searching
+for object proposals in images during the first stage, and then classi-
+fying and localizing them during the second stage. These methods
+commonly are of complex architecture and demand longer time
+to generate proposals. Unlike the two-stage algorithms, one-stage
+approaches [1, 21, 29–31, 35] are superior in terms of real-time per-
+formance and network architecture. One-stage algorithms localize
+objects with the predefined boxes of different scales and aspect
+ratios, and classify semantic objects in a single shot adopting dense
+sampling [43].
+B.3
+Low-Light Object Detection
+In low-light environments, the visibility of the image is severely
+compromised due to poor lighting conditions, greatly impacting
+the performance of detector. Initial methods for low-light detection
+focus on enhancing the low-light images before feeding them into
+detector. For instance, Zhang et al. [45] introduced KinD, which
+achieves image enhancement through paired training with images
+at different levels of illumination. Lv et al. [24] proposed a multi-
+branch low-light enhancement network (MBLLEN), which extracts
+features at various levels and then merges them using a multi-
+branch structure to produce enhanced images. Liu et al. [22] pro-
+posed IA-YOLO, which uses a CNN-based parameter predictor to
+train the YOLO detector. Qin et al. [28] introduced DE-YOLO, by
+training the cascaded DENet and YOLOv3 models in an end-to-end
+manner with the standard detection loss. Cui et al. [2] presented
+IAT-YOLO, which utilizes both local and global branches, incor-
+porating transformers for image enhancement. Additionally, joint
+training methods have been employed, where only the loss from
+detection tasks is used to accomplish low-light detection.
+C
+PROPOSED SCALE MODULE
+To address the challenges faced by object detection models in low-
+light environments, we design a spatial and channel attention-based
+low-light enhancement (SCALE) module. SCALE, as a plug-and-
+play component, integrates seamlessly into traditional object de-
+tection workflows, as depicted in Fig. 3. Specifically engineered
+for extreme low-light conditions, the SCALE module adaptively
+enhances images, consisting primarily of two components, i.e., spa-
+tial attention pathway (SAP) and channel attention pathway (CAP).
+SAP enhances the network’s ability to focus on important areas of
+the image by assigning differentiated weights to pixels in various
+locations, thereby more effectively understanding and capturing
+the spatial structure and its correlations within the image. The CAP,
+on the other hand, guides the network to concentrate on the most
+informative and significant channels by assigning weights, while
+suppressing features from redundant channels, further improving
+the quality and accuracy of feature expression. Features processed
+by the SCALE module are then fed into the object detector. The
+entire pipeline relies solely on detection loss for end-to-end train-
+ing, simplifying the training process and enhancing efficiency. This
+design not only improves the model’s performance under low-light
+conditions but also maintains the simplicity of model training.
+C.1
+Spatial Attention Pathway
+SAP enhances the network’s ability to focus on important areas of
+the image by assigning differentiated weights to pixels in various
+locations, thereby more effectively understanding and capturing
+the spatial structure and its correlations within the image. Firstly,
+the low-light image 𝐼is initially input into three convolutional
+kernels of varying sizes to extract features from multiple scales.
+Subsequently, the obtained feature maps are concatenated along
+the channel dimension to enrich the feature space. This process can
+be mathematically represented as:
+𝐹𝑘= Conv𝑘(𝐼), 𝐹𝐶𝑜𝑛𝑣= Cat[𝐹1, 𝐹3, 𝐹5],
+(1)
+where 𝑘∈{1, 3, 5}, and 𝐼denotes an input with a resolution of
+𝐻× 𝑊× 𝐶; Conv𝑘denotes the convolutional operation with a
+kernel of size 𝑘, e.g., Conv1 is the convolution with a kernel of size
+1; 𝐹𝑘denotes the corresponding convolution branch output; Cat is
+the concatenation operation across the channel dimension; 𝐹𝐶𝑜𝑛𝑣
+denotes the feature map after passing through parallel convolution
+branches.
+The obtained feature map 𝐹𝐶𝑜𝑛𝑣is then directed into two inde-
+pendent spatial attention units (i.e., SA in Fig. 3). Each Spatial Atten-
+tion unit primarily consists of pooling, convolution, and element-
+wise multiplication operations. Initially, we apply global max pool-
+ing and global average pooling to the feature map. The global max
+pooling helps the network to filter the most salient feature, focusing
+on areas of the low-light image that contain key information while
+disregarding the effects of darkness and noise. The global average
+pooling smooths the feature value, making the extracted feature
+more stable and representative. Subsequently, these two pooled fea-
+ture maps are concatenated, fed into a convolution for fusion, and
+normalized through a sigmoid function. Ultimately, the normalized
+fused feature is element-wise multiplied with each channel of the
+original feature map, yielding the weighted spatial attention feature
+maps 𝐹𝑆𝐴𝑘(𝑘∈{3, 5}). The process above can be mathematically
+expressed as:
+𝐹𝑆𝐴𝑘= 𝐹𝐶𝑜𝑛𝑣⊗𝜎(Conv𝑘(Cat[𝐹𝑀𝑎𝑥, 𝐹𝐴𝑣𝑔])),
+(2)
+where 𝐹𝑀𝑎𝑥and 𝐹𝐴𝑣𝑔represent the values after applying max pool-
+ing and average pooling to 𝐹𝐶𝑜𝑛𝑣, respectively; 𝜎represents the sig-
+moid activation function, and ⊗is the element-wise multiplication.
+The spatial attention feature maps 𝐹𝑆𝐴3 and 𝐹𝑆𝐴5 are concatenated,
+then passed through a convolution of size 3 to produce the output
+5
+
+
+--- PAGE 6 ---
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+MM ’25, October 27–31, 2025, Toronto, Canada
+Yu and Li et al.
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+Conv 1x1
+SA
+3 x 3
+Conv 1x1 
+CBL
+CA
+Detector
+Conv 3x3
+Conv 5x5
+SA
+5 x 5
+Conv 3x3
+C
+Conv 3x3 
+S
+H
+W
+H
+C
+H
+1
+W
+2
+W
+W
+H
+1
+H
+W
+C
+Max
+Avg
+H
+W
+C
+H
+W
+C
+AvgPool
+Linear
+R
+S
+Linear
+C
+1
+1
+C
+C Concat
+R ReLU
+S Sigmoid
+CBL
+Conv 1x1 
+CBL
+CBL
+CBL
+Conv 1x1 
+BatchNorm
+LeakyReLU
+Figure 3: Network structure of spatial and channel attention-based low-light enhancement (SCALE) module.
+of SAP:
+𝐹′
+𝐶𝑜𝑛𝑣= Conv3(Cat[𝐹𝑆𝐴3, 𝐹𝑆𝐴5]),
+𝐼𝑆𝐴𝑃= 𝐼⊗𝐹′
+𝐶𝑜𝑛𝑣.
+(3)
+C.2
+Channel Attention Pathway
+The CAP guides the network to concentrate on the most informative
+and significant channels by assigning weights, while suppressing
+features from redundant channels, further improving the quality
+and accuracy of feature expression. Before entering the channel
+attention unit (CA in Fig. 3), the low-light image 𝐼is first input into
+a residual block. This residual block primarily consists of convolu-
+tion, batch normalization, and residual operations, which can be
+mathematically expressed as:
+ˆ𝐹𝐶𝑜𝑛𝑣= Conv1(𝐼), 𝐹𝐶𝐵𝐿= LR(BN(Conv1(𝐼))),
+𝐹𝑅𝑒𝑠= ˆ𝐹𝐶𝑜𝑛𝑣+ LR(BN(Conv3(𝐹𝐶𝐵𝐿))),
+(4)
+where Conv1 and Conv3 denote convolution operations with ker-
+nel sizes of 1 and 3, respectively; LR represents the LeakyReLU
+activation function, and BN denotes batch normalization; a residual
+block comprises two CBL blocks, and each CBL block includes a
+convolution layer, LeakyReLU function, and batch normalization;
+𝐹𝐶𝐵𝐿1 signifies the feature map after the first CBL block, and 𝐹𝑅𝑒𝑠
+indicates the final output of the residual block.
+Inspired by SENet [14], the obtained feature map 𝐹𝑅𝑒𝑠is then
+directed into the channel attention unit. This unit primarily consists
+of pooling, linear transformation, and element-wise multiplication
+operations. Initially, an average pooling operation is employed to
+down-sample the feature map. This operation not only reduces the
+complexity of the feature map but also diminishes noise and detail
+interference, capturing local statistical information. Subsequently,
+the pooled feature map undergoes two linear transformations and
+is normalized through a sigmoid function. Ultimately, the resulting
+feature map is element-wise multiplied with the original feature
+map across channels to yield the channel attention feature map
+𝐹𝐶𝐴. This process assigns different weights to each feature channel,
+enabling the network to learn the most informative feature channels.
+The computation can be mathematically represented as:
+𝐹𝐶𝐴= 𝐹𝑅𝑒𝑠⊗𝜎(Lin2(ReLU(Lin1(𝐹′
+𝐴𝑣𝑔)))),
+(5)
+where 𝐹′
+𝐴𝑣𝑔denotes the value after applying the average pooling
+operation to 𝐹𝑅𝑒𝑠; Lin1 and Lin2 represent two successive linear
+transformations. 𝐹𝐶𝐴is processed through a residual block to obtain
+the output of CAP:
+˜𝐹𝐶𝑜𝑛𝑣= Conv1(𝐹𝐶𝐴), ˜𝐹𝐶𝐵𝐿= LR(BN(Conv1(𝐹𝐶𝐴))),
+˜𝐹𝑅𝑒𝑠= 𝐼⊗˜𝐹𝐶𝑜𝑛𝑣+ LR(BN(Conv3( ˜𝐹𝐶𝐵𝐿))),
+𝐼𝐶𝐴𝑃= 𝐼⊗˜𝐹𝑅𝑒𝑠.
+(6)
+D
+EXPERIMENTAL SETUP
+Centered around the SFCHD dataset and the SCALE module, our ex-
+periments are composed of three parts. Initially, we utilize a variety
+of classic detection methods to perform experiments on the existing
+helmet datasets and our SFCHD dataset, validating the practicality
+of our dataset. Subsequently, we incorporate the SCALE module
+into detection algorithms and conduct experiments on the public
+low-light dataset to confirm the effectiveness of the SCALE module.
+Finally, we integrate the SCALE module with the SFCHD dataset,
+demonstrating its capability to significantly improve detection ac-
+curacy under challenging conditions.
+D.1
+Usability of SFCHD Dataset
+In this subsection, we employ several detection models to conduct
+experiments on the existing helmet datasets and proposed SFCHD
+6
+
+
+--- PAGE 7 ---
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+Supplementary Materials
+Large, Complex, and Realistic Safety Clothing and Helmet Detection: Dataset and Method
+MM ’25, October 27–31, 2025, Toronto, Canada
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+dataset, reporting their outcomes to substantiate the usability of
+our dataset.
+Datasets: We compare the propose SFCHD with the Pictor-v3 [25]
+and SHWD [12] datasets. Pictor-v3 contains 774 crowd-sourced and
+698 web-mined images, where the crowd-sourced and web-mined
+images contain 2,496 and 2,230 instances of workers, respectively.
+SHWD provides the dataset used for both safety helmet wearing and
+human head detection. It includes 7,581 images with 9,044 human
+safety helmets wearing objects (positive) and 111,514 normal head
+objects (not wearing or negative).
+Methods: We utilize classic detection methods to verify the us-
+ability of our dataset, including SSD [21], Faster RCNN [32], Reti-
+naNet [19], FCOS [35], TOOD [8], VFNet [44], YOLOv5 [36]. SSD
+was a one-stage, multi-scale detection algorithm that utilized a
+convolutional pyramid for feature extraction and performed clas-
+sification and regression across feature maps. Faster RCNN was a
+pioneering two-stage object detection framework that identified po-
+tential object regions, or anchor boxes, and then precisely classified
+and localized the objects within these regions. RetinaNet intro-
+duced the Focal Loss to address the class imbalance in one-stage
+detectors, enhancing performance without altering the underlying
+network structure. FCOS redefined object detection by offering an
+anchor-free and proposal-free approach, operating pixel-by-pixel
+for a streamlined, full convolutional network-based solution. TOOD
+proposed a task-aligned one-stage detection method with a novel
+head structure and learning method, focusing on improving detec-
+tion for specific tasks. VFNet designed the Varifocal Loss function
+to predict IoU-aware classification scores and introduced a star-
+shaped bounding box feature representation for refining object
+localization. YOLOv5 was a one-stage object detection algorithm,
+improved upon its predecessors by offering superior speed and
+accuracy in one-stage object detection.
+Details: All experiments are conducted using MMDetection [26],
+with dataset partitions following the default configuration. The ex-
+periments are optimized using the SGD optimizer. The momentum
+and weight decay are set to 0.9 and 0.0001, respectively. During the
+training and testing process, the image size was adjusted to 1333 *
+800. The batch size is set to 2 for a single GPU, and distributed train-
+ing is conducted using 4 GPUs. All models are trained on NVIDIA
+GeForce RTX 3090 GPUs, each with 24GB of graphics memory. We
+evaluate the mean average precision (mAP) of the object detection
+to measure the performance of all models fairly. The mAP(0.50:0.95)
+metric measures the mAP across different Intersection over Union
+(IoU) thresholds, ranging from 0.50 to 0.95 with an interval of 0.05.
+Similarly, mAP(0.50) is the mAP at a single IoU threshold of 0.50.
+D.2
+Validity of SCALE Module
+In this subsection, we integrate the SCALE module with detec-
+tion algorithms and experiment on the public low-light dataset to
+validate the efficacy of SCALE.
+Dataset: To substantiate the efficacy of the SCALE module, we
+conduct extensive experiments on the ExDark [23] dataset. The
+dataset is a benchmark specifically designed to assess object detec-
+tion algorithms under low-light conditions. It comprises a total of
+7,363 low-light images, categorized into 10 varying illumination
+conditions, ranging from extremely dim to moderately low light,
+across 12 classes, with a total of 23,710 annotated instances. The
+dataset is partitioned into a training set with 5,896 images and a
+testing set with 1,467 images. The images within the dataset en-
+compass a multitude of scenarios from indoor to outdoor settings
+and from urban to natural landscapes, ensuring the diversity and
+applicability of the dataset.
+Methods: The models we select primarily encompass three cate-
+gories. The first category consists of low-light image enhancement
+methods, including KinD [45], MBLLEN [24], and Zero-DCE [13].
+KinD, inspired by Retinex theory, decomposed the image into two
+components, one responsible for light regulation (illumination) and
+the other for degradation elimination (reflectance). MBLLEN ex-
+tracted rich features at different levels, enhanced them through
+multiple sub-networks, and ultimately produced the output im-
+age through multi-branch fusion. Zero-DCE formulated the task
+of light enhancement as a specific curve estimation for images
+with a deep network, training a lightweight deep network to es-
+timate the dynamic range adjustment of pixels and higher-order
+curves for a given image. The second category is low-light image
+object detection methods, including MAET [3], DENet [28], IAT-
+YOLO [2], and PE-YOLO [42]. MAET, in a self-supervised manner,
+considered the physical noise model and image signal processing
+to learn the intrinsic visual structure by encoding and decoding
+real-world illumination degradation transformations. DENet en-
+hanced the model’s performance under adverse weather conditions
+by using a Laplacian pyramid to decompose each input image into a
+low-frequency component and several high-frequency components.
+IAT-YOLO proposed a lightweight and fast illumination adaptive
+transformer for normalizing sRGB images under low-light or un-
+derexposed/overexposed conditions. PE-YOLO introduced a detail
+processing module composed of a context branch and an edge
+branch to enhance image details, as well as a low-frequency en-
+hancement filter to obtain low-frequency semantic information
+and avoid high-frequency noise. The third category consists of
+classical one-stage object detection methods, including FCOS [35],
+VFNet [44], and TOOD [8]. These methods are primarily utilized for
+cascading with the SCALE module to form new end-to-end models.
+Details: The inaugural category of models is trained on the LOL [39]
+dataset, subsequently employing the trained models to process the
+ExDark dataset, thereby generating enhanced and brightened im-
+agery. These images are then subsequently input into the YOLOv3 [31]
+detector to procure the detection outcomes of the low-light image
+enhancement techniques. In contrast, the second category of models
+directly integrates low-light images into the network for training,
+culminating in the ultimate detection results. To ensure a fair com-
+parative analysis, the detector employed across both categories of
+methods is the YOLOv3. Throughout the training and testing phases,
+the dimensions of the images are uniformly adjusted to 608 * 608.
+For training, the batch size for an individual GPU is configured to
+4, and distributed training is executed across 4 GPUs. The optimiza-
+tion algorithm utilized during training is SGD, with the learning
+rate set to 0.001 and the weight decay factor designated as 0.0005.
+The third category of methods is to validate the enhancement effect
+of the SCALE module under low-light conditions. We integrate the
+SCALE module with existing object detection algorithms to obtain
+the detector’s output results. In this category, experiments are con-
+ducted based on the MMDetection framework. During training and
+7
+
+
+--- PAGE 8 ---
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+MM ’25, October 27–31, 2025, Toronto, Canada
+Yu and Li et al.
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+Method
+Bicycle
+Boat
+Bottle
+Bus
+Car
+Cat
+Chair
+Cup
+Dog
+Motorbike
+People
+Table
+mAP(0.50)
+AP(0.50)
+YOLOv3 [31]
+79.8
+75.3
+78.1
+92.3
+83.0
+68.0
+69.0
+79.0
+78.0
+77.3
+81.5
+55.5
+76.4
+KinD [45]
+80.1
+77.7
+77.2
+93.8
+83.9
+66.9
+68.7
+77.4
+79.3
+75.3
+80.9
+53.8
+76.3
+MBLLEN [24]
+82.0
+77.3
+76 .5
+91.3
+84.0
+67.6
+69.1
+77.6
+80.4
+75.6
+81.9
+58.6
+76.8
+Zero-DCE [13]
+84.1
+77.6
+78.3
+93.1
+83.7
+70.3
+69.8
+77.6
+77.4
+76.3
+81.0
+53.6
+76.9
+MAET [3]
+83.1
+78.5
+75.6
+92.9
+83.1
+73.4
+71.3
+79.0
+79.8
+77.2
+81.1
+57.0
+77.7
+DENet [28]
+80.4
+79.7
+77.9
+91.2
+82.7
+72.8
+69.9
+80.1
+77.2
+76.7
+82.0
+57.2
+77.3
+IAT-YOLO [2]
+79.8
+76.9
+78.6
+92.5
+83.8
+73.6
+72.4
+78.6
+79.0
+79.0
+81.1
+57.7
+77.8
+PE-YOLO [42]
+84.7
+79.2
+79.3
+92.5
+83.9
+71.5
+71.7
+79.7
+79.7
+77.3
+81.8
+55.3
+78.0
+SCALE-YOLO (Ours)
+81.3
+79.3
+78.2
+93.9
+84.2
+75.5
+74.9
+82.3
+81.0
+77.5
+82.5
+57.3
+79.0
+Table 1: Performance comparisons between our SCALE-YOLO and existing models on the ExDark dataset. These models include
+both low-light image enhancement methods and low-light image object detection methods.
+Method
+Bicycle
+Boat
+Bottle
+Bus
+Car
+Cat
+Chair
+Cup
+Dog
+Motorbike
+People
+Table
+mAP(0.50)
+AP(0.50)
+FCOS [35]
+75.5
+64.4
+68.0
+86.8
+78.5
+69.3
+55.4
+71.7
+70.0
+64.8
+72.3
+46.7
+68.6
+FCOS+SCALE
+75.1
+66.6
+73.5
+89.9
+78.9
+67.0
+57.2
+72.8
+74.2
+67.3
+72.0
+45.9
+70.0
+VFNet [44]
+77.4
+70.5
+76.6
+90.6
+81.8
+67.1
+59.4
+71.8
+72.6
+70.6
+77.7
+53.3
+72.5
+VFNet+SCALE
+79.4
+70.2
+76.5
+89.7
+81.7
+71.9
+60.9
+71.5
+75.0
+71.2
+77.4
+55.5
+73.4
+TOOD [8]
+77.0
+69.2
+72.2
+90.0
+80.0
+72.6
+63.0
+71.8
+71.0
+71.9
+76.2
+52.2
+72.3
+TOOD+SCALE
+77.9
+70.0
+78.3
+90.0
+80.7
+69.1
+62.0
+72.4
+73.7
+69.2
+78.1
+54.2
+73.0
+Table 2: Performance improvements of the SCALE module on the ExDark dataset.
+Method
+SAP
+CAP
+mAP(0.50)
+YOLOv3 [31]
+–
+–
+76.4
+SCALE-YOLO (Ours)
+✓
+✗
+77.3
+✗
+✓
+77.8
+✓
+✓
+79.0
+Table 3: Ablation analysis for different pathways in SCALE.
+testing, the size of the images is uniformly adjusted to 1333 * 800.
+The batch size for a single GPU is set to 4, and distributed training
+is performed using the same 4 GPUs. The optimizer for training is
+the SGD, with the learning rate set to 0.01 and the weight decay
+factor set to 0.0001.
+Results: To substantiate the efficacy of the SCALE module, we con-
+duct extensive experiments on the ExDark [23] dataset, a publicly
+available low-light benchmark. Table 1 compares the performance
+of our proposed SCALE-YOLO with existing models encompassing
+both low-light image enhancement methods and low-light image
+object detection methods. SCALE-YOLO outperforms YOLOv3 by
+2.6% in mAP. It also surpasses image enhancement models KinD,
+MBLLEN, and Zero-DCE, which though enhance brightness and
+details, can amplify noise and degrade feature extraction, by 2.7%,
+2.2%, and 2.1% respectively. The table indicates that object detec-
+tion methods generally outperform image enhancement methods,
+suggesting that understanding image context is more effective than
+just increasing contrast and brightness. SCALE-YOLO improves
+mAP by 1.3% over MAET, 1.7% over DENet, 1.2% over IAT-YOLO,
+and 1% over PE-YOLO. SCALE-YOLO leverages spatial attention
+to capture regional correlations and channel attention to focus on
+significant feature channels in low-light images, thereby enhancing
+detection performance.
+Table 2 displays the performance improvements when the SCALE
+module is integrated into one-stage object detection algorithms
+on the ExDark dataset. The integration leads to notable enhance-
+ments: FCOS+SCALE achieves a 1.4% mAP increase over FCOS,
+VFNet+SCALE realizes a 0.9% mAP boost, and TOOD+SCALE im-
+proves by 0.7% over TOOD. These results confirm that the SCALE
+module strengthens detectors’ comprehension and recognition un-
+der low-light conditions, subsequently elevating their detection
+accuracy.
+To assess the contributions of the spatial and channel attention
+pathways within the SCALE module, we perform ablation studies
+as detailed in Table 3. The results show that by activating only the
+SAP, the model improves the mAP by 0.9% compared to YOLOv3,
+validating its ability to concentrate on salient information in low-
+light images. Enabling only the CAP increases the mAP by 1.8%,
+indicating its role in highlighting informative channels. Compara-
+tively, inter-channel relationships seem to be more influential than
+spatial cues. When both SAP and CAP are combined, the model’s
+mAP improves by 2.6%. These findings underscore the SCALE mod-
+ule’s ability to generate more discriminative features, enhancing
+detectors’ comprehension of low-light imagery.
+D.3
+Application of SCALE on SFCHD
+In this subsection, we apply the SCALE module to the SFCHD
+dataset to demonstrate that SCALE can effectively enhance the
+detection quality on the SFCHD dataset.
+To verify the performance of the SCALE module on the SFCHD
+dataset, we select a range of object detection models for testing,
+8
+
+
+--- PAGE 9 ---
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+Supplementary Materials
+Large, Complex, and Realistic Safety Clothing and Helmet Detection: Dataset and Method
+MM ’25, October 27–31, 2025, Toronto, Canada
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+including FCOS [35], VFNet [44], TOOD [8], and YOLOv8 [37]. We
+integrate the proposed SCALE module into these detectors to con-
+struct an end-to-end low-light object detection model, which is
+optimized solely by a single loss function. In terms of experimental
+setup, we continue with the configuration from previous experi-
+ments, utilizing distributed training across 4 GPUs and employing
+the SGD optimizer. The learning rate is uniformly set to 0.01. For the
+FCOS, VFNet, and TOOD models, the input image size is adjusted
+to 1333 * 800 pixels, the Batch Size per GPU is 2, and the weight
+decay factor is 0.0001. For YOLOv8, the image size is adjusted to
+640 * 640 pixels, the Batch Size per GPU is increased to 16, and the
+weight decay factor is set to 0.0005.
+REFERENCES
+[1] Alexey Bochkovskiy, Chien-Yao Wang, and Hong-Yuan Mark Liao. 2020. YOLOv4:
+Optimal Speed and Accuracy of Object Detection. ArXiv abs/2004.10934 (2020),
+1–17.
+[2] Ziteng Cui, Kunchang Li, Lin Gu, Shenghan Su, Peng Gao, ZhengKai Jiang, Yu
+Qiao, and Tatsuya Harada. 2022. You Only Need 90K Parameters to Adapt Light:
+a Light Weight Transformer for Image Enhancement and Exposure Correction.
+In Proceedings of the 33rd British Machine Vision Conference. 1–16.
+[3] Ziteng Cui, Guo-Jun Qi, Lin Gu, Shaodi You, Zenghui Zhang, and Tatsuya Harada.
+2021. Multitask AET With Orthogonal Tangent Regularity for Dark Object
+Detection. In Proceedings of the IEEE/CVF International Conference on Computer
+Vision (ICCV). 2553–2562.
+[4] N. Dalal and B. Triggs. 2005. Histograms of oriented gradients for human
+detection. In 2005 IEEE Computer Society Conference on Computer Vision and
+Pattern Recognition, Vol. 1. 886–893. doi:10.1109/CVPR.2005.177
+[5] R. Elakkiya, V. Subramaniyaswamy, V. Vijayakumar, and Aniket Mahanti. 2022.
+Cervical Cancer Diagnostics Healthcare System Using Hybrid Object Detection
+Adversarial Networks. IEEE Journal of Biomedical and Health Informatics 26, 4
+(2022), 1464–1471. doi:10.1109/JBHI.2021.3094311
+[6] Mark Everingham, S. M. Ali Eslami, Luc Van Gool, Christopher K. I. Williams,
+John Winn, and Andrew Zisserman. 2015. The Pascal Visual Object Classes
+Challenge: A Retrospective. International Journal of Computer Vision 111, 1
+(2015), 98–136. doi:10.1007/s11263-014-0733-5
+[7] Mark Everingham, Luc Van Gool, Christopher K. I. Williams, John Winn, and
+Andrew Zisserman. 2010. The Pascal Visual Object Classes (VOC) Challenge.
+International Journal of Computer Vision 88, 2 (2010), 303–338. doi:10.1007/s11263-
+009-0275-4
+[8] Chengjian Feng, Yujie Zhong, Yu Gao, Matthew R. Scott, and Weilin Huang. 2021.
+TOOD: Task-Aligned One-Stage Object Detection. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision. 3490–3499. doi:10.1109/iccv48922.
+2021.00349
+[9] Di Feng, Ali Harakeh, Steven L. Waslander, and Klaus Dietmayer. 2022. A Review
+and Comparative Study on Probabilistic Object Detection in Autonomous Driving.
+IEEE Transactions on Intelligent Transportation Systems 23, 8 (2022), 9961–9980.
+doi:10.1109/TITS.2021.3096854
+[10] Ross Girshick. 2015. Fast R-CNN. In Proceedings of the 2015 IEEE International
+Conference on Computer Vision. 1440–1448. doi:10.1109/iccv.2015.169
+[11] Ross Girshick, Jeff Donahue, Trevor Darrell, and Jitendra Malik. 2014. Rich
+Feature Hierarchies for Accurate Object Detection and Semantic Segmentation.
+In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition.
+580–587. doi:10.1109/cvpr.2014.81
+[12] Munkhjargal Gochoo. 2021. Safety Helmet Wearing Dataset.
+https://data.
+mendeley.com/datasets/9rcv8mm682/1.
+[13] Chunle Guo, Chongyi Li, Jichang Guo, Chen Change Loy, Junhui Hou, Sam
+Kwong, and Runmin Cong. 2020. Zero-Reference Deep Curve Estimation for
+Low-Light Image Enhancement. In 2020 IEEE/CVF Conference on Computer Vision
+and Pattern Recognition (CVPR). 1777–1786. doi:10.1109/CVPR42600.2020.00185
+[14] Jie Hu, Li Shen, and Gang Sun. 2018. Squeeze-and-Excitation Networks. In
+Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition.
+7132–7141.
+[15] Jung Uk Kim, Sungjune Park, and Yong Man Ro. 2022. Uncertainty-Guided
+Cross-Modal Learning for Robust Multispectral Pedestrian Detection. IEEE
+Transactions on Circuits and Systems for Video Technology 32, 3 (2022), 1510–1523.
+doi:10.1109/TCSVT.2021.3076466
+[16] Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton. 2017. ImageNet classifi-
+cation with deep convolutional neural networks. Commun. ACM 60, 6 (2017),
+84–90. doi:10.1145/3065386
+[17] Alina Kuznetsova, Hassan Rom, Neil Alldrin, Jasper Uijlings, Ivan Krasin, Jordi
+Pont-Tuset, Shahab Kamali, Stefan Popov, Matteo Malloci, Alexander Kolesnikov,
+Tom Duerig, and Vittorio Ferrari. 2020. The Open Images Dataset V4. Interna-
+tional Journal of Computer Vision 128, 7 (2020), 1956–1981. doi:10.1007/s11263-
+020-01316-z
+[18] Jiang Li, Xiaoping Wang, Guoqing Lv, and Zhigang Zeng. 2024. GA2MIF: Graph
+and Attention Based Two-Stage Multi-Source Information Fusion for Conversa-
+tional Emotion Detection. IEEE Transactions on Affective Computing 15, 1 (2024),
+130–143. doi:10.1109/TAFFC.2023.3261279
+[19] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollar. 2017.
+Focal Loss for Dense Object Detection. In Proceedings of the IEEE International
+Conference on Computer Vision. 2980–2988. doi:10.1109/iccv.2017.324
+[20] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays, Pietro Perona, Deva
+Ramanan, Piotr Dollár, and C. Lawrence Zitnick. 2014. Microsoft COCO: Common
+Objects in Context. In Proceedings of the 13th European Conference on Computer
+Vision. 740–755. doi:10.1007/978-3-319-10602-1_48
+[21] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed,
+Cheng-Yang Fu, and Alexander C. Berg. 2016. SSD: Single Shot MultiBox Detector.
+In Proceedings of the 14th European Conference on Computer Vision. 21–37. doi:10.
+1007/978-3-319-46448-0_2
+[22] Wenyu Liu, Gaofeng Ren, Runsheng Yu, Shi Guo, Jianke Zhu, and Lei Zhang. 2021.
+Image-Adaptive YOLO for Object Detection in Adverse Weather Conditions. In
+Proceedings of the AAAI Conference on Artificial Intelligence. 1792–1800.
+[23] Yuen Peng Loh and Chee Seng Chan. 2019. Getting to know low-light images
+with the Exclusively Dark dataset. Computer Vision and Image Understanding
+178 (2019), 30–42. doi:10.1016/j.cviu.2018.10.010
+[24] Feifan Lv, Feng Lu, Jianhua Wu, and Chong Soon Lim. 2018. MBLLEN: Low-Light
+Image/Video Enhancement Using CNNs. In British Machine Vision Conference.
+[25] Nipun D. Nath, Amir H. Behzadan, and Stephanie G. Paal. 2020. Deep learning
+for site safety: Real-time detection of personal protective equipment. Automation
+in Construction 112 (2020), 103085. doi:10.1016/j.autcon.2020.103085
+[26] OpenMMLab. 2018.
+MMDetection.
+https://github.com/open-mmlab/
+mmdetection.
+[27] John Platt. 1998. Sequential Minimal Optimization: A Fast Algorithm for Training
+Support Vector Machines. Technical Report MSR-TR-98-14. Microsoft.
+[28] Qingpao Qin, Kan Chang, Mengyuan Huang, and Guiqing Li. 2022. DENet:
+Detection-driven Enhancement Network for Object Detection under Adverse
+Weather Conditions. In Proceedings of the Asian Conference on Computer Vision
+(ACCV). 2813–2829.
+[29] Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi. 2016. You
+Only Look Once: Unified, Real-Time Object Detection. In Proceedings of the IEEE
+Conference on Computer Vision and Pattern Recognition. 779–788. doi:10.1109/
+cvpr.2016.91
+[30] Joseph Redmon and Ali Farhadi. 2017. YOLO9000: Better, Faster, Stronger. In
+Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition.
+6517–6525. doi:10.1109/cvpr.2017.690
+[31] Joseph Redmon and Ali Farhadi. 2018. YOLOv3: An Incremental Improvement.
+arXiv preprint arXiv:1804.02767 (2018), 1–6.
+[32] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun. 2017. Faster R-CNN:
+Towards Real-Time Object Detection with Region Proposal Networks. IEEE
+Transactions on Pattern Analysis and Machine Intelligence 39, 6 (2017), 1137–1149.
+doi:10.1109/TPAMI.2016.2577031
+[33] Jamie Roche, Varuna De-Silva, Joosep Hook, Mirco Moencks, and Ahmet Kondoz.
+2022. A Multimodal Data Processing System for LiDAR-Based Human Activity
+Recognition. IEEE Transactions on Cybernetics 52, 10 (2022), 10027–10040. doi:10.
+1109/TCYB.2021.3085489
+[34] Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma,
+Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexan-
+der C. Berg, and Li Fei-Fei. 2015. ImageNet Large Scale Visual Recognition
+Challenge. International Journal of Computer Vision 115, 3 (2015), 211–252.
+doi:10.1007/s11263-015-0816-y
+[35] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. 2019. FCOS: Fully Convolu-
+tional One-Stage Object Detection. In Proceedings of the IEEE/CVF International
+Conference on Computer Vision. 9626–9635. doi:10.1109/iccv.2019.00972
+[36] Ultralytics. 2020. Ultralytics YOLOv5. https://github.com/ultralytics/yolov5.
+[37] Ultralytics. 2023. Ultralytics YOLOv8. https://github.com/ultralytics/ultralytics.
+[38] P. Viola and M. Jones. 2001. Rapid object detection using a boosted cascade of
+simple features. In Proceedings of the 2001 IEEE Computer Society Conference on
+Computer Vision and Pattern Recognition, Vol. 1. 511–518. doi:10.1109/CVPR.2001.
+990517
+[39] Chen Wei, Wenjing Wang, Wenhan Yang, and Jiaying Liu. 2018. Deep Retinex
+Decomposition for Low-Light Enhancement. In Proceedings of the 29th British
+Machine Vision Conference. 1–12.
+[40] Chao Xia, Yanqing Shen, Yuedong Yang, Xiaodong Deng, Shitao Chen, Jingmin
+Xin, and Nanning Zheng. 2023. Onboard Sensors-Based Self-Localization for
+Autonomous Vehicle With Hierarchical Map. IEEE Transactions on Cybernetics
+53, 7 (2023), 4218–4231. doi:10.1109/TCYB.2022.3155724
+[41] Saining Xie, Ross Girshick, Piotr Dollar, Zhuowen Tu, and Kaiming He. 2017.
+Aggregated Residual Transformations for Deep Neural Networks. In Proceedings
+of the IEEE Conference on Computer Vision and Pattern Recognition. 5987–5995.
+9
+
+
+--- PAGE 10 ---
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064
+1065
+1066
+1067
+1068
+1069
+1070
+1071
+1072
+1073
+1074
+1075
+1076
+1077
+1078
+1079
+1080
+1081
+1082
+1083
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093
+1094
+1095
+1096
+1097
+1098
+1099
+1100
+1101
+1102
+MM ’25, October 27–31, 2025, Toronto, Canada
+Yu and Li et al.
+1103
+1104
+1105
+1106
+1107
+1108
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116
+1117
+1118
+1119
+1120
+1121
+1122
+1123
+1124
+1125
+1126
+1127
+1128
+1129
+1130
+1131
+1132
+1133
+1134
+1135
+1136
+1137
+1138
+1139
+1140
+1141
+1142
+1143
+1144
+1145
+1146
+1147
+1148
+1149
+1150
+1151
+1152
+1153
+1154
+1155
+1156
+1157
+1158
+1159
+1160
+doi:10.1109/cvpr.2017.634
+[42] Xiangchen Yin, Zhenda Yu, Zetao Fei, Wenjun Lv, and Xin Gao. 2023. PE-YOLO:
+Pyramid Enhancement Network for Dark Object Detection. In Artificial Neural
+Networks and Machine Learning - ICANN 2023. 163–174.
+[43] Syed Sahil Abbas Zaidi, Mohammad Samar Ansari, Asra Aslam, Nadia Kanwal,
+Mamoona Asghar, and Brian Lee. 2022. A survey of modern deep learning based
+object detection models. Digital Signal Processing 126 (2022), 1–19. doi:10.1016/j.
+dsp.2022.103514
+[44] Haoyang Zhang, Ying Wang, Feras Dayoub, and Niko Sunderhauf. 2021. Vari-
+focalNet: An IoU-Aware Dense Object Detector. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition. 8514–8523. doi:10.1109/
+cvpr46437.2021.00841
+[45] Yonghua Zhang, Jiawan Zhang, and Xiaojie Guo. 2019. Kindling the Darkness: A
+Practical Low-light Image Enhancer. In Proceedings of the 27th ACM International
+Conference on Multimedia (Nice, France) (MM ’19). Association for Computing
+Machinery, New York, NY, USA, 1632–1640. doi:10.1145/3343031.3350926
+10

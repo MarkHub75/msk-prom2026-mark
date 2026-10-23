@@ -1,0 +1,14 @@
+{
+  "train_lines": 6479,
+  "train_unique": 6479,
+  "val_lines": 1620,
+  "val_unique": 1620,
+  "intersection": 0,
+  "union": 8099,
+  "missing_from_urls": [
+    "carrying-head-indian-farm-worker-158011.jpeg"
+  ],
+  "url_not_in_splits": [
+    "carrying-on-head-indian-farm-worker-158011.jpeg"
+  ]
+}

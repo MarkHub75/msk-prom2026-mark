@@ -1,0 +1,116 @@
+{
+  "freeze": true,
+  "checked_at": "2026-10-23T08:31:51.267420+03:00",
+  "role": "machine compressor, integrated local editorial checks; no separate auditor",
+  "report": "report_machine_datasets.md",
+  "bytes": 102587,
+  "lines": 686,
+  "whitespace_words": 11273,
+  "sha256": "969bf39412460993a4f562886ff327c29fa2a9d7187aa832eefde3c7e05b0ff1",
+  "yaml_required_fields_and_duplicate_keys": "passed",
+  "answers_count": 14,
+  "schemas_and_tables": [
+    {
+      "header": [
+        "dataset",
+        "artifact",
+        "actual_access",
+        "conditional_role",
+        "remaining_gates",
+        "facts"
+      ],
+      "rows": 14,
+      "schema": "dataset_selection_record"
+    },
+    {
+      "header": [
+        "clip",
+        "bytes",
+        "duration_s",
+        "start_s",
+        "displayed_fps",
+        "tbn"
+      ],
+      "rows": 8,
+      "schema": "video_probe_record"
+    },
+    {
+      "header": [
+        "source_literal",
+        "semantic_unit",
+        "preliminary_target",
+        "relation",
+        "condition",
+        "facts"
+      ],
+      "rows": 20,
+      "schema": "mapping_record"
+    },
+    {
+      "header": [
+        "parent",
+        "derivative",
+        "established_relation",
+        "independence_consequence",
+        "unresolved",
+        "facts"
+      ],
+      "rows": 12,
+      "schema": "lineage_record"
+    },
+    {
+      "header": [
+        "scope_class",
+        "n_objects",
+        "native_q10_q50_q90_px",
+        "letterbox640_q10_q50_q90_px"
+      ],
+      "rows": 20,
+      "schema": "scale_record"
+    },
+    {
+      "header": [
+        "Question",
+        "Unresolved decision and next evidence"
+      ],
+      "rows": 20
+    },
+    {
+      "header": [
+        "Programme",
+        "Inputs, action and saved evidence",
+        "Decision and success limit"
+      ],
+      "rows": 18
+    },
+    {
+      "header": [
+        "ID",
+        "Actual coverage and result",
+        "Remaining limit"
+      ],
+      "rows": 15
+    }
+  ],
+  "manual_answer_coverage": "All 14 indexed questions reviewed against the body; unresolved answers explicitly linked to Q001-Q020.",
+  "local_links_checked": 362,
+  "link_errors": [],
+  "identifier_counts": {
+    "F": 102,
+    "S": 2,
+    "Q": 20,
+    "E": 33,
+    "K": 12
+  },
+  "frozen_human_unchanged": true,
+  "frozen_evidence_unchanged": {
+    "SOURCES.md": true,
+    "RAW_FACTS.md": true,
+    "OPEN_QUESTIONS.md": true,
+    "CRITIC.md": true,
+    "_WORK/ID_MAP.md": true,
+    "_WORK/AUTHOR_BRIEF.md": true
+  },
+  "token_counts": null,
+  "limits": "No tokenization, network revalidation, visual Markdown rendering, dataset audit, model run or legal clearance performed by compressor."
+}

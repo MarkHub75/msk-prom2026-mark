@@ -1,0 +1,18 @@
+anomaly_family,chunk_count,percent_of_anomalous_chunks
+Fall / collapse,379,15.3
+Fight / assault,340,13.7
+Smoking / vaping,282,11.4
+Climbing / jumping,201,8.1
+Throwing / vandalism,164,6.6
+Running,160,6.4
+Fire / smoke / explosion,145,5.8
+Falling / damaged objects,137,5.5
+Traffic / parking safety,125,5.0
+Retail theft / concealment,111,4.5
+Forklift incident,91,3.7
+Liquid spill / leak,91,3.7
+Animal-related hazard,91,3.7
+Generic warehouse-safety violation,82,3.3
+PPE violation,32,1.3
+Weather / environmental hazard,27,1.1
+Other / ambiguous,25,1.0

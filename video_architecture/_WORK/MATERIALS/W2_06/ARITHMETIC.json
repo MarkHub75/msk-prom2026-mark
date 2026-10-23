@@ -1,0 +1,32 @@
+{
+  "status": "LOCAL arithmetic only; not runtime benchmark",
+  "computed_at_utc": "2026-10-23T05:00:25.953701+00:00",
+  "viewer_assumptions": {
+    "viewers": 3,
+    "tiles_each": 4,
+    "fps_each": 2,
+    "jpeg_bytes": 100000
+  },
+  "viewer_payload_bps": 19200000,
+  "all500_payload_bps": 2400000000,
+  "per_connection_delivery_rate": 8,
+  "ideal_ack_cycle_s_max": 0.125,
+  "scenarios": [
+    {
+      "cameras": 50,
+      "compressed_main_bps": 200000000,
+      "jpeg_input_bps": 200000000,
+      "raw_output_bps": 5644800000,
+      "compact_output_bps": 4808000,
+      "remote_selected_jpeg_return_bps_if_all_samples": 200000000
+    },
+    {
+      "cameras": 500,
+      "compressed_main_bps": 2000000000,
+      "jpeg_input_bps": 2000000000,
+      "raw_output_bps": 56448000000,
+      "compact_output_bps": 48080000,
+      "remote_selected_jpeg_return_bps_if_all_samples": 2000000000
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+The timeout setting on av.open() doesn't work as expected (for RTSP streams) · Issue #584 · PyAV-Org/PyAV · GitHub
+Skip to content
+Navigation Menu
+Sign in
+Appearance settings
+Platform
+AI CODE CREATION
+GitHub Copilot
+Write better code with AI
+GitHub Copilot app
+Direct agents from issue to merge
+MCP Registry
+Integrate external tools
+DEVELOPER WORKFLOWS
+Actions
+Automate any workflow
+Codespaces
+Instant dev environments
+Issues
+Plan and track work
+Code Review
+Manage code changes
+Code Quality
+Enforce quality at merge
+APPLICATION SECURITY
+GitHub Advanced Security
+Find and fix vulnerabilities
+Code security
+Secure your code as you build
+Secret protection
+Stop leaks before they start
+EXPLORE
+Why GitHub
+Documentation
+Blog
+Changelog
+Marketplace
+View all features
+Solutions
+BY COMPANY SIZE
+Enterprises
+Small and medium teams
+Startups
+Nonprofits
+BY USE CASE
+App Modernization
+DevSecOps
+DevOps
+CI/CD
+View all use cases
+BY INDUSTRY
+Healthcare
+Financial services
+Manufacturing
+Government
+View all industries
+View all solutions
+Resources
+EXPLORE BY TOPIC
+AI
+Software Development
+DevOps
+Security
+View all topics
+EXPLORE BY TYPE
+Customer stories
+Events & webinars
+Ebooks & reports
+Business insights
+GitHub Skills
+SUPPORT & SERVICES
+Documentation
+Customer support
+Community forum
+Trust center
+Partners
+View all resources
+Open Source
+COMMUNITY
+GitHub Sponsors
+Fund open source developers
+PROGRAMS
+Security Lab
+Maintainer Community
+GitHub Stars
+Archive Program
+REPOSITORIES
+Topics
+Trending
+Collections
+Enterprise
+ENTERPRISE SOLUTIONS
+Enterprise platform
+AI-powered developer platform
+AVAILABLE ADD-ONS
+GitHub Advanced Security
+Enterprise-grade security features
+Copilot for Business
+Enterprise-grade AI features
+Premium Support
+Enterprise-grade 24/7 support
+Pricing
+Search
+/
+Sign in
+Sign up
+Appearance settings
+You signed in with another tab or window.
+Reload
+to refresh your session.
+You signed out in another tab or window.
+Reload
+to refresh your session.
+You switched accounts on another tab or window.
+Reload
+to refresh your session.
+Dismiss alert
+The timeout setting on av.open() doesn't work as expected (for RTSP streams)
+#584
+New issue
+Copy link
+New issue
+Copy link
+Closed
+#589
+Closed
+The timeout setting on av.open() doesn't work as expected (for RTSP streams)
+#584
+#589
+Copy link
+Labels
+bug
+Description
+CarlosRDomin
+opened
+on Dec 22, 2019
+Issue body actions
+Overview
+When I connect to my rtsp camera with a given timeout (e.g. 3s), the call to
+av.open()
+blocks indefinitely if the camera accepts the connection but doesn't start streaming
+Expected behavior
+After the timeout expires (e.g. 3s) the function call should return with an error/exception
+Actual behavior
+The call to
+av.open()
+hangs indefinitely and I have to
+kill -s 9 python
+to stop the process.
+Investigation
+My RTSP camera only accepts 3 simultaneous clients receiving the stream. If (by accident) a 4th client attempts to connect, it will successfully communicate with the camera, but no stream is sent, which (after adding some logs on
+av/container/core.pyx
+) causes line 234 (
+self.set_timeout(None)
+) to clear the timeout and therefore the call to
+av.open
+hangs forever.
+By commenting out line 234 (not sure why the timeout is cleared anyway or where the execution hangs after line 234 to cause that infinite block),
+av.open
+successfully returns after the specified timeout if it wasn't able to open. In my case, it actually outputs some nice error messages:
+Could not find codec parameters for stream 0 (Video: h264, none): unspecified size
+Consider increasing the value for the 'analyzeduration' and 'probesize' options
+Versions
+OS: Ubuntu 18.04 (on docker image)
+PyAV runtime:
+PyAV v7.0.0.dev0
+git origin: git@github.com:mikeboers/PyAV
+git commit: v6.2.0-117-g5d192a1
+library configuration: --prefix=/usr --extra-version=0ubuntu0.18.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+library license: GPL version 2 or later
+libavcodec     57.107.100
+libavdevice    57. 10.100
+libavfilter     6.107.100
+libavformat    57. 83.100
+libavutil      55. 78.100
+libswresample   2.  9.100
+libswscale      4.  8.100
+PyAV build:
+PyAV: 7.0.0.dev0 v6.2.0-117-g5d192a1
+Python: 3.6.7 (default, Oct 22 2018, 11:32:17) \n[GCC 8.2.0]
+platform: Linux-4.9.184-linuxkit-x86_64-with-Ubuntu-18.04-bionic
+extension_extra:
+        include_dirs: [b'include', b'/usr/include/x86_64-linux-gnu']
+        libraries: [b'avformat', b'avcodec', b'avdevice', b'avutil', b'avfilter', b'swscale', b'swresample']
+        library_dirs: []
+        define_macros: []
+        runtime_library_dirs: []
+config_macros:
+        PYAV_COMMIT_STR="v6.2.0-117-g5d192a1"
+        PYAV_VERSION=7.0.0.dev0
+        PYAV_VERSION_STR="7.0.0.dev0"
+FFmpeg:
+bash: ffmpeg: command not found
+Research
+I have done the following:
+Checked the
+PyAV documentation
+Searched on
+Google
+Searched on
+Stack Overflow
+Looked through
+old GitHub issues
+Asked on
+PyAV Gitter
+... and waited 72 hours for a response.
+Additional context
+See above as to when the timeout doesn't work as expected (when the camera reaches the maximum number of simultaneous streams)
+Reactions are currently unavailable
+Activity
+CarlosRDomin
+added
+bug
+on Dec 22, 2019
+CarlosRDomin
+commented
+on
+Dec 22, 2019
+CarlosRDomin
+on Dec 22, 2019
+Last edited by
+CarlosRDomin
+Contributor
+Author
+More actions
+Update: I'm able to fix this bug/problem by wrapping the
+lib.avformat_find_stream_info
+call in
+av/container/input.pyx
+(lines 43-54) with a
+self.set_timeout
+. Here's my changes:
+self.set_timeout(self.open_timeout)
+        self.start_timeout()
+        with nogil:
+            # This peeks are the first few frames to:
+            #   - set stream.disposition from codec.audio_service_type (not exposed);
+            #   - set stream.codec.bits_per_coded_sample;
+            #   - set stream.duration;
+            #   - set stream.start_time;
+            #   - set stream.r_frame_rate to average value;
+            #   - open and closes codecs with the options provided.
+            ret = lib.avformat_find_stream_info(
+                self.ptr,
+                c_options
+            )
+        self.set_timeout(None)
+        self.err_check(ret)
+Should I file a MR?
+mikeboers
+commented
+on
+Dec 27, 2019
+mikeboers
+on Dec 27, 2019
+Member
+More actions
+Coooool. Open a PR and I'll merge it. Or I can do it myself. =]
+😄
+React with 😄
+1
+Reacted by
+Carlos Ruiz
+CarlosRDomin
+commented
+on
+Dec 28, 2019
+CarlosRDomin
+on Dec 28, 2019
+Contributor
+Author
+More actions
+@mikeboers
+done! :)
+CarlosRDomin
+commented
+on
+Jan 10, 2020
+CarlosRDomin
+on Jan 10, 2020
+Contributor
+Author
+More actions
+@mikeboers
+do you need me to do anything?
+stalkerg
+commented
+on
+Feb 28, 2020
+stalkerg
+on Feb 28, 2020
+More actions
+I am also waiting this PR.
+jlaine
+closed this
+as
+completed
+in
+#589
+on Feb 29, 2020
+Sign up for free
+to join this conversation on GitHub.
+Already have an account?
+Sign in to comment
+Metadata
+Metadata
+Assignees
+No one assigned
+Labels
+bug
+Type
+No type
+Projects
+No projects
+Milestone
+No milestone
+Relationships
+None yet
+Development
+No branches or pull requests
+Issue actions
+Open in GitHub Copilot app
+Footer
+© 2026 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Community
+Docs
+Contact
+Manage cookies
+Do not share my personal information
+You can’t perform that action at this time.

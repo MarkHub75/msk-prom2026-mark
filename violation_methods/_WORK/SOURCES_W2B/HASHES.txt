@@ -1,0 +1,12 @@
+﻿
+Algorithm Hash                                                             Path                                                                       
+--------- ----                                                             ----                                                                       
+SHA256    318468373A659C8F9564CE1D6455C246A59B590A166D4994030786B885B11E12 D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\OIL_NIT.pdf       
+SHA256    7EC63D9FB32DF357E42C7CB658EE729B4CCE0B1C606C7CD164D9BBCAAF1D91E4 D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\OIL_PREBID.pdf    
+SHA256    B384A96E634D666B79972A8D6C8C4F535E4A40F827208911335FF1302882059A D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\tracked_object.py 
+SHA256    7FB8260AE15B573205CB91BD3CFC4BB9777451CC5F829889F26E1F42AEBD5455 D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\camera_state.py   
+SHA256    1CE3FDFA45D18DEA00765A6E4D2D7703F4EE983BA63C45424213E19283AF038B D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\norfair_tracker.py
+SHA256    8232F95D2828DCF26182E0666F8A8FF49ED4C19384222BD87837BB98F2BE8BB0 D:\msk-prom2026-mark\violation_methods\_WORK\SOURCES_W2B\video_detect.py   
+
+
+

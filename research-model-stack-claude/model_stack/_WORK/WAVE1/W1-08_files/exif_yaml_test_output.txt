@@ -1,0 +1,10 @@
+versions cv2 5.0.0 PIL 13.0.0 numpy 2.5.4 yaml 6.0.3
+PIL stored size (w,h): (200, 100) exif orientation: 6
+exif_size-style (w,h) after swap logic: (100, 200)
+cv2.imdecode default (h,w,c): (200, 100, 3)
+cv2.imdecode IGNORE_ORIENTATION (h,w,c): (100, 200, 3)
+cv2.imread default (h,w,c): (200, 100, 3)
+PNG RGBA via imdecode COLOR shape: (50, 60, 3)
+gray JPG via imdecode COLOR shape: (50, 60, 3)
+YAML raw -> ['person', False, True, True, False, 'y', 'n', None, 1, 1.0, '007', 'NO_helmet'] | check_class_names-style str(): {0: 'person', 1: 'False', 2: 'True', 3: 'True', 4: 'False', 5: 'y', 6: 'n', 7: 'None', 8: '1', 9: '1.0', 10: '007', 11: 'NO_helmet'}
+YAML raw -> {0: 'helmet', 1: False, 2: True} | check_class_names-style str(): {0: 'helmet', 1: 'False', 2: 'True'}

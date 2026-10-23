@@ -1,0 +1,25 @@
+{
+  "established_edges": [
+    {
+      "parent": "SCUT-HEAD subset",
+      "child": "SHWD",
+      "basis": "author README"
+    },
+    {
+      "parent": "SHWD and GDUT-HWD selected images",
+      "child": "CHV",
+      "basis": "original paper section2.3"
+    },
+    {
+      "parent": "SHD Kaggle andrewmvd/hard-hat-detection",
+      "child": "SHEL5K",
+      "basis": "authors Mendeley and article"
+    }
+  ],
+  "unresolved": [
+    "SHD vs SHWD exact overlap",
+    "CHV exact parent hashes",
+    "all SFCHD scene/session group IDs"
+  ],
+  "source_artifacts": "../W1-03/"
+}

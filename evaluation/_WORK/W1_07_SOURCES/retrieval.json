@@ -1,0 +1,84 @@
+[
+  {
+    "file": "_split-1.6.1.py",
+    "url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/1.6.1/sklearn/model_selection/_split.py",
+    "status": 200,
+    "bytes": 106525,
+    "access": "2026-10-23T03:13:47.637979+00:00"
+  },
+  {
+    "file": "GroupKFold-1.6.html",
+    "url": "https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.GroupKFold.html",
+    "status": 200,
+    "bytes": 130778,
+    "access": "2026-10-23T03:13:47.696394+00:00"
+  },
+  {
+    "file": "TimeSeriesSplit-1.6.html",
+    "url": "https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.TimeSeriesSplit.html",
+    "status": 200,
+    "bytes": 132831,
+    "access": "2026-10-23T03:13:47.677660+00:00"
+  },
+  {
+    "file": "common_pitfalls-1.6.html",
+    "url": "https://scikit-learn.org/1.6/common_pitfalls.html",
+    "status": 200,
+    "bytes": 103377,
+    "access": "2026-10-23T03:13:47.685359+00:00"
+  },
+  {
+    "file": "Roberts2017.html",
+    "url": "https://florianhartig.github.io/publications/roberts2017cross/",
+    "status": 200,
+    "bytes": 12566,
+    "access": "2026-10-23T03:13:47.657201+00:00"
+  },
+  {
+    "file": "Kapoor2023.pdf",
+    "url": "https://arxiv.org/pdf/2207.07048",
+    "status": 200,
+    "bytes": 652122,
+    "access": "2026-10-23T03:13:47.757388+00:00"
+  },
+  {
+    "file": "Tent-arxiv.html",
+    "url": "https://arxiv.org/abs/2006.10726",
+    "status": 200,
+    "bytes": 43425,
+    "access": "2026-10-23T03:13:47.574969+00:00"
+  },
+  {
+    "file": "wilds-releases.html",
+    "url": "https://github.com/p-lambda/wilds/releases",
+    "status": 200,
+    "bytes": 286910,
+    "access": "2026-10-23T03:13:48.057986+00:00"
+  },
+  {
+    "file": "wilds-icml21.pdf",
+    "url": "https://ai.stanford.edu/~jure/pubs/wilds-icml21.pdf",
+    "error": "HTTPSConnectionPool(host='ai.stanford.edu', port=443): Max retries exceeded with url: /~jure/pubs/wilds-icml21.pdf (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "file": "barz2020train.pdf",
+    "url": "https://pub.inf-cv.uni-jena.de/pdf/barz2020train.pdf",
+    "status": 200,
+    "bytes": 541492,
+    "access": "2026-10-23T03:13:48.452836+00:00"
+  },
+  {
+    "file": "Tent-tent.py",
+    "url": "https://raw.githubusercontent.com/DequanWang/tent/master/tent.py",
+    "status": 200,
+    "bytes": 4403,
+    "access": "2026-10-23T03:13:48.282541+00:00"
+  },
+  {
+    "file": "Tent-cifar10c.py",
+    "url": "https://raw.githubusercontent.com/DequanWang/tent/master/cifar10c.py",
+    "status": 200,
+    "bytes": 4399,
+    "access": "2026-10-23T03:13:48.340328+00:00"
+  }
+]

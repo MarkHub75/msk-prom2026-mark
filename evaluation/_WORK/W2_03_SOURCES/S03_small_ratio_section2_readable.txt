@@ -1,0 +1,54 @@
+Section 2. A new variance estimator Skip to main content Skip to "About this site" Language selection Français / Gouvernement du Canada Search and menus Search and menus Search Search Statistics Canada Search Topics menu Subjects Data Analysis Reference Geography Census Surveys and statistical programs About StatCan Canada.ca Home 12-001-X Survey Methodology Main page On a new estimator for the variance of the ratio estimator with small sample corrections Section 2 On a new estimator for the variance of the ratio estimator with small sample corrections Section 2. A new variance estimator Table of contents Previous Next Noting that R ^ − R = e ¯ s / x ¯ s , where e ¯ s is the
+  sample mean of e i , and
+  using the second-order Taylor series expansion 1 x ¯ s = 1 X ¯ − 1 X ¯ 2 ( x ¯ s − X ¯ ) + 1 X ¯ 3 ( x ¯ s − X ¯ ) 2 + O p ( 1 n 1 . 5 ) , it is seen
+  that the third-order Taylor series expansion of R ^ − R is R ^ − R = e ¯ s X ¯ − 1 X ¯ 2 ( x ¯ s − X ¯ ) e ¯ s + 1 X ¯ 3 ( x ¯ s − X ¯ ) 2 e ¯ s + O p ( 1 n 2 ) . ( 2.1 ) Hence, using Y ¯ ^ R = X ¯ R ^ , we obtain var ( Y ¯ ^ R ) = var ( e ¯ s ) + 1 X ¯ 2 var { ( x ¯ s − X ¯ ) e ¯ s } − 2 X ¯ cov { e ¯ s , ( x ¯ s − X ¯ ) e ¯ s } + 2 X ¯ 2 cov { e ¯ s , ( x ¯ s − X ¯ ) 2 e ¯ s } + O ( 1 n 3 ) . ( 2.2 ) In (2.2) we
+  omitted one variance and one covariance because the underlying fifth and sixth
+  moments are of order 1 / n 3 ​ ; see
+  David and Sukhatme (1974). All (co)variances in (2.2) can be evaluated by using
+  the following results on product moments of four arbitrary sample means, say x ¯ s a , x ¯ s b , x ¯ s c and x ¯ s d , E ( x ¯ s a x ¯ s b x ¯ s c ) = ( 1 − f ) ( 1 − 2 f ) S a b c / n 2 + O ( n − 3 ) ( 2.3 ) E ( x ¯ s a x ¯ s b x ¯ s c x ¯ s d ) = γ ( S a b S c d + S a c S b d + S a d S b c ) + O ( n − 3 ) ( 2.4 ) cov ( x ¯ s a x ¯ s b , x ¯ s c x ¯ s d ) = γ ( S a c S b d + S a d S b c ) + O ( n − 3 ) ( 2.5 ) E ( x ¯ s a 2 x ¯ s b 2 ) = γ ( S a a S b b + 2 S a b 2 ) + O ( n − 3 ) , ( 2.6 ) where γ = ( 1 − f ) 2 / n 2 ​ , S a b = ∑ i = 1 N x i a x i b / ( N − 1 ) and S a b c = ∑ i = 1 N x i a x i b x i c / ( N − 1 ) . Without
+  loss of generality, it is assumed for expediency that the population means are
+  zero, that is, X ¯ a = X ¯ b = X ¯ c = X ¯ d = 0. Formulas
+  (2.3) and (2.4) follow from Theorems 1 and 2 of Nath (1968) while (2.5)
+  and (2.6) follow from (2.4). From (2.2)-(2.6) it follows that var ( Y ¯ ^ R ) = 1 − f n S e 2 + ( 1 − f n X ¯ ) 2 ( S x 2 S e 2 + S x e 2 ) − 2 n 2 X ¯ ( 1 − f ) ( 1 − 2 f ) S x e e + 2 ( 1 − f n X ¯ ) 2 ( S x 2 S e 2 + 2 S x e 2 ) + O ( n − 3 ) = 1 − f n S e 2 { 1 + 3 ( 1 − f n X ¯ 2 ) S x 2 } + 5 ( 1 − f n X ¯ ) 2 S x e 2 − 2 ( 1 − f ) ( 1 − 2 f ) n 2 X ¯ S x e e + O ( n − 3 ) , ( 2.7 ) where S x 2 = 1 N − 1 ∑ i = 1 N ( x i − X ¯ ) 2 ​ , S x e = 1 N − 1 ∑ i = 1 N ( x i − X ¯ ) e i S x e e = S g e = 1 N − 1 ∑ i = 1 N e i 2 ( x i − X ¯ ) , g i = ( x i − X ¯ ) e i . Similar formulas
+  in terms of cumulants are derived by Tin (1965) using some results from Kendall
+  and Stuart (1958). Unfortunately, the numerous cumulants in Tin’s formulas give
+  little insight into the structure of var ( Y ¯ ^ R ) and,
+  consequently, small sample corrections for the variance estimator require
+  somewhat tedious calculations. In contrast, from (2.7) it is seen that for
+  sufficiently large n approximation (1.2) leads to an underestimate
+  unless S x e e ( = S g e ) is very
+  positive. In addition, Tin also discusses three alternative estimators for a
+  ratio but small sample corrections when estimating the various variances are
+  ignored by him. It follows from
+  (2.1) and (2.3) that bias ( Y ¯ ^ R ) = − 1 − f n X ¯ S x e + O ( 1 n 2 ) ; ( 2.8 ) also see Cochran
+  (1977, page 161). Subsequently, using S x e e = S g e , it
+  follows from (2.7) and (2.8) that the mean square error of Y ¯ ^ R is MSE ( Y ¯ ^ R ) = 1 − f n S e 2 { 1 + 3 ( 1 − f n X ¯ 2 ) S x 2 } + 6 ( 1 − f n X ¯ ) 2 S x e 2 − 2 ( 1 − f ) ( 1 − 2 f ) n 2 X ¯ S g e + O ( n − 3 ) . ( 2.9 ) When the
+  variation coefficient C x ( ≡ S x / X ¯ ) is
+  known, it is useful to write (2.9) as MSE ( Y ¯ ^ R ) = 1 − f n S e 2 { 1 + 3 ( 1 − f n ) C x 2 ( 1 + 2 ρ x e 2 ) − 2 ( 1 − 2 f ) n C x ρ g e S g / ( S x S e ) } , ( 2.10 ) where ρ x e = S x e / S x S e ​ , ρ g e = S g e / S g S e and S g 2 = 1 N − 1 ∑ i = 1 N ( g i − G ¯ ) 2 . In
+  practice, MSE ( Y ¯ ^ R ) in
+  (2.10) can be estimated by MSE ^ 1 ( Y ¯ ^ R ) = 1 − f n s e ^ 2 { 1 + 3 ( 1 − f n ) C x 2 ( 1 + 2 ρ ^ x e ^ 2 ) − 2 ( 1 − 2 f ) n C x ρ ^ g ^ e ^ s g ^ / ( s x s e ^ ) } , ( 2.11 ) where ρ ^ x e ^ = s x e ^ / s x s e ^ ​ , ρ ^ g ^ e ^ = s g ^ e ^ / s g ^ s e ^ and s g ^ 2 = 1 n − 1 ∑ i = 1 n ( g ^ i − g ^ ¯ s ) 2 [ note: g ^ i = ( x i − x ¯ s ) e ^ i ] s x e ^ = 1 n − 1 ∑ i = 1 n ( x i − x ¯ s ) e ^ i , s g ^ e ^ = s x e ^ e ^ = 1 n − 1 ∑ i = 1 n ( x i − x ¯ s ) e ^ i 2 . However, the
+  estimator in (2.11) does not take into account the bias of s e ^ 2 defined
+  above. In
+  order to examine the bias of s e ^ 2 = ∑ i = 1 n e ^ i 2 / ( n − 1 ) , we use some additional symbols s x 2 = 1 n − 1 ∑ i = 1 n ( x i − x ¯ s ) 2 ​ , s e 2 = 1 n − 1 ∑ i = 1 n ( e i − e ¯ s ) 2 s x e = 1 n − 1 ∑ i = 1 n ( x i − x ¯ s ) e i , q i = ( x i − X ¯ ) 2 ( i = 1 , … , N ) . Now we can
+  write E ( s e ^ 2 ) as E ( s e ^ 2 ) = E 1 n − 1 ∑ i = 1 n { y i − y ¯ s − R ( x i − x ¯ s ) − ( R ^ − R ) ( x i − x ¯ s ) } 2 = E ( s e 2 ) + E { ( R ^ − R ) 2 s x 2 } − 2 E { ( R ^ − R ) s x e } = S e 2 + E { ( R ^ − R ) 2 q ¯ s } − 2 E { ( R ^ − R ) g ¯ s } + O ( n − 2 ) , ( 2.12 ) where q ¯ s and g ¯ s are
+  sample means of q i and g i , respectively. In (2.12) we used s x 2 = { q ¯ s − ( x ¯ s − X ¯ ) 2 } ( 1 + 1 n − 1 ) , s x e = { g ¯ s − ( x ¯ s − X ¯ ) e ¯ s } ( 1 + 1 n − 1 ) and hence,
+  using (2.1), (2.3) and (2.4), we get E { ( R ^ − R ) 2 ( q ¯ s − s x 2 ) } = E { e ¯ s 2 ( x ¯ s − X ¯ ) 2 / X ¯ 2 } { 1 + o ( 1 ) } = O ( n − 2 ) E { ( R ^ − R ) ( g ¯ s − s x e } = E { e ¯ s ( x ¯ s − X ¯ ) e ¯ s / X ¯ } { 1 + o ( 1 ) } = O ( n − 2 ) . From (2.1)
+  and (2.12) it is seen that bias ( s e ^ 2 ) = E { ( R ^ − R ) 2 ( q ¯ s − Q ¯ + Q ¯ ) } − 2 E { ( R ^ − R ) ( g ¯ s − G ¯ + G ¯ ) } + O ( n − 2 ) = 1 − f n X ¯ 2 S e 2 Q ¯ − 2 E [ { e ¯ s X ¯ − 1 X ¯ 2 ( x ¯ s − X ¯ ) e ¯ s } ( g ¯ s − G ¯ + G ¯ ) ] + O ( n − 2 ) = 1 − f n X ¯ 2 S e 2 S x 2 − 2 1 − f n ( S g e X ¯ − S x e 2 X ¯ 2 ) + O ( n − 2 ) , ( 2.13 ) where we used Q ¯ = S x 2 ( 1 − N − 1 ) and G ¯ = S x e ( 1 − N − 1 ) . Note
+  that it follows from (2.13) that for sufficiently large n , the
+  quantity s e ^ 2 leads to
+  an overestimate of S e 2 unless S g e is very
+  positive. To our best knowledge, formula (2.13) is not mentioned elsewhere in
+  the literature. Based on (2.13),
+  an alternative estimator of MSE ( Y ¯ ^ R ) that
+  takes the bias of s e ^ 2 into
+  account is MSE ^ 2 ( Y ¯ ^ R ) = 1 − f n S ^ e 2 { 1 + 3 ( 1 − f n ) C x 2 ( 1 + 2 ρ ^ x e ^ 2 ) − 2 ( 1 − 2 f ) n C x ρ ^ g ^ e ^ s g ^ / ( s x s e ^ ) } , ( 2.14 ) where S ^ e 2 is
+  adjusted for the relative bias of s e ^ 2 that
+  follows from (2.13). That is, S ^ e 2 = s e ^ 2 [ 1 − 1 − f n C x 2 ( 1 + 2 ρ ^ x e ^ 2 ) + 2 1 − f n C x ρ ^ g ^ e ^ s g ^ s x s e ^ ] . Note that we
+  used here S x e 2 / X ¯ 2 S e 2 = ρ x e 2 C x 2 and S g e / X ¯ S e 2 = ρ g e S g C x / S e S x . Finally,
+  it should be noted that the other estimators ρ ^ x e ^ 2 and ρ ^ g ^ e ^ s g ^ / ( s x s e ^ ) in
+  (2.11) are also biased. However, it is less straightforward to derive that kind
+  of bias. It is hoped that by taking all (co)variances from the sample,
+  including s x 2 , their
+  bias is modest. In addition, in the simulations of Section 3, we found
+  that replacing C x by s x / x ¯ s did not
+  improve the results. Previous Article main page Next More information ISSN : 1492-0921 Editorial policy Survey Methodology publishes articles dealing  with various aspects of statistical development relevant to a statistical  agency, such as design issues in the context of practical constraints, use of  different data sources and collection techniques, total survey error, survey  evaluation, research in survey methodology, time series analysis, seasonal  adjustment, demographic studies, data integration, estimation and data analysis  methods, and general survey systems development. The emphasis is placed on the  development and evaluation of specific methodologies as applied to data  collection or the data themselves. All papers will be refereed. However, the  authors retain full responsibility for the contents of their papers and  opinions expressed are not necessarily those of the Editorial Board or of  Statistics Canada. Submission of Manuscripts Survey  Methodology is published twice a year in electronic format. Authors are  invited to submit their articles in English or French in electronic form,  preferably in Word to the Editor, ( statcan.smj-rte.statcan@canada.ca , Statistics  Canada, 150 Tunney’s Pasture Driveway, Ottawa, Ontario, Canada, K1A 0T6).  For formatting instructions, please see the guidelines provided in the journal  and on the web site (www.statcan.gc.ca/SurveyMethodology). Note of appreciation Canada owes the success of its statistical system to a long-standing partnership between Statistics Canada, the citizens of Canada, its businesses, governments and other institutions. Accurate and timely statistical information could not be produced without their continued co-operation and goodwill. Standards of service to the public Statistics Canada is committed to serving its clients in a prompt, reliable and courteous manner. To this end, the Agency has developed standards of service which its employees observe in serving its clients. Copyright Published by authority of the Minister responsible for Statistics Canada. © Her Majesty the Queen in Right of Canada as  represented by the Minister of Industry, 2019 Use of this publication is governed by the Statistics Canada Open Licence Agreement . Catalogue No. 12-001-X Frequency: Semi-annual Ottawa close ﻿ Table of contents Abstract - Article main page Section 1. Introduction Section 2. A new variance estimator Section 3. A simulation study Section 4. Conclusions References close Date modified: 2019-12-17 About this site Statistics Canada Contact StatCan Trust Centre Government of Canada All contacts Departments and agencies About government Themes and topics Jobs Immigration and citizenship Travel and tourism Business Benefits Health Taxes Environment and natural resources National security and defence Culture, history and sport Policing, justice and emergencies Transport and infrastructure Canada and the world Money and finance Science and innovation Indigenous peoples Veterans and military Youth Manage life events Government of Canada Corporate Social media Mobile applications About Canada.ca Terms and conditions Privacy

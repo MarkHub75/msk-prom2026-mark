@@ -1,0 +1,61 @@
+ultralytics 8.4.184 torch 2.9.1+cpu
+Overriding model.yaml nc=80 with nc=4
+Remapped 1/4 cls head rows from pretrained weights by class name
+Transferred 499/499 items from pretrained weights
+
+== yolo11n cfg=yolo11n.yaml
+ state_dict tensors target: 499 | plain intersect_dicts would transfer: 448
+ log: ['Remapped 1/4 cls head rows from pretrained weights by class name', 'Transferred 499/499 items from pretrained weights']
+ head cv3[0] hidden width src/tgt: 80 80
+ tensors NOT equal to source (new/random): 6
+ first few: ['model.23.cv3.0.2.weight', 'model.23.cv3.0.2.bias', 'model.23.cv3.1.2.weight', 'model.23.cv3.1.2.bias', 'model.23.cv3.2.2.weight', 'model.23.cv3.2.2.bias'] ...
+ last-conv shapes src/tgt: (80, 80, 1, 1) (4, 80, 1, 1)
+ tgt.names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}
+Overriding model.yaml nc=80 with nc=4
+Remapped 1/4 cls head rows from pretrained weights by class name
+Transferred 499/499 items from pretrained weights
+
+== yolo11s cfg=yolo11s.yaml
+ state_dict tensors target: 499 | plain intersect_dicts would transfer: 493
+ log: ['Remapped 1/4 cls head rows from pretrained weights by class name', 'Transferred 499/499 items from pretrained weights']
+ head cv3[0] hidden width src/tgt: 128 128
+ tensors NOT equal to source (new/random): 6
+ first few: ['model.23.cv3.0.2.weight', 'model.23.cv3.0.2.bias', 'model.23.cv3.1.2.weight', 'model.23.cv3.1.2.bias', 'model.23.cv3.2.2.weight', 'model.23.cv3.2.2.bias'] ...
+ last-conv shapes src/tgt: (80, 128, 1, 1) (4, 128, 1, 1)
+ tgt.names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}
+Overriding model.yaml nc=80 with nc=4
+Remapped 1/4 cls head rows from pretrained weights by class name
+Transferred 708/708 items from pretrained weights
+
+== yolo26n cfg=yolo26n.yaml
+ state_dict tensors target: 708 | plain intersect_dicts would transfer: 606
+ log: ['Remapped 1/4 cls head rows from pretrained weights by class name', 'Transferred 708/708 items from pretrained weights']
+ head cv3[0] hidden width src/tgt: 80 80
+ tensors NOT equal to source (new/random): 12
+ first few: ['model.23.cv3.0.2.weight', 'model.23.cv3.0.2.bias', 'model.23.cv3.1.2.weight', 'model.23.cv3.1.2.bias', 'model.23.cv3.2.2.weight', 'model.23.cv3.2.2.bias', 'model.23.one2one_cv3.0.2.weight', 'model.23.one2one_cv3.0.2.bias'] ...
+ last-conv shapes src/tgt: (80, 80, 1, 1) (4, 80, 1, 1)
+ tgt.names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}
+Overriding model.yaml nc=80 with nc=4
+Remapped 1/4 cls head rows from pretrained weights by class name
+Transferred 355/355 items from pretrained weights
+
+== yolov8n cfg=yolov8n.yaml
+ state_dict tensors target: 355 | plain intersect_dicts would transfer: 319
+ log: ['Remapped 1/4 cls head rows from pretrained weights by class name', 'Transferred 355/355 items from pretrained weights']
+ head cv3[0] hidden width src/tgt: None None
+ tensors NOT equal to source (new/random): 6
+ first few: ['model.22.cv3.0.2.weight', 'model.22.cv3.0.2.bias', 'model.22.cv3.1.2.weight', 'model.22.cv3.1.2.bias', 'model.22.cv3.2.2.weight', 'model.22.cv3.2.2.bias'] ...
+ last-conv shapes src/tgt: (80, 80, 1, 1) (4, 80, 1, 1)
+ tgt.names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}
+Overriding model.yaml nc=80 with nc=4
+Remapped 1/4 cls head rows from pretrained weights by class name
+Transferred 427/427 items from pretrained weights
+
+== yolov5nu(yolov5.yaml) cfg=yolov5nu.yaml
+ state_dict tensors target: 427 | plain intersect_dicts would transfer: 391
+ log: ['Remapped 1/4 cls head rows from pretrained weights by class name', 'Transferred 427/427 items from pretrained weights']
+ head cv3[0] hidden width src/tgt: None None
+ tensors NOT equal to source (new/random): 6
+ first few: ['model.24.cv3.0.2.weight', 'model.24.cv3.0.2.bias', 'model.24.cv3.1.2.weight', 'model.24.cv3.1.2.bias', 'model.24.cv3.2.2.weight', 'model.24.cv3.2.2.bias'] ...
+ last-conv shapes src/tgt: (80, 80, 1, 1) (4, 80, 1, 1)
+ tgt.names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}

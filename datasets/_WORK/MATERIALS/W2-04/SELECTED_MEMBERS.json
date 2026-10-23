@@ -1,0 +1,44 @@
+[
+  {
+    "member": "QY_final_dataset/images/192.168.2.20_particular_duanxiu_13.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.20_particular_duanxiu_13.jpg",
+    "bytes": 121699,
+    "sha256": "1756be6ae9944d2024c00c5414df5cf4777c2e95677884908cdbe3c65a37f7bc"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.2.209_caji_1021_1_0.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.209_caji_1021_1_0.jpg",
+    "bytes": 166254,
+    "sha256": "64cc1597b2f089c013da07c4ef40ee585935c06f6e38a6cffb62cd70de97ce9d"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.2.221_400.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.221_400.jpg",
+    "bytes": 357566,
+    "sha256": "8224c111b461bf1826cb0a10edb4ead1c267e59beb065f019e8bcbd46471a33f"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.2.20_caji_1021_1_70.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.20_caji_1021_1_70.jpg",
+    "bytes": 128084,
+    "sha256": "e081d465d85d16e33204ef968ad3545e53cb75ab154e2e5ae3b6f387ad924bd4"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.11.13_neg_7c_2832.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.11.13_neg_7c_2832.jpg",
+    "bytes": 102989,
+    "sha256": "ada991cb237f010c030041d59b391f1b672d536ed9b1be6c7c63e62012af93d0"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.2.31_caji_1021_1_126.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.31_caji_1021_1_126.jpg",
+    "bytes": 73235,
+    "sha256": "266eff486cac75813a5b546e49e6c603315ed3b552b40535268701c3db6c2c81"
+  },
+  {
+    "member": "QY_final_dataset/images/192.168.2.28_caiji_1_24.jpg",
+    "local": "MATERIALS\\W2-04\\pairs\\192.168.2.28_caiji_1_24.jpg",
+    "bytes": 149954,
+    "sha256": "433cb661b64f78dfb97805f123f6cf025412dff0e9275041063648bac6b7ce75"
+  }
+]

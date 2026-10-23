@@ -1,0 +1,498 @@
+{
+  "utc": "2026-10-23T02:07:12.985361+00:00",
+  "files": [
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\setup.py",
+      "sha256": "6dea8317dd329596ec016d51a92ec3d7154873779d55b857b9da329b721c7bfa",
+      "lines": 30,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\__init__.py",
+      "sha256": "fe94ce4ec6303ab4f37ff0c347c18dddd388d8263f42e1665b39599bca91c872",
+      "lines": 28,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\pytpu\\__init__.py",
+      "sha256": "7acb56ec0957f008b265b5902a6bcfbda70ace3264bff42ff0820b96fe5fd7d2",
+      "lines": 19,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\scripts\\run_get_fps.py",
+      "sha256": "01a01554e9e5b246ff8a5d7696e51d5744dacaac3954449375eaa777af21585e",
+      "lines": 17,
+      "definitions": [
+        {
+          "name": "main",
+          "start": 5,
+          "end": 17
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\scripts\\__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lines": 0,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\tools\\get_fps.py",
+      "sha256": "b0f8c69b339a1315a88429ceb13f0024f909796ab18320e4060c45cdaee8dfbd",
+      "lines": 122,
+      "definitions": [
+        {
+          "name": "run_inference",
+          "start": 23,
+          "end": 37
+        },
+        {
+          "name": "get_fps",
+          "start": 40,
+          "end": 122
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\tools\\helpers.py",
+      "sha256": "4feb3eee3202bc085b656d360d0e010673c6a3901348a1fd6edb6fc76e80db5f",
+      "lines": 48,
+      "definitions": [
+        {
+          "name": "get_tpu_devices",
+          "start": 17,
+          "end": 18
+        },
+        {
+          "name": "to_raw",
+          "start": 21,
+          "end": 41
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\pytpu\\tools\\__init__.py",
+      "sha256": "bcca0c1734d3cad57a277068cb5379c1614350d5cc46ad5598ed808382155fb0",
+      "lines": 5,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\setup.py",
+      "sha256": "746f5b2e554c48bb9194a74b993f33e64e18c165b7ebd5298f8f6f28f545a9e3",
+      "lines": 56,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\__init__.py",
+      "sha256": "d98eef9ddcb955a3a5738fbe6877838d95aa908dba51f0a55fa31c33b72f5906",
+      "lines": 25,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\pytpu\\libtpu_bindings.py",
+      "sha256": "24ade58c01cb2e5c60c30cee4e5dace95db808b0b0e19753a2519e826017d09c",
+      "lines": 344,
+      "definitions": [
+        {
+          "name": "TPUDevice",
+          "start": 32,
+          "end": 62
+        },
+        {
+          "name": "TPUProgram",
+          "start": 65,
+          "end": 97
+        },
+        {
+          "name": "TPUTensorBufferObject",
+          "start": 100,
+          "end": 117
+        },
+        {
+          "name": "TPUInference",
+          "start": 120,
+          "end": 149
+        },
+        {
+          "name": "load_inference",
+          "start": 154,
+          "end": 178
+        },
+        {
+          "name": "inference_cb_",
+          "start": 181,
+          "end": 182
+        },
+        {
+          "name": "inference_cb",
+          "start": 186,
+          "end": 187
+        },
+        {
+          "name": "submit_inference_",
+          "start": 190,
+          "end": 198
+        },
+        {
+          "name": "submit_inference",
+          "start": 201,
+          "end": 210
+        },
+        {
+          "name": "get_inference",
+          "start": 212,
+          "end": 224
+        },
+        {
+          "name": "TPUProcessingMode",
+          "start": 226,
+          "end": 230
+        },
+        {
+          "name": "TPUTensorBufferType",
+          "start": 232,
+          "end": 234
+        },
+        {
+          "name": "TPUInferenceStatus",
+          "start": 236,
+          "end": 239
+        },
+        {
+          "name": "__init__",
+          "start": 36,
+          "end": 38
+        },
+        {
+          "name": "__del__",
+          "start": 40,
+          "end": 41
+        },
+        {
+          "name": "is_valid",
+          "start": 43,
+          "end": 44
+        },
+        {
+          "name": "init",
+          "start": 46,
+          "end": 47
+        },
+        {
+          "name": "get_error",
+          "start": 49,
+          "end": 50
+        },
+        {
+          "name": "info",
+          "start": 52,
+          "end": 53
+        },
+        {
+          "name": "load_program",
+          "start": 55,
+          "end": 56
+        },
+        {
+          "name": "run_inference",
+          "start": 58,
+          "end": 59
+        },
+        {
+          "name": "submit_inference",
+          "start": 61,
+          "end": 62
+        },
+        {
+          "name": "__init__",
+          "start": 69,
+          "end": 70
+        },
+        {
+          "name": "__del__",
+          "start": 72,
+          "end": 73
+        },
+        {
+          "name": "is_valid",
+          "start": 75,
+          "end": 76
+        },
+        {
+          "name": "info",
+          "start": 78,
+          "end": 79
+        },
+        {
+          "name": "get_error",
+          "start": 81,
+          "end": 82
+        },
+        {
+          "name": "get_batch_size",
+          "start": 84,
+          "end": 85
+        },
+        {
+          "name": "get_input_count",
+          "start": 87,
+          "end": 88
+        },
+        {
+          "name": "get_input_size",
+          "start": 90,
+          "end": 91
+        },
+        {
+          "name": "get_output_count",
+          "start": 93,
+          "end": 94
+        },
+        {
+          "name": "get_output_size",
+          "start": 96,
+          "end": 97
+        },
+        {
+          "name": "__init__",
+          "start": 104,
+          "end": 105
+        },
+        {
+          "name": "__del__",
+          "start": 107,
+          "end": 108
+        },
+        {
+          "name": "process_tensor_buffers",
+          "start": 110,
+          "end": 111
+        },
+        {
+          "name": "get_tensor_buffer_ptr",
+          "start": 113,
+          "end": 114
+        },
+        {
+          "name": "set_user_tensor_buffer_ptr",
+          "start": 116,
+          "end": 117
+        },
+        {
+          "name": "__init__",
+          "start": 124,
+          "end": 125
+        },
+        {
+          "name": "__del__",
+          "start": 127,
+          "end": 128
+        },
+        {
+          "name": "get_program",
+          "start": 130,
+          "end": 131
+        },
+        {
+          "name": "get_inputs",
+          "start": 133,
+          "end": 134
+        },
+        {
+          "name": "set_inputs",
+          "start": 136,
+          "end": 137
+        },
+        {
+          "name": "set_outputs",
+          "start": 139,
+          "end": 140
+        },
+        {
+          "name": "get_outputs",
+          "start": 142,
+          "end": 143
+        },
+        {
+          "name": "get_status",
+          "start": 145,
+          "end": 146
+        },
+        {
+          "name": "get_error",
+          "start": 148,
+          "end": 149
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\pytpu\\__init__.py",
+      "sha256": "f4233e13f1c0134696dd0ecdd9cf1260e12081ffe77098a01af1dcde5bcea73d",
+      "lines": 24,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\scripts\\pyrun_tpu_cli.py",
+      "sha256": "8d4dff22f345a12264b9a7d8457ebdca5e48995b61cf52c9742d96d8bf07d535",
+      "lines": 56,
+      "definitions": [
+        {
+          "name": "main",
+          "start": 11,
+          "end": 56
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\scripts\\run_get_fps.py",
+      "sha256": "01a01554e9e5b246ff8a5d7696e51d5744dacaac3954449375eaa777af21585e",
+      "lines": 17,
+      "definitions": [
+        {
+          "name": "main",
+          "start": 5,
+          "end": 17
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\scripts\\__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lines": 0,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\tools\\get_fps.py",
+      "sha256": "9c6efdbeb8af36bc57f315cd879c1af8744233ad3dab039a01df40c8de0c822d",
+      "lines": 133,
+      "definitions": [
+        {
+          "name": "run_inference",
+          "start": 29,
+          "end": 45
+        },
+        {
+          "name": "get_fps",
+          "start": 48,
+          "end": 133
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\tools\\helpers.py",
+      "sha256": "3d1d00f53b32ae2b5b73ed3e6bdeae6fef11bd33814d04d2dfed3bf7e6bf04d7",
+      "lines": 216,
+      "definitions": [
+        {
+          "name": "get_tpu_devices",
+          "start": 41,
+          "end": 42
+        },
+        {
+          "name": "input_metadata",
+          "start": 45,
+          "end": 48
+        },
+        {
+          "name": "output_metadata",
+          "start": 51,
+          "end": 54
+        },
+        {
+          "name": "convert_from_uint8_to_user_dtype",
+          "start": 57,
+          "end": 65
+        },
+        {
+          "name": "get_tpu_parameters",
+          "start": 68,
+          "end": 76
+        },
+        {
+          "name": "_to_raw_old",
+          "start": 79,
+          "end": 98
+        },
+        {
+          "name": "to_raw",
+          "start": 101,
+          "end": 111
+        },
+        {
+          "name": "_to_nhwc_descriptor",
+          "start": 114,
+          "end": 149
+        },
+        {
+          "name": "to_nhwc_metadata",
+          "start": 152,
+          "end": 162
+        },
+        {
+          "name": "to_nhwc_program",
+          "start": 165,
+          "end": 180
+        },
+        {
+          "name": "get_io_from_bin",
+          "start": 183,
+          "end": 203
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\tools\\tpu_runner.py",
+      "sha256": "1e77520c03c806eac5576bd618543878bc5d60f04507c42a5632ac2565b2c718",
+      "lines": 199,
+      "definitions": [
+        {
+          "name": "_get_tensor_description",
+          "start": 41,
+          "end": 65
+        },
+        {
+          "name": "_tensor_as_node",
+          "start": 68,
+          "end": 78
+        },
+        {
+          "name": "_node_as_tensor",
+          "start": 81,
+          "end": 90
+        },
+        {
+          "name": "TpuRunner",
+          "start": 93,
+          "end": 199
+        },
+        {
+          "name": "__init__",
+          "start": 96,
+          "end": 159
+        },
+        {
+          "name": "__call__",
+          "start": 161,
+          "end": 199
+        }
+      ]
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\pytpu\\tools\\__init__.py",
+      "sha256": "753338f4c25b6098836e3b7c33afc9d168218b108caa36f1fee818b67f4d9365",
+      "lines": 7,
+      "definitions": []
+    },
+    {
+      "file": "SOURCE_13.0.13\\pytpu-13.0.13\\README.md",
+      "sha256": "4d7886a9fb695ce20c4efb66379acb9eb2fe11e7d25b955c607ebf41b17b8b26",
+      "lines": 101
+    },
+    {
+      "file": "SOURCE_14.7.0\\pytpu-14.7.0\\README.md",
+      "sha256": "4d7886a9fb695ce20c4efb66379acb9eb2fe11e7d25b955c607ebf41b17b8b26",
+      "lines": 101
+    }
+  ]
+}

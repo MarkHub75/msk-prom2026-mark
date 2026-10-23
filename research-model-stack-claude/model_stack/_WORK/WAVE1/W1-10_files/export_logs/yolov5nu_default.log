@@ -1,0 +1,14 @@
+Ultralytics 8.4.184 🚀 Python-3.13.9 torch-2.14.1+cpu CPU (13th Gen Intel Core i5-13600KF)
+YOLOv5n summary (fused): 84 layers, 2,649,200 parameters, 0 gradients, 7.7 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5nu_default\yolov5nu.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 84, 8400) (5.3 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.23.2 opset 18...
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 0.9s, saved as 'C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5nu_default\yolov5nu.onnx' (10.3 MB)
+
+Export complete (1.0s)
+Results saved to [1mC:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5nu_default\yolov5nu.onnx[0m
+Predict:         yolo predict task=detect model=C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5nu_default\yolov5nu.onnx imgsz=640 
+Validate:        yolo val task=detect model=C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\onnx-W1-10\yolov5nu_default\yolov5nu.onnx imgsz=640 data=coco.yaml 
+Visualize:       https://netron.app

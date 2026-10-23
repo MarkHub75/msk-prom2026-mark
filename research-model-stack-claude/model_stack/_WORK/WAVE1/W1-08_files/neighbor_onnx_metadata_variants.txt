@@ -1,0 +1,9 @@
+== rawhead_yolo11n/yolo11n_rawhead.onnx
+== rawhead_yolo11n/yolo11n_rawhead_slim.onnx
+== yolo11n_nms/yolo11n.onnx
+description: Ultralytics YOLO11n model trained on /usr/src/ultralytics/ultralytics/cfg/datasets/coco.yaml
+author: Ultralytics
+date: 2026-10-23T04:46:47.091670+03:00
+version: 8.4.184
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com

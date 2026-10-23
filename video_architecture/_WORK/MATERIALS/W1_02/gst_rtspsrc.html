@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<base href=".."/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>rtspsrc</title>
+<link href="assets/css/dark-frontend.css" rel="stylesheet" title="dark" type="text/css"/>
+<link href="assets/css/light-frontend.css" rel="alternate stylesheet" title="light" type="text/css"/>
+<link href="assets/css/bootstrap-toc.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+<link href="assets/js/search/enable_search.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/extra_frontend.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/devhelp.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/prism-tomorrow.css" rel="stylesheet" title="dark" type="text/css"/>
+<link href="assets/css/prism.css" rel="alternate stylesheet" title="light" type="text/css"/>
+<script src="assets/js/mustache.min.js"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/scrollspy.js"></script>
+<script src="assets/js/typeahead.jquery.min.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/compare-versions.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/bootstrap-toc.min.js"></script>
+<script src="assets/js/jquery.touchSwipe.min.js"></script>
+<script src="assets/js/anchor.min.js"></script>
+<script src="assets/js/tag_filtering.js"></script>
+<script src="assets/js/language_switching.js"></script>
+<script src="assets/js/styleswitcher.js"></script>
+<script src="assets/js/lines_around_headings.js"></script>
+<script src="assets/js/prism-core.js"></script>
+<script src="assets/js/prism-autoloader.js"></script>
+<script src="assets/js/prism_autoloader_path_override.js"></script>
+<script src="assets/js/trie.js"></script>
+<!-- generic -->
+<link href="assets/images/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="assets/images/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="assets/images/favicon-57.png" rel="icon" sizes="57x57" type="image/png"/>
+<link href="assets/images/favicon-64.png" rel="icon" sizes="64x64" type="image/png"/>
+<link href="assets/images/favicon-76.png" rel="icon" sizes="76x76" type="image/png"/>
+<link href="assets/images/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="assets/images/favicon-128.png" rel="icon" sizes="128x128" type="image/png"/>
+<link href="assets/images/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="assets/images/favicon-228.png" rel="icon" sizes="228x228" type="image/png"/>
+<!-- Android -->
+<link href="assets/images/favicon-196.png" rel="shortcut icon" sizes="196x196"/>
+<!-- iOS -->
+<link href="assets/images/favicon-120.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="assets/images/favicon-152.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="assets/images/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+<script src="assets/rustdoc/js/language-menu.js"></script></head>
+<body class="no-script">
+<script>
+$('body').removeClass('no-script');
+</script>
+<nav class="navbar navbar-fixed-top navbar-default" id="topnav">
+<div class="container-fluid">
+<div class="navbar-right">
+<a id="toc-toggle">
+<span class="glyphicon glyphicon-menu-right"></span>
+<span class="glyphicon glyphicon-menu-left"></span>
+</a>
+<button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar-wrapper" data-toggle="collapse" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<span class="glyphicon glyphicon-sunglasses pull-right" id="lightmode-icon" title="light mode switch"></span>
+<form class="navbar-form pull-right" id="navbar-search-form">
+<div class="form-group has-feedback">
+<input class="form-control input-sm" disabled="" id="sidenav-lookup-field" name="search" placeholder="search" type="text"/>
+<span class="glyphicon glyphicon-search form-control-feedback" id="search-mgn-glass"></span>
+</div>
+</form>
+</div>
+<div class="navbar-header">
+<a id="sidenav-toggle">
+<span class="glyphicon glyphicon-menu-right"></span>
+<span class="glyphicon glyphicon-menu-left"></span>
+</a>
+<a class="hotdoc-navbar-brand" href="index.html" id="home-link">
+<img alt="Home" src="assets/images/gstreamer-logo.svg"/>
+</a>
+</div>
+<div class="navbar-collapse collapse" id="navbar-wrapper">
+<ul class="nav navbar-nav" id="menu">
+<li class="dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" role="button">
+        API References<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" id="modules-menu">
+<li>
+<a href="gstreamer/gi-index.html">GStreamer core</a>
+</li>
+<li>
+<a href="libs.html">GStreamer Libraries</a>
+</li>
+<li>
+<a href="plugins_doc.html">GStreamer Plugins</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="application-development/index.html">Application manual</a>
+</li>
+<li>
+<a href="tutorials/index.html">Tutorials</a>
+</li>
+</ul>
+<div class="hidden-xs hidden-sm navbar-text navbar-center">
+</div>
+</div>
+</div>
+</nav>
+<main>
+<div class="page_container" data-extension="gst-extension" data-hotdoc-in-toplevel="False" data-hotdoc-meta-gi-languages="['c', 'javascript', 'python']" data-hotdoc-project="rtsp" data-hotdoc-ref="rtspsrc.html" id="page-wrapper">
+<script src="assets/js/utils.js"></script>
+<div class="panel panel-collapse oc-collapsed" data-hotdoc-role="navigation" id="sidenav">
+<script src="assets/js/full-width.js"></script>
+<div id="sitenav-wrapper">
+<iframe id="sitenav-frame" src="hotdoc-sitemap.html"></iframe>
+</div>
+</div>
+<div id="body">
+<div id="main">
+<div data-hotdoc-role="main" id="page-description">
+<h1 id="rtspsrc-page">rtspsrc</h1>
+<p>Makes a connection to an RTSP server and read the data.
+rtspsrc strictly follows RFC 2326 and therefore does not (yet) support
+RealMedia/Quicktime/Microsoft extensions.</p>
+<p>RTSP supports transport over TCP or UDP in unicast or multicast mode. By
+default rtspsrc will negotiate a connection in the following order:
+UDP unicast/UDP multicast/TCP. The order cannot be changed but the allowed
+protocols can be controlled with the <a href="rtsp/rtspsrc.html#rtspsrc:protocols">protocols</a> property.</p>
+<p>rtspsrc currently understands SDP as the format of the session description.
+For each stream listed in the SDP a new rtp_stream%d pad will be created
+with caps derived from the SDP media description. This is a caps of mime type
+"application/x-rtp" that can be connected to any available RTP depayloader
+element.</p>
+<p>rtspsrc will internally instantiate an RTP session manager element
+that will handle the RTCP messages to and from the server, jitter removal,
+packet reordering along with providing a clock for the pipeline.
+This feature is implemented using the gstrtpbin element.</p>
+<p>rtspsrc acts like a live source and will therefore only generate data in the
+PLAYING state.</p>
+<p>If a RTP session times out then the rtspsrc will generate an element message
+named "GstRTSPSrcTimeout". Currently this is only supported for timeouts
+triggered by RTCP.</p>
+<p>The message's structure contains three fields:</p>
+<p>GstRTSPSrcTimeoutCause <code>cause</code>: the cause of the timeout.</p>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#gint">gint</a> <code>stream-number</code>: an internal identifier of the stream that timed out.</p>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint">guint</a> <code>ssrc</code>: the SSRC of the stream that timed out.</p>
+<h2 id="example-launch-line">Example launch line</h2>
+<pre><code class="language-["> gst-launch-1.0 rtspsrc location=rtsp://some.server/url ! fakesink
+</code></pre>
+<p>Establish a connection to an RTSP server and send the raw RTP packets to a
+fakesink.</p>
+<p>NOTE: rtspsrc will send a PAUSE command to the server if you set the
+element to the PAUSED state, and will send a PLAY command if you set it to
+the PLAYING state.</p>
+<p>Unfortunately, going to the NULL state involves going through PAUSED, so
+rtspsrc does not know the difference and will send a PAUSE when you wanted
+a TEARDOWN. The workaround is to hook into the <code>before-send</code> signal and
+return FALSE in this case.</p>
+<p>Some servers (e.g. Axis cameras) expect the client to propose the encryption
+key(s) to be used for SRTP / SRTCP. This is required to allow re-keying so
+as to evade cryptanalysis. Note that the behaviour is not specified by the
+RFCs. By setting the 'client-managed-mikey-mode' property to 'true', rtspsrc
+acts as follows:</p>
+<ul>
+<li>For a secured profile (RTP/SAVP or RTP/SAVPF), any media in the SDP
+returned by the server for which MIKEY key management applies is
+elligible for client managed mode. The MIKEY from the server is then
+ignored.</li>
+<li>rtspsrc sends a SETUP with a MIKEY payload proposed by the user. The
+payload is formed by calling the 'request-rtp-key' signal for each
+elligible stream. During initialisation, 'request-rtcp-key' is also
+called as usual. The keys returned by both signals should be the same
+for a single stream, but the mechanism allows a different approach.</li>
+<li>The user can start re-keying of a stream by calling SET_PARAMETER.
+The convenience signal 'set-mikey-parameter' can be used to build a
+'KeyMgmt' parameter with a MIKEY payload.</li>
+<li>After the server accepts the new parameter, the user can call
+'invalidate-key' and prepare for the new key(s) to be served by signals
+'request-rtp-key' &amp; 'request-rtcp-key'.</li>
+<li>The signals 'soft-limit' &amp; 'hard-limit' are called when a key
+reaches the limits of its utilisation.</li>
+</ul>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc">
+<h2>Hierarchy</h2>
+<div class="hierarchy_container">
+<div class="hierarchy_details">
+<pre>
+<a data-gi-href-javascript="https://docs.gtk.org/gobject/class.Object.html" data-gi-href-python="https://docs.gtk.org/gobject/class.Object.html" data-gi-title-javascript="GObject.Object" data-gi-title-python="GObject.Object" href="https://docs.gtk.org/gobject/class.Object.html" title="GObject">GObject</a>
+    <span class="lineart">╰──</span><a data-gi-href-javascript="https://docs.gtk.org/gobject/class.InitiallyUnowned.html" data-gi-href-python="https://docs.gtk.org/gobject/class.InitiallyUnowned.html" data-gi-title-javascript="GObject.InitiallyUnowned" data-gi-title-python="GObject.InitiallyUnowned" href="https://docs.gtk.org/gobject/class.InitiallyUnowned.html" title="GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span><a data-gi-href-javascript="gstreamer/gstobject.html#GstObject" data-gi-href-python="gstreamer/gstobject.html#GstObject" data-gi-title-javascript="Gst.Object" data-gi-title-python="Gst.Object" href="gstreamer/gstobject.html#GstObject" title="GstObject">GstObject</a>
+            <span class="lineart">╰──</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a>
+                <span class="lineart">╰──</span><a data-gi-href-javascript="gstreamer/gstbin.html#GstBin" data-gi-href-python="gstreamer/gstbin.html#GstBin" data-gi-title-javascript="Gst.Bin" data-gi-title-python="Gst.Bin" href="gstreamer/gstbin.html#GstBin" title="GstBin">GstBin</a>
+                    <span class="lineart">╰──</span>rtspsrc
+</pre>
+</div>
+</div>
+<h2>Implemented interfaces</h2>
+<div>
+<pre>
+<a data-gi-href-javascript="gstreamer/gstchildproxy.html#GstChildProxy" data-gi-href-python="gstreamer/gstchildproxy.html#GstChildProxy" data-gi-title-javascript="Gst.ChildProxy" data-gi-title-python="Gst.ChildProxy" href="gstreamer/gstchildproxy.html#GstChildProxy" title="GstChildProxy">GstChildProxy</a>
+<a data-gi-href-javascript="gstreamer/gsturihandler.html#GstURIHandler" data-gi-href-python="gstreamer/gsturihandler.html#GstURIHandler" data-gi-title-javascript="Gst.URIHandler" data-gi-title-python="Gst.URIHandler" href="gstreamer/gsturihandler.html#GstURIHandler" title="GstURIHandler">GstURIHandler</a>
+</pre>
+</div>
+<h2 class="symbol_section">Factory details</h2>
+<div class="symbol-detail">
+<p><b>Authors:</b> – Wim Taymans <wim>, Thijs Vermeir <thijs.vermeir>, Lutz Mueller <lutz></lutz></thijs.vermeir></wim></p>
+<p><b>Classification:</b> – <code>Source/Network</code></p>
+<p><b>Rank</b> – primary</p>
+<p><b>Plugin</b> – rtsp</p>
+<p><b>Package</b> – GStreamer Good Plug-ins</p>
+</div>
+</div>
+<h2 class="symbol_section">Pad Templates</h2>
+<div class="base_symbol_container" data-hotdoc-tags="" id="GstRTSPSrc!stream_%u">
+<h3><span><code>stream_%u</code></span></h3>
+<div>
+<pre class="language-yaml"><code class="language-yaml">application/x-rtp:
+application/x-rdt:
+</code></pre>
+<div class="symbol-detail">
+<p><b>Presence</b> – <i>sometimes</i></p>
+<p><b>Direction</b> – <i>src</i></p>
+<p><b>Object type</b> – <a data-gi-href-javascript="gstreamer/gstpad.html#GstPad" data-gi-href-python="gstreamer/gstpad.html#GstPad" data-gi-title-javascript="Gst.Pad" data-gi-title-python="Gst.Pad" href="gstreamer/gstpad.html#GstPad" title="GstPad">GstPad</a></p>
+</div>
+</div>
+<hr/>
+</div>
+<h2 class="symbol_section">Signals</h2>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.14;" id="rtspsrc::accept-certificate">
+<h3 data-hotdoc-id="rtspsrc::accept-certificate">
+<i>accept-certificate</i>
+</h3>
+<pre class="c-prototype language-c">
+<a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a>
+accept_certificate_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                             <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-title-javascript="Gio.TlsConnection" data-gi-title-python="Gio.TlsConnection" href="https://docs.gtk.org/gio/class.TlsConnection.html" title="GTlsConnection">GTlsConnection</a> <span class="pointer-token">*</span> peer_cert,
+                             <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-title-javascript="Gio.TlsCertificate" data-gi-title-python="Gio.TlsCertificate" href="https://docs.gtk.org/gio/class.TlsCertificate.html" title="GTlsCertificate">GTlsCertificate</a> <span class="pointer-token">*</span> errors,
+                             <a data-gi-href-javascript="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-href-python="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-title-javascript="Gio.TlsCertificateFlags" data-gi-title-python="Gio.TlsCertificateFlags" href="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" title="GTlsCertificateFlags">GTlsCertificateFlags</a> <span class="pointer-token">*</span> user_data,
+                             <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def accept_certificate_callback (rtspsrc, peer_cert, errors, user_data, udata):
+    #python callback for the 'accept-certificate' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function accept_certificate_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, peer_cert: <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-title-javascript="Gio.TlsConnection" data-gi-title-python="Gio.TlsConnection" href="https://docs.gtk.org/gio/class.TlsConnection.html" title="GTlsConnection">GTlsConnection</a> <span class="pointer-token">*</span> peer_cert, errors: <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-title-javascript="Gio.TlsCertificate" data-gi-title-python="Gio.TlsCertificate" href="https://docs.gtk.org/gio/class.TlsCertificate.html" title="GTlsCertificate">GTlsCertificate</a> <span class="pointer-token">*</span> errors, user_data: <a data-gi-href-javascript="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-href-python="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-title-javascript="Gio.TlsCertificateFlags" data-gi-title-python="Gio.TlsCertificateFlags" href="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" title="GTlsCertificateFlags">GTlsCertificateFlags</a> <span class="pointer-token">*</span> user_data, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'accept-certificate' signal
+}</code></pre>
+<p>This will directly map to <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsConnection.html" data-gi-title-javascript="Gio.TlsConnection" data-gi-title-python="Gio.TlsConnection" href="https://docs.gtk.org/gio/class.TlsConnection.html">GTlsConnection</a> 's "accept-certificate"
+signal and be performed after the default checks of <a data-gi-href-javascript="rtsplib/gstrtspconnection.html#GstRTSPConnection" data-gi-href-python="rtsplib/gstrtspconnection.html#GstRTSPConnection" data-gi-title-javascript="GstRtsp.RTSPConnection" data-gi-title-python="GstRtsp.RTSPConnection" href="rtsplib/gstrtspconnection.html#GstRTSPConnection">GstRTSPConnection</a>
+(checking against the <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-title-javascript="Gio.TlsDatabase" data-gi-title-python="Gio.TlsDatabase" href="https://docs.gtk.org/gio/class.TlsDatabase.html">GTlsDatabase</a> with the given <a data-gi-href-javascript="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-href-python="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-title-javascript="Gio.TlsCertificateFlags" data-gi-title-python="Gio.TlsCertificateFlags" href="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html">GTlsCertificateFlags</a>)
+have failed. If no <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-title-javascript="Gio.TlsDatabase" data-gi-title-python="Gio.TlsDatabase" href="https://docs.gtk.org/gio/class.TlsDatabase.html">GTlsDatabase</a> is set on this connection, only this
+signal will be emitted.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>peer_cert</code></em></i>
+–
+</div>
+<p>the peer's <a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsCertificate.html" data-gi-title-javascript="Gio.TlsCertificate" data-gi-title-python="Gio.TlsCertificate" href="https://docs.gtk.org/gio/class.TlsCertificate.html">GTlsCertificate</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>errors</code></em></i>
+–
+</div>
+<p>the problems with <em>peer_cert</em></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>user_data</code></em></i>
+–
+</div>
+<p>user data set when the signal handler was connected.</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.14
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.14;" id="rtspsrc::before-send">
+<h3 data-hotdoc-id="rtspsrc::before-send">
+<i>before-send</i>
+</h3>
+<pre class="c-prototype language-c">
+<a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a>
+before_send_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                      <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> num,
+                      <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def before_send_callback (rtspsrc, num, udata):
+    #python callback for the 'before-send' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function before_send_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, num: <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> num, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'before-send' signal
+}</code></pre>
+<p>Emitted before each RTSP request is sent, in order to allow
+the application to modify send parameters or to skip the message entirely.
+This can be used, for example, to work with ONVIF Profile G servers,
+which need a different/additional range, rate-control, and intra/x
+parameters.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>num</code></em></i>
+–
+</div>
+<p>the stream number</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command should be sent, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> when the
+command should be dropped.</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.14
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.2;" id="rtspsrc::handle-request">
+<h3 data-hotdoc-id="rtspsrc::handle-request">
+<i>handle-request</i>
+</h3>
+<pre class="c-prototype language-c">
+handle_request_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                         <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> request,
+                         <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> response,
+                         <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def handle_request_callback (rtspsrc, request, response, udata):
+    #python callback for the 'handle-request' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function handle_request_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, request: <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> request, response: <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage" title="GstRTSPMessage">GstRTSPMessage</a> <span class="pointer-token">*</span> response, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'handle-request' signal
+}</code></pre>
+<p>Handle a server request in <em>request</em> and prepare <em>response</em>.</p>
+<p>This signal is called from the streaming thread, you should therefore not
+do any state changes on <em>rtspsrc</em> because this might deadlock. If you want
+to modify the state as a result of this signal, post a
+<a data-gi-href-javascript="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE" data-gi-href-python="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE" data-gi-title-javascript="Gst.MessageType.REQUEST_STATE" data-gi-title-python="Gst.MessageType.REQUEST_STATE" href="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE">GST_MESSAGE_REQUEST_STATE</a> message on the bus or signal the main thread
+in some other way.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>request</code></em></i>
+–
+</div>
+<p>a <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage">GstRTSPMessage</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>response</code></em></i>
+–
+</div>
+<p>a <a data-gi-href-javascript="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-href-python="rtsplib/gstrtspmessage.html#GstRTSPMessage" data-gi-title-javascript="GstRtsp.RTSPMessage" data-gi-title-python="GstRtsp.RTSPMessage" href="rtsplib/gstrtspmessage.html#GstRTSPMessage">GstRTSPMessage</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+</p>
+<p>
+<b>Since</b>			: 1.2
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc::hard-limit">
+<h3 data-hotdoc-id="rtspsrc::hard-limit">
+<i>hard-limit</i>
+</h3>
+<pre class="c-prototype language-c">
+hard_limit_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                     <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> id,
+                     <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def hard_limit_callback (rtspsrc, id, udata):
+    #python callback for the 'hard-limit' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function hard_limit_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, id: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> id, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'hard-limit' signal
+}</code></pre>
+<p>When the 'client-managed-mikey' mode is enabled, this signal
+is emitted when the stream with <em>id</em> has reached the
+hard limit of utilisation of it's master encryption key.
+User should start a re-keying procedure. Failure to do so,
+will lead to buffers of this stream being dropped.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>id</code></em></i>
+–
+</div>
+<p>The id of the stream</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.4;" id="rtspsrc::new-manager">
+<h3 data-hotdoc-id="rtspsrc::new-manager">
+<i>new-manager</i>
+</h3>
+<pre class="c-prototype language-c">
+new_manager_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                      <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> manager,
+                      <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def new_manager_callback (rtspsrc, manager, udata):
+    #python callback for the 'new-manager' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function new_manager_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, manager: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> manager, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'new-manager' signal
+}</code></pre>
+<p>Emitted after a new manager (like rtpbin) was created and the default
+properties were configured.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>manager</code></em></i>
+–
+</div>
+<p>a <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement">GstElement</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a>
+</p>
+<p>
+<b>Since</b>			: 1.4
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.2;" id="rtspsrc::on-sdp">
+<h3 data-hotdoc-id="rtspsrc::on-sdp">
+<i>on-sdp</i>
+</h3>
+<pre class="c-prototype language-c">
+on_sdp_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                 <a data-gi-href-javascript="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-href-python="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-title-javascript="GstSdp.SDPMessage" data-gi-title-python="GstSdp.SDPMessage" href="sdp/gstsdpmessage.html#GstSDPMessage" title="GstSDPMessage">GstSDPMessage</a> <span class="pointer-token">*</span> sdp,
+                 <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def on_sdp_callback (rtspsrc, sdp, udata):
+    #python callback for the 'on-sdp' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function on_sdp_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, sdp: <a data-gi-href-javascript="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-href-python="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-title-javascript="GstSdp.SDPMessage" data-gi-title-python="GstSdp.SDPMessage" href="sdp/gstsdpmessage.html#GstSDPMessage" title="GstSDPMessage">GstSDPMessage</a> <span class="pointer-token">*</span> sdp, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'on-sdp' signal
+}</code></pre>
+<p>Emitted when the client has retrieved the SDP and before it configures the
+streams in the SDP. <em>sdp</em> can be inspected and modified.</p>
+<p>This signal is called from the streaming thread, you should therefore not
+do any state changes on <em>rtspsrc</em> because this might deadlock. If you want
+to modify the state as a result of this signal, post a
+<a data-gi-href-javascript="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE" data-gi-href-python="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE" data-gi-title-javascript="Gst.MessageType.REQUEST_STATE" data-gi-title-python="Gst.MessageType.REQUEST_STATE" href="gstreamer/gstmessage.html#GST_MESSAGE_REQUEST_STATE">GST_MESSAGE_REQUEST_STATE</a> message on the bus or signal the main thread
+in some other way.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>sdp</code></em></i>
+–
+</div>
+<p>a <a data-gi-href-javascript="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-href-python="sdp/gstsdpmessage.html#GstSDPMessage" data-gi-title-javascript="GstSdp.SDPMessage" data-gi-title-python="GstSdp.SDPMessage" href="sdp/gstsdpmessage.html#GstSDPMessage">GstSDPMessage</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+</p>
+<p>
+<b>Since</b>			: 1.2
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.4;" id="rtspsrc::request-rtcp-key">
+<h3 data-hotdoc-id="rtspsrc::request-rtcp-key">
+<i>request-rtcp-key</i>
+</h3>
+<pre class="c-prototype language-c">
+<a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span>
+request_rtcp_key_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                           <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num,
+                           <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def request_rtcp_key_callback (rtspsrc, num, udata):
+    #python callback for the 'request-rtcp-key' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function request_rtcp_key_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, num: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'request-rtcp-key' signal
+}</code></pre>
+<p>Signal emitted to get the crypto parameters relevant to the RTCP
+stream. User should provide the key and the RTCP encryption ciphers
+and authentication, and return them wrapped in a GstCaps.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>num</code></em></i>
+–
+</div>
+<p>the stream number</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span><span>)</span>
+–
+			</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.4
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc::request-rtp-key">
+<h3 data-hotdoc-id="rtspsrc::request-rtp-key">
+<i>request-rtp-key</i>
+</h3>
+<pre class="c-prototype language-c">
+<a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span>
+request_rtp_key_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                          <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num,
+                          <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def request_rtp_key_callback (rtspsrc, num, udata):
+    #python callback for the 'request-rtp-key' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function request_rtp_key_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, num: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'request-rtp-key' signal
+}</code></pre>
+<p>Signal emitted to get the crypto parameters relevant to the RTP
+stream. User should provide the key and the RTP encryption ciphers
+and authentication, and return them wrapped in a GstCaps.</p>
+<p>Applications should connect to this signal when 'client-managed-mikey'
+mode is enabled. The crypto parameters are usually the same as those
+use by the 'request-rtcp-key' signal.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>num</code></em></i>
+–
+</div>
+<p>the stream number</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span><span>)</span>
+–
+			</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.2;" id="rtspsrc::select-stream">
+<h3 data-hotdoc-id="rtspsrc::select-stream">
+<i>select-stream</i>
+</h3>
+<pre class="c-prototype language-c">
+<a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a>
+select_stream_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                        <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num,
+                        <a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span> caps,
+                        <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def select_stream_callback (rtspsrc, num, caps, udata):
+    #python callback for the 'select-stream' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function select_stream_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, num: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> num, caps: <a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span> caps, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'select-stream' signal
+}</code></pre>
+<p>Emitted before the client decides to configure the stream <em>num</em> with
+<em>caps</em>.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>num</code></em></i>
+–
+</div>
+<p>the stream number</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>caps</code></em></i>
+–
+</div>
+<p>the stream caps</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the stream should be selected, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> when the stream
+is to be ignored.</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.2
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc::soft-limit">
+<h3 data-hotdoc-id="rtspsrc::soft-limit">
+<i>soft-limit</i>
+</h3>
+<pre class="c-prototype language-c">
+soft_limit_callback (<a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc,
+                     <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> id,
+                     <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata)</pre>
+<pre class="python-prototype language-python">
+<code>def soft_limit_callback (rtspsrc, id, udata):
+    #python callback for the 'soft-limit' signal</code></pre>
+<pre class="javascript-prototype language-javascript">
+<code>function soft_limit_callback(rtspsrc: <a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span> rtspsrc, id: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a> id, udata: <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" data-gi-href-python="https://docs.python.org/3/library/functions.html#object" data-gi-title-javascript="Object" data-gi-title-python="object" href="https://docs.gtk.org/glib/types.html#gpointer" title="gpointer">gpointer</a> udata): {
+    // javascript callback for the 'soft-limit' signal
+}</code></pre>
+<p>When the 'client-managed-mikey' mode is enabled, this signal
+is emitted when the stream with <em>id</em> has reached the
+soft limit of utilisation of it's master encryption key.
+User should start a re-keying procedure.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>id</code></em></i>
+–
+</div>
+<p>The id of the stream</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>udata</code></em></i>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<h2 class="symbol_section">Action Signals</h2>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc::get-parameter">
+<h3 data-hotdoc-id="rtspsrc::get-parameter">
+<i>get-parameter</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "get-parameter", parameter, arg1, arg2, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("get-parameter", parameter, arg1, arg2)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("get-parameter", parameter, arg1, arg2);</pre>
+<p>Handle the GET_PARAMETER signal.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<p>a pointer to <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg1</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg2</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise" title="GstPromise">GstPromise</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc::get-parameters">
+<h3 data-hotdoc-id="rtspsrc::get-parameters">
+<i>get-parameters</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "get-parameters", parameter, arg1, arg2, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("get-parameters", parameter, arg1, arg2)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("get-parameters", parameter, arg1, arg2);</pre>
+<p>Handle the GET_PARAMETERS signal.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://docs.gtk.org/glib/alias.Strv.html" data-gi-href-python="https://docs.gtk.org/glib/alias.Strv.html" data-gi-title-javascript="GStrv (not introspectable)" data-gi-title-python="GStrv (not introspectable)" href="https://docs.gtk.org/glib/alias.Strv.html" title="GStrv">GStrv</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a pointer to <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg1</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg2</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise" title="GstPromise">GstPromise</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.30;" id="rtspsrc::invalidate-key">
+<h3 data-hotdoc-id="rtspsrc::invalidate-key">
+<i>invalidate-key</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "invalidate-key", parameter, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("invalidate-key", parameter)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("invalidate-key", parameter);</pre>
+<p>Invalidates the key for a specific stream.</p>
+<p>When the 'client-managed-mikey' mode is enabled, this can be used
+after informing the server of the new crypto params (see signal
+'set-mikey-parameter') to invalidate previous keys and force srtpdec
+to request new keys. When accepting the new keys the existing ROC
+value of the stream will be preserved.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a><span>)</span>
+–
+</div>
+<p>the id of the stream for which to invalidate the key.</p>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<p>
+<b>Since</b>			: 1.30
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="deprecated:1.22;" id="rtspsrc::push-backchannel-buffer">
+<h3 data-hotdoc-id="rtspsrc::push-backchannel-buffer">
+<i>push-backchannel-buffer</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "push-backchannel-buffer", id, sample, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("push-backchannel-buffer", id, sample)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("push-backchannel-buffer", id, sample);</pre>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>id</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a><span>)</span>
+–
+</div>
+<p>stream ID where the sample should be sent</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>sample</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstsample.html#GstSample" data-gi-href-python="gstreamer/gstsample.html#GstSample" data-gi-title-javascript="Gst.Sample" data-gi-title-python="Gst.Sample" href="gstreamer/gstsample.html#GstSample" title="GstSample">GstSample</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>RTP sample to send back</p>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpad.html#GstFlowReturn" data-gi-href-python="gstreamer/gstpad.html#GstFlowReturn" data-gi-title-javascript="Gst.FlowReturn" data-gi-title-python="Gst.FlowReturn" href="gstreamer/gstpad.html#GstFlowReturn" title="GstFlowReturn">GstFlowReturn</a> <span class="pointer-token">*</span><span>)</span>
+–
+			</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<p>
+<b>deprecated</b>			: </p>
+<p>1.22: Use action signal GstRTSPSrc::push-backchannel-sample instead.
+IMPORTANT: Please note that this signal decrements the reference count
+of sample internally! So it cannot be used from other
+language bindings in general.</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.22;" id="rtspsrc::push-backchannel-sample">
+<h3 data-hotdoc-id="rtspsrc::push-backchannel-sample">
+<i>push-backchannel-sample</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "push-backchannel-sample", id, sample, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("push-backchannel-sample", id, sample)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("push-backchannel-sample", id, sample);</pre>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>id</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a><span>)</span>
+–
+</div>
+<p>stream ID where the sample should be sent</p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>sample</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstsample.html#GstSample" data-gi-href-python="gstreamer/gstsample.html#GstSample" data-gi-title-javascript="Gst.Sample" data-gi-title-python="Gst.Sample" href="gstreamer/gstsample.html#GstSample" title="GstSample">GstSample</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>RTP sample to send back</p>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpad.html#GstFlowReturn" data-gi-href-python="gstreamer/gstpad.html#GstFlowReturn" data-gi-title-javascript="Gst.FlowReturn" data-gi-title-python="Gst.FlowReturn" href="gstreamer/gstpad.html#GstFlowReturn" title="GstFlowReturn">GstFlowReturn</a> <span class="pointer-token">*</span><span>)</span>
+–
+			</div>
+<i>No description available</i>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<p>
+<b>Since</b>			: 1.22
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc::remove-key">
+<h3 data-hotdoc-id="rtspsrc::remove-key">
+<i>remove-key</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "remove-key", parameter, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("remove-key", parameter)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("remove-key", parameter);</pre>
+<p>Removes the key for a specific stream.</p>
+<p>When the 'client-managed-mikey' mode is enabled, this can be used
+after informing the server of the new crypto params (see signal
+'set-mikey-parameter') to remove previous keys and force srtpdec
+to request new keys.</p>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a><span>)</span>
+–
+</div>
+<p>the id of the stream for which to remove the key.</p>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc::set-mikey-parameter">
+<h3 data-hotdoc-id="rtspsrc::set-mikey-parameter">
+<i>set-mikey-parameter</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "set-mikey-parameter", parameter, arg1, arg2, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("set-mikey-parameter", parameter, arg1, arg2)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("set-mikey-parameter", parameter, arg1, arg2);</pre>
+<p>Sends a SET_PARAMETER to the server with a MIKEY payload.</p>
+<p>This will call SET_PARAMETER with parameter 'KeyMgmt' and a MIKEY
+payload formed from the provided stream's ssrc and MIKEY caps.</p>
+<p>The <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a> reply consists in the following fields:</p>
+<ul>
+<li>'rtsp-result': set to 0 if the HTTP request could be processed.</li>
+<li>'rtsp-code': the HTTP status code returned by the server.</li>
+<li>'rtsp-reason': a human-readable version of the HTTP status code.</li>
+</ul>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a><span>)</span>
+–
+</div>
+<p>a pointer to <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg1</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstcaps.html#GstCaps" data-gi-href-python="gstreamer/gstcaps.html#GstCaps" data-gi-title-javascript="Gst.Caps" data-gi-title-python="Gst.Caps" href="gstreamer/gstcaps.html#GstCaps" title="GstCaps">GstCaps</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg2</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise" title="GstPromise">GstPromise</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc::set-parameter">
+<h3 data-hotdoc-id="rtspsrc::set-parameter">
+<i>set-parameter</i>
+</h3>
+<pre class="c-prototype language-c">
+g_signal_emit_by_name (rtspsrc, "set-parameter", parameter, arg1, arg2, arg3, &amp;ret);</pre>
+<pre class="python-prototype language-python">
+ret = rtspsrc.emit ("set-parameter", parameter, arg1, arg2, arg3)</pre>
+<pre class="javascript-prototype language-javascript">
+let ret = rtspsrc.emit ("set-parameter", parameter, arg1, arg2, arg3);</pre>
+<p>Handle the SET_PARAMETER signal.</p>
+<p>The <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a> reply consists in the following fields:</p>
+<ul>
+<li>'rtsp-result': set to 0 if the HTTP request could be processed.</li>
+<li>'rtsp-code': the HTTP status code returned by the server.</li>
+<li>'rtsp-reason': a human-readable version of the HTTP status code.</li>
+</ul>
+<div class="parameters-container">
+<p><b>Parameters:</b></p>
+<div class="symbol-detail">
+<div>
+<i><em><code>rtspsrc</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstelement.html#GstElement" data-gi-href-python="gstreamer/gstelement.html#GstElement" data-gi-title-javascript="Gst.Element" data-gi-title-python="Gst.Element" href="gstreamer/gstelement.html#GstElement" title="GstElement">GstElement</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<p>a <a href="rtsp/rtspsrc.html#rtspsrc">rtspsrc</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>parameter</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<p>a pointer to <a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise">GstPromise</a></p>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg1</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg2</code></em></i>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+<div class="symbol-detail">
+<div>
+<i><em><code>arg3</code></em></i>
+<span>(</span><a data-gi-href-javascript="gstreamer/gstpromise.html#GstPromise" data-gi-href-python="gstreamer/gstpromise.html#GstPromise" data-gi-title-javascript="Gst.Promise" data-gi-title-python="Gst.Promise" href="gstreamer/gstpromise.html#GstPromise" title="GstPromise">GstPromise</a> <span class="pointer-token">*</span><span>)</span>
+–
+</div>
+<i>No description available</i>
+</div>
+</div>
+<div class="return-values-container">
+<div class="symbol-detail">
+<div>
+<b>Returns</b>
+<span>(</span><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a><span>)</span>
+–
+			</div>
+<p><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a> when the command could be issued, <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> otherwise</p>
+</div>
+</div>
+<p>
+<b>Flags:</b>
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a>
+			
+				/		
+				<a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a>
+</p>
+<hr/>
+</div>
+<h2 class="symbol_section">Properties</h2>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.22;" id="rtspsrc:add-reference-timestamp-meta">
+<h3 data-hotdoc-id="rtspsrc:add-reference-timestamp-meta">
+<i>add-reference-timestamp-meta</i>
+</h3>
+<pre class="property_signature">
+“add-reference-timestamp-meta” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>When syncing to a RFC7273 clock, add <a data-gi-href-javascript="gstreamer/gstbuffer.html#GstReferenceTimestampMeta" data-gi-href-python="gstreamer/gstbuffer.html#GstReferenceTimestampMeta" data-gi-title-javascript="Gst.ReferenceTimestampMeta" data-gi-title-python="Gst.ReferenceTimestampMeta" href="gstreamer/gstbuffer.html#GstReferenceTimestampMeta">GstReferenceTimestampMeta</a>
+to buffers with the original reconstructed reference clock timestamp.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.22
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.14;" id="rtspsrc:backchannel">
+<h3 data-hotdoc-id="rtspsrc:backchannel">
+<i>backchannel</i>
+</h3>
+<pre class="property_signature">
+“backchannel” <span class="type"><a href="rtsp/rtspsrc.html#GstRTSPBackchannel" title="Rtspbackchannel">Rtspbackchannel</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>Select a type of backchannel to setup with the RTSP server.
+Default value is "none". Allowed values are "none" and "onvif".</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	none (0)
+</p>
+<p>
+<b>Since</b>			: 1.14
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.30;" id="rtspsrc:backchannel-http-method">
+<h3 data-hotdoc-id="rtspsrc:backchannel-http-method">
+<i>backchannel-http-method</i>
+</h3>
+<pre class="property_signature">
+“backchannel-http-method” <span class="type"><a data-gi-href-javascript="rtsplib/gstrtspdefs.html#GstRTSPBackchannelHttpMethod" data-gi-href-python="rtsplib/gstrtspdefs.html#GstRTSPBackchannelHttpMethod" data-gi-title-javascript="GstRtsp.RTSPBackchannelHttpMethod" data-gi-title-python="GstRtsp.RTSPBackchannelHttpMethod" href="rtsplib/gstrtspdefs.html#GstRTSPBackchannelHttpMethod" title="GstRTSPBackchannelHttpMethod">GstRTSPBackchannelHttpMethod</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>Select how backchannel data is sent in HTTP tunnel mode.</p>
+<p>In HTTP tunnel mode, "post" sends backchannel interleaved RTP data
+base64-encoded via the POST connection as per the RTSP over HTTP
+specification. "get" sends it as raw binary on the GET connection,
+which is required for compatibility with some servers that only parse
+RTSP text commands from POST and cannot process interleaved RTP there.</p>
+<p>If the server closes the connection after backchannel data is sent,
+automatically reconnects using the other method.</p>
+<p>ONVIF Streaming Specification Section 5.1.1.5 requires POST data to
+be base64-encoded, but does not specify which connection should carry
+backchannel data in HTTP tunnel mode (Section 5.3).</p>
+<p>This property has no effect when not using HTTP tunneling.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	post (0)
+</p>
+<p>
+<b>Since</b>			: 1.30
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:buffer-mode">
+<h3 data-hotdoc-id="rtspsrc:buffer-mode">
+<i>buffer-mode</i>
+</h3>
+<pre class="property_signature">
+“buffer-mode” <span class="type"><a href="rtsp/rtspsrc.html#GstRTSPSrcBufferMode" title="Rtspsrc-buffer-mode">Rtspsrc-buffer-mode</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>Control the buffering and timestamping mode used by the jitterbuffer.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	auto (3)
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.26;" id="rtspsrc:client-managed-mikey">
+<h3 data-hotdoc-id="rtspsrc:client-managed-mikey">
+<i>client-managed-mikey</i>
+</h3>
+<pre class="property_signature">
+“client-managed-mikey” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Some servers (e.g. Axis Cameras) advertise a <code>key-mgmt:mikey</code> attribute in
+the SDP from the reply to DESCRIBE, but expect the client to provide the
+key for both the client (SRTCP/RR) and the server (SRTP/SRTCP SR).</p>
+<p>When this mode is enabled, for each eligible media, the server crypto
+policy is discarded. The crypto policy for this media is built from the
+key returned by the signals  'request-rtp-key' &amp; 'request-rtcp-key'.</p>
+<p>A media is eligible for this mode if:</p>
+<ul>
+<li>No session level MIKEY key-mgmt are defined and the media level key-mgmt
+is MIKEY.</li>
+<li>A session level MIKEY key-mgmt is defined and no media level key-mgmts
+are defined.</li>
+<li>A session level MIKEY key-mgmt is defined and the media level key-mgmt is
+also MIKEY.</li>
+</ul>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.26
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:connection-speed">
+<h3 data-hotdoc-id="rtspsrc:connection-speed">
+<i>connection-speed</i>
+</h3>
+<pre class="property_signature">
+“connection-speed” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint64" title="guint64">guint64</a></span>
+</pre>
+<p>Network connection speed in kbps (0 = unknown)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	0
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:debug">
+<h3 data-hotdoc-id="rtspsrc:debug">
+<i>debug</i>
+</h3>
+<pre class="property_signature">
+“debug” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Dump request and response messages to stdout(DEPRECATED: Printed all RTSP message to gstreamer log as 'log' level)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.14;" id="rtspsrc:default-rtsp-version">
+<h3 data-hotdoc-id="rtspsrc:default-rtsp-version">
+<i>default-rtsp-version</i>
+</h3>
+<pre class="property_signature">
+“default-rtsp-version” <span class="type"><a data-gi-href-javascript="rtsplib/gstrtspdefs.html#GstRTSPVersion" data-gi-href-python="rtsplib/gstrtspdefs.html#GstRTSPVersion" data-gi-title-javascript="GstRtsp.RTSPVersion" data-gi-title-python="GstRtsp.RTSPVersion" href="rtsplib/gstrtspdefs.html#GstRTSPVersion" title="GstRTSPVersion">GstRTSPVersion</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>The preferred RTSP version to use while negotiating the version with the server.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	1-0 (16)
+</p>
+<p>
+<b>Since</b>			: 1.14
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:do-retransmission">
+<h3 data-hotdoc-id="rtspsrc:do-retransmission">
+<i>do-retransmission</i>
+</h3>
+<pre class="property_signature">
+“do-retransmission” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Ask the server to retransmit lost packets</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:do-rtcp">
+<h3 data-hotdoc-id="rtspsrc:do-rtcp">
+<i>do-rtcp</i>
+</h3>
+<pre class="property_signature">
+“do-rtcp” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Enable RTCP support. Some old server don't like RTCP and then this property
+needs to be set to FALSE.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:do-rtsp-keep-alive">
+<h3 data-hotdoc-id="rtspsrc:do-rtsp-keep-alive">
+<i>do-rtsp-keep-alive</i>
+</h3>
+<pre class="property_signature">
+“do-rtsp-keep-alive” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Enable RTSP keep alive support. Some old server don't like RTSP
+keep alive and then this property needs to be set to FALSE.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:drop-on-latency">
+<h3 data-hotdoc-id="rtspsrc:drop-on-latency">
+<i>drop-on-latency</i>
+</h3>
+<pre class="property_signature">
+“drop-on-latency” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Tells the jitterbuffer to never exceed the given latency in size</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.24;" id="rtspsrc:extra-http-request-headers">
+<h3 data-hotdoc-id="rtspsrc:extra-http-request-headers">
+<i>extra-http-request-headers</i>
+</h3>
+<pre class="property_signature">
+“extra-http-request-headers” <span class="type"><a data-gi-href-javascript="gstreamer/gststructure.html#GstStructure" data-gi-href-python="gstreamer/gststructure.html#GstStructure" data-gi-title-javascript="Gst.Structure" data-gi-title-python="Gst.Structure" href="gstreamer/gststructure.html#GstStructure" title="GstStructure">GstStructure</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>When in tunneled mode append provided headers to any HTTP requests
+made by rtspsrc.</p>
+<p>Only applicable for RTSP over HTTP.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	</p>
+<pre class="language-yaml"><code class="language-yaml">extra-http-request-headers;</code></pre>
+<p>
+<b>Since</b>			: 1.24
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.24.7;" id="rtspsrc:force-non-compliant-url">
+<h3 data-hotdoc-id="rtspsrc:force-non-compliant-url">
+<i>force-non-compliant-url</i>
+</h3>
+<pre class="property_signature">
+“force-non-compliant-url” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>There are various non-compliant servers that don't require control URLs
+that are not resolved correctly but instead are just appended.</p>
+<p>As some of these servers will nevertheless reply OK to SETUP requests
+even if they didn't handle URIs correctly, this property can be set to
+revert to the old non-compliant method for constructing URLs.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.24.7
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.20;" id="rtspsrc:ignore-x-server-reply">
+<h3 data-hotdoc-id="rtspsrc:ignore-x-server-reply">
+<i>ignore-x-server-reply</i>
+</h3>
+<pre class="property_signature">
+“ignore-x-server-reply” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>When connecting to an RTSP server in tunneled mode (HTTP) the server
+usually replies with an x-server-ip-address header. This contains the
+address of the intended streaming server. However some servers return an
+"invalid" address. Here follows two examples when it might happen.</p>
+<ol>
+<li>
+<p>A server uses Apache combined with a separate RTSP process to handle
+HTTPS requests on port 443. In this case Apache handles TLS and
+connects to the local RTSP server, which results in a local
+address 127.0.0.1 or ::1 in the header reply. This address is
+returned to the actual RTSP client in the header. The client will
+receive this address and try to connect to it and fail.</p>
+</li>
+<li>
+<p>The client uses an IPv6 link local address with a specified scope id
+fe80::aaaa:bbbb:cccc:dddd%eth0 and connects via HTTP on port 80.
+The RTSP server receives the connection and returns the address
+in the x-server-ip-address header. The client will receive this
+address and try to connect to it "as is" without the scope id and
+fail.</p>
+</li>
+</ol>
+<p>In the case of streaming data from RTSP servers like 1 and 2, it's
+useful to have the option to simply ignore the x-server-ip-address
+header reply and continue using the original address.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.20
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.18;" id="rtspsrc:is-live">
+<h3 data-hotdoc-id="rtspsrc:is-live">
+<i>is-live</i>
+</h3>
+<pre class="property_signature">
+“is-live” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Whether to act as a live source. This is useful in combination with
+<a href="rtsp/rtspsrc.html#rtspsrc:onvif-rate-control">onvif-rate-control</a> set to <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a> and usage of the TCP
+protocol. In that situation, data delivery rate can be entirely
+controlled from the client side, enabling features such as frame
+stepping and instantaneous rate changes.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<p>
+<b>Since</b>			: 1.18
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:latency">
+<h3 data-hotdoc-id="rtspsrc:latency">
+<i>latency</i>
+</h3>
+<pre class="property_signature">
+“latency” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a></span>
+</pre>
+<p>Amount of ms to buffer</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	2000
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:location">
+<h3 data-hotdoc-id="rtspsrc:location">
+<i>location</i>
+</h3>
+<pre class="property_signature">
+“location” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Location of the RTSP url to read</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:max-rtcp-rtp-time-diff">
+<h3 data-hotdoc-id="rtspsrc:max-rtcp-rtp-time-diff">
+<i>max-rtcp-rtp-time-diff</i>
+</h3>
+<pre class="property_signature">
+“max-rtcp-rtp-time-diff” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#gint" title="gint">gint</a></span>
+</pre>
+<p>Maximum amount of time in ms that the RTP time in RTCP SRs is allowed to be ahead (-1 disabled)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	-1
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:max-ts-offset">
+<h3 data-hotdoc-id="rtspsrc:max-ts-offset">
+<i>max-ts-offset</i>
+</h3>
+<pre class="property_signature">
+“max-ts-offset” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#gint64" title="gint64">gint64</a></span>
+</pre>
+<p>Used to set an upper limit of how large a time offset may be. This
+is used to protect against unrealistic values as a result of either
+client,server or clock issues.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	3000000000
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:max-ts-offset-adjustment">
+<h3 data-hotdoc-id="rtspsrc:max-ts-offset-adjustment">
+<i>max-ts-offset-adjustment</i>
+</h3>
+<pre class="property_signature">
+“max-ts-offset-adjustment” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint64" title="guint64">guint64</a></span>
+</pre>
+<p>Syncing time stamps to NTP time adds a time offset. This parameter
+specifies the maximum number of nanoseconds per frame that this time offset
+may be adjusted with. This is used to avoid sudden large changes to time
+stamps.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	0
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:multicast-iface">
+<h3 data-hotdoc-id="rtspsrc:multicast-iface">
+<i>multicast-iface</i>
+</h3>
+<pre class="property_signature">
+“multicast-iface” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>The network interface on which to join the multicast group</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:nat-method">
+<h3 data-hotdoc-id="rtspsrc:nat-method">
+<i>nat-method</i>
+</h3>
+<pre class="property_signature">
+“nat-method” <span class="type"><a href="rtsp/rtspsrc.html#GstRTSPNatMethod" title="Rtspnat-method">Rtspnat-method</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>Method to use for traversing firewalls and NAT</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	dummy (1)
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:ntp-sync">
+<h3 data-hotdoc-id="rtspsrc:ntp-sync">
+<i>ntp-sync</i>
+</h3>
+<pre class="property_signature">
+“ntp-sync” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Synchronize received streams to the NTP clock</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:ntp-time-source">
+<h3 data-hotdoc-id="rtspsrc:ntp-time-source">
+<i>ntp-time-source</i>
+</h3>
+<pre class="property_signature">
+“ntp-time-source” <span class="type"><a href="rtsp/rtspsrc.html#GstRTSPSrcNtpTimeSource" title="Rtspsrc-ntp-time-source">Rtspsrc-ntp-time-source</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>NTP time source for RTCP packets</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	ntp (0)
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.18;" id="rtspsrc:onvif-mode">
+<h3 data-hotdoc-id="rtspsrc:onvif-mode">
+<i>onvif-mode</i>
+</h3>
+<pre class="property_signature">
+“onvif-mode” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Act as an ONVIF client. When set to <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#True" data-gi-title-javascript="true" data-gi-title-python="True" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS">TRUE</a>:</p>
+<ul>
+<li>
+<p>seeks will be interpreted as nanoseconds since prime epoch (1900-01-01)</p>
+</li>
+<li>
+<p><a href="rtsp/rtspsrc.html#rtspsrc:onvif-rate-control">onvif-rate-control</a> can be used to request that the server sends
+data as fast as it can</p>
+</li>
+<li>
+<p>TCP is picked as the transport protocol</p>
+</li>
+<li>
+<p>Trickmode flags in seek events are transformed into the appropriate ONVIF
+request headers</p>
+</li>
+</ul>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.18
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.18;" id="rtspsrc:onvif-rate-control">
+<h3 data-hotdoc-id="rtspsrc:onvif-rate-control">
+<i>onvif-rate-control</i>
+</h3>
+<pre class="property_signature">
+“onvif-rate-control” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>When in onvif-mode, whether to set Rate-Control to yes or no. When set
+to <a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-gi-href-python="https://docs.python.org/3/library/constants.html#False" data-gi-title-javascript="false" data-gi-title-python="False" href="https://web.mit.edu/barnowl/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS">FALSE</a>, the server will deliver data as fast as the client can consume
+it.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<p>
+<b>Since</b>			: 1.18
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:port-range">
+<h3 data-hotdoc-id="rtspsrc:port-range">
+<i>port-range</i>
+</h3>
+<pre class="property_signature">
+“port-range” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Configure the client port numbers that can be used to receive RTP and
+RTCP.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:probation">
+<h3 data-hotdoc-id="rtspsrc:probation">
+<i>probation</i>
+</h3>
+<pre class="property_signature">
+“probation” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a></span>
+</pre>
+<p>Consecutive packet sequence numbers to accept the source</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	2
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:protocols">
+<h3 data-hotdoc-id="rtspsrc:protocols">
+<i>protocols</i>
+</h3>
+<pre class="property_signature">
+“protocols” <span class="type"><a data-gi-href-javascript="rtsplib/gstrtsptransport.html#GstRTSPLowerTrans" data-gi-href-python="rtsplib/gstrtsptransport.html#GstRTSPLowerTrans" data-gi-title-javascript="GstRtsp.RTSPLowerTrans" data-gi-title-python="GstRtsp.RTSPLowerTrans" href="rtsplib/gstrtsptransport.html#GstRTSPLowerTrans" title="GstRTSPLowerTrans">GstRTSPLowerTrans</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>Allowed lower transport protocols</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	tcp+udp-mcast+udp
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:proxy">
+<h3 data-hotdoc-id="rtspsrc:proxy">
+<i>proxy</i>
+</h3>
+<pre class="property_signature">
+“proxy” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Set the proxy parameters. This has to be a string of the format
+[http://][user:passwd@]host[:port].</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.2;" id="rtspsrc:proxy-id">
+<h3 data-hotdoc-id="rtspsrc:proxy-id">
+<i>proxy-id</i>
+</h3>
+<pre class="property_signature">
+“proxy-id” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Sets the proxy URI user id for authentication. If the URI set via the
+"proxy" property contains a user-id already, that will take precedence.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<p>
+<b>Since</b>			: 1.2
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.2;" id="rtspsrc:proxy-pw">
+<h3 data-hotdoc-id="rtspsrc:proxy-pw">
+<i>proxy-pw</i>
+</h3>
+<pre class="property_signature">
+“proxy-pw” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Sets the proxy URI password for authentication. If the URI set via the
+"proxy" property contains a password already, that will take precedence.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<p>
+<b>Since</b>			: 1.2
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:retry">
+<h3 data-hotdoc-id="rtspsrc:retry">
+<i>retry</i>
+</h3>
+<pre class="property_signature">
+“retry” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a></span>
+</pre>
+<p>Max number of retries when allocating RTP ports.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	20
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:rfc7273-sync">
+<h3 data-hotdoc-id="rtspsrc:rfc7273-sync">
+<i>rfc7273-sync</i>
+</h3>
+<pre class="property_signature">
+“rfc7273-sync” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Synchronize received streams to the RFC7273 clock (requires clock and offset to be provided)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:rtp-blocksize">
+<h3 data-hotdoc-id="rtspsrc:rtp-blocksize">
+<i>rtp-blocksize</i>
+</h3>
+<pre class="property_signature">
+“rtp-blocksize” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint" title="guint">guint</a></span>
+</pre>
+<p>RTP package size to suggest to server.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	0
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:sdes">
+<h3 data-hotdoc-id="rtspsrc:sdes">
+<i>sdes</i>
+</h3>
+<pre class="property_signature">
+“sdes” <span class="type"><a data-gi-href-javascript="gstreamer/gststructure.html#GstStructure" data-gi-href-python="gstreamer/gststructure.html#GstStructure" data-gi-title-javascript="Gst.Structure" data-gi-title-python="Gst.Structure" href="gstreamer/gststructure.html#GstStructure" title="GstStructure">GstStructure</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>The SDES items of this session</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:short-header">
+<h3 data-hotdoc-id="rtspsrc:short-header">
+<i>short-header</i>
+</h3>
+<pre class="property_signature">
+“short-header” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Only send the basic RTSP headers for broken encoders.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:tcp-timeout">
+<h3 data-hotdoc-id="rtspsrc:tcp-timeout">
+<i>tcp-timeout</i>
+</h3>
+<pre class="property_signature">
+“tcp-timeout” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint64" title="guint64">guint64</a></span>
+</pre>
+<p>Fail after timeout microseconds on TCP connections (0 = disabled)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	20000000
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.24.10;" id="rtspsrc:tcp-timestamp">
+<h3 data-hotdoc-id="rtspsrc:tcp-timestamp">
+<i>tcp-timestamp</i>
+</h3>
+<pre class="property_signature">
+“tcp-timestamp” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Timestamp all buffers with their receive time when receiving RTP packets
+over TCP or HTTP.</p>
+<p>When dealing with TCP based connections, setting timestamps for every
+packet is not done by default because a server typically bursts data, for
+which we don't want to compensate by speeding up the media. The other
+timestamps will be interpollated from this one using the RTP timestamps.</p>
+<p>This has the side effect that no drift compensation between the server
+and client is done, and over time the RTP timestamps will drift against
+the client's clock. This can lead to buffers (and observed end-to-end
+latency) to grow over time, or all packets arriving too late once a
+threshold is reached.</p>
+<p>Enabling this property will timestamp all RTP packets with their receive
+times, which gets around the drift problem but can cause other problems
+if the server is sending data not smoothly in real-time.</p>
+<p>Only applicable for RTSP over TCP or HTTP.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<p>
+<b>Since</b>			: 1.24.10
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.14;" id="rtspsrc:teardown-timeout">
+<h3 data-hotdoc-id="rtspsrc:teardown-timeout">
+<i>teardown-timeout</i>
+</h3>
+<pre class="property_signature">
+“teardown-timeout” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint64" title="guint64">guint64</a></span>
+</pre>
+<p>When transitioning PAUSED-READY, allow up to timeout (in nanoseconds)
+delay in order to send teardown (0 = disabled)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	100000000
+</p>
+<p>
+<b>Since</b>			: 1.14
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:timeout">
+<h3 data-hotdoc-id="rtspsrc:timeout">
+<i>timeout</i>
+</h3>
+<pre class="property_signature">
+“timeout” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#guint64" title="guint64">guint64</a></span>
+</pre>
+<p>Retry TCP transport after UDP timeout microseconds (0 = disabled)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	5000000
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.30;" id="rtspsrc:tls-client-certificate">
+<h3 data-hotdoc-id="rtspsrc:tls-client-certificate">
+<i>tls-client-certificate</i>
+</h3>
+<pre class="property_signature">
+“tls-client-certificate” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Path to a PEM-encoded TLS client certificate file. When set together
+with <a href="rtsp/rtspsrc.html#rtspsrc:tls-client-key">tls-client-key</a>, the certificate is presented
+during the TLS handshake for mutual authentication (mTLS).</p>
+<p>These file-based properties are a convenience alternative to setting
+the <a href="rtsp/rtspsrc.html#rtspsrc:tls-interaction">tls-interaction</a> property from application code and
+can be used from gst-launch-1.0.</p>
+<p>If <a href="rtsp/rtspsrc.html#rtspsrc:tls-interaction">tls-interaction</a> is also set it takes precedence.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<p>
+<b>Since</b>			: 1.30
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="since:1.30;" id="rtspsrc:tls-client-key">
+<h3 data-hotdoc-id="rtspsrc:tls-client-key">
+<i>tls-client-key</i>
+</h3>
+<pre class="property_signature">
+“tls-client-key” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>Path to a PEM-encoded private key file corresponding to
+<a href="rtsp/rtspsrc.html#rtspsrc:tls-client-certificate">tls-client-certificate</a>.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<p>
+<b>Since</b>			: 1.30
+		</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:tls-database">
+<h3 data-hotdoc-id="rtspsrc:tls-database">
+<i>tls-database</i>
+</h3>
+<pre class="property_signature">
+“tls-database” <span class="type"><a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsDatabase.html" data-gi-title-javascript="Gio.TlsDatabase" data-gi-title-python="Gio.TlsDatabase" href="https://docs.gtk.org/gio/class.TlsDatabase.html" title="GTlsDatabase">GTlsDatabase</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>TLS database with anchor certificate authorities used to validate the server certificate</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:tls-interaction">
+<h3 data-hotdoc-id="rtspsrc:tls-interaction">
+<i>tls-interaction</i>
+</h3>
+<pre class="property_signature">
+“tls-interaction” <span class="type"><a data-gi-href-javascript="https://docs.gtk.org/gio/class.TlsInteraction.html" data-gi-href-python="https://docs.gtk.org/gio/class.TlsInteraction.html" data-gi-title-javascript="Gio.TlsInteraction" data-gi-title-python="Gio.TlsInteraction" href="https://docs.gtk.org/gio/class.TlsInteraction.html" title="GTlsInteraction">GTlsInteraction</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>A GTlsInteraction object to prompt the user for password or certificate</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:tls-validation-flags">
+<h3 data-hotdoc-id="rtspsrc:tls-validation-flags">
+<i>tls-validation-flags</i>
+</h3>
+<pre class="property_signature">
+“tls-validation-flags” <span class="type"><a data-gi-href-javascript="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-href-python="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" data-gi-title-javascript="Gio.TlsCertificateFlags" data-gi-title-python="Gio.TlsCertificateFlags" href="https://docs.gtk.org/gio/flags.TlsCertificateFlags.html" title="GTlsCertificateFlags">GTlsCertificateFlags</a> <span class="pointer-token">*</span></span>
+</pre>
+<p>TLS certificate validation flags used to validate the server certificate</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	validate-all
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:udp-buffer-size">
+<h3 data-hotdoc-id="rtspsrc:udp-buffer-size">
+<i>udp-buffer-size</i>
+</h3>
+<pre class="property_signature">
+“udp-buffer-size” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#int" data-gi-title-javascript="Number" data-gi-title-python="int" href="https://docs.gtk.org/glib/types.html#gint" title="gint">gint</a></span>
+</pre>
+<p>Size of the kernel UDP receive buffer in bytes.</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	524288
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:udp-reconnect">
+<h3 data-hotdoc-id="rtspsrc:udp-reconnect">
+<i>udp-reconnect</i>
+</h3>
+<pre class="property_signature">
+“udp-reconnect” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Reconnect to the server if RTSP connection is closed when doing UDP</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	true
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:use-pipeline-clock">
+<h3 data-hotdoc-id="rtspsrc:use-pipeline-clock">
+<i>use-pipeline-clock</i>
+</h3>
+<pre class="property_signature">
+“use-pipeline-clock” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Glossary/Number" data-gi-href-python="https://docs.python.org/3/library/functions.html#bool" data-gi-title-javascript="Number" data-gi-title-python="bool" href="https://docs.gtk.org/glib/types.html#gboolean" title="gboolean">gboolean</a></span>
+</pre>
+<p>Use the pipeline running-time to set the NTP time in the RTCP SR messages(DEPRECATED: Use ntp-time-source property)</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	false
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:user-agent">
+<h3 data-hotdoc-id="rtspsrc:user-agent">
+<i>user-agent</i>
+</h3>
+<pre class="property_signature">
+“user-agent” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>The User-Agent string to send to the server</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	GStreamer/{VERSION}
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:user-id">
+<h3 data-hotdoc-id="rtspsrc:user-id">
+<i>user-id</i>
+</h3>
+<pre class="property_signature">
+“user-id” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>RTSP location URI user id for authentication</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="rtspsrc:user-pw">
+<h3 data-hotdoc-id="rtspsrc:user-pw">
+<i>user-pw</i>
+</h3>
+<pre class="property_signature">
+“user-pw” <span class="type"><a data-gi-href-javascript="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" data-gi-href-python="https://docs.python.org/3/library/functions.html#func-str" data-gi-title-javascript="String" data-gi-title-python="str" href="https://web.mit.edu/barnowl/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html#gchararray" title="gchararray">gchararray</a></span>
+</pre>
+<p>RTSP location URI user password for authentication</p>
+<p>
+	Flags :	
+	
+		
+				Read
+			
+				/		
+				Write
+			
+</p>
+<p>
+	Default value :	NULL
+</p>
+<hr/>
+</div>
+<h2 class="symbol_section">Named constants</h2>
+<div class="base_symbol_container" data-hotdoc-tags="" id="GstRTSPBackchannel">
+<h3 data-hotdoc-id="GstRTSPBackchannel">
+<i>Rtspbackchannel</i>
+</h3>
+<div class="members-container">
+<h4>Members</h4>
+<div class="member_details" data-hotdoc-id="GstRTSPBackchannel::none" data-toc-skip="true">
+<code>none</code> (<i>0</i>) – No backchannel
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPBackchannel::onvif" data-toc-skip="true">
+<code>onvif</code> (<i>1</i>) – ONVIF audio backchannel
+        </div>
+</div>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="GstRTSPNatMethod">
+<h3 data-hotdoc-id="GstRTSPNatMethod">
+<i>Rtspnat-method</i>
+</h3>
+<p>Different methods for trying to traverse firewalls.</p>
+<div class="members-container">
+<h4>Members</h4>
+<div class="member_details" data-hotdoc-id="GstRTSPNatMethod::none" data-toc-skip="true">
+<code>none</code> (<i>0</i>) – None
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPNatMethod::dummy" data-toc-skip="true">
+<code>dummy</code> (<i>1</i>) – Send Dummy packets
+        </div>
+</div>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="GstRTSPSrcBufferMode">
+<h3 data-hotdoc-id="GstRTSPSrcBufferMode">
+<i>Rtspsrc-buffer-mode</i>
+</h3>
+<div class="members-container">
+<h4>Members</h4>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcBufferMode::none" data-toc-skip="true">
+<code>none</code> (<i>0</i>) – Only use RTP timestamps
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcBufferMode::slave" data-toc-skip="true">
+<code>slave</code> (<i>1</i>) – Slave receiver to sender clock
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcBufferMode::buffer" data-toc-skip="true">
+<code>buffer</code> (<i>2</i>) – Do low/high watermark buffering
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcBufferMode::auto" data-toc-skip="true">
+<code>auto</code> (<i>3</i>) – Choose mode depending on stream live
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcBufferMode::synced" data-toc-skip="true">
+<code>synced</code> (<i>4</i>) – Synchronized sender and receiver clocks
+        </div>
+</div>
+<hr/>
+</div>
+<div class="base_symbol_container" data-hotdoc-tags="" id="GstRTSPSrcNtpTimeSource">
+<h3 data-hotdoc-id="GstRTSPSrcNtpTimeSource">
+<i>Rtspsrc-ntp-time-source</i>
+</h3>
+<div class="members-container">
+<h4>Members</h4>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcNtpTimeSource::ntp" data-toc-skip="true">
+<code>ntp</code> (<i>0</i>) – NTP time based on realtime clock
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcNtpTimeSource::unix" data-toc-skip="true">
+<code>unix</code> (<i>1</i>) – UNIX time based on realtime clock
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcNtpTimeSource::running-time" data-toc-skip="true">
+<code>running-time</code> (<i>2</i>) – Running time based on pipeline clock
+        </div>
+<div class="member_details" data-hotdoc-id="GstRTSPSrcNtpTimeSource::clock-time" data-toc-skip="true">
+<code>clock-time</code> (<i>3</i>) – Pipeline clock time
+        </div>
+</div>
+<hr/>
+</div>
+</div>
+<div id="search_results">
+<p>The results of the search are</p>
+</div>
+<div id="footer">
+</div>
+</div>
+<div id="toc-column">
+<div class="edit-button">
+</div>
+<div id="toc-wrapper">
+<nav id="toc"></nav>
+</div>
+</div>
+</div>
+</main>
+<script src="assets/js/navbar_offset_scroller.js"></script>
+</body>
+</html>

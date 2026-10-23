@@ -1,0 +1,74 @@
+﻿{
+  "numpy_version": "2.4.2",
+  "pinned_commit": "3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140",
+  "dtype_uint8_result": "int8",
+  "args_attribute_checks": {
+    "output_tens\u0e2d\u0e23\u0e4c_name": false
+  },
+  "geometry_formula_only": [
+    {
+      "hw": [
+        1080,
+        1920
+      ],
+      "r": 0.3333333333333333,
+      "resized_wh": [
+        640,
+        360
+      ],
+      "padding_lrtb": [
+        0,
+        0,
+        140,
+        140
+      ],
+      "actual_xy_scales": [
+        0.3333333333333333,
+        0.3333333333333333
+      ]
+    },
+    {
+      "hw": [
+        479,
+        641
+      ],
+      "r": 0.9984399375975039,
+      "resized_wh": [
+        640,
+        478
+      ],
+      "padding_lrtb": [
+        0,
+        0,
+        81,
+        81
+      ],
+      "actual_xy_scales": [
+        0.9984399375975039,
+        0.9979123173277662
+      ]
+    },
+    {
+      "hw": [
+        641,
+        479
+      ],
+      "r": 0.9984399375975039,
+      "resized_wh": [
+        478,
+        640
+      ],
+      "padding_lrtb": [
+        81,
+        81,
+        0,
+        0
+      ],
+      "actual_xy_scales": [
+        0.9979123173277662,
+        0.9984399375975039
+      ]
+    }
+  ],
+  "hardware_inference_executed": false
+}

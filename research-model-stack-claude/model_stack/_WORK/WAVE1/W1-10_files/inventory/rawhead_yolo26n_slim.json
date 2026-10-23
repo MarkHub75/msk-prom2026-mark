@@ -1,0 +1,1367 @@
+{
+ "file": "yolo26n_rawhead_slim.onnx",
+ "size_bytes": 9755747,
+ "sha256": "24270742339cfe636eee6c61b3b83c17a18945e9943361b7039d8e9d0c134fee",
+ "ir_version": 7,
+ "opset_import": {
+  "ai.onnx": 13
+ },
+ "producer": "pytorch 2.14.1",
+ "inputs": [
+  {
+   "name": "images",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    3,
+    640,
+    640
+   ]
+  }
+ ],
+ "outputs": [
+  {
+   "name": "box_s8",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    4,
+    80,
+    80
+   ]
+  },
+  {
+   "name": "box_s16",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    4,
+    40,
+    40
+   ]
+  },
+  {
+   "name": "box_s32",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    4,
+    20,
+    20
+   ]
+  },
+  {
+   "name": "cls_s8",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    80,
+    80,
+    80
+   ]
+  },
+  {
+   "name": "cls_s16",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    80,
+    40,
+    40
+   ]
+  },
+  {
+   "name": "cls_s32",
+   "dtype": "FLOAT",
+   "shape": [
+    1,
+    80,
+    20,
+    20
+   ]
+  }
+ ],
+ "n_nodes": 352,
+ "n_initializers": 213,
+ "op_counts": {
+  "Conv": 102,
+  "Sigmoid": 90,
+  "Mul": 89,
+  "Add": 20,
+  "Concat": 19,
+  "Split": 11,
+  "Reshape": 6,
+  "Transpose": 4,
+  "MatMul": 4,
+  "MaxPool": 3,
+  "Softmax": 2,
+  "Resize": 2
+ },
+ "metadata_props": {},
+ "details": {
+  "Resize": [
+   {
+    "name": "/model.11/Resize",
+    "attrs": {
+     "coordinate_transformation_mode": "asymmetric",
+     "cubic_coeff_a": -0.75,
+     "mode": "nearest",
+     "nearest_mode": "floor"
+    },
+    "const_inputs": [
+     {
+      "input": "/model.11/Constant_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "float32",
+      "values": [
+       1.0,
+       1.0,
+       2.0,
+       2.0
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.14/Resize",
+    "attrs": {
+     "coordinate_transformation_mode": "asymmetric",
+     "cubic_coeff_a": -0.75,
+     "mode": "nearest",
+     "nearest_mode": "floor"
+    },
+    "const_inputs": [
+     {
+      "input": "/model.11/Constant_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "float32",
+      "values": [
+       1.0,
+       1.0,
+       2.0,
+       2.0
+      ]
+     }
+    ]
+   }
+  ],
+  "MaxPool": [
+   {
+    "name": "/model.9/m/MaxPool",
+    "attrs": {
+     "ceil_mode": 0,
+     "dilations": [
+      1,
+      1
+     ],
+     "kernel_shape": [
+      5,
+      5
+     ],
+     "pads": [
+      2,
+      2,
+      2,
+      2
+     ],
+     "strides": [
+      1,
+      1
+     ]
+    }
+   },
+   {
+    "name": "/model.9/m_1/MaxPool",
+    "attrs": {
+     "ceil_mode": 0,
+     "dilations": [
+      1,
+      1
+     ],
+     "kernel_shape": [
+      5,
+      5
+     ],
+     "pads": [
+      2,
+      2,
+      2,
+      2
+     ],
+     "strides": [
+      1,
+      1
+     ]
+    }
+   },
+   {
+    "name": "/model.9/m_2/MaxPool",
+    "attrs": {
+     "ceil_mode": 0,
+     "dilations": [
+      1,
+      1
+     ],
+     "kernel_shape": [
+      5,
+      5
+     ],
+     "pads": [
+      2,
+      2,
+      2,
+      2
+     ],
+     "strides": [
+      1,
+      1
+     ]
+    }
+   }
+  ],
+  "Softmax": [
+   {
+    "name": "/model.10/m/m.0/attn/Softmax",
+    "attrs": {
+     "axis": -1
+    }
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Softmax",
+    "attrs": {
+     "axis": -1
+    }
+   }
+  ],
+  "Split": [
+   {
+    "name": "/model.2/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_214",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       16,
+       16
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.4/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_234",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       32,
+       32
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.6/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_254",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       64,
+       64
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.8/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_291",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       128,
+       128
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.10/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_291",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       128,
+       128
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.10/m/m.0/attn/Split",
+    "attrs": {
+     "axis": 2
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_354",
+      "shape": [
+       3
+      ],
+      "dtype": "int64",
+      "values": [
+       32,
+       32,
+       64
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.13/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_254",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       64,
+       64
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.16/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_234",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       32,
+       32
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.19/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_254",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       64,
+       64
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.22/Split",
+    "attrs": {
+     "axis": 1
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_291",
+      "shape": [
+       2
+      ],
+      "dtype": "int64",
+      "values": [
+       128,
+       128
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Split",
+    "attrs": {
+     "axis": 2
+    },
+    "const_inputs": [
+     {
+      "input": "onnx::Split_354",
+      "shape": [
+       3
+      ],
+      "dtype": "int64",
+      "values": [
+       32,
+       32,
+       64
+      ]
+     }
+    ]
+   }
+  ],
+  "Concat": [
+   {
+    "name": "/model.2/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.4/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.6/m.0/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.6/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.8/m.0/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.8/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.9/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.10/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.12/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.13/m.0/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.13/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   {
+    "name": "/model.15/Concat",
+    "attrs": {
+     "axis": 1
+    }
+   },
+   "... 7 more"
+  ],
+  "MatMul": [
+   {
+    "name": "/model.10/m/m.0/attn/MatMul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.10/m/m.0/attn/MatMul_1",
+    "attrs": {}
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/MatMul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/MatMul_1",
+    "attrs": {}
+   }
+  ],
+  "Transpose": [
+   {
+    "name": "/model.10/m/m.0/attn/Transpose",
+    "attrs": {
+     "perm": [
+      0,
+      1,
+      3,
+      2
+     ]
+    }
+   },
+   {
+    "name": "/model.10/m/m.0/attn/Transpose_1",
+    "attrs": {
+     "perm": [
+      0,
+      1,
+      3,
+      2
+     ]
+    }
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Transpose",
+    "attrs": {
+     "perm": [
+      0,
+      1,
+      3,
+      2
+     ]
+    }
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Transpose_1",
+    "attrs": {
+     "perm": [
+      0,
+      1,
+      3,
+      2
+     ]
+    }
+   }
+  ],
+  "Reshape": [
+   {
+    "name": "/model.10/m/m.0/attn/Reshape",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       2,
+       128,
+       400
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.10/m/m.0/attn/Reshape_2",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_3_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       128,
+       20,
+       20
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.10/m/m.0/attn/Reshape_1",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_3_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       128,
+       20,
+       20
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Reshape",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       2,
+       128,
+       400
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Reshape_2",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_3_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       128,
+       20,
+       20
+      ]
+     }
+    ]
+   },
+   {
+    "name": "/model.22/m.0/m.0.1/attn/Reshape_1",
+    "attrs": {},
+    "const_inputs": [
+     {
+      "input": "/model.10/m/m.0/attn/Constant_3_output_0",
+      "shape": [
+       4
+      ],
+      "dtype": "int64",
+      "values": [
+       1,
+       128,
+       20,
+       20
+      ]
+     }
+    ]
+   }
+  ],
+  "Mul": [
+   {
+    "name": "/model.0/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.1/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/cv1/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/m.0/cv1/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/m.0/cv2/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/cv2/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.3/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/cv1/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/m.0/cv1/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/m.0/cv2/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/cv2/act/Mul",
+    "attrs": {}
+   },
+   {
+    "name": "/model.5/act/Mul",
+    "attrs": {}
+   },
+   "... 77 more"
+  ],
+  "Add": [
+   {
+    "name": "/model.2/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.6/m.0/m/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.6/m.0/m/m.1/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.8/m.0/m/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.8/m.0/m/m.1/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.9/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.10/m/m.0/attn/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.10/m/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.10/m/m.0/Add_1",
+    "attrs": {}
+   },
+   {
+    "name": "/model.13/m.0/m/m.0/Add",
+    "attrs": {}
+   },
+   {
+    "name": "/model.13/m.0/m/m.1/Add",
+    "attrs": {}
+   },
+   "... 8 more"
+  ],
+  "Sigmoid": [
+   {
+    "name": "/model.0/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.1/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/cv1/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/m.0/cv1/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/m.0/cv2/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.2/cv2/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.3/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/cv1/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/m.0/cv1/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/m.0/cv2/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.4/cv2/act/Sigmoid",
+    "attrs": {}
+   },
+   {
+    "name": "/model.5/act/Sigmoid",
+    "attrs": {}
+   },
+   "... 78 more"
+  ]
+ },
+ "tail_nodes": [
+  {
+   "op": "Concat",
+   "name": "/model.22/Concat",
+   "in": [
+    "/model.22/Split_output_0",
+    "/model.22/Split_output_1",
+    "/model.22/m.0/m.0.1/Add_1_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.22/Concat_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      384,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.22/cv2/conv/Conv",
+   "in": [
+    "/model.22/Concat_output_0",
+    "model.22.cv2.conv.weight",
+    "model.22.cv2.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.22/cv2/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.22/cv2/act/Sigmoid",
+   "in": [
+    "/model.22/cv2/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.22/cv2/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.22/cv2/act/Mul",
+   "in": [
+    "/model.22/cv2/conv/Conv_output_0",
+    "/model.22/cv2/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.22/cv2/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv2.2/cv2.2.0/conv/Conv",
+   "in": [
+    "/model.22/cv2/act/Mul_output_0",
+    "model.23.cv2.2.0.conv.weight",
+    "model.23.cv2.2.0.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.0/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv",
+   "in": [
+    "/model.22/cv2/act/Mul_output_0",
+    "model.23.cv3.2.0.0.conv.weight",
+    "model.23.cv3.2.0.0.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv2.2/cv2.2.0/act/Sigmoid",
+   "in": [
+    "/model.23/cv2.2/cv2.2.0/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.0/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Sigmoid",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv2.2/cv2.2.0/act/Mul",
+   "in": [
+    "/model.23/cv2.2/cv2.2.0/conv/Conv_output_0",
+    "/model.23/cv2.2/cv2.2.0/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.0/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Mul",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv_output_0",
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      256,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv2.2/cv2.2.1/conv/Conv",
+   "in": [
+    "/model.23/cv2.2/cv2.2.0/act/Mul_output_0",
+    "model.23.cv2.2.1.conv.weight",
+    "model.23.cv2.2.1.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.1/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Mul_output_0",
+    "model.23.cv3.2.0.1.conv.weight",
+    "model.23.cv3.2.0.1.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv2.2/cv2.2.1/act/Sigmoid",
+   "in": [
+    "/model.23/cv2.2/cv2.2.1/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.1/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Sigmoid",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv2.2/cv2.2.1/act/Mul",
+   "in": [
+    "/model.23/cv2.2/cv2.2.1/conv/Conv_output_0",
+    "/model.23/cv2.2/cv2.2.1/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv2.2/cv2.2.1/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      16,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Mul",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv_output_0",
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv2.2/cv2.2.2/Conv",
+   "in": [
+    "/model.23/cv2.2/cv2.2.1/act/Mul_output_0",
+    "model.23.cv2.2.2.weight",
+    "model.23.cv2.2.2.bias"
+   ],
+   "out": [
+    {
+     "name": "box_s32",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      4,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv",
+   "in": [
+    "/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Mul_output_0",
+    "model.23.cv3.2.1.0.conv.weight",
+    "model.23.cv3.2.1.0.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Sigmoid",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Mul",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv_output_0",
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Mul_output_0",
+    "model.23.cv3.2.1.1.conv.weight",
+    "model.23.cv3.2.1.1.conv.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Sigmoid",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Sigmoid_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Mul",
+   "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Mul",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv_output_0",
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Sigmoid_output_0"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Mul_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Conv",
+   "name": "/model.23/cv3.2/cv3.2.2/Conv",
+   "in": [
+    "/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Mul_output_0",
+    "model.23.cv3.2.2.weight",
+    "model.23.cv3.2.2.bias"
+   ],
+   "out": [
+    {
+     "name": "/model.23/cv3.2/cv3.2.2/Conv_output_0",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  },
+  {
+   "op": "Sigmoid",
+   "name": "/model.23/Sigmoid_2",
+   "in": [
+    "/model.23/cv3.2/cv3.2.2/Conv_output_0"
+   ],
+   "out": [
+    {
+     "name": "cls_s32",
+     "dtype": "FLOAT",
+     "shape": [
+      1,
+      80,
+      20,
+      20
+     ]
+    }
+   ]
+  }
+ ],
+ "checker": "ok"
+}

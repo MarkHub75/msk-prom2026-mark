@@ -1,0 +1,19 @@
+[
+  [
+    "TLM_IS.json",
+    "https://pypi.org/pypi/tpu-tlm-is/json",
+    "<HTTPError 404: 'Not Found'>"
+  ],
+  [
+    "MLPERF_UTIL.h",
+    "https://raw.githubusercontent.com/mlcommons/inference_results_v0.7/89260c7a0bb2bb86f4adaf1d88e0307162eb602b/closed/IVATech/code/resnet/v1/util.h",
+    200,
+    462
+  ],
+  [
+    "MLPERF_README.md",
+    "https://raw.githubusercontent.com/mlcommons/inference_results_v0.7/89260c7a0bb2bb86f4adaf1d88e0307162eb602b/closed/IVATech/code/resnet/v1/README.md",
+    200,
+    3568
+  ]
+]

@@ -1,0 +1,8 @@
+2026-10-23T05:24:05.875876Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\operator_product\_WORK\W1_HUMAN\U16.md:
+W1-U16-F04 [наш вывод из F01–F03, W1-U05-F01]: отделить приоритет риска, состояние обработки и оценку ИИ; каждый кодировать текстом/иконкой плюс согласованный цвет.
+2026-10-23T05:24:51.109946Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in D:\msk-prom2026-mark\operator_product\_WORK\W1_HUMAN\U10.md:
+Сохранять исходный эпизод, решение, автора/время, версию модели/правила; спорные/неполные примеры поступают на проверку, затем в data curation.
+2026-10-23T05:58:17.609110Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+2026-10-23T06:11:54.286052Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+2026-10-23T06:27:12.779975Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: Имя файла или его расширение имеет слишком большую длину. (os error 206)\")" }
+2026-10-23T06:30:02.556805Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out

@@ -1,0 +1,13 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"query\": \"\\\"LinQ\\\" \\\"MLPerf\\\" latency HPQ\",\n  \"results\": [\n    {\n      \"date\": \"Aug 6, 2012\",\n      \"position\": 1,\n      \"site_name\": \"www.hpcwire.com\",\n      \"snippet\": \"... (LINQ) mechanism. This query specification selects the data to be ... MLPerf Inference v6.1 Debut · NCSA Offers Hands-On AI Training at ...\",\n      \"title\": \"Using an In-Memory Data Grid for Near Real-Time ...\",\n      \"url\": \"https://www.hpcwire.com/2012/08/06/using_an_in-memory_data_grid_for_near_real-time_data_analysis/\"\n    },\n    {\n      \"position\": 2,\n      \"site_name\": \"www.techpowerup.com\",\n      \"snippet\": \"... MLPerf Training v4.0 benchmarks. NVIDIA more than tripled the performance on ... The NEXLINQ and components will feature support for the whole new LINQ ...\",\n      \"title\": \"News Archive\",\n      \"url\": \"https://www.techpowerup.com/news-archive?month=0624\"\n    }\n  ],\n  \"total_results\": 2,\n  \"page\": 0\n}"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

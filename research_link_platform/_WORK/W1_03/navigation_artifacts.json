@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-10-23T04:19:19+03:00",
+  "method": "TinyFish fetch_content links; no authentication",
+  "links": [
+    "https://files.lin-q.ru/tpu/datasheet/linq_hp_datasheet.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPact_manual_LINQ_HP1M_01.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPact_manual_LINQ_HP1M_02.pdf",
+    "https://files.lin-q.ru/tpu/me2025/ds_LinqHPD_pass.pdf",
+    "https://files.lin-q.ru/tpu/me2025/ds_LinqHPD_act.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPDpass_manual_LINQ_HPD1M_01.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPDact_manual_LINQ_HPD1M_00.pdf",
+    "https://files.lin-q.ru/tpu/me2025/ds_LinqHPQ_pass.pdf",
+    "https://files.lin-q.ru/tpu/me2025/ds_LinqHPQ_act.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPQpass_manual_LINQ_HPD1M_10.pdf",
+    "https://files.lin-q.ru/tpu/docs/_HPQact_manual_LINQ_HPD1M_11.pdf",
+    "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+    "https://files.lin-q.ru/tpu/polit/polit.pdf",
+    "https://files.lin-q.ru/tpu/docs/2025_HiTech_site_LinQ_A.pdf",
+    "https://files.lin-q.ru/tpu/polit/sogl.pdf"
+  ],
+  "guide": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+  "presentation": "https://files.lin-q.ru/tpu/pr/2026_linq_presentation.pdf"
+}

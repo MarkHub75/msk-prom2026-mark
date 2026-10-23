@@ -1,0 +1,76 @@
+{
+  "shel5k": {
+    "image_files": 5000,
+    "xml_files": 5000,
+    "image_bytes_sum_metadata": 1310436038,
+    "xml_bytes_sum_metadata": 19154616,
+    "stem_mismatch": []
+  },
+  "retrieved_hashes": [
+    {
+      "path": "_WORK/MATERIALS/W1-03/chv-paper.pdf",
+      "bytes": 37104806,
+      "sha256": "dfb27cd9fc7c29de0c72f55c499ada117ad0ed78f28070606a3a8025d12dddf2"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-03/shel5k-paper.pdf",
+      "bytes": 13963071,
+      "sha256": "e8758eee52bb293aae13eae773180ebcaeec18a6d286589d6569bb512393e042"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-03/SFCHD-SCALE/sfchd-scale-suppl.pdf",
+      "bytes": 5174075,
+      "sha256": "02c10c49e4af2e028c605c2a1ea17612467c23107cec6b9f0676f995bd8be3a4"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-03/SFCHD-SCALE/sfchd-scale.pdf",
+      "bytes": 4628797,
+      "sha256": "eca240501cfd11d5da06a6efdb82e76efb8e2e6b3c6b839632343c76fe8c7bca"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-03/SFCHD-SCALE/dataset_SFCHD/labels.zip",
+      "bytes": 3569708,
+      "sha256": "1a291a7307d80f6357c751a1f8719b859cf1be734de405d1121ed9070f835bbe"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-06/Smoker Detection.rar",
+      "bytes": 65575997,
+      "sha256": "2b0ef67ec714a507cff7248ef7f3d7bbdb4c4e00adc8e309cfac02cd2b6e5d18"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-06/smoker-paper.pdf",
+      "bytes": 8120001,
+      "sha256": "f0e988bdfc2108b581974f8c975f9cf935ebbd6e93423bde8b07f5f52417ac02"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers0.png",
+      "bytes": 215330,
+      "sha256": "3e5c3ab8bf49635f2db296e415834ff74eb13a0ffd94f43d983d2b7eb6ca5b6d"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers0.xml",
+      "bytes": 10700,
+      "sha256": "eac6d7c22ad15b6dfc30d5fba7a3495cbe8d457ecd0fd4892fe66282a2c26597"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers1000.png",
+      "bytes": 257579,
+      "sha256": "3675beef87bb2873d0fef5d84c98f7c0c961fa4d61457f9556e23e4abbbe6206"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers1000.xml",
+      "bytes": 1718,
+      "sha256": "b48a3b965487db8ad1c77a66b3aa7add99c58096172b6e70bd9219acb138d1f7"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers1001.png",
+      "bytes": 291181,
+      "sha256": "7cc740a0ad7637fee1c53795cc4a446a136277fb0d49758cf9387e75983d194e"
+    },
+    {
+      "path": "_WORK/MATERIALS/W1-12/hard_hat_workers1001.xml",
+      "bytes": 2431,
+      "sha256": "d0bf46aceb3862ddae35b6892156c822708b0332a670b3b0f3e2671102852421"
+    }
+  ]
+}

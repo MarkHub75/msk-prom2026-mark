@@ -1,0 +1,50 @@
+[
+  {
+    "file": "410_PP_2024_BASE.pdf",
+    "url": "https://www.mos.ru/upload/documents/files/9314/PostanovleniePravitelstvaMoskviot22032022410-PP.pdf",
+    "sha256": "d0b1919a1f012c0ed4183cd02fb889f56331ffcf2aef0b719447ee24c3eb8444",
+    "bytes": 233690,
+    "access_utc": "2026-10-23T06:23:42.923109+00:00",
+    "transport": "Public Google Docs Viewer; binary original hash at origin not independently compared"
+  },
+  {
+    "file": "631_PP_2025_BASE.pdf",
+    "url": "https://www.mos.ru/upload/content/files/2b552d79304ffcce8e7c77de6d655d8f/0Post.pdf",
+    "sha256": "1b50338f7d36d8b176b54e5f47ce0cf8a5a44ebb0ba42f5fc99519bd1769e263",
+    "bytes": 193198,
+    "access_utc": "2026-10-23T06:23:46.049524+00:00",
+    "transport": "Public Google Docs Viewer; binary original hash at origin not independently compared"
+  },
+  {
+    "file": "GISP_GRANT_12449149.pdf",
+    "url": "https://portfolio.gisp.gov.ru/nmp/measure/12449149/pdf",
+    "sha256": "72d652a3ef151feca0ada40c4780d11420ed85ab3debad9412f59d506fb891ef",
+    "bytes": 47903,
+    "access_utc": "2026-10-23T06:23:48.645673+00:00",
+    "transport": "Public Google Docs Viewer; binary original hash at origin not independently compared"
+  },
+  {
+    "file": "537_PP_2025.pdf",
+    "url": "https://www.mos.ru/upload/documents/files/8910/537-PP.pdf?1",
+    "sha256": "e2a3cccbc1592750ea3fa0e27aff1c7a1ad62b7ea100d040cacd293dd7e1511f",
+    "bytes": 160122,
+    "access_utc": "2026-10-23T06:24:31.318603+00:00",
+    "transport": "Public Google Docs Viewer"
+  },
+  {
+    "file": "ORDER_2026_SELECTION.pdf",
+    "url": "https://gisp.gov.ru/nmp/upload/docs/7dd7592238429eb2c5dc9618f8f45540c2fc6aa88544674ad53f27ab0aaa7d9b.pdf",
+    "sha256": "4d75de2c203fadace06d5915ac1b02d3cfb5a4bb96ee757f6f8edec66e46f3af",
+    "bytes": 7229865,
+    "access_utc": "2026-10-23T06:25:37.222260+00:00",
+    "transport": "Public Google Docs Viewer, origin hash not compared"
+  },
+  {
+    "file": "ORDER_2026_RISK.pdf",
+    "url": "https://gisp.gov.ru/nmp/upload/docs/5d78d92ca2c61258b40b399cd551f6351a98f6b911a95fc41c79d7bf63d672b4.pdf",
+    "sha256": "36d053351c9ea36c546ee7150ee1a86143fd2ab64bf2268ce5396b852e3ee36f",
+    "bytes": 4691797,
+    "access_utc": "2026-10-23T06:25:40.449431+00:00",
+    "transport": "Public Google Docs Viewer, origin hash not compared"
+  }
+]

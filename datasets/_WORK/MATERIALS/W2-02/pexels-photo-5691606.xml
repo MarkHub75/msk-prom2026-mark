@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>pexels-photo-5691606.jpeg</filename>
+	<path>D:\Annotation\PPE Detection\20-12-2023\images\pexels-photo-5691606.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2537</width>
+		<height>3800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>glasses-vision-on</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>389</xmin>
+			<ymin>1244</ymin>
+			<xmax>1239</xmax>
+			<ymax>2606</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>tools-on</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>853</xmin>
+			<ymin>771</ymin>
+			<xmax>1481</xmax>
+			<ymax>2515</ymax>
+		</bndbox>
+	</object>
+</annotation>

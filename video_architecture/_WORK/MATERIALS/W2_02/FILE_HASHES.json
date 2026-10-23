@@ -1,0 +1,22 @@
+﻿[
+    {
+        "Path":  "D:\\msk-prom2026-mark\\video_architecture\\_WORK\\MATERIALS\\W2_02\\FETCH_LOG.txt",
+        "Hash":  "D7058D700E2689474BEF576F4A0EDB3ED7CEB38B08B5EF0B01F616DCBDAD4BBC"
+    },
+    {
+        "Path":  "D:\\msk-prom2026-mark\\video_architecture\\_WORK\\MATERIALS\\W2_02\\pyav-frame.py",
+        "Hash":  "69D717C97CA13734B3BFF0284741714E9B0838D09C36E8C82DCC4E8A240E54AD"
+    },
+    {
+        "Path":  "D:\\msk-prom2026-mark\\video_architecture\\_WORK\\MATERIALS\\W2_02\\pyav-output.py",
+        "Hash":  "671B13F6E859DF9E078228C147B8DD6AC9D88FF1558F7772FCF20754D3941B26"
+    },
+    {
+        "Path":  "D:\\msk-prom2026-mark\\video_architecture\\_WORK\\MATERIALS\\W2_02\\pyav-packet.py",
+        "Hash":  "265E41AFF03991EE15FBD457F189922DF517E650F3B00104628B787BDB581E10"
+    },
+    {
+        "Path":  "D:\\msk-prom2026-mark\\video_architecture\\_WORK\\MATERIALS\\W2_02\\pyav-remuxing.py",
+        "Hash":  "6CF8A9A647626665A82A9AB83EE8BB29BCEEC4A94B89D4FD5B4D25972FB01261"
+    }
+]

@@ -1,0 +1,1082 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ensemble Models &#8212; NVIDIA Triton Inference Server</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://js.hcaptcha.com/1/api.js"></script>
+    <script src="//assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/ensemble_models';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.73.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+
+    <link rel="canonical" href="https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/ensemble_models.html" />
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Business Logic Scripting" href="bls.html" />
+    <link rel="prev" title="Model Pipelines" href="../server_guide/model_pipelines.html" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+
+
+
+
+  </head>
+
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Triton Inference Server - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Triton Inference Server - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Triton Inference Server</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/triton-inference-server/server" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Triton Inference Server - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Triton Inference Server - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Triton Inference Server</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/triton-inference-server/server" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/release_notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/compatibility.html">Compatibility matrix</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting_started/quick_deployment.html">Quick Deployment Guide by backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/llm.html">TRT-LLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Popular_Models_Guide/Llama2/vllm_guide.html">vLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Quick_Deploy/HuggingFaceTransformers/README.html">Python with HuggingFace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Quick_Deploy/PyTorch/README.html">PyTorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Quick_Deploy/ONNX/README.html">ONNX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Quick_Deploy/OpenVINO/README.html">Openvino</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/trtllm_user_guide.html">LLM With TensorRT-LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Popular_Models_Guide/Llava1.5/llava_trtllm_guide.html">Multimodal model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Popular_Models_Guide/StableDiffusion/README.html">Stable diffusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Popular_Models_Guide/HSTU/README.html">HSTU (Generative Recommenders)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scaling guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Deployment/Kubernetes/EKS_Multinode_Triton_TRTLLM/README.html">Multi-Node (AWS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Deployment/Kubernetes/TensorRT-LLM_Autoscaling_and_Load_Balancing/README.html">Multi-Instance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LLM Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Feature_Guide/Constrained_Decoding/README.html">Constrained Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Feature_Guide/Function_Calling/README.html">Function Calling</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../llm_features/speculative_decoding.html">Speculative Decoding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Feature_Guide/Speculative_Decoding/README.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Feature_Guide/Speculative_Decoding/TRT-LLM/README.html">TRT-LLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/Feature_Guide/Speculative_Decoding/vLLM/README.html">vLLM</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Client</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../client_guide/api_reference.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../client_guide/openai_readme.html">OpenAI API</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../client_guide/kserve.html">KServe API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../customization_guide/inference_protocols.html">HTTP/REST and GRPC Protocol</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../client_guide/kserve_extension.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_binary_data.html">Binary tensor data extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_classification.html">Classification extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_schedule_policy.html">Schedule policy extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_sequence.html">Sequence extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_shared_memory.html">Shared-memory extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_model_configuration.html">Model configuration extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_model_repository.html">Model repository extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_statistics.html">Statistics extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_trace.html">Trace extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_logging.html">Logging extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../protocol/extension_parameters.html">Parameters extension</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../client_guide/in_process.html">In-Process Triton Server API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../customization_guide/inprocess_c_api.html">C/C++</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../client_guide/python.html">Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Triton_Inference_Server_Python_API/README.html">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Triton_Inference_Server_Python_API/examples/kafka-io/README.html">Kafka I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Triton_Inference_Server_Python_API/examples/rayserve/README.html">Rayserve</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../customization_guide/inprocess_java_api.html">Java</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../client/README.html">Client Libraries</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_reference/tritonclient_api.html">Python tritonclient Package API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../_reference/tritonclient/tritonclient.html">tritonclient</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_reference/tritonclient/tritonclient.grpc.html">tritonclient.grpc</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.grpc.aio.html">tritonclient.grpc.aio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.grpc.auth.html">tritonclient.grpc.auth</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_reference/tritonclient/tritonclient.http.html">tritonclient.http</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.http.aio.html">tritonclient.http.aio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.http.auth.html">tritonclient.http.auth</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_reference/tritonclient/tritonclient.utils.html">tritonclient.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.utils.cuda_shared_memory.html">tritonclient.utils.cuda_shared_memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_reference/tritonclient/tritonclient.utils.shared_memory.html">tritonclient.utils.shared_memory</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model_execution.html">Concurrent Model Execution</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="scheduler.html">Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batcher.html">Batcher</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../server_guide/model_pipelines.html">Model Pipelines</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bls.html">Business Logic Scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../server_guide/state_management.html">State Management</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="implicit_state_management.html">Implicit State Management</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="request_cancellation.html">Request Cancellation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate_limiter.html">Rate Limiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="response_cache.html">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trace.html">Tracing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model Management</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model_repository.html">Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_management.html">Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decoupled_models.html">Decoupled models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_operations.html">Custom operators</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Backends</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tensorrtllm_backend/README.html">TensorRT-LLM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../backend_guide/vllm.html">vLLM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../vllm_backend/README.html">vLLM Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vllm_backend/docs/llama_multi_lora_tutorial.html">Multi-LoRA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_backend/README.html">Python Backend</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../pytorch_backend/README.html">PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onnxruntime_backend/README.html">ONNX Runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensorrt_backend/README.html">TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fil_backend/README.html">FIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dali_backend/README.html">DALI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backend/README.html">Custom</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance benchmarking and tuning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../perf_benchmark/genai_perf.html">GenAI Perf Analyzer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/README.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/docs/tutorial.html">Large language models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/docs/multi_modal.html">Visual language models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/docs/embeddings.html">Embedding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/docs/rankings.html">Ranking models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/genai-perf/docs/lora.html">Multiple LoRA adapters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../perf_benchmark/perf_analyzer.html">Performance Analyzer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/README.html">Triton Performance Analyzer</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/README.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/quick_start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/install.html">Recommended Installation Method</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/cli.html">CLI Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/inference_load_modes.html">Inference Load Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/input_data.html">Input Data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/measurements_metrics.html">Measurement Modes</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../perf_analyzer/docs/benchmarking.html">Benchmarking Triton via HTTP or gRPC endpoint</a></li>
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../perf_benchmark/model_analyzer.html">Model Analyzer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/README.html">Triton Model Analyzer</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/README.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/quick_start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/install.html">Recommended Installation Method</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/cli.html">CLI Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/launch_modes.html">Launch Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/config.html">Table of Contents</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/config_search.html">Table of Contents</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/metrics.html">Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/checkpoints.html">Checkpointing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/report.html">Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/kubernetes_deploy.html">Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/model_types.html">Model Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/ensemble_quick_start.html">Ensemble Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/bls_quick_start.html">BLS Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_analyzer/docs/mm_quick_start.html">Multi-Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_navigator/README.html">Model Navigator</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Debugging</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="debugging_guide.html">Guide</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../contents.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../server_guide/model_pipelines.html" class="nav-link">Model Pipelines</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Ensemble Models</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+<!--
+# Copyright 2018-2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#  * Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  * Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#  * Neither the name of NVIDIA CORPORATION nor the names of its
+#    contributors may be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
+# EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+# OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<section class="tex2jax_ignore mathjax_ignore" id="ensemble-models">
+<h1>Ensemble Models<a class="headerlink" href="#ensemble-models" title="Link to this heading">#</a></h1>
+<p>An ensemble model represents a <em>pipeline</em> of one or more models and
+the connection of input and output tensors between those
+models. Ensemble models are intended to be used to encapsulate a
+procedure that involves multiple models, such as “data preprocessing
+-&gt; inference -&gt; data postprocessing”.  Using ensemble models for this
+purpose can avoid the overhead of transferring intermediate tensors
+and minimize the number of requests that must be sent to Triton.</p>
+<p>The ensemble scheduler must be used for ensemble models, regardless of
+the scheduler used by the models within the ensemble. With respect to
+the ensemble scheduler, an <em>ensemble</em> model is not an actual
+model. Instead, it specifies the dataflow between models within the
+ensemble as <em>ModelEnsembling::Step</em> entries in the model
+configuration. The scheduler collects the output tensors in each step,
+provides them as input tensors for other steps according to the
+specification. In spite of that, the ensemble model is still viewed as
+a single model from an external view.</p>
+<p>Note that the ensemble models will inherit the characteristics of the
+models involved, so the meta-data in the request header must comply
+with the models within the ensemble. For instance, if one of the
+models is stateful model, then the inference request for the ensemble
+model should contain the information mentioned in <a class="reference internal" href="architecture.html#stateful-models"><span class="std std-ref">Stateful
+Models</span></a>, which will be provided to the stateful
+model by the scheduler.</p>
+<p>As an example consider an ensemble model for image classification and
+segmentation that has the following model configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="s2">"ensemble_model"</span>
+<span class="n">platform</span><span class="p">:</span> <span class="s2">"ensemble"</span>
+<span class="n">max_batch_size</span><span class="p">:</span> <span class="mi">1</span>
+<span class="nb">input</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+    <span class="n">data_type</span><span class="p">:</span> <span class="n">TYPE_STRING</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span> <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">output</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">"CLASSIFICATION"</span>
+    <span class="n">data_type</span><span class="p">:</span> <span class="n">TYPE_FP32</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1000</span> <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">"SEGMENTATION"</span>
+    <span class="n">data_type</span><span class="p">:</span> <span class="n">TYPE_FP32</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="p">[</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span> <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">ensemble_scheduling</span> <span class="p">{</span>
+  <span class="n">step</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="n">model_name</span><span class="p">:</span> <span class="s2">"image_preprocess_model"</span>
+      <span class="n">model_version</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">input_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"RAW_IMAGE"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+      <span class="p">}</span>
+      <span class="n">output_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"PREPROCESSED_OUTPUT"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"preprocessed_image"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">model_name</span><span class="p">:</span> <span class="s2">"classification_model"</span>
+      <span class="n">model_version</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">input_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"FORMATTED_IMAGE"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"preprocessed_image"</span>
+      <span class="p">}</span>
+      <span class="n">output_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"CLASSIFICATION_OUTPUT"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"CLASSIFICATION"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">model_name</span><span class="p">:</span> <span class="s2">"segmentation_model"</span>
+      <span class="n">model_version</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">input_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"FORMATTED_IMAGE"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"preprocessed_image"</span>
+      <span class="p">}</span>
+      <span class="n">output_map</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="s2">"SEGMENTATION_OUTPUT"</span>
+        <span class="n">value</span><span class="p">:</span> <span class="s2">"SEGMENTATION"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The ensemble_scheduling section indicates that the ensemble scheduler will be
+used and that the ensemble model consists of three different models. Each
+element in step section specifies the model to be used and how the inputs and
+outputs of the model are mapped to tensor names recognized by the scheduler. For
+example, the first element in step specifies that the latest version of
+image_preprocess_model should be used, the content of its input “RAW_IMAGE”
+is provided by “IMAGE” tensor, and the content of its output
+“PREPROCESSED_OUTPUT” will be mapped to “preprocessed_image” tensor for later
+use. The tensor names recognized by the scheduler are the ensemble inputs, the
+ensemble outputs and all values in the input_map and the output_map.</p>
+<p>The models composing the ensemble may also have dynamic batching
+enabled.  Since ensemble models are just routing the data between
+composing models, Triton can take requests into an ensemble model
+without modifying the ensemble’s configuration to exploit the dynamic
+batching of the composing models.</p>
+<p>Assuming that only the ensemble model, the preprocess model, the classification
+model and the segmentation model are being served, the client applications will
+see them as four different models which can process requests independently.
+However, the ensemble scheduler will view the ensemble model as the following.</p>
+<p><img alt="Ensemble Example" src="../_images/ensemble_example0.png" /></p>
+<p>When an inference request for the ensemble model is received, the ensemble
+scheduler will:</p>
+<ol class="arabic simple">
+<li><p>Recognize that the “IMAGE” tensor in the request is mapped to input
+“RAW_IMAGE” in the preprocess model.</p></li>
+<li><p>Check models within the ensemble and send an internal request to the
+preprocess model because all the input tensors required are ready.</p></li>
+<li><p>Recognize the completion of the internal request, collect the output
+tensor and map the content to “preprocessed_image” which is an unique name
+known within the ensemble.</p></li>
+<li><p>Map the newly collected tensor to inputs of the models within the ensemble.
+In this case, the inputs of “classification_model” and “segmentation_model”
+will be mapped and marked as ready.</p></li>
+<li><p>Check models that require the newly collected tensor and send internal
+requests to models whose inputs are ready, the classification
+model and the segmentation model in this case. Note that the responses will
+be in arbitrary order depending on the load and computation time of
+individual models.</p></li>
+<li><p>Repeat step 3-5 until no more internal requests should be sent, and then
+response to the inference request with the tensors mapped to the ensemble
+output names.</p></li>
+</ol>
+<p>Unlike other models, ensemble models do not support “instance_group” field in
+the model configuration. The reason is that the ensemble scheduler itself
+is mainly an event-driven scheduler with very minimal overhead so its
+almost never the bottleneck of the pipeline. The composing models
+within the ensemble can be individually scaled up or down with their
+respective <code class="docutils literal notranslate"><span class="pre">instance_group</span></code> settings. To optimize your model pipeline
+performance, you can use
+<a class="reference external" href="https://github.com/triton-inference-server/model_analyzer">Model Analyzer</a>
+to find the optimal model configurations.</p>
+<p>When crafting the ensemble steps, it is useful to note the distinction between
+<em>key</em> and <em>value</em> on the <code class="docutils literal notranslate"><span class="pre">input_map</span></code>/<code class="docutils literal notranslate"><span class="pre">output_map</span></code>:</p>
+<ul class="simple">
+<li><p><em>key</em>: An <code class="docutils literal notranslate"><span class="pre">input</span></code>/<code class="docutils literal notranslate"><span class="pre">output</span></code> tensor name on the composing model.</p></li>
+<li><p><em>value</em>: A tensor name on the ensemble model, which acts as an identifier
+connecting ensemble <code class="docutils literal notranslate"><span class="pre">input</span></code>/<code class="docutils literal notranslate"><span class="pre">output</span></code> to those on the composing model and between
+composing models.</p></li>
+</ul>
+<section id="limit-memory-growth-in-ensemble-models-beta">
+<h2>Limit Memory Growth in Ensemble Models (BETA)<a class="headerlink" href="#limit-memory-growth-in-ensemble-models-beta" title="Link to this heading">#</a></h2>
+<p>An <em>inflight request</em> refers to an intermediate request generated by an upstream model that is queued and held in memory until it is processed by a downstream model within an ensemble pipeline. When upstream models process requests significantly faster than downstream models, these in-flight requests can accumulate and potentially lead to unbounded memory growth. This problem occurs when there is a speed mismatch between different steps in the pipeline and is particularly common in <em>decoupled models</em> that produce multiple responses per request more quickly than downstream models can consume.</p>
+<p>Consider an example ensemble model with two steps where the upstream model is 10× faster:</p>
+<ol class="arabic simple">
+<li><p><strong>Preprocessing model</strong>: Produces 100 preprocessed requests/sec</p></li>
+<li><p><strong>Inference model</strong>: Consumes 10 requests/sec</p></li>
+</ol>
+<p>Without backpressure, requests accumulate in the pipeline faster than they can be processed, which eventually leads to out-of-memory errors.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">max_inflight_requests</span></code> field in the ensemble configuration defines a limit on the number of concurrent in-flight requests allowed at each ensemble step. This limit is shared across all active requests for that ensemble model. When the limit is reached, new request scheduling for that step is paused until downstream models free up capacity. This prevents requests from accumulating indefinitely and keeps memory usage under control.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ensemble_scheduling</span> <span class="p">{</span>
+  <span class="n">max_inflight_requests</span><span class="p">:</span> <span class="mi">16</span>
+
+  <span class="n">step</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="n">model_name</span><span class="p">:</span> <span class="s2">"dali_preprocess"</span>
+      <span class="n">model_version</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">input_map</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span> <span class="s2">"RAW_IMAGE"</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">"IMAGE"</span> <span class="p">}</span>
+      <span class="n">output_map</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span> <span class="s2">"PREPROCESSED_IMAGE"</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">"preprocessed"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">model_name</span><span class="p">:</span> <span class="s2">"onnx_inference"</span>
+      <span class="n">model_version</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">input_map</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span> <span class="s2">"INPUT"</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">"preprocessed"</span> <span class="p">}</span>
+      <span class="n">output_map</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span> <span class="s2">"OUTPUT"</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">"RESULT"</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">max_inflight_requests:</span> <span class="pre">16</span></code></strong>: Limits the number of concurrent in-flight requests at a given ensemble step to 16 (for example, requests from <code class="docutils literal notranslate"><span class="pre">dali_preprocess</span></code> waiting for <code class="docutils literal notranslate"><span class="pre">onnx_inference</span></code> to complete). This limit is shared across all active requests for that ensemble model. Once the limit is reached, scheduling new work for that step is paused until downstream capacity becomes available.</p></li>
+<li><p><strong>Default (<code class="docutils literal notranslate"><span class="pre">0</span></code>)</strong>: No limit — allows an unlimited number of in-flight requests (original behavior).</p></li>
+</ul>
+<section id="when-to-use-this-feature">
+<h3>When to Use This Feature<a class="headerlink" href="#when-to-use-this-feature" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">max_inflight_requests</span></code> when your ensemble pipeline includes:</p>
+<ul class="simple">
+<li><p><strong>Streaming or decoupled models</strong>: When models produce multiple responses per request more quickly than downstream steps can process them.</p></li>
+<li><p><strong>Memory constraints</strong>: Risk of unbounded memory growth from accumulating requests.</p></li>
+</ul>
+</section>
+<section id="choosing-the-right-value">
+<h3>Choosing the Right Value<a class="headerlink" href="#choosing-the-right-value" title="Link to this heading">#</a></h3>
+<p>The optimal value depends on your specific deployment, including batch size, request rate, available memory, and throughput.</p>
+<ul class="simple">
+<li><p><strong>Too low</strong>: The producer step is blocked too often, which underutilizes faster models.</p></li>
+<li><p><strong>Too high</strong>: Memory usage increases, diminishing the effectiveness of backpressure.</p></li>
+<li><p><strong>Recommendation</strong>: Start with a small value and adjust it based on memory usage and throughput monitoring.</p></li>
+</ul>
+</section>
+<section id="performance-considerations">
+<h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Zero overhead when disabled</strong>: If <code class="docutils literal notranslate"><span class="pre">max_inflight_requests:</span> <span class="pre">0</span></code> (default),
+no synchronization overhead is incurred.</p></li>
+<li><p><strong>Minimal overhead when enabled</strong>: Uses a blocking/wakeup mechanism per ensemble step, where upstream models are paused (“blocked”) when the inflight requests limit is reached and resumed (“woken up”) as downstream models complete processing them. This synchronization ensures memory usage stays within bounds, though it may increase latency.</p>
+<p><strong>Note</strong>: This blocking does not cancel or internally time out intermediate requests, but clients may experience increased end-to-end latency.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<p>You can find additional end-to-end ensemble examples in the links below:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/triton-inference-server/tutorials/tree/main/Conceptual_Guide/Part_5-Model_Ensembles">This guide</a>
+explores the concept of ensembles with a running example.</p></li>
+<li><p><a class="reference internal" href="../python_backend/README.html#preprocessing"><span class="std std-ref">Preprocessing in Python Backend Using
+Ensemble</span></a></p></li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/blog/accelerating-inference-with-triton-inference-server-and-dali/">Accelerating Inference with NVIDIA Triton Inference Server and NVIDIA
+DALI</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rapidsai/rapids-examples/tree/main/rapids_triton_example">Using RAPIDS AI with NVIDIA Triton Inference
+Server</a></p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+  
+  
+</div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../server_guide/model_pipelines.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Model Pipelines</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bls.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Business Logic Scripting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limit-memory-growth-in-ensemble-models-beta">Limit Memory Growth in Ensemble Models (BETA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-this-feature">When to Use This Feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-value">Choosing the Right Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-considerations">Performance Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2018-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "label": "mathematical illustrations, not model tests",
+  "unweighted_sample_fraction": 0.45,
+  "weighted_population_fraction_estimate": 0.17,
+  "paired": {
+    "both_success": 16,
+    "A_only": 2,
+    "B_only": 7,
+    "both_fail": 5
+  },
+  "n": 30,
+  "A_success": 0.6,
+  "B_success": 0.7666666666666667,
+  "paired_difference": 0.16666666666666674,
+  "interaction": 0.15000000000000002
+}
