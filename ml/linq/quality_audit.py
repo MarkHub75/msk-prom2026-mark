@@ -51,6 +51,31 @@ def pose_scores(arrays):
             'global_keypoint_max': float(kpt.max()), 'global_keypoint_min': float(kpt.min())}
 
 
+def helmet_scores(arrays):
+    tensor = arrays['output0']
+    if tensor.ndim != 3 or tensor.shape[0] != 1 or tensor.shape[1] != 6:
+        raise ValueError('expected reviewed Helmet [1,6,N] output')
+    return {name: {'max': float(tensor[0, channel].max()),
+                   'anchors_ge_025': int((tensor[0, channel] >= .25).sum()),
+                   'anchors_ge_05': int((tensor[0, channel] >= .5).sum())}
+            for name, channel in [('helmet', 4), ('bare_head', 5)]}
+
+
+def helmet_comparison(reference, actual):
+    compare_arrays(reference, actual)  # validate exact names/dtype/shape
+    ref, value = reference['output0'], actual['output0']
+    selected = (ref[0, 4:].max(axis=0) >= .25) | (value[0, 4:].max(axis=0) >= .25)
+    boxes = np.abs(ref[:, :4].astype(np.float64) - value[:, :4].astype(np.float64))
+    scores = np.abs(ref[:, 4:].astype(np.float64) - value[:, 4:].astype(np.float64))
+    return {'box_xywh_mean_abs_input_pixels': float(boxes.mean()),
+            'box_xywh_max_abs_input_pixels': float(boxes.max()),
+            'class_score_mean_abs': float(scores.mean()), 'class_score_max_abs': float(scores.max()),
+            'class_scores_exact_equal': bool(np.array_equal(ref[:, 4:], value[:, 4:])),
+            'selected_anchor_definition': 'union of either model class score >=0.25; pre-NMS, not matched detections/GT',
+            'selected_anchor_count': int(selected.sum()),
+            'selected_box_xywh_max_abs_input_pixels': float(boxes[:, :, selected].max()) if selected.any() else None}
+
+
 def audit(artifacts):
     root = Path(artifacts)
     result = {'scope': 'saved numeric evidence only; no labelled task-quality claim',
@@ -120,6 +145,17 @@ def audit(artifacts):
                         'selected_anchor_count': int(selected.sum()),
                         'selected_anchor_max_abs_diff': float(delta[:, :, selected].max()) if selected.any() else None,
                     }
+            elif set(outputs) == {'output0'}:
+                entry['helmet_scores'] = helmet_scores(outputs)
+                sim = root / 'quality' / 'linq' / 'numerical-audit' / path.parent.name
+                if (sim / 'simulation-reference.npz').exists():
+                    reference = load_arrays(sim / 'simulation-reference.npz')
+                    quantized = load_arrays(sim / 'simulation-output.npz')
+                    entry['native_helmet_scores'] = helmet_scores(reference)
+                    entry['simulation_helmet_scores'] = helmet_scores(quantized)
+                    entry['native_vs_hardware'] = helmet_comparison(reference, outputs)
+                    entry['native_vs_simulation'] = helmet_comparison(reference, quantized)
+                    entry['simulation_vs_hardware'] = helmet_comparison(quantized, outputs)
             result['industrial'].append(entry)
     return result
 

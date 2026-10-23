@@ -6,7 +6,7 @@ import numpy as np
 
 from ml.linq.candidate import prepare_candidate
 from ml.linq.compile import sha256
-from ml.linq.quality_audit import compare_arrays, load_arrays, pose_scores
+from ml.linq.quality_audit import compare_arrays, load_arrays, pose_scores, helmet_comparison
 from ml.linq.simulate import simulate
 
 
@@ -38,6 +38,8 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(result['linq_status'], 'NOT_RUN')
         self.assertEqual(result['status'], 'PREPARED_NOT_COMPILED')
         self.assertEqual(result['tensor_bytes'], 48)
+        self.assertEqual(result['calibration_statistics']['channel_mean'], [1, 1, 1])
+        self.assertEqual(result['calibration_statistics']['channel_std'], [0, 0, 0])
         self.assertFalse((self.root / 'candidate' / 'model.tpu').exists())
 
     def test_reserved_group_and_source_are_rejected_before_writes(self):
@@ -71,6 +73,17 @@ class CandidateTests(unittest.TestCase):
 
 
 class NumericAuditTests(unittest.TestCase):
+    def test_helmet_box_gate_excludes_unselected_background(self):
+        reference = np.zeros((1, 6, 2), np.float32)
+        actual = reference.copy()
+        reference[0, 5, 0] = actual[0, 5, 0] = .6
+        actual[0, 0, 1] = 20
+        result = helmet_comparison({'output0': reference}, {'output0': actual})
+        self.assertTrue(result['class_scores_exact_equal'])
+        self.assertEqual(result['box_xywh_max_abs_input_pixels'], 20)
+        self.assertEqual(result['selected_anchor_count'], 1)
+        self.assertEqual(result['selected_box_xywh_max_abs_input_pixels'], 0)
+
     def test_simulation_rejects_unbounded_threads_before_sdk_import(self):
         for threads in (0, 5, True, 1.5):
             with self.assertRaises(ValueError):
