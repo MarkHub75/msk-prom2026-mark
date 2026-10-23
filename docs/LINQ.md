@@ -2,7 +2,9 @@
 
 ## Measured state on this Vast instance
 
-Historical preflight on the Vast main environment (2026-10-23 UTC): `/dev/net/tun`, `openvpn`, `tpu_framework` and `pytpu` were unavailable; `hackathon.lin-q.ru` failed DNS resolution (`gaierror`). This describes this container only. **The user subsequently confirmed authenticated LinQ Jupyter access and the actual supplied `example.ipynb` using a stock ResNet50 TPU program.** No authenticated browser/kernel session is available to the agent. A captured completed call and results remain pending; the earlier Vast result does not negate the user’s access. Do not report RTX/ONNX or mocked calls as LinQ execution.
+Current evidence supersedes the early preflight: stock ResNet50, Helmet and Split-Pose have completed real correlated service calls, including industrial frames. Numeric inputs/outputs and durable journals are outside Git. This proves the reviewed service path executes; it does not establish independent industrial accuracy. The quality audit below distinguishes current Split-Pose from the rejected mixed-output Pose.
+
+Historical preflight on the Vast main environment (2026-10-23 UTC): `/dev/net/tun`, `openvpn`, `tpu_framework` and `pytpu` were unavailable; `hackathon.lin-q.ru` failed DNS resolution (`gaierror`). This describes that container/environment at that time. The user subsequently confirmed authenticated LinQ Jupyter access and the supplied `example.ipynb`. The earlier Vast result does not negate that access. Do not report RTX/ONNX or mocked calls as LinQ execution.
 
 Use [JUPYTER_RUNBOOK.md](JUPYTER_RUNBOOK.md) and `ml.linq.notebook.capture_call` inside the existing authenticated session to capture exactly one inspected supplied call without exporting notebook/session secrets. The helper exports explicit numeric input/output NPZ and allowlisted metadata only. Hardware placement is labeled user/supplied-runtime attestation, never independent proof. No notebook is executed wholesale and no remote endpoint is invented.
 
@@ -133,3 +135,52 @@ Cached results report `latency_kind=cached_response` with zero network phases an
 A controlled experiment belongs in a temporary root-owned harness, never a production retry flag: choose one NEW unprocessed frame, temporarily wrap the existing `pika.BlockingConnection` factory, and replace that connection's `channel.basic_publish` only. Invoke the ORIGINAL confirmed publish once, set a one-shot guard, close the client connection, then return its original result (None may mean successful publisher confirmation). Preserve only close exception type if closing raises. Restore the original factory in `finally`.
 
 Expected result: request becomes ACCEPTED then UNKNOWN when the closed channel cannot receive; reply queue and UUID persist, and the file cursor does not advance. Rerunning the SAME frame/epoch uses receive-only reconciliation of that exact UUID; no task is serialized or published again. A late correlated reply is committed before ACK. A foreign reply remains unacked with UNKNOWN/retained queue, rather than being discarded or treated as success. This simulates a CLIENT disconnect after broker confirmation, not an actual VPN outage. No SSH/VPN/tunnel configuration changes or duplicate TPU probes are part of the experiment. The injected publish phase includes deliberate close-handshake overhead and must be labeled as an experiment, not normal performance.
+
+## Quality sprint: baseline audit and candidate gate
+
+Read-only `python -m ml.linq.quality_audit --artifacts /workspace/artifacts --output <fresh-file.json>` validates baseline weights/ONNX/program/calibration hashes, inventories compiler evidence and reads selected numeric outputs. It does not inspect connection configuration or execute a model. Evidence: `/workspace/artifacts/quality/linq/baseline-audit-final.json`; CPU experiment details and SDK signatures are in `numerical-audit/`. The original model manifests/compile reports retain historical NOT_RUN flags; completed captures and journals provide later execution evidence without mutating those originals.
+
+Pinned artifacts (full hashes are in the audit JSON):
+
+| Model | ONNX SHA256 | TPU SHA256 |
+|---|---|---|
+| Helmet | `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47` | `408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa` |
+| Split-Pose | `802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00` | `c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b` |
+
+Both use RGB bilinear letterbox114, NCHW float32 `[1,3,640,640]`, /255, O1/TPU_H1M. Helmet returns `output0 [1,6,8400]`. Split-Pose returns the four exact names/shapes above. No repeat sigmoid or neural decode; host NMS once. Both baselines calibrated on ONE public bus image (NPZ SHA256 `028d5e8325942e8a438a41396583aff1a4b14d1ac445f1e4450ace65a4d83faf`). This is a compiler smoke corpus, not representative industrial calibration or independent quality evidence.
+
+Three saved industrial inputs were evaluated sequentially with CPU-only Torch2.9.1+cpu, ONNX Runtime1.29.0, NumPy1.26.4, SDK framework2026.9.45/quant2026.9.98; two threads, no GPU, compile or new remote call. Exact-input person class maxima:
+
+| Saved frame | Native ONNX | SDK scaled simulation | Saved real TPU |
+|---|---:|---:|---:|
+| industrial-001 F0 | .630153 | .507706 | .507706 |
+| industrial-001 F13 | .739911 | .326879 | .326879 |
+| industrial-002 sampled F51 | .855734 | .221904 | .221904 |
+
+Entire person-score, keypoint-XY and keypoint-confidence tensors are bit-identical between simulation and saved TPU on these inputs. Top-person anchor keypoints above .5 are respectively native→TPU 12→13,15→16,17→17. Global keypoint max remains about .994. Thus current industrial loss is person-class confidence, **not global keypoint-confidence collapse**. At cutoff .25 the last input loses all person candidates; lowering an event threshold cannot recover a detector candidate already removed by its .25 cutoff. Lowering that cutoff may expose candidates but requires FP/FN evaluation and is not a quantization repair.
+
+Simulation vs hardware boxes differ on 265–300/33600 elements; max all-anchor difference20–20.25 input pixels, max on union(native/sim class>=.25) anchors0/3.3125/3.3125. Do not declare complete tensor parity. The exported-FP→vendor-quantized boundary is the first measured class-score divergence. Conditioned `optimized.onnx` uses custom `custom_op.tpu:swish`, rejected by stock ORT; conditioned-float parity remains unmeasured, so conditioning versus PTQ cannot yet be strictly separated. One-image calibration is a strong actionable hypothesis, not proven sole cause. The historical mixed Pose graph had a different, demonstrated zero-confidence failure and remains rejected.
+
+Reproduce an allocated CPU diagnostic on an EXISTING input with `ml.linq.simulate --quantized <candidate>/quantized.qm.onnx --scales <candidate>/scales.json --inputs <saved>/inputs.npz --source-onnx <export>/weights.onnx --output <fresh-diagnostic> --threads 2`. Optional `--compile-report` uses explicit output-name mappings; historical reports without mappings require identical names. Hardware-aware CPU simulation is never hardware execution.
+
+Candidate preparation is available without SDK execution:
+
+```bash
+python -m ml.linq.candidate \
+  --onnx <new-export>/weights.onnx --model-manifest <new-export>/manifest.json \
+  --calibration-manifest <reviewed-calibration.json> \
+  --output /workspace/artifacts/quality/linq/candidates/<unique-id> --max-samples 32
+```
+
+The calibration JSON contains `samples` with `path` (numeric NPZ with only `images`), `sha256`, `source_group`, `source_sha256`, `split` (`train` or `calibration`); also `reserved_groups` and `reserved_source_sha256` covering all validation/test groups, and optional `near_duplicate_review`. Group/lineage declarations need dataset-owner review: hash checks cannot discover shared cameras, adjacent clips or perceptual duplicates. The helper rejects declared holdout leakage, tensor duplicates, hash drift, wrong numeric input and any existing output directory. It assembles the corpus and records NOT_COMPILED/NOT_RUN/NOT_EVALUATED; no package install, export, compile or remote request occurs. `--compile` explicitly delegates to existing `ml.linq.compile.compile_model`, O1, in a new `compile/` directory and is reserved for root-approved resource allocation. No second compiler/client is introduced.
+
+Proposed bounded sequence, pending root scheduling:
+
+1. Freeze reviewed original-video/camera/scene groups before frame selection. Use only train/calibration groups. Start 32 frames from at least 8 available independent groups, covering person distance/input size, standing/lying posture, occlusion/truncation, light/background, PPE and empty negatives. These are budget targets, not sufficient-sample claims. No val/test image may enter calibration; bus smoke alone is insufficient.
+2. Prepare the same verified RGB/letterbox tensors using the existing detection preprocessor.32 float32 tensors occupy157,286,400 bytes (~150MiB), 64 about300MiB, excluding SDK activation copies. Permit 64 only after32-sample time/RSS measurement and root allocation. Keep exact graph/weights/NMS fixed for the first recalibration comparison; no simultaneous model-family/threshold sweep.
+3. Current local SDK `calibrate_torch` explicitly documents activation_percentile=None and samplewise_percentile=None as max-absolute defaults; RegularModel constructor percentile defaults100. No blanket historical percentile recommendation applies. First retain defaults with representative data. Percentile changes require a separate supported, recorded hypothesis after range diagnostics; no silent TypeError retry or unrecorded option fallback.
+4. Detection owner exports any separately trained checkpoint with the existing exporter and FP/native parity, and retains the reviewed pre-concat split extraction for Pose. Run allocated O1 PTQ/compile in a unique candidate directory. Validate exact ABI, finite outputs, hashes and same-input source→simulation deltas before asking root for hardware time. No compile or training was performed in this audit.
+5. Freeze 5–20 labelled development goldens from groups excluded from calibration, spanning missed persons/small heads/occlusion/empty hard negatives and baseline bus diagnostic. At roughly 10 seconds per request this budgets 50–200 seconds per candidate/model, excluding upload/transfer/queue overhead. Root alone stages a reviewed candidate and executes the existing durable RPC path. Existing runtime pins must never be silently overwritten to admit a candidate.
+6. Compare same tensors at every boundary, then decoded person/PPE/visible-kpt outcomes and paired labelled FP/FN/recall/precision with support counts. Numeric maxima are not task quality. Select thresholds on development/validation only; sealed independent test remains untouched until final frozen comparison. Require independent improvement without a critical-scenario regression, completed LinQ ABI/parity evidence and the full frozen bundle before promotion. Otherwise retain current baseline. Recalibration can address observed vendor-path score loss; source-model misses/ownership/scene shift require labels or model/rule work and cannot be repaired by a numeric scale claim.
+
+Checkpoint 24 October 18:00 MSK; freeze 20:00–22:00. Deadline pressure does not relax held-out separation or convert simulated evidence into hardware accuracy. Nine focused numeric/provenance tests use tiny fixtures, not real model-quality tests.
