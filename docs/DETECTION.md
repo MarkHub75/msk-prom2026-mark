@@ -59,3 +59,29 @@ python -m ml.detection.split_pose --manifest /workspace/artifacts/detection/pose
 The graph-surgery helper discovers these tensors through the final Concat -> keypoint Reshape -> keypoint Concat structure, validates the probability Sigmoid producers, and extracts a backward-reachable subgraph. Both mixed `/model.22/Concat_4_output_0` and terminal `output0` are absent from the new graph. All coordinate decoding and sigmoid operations remain inside ONNX. Host code only concatenates and reshapes the four already-decoded outputs before applying the existing NMS/geometry decoder.
 
 Actual artifact `/workspace/artifacts/detection/pose-split/weights.onnx` SHA256 is `802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00`. ONNX checker passed. Original vs split float ONNX on the same bus image was bit-identical (maxabs 0, three identical post-NMS detections); keypoint probabilities ranged from 0.00341755 to 0.99890792 across all anchors. Evidence is `pose-split/graph-parity.json`. This establishes graph-surgery correctness for that input; vendor quantization, compiler, simulation and device execution must be checked independently by LinQ Integration.
+
+## Compare exported numeric runtime captures (CV-02)
+
+`ml.detection.compare_capture` compares already-captured named tensor arrays. It does not execute a model and cannot establish that the source was real hardware. Capture format agreed with LinQ Integration is `capture.json`, `inputs.npz`, `outputs.npz`. NPZ keys are exact tensor names; arrays are real numeric data only. Loading always uses `allow_pickle=False`; object/string/complex arrays are rejected. Never export notebook locals, session objects or unfiltered outputs.
+
+```bash
+python -m ml.detection.compare_capture \
+  --reference /path/to/golden-outputs.npz \
+  --actual /path/to/capture/outputs.npz \
+  --manifest /path/to/model/manifest.json \
+  --metadata /path/to/capture/capture.json \
+  --output /path/to/comparison.json
+```
+
+If runtime tensor names differ, supply an explicit JSON map through `--name-map` or `capture.json`'s `runtime_to_reference`. Direction is **actual runtime name -> reference name**. Without a map only exact identity names are accepted. Unmapped or extra tensors, duplicate map destinations, nonfinite values, different shapes or different dtypes invalidate the capture comparison. Raw integer TPU codes must first be converted through the verified runtime ABI; this tool neither guesses scales nor silently casts mismatching dtypes.
+
+API: `compare_captures(reference, actual, runtime_to_reference=None, manifest=None, metadata=None, relative_epsilon=1e-8, min_match_iou=.1)`. `load_numeric_npz(path)` supplies detached numeric dictionaries. Per-output statistics include shape/dtype, max/mean/p95 absolute differences, and relative differences `abs(actual-reference)/max(abs(reference),epsilon)`. Relative errors around zero can be large, so inspect them with absolute errors. No tolerance produces a quality PASS. Overall `COMPARED` means valid numeric tensors were compared, even if their values differ substantially; `INVALID_CAPTURE` means structural/numeric checks failed. CLI exit 0 means `COMPARED`, exit 2 means invalid capture. No hardware or quality acceptance is implied.
+
+Decoded comparison requires manifest plus `metadata.original_transform` containing exactly integer fields `original_width`, `original_height`, `input_width`, `input_height`, `resized_width`, `resized_height`, `left`, `top`. If missing, decoded stage is explicitly `SKIPPED`. Invalid metadata/output is `INVALID_METADATA_OR_OUTPUT` while preserving valid raw numeric diagnostics. Split pose outputs are restored through the same `split_pose_v8` decoder. Diagnostic detection pairing is greedy same-class descending IoU above `min_match_iou`; this is not ground-truth matching. Reports include unmatched detections, box differences, scores, keypoint confidences, and XY error on jointly visible points at confidence >=.5. These thresholds define diagnostics only, not target acceptance.
+
+Actual smoke evidence saved outside Git:
+
+- `pose-split/capture-golden-smoke.json`: golden NPZ compared to itself, 4 output tensors exactly equal and 3 identical decoded detections. This checks file/decoder plumbing only.
+- `pose-split/capture-simulation-comparison.json`: pre-existing vendor **simulation** outputs compared with their saved float references, 3/3 decoded persons, paired box IoUs .911/.872/.781. Largest all-anchor differences are 170.51 px for box channels, 206.02 px for keypoint XY, .1188 class score and .7634 keypoint confidence. Unselected anchors are included in these maxima; they cannot be replaced by favorable selected examples. This is a diagnostic comparison of simulation, not a hardware capture or a target-video quality result.
+
+Every report states `hardware_execution=NOT_ESTABLISHED_BY_COMPARISON` and `target_quality=NOT_EVALUATED`. Actual Jupyter runtime captures and independently labeled video are still needed.
