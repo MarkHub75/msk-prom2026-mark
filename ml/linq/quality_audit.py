@@ -86,6 +86,9 @@ def audit(artifacts):
         }
         if model == 'pose-split':
             result['baseline'][model]['bus_pose_scores'] = pose_scores(load_arrays(capture / 'outputs.npz'))
+            bus = compiled / 'simulation'
+            result['baseline'][model]['bus_native_pose_scores'] = pose_scores(load_arrays(bus / 'simulation-reference.npz'))
+            result['baseline'][model]['bus_simulation_pose_scores'] = pose_scores(load_arrays(bus / 'simulation-output.npz'))
     for run in ('industrial-001', 'industrial-002'):
         for path in sorted((root / 'video-mvp' / run / 'requests').glob('*/request.json')):
             journal = json.loads(path.read_text())

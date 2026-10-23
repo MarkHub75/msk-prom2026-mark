@@ -153,6 +153,7 @@ Three saved industrial inputs were evaluated sequentially with CPU-only Torch2.9
 
 | Saved frame | Native ONNX | SDK scaled simulation | Saved real TPU |
 |---|---:|---:|---:|
+| public bus smoke | .883262 | .883269 | .883269 |
 | industrial-001 F0 | .630153 | .507706 | .507706 |
 | industrial-001 F13 | .739911 | .326879 | .326879 |
 | industrial-002 sampled F51 | .855734 | .221904 | .221904 |
