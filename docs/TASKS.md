@@ -21,3 +21,11 @@ Checkpoint saved at user request: see ../RESUME.md. All three coding agents comp
 - LQ-02: portable prepare_case/capture_case merged from agent/linq 56a3d13f; no new training, export or SDK experiments.
 - Binding limitation: actual remote example.ipynb import/call/result extraction is still not available locally. User was asked for only credential-free code. bindings.py refuses to issue any request until an actual binding exists. The public local pytpu example is clearly labelled LOCAL and is not substituted for the working remote API.
 - Current suite:113 tests PASS. Stock inference is confirmed by user report; own-model hardware capture remains pending.
+
+## Own-model upload and network resilience
+
+- STOCK-RPC: actual automatic ResNet50 completed, results/integrity outside Git; never repeat as a connection check.
+- DEPLOY-01: pinned two-model upload agent and one-command orchestration implemented. Latest file-upload preflight: agent not ready, no publication. Await user bootstrap cell in existing Jupyter.
+- RPC-RECOVERY: add durable pre-publication journal, UNKNOWN state, preserve late-response queues and reconcile without publish after reconnect. LinQ agent owns transport changes in its worktree; root owns integration/resume.
+- INFRA: Arch user manages autossh/systemd/VPN; Vast must not change this configuration.
+- Tests:160 combined tests most recently passed; run only new/affected recovery checks for upcoming changes.

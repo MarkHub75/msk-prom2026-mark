@@ -1,5 +1,13 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
+## CURRENT STATE — supersedes earlier checkpoints
+
+Stock automatic Vast->LinQ ResNet50 has actually completed and passed capture integrity/class checks. Results are /workspace/artifacts/linq-rpc/resnet50-001/; do NOT repeat this job. Official pure-Python format source is /workspace/linq-client/tpu_pycloud_format, user-confirmed version0.0.1 with reviewed hashes at /workspace/artifacts/linq-rpc/format-source.json. Use /workspace/.venvs/linq-client/bin/python with PYTHONPATH=/workspace/linq-client:/workspace/project. Runtime config is /workspace/linq-client/connection.env; never print/commit its values.
+
+Own-model automation: scripts/linq_models_auto.sh all -> existing AMQP client uploads reviewed bytes to a bounded explicit Jupyter helper, then submits Helmet, compares numerical/decoded results, and only on success proceeds to Split-Pose. See docs/LINQ_AUTOMATIC_DEPLOY.md. Bootstrap artifact /workspace/artifacts/linq-rpc/start_jupyter_upload.py is prepared/published for one user-executed cell in existing Jupyter on Arch. The latest automatic attempt stopped BEFORE publication because that upload agent is not ready. No Helmet inference has been sent; no helmet-001 output exists. Separate broker binary transfer and local official-wire staging integration passed, not remote filesystem/inference proof.
+
+Network steering: user is moving Arch SSH bridge to autossh/systemd because VPN can drop. Do not change SSH/VPN/NetworkManager from Vast. Next implement durable RPC intent, UNKNOWN state after possible submission, retained reply queue and receive-only reconciliation; no blind re-publication. Continue independent code/tests/contracts while remote upload helper/network is unavailable. Last completed combined suite160 tests PASS; do not repeat completed model/network checks.
+
 ## Start here
 
 Continue the approved implementation; do not restart research or model selection. User requested this checkpoint because remaining usage is low. Resume only when the user returns. Do not spawn new work merely from reading this file.
