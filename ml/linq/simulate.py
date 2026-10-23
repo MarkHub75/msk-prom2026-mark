@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import time
 import numpy as np
+from .compile import sha256
 
 
 def quantize_input(array, spec):
@@ -38,11 +39,13 @@ def dequantize_output(array,spec):
     return result
 
 
-def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir,output_name_map=None):
+def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir,output_name_map=None,num_threads=2):
+    if type(num_threads) is not int or not 1 <= num_threads <= 4:
+        raise ValueError('num_threads must be an integer between 1 and 4')
     import torch
     import onnxruntime as ort
     from tpu_framework import QuantizedModel
-    torch.set_num_threads(4)
+    torch.set_num_threads(num_threads)
     started=time.perf_counter();out=Path(output_dir);out.mkdir(parents=True,exist_ok=True)
     scales=json.loads(Path(scales_path).read_text())
     with np.load(input_npz,allow_pickle=False) as data:
@@ -67,7 +70,7 @@ def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir,output_
     else:raise ValueError('multiple outputs need mapped tensors')
     raw_outputs={name:value.detach().cpu().numpy() for name,value in raw_outputs.items()}
     outputs={name:dequantize_output(value,scales[output_anchors[name]+':0']) for name,value in raw_outputs.items()}
-    options=ort.SessionOptions();options.intra_op_num_threads=4;options.inter_op_num_threads=1
+    options=ort.SessionOptions();options.intra_op_num_threads=num_threads;options.inter_op_num_threads=1
     session=ort.InferenceSession(str(source_onnx),sess_options=options,providers=['CPUExecutionProvider'])
     reference=dict(zip([x.name for x in session.get_outputs()],session.run(None,inputs)))
     if output_name_map is not None:
@@ -76,6 +79,9 @@ def simulate(quantized_path,scales_path,input_npz,source_onnx,output_dir,output_
         outputs={name:outputs[conditioned] for name,conditioned in output_name_map.items()}
     if set(reference)!=set(outputs):raise ValueError('source and simulation output names differ')
     report={'kind':'quantized_torch_scaled_smoke_NOT_HARDWARE',
+            'threads':num_threads,
+            'artifact_sha256':{'quantized':sha256(quantized_path),'scales':sha256(scales_path),
+                               'inputs':sha256(input_npz),'source_onnx':sha256(source_onnx)},
             'runtime_codec_confirmed':False,'calibration_separation_verified':False,
             'io_policy':'round(input*input_data_scale); output*recorded_output_data_scale',
             'output_name_map':output_name_map,'simulation_anchor_map':output_anchors,'outputs':{},'seconds':time.perf_counter()-started}
@@ -99,10 +105,13 @@ def main():
     p.add_argument('--quantized',required=True);p.add_argument('--scales',required=True)
     p.add_argument('--inputs',required=True);p.add_argument('--source-onnx',required=True)
     p.add_argument('--output',required=True)
+    p.add_argument('--threads',type=int,default=2)
     p.add_argument('--compile-report',help='Compile report with explicit original-to-conditioned output_name_map')
     a=p.parse_args()
-    mapping=json.loads(Path(a.compile_report).read_text())['output_name_map'] if a.compile_report else None
-    print(json.dumps(simulate(a.quantized,a.scales,a.inputs,a.source_onnx,a.output,mapping),indent=2))
+    # Historical reports did not store a mapping. Identity is checked explicitly
+    # against graph names inside simulate; never infer correspondence by shape.
+    mapping=json.loads(Path(a.compile_report).read_text()).get('output_name_map') if a.compile_report else None
+    print(json.dumps(simulate(a.quantized,a.scales,a.inputs,a.source_onnx,a.output,mapping,a.threads),indent=2))
 
 
 if __name__=='__main__':main()
