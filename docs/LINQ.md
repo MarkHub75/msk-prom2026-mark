@@ -47,7 +47,27 @@ A bounded CPU hardware-aware Torch graph check was run on the same calibration i
 
 Under that explicit policy, helmet class scores remain nonzero (maximum 0.35259 versus float 0.35823; 3 versus 2 anchors above 0.25). Pose person scores also survive (30 versus 30 anchors above 0.25). **Pose keypoint confidence channels are all zero**, while float keypoint confidence reaches 0.99891. The recorded output scale is 5.81299 for all keypoint channels, including confidence; mixing pixel coordinates with probabilities loses the confidence signal. This candidate pose program is therefore **not accepted for behavior analysis**, despite successful compilation.
 
-Reports and arrays: each model's compile directory contains `quantized-torch-scaled-smoke-report.json` and `quantized-torch-scaled-smoke-output.npz`. They are diagnostics from one reused image, not accuracy measurements. Next graph experiment should separate keypoint coordinates and confidence into different output tensors before PTQ, preserve the output mapping, then reassemble the decoder input on the host and repeat reference/quantized/runtime tests. Do not invent missing confidence values or lower the keypoint threshold to accept zeros.
+Reports and arrays: each model's compile directory contains `quantized-torch-scaled-smoke-report.json` and `quantized-torch-scaled-smoke-output.npz`. They are diagnostics from one reused image, not accuracy measurements. The corrective split-output experiment below addresses this specific simulation failure. Original failing evidence remains unchanged. Do not invent missing confidence values or lower the keypoint threshold to accept zeros.
+
+
+### Corrective split-pose compiler and simulation result
+
+`pose-split-v1` prunes both mixed terminal concatenations and exports boxes, person scores, keypoint XY and keypoint confidence as four separate outputs. Source ONNX SHA256: `802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00`. TPU_H1M O1 compilation completed in 73.77 seconds. New distinct program: `/workspace/artifacts/linq-sdk/pose-split-compile/model.tpu`, SHA256 `c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b`.
+
+The SDK's explicit `get_outputs_anchors()` maps original names to internal simulator names (`/model.22/...` -> `n_/model.22/...`). The diagnostic uses this map to find scales; it does not rename external detector outputs or guess prefixes. The split quantized simulation preserves keypoint confidence: range 0.004364–0.999023, versus float 0.003418–0.998908. Both decode to three people on the same image. Matched box IoUs are 0.8723/0.7812/0.9108; visible keypoint counts at confidence >=0.5 remain 16/17/9; mean XY differences for mutually visible points are 4.12/4.31/2.78 original-image pixels. This fixes the observed confidence collapse for this single-image diagnostic, not target accuracy or hardware parity.
+
+Artifacts are in `/workspace/artifacts/linq-sdk/pose-split-compile/simulation/`: scaled/raw outputs, float reference outputs, `simulation-report.json`, and `decoded-comparison.json`. Reproduce the tensor diagnostic in the isolated SDK environment:
+
+```bash
+PYTHONPATH=. /workspace/.venvs/linq-sdk/bin/python -m ml.linq.simulate \
+  --quantized /workspace/artifacts/linq-sdk/pose-split-compile/quantized.qm.onnx \
+  --scales /workspace/artifacts/linq-sdk/pose-split-compile/scales.json \
+  --inputs /workspace/artifacts/linq-sdk/calibration-smoke.npz \
+  --source-onnx /workspace/artifacts/detection/pose-split/weights.onnx \
+  --output /workspace/artifacts/linq-sdk/pose-split-compile/simulation
+```
+
+If conditioning changes public output names, compilation reports an explicit `output_name_map`; pass `--compile-report` to the diagnostic. The mapping is separate from SDK internal simulation anchors. The candidate still requires representative calibration, independent evaluation, runtime ABI/codec confirmation and completed real TPU inference.
 
 ## First access on the Arch laptop
 

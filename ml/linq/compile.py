@@ -44,6 +44,7 @@ def compile_model(onnx_path, calibration_path, output_dir, model_id, preset='O1'
             shape=[d.dim_value for d in entry.type.tensor_type.shape.dim]
             if not shape or any(d<=0 for d in shape):
                 raise ValueError('dynamic input shapes are unsupported')
+        source_output_names=[entry.name for entry in model.graph.output]
         stage='conditioning'
         model=preliminary_model_conditioning(model)
         onnx.save(model,str(out/'optimized.onnx'))
@@ -59,6 +60,9 @@ def compile_model(onnx_path, calibration_path, output_dir, model_id, preset='O1'
         report['inputs']=specs(model.graph.input)
         # These describe conditioned ONNX ABI. Runtime ABI must be verified before use.
         report['outputs']=specs(model.graph.output)
+        if len(source_output_names)!=len(report['outputs']):
+            raise ValueError('conditioning changed output count; explicit mapping required')
+        report['output_name_map']={name:spec['name'] for name,spec in zip(source_output_names,report['outputs'])}
         stage='calibration_input'
         with np.load(calibration_path,allow_pickle=False) as data:
             calibration={name:np.ascontiguousarray(data[name]) for name in data.files}
