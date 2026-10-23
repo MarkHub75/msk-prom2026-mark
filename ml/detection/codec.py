@@ -90,6 +90,33 @@ def decode(outputs, manifest, transform):
     v8 scores are class probabilities. No sigmoid, DFL, stride or anchor decode.
     """
     decoder = manifest["decoder"]
+    if decoder == "split_pose_v8":
+        if not isinstance(outputs, Mapping):
+            raise ValueError("split_pose_v8 requires a named output mapping")
+        names = manifest["split_outputs"]
+        required = ("boxes", "class_scores", "keypoint_xy", "keypoint_scores")
+        if set(names) != set(required):
+            raise ValueError("invalid split output semantic map")
+        arrays = {key: np.asarray(outputs[names[key]]) for key in required}
+        boxes, scores, xy, confidence = (arrays[k] for k in required)
+        nc, count = len(manifest["classes"]), int(manifest.get("keypoint_count",17))
+        if boxes.ndim != 3 or boxes.shape[:2] != (1,4):
+            raise ValueError("split boxes must be [1,4,A]")
+        anchors = boxes.shape[2]
+        expected = {"boxes": (1,4,anchors), "class_scores": (1,nc,anchors),
+                    "keypoint_xy": (1,count,2,anchors), "keypoint_scores": (1,count,1,anchors)}
+        if any(v.shape != expected[k] or v.dtype.kind != "f" for k,v in arrays.items()):
+            raise ValueError("split pose output shape/dtype mismatch")
+        if any(not np.all(np.isfinite(v)) for v in arrays.values()):
+            raise ValueError("nonfinite split output")
+        if np.any((confidence < 0) | (confidence > 1)):
+            raise ValueError("split keypoint confidence must be probability")
+        # Pure host layout restoration. All neural/coordinate decode remains in graph.
+        points = np.concatenate((xy,confidence),axis=2).reshape(1,count*3,anchors)
+        combined = np.concatenate((boxes,scores,points),axis=1)
+        canonical = dict(manifest, decoder="pose_v8", output_layout="BCN")
+        canonical.pop("output_name",None)
+        return decode(combined,canonical,transform)
     if decoder not in ("detect_v8", "pose_v8", "detect_v5"):
         raise ValueError("unsupported decoder; raw/end-to-end outputs require a separate adapter")
     if manifest.get("nms_in_graph", False):

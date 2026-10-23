@@ -38,3 +38,24 @@ Paired CPU PyTorch vs ONNX CPU inference on the same prepared bus image passed `
 These are single-image numerical checks, not accuracy, latency SLA, steady throughput, industrial generalization or LinQ validation. The bus image is not a target helmet/fall evaluation set. Positive/negative target footage and TPU parity remain required. No compiled TPU program, calibration run or actual LinQ inference has been performed by this component.
 
 Weight/dataset rights must be tracked separately from code provenance before redistribution or commercial use. Download links are reproducible provenance, not a blanket license grant.
+
+## Corrective split pose graph for PTQ
+
+The original combined pose graph is retained. A measured vendor quantizer issue assigned coordinate-range scale to keypoint confidence channels, collapsing them to zero in simulation. The corrective export exposes **upstream tensors before mixed concatenation**, rather than gathering from an already mixed graph output:
+
+```bash
+python -m ml.detection.split_pose --manifest /workspace/artifacts/detection/pose/manifest.json --output /workspace/artifacts/detection/pose-split
+```
+
+`split_pose_v8` requires a named output mapping defined by `split_outputs` in manifest:
+
+| Semantic | Actual source tensor | Shape |
+|---|---|---|
+| boxes | `/model.22/Mul_2_output_0` | `[1,4,8400]` |
+| class_scores | `/model.22/Sigmoid_output_0` | `[1,1,8400]` |
+| keypoint_xy | `/model.22/Mul_4_output_0` | `[1,17,2,8400]` |
+| keypoint_scores | `/model.22/Sigmoid_1_output_0` | `[1,17,1,8400]` |
+
+The graph-surgery helper discovers these tensors through the final Concat -> keypoint Reshape -> keypoint Concat structure, validates the probability Sigmoid producers, and extracts a backward-reachable subgraph. Both mixed `/model.22/Concat_4_output_0` and terminal `output0` are absent from the new graph. All coordinate decoding and sigmoid operations remain inside ONNX. Host code only concatenates and reshapes the four already-decoded outputs before applying the existing NMS/geometry decoder.
+
+Actual artifact `/workspace/artifacts/detection/pose-split/weights.onnx` SHA256 is `802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00`. ONNX checker passed. Original vs split float ONNX on the same bus image was bit-identical (maxabs 0, three identical post-NMS detections); keypoint probabilities ranged from 0.00341755 to 0.99890792 across all anchors. Evidence is `pose-split/graph-parity.json`. This establishes graph-surgery correctness for that input; vendor quantization, compiler, simulation and device execution must be checked independently by LinQ Integration.
