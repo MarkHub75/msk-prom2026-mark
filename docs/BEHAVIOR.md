@@ -616,3 +616,19 @@ agent did not run the model or inspect predictions while annotating GT.
 Only one failed fall-policy hypothesis was tested here. The separately allocated
 H-FALL-01 PTQ experiment is orchestrator-owned; no third fall hypothesis was
 started. Source acquisition remains stopped and belongs to the Data Orchestrator.
+
+### Scorer definition correction v1.1 — not a new experiment
+
+Protocol `source-reference-bounded-timely-confirmation-v1.1` corrects F1 to the
+count formula `2TP / (2TP + FP + FN)`. Precision remains undefined with no
+predictions; recall remains undefined with no positive GT. F1 is zero for
+TP=0/FP=0/FN>0 and also for false-positive-only sets, and undefined only when
+TP=FP=FN=0. For a negative-only class this F1 does not establish sensitivity;
+report undefined recall and support counts alongside it.
+
+Version 1 incorrectly derived F1 through precision/recall and returned null for
+an all-missed positive set. That was an evaluator-definition defect, not a model
+change or new hypothesis. Preserve v1 reports as historical, and rescore both
+baseline and candidate using the same frozen GT and stored predictions under
+v1.1. One regression specifically covers no predictions with positive truth and
+empty-class semantics. All 39 temporal-tool/scorer/prototype tests pass.

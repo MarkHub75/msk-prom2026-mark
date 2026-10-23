@@ -72,7 +72,18 @@ class TemporalEpisodeScoringTests(unittest.TestCase):
     def test_no_positive_lying_truth_has_undefined_recall(self):
         result=score(truth(),[predicted(250,kind='prolonged_lying')])['per_type']['prolonged_lying']['point']
         self.assertEqual(result['fp'],1)
-        self.assertIsNone(result['recall']);self.assertIsNone(result['f1'])
+        self.assertIsNone(result['recall']);self.assertEqual(result['f1'],0)
+
+    def test_no_predictions_with_positive_truth_has_zero_count_f1(self):
+        report=score(truth(),[])
+        self.assertEqual(report['protocol'],'source-reference-bounded-timely-confirmation-v1.1')
+        result=report['per_type']['suspected_fall']['point']
+        self.assertEqual((result['tp'],result['fp'],result['fn']),(0,0,1))
+        self.assertIsNone(result['precision'])
+        self.assertEqual(result['recall'],0)
+        self.assertEqual(result['f1'],0)
+        empty=report['per_type']['prolonged_lying']['point']
+        self.assertIsNone(empty['precision']);self.assertIsNone(empty['recall']);self.assertIsNone(empty['f1'])
 
     def test_unrun_videos_are_not_false_negatives(self):
         result=score(truth(),[],vids=[])

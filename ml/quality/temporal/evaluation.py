@@ -118,7 +118,10 @@ def _matching(edges):
 def _metrics(tp,predicted,truth):
     precision=tp/predicted if predicted else None
     recall=tp/truth if truth else None
-    f1=None if precision is None or recall is None else (2*precision*recall/(precision+recall) if precision+recall else 0)
+    # Count definition is defined for missed-positive or false-positive-only
+    # sets even when one ratio (precision/recall) has no denominator.
+    denominator=predicted+truth  # 2TP + FP + FN
+    f1=2*tp/denominator if denominator else None
     return {'tp':tp,'fp':predicted-tp,'fn':truth-tp,'precision':precision,'recall':recall,'f1':f1}
 
 
@@ -173,7 +176,7 @@ def evaluate(gt, predictions, evaluated_video_ids, *, deadline_ms=5000, allow_so
             'point_status':'ONSET_BOUNDS_AGREE' if lo==hi else 'AMBIGUOUS_ONSET_SUPPORT_NO_POINT_ESTIMATE'}
     annotated_ms=sum(sum(w['end_ms']-w['start_ms'] for w in videos[v]['known_windows']) for v in evaluated)
     unknown_ms=sum(sum(w['end_ms']-w['start_ms'] for w in videos[v]['unknown_windows']) for v in evaluated)
-    return {'protocol':'source-reference-bounded-timely-confirmation-v1',
+    return {'protocol':'source-reference-bounded-timely-confirmation-v1.1',
         'quality_level':gt['quality_level'],'final_test':gt.get('final_test',False),
         'scope':gt['scope'],'deadline_ms':deadline_ms,'evaluated_videos':len(evaluated),
         'unrun_videos':sorted(set(videos)-evaluated),'source_known_ms':annotated_ms,'source_unknown_ms':unknown_ms,
