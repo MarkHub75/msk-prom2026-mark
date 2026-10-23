@@ -15,6 +15,7 @@ import importlib.util
 import os
 import re
 import json
+import hashlib
 import math
 from pathlib import Path
 from time import monotonic
@@ -23,6 +24,7 @@ from uuid import UUID, uuid4
 import numpy as np
 
 from .notebook import capture_call, _arrays, _file_hash, _name, _save_report
+from .journal import DEFAULT_JOURNAL_DIR, TERMINAL, RequestJournal, atomic_json
 
 FORMAT_VERSION = "0.0.1"
 _MAX_BYTES = 128 * 1024 * 1024
@@ -185,157 +187,244 @@ def _service_error_excerpt(value, parameters):
 
 
 class AmqpRunner:
-    """Blocking one-request callable with one explicitly configured response queue.
+    """One publish plus durable intent; recovery only receives the original UUID."""
+    def __init__(self, binding=None, program=None, *, timeout=30.0, host="127.0.0.1", port=15672,
+                 journal_dir=DEFAULT_JOURNAL_DIR, purpose="inference", capture_dir=None):
+        if (not isinstance(timeout,(int,float)) or isinstance(timeout,bool) or
+                not math.isfinite(timeout) or timeout<=0):
+            raise AmqpError("positive_finite_timeout_required","configuration")
+        if program is not None and (not isinstance(program,str) or not program):
+            raise AmqpError("explicit_program_identifier_required","configuration")
+        if purpose not in {"inference","model_upload"}:
+            raise AmqpError("invalid_request_purpose","configuration")
+        self.binding=None if binding is None else _validate_binding(binding)
+        if self.binding is not None and self.binding.reply_exclusive:
+            raise AmqpError("nonexclusive_reply_queue_required_for_recovery","configuration")
+        self.program,self.timeout,self.host,self.port=program,float(timeout),host,port
+        self.journal=RequestJournal(journal_dir)
+        self.purpose,self.capture_dir=purpose,capture_dir
+        self.last_response=None
+        self._private_service_error=None
 
-    A local timeout/publish failure leaves remote completion unknown. This runner
-    never retries a publish and must not be blindly recalled as an automatic retry.
-    Closed connections do NOT prove that remotely accepted execution was cancelled.
-    """
-    def __init__(self, binding, program, *, timeout=30.0, host="127.0.0.1", port=15672):
-        if (not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or
-                not math.isfinite(timeout) or timeout <= 0):
-            raise AmqpError("positive_finite_timeout_required", "configuration")
-        if not isinstance(program, str) or not program:
-            raise AmqpError("explicit_program_identifier_required", "configuration")
-        self.binding = _validate_binding(binding)
-        self.program, self.timeout, self.host, self.port = program, float(timeout), host, port
-        self.last_response = None
-        self._private_service_error = None
+    def _summary(self,request_id,record=None):
+        summary={"request_id":request_id,"status":"not_started","status_code":None,
+            "publish_attempted":False,"publish_confirmed":False,"remote_completion":"not_submitted",
+            "required_format_version":FORMAT_VERSION,"timings":{},"outputs":{},
+            "journal_request_id":request_id,"journal_path":str(self.journal.path(request_id)),
+            "journal_state":"NOT_SUBMITTED","purpose":self.purpose,"broker_ready":False}
+        if record is not None:
+            summary.update(journal_state=record['state'],purpose=record['purpose'],
+                publish_attempted=record['state']!='NOT_SUBMITTED',
+                publish_confirmed=record.get('broker_confirmed',False),status_code=record.get('status_code'))
+        self.last_response=summary
+        return summary
 
-    def __call__(self, inputs):
-        started = monotonic()
-        deadline = started + self.timeout
-        request_id = str(uuid4())
-        summary = {"request_id": request_id, "status": "not_started", "status_code": None,
-                   "publish_attempted": False, "publish_confirmed": False,
-                   "remote_completion": "not_submitted", "required_format_version": FORMAT_VERSION,
-                   "timings": {}, "outputs": {}}
-        self.last_response = summary
-        connection = None
-        channel = None
-        owned_reply_queue = None
-        phase = "validate_inputs"
+    def _capture_context(self):
+        if self.capture_dir is None:return None
+        directory=Path(self.capture_dir).resolve()
+        path=directory/'capture.json'
+        if not path.exists():return None
+        value=json.loads(path.read_text())
+        if value.get('status')!='pending_call' or value.get('call_completed') is not False:
+            raise AmqpError('capture_context_not_pending','associate_capture')
+        value_id=value.get('capture_id')
+        if not isinstance(value_id,str) or str(UUID(value_id))!=value_id:
+            raise AmqpError('invalid_capture_context','associate_capture')
+        return value_id
+
+    def _associate(self,request_id,capture_id):
+        if self.capture_dir is None:return
+        directory=Path(self.capture_dir).resolve();directory.mkdir(parents=True,exist_ok=True,mode=0o700)
+        pointer={'schema_version':'1.0','journal_request_id':request_id,
+                 'journal_path':str(self.journal.path(request_id)),'purpose':self.purpose}
+        path=directory/'request-pointer.json'
+        if path.exists():
+            old=json.loads(path.read_text())
+            if old.get('journal_request_id')!=request_id:
+                raise AmqpError('context_already_has_request','associate_capture')
+        atomic_json(path,pointer)
+        if capture_id is not None:
+            path=directory/'capture.json';value=json.loads(path.read_text())
+            if value.get('capture_id')!=capture_id:
+                raise AmqpError('capture_context_changed','associate_capture')
+            value.update(journal_request_id=request_id,journal_path=pointer['journal_path'])
+            atomic_json(path,value)
+
+    def _open(self):
+        fmt=_load_format(self.binding.format_source_manifest)
+        pika=importlib.import_module('pika')
+        parameters=_connection_parameters(self.binding.parameters,self.timeout,self.host,self.port)
+        return fmt,pika,pika.BlockingConnection(parameters)
+
+    def _error(self,request_id,error,phase,publish_possible):
+        summary=self.last_response
+        details=error.details if isinstance(error,AmqpError) else {
+            'code':'transport_or_binding_failure','phase':phase,'exception_type':type(error).__name__}
+        summary.update(status='failed',error=dict(details))
+        if details['code'].startswith('official_format_'):
+            summary['next_action']='provide_exact_official_tpu_pycloud_format_0_0_1'
         try:
-            arrays = _arrays(inputs, max_bytes=_MAX_BYTES)
-            phase = "load_format"
-            fmt = _load_format(self.binding.format_source_manifest)  # Before any broker connection.
-            phase = "load_pika"
-            pika = importlib.import_module("pika")
-            phase = "connection_parameters"
-            parameters = _connection_parameters(self.binding.parameters, self.timeout, self.host, self.port)
-            phase = "open_connection"
-            connection = pika.BlockingConnection(parameters)
-            phase = "open_channel"
-            channel = connection.channel()
-            # Standard AMQP queue semantics, selected explicitly by this transport.
-            requested_queue = ("" if self.binding.reply_queue_factory is None else
-                               self.binding.reply_queue_factory(request_id))
-            if not isinstance(requested_queue, str):
-                raise AmqpError("invalid_reply_queue_name", "declare_reply_queue")
-            declared = channel.queue_declare(queue=requested_queue, durable=False, exclusive=self.binding.reply_exclusive, auto_delete=True)
-            reply_queue = declared.method.queue
-            if not isinstance(reply_queue, str) or not reply_queue:
-                raise AmqpError("invalid_reply_queue", "declare_reply_queue")
-            owned_reply_queue = reply_queue
-            phase = "reply_setup"
-            if self.binding.reply_policy == "custom_setup":
-                self.binding.reply_setup(channel, reply_queue, request_id)
-            phase = "build_task"
-            task = self.binding.task_factory(request_id, reply_queue, arrays, self.program)
-            if not isinstance(task, fmt.PyTask):
-                raise AmqpError("task_factory_must_return_official_pytask", phase)
-            phase = "serialize_request"
-            body = fmt.serialize(task)
-            if not isinstance(body, (bytes, bytearray)) or len(body) > _MAX_BYTES:
-                raise AmqpError("invalid_serialized_request", phase)
-            phase = "publish_properties"
-            if self.binding.properties_factory is None:
-                properties = pika.BasicProperties(correlation_id=request_id, reply_to=reply_queue)
-            else:
-                properties = self.binding.properties_factory(request_id, reply_queue, self.program)
-            phase = "confirm_mode"
-            channel.confirm_delivery()
-            if monotonic() >= deadline:
-                raise AmqpError("deadline_before_publish", phase)
-            phase = "publish"
-            summary.update(status="pending_response", publish_attempted=True, remote_completion="unknown")
-            # Exactly one attempt, with mandatory routing and publisher confirmation.
-            confirmed = channel.basic_publish(exchange=self.binding.request_exchange,
-                routing_key=self.binding.request_routing_key, body=bytes(body),
-                properties=properties, mandatory=True)
-            if confirmed is False:
-                raise AmqpError("publish_not_confirmed", phase)
-            summary["publish_confirmed"] = True
-            phase = "wait_response"
-            while True:
-                remaining = deadline - monotonic()
-                if remaining <= 0:
-                    raise AmqpError("response_timeout", phase)
-                method, response_properties, response_body = channel.basic_get(queue=reply_queue, auto_ack=False)
-                if method is None:
-                    connection.process_data_events(time_limit=min(0.05, remaining))
-                    continue
-                phase = "deserialize_response"
-                if not isinstance(response_body, (bytes, bytearray)) or len(response_body) > _MAX_BYTES:
-                    raise AmqpError("invalid_serialized_response", phase)
-                response = fmt.deserialize(bytes(response_body))
-                phase = "correlate_response"
-                response_id = self.binding.get_response_id(response, response_properties)
-                # Export only a syntactically valid UUID, never an arbitrary header string.
+            record=self.journal.load(request_id)
+            if record['state'] not in TERMINAL:
+                record=self.journal.update(request_id,'UNKNOWN' if publish_possible else 'NOT_SUBMITTED',
+                                           last_error=dict(details))
+            summary['journal_state']=record['state']
+        except Exception as journal_error:
+            summary['journal_error_type']=type(journal_error).__name__
+            if publish_possible:summary['journal_state']='UNKNOWN'
+        return error if isinstance(error,AmqpError) else AmqpError(**{
+            'code':details['code'],'phase':details['phase'],'exception_type':details['exception_type']})
+
+    def _cleanup(self,request_id,connection,channel,reply_queue):
+        summary=self.last_response
+        try:state=self.journal.load(request_id)['state']
+        except Exception:state=summary.get('journal_state','UNKNOWN')
+        if channel is not None and reply_queue is not None:
+            if state in {'NOT_SUBMITTED','COMPLETED','SERVICE_FAILED'}:
                 try:
-                    UUID(response_id)
-                    summary["response_id"] = response_id if isinstance(response_id, str) and len(response_id) <= 36 else None
-                except (ValueError, TypeError, AttributeError):
-                    summary["response_id"] = None
-                if response_id != request_id:
-                    raise AmqpError("response_id_mismatch", phase)
-                phase = "check_status"
-                status = self.binding.get_status(response)
-                if not isinstance(status, (int, np.integer)) or isinstance(status, (bool, np.bool_)):
-                    raise AmqpError("numeric_status_required", phase)
-                summary["status_code"] = int(status)
-                summary["remote_completion"] = "response_received"
-                if int(status) != 0:
-                    if self.binding.get_service_error is not None:
-                        private_error = self.binding.get_service_error(response)
-                        if isinstance(private_error, str):
-                            self._private_service_error = _service_error_excerpt(private_error, self.binding.parameters)
-                            summary["service_error"] = self._private_service_error
-                    channel.basic_ack(delivery_tag=method.delivery_tag)
-                    raise AmqpError("service_reported_failure", phase, status_code=int(status))
-                phase = "validate_outputs"
-                outputs = _arrays(self.binding.get_outputs(response), names=self.binding.output_names,
-                                  max_bytes=_MAX_BYTES)
-                channel.basic_ack(delivery_tag=method.delivery_tag)
-                summary.update(status="completed", remote_completion="response_received")
-                summary["outputs"] = {name: {"shape": list(value.shape), "dtype": value.dtype.name}
-                                      for name, value in outputs.items()}
-                return outputs
-        except AmqpError as error:
-            summary.update(status="failed", error=dict(error.details))
-            if error.details["code"].startswith("official_format_"):
-                summary["next_action"] = "provide_exact_official_tpu_pycloud_format_0_0_1"
-            raise
+                    channel.queue_delete(queue=reply_queue)
+                    summary['reply_queue_cleanup']='deleted'
+                except Exception as error:
+                    summary['reply_queue_cleanup']='failed';summary['queue_cleanup_error_type']=type(error).__name__
+            else:summary['reply_queue_cleanup']='retained_for_recovery'
+        if connection is not None:
+            try:connection.close()
+            except Exception as error:summary['close_error_type']=type(error).__name__
+
+    def _receive(self,request_id,fmt,connection,channel,reply_queue,deadline):
+        summary=self.last_response
+        while True:
+            remaining=deadline-monotonic()
+            if remaining<=0:raise AmqpError('response_timeout','wait_response')
+            method,properties,body=channel.basic_get(queue=reply_queue,auto_ack=False)
+            if method is None:
+                connection.process_data_events(time_limit=min(.05,remaining));continue
+            if not isinstance(body,(bytes,bytearray)) or len(body)>_MAX_BYTES:
+                raise AmqpError('invalid_serialized_response','deserialize_response')
+            response=fmt.deserialize(bytes(body))
+            response_id=self.binding.get_response_id(response,properties)
+            try:
+                UUID(response_id)
+                summary['response_id']=response_id if isinstance(response_id,str) and len(response_id)<=36 else None
+            except (ValueError,TypeError,AttributeError):summary['response_id']=None
+            if response_id!=request_id:
+                self.journal.update(request_id,response_id_mismatch=summary['response_id'])
+                # Leave foreign/malformed responses UNACKED; closing requeues them.
+                raise AmqpError('response_id_mismatch','correlate_response')
+            status=self.binding.get_status(response)
+            if not isinstance(status,(int,np.integer)) or isinstance(status,(bool,np.bool_)):
+                raise AmqpError('numeric_status_required','check_status')
+            status=int(status);summary.update(status_code=status,remote_completion='response_received')
+            if status:
+                if self.binding.get_service_error is not None:
+                    message=self.binding.get_service_error(response)
+                    if isinstance(message,str):
+                        self._private_service_error=_service_error_excerpt(message,self.binding.parameters)
+                        summary['service_error']=self._private_service_error
+                try:outputs=_arrays(self.binding.get_outputs(response),names=self.binding.output_names,max_bytes=_MAX_BYTES)
+                except Exception:outputs={}
+            else:outputs=_arrays(self.binding.get_outputs(response),names=self.binding.output_names,max_bytes=_MAX_BYTES)
+            # Fsync numeric response AND terminal metadata before any broker ACK.
+            record=self.journal.complete(request_id,outputs,status_code=status,response_id=response_id)
+            summary['journal_state']=record['state']
+            summary['outputs']={name:{'shape':list(value.shape),'dtype':value.dtype.name} for name,value in outputs.items()}
+            try:channel.basic_ack(delivery_tag=method.delivery_tag)
+            except Exception as error:summary['ack_error_type']=type(error).__name__
+            if status:raise AmqpError('service_reported_failure','check_status',status_code=status)
+            summary['status']='completed'
+            return outputs
+
+    def __call__(self,inputs):
+        started=monotonic();deadline=started+self.timeout;request_id=str(uuid4())
+        summary=self._summary(request_id)
+        connection=channel=reply_queue=None;publish_possible=False;phase='validate_inputs'
+        try:
+            if self.binding is None or self.program is None:
+                raise AmqpError('explicit_binding_and_program_required','configuration')
+            arrays=_arrays(inputs,max_bytes=_MAX_BYTES)
+            capture_id=self._capture_context()
+            requested_queue='' if self.binding.reply_queue_factory is None else self.binding.reply_queue_factory(request_id)
+            if not isinstance(requested_queue,str):raise AmqpError('invalid_reply_queue_name','declare_reply_queue')
+            self.journal.create(request_id,purpose=self.purpose,
+                program_uri_sha256=hashlib.sha256(self.program.encode()).hexdigest(),inputs=arrays,
+                output_names=self.binding.output_names,reply_queue=requested_queue or None,
+                capture_dir=self.capture_dir,capture_id=capture_id)
+            with self.journal.lock(request_id):
+                phase='associate_capture';self._associate(request_id,capture_id)
+                try:
+                    phase='open_connection';fmt,pika,connection=self._open();channel=connection.channel()
+                    declared=channel.queue_declare(queue=requested_queue,durable=False,exclusive=False,auto_delete=True)
+                    reply_queue=declared.method.queue
+                    if not isinstance(reply_queue,str) or not reply_queue:raise AmqpError('invalid_reply_queue','declare_reply_queue')
+                    self.journal.update(request_id,reply_queue=reply_queue)
+                    phase='reply_setup'
+                    if self.binding.reply_policy=='custom_setup':self.binding.reply_setup(channel,reply_queue,request_id)
+                    summary['broker_ready']=True
+                    phase='build_task';task=self.binding.task_factory(request_id,reply_queue,arrays,self.program)
+                    if not isinstance(task,fmt.PyTask):raise AmqpError('task_factory_must_return_official_pytask',phase)
+                    phase='serialize_request';body=fmt.serialize(task)
+                    if not isinstance(body,(bytes,bytearray)) or len(body)>_MAX_BYTES:
+                        raise AmqpError('invalid_serialized_request',phase)
+                    phase='publish_properties'
+                    properties=(pika.BasicProperties(correlation_id=request_id,reply_to=reply_queue)
+                        if self.binding.properties_factory is None else
+                        self.binding.properties_factory(request_id,reply_queue,self.program))
+                    channel.confirm_delivery()
+                    if monotonic()>=deadline:raise AmqpError('deadline_before_publish','confirm_mode')
+                    phase='journal_submitting'
+                    self.journal.update(request_id,'SUBMITTING',request_body_sha256=hashlib.sha256(body).hexdigest())
+                    summary.update(journal_state='SUBMITTING',status='pending_response',
+                                   publish_attempted=True,remote_completion='unknown')
+                    phase='publish';publish_possible=True
+                    confirmed=channel.basic_publish(exchange=self.binding.request_exchange,
+                        routing_key=self.binding.request_routing_key,body=bytes(body),properties=properties,mandatory=True)
+                    if confirmed is False:raise AmqpError('publish_not_confirmed',phase)
+                    summary['publish_confirmed']=True
+                    phase='journal_accepted';self.journal.update(request_id,'ACCEPTED',broker_confirmed=True)
+                    summary['journal_state']='ACCEPTED';phase='wait_response'
+                    return self._receive(request_id,fmt,connection,channel,reply_queue,deadline)
+                except Exception as error:
+                    raise self._error(request_id,error,phase,publish_possible) from None
+                finally:self._cleanup(request_id,connection,channel,reply_queue)
         except Exception as error:
-            safe = AmqpError("transport_or_binding_failure", phase, exception_type=type(error).__name__)
-            summary.update(status="failed", error=dict(safe.details))
-            raise safe from None
-        finally:
-            # basic_get does not register a consumer, so auto_delete alone can leak
-            # a nonexclusive reply queue. Delete only our successfully declared queue.
-            if channel is not None and owned_reply_queue is not None:
+            if summary['status']!='failed':raise self._error(request_id,error,phase,publish_possible) from None
+            raise
+        finally:summary['timings']['total_ms']=(monotonic()-started)*1000
+
+    def reconcile(self,request_id,*,timeout=None):
+        """Receive original retained queue only; NEVER build/serialize/publish tasks."""
+        started=monotonic();duration=self.timeout if timeout is None else timeout
+        if not isinstance(duration,(int,float)) or isinstance(duration,bool) or not math.isfinite(duration) or duration<=0:
+            raise AmqpError('positive_finite_timeout_required','configuration')
+        record=self.journal.load(request_id);summary=self._summary(request_id,record)
+        summary['reconcile_only']=True
+        connection=channel=None;reply_queue=record.get('reply_queue')
+        try:
+            with self.journal.lock(request_id):
+                record=self.journal.recover(request_id);summary['journal_state']=record['state']
+                if record['state'] in TERMINAL:
+                    outputs=self.journal.outputs(request_id)
+                    summary.update(status='completed' if record['state']=='COMPLETED' else 'failed',
+                        status_code=record['status_code'],response_id=record['response_id'],
+                        remote_completion='response_received',cached_response=True,
+                        outputs={name:{'shape':list(value.shape),'dtype':value.dtype.name} for name,value in outputs.items()})
+                    if record['state']=='SERVICE_FAILED':
+                        raise AmqpError('service_reported_failure','cached_response',status_code=record['status_code'])
+                    return outputs
+                if record['state']=='NOT_SUBMITTED':raise AmqpError('request_was_not_submitted','reconcile')
+                if self.binding is None:raise AmqpError('binding_required_for_pending_reconcile','reconcile')
+                if set(record['output_names'])!=set(self.binding.output_names):
+                    raise AmqpError('reconcile_output_names_mismatch','reconcile')
+                if not isinstance(reply_queue,str) or not reply_queue:
+                    raise AmqpError('retained_reply_queue_missing','reconcile')
                 try:
-                    channel.queue_delete(queue=owned_reply_queue)
-                    summary["reply_queue_cleanup"] = "deleted"
+                    fmt,_,connection=self._open();channel=connection.channel()
+                    # No queue declaration/binding/task serialization/publish here.
+                    return self._receive(request_id,fmt,connection,channel,reply_queue,started+duration)
                 except Exception as error:
-                    summary["reply_queue_cleanup"] = "failed"
-                    summary["queue_cleanup_error_type"] = type(error).__name__
-            if connection is not None:
-                try:
-                    connection.close()
-                except Exception as error:
-                    summary["close_error_type"] = type(error).__name__
-            summary["timings"]["total_ms"] = (monotonic() - started) * 1000
+                    raise self._error(request_id,error,'reconcile',True) from None
+                finally:self._cleanup(request_id,connection,channel,reply_queue)
+        finally:summary['timings']['total_ms']=(monotonic()-started)*1000
 
 
 def official_binding(parameters, *, request_exchange, request_routing_key, reply_exchange,
