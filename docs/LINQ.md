@@ -116,3 +116,20 @@ Each logical `(source epoch, frame, model)` request is keyed by SHA256 of the ba
 Success returns logical execution_witness plus allowlisted transport_provenance (distinct UUID, correlated response ID, numeric status, journal state/path, cache/recovery flags and scoped timing). Cached/recovery duration is labeled explicitly and is not original inference latency. Backend independent execution verification remains false.
 
 PendingRequestError produces backend `status=pending`, with code linq_pending, linq_not_submitted or linq_busy. The file worker must stop on the SAME frame without creating an observation/gap or advancing its cursor. A correlated SERVICE_FAILED yields linq_service_failed and never repeats that logical job. Identity/configuration contract errors are fatal rather than missing observations. The factory itself performs no video decoding or additional RPC probes.
+
+## Per-phase RPC timing and bounded disconnect experiment
+
+`AmqpRunner.last_response.timings` and the backend's typed transport provenance now expose only finite nonnegative milliseconds:
+
+- `connection_setup_ms`: official-format/runtime setup, TCP/AMQP handshake, channel/reply queue setup and confirm-mode negotiation. It includes the small local bookkeeping inside those setup spans; it is not device time.
+- `serialize_ms`: official request serialization.
+- `publish_confirm_ms`: one `basic_publish` call through its broker confirmation; this includes payload transmission, not completion of neural inference.
+- `response_wait_ms`: `basic_get`/event processing until the response arrives or transport/deadline fails. Response decode, validation and fsynced storage are outside this phase.
+- `close_ms`: owned reply cleanup and connection close, including local cleanup bookkeeping.
+- `total_ms`: entire invocation/reconcile, including remaining local validation and durable I/O. Phase sums can be lower than total.
+
+Cached results report `latency_kind=cached_response` with zero network phases and local read cost in total. Receive-only sessions report `recovery_only`; serialize/publish phases stay zero. Neither duration replaces the original request's inference/roundtrip latency. Previous totals alone do not establish whether fresh connection setup dominates the roughly ten-second observed calls; compare measured setup/total and publish/receive shares first.
+
+A controlled experiment belongs in a temporary root-owned harness, never a production retry flag: choose one NEW unprocessed frame, temporarily wrap the existing `pika.BlockingConnection` factory, and replace that connection's `channel.basic_publish` only. Invoke the ORIGINAL confirmed publish once, set a one-shot guard, close the client connection, then return its original result (None may mean successful publisher confirmation). Preserve only close exception type if closing raises. Restore the original factory in `finally`.
+
+Expected result: request becomes ACCEPTED then UNKNOWN when the closed channel cannot receive; reply queue and UUID persist, and the file cursor does not advance. Rerunning the SAME frame/epoch uses receive-only reconciliation of that exact UUID; no task is serialized or published again. A late correlated reply is committed before ACK. A foreign reply remains unacked with UNKNOWN/retained queue, rather than being discarded or treated as success. This simulates a CLIENT disconnect after broker confirmation, not an actual VPN outage. No SSH/VPN/tunnel configuration changes or duplicate TPU probes are part of the experiment. The injected publish phase includes deliberate close-handshake overhead and must be labeled as an experiment, not normal performance.

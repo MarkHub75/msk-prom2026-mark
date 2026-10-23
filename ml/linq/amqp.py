@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 from collections.abc import Mapping
+from contextlib import contextmanager
 import copy
 from dataclasses import dataclass
 import importlib
@@ -187,6 +188,19 @@ def _service_error_excerpt(value, parameters):
     return value[:1024]
 
 
+TIMING_KEYS=("connection_setup_ms","serialize_ms","publish_confirm_ms","response_wait_ms","close_ms","total_ms")
+
+
+@contextmanager
+def _measure(summary,key):
+    started=monotonic()
+    try:yield
+    finally:
+        elapsed=max(0.0,(monotonic()-started)*1000)
+        if not math.isfinite(elapsed):raise AmqpError('invalid_clock_interval','timing')
+        summary['timings'][key]=summary['timings'].get(key,0.0)+elapsed
+
+
 class AmqpRunner:
     """One publish plus durable intent; recovery only receives the original UUID."""
     def __init__(self, binding=None, program=None, *, timeout=30.0, host="127.0.0.1", port=15672,
@@ -210,7 +224,8 @@ class AmqpRunner:
     def _summary(self,request_id,record=None):
         summary={"request_id":request_id,"status":"not_started","status_code":None,
             "publish_attempted":False,"publish_confirmed":False,"remote_completion":"not_submitted",
-            "required_format_version":FORMAT_VERSION,"timings":{},"outputs":{},
+            "required_format_version":FORMAT_VERSION,"timings":{key:0.0 for key in TIMING_KEYS},"outputs":{},
+            "latency_kind":"initial_call",
             "journal_request_id":request_id,"journal_path":str(self.journal.path(request_id)),
             "journal_state":"NOT_SUBMITTED","purpose":self.purpose,"broker_ready":False,"durable_response":False}
         if record is not None:
@@ -279,6 +294,10 @@ class AmqpRunner:
             'code':details['code'],'phase':details['phase'],'exception_type':details['exception_type']})
 
     def _cleanup(self,request_id,connection,channel,reply_queue):
+        with _measure(self.last_response,'close_ms'):
+            self._cleanup_resources(request_id,connection,channel,reply_queue)
+
+    def _cleanup_resources(self,request_id,connection,channel,reply_queue):
         summary=self.last_response
         try:state=self.journal.load(request_id)['state']
         except Exception:state=summary.get('journal_state','UNKNOWN')
@@ -297,11 +316,12 @@ class AmqpRunner:
     def _receive(self,request_id,fmt,connection,channel,reply_queue,deadline):
         summary=self.last_response
         while True:
-            remaining=deadline-monotonic()
-            if remaining<=0:raise AmqpError('response_timeout','wait_response')
-            method,properties,body=channel.basic_get(queue=reply_queue,auto_ack=False)
-            if method is None:
-                connection.process_data_events(time_limit=min(.05,remaining));continue
+            with _measure(summary,'response_wait_ms'):
+                remaining=deadline-monotonic()
+                if remaining<=0:raise AmqpError('response_timeout','wait_response')
+                method,properties,body=channel.basic_get(queue=reply_queue,auto_ack=False)
+                if method is None:connection.process_data_events(time_limit=min(.05,remaining))
+            if method is None:continue
             if not isinstance(body,(bytes,bytearray)) or len(body)>_MAX_BYTES:
                 raise AmqpError('invalid_serialized_response','deserialize_response')
             response=fmt.deserialize(bytes(body))
@@ -356,32 +376,35 @@ class AmqpRunner:
             with self.journal.lock(request_id):
                 phase='associate_capture';self._associate(request_id,capture_id)
                 try:
-                    phase='open_connection';fmt,pika,connection=self._open();channel=connection.channel()
-                    declared=channel.queue_declare(queue=requested_queue,durable=False,exclusive=False,auto_delete=True)
-                    reply_queue=declared.method.queue
-                    if not isinstance(reply_queue,str) or not reply_queue:raise AmqpError('invalid_reply_queue','declare_reply_queue')
-                    self.journal.update(request_id,reply_queue=reply_queue)
-                    phase='reply_setup'
-                    if self.binding.reply_policy=='custom_setup':self.binding.reply_setup(channel,reply_queue,request_id)
-                    summary['broker_ready']=True
+                    with _measure(summary,'connection_setup_ms'):
+                        phase='open_connection';fmt,pika,connection=self._open();channel=connection.channel()
+                        declared=channel.queue_declare(queue=requested_queue,durable=False,exclusive=False,auto_delete=True)
+                        reply_queue=declared.method.queue
+                        if not isinstance(reply_queue,str) or not reply_queue:raise AmqpError('invalid_reply_queue','declare_reply_queue')
+                        self.journal.update(request_id,reply_queue=reply_queue)
+                        phase='reply_setup'
+                        if self.binding.reply_policy=='custom_setup':self.binding.reply_setup(channel,reply_queue,request_id)
+                        summary['broker_ready']=True
                     phase='build_task';task=self.binding.task_factory(request_id,reply_queue,arrays,self.program)
                     if not isinstance(task,fmt.PyTask):raise AmqpError('task_factory_must_return_official_pytask',phase)
-                    phase='serialize_request';body=fmt.serialize(task)
+                    phase='serialize_request'
+                    with _measure(summary,'serialize_ms'):body=fmt.serialize(task)
                     if not isinstance(body,(bytes,bytearray)) or len(body)>_MAX_BYTES:
                         raise AmqpError('invalid_serialized_request',phase)
                     phase='publish_properties'
                     properties=(pika.BasicProperties(correlation_id=request_id,reply_to=reply_queue)
                         if self.binding.properties_factory is None else
                         self.binding.properties_factory(request_id,reply_queue,self.program))
-                    channel.confirm_delivery()
+                    with _measure(summary,'connection_setup_ms'):channel.confirm_delivery()
                     if monotonic()>=deadline:raise AmqpError('deadline_before_publish','confirm_mode')
                     phase='journal_submitting'
                     self.journal.update(request_id,'SUBMITTING',request_body_sha256=hashlib.sha256(body).hexdigest())
                     summary.update(journal_state='SUBMITTING',status='pending_response',
                                    publish_attempted=True,remote_completion='unknown')
                     phase='publish';publish_possible=True
-                    confirmed=channel.basic_publish(exchange=self.binding.request_exchange,
-                        routing_key=self.binding.request_routing_key,body=bytes(body),properties=properties,mandatory=True)
+                    with _measure(summary,'publish_confirm_ms'):
+                        confirmed=channel.basic_publish(exchange=self.binding.request_exchange,
+                            routing_key=self.binding.request_routing_key,body=bytes(body),properties=properties,mandatory=True)
                     if confirmed is False:raise AmqpError('publish_not_confirmed',phase)
                     summary['publish_confirmed']=True
                     phase='journal_accepted';self.journal.update(request_id,'ACCEPTED',broker_confirmed=True)
@@ -402,6 +425,7 @@ class AmqpRunner:
             raise AmqpError('positive_finite_timeout_required','configuration')
         record=self.journal.load(request_id);summary=self._summary(request_id,record)
         summary['reconcile_only']=True
+        summary['latency_kind']='recovery_only'
         connection=channel=None;reply_queue=record.get('reply_queue')
         try:
             with self.journal.lock(request_id):
@@ -410,7 +434,7 @@ class AmqpRunner:
                     outputs=self.journal.outputs(request_id)
                     summary.update(status='completed' if record['state']=='COMPLETED' else 'failed',
                         status_code=record['status_code'],response_id=record['response_id'],
-                        remote_completion='response_received',cached_response=True,durable_response=True,
+                        remote_completion='response_received',cached_response=True,durable_response=True,latency_kind='cached_response',
                         outputs={name:{'shape':list(value.shape),'dtype':value.dtype.name} for name,value in outputs.items()})
                     if record['state']=='SERVICE_FAILED':
                         raise AmqpError('service_reported_failure','cached_response',status_code=record['status_code'])
@@ -422,8 +446,9 @@ class AmqpRunner:
                 if not isinstance(reply_queue,str) or not reply_queue:
                     raise AmqpError('retained_reply_queue_missing','reconcile')
                 try:
-                    fmt,_,connection=self._open(timeout=duration);channel=connection.channel()
-                    summary['broker_ready']=True
+                    with _measure(summary,'connection_setup_ms'):
+                        fmt,_,connection=self._open(timeout=duration);channel=connection.channel()
+                        summary['broker_ready']=True
                     # No queue declaration/binding/task serialization/publish here.
                     return self._receive(request_id,fmt,connection,channel,reply_queue,started+duration)
                 except Exception as error:
