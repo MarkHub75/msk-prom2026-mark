@@ -518,3 +518,101 @@ The orchestrator must replay the **same saved 3,274 native observations** agains
 the frozen source reference, selecting H-FALL-02 only if fall recall improves
 without additional false positives. This is the second and final allocated fall
 hypothesis alongside H-FALL-01 PTQ, not permission for further threshold search.
+
+### Running/Zone offline prototype — not a production capability
+
+`ml.quality.temporal.running_zone.RunningZonePrototype` is an explicitly
+**UNVALIDATED_PROTOTYPE** over existing normalized person detections and the
+existing camera/epoch/generation tracker. It runs no model, sends no external
+event and does not extend any frozen JSON/event type. Production Running/Zone
+continues to be `NOT_IMPLEMENTED` until integration and independent real-data
+quality evaluation have been approved.
+
+A camera-specific configuration must supply camera ID, original image size,
+nondegenerate polygon, geometry revision/provenance, speed units and a positive
+speed threshold. There is no universal running threshold or inferred safety
+polygon. Example **synthetic** fixture configuration:
+
+```json
+{
+  "camera_id": "synthetic-camera",
+  "image_size": [1000, 600],
+  "geometry_revision": "synthetic-test-v1",
+  "polygon_provenance": "synthetic fixture; not a factory safety policy",
+  "polygon_xy": [[150, 200], [350, 200], [350, 400], [150, 400]],
+  "speed_units": "pixels_per_second",
+  "speed_threshold": 100,
+  "speed_confirm_ms": 1000,
+  "max_gap_ms": 750,
+  "min_score": 0.5,
+  "keypoint_score": 0.5,
+  "allowed_direction_xy": [1, 0]
+}
+```
+
+Allowed speed units are `pixels_per_second` and
+`image_diagonals_per_second`. The anchor is the mean ankle x and lower ankle y,
+requiring both COCO ankle confidence values to pass the configured gate, both
+points inside the image and no explicit occluded/unknown visibility flag. This
+is a confidence-gated **image-plane proxy**, not proof of physical foot contact,
+true visibility or calibrated metres/second. No bbox fallback is used.
+
+Diagnostics are explicitly not external Event records:
+
+- `fast_motion_candidate`: finite observed anchor displacement above the
+  configured threshold for the confirmation window; this does **not** classify
+  gait/running. Continuous fast observations yield one candidate, not a flood.
+- `observed_polygon_entry`/`observed_polygon_exit`: consecutive observed outside
+  and inside anchors, with crossing-time support between source PTS. Entry is
+  image-plane geometry, never a claim of physical 3D intrusion or permission.
+- `motion_against_configured_direction`: observed in-polygon motion against the
+  explicitly configured 2D direction. A stationary/uncertain point supplies no
+  invented direction.
+
+Source gaps, missing/low-confidence persons, ambiguous matching and insufficient
+ankle observations clear continuity. Boundary-margin points abstain. First-seen
+inside is left-censored, not an observed entry. A sampled outside-to-outside
+chord crossing the polygon records possible unobserved crossing uncertainty,
+not a fabricated entry. Changed camera/image geometry is rejected; late frames
+and retired source epochs cannot borrow history. Rules use source PTS, never a
+20-second model roundtrip as an artificial walking interval.
+
+```bash
+python -m ml.quality.temporal.running_zone \
+  --input /path/to/normalized-observations.jsonl \
+  --config /path/to/explicit-camera-prototype-policy.json \
+  --output /path/to/offline-motion-zone-diagnostics.jsonl
+```
+
+Fourteen new synthetic contract tests pass (38 temporal-tool tests total),
+covering observed crossings, first-seen inside, gaps, low confidence, hidden
+ankles, continuous motion, normalized units, direction, unsampled path crossing,
+boundary abstention, changed geometry, retired epochs, wall/source clocks and
+ambiguous people. Tests establish geometry/state-machine behavior only. No real
+Running/Zone GT, precision/recall, deployment threshold or production pipeline
+integration is established by this prototype. No new data acquisition, model,
+training or GPU/LinQ request was made.
+
+### Limited fall hypothesis outcome and stage ledger
+
+The orchestrator reported replay of H-FALL-02 on the same frozen 3,274 native
+observations and source-reference GT: baseline and candidate both TP=0, FP=0,
+FN=10. **H-FALL-02 is rejected: no improvement.** Its opt-in flag remains
+experimental and OFF; there is no promotion or further fall threshold search.
+A separate fixed 2 FPS observation subsequence (225 frames) gave the same result
+for both policies: TP=1, FP=0, FN=9, F1≈0.1818. This is sampling sensitivity, not
+a candidate gain, and must not be compared to 30 FPS as if only a rule changed.
+These are orchestrator-reported developmental source-reference results; this
+agent did not run the model or inspect predictions while annotating GT.
+
+| Component | Stage | Evidence boundary |
+|---|---|---|
+| Existing Fall/Lying | BASELINE evaluated by orchestrator | Limited URFall source-reference diagnostics; not independent final industrial quality |
+| H-FALL-02 retention | EVALUATED, REJECTED | Same fixed observations/GT; no improvement; default unchanged |
+| Running/Zone offline probe | UNVALIDATED_PROTOTYPE | Synthetic temporal/geometry contracts only; no real GT score |
+| Production Running/Zone | NOT_IMPLEMENTED | No public event contract or production pipeline added |
+| Improved/frozen temporal release | NOT_ESTABLISHED | No measured improvement or release promotion claimed |
+
+Only one failed fall-policy hypothesis was tested here. The separately allocated
+H-FALL-01 PTQ experiment is orchestrator-owned; no third fall hypothesis was
+started. Source acquisition remains stopped and belongs to the Data Orchestrator.
