@@ -15,7 +15,7 @@ python -m unittest discover -s tests -v
 python -m ml.pipeline.cli --help
 python -m ml.pipeline.cli --state-dir runtime video \
   --source /path/to/input.mp4 --backend native --device cuda:0 \
-  --manifest /workspace/artifacts/detection/pose/manifest.json \
+  --manifest /workspace/artifacts/detection/pose-split/manifest.json \
   --manifest /workspace/artifacts/detection/helmet/manifest.json
 ```
 

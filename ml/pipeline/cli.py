@@ -108,7 +108,7 @@ def _run_video(args, pipeline, stack):
             if not live:
                 observed = time.monotonic()
             rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-            detections, model_ids, errors = [], [], []
+            detections, model_ids, errors, execution_records = [], [], [], []
             for manifest, backend in zip(manifests, backends):
                 tensor, transform = preprocess(rgb, manifest)
                 model_id = manifest.get('model_id', manifest.get('id', 'unversioned'))
@@ -117,6 +117,10 @@ def _run_video(args, pipeline, stack):
                 input_name = manifest.get('linq', {}).get('input_map', {}).get(input_name, input_name) if args.backend == 'linq' else input_name
                 result = backend.infer({'request_id': f'{epoch}:{frame_id}:{model_id}', 'model_id': model_id,
                                          'inputs': {input_name: tensor}})
+                execution_records.append({'request_id': result.get('request_id'), 'model_id': model_id,
+                    'backend': result.get('backend'), 'status': result['status'],
+                    'program_sha256': manifest.get('linq', {}).get('program_sha256') if args.backend == 'linq' else None,
+                    'execution_witness': result.get('execution_witness'), 'execution_verified': result.get('execution_verified', False)})
                 if result['status'] != 'ok':
                     errors.append(model_id)
                     continue
@@ -133,6 +137,7 @@ def _run_video(args, pipeline, stack):
                      'frame_id': frame_id, 'media_time_ms': media_ms, 'image_size': [rgb.shape[1], rgb.shape[0]],
                      'ingested_at': datetime.now(timezone.utc).isoformat(), 'request_id': f'{epoch}:{frame_id}',
                      'model_id': '+'.join(model_ids), 'model_ids': model_ids, 'backend': args.backend,
+                     'execution_records': execution_records,
                      'status': 'gap' if errors or stale else 'ok', 'detections': [] if errors or stale else detections}
             last_batch = batch
             mutations = pipeline.process(batch, rgb if batch['status'] == 'ok' else None)

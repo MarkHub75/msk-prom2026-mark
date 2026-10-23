@@ -193,6 +193,7 @@ class BehaviorEngine:
                "rule_version":self.config["rule_version"],
                "model_ids":batch.get("model_ids",[batch.get("model_id","unknown")]),
                "execution_backend":batch.get("backend","unknown"),
+               "execution_records":deepcopy(batch.get("execution_records",[])),
                "evidence":{"frame_id":batch["frame_id"],"snapshot_ref":None,"clip_ref":None,"status":"pending"}}
         track.sent.add(hazard)
         track.active[hazard]=event

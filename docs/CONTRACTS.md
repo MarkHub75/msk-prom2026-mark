@@ -6,6 +6,10 @@ BehaviorEngine(config=None).update(batch: dict) -> list[dict]; .on_gap(gap: dict
 
 InferenceBackend.infer(request: dict) -> dict. Request includes request_id, inputs mapping names to numpy arrays, model_id. Result includes matching request_id and model_id, backend, status, outputs mapping names to copied numpy arrays, and timings. Tensor transport is private to adapter, never encoded into event JSON. Model manifest defines exact dtype, layout, shape, class map, decoder, transforms and hashes. No automatic local fallback.
 
-Preprocess frame as RGB numpy array through preprocess(frame, manifest) returning tensor and original-coordinate transform. decode(outputs, manifest, transform) -> list of detections. Explicitly select detect_v8, detect_v5 or pose_v8; do not infer ABI from channel count. NMS exactly once.
+Preprocess frame as RGB numpy array through preprocess(frame, manifest) returning tensor and original-coordinate transform. decode(outputs, manifest, transform) -> list of detections. Explicitly select detect_v8, detect_v5, pose_v8 or split_pose_v8; do not infer ABI from channel count. NMS exactly once.
 
 EventSink POSTs /api/v1/ml/events; URL configurable. Receiver commits before ACK; deduplicates event_id/revision. ML outbox is durable SQLite; evidence is available before publication. Snapshot upload is multipart or separate evidence endpoint, selected by backend adapter configuration; default snapshot_ref is a shared relative artifact path requiring configured shared storage. Do not claim remote evidence availability unless configured.
+
+Preferred LinQ pose export is split_pose_v8: four already-decoded outputs (boxes, class_scores, keypoint_xy, keypoint_scores) are concatenated/reshaped only on the host. Output tensor names are explicit in split_outputs and mapped to actual runtime names only after ABI verification. Mixed coordinate/confidence pose export failed the quantized-reference smoke and must not be used for behavior deployment.
+
+Events optionally carry execution_records with per-model request_id, backend, program_sha256, status and allowlisted execution_witness. These preserve traceability; execution_backend=linq is not itself independent proof of TPU execution.
