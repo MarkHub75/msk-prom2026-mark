@@ -2,7 +2,9 @@
 
 ## Measured state on this Vast instance
 
-2026-10-23 UTC: `/dev/net/tun` absent; `openvpn`, `tpu_framework` and `pytpu` unavailable. `hackathon.lin-q.ru` fails DNS resolution (`gaierror`), so Jupyter/TCP cannot be reached here. Authentication, vendor ResNet50 and our models have **not run**. This is an access/runtime blocker, not evidence of a model/compiler failure. Do not report RTX/ONNX or mocked calls as LinQ execution.
+Historical preflight on the Vast main environment (2026-10-23 UTC): `/dev/net/tun`, `openvpn`, `tpu_framework` and `pytpu` were unavailable; `hackathon.lin-q.ru` failed DNS resolution (`gaierror`). This describes this container only. **The user subsequently confirmed authenticated LinQ Jupyter access and the actual supplied `example.ipynb` using a stock ResNet50 TPU program.** No authenticated browser/kernel session is available to the agent. A captured completed call and results remain pending; the earlier Vast result does not negate the user’s access. Do not report RTX/ONNX or mocked calls as LinQ execution.
+
+Use [JUPYTER_RUNBOOK.md](JUPYTER_RUNBOOK.md) and `ml.linq.notebook.capture_call` inside the existing authenticated session to capture exactly one inspected supplied call without exporting notebook/session secrets. The helper exports explicit numeric input/output NPZ and allowlisted metadata only. Hardware placement is labeled user/supplied-runtime attestation, never independent proof. No notebook is executed wholesale and no remote endpoint is invented.
 
 Run the safe inventory again:
 
