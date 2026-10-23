@@ -41,6 +41,20 @@ class CodecTests(unittest.TestCase):
         self.assertEqual(len(out[0]["keypoints"]),17)
         np.testing.assert_allclose(out[0]["keypoints"][0],[100,40,.8],atol=1e-6)
 
+    def test_split_pose_is_identical_to_interleaved_original(self):
+        m = manifest("pose_v8",["person"])
+        _, t = preprocess(np.zeros((320,640,3),np.uint8),m)
+        row = np.array([100,200,40,40,.9]+[100,200,.8]*17,np.float32)
+        combined = row[None,:,None]
+        names={"boxes":"boxes","class_scores":"scores","keypoint_xy":"xy","keypoint_scores":"confidence"}
+        split=dict(m,decoder="split_pose_v8",split_outputs=names)
+        points=combined[:,5:].reshape(1,17,3,1)
+        outputs={"boxes":combined[:,:4],"scores":combined[:,4:5],"xy":points[:,:,:2],"confidence":points[:,:,2:]}
+        self.assertEqual(decode(combined,m,t),decode(outputs,split,t))
+        broken=dict(outputs,confidence=points[:,:,2:].reshape(1,17,1))
+        with self.assertRaises(ValueError): decode(broken,split,t)
+        with self.assertRaises(ValueError): decode(list(outputs.values()),split,t)
+
     def test_abi_invalid_or_ambiguous_output_rejected(self):
         m=manifest(); _,t=preprocess(np.zeros((2,2,3),np.uint8),m)
         with self.assertRaises(ValueError): decode(np.zeros((1,7,1),np.float32),m,t)

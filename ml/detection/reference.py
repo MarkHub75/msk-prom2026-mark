@@ -30,4 +30,15 @@ class NativeReferenceBackend:
         if isinstance(result, (tuple, list)):
             result = result[0]
         output = result.detach().cpu().numpy().copy()
-        return {"request_id": request["request_id"], "model_id": request["model_id"], "backend": "pytorch", "status": "ok", "outputs": {self.manifest.get("output_name", "output0"): output}, "timings": {"roundtrip_ms": (time.perf_counter() - start) * 1000}}
+        if self.manifest.get("decoder") == "split_pose_v8":
+            names = self.manifest["split_outputs"]
+            nc = len(self.manifest["classes"])
+            count = self.manifest.get("keypoint_count",17)
+            keypoints = output[:,4+nc:].reshape(1,count,3,-1)
+            values = {names["boxes"]: output[:,:4].copy(),
+                      names["class_scores"]: output[:,4:4+nc].copy(),
+                      names["keypoint_xy"]: keypoints[:,:,:2].copy(),
+                      names["keypoint_scores"]: keypoints[:,:,2:].copy()}
+        else:
+            values = {self.manifest.get("output_name", "output0"): output}
+        return {"request_id": request["request_id"], "model_id": request["model_id"], "backend": "pytorch", "status": "ok", "outputs": values, "timings": {"roundtrip_ms": (time.perf_counter() - start) * 1000}}

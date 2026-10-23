@@ -27,9 +27,15 @@ def verify(manifest_path, image_path, device="cpu"):
     options = ort.SessionOptions(); options.intra_op_num_threads = 2
     session = ort.InferenceSession(str(manifest_path.parent / m["artifacts"]["onnx"]["file"]), sess_options=options, providers=["CPUExecutionProvider"])
     start = time.perf_counter()
-    outputs = session.run([m["output_name"]], request["inputs"])
+    output_names = list(m["split_outputs"].values()) if m["decoder"] == "split_pose_v8" else [m["output_name"]]
+    output_values = session.run(output_names, request["inputs"])
+    outputs = dict(zip(output_names,output_values))
     elapsed = (time.perf_counter() - start) * 1000
-    a, b = reference["outputs"][m["output_name"]], outputs[0]
+    if m["decoder"] == "split_pose_v8":
+        a = np.concatenate([v.reshape(-1) for v in reference["outputs"].values()])
+        b = np.concatenate([outputs[name].reshape(-1) for name in reference["outputs"]])
+    else:
+        a, b = reference["outputs"][m["output_name"]], outputs[m["output_name"]]
     native_d = decode(reference["outputs"], m, transform)
     onnx_d = decode(outputs, m, transform)
     report = {"model_id": m["model_id"], "image_sha256": sha256(image_path), "weights_sha256": m["artifacts"]["weights"]["sha256"], "onnx_sha256": m["artifacts"]["onnx"]["sha256"], "shape": list(a.shape), "native_device": device, "raw_max_abs_error": float(np.max(np.abs(a - b))), "raw_allclose_atol_1e-3_rtol_1e-3": bool(np.allclose(a,b,atol=1e-3,rtol=1e-3)), "native_detections": len(native_d), "onnx_detections": len(onnx_d), "native_roundtrip_ms": reference["timings"]["roundtrip_ms"], "onnx_cpu_ms": elapsed, "linq_status": "NOT_RUN", "scope": "single paired image, not task accuracy or steady throughput"}
