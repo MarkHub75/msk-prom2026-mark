@@ -131,4 +131,25 @@ class LocalRunnerTests(unittest.TestCase):
                 with LocalPytpuRunner(path,'0'*64):pass
 
 
+
+class SimulationScaleTests(unittest.TestCase):
+    def test_input_scale_clamp_and_round(self):
+        from ml.linq.simulate import quantize_input
+        array=np.array([[-2,0,.5,1,2]],dtype=np.float32)
+        got=quantize_input(array,{'data_type':'int8','data_scale':127})
+        np.testing.assert_equal(got,[[-128,0,64,127,127]])
+
+    def test_per_channel_scales_preserve_probability_range(self):
+        from ml.linq.simulate import dequantize_output
+        raw=np.array([[[100],[100]]],dtype=np.float32)
+        got=dequantize_output(raw,{'data_scale':[[[5],[.005]]]})
+        np.testing.assert_allclose(got,[[[500],[.5]]])
+
+    def test_bad_scales_and_unverified_zero_point_rejected(self):
+        from ml.linq.simulate import dequantize_output
+        for spec in [{'data_scale':0},{'data_scale':float('nan')},
+                     {'data_scale':1,'zero_point':3}]:
+            with self.assertRaises(ValueError):dequantize_output(np.ones((1,2)),spec)
+
+
 if __name__=='__main__':unittest.main()
