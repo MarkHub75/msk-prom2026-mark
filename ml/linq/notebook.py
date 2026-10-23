@@ -17,7 +17,7 @@ import os
 from pathlib import Path
 import re
 from time import perf_counter
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import numpy as np
 from .backend import TensorSpec
@@ -234,7 +234,19 @@ def capture_call(run, *, inputs, output_names, program_path, output_dir,
     # Do not overwrite an existing directory if creation itself failed.
     if directory is not None and phase != "create_capture_directory":
         try:
-            _save_report(directory / "capture.json", report)
+            # Preserve only transport pointers written into THIS pending capture
+            # before network submission; never merge arbitrary runtime metadata.
+            path = directory / "capture.json"
+            if path.is_file():
+                current = json.loads(path.read_text(encoding="utf-8"))
+                if current.get("capture_id") == report["capture_id"] and "journal_request_id" in current:
+                    request_id = current["journal_request_id"]
+                    journal_path = current.get("journal_path")
+                    if (not isinstance(request_id, str) or str(UUID(request_id)) != request_id or
+                            not isinstance(journal_path, str) or Path(journal_path).name != request_id):
+                        raise ValueError("invalid transport pointer")
+                    report.update(journal_request_id=request_id, journal_path=journal_path)
+            _save_report(path, report)
         except Exception as error:
             report["status"] = "failed"
             report["error"] = {"phase": "save_report", "exception_type": type(error).__name__}

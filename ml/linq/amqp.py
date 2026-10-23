@@ -164,6 +164,7 @@ def _connection_parameters(original, timeout, host, port):
         params.socket_timeout = min(5.0, timeout / 2)
         params.stack_timeout = timeout
         params.blocked_connection_timeout = min(5.0, timeout)
+        params.heartbeat = 5  # this session only; detect a blackholed tunnel without indefinite inherited heartbeat
         return params
     except Exception as error:
         raise AmqpError("invalid_connection_parameters", "connection_parameters", exception_type=type(error).__name__) from None
@@ -250,10 +251,10 @@ class AmqpRunner:
             value.update(journal_request_id=request_id,journal_path=pointer['journal_path'])
             atomic_json(path,value)
 
-    def _open(self):
+    def _open(self,timeout=None):
         fmt=_load_format(self.binding.format_source_manifest)
         pika=importlib.import_module('pika')
-        parameters=_connection_parameters(self.binding.parameters,self.timeout,self.host,self.port)
+        parameters=_connection_parameters(self.binding.parameters,self.timeout if timeout is None else timeout,self.host,self.port)
         return fmt,pika,pika.BlockingConnection(parameters)
 
     def _error(self,request_id,error,phase,publish_possible):
@@ -418,7 +419,8 @@ class AmqpRunner:
                 if not isinstance(reply_queue,str) or not reply_queue:
                     raise AmqpError('retained_reply_queue_missing','reconcile')
                 try:
-                    fmt,_,connection=self._open();channel=connection.channel()
+                    fmt,_,connection=self._open(timeout=duration);channel=connection.channel()
+                    summary['broker_ready']=True
                     # No queue declaration/binding/task serialization/publish here.
                     return self._receive(request_id,fmt,connection,channel,reply_queue,started+duration)
                 except Exception as error:
@@ -533,9 +535,12 @@ def main(argv=None):
     parser.add_argument("--notebook-reply-queue", action="store_true", help="Use actual notebook_{request_id[:8]} reply queue")
     parser.add_argument("--save-service-error", action="store_true", help="Preserve bounded worker error text privately outside Git; never stdout")
     parser.add_argument("--program-file", help="Local .tpu bytes for hash; not proof of loaded remote identity")
-    parser.add_argument("--input-npz", required=True)
-    parser.add_argument("--output-dir", required=True)
+    parser.add_argument("--input-npz")
+    parser.add_argument("--output-dir")
     parser.add_argument("--model-id", default="explicit-amqp-model")
+    parser.add_argument("--journal-dir", default=DEFAULT_JOURNAL_DIR)
+    parser.add_argument("--purpose", choices=("inference","model_upload"), default="inference")
+    parser.add_argument("--reconcile", metavar="UUID", help="Receive/cache existing request only; never publish")
     parser.add_argument("--timeout", type=float, default=30.0)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=15672)
@@ -544,6 +549,26 @@ def main(argv=None):
     runner = None
     try:
         args = parser.parse_args(argv)
+        if args.reconcile is not None:
+            record=RequestJournal(args.journal_dir).load(args.reconcile)
+            runner=AmqpRunner(None,timeout=args.timeout,journal_dir=args.journal_dir)
+            if record['state'] not in TERMINAL and record['state']!='NOT_SUBMITTED':
+                _load_format(args.format_source_manifest)
+                if args.binding:
+                    binding=_load_binding(args.binding)
+                    if args.format_source_manifest is not None:binding.format_source_manifest=args.format_source_manifest
+                else:
+                    # Request routes/URI are unused: this path never publishes or binds.
+                    binding=official_binding(_environment_parameters(args.connection_config),
+                        request_exchange='',request_routing_key='',reply_exchange='',
+                        output_names=record['output_names'],format_source_manifest=args.format_source_manifest)
+                runner=AmqpRunner(binding,timeout=args.timeout,host=args.host,port=args.port,
+                                  journal_dir=args.journal_dir,purpose=record['purpose'])
+            runner.reconcile(args.reconcile)
+            print(json.dumps({'status':runner.last_response['status'],'response':runner.last_response},allow_nan=False))
+            return 0
+        if args.input_npz is None or args.output_dir is None:
+            raise AmqpError('input_and_output_capture_paths_required','configuration')
         if args.program is not None and args.login_env is not None:
             raise AmqpError("choose_exact_uri_or_explicit_login_env", "configuration")
         if args.program is None:
@@ -575,7 +600,8 @@ def main(argv=None):
             if len(set(archive.files)) != len(archive.files):
                 raise AmqpError("duplicate_input_name", "load_inputs")
             inputs = _arrays({name: archive[name] for name in archive.files}, max_bytes=_MAX_BYTES)
-        runner = AmqpRunner(binding, args.program, timeout=args.timeout, host=args.host, port=args.port)
+        runner = AmqpRunner(binding, args.program, timeout=args.timeout, host=args.host, port=args.port,
+                            journal_dir=args.journal_dir,purpose=args.purpose,capture_dir=args.output_dir)
         capture = capture_call(runner, inputs=inputs, output_names=list(binding.output_names),
             program_path=local_program, output_dir=args.output_dir, model_id=args.model_id,
             placement_attested=args.attest_linq_placement)
@@ -600,6 +626,7 @@ def main(argv=None):
         return 0 if capture["status"] == "completed" else 1
     except AmqpError as error:
         value = {"status": "failed", "error": error.details}
+        if runner is not None and runner.last_response is not None:value["response"]=runner.last_response
         if error.details["code"].startswith("official_format_"):
             value.update(required_format_version=FORMAT_VERSION,
                          next_action="provide_exact_official_tpu_pycloud_format_0_0_1")

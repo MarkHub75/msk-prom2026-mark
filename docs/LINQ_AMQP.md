@@ -57,3 +57,23 @@ If the actual notebook uses a different reply route or task construction, use `-
 Required fields: actual `parameters`, `task_factory(request_id,reply_queue,inputs,program)`, `get_response_id(decoded,amqp_properties)`, `get_status(decoded)`, `get_outputs(decoded)`, explicit `output_names`, `request_exchange`, `request_routing_key`, and `reply_policy`. Policies are `default_exchange` or `custom_setup`, the latter requiring `reply_setup(channel,reply_queue,request_id)`. Optional factories are `properties_factory(request_id,reply_queue,program)` and `reply_queue_factory(request_id)`. No PyTask kwargs/response positions are guessed by the generic binding path. A format source manifest must still be supplied and verified.
 
 No live request was sent while implementing/testing this module. Tests cover mock success, exact headers/queue policy, ID mismatch, timeout, nonzero status, one ambiguous publish, close-on-error, serialization failure, finite-output validation, credential redaction and missing/wrong dependency guards.
+
+
+## Durable request intent and receive-only recovery
+
+Each new request persists an fsynced journal under `/workspace/artifacts/linq-rpc/requests/<UUID>/` before publishing. Override the base with `--journal-dir`. `request.json` records purpose (`inference` or `model_upload`), selected numeric input specs/hashes and `inputs.npz`, output names, callback queue and SHA256 of the target URI; it never records the URI, account or broker credentials. State advances NOT_SUBMITTED -> SUBMITTING (durable before publish) -> ACCEPTED (publisher confirmation only). A lost connection or timeout after possible publication is UNKNOWN, never automatically resubmitted. On restart SUBMITTING/ACCEPTED become UNKNOWN when reconciliation begins.
+
+When `capture_dir` is provided, `request-pointer.json` is fsynced before network I/O, even for uploads without a capture JSON. Keys are `schema_version`, `journal_request_id`, `journal_path` (the UUID directory), `purpose`. An existing pending capture also receives the journal UUID/path before network; `capture_call` preserves those same-capture pointers in its final save. A different existing context pointer blocks a new request.
+
+A correlated numeric response and its status are persisted and fsynced before broker ACK. Terminal states are COMPLETED or SERVICE_FAILED. ACK loss cannot lose the durable response. UNKNOWN callbacks remain nonexclusive and are retained; foreign/malformed messages are not ACKed or deleted. Only definite no-publish or durably terminal cases allow callback deletion. A local timeout never cancels accepted remote work.
+
+Receive-only recovery uses the same client/codec/response validation and never declares/binds a queue, constructs a task or publishes:
+
+```bash
+python -m ml.linq.amqp --reconcile ORIGINAL_UUID \
+  --journal-dir /workspace/artifacts/linq-rpc/requests
+```
+
+Completed or failed terminal requests are loaded and verified from the local journal without importing the format, Pika or broker credentials. Pending requests additionally need the explicit existing binding or private connection config and format source manifest. Neither target URI nor new input/capture paths are required for reconciliation. The API is `AmqpRunner(binding_or_None, journal_dir=BASE).reconcile(UUID)`; `RequestJournal(BASE).load(UUID)` reads metadata and `.outputs(UUID)` validates cached tensor/file hashes. No automatic repeat is hidden behind recovery.
+
+This session uses heartbeat 5 seconds, socket/stack/blocked timeouts and a polling deadline. Blocking Pika RPCs or close may exceed that deadline while transport/heartbeat failure is detected: `--timeout 60` is **not a hard wall-clock cancellation guarantee**. Such failures retain UNKNOWN rather than reporting cancellation. SSH/VPN/system configuration is not modified.
