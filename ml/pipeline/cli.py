@@ -27,6 +27,12 @@ def build_pipeline(args):
 
 
 def run_video(args, pipeline):
+    from contextlib import ExitStack
+    with ExitStack() as stack:
+        return _run_video(args, pipeline, stack)
+
+
+def _run_video(args, pipeline, stack):
     import cv2
     import numpy as np
     from datetime import datetime, timezone
@@ -47,7 +53,22 @@ def run_video(args, pipeline):
             backends.append(NativeReferenceBackend(weights, manifest, device=args.device))
         else:
             from ml.linq import LinQBackend
-            backends.append(LinQBackend(manifest, runner=load_object(args.linq_runner) if args.linq_runner else None))
+            effective = {**manifest, **manifest.get('linq', {})}
+            if not effective.get('runtime_abi_verified'):
+                raise ValueError('LinQ runtime ABI must be verified before video execution')
+            if args.linq_runner_factory:
+                runner = load_object(args.linq_runner_factory)(effective)
+                if hasattr(runner, '__enter__'):
+                    runner = stack.enter_context(runner)
+            else:
+                from ml.linq.local import LocalPytpuRunner
+                program = effective.get('program_path')
+                if not program:
+                    raise ValueError('LinQ manifest requires program_path')
+                if not Path(program).is_absolute():
+                    program = Path(manifest_path).resolve().parent / program
+                runner = stack.enter_context(LocalPytpuRunner(program, effective['program_sha256']))
+            backends.append(LinQBackend(effective, runner=runner))
     cap = cv2.VideoCapture(int(args.source) if args.source.isdigit() else args.source)
     if not cap.isOpened():
         raise ValueError('video source unavailable')
@@ -92,12 +113,18 @@ def run_video(args, pipeline):
                 tensor, transform = preprocess(rgb, manifest)
                 model_id = manifest.get('model_id', manifest.get('id', 'unversioned'))
                 model_ids.append(model_id)
+                input_name = manifest['input'].get('name', 'images')
+                input_name = manifest.get('linq', {}).get('input_map', {}).get(input_name, input_name) if args.backend == 'linq' else input_name
                 result = backend.infer({'request_id': f'{epoch}:{frame_id}:{model_id}', 'model_id': model_id,
-                                         'inputs': {manifest['input'].get('name', 'images'): tensor}})
+                                         'inputs': {input_name: tensor}})
                 if result['status'] != 'ok':
                     errors.append(model_id)
                     continue
-                detections.extend(decode(result['outputs'], manifest, transform))
+                outputs = result['outputs']
+                if args.backend == 'linq':
+                    mapping = manifest.get('linq', {}).get('output_map', {})
+                    outputs = {mapping.get(name, name): value for name, value in outputs.items()}
+                detections.extend(decode(outputs, manifest, transform))
             for idx, d in enumerate(detections):
                 d['detection_id'] = f'{frame_id}:{idx}'
             elapsed_ms = (time.monotonic() - observed) * 1000
@@ -158,7 +185,7 @@ def main(argv=None):
     video.add_argument('--manifest', action='append', required=True)
     video.add_argument('--backend', choices=['native', 'linq'], required=True)
     video.add_argument('--device', default='cpu')
-    video.add_argument('--linq-runner', help='Approved SDK bridge callable module:name')
+    video.add_argument('--linq-runner-factory', help='Per-program approved SDK bridge factory module:name')
     video.add_argument('--sample-fps', type=float, default=5)
     video.add_argument('--max-age-ms', type=float, default=2000)
     video.add_argument('--max-frames', type=int, default=0)
@@ -183,6 +210,8 @@ def main(argv=None):
         else:
             summary = run_video(args, pipeline)
         print(json.dumps(summary, allow_nan=False), file=sys.stderr)
+        if args.command == 'video' and (summary['processed_frames'] == 0 or summary['failed_or_stale_frames'] == summary['processed_frames']):
+            raise SystemExit(2)
     finally:
         pipeline.outbox.close()
 

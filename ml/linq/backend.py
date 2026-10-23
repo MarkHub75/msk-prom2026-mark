@@ -62,6 +62,12 @@ class LinQBackend:
         if not isinstance(self.model_id, str) or not self.model_id:
             raise ValueError("manifest requires model_id")
         self.program_sha256 = manifest.get("program_sha256")
+        if not isinstance(self.program_sha256, str) or len(self.program_sha256) != 64:
+            raise ValueError("manifest requires pinned program_sha256")
+        try:
+            bytes.fromhex(self.program_sha256)
+        except ValueError:
+            raise ValueError("invalid program_sha256") from None
         self.inputs = self._specs(manifest.get("inputs", []))
         self.outputs = self._specs(manifest.get("outputs", []))
         self.runner = runner

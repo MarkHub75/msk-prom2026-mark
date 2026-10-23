@@ -17,3 +17,6 @@ mosprom-ml = "ml.pipeline.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["ml*"]
+
+[tool.setuptools.package-data]
+"ml.contracts" = ["schemas/*.json"]

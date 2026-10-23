@@ -68,3 +68,23 @@ Before claiming MVP quality, independently review >=20 positive episodes per dec
 - agent/speed: preserved, inactive in this MVP.
 
 Merge small verified commits into matvey_cv. Do not simultaneously edit common contracts. Model binaries/runtime files stay outside Git. /workspace is not volume-backed: git commits and artifacts need an authorized remote backup; no remote push is performed implicitly without an established destination.
+
+## LinQ model binding
+
+The detection manifest retains its original preprocessing/decoder fields. Add a `linq` block only after checking the compiled runtime ABI on the execution host:
+
+```json
+{
+  "linq": {
+    "runtime_abi_verified": false,
+    "program_path": "compiled/model.tpu",
+    "program_sha256": "REPLACE_WITH_ACTUAL_SHA256",
+    "inputs": [{"name": "ACTUAL_RUNTIME_INPUT", "shape": [1, 3, 640, 640], "dtype": "float32"}],
+    "outputs": [{"name": "ACTUAL_RUNTIME_OUTPUT", "shape": [1, 6, 8400], "dtype": "float32"}],
+    "input_map": {"images": "ACTUAL_RUNTIME_INPUT"},
+    "output_map": {"ACTUAL_RUNTIME_OUTPUT": "output0"}
+  }
+}
+```
+
+This is a helmet binding template, not actual runtime metadata. Pose has a different output shape. Do not change dtype/layout/shape merely to match a template. The worker refuses unverified ABI. Once validated, `--backend linq` opens one context-owned `LocalPytpuRunner` per model on a host with the actual runtime/device. A supplied remote bridge can instead be configured with `--linq-runner-factory package.module:create_runner`; factory receives that model's effective manifest and returns a callable `(inputs, metadata)` or a context manager yielding one. It must preserve request/model/program correlation and own the remote lifetime. No remote transport is guessed or automatically exposed.
