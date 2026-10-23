@@ -18,7 +18,7 @@ import json
 import math
 from pathlib import Path
 from time import monotonic
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import numpy as np
 
@@ -212,6 +212,8 @@ class AmqpRunner:
                    "timings": {}, "outputs": {}}
         self.last_response = summary
         connection = None
+        channel = None
+        owned_reply_queue = None
         phase = "validate_inputs"
         try:
             arrays = _arrays(inputs, max_bytes=_MAX_BYTES)
@@ -234,6 +236,7 @@ class AmqpRunner:
             reply_queue = declared.method.queue
             if not isinstance(reply_queue, str) or not reply_queue:
                 raise AmqpError("invalid_reply_queue", "declare_reply_queue")
+            owned_reply_queue = reply_queue
             phase = "reply_setup"
             if self.binding.reply_policy == "custom_setup":
                 self.binding.reply_setup(channel, reply_queue, request_id)
@@ -277,7 +280,14 @@ class AmqpRunner:
                     raise AmqpError("invalid_serialized_response", phase)
                 response = fmt.deserialize(bytes(response_body))
                 phase = "correlate_response"
-                if self.binding.get_response_id(response, response_properties) != request_id:
+                response_id = self.binding.get_response_id(response, response_properties)
+                # Export only a syntactically valid UUID, never an arbitrary header string.
+                try:
+                    UUID(response_id)
+                    summary["response_id"] = response_id if isinstance(response_id, str) and len(response_id) <= 36 else None
+                except (ValueError, TypeError, AttributeError):
+                    summary["response_id"] = None
+                if response_id != request_id:
                     raise AmqpError("response_id_mismatch", phase)
                 phase = "check_status"
                 status = self.binding.get_status(response)
@@ -311,6 +321,15 @@ class AmqpRunner:
             summary.update(status="failed", error=dict(safe.details))
             raise safe from None
         finally:
+            # basic_get does not register a consumer, so auto_delete alone can leak
+            # a nonexclusive reply queue. Delete only our successfully declared queue.
+            if channel is not None and owned_reply_queue is not None:
+                try:
+                    channel.queue_delete(queue=owned_reply_queue)
+                    summary["reply_queue_cleanup"] = "deleted"
+                except Exception as error:
+                    summary["reply_queue_cleanup"] = "failed"
+                    summary["queue_cleanup_error_type"] = type(error).__name__
             if connection is not None:
                 try:
                     connection.close()
