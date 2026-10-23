@@ -26,7 +26,7 @@ def head(kind='bare_head',x=100):
 def batch(t,ds,epoch='e1',camera='c1'):
     return dict(schema_version='1.0',camera_id=camera,stream_epoch=epoch,frame_id=t,
                 media_time_ms=t,image_size=[1000,800],request_id=str(t),model_id='test',
-                backend='linq',status='ok',detections=ds)
+                backend='synthetic-test',status='ok',detections=ds)
 
 
 class BehaviorTests(unittest.TestCase):

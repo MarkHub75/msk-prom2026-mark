@@ -90,3 +90,75 @@ No claim of human re-identification or exactly-once semantic incidents across
 unknown gaps is made. Transport idempotency belongs to the event store/receiver.
 
 Run `python -m unittest discover -s tests -p test_behavior.py -v`.
+
+## BH-02 deterministic acceptance scenarios
+
+Generate synthetic observations and a semantic expectation manifest in an
+explicitly selected artifact directory:
+
+```bash
+python -m ml.behavior.scenarios \
+  --output-dir /workspace/artifacts/behavior/acceptance
+# Optional selection; repeat --scenario to select several independent cameras.
+python -m ml.behavior.scenarios \
+  --output-dir /workspace/artifacts/behavior/fall-only \
+  --scenario fall_immobility
+python -m ml.pipeline.cli --state-dir /workspace/artifacts/behavior/replay-state \
+  replay --input /workspace/artifacts/behavior/acceptance/observations.jsonl
+python -m unittest discover -s tests -p 'test_behavior*.py' -v
+```
+
+`observations.jsonl` contains normalized detector observations, not source images
+or model outputs. Every batch uses `backend="synthetic-test"`. `expected.json`
+contains explicit scenario descriptions, expected incident types, confirmation
+media times, revision/state sequences, immobility flags and notification counts.
+UUID values and emission UTC are intentionally not predetermined: expectations
+instead require each incident's revisions to retain the same generated UUID.
+Existing output files are not overwritten unless `--overwrite` is explicit.
+
+The eight independent cases cover these temporal contracts:
+
+| Scenario | Observations | Incidents | Persisted revisions | Expected meaning |
+|---|---:|---:|---:|---|
+| missing_helmet | 10 | 1 | 1 | Two seconds of positive bare-head evidence, one notification |
+| fall_immobility | 14 | 1 | 2 | Observed transition; later immobility updates the same UUID |
+| starts_lying | 12 | 1 | 2 | Prolonged lying without claiming an observed fall |
+| compliance | 12 | 0 | 0 | Visible helmet and upright pose |
+| gaps | 13 | 1 | 2 | Gap breaks pending dwell and interrupts confirmed incident |
+| ambiguous_people | 12 | 0 | 0 | Shared head ownership remains unknown |
+| no_repeat | 16 | 1 | 2 | Compliance closes; reappearance of bare head during same presence does not notify again |
+| epoch_reset | 12 | 2 | 3 | New clock creates new identity; previous end time uses previous epoch clock |
+
+Open incidents at finite trace end are censored; the generator does not fabricate
+EOF hazard resolution. JSONL replay has no media and correctly reports evidence
+unavailable. It cannot demonstrate useful visual evidence or live video ingress.
+
+### Test report — 2026-10-23
+
+On integration baseline `d88d0844`, all 30 owned behavior/acceptance test methods
+passed; the eight scenario subcases exercise the actual `Pipeline` and SQLite
+`Outbox` with temporary state directories. Each case restarts the process midway,
+restores committed state, finishes, restarts again and replays the entire trace.
+The checks assert persisted UUID/revision identity, no reopened incidents or
+additional notifications, one immutable record per revision and no regression of
+an old epoch's end time below its confirmation time.
+
+Delivery acceptance uses an explicitly labelled **test-double receiver** following
+the documented backend idempotency contract. It simulates a lost ACK after a
+receiver commit and verifies that Outbox retry preserves the revision payload
+and does not add another notification. This does not test the team's production
+backend, UI, network availability or receipt of a real operator alert.
+
+The acceptance replay exposed a concrete duplicate-gap bug: replaying an already
+accepted equal-time gap incremented the tracking generation after restoration.
+The engine now ignores a repeated gap when the last accepted item was already
+that gap, while preserving a first EOF gap at the last valid frame timestamp.
+No behavior threshold changes were needed.
+
+The full baseline suite also passed: **64 test methods**, including the 30 owned
+methods. Generated example artifacts: `/workspace/artifacts/behavior/bh02-acceptance/`
+contains 101 synthetic observations plus the expected semantic manifest.
+
+These results establish synthetic temporal/persistence contracts only. They
+establish neither neural inference nor TPU execution, target-video accuracy,
+false-alarm rates, real-world fall recognition, nor delivered-alert latency.

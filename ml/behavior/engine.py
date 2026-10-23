@@ -172,7 +172,11 @@ class BehaviorEngine:
         if not camera or gap.get("stream_epoch",camera.epoch) != camera.epoch:
             return []
         t=gap["media_time_ms"]
-        if camera.last_time is not None and t < camera.last_time:
+        if camera.last_time is not None and (t < camera.last_time or
+                t == camera.last_time and camera.last_frame is None):
+            # The last accepted item was already this gap. Replaying a durable
+            # gap must not allocate a new tracker generation. A first EOF gap
+            # at the last observed frame time may still interrupt an incident.
             return []
         events=self._interrupt(camera,gap,gap.get("reason","observation_gap"))
         camera.last_time=t
