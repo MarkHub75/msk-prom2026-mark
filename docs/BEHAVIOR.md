@@ -162,3 +162,119 @@ contains 101 synthetic observations plus the expected semantic manifest.
 These results establish synthetic temporal/persistence contracts only. They
 establish neither neural inference nor TPU execution, target-video accuracy,
 false-alarm rates, real-world fall recognition, nor delivered-alert latency.
+
+## Saved LinQ capture audit for sequential video sampling
+
+Audited on integration baseline `0c4cb5ff`; this section describes **replay of
+saved decoded single-image results**, not a new video inference run. No broker,
+Jupyter session, password or live TPU call is used by these tests.
+
+External inputs:
+
+- `/workspace/artifacts/linq-rpc/helmet-001/detections.json`
+- `/workspace/artifacts/linq-rpc/pose-split-001/detections.json`
+
+The test pins both decoded-file SHA256s and verifies that their numeric
+`inputs.npz` arrays match the same captured input SHA256:
+`9f03adcc058f220364e1c1ebcc5e41051702228a11083c655356413bd4611160`.
+Both were prepared from the same 810×1080 bus photograph. Capture status is
+completed. Their saved hardware-placement evidence is user-supplied runtime
+attestation, not independent hardware verification by these behavior tests.
+Artifacts are external and not copied into Git; tests explicitly skip when they
+are absent, and fail if present files differ from the pinned capture.
+
+### Confidence and ownership
+
+The saved helmet output contains two `bare_head` detections with unchanged scores
+**0.35258615016937256** and **0.25950342416763306**. The saved SplitPose output
+contains three persons with scores about .8833/.8694/.8554. The first two head
+boxes each contain observed head keypoints of a separate person and have their
+centres within that person's bbox. Strict pose-based ownership succeeds without
+bbox fallback. The third person has no associated positive bare-head observation
+and remains unknown for the helmet rule. Its partly unobserved torso does not
+establish a lying or fall event.
+
+The default behavior `min_score=.5` rejects both head candidates and produces no
+missing-helmet events. That is expected policy behavior, not an integration
+failure. For an explicitly labelled **DEMO** investigation the orchestrator may
+choose this policy in its own configuration:
+
+```json
+{
+  "min_score": 0.25,
+  "keypoint_score": 0.5,
+  "allow_bbox_head_association": false,
+  "rule_version": "demo-low-confidence-v1"
+}
+```
+
+No engine default is changed by this audit. `min_score` currently applies to all
+object classes, including persons; the demo setting is not a class-specific
+helmet threshold. Keypoint confidence, visibility, one-to-one ownership,
+confirmation windows, missing-observation handling and repeat suppression remain
+unchanged. The decoder already uses confidence .25 for this model: raising the
+behavior threshold afterwards cannot recover filtered detections, and changing
+the threshold must never rewrite or inflate model scores.
+
+Choosing .25 admits an additional unvalidated candidate: saved numeric/reference
+comparison has one head matched to the reference and a second actual head
+unmatched. This is not ground-truth proof of a false positive or true positive.
+The lower setting is useful for integration diagnostics only until independently
+reviewed on target video; it does not establish a precision improvement or
+industrial acceptance.
+
+### Source time versus wall time
+
+For a **prerecorded video processed offline**, ordered samples with actual source
+PTS 0,500,1000,1500,2000 ms satisfy the current 750 ms maximum observation gap.
+Five positive samples can confirm the two-second helmet episode even if each
+sequential pair of model requests takes roughly 20 seconds of wall time. The
+engine deliberately uses source media time, not request duration, for this
+semantic rule. Outputs of both models must come from the same immutable source
+frame with the same epoch/geometry; do not merge results of successively decoded
+frames merely because their calls completed nearby.
+
+Saved single-image call times are approximately 10.23 seconds for Helmet and
+11.15 seconds for SplitPose, with total wrappers about 21.43 seconds combined.
+Applying those single-image observations illustratively, five sequential paired
+samples could require over 100 seconds of processing before the first alarm;
+this is not a measured video benchmark. A two-second **media** confirmation is
+therefore not a two-second delivered-alert delay or real-time capability.
+
+For a **live latest-frame** source, actual PTS gaps of ~20 seconds exceed the
+750 ms rule limit and correctly interrupt candidates. Do not assign fabricated
+500 ms PTS to old or newly captured frames, enlarge `max_gap_ms` to hide slow
+inference, or interpret an unchanged screenshot as new evidence. Sparse samples
+can also miss a rapid fall: an unobserved transition remains unknown; subsequent
+observable lying may independently confirm `prolonged_lying` after its own
+continuous observation window. Missing observations never prove recovery.
+
+A repeated saved screenshot is useful only for testing association, timer
+contracts and persistence. It cannot validate behavior recognition over time,
+fall detection, temporal recall, camera motion, tracking continuity in real
+video, or delivered-alert latency. The replay test backend is explicitly
+`replayed-real-capture`, while its modified negative controls are marked as such.
+
+### Focused acceptance report
+
+`python -m unittest discover -s tests -p 'test_behavior*.py' -v` passes **37 tests**
+on the available artifact set, with **zero artifact-related skips**:
+
+- Unmodified saved detections at 500 ms source intervals yield exactly two
+  missing-helmet incidents at 2000 ms under the explicit demo policy; no fall or
+  lying incident is created and model scores remain unchanged.
+- Real `Pipeline`/SQLite `Outbox` checkpoint restart and complete replay preserve
+  those two event UUIDs at revision 1 without repeated opening or replacement
+  incidents. Snapshot evidence correctly remains unavailable in observation-only
+  replay.
+- The same capture at 1000 ms source intervals cannot accumulate dwell.
+- An explicit missing observation breaks pending confirmation; low-confidence
+  head observations and insufficiently visible head keypoints remain unknown.
+  These negative controls are deliberately modified copies of saved results,
+  not additional actual model outputs.
+- A separate honestly labelled synthetic transition case with a gap before lying
+  does not establish `suspected_fall`; only later prolonged lying is observable.
+
+No behavior-engine change was needed for these captured observations. The audit
+adds acceptance checks and guidance, not a new violation type, relaxed ownership
+or a claimed production quality result.
