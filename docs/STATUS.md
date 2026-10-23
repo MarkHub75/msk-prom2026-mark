@@ -34,3 +34,7 @@ Portable transfer package: `/workspace/artifacts/linq-handoff.zip`, including he
 ## Continuation checkpoint
 
 See [../RESUME.md](../RESUME.md) for exact state and restart steps. All three native agents completed their current isolated coding stages, changes merged into matvey_cv. Combined tests:96 PASS. Capture/comparison/integrity tooling is implemented; actual stock Jupyter call remains not captured by the orchestrator. The small current-source Jupyter kit has not yet been packaged. No new tasks should run until the user resumes.
+
+## Current portable kit
+
+The user reports stock LinQ example success (status_code0,class257,response0.39s). Current /workspace/artifacts/linq-jupyter-kit.zip includes the new helpers and both reviewed precompiled programs. It is distinct from the earlier65MB handoff.113 tests passed. Both model packages passed inventory verification and isolated import/preparation. Actual remote API binding remains explicitly unconfigured because the actual notebook call source has not been provided. See docs/JUPYTER_KIT.md and docs/validation/jupyter-kit.json.

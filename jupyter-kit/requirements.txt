@@ -1,0 +1,6 @@
+# Runtime-only helpers, no compiler, torch, ONNX or training dependencies.
+# The working organizer environment likely already has both; do not upgrade it blindly.
+numpy>=1.26,<3
+Pillow>=10,<13
+# Reuse the organizer's already installed actual service client from example.ipynb.
+# Its name/version cannot be inferred from status_code; no invented pip package here.

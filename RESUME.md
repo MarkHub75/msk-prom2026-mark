@@ -39,7 +39,7 @@ All three native agents were really resumed in separate Git worktrees and comple
 
 The USER CONFIRMS authenticated LinQ Jupyter access and stock example.ipynb with a ready ResNet50 TPU program. This session is not exposed through tools to the orchestrator. Vast still fails DNS for hackathon.lin-q.ru and has no /dev/net/tun/OpenVPN; that does NOT negate user access.
 
-An async question was issued: whether the stock example has been run successfully, not yet run, or errored. No answer was received before checkpoint. Do not ask for passwords/tokens. Actual stock-call completion is UNKNOWN/NOT_CAPTURED, not disproved by local preflight.
+The earlier async question was answered when the user resumed: stock example succeeded with status_code0, class257 and response0.39s. This result is user-reported; numeric tensors and the actual call source are not yet captured locally. Do not ask for passwords/tokens.
 
 Priority1 on resume:
 1. Read docs/JUPYTER_RUNBOOK.md. User runs the inspected supplied example in their existing Jupyter session.
@@ -49,9 +49,9 @@ Priority1 on resume:
 5. Then test own helmet and preferred split-pose programs on real TPU, verify runtime ABI/codec/name mapping. Do not flip runtime_abi_verified without this.
 6. Connect actual team backend/evidence hosting, then measure full-chain latency and independent target-video precision/recall.
 
-## Pending packaging task — NOT DONE
+## Earlier checkpoint packaging task — now completed
 
-Root was about to create a small `linq-jupyter-kit.zip` with current helper/source/runbook, without weights/profiles/secrets. **This small kit has NOT been built.** Build it on resume if needed. Do not call the existing archive current for these new helpers.
+At the earlier checkpoint the small kit had not been built. This task has now been completed; see the latest resumed-work section below and docs/validation/jupyter-kit.json. Do not rebuild models or repeat prior research.
 
 Existing `/workspace/artifacts/linq-handoff.zip` (~65MB) is the earlier model/compiler handoff from previous baseline. It contains helmet + split-pose TPU programs, golden references, vendor ResNet50 assets and earlier source. It does NOT contain latest capture/review/comparison helpers. Its prior SHA256 is in docs/validation/2026-10-23.json.
 
@@ -68,3 +68,9 @@ Existing `/workspace/artifacts/linq-handoff.zip` (~65MB) is the earlier model/co
 ## Persistence and limits
 
 /workspace is NOT volume-backed. Local commits and artifacts survive stop/start but not recycle/destroy. No remote push or external backup has been performed in this continuation. Preserve repository/artifacts outside the instance before recycle/destroy. No raw video, credentials, model binary or research archive has been newly committed.
+
+## Latest resumed work — portable kit
+
+User reports successful stock example.ipynb: status_code0, class257, response0.39s. Recorded as user-reported service execution; selected numeric capture still pending. Built /workspace/artifacts/linq-jupyter-kit.zip (~9.5MB), including current code, instructions, runtime-only dependencies and existing Helmet/Split-Pose programs plus golden arrays. See docs/JUPYTER_KIT.md and docs/validation/jupyter-kit.json. LQ-02 helper from56a3d13f merged.113 tests passed; extracted kit imported in isolated Python and both prepare_case calls passed.
+
+The actual remote notebook import/call/result extraction has NOT been provided. An async request for cleaned code was issued, without credentials, but no snippet arrived before packaging. The archive explicitly marks NOT_PROVIDED_YET; bindings.py refuses requests until filled. Do not call the public LOCAL pytpu reference the organizer remote API. No own-model hardware execution has occurred. Next: receive that cleaned fragment, bind the actual successful service API, update the kit, capture stock + Helmet, inspect integrity/ABI/decoded results, then Split-Pose. No training or model regeneration is needed.

@@ -1,0 +1,10 @@
+{
+  "scope": "user_reported_execution_in_organizer_jupyter",
+  "status_code": 0,
+  "class_index": 257,
+  "response_seconds": 0.39,
+  "timing_scope": "reported service response, not independently measured chip time",
+  "numeric_tensor_capture_received": false,
+  "actual_remote_api_source_received": false,
+  "own_models_executed": false
+}
