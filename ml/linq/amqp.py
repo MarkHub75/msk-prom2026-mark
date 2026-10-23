@@ -173,9 +173,11 @@ def _service_error_excerpt(value, parameters):
         return None
     # Explicitly supplied credentials only; no environment/store inspection here.
     credentials = getattr(parameters, "credentials", None)
-    password = getattr(credentials, "password", None)
-    if isinstance(password, str) and password:
-        value = value.replace(password, "[redacted]")
+    secrets = (getattr(credentials, "password", None),
+               getattr(credentials, "username", None), os.environ.get("LINQ_LOGIN"))
+    for secret in secrets:
+        if isinstance(secret, str) and secret:
+            value = value.replace(secret, "[redacted]")
     value = re.sub(r"(?i)([a-z][a-z0-9+.-]*://)[^/\s@]+@", r"\1[redacted]@", value)
     value = re.sub(r"(?i)(password|passwd|token|secret|authorization|cookie|api[_-]?key)(\s*[:=]\s*)([^&\s;]+)",
                    lambda match: match[1] + match[2] + "[redacted]", value)
