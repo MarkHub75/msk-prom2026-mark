@@ -25,12 +25,15 @@ class FakeClock:
 
 class FakeChannel:
     def __init__(self):
-        self.published=[];self.acked=[];self.bindings=[];self.get_count=0
+        self.published=[];self.acked=[];self.bindings=[];self.get_count=0;self.deleted=[];self.delete_error=False
         self.timeout=False;self.mismatch=False;self.publish_error=False
     def queue_declare(self,**kwargs):
         self.queue_config=kwargs
         return SimpleNamespace(method=SimpleNamespace(queue=kwargs['queue'] or 'exclusive-fixture'))
     def queue_bind(self,**kwargs):self.bindings.append(kwargs)
+    def queue_delete(self,**kwargs):
+        self.deleted.append(kwargs)
+        if self.delete_error:raise RuntimeError("private-delete-marker")
     def confirm_delivery(self):pass
     def basic_publish(self,**kwargs):
         self.published.append(kwargs)
@@ -90,6 +93,8 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertEqual(self.channel.bindings,[dict(queue='exclusive-fixture',exchange='explicit-reply-exchange',routing_key='exclusive-fixture')])
         self.assertEqual(self.connection.closed,1)
         self.assertEqual(self.runner.last_response['status_code'],0)
+        self.assertEqual(self.runner.last_response['response_id'],self.runner.last_response['request_id'])
+        self.assertEqual(self.channel.deleted,[{'queue':'exclusive-fixture'}])
         self.assertNotIn('private-worker-error-marker',json.dumps(self.runner.last_response))
         self.assertNotIn('uri',json.dumps(self.runner.last_response))
 
@@ -97,6 +102,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.channel.mismatch=True
         with self.assertRaises(amqp.AmqpError) as error:self.runner(self.inputs)
         self.assertEqual(error.exception.details['code'],'response_id_mismatch')
+        self.assertIsNone(self.runner.last_response['response_id'])
         self.assertEqual(len(self.channel.published),1)
         self.assertEqual(self.connection.closed,1)
         self.assertEqual(self.channel.acked,[])
@@ -106,6 +112,7 @@ class AmqpTransportTests(unittest.TestCase):
         with self.assertRaises(amqp.AmqpError) as error:self.runner(self.inputs)
         self.assertEqual(error.exception.details['code'],'response_timeout')
         self.assertEqual(self.runner.last_response['remote_completion'],'unknown')
+        self.assertEqual(self.channel.deleted,[{'queue':'exclusive-fixture'}])
         self.assertEqual(len(self.channel.published),1)
         self.assertEqual(self.connection.closed,1)
 
@@ -195,6 +202,22 @@ class AmqpTransportTests(unittest.TestCase):
         for secret in ['super-private-value','other-secret','hidden-value']:
             self.assertNotIn(secret,text)
         self.assertLessEqual(len(text),1024)
+
+
+    def test_cleanup_failure_never_prevents_connection_close(self):
+        self.channel.delete_error=True
+        self.runner(self.inputs)
+        self.assertEqual(self.connection.closed,1)
+        self.assertEqual(self.runner.last_response['reply_queue_cleanup'],'failed')
+        self.assertNotIn('private-delete-marker',json.dumps(self.runner.last_response))
+
+    def test_actual_mismatching_uuid_is_recorded_before_rejection(self):
+        from uuid import uuid4
+        actual=str(uuid4())
+        self.binding.get_response_id=lambda response,properties:actual
+        with self.assertRaises(amqp.AmqpError):self.runner(self.inputs)
+        self.assertEqual(self.runner.last_response['response_id'],actual)
+        self.assertEqual(self.connection.closed,1)
 
 
 class FormatAndConfigTests(unittest.TestCase):
