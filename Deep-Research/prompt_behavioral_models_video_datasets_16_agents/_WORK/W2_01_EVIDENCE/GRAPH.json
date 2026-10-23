@@ -1,0 +1,293 @@
+{
+  "ir_version": 6,
+  "producer_name": "pytorch",
+  "producer_version": "1.9",
+  "opset": [
+    {
+      "domain": "",
+      "version": 11
+    }
+  ],
+  "inputs": [
+    {
+      "name": "input",
+      "dtype": "FLOAT",
+      "shape": [
+        "batch",
+        3,
+        256,
+        192
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "simcc_x",
+      "dtype": "FLOAT",
+      "shape": [
+        "batch",
+        "MatMulsimcc_x_dim_1",
+        384
+      ]
+    },
+    {
+      "name": "simcc_y",
+      "dtype": "FLOAT",
+      "shape": [
+        "batch",
+        "MatMulsimcc_x_dim_1",
+        512
+      ]
+    }
+  ],
+  "node_count": 247,
+  "operators": {
+    ":Conv": 62,
+    ":Sigmoid": 58,
+    ":Mul": 72,
+    ":Add": 12,
+    ":Concat": 6,
+    ":GlobalAveragePool": 4,
+    ":HardSigmoid": 4,
+    ":MaxPool": 3,
+    ":Shape": 1,
+    ":Slice": 1,
+    ":Reshape": 1,
+    ":ReduceSum": 2,
+    ":Sqrt": 2,
+    ":Clip": 2,
+    ":Div": 3,
+    ":MatMul": 7,
+    ":Split": 2,
+    ":Unsqueeze": 1,
+    ":Squeeze": 2,
+    ":Transpose": 1,
+    ":Relu": 1
+  },
+  "initializer_count": 141,
+  "initializer_dtypes": {
+    "FLOAT": 138,
+    "INT64": 3
+  },
+  "external_initializers": [],
+  "metadata": [],
+  "tail": [
+    {
+      "name": "Mul_232",
+      "op": "Mul",
+      "input": [
+        "661",
+        "662"
+      ],
+      "output": [
+        "663"
+      ]
+    },
+    {
+      "name": "Split_233",
+      "op": "Split",
+      "input": [
+        "663"
+      ],
+      "output": [
+        "664",
+        "665",
+        "666"
+      ]
+    },
+    {
+      "name": "Unsqueeze_234",
+      "op": "Unsqueeze",
+      "input": [
+        "666"
+      ],
+      "output": [
+        "667"
+      ]
+    },
+    {
+      "name": "Mul_235",
+      "op": "Mul",
+      "input": [
+        "667",
+        "870"
+      ],
+      "output": [
+        "670"
+      ]
+    },
+    {
+      "name": "Add_236",
+      "op": "Add",
+      "input": [
+        "670",
+        "head.gau.beta"
+      ],
+      "output": [
+        "671"
+      ]
+    },
+    {
+      "name": "Split_237",
+      "op": "Split",
+      "input": [
+        "671"
+      ],
+      "output": [
+        "672",
+        "673"
+      ]
+    },
+    {
+      "name": "Squeeze_238",
+      "op": "Squeeze",
+      "input": [
+        "672"
+      ],
+      "output": [
+        "674"
+      ]
+    },
+    {
+      "name": "Squeeze_239",
+      "op": "Squeeze",
+      "input": [
+        "673"
+      ],
+      "output": [
+        "675"
+      ]
+    },
+    {
+      "name": "Transpose_240",
+      "op": "Transpose",
+      "input": [
+        "675"
+      ],
+      "output": [
+        "676"
+      ]
+    },
+    {
+      "name": "MatMul_241",
+      "op": "MatMul",
+      "input": [
+        "674",
+        "676"
+      ],
+      "output": [
+        "677"
+      ]
+    },
+    {
+      "name": "Div_243",
+      "op": "Div",
+      "input": [
+        "677",
+        "678"
+      ],
+      "output": [
+        "679"
+      ]
+    },
+    {
+      "name": "Relu_244",
+      "op": "Relu",
+      "input": [
+        "679"
+      ],
+      "output": [
+        "680"
+      ]
+    },
+    {
+      "name": "Mul_245",
+      "op": "Mul",
+      "input": [
+        "680",
+        "680"
+      ],
+      "output": [
+        "681"
+      ]
+    },
+    {
+      "name": "MatMul_246",
+      "op": "MatMul",
+      "input": [
+        "681",
+        "665"
+      ],
+      "output": [
+        "682"
+      ]
+    },
+    {
+      "name": "Mul_247",
+      "op": "Mul",
+      "input": [
+        "664",
+        "682"
+      ],
+      "output": [
+        "683"
+      ]
+    },
+    {
+      "name": "MatMul_248",
+      "op": "MatMul",
+      "input": [
+        "683",
+        "871"
+      ],
+      "output": [
+        "685"
+      ]
+    },
+    {
+      "name": "Mul_249",
+      "op": "Mul",
+      "input": [
+        "647",
+        "head.gau.res_scale.scale"
+      ],
+      "output": [
+        "686"
+      ]
+    },
+    {
+      "name": "Add_250",
+      "op": "Add",
+      "input": [
+        "686",
+        "685"
+      ],
+      "output": [
+        "687"
+      ]
+    },
+    {
+      "name": "MatMul_251",
+      "op": "MatMul",
+      "input": [
+        "687",
+        "872"
+      ],
+      "output": [
+        "simcc_x"
+      ]
+    },
+    {
+      "name": "MatMul_252",
+      "op": "MatMul",
+      "input": [
+        "687",
+        "873"
+      ],
+      "output": [
+        "simcc_y"
+      ]
+    }
+  ],
+  "checker": "onnx.checker.check_model passed; static protobuf/schema check only"
+}

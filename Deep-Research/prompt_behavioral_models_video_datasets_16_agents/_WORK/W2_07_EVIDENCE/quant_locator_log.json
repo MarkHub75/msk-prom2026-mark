@@ -1,0 +1,81 @@
+[
+  {
+    "url": "https://tfhub.dev/tensorflow/movinet/a0/stream/kinetics-600/classification/1",
+    "status": 200,
+    "final": "https://www.kaggle.com/models?tfhub-redirect=true",
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Date": "Fri, 23 Oct 2026 20:26:52 GMT",
+      "Cache-Control": "no-cache, no-store",
+      "Content-Encoding": "gzip",
+      "Pragma": "no-cache",
+      "Set-Cookie": "ka_sessionid=866bf78c3517c72dcc22937917c07a07; max-age=2626560; path=/, CSRF-TOKEN=CfDJ8FwkkMkekkBCtzoFDl4Vj7gp2cy8-5ov1IER8xi6qqN965fr6eeA8-TleFL__O-G81qiX4w0uTBPeCwA4V-icIYVXvnGv4_u4EZFhF8WMA; path=/; secure; samesite=strict; httponly, XSRF-TOKEN=CfDJ8FwkkMkekkBCtzoFDl4Vj7jyb2ZCVUmVKq8LohXy26PGTKibIgMQZnu1s85hZyqJv6DSkE-j6fzb-xuuuRpFlDkUNrX6gM4qhFcyToDQ4gT-AA; path=/; secure; samesite=strict, CLIENT-TOKEN=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpc3MiOiJrYWdnbGUiLCJhdWQiOiJjbGllbnQiLCJzdWIiOiIiLCJuYnQiOiIyMDI2LTEwLTIzVDIwOjI2OjUzLjA1MDMwNjhaIiwiaWF0IjoiMjAyNi0xMC0yM1QyMDoyNjo1My4wNTAzMDY4WiIsImp0aSI6IjUyNGY3YTRkLTcxMDQtNGFhZi1hYzUwLWE2Njk3MTBiOGFmNiIsImV4cCI6IjIwMjYtMTEtMjNUMjA6MjY6NTMuMDUwMzA2OFoiLCJhbm9uIjp0cnVlLCJmZmgiOiI1NWNmOTg5MDMxNzdlNjI5NmJmNjhkMDM0NjY1ZTk5NDlkNGI4NjUxMDNjM2M1YWEwOThlZTNiNDcyZmRlY2JlIiwicGlkIjoia2FnZ2xlLTE2MTYwNyIsInN2YyI6IndlYi1mZSIsInNkYWsiOiJBSXphU3lBNGVOcVVkUlJza0pzQ1pXVnotcUw2NTVYYTVKRU1yZUUiLCJibGQiOiI5YTllZmQwZTVlY2RhNzdkYTRmNTkzNmM2NDJhNzk0MDhiNmY1OTE2In0.; path=/; secure; samesite=lax, GCLB=CLO2vK6g-umVehAD; path=/; HttpOnly",
+      "Vary": "Accept-Encoding",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+      "Content-Security-Policy": "object-src 'none'; script-src 'nonce-PQgGkBn9iPxK9SN3cdYfBg==' 'report-sample' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:; base-uri 'none'; report-uri https://csp.withgoogle.com/csp/kaggle/20201130; frame-src 'self' https://www.kaggleusercontent.com https://www.youtube.com/embed/ https://youtu.be https://polygraph-cool.github.io https://www.google.com/recaptcha/ https://www.docdroid.com https://www.docdroid.net https://kaggle-static.storage.googleapis.com https://kkb-production.jupyter-proxy.kaggle.net https://kkb-production.firebaseapp.com https://kaggle-metastore.firebaseapp.com https://apis.google.com https://content-sheets.googleapis.com/ https://accounts.google.com/ https://storage.googleapis.com https://docs.google.com https://drive.google.com https://calendar.google.com/ https://google.qualtrics.com/ https://player.kick.com/ https://player.twitch.tv/ https://kaggle.com http://localhost:* https://localhost:* localhost:* ;",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Via": "1.1 google",
+      "Alt-Svc": "h3=\":443\"; ma=2592000",
+      "Transfer-Encoding": "chunked"
+    },
+    "bytes": 5784
+  },
+  {
+    "url": "https://tfhub.dev/tensorflow/lite-model/movinet/a0/stream/kinetics-600/classification/tflite/float16/1",
+    "status": 200,
+    "final": "https://www.kaggle.com/models/google/movinet/tfLite/a0-stream-kinetics-600-classification-tflite-float16/1?tfhub-redirect=true",
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Date": "Fri, 23 Oct 2026 20:26:53 GMT",
+      "Cache-Control": "no-cache, no-store",
+      "Content-Encoding": "gzip",
+      "Pragma": "no-cache",
+      "Set-Cookie": "ka_sessionid=d3088a6a7e89758f8fc964f9f00721f2; max-age=2626560; path=/, CSRF-TOKEN=CfDJ8FwkkMkekkBCtzoFDl4Vj7j5S3JIFFe00Hhr5mmmfR37RhDXkZa_0me3owFS-9DzJXM9xDaUzm9TuXQGmoJ3cI2J5gQR1wYDQ7QXWdUDeg; path=/; secure; samesite=strict; httponly, XSRF-TOKEN=CfDJ8FwkkMkekkBCtzoFDl4Vj7h_PkbykHM4_m9_3esPUXI2-Gh6lhWdpiFvnkRmwTlDbCkOfAn_kSIjWR7Se02j6tqI2EhBAwq6jpgJmkDLgUHoDQ; path=/; secure; samesite=strict, CLIENT-TOKEN=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpc3MiOiJrYWdnbGUiLCJhdWQiOiJjbGllbnQiLCJzdWIiOiIiLCJuYnQiOiIyMDI2LTEwLTIzVDIwOjI2OjU0LjE5Nzc4MjhaIiwiaWF0IjoiMjAyNi0xMC0yM1QyMDoyNjo1NC4xOTc3ODI4WiIsImp0aSI6Ijc3YWUwYzhlLTQxZTQtNDIyYS1hMTg2LWZkNmM4OTg5ZGQwNSIsImV4cCI6IjIwMjYtMTEtMjNUMjA6MjY6NTQuMTk3NzgyOFoiLCJhbm9uIjp0cnVlLCJmZmgiOiI1NWNmOTg5MDMxNzdlNjI5NmJmNjhkMDM0NjY1ZTk5NDlkNGI4NjUxMDNjM2M1YWEwOThlZTNiNDcyZmRlY2JlIiwicGlkIjoia2FnZ2xlLTE2MTYwNyIsInN2YyI6IndlYi1mZSIsInNkYWsiOiJBSXphU3lBNGVOcVVkUlJza0pzQ1pXVnotcUw2NTVYYTVKRU1yZUUiLCJibGQiOiI5YTllZmQwZTVlY2RhNzdkYTRmNTkzNmM2NDJhNzk0MDhiNmY1OTE2In0.; path=/; secure; samesite=lax, GCLB=CPzEh9XAj5PZNxAD; path=/; HttpOnly",
+      "Vary": "Accept-Encoding",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+      "Content-Security-Policy": "object-src 'none'; script-src 'nonce-5i2wXpeEgtHar2Fuehj1GQ==' 'report-sample' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:; base-uri 'none'; report-uri https://csp.withgoogle.com/csp/kaggle/20201130; frame-src 'self' https://www.kaggleusercontent.com https://www.youtube.com/embed/ https://youtu.be https://polygraph-cool.github.io https://www.google.com/recaptcha/ https://www.docdroid.com https://www.docdroid.net https://kaggle-static.storage.googleapis.com https://kkb-production.jupyter-proxy.kaggle.net https://kkb-production.firebaseapp.com https://kaggle-metastore.firebaseapp.com https://apis.google.com https://content-sheets.googleapis.com/ https://accounts.google.com/ https://storage.googleapis.com https://docs.google.com https://drive.google.com https://calendar.google.com/ https://google.qualtrics.com/ https://player.kick.com/ https://player.twitch.tv/ https://kaggle.com http://localhost:* https://localhost:* localhost:* ;",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Via": "1.1 google",
+      "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Transfer-Encoding": "chunked"
+    },
+    "bytes": 5884
+  },
+  {
+    "url": "https://api.github.com/repos/tensorflow/models/commits?path=official/projects/movinet/modeling/movinet_layers.py&until=2021-07-22T00:00:00Z&per_page=1",
+    "status": 200,
+    "final": "https://api.github.com/repos/tensorflow/models/commits?path=official/projects/movinet/modeling/movinet_layers.py&until=2021-07-22T00:00:00Z&per_page=1",
+    "headers": {
+      "Date": "Fri, 23 Oct 2026 20:26:55 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Content-Length": "2",
+      "Cache-Control": "public, max-age=60, s-maxage=60",
+      "Vary": "Accept,Accept-Encoding, Accept, X-Requested-With",
+      "ETag": "\"992aaf92b487506974e4305db4a64326866f3ed48b2ba424cef8fbe4e28f72b0\"",
+      "X-GitHub-Media-Type": "github.v3; format=json",
+      "x-github-api-version-selected": "2022-11-28",
+      "Access-Control-Expose-Headers": "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning",
+      "Access-Control-Allow-Origin": "*",
+      "Strict-Transport-Security": "max-age=31536000; includeSubdomains; preload",
+      "X-Frame-Options": "deny",
+      "X-Content-Type-Options": "nosniff",
+      "X-XSS-Protection": "0",
+      "Referrer-Policy": "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "Content-Security-Policy": "default-src 'none'",
+      "Server": "github.com",
+      "Accept-Ranges": "bytes",
+      "X-RateLimit-Limit": "60",
+      "X-RateLimit-Remaining": "53",
+      "X-RateLimit-Used": "7",
+      "X-RateLimit-Resource": "core",
+      "X-RateLimit-Reset": "1792790200",
+      "X-GitHub-Request-Id": "EAFE:3FD999:11391D3:19A0C24:6ADBC30E",
+      "x-github-edge-region": "fra"
+    },
+    "bytes": 2
+  }
+]

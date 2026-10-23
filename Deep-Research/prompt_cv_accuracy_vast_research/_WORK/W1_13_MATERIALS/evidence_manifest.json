@@ -1,0 +1,25 @@
+{
+  "access_local": "2026-10-23T20:14:21.287668+03:00",
+  "access_utc": "2026-10-23T17:14:21.288220+00:00",
+  "operations": "public read-only HTTP only; no image layers, weights, datasets, credentials or account reads",
+  "files": {
+    "docker_tags.json": "2fa67df51bf9f0b7fc9cbb0908eae4c71899743324435ca51dec75532cd3adbb",
+    "hello-world.mdx": "5ba773601f505ffbdd99f430ae7458550104c63aa3ee372c85d344104d495a62",
+    "pytorch_Dockerfile": "1a75b98d31e4969e12a351aedef0a509a634b92244f521b5b962b12ef23a4cc5",
+    "torch_release.json": "fe85c6a9248ac6b8de6fed6d9c2aadb123f69f5dfd91171606383364772ee7d1",
+    "torch_tag.json": "0dd7867f1a58b3b2f385c157aa39e5fa45dc218877c36faf9f37ccd626bd1397",
+    "ultralytics_version.json": "297d4c3e6b8d64810004c273f511372c802df8c95e769f5e39b7c95b17428001",
+    "ultra_LICENSE": "e0eedba615d5cd1b986afb6c5b3a4b1ae33713e7e9dc74d19daec5e3221f9d2e",
+    "ultra_pyproject.toml": "cf516e6eea5e4aa4da8fd91601ed817a330b003b649f8ad3fecd3799215df551",
+    "ultra_ultralytics_cfg_default.yaml": "b1c40d24ee9374f163ae80cd0bd29ccd6cb5c9e1bda8ae199648b00d2da662fd",
+    "ultra_ultralytics_engine_model.py": "af64374f96f0a410fd3c8ae935804787fe72a21545ab78c4fb5dd4bbc9162304",
+    "ultra_ultralytics_engine_trainer.py": "a085bda370f7e4307e63a9cf4688b6a42c137bbd88831b1f7242662c12e76179",
+    "vast.py": "e05b9edcf630efb0b21c9fb4ae2595164d8c54be6a65707aca755c83910c7953",
+    "vast_cli_evidence.txt": "f2722dbacda6e7538343faf2c61b54d2f64384d7365ca48a7d23dd16fd028949",
+    "vast_release.json": "c529de0837eb927066d1665e30910a2ca2d1184380270cbd945a800b35d2f048",
+    "vast_tag.json": "4ff0da4724a4c71ae8de2e72ac310ed0fe1c0a33c37397b9bd8b55ec1fd46ea1",
+    "versions.json": "821e25a16f898b92a4d434fd9d84a315b5699123b7ed1fc97894a94b96321ac9",
+    "vision_release.json": "4ed3c1e7b49f56dc3cc324db5ae4d7bd47b4ece59566fe91a514d9aed1fdf9ad",
+    "vision_tag.json": "6307a8f04a31007ce36ec54b0bcde654df36c836475cb93f802a866cf1bbb929"
+  }
+}

@@ -1,0 +1,178 @@
+[
+  {
+    "id": "01",
+    "title": "Что именно оптимизировать в промышленном видеоконтроле",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_01.md",
+    "output": "_WORK/W1_01.md",
+    "status": "complete",
+    "agent": "/root/w1_01",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "02",
+    "title": "Сильные практические базовые детекторы и модельные семейства",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_02.md",
+    "output": "_WORK/W1_02.md",
+    "status": "complete",
+    "agent": "/root/w1_02",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "03",
+    "title": "Pose/keypoints и геометрические признаки действий",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_03.md",
+    "output": "_WORK/W1_03.md",
+    "status": "complete",
+    "agent": "/root/w1_03",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "04",
+    "title": "Temporal modeling: качество анализа последовательностей",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_04.md",
+    "output": "_WORK/W1_04.md",
+    "status": "complete",
+    "agent": "/root/w1_04",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "05",
+    "title": "Tracking, окклюзия, ID association и устойчивость",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_05.md",
+    "output": "_WORK/W1_05.md",
+    "status": "complete",
+    "agent": "/root/w1_05",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "06",
+    "title": "Fine-tuning с предобученных весов: что улучшает качество при малом времени",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_06.md",
+    "output": "_WORK/W1_06.md",
+    "status": "complete",
+    "agent": "/root/w1_06",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "07",
+    "title": "Hard-negative mining, active learning и исправление ошибок разметки",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_07.md",
+    "output": "_WORK/W1_07.md",
+    "status": "complete",
+    "agent": "/root/w1_07",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "08",
+    "title": "Аугментации и domain generalization для заводских камер",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_08.md",
+    "output": "_WORK/W1_08.md",
+    "status": "complete",
+    "agent": "/root/w1_08",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "09",
+    "title": "Калибровка уверенности, пороги и постобработка для high-precision alarms",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_09.md",
+    "output": "_WORK/W1_09.md",
+    "status": "complete",
+    "agent": "/root/w1_09",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "10",
+    "title": "Ensembles, cascades, specialist models, distillation",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_10.md",
+    "output": "_WORK/W1_10.md",
+    "status": "complete",
+    "agent": "/root/w1_10",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "11",
+    "title": "Search strategy: бюджет гипотез и достоверный экспериментальный отбор",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_11.md",
+    "output": "_WORK/W1_11.md",
+    "status": "complete",
+    "agent": "/root/w1_11",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "12",
+    "title": "Vast.ai: текущие условия аренды RTX 3090, доступность и все реальные расходы",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_12.md",
+    "output": "_WORK/W1_12.md",
+    "status": "complete",
+    "agent": "/root/w1_12",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "13",
+    "title": "Воспроизводимое окружение и упаковка тренировочных задач",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_13.md",
+    "output": "_WORK/W1_13.md",
+    "status": "complete",
+    "agent": "/root/w1_13",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "14",
+    "title": "Надёжность GPU-лаборатории: чекпойнты, хранилище, сетевые сбои, стоимость простаивания",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_14.md",
+    "output": "_WORK/W1_14.md",
+    "status": "complete",
+    "agent": "/root/w1_14",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "15",
+    "title": "Как распределить нагрузку на одну или две RTX 3090 24 ГБ",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_15.md",
+    "output": "_WORK/W1_15.md",
+    "status": "complete",
+    "agent": "/root/w1_15",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "16",
+    "title": "Переход от лучшей CUDA-модели к проверяемой кандидатуре для LinQ",
+    "prompt": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_cv_accuracy_vast_research\\_WORK\\PROMPT_W1_16.md",
+    "output": "_WORK/W1_16.md",
+    "status": "complete",
+    "agent": "/root/w1_16",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  }
+]

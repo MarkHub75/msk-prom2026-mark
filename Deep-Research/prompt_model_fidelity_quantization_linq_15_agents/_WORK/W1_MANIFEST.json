@@ -1,0 +1,152 @@
+﻿[
+    {
+        "id":  "W1-01",
+        "agent":  "/root/w1_01",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  37812,
+        "sha256":  "B79FB05BF62D1EB21A38432D28EBE87BEBED0DCBB650A58DCE9F53DF2230D832",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-02",
+        "agent":  "/root/w1_02",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  29592,
+        "sha256":  "BD5C4B30C895B044D81179A0BD57327DFDE20930AF3DB6396EB7135D83567DA8",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-03",
+        "agent":  "/root/w1_03",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  38705,
+        "sha256":  "23B274247C20CDC140A722F00189CDACADCD7E3E748E57D2F9FF4636F1CAD195",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-04",
+        "agent":  "/root/w1_04",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  41905,
+        "sha256":  "8FD69D5D41A7FC25A1D0E55F6A52839621F4DB929AEC2E55A06585F5DE4F58EA",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-05",
+        "agent":  "/root/w1_05",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  30751,
+        "sha256":  "FE5CA7DEDFFA1027800C0C9B10B9BD627B15B8DD9993167C9670F22E0FFE3337",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-06",
+        "agent":  "/root/w1_06",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  38152,
+        "sha256":  "EA90AE821972FC3109E0B575D5E45951EBE70BA01BBEDE89A6288D43777EAEBE",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-07",
+        "agent":  "/root/w1_07",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  43147,
+        "sha256":  "DB8D3984D8DA49698EF35BEC198ED73BA8CA9B498393526AFB7830435C6F78F3",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-08",
+        "agent":  "/root/w1_08",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  38692,
+        "sha256":  "F6B392FBD9F2D4B3B44979DAED07880FC04EF2A2D7B8AEF0ADC77AE7C1ED0718",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-09",
+        "agent":  "/root/w1_09",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  32676,
+        "sha256":  "2C17A86EBCBBA9FD8FBC5A68FD2C377CEEE01EC757CBC03FA7EBFE01C2B67915",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-10",
+        "agent":  "/root/w1_10",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  37751,
+        "sha256":  "75D7B7FBECBFE6CB4489F6B60AC3D42C8368414D29669B9EE42B2358F0628EE1",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-11",
+        "agent":  "/root/w1_11",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  42823,
+        "sha256":  "9B93B8F7D159BAEFABB1B53E18629B61DFD58A9FDD7CEE5E064760CC4C3B7752",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-12",
+        "agent":  "/root/w1_12",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  36675,
+        "sha256":  "14EE40238BD3166E0B11AD743BAF18958485922628FB43D09305CDEA9B7CD4E1",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-13",
+        "agent":  "/root/w1_13",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  35381,
+        "sha256":  "7A6133FF0A218CDE7C8C36FBD5DE9DA3E967AA187EEE446125D67D0EE3C63A9A",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-14",
+        "agent":  "/root/w1_14",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  30897,
+        "sha256":  "15A251FA058F4E13F7400E8721FB709AA5A67C6B4CB9AE7ED6D0153BCC5A105B",
+        "status":  "complete"
+    },
+    {
+        "id":  "W1-15",
+        "agent":  "/root/w1_15",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  41049,
+        "sha256":  "A53D604C69B8B2E62188A494C81823920E2A96351553C37638F1A94AD34B98F3",
+        "status":  "complete"
+    }
+]

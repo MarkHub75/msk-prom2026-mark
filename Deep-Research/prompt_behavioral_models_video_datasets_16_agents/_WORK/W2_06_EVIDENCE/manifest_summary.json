@@ -1,0 +1,156 @@
+{
+  "complete": true,
+  "members": 103,
+  "extensions": {
+    ".csv": 70,
+    ".txt": 1,
+    ".xlsx": 1,
+    ".mp4": 28,
+    "directory": 3
+  },
+  "all_block_crcs_ok": true,
+  "solid_member_count": 0,
+  "total_range_bytes": 462856,
+  "videos": [
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000002000300.mp4",
+      "compressed": 2184715,
+      "bytes": 2207566
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000002000000.mp4",
+      "compressed": 12052281,
+      "bytes": 12163839
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000019000200.mp4",
+      "compressed": 48698210,
+      "bytes": 49189402
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000005000100.mp4",
+      "compressed": 63424929,
+      "bytes": 64464379
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000014000100.mp4",
+      "compressed": 71003074,
+      "bytes": 73031415
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000004000200.mp4",
+      "compressed": 72276899,
+      "bytes": 74006908
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000011000000.mp4",
+      "compressed": 73828987,
+      "bytes": 74934243
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000014000000.mp4",
+      "compressed": 75502124,
+      "bytes": 76747321
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000024000000.mp4",
+      "compressed": 93713865,
+      "bytes": 96029549
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000002000100.mp4",
+      "compressed": 126126009,
+      "bytes": 127781960
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000005000000.mp4",
+      "compressed": 161622024,
+      "bytes": 164259704
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000011000100.mp4",
+      "compressed": 172354938,
+      "bytes": 175055609
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000018000000.mp4",
+      "compressed": 217300350,
+      "bytes": 220350735
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000001000100.mp4",
+      "compressed": 224916997,
+      "bytes": 227859015
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000003000000.mp4",
+      "compressed": 228263616,
+      "bytes": 232904263
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000006000000.mp4",
+      "compressed": 247699896,
+      "bytes": 253090124
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000007000100.mp4",
+      "compressed": 250017688,
+      "bytes": 254865460
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000012000000.mp4",
+      "compressed": 250434952,
+      "bytes": 256231889
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000008000000.mp4",
+      "compressed": 250857452,
+      "bytes": 256674439
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000013000000.mp4",
+      "compressed": 251460408,
+      "bytes": 256909429
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000009000000.mp4",
+      "compressed": 251640963,
+      "bytes": 256902567
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000020000000.mp4",
+      "compressed": 251687111,
+      "bytes": 256831173
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000017000000.mp4",
+      "compressed": 252324795,
+      "bytes": 256791816
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000022000000.mp4",
+      "compressed": 253271266,
+      "bytes": 257182571
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000023000000.mp4",
+      "compressed": 253391776,
+      "bytes": 257212134
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000016000000.mp4",
+      "compressed": 253469024,
+      "bytes": 257391894
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000010000000.mp4",
+      "compressed": 253576675,
+      "bytes": 257246581
+    },
+    {
+      "filename": "\u539f\u59cb\u6570\u636e/Video/Downtest_ch01_00000000021000000.mp4",
+      "compressed": 253838790,
+      "bytes": 257735675
+    }
+  ]
+}

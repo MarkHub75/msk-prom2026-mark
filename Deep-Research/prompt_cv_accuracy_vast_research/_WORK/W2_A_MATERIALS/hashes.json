@@ -1,0 +1,57 @@
+[
+  {
+    "file": "sources.json",
+    "bytes": 71512,
+    "sha256": "46aa53917483bf0a3cd7cc94d1e730879a35a5bd7cbf8e661c30025a0deed395"
+  },
+  {
+    "file": "torch__amp__grad_scaler.py",
+    "bytes": 31615,
+    "sha256": "97c411da028daaf6a6ed15d06b9b20c017404846db68203be1a586e276e44039"
+  },
+  {
+    "file": "torch__optim__adam.py",
+    "bytes": 40155,
+    "sha256": "6f4a96e7bccd5e233a66f846c39f7a9da0157cf657c2275d2a269a78a6b90921"
+  },
+  {
+    "file": "ultralytics__cfg__default.yaml",
+    "bytes": 10413,
+    "sha256": "13b58f3804fef762813cb78baa2a95dd5b3c5741723ebfdea6c7a99a54d314b1"
+  },
+  {
+    "file": "ultralytics__cfg____init__.py",
+    "bytes": 50929,
+    "sha256": "369b98d8d2464546fdf8a6a43c050af1f3d1b41eb8b2d4f70ba5995c0afa29de"
+  },
+  {
+    "file": "ultralytics__engine__model.py",
+    "bytes": 62878,
+    "sha256": "1d27d4503f0e3bc42167cbec439a6ee8d742af1c5a21d2536bf746b3a665e7b8"
+  },
+  {
+    "file": "ultralytics__engine__trainer.py",
+    "bytes": 72853,
+    "sha256": "7d060019b31e85ec429c16b7e728e9d7c5a9083b497fc2b362a76a543808dc60"
+  },
+  {
+    "file": "ultralytics__utils__autobatch.py",
+    "bytes": 6274,
+    "sha256": "dafb8fe45901c408bf63dd7e90182a7c2bdc3cba223fe3d5d504caa0778fc9ec"
+  },
+  {
+    "file": "ultralytics__utils__callbacks__base.py",
+    "bytes": 7291,
+    "sha256": "1edff1a0edf0e5605bfe0ad74eca6c0ec191a5987151e1f811e6a3122cd3d283"
+  },
+  {
+    "file": "ultralytics__utils__torch_utils.py",
+    "bytes": 57025,
+    "sha256": "274357cc6841205d1eb5a6016ff81bfd2ec961c53d1f689380bd0222ec3b1c33"
+  },
+  {
+    "file": "ultralytics____init__.py",
+    "bytes": 1855,
+    "sha256": "799870affe7da2e68775d74563d86af9c61d3f0e2cc1ee562768da1e8545b9b3"
+  }
+]

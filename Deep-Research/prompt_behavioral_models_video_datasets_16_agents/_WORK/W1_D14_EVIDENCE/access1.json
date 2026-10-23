@@ -1,0 +1,44 @@
+[
+  {
+    "id": "zenodo18243098",
+    "url": "https://zenodo.org/api/records/18243098",
+    "status": 200,
+    "bytes": 10449,
+    "at": "2026-10-23T19:50:52.323007+00:00"
+  },
+  {
+    "id": "safelift_repo",
+    "url": "https://api.github.com/repos/GaetanoDibenedetto/IUI26",
+    "status": 403,
+    "bytes": 279,
+    "at": "2026-10-23T19:50:52.776431+00:00"
+  },
+  {
+    "id": "safelift_commit",
+    "url": "https://api.github.com/repos/GaetanoDibenedetto/IUI26/commits/main",
+    "status": 403,
+    "bytes": 279,
+    "at": "2026-10-23T19:50:53.258142+00:00"
+  },
+  {
+    "id": "uwiom",
+    "url": "https://data.mendeley.com/datasets/xwzzkxtf9s/3",
+    "status": 200,
+    "bytes": 126643,
+    "at": "2026-10-23T19:50:54.068725+00:00"
+  },
+  {
+    "id": "smoking_repo",
+    "url": "https://api.github.com/repos/aaryan-maker/smoking-and-posture-detection",
+    "status": 403,
+    "bytes": 279,
+    "at": "2026-10-23T19:50:54.546097+00:00"
+  },
+  {
+    "id": "smoking_commit",
+    "url": "https://api.github.com/repos/aaryan-maker/smoking-and-posture-detection/commits/main",
+    "status": 403,
+    "bytes": 279,
+    "at": "2026-10-23T19:50:55.353479+00:00"
+  }
+]

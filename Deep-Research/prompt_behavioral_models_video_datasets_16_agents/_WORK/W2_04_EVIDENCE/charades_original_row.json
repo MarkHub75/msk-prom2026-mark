@@ -1,0 +1,13 @@
+{
+  "id": "2RFLZ",
+  "subject": "ENHU",
+  "scene": "Home Office / Study (A room in a house used for work)",
+  "quality": "6",
+  "relevance": "6",
+  "verified": "Yes",
+  "script": "A person walks over to a desk and picks up a phone on the desk. They nod their head and hang up. They start watching the telephone and start grasping at the cord because they think they see a fly.",
+  "objects": "desk;head;phone;table",
+  "descriptions": "A person picks up their phone talks on it and puts it back down;A person walks into a room, takes a phone off a desk, talks on it briefly and then puts it back on the desk where it came.",
+  "actions": "c009 7.70 13.00;c019 3.00 10.40;c017 8.00 12.60;c015 2.30 12.40;c018 2.40 6.90",
+  "length": "14.71"
+}

@@ -1,0 +1,132 @@
+[
+  {
+    "name": "VIRAT_S_050203_00_000023_000097.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a28d777f753209c91d/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050203_01_000147_000223.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a38d777f753209c926/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050203_06_001202_001264.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a38d777f753209c92d/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050203_07_001288_001531.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a38d777f753209c934/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050203_08_001686_001885.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a58d777f753209c93d/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050203_09_001960_002083.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a58d777f753209c946/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_00_000000_000067.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a68d777f753209c94f/download",
+    "status": 200,
+    "run_rows": [
+      "122 10 642 449 1090 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "123 10 70 771 840 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+    ]
+  },
+  {
+    "name": "VIRAT_S_050300_01_000148_000396.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581a98d777f753209c958/download",
+    "status": 200,
+    "run_rows": [
+      "146 10 164 1171 1334 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+      "153 10 79 190 268 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1"
+    ]
+  },
+  {
+    "name": "VIRAT_S_050300_03_000726_000834.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581b08d777f753209c961/download",
+    "status": 200,
+    "run_rows": [
+      "74 10 208 2055 2262 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+    ]
+  },
+  {
+    "name": "VIRAT_S_050300_04_001057_001122.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581b38d777f753209c96a/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_05_001272_001330.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581b48d777f753209c971/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_06_001427_001616.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581b68d777f753209c978/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_07_001623_001690.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581ba8d777f753209c981/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_08_001705_001771.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581bb8d777f753209c988/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_09_001789_001858.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581bd8d777f753209c98f/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050300_10_002176_002238.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581be8d777f753209c998/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050301_00_000000_000036.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581bf8d777f753209c9a1/download",
+    "status": 200,
+    "run_rows": [
+      "30 10 168 45 212 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+    ]
+  },
+  {
+    "name": "VIRAT_S_050301_01_000083_000320.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581c08d777f753209c9aa/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050301_02_000544_000607.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581c48d777f753209c9b3/download",
+    "status": 200,
+    "run_rows": []
+  },
+  {
+    "name": "VIRAT_S_050301_03_000933_001046.viratdata.mapping.txt",
+    "url": "https://data.kitware.com/api/v1/item/56f581c58d777f753209c9bc/download",
+    "status": 200,
+    "run_rows": []
+  }
+]

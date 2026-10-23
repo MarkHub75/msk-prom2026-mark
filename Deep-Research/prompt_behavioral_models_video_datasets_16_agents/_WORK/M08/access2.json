@@ -1,0 +1,122 @@
+[
+  {
+    "key": "tsm",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsm/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsm/README.md",
+    "bytes": 13611,
+    "time": "2026-10-23T19:23:39.252926+00:00"
+  },
+  {
+    "key": "tsn",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsn/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsn/README.md",
+    "bytes": 14717,
+    "time": "2026-10-23T19:23:39.312370+00:00"
+  },
+  {
+    "key": "slowfast",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/detection/slowfast/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/detection/slowfast/README.md",
+    "bytes": 10031,
+    "time": "2026-10-23T19:23:39.250519+00:00"
+  },
+  {
+    "key": "videomae",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/videomae/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/videomae/README.md",
+    "bytes": 5071,
+    "time": "2026-10-23T19:23:39.302057+00:00"
+  },
+  {
+    "key": "stgcn",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcn/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcn/README.md",
+    "bytes": 16204,
+    "time": "2026-10-23T19:23:39.232789+00:00"
+  },
+  {
+    "key": "stgcnpp",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcnpp/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcnpp/README.md",
+    "bytes": 10022,
+    "time": "2026-10-23T19:23:39.231592+00:00"
+  },
+  {
+    "key": "poseformat",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/docs/en/dataset_zoo/skeleton.md",
+    "status": 404,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/docs/en/dataset_zoo/skeleton.md",
+    "bytes": 14,
+    "time": "2026-10-23T19:23:39.207053+00:00"
+  },
+  {
+    "key": "avadoc",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/tools/data/ava/README.md",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/tools/data/ava/README.md",
+    "bytes": 4919,
+    "time": "2026-10-23T19:23:39.261397+00:00"
+  },
+  {
+    "key": "tsmconfig",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsm/tsm_imagenet-pretrained-r50_8xb16-1x1x8-50e_kinetics400-rgb.py",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/tsm/tsm_imagenet-pretrained-r50_8xb16-1x1x8-50e_kinetics400-rgb.py",
+    "bytes": 3755,
+    "time": "2026-10-23T19:23:39.460947+00:00"
+  },
+  {
+    "key": "stgcnconfig",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcnpp/stgcnpp_8xb16-joint-u100-80e_ntu60-xsub-keypoint-2d.py",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/skeleton/stgcnpp/stgcnpp_8xb16-joint-u100-80e_ntu60-xsub-keypoint-2d.py",
+    "bytes": 3112,
+    "time": "2026-10-23T19:23:39.474031+00:00"
+  },
+  {
+    "key": "videomaeconfig",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/videomae/vit-base-p16_videomae-k400-pre_16x4x1_kinetics-400.py",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/recognition/videomae/vit-base-p16_videomae-k400-pre_16x4x1_kinetics-400.py",
+    "bytes": 1632,
+    "time": "2026-10-23T19:23:39.508057+00:00"
+  },
+  {
+    "key": "slowfastconfig",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb8-8x8x1-20e_ava21-rgb.py",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/configs/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb8-8x8x1-20e_ava21-rgb.py",
+    "bytes": 5474,
+    "time": "2026-10-23T19:23:39.514165+00:00"
+  },
+  {
+    "key": "pytorchvideo_license",
+    "url": "https://raw.githubusercontent.com/facebookresearch/pytorchvideo/main/LICENSE",
+    "status": 200,
+    "final": "https://raw.githubusercontent.com/facebookresearch/pytorchvideo/main/LICENSE",
+    "bytes": 10242,
+    "time": "2026-10-23T19:23:39.493242+00:00"
+  },
+  {
+    "key": "ava_pb",
+    "url": "https://research.google.com/ava/ava_action_list_v2.2_for_activitynet_2019.pbtxt",
+    "status": 200,
+    "final": "https://research.google/blog/announcing-ava-a-finely-labeled-video-dataset-for-human-action-understanding/",
+    "bytes": 168809,
+    "time": "2026-10-23T19:23:40.571681+00:00"
+  },
+  {
+    "key": "ava_annotations",
+    "url": "https://storage.googleapis.com/ava-dataset/annotations/ava_v2.2.zip",
+    "status": 403,
+    "final": "https://storage.googleapis.com/ava-dataset/annotations/ava_v2.2.zip",
+    "bytes": 268,
+    "time": "2026-10-23T19:23:40.898330+00:00"
+  }
+]

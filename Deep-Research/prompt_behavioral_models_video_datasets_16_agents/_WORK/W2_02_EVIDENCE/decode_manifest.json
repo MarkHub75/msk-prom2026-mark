@@ -1,0 +1,237 @@
+[
+  {
+    "name": "S1_F11",
+    "path": "Subject_1/Fall/11",
+    "sha256": "c25e4fc9b669cb588b6145d2cfd94f2d403083293c08bc85fa863111372bfea7",
+    "n": 181,
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "time_base": "1/30000",
+    "average_rate": "905000/30487",
+    "stream_start": 1000,
+    "stream_duration": 182922,
+    "container_duration": 6097400,
+    "first": {
+      "index0": 0,
+      "ordinal1": 1,
+      "pts": 1000,
+      "time_base": "1/30000",
+      "seconds": 0.03333333333333333,
+      "relative_seconds": 0.0,
+      "duration": 962,
+      "labels": "8",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "last": {
+      "index0": 180,
+      "ordinal1": 181,
+      "pts": 182922,
+      "time_base": "1/30000",
+      "seconds": 6.0974,
+      "relative_seconds": 6.064066666666666,
+      "duration": 1000,
+      "labels": "2",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "strictly_increasing": true,
+    "segments": [
+      {
+        "path": "Subject_1/Fall/11",
+        "label": "8",
+        "start": "0.0",
+        "end": "0.52",
+        "subject": "1",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      },
+      {
+        "path": "Subject_1/Fall/11",
+        "label": "1",
+        "start": "0.52",
+        "end": "2.7",
+        "subject": "1",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      },
+      {
+        "path": "Subject_1/Fall/11",
+        "label": "2",
+        "start": "2.7",
+        "end": "6.08",
+        "subject": "1",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      }
+    ]
+  },
+  {
+    "name": "S3_A08",
+    "path": "Subject_3/ADL/08",
+    "sha256": "b383bb83a22b286cfc65fdd934137ee8b29e84aef7be0b540271d7c69d10fa8b",
+    "n": 146,
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "time_base": "1/30000",
+    "average_rate": "876000/29377",
+    "stream_start": 0,
+    "stream_duration": 146885,
+    "container_duration": 4896167,
+    "first": {
+      "index0": 0,
+      "ordinal1": 1,
+      "pts": 0,
+      "time_base": "1/30000",
+      "seconds": 0.0,
+      "relative_seconds": 0.0,
+      "duration": 962,
+      "labels": "5",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "last": {
+      "index0": 145,
+      "ordinal1": 146,
+      "pts": 145922,
+      "time_base": "1/30000",
+      "seconds": 4.864066666666667,
+      "relative_seconds": 4.864066666666667,
+      "duration": 963,
+      "labels": "6",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "strictly_increasing": true,
+    "segments": [
+      {
+        "path": "Subject_3/ADL/08",
+        "label": "5",
+        "start": "0.0",
+        "end": "3.71597",
+        "subject": "3",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      },
+      {
+        "path": "Subject_3/ADL/08",
+        "label": "6",
+        "start": "3.716",
+        "end": "4.896",
+        "subject": "3",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      }
+    ]
+  },
+  {
+    "name": "S4_F01",
+    "path": "Subject_4/Fall/01",
+    "sha256": "be235fef9bda633f5f63ccbc28c1dbb6c0138728c5b1696d86f7a6e0c66f4516",
+    "n": 139,
+    "width": 640,
+    "height": 480,
+    "codec": "h264",
+    "time_base": "1/30000",
+    "average_rate": "55600/1863",
+    "stream_start": 0,
+    "stream_duration": 139724,
+    "container_duration": 4675104,
+    "first": {
+      "index0": 0,
+      "ordinal1": 1,
+      "pts": 0,
+      "time_base": "1/30000",
+      "seconds": 0.0,
+      "relative_seconds": 0.0,
+      "duration": 1438,
+      "labels": "8",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "last": {
+      "index0": 138,
+      "ordinal1": 139,
+      "pts": 138725,
+      "time_base": "1/30000",
+      "seconds": 4.6241666666666665,
+      "relative_seconds": 4.6241666666666665,
+      "duration": 1000,
+      "labels": "2",
+      "sync_ms": "",
+      "posture": ""
+    },
+    "strictly_increasing": true,
+    "segments": [
+      {
+        "path": "Subject_4/Fall/01",
+        "label": "8",
+        "start": "0.0",
+        "end": "1.14",
+        "subject": "4",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      },
+      {
+        "path": "Subject_4/Fall/01",
+        "label": "1",
+        "start": "1.14",
+        "end": "2.44",
+        "subject": "4",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      },
+      {
+        "path": "Subject_4/Fall/01",
+        "label": "2",
+        "start": "2.44",
+        "end": "4.66",
+        "subject": "4",
+        "cam": "1",
+        "dataset": "GMDCSA24"
+      }
+    ]
+  },
+  {
+    "name": "adl-10-cam0",
+    "path": null,
+    "sha256": "e8720d9d36f21c2e3222109b92d564ad3f1153927a9cf69dbd0eba0fcd003a23",
+    "n": 300,
+    "width": 640,
+    "height": 240,
+    "codec": "h264",
+    "time_base": "1/30",
+    "average_rate": "30",
+    "stream_start": 0,
+    "stream_duration": 300,
+    "container_duration": 10000000,
+    "first": {
+      "index0": 0,
+      "ordinal1": 1,
+      "pts": 0,
+      "time_base": "1/30",
+      "seconds": 0.0,
+      "relative_seconds": 0.0,
+      "duration": 1,
+      "labels": "",
+      "sync_ms": 0,
+      "posture": -1
+    },
+    "last": {
+      "index0": 299,
+      "ordinal1": 300,
+      "pts": 299,
+      "time_base": "1/30",
+      "seconds": 9.966666666666667,
+      "relative_seconds": 9.966666666666667,
+      "duration": 1,
+      "labels": "",
+      "sync_ms": 9968,
+      "posture": 1
+    },
+    "strictly_increasing": true,
+    "segments": []
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "inspection_utc": "2026-10-23T17:50:22.689517+00:00",
+  "wheel": "vastai-1.9.0-py3-none-any.whl",
+  "bytes": 324493,
+  "sha256": "dfa2349701a2302bdf2ea902bc0548609870da2888167883ab32eec954eed98b",
+  "expected_release_asset_sha256": "dfa2349701a2302bdf2ea902bc0548609870da2888167883ab32eec954eed98b",
+  "entrypoint": "[console_scripts]\nserve-vast-deployment=vastai.serverless.remote.serve_deployment:main\nvastai=vastai.cli.main:main\n\n",
+  "method": "zipfile read only, no installation or module execution",
+  "legacy_function_comparison": [
+    {
+      "function": "search__offers",
+      "identical_function_text": true,
+      "release_lines": [
+        4367,
+        4476
+      ],
+      "head_lines": [
+        4369,
+        4478
+      ]
+    },
+    {
+      "function": "show__instance",
+      "identical_function_text": true,
+      "release_lines": [
+        5723,
+        5751
+      ],
+      "head_lines": [
+        5725,
+        5753
+      ]
+    },
+    {
+      "function": "show__instances",
+      "identical_function_text": true,
+      "release_lines": [
+        5785,
+        5808
+      ],
+      "head_lines": [
+        5787,
+        5810
+      ]
+    },
+    {
+      "function": "copy",
+      "identical_function_text": true,
+      "release_lines": [
+        1638,
+        1708
+      ],
+      "head_lines": [
+        1638,
+        1708
+      ]
+    },
+    {
+      "function": "stop__instance",
+      "identical_function_text": true,
+      "release_lines": [
+        4028,
+        4034
+      ],
+      "head_lines": [
+        4030,
+        4036
+      ]
+    },
+    {
+      "function": "destroy__instance",
+      "identical_function_text": true,
+      "release_lines": [
+        3159,
+        3164
+      ],
+      "head_lines": [
+        3161,
+        3166
+      ]
+    },
+    {
+      "function": "start__instance",
+      "identical_function_text": true,
+      "release_lines": [
+        3962,
+        3968
+      ],
+      "head_lines": [
+        3964,
+        3970
+      ]
+    }
+  ]
+}

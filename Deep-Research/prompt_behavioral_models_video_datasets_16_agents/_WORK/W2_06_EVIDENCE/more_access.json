@@ -1,0 +1,26 @@
+[
+  {
+    "name": "table2",
+    "url": "https://www.nature.com/articles/s41597-026-06810-6/tables/2",
+    "status": 200,
+    "bytes": 178927
+  },
+  {
+    "name": "table3",
+    "url": "https://www.nature.com/articles/s41597-026-06810-6/tables/3",
+    "status": 200,
+    "bytes": 166953
+  },
+  {
+    "name": "mmodal_repo",
+    "url": "https://api.github.com/repos/SiliconSisyphus/MultiModal-fire-detection",
+    "status": 200,
+    "bytes": 6217
+  },
+  {
+    "name": "mmodal_tree",
+    "url": "https://api.github.com/repos/SiliconSisyphus/MultiModal-fire-detection/git/trees/main?recursive=1",
+    "status": 200,
+    "bytes": 3451
+  }
+]

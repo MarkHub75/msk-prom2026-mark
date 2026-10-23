@@ -1,0 +1,4 @@
+﻿import requests,pathlib,json,hashlib
+p=pathlib.Path('_WORK/W2_06_EVIDENCE');m=json.loads((p/'mmodalfire_manifest.json').read_text());i=min((x for x in m['members'] if x['filename'].endswith('.mp4')),key=lambda x:x['data_size']);a=i['offset'];b=i['data_offset']+i['data_size']-1
+r=requests.get('https://ndownloader.figshare.com/files/53696243',headers={'Range':f'bytes={a}-{b}'},timeout=40);assert r.status_code==206;prefix=(p/'rar_first64k.bin').read_bytes()[:29];end=bytes.fromhex('');rr=requests.get('https://ndownloader.figshare.com/files/53696243',headers={'Range':'bytes=4929210002-4929210009'},timeout=20);assert rr.status_code==206
+(p/'small_video.rar').write_bytes(prefix+r.content+rr.content);(p/'small_video_access.json').write_text(json.dumps({'member':i,'range':[a,b],'status':r.status_code,'payload_bytes':len(r.content),'range_sha256':hashlib.sha256(r.content).hexdigest()},indent=2));print(i)

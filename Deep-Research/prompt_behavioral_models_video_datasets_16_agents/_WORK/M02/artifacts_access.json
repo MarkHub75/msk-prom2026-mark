@@ -1,0 +1,56 @@
+[
+  {
+    "key": "dance_info",
+    "url": "https://huggingface.co/api/datasets/noahcao/dancetrack",
+    "status": 200,
+    "type": "application/json; charset=utf-8",
+    "length": "729",
+    "final_url": "https://huggingface.co/api/datasets/noahcao/dancetrack",
+    "bytes_saved": 729
+  },
+  {
+    "key": "model_info",
+    "url": "https://huggingface.co/api/models/noahcao/dancetrack_models",
+    "status": 200,
+    "type": "application/json; charset=utf-8",
+    "length": "881",
+    "final_url": "https://huggingface.co/api/models/noahcao/dancetrack_models",
+    "bytes_saved": 881
+  },
+  {
+    "key": "dance_val_head",
+    "url": "https://huggingface.co/datasets/noahcao/dancetrack/resolve/main/val.zip",
+    "status": 200,
+    "type": "application/zip",
+    "length": "4209785614",
+    "final_url": "https://us.aws.cdn.hf.co/xet-bridge-us/66edb8c26babd2a70524add5/06652c0eec4f5bd3a57646c20cad70e8b79c1c35bf16861a95aecc30b118e752?response-content-type=application%2Fzip&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27val.zip%3B+filename%3D%22val.zip%22%3B&X-Xet-Cas-Uid=public&user_id=public&xip=rF8ZtUQhSuE&Expires=1792786558&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjZlZGI4YzI2YmFiZDJhNzA1MjRhZGQ1LzA2NjUyYzBlZWM0ZjViZDNhNTc2NDZjMjBjYWQ3MGU4Yjc5YzFjMzViZjE2ODYxYTk1YWVjYzMwYjExOGU3NTJcXD9yZXNwb25zZS1jb250ZW50LXR5cGU9YXBwbGljYXRpb24lMkZ6aXAmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1pbmxpbmUlM0IrZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN3ZhbC56aXAlM0IrZmlsZW5hbWUlM0QlMjJ2YWwuemlwJTIyJTNCJlgtWGV0LUNhcy1VaWQ9cHVibGljJnVzZXJfaWQ9cHVibGljJnhpcD1yRjhadFVRaFN1RSIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkyNzg2NTU4fX19XX0_&Signature=MEUCIQCrUJ52Gs13E9kFFBKlhXfkIyCGB9xqZsWLRUYdi-IMUAIgeILC9lL0Snoxey06n%7EGCpSYweXGzo0g3xEfKkSC09kw_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256",
+    "bytes_saved": 0
+  },
+  {
+    "key": "bot_reid",
+    "url": "https://drive.google.com/file/d/1QZFWpoa80rqo7O-HXmlss8J8CnS7IUsN/view",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "length": null,
+    "final_url": "https://drive.google.com/file/d/1QZFWpoa80rqo7O-HXmlss8J8CnS7IUsN/view",
+    "bytes_saved": 84053
+  },
+  {
+    "key": "strong_data",
+    "url": "https://drive.google.com/drive/folders/1Zk6TaSJPbpnqbz1w4kfhkKFCEzQbjfp_",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "length": null,
+    "final_url": "https://drive.google.com/drive/folders/1Zk6TaSJPbpnqbz1w4kfhkKFCEzQbjfp_",
+    "bytes_saved": 150000
+  },
+  {
+    "key": "deep_weights",
+    "url": "https://drive.google.com/open?id=18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "length": null,
+    "final_url": "https://drive.google.com/drive/folders/18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp?usp=drive_open",
+    "bytes_saved": 150000
+  }
+]

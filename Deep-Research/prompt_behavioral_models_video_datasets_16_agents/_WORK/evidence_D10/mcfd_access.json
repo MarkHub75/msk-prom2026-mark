@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://www.iro.umontreal.ca/~labimage/Dataset/dataset.zip",
+    "status": 200,
+    "type": "application/zip",
+    "length": "3782815282"
+  },
+  {
+    "url": "https://www.iro.umontreal.ca/~labimage/Dataset/chute-zip/chute23.zip",
+    "status": 200,
+    "type": "application/zip",
+    "length": "647752573"
+  },
+  {
+    "url": "https://www.iro.umontreal.ca/~labimage/Dataset/chute-zip/chute24.zip",
+    "status": 200,
+    "type": "application/zip",
+    "length": "448528874"
+  }
+]

@@ -1,0 +1,20 @@
+Camera: env1_side_straight - Number of videos: 23 - Number of subjects: 3
+    - Number of videos per subject: {'ap': 6, 'em': 4, 'gd': 13}
+Camera: env1_oblique - Number of videos: 18 - Number of subjects: 3
+    - Number of videos per subject: {'ap': 12, 'em': 9, 'gd': 20}
+Environment: env1 - Number of videos: 41 - Number of subjects: 3
+Camera: env2_side_straight - Number of videos: 8 - Number of subjects: 8
+    - Number of videos per subject: {'jv-scrivania-sedia-001': 1, 'jv-scrivania-sedia-002': 1, 'jv-scrivania-terra-001': 1, 'jv-scrivania-terra-002': 1, 'md-scrivania-sedia-001': 1, 'md-scrivania-sedia-002': 1, 'md-scrivania-terra-001': 1, 'md-scrivania-terra-002': 1}
+Camera: env2_oblique - Number of videos: 8 - Number of subjects: 8
+    - Number of videos per subject: {'jv-scrivania-sedia-001': 1, 'jv-scrivania-sedia-002': 1, 'jv-scrivania-terra-001': 1, 'jv-scrivania-terra-002': 1, 'md-scrivania-sedia-001': 1, 'md-scrivania-sedia-002': 1, 'md-scrivania-terra-001': 1, 'md-scrivania-terra-002': 1, 'jv-scrivania-sedia-003': 1, 'jv-scrivania-sedia-004': 1, 'jv-scrivania-terra-003': 1, 'jv-scrivania-terra-004': 1, 'md-scrivania-sedia-003': 1, 'md-scrivania-sedia-004': 1, 'md-scrivania-terra-003': 1, 'md-scrivania-terra-004': 1}
+Environment: env2 - Number of videos: 16 - Number of subjects: 16
+Camera: env3_side_straight - Number of videos: 37 - Number of subjects: 8
+    - Number of videos per subject: {'ah': 4, 'dn': 4, 'll': 8, 'mp': 4, 'pz': 5, 'rd': 4, 'ss': 4, 'vp': 4}
+Camera: env3_oblique - Number of videos: 39 - Number of subjects: 8
+    - Number of videos per subject: {'ah': 9, 'dn': 8, 'll': 16, 'mp': 9, 'pz': 9, 'rd': 9, 'ss': 7, 'vp': 9}
+Environment: env3 - Number of videos: 76 - Number of subjects: 8
+Camera: env4_side_straight - Number of videos: 30 - Number of subjects: 4
+    - Number of videos per subject: {'A': 6, 'B': 10, 'C': 8, 'D': 6}
+Camera: env4_oblique - Number of videos: 19 - Number of subjects: 4
+    - Number of videos per subject: {'A': 10, 'B': 14, 'C': 13, 'D': 12}
+Environment: env4 - Number of videos: 49 - Number of subjects: 4

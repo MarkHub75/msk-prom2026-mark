@@ -1,0 +1,74 @@
+{
+  "ultralytics/ultralytics@v8.3.0": {
+    "release": {
+      "published_at": "2024-09-30T01:00:15Z",
+      "sha": null,
+      "commit_date": null
+    },
+    "commit": {
+      "published_at": null,
+      "sha": "6e43d1e1e5db72afbf686dee6745669bcb124b0a",
+      "commit_date": "2024-09-30T00:59:20Z"
+    }
+  },
+  "pytorch/vision@v0.20.0": {
+    "release": {
+      "published_at": "2024-10-17T16:22:28Z",
+      "sha": null,
+      "commit_date": null
+    },
+    "commit": {
+      "published_at": null,
+      "sha": "afc54f754c734d903a06194e416495e20d920ff6",
+      "commit_date": "2024-10-04T07:47:50Z"
+    }
+  },
+  "opencv/opencv@4.10.0": {
+    "release": {
+      "published_at": "2024-06-03T08:08:09Z",
+      "sha": null,
+      "commit_date": null
+    },
+    "commit": {
+      "published_at": null,
+      "sha": "71d3237a093b60a27601c20e9ee6c3e52154e8b1",
+      "commit_date": "2024-06-02T11:41:07Z"
+    }
+  },
+  "onnx/onnx@v1.16.2": {
+    "release": {
+      "published_at": "2024-08-01T13:15:32Z",
+      "sha": null,
+      "commit_date": null
+    },
+    "commit": {
+      "published_at": null,
+      "sha": "3bf92c03a9f27eba3bda1e5b9e63ea20ec213557",
+      "commit_date": "2024-07-31T13:15:06Z"
+    }
+  },
+  "FFmpeg/FFmpeg@n7.1": {
+    "release": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "commit": {
+      "published_at": null,
+      "sha": "b08d7969c550a804a59511c7b83f2dd8cc0499b8",
+      "commit_date": "2024-09-29T16:47:04Z"
+    }
+  },
+  "open-mmlab/mmpose@v1.3.2": {
+    "release": {
+      "published_at": "2024-07-12T12:18:03Z",
+      "sha": null,
+      "commit_date": null
+    },
+    "commit": {
+      "error": "HTTP Error 403: rate limit exceeded"
+    },
+    "git_ls_remote": {
+      "tag_sha": "5408bc76f5b848cf925a0d1857899011d8c5b497",
+      "peeled_ref_returned": false
+    }
+  }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "head.final_layer.weight",
+    "dims": [
+      17,
+      768,
+      7,
+      7
+    ]
+  },
+  {
+    "name": "head.final_layer.bias",
+    "dims": [
+      17
+    ]
+  },
+  {
+    "name": "head.mlp.0.g",
+    "dims": [
+      1
+    ]
+  },
+  {
+    "name": "head.gau.beta",
+    "dims": [
+      2,
+      128
+    ]
+  },
+  {
+    "name": "head.gau.ln.g",
+    "dims": [
+      1
+    ]
+  },
+  {
+    "name": "head.gau.res_scale.scale",
+    "dims": [
+      256
+    ]
+  }
+]

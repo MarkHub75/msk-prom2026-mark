@@ -1,0 +1,32 @@
+{
+  "caviarrun": {
+    "file": "_WORK\\M04\\caviarrun.mpg",
+    "bytes": 6500613,
+    "sha256": "b1eb7821318a2443445ee0c6dd6edb4dd9ebe06c110b52dce9252b9117931a55",
+    "rate": "25",
+    "time_base": "1/90000",
+    "start_time": 0,
+    "decoded": 552,
+    "xml_frames": 551
+  },
+  "caviarwalk": {
+    "file": "_WORK\\M04\\caviarwalk.mpg",
+    "bytes": 7208095,
+    "sha256": "a5d6dc7d7def01c1bdaeea8ff620195c148b366e1a52589bf4e46f15b6daa0c2",
+    "rate": "25",
+    "time_base": "1/90000",
+    "start_time": 0,
+    "decoded": 612,
+    "xml_frames": 611
+  },
+  "behave": {
+    "file": "_WORK\\D11\\35450-47160.avi",
+    "bytes": 16867976,
+    "sha256": "2b5e93b7f198a3b56b6ab94638880825a864a601e8cc762195375f48461e5d19",
+    "rate": "25",
+    "time_base": "1/25",
+    "start_time": 0,
+    "decoded": 11711,
+    "xml_frames": 1919
+  }
+}

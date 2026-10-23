@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-23T19:48:55.293474+00:00",
+  "n": 227,
+  "tier_label": {
+    "('1', 'False_Positive')": 74,
+    "('1', 'True_Positive')": 76,
+    "('2', 'True_Positive')": 39,
+    "('2', 'False_Positive')": 38
+  },
+  "schema_majority_tier_errors": [],
+  "labels_sha256": "5eb1e15dc87a92070e690372014504e260d705c6810b9a157981503278555093"
+}

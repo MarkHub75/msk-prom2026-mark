@@ -1,0 +1,74 @@
+[
+  {
+    "name": "pexels-joshua-lim-7791770-3840x2160-30fps.mp4",
+    "size": 66957458,
+    "compressed": 66957458,
+    "crc": 3296257467
+  },
+  {
+    "name": "pexels-kelly-2711300-3840x2160-24fps.mp4",
+    "size": 38999237,
+    "compressed": 38595783,
+    "crc": 1827812219
+  },
+  {
+    "name": "pexels-kelly-2938859-4096x2160-24fps.mp4",
+    "size": 60213986,
+    "compressed": 60213986,
+    "crc": 3952413653
+  },
+  {
+    "name": "pexels-kelly-4376239-640x360-24fps.mp4",
+    "size": 2974264,
+    "compressed": 2906067,
+    "crc": 2130842202
+  },
+  {
+    "name": "pexels-kelly-4430419-3840x2160-24fps.mp4",
+    "size": 43140771,
+    "compressed": 42698128,
+    "crc": 2462921150
+  },
+  {
+    "name": "pexels-kelly-7163102-3840x2160-24fps.mp4",
+    "size": 87812077,
+    "compressed": 86988284,
+    "crc": 2412457179
+  },
+  {
+    "name": "pexels-akin-victor-10202777-3842x2160-30fps.mp4",
+    "size": 62527412,
+    "compressed": 62008915,
+    "crc": 4253516861
+  },
+  {
+    "name": "pexels-alan-w-5579145-2560x1440-30fps.mp4",
+    "size": 41739879,
+    "compressed": 41739879,
+    "crc": 1470459759
+  },
+  {
+    "name": "pexels-arsel-ozgurdal-16628347-1920x1080-24fps.mp4",
+    "size": 16248392,
+    "compressed": 16248392,
+    "crc": 2440950789
+  },
+  {
+    "name": "pexels-chris-flaten-5772418-3840x2160-30fps.mp4",
+    "size": 75314130,
+    "compressed": 75314130,
+    "crc": 3329639693
+  },
+  {
+    "name": "pexels-cityxcape-4271760-1920x1080-30fps.mp4",
+    "size": 27279047,
+    "compressed": 27279047,
+    "crc": 1076714058
+  },
+  {
+    "name": "pexels-free-videos-853867-1920x1080-25fps.mp4",
+    "size": 6329631,
+    "compressed": 6329631,
+    "crc": 4006892923
+  }
+]

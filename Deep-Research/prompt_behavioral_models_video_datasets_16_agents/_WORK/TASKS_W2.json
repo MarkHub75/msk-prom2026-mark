@@ -1,0 +1,93 @@
+[
+  {
+    "id": "W2_01",
+    "k_ids": [
+      "K001"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_01.md",
+    "result_path": "_WORK/W2_01.md",
+    "status": "complete",
+    "agent": "/root/w2_01",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_02",
+    "k_ids": [
+      "K002"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_02.md",
+    "result_path": "_WORK/W2_02.md",
+    "status": "complete",
+    "agent": "/root/w2_02",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_03",
+    "k_ids": [
+      "K003"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_03.md",
+    "result_path": "_WORK/W2_03.md",
+    "status": "complete",
+    "agent": "/root/w2_03",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_04",
+    "k_ids": [
+      "K004"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_04.md",
+    "result_path": "_WORK/W2_04.md",
+    "status": "complete",
+    "agent": "/root/w2_04",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_05",
+    "k_ids": [
+      "K005"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_05.md",
+    "result_path": "_WORK/W2_05.md",
+    "status": "complete",
+    "agent": "/root/w2_05",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_06",
+    "k_ids": [
+      "K006"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_06.md",
+    "result_path": "_WORK/W2_06.md",
+    "status": "complete",
+    "agent": "/root/w2_06",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  },
+  {
+    "id": "W2_07",
+    "k_ids": [
+      "K007"
+    ],
+    "prompt_path": "_WORK\\PROMPT_W2_07.md",
+    "result_path": "_WORK/W2_07.md",
+    "status": "complete",
+    "agent": "/root/w2_07",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "fork_turns": "none"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "file": "pypi_onnx_direct.json",
+    "url": "https://pypi.org/pypi/onnx-direct/json",
+    "error": "HTTP Error 404: Not Found",
+    "access_utc": "2026-10-23T19:56:58.494810+00:00"
+  },
+  {
+    "file": "pypi_tpu_framework.json",
+    "url": "https://pypi.org/pypi/tpu-framework/json",
+    "error": "HTTP Error 404: Not Found",
+    "access_utc": "2026-10-23T19:56:58.419790+00:00"
+  },
+  {
+    "file": "ultra_ref.json",
+    "url": "https://api.github.com/repos/ultralytics/ultralytics/git/ref/tags/v8.3.230",
+    "error": "HTTP Error 403: rate limit exceeded",
+    "access_utc": "2026-10-23T19:56:58.367019+00:00"
+  },
+  {
+    "file": "ultra_commit.json",
+    "url": "https://api.github.com/repos/ultralytics/ultralytics/commits/389b87f8cb9dbf2f31be8b70a94a3e47e11693db",
+    "error": "HTTP Error 403: rate limit exceeded",
+    "access_utc": "2026-10-23T19:56:58.747291+00:00"
+  },
+  {
+    "file": "vendor_tech.html",
+    "url": "https://lin-q.ru/tech",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>",
+    "access_utc": "2026-10-23T19:56:58.212787+00:00"
+  },
+  {
+    "file": "Framework_manual_H1.pdf",
+    "url": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>",
+    "access_utc": "2026-10-23T19:56:58.210436+00:00"
+  },
+  {
+    "file": "build_yolov8_program.py",
+    "url": "https://raw.githubusercontent.com/sherstpasha/linq-cv-bench/3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140/scr/detection/build_yolov8_program.py",
+    "status": 200,
+    "bytes": 12808,
+    "sha256": "db6aea75d43827b7f21a87585c2d2b86e88fadbaf5179da778d8fad4cd48d0bf",
+    "access_utc": "2026-10-23T19:56:58.457535+00:00"
+  }
+]

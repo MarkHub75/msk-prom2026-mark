@@ -1,0 +1,1835 @@
+{
+  "utc": "2026-10-23T20:21:11.881119+00:00",
+  "url": "https://huggingface.co/rabahdev/fire-smoke-yolov8n/resolve/13017fe8af477c25f5298d168e2dfede4b000753/best.pt",
+  "status": 200,
+  "bytes": 6229802,
+  "sha256": "b91633799ceb052c814b4f8b77a37efc9a40f002d528df97d74463585fa4f28f",
+  "zip_members": [
+    {
+      "name": "best/data.pkl",
+      "size": 105081,
+      "compressed": 105081
+    },
+    {
+      "name": "best/.format_version",
+      "size": 1,
+      "compressed": 1
+    },
+    {
+      "name": "best/.storage_alignment",
+      "size": 2,
+      "compressed": 2
+    },
+    {
+      "name": "best/byteorder",
+      "size": 6,
+      "compressed": 6
+    },
+    {
+      "name": "best/data/0",
+      "size": 864,
+      "compressed": 864
+    },
+    {
+      "name": "best/data/1",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/2",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/3",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/4",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/5",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/6",
+      "size": 9216,
+      "compressed": 9216
+    },
+    {
+      "name": "best/data/7",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/8",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/9",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/10",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/11",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/12",
+      "size": 2048,
+      "compressed": 2048
+    },
+    {
+      "name": "best/data/13",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/14",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/15",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/16",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/17",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/18",
+      "size": 3072,
+      "compressed": 3072
+    },
+    {
+      "name": "best/data/19",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/20",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/21",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/22",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/23",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/24",
+      "size": 4608,
+      "compressed": 4608
+    },
+    {
+      "name": "best/data/25",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/26",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/27",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/28",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/29",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/30",
+      "size": 4608,
+      "compressed": 4608
+    },
+    {
+      "name": "best/data/31",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/32",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/33",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/34",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/35",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/36",
+      "size": 36864,
+      "compressed": 36864
+    },
+    {
+      "name": "best/data/37",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/38",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/39",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/40",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/41",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/42",
+      "size": 8192,
+      "compressed": 8192
+    },
+    {
+      "name": "best/data/43",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/44",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/45",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/46",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/47",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/48",
+      "size": 16384,
+      "compressed": 16384
+    },
+    {
+      "name": "best/data/49",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/50",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/51",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/52",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/53",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/54",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/55",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/56",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/57",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/58",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/59",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/60",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/61",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/62",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/63",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/64",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/65",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/66",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/67",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/68",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/69",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/70",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/71",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/72",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/73",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/74",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/75",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/76",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/77",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/78",
+      "size": 147456,
+      "compressed": 147456
+    },
+    {
+      "name": "best/data/79",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/80",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/81",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/82",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/83",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/84",
+      "size": 32768,
+      "compressed": 32768
+    },
+    {
+      "name": "best/data/85",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/86",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/87",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/88",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/89",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/90",
+      "size": 65536,
+      "compressed": 65536
+    },
+    {
+      "name": "best/data/91",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/92",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/93",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/94",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/95",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/96",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/97",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/98",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/99",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/100",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/101",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/102",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/103",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/104",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/105",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/106",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/107",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/108",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/109",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/110",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/111",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/112",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/113",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/114",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/115",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/116",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/117",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/118",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/119",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/120",
+      "size": 589824,
+      "compressed": 589824
+    },
+    {
+      "name": "best/data/121",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/122",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/123",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/124",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/125",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/126",
+      "size": 131072,
+      "compressed": 131072
+    },
+    {
+      "name": "best/data/127",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/128",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/129",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/130",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/131",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/132",
+      "size": 196608,
+      "compressed": 196608
+    },
+    {
+      "name": "best/data/133",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/134",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/135",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/136",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/137",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/138",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/139",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/140",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/141",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/142",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/143",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/144",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/145",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/146",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/147",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/148",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/149",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/150",
+      "size": 65536,
+      "compressed": 65536
+    },
+    {
+      "name": "best/data/151",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/152",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/153",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/154",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/155",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/156",
+      "size": 262144,
+      "compressed": 262144
+    },
+    {
+      "name": "best/data/157",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/158",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/159",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/160",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/161",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/162",
+      "size": 98304,
+      "compressed": 98304
+    },
+    {
+      "name": "best/data/163",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/164",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/165",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/166",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/167",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/168",
+      "size": 49152,
+      "compressed": 49152
+    },
+    {
+      "name": "best/data/169",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/170",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/171",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/172",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/173",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/174",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/175",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/176",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/177",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/178",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/179",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/180",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/181",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/182",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/183",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/184",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/185",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/186",
+      "size": 24576,
+      "compressed": 24576
+    },
+    {
+      "name": "best/data/187",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/188",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/189",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/190",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/191",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/192",
+      "size": 12288,
+      "compressed": 12288
+    },
+    {
+      "name": "best/data/193",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/194",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/195",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/196",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/197",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/198",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/199",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/200",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/201",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/202",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/203",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/204",
+      "size": 18432,
+      "compressed": 18432
+    },
+    {
+      "name": "best/data/205",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/206",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/207",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/208",
+      "size": 64,
+      "compressed": 64
+    },
+    {
+      "name": "best/data/209",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/210",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/211",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/212",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/213",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/214",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/215",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/216",
+      "size": 49152,
+      "compressed": 49152
+    },
+    {
+      "name": "best/data/217",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/218",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/219",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/220",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/221",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/222",
+      "size": 49152,
+      "compressed": 49152
+    },
+    {
+      "name": "best/data/223",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/224",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/225",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/226",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/227",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/228",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/229",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/230",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/231",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/232",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/233",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/234",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/235",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/236",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/237",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/238",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/239",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/240",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/241",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/242",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/243",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/244",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/245",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/246",
+      "size": 196608,
+      "compressed": 196608
+    },
+    {
+      "name": "best/data/247",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/248",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/249",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/250",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/251",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/252",
+      "size": 196608,
+      "compressed": 196608
+    },
+    {
+      "name": "best/data/253",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/254",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/255",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/256",
+      "size": 512,
+      "compressed": 512
+    },
+    {
+      "name": "best/data/257",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/258",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/259",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/260",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/261",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/262",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/263",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/264",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/265",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/266",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/267",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/268",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/269",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/270",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/271",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/272",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/273",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/274",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/275",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/276",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/277",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/278",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/279",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/280",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/281",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/282",
+      "size": 8192,
+      "compressed": 8192
+    },
+    {
+      "name": "best/data/283",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/284",
+      "size": 147456,
+      "compressed": 147456
+    },
+    {
+      "name": "best/data/285",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/286",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/287",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/288",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/289",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/290",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/291",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/292",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/293",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/294",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/295",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/296",
+      "size": 8192,
+      "compressed": 8192
+    },
+    {
+      "name": "best/data/297",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/298",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/299",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/300",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/301",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/302",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/303",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/304",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/305",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/306",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/307",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/308",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/309",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/310",
+      "size": 8192,
+      "compressed": 8192
+    },
+    {
+      "name": "best/data/311",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/312",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/313",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/314",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/315",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/316",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/317",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/318",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/319",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/320",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/321",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/322",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/323",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/324",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/325",
+      "size": 4,
+      "compressed": 4
+    },
+    {
+      "name": "best/data/326",
+      "size": 147456,
+      "compressed": 147456
+    },
+    {
+      "name": "best/data/327",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/328",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/329",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/330",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/331",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/332",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/333",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/334",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/335",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/336",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/337",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/338",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/339",
+      "size": 4,
+      "compressed": 4
+    },
+    {
+      "name": "best/data/340",
+      "size": 294912,
+      "compressed": 294912
+    },
+    {
+      "name": "best/data/341",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/342",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/343",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/344",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/345",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/346",
+      "size": 73728,
+      "compressed": 73728
+    },
+    {
+      "name": "best/data/347",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/348",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/349",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/350",
+      "size": 128,
+      "compressed": 128
+    },
+    {
+      "name": "best/data/351",
+      "size": 8,
+      "compressed": 8
+    },
+    {
+      "name": "best/data/352",
+      "size": 256,
+      "compressed": 256
+    },
+    {
+      "name": "best/data/353",
+      "size": 4,
+      "compressed": 4
+    },
+    {
+      "name": "best/data/354",
+      "size": 32,
+      "compressed": 32
+    },
+    {
+      "name": "best/data/355",
+      "size": 6,
+      "compressed": 6
+    },
+    {
+      "name": "best/data/356",
+      "size": 21168,
+      "compressed": 21168
+    },
+    {
+      "name": "best/data/357",
+      "size": 10584,
+      "compressed": 10584
+    },
+    {
+      "name": "best/data/358",
+      "size": 12,
+      "compressed": 12
+    },
+    {
+      "name": "best/version",
+      "size": 2,
+      "compressed": 2
+    },
+    {
+      "name": "best/.data/serialization_id",
+      "size": 40,
+      "compressed": 40
+    }
+  ],
+  "pickle_member": "best/data.pkl"
+}

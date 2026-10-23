@@ -1,0 +1,77 @@
+{
+  "created_utc": "2026-10-23T19:52:05.349095+00:00",
+  "files": {
+    "access.json": {
+      "bytes": 5810,
+      "sha256": "845ca697d0c3b4bac580d1136848d3ba54aebc0707beae2513c21c2f1ac70cb1"
+    },
+    "aicity_faq.html": {
+      "bytes": 153,
+      "sha256": "21aa6f5e5a7efd01c5277c94fa686e9369f993c4e10bb58153f683668af697a9"
+    },
+    "aicity_faq_plain.txt": {
+      "bytes": 33,
+      "sha256": "dac0a9bf68a19446e53ee5495a4f925eb598ef8feb0918f2ab802069ce053ea6"
+    },
+    "aicity_track1.html": {
+      "bytes": 153,
+      "sha256": "21aa6f5e5a7efd01c5277c94fa686e9369f993c4e10bb58153f683668af697a9"
+    },
+    "aicity_track1_plain.txt": {
+      "bytes": 33,
+      "sha256": "dac0a9bf68a19446e53ee5495a4f925eb598ef8feb0918f2ab802069ce053ea6"
+    },
+    "croissant.txt": {
+      "bytes": 13805,
+      "sha256": "959ca9c0a80f801f4317a529db70818f3d00dccaaf07377d3a7a5cac757c58c3"
+    },
+    "multispectral.txt": {
+      "bytes": 21356,
+      "sha256": "bf3d0be59384dc92f6cf7f01ddc1ea4a0224b0b20baaef2c9a217e5358be140c"
+    },
+    "multispectral_correct.txt": {
+      "bytes": 237945,
+      "sha256": "f7566343542c94f5c791bb1cf826b61d44d99db22ee3bf95c78bcb19cd21cee3"
+    },
+    "multispectral_correct_plain.txt": {
+      "bytes": 58214,
+      "sha256": "0a6589c495585b33741c19d12722fc60d7f4c70ead67a127c34c755d744fabe9"
+    },
+    "real_tree.json": {
+      "bytes": 1006,
+      "sha256": "bc9c01a913e98e28c3905c1cec7d23cc65955051033d190a045b3fb34910c8aa"
+    },
+    "smart_api.txt": {
+      "bytes": 300502,
+      "sha256": "73f3d263e51fc0467f8ee5b6e8e7334984b1449cf9071a52469049cefabb1b38"
+    },
+    "smart_paper.txt": {
+      "bytes": 203914,
+      "sha256": "5b7d6395e4d8cd6bed91e798ca5ca71fbde234efad3752ce29593ad89cadf40e"
+    },
+    "smart_paper_plain.txt": {
+      "bytes": 48805,
+      "sha256": "b1410eb649a6476a613f4b28c1c1c5f79862bbe1c607c527ff734814f0799025"
+    },
+    "smart_readme.txt": {
+      "bytes": 15840,
+      "sha256": "8613c3f465c1fd86b95e5bec7b4c44edfaea798741ca02d6c132ad23fb44c5b0"
+    },
+    "Warehouse_026_calibration.json": {
+      "bytes": 8692,
+      "sha256": "94644b9bb5bf71d967c0b87036d9c1b8186f2c2b7e8a106ac517d2fa49640e46"
+    },
+    "Warehouse_026_vggt_reprojection_error.txt": {
+      "bytes": 1024,
+      "sha256": "280372099d997cbfcdaf1dd2078509f1cbe56b45322ff077011469a8466a354a"
+    },
+    "Warehouse_027_calibration.json": {
+      "bytes": 14164,
+      "sha256": "c616492ddc892c618a765dc5924cff03e7754a6d0b9e74b71ba1c38fa723121c"
+    },
+    "Warehouse_027_vggt_reprojection_error.txt": {
+      "bytes": 1468,
+      "sha256": "29543e21d419ab5734446ddf34138ce20e02bc0a40f1950af8990b4aea85f1ae"
+    }
+  }
+}

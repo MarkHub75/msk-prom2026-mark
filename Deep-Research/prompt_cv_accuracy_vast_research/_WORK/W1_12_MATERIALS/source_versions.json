@@ -1,0 +1,6 @@
+{
+  "accessed_at_utc": "2026-10-23T17:05:13.786925+00:00",
+  "vast_python_sha": "42c3a47b44603775a5e31f54de0fce3994bd3f11",
+  "docs_main_sha": "626149741ba46f195c775b2f4c89b7329de2d902",
+  "warning": "Live docs were opened separately; repository HEAD pins provenance, does not prove every deployed docs page equals this commit."
+}

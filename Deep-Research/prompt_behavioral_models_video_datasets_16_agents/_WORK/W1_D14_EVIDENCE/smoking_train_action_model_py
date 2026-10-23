@@ -1,0 +1,646 @@
+import os
+import json
+import pickle
+import numpy as np
+import tensorflow as tf
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.metrics import classification_report, confusion_matrix
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import (
+    Input,
+    Conv1D,
+    BatchNormalization,
+    Activation,
+    MaxPooling1D,
+    Bidirectional,
+    LSTM,
+    Dense,
+    Dropout,
+    GlobalAveragePooling1D
+)
+from tensorflow.keras.callbacks import (
+    EarlyStopping,
+    ModelCheckpoint,
+    ReduceLROnPlateau
+)
+
+
+DATASET_DIR = "pose_action_data"
+
+MODEL_PATH = "action_model.keras"
+LABELS_PATH = "action_labels.json"
+SCALER_PATH = "action_scaler.pkl"
+
+CLASSES = [
+    "smoke",
+    "sit",
+    "stand",
+    "walk"
+]
+
+SEQUENCE_LENGTH = 30
+POSE_FEATURES = 34
+
+EPOCHS = 100
+BATCH_SIZE = 16
+
+RANDOM_STATE = 42
+
+
+np.random.seed(RANDOM_STATE)
+tf.random.set_seed(RANDOM_STATE)
+
+
+print("=" * 70)
+print("ADVANCED ACTION MODEL TRAINING")
+print("=" * 70)
+
+
+def create_features(sequence):
+
+    sequence = sequence.astype(np.float32)
+
+    velocity = np.zeros_like(sequence)
+
+    velocity[1:] = (
+        sequence[1:] -
+        sequence[:-1]
+    )
+
+    acceleration = np.zeros_like(sequence)
+
+    acceleration[1:] = (
+        velocity[1:] -
+        velocity[:-1]
+    )
+
+    features = np.concatenate(
+        [
+            sequence,
+            velocity,
+            acceleration
+        ],
+        axis=1
+    )
+
+    return features
+
+
+X = []
+y = []
+
+
+print()
+print("Loading pose sequences...")
+print()
+
+
+for label, class_name in enumerate(CLASSES):
+
+    folder = os.path.join(
+        DATASET_DIR,
+        class_name
+    )
+
+    if not os.path.exists(folder):
+
+        print(
+            f"WARNING: missing folder: {folder}"
+        )
+
+        continue
+
+    files = sorted(
+        [
+            file
+            for file in os.listdir(folder)
+            if file.endswith(".npy")
+        ]
+    )
+
+    print(
+        f"{class_name.upper():10} "
+        f"{len(files)} sequences"
+    )
+
+    for filename in files:
+
+        path = os.path.join(
+            folder,
+            filename
+        )
+
+        try:
+
+            sequence = np.load(path)
+
+        except Exception as error:
+
+            print(
+                f"Could not load {filename}: {error}"
+            )
+
+            continue
+
+        if sequence.shape != (
+            SEQUENCE_LENGTH,
+            POSE_FEATURES
+        ):
+
+            print(
+                f"Skipping {filename}: "
+                f"shape={sequence.shape}"
+            )
+
+            continue
+
+        features = create_features(
+            sequence
+        )
+
+        X.append(features)
+        y.append(label)
+
+
+X = np.asarray(
+    X,
+    dtype=np.float32
+)
+
+y = np.asarray(
+    y,
+    dtype=np.int32
+)
+
+
+print()
+print(
+    f"Total samples: {len(X)}"
+)
+
+print(
+    f"Feature shape: {X.shape}"
+)
+
+
+if len(X) < 50:
+
+    raise RuntimeError(
+        "Not enough training samples."
+    )
+
+
+print()
+print("Class distribution:")
+print()
+
+
+for index, class_name in enumerate(CLASSES):
+
+    count = np.sum(
+        y == index
+    )
+
+    print(
+        f"{class_name.upper():10}: {count}"
+    )
+
+
+X_train, X_val, y_train, y_val = train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=RANDOM_STATE,
+    stratify=y
+)
+
+
+print()
+print(
+    f"Training samples: {len(X_train)}"
+)
+
+print(
+    f"Validation samples: {len(X_val)}"
+)
+
+
+print()
+print("Normalizing features...")
+
+
+scaler = StandardScaler()
+
+
+train_shape = X_train.shape
+val_shape = X_val.shape
+
+
+X_train_flat = X_train.reshape(
+    -1,
+    X_train.shape[-1]
+)
+
+X_val_flat = X_val.reshape(
+    -1,
+    X_val.shape[-1]
+)
+
+
+scaler.fit(
+    X_train_flat
+)
+
+
+X_train = scaler.transform(
+    X_train_flat
+).reshape(
+    train_shape
+)
+
+X_val = scaler.transform(
+    X_val_flat
+).reshape(
+    val_shape
+)
+
+
+with open(
+    SCALER_PATH,
+    "wb"
+) as file:
+
+    pickle.dump(
+        scaler,
+        file
+    )
+
+
+print(
+    f"Scaler saved: {SCALER_PATH}"
+)
+
+
+print()
+print("Creating training augmentation...")
+
+
+def augment_sequences(X_data, y_data):
+
+    augmented_X = []
+    augmented_y = []
+
+    for sequence, label in zip(
+        X_data,
+        y_data
+    ):
+
+        augmented_X.append(
+            sequence
+        )
+
+        augmented_y.append(
+            label
+        )
+
+        noise = np.random.normal(
+            loc=0.0,
+            scale=0.025,
+            size=sequence.shape
+        )
+
+        noisy_sequence = (
+            sequence + noise
+        )
+
+        augmented_X.append(
+            noisy_sequence
+        )
+
+        augmented_y.append(
+            label
+        )
+
+    return (
+        np.asarray(
+            augmented_X,
+            dtype=np.float32
+        ),
+        np.asarray(
+            augmented_y,
+            dtype=np.int32
+        )
+    )
+
+
+X_train, y_train = augment_sequences(
+    X_train,
+    y_train
+)
+
+
+print(
+    f"Training samples after augmentation: "
+    f"{len(X_train)}"
+)
+
+
+classes_present = np.unique(
+    y_train
+)
+
+
+weights = compute_class_weight(
+    class_weight="balanced",
+    classes=classes_present,
+    y=y_train
+)
+
+
+class_weights = {
+    int(cls): float(weight)
+    for cls, weight in zip(
+        classes_present,
+        weights
+    )
+}
+
+
+print()
+print("Class weights:")
+print()
+
+
+for cls, weight in class_weights.items():
+
+    print(
+        f"{CLASSES[cls]:10}: {weight:.3f}"
+    )
+
+
+print()
+print("=" * 70)
+print("BUILDING MODEL")
+print("=" * 70)
+
+
+model = Sequential(
+    [
+        Input(
+            shape=(
+                SEQUENCE_LENGTH,
+                102
+            )
+        ),
+
+        Conv1D(
+            filters=64,
+            kernel_size=3,
+            padding="same"
+        ),
+
+        BatchNormalization(),
+
+        Activation(
+            "relu"
+        ),
+
+        MaxPooling1D(
+            pool_size=2
+        ),
+
+        Dropout(
+            0.20
+        ),
+
+        Bidirectional(
+            LSTM(
+                128,
+                return_sequences=True,
+                dropout=0.20,
+                recurrent_dropout=0.10
+            )
+        ),
+
+        BatchNormalization(),
+
+        Bidirectional(
+            LSTM(
+                64,
+                return_sequences=True,
+                dropout=0.20,
+                recurrent_dropout=0.10
+            )
+        ),
+
+        GlobalAveragePooling1D(),
+
+        Dense(
+            64,
+            activation="relu"
+        ),
+
+        BatchNormalization(),
+
+        Dropout(
+            0.40
+        ),
+
+        Dense(
+            32,
+            activation="relu"
+        ),
+
+        Dropout(
+            0.25
+        ),
+
+        Dense(
+            len(CLASSES),
+            activation="softmax"
+        )
+    ]
+)
+
+
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(
+        learning_rate=0.0005
+    ),
+    loss="sparse_categorical_crossentropy",
+    metrics=[
+        "accuracy"
+    ]
+)
+
+
+model.summary()
+
+
+callbacks = [
+    EarlyStopping(
+        monitor="val_accuracy",
+        patience=15,
+        mode="max",
+        restore_best_weights=True,
+        verbose=1
+    ),
+
+    ReduceLROnPlateau(
+        monitor="val_loss",
+        factor=0.5,
+        patience=5,
+        min_lr=0.00001,
+        verbose=1
+    ),
+
+    ModelCheckpoint(
+        MODEL_PATH,
+        monitor="val_accuracy",
+        mode="max",
+        save_best_only=True,
+        verbose=1
+    )
+]
+
+
+print()
+print("=" * 70)
+print("STARTING TRAINING")
+print("=" * 70)
+
+
+history = model.fit(
+    X_train,
+    y_train,
+    validation_data=(
+        X_val,
+        y_val
+    ),
+    epochs=EPOCHS,
+    batch_size=BATCH_SIZE,
+    class_weight=class_weights,
+    callbacks=callbacks,
+    shuffle=True,
+    verbose=1
+)
+
+
+print()
+print("=" * 70)
+print("FINAL EVALUATION")
+print("=" * 70)
+
+
+loss, accuracy = model.evaluate(
+    X_val,
+    y_val,
+    verbose=0
+)
+
+
+print(
+    f"Validation loss: {loss:.4f}"
+)
+
+print(
+    f"Validation accuracy: "
+    f"{accuracy * 100:.2f}%"
+)
+
+
+predictions = model.predict(
+    X_val,
+    verbose=0
+)
+
+
+predicted_classes = np.argmax(
+    predictions,
+    axis=1
+)
+
+
+print()
+print("=" * 70)
+print("CLASSIFICATION REPORT")
+print("=" * 70)
+
+
+print(
+    classification_report(
+        y_val,
+        predicted_classes,
+        labels=list(
+            range(len(CLASSES))
+        ),
+        target_names=CLASSES,
+        zero_division=0
+    )
+)
+
+
+print("=" * 70)
+print("CONFUSION MATRIX")
+print("=" * 70)
+
+
+matrix = confusion_matrix(
+    y_val,
+    predicted_classes,
+    labels=list(
+        range(len(CLASSES))
+    )
+)
+
+
+print(
+    "Rows = actual"
+)
+
+print(
+    "Columns = predicted"
+)
+
+print()
+
+print(matrix)
+
+
+with open(
+    LABELS_PATH,
+    "w"
+) as file:
+
+    json.dump(
+        CLASSES,
+        file,
+        indent=4
+    )
+
+
+print()
+print("=" * 70)
+print("TRAINING COMPLETE")
+print("=" * 70)
+
+print(
+    f"Model saved: {MODEL_PATH}"
+)
+
+print(
+    f"Labels saved: {LABELS_PATH}"
+)
+
+print(
+    f"Scaler saved: {SCALER_PATH}"
+)
+
+print(
+    f"Validation accuracy: "
+    f"{accuracy * 100:.2f}%"
+)

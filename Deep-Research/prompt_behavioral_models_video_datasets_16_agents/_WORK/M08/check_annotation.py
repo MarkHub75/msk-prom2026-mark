@@ -1,0 +1,3 @@
+﻿import requests,zipfile,io,csv,json,pathlib,datetime
+out=pathlib.Path('_WORK/M08')
+u='https://research.google.com/ava/download/ava_val_v2.2.csv.zip';r=requests.get(u,timeout=25);z=zipfile.ZipFile(io.BytesIO(r.content));data=z.read(z.namelist()[0]).decode();rows=list(csv.reader(io.StringIO(data)));f=[a for a in rows if a[6] in ['64','76']];summary={'url':u,'status':r.status_code,'zip_bytes':len(r.content),'members':z.namelist(),'rows':len(rows),'fight64':sum(a[6]=='64' for a in rows),'push76':sum(a[6]=='76' for a in rows),'examples':f[:8],'access':datetime.datetime.now(datetime.timezone.utc).isoformat()};(out/'ava_schema_check.json').write_text(json.dumps(summary,indent=2));print(json.dumps(summary,indent=2))

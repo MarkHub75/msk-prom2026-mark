@@ -1,0 +1,28 @@
+{
+  "file": "_WORK\\W2_06_EVIDENCE\\small_video\\\u539f\u59cb\u6570\u636e\\Video\\Downtest_ch01_00000000002000300.mp4",
+  "bytes": 2207566,
+  "sha256": "3f862452f3675fc85448b77ee238014f400e6aa1683d28645200c3b285b5721c",
+  "time_base": "1/90000",
+  "average_rate": "532500/21293",
+  "duration": 3832740,
+  "metadata": {
+    "language": "eng",
+    "encoder": "HEVC Coding"
+  },
+  "frames_declared": 1065,
+  "width": 1920,
+  "height": 1080,
+  "decoded_frames": 1064,
+  "first": {
+    "n": 0,
+    "pts": 0,
+    "time_base": "1/90000",
+    "seconds": 0.0
+  },
+  "last": {
+    "n": 1063,
+    "pts": 3825540,
+    "time_base": "1/90000",
+    "seconds": 42.506
+  }
+}

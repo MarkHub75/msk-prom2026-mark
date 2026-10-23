@@ -1,0 +1,327 @@
+{
+  "generated_utc": "2026-10-23T20:13:02.983784+00:00",
+  "scope": "primary source/code inspection only; no model export or inference",
+  "extra_sources": {
+    "u_exportengine.py": "https://raw.githubusercontent.com/ultralytics/ultralytics/389b87f8cb9dbf2f31be8b70a94a3e47e11693db/ultralytics/utils/export/engine.py",
+    "onnx_gridsample.html": "https://onnx.ai/onnx/operators/onnx__GridSample.html",
+    "d_configutils.py": "https://raw.githubusercontent.com/open-mmlab/mmdeploy/bc75c9d6c8940aa03d0e1e5b5962bd930478ba77/mmdeploy/utils/config_utils.py",
+    "d_pytorch2onnx.py": "https://raw.githubusercontent.com/open-mmlab/mmdeploy/bc75c9d6c8940aa03d0e1e5b5962bd930478ba77/mmdeploy/apis/onnx/export.py"
+  },
+  "files": [
+    {
+      "file": "d_backend.py",
+      "bytes": 12968,
+      "sha256": "a62652a32e2ab287d8a7989194a366ad9de162089accf5674036d9323186b58c"
+    },
+    {
+      "file": "d_baseonnx.py",
+      "bytes": 249,
+      "sha256": "49ffebab07c0dfd2b7863766ecb853c56eed22c800087a5e9c564d1663efceb6"
+    },
+    {
+      "file": "d_config.py",
+      "bytes": 447,
+      "sha256": "1ad473d5b162ac8ae092dff6494b8d6312c6c5a00bae4c59d9adbcb6dd52963c"
+    },
+    {
+      "file": "d_configutils.py",
+      "bytes": 14881,
+      "sha256": "6fd20670051fb6cbb3ffd391c5c23401d2c56a8f3c7c326a14c130d46a64d9e3"
+    },
+    {
+      "file": "d_deploy.py",
+      "bytes": 11491,
+      "sha256": "f65b393c3bcf4d74d159c79c9f4adf78ce4aa138a5904736f44c980e39adf05c"
+    },
+    {
+      "file": "d_docs.md",
+      "bytes": 7722,
+      "sha256": "8564c3463bde196cf5c96f6a1f1f739eb73d2446d8de67cb1d75c931956ffc1f"
+    },
+    {
+      "file": "d_heads_init.py",
+      "bytes": 183,
+      "sha256": "04d2ffa1cc1b11ed097692fb77f8d0c374f91ba6decd13fab457dd72e9e39f7d"
+    },
+    {
+      "file": "d_init.py",
+      "bytes": 176,
+      "sha256": "4af8fc0bee734fc7f1fae7cb4071237a2773440098d4a17bc95a4e7835b054c0"
+    },
+    {
+      "file": "d_ort.py",
+      "bytes": 42,
+      "sha256": "c2aeff042c409285c005267eb5c93bd12e2dd5494e6e232d97e5d516951dbb29"
+    },
+    {
+      "file": "d_pose_init.py",
+      "bytes": 87,
+      "sha256": "8523a0517fd539bfe522d31d01556e24d26b39f61b3517104aa903a9687eae02"
+    },
+    {
+      "file": "d_pose_static.py",
+      "bytes": 99,
+      "sha256": "7eda44bb31432c2a42367b4627bf99cd0ed16ca50c873048708ad95b4f763f1b"
+    },
+    {
+      "file": "d_posebase.py",
+      "bytes": 701,
+      "sha256": "d4e3b9fcb094d87f0f41fa5bd2bab3a673026b92fdf2017b6b571ecdcf8687c8"
+    },
+    {
+      "file": "d_pytorch2onnx.py",
+      "bytes": 5802,
+      "sha256": "b59460e8784d374863143d9d0d9999867ce39a4cbc0f2241002f7cbc6e53180e"
+    },
+    {
+      "file": "d_requirements.txt",
+      "bytes": 128,
+      "sha256": "1d686cda9b2b97e3ebd17a2f6450d20fb57c3f18d9221f4ed65f36148637ef89"
+    },
+    {
+      "file": "d_scalenorm.py",
+      "bytes": 2800,
+      "sha256": "48089c1df69799166fdcc9025e9fe7ffc9c036a2587abb6e96c6dfa905828994"
+    },
+    {
+      "file": "d_simcc.py",
+      "bytes": 1116,
+      "sha256": "5d032418bed2855e44ad4f5b939620a39bcb471a8de95da3bbbed26ec2226e22"
+    },
+    {
+      "file": "d_simcc_trt.py",
+      "bytes": 674,
+      "sha256": "d9054f7d8ab98bccc5e02741a346e0754303d4509b23e867336f2466dc9536b7"
+    },
+    {
+      "file": "d_task.py",
+      "bytes": 14610,
+      "sha256": "e63009cf8236a8ef578f134c809a626d3db154bc19f90d1a830fab1b8742a4b4"
+    },
+    {
+      "file": "d_test.yml",
+      "bytes": 6601,
+      "sha256": "9479ff5d93253685639b95d8ea67a8ace4e58b1e64c9cfe771afaf45356cfc31"
+    },
+    {
+      "file": "d_trt_int8.py",
+      "bytes": 443,
+      "sha256": "1354bec8ad1df87dfe21163a78bbf8e564aca657c0cd899f567921a1a9dbbf3c"
+    },
+    {
+      "file": "fetch_final.py",
+      "bytes": 1819,
+      "sha256": "40a8047a8202039d873bb6205f1c57cc3e3343ebc8de710839dd085cb802d0d5"
+    },
+    {
+      "file": "fetch_more.py",
+      "bytes": 2052,
+      "sha256": "a59a29d470a49ef4efd7964ab958af3e0c83eb950a207ac52534589417ed4dfb"
+    },
+    {
+      "file": "fetch_sources.py",
+      "bytes": 2828,
+      "sha256": "e4be4e292763cce511ff720fc0694459e348b0bd119f600c5189815d3be80930"
+    },
+    {
+      "file": "m100_affine.py",
+      "bytes": 4357,
+      "sha256": "110cd3cab0c54128996ce49607d0c9025a47f63245fe84cf83db04a67fa1c186"
+    },
+    {
+      "file": "m100_bbox.py",
+      "bytes": 37120,
+      "sha256": "1b6845a7e9996c3f157b039941f8631c2165e03f807eec5d8908916c242366ce"
+    },
+    {
+      "file": "m100_codec.py",
+      "bytes": 11162,
+      "sha256": "8d186282b3d470231ea0b9dd0ea53b2db456d19d8f5476f62dc8c868892b6adf"
+    },
+    {
+      "file": "m100_estimator.py",
+      "bytes": 7629,
+      "sha256": "43f70c186ae2a6444de74a6bf88849407fd5b8b0e65ae8460679f97d1054e5eb"
+    },
+    {
+      "file": "m100_gau.py",
+      "bytes": 9365,
+      "sha256": "0852c651255dba08149a0f7ae0ea4cbf438d50c533a97697f1991420ba612e98"
+    },
+    {
+      "file": "m100_head.py",
+      "bytes": 10958,
+      "sha256": "189727e84373377c064a86edb6c4c9277a9a3d347aac0c8d06dd1939972a8f79"
+    },
+    {
+      "file": "m100_metafile.yml",
+      "bytes": 5536,
+      "sha256": "b370476ff46fcd7eba5e9ae7bdc83e470b2142c4e015c959279f4e473bfe2cde"
+    },
+    {
+      "file": "m100_model.py",
+      "bytes": 6649,
+      "sha256": "708e24a25a97d5f839bc51e3e679c96b88106a47a45320c4785a7bd4ef63ee5a"
+    },
+    {
+      "file": "m100_simcc_helper.py",
+      "bytes": 7054,
+      "sha256": "438c39bb51d7539c119d998ed7fc9231bff99974f0f45b9ea04f0e422a949c04"
+    },
+    {
+      "file": "m100_transformer.py",
+      "bytes": 13244,
+      "sha256": "ef4c585a4b639f9ce7cfbbe534f5215809e3c1c8cc074e3578485aa5232fa6a4"
+    },
+    {
+      "file": "m_affine.py",
+      "bytes": 4746,
+      "sha256": "e7beb8e65ab4abb7f3d1b4c6edf09043c462fc330e9fb3560cf7eb519109cb05"
+    },
+    {
+      "file": "m_bbox.py",
+      "bytes": 45016,
+      "sha256": "a1596938bdee78c7e7be71c27f74224e8e4b1ea5c53d6b2537ab64c7d4010e4d"
+    },
+    {
+      "file": "m_codec.py",
+      "bytes": 12062,
+      "sha256": "343da9376514f3d74dbe7c37da7ac3fbcfd7dc0209095c9dd73f9ebe5a6e6b09"
+    },
+    {
+      "file": "m_estimator.py",
+      "bytes": 7849,
+      "sha256": "f954aab7f7dd08dae8884894a26b5d3a4baf496e21f12aa687e1f8eb9a58c02f"
+    },
+    {
+      "file": "m_gau.py",
+      "bytes": 9176,
+      "sha256": "622575dd63dbb024e886066f8f2bc013df87814cb59cb0ea126bcd84b996ae64"
+    },
+    {
+      "file": "m_head.py",
+      "bytes": 10983,
+      "sha256": "daf3c300f6a08e039a036416964cd371efdb795fd230c20a04428f2961c3de1e"
+    },
+    {
+      "file": "m_metafile.yml",
+      "bytes": 5541,
+      "sha256": "7692c1b93116f06d4c9f08068e8b3b0c325a22a76e615420e4c711334588f154"
+    },
+    {
+      "file": "m_model.py",
+      "bytes": 6690,
+      "sha256": "f27da50a81c3d3b5c426262118b9a030d15c9dbddccda7100b8cc0bcd07f6fff"
+    },
+    {
+      "file": "m_runtime.py",
+      "bytes": 1431,
+      "sha256": "bb7df18270b1ca337192faae7a416b2dea23b45e798e832caab5781f41189d06"
+    },
+    {
+      "file": "m_transformer.py",
+      "bytes": 32492,
+      "sha256": "c35034032a2ca7f8627edf87a206d71712e61da25ae2fd913b3f3570f3f80f8c"
+    },
+    {
+      "file": "onnx_gridsample.html",
+      "bytes": 331258,
+      "sha256": "d5df998a528e334488475f48595c648e8089ba96d35153fc5362d8df4c8438c0"
+    },
+    {
+      "file": "pose-detection_simcc_ort_static_b1_PROPOSED.py",
+      "bytes": 340,
+      "sha256": "72c0e52d3c057c97d78ba1366d19f47bf749a7f81e0c75b6ca9cf34897e6f88d"
+    },
+    {
+      "file": "sources.json",
+      "bytes": 10713,
+      "sha256": "e548a841347f28c7a45dcdfd2123bd7d693958e3b4f4029ce484c7adba3466ee"
+    },
+    {
+      "file": "sources_final.json",
+      "bytes": 5417,
+      "sha256": "636494f1863ed27c52203424b7f91984b021e65ac1a1c936148a6f31e6033fda"
+    },
+    {
+      "file": "sources_m100.json",
+      "bytes": 3008,
+      "sha256": "e9cab155f59f314a1b0f55a2081dcffee77008905f6dfded871bf47ca8359cf6"
+    },
+    {
+      "file": "sources_more.json",
+      "bytes": 6687,
+      "sha256": "1ed12759658b5fc78cc69ced7ae1a695d679e4ed85f97318f4653c46716602bc"
+    },
+    {
+      "file": "t_backbone.py",
+      "bytes": 7784,
+      "sha256": "03829212e539c2b548eed809c80cadef9614bbb7b91776d16ca9976a364941e4"
+    },
+    {
+      "file": "t_csp.py",
+      "bytes": 9136,
+      "sha256": "9838bca1ee7b0791ee39afe6f86f7c1d8020581517af0b7c0d18f11a1d5ade55"
+    },
+    {
+      "file": "u_downloads.py",
+      "bytes": 22883,
+      "sha256": "a54ce2dcdebe2fef9a2d46f222fda5537cd8b4bf387920fe67e3f27303cbc2e0"
+    },
+    {
+      "file": "u_enginepredict.py",
+      "bytes": 22698,
+      "sha256": "7aed2c568dcf4ede33287e929edcdd3b513c720163f4f14e26b7d03ba54da821"
+    },
+    {
+      "file": "u_exportengine.py",
+      "bytes": 9956,
+      "sha256": "db7fa50ba74db26cf9be9ad227368ded418d5eb16555e74d72a865387fc85deb"
+    },
+    {
+      "file": "u_exporter.py",
+      "bytes": 68210,
+      "sha256": "3ad34ceb1797bb4de13edc1e3edb04c909fcd9fb13cfc925c339b2af2ce93d1f"
+    },
+    {
+      "file": "u_exportutils.py",
+      "bytes": 333,
+      "sha256": "09f87e3f055f4c5fe5c0fa7e4ace30897e33f129b55d13e496ca9d15f993677d"
+    },
+    {
+      "file": "u_head.py",
+      "bytes": 51859,
+      "sha256": "1c02c485bd48e5536a09024507ce0e813f5da5102b20a59b8a0972a21ceb49f7"
+    },
+    {
+      "file": "u_model.yaml",
+      "bytes": 2041,
+      "sha256": "fe31aee2ba2d0679a34b6f4c912bcfc7fe1d3535a4bbaf227bcf8122f7ffa7a4"
+    },
+    {
+      "file": "u_ops.py",
+      "bytes": 6067,
+      "sha256": "b645038535e3996f9832f4c6bcce1115456dce1e64d9cdf78b74d69b36965ad2"
+    },
+    {
+      "file": "u_predict.py",
+      "bytes": 4267,
+      "sha256": "c97b723ba5de9c1a73d0f3dec31c864c7f2969d63eb5d7724b6370224f164e6e"
+    },
+    {
+      "file": "u_pyproject.toml",
+      "bytes": 8143,
+      "sha256": "aa98b5336de92ede7190b67fa794942b558aef848a54f32bed6d5a735f38696e"
+    },
+    {
+      "file": "u_torchutils.py",
+      "bytes": 40218,
+      "sha256": "b92cbe6515ac1e8ff8ddcfa975a6abf865d0bbdc308e4a76a999848898c285f2"
+    },
+    {
+      "file": "u_transformer.py",
+      "bytes": 31214,
+      "sha256": "580c937dd305743f1875291446e6103ff7a873a8be2165b39321d3217beb1073"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "url": "https://www.kaggle.com/api/v1/models/google/movinet/tflite/a0-stream-kinetics-600-classification-tflite-float16/1/download",
+  "status": 200,
+  "final": "https://storage.googleapis.com:443/kaggle-models-data/321/443/bundle/archive.tar.gz?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1792805234&Signature=AijPfRSBnolTSbqL808%2BE0v7PcdUkPhWKSgHdgO4APSG%2FfX2DVBA3kG4kpw5oYuDxDsebYkdHXg0rYVn%2BNBpAdUSl6xjrAgNR86rWYxsKKIup5VPYMaiZjS7Lm7Dlztas4DWUA28nql2ZdPB3kPnlihqinJklhXcno9I9X3qLbTaCOtIzBKy9gYW6AfhGdw47gjE6TtiNLUzdQo5sxqKbphDe59iA3iG26h1xt4MydFh53QwEv1vz0XAY37MZmSXuU92Dxh9694Pao5U96JZpoGLyibFXhfqB0K7vftrJlwpr5x5DrQHx1M3qqgTFmIA8uImeH9EV295DJGWWtXaMw%3D%3D&response-content-disposition=attachment%3B+filename%3Dmovinet-tflite-a0-stream-kinetics-600-classification-tflite-float16-v1.tar.gz",
+  "headers": {
+    "Content-Type": "application/x-gzip",
+    "X-GUploader-UploadID": "AP6rU83xzIbjWT65oFHJzECdig3QPoqe3aZnt8mzNKKqzp6Ery_BAkctlE0qLzpTys9brsFE",
+    "Expires": "Fri, 23 Oct 2026 20:27:10 GMT",
+    "Date": "Fri, 23 Oct 2026 20:27:10 GMT",
+    "Cache-Control": "private, max-age=0",
+    "Last-Modified": "Thu, 23 Feb 2023 20:29:06 GMT",
+    "ETag": "\"605068a3e36eecbecb50ef9e40c59536\"",
+    "x-goog-generation": "1677184146301268",
+    "x-goog-metageneration": "1",
+    "x-goog-stored-content-encoding": "identity",
+    "x-goog-stored-content-length": "7058104",
+    "Content-Disposition": "attachment; filename=movinet-tflite-a0-stream-kinetics-600-classification-tflite-float16-v1.tar.gz",
+    "x-goog-hash": "crc32c=LSfJMw==, md5=YFBoo+Nu7L7LUO+eQMWVNg==",
+    "x-goog-storage-class": "MULTI_REGIONAL",
+    "Accept-Ranges": "bytes",
+    "Content-Length": "7058104",
+    "Server": "UploadServer",
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+  }
+}

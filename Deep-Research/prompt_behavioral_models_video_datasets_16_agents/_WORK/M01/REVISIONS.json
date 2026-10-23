@@ -1,0 +1,32 @@
+{
+  "mmpose": {
+    "status": 200,
+    "sha": "759b39c13fea6ba094afc1fa932f51dc1b11cbf9",
+    "date": "2025-08-04T07:30:49Z"
+  },
+  "ultralytics": {
+    "status": 200,
+    "sha": "0bcee3df04c7a441b07c755202c2ea962cb7c387",
+    "date": "2026-10-23T19:09:22Z"
+  },
+  "vitpose": {
+    "status": 200,
+    "sha": "c050ed29112da7704797cc1a65af0234b525010d",
+    "date": "2025-12-25T16:25:15Z"
+  },
+  "tfjs": {
+    "status": 200,
+    "sha": "c731b9ebbd6f4c9e8bf99b0df76bbdbf9c25b07f",
+    "date": "2026-03-28T14:48:38Z"
+  },
+  "mediapipe": {
+    "status": 200,
+    "sha": "fd288e22e1b9fa5c2639dcd01129c15677630057",
+    "date": "2026-10-23T18:26:16Z"
+  },
+  "cocoapi": {
+    "status": 200,
+    "sha": "8c9bcc3cf640524c4c20a9c40e89cb6a2f2fa0e9",
+    "date": "2020-02-20T17:25:28Z"
+  }
+}

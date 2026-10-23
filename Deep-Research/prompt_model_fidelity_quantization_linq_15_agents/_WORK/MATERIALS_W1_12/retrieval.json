@@ -1,0 +1,30 @@
+[
+  {
+    "file": "cocoeval.py",
+    "url": "https://raw.githubusercontent.com/cocodataset/cocoapi/6c3b394c07aed33fd83784a8bf8798059a1e9ae4/PythonAPI/pycocotools/cocoeval.py",
+    "sha256": "e514af401848d5a4cc5d3512bd93d2c317f92272c6d30f218e0f00b7b4110534",
+    "bytes": 24143,
+    "accessed_at": "2026-10-23T19:32:15.519061+00:00"
+  },
+  {
+    "file": "qdq_loss_debug.py",
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/5c1b7ccbff7e5141c1da7a9d963d660e5741c319/onnxruntime/python/tools/quantization/qdq_loss_debug.py",
+    "sha256": "05850e1fa1cda668a4b87fd2e0a8bb219fc51a048855054ffec41290785d1f5a",
+    "bytes": 15498,
+    "accessed_at": "2026-10-23T19:32:16.046498+00:00"
+  },
+  {
+    "file": "hota.py",
+    "url": "https://raw.githubusercontent.com/JonathonLuiten/TrackEval/12c8791b303e0a0b50f753af204249e622d0281a/trackeval/metrics/hota.py",
+    "sha256": "c582255c3d36bdb49c3ceeb2a5bd912cee009190dfcfe465b4173d03aaa97d6a",
+    "bytes": 10504,
+    "accessed_at": "2026-10-23T19:32:16.580389+00:00"
+  },
+  {
+    "file": "scipy_resampling.py",
+    "url": "https://raw.githubusercontent.com/scipy/scipy/527eb7fd7953a1de068f94bf8b322f249b9405ae/scipy/stats/_resampling.py",
+    "sha256": "4ef9a44edbaa2a51f83b55df26b58fe65f1936298a06559f91dd716104b2abf1",
+    "bytes": 106090,
+    "accessed_at": "2026-10-23T19:32:17.356316+00:00"
+  }
+]

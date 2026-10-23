@@ -1,0 +1,37 @@
+[
+  {
+    "name": "rtmpose-ort\\rtmdet-nano\\deploy.json",
+    "bytes": 342,
+    "sha256": "be1ed92c94fbd332b34e29a220c251ebe65136c2351a42cc24b90ce5a1473696"
+  },
+  {
+    "name": "rtmpose-ort\\rtmdet-nano\\detail.json",
+    "bytes": 2090,
+    "sha256": "029145483a55160d3f408d48f21e91652ed24678aaa991995dcfece52e328afc"
+  },
+  {
+    "name": "rtmpose-ort\\rtmdet-nano\\end2end.onnx",
+    "bytes": 4012393,
+    "sha256": "b8585adb6d1352796f6e86337e09c3459b830645a7e7192d9381670bea2facbd"
+  },
+  {
+    "name": "rtmpose-ort\\rtmdet-nano\\pipeline.json",
+    "bytes": 4054,
+    "sha256": "5225d826e7347271f63728e499070171975f4f59877b4f167b045d3f09413e9d"
+  },
+  {
+    "name": "rtmpose-ort\\rtmpose-m\\deploy.json",
+    "bytes": 361,
+    "sha256": "969b61ed55693adfaf01c53540d3ba8866b3b918d3dc6a11cfb0c41823d1c824"
+  },
+  {
+    "name": "rtmpose-ort\\rtmpose-m\\detail.json",
+    "bytes": 1140,
+    "sha256": "275b17aa71436b170b7c509cbf25cd8f300781bb71edb5019f0075a8384c9823"
+  },
+  {
+    "name": "rtmpose-ort\\rtmpose-m\\pipeline.json",
+    "bytes": 3648,
+    "sha256": "5c2b888e0218f3315474dd3ef167cfd41ae0bc3ef839373750b319b327c79fd5"
+  }
+]

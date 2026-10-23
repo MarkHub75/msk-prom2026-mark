@@ -1,0 +1,12 @@
+﻿{
+    "repository_commit":  "3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140",
+    "commit_date_origin":  "../research_link_platform/_WORK/W2_F/COMMITS.TXT",
+    "guide_access":  "web inaccessible; direct HTTP TLS connection failure; saved TinyFish primary extraction read",
+    "raw_base":  "https://raw.githubusercontent.com/sherstpasha/linq-cv-bench/3ad1b7aa92a6b2fe057e60c36c6e03039ccaa140/scr/detection/",
+    "execution":  "NOT_RUN; source read only",
+    "guide_origin":  "../research_link_platform/_WORK/W1_03/Framework_manual_H1_extracted.txt",
+    "commit_api_refresh":  "HTTP403",
+    "helper_source_origin":  "../research_link_platform/_WORK/W1_13/SOURCE/iva_applications-11.0.1/src/iva_applications/dequantization.py",
+    "runtime_source_origin":  "../research_link_platform/_WORK/W1_13/SOURCE/pytpu-15.0.24/pytpu/_bindings.py",
+    "checked_at_utc":  "2026-10-23T19:36:30Z"
+}

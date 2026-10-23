@@ -1,0 +1,1370 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+
+<!-- Not perfect: http://validator.w3.org/check?uri=http%3A%2F%2Fhomepages.inf.ed.ac.uk%2Frbf%2FCAVIARDATA1%2Findex.html -->
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 9">
+<meta name="Originator" content="Microsoft Word 9">
+<link rel="File-List" href="http://homepages.inf.ed.ac.uk/s0238349/index_archivos/filelist.xml">
+<link rel="Edit-Time-Data" href="http://homepages.inf.ed.ac.uk/s0238349/index_archivos/editdata.mso"><!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]--><title>CAVIAR Test Case Scenarios</title><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:HyphenationZone>21</w:HyphenationZone>
+ </w:WordDocument>
+</xml><![endif]-->
+
+
+
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:24.1pt;
+	text-indent:-24.1pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:14.0pt;
+	font-family:Arial;
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:34.0pt;
+	text-indent:-34.0pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:13.0pt;
+	font-family:Arial;
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:36.0pt;
+	text-indent:-36.0pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:12.0pt;
+	font-family:Arial;
+	font-weight:bold;
+	font-style:italic;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-style:italic;}
+p.MsoTof, li.MsoTof, div.MsoTof
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.1pt;
+	margin-bottom:.0001pt;
+	text-indent:-24.1pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	font-style:italic;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	mso-text-animation:none;
+	font-style:italic;
+	text-decoration:none;
+	text-underline:none;
+	text-decoration:none;
+	text-line-through:none;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	mso-text-animation:none;
+	font-style:italic;
+	text-decoration:none;
+	text-underline:none;
+	text-decoration:none;
+	text-line-through:none;}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.daterange, li.daterange, div.daterange
+	{mso-style-name:daterange;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	letter-spacing:-1.0pt;}
+span.code
+	{mso-style-name:code;
+	mso-ascii-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	color:blue;
+	letter-spacing:-1.0pt;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:2.0cm 2.0cm 2.0cm 2.0cm;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1029"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]--></head>
+
+<body bgcolor="white" lang="ES" link="blue" vlink="blue" style="">
+
+<div class="Section1">
+
+<h1><span lang="SQ" style="">CAVIAR Test Case Scenarios<o:p></o:p></span></h1>
+
+<p class="MsoNormal"><i><span lang="SQ" style="">Video clips
+created July 11, 2003 and January 20, 2004</span></i><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="font-size: 14pt; font-family: Arial;">Introduction</span></b><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<BR>
+
+<p class="MsoNormal"><span lang="SQ" style="">For the CAVIAR
+project a number of video clips were recorded acting out the different scenarios
+of interest. These include people walking alone, meeting with others, window
+shopping, entering and exitting shops, fighting and passing out and last, but
+not least, leaving a package in a public place.</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<BR>
+<p class="MsoNormal"><span lang="SQ" style="">The first section
+of video clips were filmed for the <a href="http://homepages.inf.ed.ac.uk/rbf/CAVIAR/"><i>CAVIAR project</i></a> with
+a wide angle camera lens in the entrance lobby of the <a href="http://www.inria.fr/index.en.html"><i>INRIA Labs</i></a> at Grenoble,
+France. The resolution is half-resolution PAL standard (384 x 288 pixels, 25
+frames per second) and compressed using MPEG2. The file sizes are mostly
+between 6 and 12 MB, a few up to 21 MB.</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+
+<p class="MsoNormal"><span lang="SQ" style="">A typical frame
+from the image sequences is below. It shows three individual boxes (yellow) and
+one group box (green). There are several people in the video sequence that are
+not boxed because they do not move over the course of the sequence.</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style=""><br>
+<br>
+<!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75"
+ o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:498pt;
+ height:374.25pt'>
+ <v:imagedata src="TestScenarios_files/image002.jpg" o:title="fomd2"/>
+</v:shape>
+
+<![endif]-->
+
+<!-- <img border="0" width="664" height="499" src="TestScenarios_files/image002.jpg" v:shapes="_x0000_i1025"> -->
+<img border="0" width="664" height="499" src="TestScenarios_files/image002.jpg">
+
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<p><span lang="EN-US" style="">The second set of data also
+used a wide angle lens along and across the hallway in a shopping centre in
+Lisbon. For each sequence, there are are two time synchronised videos, one with the
+view across and the other along the hallway. The resolution is half-resolution
+PAL standard (384 x 288 pixels, 25 frames per second) and compressed using
+MPEG2. The MPEG file sizes are mostly between 6 and 12 MB, a few up to 21 MB.<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">All data is
+publicly available and on this page they can be downloaded in MPEG2 format or
+split into JPEGs. <b>If you publish results using the data, please acknowledge
+the data as coming from the EC Funded CAVIAR project/IST 2001 37540, found at
+      URL: <a href="http://homepages.inf.ed.ac.uk/rbf/CAVIAR/"><i>http://homepages.inf.ed.ac.uk/rbf/CAVIAR/</i></a>.
+    </b>
+      Usability is Creative Commons BY-SA:
+<img border="0" width="101" height="35" src="by-sa.png">
+  </span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+
+<p><span lang="EN-US" style="">The ground truth for these
+sequences was found by hand-labeling the images, as in the example shown above.
+The JAVA programs for the interactive labeller can be found </span><a href="xmlcaviarguibob.zip"><i><span lang="EN-US" style="">here</span></i></a><span lang="EN-US" style=""> (unsupported). This is the <a href="xmlcaviargui/manual/manual.pdf">userguide</A>.<o:p></o:p></span></p>
+
+<p><span lang="EN-US" style="">The finite state automata
+that describes the allowable roles, activities and sequence of situations in
+each context is </span><a href="labelingstates.pdf"><i><span lang="EN-US" style="">here</span></i></a><span lang="EN-US" style="">.<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">The XML grammar
+for the ground truth labeling files is <a href="http://groups.inf.ed.ac.uk/vision/DATASETS/CAVIAR/CAVIARDATA1/gt_file_format.txt"><i>here</i></a>.
+Note that these XML files are large (eg. averaging 1.5MB), so viewing one of the files in a browser window can take a minute
+or more to load up because of the default formatting of the XML.
+The groundtruth XML is based on the CVML language (<A HREF="http://homepages.inf.ed.ac.uk/rbf/CAVIAR/PAPERS/listcvml.pdf">CVML- An XML-based Computer Vision Markup Language</A>), which was 
+presented at IPCR.
+CVML is described in more 
+<a href="http://www.mindmakers.org/projects/cvml">detail</A> at
+<a href="http://www.mindmakers.org/">mindmakers.org</A>.
+The CVML detail includes a C++ based 
+<a href="http://corelibrary.sourceforge.net">CoreLibrary</A>
+which supports 
+reading and writing the XML (amongst other things).
+<o:p></o:p></span></p>
+
+<P>
+A <A HREF="http://homepages.inf.ed.ac.uk/rbf/PAPERS/pets04.pdf">discussion</A> about the INRIA datasets was presented  at PETS04. The ground truth labelling notation discussed in the paper has changed
+to XML and some minor details have changed, but most of the concepts and discussion are still useful.
+</P>
+
+<P>
+Some tracked targets in 17 of the sequences have had additional information 
+about their head, gaze direction, hand, feet and shoulder positions added. 
+(Not all because we have no more time and money at the moment.)
+
+<pre>
+INRIA Sequences
+Datafile         Sequence            Comments
+
+fomdgt2.xml  Fight_OneManDown        only targets marked: 0,1,4
+mc1gt.xml    Meet_Crowd              all marked
+mwt2gt.xml   Meet_WalkTogether2      all marked
+fcgt.xml     Fight_Chase             all marked
+mws1gt.xml   Meet_WalkSplit          all marked
+ms3ggt.xml   Meet_Split_3rdGuy       only targets marked: 0
+fra1gt.xml   Fight_RunAway1          only targets marked: 7
+fra2gt.xml   Fight_RunAway2          only targets marked: 4
+
+Lisbon Sequences
+Datafile         Sequence            Comments
+
+c2es1gt.xml  TwoEnterShop1cor        no gaze directions annotated
+fsa1gt.xml   ShopAssistant1front     all marked
+csa1gt.xml   ShopAssistant1cor       all marked
+c3ps1gt.xml  ThreePastShop1cor       all marked
+f3ps1gt.xml  ThreePastShop1front     all marked
+f2es1gt.xml  TwoEnterShop1front      all marked
+fosow2gt.xml OneShopOneWait2front    all marked
+cosow2gt.xml OneShopOneWait2cor      all marked
+cosme2gt.xml OneStopMoveEnter2cor    only targets marked: 0,2,11
+c3ps2gt.xml  ThreePastShop2cor       all marked
+f3ps2gt.xml  ThreePastShop2front     all marked
+</pre>
+<P>
+An example of a marked up frame with heads, gaze, hands, feet and shoulders is:
+<BR>
+<BR>
+<img border="0" width="764" height="570" src="head_hands_image.jpg">
+<BR>
+
+<p class="MsoNormal"><b><span lang="SQ" style="font-size: 14pt; font-family: Arial;">Clips from INRIA (1<sup>st </sup>Set)</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">Six basic
+scenarios were acted out by the CAVIAR team members. Most clips start with one
+member showing in body sign language the scene number. This can be used for
+calibration or be removed at will.<o:p></o:p></span></p>
+
+<P>For people interested in the ground plane homography, the mapping can be 
+computed from this information. The image pixel positions will depend on
+your image scaling.  Here the image sizes are the jpg 384x288. 
+For the image just below the corresponding pixel positions are:
+<table border="1">
+<TR>
+<TD>Point</TD>
+<TD>(Col,Row) (pixels)</TD>
+<TD>(X,Y) (cm)</TD>
+</TR>
+<!--
+<TR><TD>1</TD><TD>(112,152)</TD><TD>(0,671.5)</TD></TR>
+<TR><TD>2</TD><TD>(359,70)</TD><TD>(1116,670)</TD></TR>
+<TR><TD>3</TD><TD>(599,318)</TD><TD>(1545,190)</TD></TR>
+<TR><TD>4</TD><TD>(69,322)</TD><TD>(0,0)</TD></TR>
+-->
+<TR><TD>1</TD><TD>(64,88)</TD><TD>(0,671.5)</TD></TR>
+<TR><TD>2</TD><TD>(211,40)</TD><TD>(1116,670)</TD></TR>
+<TR><TD>3</TD><TD>(349,184)</TD><TD>(1545,190)</TD></TR>
+<TR><TD>4</TD><TD>(39,187)</TD><TD>(0,0)</TD></TR>
+</table>
+
+<!-- <img border="0" width="407" height="305" src="TestScenarios_files/groundplane.png" v:shapes="_x0000_i1025"> -->
+<img border="0" width="407" height="305" src="TestScenarios_files/groundplane.png">
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">Walking</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">One person
+  walking &ndash; straight line</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="Walk1/Walk1.mpg"><i>Walk1.mpg</i></a></span><span lang="EN-US" style=""> (7 Mb)<br>
+<!--   <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="http://groups.inf.ed.ac.uk/vision/DATASETS/CAVIAR/CAVIARDATA1/Walk1/Walk1.mpg"><i>Walk1.mpg</i></a></span><span lang="EN-US" style=""> (7 Mb)<br>-->
+  Ground truth XML version: </span><a href="Walk1/wk1gt.xml"><i><span lang="EN-US" style="">wk1gt.xml</span></i></a><span lang="EN-US" style=""><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">JPEGS: </span><a href="Walk1/Walk1_jpg.tar.gz"><i><span lang="EN-US" style="">Walk1_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (13 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">One person
+  walking &ndash; straight line and return</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Walk2/Walk2.mpg">Walk2.mpg</a></span></i><span lang="EN-US" style=""> (12 Mb)<br>
+  Ground truth XML version: </span><a href="Walk2/wk2gt.xml"><i><span lang="EN-US" style="">wk2gt.xml</span></i></a><span lang="EN-US" style=""> <br>
+  JPEGS: </span><a href="Walk2/Walk2_jpg.tar.gz"><i><span lang="EN-US" style="">Walk2_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (22 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">One person
+  walking &ndash; B-line</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Walk3/Walk3.mpg">Walk3.mpg</a></span></i><span lang="EN-US" style=""> (16 Mb)<br>
+  Ground truth XML version: </span><a href="Walk3/wk3gt.xml"><i><span lang="EN-US" style="">wk3gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Walk3/Walk3_jpg.tar.gz"><i><span lang="EN-US" style="">Walk3_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (29 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">Browsing</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  back and forth</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Browse1/Browse1.mpg">Browse1.mpg</a></span></i><span lang="EN-US" style=""> (12 Mb)<br>
+  Ground truth XML version: </span><a href="Browse1/br1gt.xml"><i><span lang="EN-US" style="">br1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Browse1/Browse1_jpg.tar.gz"><i><span lang="EN-US" style="">Browse1_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (22 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  and reading for a while</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Browse2/Browse2.mpg">Browse2.mpg</a></span></i><span lang="EN-US" style=""> (10 Mb)<br>
+  Ground truth XML version: </span><a href="Browse2/br2gt.xml"><i><span lang="EN-US" style="">br2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Browse2/Browse2_jpg.tar.gz"><i><span lang="EN-US" style="">Browse2_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (18 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  and reading with back turned</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Browse3/Browse3.mpg">Browse3.mpg</a></span></i><span lang="EN-US" style=""> (11 Mb)<br>
+  Ground truth XML version: </span><a href="Browse3/br3gt.xml"><i><span lang="EN-US" style="">br3gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Browse3/Browse3_jpg.tar.gz"><i><span lang="EN-US" style="">Browse3_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (19 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  reception desk</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="Browse4/Browse4.mpg"><i>Browse4.mpg</i></a></span><span lang="EN-US" style=""> (13 Mb)<br>
+  Ground truth XML version: </span><a href="Browse4/br4gt.xml"><i><span lang="EN-US" style="">br4gt.xml</span></i></a><span lang="EN-US" style=""><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">JPEGS: </span><a href="Browse4/Browse4_jpg.tar.gz"><i><span lang="EN-US" style="">Browse4_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (24 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  while waiting short</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Browse_WhileWaiting1/Browse_WhileWaiting1.mpg">Browse_WhileWaiting1.mpg</a></span></i><span lang="EN-US" style=""> (9 Mb)<br>
+  Ground truth XML version: </span><a href="Browse_WhileWaiting1/bww1gt.xml"><i><span lang="EN-US" style="">bww1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Browse_WhileWaiting1/Browse_WhileWaiting1_jpg.tar.gz"><i><span lang="EN-US" style="">Browse_WhileWaiting1_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (16 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person browsing
+  while waiting long</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Browse_WhileWaiting2/Browse_WhileWaiting2.mpg">Browse_WhileWaiting2.mpg</a></span></i><span lang="EN-US" style=""> (21 Mb) <br>
+  Ground truth XML version: </span><a href="Browse_WhileWaiting2/bww2gt.xml"><i><span lang="EN-US" style="">bww2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Browse_WhileWaiting2/Browse_WhileWaiting2_jpg.tar.gz"><i><span lang="EN-US" style="">Browse_WhileWaiting2_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (39 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">Resting,
+slumping or fainting</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person resting
+  in chair</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Rest_InChair/Rest_InChair.mpg">Rest_InChair.mpg</a></span></i><span lang="EN-US" style=""> (12 Mb) <br>
+  Ground truth XML version: </span><a href="Rest_InChair/ricgt.xml"><i><span lang="EN-US" style="">ricgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Rest_InChair/Rest_InChair_jpg.tar.gz"><i><span lang="EN-US" style="">Rest_InChair_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (21 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person slump on
+  floor</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Rest_SlumpOnFloor/Rest_SlumpOnFloor.mpg">Rest_SlumpOnFloor.mpg</a></span></i><span lang="EN-US" style=""> (11 Mb) <br>
+  Ground truth XML version: </span><a href="Rest_SlumpOnFloor/rsfgt.xml"><i><span lang="EN-US" style="">rsfgt.xml</span></i></a><span lang="EN-US" style=""><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">JPEGS: </span><a href="Rest_SlumpOnFloor/Rest_SlumpOnFloor_jpg.tar.gz"><i><span lang="EN-US" style="">Rest_SlumpOnFloor_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (19 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person wiggle
+  on floor</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Rest_WiggleOnFloor/Rest_WiggleOnFloor.mpg">Rest_WiggleOnFloor.mpg</a></span></i><span lang="EN-US" style=""> (15 Mb) <br>
+  Ground truth XML version: </span><a href="Rest_WiggleOnFloor/rwgt.xml"><i><span lang="EN-US" style="">rwgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Rest_WiggleOnFloor/Rest_WiggleOnFloor_jpg.tar.gz"><i><span lang="EN-US" style="">Rest_WiggleOnFloor_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (28 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person fall
+  down immobile</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Rest_FallOnFloor/Rest_FallOnFloor.mpg">Rest_FallOnFloor.mpg</a></span></i><span lang="EN-US" style=""> (12 Mb) <br>
+  Ground truth XML version: </span><a href="Rest_FallOnFloor/rffgt.xml"><i><span lang="EN-US" style="">rffgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Rest_FallOnFloor/Rest_FallOnFloor_jpg.tar.gz"><i><span lang="EN-US" style="">Rest_FallOnFloor_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (21 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">Leaving bags
+behind</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person leaving
+  bag by wall</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="LeftBag/LeftBag.mpg">LeftBag.mpg</a></span></i><span lang="EN-US" style=""> (17 Mb) <br>
+  Ground truth XML version: </span><a href="LeftBag/lb1gt.xml"><i><span lang="EN-US" style="">lb1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="LeftBag/LeftBag_jpg.tar.gz"><i><span lang="EN-US" style="">LeftBag_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (31 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person leaving
+  bag at chairs</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="LeftBag_AtChair/LeftBag_AtChair.mpg">LeftBag_AtChair.mpg</a></span></i><span lang="EN-US" style=""> (13 Mb)<br>
+  Ground truth XML version: </span><a href="LeftBag_AtChair/lb2gt.xml"><i><span lang="EN-US" style="">lb2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="LeftBag_AtChair/LeftBag_AtChair_jpg.tar.gz"><i><span lang="EN-US" style="">LeftBag_AtChair_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (24 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person leaving
+  bag behind chairs</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="LeftBag_BehindChair/LeftBag_BehindChair.mpg">LeftBag_BehindChair.mpg</a></span></i><span lang="EN-US" style=""> (13 Mb) <br>
+  Ground truth XML version: </span><a href="LeftBag_BehindChair/lbbcgt.xml"><i><span lang="EN-US" style="">lbbcgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="LeftBag_BehindChair/LeftBag_BehindChair_jpg.tar.gz"><i><span lang="EN-US" style="">LeftBag_BehindChair_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (23 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person leaving
+  box</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="LeftBox/LeftBox.mpg">LeftBox.mpg</a></span></i><span lang="EN-US" style=""> (10 Mb) <br>
+  Ground truth XML version: </span><a href="LeftBox/lbgt.xml"><i><span lang="EN-US" style="">lbgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="LeftBox/LeftBox_jpg.tar.gz"><i><span lang="EN-US" style="">LeftBox_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (18 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Person leaving
+  bag but then pick it up again</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="LeftBag_PickedUp/LeftBag_PickedUp.mpg">LeftBag_PickedUp.mpg</a></span></i><span lang="EN-US" style=""> (16 Mb) <br>
+  Ground truth XML version: </span><a href="LeftBag_PickedUp/lbpugt.xml"><i><span lang="EN-US" style="">lbpugt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="LeftBag_PickedUp/LeftBag_PickedUp_jpg.tar.gz"><i><span lang="EN-US" style="">LeftBag_PickedUp_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (29 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">People/groups
+meeting, walking together and splitting up</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people meet
+  and walk together</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Meet_WalkTogether1/Meet_WalkTogether1.mpg">Meet_WalkTogether1.mpg</a></span></i><span lang="EN-US" style=""> (8 Mb) <br>
+  Ground truth XML version: </span><a href="Meet_WalkTogether1/mwt1gt.xml"><i><span lang="EN-US" style="">mwt1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Meet_WalkTogether1/Meet_WalkTogether1_jpg.tar.gz"><i><span lang="EN-US" style="">Meet_WalkTogether1_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (15 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two other
+  people meet and walk together</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Meet_WalkTogether2/Meet_WalkTogether2.mpg">Meet_WalkTogether2.mpg</a></span></i><span lang="EN-US" style=""> (9 Mb) <br>
+  Ground truth XML version: </span><a href="Meet_WalkTogether2/mwt2gt.xml"><i><span lang="EN-US" style="">mwt2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Meet_WalkTogether2/Meet_WalkTogether2_jpg.tar.gz"><i><span lang="EN-US" style="">Meet_WalkTogether2_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (17 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people
+  meet, walk together and split</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Meet_WalkSplit/Meet_WalkSplit.mpg">Meet_WalkSplit.mpg</a></span></i><span lang="EN-US" style=""> (7 Mb) <br>
+  Ground truth XML version: </span><a href="Meet_WalkSplit/mws1gt.xml"><i><span lang="EN-US" style="">mws1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Meet_WalkSplit/Meet_WalkSplit_jpg.tar.gz"><i><span lang="EN-US" style="">Meet_WalkSplit_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (13 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people meet,
+  walk, split with third person</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Meet_Split_3rdGuy/Meet_Split_3rdGuy.mpg">Meet_Split_3rdGuy.mpg</a></span></i><span lang="EN-US" style=""> (11 Mb) <br>
+  Ground truth XML version: </span><a href="Meet_Split_3rdGuy/ms3ggt.xml"><i><span lang="EN-US" style="">ms3ggt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Meet_Split_3rdGuy/Meet_Split_3rdGuy_jpg.tar.gz"><i><span lang="EN-US" style="">Meet_Split_3rdGuy_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (19 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Crowd of four
+  people meet, walk and split</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Meet_Crowd/Meet_Crowd.mpg">Meet_Crowd.mpg</a></span></i><span lang="EN-US" style=""> (6 Mb) <br>
+  Ground truth XML version: </span><a href="Meet_Crowd/mc1gt.xml"><i><span lang="EN-US" style="">mc1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Meet_Crowd/Meet_Crowd_jpg.tar.gz"><i><span lang="EN-US" style="">Meet_Crowd_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (10 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people
+  enter walk and split</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">mpg
+  missing <br>
+  Ground truth XML version: </span><a href="Split/spgt.xml"><i><span lang="EN-US" style="">spgt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Split/Split_jpg.tar.gz"><i><span lang="EN-US" style="">Split_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (11 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="">Two people
+fighting</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+ <tbody><tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people
+  meet, fight and run away</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Fight_RunAway1/Fight_RunAway1.mpg">Fight_RunAway1.mpg</a></span></i><span lang="EN-US" style=""> (6 Mb) <br>
+  Ground truth XML version: </span><a href="Fight_RunAway1/fra1gt.xml"><i><span lang="EN-US" style="">fra1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Fight_RunAway1/Fight_RunAway1_jpg.tar.gz"><i><span lang="EN-US" style="">Fight_RunAway1_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (12 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two other
+  people meet, fight and run away</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Fight_RunAway2/Fight_RunAway2.mpg">Fight_RunAway2.mpg</a></span></i><span lang="EN-US" style=""> (6 Mb) <br>
+  Ground truth XML version: </span><a href="Fight_RunAway2/fra2gt.xml"><i><span lang="EN-US" style="">fra2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="Fight_RunAway2/Fight_RunAway2_jpg.tar.gz"><i><span lang="EN-US" style="">Fight_RunAway2_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (12 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people
+  meet, fight, one down, other runs away</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Fight_OneManDown/Fight_OneManDown.mpg">Fight_OneManDown.mpg</a></span></i><span lang="EN-US" style=""> (11 Mb) <br>
+  Ground truth XML version: </span><a href="Fight_OneManDown/fomdgt1.xml"><i><span lang="EN-US" style="">fomdgt1.xml</span></i></a><span style=""> </span><a href="Fight_OneManDown/fomdgt2.xml"><i><span lang="EN-US" style="">fomdgt2.xml</span></i></a><span style=""> </span><a href="Fight_OneManDown/fomdgt3.xml"><i><span lang="EN-US" style="">fomdgt3.xml</span></i></a><span lang="EN-US" style=""><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">JPEGS: </span><a href="Fight_OneManDown/Fight_OneManDown_jpg.tar.gz"><i><span lang="EN-US" style="">Fight_OneManDown_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (20 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="340" valign="top" style="padding: 0cm 5.4pt; width: 254.7pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Two people
+  meet, fight and chase each other</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="646" valign="top" style="padding: 0cm 5.4pt; width: 484.7pt;">
+  <p class="MsoNormal"><i><span lang="SQ" style="color: blue;"><a href="Fight_Chase/Fight_Chase.mpg">Fight_Chase.mpg</a></span></i><span lang="EN-US" style=""> (5 Mb) <br>
+  Ground truth XML version: </span><a href="Fight_Chase/fcgt.xml"><i><span lang="EN-US" style="">fcgt.xml</span></i></a><span lang="EN-US" style=""><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">JPEGS: </span><a href="Fight_Chase/Fight_Chase_jpg.tar.gz"><i><span lang="EN-US" style="">Fight_Chase_jpg.tar.gz</span></i></a><span lang="EN-US" style=""> (9 Mb) <o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><b><span lang="SQ" style="font-size: 14pt; font-family: Arial;"><!--
+
+<p class=MsoNormal><b><span lang=SQ>Individual frames</span></b></p>
+
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse'>
+ <tr>
+  <td width=340 valign=top style='width:254.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=SQ>Two people meet, fight, one down, other runs
+  away</span></p>
+  </td>
+  <td width=540 valign=top style='width:484.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=SQ style='color:blue'><a
+  href="Fight_OneManDown/Fight_OneManDown_tga.zip">Fight_OneManDown_tga.zip</a></span></i><span
+  lang=SQ> </span><span style='font-size:10.0pt'>(220MB zip file with tga
+  files)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=340 valign=top style='width:254.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=SQ>Two people meet, fight, one down, other runs
+  away</span></p>
+  </td>
+  <td width=540 valign=top style='width:484.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=SQ style='color:blue'><a
+  href="Fight_OneManDown/Fight_OneManDown_bmp.zip">Fight_OneManDown_bmp.zip</a></span></i><span
+  lang=SQ> </span><span style='font-size:10.0pt'>(220MB zip file with bmp
+  files)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=340 valign=top style='width:254.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=SQ>Two people meet, fight, one down, other runs
+  away</span></p>
+  </td>
+  <td width=540 valign=top style='width:484.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=SQ style='color:blue'><a
+  href="Fight_OneManDown/Fight_OneManDown_jpg.zip">Fight_OneManDown_jpg.zip</a></span></i><span
+  lang=SQ> </span><span style='font-size:10.0pt'>(20MB zip file with jpg files)</span></p>
+  </td>
+ </tr>
+</table>
+-->Clips from Shopping Center in Portugal (2<sup>nd</sup> Set)</span></b><span lang="SQ" style=""><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">In the second set
+of experiments each clip was recorder from two different points of view. The
+first one shows a view of the corridor, while the second shows a frontal view of
+the scenario. The two video sequences should be time synchronised frame by frame.
+However, each video set may start at a slightly different time, so you need to
+figure out the frame correspondences. The time-code in the
+upper left of the images gives the necessary information.
+During capture and digitisation, a frame segmentation error means that some
+frames are duplicated and the expected next frame is missing. Thus, the
+overall rate is correct, but occasionally 2 consecutive frames are identical.
+<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="SQ" style="">This set of
+sequences are longer (1500 frames on average), containing
+more individuals and groups than the first set. Example synchronized 
+images are shown here:<b><o:p></o:p></b></span></p><BR>
+
+
+<P>For people interested in the ground plane homography, the mapping can be 
+computed from this information. The image pixel positions will depend on
+your image scaling. Here the image sizes are the jpg 384x288.
+For the image just below the corresponding pixel
+positions are:
+<BR>
+<BR>
+<table border="1">
+<TR>
+<TD>Point</TD>
+<TD>(Col,Row) (pixels)</TD>
+<TD>(X,Y) (cm)</TD>
+</TR>
+<TR><TD>1</TD><TD>(91,163)</TD><TD>(000,975 )</TD></TR>
+<TR><TD>2</TD><TD>(241,163)</TD><TD>(290,975 )</TD></TR>
+<TR><TD>3</TD><TD>(98,266)</TD><TD>(000,-110 )</TD></TR>
+<TR><TD>4</TD><TD>(322,265)</TD><TD>(290,-110 )</TD></TR>
+<TR><TD>5</TD><TD>(60,153) </TD><TD>(000,000 )</TD></TR>
+<TR><TD>6</TD><TD>(359,153)</TD><TD>(000,975 )</TD></TR>
+<TR><TD>7</TD><TD>(50,201)</TD><TD>(382,098)</TD></TR>
+<TR><TD>8</TD><TD>(367,200)</TD><TD>(382,878)</TD></TR>
+</table>
+<BR>
+<BR>
+<!-- <img border="0" width="384" height="284" src="TestScenarios_files/OneLeaveShopReenter1cor165.jpg">
+<img border="0" width="383" height="284" src="TestScenarios_files/OneLeaveShopReenter1front242.jpg"> -->
+
+<img border="0" width="730" height="260" src="TestScenarios_files/shoppingplane.png">
+
+<BR>
+<BR>
+<table border="0" cellspacing="0" cellpadding="0" width="967" style="width: 725.4pt; border-collapse: collapse;">
+ <tbody><tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="">CORRIDOR VIEW<o:p></o:p></span></p>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">FRONT
+  VIEW<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="SQ" style="">Couple walking
+  along corridor browsing, persons going inside and coming out of stores</span><span lang="EN-US" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/WalkByShop1cor/WalkByShop1cor.mpg"><i>WalkByShop1cor.mpg</i></a></span><span lang="EN-US" style=""> (14 Mb)<br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/WalkByShop1cor/cwbs1gt.xml"><i><span lang="EN-US" style="">cwbs1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/WalkByShop1cor/WalkByShop1cor.tar.gz"><i><span lang="EN-US" style="">WalkByShop1cor.tar.gz</span></i></a><span lang="EN-US" style=""> (48 Mb) <o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/WalkByShop1front/WalkByShop1front.mpg"><i>WalkByShop1front.mpg</i></a></span><span lang="EN-US" style=""> (14 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/WalkByShop1front/fwbs1gt.xml"><i><span lang="EN-US" style="">cwbs1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/WalkByShop1front/WalkByShop1front.tar.gz"><i><span lang="EN-US" style="">WalkByShop1front.tar.gz</span></i></a><span lang="EN-US" style=""> (56 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Two persons
+  cross paths at the entrance of a store, couple walking on the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/EnterExitCrossingPaths1cor/EnterExitCrossingPaths1cor.mpg"><i>EnterExitCrossingPaths1cor.mpg</i></a></span><span lang="EN-US" style=""> (2<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Ground
+  truth XML version: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths1cor/ceecp1gt.xml"><i><span lang="EN-US" style="">ceecp1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths1cor/EnterExitCrossingPaths1cor.tar.gz"><i><span lang="EN-US" style="">EnterExitCrossingPaths1cor.tar.gz</span></i></a><span lang="EN-US" style=""> (8 Mb) <o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/EnterExitCrossingPaths1front/EnterExitCrossingPaths1front.mpg"><i>EnterExitCrossingPaths1front.mpg</i></a></span><span lang="EN-US" style=""> ( 2 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths1front/feecp1gt.xml"><i><span lang="EN-US" style="">feecp1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths1front/EnterExitCrossingPaths1front.tar.gz"><i><span lang="EN-US" style="">EnterExitCrossingPaths1front.tar.gz</span></i></a><span lang="EN-US" style=""> (10 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Two
+  persons cross paths at the entrance of a store<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/EnterExitCrossingPaths2cor/EnterExitCrossingPaths2cor.mpg"><i>EnterExitCrossingPaths2cor.mpg</i></a></span><span lang="EN-US" style=""> ( 3 Mb)<span style="">&nbsp; </span><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Ground truth
+  XML version: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths2cor/ceecp2gt.xml"><i><span lang="EN-US" style="">ceecp2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths2cor/EnterExitCrossingPaths2cor.tar.gz"><i><span lang="EN-US" style="">EnterExitCrossingPaths2cor.tar.gz</span></i></a><span lang="EN-US" style=""> (10 Mb) <o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/EnterExitCrossingPaths2front/EnterExitCrossingPaths2front.mpg"><i>EnterExitCrossingPaths2front.mpg</i></a></span><span lang="EN-US" style=""> ( 3 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths2front/feecp2gt.xml"><i><span lang="EN-US" style="">feecp2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/EnterExitCrossingPaths2front/EnterExitCrossingPaths2front.tar.gz"><i><span lang="EN-US" style="">EnterExitCrossingPaths2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 12 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes outside a store.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Three
+  persons walking together in the corridor<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShop1cor/OneLeaveShop1cor.mpg"><i>OneLeaveShop1cor.mpg</i></a></span><span lang="EN-US" style=""> (2 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShop1cor/cols1gt.xml"><i><span lang="EN-US" style="">cols1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShop1cor/OneLeaveShop1cor.tar.gz"><i><span lang="EN-US" style="">OneLeaveShop1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 6 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShop1front/OneLeaveShop1front.mpg"><i>OneLeaveShop1front.mpg</i></a></span><span lang="EN-US" style=""> (2 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShop1front/fols1gt.xml"><i><span lang="EN-US" style="">fols1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShop1front/OneLeaveShop1front.tar.gz"><i><span lang="EN-US" style="">OneLeaveShop1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 8 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes outside a store.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible on
+  corridor view only: <o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Four
+  persons walking together in the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShop2cor/OneLeaveShop2cor.mpg"><i>OneLeaveShop2cor.mpg</i></a></span><span lang="EN-US" style=""> (6 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShop2cor/cols2gt.xml"><i><span lang="EN-US" style="">cols2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShop2cor/OneLeaveShop2cor.tar.gz"><i><span lang="EN-US" style="">OneLeaveShop2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 23 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShop2front/OneLeaveShop2front.mpg"><i>OneLeaveShop2front.mpg</i></a></span><span lang="EN-US" style=""> (6 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShop2front/fols2gt.xml"><i><span lang="EN-US" style="">fols2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShop2front/OneLeaveShop2front.tar.gz"><i><span lang="EN-US" style="">OneLeaveShop2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 29 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  comes out of store and later reenters.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Person coming
+  out of store and walking on the corridor<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShopReenter1cor/OneLeaveShopReenter1cor.mpg"><i>OneLeaveShopReenter1cor.mpg</i></a></span><span lang="EN-US" style=""> ( 2 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShopReenter1cor/colsr1gt.xml"><i><span lang="EN-US" style="">colsr1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShopReenter1cor/OneLeaveShopReenter1cor.tar.gz"><i><span lang="EN-US" style="">OneLeaveShopReenter1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 8 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShopReenter1front/OneLeaveShopReenter1front.mpg"><i>OneLeaveShopReenter1front.mpg</i></a></span><span lang="EN-US" style=""> (2 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShopReenter1front/folsr1gt.xml"><i><span lang="EN-US" style="">folsr1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShopReenter1front/OneLeaveShopReenter1front.tar.gz"><i><span lang="EN-US" style="">OneLeaveShopReenter1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 10 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  comes out of store and later reenters.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Four
+  persons walk on the corridor.<o:p></o:p></span></p>
+<BR>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShopReenter2cor/OneLeaveShopReenter2cor.mpg"><i>OneLeaveShopReenter2cor.mpg</i></a></span><span lang="EN-US" style=""> ( 3 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShopReenter2cor/colsr2gt.xml"><i><span lang="EN-US" style="">colsr2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShopReenter2cor/OneLeaveShopReenter2cor.tar.gz"><i><span lang="EN-US" style="">OneLeaveShopReenter2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 12 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneLeaveShopReenter2front/OneLeaveShopReenter2front.mpg"><i>OneLeaveShopReenter2front.mpg</i></a></span><span lang="EN-US" style=""> (3 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneLeaveShopReenter2front/folsr2gt.xml"><i><span lang="EN-US" style="">folsr2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneLeaveShopReenter2front/OneLeaveShopReenter2front.tar.gz"><i><span lang="EN-US" style="">OneLeaveShopReenter2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 15 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  walking on the corridor, one goes inside a store, the other waits outside,
+  later they rejoin and leave together.<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneShopOneWait1cor/OneShopOneWait1cor.mpg"><i>OneShopOneWait1cor.mpg</i></a></span><span lang="EN-US" style=""> ( 8 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneShopOneWait1cor/cosow1gt.xml"><i><span lang="EN-US" style="">cosow1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneShopOneWait1cor/OneShopOneWait1cor.tar.gz"><i><span lang="EN-US" style="">OneShopOneWait1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 30 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneShopOneWait1front/OneShopOneWait1front.mpg"><i>OneShopOneWait1front.mpg</i></a></span><span lang="SQ" style=""> ( 8 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneShopOneWait1front/fosow1gt.xml"><i><span lang="SQ" style="">fosow1gt.xml</span></i></a><span lang="SQ" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneShopOneWait1front/OneShopOneWait1front.tar.gz"><i><span lang="SQ" style="">OneShopOneWait1front.tar.gz</span></i></a><span lang="SQ" style=""> ( 10 Mb)<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Similar
+  to OneShopOneWait1front, but contains various groups of persons walking along
+  the corridor.<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneShopOneWait2cor/OneShopOneWait2cor.mpg"><i>OneShopOneWait2cor.mpg</i></a></span><span lang="EN-US" style=""> ( 5 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneShopOneWait2cor/cosow2gt.xml"><i><span lang="EN-US" style="">cosow2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneShopOneWait2cor/OneShopOneWait2cor.tar.gz"><i><span lang="EN-US" style="">OneShopOneWait2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 32 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneShopOneWait2front/OneShopOneWait2front.mpg"><i>OneShopOneWait2front.mpg</i></a></span><span lang="SQ" style=""> (8 Mb)<span style="">&nbsp;
+  </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneShopOneWait2front/fosow2gt.xml"><i><span lang="SQ" style="">fosow2gt.xml</span></i></a><span lang="SQ" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneShopOneWait2front/OneShopOneWait2front.tar.gz"><i><span lang="SQ" style="">OneShopOneWait2front.tar.gz</span></i></a><span lang="SQ" style=""> ( 38 Mb)<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  goes inside store<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopEnter1cor/OneStopEnter1cor.mpg"><i>OneStopEnter1cor.mpg</i></a></span><span lang="EN-US" style=""> ( 9 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopEnter1cor/cose1gt.xml"><i><span lang="EN-US" style="">cose1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopEnter1cor/OneStopEnter1cor.tar.gz"><i><span lang="EN-US" style="">OneStopEnter1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 31 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopEnter1front/OneStopEnter1front.mpg"><i>OneStopEnter1front.mpg</i></a></span><span lang="EN-US" style=""> (9 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopEnter1front/fose1gt.xml"><i><span lang="EN-US" style="">fose1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopEnter1front/OneStopEnter1front.tar.gz"><i><span lang="EN-US" style="">OneStopEnter1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 38 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  browses stores and goes inside and out, couple of walker along the corridor<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible on
+  corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Two
+  persons go inside stores.<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopEnter2cor/OneStopEnter2cor.mpg"><i>OneStopEnter2cor.mpg</i></a></span><span lang="EN-US" style=""> ( 16 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopEnter2cor/cose2gt.xml"><i><span lang="EN-US" style="">cose2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopEnter2cor/OneStopEnter2cor.tar.gz"><i><span lang="EN-US" style="">OneStopEnter2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 56<span style="">&nbsp; </span>Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopEnter2front/OneStopEnter2front.mpg"><i>OneStopEnter2front.mpg</i></a></span><span lang="EN-US" style=""> (16 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopEnter2front/fose2gt.xml"><i><span lang="EN-US" style="">fose2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopEnter2front/OneStopEnter2front.tar.gz"><i><span lang="EN-US" style="">OneStopEnter2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 71 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="EN-US" style="">Person stops outside store, goes inside and
+  out of store. Five groups of people walking along the corridor.<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveEnter1cor/OneStopMoveEnter1cor.mpg"><i>OneStopMoveEnter1cor.mpg</i></a></span><span lang="EN-US" style=""> (9<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveEnter1cor/cosme1gt.xml"><i><span lang="EN-US" style="">cosme1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveEnter1cor/OneStopMoveEnter1cor.tar.gz"><i><span lang="EN-US" style="">OneStopMoveEnter1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 37 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveEnter1front/OneStopMoveEnter1front.mpg"><i>OneStopMoveEnter1front.mpg</i></a></span><span lang="EN-US" style=""> (9 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveEnter1front/fosme1gt.xml"><i><span lang="EN-US" style="">fosme1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveEnter1front/OneStopMoveEnter1front.tar.gz"><i><span lang="EN-US" style="">OneStopMoveEnter1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 42 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes inside and out of a store twice.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Group of
+  4 people comes out store<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveEnter2cor/OneStopMoveEnter2cor.mpg"><i>OneStopMoveEnter2cor.mpg</i></a></span><span lang="EN-US" style=""> (13 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveEnter2cor/cosme2gt.xml"><i><span lang="EN-US" style="">cosme2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveEnter2cor/OneStopMoveEnter2cor.tar.gz"><i><span lang="EN-US" style="">OneStopMoveEnter2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 46 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveEnter2front/OneStopMoveEnter2front.mpg"><i>OneStopMoveEnter2front.mpg</i></a></span><span lang="EN-US" style=""> (13 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveEnter2front/fosme2gt.xml"><i><span lang="EN-US" style="">fosme2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveEnter2front/OneStopMoveEnter2front.tar.gz"><i><span lang="EN-US" style="">OneStopMoveEnter2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 58 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  stops out of store goes inside and out of store<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  come out of store<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveNoEnter1cor/OneStopMoveNoEnter1cor.mpg"><i>OneStopMoveNoEnter1cor.mpg</i></a></span><span lang="EN-US" style=""> (10<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter1cor/cosmne1gt.xml"><i><span lang="EN-US" style="">cosmne1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter1cor/OneStopMoveNoEnter1cor.tar.gz"><i><span lang="EN-US" style="">OneStopMoveNoEnter1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 35 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p class="MsoNormal"><span lang="SQ" style=""><a href="../CAVIARDATA2/OneStopMoveNoEnter1front/OneStopMoveNoEnter1front.mpg"><i>OneStopMoveNoEnter1front.mpg</i></a></span><span lang="EN-US" style=""> (10 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter1front/fosmne1gt.xml"><i><span lang="EN-US" style="">fosmne1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter1front/OneStopMoveNoEnter1front.tar.gz"><i><span lang="EN-US" style="">OneStopMoveNoEnter1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 42 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes inside store, browses, and leaves store.<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Visible
+  on corridor view only:<o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  walking along the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveNoEnter2cor/OneStopMoveNoEnter2cor.mpg"><i>OneStopMoveNoEnter2cor.mpg</i></a></span><span lang="EN-US" style=""> (6<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter2cor/cosmne2gt.xml"><i><span lang="EN-US" style="">cosmne2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter2cor/OneStopMoveNoEnter2cor.tar.gz"><i><span lang="EN-US" style="">OneStopMoveNoEnter2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 21 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopMoveNoEnter2front/OneStopMoveNoEnter2front.mpg"><i>OneStopMoveNoEnter2front.mpg</i></a></span><span lang="EN-US" style=""> (6 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter2front/fosmne2gt.xml"><i><span lang="EN-US" style="">fosmne2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopMoveNoEnter2front/OneStopMoveNoEnter2front.tar.gz"><i><span lang="EN-US" style="">OneStopMoveNoEnter2front.tar.gz</span></i></a><span style=""> <span lang="EN-US">( 27 Mb)</span></span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  stops outside an store and continues walking along the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopNoEnter1cor/OneStopNoEnter1cor.mpg"><i>OneStopNoEnter1cor.mpg</i></a></span><span lang="EN-US" style=""> (4<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopNoEnter1cor/cosne1gt.xml"><i><span lang="EN-US" style="">cosne1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopNoEnter1cor/OneStopNoEnter1cor.tar.gz"><i><span lang="EN-US" style="">OneStopNoEnter1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 15 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopNoEnter1front/OneStopNoEnter1front.mpg"><i>OneStopNoEnter1front.mpg</i></a></span><span lang="EN-US" style=""> (4 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopNoEnter1front/fosne1gt.xml"><i><span lang="EN-US" style="">fosne1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopNoEnter1front/OneStopNoEnter1front.tar.gz"><i><span lang="EN-US" style="">OneStopNoEnter1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 18 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  stops outside a store and continues walking, another person goes inside a
+  store, browses and then leaves the store.<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopNoEnter2cor/OneStopNoEnter2cor.mpg"><i>OneStopNoEnter2cor.mpg</i></a></span><span lang="EN-US" style=""> (9<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopNoEnter2cor/cosne2gt.xml"><i><span lang="EN-US" style="">cosne2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopNoEnter2cor/OneStopNoEnter2cor.tar.gz"><i><span lang="EN-US" style="">OneStopNoEnter2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 31 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/OneStopNoEnter2front/OneStopNoEnter2front.mpg"><i>OneStopNoEnter2front.mpg</i></a></span><span lang="EN-US" style=""> (9 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/OneStopNoEnter2front/fosne2gt.xml"><i><span lang="EN-US" style="">fosne2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/OneStopNoEnter2front/OneStopNoEnter2front.tar.gz"><i><span lang="EN-US" style="">OneStopNoEnter2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 37 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes inside a store and browse, another person joins and they leave together
+  the store<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ShopAssistant1cor/ShopAssistant1cor.mpg"><i>ShopAssistant1cor.mpg</i></a></span><span lang="EN-US" style=""> (10<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ShopAssistant1cor/csa1gt.xml"><i><span lang="EN-US" style="">csa1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ShopAssistant1cor/ShopAssistant1cor.tar.gz"><i><span lang="EN-US" style="">ShopAssistant1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 26 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ShopAssistant1front/ShopAssistant1front.mpg"><i>ShopAssistant1front.mpg</i></a></span><span lang="EN-US" style=""> (10 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ShopAssistant1front/fsa1gt.xml"><i><span lang="EN-US" style="">fsa1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ShopAssistant1front/ShopAssistant1front.tar.gz"><i><span lang="EN-US" style="">ShopAssistant1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 43 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Person
+  goes inside a store, browse, another person joins later they split, <span style="">&nbsp;</span><o:p></o:p></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">3 people
+  walking together along the corridor<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ShopAssistant2cor/ShopAssistant2cor.mpg"><i>ShopAssistant2cor.mpg</i></a></span><span lang="EN-US" style=""> (21<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ShopAssistant2cor/csa2gt.xml"><i><span lang="EN-US" style="">csa2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ShopAssistant2cor/ShopAssistant2cor.tar.gz"><i><span lang="EN-US" style="">ShopAssistant2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 69 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ShopAssistant2front/ShopAssistant2front.mpg"><i>ShopAssistant2front.mpg</i></a></span><span lang="EN-US" style=""> (21 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ShopAssistant2front/fsa2gt.xml"><i><span lang="EN-US" style="">fsa2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ShopAssistant2front/ShopAssistant2front.tar.gz"><i><span lang="EN-US" style="">ShopAssistant2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 101 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">3 persons
+  walking in the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ThreePastShop1cor/ThreePastShop1cor.mpg"><i>ThreePastShop1cor.mpg</i></a></span><span lang="EN-US" style=""> (10<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ThreePastShop1cor/c3ps1gt.xml"><i><span lang="EN-US" style="">c3ps1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ThreePastShop1cor/ThreePastShop1cor.tar.gz"><i><span lang="EN-US" style="">ThreePastShop1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 36 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ThreePastShop1front/ThreePastShop1front.mpg"><i>ThreePastShop1front.mpg</i></a></span><span lang="EN-US" style=""> (10 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ThreePastShop1front/f3ps1gt.xml"><i><span lang="EN-US" style="">f3ps1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ThreePastShop1front/ThreePastShop1front.tar.gz"><i><span lang="EN-US" style="">ThreePastShop1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 42 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Another 3
+  persons walking in the corridor<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ThreePastShop2cor/ThreePastShop2cor.mpg"><i>ThreePastShop2cor.mpg</i></a></span><span lang="EN-US" style=""> (9<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ThreePastShop2cor/c3ps2gt.xml"><i><span lang="EN-US" style="">c3ps2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ThreePastShop2cor/ThreePastShop2cor.tar.gz"><i><span lang="EN-US" style="">ThreePastShop2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 33 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/ThreePastShop2front/ThreePastShop2front.mpg"><i>ThreePastShop2front.mpg</i></a></span><span lang="EN-US" style=""> (9 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/ThreePastShop2front/f3ps2gt.xml"><i><span lang="EN-US" style="">f3ps2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/ThreePastShop2front/ThreePastShop2front.tar.gz"><i><span lang="EN-US" style="">ThreePastShop2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 39 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  goes inside a store and later comes out <o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop1cor/TwoEnterShop1cor.mpg"><i>TwoEnterShop1cor.mpg</i></a></span><span lang="EN-US" style=""> (10<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop1cor/c2es1gt.xml"><i><span lang="EN-US" style="">c2es1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop1cor/TwoEnterShop1cor.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 35 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop1front/TwoEnterShop1front.mpg"><i>TwoEnterShop1front.mpg</i></a></span><span lang="EN-US" style=""> (10 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop1front/f2es1gt.xml"><i><span lang="EN-US" style="">f2es1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop1front/TwoEnterShop1front.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop1front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 43 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  goes inside a store and later comes out<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop2cor/TwoEnterShop2cor.mpg"><i>TwoEnterShop2cor.mpg</i></a></span><span lang="EN-US" style=""> (9<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth: </span><a href="../CAVIARDATA2/TwoEnterShop2cor/c2es2gt.txt"><i><span lang="EN-US" style="">c2es2gt.txt</span></i></a><span style=""> <span lang="EN-US"><o:p></o:p></span></span></p>
+  <p class="MsoNormal"><span lang="EN-US" style="">Ground
+  truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop2cor/c2es2gt.xml"><i><span lang="EN-US" style="">c2es2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop2cor/TwoEnterShop2cor.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 35 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop2front/TwoEnterShop2front.mpg"><i>TwoEnterShop2front.mpg</i></a></span><span lang="EN-US" style=""> (9 Mb) <span style="">&nbsp;</span><br>
+  Ground truth: </span><a href="../CAVIARDATA2/TwoEnterShop2front/f2es2gt.txt"><i><span lang="EN-US" style="">f2es2gt.txt</span></i></a><span style=""> <span lang="EN-US"><o:p></o:p></span></span></p>
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="EN-US" style="">Ground truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop2front/f2es2gt.xml"><i><span lang="EN-US" style="">f2es2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop2front/TwoEnterShop2front.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop2front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 42 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Two
+  couples go inside store and later one comes out<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop3cor/TwoEnterShop3cor.mpg"><i>TwoEnterShop3cor.mpg</i></a></span><span lang="EN-US" style=""> (7<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop3cor/c2es3gt.xml"><i><span lang="EN-US" style="">c2es3gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop3cor/TwoEnterShop3cor.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop3cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 24 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoEnterShop3front/TwoEnterShop3front.mpg"><i>TwoEnterShop3front.mpg</i></a></span><span lang="EN-US" style=""> (6 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoEnterShop3front/f2es3gt.xml"><i><span lang="EN-US" style="">f2es3gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoEnterShop3front/TwoEnterShop3front.tar.gz"><i><span lang="EN-US" style="">TwoEnterShop3front.tar.gz</span></i></a><span lang="EN-US" style=""> ( 28 Mb)</span><span lang="SQ" style=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">Couple
+  leaves a store while browsing<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoLeaveShop1cor/TwoLeaveShop1cor.mpg"><i>TwoLeaveShop1cor.mpg</i></a></span><span lang="EN-US" style=""> (8<span style="">&nbsp; </span>Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoLeaveShop1cor/c2ls1gt.xml"><i><span lang="EN-US" style="">c2ls1gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoLeaveShop1cor/TwoLeaveShop1cor.tar.gz"><i><span lang="EN-US" style="">TwoLeaveShop1cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 28 Mb)<o:p></o:p></span></p>
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoLeaveShop1front/TwoLeaveShop1front.mpg"><i>TwoLeaveShop1front.mpg</i></a></span><span lang="SQ" style=""> (8 Mb)<span style="">&nbsp;
+  </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoLeaveShop1front/f2ls1gt.xml"><i><span lang="SQ" style="">f2ls1gt.xml</span></i></a><span lang="SQ" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoLeaveShop1front/TwoLeaveShop1front.tar.gz"><i><span lang="SQ" style="">TwoLeaveShop1front.tar.gz</span></i></a><span lang="SQ" style=""> ( 35 Mb)<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+  <p class="MsoNormal"><span lang="EN-US" style="">A couple
+  leaves a store<o:p></o:p></span></p>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+  <p class="MsoNormal"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoLeaveShop2cor/TwoLeaveShop2cor.mpg"><i>TwoLeaveShop2cor.mpg</i></a></span><span lang="EN-US" style=""> ( 4 Mb)<span style="">&nbsp; </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoLeaveShop2cor/c2ls2gt.xml"><i><span lang="EN-US" style="">c2ls2gt.xml</span></i></a><span lang="EN-US" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoLeaveShop2cor/TwoLeaveShop2cor.tar.gz"><i><span lang="EN-US" style="">TwoLeaveShop2cor.tar.gz</span></i></a><span lang="EN-US" style=""> ( 13 Mb)<o:p></o:p></span></p>
+<BR>
+
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+  <p style="margin: 0cm 0cm 0.0001pt;"><span lang="SQ" style="color: blue;"><a href="../CAVIARDATA2/TwoLeaveShop2front/TwoLeaveShop2front.mpg"><i>TwoLeaveShop2front.mpg</i></a></span><span lang="SQ" style=""> (4 Mb)<span style="">&nbsp;
+  </span><br>
+  Ground truth XML version: </span><a href="../CAVIARDATA2/TwoLeaveShop2front/f2ls2gt.xml"><i><span lang="SQ" style="">f2ls2gt.xml</span></i></a><span lang="SQ" style=""><br>
+  JPEGS: </span><a href="../CAVIARDATA2/TwoLeaveShop2front/TwoLeaveShop2front.tar.gz"><i><span lang="SQ" style="">TwoLeaveShop2front.tar.gz</span></i></a><span lang="SQ" style=""> ( 16 Mb)<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="259" valign="top" style="padding: 0cm 5.4pt; width: 194.4pt;">
+<BR>
+  </td>
+  <td width="351" valign="top" style="padding: 0cm 5.4pt; width: 263.45pt;">
+<BR>
+  </td>
+  <td width="357" valign="top" style="padding: 0cm; width: 267.55pt;">
+
+<BR>
+
+  </td>
+ </tr>
+</tbody></table>
+
+<BR>
+
+<p class="MsoNormal"><span lang="SQ" style="">&nbsp;<o:p></o:p></span></p>
+
+
+</div>
+
+<hr>
+
+<p>
+There have been
+<IMG SRC="http://homepages.inf.ed.ac.uk/cgi/rbf/cavticket?-w48-h12"  alt="******" WIDTH=48 HEIGHT=12>
+ <tt> </tt>accesses since March 2005.
+
+<P>
+<script type="text/javascript">
+document.write("Date of last change to this page: " + document.lastModified);
+</script>
+
+<P>&copy;&nbsp;2007&nbsp;Robert&nbsp;Fisher
+
+</body></html>

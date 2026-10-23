@@ -1,0 +1,16 @@
+  
+
+
+Through collecting 16 relatively small-scale motion datasets and conducting a series of  in-lab expreiment, we established a 3D skeleton dataset for recognizing construction worker actions. All skeleton data were processed in four major steps, including uniform data extraction, skeleton structure alignment, resampling, and coordination transformation. Then all the aligned skeleton data will be manually annotated into four activity categories and assigned with labels.
+
+
+Experiment  version:  It contains over 61,275 samples (10 million frames) from 73 classes performed by about 300 different subjects.The dataset includes four fundamental categories of activities, including Production Activities(12), Unsafe Activities(38), Awkward Activities(10), and Common Activities(13).  
+
+
+However, We have carefully reviewed the licenses of all the current datasets. We found more than half of the datasets did not specify their licenses and usage policy. Therefore, in this version, we only shared the tagged and processed dataset that clearly allows redistribution and modification. For the rest of the datasets, we highlighted their URL and doi (all of them are publicly accessible and free for use). Instead of providing the processed data, we public the full preprocess codes on GitHub, which could be used to retag and process (such as converting to predefined .bvh files). All readers and users could  process the source dataset by themselves.
+
+
+Public version： Construction Motion Data Library(CML) contains 6131 samples(ALL_DATA); among them, and 4333 samples are highly related to construction activities ( Construction_Related_Data).
+
+
+GitHub: https://github.com/YUANYUAN2222/Integrated-public-3D-skeleton-form-CML-library.

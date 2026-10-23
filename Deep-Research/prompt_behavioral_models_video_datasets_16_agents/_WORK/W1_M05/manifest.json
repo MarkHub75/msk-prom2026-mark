@@ -1,0 +1,52 @@
+[
+  {
+    "file": "ava_val.zip",
+    "bytes": 1611664,
+    "sha256": "5596d8c17651a423ed64c1d83c189a7543b3adc6f397583c9e3523d95f43d28e"
+  },
+  {
+    "file": "ava_labels.txt",
+    "bytes": 6610,
+    "sha256": "442bc972aceba9384c65c28a8c8cab2812d0c5ad09274835a0fd4c2ebfdca975"
+  },
+  {
+    "file": "ava_eval_labels.txt",
+    "bytes": 2649,
+    "sha256": "6759290ef3cb5b0339291f2e9dc8994ce74277123f75911fc30d53e30baa5e28"
+  },
+  {
+    "file": "hico_annotations.txt",
+    "bytes": 12246669,
+    "sha256": "09a967ca9ea154765f75694c09940483ce1741cd9e45789095ad7a99781a743f"
+  },
+  {
+    "file": "upt_model.txt",
+    "bytes": 10337,
+    "sha256": "8c3ab27030f517bcffc26aea5ec0bb8873b3b652a39c3c19c5bad9d73af78aa9"
+  },
+  {
+    "file": "upt_utils.txt",
+    "bytes": 12408,
+    "sha256": "68b42d0641ef5552300d8ec9154166a5a7a251305d21915ff7839a6be3101307"
+  },
+  {
+    "file": "upt_inference.txt",
+    "bytes": 9416,
+    "sha256": "00d44859ffea3da5fb08eb6d88c03df8bae3f2a087cf721d750cf70d4ab7b129"
+  },
+  {
+    "file": "ava_config22.txt",
+    "bytes": 5581,
+    "sha256": "613e709f3a6bb542360c6af96cca0a0cfd753cc3eb07d6075df9aa4fe407f4ac"
+  },
+  {
+    "file": "ava_loading.txt",
+    "bytes": 67984,
+    "sha256": "ec7b025c78a984a68ca7e34ada43f1e5e9d4cb15468438de6efaffa3c4fbe068"
+  },
+  {
+    "file": "ava_dataset_code.txt",
+    "bytes": 27103,
+    "sha256": "3f1ce10a91bc80f9d45c53de36a648caef9b6da5e5e137654e046d296196771e"
+  }
+]

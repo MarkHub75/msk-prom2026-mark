@@ -1,0 +1,27 @@
+{
+  "access_local": "2026-10-23T20:40:36.915394+03:00",
+  "records": [
+    {
+      "url": "https://fenix.ur.edu.pl/~mkepski/ds/uf.html",
+      "status": 200,
+      "content_type": "text/html",
+      "bytes": 43416,
+      "sha256": "cb6d171be52c086ece579457b9ee752abb25e335b12aae25ee28714fb94aae83"
+    },
+    {
+      "url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-01-data.csv",
+      "status": 200,
+      "content_type": "text/csv",
+      "bytes": 2466,
+      "sha256": "60e156223725e401155b4fd25a672c498ed5b4e17897337c6971d90041818bcc"
+    },
+    {
+      "url": "https://data.mendeley.com/datasets/7w7fccy7ky/5",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://data.mendeley.com/public-api/datasets/7w7fccy7ky/versions/5/files",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "name": "val/dancetrack0010/seqinfo.ini",
+    "size": 108,
+    "compressed": 100,
+    "offset": 2175
+  },
+  {
+    "name": "val/dancetrack0026/seqinfo.ini",
+    "size": 106,
+    "compressed": 100,
+    "offset": 2537
+  },
+  {
+    "name": "val/dancetrack0019/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 2899
+  },
+  {
+    "name": "val/dancetrack0081/seqinfo.ini",
+    "size": 106,
+    "compressed": 100,
+    "offset": 3262
+  },
+  {
+    "name": "val/dancetrack0043/seqinfo.ini",
+    "size": 107,
+    "compressed": 99,
+    "offset": 3624
+  },
+  {
+    "name": "val/dancetrack0018/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 3985
+  },
+  {
+    "name": "val/dancetrack0073/seqinfo.ini",
+    "size": 107,
+    "compressed": 100,
+    "offset": 4348
+  },
+  {
+    "name": "val/dancetrack0094/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 4710
+  },
+  {
+    "name": "val/dancetrack0058/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 5073
+  },
+  {
+    "name": "val/dancetrack0034/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 5436
+  },
+  {
+    "name": "val/dancetrack0005/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 5799
+  },
+  {
+    "name": "val/dancetrack0004/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 6162
+  },
+  {
+    "name": "val/dancetrack0035/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 6525
+  },
+  {
+    "name": "val/dancetrack0047/seqinfo.ini",
+    "size": 107,
+    "compressed": 99,
+    "offset": 6888
+  },
+  {
+    "name": "val/dancetrack0014/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 7249
+  },
+  {
+    "name": "val/dancetrack0025/seqinfo.ini",
+    "size": 106,
+    "compressed": 100,
+    "offset": 7612
+  },
+  {
+    "name": "val/dancetrack0041/seqinfo.ini",
+    "size": 108,
+    "compressed": 99,
+    "offset": 7974
+  },
+  {
+    "name": "val/dancetrack0079/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 8335
+  },
+  {
+    "name": "val/dancetrack0077/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 8698
+  },
+  {
+    "name": "val/dancetrack0030/seqinfo.ini",
+    "size": 108,
+    "compressed": 100,
+    "offset": 9061
+  },
+  {
+    "name": "val/dancetrack0090/seqinfo.ini",
+    "size": 108,
+    "compressed": 99,
+    "offset": 9423
+  },
+  {
+    "name": "val/dancetrack0063/seqinfo.ini",
+    "size": 108,
+    "compressed": 98,
+    "offset": 9784
+  },
+  {
+    "name": "val/dancetrack0097/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 10144
+  },
+  {
+    "name": "val/dancetrack0007/seqinfo.ini",
+    "size": 108,
+    "compressed": 101,
+    "offset": 10507
+  },
+  {
+    "name": "val/dancetrack0065/seqinfo.ini",
+    "size": 107,
+    "compressed": 101,
+    "offset": 10870
+  },
+  {
+    "name": "val/dancetrack0010/gt/gt.txt",
+    "size": 199791,
+    "compressed": 60011,
+    "offset": 11149
+  },
+  {
+    "name": "val/dancetrack0026/gt/gt.txt",
+    "size": 111517,
+    "compressed": 36176,
+    "offset": 364520707
+  },
+  {
+    "name": "val/dancetrack0019/gt/gt.txt",
+    "size": 466662,
+    "compressed": 148835,
+    "offset": 392164117
+  },
+  {
+    "name": "val/dancetrack0081/gt/gt.txt",
+    "size": 515798,
+    "compressed": 136523,
+    "offset": 568711739
+  },
+  {
+    "name": "val/dancetrack0043/gt/gt.txt",
+    "size": 46861,
+    "compressed": 15130,
+    "offset": 743368719
+  },
+  {
+    "name": "val/dancetrack0018/gt/gt.txt",
+    "size": 82369,
+    "compressed": 25942,
+    "offset": 829152160
+  },
+  {
+    "name": "val/dancetrack0073/gt/gt.txt",
+    "size": 241663,
+    "compressed": 74886,
+    "offset": 916042748
+  },
+  {
+    "name": "val/dancetrack0094/gt/gt.txt",
+    "size": 333851,
+    "compressed": 99958,
+    "offset": 1009273679
+  },
+  {
+    "name": "val/dancetrack0058/gt/gt.txt",
+    "size": 316705,
+    "compressed": 89408,
+    "offset": 1113763372
+  },
+  {
+    "name": "val/dancetrack0034/gt/gt.txt",
+    "size": 315194,
+    "compressed": 99112,
+    "offset": 1549393337
+  },
+  {
+    "name": "val/dancetrack0005/gt/gt.txt",
+    "size": 133961,
+    "compressed": 44829,
+    "offset": 1679847554
+  },
+  {
+    "name": "val/dancetrack0004/gt/gt.txt",
+    "size": 129336,
+    "compressed": 44402,
+    "offset": 1819461265
+  },
+  {
+    "name": "val/dancetrack0035/gt/gt.txt",
+    "size": 148250,
+    "compressed": 43601,
+    "offset": 1940417232
+  },
+  {
+    "name": "val/dancetrack0047/gt/gt.txt",
+    "size": 262516,
+    "compressed": 79720,
+    "offset": 2224326675
+  },
+  {
+    "name": "val/dancetrack0014/gt/gt.txt",
+    "size": 357583,
+    "compressed": 105826,
+    "offset": 2302869449
+  },
+  {
+    "name": "val/dancetrack0025/gt/gt.txt",
+    "size": 193485,
+    "compressed": 58421,
+    "offset": 2462925905
+  },
+  {
+    "name": "val/dancetrack0041/gt/gt.txt",
+    "size": 468563,
+    "compressed": 140425,
+    "offset": 2527719836
+  },
+  {
+    "name": "val/dancetrack0079/gt/gt.txt",
+    "size": 411484,
+    "compressed": 112748,
+    "offset": 2630351947
+  },
+  {
+    "name": "val/dancetrack0077/gt/gt.txt",
+    "size": 307739,
+    "compressed": 85623,
+    "offset": 2785434994
+  },
+  {
+    "name": "val/dancetrack0030/gt/gt.txt",
+    "size": 213357,
+    "compressed": 62997,
+    "offset": 2959814320
+  },
+  {
+    "name": "val/dancetrack0090/gt/gt.txt",
+    "size": 374993,
+    "compressed": 117268,
+    "offset": 3087840032
+  },
+  {
+    "name": "val/dancetrack0063/gt/gt.txt",
+    "size": 215153,
+    "compressed": 66805,
+    "offset": 3235109749
+  },
+  {
+    "name": "val/dancetrack0097/gt/gt.txt",
+    "size": 132536,
+    "compressed": 42270,
+    "offset": 3493214346
+  },
+  {
+    "name": "val/dancetrack0007/gt/gt.txt",
+    "size": 268315,
+    "compressed": 78176,
+    "offset": 3646516698
+  },
+  {
+    "name": "val/dancetrack0065/gt/gt.txt",
+    "size": 98535,
+    "compressed": 32565,
+    "offset": 3908534412
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "status": "proposed fixtures; no model inference or video decoding performed",
+  "image_size_convention": "width,height",
+  "fixtures": [
+    {"id":"G01", "size":[853,481], "content":"lossless RGB primaries, asymmetric corner labels, horizontal/vertical ramps", "target":[640,640], "letterbox_center":true, "scaleup":true, "auto":false, "stride":32, "expected":{"resize":[640,361],"padding_ltrb":[0,139,0,140],"output":[640,640]}},
+    {"id":"G02", "size":[481,853], "target":[640,640], "letterbox_center":true, "auto":false, "expected":{"resize":[361,640],"padding_ltrb":[139,0,140,0]}},
+    {"id":"G03", "size":[853,481], "target":[640,640], "letterbox_center":true, "auto":true, "stride":32, "expected":{"resize":[640,361],"padding_ltrb":[0,11,0,12],"output":[640,384]}},
+    {"id":"G04", "size":[853,481], "content":"fractional, border-crossing, 1x1 and degenerate synthetic boxes; named keypoints including invisible points", "expected":"float coordinate roundtrip before clipping; confidence/visibility unchanged"},
+    {"id":"G05", "size":[17,13], "target":[11,7], "content":"single impulses; checkerboard; x/y ramps", "expected":"compare exact interpolation profile, edge behavior, resize modes; no assumed universal image equality"},
+    {"id":"G06", "content":"same asymmetric scene physically rotated versus coded orientation plus 90-degree display metadata", "expected":"same canonical orientation exactly once; dimensions swap; overlay and ROI share the same frame space"},
+    {"id":"G07", "pts_ms":[0,40,80,200,240,1240], "expected_deltas_ms":[40,40,120,40,1000], "content":"frame IDs burned into image; one short visible event; declared time_base; separate reconnect epoch", "expected":"pair by source frame ID and PTS; detect skipped/duplicated/reordered frames, preserve capture-time event timing"},
+    {"id":"G08", "content":"fixed person crop plus changed bbox center/scale; rotated crop; pose points with identities", "expected":"compare stored affine and its inverse; use model-specific decode, not YOLO letterbox inverse"}
+  ]
+}

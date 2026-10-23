@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ground_folders.json",
+    "url": "https://data.kitware.com/api/v1/folder?parentType=folder&parentId=56f57e748d777f753209bed7&limit=100",
+    "status": 200,
+    "bytes": 3315
+  },
+  {
+    "name": "ground_items.json",
+    "url": "https://data.kitware.com/api/v1/item?folderId=56f57e748d777f753209bed7&limit=100",
+    "status": 200,
+    "bytes": 2
+  },
+  {
+    "name": "VIRAT_S_000000.activities.yml",
+    "url": "https://gitlab.kitware.com/viratdata/viratannotations/-/raw/f1eff0d7db0dc0b25e1c99951ac0907521f3a216/train/VIRAT_S_000000.activities.yml",
+    "status": 200,
+    "bytes": 48956
+  },
+  {
+    "name": "VIRAT_S_000000.types.yml",
+    "url": "https://gitlab.kitware.com/viratdata/viratannotations/-/raw/f1eff0d7db0dc0b25e1c99951ac0907521f3a216/train/VIRAT_S_000000.types.yml",
+    "status": 200,
+    "bytes": 2483
+  },
+  {
+    "name": "validate_tree.json",
+    "url": "https://gitlab.kitware.com/api/v4/projects/viratdata%2Fviratannotations/repository/tree?path=validate&per_page=100",
+    "status": 200,
+    "bytes": 19129
+  }
+]

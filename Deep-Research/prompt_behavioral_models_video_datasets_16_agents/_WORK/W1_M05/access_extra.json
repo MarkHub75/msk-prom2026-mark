@@ -1,0 +1,112 @@
+[
+  {
+    "key": "hico_annotations",
+    "url": "https://raw.githubusercontent.com/fredzzhang/hicodet/9dd59c1/instances_train2015.json",
+    "final_url": "https://raw.githubusercontent.com/fredzzhang/hicodet/9dd59c1/instances_train2015.json",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "2300921",
+    "saved_bytes": 8060928,
+    "time": "2026-10-23T19:33:54.878034+00:00"
+  },
+  {
+    "key": "hico_doc",
+    "url": "https://raw.githubusercontent.com/fredzzhang/hicodet/9dd59c1/DOC.md",
+    "final_url": "https://raw.githubusercontent.com/fredzzhang/hicodet/9dd59c1/DOC.md",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "1666",
+    "saved_bytes": 4321,
+    "time": "2026-10-23T19:33:52.985299+00:00"
+  },
+  {
+    "key": "upt_inference",
+    "url": "https://raw.githubusercontent.com/fredzzhang/upt/main/inference.py",
+    "final_url": "https://raw.githubusercontent.com/fredzzhang/upt/main/inference.py",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "3187",
+    "saved_bytes": 9416,
+    "time": "2026-10-23T19:33:53.033487+00:00"
+  },
+  {
+    "key": "upt_actions",
+    "url": "https://raw.githubusercontent.com/fredzzhang/upt/main/assets/actions.txt",
+    "final_url": "https://raw.githubusercontent.com/fredzzhang/upt/main/assets/actions.txt",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "825",
+    "saved_bytes": 1456,
+    "time": "2026-10-23T19:33:53.002941+00:00"
+  },
+  {
+    "key": "upt_github",
+    "url": "https://github.com/fredzzhang/upt",
+    "final_url": "https://github.com/fredzzhang/upt",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": null,
+    "saved_bytes": 345270,
+    "time": "2026-10-23T19:33:53.425980+00:00"
+  },
+  {
+    "key": "upt_weights_page",
+    "url": "https://drive.google.com/file/d/1lvopTC_JlGHdKOyyEZTUp2VtFfCQ-08z/view",
+    "final_url": "https://drive.google.com/file/d/1lvopTC_JlGHdKOyyEZTUp2VtFfCQ-08z/view",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": null,
+    "saved_bytes": 84166,
+    "time": "2026-10-23T19:33:53.341874+00:00"
+  },
+  {
+    "key": "upt_weights_binary",
+    "url": "https://drive.usercontent.google.com/download?id=1lvopTC_JlGHdKOyyEZTUp2VtFfCQ-08z&export=download",
+    "final_url": "https://drive.usercontent.google.com/download?id=1lvopTC_JlGHdKOyyEZTUp2VtFfCQ-08z&export=download",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": "2466",
+    "saved_bytes": 2466,
+    "time": "2026-10-23T19:33:53.697285+00:00"
+  },
+  {
+    "key": "ava_config22",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/main/configs/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb6-8x8x1-cosine-10e_ava22-rgb.py",
+    "final_url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/main/configs/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb6-8x8x1-cosine-10e_ava22-rgb.py",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "1836",
+    "saved_bytes": 5581,
+    "time": "2026-10-23T19:33:53.690761+00:00"
+  },
+  {
+    "key": "ava_loading",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/main/mmaction/datasets/transforms/loading.py",
+    "final_url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/main/mmaction/datasets/transforms/loading.py",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "content_length": "12106",
+    "saved_bytes": 67984,
+    "time": "2026-10-23T19:33:53.723193+00:00"
+  },
+  {
+    "key": "hico_original",
+    "url": "https://ywchao.github.io/hico/",
+    "final_url": "https://ywchao.github.io/hico/",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": "5142",
+    "saved_bytes": 9115,
+    "time": "2026-10-23T19:33:53.968001+00:00"
+  },
+  {
+    "key": "hico_det_original",
+    "url": "https://ywchao.github.io/hico-det/",
+    "final_url": "https://ywchao.github.io/hico-det/",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": "5142",
+    "saved_bytes": 9115,
+    "time": "2026-10-23T19:33:54.083046+00:00"
+  }
+]

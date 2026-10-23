@@ -1,0 +1,74 @@
+[
+  {
+    "name": "current_api.json",
+    "url": "https://huggingface.co/api/datasets/nvidia/PhysicalAI-SmartSpaces",
+    "status": 200,
+    "bytes": 300502,
+    "sha256": "73f3d263e51fc0467f8ee5b6e8e7334984b1449cf9071a52469049cefabb1b38",
+    "type": "application/json; charset=utf-8",
+    "utc": "2026-10-23T20:20:43.141461+00:00"
+  },
+  {
+    "name": "README.md",
+    "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-SmartSpaces/resolve/2cbe9563cbe9f47f846e5c871ee994572bbbc60e/README.md",
+    "status": 200,
+    "bytes": 15579,
+    "sha256": "cdba2b672c8ac8deed29f9b26ea1bf2df52f91898d73bc7f59cd6c7b542150ab",
+    "type": "text/plain; charset=utf-8",
+    "utc": "2026-10-23T20:20:43.899154+00:00"
+  },
+  {
+    "name": "croissant.json",
+    "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-SmartSpaces/resolve/2cbe9563cbe9f47f846e5c871ee994572bbbc60e/croissant.json",
+    "status": 200,
+    "bytes": 13588,
+    "sha256": "fe6adeebeb7dd4832b94a879a62f5ae7be96b8b0590e9d9e99cbced6169abbdb",
+    "type": "application/json; charset=utf-8",
+    "utc": "2026-10-23T20:20:45.484893+00:00"
+  },
+  {
+    "name": "detector_README.md",
+    "url": "https://huggingface.co/keremberke/yolov8n-forklift-detection/resolve/d8b594f321dd4c64eda16e435601fd266089fc32/README.md",
+    "status": 200,
+    "bytes": 1827,
+    "sha256": "44735849f4a2d64e14bcf512c58d571952f499421d0c93ca844049bf8901e917",
+    "type": "text/plain; charset=utf-8",
+    "utc": "2026-10-23T20:20:46.566567+00:00"
+  },
+  {
+    "name": "detector_api.json",
+    "url": "https://huggingface.co/api/models/keremberke/yolov8n-forklift-detection/revision/d8b594f321dd4c64eda16e435601fd266089fc32",
+    "status": 200,
+    "bytes": 1796,
+    "sha256": "280b2d4ebecfa75a2106726e4157d921261f856d51bb640e39642469b0631944",
+    "type": "application/json; charset=utf-8",
+    "utc": "2026-10-23T20:20:47.446831+00:00"
+  },
+  {
+    "name": "publisher_README.md",
+    "url": "https://raw.githubusercontent.com/keremberke/awesome-yolov8-models/fb4b7895a92913023ef222fdf0957b8ce2015766/README.md",
+    "status": 200,
+    "bytes": 15180,
+    "sha256": "76284909b30f3c1f023be70be1867efcfb8856549426076395aeac282b0920d9",
+    "type": "text/plain; charset=utf-8",
+    "utc": "2026-10-23T20:20:48.503356+00:00"
+  },
+  {
+    "name": "publisher_LICENSE",
+    "url": "https://raw.githubusercontent.com/keremberke/awesome-yolov8-models/fb4b7895a92913023ef222fdf0957b8ce2015766/LICENSE",
+    "status": 200,
+    "bytes": 1063,
+    "sha256": "0645e47585f35abe28412e74e4bb18173065676e0de0bcf2a0b61879c2e03df6",
+    "type": "text/plain; charset=utf-8",
+    "utc": "2026-10-23T20:20:53.304864+00:00"
+  },
+  {
+    "name": "Camera_0000.mp4",
+    "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-SmartSpaces/resolve/2cbe9563cbe9f47f846e5c871ee994572bbbc60e/MTMC_Tracking_2026/test/Warehouse_026/videos/Camera_0000.mp4",
+    "status": 200,
+    "bytes": 19802011,
+    "sha256": "83ed232a2f5fe3031807ed19020e1a44fe386e89b68f9bea621797f1552c9cda",
+    "type": "video/mp4",
+    "utc": "2026-10-23T20:20:56.155315+00:00"
+  }
+]

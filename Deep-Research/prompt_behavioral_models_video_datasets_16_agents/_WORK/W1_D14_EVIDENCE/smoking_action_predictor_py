@@ -1,0 +1,325 @@
+import os
+import json
+import pickle
+from collections import defaultdict, deque
+
+import numpy as np
+import tensorflow as tf
+
+
+MODEL_PATH = "action_model.keras"
+LABELS_PATH = "action_labels.json"
+SCALER_PATH = "action_scaler.pkl"
+
+SEQUENCE_LENGTH = 30
+POSE_FEATURES = 34
+MODEL_FEATURES = 102
+
+
+class ActionPredictor:
+
+    def __init__(self):
+
+        if not os.path.exists(MODEL_PATH):
+            raise FileNotFoundError(
+                f"Missing {MODEL_PATH}"
+            )
+
+        if not os.path.exists(LABELS_PATH):
+            raise FileNotFoundError(
+                f"Missing {LABELS_PATH}"
+            )
+
+        if not os.path.exists(SCALER_PATH):
+            raise FileNotFoundError(
+                f"Missing {SCALER_PATH}"
+            )
+
+        self.model = tf.keras.models.load_model(
+            MODEL_PATH
+        )
+
+        with open(
+            LABELS_PATH,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            self.labels = json.load(file)
+
+        with open(
+            SCALER_PATH,
+            "rb"
+        ) as file:
+            self.scaler = pickle.load(file)
+
+        self.sequence_length = SEQUENCE_LENGTH
+        self.pose_features = POSE_FEATURES
+
+        self.sequences = defaultdict(
+            lambda: deque(
+                maxlen=self.sequence_length
+            )
+        )
+
+        self.last_results = {}
+
+        print("Action model loaded successfully")
+        print(f"Classes: {self.labels}")
+
+    def create_features(self, sequence):
+
+        sequence = np.asarray(
+            sequence,
+            dtype=np.float32
+        )
+
+        if sequence.shape != (
+            self.sequence_length,
+            self.pose_features
+        ):
+            raise ValueError(
+                f"Invalid pose sequence shape: "
+                f"{sequence.shape}. "
+                f"Expected "
+                f"({self.sequence_length}, "
+                f"{self.pose_features})"
+            )
+
+        velocity = np.zeros_like(
+            sequence
+        )
+
+        velocity[1:] = (
+            sequence[1:] -
+            sequence[:-1]
+        )
+
+        acceleration = np.zeros_like(
+            sequence
+        )
+
+        acceleration[1:] = (
+            velocity[1:] -
+            velocity[:-1]
+        )
+
+        features = np.concatenate(
+            [
+                sequence,
+                velocity,
+                acceleration
+            ],
+            axis=1
+        )
+
+        return features
+
+    def predict(self, sequence):
+
+        features = self.create_features(
+            sequence
+        )
+
+        features = features.reshape(
+            -1,
+            MODEL_FEATURES
+        )
+
+        features = self.scaler.transform(
+            features
+        )
+
+        features = features.reshape(
+            1,
+            self.sequence_length,
+            MODEL_FEATURES
+        )
+
+        prediction = self.model.predict(
+            features,
+            verbose=0
+        )[0]
+
+        class_id = int(
+            np.argmax(prediction)
+        )
+
+        confidence = float(
+            prediction[class_id]
+        )
+
+        if isinstance(
+            self.labels,
+            dict
+        ):
+            action = self.labels.get(
+                str(class_id),
+                self.labels.get(
+                    class_id,
+                    "unknown"
+                )
+            )
+        else:
+            action = self.labels[class_id]
+
+        return {
+            "action": str(action).upper(),
+            "confidence": confidence,
+            "probabilities": prediction
+        }
+
+    def update(
+        self,
+        person_id,
+        pose_features
+    ):
+
+        person_id = int(person_id)
+
+        pose_features = np.asarray(
+            pose_features,
+            dtype=np.float32
+        )
+
+        if pose_features.shape != (
+            self.pose_features,
+        ):
+            return {
+                "action": "UNKNOWN",
+                "confidence": 0.0,
+                "ready": False,
+                "frames": len(
+                    self.sequences[person_id]
+                ),
+                "required": self.sequence_length
+            }
+
+        self.sequences[
+            person_id
+        ].append(
+            pose_features
+        )
+
+        current_length = len(
+            self.sequences[person_id]
+        )
+
+        if current_length < self.sequence_length:
+
+            result = {
+                "action": "COLLECTING",
+                "confidence": 0.0,
+                "ready": False,
+                "frames": current_length,
+                "required": self.sequence_length
+            }
+
+            self.last_results[
+                person_id
+            ] = result
+
+            return result
+
+        try:
+
+            result = self.predict(
+                list(
+                    self.sequences[
+                        person_id
+                    ]
+                )
+            )
+
+            result["ready"] = True
+            result["frames"] = current_length
+
+            self.last_results[
+                person_id
+            ] = result
+
+            return result
+
+        except Exception as error:
+
+            result = {
+                "action": "UNKNOWN",
+                "confidence": 0.0,
+                "ready": False,
+                "frames": current_length,
+                "error": str(error)
+            }
+
+            self.last_results[
+                person_id
+            ] = result
+
+            return result
+
+    def get_last_result(
+        self,
+        person_id
+    ):
+
+        return self.last_results.get(
+            int(person_id),
+            {
+                "action": "COLLECTING",
+                "confidence": 0.0,
+                "ready": False,
+                "frames": 0,
+                "required": self.sequence_length
+            }
+        )
+
+    def reset_person(
+        self,
+        person_id
+    ):
+
+        person_id = int(person_id)
+
+        self.sequences.pop(
+            person_id,
+            None
+        )
+
+        self.last_results.pop(
+            person_id,
+            None
+        )
+
+    def reset_all(self):
+
+        self.sequences.clear()
+        self.last_results.clear()
+
+    def close(self):
+
+        self.reset_all()
+
+
+if __name__ == "__main__":
+
+    predictor = ActionPredictor()
+
+    test_sequence = np.zeros(
+        (
+            SEQUENCE_LENGTH,
+            POSE_FEATURES
+        ),
+        dtype=np.float32
+    )
+
+    result = predictor.predict(
+        test_sequence
+    )
+
+    print()
+    print("TEST RESULT")
+    print(
+        f"Action: {result['action']}"
+    )
+    print(
+        f"Confidence: "
+        f"{result['confidence'] * 100:.2f}%"
+    )

@@ -1,0 +1,90 @@
+[
+  {
+    "key": "cvat_format",
+    "url": "https://docs.cvat.ai/docs/dataset_management/formats/format-cvat/",
+    "final_url": "https://docs.cvat.ai/docs/dataset_management/formats/format-cvat/",
+    "status": 200,
+    "bytes": 217461,
+    "at": "2026-10-23T19:24:52.053724+00:00"
+  },
+  {
+    "key": "cvat_consensus",
+    "url": "https://docs.cvat.ai/docs/qa-analytics/consensus/",
+    "final_url": "https://docs.cvat.ai/docs/qa-analytics/consensus/",
+    "status": 200,
+    "bytes": 134386,
+    "at": "2026-10-23T19:24:52.687227+00:00"
+  },
+  {
+    "key": "cvat_autoqa",
+    "url": "https://docs.cvat.ai/docs/qa-analytics/auto-qa/",
+    "final_url": "https://docs.cvat.ai/docs/qa-analytics/auto-qa/",
+    "status": 200,
+    "bytes": 175343,
+    "at": "2026-10-23T19:24:53.295161+00:00"
+  },
+  {
+    "key": "via",
+    "url": "https://robots.ox.ac.uk/~vgg/software/via/index.html",
+    "final_url": "https://robots.ox.ac.uk/~vgg/software/via/index.html",
+    "status": 200,
+    "bytes": 48522,
+    "at": "2026-10-23T19:24:53.946571+00:00"
+  },
+  {
+    "key": "ava",
+    "url": "https://sites.research.google/gr/ava/download/",
+    "final_url": "https://sites.research.google/gr/ava/download/",
+    "status": 200,
+    "bytes": 32234,
+    "at": "2026-10-23T19:24:54.603042+00:00"
+  },
+  {
+    "key": "sed_eval",
+    "url": "https://tut-arg.github.io/sed_eval/generated/sed_eval.sound_event.EventBasedMetrics.html",
+    "final_url": "https://tut-arg.github.io/sed_eval/generated/sed_eval.sound_event.EventBasedMetrics.html",
+    "status": 200,
+    "bytes": 35879,
+    "at": "2026-10-23T19:24:55.658517+00:00"
+  },
+  {
+    "key": "activitynet_commit",
+    "url": "https://api.github.com/repos/activitynet/ActivityNet/commits/master",
+    "final_url": "https://api.github.com/repos/activitynet/ActivityNet/commits/master",
+    "status": 200,
+    "bytes": 6601,
+    "at": "2026-10-23T19:24:57.088539+00:00"
+  },
+  {
+    "key": "cvat_license",
+    "url": "https://raw.githubusercontent.com/cvat-ai/cvat/develop/LICENSE",
+    "final_url": "https://raw.githubusercontent.com/cvat-ai/cvat/develop/LICENSE",
+    "status": 200,
+    "bytes": 1123,
+    "at": "2026-10-23T19:24:58.068112+00:00"
+  },
+  {
+    "key": "sed_license",
+    "url": "https://raw.githubusercontent.com/TUT-ARG/sed_eval/master/LICENSE",
+    "final_url": "https://raw.githubusercontent.com/TUT-ARG/sed_eval/master/LICENSE",
+    "status": 404,
+    "bytes": 14,
+    "at": "2026-10-23T19:24:59.253864+00:00"
+  },
+  {
+    "key": "omnifall_labels",
+    "url": "https://huggingface.co/datasets/simplexsigil2/omnifall/resolve/83572a37b9e3081df8c06a56874b1d1f2a19386c/LABELS.md",
+    "final_url": "https://huggingface.co/api/resolve-cache/datasets/simplexsigil2/omnifall/83572a37b9e3081df8c06a56874b1d1f2a19386c/LABELS.md?%2Fdatasets%2Fsimplexsigil2%2Fomnifall%2Fresolve%2F83572a37b9e3081df8c06a56874b1d1f2a19386c%2FLABELS.md=&etag=%22bbb18255c0733042f10993842d8ba3bcb5803490%22",
+    "status": 200,
+    "bytes": 4283,
+    "at": "2026-10-23T19:25:00.339913+00:00"
+  },
+  {
+    "key": "omnifall_pitfalls",
+    "url": "https://huggingface.co/datasets/simplexsigil2/omnifall/resolve/83572a37b9e3081df8c06a56874b1d1f2a19386c/KNOWN_PITFALLS.md",
+    "final_url": "https://huggingface.co/api/resolve-cache/datasets/simplexsigil2/omnifall/83572a37b9e3081df8c06a56874b1d1f2a19386c/KNOWN_PITFALLS.md?%2Fdatasets%2Fsimplexsigil2%2Fomnifall%2Fresolve%2F83572a37b9e3081df8c06a56874b1d1f2a19386c%2FKNOWN_PITFALLS.md=&etag=%22cd59a96c3792d0fe2ce4940dd7fa98eb03280322%22",
+    "status": 200,
+    "bytes": 2226,
+    "at": "2026-10-23T19:25:01.316846+00:00"
+  }
+]

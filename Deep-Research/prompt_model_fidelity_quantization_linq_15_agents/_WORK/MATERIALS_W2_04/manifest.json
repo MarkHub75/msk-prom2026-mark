@@ -1,0 +1,44 @@
+[
+  {
+    "file": "wu_2004.09602v1.pdf",
+    "url": "https://arxiv.org/pdf/2004.09602v1",
+    "bytes": 607775,
+    "sha256": "580186d18080859618b6eb001d37fb59577e7ee756749fef37f795096f126852",
+    "fetched_utc": "2026-10-23T20:00:06.372964+00:00"
+  },
+  {
+    "file": "brecq_2102.05426v2.pdf",
+    "url": "https://arxiv.org/pdf/2102.05426v2",
+    "bytes": 746509,
+    "sha256": "ee1dcf1827b861449d6f618a2f1ed6b14fabcdb1d7b660d83199a68e17b15c8f",
+    "fetched_utc": "2026-10-23T20:00:07.125182+00:00"
+  },
+  {
+    "file": "mmdeploy_v1.3.1_benchmark.md",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmdeploy/v1.3.1/docs/en/03-benchmark/benchmark.md",
+    "bytes": 75395,
+    "sha256": "b63f5e4d8daede4a644679064f27bce0498b1feb8b186911ee53f0b9722ca442",
+    "fetched_utc": "2026-10-23T20:00:08.036625+00:00"
+  },
+  {
+    "file": "brecq_README_live.md",
+    "url": "https://raw.githubusercontent.com/yhhhli/BRECQ/main/README.md",
+    "bytes": 2271,
+    "sha256": "0e1b3ed852c453f859620a86bf4d42d07625c091d6dc8a00c08a8053e93a0098",
+    "fetched_utc": "2026-10-23T20:00:08.674053+00:00"
+  },
+  {
+    "file": "brecq_e455d62_README.md",
+    "url": "https://raw.githubusercontent.com/yhhhli/BRECQ/e455d62e93c70351961f8991c913b59435bd165f/README.md",
+    "bytes": 2271,
+    "sha256": "0e1b3ed852c453f859620a86bf4d42d07625c091d6dc8a00c08a8053e93a0098",
+    "fetched_utc": "2026-10-23T20:01:25.346359+00:00"
+  },
+  {
+    "file": "mmdeploy_v0.14.0_quantization.md",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmdeploy/v0.14.0/docs/en/03-benchmark/quantization.md",
+    "bytes": 5811,
+    "sha256": "d3c9db1842253623e5d033ee0e126df43832c42ffd15241d131b0ce8f258cab5",
+    "fetched_utc": "2026-10-23T20:01:25.691424+00:00"
+  }
+]

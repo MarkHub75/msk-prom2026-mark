@@ -1,0 +1,31 @@
+{
+  "case": 2,
+  "playabilityStatus": {
+    "status": "ERROR",
+    "reason": "\u0412\u0438\u0434\u0435\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e",
+    "errorScreen": {
+      "playerInterstitialRenderer": {
+        "content": {
+          "interstitialViewModel": {
+            "title": {
+              "content": "\u0412\u0438\u0434\u0435\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e"
+            },
+            "description": {
+              "content": "\u0412\u0438\u0434\u0435\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e"
+            },
+            "loggingDirectives": {
+              "trackingParams": "CAEQ4NYUIhMI0ZrBy_vQlwMV7V5BAh3gFg23",
+              "visibility": {
+                "types": "12"
+              }
+            }
+          }
+        },
+        "stateEntityStoreKey": ""
+      }
+    },
+    "contextParams": "Q0FBU0FnZ0E="
+  },
+  "videoDetails": null,
+  "streamingData_keys": []
+}

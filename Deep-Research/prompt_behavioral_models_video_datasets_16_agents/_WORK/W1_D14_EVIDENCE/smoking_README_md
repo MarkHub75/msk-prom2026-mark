@@ -1,0 +1,79 @@
+# Smoking & Posture Detection
+
+Real-time, multi-person video analysis that, for every tracked person, reports
+both:
+
+- a **posture** label — `STANDING` / `SITTING` / `WALKING` (from body geometry,
+  independent of the action model), and
+- a confirmed **smoking** state, raised only when several independent signals
+  agree over time, which keeps false positives low in crowded or noisy scenes.
+
+## How it works
+
+The pipeline runs per frame and per tracked person:
+
+1. **Person detection** – `yolov8n.pt` (Ultralytics YOLOv8) detects people and
+   a lightweight IoU + center-distance tracker assigns stable track IDs.
+2. **Pose estimation** – `yolov8n-pose.pt` extracts 17 COCO keypoints per
+   person; keypoints are normalized into a 34-value vector per frame.
+3. **Temporal action recognition** – a **CNN + BiLSTM** Keras model
+   (`action_model.keras`) classifies a 30-frame window of pose + velocity +
+   acceleration features (102 features/frame) into `smoke`, `sit`, `stand`,
+   `walk`. See [`train_action_model.py`](train_action_model.py).
+4. **Hand-to-mouth check** – MediaPipe Hands + FaceMesh
+   ([`hand_face_detector.py`](hand_face_detector.py)) measure the minimum
+   fingertip-to-mouth distance as a corroborating cue.
+5. **Posture classification** – hip/knee/ankle geometry gives a
+   standing/sitting/walking label independent of the action model.
+6. **Temporal confirmation** – `update_smoking()` in [`main.py`](main.py)
+   only confirms smoking when the smoke probability, repeated hand-to-mouth
+   hits, and a multi-frame streak all hold; confirmed events (person id,
+   start time, duration) are written to `smoking_events.csv` by
+   [`event_logger.py`](event_logger.py).
+
+## Files
+
+| Path | Purpose |
+|------|---------|
+| `main.py` | Full pipeline on a video file, writes an annotated MP4 |
+| `camera main.py` | Same pipeline on a live webcam |
+| `action_predictor.py` | Loads and runs the temporal action model |
+| `pose_detector.py` | YOLOv8-pose keypoint extraction + track matching |
+| `hand_face_detector.py` | MediaPipe hand-to-mouth distance |
+| `prepare_action_data.py` | Builds pose sequences (`pose_action_data/`) from clips |
+| `train_action_model.py` | Trains `action_model.keras` |
+| `action_model.keras`, `action_scaler.pkl`, `action_labels.json` | Trained model + preprocessing |
+| `models/smoking_model.pkl` | Earlier scikit-learn pose classifier |
+
+## Setup
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+pip install -r requirements.txt
+```
+
+Requires Python 3.12. `yolov8n.pt` and `yolov8n-pose.pt` are included; the
+first run of MediaPipe downloads its own model assets.
+
+## Run
+
+```bash
+python main.py            # set VIDEO_SOURCE at the top of the file
+python "camera main.py"   # webcam
+```
+
+Provide your own input video (large video files and the HMDB51 training
+clips are not tracked in this repo).
+
+## Retrain the action model
+
+```bash
+python prepare_action_data.py   # populate pose_action_data/<class>/*.npy
+python train_action_model.py
+```
+
+## Notes
+
+This is a research/educational prototype. Accuracy depends heavily on camera
+angle, resolution, lighting and occlusion.

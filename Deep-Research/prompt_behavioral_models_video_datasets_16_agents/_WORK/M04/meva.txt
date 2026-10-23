@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6042509-39"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-6042509-39');
+</script>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Mevadata</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/owl.carousel.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/css/airspace.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/ionicons.min.css" />
+<link rel="stylesheet" href="/css/animate.css" />
+<link rel="stylesheet" href="/css/responsive.css" />
+<link rel="stylesheet" href="/css/syntax.css" />
+
+<!-- Js -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/min/waypoints.min.js"></script>
+<script src="/js/jquery.counterup.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!--
+/*
+ * Airspace
+ * Ported to Jekyll by Andrew Lee
+ * https://github.com/ndrewtl/airspace-jekyll
+ * Designed and Developed by ThemeFisher
+ * https://themefisher.com/
+ *
+ */
+-->
+
+
+  </head>
+  <body>
+
+
+    <!-- Header Start -->
+<header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- header Nav Start -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">
+              <img src="/img/Meva_Logo.svg" alt="Logo">
+            </a>
+          </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#getting-data" class="button-primary">Download</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header><!-- header close -->
+
+
+
+    <base href="/index.html" />
+<!-- Slider Start -->
+<section id="slider">
+  <div class="container">
+    <div class="row">
+      <div class="block">
+        <h1 class="animated fadeInUp">The Multiview Extended Video with Activities (MEVA) dataset</h1>
+        <p class="animated fadeInUp"> The large-scale MEVA dataset is designed for activity
+          detection in multi-camera environments. It was created on the Intelligence Advanced
+          Research Projects Activity (IARPA) Deep Intermodal Video Analytics (DIVA) program
+          to support DIVA performers and the broader research community.</p>
+        <p class="animated fadeInUp"><strong>NEWS:<br>
+        <span style="color:#e97a7a">16 December 2022: MEVID: Multi-view Extended Videos with Identities for Video Person Re-Identification is released! We've developed an additional layer of annotations for person re-identification on MEVA video. Additional information and a link to our WACV23 paper may be <a href="#mevid" style="color:#95e97a">found below</a>.<br/>
+<!--
+        <span style="color:#e97a7a">15 November 2021: On-line
+        interactive visualizations
+        of MEVA ground truth</a> are available; see <a href="#dive" style="color:#95e97a"> here </a> for more
+          details.<br/>
+        <span style="color:#e97a7a">17 September 2021: Ground camera
+        video to support the <a href="https://actev.nist.gov/SRL" style="color:#95e97a">HADCV22 Self-Reported Leaderboard Challenge</a>
+        is available. Please see <a
+        href="resources/README-meva-kf1-data.html"
+        style="color:#95e97a">the README</a> for updated access
+        details, in particular <a
+        href="resources/README-meva-kf1-data.html#hadcv22-note"
+        style="color:#95e97a">this note</a> regarding the use of this
+        data with the ActEV Leaderboard.</span><br/>
+        20 June 2021: The transcoded data
+        is available. Please see <a
+        href="resources/README-meva-kf1-data.html"
+        style="color:#95e97a">the README</a> for updated access details,
+        and <a
+        href="https://mevadata.org/transcoding-faq.html"
+        style="color:#95e97a">the
+        transcoding FAQ</a> for transcoding details.<br/>
+        24 Feb 2021: We have released additional annotations from the
+        T&E team; see <a href="#annotations"  style="color:#95e97a"> here </a> for more
+          details.<br/>
+          24 Feb 2021: We've included a link to our <a
+          href="https://openaccess.thecvf.com/content/WACV2021/html/Corona_MEVA_A_Large-Scale_Multiview_Multimodal_Video_Dataset_for_Activity_Detection_WACV_2021_paper.html"  style="color:#95e97a">WACV
+          2021 paper</a> on the MEVA collection in the <a
+        href="#citing-meva"  style="color:#95e97a">citing MEVA</a> section.<br/>
+        29 April 2020: We've updated the video data to remove a block
+        of 130 corrupted videos for the G328 camera, and to rotate all 83
+        instances of the G639 camera. See the <a
+        href="resources/README-meva-kf1-data.html#dataset-updates"  style="color:#95e97a">Dataset
+        Updates</a> section of the <a
+        href="resources/README-meva-kf1-data.html" style="color:#95e97a">MEVADATA readme</a>
+        for more details.<br/>
+        19 March 2020: We've released GPS data associated with the
+        actors in the released video. See <a
+        href="https://gitlab.kitware.com/meva/meva-data-repo/-/tree/master/metadata%2Fgps"  style="color:#95e97a">here</a>
+        for details.<br/>
+		13 December 2019: We're pleased to announce annotations for an
+		addition 6 hours of MEVA data, resulting in 22 hours of annotated data.
+		Annotations are available via the
+		<a href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/annotation/DIVA-phase-2/MEVA/meva-annotations" style="color:#95e97a">git repository</a>.<br/>
+-->
+        </strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Wrapper Start -->
+<section id="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-sm-12">
+        <div class="block">
+          <div class="section-title">
+            <h2>About MEVA data</h2>
+          </div> <!-- section title  -->
+          <p>
+          MEVA aims to build a corpus of activity video collected from
+          multiple viewpoints in realistic settings.</p>
+
+		  <p>
+		  There is a MEVA data users Google group to facilitate communication and collaboration 
+		  for those interested in working with the data. Join the conversation through the
+		  <a href="https://groups.google.com/forum/#!forum/meva-data-users">meva-data-users group</a>. </p>
+
+          <h2>Citing MEVA</h2>
+          <div id="citing-meva"></div>
+          <p>
+          The dataset is described in our <a href="https://openaccess.thecvf.com/content/WACV2021/html/Corona_MEVA_A_Large-Scale_Multiview_Multimodal_Video_Dataset_for_Activity_Detection_WACV_2021_paper.html">WACV 2021 paper</a>. The bibtex citation is:
+            <pre>
+@InProceedings{Corona_2021_WACV,
+    author    = {Corona, Kellie and Osterdahl, Katie and Collins, Roderic and Hoogs, Anthony},
+    title     = {MEVA: A Large-Scale Multiview, Multimodal Video Dataset for Activity Detection},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {January},
+    year      = {2021},
+    pages     = {1060-1068}
+}
+            </pre>
+          <h2>Releases</h2>
+          <h3>Known Facility Release #1 ("KF1"):</h3>
+
+          <p> The KF1 data was collected over a total of three weeks
+          at the Muscatatuck Urban Training Center (MUTC) with a team of over
+          100 actors performing in various scenarios.  The fields of
+          view, both overlapping and non-overlapping, capture person
+          and vehicle activities in indoor and outdoor
+          environments. There were multiple realistic scenarios with a
+          variety of scripted and non-scripted activities.</p>
+
+          <p>The camera infrastructure included
+            commercial-off-the-shelf EO cameras; thermal infrared
+            cameras as part of several IR-EO pairs; two DJI Inspire 1
+            v2 drones, and a range of still images from handheld
+          cameras.</p>
+
+          <p>The actors were also carrying GPS loggers; see <a
+          href="https://gitlab.kitware.com/meva/meva-data-repo/-/tree/master/metadata%2Fgps">here</a>
+          for more details.
+
+          <div id="dive"></div>
+          <h2>Ground Truth Visualizations</h2>
+          <p>
+          Visualizations of MEVA ground truth are available via our <a
+          href="https://kitware.github.io/dive/">DIVE</a> analytics
+          toolchain. <a
+          href="https://viame.kitware.com">Create an account</a> and click <a
+          href="https://viame.kitware.com/#/folder/618c5a1443acd78c9f859550">here</a>
+          to view MEVA video and its associated ground truth.</p>
+
+          </div> <!-- block -->
+
+      </div><!-- .col-md-5 close -->
+      <div class="col-md-7 col-sm-12">
+        <div class="block">
+          <video controls width="100%" style="margin: 32px 0 20px;">
+            <source src="video/mevadata-kf1-sample-footage.mp4" type="video/mp4">
+            Sorry, your browser doesn't support embedded videos.
+          </video>
+          Montage of randomly selected KF1 ground camera clips (re-encoded for accelerated playback.)
+        </div> <!-- block -->
+        <div class="block">
+          <video controls width="100%" style="margin: 32px 0 20px;">
+            <source src="video/uav-clips.mp4" type="video/mp4">
+            Sorry, your browser doesn't support embedded videos.
+          </video>
+          Montage of randomly selected KF1 UAV video (re-encoded for accelerated playback.)
+        </div> <!-- block-->
+      </div> <!-- col -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+</section>
+
+
+<div id="mevid"></div>
+<section id="intro">
+  <div class="container">
+    <div class="row">
+        <div class="section-title-c">
+          <h2>MEVID Person Re-Identification Data</h2>
+        </div>
+        <div class="block"
+          <p>We're excited to release <strong>MEVID: Multi-view Extended Videos with Identities for Video Person Re-Identification</strong>. This additional layer of annotation on MEVA video provides:
+          <ul>
+            <li> An additional 289 clips (approximately 24 hours) of previously unreleased MEVA video
+            <li> 158 identities, with an average of four outfits per identity
+            <li> 33 viewpoints
+            <li> 17 locations
+            <li> over 1.7M bounding boxes
+            <li> over 10.46M frames
+          </ul>
+          Baseline results and our annotation toolchain are also provided.
+        </div> <!-- service-block -->
+    </div>  <!-- row -->
+      <div class="col-md-5 col-sm-12">
+        <div class="block">
+          <h2>Obtaining MEVID</h2>
+          <p>Instructions for downloading MEVID annotations and supporting video may be found on <a href="https://github.com/Kitware/mevid">https://github.com/Kitware/mevid</a>.</p>
+        <h2>Citing MEVID</h2>
+          <div id="citing-mevid"></div>
+          <p>
+          The dataset is described in our paper, <a href="https://arxiv.org/abs/2211.04656">MEVID: Multi-view Extended Videos with Identities for Video Person Re-Identification</a>, due to appear in <a href="https://wacv2023.thecvf.com/home">WACV 2023</a>. The bibtex citation is:
+            <pre>
+@InProceedings{Davila_MEVID_2023,
+    author = {Davila, Daniel and Du, Dawei and Lewis, Bryon and Funk, Christopher and Van Pelt, Joseph and Collins, Roderic and Corona, Kellie and Brown, Matt and McCloskey, Scott and Hoogs, Anthony and Clipp, Brian},
+    title = {MEVID: Multi-view Extended Videos with Identities for Video Person Re-Identification},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {January},
+    year      = {2023}
+}
+          </pre>
+      </div> <!-- block ... -->
+    </div> <!-- col-md-5... -->
+    <div class="col-md-7 col-sm-12">
+     <img src="resources/mevid-example.png" alt="MEVID example" width="100%">
+       <p>Actor checkin photos (top row) are associated with tracklets from MEVA videos (middle and bottom rows) to create global IDs.
+       </div> <!-- col-md-7... -->
+       </div> <!-- container ... -->
+       </section>
+
+
+<section id="feature">
+  <div class="container">
+  <div class="row">
+
+  <div class="col-md-6 col-sm-12">
+  <div class="block">
+    <video controls width="100%" style="margin: 32px 0 0px;">
+    <source src="video/mesh-standin-scaled-fast.mp4" type="video/mp4">
+    Sorry, your browser doesn't support embedded videos.
+    </video>
+    <p style="text-align:center;background-color: #EEEEEE">Visualization of the fine-grained MUTC 3D model.</p>
+  </div> <!-- block -->
+  <div class="block">
+    <video controls width="100%" style="margin: 32px 0 0px;">
+    <source src="video/2018-03-11.16-20-00.16-25-00.school.G330.annotated.mp4" type="video/mp4">
+    Sorry, your browser doesn't support embedded videos.
+    </video>
+    <p style="text-align:center;background-color: #EEEEEE">Annotation sample (accelerated for display.)</p>
+  </div> <!-- block -->
+  </div><!-- .col-md-7 close -->
+<!--  <div class="col-md-6 col-md-offset-6">   -->
+  <div class="col-md-6 col-md-12">
+    <div id="getting-data">
+      <h2>ACCESSING AND USING MEVA</h2>
+      <h3>License</h3>
+      <p>All MEVA data is available for use under a <a
+      href="https://creativecommons.org/licenses/by/4.0/">CC BY-4.0
+      license</a>; the general MEVA data license is available <a
+      href="resources/MEVA-data-license.txt">here</a>.</p>
+      <h3>Video data on AWS</h3>
+      <p>MEVA video data is hosted on an Amazon Web Services (AWS) S3 bucket; download is provided at no cost via
+      sponsorship through <a href="https://aws.amazon.com/opendata/public-datasets/">Amazon's AWS Public Dataset Program</a>.</p>
+      <pnm>As of 12 Dec 2019, the video corpus includes:</pnm>
+          <ul>
+            <li> 328 hours (516GB) of ground camera data
+            <li> 4.6 hours (26GB) of UAV data
+          </ul>
+          <h4><a href="resources/README-meva-kf1-data.html">Click here for download instructions.</a></h4>
+
+       <h3>MEVA data git repository</h3>
+          <p>The <a href="https://gitlab.kitware.com/meva/meva-data-repo">MEVA data git repository</a> is an evolving collection of metadata and annotations released for the MEVA KF1 data. Highlights include:</p>
+          <h4>Metadata</h4>
+          <ul>
+            <li> KF1 metadata package, including: a PDF of the site
+        map with approximate camera locations and sample FOVs, a list
+      of all files in the KF1 corpus, and camera datasheets.
+            <a href="https://data.kitware.com/#item/5ce40a518d777f072bc1e920">Click to download metadata package.</a>
+            <li> Camera models in KRTD format (<a href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/metadata/camera-models">gitlab link</a>)
+            <li> 3D site model of MUTC in <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">PLY format</a>, available in <a href="https://mevadata-public-01.s3.amazonaws.com/mutc-3d-model/mutc.ply"> fine (293MB)</a> and <a href="https://mevadata-public-01.s3.amazonaws.com/mutc-3d-model/mutc_coarse.ply">coarse (83MB)</a> resolutions
+            <li> GPS locations of the actors; see <a
+          href="https://gitlab.kitware.com/meva/meva-data-repo/-/tree/master/metadata%2Fgps">here</a>
+          for details.
+            </ul>
+
+            <h4>Annotations</h4>
+            <div id="annotations"></div>
+              <pnm> The MEVA KF1 data is being annotated for the activities defined in the <a href="https://actev.nist.gov">NIST ActEV Challenge</a>. The <a href="https://gitlab.kitware.com/meva/meva-data-repo/blob/master/documents/MEVA-Annotation-Definitions.pdf">activity definitions</a> are available, as are renderings of <a href="https://data.kitware.com/#item/5e4ec4ccaf2e2eed35bbe287">activity exemplars</a>. <p> There are several annotation efforts:</pnm>
+              <ul>
+                <li> <a href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/annotation/DIVA-phase-2/MEVA/kitware">Evaluation-level annotations</a>: 64 hours (769 five-minute clips) annotated using the same workflow used to produce the sequestered annotations used on the the <a href="https://actev.nist.gov/sdl">ActEV Sequestered Data Leaderboard.</a></li>
+                <li> <a
+            href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/annotation/DIVA-phase-2/MEVA/kitware-meva-training">Training-level
+            annotations</a>: 120.2 hours (1443 five-minute clips) annotated using the same workflow as the evaluation-level annotations, but with a reduced audit step so that annotations may not be quite as accurate as evaluation-level.</li>
+                <li> <a href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/annotation/DIVA-phase-2/MEVA/contrib">Contributed annotations</a> from the community.  We welcome your contributions; see <a href="#contributing-annotations">here</a> for details.</li>
+              </ul>
+      </div> <!-- block -->
+      </div>  <!-- col -->
+  </div>  <!-- row -->
+</div>  <!-- container -->
+</section>
+
+<section id="service">
+  <div class="container">
+    <div class="row">
+      <div class="section-title">
+        <h2>Annotating MEVA</h2>
+        <div id="contributing-annotations">
+        <p>The MEVA data can be annotated using your preferred annotation toolchain. For annotating
+          and using the MEVA data, the following steps are recommended:</p>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-sm-6 col-md-4">
+        <div class="service-item">
+          <i class="ion-checkmark-circled"></i>
+          <h4>Download data</h4>
+          See the instructions <a href="#getting-data">here</a> to
+  obtain the data.
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="service-item">
+          <i class="ion-qr-scanner"></i>
+          <h4>View annotation exemplars</h4>
+          <p>Download and review short clips of visualized annotations for each activity type.</p>
+          <a href="https://data.kitware.com/#item/5e4ec4ccaf2e2eed35bbe287" class="button-primary">Download exemplars</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="service-item">
+          <i class="ion-code-download"></i>
+          <h4>Review Annotation Guidelines</h4>
+          <p>Download the current activity definitions. These should guide which activities
+            and objects are annotated.</p>
+          <a href="https://gitlab.kitware.com/meva/meva-data-repo/blob/master/documents/MEVA-Annotation-Definitions.pdf" class="button-primary">Download guidelines</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="service-item">
+          <i class="ion-qr-scanner"></i>
+          <h4>Generate annotations</h4>
+<p>Generate schema like <a
+  href="https://gitlab.kitware.com/meva/meva-data-repo/tree/master/documents/schemas">
+  these</a> based on the format <a href="https://gitlab.kitware.com/meva/meva-data-repo/blob/master/documents/MEVA_Annotation_JSON.pdf">described
+  here</a> as part of our <a href="https://gitlab.kitware.com/meva/meva-data-repo">annotation git repository</a>.
+       </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="service-item">
+          <i class="ion-upload"></i>
+          <h4>Contribute annotations</h4>
+          <p>Contributing your annotations will increase the utility
+  of the MEVA KF1 dataset for everyone. Please clone our <a
+  href="https://gitlab.kitware.com/meva/meva-data-repo">annotation git
+  repository</a> and file a merge request to have your annotations
+  pooled back into the master branch.
+</p>
+        </div>
+      </div>
+
+	  </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- footer Start -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>Contact us at <a href="mailto:mevadata@kitware.com">mevadata@kitware.com</a></p>
+		<p>Copyright &copy; <a href="https://kitware.com">Kitware, Inc.</a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-1">
+        <a href="https://www.iarpa.gov"><img src="/img/IARPA_logo.png" alt="IARPA logo"></a>
+      </div>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-2">
+        <img src="/img/DIVA_logo.png" alt="DIVA logo">
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </body>
+</html>

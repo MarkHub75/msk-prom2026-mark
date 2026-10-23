@@ -1,0 +1,10 @@
+{
+  "ref": "refs/tags/v1.0.22",
+  "node_id": "MDM6UmVmMTY4Nzk5NTI2OnJlZnMvdGFncy92MS4wLjIy",
+  "url": "https://api.github.com/repos/huggingface/pytorch-image-models/git/refs/tags/v1.0.22",
+  "object": {
+    "sha": "78c3724f4545c0067d0b4d2f7df6337196be01ce",
+    "type": "commit",
+    "url": "https://api.github.com/repos/huggingface/pytorch-image-models/git/commits/78c3724f4545c0067d0b4d2f7df6337196be01ce"
+  }
+}

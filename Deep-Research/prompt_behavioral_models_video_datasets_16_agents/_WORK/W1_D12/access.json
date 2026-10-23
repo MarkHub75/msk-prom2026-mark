@@ -1,0 +1,44 @@
+[
+  {
+    "key": "100doh_download",
+    "url": "https://fouheylab.eecs.umich.edu/~dandans/projects/100DOH/download.html",
+    "error": "HTTPSConnectionPool(host='fouheylab.eecs.umich.edu', port=443): Max retries exceeded with url: /~dandans/projects/100DOH/download.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)')))"
+  },
+  {
+    "key": "100doh_readme",
+    "url": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/README.md",
+    "status": 200,
+    "bytes": 9794,
+    "final": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/README.md",
+    "time": "2026-10-23T19:39:53.953884+00:00"
+  },
+  {
+    "key": "100doh_demo",
+    "url": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/demo.py",
+    "status": 200,
+    "bytes": 15299,
+    "final": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/demo.py",
+    "time": "2026-10-23T19:39:53.953884+00:00"
+  },
+  {
+    "key": "100doh_voc",
+    "url": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/lib/datasets/pascal_voc.py",
+    "status": 200,
+    "bytes": 17726,
+    "final": "https://raw.githubusercontent.com/ddshan/hand_object_detector/master/lib/datasets/pascal_voc.py",
+    "time": "2026-10-23T19:39:53.938965+00:00"
+  },
+  {
+    "key": "pdestre",
+    "url": "http://p-destre.di.ubi.pt/index.html",
+    "error": "HTTPConnectionPool(host='p-destre.di.ubi.pt', port=80): Read timed out. (read timeout=30)"
+  },
+  {
+    "key": "pdestre_https",
+    "url": "https://p-destre.di.ubi.pt/index.html",
+    "status": 200,
+    "bytes": 122983,
+    "final": "https://p-destre.di.ubi.pt/index.html",
+    "time": "2026-10-23T19:39:54.491320+00:00"
+  }
+]

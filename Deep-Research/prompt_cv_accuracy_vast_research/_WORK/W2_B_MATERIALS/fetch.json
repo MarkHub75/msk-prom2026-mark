@@ -1,0 +1,57 @@
+[
+  {
+    "file": "ultra_exporter.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/engine/exporter.py",
+    "time": "2026-10-23T17:33:55.075414+00:00"
+  },
+  {
+    "file": "dfine_solver.py",
+    "url": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/src/solver/_solver.py",
+    "time": "2026-10-23T17:33:55.752118+00:00"
+  },
+  {
+    "file": "dfine_init.py",
+    "url": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/src/__init__.py",
+    "time": "2026-10-23T17:33:56.497139+00:00"
+  },
+  {
+    "file": "ort_compatibility.md",
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.20.1/docs/Versioning.md",
+    "time": "2026-10-23T17:33:57.229013+00:00"
+  },
+  {
+    "file": "ultra_head.py",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/nn/modules/head.py",
+    "time": "2026-10-23T17:33:58.179607+00:00"
+  },
+  {
+    "file": "onnx.json",
+    "url": "https://pypi.org/pypi/onnx/1.17.0/json",
+    "time": "2026-10-23T17:33:59.638252+00:00"
+  },
+  {
+    "file": "onnxruntime.json",
+    "url": "https://pypi.org/pypi/onnxruntime/1.20.1/json",
+    "time": "2026-10-23T17:34:00.743148+00:00"
+  },
+  {
+    "file": "transformers.json",
+    "url": "https://pypi.org/pypi/transformers/4.44.2/json",
+    "time": "2026-10-23T17:34:06.476023+00:00"
+  },
+  {
+    "file": "onnxsim.json",
+    "url": "https://pypi.org/pypi/onnxsim/0.4.36/json",
+    "time": "2026-10-23T17:34:07.261932+00:00"
+  },
+  {
+    "file": "calflops.json",
+    "url": "https://pypi.org/pypi/calflops/0.3.2/json",
+    "time": "2026-10-23T17:34:07.958850+00:00"
+  },
+  {
+    "file": "opencv-python.json",
+    "url": "https://pypi.org/pypi/opencv-python/4.10.0.84/json",
+    "time": "2026-10-23T17:34:08.650126+00:00"
+  }
+]

@@ -1,0 +1,1967 @@
+{
+  "identifier": "TFL3",
+  "version": 3,
+  "description": "MLIR Converted.",
+  "subgraphs": [
+    {
+      "name": "main",
+      "inputs": [
+        {
+          "index": 0,
+          "name": "serving_default_state/b4/l1/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1,
+          "name": "serving_default_state/b3/l0/stream_buffer:0",
+          "shape": [
+            1,
+            4,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 2,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 2,
+          "name": "serving_default_state/b2/l1/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            112
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 3,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 3,
+          "name": "serving_default_state/b1/l1/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 4,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 4,
+          "name": "serving_default_state/b2/l2/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 5,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 5,
+          "name": "serving_default_state/b2/l2/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 6,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 6,
+          "name": "serving_default_state/b2/l0/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 7,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 7,
+          "name": "serving_default_state/b3/l3/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 8,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 8,
+          "name": "serving_default_state/b4/l0/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 9,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 9,
+          "name": "serving_default_state/b4/l0/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            384
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 10,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 10,
+          "name": "serving_default_state/b2/l1/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            112
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 11,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 11,
+          "name": "serving_default_state/b2/l0/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 12,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 12,
+          "name": "serving_default_state/b2/l2/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 13,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 13,
+          "name": "serving_default_state/b1/l0/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 14,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 14,
+          "name": "serving_default_state/b3/l1/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 15,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 15,
+          "name": "serving_default_state/b3/l2/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 16,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 16,
+          "name": "serving_default_state/b4/l2/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            280
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 17,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 17,
+          "name": "serving_default_state/b4/l0/stream_buffer:0",
+          "shape": [
+            1,
+            4,
+            6,
+            6,
+            384
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 18,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 18,
+          "name": "serving_default_state/b3/l3/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 19,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 19,
+          "name": "serving_default_state/b3/l1/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 20,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 20,
+          "name": "serving_default_state/b3/l2/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 21,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 21,
+          "name": "serving_default_state/b1/l2/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 22,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 22,
+          "name": "serving_default_state/head/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 23,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 23,
+          "name": "serving_default_state/b1/l1/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 24,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 24,
+          "name": "serving_default_state/b3/l1/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 25,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 25,
+          "name": "serving_default_state/b1/l2/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 26,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 26,
+          "name": "serving_default_state/b2/l1/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 27,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 27,
+          "name": "serving_default_state/b4/l2/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 28,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 28,
+          "name": "serving_default_state/head/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            480
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 29,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 29,
+          "name": "serving_default_state/b0/l0/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            24
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 30,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 30,
+          "name": "serving_default_state/b3/l2/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 31,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 31,
+          "name": "serving_default_state/b3/l0/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 32,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 32,
+          "name": "serving_default_state/b1/l0/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 33,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 33,
+          "name": "serving_default_state/b1/l0/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 34,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 34,
+          "name": "serving_default_state/b4/l3/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 35,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 35,
+          "name": "serving_default_state/b3/l0/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 36,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 36,
+          "name": "serving_default_state/b3/l3/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 37,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 37,
+          "name": "serving_default_image:0",
+          "shape": [
+            1,
+            1,
+            172,
+            172,
+            3
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 38,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 38,
+          "name": "serving_default_state/b2/l0/stream_buffer:0",
+          "shape": [
+            1,
+            4,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 39,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 39,
+          "name": "serving_default_state/b1/l1/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 40,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 40,
+          "name": "serving_default_state/b1/l2/stream_buffer:0",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 41,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 41,
+          "name": "serving_default_state/b4/l3/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            344
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 42,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 42,
+          "name": "serving_default_state/b4/l1/pool_buffer:0",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            280
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 43,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 43,
+          "name": "serving_default_state/b0/l0/pool_frame_count:0",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 44,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "index": 1227,
+          "name": "StatefulPartitionedCall:37",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1228,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 983,
+          "name": "StatefulPartitionedCall:23",
+          "shape": [
+            1,
+            4,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 984,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 826,
+          "name": "StatefulPartitionedCall:15",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            112
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 827,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 683,
+          "name": "StatefulPartitionedCall:8",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 684,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1371,
+          "name": "StatefulPartitionedCall:0",
+          "shape": [
+            1,
+            600
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1372,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 868,
+          "name": "StatefulPartitionedCall:19",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 869,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 884,
+          "name": "StatefulPartitionedCall:18",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 885,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 768,
+          "name": "StatefulPartitionedCall:12",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 769,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1163,
+          "name": "StatefulPartitionedCall:32",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1164,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1164,
+          "name": "StatefulPartitionedCall:34",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1165,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1180,
+          "name": "StatefulPartitionedCall:33",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            384
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1181,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 867,
+          "name": "StatefulPartitionedCall:17",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            112
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 868,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 752,
+          "name": "StatefulPartitionedCall:13",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 753,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 925,
+          "name": "StatefulPartitionedCall:20",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 926,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 625,
+          "name": "StatefulPartitionedCall:5",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 626,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1000,
+          "name": "StatefulPartitionedCall:24",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1001,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1058,
+          "name": "StatefulPartitionedCall:27",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1059,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1274,
+          "name": "StatefulPartitionedCall:38",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            280
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1275,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1224,
+          "name": "StatefulPartitionedCall:35",
+          "shape": [
+            1,
+            4,
+            6,
+            6,
+            384
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1225,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1116,
+          "name": "StatefulPartitionedCall:30",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1117,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 984,
+          "name": "StatefulPartitionedCall:25",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 985,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1099,
+          "name": "StatefulPartitionedCall:29",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1100,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 700,
+          "name": "StatefulPartitionedCall:9",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 701,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1361,
+          "name": "StatefulPartitionedCall:43",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1362,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 626,
+          "name": "StatefulPartitionedCall:7",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 627,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1041,
+          "name": "StatefulPartitionedCall:26",
+          "shape": [
+            1,
+            2,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1042,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 684,
+          "name": "StatefulPartitionedCall:10",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 685,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 810,
+          "name": "StatefulPartitionedCall:16",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 811,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1275,
+          "name": "StatefulPartitionedCall:39",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1276,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1360,
+          "name": "StatefulPartitionedCall:42",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            480
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1361,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 514,
+          "name": "StatefulPartitionedCall:1",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            24
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 515,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1042,
+          "name": "StatefulPartitionedCall:28",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1043,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 942,
+          "name": "StatefulPartitionedCall:21",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 943,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 568,
+          "name": "StatefulPartitionedCall:4",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 569,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 584,
+          "name": "StatefulPartitionedCall:3",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 585,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1323,
+          "name": "StatefulPartitionedCall:41",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1324,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 926,
+          "name": "StatefulPartitionedCall:22",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 927,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1100,
+          "name": "StatefulPartitionedCall:31",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 1101,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 809,
+          "name": "StatefulPartitionedCall:14",
+          "shape": [
+            1,
+            4,
+            11,
+            11,
+            184
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 810,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 642,
+          "name": "StatefulPartitionedCall:6",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 643,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 751,
+          "name": "StatefulPartitionedCall:11",
+          "shape": [
+            1,
+            2,
+            22,
+            22,
+            80
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 752,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1322,
+          "name": "StatefulPartitionedCall:40",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            344
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1323,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 1226,
+          "name": "StatefulPartitionedCall:36",
+          "shape": [
+            1,
+            1,
+            1,
+            1,
+            280
+          ],
+          "shape_signature": [],
+          "dtype": "FLOAT32",
+          "buffer": 1227,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        },
+        {
+          "index": 515,
+          "name": "StatefulPartitionedCall:2",
+          "shape": [
+            1
+          ],
+          "shape_signature": [],
+          "dtype": "INT32",
+          "buffer": 516,
+          "quantization": {
+            "scale": [],
+            "zero_point": [],
+            "quantized_dimension": 0
+          }
+        }
+      ],
+      "tensor_count": 1372,
+      "tensor_dtype_counts": {
+        "INT32": 140,
+        "FLOAT32": 1222,
+        "INT64": 10
+      },
+      "quantized_tensors": [],
+      "operators": {
+        "RESHAPE:v1": 203,
+        "CONV_2D:v1": 68,
+        "MUL:v1": 225,
+        "ADD:v1": 182,
+        "BROADCAST_TO:v2": 27,
+        "DEPTHWISE_CONV_2D:v1": 26,
+        "MEAN:v1": 30,
+        "CUMSUM:v1": 15,
+        "AVERAGE_POOL_2D:v1": 4,
+        "STRIDED_SLICE:v4": 26,
+        "CAST:v1": 16,
+        "DIV:v2": 16,
+        "CONCATENATION:v1": 26,
+        "MINIMUM:v3": 15,
+        "RELU:v1": 15,
+        "SUM:v1": 1,
+        "LOGISTIC:v1": 1
+      }
+    }
+  ],
+  "signatures": [
+    {
+      "key": "serving_default",
+      "subgraph": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "index": 37
+        },
+        {
+          "name": "state/b0/l0/pool_buffer",
+          "index": 29
+        },
+        {
+          "name": "state/b0/l0/pool_frame_count",
+          "index": 43
+        },
+        {
+          "name": "state/b1/l0/pool_buffer",
+          "index": 33
+        },
+        {
+          "name": "state/b1/l0/pool_frame_count",
+          "index": 32
+        },
+        {
+          "name": "state/b1/l0/stream_buffer",
+          "index": 13
+        },
+        {
+          "name": "state/b1/l1/pool_buffer",
+          "index": 39
+        },
+        {
+          "name": "state/b1/l1/pool_frame_count",
+          "index": 23
+        },
+        {
+          "name": "state/b1/l1/stream_buffer",
+          "index": 3
+        },
+        {
+          "name": "state/b1/l2/pool_buffer",
+          "index": 21
+        },
+        {
+          "name": "state/b1/l2/pool_frame_count",
+          "index": 25
+        },
+        {
+          "name": "state/b1/l2/stream_buffer",
+          "index": 40
+        },
+        {
+          "name": "state/b2/l0/pool_buffer",
+          "index": 6
+        },
+        {
+          "name": "state/b2/l0/pool_frame_count",
+          "index": 11
+        },
+        {
+          "name": "state/b2/l0/stream_buffer",
+          "index": 38
+        },
+        {
+          "name": "state/b2/l1/pool_buffer",
+          "index": 2
+        },
+        {
+          "name": "state/b2/l1/pool_frame_count",
+          "index": 26
+        },
+        {
+          "name": "state/b2/l1/stream_buffer",
+          "index": 10
+        },
+        {
+          "name": "state/b2/l2/pool_buffer",
+          "index": 5
+        },
+        {
+          "name": "state/b2/l2/pool_frame_count",
+          "index": 4
+        },
+        {
+          "name": "state/b2/l2/stream_buffer",
+          "index": 12
+        },
+        {
+          "name": "state/b3/l0/pool_buffer",
+          "index": 31
+        },
+        {
+          "name": "state/b3/l0/pool_frame_count",
+          "index": 35
+        },
+        {
+          "name": "state/b3/l0/stream_buffer",
+          "index": 1
+        },
+        {
+          "name": "state/b3/l1/pool_buffer",
+          "index": 14
+        },
+        {
+          "name": "state/b3/l1/pool_frame_count",
+          "index": 19
+        },
+        {
+          "name": "state/b3/l1/stream_buffer",
+          "index": 24
+        },
+        {
+          "name": "state/b3/l2/pool_buffer",
+          "index": 15
+        },
+        {
+          "name": "state/b3/l2/pool_frame_count",
+          "index": 30
+        },
+        {
+          "name": "state/b3/l2/stream_buffer",
+          "index": 20
+        },
+        {
+          "name": "state/b3/l3/pool_buffer",
+          "index": 18
+        },
+        {
+          "name": "state/b3/l3/pool_frame_count",
+          "index": 36
+        },
+        {
+          "name": "state/b3/l3/stream_buffer",
+          "index": 7
+        },
+        {
+          "name": "state/b4/l0/pool_buffer",
+          "index": 9
+        },
+        {
+          "name": "state/b4/l0/pool_frame_count",
+          "index": 8
+        },
+        {
+          "name": "state/b4/l0/stream_buffer",
+          "index": 17
+        },
+        {
+          "name": "state/b4/l1/pool_buffer",
+          "index": 42
+        },
+        {
+          "name": "state/b4/l1/pool_frame_count",
+          "index": 0
+        },
+        {
+          "name": "state/b4/l2/pool_buffer",
+          "index": 16
+        },
+        {
+          "name": "state/b4/l2/pool_frame_count",
+          "index": 27
+        },
+        {
+          "name": "state/b4/l3/pool_buffer",
+          "index": 41
+        },
+        {
+          "name": "state/b4/l3/pool_frame_count",
+          "index": 34
+        },
+        {
+          "name": "state/head/pool_buffer",
+          "index": 28
+        },
+        {
+          "name": "state/head/pool_frame_count",
+          "index": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "logits",
+          "index": 1371
+        },
+        {
+          "name": "state/b0/l0/pool_buffer",
+          "index": 514
+        },
+        {
+          "name": "state/b0/l0/pool_frame_count",
+          "index": 515
+        },
+        {
+          "name": "state/b1/l0/pool_buffer",
+          "index": 584
+        },
+        {
+          "name": "state/b1/l0/pool_frame_count",
+          "index": 568
+        },
+        {
+          "name": "state/b1/l0/stream_buffer",
+          "index": 625
+        },
+        {
+          "name": "state/b1/l1/pool_buffer",
+          "index": 642
+        },
+        {
+          "name": "state/b1/l1/pool_frame_count",
+          "index": 626
+        },
+        {
+          "name": "state/b1/l1/stream_buffer",
+          "index": 683
+        },
+        {
+          "name": "state/b1/l2/pool_buffer",
+          "index": 700
+        },
+        {
+          "name": "state/b1/l2/pool_frame_count",
+          "index": 684
+        },
+        {
+          "name": "state/b1/l2/stream_buffer",
+          "index": 751
+        },
+        {
+          "name": "state/b2/l0/pool_buffer",
+          "index": 768
+        },
+        {
+          "name": "state/b2/l0/pool_frame_count",
+          "index": 752
+        },
+        {
+          "name": "state/b2/l0/stream_buffer",
+          "index": 809
+        },
+        {
+          "name": "state/b2/l1/pool_buffer",
+          "index": 826
+        },
+        {
+          "name": "state/b2/l1/pool_frame_count",
+          "index": 810
+        },
+        {
+          "name": "state/b2/l1/stream_buffer",
+          "index": 867
+        },
+        {
+          "name": "state/b2/l2/pool_buffer",
+          "index": 884
+        },
+        {
+          "name": "state/b2/l2/pool_frame_count",
+          "index": 868
+        },
+        {
+          "name": "state/b2/l2/stream_buffer",
+          "index": 925
+        },
+        {
+          "name": "state/b3/l0/pool_buffer",
+          "index": 942
+        },
+        {
+          "name": "state/b3/l0/pool_frame_count",
+          "index": 926
+        },
+        {
+          "name": "state/b3/l0/stream_buffer",
+          "index": 983
+        },
+        {
+          "name": "state/b3/l1/pool_buffer",
+          "index": 1000
+        },
+        {
+          "name": "state/b3/l1/pool_frame_count",
+          "index": 984
+        },
+        {
+          "name": "state/b3/l1/stream_buffer",
+          "index": 1041
+        },
+        {
+          "name": "state/b3/l2/pool_buffer",
+          "index": 1058
+        },
+        {
+          "name": "state/b3/l2/pool_frame_count",
+          "index": 1042
+        },
+        {
+          "name": "state/b3/l2/stream_buffer",
+          "index": 1099
+        },
+        {
+          "name": "state/b3/l3/pool_buffer",
+          "index": 1116
+        },
+        {
+          "name": "state/b3/l3/pool_frame_count",
+          "index": 1100
+        },
+        {
+          "name": "state/b3/l3/stream_buffer",
+          "index": 1163
+        },
+        {
+          "name": "state/b4/l0/pool_buffer",
+          "index": 1180
+        },
+        {
+          "name": "state/b4/l0/pool_frame_count",
+          "index": 1164
+        },
+        {
+          "name": "state/b4/l0/stream_buffer",
+          "index": 1224
+        },
+        {
+          "name": "state/b4/l1/pool_buffer",
+          "index": 1226
+        },
+        {
+          "name": "state/b4/l1/pool_frame_count",
+          "index": 1227
+        },
+        {
+          "name": "state/b4/l2/pool_buffer",
+          "index": 1274
+        },
+        {
+          "name": "state/b4/l2/pool_frame_count",
+          "index": 1275
+        },
+        {
+          "name": "state/b4/l3/pool_buffer",
+          "index": 1322
+        },
+        {
+          "name": "state/b4/l3/pool_frame_count",
+          "index": 1323
+        },
+        {
+          "name": "state/head/pool_buffer",
+          "index": 1360
+        },
+        {
+          "name": "state/head/pool_frame_count",
+          "index": 1361
+        }
+      ]
+    }
+  ],
+  "metadata": [
+    {
+      "name": "min_runtime_version",
+      "buffer": 1373,
+      "data": [
+        50,
+        46,
+        53,
+        46,
+        48,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+﻿[
+    {
+        "file":  "ActivityNet_commit.patch",
+        "bytes":  2037,
+        "sha256":  "3126135B44D54638D1A56C872C36C772429D39FF351D715D69A060A16D363034"
+    },
+    {
+        "file":  "ActivityNet_Evaluation_eval_detection.py",
+        "bytes":  10511,
+        "sha256":  "9D85075C381F57C08B7865355E4CC2627964A33CD93ACD382B516C7A45E94DCB"
+    },
+    {
+        "file":  "ActivityNet_Evaluation_utils.py",
+        "bytes":  2650,
+        "sha256":  "6D32F0DD61B21A5057EFA6999788110814C38D6B9BBFCE4F2E1284C4F84D221C"
+    },
+    {
+        "file":  "BoT-SORT_commit.patch",
+        "bytes":  14864,
+        "sha256":  "EA4DABC109C8E8FDF0E10A4724265411EFB3339A9D9102CD4A707778773C80E5"
+    },
+    {
+        "file":  "BoT-SORT_tracker_bot_sort.py",
+        "bytes":  16778,
+        "sha256":  "BA6DD32AD4B96EE49D6F70654159269BD45CE15FD0FE5007F3A1B81BC257EDF0"
+    },
+    {
+        "file":  "BoT-SORT_tracker_kalman_filter.py",
+        "bytes":  9671,
+        "sha256":  "C1A4C0ACC71B9A91C0CDBE7B689F88712D68E7E8BE4D7E54FB437F33FDBC9E5A"
+    },
+    {
+        "file":  "ByteTrack_commit.patch",
+        "bytes":  1769,
+        "sha256":  "0EDA6148C218891366FF87C238D0F18C188492EEC3DB7867CB45197B1A0F6865"
+    },
+    {
+        "file":  "ByteTrack_yolox_tracker_byte_tracker.py",
+        "bytes":  11940,
+        "sha256":  "7CECDCDD7998103969A4BA1772F4C9FB5560FD5EEF05CA03E0D2DF28346CA50B"
+    },
+    {
+        "file":  "ByteTrack_yolox_tracker_kalman_filter.py",
+        "bytes":  9547,
+        "sha256":  "9842D0DD9957C97E312D42E5789441ADD55082066D87CC051AC768143A46EB39"
+    },
+    {
+        "file":  "FFmpeg_n8.0_frame.h",
+        "bytes":  41912,
+        "sha256":  "CD2B592D3E57586DC6D570FA6A84CA8426A203A44B06DC3993FC5C75B0CEEFB0"
+    },
+    {
+        "file":  "MMPose_v1.3.2_inference_tracking.py",
+        "bytes":  3074,
+        "sha256":  "394190FFAD02D9DEACC6D9761BBF53460A291C27171A0ADCBFC09AFB3DB8843E"
+    }
+]

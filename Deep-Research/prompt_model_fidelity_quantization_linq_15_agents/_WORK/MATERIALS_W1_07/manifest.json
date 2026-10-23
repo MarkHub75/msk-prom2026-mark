@@ -1,0 +1,51 @@
+{
+  "access_utc": "2026-10-23T19:24:21Z onward",
+  "method": "HTTPS urllib.request; source code read, not executed",
+  "files": [
+    {
+      "file": "nncf_advanced_parameters.py",
+      "sha256": "91df20c8be89bed09e5693d1687d793fc24a654e34843a0df7f02fafb0c85f38",
+      "bytes": 25638
+    },
+    {
+      "file": "nncf_range_init.py",
+      "sha256": "7a9e2a6c44b0e52ee81508cd47b52931a0fd73c585ab5044d993e4882b1943ca",
+      "bytes": 6908
+    },
+    {
+      "file": "nncf_release.html",
+      "sha256": "0e9993a293fb694a5ddbd2a44c1c1decce2f55eeb618154d39fa455fc7999bcd",
+      "bytes": 201002
+    },
+    {
+      "file": "ort_calibrate.py",
+      "sha256": "f921d19172a52ebd32ff4bcd02b7a5c32502603092153160286253dc6f4c2c9a",
+      "bytes": 52762
+    },
+    {
+      "file": "ort_quantize.py",
+      "sha256": "3709d571f3a826717e1f4c14043d544ff78bf079743ee24cb8a08e03e9bb7bfc",
+      "bytes": 52421
+    },
+    {
+      "file": "ort_release.html",
+      "sha256": "78409290779e4bc8a78f9b9dc12b75bf25ea28274d5a609f3b26c351b82de3a6",
+      "bytes": 211306
+    },
+    {
+      "file": "tf_calibration_logger.cc",
+      "sha256": "ec7d2fc5916f939a5c72e30ac1265a4804a41f6e1f936a5968833b1ff92e686b",
+      "bytes": 1963
+    },
+    {
+      "file": "tf_calibration_wrapper.cc",
+      "sha256": "6ab0eda21b029c523984427cb05517fa0f1c66c3539007d8096acf5e6c7dc18b",
+      "bytes": 30936
+    },
+    {
+      "file": "tf_calibrator.py",
+      "sha256": "041bd01f175b39f088e48aceeb872bdaf88274ad045fb346539b308d3bdd7b28",
+      "bytes": 9760
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "rows": 22473,
+  "phone_rows": 371,
+  "phone_ids": {
+    "-1": 371
+  },
+  "phone_frame_minmax": [
+    3,
+    373
+  ],
+  "phone_bbox_col4_range": [
+    63.72,
+    180.06
+  ],
+  "phone_bbox_col5_range": [
+    59.87,
+    449.12
+  ],
+  "action_counts": {
+    "0": 22102,
+    "7": 371
+  }
+}

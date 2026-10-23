@@ -1,0 +1,46 @@
+[
+  {
+    "member": {
+      "offset": 4265911,
+      "header_size": 86,
+      "type": 2,
+      "flags": 3,
+      "extra": 11,
+      "data_size": 133001,
+      "crc_ok": true,
+      "filename": "\u539f\u59cb\u6570\u636e/Physical sensing/Humidifier4-1.csv",
+      "uncompressed": 1254840,
+      "compression_flags": 8576,
+      "solid": false,
+      "method": 3,
+      "directory": false,
+      "crc": 3307101104,
+      "data_offset": 4265997
+    },
+    "status": 206,
+    "bytes": 133087,
+    "sha256": "26f2cbdd11525dc7ed557ceced71b9576641f17cdbe7d143b4e6943f1c3f343a"
+  },
+  {
+    "member": {
+      "offset": 4398998,
+      "header_size": 82,
+      "type": 2,
+      "flags": 3,
+      "extra": 11,
+      "data_size": 35679,
+      "crc_ok": true,
+      "filename": "\u539f\u59cb\u6570\u636e/Physical sensing/Humidifier4-2.csv",
+      "uncompressed": 616066,
+      "compression_flags": 8576,
+      "solid": false,
+      "method": 3,
+      "directory": false,
+      "crc": 1969046864,
+      "data_offset": 4399080
+    },
+    "status": 206,
+    "bytes": 35761,
+    "sha256": "f9e5ea957ac61874dff1f1f12fb897b154bdf7798ef0bf6b42e578e486400e50"
+  }
+]

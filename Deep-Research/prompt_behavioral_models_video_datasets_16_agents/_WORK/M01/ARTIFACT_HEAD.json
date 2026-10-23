@@ -1,0 +1,102 @@
+[
+  {
+    "key": "rtmpose_pth",
+    "method": "HEAD",
+    "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/rtmpose-m_simcc-aic-coco_pt-aic-coco_420e-256x192-63eb25f7_20230126.pth",
+    "final_url": "https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/rtmpose-m_simcc-aic-coco_pt-aic-coco_420e-256x192-63eb25f7_20230126.pth",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "content_length": "54536690",
+    "access_utc": "2026-10-23T19:16:10.486557+00:00"
+  },
+  {
+    "key": "rtmpose_body7_onnx",
+    "method": "HEAD",
+    "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7_420e-256x192-e48f03d0_20230504.zip",
+    "final_url": "https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7_420e-256x192-e48f03d0_20230504.zip",
+    "status": 200,
+    "content_type": "application/zip",
+    "content_length": "50799818",
+    "access_utc": "2026-10-23T19:16:10.484227+00:00"
+  },
+  {
+    "key": "rtmo_pth",
+    "method": "HEAD",
+    "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmo/rtmo-s_8xb32-600e_coco-640x640-8db55a59_20231211.pth",
+    "final_url": "https://download.openmmlab.com/mmpose/v1/projects/rtmo/rtmo-s_8xb32-600e_coco-640x640-8db55a59_20231211.pth",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "content_length": "39718803",
+    "access_utc": "2026-10-23T19:16:10.568390+00:00"
+  },
+  {
+    "key": "rtmo_onnx",
+    "method": "HEAD",
+    "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmo/onnx_sdk/rtmo-s_8xb32-600e_body7-640x640-dac2bf74_20231211.zip",
+    "final_url": "https://download.openmmlab.com/mmpose/v1/projects/rtmo/onnx_sdk/rtmo-s_8xb32-600e_body7-640x640-dac2bf74_20231211.zip",
+    "status": 200,
+    "content_type": "application/zip",
+    "content_length": "36442532",
+    "access_utc": "2026-10-23T19:16:10.492838+00:00"
+  },
+  {
+    "key": "yolo11n_pose",
+    "method": "HEAD",
+    "url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n-pose.pt",
+    "final_url": "https://release-assets.githubusercontent.com/github-production-release-asset/521807533/e1a17d9d-a1cf-4350-82c8-913bfe4da74d?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-23T20%3A03%3A34Z&rscd=attachment%3B+filename%3Dyolo11n-pose.pt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-10-23T19%3A02%3A55Z&ske=2026-10-23T20%3A03%3A34Z&sks=b&skv=2018-11-09&sig=MHcYgoCZ0y97HVHjmRmf4Slr2Aj2k1NTwpRUykmjmic%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mjc4MzI2OSwibmJmIjoxNzkyNzgyOTY5LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.IMqm1397YCRlfp31IN7BF2zTCjUvR96wNtzcWlu6Vjw&response-content-disposition=attachment%3B%20filename%3Dyolo11n-pose.pt&response-content-type=application%2Foctet-stream",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "content_length": "6255593",
+    "access_utc": "2026-10-23T19:16:10.379234+00:00"
+  },
+  {
+    "key": "mp_full",
+    "method": "HEAD",
+    "url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+    "final_url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "content_length": "9398198",
+    "access_utc": "2026-10-23T19:16:09.741117+00:00"
+  },
+  {
+    "key": "movenet_single",
+    "method": "HEAD",
+    "url": "https://tfhub.dev/google/lite-model/movenet/singlepose/thunder/tflite/int8/4?lite-format=tflite",
+    "final_url": "https://tfhub.dev/google/lite-model/movenet/singlepose/thunder/tflite/int8/4?lite-format=tflite",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8",
+    "content_length": "134",
+    "access_utc": "2026-10-23T19:16:09.897253+00:00"
+  },
+  {
+    "key": "movenet_multi",
+    "method": "HEAD",
+    "url": "https://tfhub.dev/google/lite-model/movenet/multipose/lightning/tflite/float16/1?lite-format=tflite",
+    "final_url": "https://tfhub.dev/google/lite-model/movenet/multipose/lightning/tflite/float16/1?lite-format=tflite",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8",
+    "content_length": "134",
+    "access_utc": "2026-10-23T19:16:09.902769+00:00"
+  },
+  {
+    "key": "vitpose_b",
+    "method": "HEAD",
+    "url": "https://1drv.ms/u/s!AimBgYV7JjTlgSMjp1_NrV3VRSmK?e=Q1uZKs",
+    "final_url": "https://onedrive.live.com/?id=E534267B85818129%21163&cid=E534267B85818129&spopath=%2Fpersonal%2Fe534267b85818129%2FDocuments%2FResearch%2FViTAE-Transformer%2FViTPose%2FSingleCOCO%2Fvitpose-b.pth&listurl=%2Fpersonal%2Fe534267b85818129%2FDocuments&e=Q1uZKs&migratedtospo=true&parent=%2Fpersonal%2Fe534267b85818129%2FDocuments%2FResearch%2FViTAE-Transformer%2FViTPose%2FSingleCOCO&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBaW1CZ1lWN0pqVGxnU01qcDFfTnJWM1ZSU21LP2U9UTF1Wktz&ga=1",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "content_length": "0",
+    "access_utc": "2026-10-23T19:16:12.574401+00:00"
+  },
+  {
+    "key": "coco_annotations",
+    "method": "HEAD",
+    "url": "http://images.cocodataset.org/annotations/annotations_trainval2017.zip",
+    "final_url": "http://images.cocodataset.org/annotations/annotations_trainval2017.zip",
+    "status": 200,
+    "content_type": "application/zip",
+    "content_length": "252907541",
+    "access_utc": "2026-10-23T19:16:10.472874+00:00"
+  }
+]

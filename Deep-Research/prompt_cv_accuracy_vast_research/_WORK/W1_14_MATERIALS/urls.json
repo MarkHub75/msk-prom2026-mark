@@ -1,0 +1,15 @@
+{
+  "ultra_trainer.py": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/engine/trainer.py",
+  "ultra_torch_utils.py": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/utils/torch_utils.py",
+  "dfine_solver.py": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/src/solver/_solver.py",
+  "dfine_det_solver.py": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/src/solver/det_solver.py",
+  "rfdetr_trainer.py": "https://raw.githubusercontent.com/roboflow/rf-detr/5b22dfc0940697ce1abdfa681a5f7392b3eddbfb/src/rfdetr/training/trainer.py",
+  "rfdetr_ema.py": "https://raw.githubusercontent.com/roboflow/rf-detr/5b22dfc0940697ce1abdfa681a5f7392b3eddbfb/src/rfdetr/training/callbacks/ema.py",
+  "rclone_check.md": "https://raw.githubusercontent.com/rclone/rclone/81e7372f6fbedfa80592e9a564593d63a8dc32f3/docs/content/commands/rclone_check.md",
+  "vast_manage.mdx": "https://raw.githubusercontent.com/vast-ai/docs/626149741ba46f195c775b2f4c89b7329de2d902/guides/instances/manage-instances.mdx",
+  "vast_storage.mdx": "https://raw.githubusercontent.com/vast-ai/docs/626149741ba46f195c775b2f4c89b7329de2d902/guides/instances/storage/types.mdx",
+  "vast_billing.mdx": "https://raw.githubusercontent.com/vast-ai/docs/626149741ba46f195c775b2f4c89b7329de2d902/guides/reference/billing.mdx",
+  "ultra_tasks.py": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/nn/tasks.py",
+  "ultra_init.py": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/ultralytics/__init__.py",
+  "rfdetr_pyproject.toml": "https://raw.githubusercontent.com/roboflow/rf-detr/5b22dfc0940697ce1abdfa681a5f7392b3eddbfb/pyproject.toml"
+}

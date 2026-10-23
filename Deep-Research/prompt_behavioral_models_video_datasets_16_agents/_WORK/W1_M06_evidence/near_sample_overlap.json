@@ -1,0 +1,8 @@
+{
+  "sample1_range": "bytes 905216-1808383/937501056",
+  "sample1_bytes": 903168,
+  "sample1_sha256": "ee848c8b670a55bb6ecc54e6639f96ed9425055684b8859d2ae591b1304ae8ed",
+  "sample0_last5_equals_sample1_first5": true,
+  "label0_s": 3.0,
+  "label1_s": 2.9
+}

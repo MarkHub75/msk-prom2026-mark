@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Computer Vision group from the University of Oxford">
+    <meta name="keywords" content="vgg,oxford,computer vision,machine learning,research,software,publications,data">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/~vgg/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/~vgg/assets/fonts/themify/themify-icons.css">
+
+    <link rel="stylesheet" href="/~vgg/assets/css/slick.css">
+    <link rel="stylesheet" href="/~vgg/assets/css/slick-theme.css">
+    <link rel="stylesheet" href="/~vgg/assets/css/all.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/~vgg/assets/css/style.css">
+    <link rel="stylesheet" href="/~vgg/assets/css/responsive.css">
+
+    <!-- Publications CSS -->
+    <link rel="stylesheet" href="/~vgg/assets/css/listpubli.css">
+
+    <!-- cookiealert styles, see /~vgg/assets/css/cookiealert/LICENSE -->
+    <link rel="stylesheet" href="/~vgg/assets/css/cookiealert/cookiealert.css">
+
+    <title>Visual Geometry Group - University of Oxford</title>
+
+</head>
+
+
+<body class="top-header">
+
+    <!-- LOADER TEMPLATE
+    <div id="page-loader">
+        <div class="loader-icon fa fa-spin colored-border"></div>
+    </div>
+    <!-- /LOADER TEMPLATE -->
+
+    <!-- COOKIE MESSAGE
+    ================================================== -->
+
+    <div class="alert text-center cookiealert" role="alert">
+        This website uses Google Analytics to help us
+        improve the website content.  This requires the use of
+        standard Google Analytics cookies, as well as a cookie to
+        record your response to this confirmation request. If this is
+        OK with you, please click 'Accept cookies', otherwise you will
+        see this notice on every page. For more information, please <span class="current-year"><a
+        href="http://www.admin.ox.ac.uk/dataprotection/cookies/">click
+        here</a></span>
+        <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+            Accept cookies
+        </button>
+    </div>
+    <!-- /COOKIE MESSAGE -->
+
+    <!-- HEADER AREA
+    ================================================== -->
+    <section class="banner-area py-2">
+
+        <!-- INCLUDE VGG NAVBAR -->
+        <div id="vggnavbar"></div>
+
+        <!-- Content -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col text-left">
+                    <!-- Heading -->
+                    <h1 class="font-weight-bold mb-0 banner-area-subpage-title">
+                        VGG Image Annotator (VIA)
+                    </h1>
+                </div> <!-- / .col -->
+
+                 <!-- INCLUDE VGG SOCIALS -->
+                <div id="vggsocials"></div>
+
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+    <!-- /HEADER -->
+
+    <!-- ACTUAL PAGE CONTENT
+    ================================================== -->
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="blog-content">
+
+              <h3>
+                  <a href="https://www.robots.ox.ac.uk/~adutta/">Abhishek Dutta</a>,
+                  <a href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a>,
+                  <a href="https://www.robots.ox.ac.uk/~ankush/">Ankush Gupta</a>,
+                  <a href="https://www.robots.ox.ac.uk/~pinto/">David Miguel Susano Pinto</a>,
+                  <a href="https://www.robots.ox.ac.uk/~ecoto/">Ernesto Coto</a>,
+                  Prasanna Sridhar,
+                  <a href="https://ragavsachdeva.github.io/">Ragav Sachdeva</a>
+              </h3>
+              <br>
+
+              <h3>Overview</h3>
+              <p>
+                VIA is a suite of tools for the annotation of image,
+                audio, and audio files.  VIA tools are designed to be
+                simple to use, and very lightweight.  They are web
+                applications, distributed as single HTML files that
+                run offline in a web browser, do not require
+                installation or setup.  VIA is developed at
+                the <a href="http://www.robots.ox.ac.uk/~vgg/">Visual
+                Geometry Group (VGG)</a> and released under the
+                permissive <a href="https://gitlab.com/vgg/via/blob/master/LICENSE">two-clause
+                BSD license</a> which enables its use in both academic
+                projects and commercial applications.
+              </p>
+
+              <p>
+                Currently, VIA is comprised of the following tools:
+              </p>
+
+              <ul>
+                <li>
+                  <strong>VIA3</strong>
+                  [<a href="#via3">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/via/-/tree/master/via-3.x.y">Gitlab</a>]
+
+                  is the latest version of VIA "proper".  In addition
+                  to images, it adds supports for video and audio
+                  files, and shared/collaborative projects.
+                </li>
+
+                <li>
+                  <strong>VIA2</strong>
+                  [<a href="#via2">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/via/-/tree/master/via-2.x.y">Gitlab</a>]
+
+                  is an older version of VIA.  Compared to VIA3, only
+                  has support for image files and does not support
+                  shared projects.  However, it has more features than
+                  VIA3 and a different UI that some people prefer.
+                  This version of VIA is still maintained.
+                </li>
+
+                <li>
+                  <strong>LISA</strong> (LIS Annotator)
+                  [<a href="#lisa">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/lisa">Gitlab</a>]
+
+                  provides a simplified interface to efficiently
+                  annotate a large list of images or videos.  It has
+                  less features than VIA proper though.  The
+                  simplified interface and reduced number of features
+                  also makes the codebase simpler and so is simpler to
+                  create variants of LISA.  Like VIA3, LISA has
+                  support for shared projects.
+                </li>
+
+                <li>
+                  <strong>VVT</strong> (VGG Visual Tracker)
+                  [<a href="https://www.robots.ox.ac.uk/~vgg/software/vvt/">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/via/-/tree/add-tracking">Gitlab branch</a>]
+
+                  is a modified version of VIA3 to annotate bounding
+                  box video tracks with the assistance of a tracker.
+                </li>
+
+                <li>
+                  <strong>SignDB</strong> Group Annotator
+                  [<a href="https://www.robots.ox.ac.uk/~vgg/software/via/docs/signdb.html">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/via/-/tree/via3-group-annotator">Gitlab branch</a>]
+
+                  is a variant of VIA3 to review and correct automatic
+                  sign language spotting in video clips by grouping
+                  them by the identified sign.
+                </li>
+
+                <li>
+                  <strong>VASA</strong>
+                  [<a href="https://www.robots.ox.ac.uk/~vgg/software/vasa/">webpage</a>]
+                  [<a href="https://gitlab.com/vgg/vasa">Gitlab</a>]
+
+                  is a variant of VIA2 augmented with searching
+                  capabilities.
+                </li>
+
+                <li>
+                  <strong>SUNO</strong> (SUrgeon's NOtebook)
+                  [<a href="https://gitlab.com/vgg/suno">Gitlab</a>]
+
+                  is a tool to manually annotate videos showing
+                  surgical procedures.
+                </li>
+
+                <li>
+                  <strong>LISA Manga</strong>
+                  [<a href="https://gitlab.com/ragavsachdeva/lisa-manga/-/tree/manga">Gitlab</a>]
+                  [<a href="https://meru.robots.ox.ac.uk/app/via/demo-gallery/lisa-graph-manga-diarisation/">Demo</a>]
+
+                  is a variant of LISA to annotate and connect
+                  characters and text boxes in manga pages.  It treats
+                  bounding boxes as nodes of a graph and lines between
+                  boxes as edges so could be used for other graph-like
+                  annotations.
+                </li>
+
+                <li>
+                  <strong>python-via</strong>
+                  [<a href="https://pypi.org/project/python-via/">PyPI</a>]
+                  [<a href="https://gitlab.com/vgg/python-via">Gitlab</a>]
+
+                  is a Python package to handle VIA projects in
+                  Python, namely to convert between different VIA
+                  formats and COCO, and to download and upload shared
+                  projects.
+                </li>
+
+                <li>
+                  <strong>VFS</strong> (Version File Store)
+                  [<a href="https://gitlab.com/vgg/vfs">Gitlab</a>]
+
+                  is the service that enables shared projects in VIA
+                  projects.  VGG maintains a public free instance of
+                  VFS which VIA tools can use.  Unless you want to run
+                  your own VFS, you won't need this for your shared
+                  projects.
+                </li>
+              </ul>
+
+            <h3>Demonstrations</h3>
+            <p>Click on the images to try the VGG Image Annotator application preloaded with images and annotations.</p>
+
+                 <div class="row align-items-center">
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="via_demo.html" title="VIA Online Demo"><img class="img-fluid" src="./images/via_demo_screenshot2_via-2.0.2.jpg" alt="VIA Demo Screenshot"></a>
+                        <br><b>Basic image Annotation (VIA3)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="./demo/via_video_annotator.html" title="VIA Video Annotation"><img class="img-fluid" src="./images/via_video_annotator.png" alt="VIA Video Annotation"></a>
+                        <br><b>Video Annotation (VIA3)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="./demo/via_audio_annotator.html" title="VIA Audio Annotation"><img class="img-fluid" src="./images/via_audio_annotator.png" alt="VIA Audio Annotation"></a>
+                        <br><b>Audio Annotation (VIA3)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="via_face_demo.html" title="VIA Face Annotation Online Demo"><img class="img-fluid" src="./images/via_face_demo_screenshot4.jpg" alt="VIA Face Annotation Demo Screenshot"></a>
+                        <br><b>Face Annotation (VIA2)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="./docs/face_track_annotation.html" title="VIA Face Track Annotation"><img class="img-fluid" src="./images/via_face_track_demo_screenshot1.jpg" alt="VIA Face Track Annotation"></a>
+                        <br><b>Face Track Annotation (VIA2)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="./demo/via_subtitle_annotator.html" title="VIA Subtitle Annotator"><img class="img-fluid" src="./images/via_subtitle_annotator.png" alt="Video Subtitle Annotation"></a>
+                        <br><b>Video Subtitle Annotation (VIA3)</b>
+                    </div>
+                    <div class="col-md-6 text-center pb-5">
+                        <a href="./demo/lisa/lisa-demo.html" title="List Annotator (LISA)"><img class="img-fluid" src="./images/lisa_screenshot.jpg" alt="Video Subtitle Annotation"></a>
+                        <br><b>List Annotator (LISA)</b>
+                    </div>
+
+                    <div class="col-md-6 text-center pb-5">
+                      <b>More demos and bespoke variants at the</b>
+                      <br>
+                      <a class="btn btn-primary" href="https://www.robots.ox.ac.uk/~vgg/software/via/demo-gallery/" role="button">Demo Gallery</a>
+                    </div>
+                 </div>
+
+            <h3>Downloads</h3>
+            <div id="via2" class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <td class="ul-large" style="text-align:center;">Version 2</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="ul-large" style="text-align:center;">image annotator</td>
+              </tr>
+              <tr>
+                <td>
+                  <ul class="ul-large">
+                    <li><a href="./downloads/via-2.0.12.zip">via-2.0.12.zip</a> : includes the VIA application (~400KB) and its demo</li>
+                    <li><a href="./downloads/via-src-2.0.12.zip">via-src-2.0.12.zip</a> : source code</li>
+                    <li><a href="via.html">via.html</a> : online copy of VIA 2.0.12 application</li>
+                    <li>Demo
+                      <ul class="ul-large">
+                        <li><a href="./via_demo.html">Basic Annotation</a>: basic image annotation.</li>
+                        <li><a href="./via_face_demo.html">Face Annotation</a>: annotation of images containing faces using face image labels.</li>
+                        <li><a href="./via_wikimedia_demo.html">Remote Images</a>: annotation of 9955 remotely hosted images at Wikimedia Commons.</li>
+                        <li><a href="./docs/face_track_annotation.html">Face Track Annotation</a>: annotation of face tracks in BBC Sherlock episodes.</li>
+                      </ul>
+                    </li>
+                    <li>Older releases : <a href="via-2.0.0.html">2.0.0</a>&nbsp;|&nbsp;<a href="via-2.0.1.html">2.0.1</a>&nbsp;|&nbsp;<a href="via-2.0.2.html">2.0.2</a>&nbsp;|&nbsp;<a href="via-2.0.4.html">2.0.4</a>&nbsp;|&nbsp;<a href="via-2.0.5.html">2.0.5</a>&nbsp;|&nbsp;<a href="via-2.0.6.html">2.0.6</a>&nbsp;|&nbsp;<a href="via-2.0.7.html">2.0.7</a>&nbsp;|&nbsp;<a href="via-2.0.8.html">2.0.8</a>&nbsp;|&nbsp;<a href="via-2.0.9.html">2.0.9</a>&nbsp;|&nbsp;<a href="via-2.0.10.html">2.0.10</a>&nbsp;|&nbsp;<a href="via-2.0.11.html">2.0.11</a></li>
+                    <li><a href="https://gitlab.com/vgg/via/tree/master">Source code repository</a></li>
+                  </ul>
+                </td>
+               </tr>
+               </tbody>
+           </table>
+           </div>
+           <br><br>
+
+           <div id="via3" class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <td class="ul-large" style="text-align:center;">Version 3</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="ul-large" style="text-align:center;">audio and video annotator</td>
+              </tr>
+              <tr>
+                <td>
+                      <ul class="ul-large">
+                        <li><a href="./downloads/via3/via-3.0.13.zip">via-3.0.13.zip</a> : includes the VIA application and its demo</li>
+                        <li><a href="./downloads/via3/via-src-3.0.13.zip">via-src-3.0.13.zip</a> : source code</li>
+                        <li><a href="./app/via_image_annotator.html">via_image_annotator.html</a> : online copy (&lt; 400KB)</li>
+                        <li><a href="./app/via_video_annotator.html">via_video_annotator.html</a> : online copy (&lt; 400KB)</li>
+                        <li><a href="./app/via_audio_annotator.html">via_audio_annotator.html</a> : online copy (&lt; 400KB)</li>
+                        <li><a href="./app/via_subtitle_annotator.html">via_subtitle_annotator.html</a> : online copy (&lt; 300KB)</li>
+                        <li>Demo
+                          <ul class="ul-large">
+                            <li><a href="./demo/via_image_annotator.html">Image Annotator</a>: Basic image annotation demo.</li>
+                            <li><a href="./demo/via_video_annotator.html">Video Annotator</a>: Temporal segments showing different human activities (e.g. break egg, pour liquid, etc.) and spatial regions (e.g. bounding box of cup) occupied by different objects in a still video frame are manually delineated in a video showing preparation of a drink.</li>
+                            <li><a href="./demo/via_audio_annotator.html">Audio Annotator</a>: Speech segments of two individuals is manually delineated in an audio recording of conversation between ATC and pilot.</li>
+                            <li><a href="./demo/via_pair_annotator.html">Pair Annotator</a>: Demo showing manual annotation of metadata corresponding to an image pair.</li>
+                            <li><a href="./demo/via_subtitle_annotator.html">Subtitle Annotator</a>: Demo showing manual subtitle annotation of a video.</li>
+                          </ul>
+                        </li>
+                        <li>Older releases : <a href="./downloads/via3/via-3.0.0.zip">3.0.0</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.1.zip">3.0.1</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.2.zip">3.0.2</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.3.zip">3.0.3</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.4.zip">3.0.4</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.5.zip">3.0.5</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.6.zip">3.0.6</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.7.zip">3.0.7</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.8.zip">3.0.8</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.9.zip">3.0.9</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.10.zip">3.0.10</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.11.zip">3.0.11</a>&nbsp;|&nbsp;<a href="./downloads/via3/via-3.0.12.zip">3.0.12</a></li>
+                        <li><a href="https://gitlab.com/vgg/via/tree/master/via-3.x.y">Source code repository</a></li>
+                      </ul>
+                </td>
+               </tr>
+               </tbody>
+           </table>
+           </div>
+           <br><br>
+
+            <div id="via1" class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <td class="ul-large" style="text-align:center;">VIA version 1 is an early version of VIA software and many users still find it useful for basic image annotation tasks.</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <ul class="ul-large">
+                    <li>Downloads: <a href="./downloads/via-1.0.7.zip">via-1.0.7.zip</a>, <a href="./downloads/via-src-1.0.7.zip">via-src-1.0.7.zip</a></li>
+                    <li>Online copy: <a href="via-1.0.7.html">via-1.0.7.html</a>, <a href="via-1.0.7_demo.html">via-1.0.7_demo.html</a></li>
+                    <li>Older releases : <a href="via-0.1b.html">0.1b</a>&nbsp;|&nbsp;<a href="via-1.0.0.html">1.0.0</a>&nbsp;|&nbsp;<a href="via-1.0.1.html">1.0.1</a>&nbsp;|&nbsp;<a style="text-decoration: line-through" href="via-1.0.2.html">1.0.2</a>&nbsp;|&nbsp;<a href="via-1.0.3.html">1.0.3</a>&nbsp;|&nbsp;<a href="via-1.0.4.html">1.0.4</a>&nbsp;|&nbsp;<a href="via-1.0.5.html">1.0.5</a>&nbsp;|&nbsp;<a href="via-1.0.6.html">1.0.6</a></li>
+                    <li><a href="https://gitlab.com/vgg/via/tree/via-1.x.y/">Source code repository</a></li>
+                  </ul>
+                </td>
+               </tr>
+               </tbody>
+           </table>
+           </div>
+
+            <div id="lisa" class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <td class="ul-large" style="text-align:center;">List Annotator (<a href="https://gitlab.com/vgg/lisa/">LISA</a>) : to efficiently annotate a large list of images.</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <ul class="ul-large">
+                    <li>Downloads: <a href="downloads/lisa/lisa-0.0.4.zip">lisa-0.0.4.zip</a></li>
+                    <li>Online copy: <a href="./app/lisa/lisa.html">lisa.html</a></li>
+                    <li>Demo: <a href="./demo/lisa/lisa-demo.html">lisa-demo.html</a></li>
+                    <li>Older releases : <a href="./downloads/lisa/lisa-0.0.1.zip">lisa-0.0.1</a>&nbsp;|&nbsp;<a href="./downloads/lisa/lisa-0.0.2.zip">lisa-0.0.2</a>&nbsp;|&nbsp;<a href="./downloads/lisa/lisa-0.0.3.zip">lisa-0.0.3</a></li>
+                    <li><a href="https://gitlab.com/vgg/lisa/">Source code repository</a></li>
+                  </ul>
+                </td>
+               </tr>
+               </tbody>
+           </table>
+           </div>
+
+            <p>Note: We have tested this application in the following browsers: <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a> and <a href="https://www.apple.com/uk/safari/">Safari</a>. Our users have reported that this application also works well in other browsers like <a href="https://support.microsoft.com/en-gb/help/17621/internet-explorer-downloads">Internet Explorer</a>, <a href="https://wiki.gnome.org/Apps/Web">GNOME Web</a>, etc. .</p>
+
+
+            <h3>User Guide</h3>
+
+            <p>A basic user guide is also available inside the VIA application and can be accessed using top menubar "Help -> Getting Started". Most common user queries about the VIA software are available in our <a href="https://gitlab.com/vgg/via/-/blob/master/FrequentlyAskedQuestions.md">Frequently Asked Questions (FAQ)</a> page.</p>
+            <ul class="ul-large">
+              <li>Basic Usage:
+                <ul class="ul-large">
+                  <li><a href="./docs/add_images_to_project.html">Adding images to a project</a></li>
+                  <li><a href="./docs/drawing_regions.html">Drawing Regions (rectangle, circle, point, etc)</a></li>
+                  <li><a href="./docs/creating_annotations.html">Creating Annotations</a></li>
+                  <li>Importing and Exporting Annotations:
+                    <ul class="ul-large">
+                      <li>Click <code>Annotations &rarr; Export annotations</code> in top menubar (choose csv or json option)</li>
+                      <li>Click <code>Annotations &rarr; Import annotations</code> in top menubar and select the file (csv or json) containing annotations.</li>
+                    </ul>
+                  </li>
+                  <li>Saving and Loading a Project:
+                    <ul>
+                      <li>Click <code>Project &rarr; Save</code> in top menubar</li>
+                      <li>Click <code>Project &rarr; Load</code> in top menubar and select the json file containing VIA project.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>Advanced Usage
+                <ul class="ul-large">
+                  <li><a href="./docs/face_track_annotation.html">Face Track Annotation</a></li>
+                  <li><a href="./docs/via_with_remote_images.html">Setting up a project containing remotely hosted images</a></li>
+                  <li><a href="./docs/via_shared_project_server_setup.html">VIA Shared Project Server Setup</a></li>
+                </ul>
+              </li>
+              <li>A <a href="http://www.robots.ox.ac.uk/~vgg/blog/vgg-image-annotator.html">blog post</a> describing VIA and its open source ecosystem.</li>
+              <li>An <a href="https://arxiv.org/pdf/1904.10699">arXiv report</a> describing the VIA software and its impact (updated on August 2019).</li>
+              <li><a href="docs/pair_annotator.html">VIA Use Case: Pair Annotation</a> shows how VIA3 can be used to define metadata associated with an image pair.</li>
+              <li>Description of the structure of <a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/CodeDoc.md#structure-of-via-project-json-file">VIA3 Project JSON File</a>.</li>
+              <li>Slides (<a href="docs/slides/via_adutta_3nov2020.pdf">pdf</a>, <a href="docs/slides/via_adutta_3nov2020.odp">odp</a>) and videos (<a href="docs/videos/Manual_Annotation_of_Images_and_Video_using_VIA_2020-11-03-Abhishek_Dutta.mp4">mp4</a>, <a target="_blank" href="https://www.youtube.com/watch?v=wl4WntietHg">youtube</a>) from presentation titled "Manual Annotation of Images and Video using VIA" at VGG Meeting on Nov. 3, 2020.</li>
+              <li>Slides (<a href="docs/slides/sorse_adutta_10Nov2020.pdf">pdf</a>, <a href="docs/slides/sorse_adutta_10Nov2020.odp">odp</a>) and videos (<a href="docs/videos/SORSE_Learnings_from_developing_and_maintaining_VIA_2020-11-10-Abhishek_Dutta.mp4">mp4</a>, <a target="_blank" href="https://www.youtube.com/watch?v=WNgHy2hIuUI">youtube</a>) from a talk titled "Learnings from developing and maintaining a research software that has been used more than 3 million times in the last 3 years" at International Series of Online Research Software Events (<a href="https://sorse.github.io/programme/talks/event-022/">SORSE</a>) on Nov. 10, 2020.</li>
+              <li><a href="docs/signdb.html">Manual Annotation Tools for Sign Language Annotation</a></li>
+            </ul>
+
+            <h3>Citation</h3>
+            <p>If you use this software, please cite it as follows:</p>
+            <p><cite>Abhishek Dutta and Andrew Zisserman. 2019. <a href="docs/dutta2019vgg_arxiv.pdf">The VIA Annotation Software for Images, Audio and Video</a>. In Proceedings of the 27th ACM International Conference on Multimedia (MM ’19), October 21–25, 2019, Nice, France. ACM, New York, NY, USA, 4 pages. https://doi.org/10.1145/3343031.3350535</cite>.</p>
+            <pre>
+@inproceedings{dutta2019vgg,
+  author = {Dutta, Abhishek and Zisserman, Andrew},
+  title = {The {VIA} Annotation Software for Images, Audio and Video},
+  booktitle = {Proceedings of the 27th ACM International Conference on Multimedia},
+  series = {MM '19},
+  year = {2019},
+  isbn = {978-1-4503-6889-6/19/10},
+  location = {Nice, France},
+  numpages = {4},
+  url = {https://doi.org/10.1145/3343031.3350535},
+  doi = {10.1145/3343031.3350535},
+  publisher = {ACM},
+  address = {New York, NY, USA},
+}
+
+@misc{dutta2016via,
+  author = "Dutta, A. and Gupta, A. and Zissermann, A.",
+  title = "{VGG} Image Annotator ({VIA})",
+  year = "2016",
+  howpublished = "http://www.robots.ox.ac.uk/~vgg/software/via/",
+  note = "Version: X.Y.Z, Accessed: INSERT_DATE_HERE"
+}
+            </pre>
+
+                <h3>Developer's Resources</h3>
+                <p>VIA software is developed using HTML, CSS and Javascript and is based solely on standard features available in modern web browsers. VIA does not depend on any external libraries. These design decisions has helped us create a very light weight and feature rich manaul annotation software that can run on most modern web browsers without requiring any installation or setup. The full VIA software sprouted from an <a href="http://www.robots.ox.ac.uk/~vgg/software/via/via-0.0.1.txt" target="_blank">early prototype</a> of VIA which implemented a minimal -- yet functional -- image annotation tool using only 40 lines of HTML/CSS/Javascript code that runs as an offline application in most modern web browsers. This early prototype
+            provides a springboard for understanding the current codebase of VIA which is just an extension of the early prototype. Furthermore, the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">introductory tutorials</a> prepared by Mozilla is also very helpful in understanding the basic concepts of HTML/CSS/Javascript platform.</p>
+
+              <p>The VIA source code repository contains a separate folder for each major version of VIA: <a href="https://gitlab.com/vgg/via/blob/master/via-1.x.y/" target="_blank">via-1.x.y</a>, <a href="https://gitlab.com/vgg/via/blob/master/via-2.x.y/" target="_blank">via-2.x.y</a> and <a href="https://gitlab.com/vgg/via/blob/master/via-3.x.y/" target="_blank">via-3.x.y</a>.
+
+                VIA is released under
+                the <a href="https://gitlab.com/vgg/via/blob/master/LICENSE"
+                target="_blank">two-clause BSD license</a>.  If you
+                wish to contribute code to VIA, and we encourage you
+                to do so, your contributions must be under the same
+                license.  The following code documentation are
+                available for each major version of VIA:</p>
+                <ul class="ul-large">
+                  <li><a href="https://gitlab.com/vgg/via/blob/master/via-1.x.y/CodeDoc.md" target="_blank">Code Documentation for via-1.x.y</a></li>
+                  <li><a href="https://gitlab.com/vgg/via/blob/master/via-2.x.y/CodeDoc.md" target="_blank">Code Documentation for via-2.x.y</a></li>
+                  <li><a href="https://gitlab.com/vgg/via/blob/master/via-3.x.y/CodeDoc.md" target="_blank">Code Documentation for via-3.x.y</a></li>
+                </ul>
+
+                <h3>Scripts</h3>
+                <p>The following scripts are often useful for processing the annotations produced by the VIA software. If you have such scripts that you would like to share with other users, please <a href="mailto:adutta _at_ robots.ox.ac.uk">let us know</a>.</p>
+                <table class="table table-responsive">
+                <tr>
+                  <th>Version</th>
+                  <th>Script</th>
+                  <th>Description</th>
+                  <th>Dependencies</th>
+                </tr>
+                <tr>
+                  <td>via-3.x.y</td>
+                  <td><a href="https://github.com/cdli-gh/coco-convertor/">CDLI COCO to Web Annotation Format</a> (External)</td>
+                  <td>First convert VIA3 annotations to COCO format and then to <a href="https://www.w3.org/TR/annotation-model/">Web Annotation Data Model</a> format using the <a href="https://github.com/cdli-gh/coco-convertor/blob/master/coco_to_w3c.py">coco_to_w3c.py</a> script developed by the <a href="https://github.com/cdli-gh/">CDLI</a> project.</td>
+                  <td>Python3</td>
+                </tr>
+                <tr>
+                  <td>via-2.x.y</td>
+                  <td><a href="https://gitlab.com/vgg/via/blob/via-2.x.y/via-2.x.y/scripts/io/extract_img_regions.py">extract_img_regions.py</a></td>
+                  <td>Crop and save image regions defined in a VIA-2.x.y project (json file)</td>
+                  <td>Python3, PIL Image</td>
+                </tr>
+                <tr>
+                  <td>via-2.x.y</td>
+                  <td><a href="https://gitlab.com/vgg/via/-/blob/via-2.x.y/via-2.x.y/scripts/io/merge_via2_projects.py">merge_via2_projects.py</a></td>
+                  <td>Merge multiple projects (json file) created using VIA-2.x.y</td>
+                  <td>Python3</td>
+                </tr>
+                <tr>
+                  <td>via-3.x.y</td>
+                  <td><a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/scripts/io/merge_via3_projects.py">merge_via3_projects.py</a></td>
+                  <td>Merge multiple projects (json file) created using VIA-3.x.y</td>
+                  <td>Python3</td>
+                </tr>
+                <tr>
+                  <td>via-3.x.y</td>
+                  <td><a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/scripts/io/export_via_annotations.py">export_via_annotations.py</a></td>
+                  <td>Export VIA3 shared project annotations in CSV format</td>
+                  <td>Python3</td>
+                </tr>
+                <tr>
+                  <td>via-3.x.y</td>
+                  <td><a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/scripts/io/via3_video_annotation_to_coco.html">via3_video_annotation_to_coco.html</a></td>
+                  <td>Export VIA3 shared project frame level video annotations in <a href="https://cocodataset.org/#format-data">COCO</a> format</td>
+                  <td>View HTML in Firefox browser</td>
+                </tr>
+                </table>
+
+                <h3>Contact</h3>
+                <p>Contact <a href="mailto: adutta_remove_me_@robots.ox.ac.uk">Abhishek Dutta</a> or <a href="mailto: pinto_remove_me_@robots.ox.ac.uk">David Pinto</a> for any queries or feedback related to this application. We welcome all forms of <a href="https://gitlab.com/vgg/via/blob/master/Contributors.md">contributions</a> (code update, documentation, bug reports, etc) from users. These contributions must adhere to the existing <a href="https://gitlab.com/vgg/via/blob/master/LICENSE">license</a> of VIA project.</p>
+
+
+                <h3>News</h3>
+                <ul class="ul-large" style="display:inline-block;height:15em; overflow-y:auto; border:1px solid #cccccc;">
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.7">VIA 1.0.7</a> : (02-Jul-2024) maintenance release of VIA 1.0.x series with a <a href="https://gitlab.com/vgg/via/-/blob/master/via-1.x.y/CHANGELOG">minor fix</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.13">VIA 3.0.13</a> : (02-Jul-2024) bug fixes and improvements for video frame region annotations, see <a href="https://gitlab.com/vgg/via/-/blob/master/via-3.x.y/CHANGELOG">CHANGELOG</a> for more details.</li>
+                  <li><a href="https://gitlab.com/vgg/lisa/-/tree/lisa-0.0.4">LISA 0.0.4</a> : (07-Mar-2024) lots of new features and some bug fixes, see <a href="https://gitlab.com/vgg/LISA/-/blob/master/CHANGELOG">CHANGELOG</a> for more details.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.12">VIA 3.0.12</a> : (14-Jul-2023) bug fixes with temporal segmenter in video annotator.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.12">VIA 2.0.12</a> : (26 Sep. 2022) point region now gets assigned default value, other minor fixes.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/blob/master/FrequentlyAskedQuestions.md">FAQ</a>: (09-Feb-2022) added Frequently Asked Questions page.</li>
+                  <li><a href="https://gitlab.com/vgg/lisa/-/releases/lisa-0.0.3">LISA 0.0.3</a> : (08-Oct-2021) public release of List Annotator (<a href="https://gitlab.com/vgg/lisa/">LISA</a>) which can be used to efficiently annotate a large list of images or videos.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.11">VIA 3.0.11</a> : (08-Oct-2021) temporal segments can now have attributes, add/delete polygon vertex, added magnifier and zoom for image annotator.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.10">VIA 3.0.10</a> : (04-March-2021) lots of bug fixes and some minor improvements, see <a href="https://gitlab.com/vgg/via/-/blob/master/via-3.x.y/CHANGELOG">CHANGELOG</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.11">VIA 2.0.11</a> : (03 Mar. 2021) Polygon vertices can now be added/deleted using [Meta] + Click operation in MacOS, status messages can now be disabled.</li>
+                  <li>10 Nov. 2020 : Slides (<a href="docs/slides/sorse_adutta_10Nov2020.pdf">pdf</a>, <a href="docs/slides/sorse_adutta_10Nov2020.odp">odp</a>) and videos (<a href="docs/videos/SORSE_Learnings_from_developing_and_maintaining_VIA_2020-11-10-Abhishek_Dutta.mp4">mp4</a>, <a target="_blank" href="https://www.youtube.com/watch?v=WNgHy2hIuUI">youtube</a>) from a talk titled "Learnings from developing and maintaining a research software that has been used more than 3 million times in the last 3 years" at International Series of Online Research Software Events (<a href="https://sorse.github.io/programme/talks/event-022/">SORSE</a>) on Nov. 10, 2020.</li>
+                  <li>03 Nov. 2020 : Slides (<a href="docs/slides/via_adutta_3nov2020.pdf">pdf</a>, <a href="docs/slides/via_adutta_3nov2020.odp">odp</a>) and videos (<a href="docs/videos/Manual_Annotation_of_Images_and_Video_using_VIA_2020-11-03-Abhishek_Dutta.mp4">mp4</a>, <a target="_blank" href="https://www.youtube.com/watch?v=wl4WntietHg">youtube</a>) from presentation titled "Manual Annotation of Images and Video using VIA" at VGG Meeting on Nov. 3, 2020.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.9">VIA 3.0.9</a> : (09 Oct. 2020) added subtitle editor for audio and video, added zoom (i.e. magnifying glass) feature to inspect finer details in image annotator.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.8">VIA 3.0.8</a> : (01 July 2020) added <a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/scripts/io/via3_video_annotation_to_coco.html">standalone external HTML application</a> to export frame level video annotations to COCO format, temporal segment rows are sorted numerically, audio amplitude visualization for video annotation (experimental feature, <a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/src/js/_via_temporal_segmenter.js#L57">disabled by default</a>), fixed <a href="https://gitlab.com/vgg/via/-/blob/master/via-3.x.y/CHANGELOG">other issues</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.10">VIA 2.0.10</a> : (08 Jun. 2020) COCO import/export code were rewritten to address multiple issues reported by users, other <a href="https://gitlab.com/vgg/via/-/blob/master/via-2.x.y/CHANGELOG">user reported issues</a> were also fixed.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.7">VIA 3.0.7</a> : (07 May 2020) improved timeline in video and audio annotation, fixed <a href="https://gitlab.com/vgg/via/-/blob/master/via-3.x.y/CHANGELOG">some issues</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/CodeDoc.md#structure-of-via-project-json-file">VIA3 JSON Format</a> : (01 May 2020) Description of the structure of <a href="https://gitlab.com/vgg/via/-/blob/via-3.x.y/via-3.x.y/CodeDoc.md#structure-of-via-project-json-file">VIA3 Project JSON File</a>.</li>
+                  <li><a href="">Pair Annotation</a> : (16 Jan. 2020) <a href="docs/pair_annotator.html">VIA Use Case: Pair Annotation</a> shows how VIA3 can be used to define metadata associated with an image pair.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.9">VIA 2.0.9</a> : (02 Mar. 2020) bug fixes release, see <a href="https://gitlab.com/vgg/via/blob/master/CHANGELOG">CHANGELOG</a>.</li>
+                  <li><a href="https://doi.org/10.1145/3343031.3350535">ACM MM 2019</a> : (24 Oct. 2019) we presented a <a href="https://doi.org/10.1145/3343031.3350535">paper</a> about the VIA software at the <a href="https://acmmm.org/">ACM Multimedia Conference 2019</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.6">VIA 3.0.6</a> : (20 August 2019) collapse file and spatial metadata editor, spatial regions are automatically associated with selected temporal segments. (updated previous 3.0.6 release to included minor fixes)</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.5">VIA 3.0.5</a> : (14 August 2019) extreme clicking method for rectangular and circular regions, import VIA2 projects, file metadata editor, three way merge for VIA shared projects, etc.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.4">VIA 3.0.4</a> : (02 July 2019) region label, bulk file URI addition, fixed major issue with file-id and view-id, minor improvements and bug fixes.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.3">VIA 3.0.3</a> : (26 June 2019) collaborative annotation, resolve file properties, bug fixes.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.8">VIA 2.0.8</a> : (14 June 2019) rotated ellipse, import/export of <a href="http://cocodataset.org/#format-data">COCO</a> annotations, shows region shape description and bug fixes.</li>
+                  <li><a href="https://arxiv.org/abs/1904.10699">arXiv:abs/1904.10699</a> : (31 May 2019) VIA now supports manual annotation of Images, Audio and Video. We updated our <a href="https://arxiv.org/pdf/1904.10699">arxiv paper</a> to describe recent updates to the VIA suite of open source applications.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.2">VIA 3.0.2</a> : (21 May 2019) bug fixes (shape selector icon gets highlighted, fixed temporal segment variable value rename, minor UI updates)</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.1">VIA 3.0.1</a> : (20 May 2019) fixed issue with keyboard shortcuts.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-3.0.0">VIA 3.0.0</a> : (17 May 2019) A major upgrade to the VIA codebase to allow manual annotation of audio and video.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.7">VIA 2.0.7</a> : (01 May 2019) user's mouse cursor coordinate is visible (<a href="https://gitlab.com/vgg/via/issues/172">172</a>), some bug fixes (<a href="https://gitlab.com/vgg/via/issues/173">issue 173</a>, <a href="https://gitlab.com/vgg/via/merge_requests/15"> merge 15</a>).</li>
+                  <li><a href="https://arxiv.org/abs/1904.10699">arXiv:abs/1904.10699</a> : (25 Apr. 2019) A <a href="https://arxiv.org/pdf/1904.10699">report</a> describing the VGG Image Annotator (VIA) is now available from <a href="https://arxiv.org/abs/1904.10699">arXiv</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.6">VIA 2.0.6</a> : (25 Mar. 2019) regions can now be <a href="https://gitlab.com/vgg/via/issues/175">coloured based on attribute value</a>, some bug fixes.</li>
+                  <li><a href="https://www.mpls.ox.ac.uk/news/mpls-impact-awards-2019-winners-announced-at-winter-reception">MPLS Award 2019</a> : (19 Feb. 2019) Dr. Abhishek Dutta was awarded the MPLS Early Career Impact Award for developing "the VGG Image Annotator – a widely used open source manual image annotation software application".</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.5">VIA 2.0.5</a> : (03 Dec. 2018) fixed issue which prevented firefox users from downloading project, annotations, etc.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.4">VIA 2.0.4</a> : (29 Nov. 2018) keyboard shortcut update, bug fixes, selective exclusion of groups images in grid view.</li>
+                  <li style="text-decoration: line-through">VIA 2.0.3 : (25 Oct. 2018) improved keyboard shortcut keys, bug fixes (on-image annotation editor and checkbox attributes).</li>
+                  <li>A <a href="http://www.robots.ox.ac.uk/~vgg/blog/vgg-image-annotator.html">blog post</a> describing VIA and its open source ecosystem published at <a href="http://www.robots.ox.ac.uk/~vgg/blog/">VGG blog</a> on 17 Oct. 2018.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.2">VIA 2.0.2</a> : (10 Oct. 2018) quick update of annotations using on-image annotation editor (<a href="https://gitlab.com/vgg/via/blob/master/Contributors.md">based on user contribution</a>), bug fixes.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.1">VIA 2.0.1</a> : (26 Sep. 2018) bug fixes and <a href="https://gitlab.com/vgg/via/blob/master/CHANGELOG">minor improvements</a> (download as image, highlight row in annotation editor, etc.)</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-2.0.0">VIA 2.0.0</a> : (15 Jun. 2018) <a href="https://gitlab.com/vgg/via/blob/master/CHANGELOG">major upgrade</a> to VIA with following advanced features: upgraded user interface, projects, image grid view for bulk update of annotations, new attribute types (checkbox, radio, image, dropdown), annotate remote images, new attribute editor and upgraded annotation editor.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.6">VIA 1.0.6</a> : (15 Jun. 2018) maintainenace release of VIA 1.0.x series with <a href="https://gitlab.com/vgg/via/blob/via-1.x.y/CHANGELOG">minor fixes</a>.</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.5">VIA 1.0.5</a> : (16 Jan. 2018) fixed <a href="https://gitlab.com/vgg/via/issues/85">issue 85</a>, merged contributed code (see <a href="https://gitlab.com/vgg/via/blob/master/Contributors.md">Contributors.md</a>)</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.4">VIA 1.0.4</a> : (17 Oct. 2017) polygon copy/paste issue fixed (see <a href="https://gitlab.com/vgg/via/issues/107">issue 107</a>)</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.3">VIA 1.0.3</a> : (07 Aug. 2017) fixed a major issue (extra comma in csv export, see <a href="https://gitlab.com/vgg/via/issues/103">issue 103</a>)</li>
+                  <li style="text-decoration: line-through">VIA 1.0.2 : (04 Aug. 2017) minor bug fix release on August 04, 2017</li>
+                  <li><a href="https://gitlab.com/vgg/via/-/tags/via-1.0.1">VIA 1.0.1</a> : (11 Jul. 2017) minor bug fix release</li>
+                  <li><a href="https://web.archive.org/web/20190220153944/https://gitlab.com/vgg/via/-/tags/v1.0.0">VIA 1.0.0</a> : (04 Apr. 2017) first public release</li>
+                  <li><a href="via-0.1b.html">VIA 0.1-beta</a> : (Sep. 2016) early prototype of VIA software used for internal tests</li>
+                </ul>
+
+                <h3>Acknowledgements</h3>
+              <p>Development and maintenance of VIA software has been supported by the following two research grants:
+                <ul>
+                  <li>Visual AI: An Open World Interpretable Visual Transformer (UKRI Grant <a href="https://gtr.ukri.org/projects?ref=EP%2FT028572%2F1">EP/T028572/1</a>)</li>
+                  <li>Seebibyte: Visual Search for the Era of Big Data (EPSRC Grant <a href="https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/M013774/1">EP/M013774/1</a>)</li>
+                </ul>
+              </p>
+              <img class="img-fluid" src="./images/via_logo.png" title="VGG Image Annotator Logo">
+              <img class="img-fluid" alt="EPSRC logo" src="./images/epsrc_logo.jpg" />
+              <img class="img-fluid" alt="Seebibyte Logo" src="./images/seebibyte_logo.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <!-- /ACTUAL PAGE CONTENT -->
+
+    <!-- INCLUDE VGG FOOTER -->
+    <div id="vggfooter"></div>
+
+    <!--  Page Scroll to Top  -->
+    <a class="scroll-to-top js-scroll-trigger" href=".top-header">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <!-- Global JS -->
+    <script src="/~vgg/assets/js/jquery.min.js"></script>
+    <script src="/~vgg/assets/js/popper.min.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="/~vgg/assets/js/bootstrap.min.js"></script>
+
+    <!-- Slick JS -->
+    <script src="/~vgg/assets/js/jquery.easing.1.3.js"></script>
+    <script src="/~vgg/assets/js/slick.min.js"></script>
+    <!-- Theme JS -->
+    <script src="/~vgg/assets/js/theme.js"></script>
+
+    <!-- cookiealert JS, see /~vgg/assets/css/cookiealert/LICENSE -->
+    <script src="/~vgg/assets/js/cookiealert/cookiealert.js"></script>
+
+    <!-- Load includes -->
+    <script>
+    $(function(){
+        $("#vggnavbar").load("/~vgg/vggnavbar.html");
+        $("#vggsocials").load("/~vgg/vggsocials.html");
+        $("#vggfooter").load("/~vgg/vggfooter.html");
+    });
+    </script>
+
+    <!-- GoogleAnalytics code -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-20555581-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+</body>
+
+</html>

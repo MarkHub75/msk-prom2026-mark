@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "url": "https://us.aws.cdn.hf.co/xet-bridge-us/639c045c34967bcf4564bdc5/330ba7ef28b731141d1fc04c840fd322570f4e2842a44988c2e42a05b2f9eae0",
+  "headers": {
+    "content-type": "application/octet-stream",
+    "accept-ranges": "bytes",
+    "content-disposition": "inline; filename*=UTF-8''model.safetensors; filename=\"model.safetensors\";",
+    "etag": "\"330ba7ef28b731141d1fc04c840fd322570f4e2842a44988c2e42a05b2f9eae0\"",
+    "content-security-policy": "default-src 'none'; media-src 'self'; sandbox allow-same-origin",
+    "access-control-allow-headers": "Content-Range, Content-Type, Content-Disposition, ETag",
+    "access-control-expose-headers": "*",
+    "content-length": "10241912",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "x-request-id": "01M5MXNM2AF95ZDBK3JQQFHWJE",
+    "x-hf-cdn-pop": "aws-eu-west-3",
+    "date": "Fri, 23 Oct 2026 17:41:50 GMT",
+    "connection": "close"
+  }
+}

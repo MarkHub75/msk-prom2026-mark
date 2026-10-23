@@ -1,0 +1,29 @@
+[
+  {
+    "url": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+    "title": null,
+    "published_date": null,
+    "author": "ХТ",
+    "extracted_characters": 31095,
+    "first_line": "2025 ",
+    "extraction": "Fresh TinyFish fetch; original PDF bytes unavailable; no visual PDF read"
+  },
+  {
+    "url": "https://files.lin-q.ru/tpu/pr/2026_linq_presentation.pdf",
+    "title": "Решения для ускорения работы искуственных  нейронных сетей на базе процессоров LinQ",
+    "published_date": null,
+    "author": "Севрюков Сергей",
+    "extracted_characters": 7998,
+    "first_line": "РОССИЙСКИЕ РЕШЕНИЯ",
+    "extraction": "Fresh TinyFish fetch; original PDF bytes unavailable; no visual PDF read"
+  },
+  {
+    "url": "https://lin-q.ru/docs",
+    "title": "LinQ_Документация",
+    "published_date": null,
+    "author": null,
+    "extracted_characters": 793,
+    "first_line": "ГЛАВНАЯ",
+    "extraction": "Fresh TinyFish fetch; original PDF bytes unavailable; no visual PDF read"
+  }
+]

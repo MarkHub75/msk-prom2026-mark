@@ -1,0 +1,200 @@
+[
+  {
+    "key": "caviar",
+    "url": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/",
+    "final": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/",
+    "status": 200,
+    "bytes": 94385,
+    "sha256": "7e65c6b2cc3ed5af1ca53cabfdd93bfb204bb4d5a52c91b0ae8cefb5e91e3e50",
+    "time": "2026-10-23T19:31:13.897207+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\caviar.txt",
+    "type": "text/html; charset=UTF-8"
+  },
+  {
+    "key": "walkxml",
+    "url": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/Walk1/wk1gt.xml",
+    "final": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/Walk1/wk1gt.xml",
+    "status": 200,
+    "bytes": 1490491,
+    "sha256": "dfcb8135fe46e7fbbcb7616d93f4f16aee040570185227ecd8c81aaa87de06cd",
+    "time": "2026-10-23T19:31:13.935276+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\walkxml.txt",
+    "type": "application/xml"
+  },
+  {
+    "key": "runxml",
+    "url": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/Fight_RunAway1/fra1gt.xml",
+    "final": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/Fight_RunAway1/fra1gt.xml",
+    "status": 200,
+    "bytes": 1203469,
+    "sha256": "865ea2178d149fefa5642022c0dafd6bbcd072e7a0e365148f38dcd4dc4292a3",
+    "time": "2026-10-23T19:31:13.944091+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\runxml.txt",
+    "type": "application/xml"
+  },
+  {
+    "key": "hmdbconfig024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/slowonly_k400_pretrained_r50_8x4x1_40e_hmdb51_rgb.py",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/slowonly_k400_pretrained_r50_8x4x1_40e_hmdb51_rgb.py",
+    "status": 200,
+    "bytes": 2659,
+    "sha256": "42971f6030bbfbb9fda005c2bdf86e014f96c4b54d23412857b5df961ed3a1ff",
+    "time": "2026-10-23T19:31:13.774619+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\hmdbconfig024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "hmdbparent024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/slowonly_k400_pretrained_r50_8x4x1_40e_ucf101_rgb.py",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/slowonly_k400_pretrained_r50_8x4x1_40e_ucf101_rgb.py",
+    "status": 200,
+    "bytes": 3313,
+    "sha256": "bc872d1c6ce9c8480d48f3e3b16fa880b6589428e2a1f09a5bd98c1951f01448",
+    "time": "2026-10-23T19:31:13.968451+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\hmdbparent024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "slowonly024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/README.md",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/recognition/slowonly/README.md",
+    "status": 200,
+    "bytes": 43890,
+    "sha256": "4c715b477038ba9fb0c85132414d15312d3bb66fc00714ed2874cf4419a23ca2",
+    "time": "2026-10-23T19:31:13.762959+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\slowonly024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "hmdblabels024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/tools/data/hmdb51/label_map.txt",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/tools/data/hmdb51/label_map.txt",
+    "status": 200,
+    "bytes": 377,
+    "sha256": "c24c56a7af6f3ea55c8fb2a8e5b2c3a42644fcc5d86e49313536cfbd3499538a",
+    "time": "2026-10-23T19:31:13.958891+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\hmdblabels024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "hmdbrgbdata024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/tools/data/hmdb51/README.md",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/tools/data/hmdb51/README.md",
+    "status": 200,
+    "bytes": 4261,
+    "sha256": "955454fa28644b847f2609108720b3d7e971649bc0411baf24427337ba4461ed",
+    "time": "2026-10-23T19:31:18.932499+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\hmdbrgbdata024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "hmdbbase024",
+    "url": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/_base_/models/slowonly_r50.py",
+    "final": "https://raw.githubusercontent.com/open-mmlab/mmaction2/v0.24.1/configs/_base_/models/slowonly_r50.py",
+    "status": 200,
+    "bytes": 587,
+    "sha256": "c9ee38dd4c73f12e8a399d4a93390aa8f1f47e5c74b684ccb3de74cbe03f9d75",
+    "time": "2026-10-23T19:31:18.766561+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\hmdbbase024.txt",
+    "type": "text/plain; charset=utf-8"
+  },
+  {
+    "key": "avaclasses",
+    "url": "https://research.google.com/ava/download/ava_action_list_v2.2_for_activitynet_2019.pbtxt",
+    "final": "https://research.google.com/ava/download/ava_action_list_v2.2_for_activitynet_2019.pbtxt",
+    "status": 200,
+    "bytes": 2649,
+    "sha256": "6759290ef3cb5b0339291f2e9dc8994ce74277123f75911fc30d53e30baa5e28",
+    "time": "2026-10-23T19:31:18.778911+00:00",
+    "file": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\M04\\avaclasses.txt",
+    "type": "text/html"
+  },
+  {
+    "key": "hmdbweights",
+    "url": "https://download.openmmlab.com/mmaction/recognition/slowonly/slowonly_k400_pretrained_r50_8x4x1_40e_hmdb51_rgb/slowonly_k400_pretrained_r50_8x4x1_40e_hmdb51_rgb_20210630-cee5f725.pth",
+    "method": "HEAD",
+    "status": 200,
+    "headers": {
+      "Server": "Tengine",
+      "Content-Type": "application/octet-stream",
+      "Content-Length": "127223551",
+      "Connection": "keep-alive",
+      "Date": "Fri, 23 Oct 2026 19:31:22 GMT",
+      "x-oss-request-id": "6ADBB60A60178C33395C34E1",
+      "x-oss-cdn-auth": "success",
+      "Accept-Ranges": "bytes",
+      "ETag": "\"9CCA07AC44B4B3F2EC3F2E91A2D39F66-50\"",
+      "Last-Modified": "Tue, 02 Nov 2021 10:36:33 GMT",
+      "x-oss-object-type": "Multipart",
+      "x-oss-hash-crc64ecma": "5650757999912421698",
+      "x-oss-storage-class": "Standard",
+      "x-oss-version-id": "CAEQHhiBgIDU1PGA5xciIGRiNzFlNmJmZDRhZDQzYmE5ZGM1ZjQ4MzIyZTE0YTlj",
+      "x-oss-server-time": "80",
+      "Via": "ens-cache5.l2de4[1928,1928,200-0,M], ens-cache35.l2de4[1930,0], ens-cache16.de7[1946,1945,200-0,M], ens-cache22.de7[1950,0]",
+      "Ali-Swift-Global-Savetime": "1792783882",
+      "X-Cache": "MISS TCP_MISS dirn:-2:-2",
+      "X-Swift-SaveTime": "Fri, 23 Oct 2026 19:31:22 GMT",
+      "X-Swift-CacheTime": "15552000",
+      "Timing-Allow-Origin": "*",
+      "EagleId": "9b66334d17927838804052068e"
+    },
+    "time": "2026-10-23T19:31:22.773465+00:00"
+  },
+  {
+    "key": "kthwalk",
+    "url": "https://www.csc.kth.se/cvap/actions/person15_walking_d1_uncomp.avi",
+    "method": "HEAD",
+    "status": 200,
+    "headers": {
+      "Server": "nginx/1.22.1",
+      "Date": "Fri, 23 Oct 2026 19:31:23 GMT",
+      "Content-Type": "video/x-msvideo",
+      "Content-Length": "3158016",
+      "Connection": "keep-alive",
+      "Last-Modified": "Sat, 21 Aug 2004 20:00:51 GMT",
+      "ETag": "\"303000-3e22f78f822c0\"",
+      "Accept-Ranges": "bytes",
+      "Referrer-Policy": "same-origin",
+      "Strict-Transport-Security": "max-age=63072000"
+    },
+    "time": "2026-10-23T19:31:23.772084+00:00"
+  },
+  {
+    "key": "kthjog",
+    "url": "https://www.csc.kth.se/cvap/actions/person15_jogging_d1_uncomp.avi",
+    "method": "HEAD",
+    "status": 200,
+    "headers": {
+      "Server": "nginx/1.22.1",
+      "Date": "Fri, 23 Oct 2026 19:31:24 GMT",
+      "Content-Type": "video/x-msvideo",
+      "Content-Length": "1757184",
+      "Connection": "keep-alive",
+      "Last-Modified": "Sat, 21 Aug 2004 21:50:46 GMT",
+      "ETag": "\"1ad000-3e231020fd980\"",
+      "Accept-Ranges": "bytes",
+      "Referrer-Policy": "same-origin",
+      "Strict-Transport-Security": "max-age=63072000"
+    },
+    "time": "2026-10-23T19:31:24.727366+00:00"
+  },
+  {
+    "key": "kthrun",
+    "url": "https://www.csc.kth.se/cvap/actions/person15_running_d1_uncomp.avi",
+    "method": "HEAD",
+    "status": 200,
+    "headers": {
+      "Server": "nginx/1.22.1",
+      "Date": "Fri, 23 Oct 2026 19:31:25 GMT",
+      "Content-Type": "video/x-msvideo",
+      "Content-Length": "1333248",
+      "Connection": "keep-alive",
+      "Last-Modified": "Sat, 21 Aug 2004 21:50:37 GMT",
+      "ETag": "\"145800-3e23101868540\"",
+      "Accept-Ranges": "bytes",
+      "Referrer-Policy": "same-origin",
+      "Strict-Transport-Security": "max-age=63072000"
+    },
+    "time": "2026-10-23T19:31:25.839223+00:00"
+  }
+]

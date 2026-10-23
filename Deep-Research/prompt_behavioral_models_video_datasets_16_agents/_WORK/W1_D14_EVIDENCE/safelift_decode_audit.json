@@ -1,0 +1,322 @@
+[
+  {
+    "file": "jv-scrivania-sedia-001.mp4",
+    "bytes": 470725,
+    "sha256": "7488fc6b3a897e571935e4b19924cc1a7589d689ed45b3876c6e0e54b8d63ad6",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 193,
+    "first_pts_s": 0.0,
+    "last_pts_s": 6.408544726301735,
+    "annotation": [
+      {
+        "video": "jv-scrivania-sedia-001.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 196,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 4,
+          "box_height_cm": 46,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 79.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "jv-scrivania-sedia-002.mp4",
+    "bytes": 556117,
+    "sha256": "0d9de1146ffb461bb3cb9ee7e1d61717d3fc144c22e3192752cf40ffb6ae4691",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 214,
+    "first_pts_s": 0.0,
+    "last_pts_s": 7.109479305740988,
+    "annotation": [
+      {
+        "video": "jv-scrivania-sedia-002.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 196,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 46,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 79.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 5,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "jv-scrivania-terra-001.mp4",
+    "bytes": 573471,
+    "sha256": "0c1e1be9d5ea887aecb3f5de860db045953d1675d5e31b8e2f342b94d3793b3f",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 195,
+    "first_pts_s": 0.0,
+    "last_pts_s": 6.475300400534046,
+    "annotation": [
+      {
+        "video": "jv-scrivania-terra-001.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 196,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 4,
+          "box_height_cm": 0,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 33.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "jv-scrivania-terra-002.mp4",
+    "bytes": 653317,
+    "sha256": "9889b1124d364441ba482df53c2e698770deed5f2ea7c27db6cdc2d89d1855c0",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 243,
+    "first_pts_s": 0.0,
+    "last_pts_s": 8.07743658210948,
+    "annotation": [
+      {
+        "video": "jv-scrivania-terra-002.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 196,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 0,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 33.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 5,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "md-scrivania-sedia-001.mp4",
+    "bytes": 595865,
+    "sha256": "3c69dae1d7ed24f8d3b7897fd90407f67ba7dc10219e1ca487d687d276b43843",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 219,
+    "first_pts_s": 0.0,
+    "last_pts_s": 7.2763684913217626,
+    "annotation": [
+      {
+        "video": "md-scrivania-sedia-001.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 177,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 5,
+          "box_height_cm": 46,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 79.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "md-scrivania-sedia-002.mp4",
+    "bytes": 452498,
+    "sha256": "50fdd5d2a59f727127a88110e38a5452734b297972d78dfbee5cbf0fdb070f3b",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 208,
+    "first_pts_s": 0.0,
+    "last_pts_s": 6.9092122830440585,
+    "annotation": [
+      {
+        "video": "md-scrivania-sedia-002.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 177,
+        "action_start": {
+          "video_second": 1,
+          "box_height_cm": 46,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 79.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 4,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "md-scrivania-terra-001.mp4",
+    "bytes": 377185,
+    "sha256": "a7c7e91223911b63fcc730daa82a3bdd231811aaa30890878c7468fea3358c2a",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 156,
+    "first_pts_s": 0.0,
+    "last_pts_s": 5.173564753004006,
+    "annotation": [
+      {
+        "video": "md-scrivania-terra-001.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 177,
+        "action_start": {
+          "video_second": 0,
+          "box_height_cm": 0,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 33.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 3,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  },
+  {
+    "file": "md-scrivania-terra-002.mp4",
+    "bytes": 584527,
+    "sha256": "a1e017de9d5e36f774e689b56001862f067d0116598ff49fa1fa5726d250252f",
+    "width": 480,
+    "height": 864,
+    "average_rate": "749/25",
+    "frames": 219,
+    "first_pts_s": 0.0,
+    "last_pts_s": 7.2763684913217626,
+    "annotation": [
+      {
+        "video": "md-scrivania-terra-002.mp4",
+        "box_width_cm": 37.0,
+        "box_height_cm": 33.0,
+        "box_depth_cm": 28.0,
+        "subject_height_cm": 177,
+        "action_start": {
+          "video_second": 2,
+          "box_height_cm": 70,
+          "box_distance_horizontal_from_mid_ankles_cm": 73,
+          "hand_vertical_distance_from_floor_cm": 103.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "action_end": {
+          "video_second": 5,
+          "box_height_cm": 0,
+          "box_distance_horizontal_from_mid_ankles_cm": 36,
+          "hand_vertical_distance_from_floor_cm": 33.0,
+          "angle_of_asymmetry_degree": 0
+        },
+        "subjective_judgment": "unknown",
+        "one_hand_lifting": false,
+        "multiple_subjects_lifting": false,
+        "subject_age": 30.0,
+        "subject_gender": "M",
+        "Note": "The horizontal distances are measured from the central point of the hand, rather than from the box. Box height is measured from the bottom, rather than from the centre."
+      }
+    ]
+  }
+]

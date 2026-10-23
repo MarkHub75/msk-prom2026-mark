@@ -1,0 +1,22 @@
+{
+  "vast-ai/vast-python": {
+    "sha": "42c3a47b44603775a5e31f54de0fce3994bd3f11",
+    "date": "2026-10-23T02:10:38Z",
+    "url": "https://api.github.com/repos/vast-ai/vast-python/commits?per_page=1"
+  },
+  "vast-ai/docs": {
+    "sha": "626149741ba46f195c775b2f4c89b7329de2d902",
+    "date": "2026-10-21T19:14:02Z",
+    "url": "https://api.github.com/repos/vast-ai/docs/commits?per_page=1"
+  },
+  "pytorch/pytorch": {
+    "sha": "4f3ee7aa37084ba2469f05430db08ce449f3e206",
+    "date": "2026-10-23T15:44:50Z",
+    "url": "https://api.github.com/repos/pytorch/pytorch/commits?per_page=1"
+  },
+  "pytorch/vision": {
+    "sha": "c725e823011284b77082320577d288f82b36683c",
+    "date": "2026-10-22T18:34:02Z",
+    "url": "https://api.github.com/repos/pytorch/vision/commits?per_page=1"
+  }
+}

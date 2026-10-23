@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="./index_file/M.png">
+        <title>
+            Agreement
+        </title>
+        <style>
+            body{ font-size:150%; }
+            input{ font-size:150% }
+
+            #rcorners {
+                border-radius: 20px;
+                border: 4px solid black;
+                padding: 20px; 
+                width: 70%;
+                margin: 0 auto; /* center the div */
+                background-color: rgb(210, 212, 203); 
+                
+            }
+
+            .button {
+                background-color: black; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 24px;
+                margin: 4px 2px;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                border-radius: 10px
+                }
+
+                .button1 {
+                background-color: black; 
+                color: white; 
+                border: 2px solid black;
+                border-radius: 10px
+                }
+
+                .button1:hover {
+                background-color: rgb(210, 212, 203);
+                color: black;
+                border-radius: 10px
+                }
+        </style>
+
+        <!-- <script type="text/javascript">
+
+            //Tracking Code Customizations Only
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-28335121-4']);
+            _gaq.push(['_setCookiePath', '~dfouhey/']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>  -->
+
+        
+        <script>
+            var url = 'iuuqt;00esjwf/hpphmf/dpn0esjwf0gpmefst02iqkpT.P`wKcPgcqY7kyPRMzWcru.GUbL@vtq>tibsjoh';
+
+            function reveal(){
+                var idsToCheck = new Array('cond1','cond2','cond3','cond4');
+                for(var i=0;i<idsToCheck.length;i++){
+                    if(!document.getElementById(idsToCheck[i]).checked){
+                        alert('You must agree to all terms and conditions above!');
+                        return;
+                    }
+                }
+
+                cur_url = window.location.href
+                document.getElementById('agree').innerHTML = 'http://fouheylab.eecs.umich.edu/~dandans/projects/100DOH/downloads/' + cur_url.split('?')[1] + '.zip';
+                document.getElementById('agree').href = 'http://fouheylab.eecs.umich.edu/~dandans/projects/100DOH/downloads/' + cur_url.split('?')[1] + '.zip';
+
+                // var n = '';
+                // for(var i=0;i<url.length;i++){ n += String.fromCharCode(url.charCodeAt(i)-1); }
+                // document.getElementById('agree').innerHTML = n;
+                // document.getElementById('agree').href = n;
+                // document.getElementById('agree').style.fontSize = '70%';
+                // document.getElementById('dlt').src = 'dl.html';
+            }
+
+        </script>
+    </head>
+    <body>
+        
+        <br/><br/>
+        <div id='rcorners'> 
+            <center><h2>Agreement</h2></center>
+            By downloading the data, I agree that:<br/><br/>
+            <input type='checkbox' id='cond1'> (1) I am downloading this data for <b>non-commercial research purposes only.</b>
+            <br/>
+            <input type='checkbox' id='cond2'> (2) I will not redistribute the data, modified or otherwise, in any form except in academic publications where necessary to present examples or for reproducing results.
+            <br/>
+            <input type='checkbox' id='cond3'> (3) I will treat people appearing in this data with respect and dignity.
+            <br/>
+            <input type='checkbox' id='cond4'> (4) This data comes with no warranty or guarantee of any kind and <b>I accept full liability</b>. 
+            <br/><br/>
+
+            <center>
+            <input type='button' class='button button1' onClick='reveal()' value='I agree to the above'>
+
+            <br/><br/>
+
+            <a href='agree' id='agree'>You must agree to get access to the data!</a>
+            <br/><br/>
+
+            <iframe id='dlt' style='visibility:hidden; width:10px; height:10px; border:0px'></iframe>
+            </center>
+        </div>
+        
+    </body> 
+</html>

@@ -1,0 +1,7 @@
+﻿exec(open('_WORK/M08/fetch.py',encoding='utf-8-sig').read().split('a=list(')[0])
+base='https://raw.githubusercontent.com/open-mmlab/mmaction2/v1.2.0/'
+urls={k:base+p for k,p in {
+'tsm':'configs/recognition/tsm/README.md','tsn':'configs/recognition/tsn/README.md','slowfast':'configs/detection/slowfast/README.md','videomae':'configs/recognition/videomae/README.md','stgcn':'configs/skeleton/stgcn/README.md','stgcnpp':'configs/skeleton/stgcnpp/README.md','poseformat':'docs/en/dataset_zoo/skeleton.md','avadoc':'tools/data/ava/README.md','tsmconfig':'configs/recognition/tsm/tsm_imagenet-pretrained-r50_8xb16-1x1x8-50e_kinetics400-rgb.py','stgcnconfig':'configs/skeleton/stgcnpp/stgcnpp_8xb16-joint-u100-80e_ntu60-xsub-keypoint-2d.py','videomaeconfig':'configs/recognition/videomae/vit-base-p16_videomae-k400-pre_16x4x1_kinetics-400.py','slowfastconfig':'configs/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb8-8x8x1-20e_ava21-rgb.py'}.items()}
+urls.update({'pytorchvideo_license':'https://raw.githubusercontent.com/facebookresearch/pytorchvideo/main/LICENSE','ava_pb':'https://research.google.com/ava/ava_action_list_v2.2_for_activitynet_2019.pbtxt','ava_annotations':'https://storage.googleapis.com/ava-dataset/annotations/ava_v2.2.zip'})
+a=list(concurrent.futures.ThreadPoolExecutor(8).map(lambda kv:get(*kv),urls.items()));(out/'access2.json').write_text(json.dumps(a,indent=2));print(json.dumps(a,indent=2))
+

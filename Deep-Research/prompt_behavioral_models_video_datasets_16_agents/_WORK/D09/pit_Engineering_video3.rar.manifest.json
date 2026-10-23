@@ -1,0 +1,38 @@
+[
+  {
+    "name": "pexels-ye-qiao-5450903-3840x2160-30fps.mp4",
+    "size": 80900451,
+    "compressed": 80900451,
+    "crc": 198498699
+  },
+  {
+    "name": "pexels-site-engineer-8598731-3840x2160-60fps.mp4",
+    "size": 52206925,
+    "compressed": 52206925,
+    "crc": 4263687620
+  },
+  {
+    "name": "pexels-site-engineer-8598741-3840x2160-60fps.mp4",
+    "size": 62225767,
+    "compressed": 62225767,
+    "crc": 2472020077
+  },
+  {
+    "name": "pexels-suraphat-nueaon-3919163-1920x1080-30fps.mp4",
+    "size": 90944384,
+    "compressed": 90000064,
+    "crc": 1091465815
+  },
+  {
+    "name": "pexels-tom-fisk-7518596-3840x2160-30fps.mp4",
+    "size": 241813424,
+    "compressed": 239669952,
+    "crc": 2176790594
+  },
+  {
+    "name": "pexels-westarmoney-5098881-1920x1080-60fps.mp4",
+    "size": 4243082,
+    "compressed": 4243082,
+    "crc": 1623318896
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "status": "HYPOTHETICAL_ANALYTICAL_ONLY_NOT_MODEL_MEASUREMENT",
+  "alpha": 0.05,
+  "binomial": [
+    {
+      "n": 5,
+      "zero_misses": 0,
+      "upper_miss": 0.4507197283469412,
+      "lower_recall": 0.5492802716530588
+    },
+    {
+      "n": 10,
+      "zero_misses": 0,
+      "upper_miss": 0.2588655508930523,
+      "lower_recall": 0.7411344491069477
+    },
+    {
+      "n": 20,
+      "zero_misses": 0,
+      "upper_miss": 0.13910834066826516,
+      "lower_recall": 0.8608916593317348
+    },
+    {
+      "n": 50,
+      "zero_misses": 0,
+      "upper_miss": 0.058155079116972264,
+      "lower_recall": 0.9418449208830277
+    },
+    {
+      "n": 100,
+      "zero_misses": 0,
+      "upper_miss": 0.029513049607039932,
+      "lower_recall": 0.9704869503929601
+    },
+    {
+      "n": 300,
+      "zero_misses": 0,
+      "upper_miss": 0.00993608194445772,
+      "lower_recall": 0.9900639180555423
+    }
+  ],
+  "planning": [
+    {
+      "hypothetical_miss_target": 0.1,
+      "n_zero_required": 29
+    },
+    {
+      "hypothetical_miss_target": 0.05,
+      "n_zero_required": 59
+    },
+    {
+      "hypothetical_miss_target": 0.01,
+      "n_zero_required": 299
+    }
+  ],
+  "poisson": [
+    {
+      "hypothetical_camera_hours": 1,
+      "zero_false": 0,
+      "upper_false_per_camera_hour": 2.995732273553991
+    },
+    {
+      "hypothetical_camera_hours": 10,
+      "zero_false": 0,
+      "upper_false_per_camera_hour": 0.2995732273553991
+    },
+    {
+      "hypothetical_camera_hours": 100,
+      "zero_false": 0,
+      "upper_false_per_camera_hour": 0.029957322735539908
+    },
+    {
+      "hypothetical_camera_hours": 300,
+      "zero_false": 0,
+      "upper_false_per_camera_hour": 0.00998577424517997
+    }
+  ],
+  "two_sided_n20_upper": 0.16843347098308536,
+  "conditional_new_miss_n80_upper": 0.036754197779982345
+}

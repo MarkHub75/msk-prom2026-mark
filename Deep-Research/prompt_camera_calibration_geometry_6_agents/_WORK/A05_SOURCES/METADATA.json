@@ -1,0 +1,86 @@
+{
+  "openpose": {
+    "repo": "CMU-Perceptual-Computing-Lab/openpose",
+    "sha": "5c5d96523ef917bd30301245fdc8343937cae48d",
+    "date": "2024-08-03T01:40:45Z",
+    "files": {
+      "README.md": {
+        "url": "https://raw.githubusercontent.com/CMU-Perceptual-Computing-Lab/openpose/5c5d96523ef917bd30301245fdc8343937cae48d/README.md",
+        "status": 200
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/CMU-Perceptual-Computing-Lab/openpose/5c5d96523ef917bd30301245fdc8343937cae48d/LICENSE",
+        "status": 200
+      },
+      "doc/02_output.md": {
+        "url": "https://raw.githubusercontent.com/CMU-Perceptual-Computing-Lab/openpose/5c5d96523ef917bd30301245fdc8343937cae48d/doc/02_output.md",
+        "status": 200
+      }
+    }
+  },
+  "mmpose": {
+    "repo": "open-mmlab/mmpose",
+    "sha": "759b39c13fea6ba094afc1fa932f51dc1b11cbf9",
+    "date": "2025-08-04T07:30:49Z",
+    "files": {
+      "projects/rtmpose/README.md": {
+        "url": "https://raw.githubusercontent.com/open-mmlab/mmpose/759b39c13fea6ba094afc1fa932f51dc1b11cbf9/projects/rtmpose/README.md",
+        "status": 200
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/open-mmlab/mmpose/759b39c13fea6ba094afc1fa932f51dc1b11cbf9/LICENSE",
+        "status": 200
+      },
+      "projects/rtmpose/rtmpose/rtmcc_head.py": {
+        "url": "https://raw.githubusercontent.com/open-mmlab/mmpose/759b39c13fea6ba094afc1fa932f51dc1b11cbf9/projects/rtmpose/rtmpose/rtmcc_head.py",
+        "status": 404
+      }
+    }
+  },
+  "depthv2": {
+    "repo": "DepthAnything/Depth-Anything-V2",
+    "sha": "a561b849ebae10a6f5ef49e26c83cbbcd36c71bf",
+    "date": "2026-03-24T10:59:06Z",
+    "files": {
+      "README.md": {
+        "url": "https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/README.md",
+        "status": 200
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/LICENSE",
+        "status": 200
+      },
+      "metric_depth/README.md": {
+        "url": "https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/metric_depth/README.md",
+        "status": 200
+      },
+      "metric_depth/depth_anything_v2/dpt.py": {
+        "url": "https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/metric_depth/depth_anything_v2/dpt.py",
+        "status": 200
+      },
+      "depth_anything_v2/dpt.py": {
+        "url": "https://raw.githubusercontent.com/DepthAnything/Depth-Anything-V2/a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dpt.py",
+        "status": 200
+      }
+    }
+  },
+  "metric3d": {
+    "repo": "YvanYin/Metric3D",
+    "sha": "eb5b6fac0dc155e4e52f576e304fbf11655ff339",
+    "date": "2025-03-13T07:25:00Z",
+    "files": {
+      "README.md": {
+        "url": "https://raw.githubusercontent.com/YvanYin/Metric3D/eb5b6fac0dc155e4e52f576e304fbf11655ff339/README.md",
+        "status": 200
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/YvanYin/Metric3D/eb5b6fac0dc155e4e52f576e304fbf11655ff339/LICENSE",
+        "status": 200
+      },
+      "mono/utils/do_test.py": {
+        "url": "https://raw.githubusercontent.com/YvanYin/Metric3D/eb5b6fac0dc155e4e52f576e304fbf11655ff339/mono/utils/do_test.py",
+        "status": 200
+      }
+    }
+  }
+}

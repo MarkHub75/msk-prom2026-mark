@@ -1,0 +1,164 @@
+{
+  "checked_at": "2026-10-24T00:37:41+03:00",
+  "role": "Final compressor own text/schema/integrity checks; not a separate final auditor or model test",
+  "bytes": 60275,
+  "words_whitespace": 6112,
+  "human_bytes": 130061,
+  "human_words_whitespace": 9533,
+  "yaml_parsed": true,
+  "yaml_missing_required_fields": [],
+  "topic_and_context_correct": true,
+  "checked_at_timezone": true,
+  "answers_body_coverage": {
+    "A01": {
+      "words": 382,
+      "has_fact_link": true
+    },
+    "A02": {
+      "words": 1031,
+      "has_fact_link": true
+    },
+    "A03": {
+      "words": 1586,
+      "has_fact_link": true
+    },
+    "A04": {
+      "words": 509,
+      "has_fact_link": true
+    },
+    "A05": {
+      "words": 430,
+      "has_fact_link": true
+    },
+    "A06": {
+      "words": 283,
+      "has_fact_link": true
+    },
+    "A07": {
+      "words": 851,
+      "has_fact_link": true
+    },
+    "A08": {
+      "words": 355,
+      "has_fact_link": true
+    }
+  },
+  "answers_missing_heading": [],
+  "schema_table_matches": {
+    "artifact": [
+      9
+    ],
+    "fixture": [
+      4
+    ],
+    "scenario": [
+      8
+    ],
+    "route": [
+      3
+    ],
+    "handoff": [
+      9
+    ]
+  },
+  "all_tables_declared": true,
+  "table_row_counts": [
+    {
+      "header": [
+        "identity_and_locator",
+        "verified_payload",
+        "contract_rights_and_next_gate",
+        "evidence"
+      ],
+      "rows": 9
+    },
+    {
+      "header": [
+        "video",
+        "source_labels",
+        "last_observation",
+        "maximum_labelled_tail_and_limit"
+      ],
+      "rows": 4
+    },
+    {
+      "header": [
+        "case_and_observable",
+        "method_and_supply",
+        "data_labels_access_and_rights",
+        "required_gt_controls_metrics_and_stop"
+      ],
+      "rows": 8
+    },
+    {
+      "header": [
+        "route_and_hypothesis",
+        "inputs_outputs_and_split",
+        "comparison_and_gate"
+      ],
+      "rows": 3
+    },
+    {
+      "header": [
+        "recipient",
+        "established_input",
+        "required_answer"
+      ],
+      "rows": 9
+    }
+  ],
+  "markdown_links": 164,
+  "local_links_checked": 141,
+  "link_or_table_failures": [],
+  "missing_canonical_references": [],
+  "duplicate_explicit_ids": {},
+  "full_hashes_commits_not_in_evidence": [],
+  "external_urls_not_in_saved_evidence": [],
+  "six_final_names_exist": {
+    "SOURCES.md": true,
+    "RAW_FACTS.md": true,
+    "CRITIC.md": true,
+    "OPEN_QUESTIONS.md": true,
+    "report_human_behavioral_models_video_data.md": true,
+    "report_machine_behavioral_models_video_data.md": true
+  },
+  "unexpected_root_markdown": [],
+  "placeholder_patterns": [],
+  "semantic_boundary_checks": {
+    "no_model_or_device_execution": true,
+    "phone_work_or_movement": true,
+    "phone_reserve_concurrence": true,
+    "mist_unconfirmed": true,
+    "four_file_horizon_not_corpus": true,
+    "source_test_demoted": true,
+    "fall_stream_relative": true,
+    "gait_repeated_pts_new_images": true,
+    "behave_group_labels": true,
+    "positive_grants_and_scope": true,
+    "upt_bsd_utility_mit": true,
+    "routine_truck_not_risk": true,
+    "movinet_architecture_io_prefix": true,
+    "proposed_eight_stages": true,
+    "five_questions": true,
+    "root_settings_not_claimed_changed": true,
+    "no_extra_hazard_invented": true,
+    "no_arbitrary_budget": true
+  },
+  "inputs_sha256": {
+    "SOURCES.md": "633289bb31b6e55c75d1d26303ce928b7b6fa59dfc4ca85e10cebbc90c3be46b",
+    "RAW_FACTS.md": "40ecfb4b75112674df932aa47bb28055c4c369bfe6282de703154c1bafa4ad73",
+    "CRITIC.md": "328065470bc02d55dfefe45145f1bfd3c248f8358e2e38b457f4e910913137a0",
+    "OPEN_QUESTIONS.md": "965ac3bf4613a015ddf661b91d973900d056e6a7f41472dab60d1c2bcb3142a9",
+    "report_human_behavioral_models_video_data.md": "43c119cf35076a9284ea116d51a241a6f2896b2496c8b93d2ddb01b18bc69966"
+  },
+  "not_verified": [
+    "model inference/quality",
+    "tracker or event execution",
+    "export parity",
+    "compilation",
+    "LinQ execution",
+    "target data or SDK access",
+    "external URL freshness beyond saved Oct23 observations",
+    "new legal clearance"
+  ]
+}

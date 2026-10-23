@@ -1,0 +1,128 @@
+﻿from pathlib import Path
+p=Path('_WORK/W1_D11.md')
+p.write_text('''# W1 D11 — Independent CCTV walk/run evidence and evaluation limits
+
+Research access: 2026-10-23 19:37–19:42 UTC (22:37–22:42 Moscow). Scope: scenario 1, running/abrupt movements; independent alternatives to M04 CAVIAR/KTH. Read complete assigned prompt, Context-prompt.md, CASE_NOTES.md and relevant prior feasibility running section. No training, inference, paid computation, outreach or large archives. Only one new video acquired, 16,867,976 bytes. Evidence directory `_WORK/D11/`; scripts and HTTP manifests retained. `local_test` below means parsing/decode/arithmetic, never neural inference.
+
+## Branch question and decision
+
+Can we add genuinely surveillance-like video with actors and time labels, rather than another trimmed sports/action corpus? **Yes: BEHAVE original Edinburgh interactions adds a fully downloaded fixed-camera sequence with group running and hard interaction negatives; VIRAT Release2 adds an exact remotely accessible running-positive clip and linked actor annotation.** They do not close industrial validation or short-burst latency. BEHAVE has annotation coordinate/time metadata questions; VIRAT has deliberate minimum-duration and label-tail rules, missing walk negatives in its original taxonomy, incomplete tracks, and restrictive redistribution terms. Promote both to research reserves; do not market them as an industrial walk/run benchmark. CAVIAR frame/XML mismatch remains M04/W2 work and is not resolved here.
+
+## Verified findings
+
+### D11-F01 [artifact_access_checked; local_test: full decode] BEHAVE independent video acquired
+
+Original **BEHAVE Interactions Test Case Scenarios**, Edinburgh Vision Group, page copyright Aroosha Laghaee 2007; cited dataset paper S. J. Blunsden/R. B. Fisher, *The BEHAVE video dataset: ground truthed video for multi-person behavior classification*, Annals BMVA 2010(4), 1–12. This is the 2007/2010 surveillance dataset, **not** MPI BEHAVE CVPR2022 human-object RGB-D data.
+
+Direct video [D11-S02] GET200, **16,867,976 bytes**, SHA256 `2b5e93b7f198a3b56b6ab94638880825a864a601e8cc762195375f48461e5d19`. PyAV sequentially decoded **11,711 frames**, matching inclusive filename 35450–47160. Encoded MPEG4, **640×480, 25fps**, time_base1/25. First decoded frame PTS1/time0.04; sampled index9000 PTS9001/time360.04. Retained `behave_decode.json` and `behave_contact.jpg`. Contact sheet inspected: high fixed oblique camera overlooking street/parked cars; people appear small, cross/approach, run toward a group and become mutually occluded; glare/streaking/compression and parked-vehicle occlusion differ markedly from KTH isolated actors. Seven snapshots are not a complete gait adjudication or tracking result.
+
+Page says two views and 25fps capture. Acquired only the listed AVI; did not obtain or verify synchronized second-view media. Treat its simultaneous views as one capture group if later found. Do not use camera-view diversity as independent actor/session evidence.
+
+### D11-F02 [primary_docs; local_test: annotation parsing] BEHAVE carries actual actors and temporal labels, but group labels overlap
+
+`markup.txt` [S03], GET200, 6,565bytes, SHA256 `0b17bc8c1fec3f9336a2a013a9c0bb2be586bbf895f3cc4ed498eebbf801e719`. Schema: optional two bracketed actor-ID groups, semicolon-separated start/end global frames and scenario label; inline comments, inconsistent whitespace and an extra empty semicolon occur. A robust parser must preserve raw line and reject ambiguous/reversed rows rather than assume CSV purity.
+
+Local parser produced 171 parseable rows: WalkTogether43, RunTogether12, Chase10, InGroup35, Approach25, Split23, Fight19, Ignore2, Following1, Meet1. These are annotation rows, **not independent events**: exact duplicate `[2,4,5] RunTogether46334–46375` occurs twice; nested groups share the same interval. Parser intentionally required digit-only semicolon fields and therefore omitted the extra-semicolon duplicate, making 171 a parser result rather than a raw-row total. A reversed InGroup interval2111→2035 is present (line9). Use `behave_labels.json` to audit, not automatic cleaned ground truth.
+
+| Video/global range | Actor group | Source label | Use |
+|---|---|---|---|
+|35450–47160 /44396–44447|[1,2]|RunTogether|Short group-run candidate, 52 inclusive label frames (~2.08s at25fps)|
+|35450–47160 /44400–44447|[1,2,4]|RunTogether|Same episode, expanding group; do not count as new independent positive|
+|35450–47160 /44401–44447|[1,2,4,5]|RunTogether|Same episode, additional member|
+|35450–47160 /46306–46375|[0,1]|RunTogether|Second separated group-run candidate,70frames (~2.8s)|
+|35450–47160 /46330–46375|[2,4]|RunTogether|Overlapping chasers; same scene episode|
+|35450–47160 /44611–44634|[1,5,4]|WalkTogether|Nearby walking control,24frames; identity/group membership changes|
+|47300–58400 /51063–51167|[4,5]|RunTogether|Alternative source-listed file; not downloaded here|
+|47300–58400 /55004–55111|[1,4]|RunTogether|Overlaps nested group labels; not independent crops|
+
+The page defines Approach as groups approaching one another; it is **not a label of rapid approach**, acceleration, or danger. Chase is relational behavior and cannot be equated automatically with gait-run. RunTogether is a group-level statement, not per-frame leg-phase truth for every member. Unlabelled time is unknown because page says only many Clip1 interactions are labelled.
+
+### D11-F03 [artifact_access_checked; local_test; unknown] BEHAVE XGTF is usable structure, alignment is not yet benchmark-ready
+
+[S04] GET200,337,823bytes,SHA256 `90dd81cea02b4ae946ec681312a71ec2718247cf87d9c04f4502deb3e56c174d`. VIPER namespaces `http://lamp.cfar.umd.edu/viper#` and `http://lamp.cfar.umd.edu/viperdata#`; person objects IDs **0,1,2,4,5** with disjoint `framespan` intervals. Dynamic `bbox` has x,y,width,height and its own spans. No actor3 in this acquired annotation file; missing ID/box is not negative gait evidence. Example frame44396: actor0 bbox x138,y150,w48,h81; actor1 x73,y107,w40,h65; actor2 x1,y85,w16,h59.
+
+Important contradiction: embedded FILE Information has **NUMFRAMES77814 and FRAMERATE1.0**, while decoded video is25fps/11711frames. Page explains INFO/XGTF can describe the full original sequence and contains workstation paths. Therefore do not drive timestamps from XGTF FRAMERATE. Filename and decoded count support candidate local zero-based index=`global_frame-35450`, but exact one-frame origin and spatial bbox scale/registration were **not conclusively overlay-verified**. Contact sheet used that relation only as a hypothesis. Do not silently rescale boxes or certify event latency. Source filename range contains removed material outside this subclip (e.g.11201–11499 omitted on page); concatenating subclips on a new timeline destroys global indices unless explicit map retained. W2 should overlay representative boxes at run onset/offset and certify coordinate scaling, origin and PTS mapping.
+
+### D11-F04 [primary_docs; artifact_access_checked; local_test: join] VIRAT original Release2 exact running-positive located
+
+Release document **Introduction for VIRAT Video Dataset Release2.0**, docv1.0 **2011-09-30**, Kitware/VIRAT [S05]. Eleven outdoor stationary HD scenes,720p/1080p H264; possible wind jitter. Original event map [S06] confirms **ID10=Person running**, **ID9=carrying**; numbered subsection3.2.10 is not zero-based class9. No generic walk class in original12-event taxonomy.
+
+New exact link chain:
+
+- Clip **VIRAT_S_050301_00_000000_000036.mp4**, file metadata65,008,519bytes and direct HEAD200 [S07]. **No media payload downloaded or decoded**, fps/PTS and visible gait remain unknown.
+- Mapping [S08] event **30**, type**10**, duration**168**, start**45**, end**212**, one associated object; bit-vector maps to **objectID32** using official column-number-minus7 rule.
+- Events [S09] GET20011,845bytes; local parser found168 event-frame rows, frame45–212 inclusive, all type10 event30. Bbox is event extent, not necessarily identical to person bbox.
+- Objects [S10] GET200804,500bytes; object32 is type1(person), declared duration284frames38–321 but only **176 actual object-frame rows**; visible bbox heights80–107pixels in those rows. Gaps exist, so duration284 is not dense pose support. Event bboxes at frame45 x0,y654,w36,h120 and frame212 x0,y960,w36,h118; object bbox at first available frame38 x0,y669,w18,h80. Need visual alignment/edge truncation review, not blanket all-visible assumptions.
+
+Source original annotation guidelines state visible portions only, little extrapolation through occlusion; crowd-source tracks may fragment. Annotation mode differs: some clips have events1–6 only, others1–12. **Absence of type10 in a6-class clip is not a no-running negative**. XLS listing modes/folds found in official docs item metadata but not downloaded/read in this branch. The first24 checked mapping files had no run; targeted later20 mappings yielded run positives in050300/050301. Retained `mapping_checks*.json`; this is not a prevalence estimate.
+
+### D11-F05 [primary_docs; inference] VIRAT temporal semantics censor short bursts and contaminate naive onset/offset scoring
+
+Original Release2.0 §3.2.10 requires running for **more than2seconds**, labels beginning when visibly running, and end delayed2seconds after running stops (wording about transition to standing/walking/sitting is itself awkward and should not be silently normalized). A camera model that detects a brief real run can appear false-positive if using this annotation regime. Last two seconds of a source event can be physically walking. It cannot be used unmodified as framewise pure-run truth or as short-burst recall coverage.
+
+Original §4 recommends **scene-independent11-fold** evaluation, one scene per fold, and **scene-adapted5-fold** where different clips of same scene can occur train/test. Filename `VIRAT_S_XXYYZZ_KK_SSSSSS_TTTTTT`: XXcollection,YYscene,ZZsequence,KKsegment,start/endseconds. **First four numeric digitsXXYY identify scene**. Keep sequence+allsegments together at minimum; use scene grouping for unseen-camera claim. Actor object IDs are within-file track identities, not global people identities. All subsets/derived reannotations of identical video must share a source-video group.
+
+Original scorer permissive matches spatial/temporal overlap above10%, allows multiple detections to one event without extra false-alarm penalty and one detection to multiple events. This is incompatible with case one-incident-one-message validation: separately measure duplicate alerts and onset latency; do not transfer original Pd/F-score as evidence of those properties.
+
+### D11-F06 [artifact_access_checked; primary_docs; local_test] Newer VIRAT DIVA annotations DO contain walking and running
+
+This is a useful exception to M04's correct caution about **current MEVA** definitions: do not infer that VIRAT's linked older DIVA annotations exclude gait. Public GitLab repository pinned to **f1eff0d7db0dc0b25e1c99951ac0907521f3a216**, Roddy Collins,2021-09-21, README-update commit [S11]. KPF YAML,train/validate folders. Guideline **DIVA-Annotation-Guidelines-V1.0.docx.pdf** [S12],174,571bytes,GET200; text §4.4/4.5 requires ≥2s walking/running and extends each state1s after transition. Walking requires horizontal movement; pacing is annotated standing. These are dataset conventions, not universal human gait definitions.
+
+Pinned `train/VIRAT_S_000000.activities.yml` [S13],GET20048,956bytes; parser finds59 activity_walking,42 activity_standing,4 activity_running rows. Structure `act.act2={label:1.0}`,`id2=activityID`,`timespan:[{tsr0:[start,end]}]`,`actors:[{id1:trackID,timespan:...}]`,`src:truth`. **Same actor16** has run5482–5527, walk5528–5644; walk5843–5899, run5900–5981, walk5982–6024. Concurrent Transport_HeavyCarry5482–6085 is a real hard-case annotation pairing. Actor28 run12783–12939; actor2 run1820–1993. No inference that heavy-carry means improper carrying.
+
+However, this exact000000 media was not joined to the Release2 original-video listing in this pass; **annotation-only lead** until source-media identity/fps/frame convention established. Do not substitute000001 video: that is another source, and acquired000001.activities.yml has no activity_running. `types.yml` maps track IDs to object types, not actor personal identities. Geometry YAML not acquired; no claim of KPF bbox/time agreement. Train/validate tree existence is verified; actor/camera independence of those splits was not audited and should not be assumed from folder names.
+
+## Rights and artifact boundaries
+
+**D11-F07 [primary_docs; unknown]** Data licenses differ materially. VIRAT Ground agreement [S14] explicitly permits lawful research **and commercial purposes**, while requiring every user to accept/sign terms, protect PII and refrain from identifying people. Redistribution is limited to parties agreeing to terms; limited scientific publication/lecture frames/clips are allowed. This is neither NC-only nor unrestricted redistribution. No acceptance was performed for the user, and broad public product-demo redistribution is not established by the scientific exception. Aerial's separate unrestricted-distribution statement does not apply to Ground media. The annotation repository root read tree has no standalone LICENSE; a separate DIVA annotation grant was not located here. Ground agreement must not be casually replaced by an assumed GitLab license.
+
+BEHAVE page says researchers can freely use and requests citation; no separate standardized license/commercial deployment/public-demo grant was located. Record this as limited primary permission language with unresolved broader rights, not CC or automatically NC. Do not conflate with the unrelated CVPR2022 BEHAVE license. No model code or checkpoint acquired/assessed by D11: code-license/weight-license are **not applicable to these dataset-only findings**, and no data grant clears pretrained weights. Acquisition/parsing scripts are authored local research utilities, not dataset-owner inference code.
+
+## Hard negatives, causal design and downstream admission
+
+**D11-F08 [inference; hypothesis: proposed protocol]** Prioritize these controls by mechanism, not stock-video variety:
+
+| Hard negative or uncertainty | Why needed | Public evidence / gap |
+|---|---|---|
+|Normal walk vs genuinely fast walk, same actor/direction/depth|Separate gait from image displacement|BEHAVE WalkTogether available; neither verified source has fast-walk taxonomy. Capture/annotate target fast walk|
+|Running toward/away camera vs lateral walking; near/far|Perspective can invert pixel-speed ordering|BEHAVE high-oblique footage; VIRAT small-person variety author claim. Need depth/view-labelled holdout|
+|Crossing actors, group formation/fight/chase|ID switch/crop substitution creates velocity/action spikes|BEHAVE overlapping group labels and occlusion are directly available; annotate per-actor visibility|
+|Partial legs, image-edge cropping, parked-vehicle occlusion|Cannot determine gait from invisible feet|BEHAVE visual examples; VIRAT visible-only and sparse object rows. Unknown/abstain, not walk|
+|Carrying, stopping/turning, reaching, hurrying to interact|Arm motion and body lean may mimic run|VIRAT DIVA actor16 run/walk+HeavyCarry labels provide candidate, pending media join|
+|Camera jitter/zoom and moving background/vehicle|Flow and bbox velocity can fire on scene motion|VIRAT wind-jitter note; stable-target/controlled camera-motion footage still needed|
+|Short burst<2s, onset/offset transitions|Source label duration conventions miss/extend events|VIRAT intentionally censors; BEHAVE selected run interval~2s but global coordinate verification pending|
+|Running in place vs translation; stepping on moving platform|Gait and ground speed can dissociate|Not verified in acquired CCTV; permissioned target capture needed|
+|Industrial PPE, low illumination, glare, steam, occlusion by equipment|Urban/staged yard domain does not prove workshop behavior|Neither corpus closes factory domain gap|
+
+Evaluate a fixed preprocessing/model contract on intact continuous holdout videos, not random overlapping crops. Group all near-duplicate clips, cameras of same acted take, shared scene and people/session where known. BEHAVE repeated Vision Group actors/background mean random subclip split leaks identity/site; a second view does not remedy this. Report actor/camera/session-known versus unknown fields explicitly.
+
+Do not downsample source acquisition to1fps then claim original gait evidence retained. Separate dense local decode evidence from neural invocation/notification cadence; preserve PTS and irregularity. Event metrics: run recall by duration including<2s target bursts, false alerts/camera-hour, onset→first-alert latency, duplicate messages, per-actor attribution, unknown coverage. Stratify person pixelheight/direction/leg visibility/occlusion/depth zone. Keep dataset operational label tails separate from physical-motion annotations used for latency. Do not infer metres/second or physical proximity from image boxes; gait annotation is not calibrated speed truth.
+
+Admission: BEHAVE can enter local sanity tests after overlay/timebase verification and rights scope; VIRAT exact050301 can enter sustained-run testing after lawful authorized acquisition, decode and temporal alignment, plus annotation-mode check for any negative clips. Target-camera validation remains necessary. No claims of model accuracy, LinQ execution or runtime made.
+
+## Primary sources / exact locators
+
+All URLs below were accessed2026-10-23 UTC; exact response timestamp,status,length,hash for most small artifacts in `access.json`, `access2.json`, `access4–6.json`; extra fetch3/mapping response metadata retained separately. Failed browser403s were superseded by direct GET200 and are not reported as permanent unavailability. Initial guessed Girder collection-ID400 preserved in access manifest; discovery then followed actual landing-page link.
+
+- **D11-S01** Edinburgh/Aroosha Laghaee,2007; Blunsden/Fisher2010 citation. BEHAVE page, introduction/scenarios/subclips/rights: https://groups.inf.ed.ac.uk/vision/DATASETS/BEHAVEDATA/INTERACTIONS/index.html
+- **D11-S02** Exact acquired video: https://groups.inf.ed.ac.uk/vision/DATASETS/BEHAVEDATA/INTERACTIONS/35450-47160.avi
+- **D11-S03** Exact temporal/group labels: https://groups.inf.ed.ac.uk/vision/DATASETS/BEHAVEDATA/INTERACTIONS/markup.txt
+- **D11-S04** Exact VIPER bboxes: https://groups.inf.ed.ac.uk/vision/DATASETS/BEHAVEDATA/INTERACTIONS/35450-47160F.xgtf
+- **D11-S05** Kitware/VIRAT, Introduction Release2.0,v1.0,2011-09-30,§2,3.1,3.2.10,4: https://data.kitware.com/api/v1/file/56f581c88d777f753209c9ce/download ; GET200513244bytes,SHA25667e38aa330f160552d151c56f08baa4109ad419f84bb461748f7ef514a4a55be. Local text extraction; no visual PDF layout QA needed for these textual sections.
+- **D11-S06** Official original annotation schema/class IDs: https://data.kitware.com/api/v1/item/56f581c78d777f753209c9c6/download ; GET2003832bytes.
+- **D11-S07** Exact matched original Ground video: https://data.kitware.com/api/v1/file/56f591558d777f753209ce17/download ; HEAD20065008519bytes,2026-10-23T19:41:49UTC; no full download/hash/decode.
+- **D11-S08**050301 mapping: https://data.kitware.com/api/v1/item/56f581bf8d777f753209c9a1/download ; GET200; event30→object32.
+- **D11-S09**050301 events: https://data.kitware.com/api/v1/item/56f581bf8d777f753209c99e/download ; GET20011845bytes,SHA256739262c58ea6c5a478502e649e8988b08378b66015000c7fe5ada105f37f626f.
+- **D11-S10**050301 objects: https://data.kitware.com/api/v1/item/56f581c08d777f753209c9a4/download ; GET200804500bytes,SHA256ef39dbfe8f701a9f023d2a65ba7b5f8a5c37a38ca14be22557a62616b977c8ee.
+- **D11-S11**Kitware/IARPA DIVA annotation repository revision: https://gitlab.kitware.com/viratdata/viratannotations/-/commit/f1eff0d7db0dc0b25e1c99951ac0907521f3a216 ; API commit/tree GET200,commit2021-09-21. Official landing page connects repository: https://viratdata.org/ . Dataset original paper Sangmin Oh etal.,CVPR2011; paper itself not newly read here.
+- **D11-S12**DIVA guideline v1.0,§4.4/4.5 (PDF printed p5–6): https://gitlab.kitware.com/viratdata/viratannotations/-/raw/master/DIVA-Annotation-Guidelines-V1.0.docx.pdf ; GET200174571bytes,SHA2567ce7fd51ecd0423ad713702b5675a49ff45736bb78c70ec7c654b1952cca7c45. Publication date not established; linked repo2021revision above.
+- **D11-S13**Pinned KPF temporal labels: https://gitlab.kitware.com/viratdata/viratannotations/-/raw/f1eff0d7db0dc0b25e1c99951ac0907521f3a216/train/VIRAT_S_000000.activities.yml ; GET20048956bytes. Types: same prefix ending `VIRAT_S_000000.types.yml`,GET2002483bytes. README states KPF: https://gitlab.kitware.com/viratdata/viratannotations/-/raw/master/README.md
+- **D11-S14**Kitware VIRAT Video Dataset Usage Agreement,filename2011-01-04,Terms/Acceptable Use: https://viratdata.org/resources/VIRAT-Video-Data-Set-Protection-Agreement-1-4-11.pdf ; GET20078861bytes,SHA256c2cdb3c5b4d6f29228fe4d00ae5745f5cc960e22ce500a0bf76152afd3dccd8a.
+
+## Rejected / unresolved branches and handoff
+
+PETS2009 was meaningfully searched as a potential crowd-run/evacuation alternative; the official Reading page https://www.cvg.reading.ac.uk/PETS2009/a.html was inaccessible to the web tool. Secondary OpenTraj and paper mirrors suggest group-level event semantics, but not promoted to verified primary dataset evidence here. Failure does not prove original data disappeared. No secondary source used to claim a new acquired gait corpus. KTH/CAVIAR and Weizmann deliberately not reacquired.
+
+W2 priorities: (1) BEHAVE overlay/frame-origin/coordinate-scale verification, keep25fps encoded clock rather than XML1.0; (2) verify VIRAT050301 exact clip decoding and object32 visibility, do not interpret HEAD as video execution; (3) inspect original XLS annotation-mode/folds before negative mining; (4) media join for DIVA000000 and source-reannotation overlap registry; (5) rights scope for presentation/public reuse. Cross-corpus same-source leakage is a practical risk if both original VIRAT and DIVA derivative annotations are used on different sides of the split. No cross-actor global identity guarantee found. No factory fast-walk, leg-visibility stratification, short-burst ground truth or calibrated rapid-approach corpus closed. Those remain target-capture tasks, not reasons to inflate stock corpus claims.
+''',encoding='utf-8')
+print(p, p.stat().st_size)

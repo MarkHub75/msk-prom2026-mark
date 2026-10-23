@@ -1,0 +1,30 @@
+{
+  "url": "https://download.openmmlab.com/mmaction/v1.0/detection/slowfast/slowfast_kinetics400-pretrained-r50_8xb6-8x8x1-cosine-10e_ava22-rgb/slowfast_kinetics400-pretrained-r50_8xb6-8x8x1-cosine-10e_ava22-rgb_20220906-d934a48f.pth",
+  "status": 200,
+  "headers": {
+    "Server": "Tengine",
+    "Content-Type": "application/octet-stream",
+    "Content-Length": "135802749",
+    "Connection": "keep-alive",
+    "Date": "Fri, 23 Oct 2026 19:34:53 GMT",
+    "x-oss-request-id": "6ADBB6DD393D1B323906FC11",
+    "x-oss-cdn-auth": "success",
+    "Accept-Ranges": "bytes",
+    "ETag": "\"020D0C74924733BB2FE7D4A949AA35E1\"",
+    "Last-Modified": "Tue, 21 Mar 2023 11:11:56 GMT",
+    "x-oss-object-type": "Normal",
+    "x-oss-hash-crc64ecma": "6658478306541179722",
+    "x-oss-storage-class": "Standard",
+    "x-oss-version-id": "CAEQVxiBgID_27yPuBgiIGEyYTM3ZGExNTA2ZTQ1NjI4ZDUzYjJmZGNmMGNiNjdi",
+    "Content-MD5": "Ag0MdJJHM7sv59SpSao14Q==",
+    "x-oss-server-time": "39",
+    "Via": "ens-cache28.l2de4[1254,1253,200-0,M], ens-cache11.l2de4[1256,0], ens-cache13.de10[1495,1495,200-0,M], ens-cache16.de10[1500,0]",
+    "Ali-Swift-Global-Savetime": "1792784093",
+    "X-Cache": "MISS TCP_MISS dirn:-2:-2",
+    "X-Swift-SaveTime": "Fri, 23 Oct 2026 19:34:53 GMT",
+    "X-Swift-CacheTime": "15552000",
+    "Timing-Allow-Origin": "*",
+    "EagleId": "a3b5fea417927840924214779e"
+  },
+  "time": "2026-10-23T19:34:54.370510+00:00"
+}

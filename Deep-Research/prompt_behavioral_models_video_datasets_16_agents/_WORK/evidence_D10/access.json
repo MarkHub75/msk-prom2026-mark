@@ -1,0 +1,34 @@
+[
+  {
+    "name": "urfall-cam0-falls.csv",
+    "url": "https://fenix.ur.edu.pl/~mkepski/ds/data/urfall-cam0-falls.csv",
+    "final": "https://fenix.ur.edu.pl/~mkepski/ds/data/urfall-cam0-falls.csv",
+    "status": 200,
+    "content_type": "text/csv",
+    "bytes": 233957
+  },
+  {
+    "name": "urfall-cam0-adls.csv",
+    "url": "https://fenix.ur.edu.pl/~mkepski/ds/data/urfall-cam0-adls.csv",
+    "final": "https://fenix.ur.edu.pl/~mkepski/ds/data/urfall-cam0-adls.csv",
+    "status": 200,
+    "content_type": "text/csv",
+    "bytes": 671767
+  },
+  {
+    "name": "up_labels.zip",
+    "url": "https://drive.google.com/uc?export=download&id=1kq2qhQlzKbsobOUiqA4pRY83hoV3MhBT",
+    "final": "https://drive.usercontent.google.com/download?id=1kq2qhQlzKbsobOUiqA4pRY83hoV3MhBT&export=download",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2040
+  },
+  {
+    "name": "cameraDownloader_pydrive.py",
+    "url": "https://drive.google.com/uc?export=download&id=1XJ61-FQ_2PMoEPdNVK5PblkEbXEetBx1",
+    "final": "https://drive.usercontent.google.com/download?id=1XJ61-FQ_2PMoEPdNVK5PblkEbXEetBx1&export=download",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2475
+  }
+]

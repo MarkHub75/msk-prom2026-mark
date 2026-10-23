@@ -1,0 +1,28 @@
+{
+  "codec": "h264",
+  "frames": 1800,
+  "stream_frames": 1800,
+  "stream_duration": 921600,
+  "time_base": "1/15360",
+  "average_rate": "30",
+  "first": [
+    0,
+    0,
+    "1/15360",
+    0.0,
+    1920,
+    1080
+  ],
+  "last": [
+    1799,
+    921088,
+    "1/15360",
+    59.96666666666667,
+    1920,
+    1080
+  ],
+  "pts_strictly_increasing": true,
+  "pts_deltas": [
+    512
+  ]
+}

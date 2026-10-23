@@ -1,0 +1,111 @@
+760:         "static_ip",
+761:         "total_flops",
+762:         "ubuntu_version",
+763:         "verified",
+764: }
+765: 
+766: 
+767: vol_displayable_fields = (
+768:     ("id", "ID", "{}", None, True),
+769:     ("cuda_max_good", "CUDA", "{:0.1f}", None, True),
+770:     ("cpu_ghz", "cpu_ghz", "{:0.1f}", None, True),
+771:     ("disk_bw", "Disk B/W", "{:0.1f}", None, True),
+772:     ("disk_space", "Disk", "{:.0f}", None, True),
+773:     ("disk_name", "Disk Name", "{}", None, True),
+774:     ("storage_cost", "$/Gb/Month", "{:.2f}", None, True),
+775:     ("driver_version", "NV Driver", "{}", None, True),
+776:     ("inet_up", "Net_up", "{:0.1f}", None, True),
+777:     ("inet_down", "Net_down", "{:0.1f}", None, True),
+778:     ("reliability", "R", "{:0.1f}", lambda x: x * 100, True),
+779:     ("duration", "Max_Days", "{:0.1f}", lambda x: x / (24.0 * 60.0 * 60.0), True),
+780:     ("machine_id", "mach_id", "{}", None, True),
+781:     ("verification", "status", "{}", None, True),
+782:     ("host_id", "host_id", "{}", None, True),
+783:     ("geolocation", "country", "{}", None, True),
+784: )
+785: 
+786: nw_vol_displayable_fields = (
+787:     ("id", "ID", "{}", None, True),
+788:     ("disk_space", "Disk", "{:.0f}", None, True),
+789:     ("storage_cost", "$/Gb/Month", "{:.2f}", None, True),
+790:     ("inet_up", "Net_up", "{:0.1f}", None, True),
+4369: def search__offers(args):
+4370:     """Creates a query based on search parameters as in the examples above.
+4371: 
+4372:     :param argparse.Namespace args: should supply all the command-line options
+4373:     """
+4374: 
+4375:     try:
+4376: 
+4377:         if args.no_default:
+4378:             query = {}
+4379:         else:
+4380:             query = {"verified": {"eq": True}, "external": {"eq": False}, "rentable": {"eq": True}, "rented": {"eq": False}}
+4381:             #query = {"verified": {"eq": True}, "external": {"eq": False}, "rentable": {"eq": True} }
+4382: 
+4383:         if args.query is not None:
+4384:             query = parse_query(args.query, query, offers_fields, offers_alias, offers_mult)
+4385: 
+4386:         order = []
+4387:         for name in args.order.split(","):
+4388:             name = name.strip()
+4389:             if not name: continue
+4390:             direction = "asc"
+4391:             field = name
+4392:             if name.strip("-") != name:
+4393:                 direction = "desc"
+4394:                 field = name.strip("-")
+4395:             if name.strip("+") != name:
+4396:                 direction = "asc"
+4397:                 field = name.strip("+")
+4398:             #print(f"{field} {name} {direction}")
+4399:             if field in offers_alias:
+4400:                 field = offers_alias[field];
+4401:             order.append([field, direction])
+4402: 
+4403:         query["order"] = order
+4404:         query["type"] = args.type
+4405:         if (args.limit):
+4406:             query["limit"] = int(args.limit)
+4407:         query["allocated_storage"] = args.storage
+4408:         # For backwards compatibility, support --type=interruptible option
+4409:         if query["type"] == 'interruptible':
+4410:             query["type"] = 'bid'
+4411:     except ValueError as e:
+4412:         print("Error: ", e)
+4413:         return 1
+4414: 
+4415:     new_search_ept = args.new
+4416:     
+4417:     #json_blob = {"select_cols" : ['*'], "q" : query}
+4418:     json_blob = query
+4419: 
+4420:     if new_search_ept:
+4421:         #geolocation = query.pop("geolocation", None)
+4422:         #query = {'reliability2': {'gt': '0.1'}}
+4423:         json_blob = {"select_cols" : ['*'], "q" : query}
+4424:         url = apiurl(args, "/search/asks/")
+4425:         stime = time.time()
+4426: 
+4427:         if (args.explain):
+4428:             print("request json: ")
+4429:             print(json_blob)
+4430: 
+4431:         r = http_put(args, url, headers=headers, json=json_blob)
+4432:         etime = time.time()
+4433:         print(f"request took {etime-stime}s")
+4434: 
+4435:     else:
+4436:         if (args.explain):
+4437:             print("request json: ")
+4438:             print(json_blob)
+4439:         #url = apiurl(args, "/bundles", {"q": query})
+4440:         #r = requests.get(url, headers=headers)
+4441:         url = apiurl(args, "/bundles/")
+4442:         r = http_post(args, url, headers=headers, json=json_blob)
+4443: 
+4444:     r.raise_for_status()
+4445:    
+4446:     if (r.headers.get('Content-Type') != 'application/json'):
+4447:         print(f"invalid return Content-Type: {r.headers.get('Content-Type')}")
+4448:         return   

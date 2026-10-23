@@ -1,0 +1,78 @@
+{
+  "path": "D:\\msk-prom2026-mark\\Deep-Research\\prompt_behavioral_models_video_datasets_16_agents\\_WORK\\W2_01_EVIDENCE\\cpu_selected\\rtmpose-ort\\rtmdet-nano\\end2end.onnx",
+  "bytes": 4012393,
+  "sha256": "b8585adb6d1352796f6e86337e09c3459b830645a7e7192d9381670bea2facbd",
+  "ir": 6,
+  "opsets": [
+    {
+      "domain": "",
+      "version": 11
+    }
+  ],
+  "input": [
+    {
+      "name": "input",
+      "dtype": "FLOAT",
+      "shape": [
+        "batch",
+        3,
+        "height",
+        "width"
+      ]
+    }
+  ],
+  "output": [
+    {
+      "name": "dets",
+      "dtype": "FLOAT",
+      "shape": [
+        "batch",
+        "num_dets",
+        "Reshapedets_dim_2"
+      ]
+    },
+    {
+      "name": "labels",
+      "dtype": "INT64",
+      "shape": [
+        "batch",
+        "num_dets"
+      ]
+    }
+  ],
+  "nodes": 688,
+  "operators": {
+    ":Identity": 32,
+    ":Conv": 123,
+    ":Sigmoid": 114,
+    ":Mul": 134,
+    ":Add": 16,
+    ":Concat": 44,
+    ":GlobalAveragePool": 4,
+    ":HardSigmoid": 4,
+    ":MaxPool": 3,
+    ":Constant": 26,
+    ":Resize": 2,
+    ":Shape": 27,
+    ":Gather": 38,
+    ":Cast": 17,
+    ":Range": 8,
+    ":Reshape": 33,
+    ":Expand": 8,
+    ":Unsqueeze": 18,
+    ":Transpose": 8,
+    ":Sub": 2,
+    ":ReduceMax": 2,
+    ":Less": 3,
+    ":Not": 1,
+    ":Where": 5,
+    ":TopK": 2,
+    ":Flatten": 6,
+    ":NonMaxSuppression": 1,
+    ":ConstantOfShape": 4,
+    ":Tile": 2,
+    ":Equal": 1
+  },
+  "external": [],
+  "checker": "pass, static only"
+}

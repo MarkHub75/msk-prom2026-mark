@@ -1,0 +1,7 @@
+# Редактор русского отчёта cv_accuracy_vast
+
+Отдельная роль gpt-6.1-sol high. Прочитай оба исходных задания, _WORK/DRAFT_HUMAN.md и доказательную базу SOURCES.md, RAW_FACTS.md, OPEN_QUESTIONS.md. Без нового интернета и без отдельного технического аудита. Улучши связность и читаемость большого русского отчёта и сохрани report_human_cv_accuracy_vast.md. Не сжимай до summary, не теряй необходимые технические таблицы, E/F/S/Q-связи, версии, лицензии, команды, оговорки, условия выбора, доступы и ограничения.
+
+Читатель — сильная команда из пяти человек в оставшиеся часы хакатона. Дай ясные объяснения, причины, приоритеты, реальные next actions. Убери канцелярит, повторы, шаблонные вступления, механические выводы, маркетинг и искусственные противопоставления. Неопределённое не делай доказанным, предложенные эксперименты не делай выполненными. Исправляй внутреннюю форму и ссылки в рамках редактуры, но не создавай новый исследовательский этап. Не создавай субагентов или финального аудитора. Никаких иных финальных файлов.
+
+Draft is located in _WORK and its evidence links use ../SOURCES.md, ../RAW_FACTS.md, ../OPEN_QUESTIONS.md etc. Final human report is in root: adapt these relative links on relocation, retaining portable _WORK references where appropriate. This is required authorial editing, not a separate audit stage. Source registry entries may repeat a primary URL across distinct readings; do not describe290entries as290independent confirmations.

@@ -1,0 +1,72 @@
+﻿[
+    {
+        "id":  "W2-01",
+        "agent":  "/root/w2_01",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  18808,
+        "sha256":  "36E694857C36DD6DE3EF959185AF6B72CCC64FDA88E5F6A929CE4E17AF5810EB",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-02",
+        "agent":  "/root/w2_02",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  43731,
+        "sha256":  "2BF133DD7460868641B42D5FC24FD0C0012D32E6F009F9C68F269D12AFF6E8C7",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-03",
+        "agent":  "/root/w2_03",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  27841,
+        "sha256":  "4D93090B8469EDAF743933666C921EC7ED3AA676ED78C7B9CCFA29FFD020DA80",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-04",
+        "agent":  "/root/w2_04",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  16075,
+        "sha256":  "F9983F79F43D483D37D57B229E8C3E08BBDE6E939D417AF68898A9C0F57F0622",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-05",
+        "agent":  "/root/w2_05",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  28999,
+        "sha256":  "E69BD56986A6401C23E57E032BA8F257BECD7F84915871513CD634E579A4A25E",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-06",
+        "agent":  "/root/w2_06",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  35151,
+        "sha256":  "5398508CF984D392BBC67B0C4B45E4773E7BA034AF92853A866502D670619295",
+        "status":  "complete"
+    },
+    {
+        "id":  "W2-07",
+        "agent":  "/root/w2_07",
+        "model":  "gpt-6.1-sol",
+        "effort":  "medium",
+        "fork_turns":  "none",
+        "bytes":  29746,
+        "sha256":  "0D1DE6B5B62872FD377E491F4BB2EE90948EDC6E03B6FF767A9B0D453098DE7C",
+        "status":  "complete"
+    }
+]

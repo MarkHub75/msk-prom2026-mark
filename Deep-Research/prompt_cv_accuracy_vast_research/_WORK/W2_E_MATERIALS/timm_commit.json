@@ -1,0 +1,113 @@
+{
+  "sha": "78c3724f4545c0067d0b4d2f7df6337196be01ce",
+  "node_id": "C_kwDOCg-tJtoAKDc4YzM3MjRmNDU0NWMwMDY3ZDBiNGQyZjdkZjYzMzcxOTZiZTAxY2U",
+  "commit": {
+    "author": {
+      "name": "Ross Wightman",
+      "email": "rwightman@gmail.com",
+      "date": "2025-11-04T23:15:00Z"
+    },
+    "committer": {
+      "name": "Ross Wightman",
+      "email": "rwightman@gmail.com",
+      "date": "2025-11-04T23:15:00Z"
+    },
+    "message": "Release 1.0.22 for LayerScale regression",
+    "tree": {
+      "sha": "abb9c2867e92b447e05b4e8f6e9cafd1a1a35ba8",
+      "url": "https://api.github.com/repos/huggingface/pytorch-image-models/git/trees/abb9c2867e92b447e05b4e8f6e9cafd1a1a35ba8"
+    },
+    "url": "https://api.github.com/repos/huggingface/pytorch-image-models/git/commits/78c3724f4545c0067d0b4d2f7df6337196be01ce",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/huggingface/pytorch-image-models/commits/78c3724f4545c0067d0b4d2f7df6337196be01ce",
+  "html_url": "https://github.com/huggingface/pytorch-image-models/commit/78c3724f4545c0067d0b4d2f7df6337196be01ce",
+  "comments_url": "https://api.github.com/repos/huggingface/pytorch-image-models/commits/78c3724f4545c0067d0b4d2f7df6337196be01ce/comments",
+  "author": {
+    "login": "rwightman",
+    "id": 5702664,
+    "node_id": "MDQ6VXNlcjU3MDI2NjQ=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/5702664?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/rwightman",
+    "html_url": "https://github.com/rwightman",
+    "followers_url": "https://api.github.com/users/rwightman/followers",
+    "following_url": "https://api.github.com/users/rwightman/following{/other_user}",
+    "gists_url": "https://api.github.com/users/rwightman/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/rwightman/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/rwightman/subscriptions",
+    "organizations_url": "https://api.github.com/users/rwightman/orgs",
+    "repos_url": "https://api.github.com/users/rwightman/repos",
+    "events_url": "https://api.github.com/users/rwightman/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/rwightman/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "rwightman",
+    "id": 5702664,
+    "node_id": "MDQ6VXNlcjU3MDI2NjQ=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/5702664?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/rwightman",
+    "html_url": "https://github.com/rwightman",
+    "followers_url": "https://api.github.com/users/rwightman/followers",
+    "following_url": "https://api.github.com/users/rwightman/following{/other_user}",
+    "gists_url": "https://api.github.com/users/rwightman/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/rwightman/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/rwightman/subscriptions",
+    "organizations_url": "https://api.github.com/users/rwightman/orgs",
+    "repos_url": "https://api.github.com/users/rwightman/repos",
+    "events_url": "https://api.github.com/users/rwightman/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/rwightman/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "ce73a2c804d5f663009bf2a83984015c155c007a",
+      "url": "https://api.github.com/repos/huggingface/pytorch-image-models/commits/ce73a2c804d5f663009bf2a83984015c155c007a",
+      "html_url": "https://github.com/huggingface/pytorch-image-models/commit/ce73a2c804d5f663009bf2a83984015c155c007a"
+    }
+  ],
+  "stats": {
+    "total": 6,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "bfd3de4a06c7259ecf02adefb7194db5734c2946",
+      "filename": "README.md",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4,
+      "blob_url": "https://github.com/huggingface/pytorch-image-models/blob/78c3724f4545c0067d0b4d2f7df6337196be01ce/README.md",
+      "raw_url": "https://github.com/huggingface/pytorch-image-models/raw/78c3724f4545c0067d0b4d2f7df6337196be01ce/README.md",
+      "contents_url": "https://api.github.com/repos/huggingface/pytorch-image-models/contents/README.md?ref=78c3724f4545c0067d0b4d2f7df6337196be01ce",
+      "patch": "@@ -12,6 +12,10 @@\n \n ## What's New\n \n+## Nov 4, 2025\n+* Fix LayerScale / LayerScale2d init bug (init values ignored), introduced in 1.0.21. Thanks https://github.com/Ilya-Fradlin\n+* Release 1.0.22\n+\n ## Oct 31, 2025 \ud83c\udf83\n * Update imagenet & OOD variant result csv files to include a few new models and verify correctness over several torch & timm versions\n * EfficientNet-X and EfficientNet-H B5 model weights added as part of a hparam search for AdamW vs Muon (still iterating on Muon runs)"
+    },
+    {
+      "sha": "45d4be7adf5fbcd3b9da65833704653c42915480",
+      "filename": "timm/version.py",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/huggingface/pytorch-image-models/blob/78c3724f4545c0067d0b4d2f7df6337196be01ce/timm%2Fversion.py",
+      "raw_url": "https://github.com/huggingface/pytorch-image-models/raw/78c3724f4545c0067d0b4d2f7df6337196be01ce/timm%2Fversion.py",
+      "contents_url": "https://api.github.com/repos/huggingface/pytorch-image-models/contents/timm%2Fversion.py?ref=78c3724f4545c0067d0b4d2f7df6337196be01ce",
+      "patch": "@@ -1 +1 @@\n-__version__ = '1.0.22.dev0'\n+__version__ = '1.0.22'"
+    }
+  ]
+}

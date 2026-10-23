@@ -1,0 +1,56 @@
+[
+  {
+    "id": "dfine_include",
+    "url": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/configs/dfine/include/dfine_hgnetv2.yml",
+    "status": 200,
+    "access_utc": "2026-10-23T17:35:38.793928+00:00"
+  },
+  {
+    "id": "dfine_objconfig",
+    "url": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml",
+    "status": 200,
+    "access_utc": "2026-10-23T17:35:39.531877+00:00"
+  },
+  {
+    "id": "dfine_loader",
+    "url": "https://raw.githubusercontent.com/Peterande/D-FINE/956d1709314c2c6a4df6f34de232054578a7449f/configs/dfine/include/dataloader.yml",
+    "status": 200,
+    "access_utc": "2026-10-23T17:35:39.763783+00:00"
+  },
+  {
+    "id": "yolo_doc",
+    "url": "https://raw.githubusercontent.com/ultralytics/ultralytics/de290d865035acbfa4bb24cc88960d8b52c26e45/docs/en/models/yolo26.md",
+    "status": 200,
+    "access_utc": "2026-10-23T17:35:38.856961+00:00"
+  },
+  {
+    "id": "objects365_terms",
+    "url": "https://www.objects365.org/download.html",
+    "status": 200,
+    "access_utc": "2026-10-23T17:35:44.157625+00:00"
+  },
+  {
+    "id": "coco_commit",
+    "url": "https://api.github.com/repos/cocodataset/cocoapi/commits?path=PythonAPI/pycocotools/cocoeval.py&per_page=1",
+    "status": 403,
+    "access_utc": "2026-10-23T17:35:38.751487+00:00"
+  },
+  {
+    "id": "yolox_issue",
+    "url": "https://api.github.com/repos/Megvii-BaseDetection/YOLOX/issues/1865?x=20261023",
+    "status": 403,
+    "access_utc": "2026-10-23T17:35:38.754855+00:00"
+  },
+  {
+    "id": "yolox_release2",
+    "url": "https://api.github.com/repos/Megvii-BaseDetection/YOLOX/releases/tags/0.1.1rc0?x=20261023",
+    "status": 403,
+    "access_utc": "2026-10-23T17:35:38.753120+00:00"
+  },
+  {
+    "id": "dfine_release2",
+    "url": "https://api.github.com/repos/Peterande/storage/releases/tags/dfinev1.0?x=20261023",
+    "status": 403,
+    "access_utc": "2026-10-23T17:35:39.287094+00:00"
+  }
+]

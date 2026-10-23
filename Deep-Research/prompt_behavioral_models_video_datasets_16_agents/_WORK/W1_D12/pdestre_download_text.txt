@@ -1,0 +1,790 @@
+P-DESTRE
+Departamento de
+                    Inform?ica da Universidade da Beira Interior
+Home
+Dataset/Download
+Experiments
+About
+Contact:
+SOCIA Lab. - Soft Computing and
+                      Image Analysis Group
+Department
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    of Computer Science, University of Beira Interior,
+                    6201-001 Covilh�, Portugal
+hugomcp@di.ubi.pt
+s
+P-DESTRE
+Fully Annotated
+                      Datasets for
+P
+e
+destrian
+De
+tection,
+T
+racking,
+Re
+-Identification and
+S
+earch from Aerial
+                      Devices
+Dataset
+The
+P-DESTRE
+dataset is the result of a joint
+                    effort from researchers at the University of Beira
+                    Interior (Portugal) and at the JSS Science and
+                    Technology University (India). In order to enable
+                    the research on pedestrian identification from
+                    aerial data, a set of "
+DJI
+                          Phantom 4
+" drones controlled by
+                    human operators flied over different scenes of the
+                    campus of both universities, acquiring data that
+                    simulate the everyday conditions in outdoor urban
+                    crowded environments.
+All the subjects in the
+                      dataset offered explicitly as volunteers
+and
+                    they were asked to simply ignore the UAVs (Fig. 1),
+                    that were flying at between 5.5 and 6.7 meters
+                    height, with the camera pitch angles varying between
+                    45� to 90�. Volunteers were mostly in the 18-24 age
+                    interval (> 90%), roughly divided into two halves
+                    for gender (approx 65% males), and ethnicity
+                    (�white� and �Indian�). About 28% of the volunteers
+                    were using glasses, 10% of these were using
+                    sunglasses. Data were recorded at 30fps, with 4K
+                    spatial resolution (3,840 � 2,160), and stored in
+                    �mp4� format, with H.264 compression.
+Image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              Acquisition Framework
+Camera:
+
+
+
+
+
+
+
+
+
+
+
+                            1/2.3� CMOS, Effective pixels:12.4 M
+Frame
+
+
+
+
+
+
+
+
+
+
+
+                            Size: 3,840 x 2,160
+Lens
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            0 FOV 94� 20 mm (35 mm format equivalent)
+                            f/2.8 focus at ∞
+ISO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            Range: 100-3200
+Camera Pitch
+                              Angle: [45�, 90�]
+Drone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            Altitude: [5.5, 6.7] meters
+Format:
+
+
+
+
+
+
+
+
+
+
+
+                            MP4
+Fps:
+
+
+
+
+
+
+
+
+
+
+
+                          30
+Bit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            Depth: 24 bit
+Volunteers
+Total
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            Subjects = 269
+Gender:
+
+
+
+
+
+
+
+
+
+
+
+                            Male: 175 (65%); Female: 94 (35%)
+The data acquisition protocol used in all video
+                    sessions is depicted in Fig. 1:
+Fig 1
+.
+Cohesive view of the data acquisition
+                      protocol used to obtain the
+P-DESTRE
+data
+                      sets. Human operators controlled "DJI Phantom 4"
+                      aircrafts, flying at between 5.5 and 6.7 meters
+                      altitude, in order to simulate the autonomous
+                      surveillance of urban scenes. The gimbal pitch
+                      angle varied between 45� to 90�.
+All
+                        participating subjects
+explicitly
+                        offered themsel
+ves as volunteers for this
+                        expe
+rimen
+t
+.
+Annotation
+The
+P-DESTRE
+data sets are fully annotated at the
+                    frame level, by providing one text file for each
+                    video file (with the same name plus the "
+.txt
+"
+                    extension), as illustrated in the example below:
+Fig 2
+.
+Example of one "
+.txt
+" annotation
+                    file, providing for each pair subject/frame in the
+                    video 26 labels (#frame, #subject ID, bounding box
+                    (x4), head pose information (x4) and soft label
+                    information (x16)).
+The annotation protocol is as following:
+Attribute
+Values
+Frame
+0
+,
+1
+,....
+ID
+0
+,
+1
+,...
+Bounding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Box
+x
+,
+y
+,
+h
+,
+w
+(Top left
+                          column, top left row, height, width)
+Head
+
+
+
+
+                          Pose
+flag
+,
+yaw
+,
+pitch
+,
+roll
+(flag=-1: "
+Not available
+",
+
+
+
+
+                          flag=1:
+"Available
+")
+
+
+
+
+                          yaw, pitch and roll given in degrees
+Gender
+0:
+Male,
+1:
+Female,
+2:
+Unknown
+Age
+0:
+0-11,
+1:
+12-17,
+2:
+18-24,
+3:
+25-34,
+4:
+35-44,
+5:
+45-54,
+6:
+55-64,
+7:
+>65,
+8:
+Unknown
+Height
+0:
+Child,
+1:
+Short,
+2:
+Medium,
+3:
+Tall,
+4:
+Unknown
+Body
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Volume (Weight)
+0:
+Thin,
+1:
+Medium,
+2:
+Fat,
+3:
+Unknown
+Ethnicity
+0:
+White,
+1:
+Black,
+2:
+Asian,
+3:
+Indian,
+4:
+Unknown
+Hair
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Color
+0:
+Black,
+1:
+Brown,
+2:
+White,
+3:
+Red,
+4:
+Gray,
+5:
+Occluded,
+6:
+Unknown
+Hairstyle
+0:
+Bald,
+1:
+Short,
+2:
+Medium,
+3:
+Long,
+4:
+Horse Tail,
+5:
+Unknown
+Beard
+0:
+Yes,
+1:
+No,
+2:
+Unknown
+Moustache
+0:
+Yes,
+1:
+No,
+2:
+Unknown
+Glasses
+0:
+Normal glass,
+1:
+Sun glass,
+2:
+No,
+3:
+Unknown
+Head
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Accessories
+0:
+Hat,
+1:
+Scarf,
+2:
+Neckless,
+3:
+Cannot see,
+4:
+Unknown
+Upper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Body Clothing
+0:
+T Shirt,
+1:
+Blouse,
+2:
+Sweater,
+3:
+Coat,
+4:
+Bikini,
+5:
+Naked,
+6:
+Dress,
+7:
+Uniform,
+8:
+Shirt,
+9:
+Suit,
+10:
+Hoodie,
+11:
+Cardigan,
+12:
+Unknown
+Lower
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          Body Clothing
+0:
+Jeans,
+1:
+Leggins,
+2:
+Pants,
+3:
+Shorts,
+4:
+Skirt,
+5:
+Bikini,
+6:
+Dress,
+7:
+Uniform,
+8:
+Suit,
+9:
+Unknown
+Feet
+0:
+Sport Shoe,
+1:
+Classic Shoe,
+2:
+High Heels,
+3:
+Boots,
+4:
+Sandal,
+5:
+Nothing,
+6:
+Unknown
+Accessories
+0:
+Bag,
+1:
+Backpack Bag,
+2:
+Rolling Bag,
+3:
+Umbrella,
+4:
+Sport Bag,
+5:
+Market Bag,
+6:
+Nothing,
+7:
+Unknown
+Action
+0:
+Walking,
+1:
+Running,
+2:
+Standing,
+3:
+Sitting,
+4:
+Cycling,
+5:
+Exercising,
+6:
+Petting,
+7:
+Talking over the Phone,
+8:
+Leaving Bag,
+9:
+Fall,
+10:
+Fighting,
+11:
+Dating,
+12:
+Offending,
+13:
+Trading
+Head Pose Statistics
+For a subset of the bounding boxes in the
+P-DESTRE
+dataset (with exception to backside view samples), the
+Deep Head Pose
+[1] method was used to infer the
+                  3D head pose information, expressed in terms of yaw,
+                  pitch and roll angles (provided in degrees). The
+                  corresponding statistics are given below (the
+                  horizontal axes denote the angles and the vertical
+                  axes correspond to the absolute frequency of bounding
+                  boxes).
+Yaw
+Pitch
+Roll
+[1] N. Ruiz, E. Chong and J. Rehg. Fine-Grained Head
+                  Pose Estimation Without Keypoints. In proceedings of
+                  the  IEEE Conference on Computer Vision and
+                  Pattern Recognition (CVPR) Workshops, doi: 
+                  10.1109/CVPRW.2018.00281, 2018.
+Download
+This dataset is freely available, under the Creative
+                    Commons
+Attribution-NonCommercial-ShareAlike 4.0
+                      International
+license. Users can share the
+                    dataset only if they: 1) give credit to the citation
+                    below; 2) do not use the dataset for any commercial
+                    purposes, and 3) distribute any additions,
+                    transformations or changes to the dataset under this
+                    license.
+Download video Files
+(
+38.9GB
+)
+: [
+tar
+]
+Download cropped regions-of-interest
+                    files
+(
+30.5GB
+)
+: [
+zip
+]
+Citation
+All
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    documents that report research using the
+P-DESTRE
+datasets
+must include an appropriate citation:
+S.V. Aruna Kumar, Ehsan Yaghoubi, Abhijit Das, B.S.
+                    Harish and Hugo Proen�a.
+The P-DESTRE: A Fully
+                      Annotated Dataset for Pedestrian Detection,
+                      Tracking, Re-Identification and Search from Aerial
+                      Devices
+.
+IEEE Transactions on Information
+                      Forensics and Security
+,doi: 
+                    10.1109/TIFS.2020.3040881, 2020.
+Also, a copy of all reports and papers that use the
+P-DESTRE
+datasets and are for public or
+                    general release must be forwarded upon release or
+                    publication to the following email address:
+hugomcp@di.ubi.pt
+fghfghfghfgh
+DI-UBI Bloco VI Rua Marqu?
+            de ?vila e Bolama P- 6201-001 Covilh?PORTUGAL

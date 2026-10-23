@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://sites.research.google/gr/ava/download/",
+    "final_url": "https://sites.research.google/gr/ava/download/",
+    "status": 200,
+    "bytes": 32234,
+    "sha256": "ab3fd75c77ac6a61137665ec48c7c8dc0354009625888b208de0bf14a6520df9",
+    "utc": "2026-10-23T20:21:23.447103+00:00",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=QTmwhrVal1g",
+    "final_url": "https://www.youtube.com/watch?v=QTmwhrVal1g",
+    "status": 200,
+    "bytes": 864128,
+    "sha256": "1adde62d9c27c454c66f529107eefd570d8049f9707dbc7018e0bb9b9005fe7e",
+    "utc": "2026-10-23T20:21:24.688128+00:00",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=WSPvfxtqisg",
+    "final_url": "https://www.youtube.com/watch?v=WSPvfxtqisg",
+    "status": 200,
+    "bytes": 863927,
+    "sha256": "75120cc25354f73e77814f09c1c4cda036dfbef4467202073db4c10c5f4c5e8e",
+    "utc": "2026-10-23T20:21:25.788119+00:00",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.youtube.com/t/terms",
+    "final_url": "https://www.youtube.com/t/terms",
+    "status": 200,
+    "bytes": 56825,
+    "sha256": "5fe68201c746453d1d25ace972b5f5db20f59f50134ed04e425298575d74c59f",
+    "utc": "2026-10-23T20:21:26.793603+00:00",
+    "content_type": "text/html; charset=utf-8"
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "access_local": "2026-10-23T20:40:59.305787+03:00",
+  "csv_observation": {
+    "rows": 160,
+    "first_frame": "1",
+    "last_frame": "160",
+    "first_time_ms": 0,
+    "last_time_ms": 5305,
+    "deltas_ms": [
+      33,
+      34
+    ],
+    "interpretation": "Synchronization metadata only; no decoded RGB mapping, no event boundary measurement."
+  },
+  "head": [
+    {
+      "url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-01-cam0.mp4",
+      "status": 200,
+      "headers": {
+        "Date": "Fri, 23 Oct 2026 17:40:55 GMT",
+        "Server": "Apache/2.4.62 (Debian)",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Last-Modified": "Tue, 25 Feb 2020 17:13:37 GMT",
+        "ETag": "\"13d2a0-59f699bc03240\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "1299104",
+        "Connection": "close",
+        "Content-Type": "video/mp4"
+      }
+    },
+    {
+      "url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-01-cam0.mp4",
+      "status": 200,
+      "headers": {
+        "Date": "Fri, 23 Oct 2026 17:40:56 GMT",
+        "Server": "Apache/2.4.62 (Debian)",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Last-Modified": "Tue, 25 Feb 2020 17:13:38 GMT",
+        "ETag": "\"123b5e-59f699bcf7480\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "1194846",
+        "Connection": "close",
+        "Content-Type": "video/mp4"
+      }
+    }
+  ]
+}

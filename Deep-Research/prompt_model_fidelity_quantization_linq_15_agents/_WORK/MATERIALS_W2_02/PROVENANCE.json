@@ -1,0 +1,38 @@
+{
+  "access_date": "2026-10-23",
+  "ultralytics_git_ls_remote": {
+    "command": "git ls-remote https://github.com/ultralytics/ultralytics.git refs/tags/v8.3.230*",
+    "tag_object": "c4af95598546035b9b3e2aaab5fa9615015d0972",
+    "peeled_commit": "389b87f8cb9dbf2f31be8b70a94a3e47e11693db"
+  },
+  "guide": {
+    "source": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
+    "used_excerpt": "../MATERIALS_W1_14/Framework_manual_H1_extracted.txt",
+    "upstream_excerpt_origin": "W1 via TinyFish extraction; see MATERIALS_W1_14/PROVENANCE.json",
+    "own_fresh_pdf_bytes": false,
+    "own_visual_verification": false,
+    "fresh_access_failures": [
+      "urllib SSL UNEXPECTED_EOF_WHILE_READING",
+      "web URL not accessible"
+    ],
+    "relevant_sections": [
+      "3.3 page11",
+      "3.4 pages11,19,20"
+    ]
+  },
+  "bounded_importer_search": {
+    "queries": [
+      "\"onnx_direct\" \"onnx_to_tf\"",
+      "\"tpu_framework\" \"onnx_to_tf\"",
+      "\"onnx_direct\" \"pypi\"",
+      "\"onnx_direct\" LinQ импорт"
+    ],
+    "finding": "No usable primary importer implementation/build metadata obtained; unrelated LocalAI onnx_direct excluded",
+    "public_distribution_checks": {
+      "https://pypi.org/pypi/onnx-direct/json": 404,
+      "https://pypi.org/pypi/tpu-framework/json": 404
+    },
+    "interpretation": "Public identity unresolved, not unsupported capability"
+  },
+  "executed_models_or_sdk": false
+}

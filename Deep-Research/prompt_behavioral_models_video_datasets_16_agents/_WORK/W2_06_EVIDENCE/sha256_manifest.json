@@ -1,0 +1,335 @@
+{
+  "utc": "2026-10-23T20:31:04.698035+00:00",
+  "files": [
+    {
+      "path": "access.py",
+      "bytes": 1531,
+      "sha256": "e2810a1a8aae08d5315b90d3138e3e289c449cba7ab4cebe194c4df2efc9f154"
+    },
+    {
+      "path": "access_metadata.json",
+      "bytes": 6769,
+      "sha256": "4cfdf603c1cb23c45cdf781a94d7b143553a9d880d6d462c30c4400ed50d7e6a"
+    },
+    {
+      "path": "article.txt",
+      "bytes": 412325,
+      "sha256": "dc0234c352395425c14f491ac30084313741424d68d6a517d0c8488343fe2a69"
+    },
+    {
+      "path": "article_plain.txt",
+      "bytes": 67563,
+      "sha256": "f61b26f77dccc242289670859e9367e9d6096f5f86bf138de22b3a846ab28fc3"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 1632,
+      "sha256": "8c2cbffc874ba0e8d812b1803a0454a2f78b28ec184d2e876fdf78f078f8484b"
+    },
+    {
+      "path": "best.pt",
+      "bytes": 6229802,
+      "sha256": "b91633799ceb052c814b4f8b77a37efc9a40f002d528df97d74463585fa4f28f"
+    },
+    {
+      "path": "checkpoint.py",
+      "bytes": 1109,
+      "sha256": "55f5c975095143dd3183f02159adfcfcb6a3702d4790e20bedf4030fe6bbcd44"
+    },
+    {
+      "path": "checkpoint_pickle_disassembly.txt",
+      "bytes": 2604735,
+      "sha256": "5ec219dd8beaa9d237cfbc3d86346976f239c2b2b39a6d71a820ec7cc19998c6"
+    },
+    {
+      "path": "checkpoint_static.json",
+      "bytes": 33755,
+      "sha256": "fd2acd6b86a56ca747517fc5e7d91a551ed24a21be9989d0e4ae7c849a0f8f18"
+    },
+    {
+      "path": "decode_small.py",
+      "bytes": 1238,
+      "sha256": "5cd6efaeeddcb22ea93ddc4d29324fb3b4bd5f0eff4496d9c6da962b19ccca9b"
+    },
+    {
+      "path": "dfire_commit.txt",
+      "bytes": 8443,
+      "sha256": "19377b32cbbd768de9454c7ff1635451e65d1ff95afb2de1927055b27d1d7751"
+    },
+    {
+      "path": "dfire_license.txt",
+      "bytes": 7335,
+      "sha256": "4620dc6794449f067b4b663a6d680e865191ba5057941a9e609b4c6bdd41205a"
+    },
+    {
+      "path": "dfire_readme.txt",
+      "bytes": 4484,
+      "sha256": "3a2feee38048459341598016fda90f0009c35a057c50af7925650e4031011bdf"
+    },
+    {
+      "path": "extract_metadata.py",
+      "bytes": 895,
+      "sha256": "3b4c42cf6fae4eb97d043f419c7a685ba56581edda0a017f6fee6d214542c7d0"
+    },
+    {
+      "path": "extract_sensor.py",
+      "bytes": 910,
+      "sha256": "ec5de2fa0018b4572ed3255873215be1217fdd589a00da6eb6e29db021d4aa80"
+    },
+    {
+      "path": "extract_small.py",
+      "bytes": 912,
+      "sha256": "45b6bed45ec7cb3fa3b186a7a7ebf946e6d27fa298279254c61b4fd40c04202d"
+    },
+    {
+      "path": "figshare.txt",
+      "bytes": 6057,
+      "sha256": "dcc8638aac41842ee1bb900778001e9147cede6f6c3426ab026d0baa283c9dff"
+    },
+    {
+      "path": "hf_card.txt",
+      "bytes": 1262,
+      "sha256": "fd86381b2de180bd874597e291ad738b787ae939114f6a9091e1b0a79a0db44f"
+    },
+    {
+      "path": "hf_current.txt",
+      "bytes": 965,
+      "sha256": "e3020b9e1758a304a196d14bd062527483b035a0b67aee75b4f40ed681180b95"
+    },
+    {
+      "path": "hf_model.txt",
+      "bytes": 965,
+      "sha256": "e3020b9e1758a304a196d14bd062527483b035a0b67aee75b4f40ed681180b95"
+    },
+    {
+      "path": "Humidifier4-1.rar",
+      "bytes": 133124,
+      "sha256": "9731f17cb8cafdc6b4a43b2735b6136990e8179e5ca3f09f0bb572008e3983d7"
+    },
+    {
+      "path": "Humidifier4-2.rar",
+      "bytes": 35798,
+      "sha256": "a2386bc7d8536d90461645e2354564dd2386c03adaa9b8c54796db2423a590b7"
+    },
+    {
+      "path": "manifest_error.txt",
+      "bytes": 32,
+      "sha256": "c6742152e68b3459e745828eb07dda12a59b21950155aa0dba72ed3b0db5093f"
+    },
+    {
+      "path": "manifest_summary.json",
+      "bytes": 4781,
+      "sha256": "d09b5e0dd5fd6f470cd9ce8956fb8b26c9f314f3a960c7d3c2597fd51c881423"
+    },
+    {
+      "path": "manual_manifest.py",
+      "bytes": 2522,
+      "sha256": "c1a5464098022464e4363f952e8848dbd557860c03abcd1d10e452c131b0e285"
+    },
+    {
+      "path": "manual_manifest_error.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "metadata_member_ranges.json",
+      "bytes": 541,
+      "sha256": "adb142180f42fca28fb12ca02501f4fb240a4afa7efbfa8a6b4487bee403b849"
+    },
+    {
+      "path": "metadata_readme.rar",
+      "bytes": 403,
+      "sha256": "a2f6f7ea6ca2a7cbf6c8a10b0679ba9df5ba598e2b5cb2492352500270dc4321"
+    },
+    {
+      "path": "metadata_sheet.rar",
+      "bytes": 11623,
+      "sha256": "0fe6aff990e4c587a5e5a9e51b09b5d1c038a42261224e6675c453587de571ac"
+    },
+    {
+      "path": "mmodalfire_manifest.json",
+      "bytes": 65177,
+      "sha256": "faab93afe1851eeee1e2812f196ffeaecb78ee34918843772af828bd591b0c06"
+    },
+    {
+      "path": "mmodal_Baseline_data_dataset.py",
+      "bytes": 10145,
+      "sha256": "e55281a7075786a3c0d46bd2ff3a21b3b572428408bd94c8d2157d5b380c912f"
+    },
+    {
+      "path": "mmodal_Baseline_data_preprocess.py",
+      "bytes": 1472,
+      "sha256": "2895d03afa4e0140b736b6fec144459b634c0636dd1f621ff9f96bddfe22ce57"
+    },
+    {
+      "path": "mmodal_LICENSE",
+      "bytes": 1068,
+      "sha256": "6504cf0d4ae4c4f70e8ec9f57c0277f4b64d589c4c2a5b963c185a67371bd6ae"
+    },
+    {
+      "path": "mmodal_README.md",
+      "bytes": 27,
+      "sha256": "58fca2bd976e513a549c0087166baccdd5f887589dfa4b907523f42a57574e1a"
+    },
+    {
+      "path": "mmodal_repo.txt",
+      "bytes": 6217,
+      "sha256": "156514104ffc5ef5acabd0f97d7dc09e835d4e20e3e953ae096e385e37e12ca0"
+    },
+    {
+      "path": "mmodal_tree.txt",
+      "bytes": 3451,
+      "sha256": "11c4b50dda3a885559a515dcf47dcef5fff8a77badf75611a1cb0fb30521a02e"
+    },
+    {
+      "path": "model_license.txt",
+      "bytes": 15,
+      "sha256": "f36668ddf22403a332f978057d527cf285b01468bc3431b04094a7bafa6aba59"
+    },
+    {
+      "path": "modify_scan.py",
+      "bytes": 1027,
+      "sha256": "5014515fec8a263432fc3577bed5bb67437cfdc2891d3c3b14921a5d2157cba1"
+    },
+    {
+      "path": "more.py",
+      "bytes": 1047,
+      "sha256": "3cf3e9a91134b9ee79e825bf8c8ceabcc570d092278bc3104aca934aa3939da4"
+    },
+    {
+      "path": "more_access.json",
+      "bytes": 658,
+      "sha256": "0ad6dfd59bc235e979f12112b7d1c88d787fd1b535e8df0e9e11ba8ae66d4a93"
+    },
+    {
+      "path": "PROMPT_W2_06.md",
+      "bytes": 7983,
+      "sha256": "dfefc27453e57e30a3132351a353d3be7313954e71542be6767f6308452a97d0"
+    },
+    {
+      "path": "rar_access.json",
+      "bytes": 1380,
+      "sha256": "da811137a33a577228a032d6b572dfbf4e5ef8627568273f3d67735372bc5b34"
+    },
+    {
+      "path": "rar_first64k.bin",
+      "bytes": 65536,
+      "sha256": "9bdc0318403788670fcdec10ce01b2f03e9755a6e6a6e8d4ce14b3a22063f96d"
+    },
+    {
+      "path": "rar_header_ranges.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "rar_manual_ranges.json",
+      "bytes": 7946,
+      "sha256": "788f5655a8ef62abe5a994b6e25c8eb387aee474adf1b2710c04a2f66d793da5"
+    },
+    {
+      "path": "read_settings.py",
+      "bytes": 1139,
+      "sha256": "ade2cee05f9cd87f6eaa48d153002d33df2279349e5552614ba71cda40a2b4b1"
+    },
+    {
+      "path": "remote_manifest.py",
+      "bytes": 1975,
+      "sha256": "8d8435c68d6ee2e77bca79fe6744dc835d2d20a6cda29eb1b5c7bc5feb38048b"
+    },
+    {
+      "path": "rights.py",
+      "bytes": 916,
+      "sha256": "ec1b4cbd468d92d80b9f601d3dc557a2925257cce628b05b76a54dcba3b92bb3"
+    },
+    {
+      "path": "rights_access.json",
+      "bytes": 840,
+      "sha256": "0d66a8be92be19da9f79d1f326d6377b4bae4e7cdc7dab2ab289cee203e4fb1f"
+    },
+    {
+      "path": "sensor_csv_audit.json",
+      "bytes": 1319,
+      "sha256": "ff1939234e93fac10ceee5c6da91edc29251e557e2f943739b94adbab193d70d"
+    },
+    {
+      "path": "sensor_member_access.json",
+      "bytes": 1188,
+      "sha256": "59b5823ebc51b8df5fc20da4d4c655f324eb69c5f822bb5363fea90e5e7a6818"
+    },
+    {
+      "path": "settings_cells.json",
+      "bytes": 8772,
+      "sha256": "37d44aa57ee7363466cda95ac5da564e76983184bad7a84a783467717f2f2e01"
+    },
+    {
+      "path": "small_video.rar",
+      "bytes": 2184845,
+      "sha256": "465628ed531bc6037824ba1d01bd405d51b1b308629c4a98efbe5337e3f99ad1"
+    },
+    {
+      "path": "small_video_access.json",
+      "bytes": 625,
+      "sha256": "f84a0b581cfc968ffd2bd64406b824511b3a612d67832f661d4f2d3da8aecc1d"
+    },
+    {
+      "path": "small_video_contact.jpg",
+      "bytes": 146392,
+      "sha256": "7f7bd954cabaf97008bc048ae6f81e5e4e52cf2166b118ae105849f93eff86dd"
+    },
+    {
+      "path": "small_video_decode.json",
+      "bytes": 684,
+      "sha256": "f5c9fcf22f2374a00f15e2b6b93e74bed8a8aac708983f060e00421da2aa0549"
+    },
+    {
+      "path": "small_video_pts.json",
+      "bytes": 74830,
+      "sha256": "584acd5a29643f88073a265f55934ab5d5baa4ff6d1ac55d295a894fa1931e83"
+    },
+    {
+      "path": "table2.txt",
+      "bytes": 178927,
+      "sha256": "b36739275d702bfc55df828335468dee00523cc39d41e1c2328d4fb7d5a71f5f"
+    },
+    {
+      "path": "table2_plain.txt",
+      "bytes": 7364,
+      "sha256": "681d1166a6720ba1dc4f8e6cffe858399f80c40bb91a2be34331ac3bbdad661d"
+    },
+    {
+      "path": "table3.txt",
+      "bytes": 166953,
+      "sha256": "f970c4aed61caa4cdcfe8526990b8c6d6456f41824e7e412c51a8e2bfc1747b2"
+    },
+    {
+      "path": "table3_plain.txt",
+      "bytes": 3541,
+      "sha256": "cd92c1c88bc04ce8cd1227bf962be71c2f62750d75f70a460180e83b05619fb5"
+    },
+    {
+      "path": "metadata\\\u539f\u59cb\u6570\u636e\\Readme.txt",
+      "bytes": 440,
+      "sha256": "54bdece4848652271b36c36ef597215d4adbdc95b6478ad4a5bef53eafd61789"
+    },
+    {
+      "path": "metadata\\\u539f\u59cb\u6570\u636e\\SETTINGS OF THE COMBUSTION EXPERIMENT FOR DATA COLLECTION.xlsx",
+      "bytes": 13282,
+      "sha256": "87583397541a3e8daafec65c14739197dca9ddfa8ec439694c916b2a0ad370ce"
+    },
+    {
+      "path": "sensor\\\u539f\u59cb\u6570\u636e\\Physical sensing\\Humidifier4-1.csv",
+      "bytes": 1254840,
+      "sha256": "3b8cf615faaf2a704d55a4abcba5b182c39608e73741672cbc67c942ca89918a"
+    },
+    {
+      "path": "sensor\\\u539f\u59cb\u6570\u636e\\Physical sensing\\Humidifier4-2.csv",
+      "bytes": 616066,
+      "sha256": "b17bc1323a50ef4a9844b05f217a811cd720bb03edd07928d7697d61844e13ed"
+    },
+    {
+      "path": "small_video\\\u539f\u59cb\u6570\u636e\\Video\\Downtest_ch01_00000000002000300.mp4",
+      "bytes": 2207566,
+      "sha256": "3f862452f3675fc85448b77ee238014f400e6aa1683d28645200c3b285b5721c"
+    }
+  ]
+}

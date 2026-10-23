@@ -1,0 +1,37 @@
+{
+  "bytes": 130061,
+  "words_whitespace": 9533,
+  "markdown_links": 182,
+  "local_links_checked_from_final_root": 161,
+  "link_failures": [],
+  "missing_original_inline_code": [],
+  "missing_original_external_urls": [],
+  "missing_original_full_hashes_commits": [],
+  "missing_original_canonical_refs": [],
+  "scenarios_tables": {
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 3,
+    "5": 3,
+    "6": 3,
+    "7": 3,
+    "8": 3
+  },
+  "experiment_headings": [
+    "E001",
+    "E002",
+    "E003",
+    "E004",
+    "E005",
+    "E006",
+    "E007",
+    "E008"
+  ],
+  "three_routes": true,
+  "five_questions": true,
+  "placeholders": [],
+  "h1_count": 1,
+  "source_media_only_no_inference": true,
+  "mist_literal": true
+}

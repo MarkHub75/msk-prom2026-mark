@@ -1,0 +1,151 @@
+{
+  "observed_utc": "2026-10-23T20:16:53.810548+00:00",
+  "decoder": "PyAV18.1.0",
+  "mapping_status": "spatial_scale_verified; exact_single_frame_origin_unresolved",
+  "sources": {
+    "runxml": {
+      "path": "_WORK/M04/runxml.txt",
+      "bytes": 1203469,
+      "sha256": "865ea2178d149fefa5642022c0dafd6bbcd072e7a0e365148f38dcd4dc4292a3"
+    },
+    "walkxml": {
+      "path": "_WORK/M04/walkxml.txt",
+      "bytes": 1490491,
+      "sha256": "dfcb8135fe46e7fbbcb7616d93f4f16aee040570185227ecd8c81aaa87de06cd"
+    },
+    "xgtf": {
+      "path": "_WORK/D11/35450-47160F.xgtf",
+      "bytes": 337823,
+      "sha256": "90dd81cea02b4ae946ec681312a71ec2718247cf87d9c04f4502deb3e56c174d"
+    },
+    "markup": {
+      "path": "_WORK/D11/markup.txt",
+      "bytes": 6565,
+      "sha256": "0b17bc8c1fec3f9336a2a013a9c0bb2be586bbf895f3cc4ed498eebbf801e719"
+    }
+  },
+  "canonical_clock": "decoded_index0/25 seconds; synthetic evaluation clock; original PTS retained; not wall clock or certified capture clock",
+  "uncertainty": "candidate index = XML frame + delta (CAVIAR), global frame -35450 + delta (BEHAVE); delta -1,0,+1 remain unresolved by manual bbox overlays; wider +/-5 inspected, not a confidence bound",
+  "episodes": [
+    {
+      "source": "caviarrun",
+      "actor": "7",
+      "candidate_index_inclusive": [
+        373,
+        436
+      ],
+      "canonical_half_open_seconds": [
+        14.92,
+        17.48
+      ],
+      "original_pts_seconds_at_candidate_endpoints": [
+        15.079711111111111,
+        17.5997
+      ],
+      "origin_sensitivity_pts_seconds": {
+        "-1": [
+          15.039711111111112,
+          17.55971111111111
+        ],
+        "0": [
+          15.079711111111111,
+          17.5997
+        ],
+        "1": [
+          15.119711111111112,
+          17.63971111111111
+        ]
+      }
+    },
+    {
+      "source": "caviarrun",
+      "actor": "6",
+      "candidate_index_inclusive": [
+        385,
+        489
+      ],
+      "canonical_half_open_seconds": [
+        15.4,
+        19.6
+      ],
+      "original_pts_seconds_at_candidate_endpoints": [
+        15.559711111111111,
+        19.71971111111111
+      ],
+      "origin_sensitivity_pts_seconds": {
+        "-1": [
+          15.51971111111111,
+          19.67971111111111
+        ],
+        "0": [
+          15.559711111111111,
+          19.71971111111111
+        ],
+        "1": [
+          15.5997,
+          19.759711111111113
+        ]
+      }
+    },
+    {
+      "source": "behave",
+      "actor": "group1,2",
+      "candidate_index_inclusive": [
+        8946,
+        8997
+      ],
+      "canonical_half_open_seconds": [
+        357.84,
+        359.92
+      ],
+      "original_pts_seconds_at_candidate_endpoints": [
+        357.88,
+        359.92
+      ],
+      "origin_sensitivity_pts_seconds": {
+        "-1": [
+          357.84,
+          359.88
+        ],
+        "0": [
+          357.88,
+          359.92
+        ],
+        "1": [
+          357.92,
+          359.96
+        ]
+      }
+    },
+    {
+      "source": "behave",
+      "actor": "group0,1",
+      "candidate_index_inclusive": [
+        10856,
+        10925
+      ],
+      "canonical_half_open_seconds": [
+        434.24,
+        437.04
+      ],
+      "original_pts_seconds_at_candidate_endpoints": [
+        434.28,
+        437.04
+      ],
+      "origin_sensitivity_pts_seconds": {
+        "-1": [
+          434.24,
+          437.0
+        ],
+        "0": [
+          434.28,
+          437.04
+        ],
+        "1": [
+          434.32,
+          437.08
+        ]
+      }
+    }
+  ]
+}
