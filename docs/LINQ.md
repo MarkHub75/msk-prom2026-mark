@@ -105,3 +105,14 @@ Timeout/retry behavior belongs to the issued transport. A local timeout is not r
 Required gates: VPN; authenticated Jupyter; matched SDK/compiler; completed vendor ResNet50; compiled own model; completed own-model run; reference/TPU parity; video cadence and event latency. Record PASS/FAIL/UNAVAILABLE/NOT_RUN independently. A model manifest and copied tensors without completed LinQ evidence leave the hardware gate open.
 
 Tests in `tests/test_linq.py` cover mocked contracts, invalid inputs/outputs, output ownership, error redaction, witness correlation and honest preflight status. They do not test hardware, VPN authentication, quantization quality or model accuracy.
+
+
+## Durable video runner factory
+
+`ml.linq.video:create_runner(effective_manifest)` binds only the reviewed Helmet and Split-Pose program names/hashes to the confirmed `file:///auto/cache/<LINQ_LOGIN>/<program_name>?raw=False` URI. It reads only already configured runtime environment keys; credentials/account/URI are never persisted. Required fields: model_id, program_name, program_path, program_sha256, inputs/outputs specs, rpc_state_dir=`<run>/rpc/<model_id>`, journal_dir=`<run>/requests`, format_source_manifest; timeout defaults to 60.
+
+Each logical `(source epoch, frame, model)` request is keyed by SHA256 of the backend's explicit logical ID. Its identity and input tensor hashes are fsynced before networking. Existing UUIDs use receive-only/cached `AmqpRunner.reconcile`; UNKNOWN never republishes. A definitely NOT_SUBMITTED attempt is archived before a fresh UUID. Reusing a logical ID with changed input/model/program fails. One per-run process lock and active-logical fence prevent fresh publication for another model while a previous job is unresolved; cached completed outputs remain readable.
+
+Success returns logical execution_witness plus allowlisted transport_provenance (distinct UUID, correlated response ID, numeric status, journal state/path, cache/recovery flags and scoped timing). Cached/recovery duration is labeled explicitly and is not original inference latency. Backend independent execution verification remains false.
+
+PendingRequestError produces backend `status=pending`, with code linq_pending, linq_not_submitted or linq_busy. The file worker must stop on the SAME frame without creating an observation/gap or advancing its cursor. A correlated SERVICE_FAILED yields linq_service_failed and never repeats that logical job. Identity/configuration contract errors are fatal rather than missing observations. The factory itself performs no video decoding or additional RPC probes.
