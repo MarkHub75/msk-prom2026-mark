@@ -1,4 +1,5 @@
 import json
+from contextlib import nullcontext
 from pathlib import Path
 import tempfile
 import types
@@ -8,8 +9,23 @@ import numpy as np
 from ml.linq.quantized_reference import QuantizedReferenceBackend
 
 
+class FakeTensor:
+    """Tiny owned fixture adapter, not a neural/runtime implementation."""
+    def __init__(self, value): self.value = np.asarray(value)
+    def __mul__(self, value): return FakeTensor(self.value * value)
+    def repeat(self, *repeats): return FakeTensor(np.tile(self.value, repeats))
+    def detach(self): return self
+    def cpu(self): return self
+    def numpy(self): return self.value
+
+
 class ReusableGraphTests(unittest.TestCase):
     def setUp(self):
+        fake_torch = types.SimpleNamespace(set_num_threads=lambda threads: None,
+                                          from_numpy=FakeTensor, no_grad=nullcontext)
+        torch_patch = patch.dict('sys.modules', {'torch': fake_torch})
+        torch_patch.start()
+        self.addCleanup(torch_patch.stop)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
