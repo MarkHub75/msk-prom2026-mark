@@ -52,11 +52,14 @@ def safe_transport(value):
         import math
         timings=value['timings']
         if not isinstance(timings,Mapping):raise ValueError("invalid transport timings")
-        if 'total_ms' in timings:
-            item=timings['total_ms']
-            if not isinstance(item,(int,float)) or isinstance(item,bool) or not math.isfinite(item) or item<0:
-                raise ValueError("invalid transport duration")
-            result['timings']={'total_ms':item}
+        selected={}
+        for key in ('connection_setup_ms','serialize_ms','publish_confirm_ms','response_wait_ms','close_ms','total_ms'):
+            if key in timings:
+                item=timings[key]
+                if not isinstance(item,(int,float)) or isinstance(item,bool) or not math.isfinite(item) or item<0:
+                    raise ValueError("invalid transport duration")
+                selected[key]=item
+        result['timings']=selected
     return result
 
 
