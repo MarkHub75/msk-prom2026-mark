@@ -1,0 +1,26 @@
+{
+  "hypothesis": "H-FALL-01; calibration increases fall recall without increasing false positives",
+  "protocol": "source-reference-bounded-timely-confirmation-v1.1; SAME225frames at2FPS,20developmentclips",
+  "quality_level": "source-reference-diagnostic; NOT independent industrial test",
+  "baseline": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 9,
+    "precision": 1.0,
+    "recall": 0.1,
+    "f1": 0.18181818181818182
+  },
+  "candidate": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 9,
+    "precision": 1.0,
+    "recall": 0.1,
+    "f1": 0.18181818181818182
+  },
+  "accepted_by_validation": false,
+  "decision": "REJECTED_NO_EVENT_QUALITY_GAIN; two failed Fall hypotheses exhausted; retain baseline, no further tuning",
+  "candidate_linq": "NOT_RUN",
+  "baseline_linq": "11 real replies status0 on UR01; that fall missed",
+  "running_zone_next": "offline prototype pending dataset-backed evaluation from Data Orchestrator"
+}

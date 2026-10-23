@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "release_id": "mosprom-ml-quality-checkpoint-20261024",
-  "status": "CHECKPOINT_NOT_INDEPENDENTLY_VALIDATED_FINAL_RELEASE",
+  "status": "FROZEN_RUNTIME_CHECKPOINT_QUALITY_GATES_OPEN",
   "baseline_code_commit": "13d255939834e3d86ea7f7ee90f7a46365e79a6b",
   "scope": "ML only; data intake handed to separate Data Orchestrator",
   "models": [
@@ -75,15 +75,16 @@
         "initial_capture": "/workspace/artifacts/linq-rpc/helmet-001",
         "new_video_capture": null
       },
-      "failed_hypotheses": 2
+      "failed_hypotheses": 2,
+      "freeze_reason": "two justified hypothesis families rejected; baseline retained for rollback"
     },
     {
       "model_id": "pose-split-v1",
-      "stage": "EVALUATED",
+      "stage": "FROZEN",
       "improved": false,
       "baseline_preserved": true,
       "selected": true,
-      "quality_qualification": "poor measured fall recall; not accepted as accurate recognizer",
+      "quality_qualification": "NOT_ACCEPTED_AS_ACCURATE_FALL_RECOGNIZER; recall .10 at2FPS development, independent test absent",
       "artifacts": {
         "weights": {
           "path": "/workspace/artifacts/detection/pose-split/weights.pt",
@@ -178,21 +179,27 @@
         "initial_capture": "/workspace/artifacts/linq-rpc/pose-split-001",
         "new_video_capture": "/workspace/artifacts/quality/pose/e00-linq-urfall01-2fps"
       },
-      "failed_hypotheses": 1
+      "failed_hypotheses": 2,
+      "freeze_reason": "two justified hypothesis families rejected; baseline retained for rollback"
     }
   ],
   "scenario_matrix": "ml/SCENARIOS.md",
   "candidate_promoted": false,
   "final_test_status": "NOT_RUN_WAITING_FOR_DATA_ORCHESTRATOR",
   "off_vast_backup": {
-    "status": "DESTINATION_NOT_CONFIRMED; no rclone remotes; local tar is not external backup"
+    "status": "DESTINATION_NOT_CONFIRMED; no rclone remotes; local tar is not external backup",
+    "local_archive": "/workspace/artifacts/quality/release/mosprom-ml-models-quality-checkpoint-20261024.tar.gz",
+    "local_archive_sha256": "e30f1034b79b6d1610c047b131693c58f15fc667c42ed4fe7c26741c45292445",
+    "local_archive_bytes": 84222307,
+    "external_copy_verified": false
   },
   "candidates": [
     {
       "model_id": "pose-ptq-mendeley8-v1",
       "program": "/workspace/artifacts/quality/candidates/pose-ptq-mendeley8-v1/compile/model.tpu",
       "program_sha256": "0aed469bd7771348ca39c3a3d429166a74e26cb97154ca655a6491800cb67918",
-      "status": "COMPILE_PASS; VALIDATION_RUNNING; NOT_PROMOTED; LINQ_NOT_RUN"
+      "status": "REJECTED_NO_EVENT_QUALITY_GAIN; NOT_DEPLOYED; LINQ_NOT_RUN",
+      "paired_validation_report": "/workspace/artifacts/quality/pose/e03-paired-event-comparison.json"
     }
   ],
   "experimental_host_rules": [
@@ -214,12 +221,35 @@
     "ml/pipeline/file_video.py": "810077e348ff234f295eb1eddf1057a1e47c6c39d31053bb3a97b3736ac614c9",
     "ml/linq/video.py": "59d520c0ae513800d219d2d7ad8e6283539b15f62dfffcbc5020116c31fc55e8",
     "ml/quality/temporal/evaluation.py": "b11641d7c64c4a66959b199bb07f04b7f9efb4b7496cf43fbdffc57cf8f2a796",
-    "ml/quality/temporal/running_zone.py": "477e854d1fa70809739759e7bd2748d92c3ff8ca3316ee5449b36a577469ba5e"
+    "ml/quality/temporal/running_zone.py": "477e854d1fa70809739759e7bd2748d92c3ff8ca3316ee5449b36a577469ba5e",
+    "ml/quality/pose_reference.py": "38d286e091e4d8e4d8c1bd0608bb70862df683586d5578a1963afbe145aada38",
+    "ml/quality/replay.py": "bc0f4060062e5954623002e30ccbd9b217cb5686b3510f7b98ef4ec0acbdf0b1",
+    "ml/linq/quantized_reference.py": "ebfa52d60527e385602f9ba9c392b913e3d2a717d1f1b270a7405a782076035a",
+    "ml/linq/quantized_video.py": "6b8e182fedca48b8c4cbe9e3b53450a6d731d9513bb5a0c7678e1937f02f9787",
+    "ml/quality/temporal/motion_evaluation.py": "fc4f9da9ec8087e6983d0fc3a1f6710374972f654d809e208be0b6b6ddb6f8ab"
   },
   "data": {
     "helmet_validation_sha256": "39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a",
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
     "independent_test": "NONE_EVALUATED",
     "test_tuning": false
-  }
+  },
+  "updated_utc": "2026-10-23T23:46:29.602972+00:00",
+  "software_tests": {
+    "last_completed": 335,
+    "status": "PASS",
+    "environment": "/workspace/.venvs/linq-client",
+    "evidence": "/workspace/artifacts/quality/software-tests-final.log",
+    "scope": "software checks, not model accuracy"
+  },
+  "running_zone": {
+    "stage": "BASELINE",
+    "implementation": "UNVALIDATED_OFFLINE_PROTOTYPE_AND_SCORER",
+    "quality_status": "NOT_EVALUATED",
+    "precision": null,
+    "recall": null,
+    "report": "ml/reports/running-zone-readiness.json",
+    "annotation_handoff": "ml/quality/temporal/MOTION_EVAL.md"
+  },
+  "resource_status": "IDLE; no GPU or CPU model job running"
 }

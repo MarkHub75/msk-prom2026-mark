@@ -1,5 +1,5 @@
 {
-  "protocol": "source-reference-bounded-timely-confirmation-v1",
+  "protocol": "source-reference-bounded-timely-confirmation-v1.1",
   "quality_level": "source-reference-diagnostic",
   "final_test": false,
   "scope": "finite developmental video-level episode diagnostics; source posture references with sampled RGB review; not exact-onset, actor-owned or industrial-quality GT",
@@ -23,7 +23,7 @@
         "fn": 10,
         "precision": null,
         "recall": 0.0,
-        "f1": null
+        "f1": 0.0
       },
       "upper": {
         "tp": 0,
@@ -31,7 +31,7 @@
         "fn": 10,
         "precision": null,
         "recall": 0.0,
-        "f1": null
+        "f1": 0.0
       },
       "point": {
         "tp": 0,
@@ -39,7 +39,7 @@
         "fn": 10,
         "precision": null,
         "recall": 0.0,
-        "f1": null
+        "f1": 0.0
       },
       "point_status": "ONSET_BOUNDS_AGREE"
     },
