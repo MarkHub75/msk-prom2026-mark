@@ -1,20 +1,137 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "ObservationBatch v1", "type": "object",
-  "required": ["schema_version", "camera_id", "stream_epoch", "frame_id", "media_time_ms", "image_size", "status", "detections"],
+  "title": "ObservationBatch v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "camera_id",
+    "stream_epoch",
+    "frame_id",
+    "media_time_ms",
+    "image_size",
+    "status",
+    "detections"
+  ],
   "properties": {
-    "schema_version": {"const": "1.0"},
-    "camera_id": {"type": "string", "minLength": 1},
-    "stream_epoch": {"type": "string", "minLength": 1},
-    "frame_id": {"type": "integer", "minimum": 0},
-    "media_time_ms": {"type": "number", "minimum": 0},
-    "image_size": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}},
-    "status": {"enum": ["ok", "gap", "error"]},
-    "detections": {"type": "array", "items": {"type": "object", "required": ["class_name", "score", "bbox_xyxy"], "properties": {
-      "class_name": {"type": "string"},
-      "score": {"type": "number", "minimum": 0, "maximum": 1},
-      "bbox_xyxy": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0}},
-      "keypoints": {"anyOf": [{"type": "null"}, {"type": "array", "minItems": 17, "maxItems": 17, "items": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}}]}
-    }}}
-  }
+    "schema_version": {
+      "const": "1.0"
+    },
+    "camera_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stream_epoch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "frame_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "media_time_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "image_size": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "gap",
+        "error"
+      ]
+    },
+    "detections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "class_name",
+          "score",
+          "bbox_xyxy"
+        ],
+        "properties": {
+          "class_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "bbox_xyxy": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "keypoints": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "minItems": 17,
+                "maxItems": 17,
+                "items": {
+                  "type": "array",
+                  "minItems": 3,
+                  "maxItems": 3,
+                  "items": {
+                    "type": "number"
+                  },
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "error",
+              "gap"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "detections": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
 }

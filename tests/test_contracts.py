@@ -20,3 +20,19 @@ class ContractsTest(unittest.TestCase):
         with self.assertRaises(ValueError): validate_event(value)
         value=event();value['schema_version']='2.0'
         with self.assertRaises(ValueError): validate_event(value)
+
+    def test_boolean_numbers_and_malformed_items_rejected(self):
+        for key in ('frame_id', 'media_time_ms'):
+            value=batch(0,[person()]);value[key]=True
+            with self.assertRaises(ValueError): validate_observation(value)
+        for item in (None, {}, {'bbox_xyxy':[0,1],'class_name':'person','score':.9}):
+            value=batch(0,[item])
+            with self.assertRaises(ValueError): validate_observation(value)
+        value=event();value['revision']=True
+        with self.assertRaises(ValueError): validate_event(value)
+
+    def test_ready_media_and_retired_epoch_chronology(self):
+        value=event();value['evidence']={'status':'ready','snapshot_ref':None}
+        with self.assertRaises(ValueError): validate_event(value)
+        value=event();value['end_media_ms']=1000
+        with self.assertRaises(ValueError): validate_event(value)

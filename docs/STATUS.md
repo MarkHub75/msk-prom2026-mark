@@ -14,9 +14,9 @@ Implemented in matvey_cv: shared contracts and JSON schemas, two-model detection
 
 ## Not yet verified
 
-VPN/Jupyter authentication, actual TPU execution (including vendor ResNet50), TPU numerical/decoded parity, target CCTV precision/recall, representative INT8 calibration, backend/frontend team's real endpoint and artifact hosting, delivered-alert latency and multi-camera capacity.
+Actual TPU execution (including vendor ResNet50), TPU numerical/decoded parity, target CCTV precision/recall, representative INT8 calibration, backend/frontend team's real endpoint and artifact hosting, delivered-alert latency and multi-camera capacity.
 
-Vast has no /dev/net/tun or OpenVPN; LinQ Jupyter DNS is unavailable outside VPN. The compiler now exists in a separate environment, while pytpu/native runtime and device remain unavailable here. No passwords or VPN profiles were opened or saved. The next hardware step is VPN/Jupyter validation on the Arch laptop, followed by the provided vendor program and our programs using the actual supplied remote example.
+Continuation: the user confirms authenticated LinQ Jupyter access and a supplied example.ipynb using a ready ResNet50 program. This is user-reported access confirmation; actual TPU completion still requires a captured call. Vast has no /dev/net/tun or OpenVPN; LinQ Jupyter DNS is unavailable from this host. The compiler now exists in a separate environment, while pytpu/native runtime and device remain unavailable here. No passwords or VPN profiles were opened or saved. The next hardware step is execution of the provided stock notebook inside the already authenticated Jupyter session, safe capture of the actual call, then our programs through that supplied API. No authenticated Jupyter tool/session is connected to this orchestrator.
 
 ## Artifacts outside Git
 

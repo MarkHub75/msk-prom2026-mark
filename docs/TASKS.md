@@ -4,9 +4,9 @@ Baseline: matvey_cv 118e068b; continuation retains the approved MVP. Root is the
 
 | ID | Owner / directory | Task | Acceptance | State |
 |---|---|---|---|---|
-| LQ-01 | LinQ / agents/linq | Capture a real supplied notebook call without notebook/session secrets | Numeric tensors + program/input/output hashes + timing; safe failure; tests; user-run cells/runbook | Assigned; hardware call pending user session |
-| CV-02 | Detection / agents/detection | Compare captured TPU tensors to float/golden and decode split pose | Explicit name map, shape/dtype checks, per-output and decoded differences; tests; no automatic PASS quality claim | Assigned |
-| BH-02 | Behavior / agents/fall | Reproducible event acceptance scenarios | Helmet, fall, lying, immobility, gaps, ambiguous owners, no repeat; source-native backend label; deterministic semantic expectations | Assigned |
+| LQ-01 | LinQ / agents/linq | Capture a real supplied notebook call without notebook/session secrets | Numeric tensors + program/input/output hashes + timing; safe failure; tests; user-run cells/runbook | Running in isolated worktree; hardware call pending user capture |
+| CV-02 | Detection / agents/detection | Compare captured TPU tensors to float/golden and decode split pose | Explicit name map, shape/dtype checks, per-output and decoded differences; tests; no automatic PASS quality claim | Running in isolated worktree |
+| BH-02 | Behavior / agents/fall | Reproducible event acceptance scenarios | Helmet, fall, lying, immobility, gaps, ambiguous owners, no repeat; source-native backend label; deterministic semantic expectations | Running in isolated worktree |
 | OR-02 | Root / project | AGENTS, architecture, contract consistency, review and integration | Isolated branches, no main/research/media changes, combined tests pass | In progress |
 | HW-01 | User existing Jupyter | Run stock example.ipynb and export safe capture | Completed ResNet50 TPU call; no credentials/full notebook outputs in export | Waiting for prepared capture instructions |
 | APP-01 | Backend/frontend team | Real event endpoint, evidence serving, alert/journal | Persist-before-ACK + idempotent event revisions + visible evidence and filters | External integration pending |
