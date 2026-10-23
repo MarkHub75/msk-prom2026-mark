@@ -3,3 +3,6 @@
 Ты отдельный русский редактор. Прочитай _WORK/AUTHOR_DRAFT.md полностью и доказательную базу SOURCES.md, RAW_FACTS.md, OPEN_QUESTIONS.md, CRITIC.md для сохранения оговорок. Улучши связность/ясность/читаемость, убери канцелярит, повторные вступления/механические выводы/маркетинговые обещания/шаблонные противопоставления. Можно перестроить форму, нельзя создавать новые факты или удалять значимые условия.
 
 Сохрани окончательный report_human_behavioral_safety_feasibility.md в корне. Должны остаться все8 сценариев, точные полезные модели/веса/видео/лицензии/версии, evidence statuses, comparative matrix,2–3условных MVP+резервы/триггеры, три архитектуры, LinQ smoke-test порядок, event metrics/dedup/negative controls, stop-list, существенные неизвестные и действия. Подробности могут быть в F со ссылкой, но итог должен быть самостоятельным и пригодным для решения. Это авторская редактура, не новый аудит и не сеть. Сообщи путь и коротко характер редакторских улучшений.
+
+
+Small editorial scope correction after first delivery: replace broad claim that the team never ran host NN with exact scope "Within this research hostNN/export/PTQ/compile/device inference not run". Neighborlinq_platform has independenthostCPUtests. Editorperformedonefollow-upwithinexistingrole; no newaudit/searchagent. Compressor notifiedto use inthisresearch.

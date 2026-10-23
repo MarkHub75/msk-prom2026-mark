@@ -63,6 +63,9 @@ OPEN_QUESTIONS: вопрос/что известно+где искали/поч�
 Сохрани окончательный report_human_behavioral_safety_feasibility.md в корне. Должны остаться все8 сценариев, точные полезные модели/веса/видео/лицензии/версии, evidence statuses, comparative matrix,2–3условных MVP+резервы/триггеры, три архитектуры, LinQ smoke-test порядок, event metrics/dedup/negative controls, stop-list, существенные неизвестные и действия. Подробности могут быть в F со ссылкой, но итог должен быть самостоятельным и пригодным для решения. Это авторская редактура, не новый аудит и не сеть. Сообщи путь и коротко характер редакторских улучшений.
 
 
+Small editorial scope correction after first delivery: replace broad claim that the team never ran host NN with exact scope "Within this research hostNN/export/PTQ/compile/device inference not run". Neighborlinq_platform has independenthostCPUtests. Editorperformedonefollow-upwithinexistingrole; no newaudit/searchagent. Compressor notifiedto use inthisresearch.
+
+
 # PROMPT_W1-01
 
 Ты самостоятельный сетевой исследователь первой волны GPT-6.1 Sol Medium. Работаешь для команды из пяти человек хакатона «Открой#Моспром» 2026, дедлайн 25 октября 10:00 МСК. Тема behavioral_safety_feasibility: выбрать 2–3 реализуемых поведенческих сценария с обязательным реальным нейроинференсом на LinQ. Сейчас 23 октября 2026. Нужен research, НЕ приложение, обучение или большой benchmark.
