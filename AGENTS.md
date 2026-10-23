@@ -1,5 +1,17 @@
 # MOSPROM ML/CV implementation guide
 
+## Current directive: ML quality sprint
+
+The user's latest directive and /workspace/ML_24H_PLAYBOOK.md supersede earlier integration priorities. Work only on ML/CV data, annotation, baseline/candidate experiments, independent evaluation and LinQ release gates. Do not edit backend/frontend/API or external event schemas. Keep the existing video pipeline unless a measured defect requires a minimal fix. Read official case pages4/5/7/8/13/15/18 for quality, latency and deadlines; Helmet is additional to the page4 behavioral examples.
+
+Latest steering: a separate Data Orchestrator owns new source discovery, acquisition and data curation. ML agents stop new dataset searches and hand off existing intake records; do not edit /workspace/agents/data-audit or its branch. ML owns models, offline scoring, existing pipeline and LinQ qualification. Maintain BASELINE -> EVALUATED -> IMPROVED -> FROZEN stages, never mark IMPROVED without a paired gain. At most two failed justified hypotheses per scenario before freezing the best verified checkpoint and moving to the next scenario. A parameter sweep of two confidence values is one hypothesis, with both operating points recorded. A freeze may retain an unimproved baseline; it must explicitly record skipped improvement and outstanding quality gates.
+
+Root alone owns ml/PROGRESS.md, DATASET_CARD.md, DATASET_MANIFEST.csv, EXPERIMENTS.csv, EVAL_PROTOCOL.md, ERROR_ANALYSIS.md, EVAL_REPORT.md and RELEASE_MANIFEST.json. Additional exclusive ownership: Detection agent owns ml/quality/helmet/ and tests/test_helmet_quality*.py; Behavior agent owns ml/quality/temporal/ and tests/test_temporal_quality*.py. Root owns other ml/quality helpers/integration tests. Existing ownership below remains in force elsewhere. All coding occurs in the corresponding isolated worktree.
+
+At most one heavy GPU job, explicitly allocated by root and protected by /workspace/artifacts/quality/gpu.lock. Root controls actual LinQ requests and runtime credentials. Calibration uses training/calibration groups only; model/threshold/ROI selection uses validation only; final test is sealed until one final baseline/candidate comparison. Record source/lineage/rights, exact and near duplicates and uncertain class coverage. No missing annotation is a negative. Unit tests do not establish accuracy. Partial-label/source-label metrics must be separated from reviewed exhaustive metrics and event-level quality.
+
+Historical research/media are read-only. New raw/processed data and full GT/predictions/checkpoints remain outside Git; only small provenance manifests, code and metric summaries are committed. User authorized a final non-force push of matvey_cv through the playbook and an off-Vast binary backup; never push main or upload private media. A backup is not verified until an authorized external destination and matching digest exist.
+
 Continue the approved MVP: missing helmet and suspected fall/prolonged lying with visible-keypoint immobility. Official case in /workspace/case is the requirements authority. Research is reference material, never evidence of executed hardware or model quality.
 
 ## Ownership and Git

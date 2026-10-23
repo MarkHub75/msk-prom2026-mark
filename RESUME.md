@@ -1,5 +1,17 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
+## LATEST CHECKPOINT — ML quality sprint (supersedes historical backend priorities)
+
+Latest usersteering: ML models/pipelines/LinQ only; separate Data Orchestrator owns new dataset discovery/acquisition/curation in its branch. Do NOT edit backend/frontend/API or /workspace/agents/data-audit. Continue from thisqualitycheckpoint; previous STOP/backend directives below are historical. Read ml/{SCENARIOS,PROGRESS,EVAL_PROTOCOL,EVAL_REPORT,ERROR_ANALYSIS,DATA_HANDOFF}.md and EXPERIMENTS.csv before allocating newexperiments. BASELINE/EVALUATED/IMPROVED/FROZEN stages; at most2failedhypotheses/scenario, no endlessHelmet/Fall tuning.
+
+Helmet measured onfixed52quality-v3 (44complete/class), AIreviewed development-only withconfirmedpretrainphotooverlap, NOT independenttest. Fullframe.25/NMS.45: helmetTP19FP11FN6 P.6333R.76F1.6909; bareTP23FP7FN9 P.7667R.71875F1.7419; macroF1.716422. Higherthreshold(.4/.5) andfixedfourtiles bothrejected; twofailedfamilies reached => freezeexistingcheckpoint, nootherHelmethypotheses. RawGTv1/v2/v3+pinnedpredictionsretainedoutsideGit. No modelgainclaimedfromlabelrepair.
+
+Fall nativeE00 all3274originalPTSframes/20URdevelopmentclips:0TP0FP10FN;0prolongedlyingpositive-support. Atmatched2FPS225frames:1TP0FP9FN/F1.1818; samplingprotocolsnotcomparableasimprovement. H-FALL-02 boundedunknown-uprighthistoryretentiongaveSAMEresults, OFFbydefault andnotpromoted. Second/finalFallhypothesisH01is8industrialframePTQ; unchangedONNX/conditionedgraph, O1compilePASS/TPUSHA0aed469bd7771348ca39c3a3d429166a74e26cb97154ca655a6491800cb67918, pairedCPU2 simulation225framesbaseline/candidate inprogress; no deployment/actualcandidateLinQ. Baselineprogramremainsrollback. Do notlaunchthirdFallhypothesis.
+
+NEWactualLinQbaselineURfall01:11uniqueUUID/status0/correlatednumerictensors,0events/1miss,131.018s/.083958FPS, RPCp5010.630s/p9518.967s. /workspace/artifacts/quality/pose/e00-linq-urfall01-2fps; first-windowperformancefilepreservesuncachedtiming; EOFfinalization0newNNcalls. No realtimeclaim. GPUreference49.699s/3274framesisseparate. NoVPN/SSHchanges. Running/Zone offlineprototype merged, UNVALIDATED_PROTOTYPE only; no productionevents orrunningaccuracy withoutDataGT. All8officialscenarios+supplementaryHelmetmatrix inml/SCENARIOS.md.
+
+Known opengates: independentdata/testandhumanGT; prolongedlying>=3spositives; PTQquality thenrealLinQifbeneficial; validatedRunning/Zone; finalrelease/off-Vastbackupdestination. No rclone remotes configured. Existinglocaltar isNOTexternalbackup. Rootownsqualityregisters; do notmodifyanotherorchestratorbranch.311softwaretestspassed beforependingPTQbackendmerge; finalfullsuite required. Currentcodecommit = gitlog-1; rootqualitycheckpointcommitwillpinthisrecord.
+
 ## LATEST CHECKPOINT — backend contract and controlled recovery stage
 
 The user resumed after c8dd54a2. This section supersedes the historical video checkpoint below. Autonomous work for this stage is saved; stop after the report and wait for the user's next instruction. Actual Mark-backend integration remains BLOCKED BY MISSING ENDPOINT/SOURCE, not a claimed PASS.

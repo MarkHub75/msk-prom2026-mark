@@ -1,0 +1,104 @@
+{
+  "scope": "Development object-box evaluation; AI reviewed; confirmed upstream photo overlap; not independent test/event accuracy",
+  "data_sha256": "39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a",
+  "predictions_sha256": "9f8a221af6d15c85e1469ea22bedd553c5169bec5c4b2bbeeb0a2fa7cd909079",
+  "operating_points": {
+    "0.25": {
+      "images": 52,
+      "source_groups": 44,
+      "macro_f1": 0.7164222873900293,
+      "classes": {
+        "helmet": {
+          "complete_images": 44,
+          "gt": 25,
+          "tp": 19,
+          "fp": 11,
+          "fn": 6,
+          "precision": 0.6333333333333333,
+          "recall": 0.76,
+          "f1": 0.6909090909090909,
+          "ap50": 0.666120781095753,
+          "map50_95": 0.2472840418600733
+        },
+        "bare_head": {
+          "complete_images": 44,
+          "gt": 32,
+          "tp": 23,
+          "fp": 7,
+          "fn": 9,
+          "precision": 0.7666666666666667,
+          "recall": 0.71875,
+          "f1": 0.7419354838709677,
+          "ap50": 0.8441247820008806,
+          "map50_95": 0.6317762964592041
+        }
+      }
+    },
+    "0.40": {
+      "images": 52,
+      "source_groups": 44,
+      "macro_f1": 0.6524822695035462,
+      "classes": {
+        "helmet": {
+          "complete_images": 44,
+          "gt": 25,
+          "tp": 15,
+          "fp": 7,
+          "fn": 10,
+          "precision": 0.6818181818181818,
+          "recall": 0.6,
+          "f1": 0.6382978723404256,
+          "ap50": 0.666120781095753,
+          "map50_95": 0.2472840418600733
+        },
+        "bare_head": {
+          "complete_images": 44,
+          "gt": 32,
+          "tp": 17,
+          "fp": 2,
+          "fn": 15,
+          "precision": 0.8947368421052632,
+          "recall": 0.53125,
+          "f1": 0.6666666666666666,
+          "ap50": 0.8441247820008806,
+          "map50_95": 0.6317762964592041
+        }
+      }
+    },
+    "0.50": {
+      "images": 52,
+      "source_groups": 44,
+      "macro_f1": 0.5227272727272727,
+      "classes": {
+        "helmet": {
+          "complete_images": 44,
+          "gt": 25,
+          "tp": 10,
+          "fp": 5,
+          "fn": 15,
+          "precision": 0.6666666666666666,
+          "recall": 0.4,
+          "f1": 0.5,
+          "ap50": 0.666120781095753,
+          "map50_95": 0.2472840418600733
+        },
+        "bare_head": {
+          "complete_images": 44,
+          "gt": 32,
+          "tp": 12,
+          "fp": 0,
+          "fn": 20,
+          "precision": 1.0,
+          "recall": 0.375,
+          "f1": 0.5454545454545454,
+          "ap50": 0.8441247820008806,
+          "map50_95": 0.6317762964592041
+        }
+      }
+    }
+  },
+  "decision": "retain confidence .25; both raised thresholds rejected",
+  "failed_hypothesis_families": 1,
+  "test_status": "NOT_RUN",
+  "artifacts": "/workspace/artifacts/quality/helmet/e01-v3-rescore/"
+}

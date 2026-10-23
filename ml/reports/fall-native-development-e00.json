@@ -1,0 +1,93 @@
+{
+  "protocol": "source-reference-bounded-timely-confirmation-v1",
+  "quality_level": "source-reference-diagnostic",
+  "final_test": false,
+  "scope": "finite developmental video-level episode diagnostics; source posture references with sampled RGB review; not exact-onset, actor-owned or industrial-quality GT",
+  "deadline_ms": 5000,
+  "evaluated_videos": 20,
+  "unrun_videos": [],
+  "source_known_ms": 107166.667,
+  "source_unknown_ms": 1966.666,
+  "unknown_source_duration_rate": 0.018020763646978508,
+  "unknown_predictions": 0,
+  "revision_rows_deduplicated": 0,
+  "left_censored_gt_excluded": 0,
+  "per_type": {
+    "suspected_fall": {
+      "truth_episodes": 10,
+      "adjudicable_predictions": 0,
+      "unknown_predictions": 0,
+      "lower": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      },
+      "upper": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      },
+      "point": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null
+      },
+      "point_status": "ONSET_BOUNDS_AGREE"
+    },
+    "prolonged_lying": {
+      "truth_episodes": 0,
+      "adjudicable_predictions": 0,
+      "unknown_predictions": 0,
+      "lower": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "upper": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "point": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "point_status": "ONSET_BOUNDS_AGREE"
+    }
+  },
+  "not_implemented": {
+    "running": {
+      "status": "NOT_IMPLEMENTED",
+      "precision": null,
+      "recall": null
+    },
+    "zone_intrusion": {
+      "status": "NOT_IMPLEMENTED",
+      "precision": null,
+      "recall": null
+    }
+  },
+  "false_positive_definition": "unmatched strict timely episode assertion; may include semantically true late or repeated alerts",
+  "operational_false_alert_rate_measured": false,
+  "model_observation_unknown_rate_measured": false,
+  "delivered_alert_latency_measured": false
+}
