@@ -56,3 +56,28 @@ class DeliveryTest(unittest.TestCase):
         with self.assertRaises(ValueError): HttpEventSink('http://example.com/events',token='private')
 
 if __name__ == '__main__': unittest.main()
+
+class EvidenceReferenceTest(unittest.TestCase):
+    def test_clip_only_reference_uses_artifact_prefix(self):
+        from unittest.mock import patch
+        from contextlib import contextmanager
+        import io
+        value=event();value['evidence']={'status':'ready','snapshot_ref':None,'clip_ref':'evidence/clip name.mp4'}
+        seen=[]
+        class Opener:
+            @contextmanager
+            def open(self, request, timeout):
+                seen.append(json.loads(request.data))
+                yield io.BytesIO(json.dumps({'committed':True,'event_id':value['event_id'],'revision':1}).encode())
+        with patch('urllib.request.build_opener',return_value=Opener()):
+            HttpEventSink('http://localhost/events',evidence_base_url='https://media.example/').publish(value)
+        self.assertIsNone(seen[0]['evidence']['snapshot_ref'])
+        self.assertEqual(seen[0]['evidence']['clip_ref'],'https://media.example/evidence/clip%20name.mp4')
+
+    def test_parent_escape_is_rejected_before_network(self):
+        from unittest.mock import patch
+        value=event();value['evidence']={'status':'ready','snapshot_ref':'../events.sqlite'}
+        with patch('urllib.request.build_opener') as opener:
+            with self.assertRaises(ValueError):
+                HttpEventSink('http://localhost/events',evidence_base_url='https://media.example/').publish(value)
+            opener.assert_not_called()

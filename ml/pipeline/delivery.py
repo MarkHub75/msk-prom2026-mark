@@ -105,7 +105,15 @@ class HttpEventSink:
             if not self.evidence_base_url:
                 raise ValueError('receiver-accessible evidence_base_url is required')
             from urllib.parse import quote
-            evidence['snapshot_ref'] = self.evidence_base_url.rstrip('/') + '/' + quote(evidence['snapshot_ref'], safe='/')
+            from pathlib import PurePosixPath
+            for key in ('snapshot_ref', 'clip_ref'):
+                reference = evidence.get(key)
+                if not reference:
+                    continue
+                path = PurePosixPath(reference)
+                if path.is_absolute() or '..' in path.parts or ':' in reference or '\\' in reference:
+                    raise ValueError('evidence reference must be a relative artifact path')
+                evidence[key] = self.evidence_base_url.rstrip('/') + '/' + quote(reference, safe='/')
         payload['evidence'] = evidence
         headers = {'Content-Type': 'application/json', 'Idempotency-Key': f"{event['event_id']}:{event['revision']}"}
         if self.token:
