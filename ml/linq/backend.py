@@ -8,11 +8,69 @@ from __future__ import annotations
 from dataclasses import dataclass
 from time import perf_counter
 from typing import Callable, Mapping, Any
+from uuid import UUID
+from pathlib import Path
 import numpy as np
 
 
 class UnavailableError(RuntimeError):
     """Required issued runtime or configured runner is unavailable."""
+
+
+def safe_transport(value):
+    """Keep only typed correlation/status/timing evidence, never arbitrary SDK data."""
+    if value is None:return None
+    if not isinstance(value,Mapping):raise ValueError("transport provenance must be a mapping")
+    result={}
+    for key in ("request_id","response_id"):
+        item=value.get(key)
+        if item is not None:
+            if not isinstance(item,str) or str(UUID(item))!=item:raise ValueError("invalid transport UUID")
+            result[key]=item
+    if 'status_code' in value:
+        item=value['status_code']
+        if item is not None and type(item) is not int:raise ValueError("invalid transport status")
+        result['status_code']=item
+    enums={'journal_state':{'NOT_SUBMITTED','SUBMITTING','ACCEPTED','UNKNOWN','COMPLETED','SERVICE_FAILED'},
+           'remote_completion':{'not_submitted','unknown','response_received'},
+           'latency_kind':{'initial_call','recovery_only','cached_response','not_submitted'}}
+    for key,allowed in enums.items():
+        if key in value:
+            if value[key] not in allowed:raise ValueError("invalid transport state")
+            result[key]=value[key]
+    for key in ('cached_response','reconcile_only','broker_ready','durable_response'):
+        if key in value:
+            if type(value[key]) is not bool:raise ValueError("invalid transport flag")
+            result[key]=value[key]
+    if 'journal_path' in value:
+        item=value['journal_path']
+        if (not isinstance(item,str) or not Path(item).is_absolute() or
+                'request_id' not in result or Path(item).name!=result['request_id']):
+            raise ValueError("invalid transport journal reference")
+        result['journal_path']=item
+    if 'timings' in value:
+        import math
+        timings=value['timings']
+        if not isinstance(timings,Mapping):raise ValueError("invalid transport timings")
+        if 'total_ms' in timings:
+            item=timings['total_ms']
+            if not isinstance(item,(int,float)) or isinstance(item,bool) or not math.isfinite(item) or item<0:
+                raise ValueError("invalid transport duration")
+            result['timings']={'total_ms':item}
+    return result
+
+
+class PendingRequestError(UnavailableError):
+    """Stop and resume the same logical frame; never interpret as a safe gap."""
+    def __init__(self,code='linq_pending',transport=None):
+        if code not in {'linq_pending','linq_not_submitted','linq_busy'}:raise ValueError('invalid pending code')
+        super().__init__(code);self.code=code;self.transport_provenance=safe_transport(transport)
+
+
+class TerminalRequestError(RuntimeError):
+    """A correlated terminal service failure; the logical request is never retried."""
+    def __init__(self,transport):
+        super().__init__('linq_service_failed');self.transport_provenance=safe_transport(transport)
 
 
 @dataclass(frozen=True)
@@ -108,8 +166,9 @@ class LinQBackend:
             if "outputs" in raw:
                 outputs = raw["outputs"]
                 witness = raw.get("execution_witness")
+                transport = raw.get("transport_provenance")
             else:
-                outputs, witness = raw, None
+                outputs, witness, transport = raw, None, None
             if not isinstance(outputs, Mapping) or set(outputs) != set(self.outputs):
                 raise ValueError("output tensor names do not match manifest")
             copied = {}
@@ -127,9 +186,19 @@ class LinQBackend:
                 if safe.get("device_kind") != "linq_tpu" or safe.get("completed") is not True:
                     raise ValueError("execution witness does not report completed TPU execution")
                 result["execution_witness"] = safe
+            if transport is not None:
+                result["transport_provenance"] = safe_transport(transport)
             result.update(status="ok", outputs=copied)
         except Exception as error:
-            if isinstance(error, UnavailableError):
+            if isinstance(error, PendingRequestError):
+                result["status"]="pending"
+                code=error.code
+                if error.transport_provenance is not None:
+                    result["transport_provenance"]=error.transport_provenance
+            elif isinstance(error, TerminalRequestError):
+                code="linq_service_failed"
+                result["transport_provenance"]=error.transport_provenance
+            elif isinstance(error, UnavailableError):
                 code = "linq_unavailable"
             elif isinstance(error, (ValueError, TypeError, KeyError, OverflowError)):
                 code = "contract_error"
