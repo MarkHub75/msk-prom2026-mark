@@ -34,9 +34,20 @@ A completed compile report still records `linq_status=NOT_RUN` and `runtime_abi_
 
 ## Completed local compilation experiment
 
-Helmet ONNX `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47` completed current SDK conditioning, `calibrate_torch`, quantization and TPU_H1M O1 compilation in 72.66 seconds. Program is `/workspace/artifacts/linq-sdk/helmet-compile/model.tpu`, SHA256 `408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa`. Full local compile metadata is alongside it in `compile-report.json`; downloaded wheel hashes are in `/workspace/artifacts/linq-sdk/package-inventory.json`.
+Helmet ONNX `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47` completed current SDK conditioning, `calibrate_torch`, quantization and TPU_H1M O1 compilation in 72.66 seconds. Program is `/workspace/artifacts/linq-sdk/helmet-compile/model.tpu`, SHA256 `408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa`. Pose ONNX `398cc23eac1b4702656d2ec4486d7aa1e5bda8563d33babaa9017ab3fdd5b02f` also compiled successfully in 76.26 seconds. Its program is `/workspace/artifacts/linq-sdk/pose-compile/model.tpu`, SHA256 `23c0e53439032860706c28d1e9f493f1e84bda85b679997b7336412db62c4e1c`. Conditioned output is `output0` float32 `[1,56,8400]` (same input). Full local compile metadata is alongside each program in `compile-report.json`; downloaded wheel hashes are in `/workspace/artifacts/linq-sdk/package-inventory.json`.
+
+The exact supplied ResNet example, image and program are available at `/workspace/artifacts/linq-api/`, with `vendor-inventory.json`. Vendor program SHA256: `0bac3ad590505fb20753e4888bec3fce9202a6e1c96cad3abe74a2a4b283d60c`. These are public supplied assets, not a completed hardware run.
 
 This is a **compiler smoke**, using exactly one real bus photograph after the same RGB letterbox preprocessor. It proves the selected full decoded detection graph passes this compiler build; it does not validate quantized detector accuracy. The SDK upgraded opset 13 to 17 during conditioning. Conditioned ONNX ABI: `images` float32 `[1,3,640,640]` -> `output0` float32 `[1,6,8400]`. Actual TPU runtime ABI and hardware execution remain unverified. Replace this calibration with a representative separate PPE corpus before claiming accuracy.
+
+
+### Quantized simulation gate: pose confidence failure
+
+A bounded CPU hardware-aware Torch graph check was run on the same calibration image using `QuantizedModel.load(...).as_torch_graph(batch_size=1).gm(...)`. This graph consumes/returns quantized codes; direct comparison to float ONNX is invalid. The first raw probe is retained with `valid_for_accuracy=false`. A second diagnostic applies `round(input * images.data_scale)` and multiplies each output channel by its recorded `scales.json` data scale. The scaling policy still needs confirmation against the actual vendor/runtime codec; this is not hardware parity.
+
+Under that explicit policy, helmet class scores remain nonzero (maximum 0.35259 versus float 0.35823; 3 versus 2 anchors above 0.25). Pose person scores also survive (30 versus 30 anchors above 0.25). **Pose keypoint confidence channels are all zero**, while float keypoint confidence reaches 0.99891. The recorded output scale is 5.81299 for all keypoint channels, including confidence; mixing pixel coordinates with probabilities loses the confidence signal. This candidate pose program is therefore **not accepted for behavior analysis**, despite successful compilation.
+
+Reports and arrays: each model's compile directory contains `quantized-torch-scaled-smoke-report.json` and `quantized-torch-scaled-smoke-output.npz`. They are diagnostics from one reused image, not accuracy measurements. Next graph experiment should separate keypoint coordinates and confidence into different output tensors before PTQ, preserve the output mapping, then reassemble the decoder input on the host and repeat reference/quantized/runtime tests. Do not invent missing confidence values or lower the keypoint threshold to accept zeros.
 
 ## First access on the Arch laptop
 

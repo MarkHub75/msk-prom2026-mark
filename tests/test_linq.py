@@ -89,7 +89,6 @@ class LinQTests(unittest.TestCase):
         self.assertEqual({x['name']:x['status'] for x in report['checks']}['own_model_tpu'],'not_run')
 
 
-if __name__=='__main__':unittest.main()
 
 class LocalRunnerTests(unittest.TestCase):
     def test_official_run_api_and_resource_lifetime(self):
@@ -130,3 +129,6 @@ class LocalRunnerTests(unittest.TestCase):
             path=Path(tmp)/'test.tpu';path.write_bytes(b'fake')
             with self.assertRaises(ValueError):
                 with LocalPytpuRunner(path,'0'*64):pass
+
+
+if __name__=='__main__':unittest.main()
