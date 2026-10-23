@@ -11,7 +11,7 @@ The user has confirmed a successful stock notebook call (`status_code=0`, class 
 - Correlation is the AMQP header `tpu_pycloud_message_id`.
 - Exact target URI is header `uri`; it is not reconstructed from an arbitrary filename.
 - `response_routing_keys` is a JSON list. For the confirmed direct reply it contains the explicitly created reply queue.
-- User-confirmed request/reply exchange: `tpu.direct`; request routing key: `input`; reply queue: `notebook_{request_id[:8]}`, auto-delete, bound to `tpu.direct` using its own name. The client additionally makes the unique reply queue exclusive so closing the connection removes it.
+- User-confirmed request/reply exchange: `tpu.direct`; request routing key: `input`; reply queue: `notebook_{request_id[:8]}`, auto-delete, bound to `tpu.direct` using its own name. The official profile keeps the notebook’s default `exclusive=False`; the generic explicit binding can choose another policy.
 - Confirmed stock URI pattern: `file:///auto/cache/<actual LinQ login>/torch_resnet50_b1_o5_h1m.tpu?raw=False`. `--login-env LINQ_LOGIN` composes ONLY this explicitly confirmed stock URI. The actual login must already be configured privately. Alternatively pass an exact `--target-uri`; never pass auth tokens in it.
 
 ## Exact format dependency

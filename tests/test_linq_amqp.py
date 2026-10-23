@@ -29,7 +29,7 @@ class FakeChannel:
         self.timeout=False;self.mismatch=False;self.publish_error=False
     def queue_declare(self,**kwargs):
         self.queue_config=kwargs
-        return SimpleNamespace(method=SimpleNamespace(queue='exclusive-fixture'))
+        return SimpleNamespace(method=SimpleNamespace(queue=kwargs['queue'] or 'exclusive-fixture'))
     def queue_bind(self,**kwargs):self.bindings.append(kwargs)
     def confirm_delivery(self):pass
     def basic_publish(self,**kwargs):
@@ -86,7 +86,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertEqual(headers['tpu_pycloud_message_id'],self.runner.last_response['request_id'])
         self.assertEqual(json.loads(headers['response_routing_keys']),['exclusive-fixture'])
         self.assertEqual(headers['uri'],'file:///explicit/program.tpu?raw=False')
-        self.assertEqual(self.channel.queue_config,dict(queue='',durable=False,exclusive=True,auto_delete=True))
+        self.assertEqual(self.channel.queue_config,dict(queue='',durable=False,exclusive=False,auto_delete=True))
         self.assertEqual(self.channel.bindings,[dict(queue='exclusive-fixture',exchange='explicit-reply-exchange',routing_key='exclusive-fixture')])
         self.assertEqual(self.connection.closed,1)
         self.assertEqual(self.runner.last_response['status_code'],0)
@@ -183,6 +183,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.binding.reply_queue_factory=lambda request_id:'notebook_'+request_id[:8]
         self.runner(self.inputs)
         self.assertEqual(self.channel.queue_config['queue'],'notebook_'+self.runner.last_response['request_id'][:8])
+        self.assertFalse(self.channel.queue_config['exclusive'])
 
     def test_service_error_sanitizes_known_password_and_uri_auth(self):
         self.original.credentials=SimpleNamespace(password='super-private-value')

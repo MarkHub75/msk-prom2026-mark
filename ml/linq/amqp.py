@@ -64,6 +64,7 @@ class AmqpBinding:
     format_source_manifest: object = None  # reviewed source-only official-format inventory
     reply_queue_factory: object = None  # explicit (request_id)->queue_name, or server-generated
     get_service_error: object = None  # optional explicit worker error selector, never public JSON
+    reply_exclusive: bool = True  # generic policy; official notebook explicitly uses False
 
 
 def _load_format(source_manifest=None):
@@ -117,6 +118,8 @@ def _validate_binding(binding):
                 raise AmqpError("invalid_binding", "validate_binding") from None
         else:
             raise AmqpError("invalid_binding", "validate_binding")
+    if type(binding.reply_exclusive) is not bool:
+        raise AmqpError("explicit_reply_exclusive_policy_required", "validate_binding")
     callbacks = (binding.task_factory, binding.get_response_id, binding.get_status, binding.get_outputs)
     if not all(callable(fn) for fn in callbacks):
         raise AmqpError("explicit_binding_callbacks_required", "validate_binding")
@@ -180,7 +183,7 @@ def _service_error_excerpt(value, parameters):
 
 
 class AmqpRunner:
-    """Blocking one-request callable with one exclusive response queue.
+    """Blocking one-request callable with one explicitly configured response queue.
 
     A local timeout/publish failure leaves remote completion unknown. This runner
     never retries a publish and must not be blindly recalled as an automatic retry.
@@ -225,7 +228,7 @@ class AmqpRunner:
                                self.binding.reply_queue_factory(request_id))
             if not isinstance(requested_queue, str):
                 raise AmqpError("invalid_reply_queue_name", "declare_reply_queue")
-            declared = channel.queue_declare(queue=requested_queue, durable=False, exclusive=True, auto_delete=True)
+            declared = channel.queue_declare(queue=requested_queue, durable=False, exclusive=self.binding.reply_exclusive, auto_delete=True)
             reply_queue = declared.method.queue
             if not isinstance(reply_queue, str) or not reply_queue:
                 raise AmqpError("invalid_reply_queue", "declare_reply_queue")
@@ -363,7 +366,7 @@ def official_binding(parameters, *, request_exchange, request_routing_key, reply
         reply_setup=None if reply_exchange == "" else reply_setup,
         properties_factory=properties_factory, program_file=program_file,
         format_source_manifest=format_source_manifest, reply_queue_factory=reply_queue_factory,
-        get_service_error=service_error)
+        get_service_error=service_error, reply_exclusive=False)
 
 
 def _environment_parameters(config_path=None):
