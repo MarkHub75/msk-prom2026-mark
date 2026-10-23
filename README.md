@@ -48,7 +48,7 @@
 После подготовки INDEX и SUMMARY база пополнилась отдельными направлениями:
 
 - **Анализ полного кейса:** [машинный отчёт](Deep-Research/LinQ-case-analytics-research/report_machine_case_analytics.md), [русский отчёт](Deep-Research/LinQ-case-analytics-research/report_human_case_analytics.md) — пользователи, процессы, аналоги, продуктовые гипотезы и ограничения внедрения.
-- **Реализуемость поведенческих сценариев:** [исследовательская папка](Deep-Research/prompt_behavioral_safety_feasibility_16_agents/) и [текущее состояние](Deep-Research/prompt_behavioral_safety_feasibility_16_agents/_WORK/RUN_STATE.md) — модели, данные, временные методы и пути исполнения на LinQ. На момент обновления README итоговые отчёты ещё собираются.
+- **Реализуемость поведенческих сценариев:** [русский отчёт](Deep-Research/prompt_behavioral_safety_feasibility_16_agents/report_human_behavioral_safety_feasibility.md) — модели, данные, временные методы и пути исполнения на LinQ. Подготовка машинного отчёта отражена в [текущем состоянии](Deep-Research/prompt_behavioral_safety_feasibility_16_agents/_WORK/RUN_STATE.md).
 
 INDEX и SUMMARY сохраняют свой исследовательский срез; новые материалы следует читать непосредственно в соответствующих папках. В каталоге `model_stack` также остаются незавершённые ветки и критический разбор.
 
