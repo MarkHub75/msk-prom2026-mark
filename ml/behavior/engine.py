@@ -300,7 +300,10 @@ class BehaviorEngine:
             retired=getattr(camera,"retired_epochs",set())
             if epoch in retired:return []
             old=camera.epoch
-            events.extend(self._interrupt(camera,batch,"stream_reset"))
+            # New stream media time has a different origin. Close the retired
+            # epoch at its last observed timestamp, never at new-epoch zero.
+            retired_batch = {**batch, "media_time_ms": camera.last_time if camera.last_time is not None else t}
+            events.extend(self._interrupt(camera,retired_batch,"stream_reset"))
             camera.epoch=epoch
             camera.last_time=camera.last_frame=None
             camera.retired_epochs=retired|{old}

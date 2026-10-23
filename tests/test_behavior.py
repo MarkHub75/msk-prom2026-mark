@@ -88,6 +88,7 @@ class BehaviorTests(unittest.TestCase):
         for t in (0,500,1000,1500,2000):out=e.update(batch(t,[person(),head()]))
         old=out[0]['track_key']
         out=e.update(batch(0,[person(),head()],epoch='e2'))
+        self.assertGreaterEqual(out[0]['end_media_ms'], out[0]['confirmed_media_ms'])
         self.assertEqual(out[0]['state'],'interrupted')
         self.assertEqual(e.update(batch(2500,[person(),head()],epoch='e1')),[])
         for t in (500,1000,1500,2000):out=e.update(batch(t,[person(),head()],epoch='e2'))
