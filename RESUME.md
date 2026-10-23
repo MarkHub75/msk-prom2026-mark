@@ -4,11 +4,36 @@
 
 Stock automatic Vast->LinQ ResNet50 has actually completed and passed capture integrity/class checks. Results are /workspace/artifacts/linq-rpc/resnet50-001/; do NOT repeat this job. Official pure-Python format source is /workspace/linq-client/tpu_pycloud_format, user-confirmed version0.0.1 with reviewed hashes at /workspace/artifacts/linq-rpc/format-source.json. Use /workspace/.venvs/linq-client/bin/python with PYTHONPATH=/workspace/linq-client:/workspace/project. Runtime config is /workspace/linq-client/connection.env; never print/commit its values.
 
-Own-model automation: scripts/linq_models_auto.sh all -> existing AMQP client uploads reviewed bytes to a bounded explicit Jupyter helper, then submits Helmet, compares numerical/decoded results, and only on success proceeds to Split-Pose. See docs/LINQ_AUTOMATIC_DEPLOY.md. Bootstrap artifact /workspace/artifacts/linq-rpc/start_jupyter_upload.py is prepared/published for one user-executed cell in existing Jupyter on Arch. The latest automatic attempt stopped BEFORE publication because that upload agent is not ready. No Helmet inference has been sent; no helmet-001 output exists. Separate broker binary transfer and local official-wire staging integration passed, not remote filesystem/inference proof.
+OWN MODELS SUCCEEDED ON LINQ. User started the bounded Jupyter helper. Both uploads completed with matching remote SHA256: Helmet 2,751,596 bytes / request adcc0b06-5767-45c6-851a-9bd6b5b7e593; Split-Pose 2,929,222 bytes / request ee97f734-5132-4278-a5ce-ee35ef077251. Receipts are /workspace/artifacts/linq-rpc/{helmet,pose-split}/staging-receipt.json. Do not upload again.
 
-Network steering: user is moving Arch SSH bridge to autossh/systemd because VPN can drop. Do not change SSH/VPN/NetworkManager from Vast. Next implement durable RPC intent, UNKNOWN state after possible submission, retained reply queue and receive-only reconciliation; no blind re-publication. Continue independent code/tests/contracts while remote upload helper/network is unavailable. Last completed combined suite160 tests PASS; do not repeat completed model/network checks.
+Exactly one real inference per own model completed:
 
-## Start here
+- Helmet request 262bdaa1-c24b-48ac-b073-6b28fd014248: status 0, matching response ID, float32 [1,6,8400], full call 10234.49 ms. /workspace/artifacts/linq-rpc/helmet-001/ contains capture/inputs/outputs/response/integrity/comparison/detections/model-check. Smoke PASS: 2 bare_head detections at 0.352586 / 0.259503. The float reference has 1 detection, matched at IoU 0.925226; 1 extra actual detection. Coordinate/class/confidence checks PASS. This is not target-video quality validation.
+- Preferred Split-Pose request 1f986b07-896d-48b9-8b4f-6ce2d0f8dc16: status 0, matching response ID, four expected float32 tensors, full call 11152.85 ms. Same artifact set under /workspace/artifacts/linq-rpc/pose-split-001/. Smoke PASS: 3 persons, matched IoU 0.7812..0.9108; visible keypoints 16/17/9, confidence preserved. Original mixed pose still excluded.
+
+scripts/linq_models_auto.sh all is resumable: completed captures are locally reviewed/reused, not resubmitted. Pending UUIDs reconcile receive-only. Do not rerun a completed TPU job. Next project stage is wiring this verified remote transport into the existing video-worker/backend integration; these single-image probes do not claim end-to-end video quality/performance. Historical packaged manifests remain unverified templates and are not automatically promoted to production bindings.
+
+Network steering: user is moving Arch SSH bridge to autossh/systemd because VPN can drop. Do not change SSH/VPN/NetworkManager from Vast. Durable RPC core 7f705a32, CLI/capture followup 474afee8 and durability fix 97a7a5d2 are merged: fsynced intent/context BEFORE network, UNKNOWN after possible submission, retained reply queue and receive-only reconciliation; terminal tensors saved BEFORE ACK. Both real uploads and inferences used this core; the last fix additionally retains replies if final fsync is uncertain. Root added cached/pending capture resume and concurrency/request locking. Own-session heartbeat 5 s bounds failure detection; Pika blocking RPC/close may overrun the polling deadline, so 60 s is not hard wall-clock cancellation. Missing response never licenses a blind repeat. Previous full suite (160 PASS) was not repeated. No additional network probes or ResNet calls.
+
+## Final checkpoint — iteration closed at the user's request
+
+STOP after the final report. Wait for a new user instruction; do not automatically start any following task, research, experiment or agent. LinQ agent completed its work and review; Detection/Behavior agents have no active tasks. No server was stopped and no artifacts were deleted.
+
+Implemented: pinned automatic Jupyter file staging through a distinct explicit consumer; existing official AMQP client with unique UUIDs, bounded waits, durable intent and selected numeric response; receive-only/offline recovery; duplicate suppression and deployment locking; numeric capture, integrity review, ABI checks and model decoding/comparison. The real service returned successful correlated responses for both models. Full-call latency is separate from recovery/cache time.
+
+Final checks: 20 affected AMQP + 17 recovery tests passed in the isolated LinQ worktree; 13 deployment/recovery tests passed in the integration worktree after merge. Total: 50 affected checks PASS, not a rerun of the full project suite. git diff --check is clean. Runtime artifacts and private configuration remain outside Git; the final integration commit contains code/tests/docs only. Use git log -1 on matvey_cv for that checkpoint's exact hash.
+
+Known limits: Helmet produced one extra detection relative to the float smoke reference. These single-image tests do not establish target-video accuracy or throughput. Actual VPN-loss recovery was not exercised on the live service; fault/crash recovery was checked with targeted tests. Blocking Pika operations can exceed the polling deadline while heartbeat detects loss. Historical packaged manifests remain templates rather than automatically approved video-worker bindings. Backend/frontend end-to-end integration is still pending.
+
+Next three priorities, ONLY after the user explicitly resumes:
+
+1. Bind the verified Helmet/Split-Pose remote transport to the existing video worker with per-model ABI/identity and durable request context; preserve UNKNOWN semantics, with no automatic GPU fallback.
+2. Connect real backend event delivery, evidence, notifications and journal; verify persisted ACK and idempotent event revisions across the full MVP.
+3. Evaluate target-video detection/behavior quality, latency/throughput and controlled reconnect recovery; keep the extra Helmet detection and quantization differences visible in acceptance reports.
+
+The sections below are historical snapshots. Their old pending statuses and instructions are superseded by CURRENT STATE and this final checkpoint.
+
+## Earlier start instructions (historical)
 
 Continue the approved implementation; do not restart research or model selection. User requested this checkpoint because remaining usage is low. Resume only when the user returns. Do not spawn new work merely from reading this file.
 

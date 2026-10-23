@@ -25,7 +25,8 @@ Checkpoint saved at user request: see ../RESUME.md. All three coding agents comp
 ## Own-model upload and network resilience
 
 - STOCK-RPC: actual automatic ResNet50 completed, results/integrity outside Git; never repeat as a connection check.
-- DEPLOY-01: pinned two-model upload agent and one-command orchestration implemented. Latest file-upload preflight: agent not ready, no publication. Await user bootstrap cell in existing Jupyter.
-- RPC-RECOVERY: add durable pre-publication journal, UNKNOWN state, preserve late-response queues and reconcile without publish after reconnect. LinQ agent owns transport changes in its worktree; root owns integration/resume.
+- DEPLOY-01: both actual uploads STAGED with matching remote SHA256/byte counts; one real inference per model completed. Helmet 262bdaa1...: status 0, float32 [1,6,8400], 10234.49 ms, 2 bare_heads; reference 1 matched at IoU 0.9252 plus 1 extra actual. Split-Pose 1f986b07...: status 0, 4 expected float32 tensors, 11152.85 ms, 3 persons, visible keypoints 16/17/9. Both capture integrity/ABI/decoding/same-input smoke PASS. Results outside Git in helmet-001/ and pose-split-001/. Do not repeat uploads/inferences.
+- RPC-RECOVERY: 7f705a32, 474afee8 and 97a7a5d2 merged. Fsynced pre-publication intent/context, UNKNOWN state, retained ambiguous reply queues, numeric response durable before ACK, receive-only/offline CLI reconciliation. Root added local/pending capture resume and deployment/request locking. 37 affected transport + 13 affected pipeline tests PASS; old full suite not rerun.
 - INFRA: Arch user manages autossh/systemd/VPN; Vast must not change this configuration.
-- Tests:160 combined tests most recently passed; run only new/affected recovery checks for upcoming changes.
+- Next: connect the verified remote model bindings to the existing video worker/backend, then measure target-video quality and full-chain latency. Historical packaged manifests are not automatically promoted to production bindings.
+- ITERATION CLOSED: user explicitly requested a final checkpoint and stop. No active agent tasks or further automatic development; wait for the user's next instruction. Artifacts retained, server left running.
