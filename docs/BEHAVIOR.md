@@ -1,0 +1,75 @@
+# Behavior Analysis v1
+
+`from ml.behavior import BehaviorEngine`
+
+```python
+engine = BehaviorEngine({"zone_id": "workshop-01"})
+mutations = engine.update(observation_batch)
+interrupted = engine.on_gap({"camera_id": "cam-01", "stream_epoch": "e1",
+                             "media_time_ms": 4500, "reason": "inference_timeout"})
+checkpoint = engine.export_state()  # plain JSON-compatible mapping
+# Commit checkpoint and event/outbox mutations in one transaction.
+restored = BehaviorEngine({"zone_id": "workshop-01"})
+restored.restore_state(checkpoint)
+```
+
+One ordered owner per camera calls the engine. Combine the pose model's `person`
+boxes and COCO-17 keypoints with PPE model `bare_head` / `helmet` boxes in the
+same original-image coordinate space and source frame. The engine uses the
+shared `ObservationBatch` and event contracts. Optional batch `model_ids`
+records all contributing models. Evidence starts `pending`; the pipeline owns
+snapshot production, publication readiness, persistence and delivery.
+
+## Rules and configurable defaults
+
+- Detection/keypoint acceptance: score >=0.5; thresholds are policy values.
+- Helmet: a positive `bare_head` bbox must contain a visible head keypoint and
+  have its centre inside exactly one person's bbox. Multiple items or candidate
+  owners are unknown. An explicit `helmet` observation closes an open missing-
+  helmet incident; non-detection is unknown. Dwell is 2000 ms.
+- Pose: shoulders and hips (COCO indices 5,6,11,12) must be visible. A torso
+  vector >=10 px is required. Horizontal torso ratio >=1.3 and bbox width/height
+  >=1.15 give a lying candidate; vertical torso ratio >=1.3 and bbox ratio <=0.85
+  give upright. Other poses are unknown. Optional `floor_polygon` (original
+  pixel coordinates) restricts the lying bbox centre to a configured ground ROI.
+- A last upright observation followed by lying within 1500 ms is a suspected
+  fall, confirmed after 1000 ms lying. Lying without an observed transition is
+  prolonged lying, confirmed after 3000 ms. Recovery closes the posture event.
+- Source-time gap >750 ms interrupts active events, clears pending evidence and
+  starts a new tracking generation. Explicit gaps/errors do likewise. No dwell
+  bridges unknown pose, missing person observations, or failed inference.
+- A valid empty frame clears candidates and permits track-exit accounting; it
+  is different from a gap. A track absent >2000 ms closes with `track_exit`.
+- Matching uses bbox IoU plus normalized centre distance; conflicting near-equal
+  matches are not applied. Full key is camera/epoch/generation/local-track-id.
+- Duplicate/late frames and previously retired epochs are ignored. New source
+  epochs interrupt old events. Different cameras have independent state.
+- At most one helmet and one posture notification are opened per uninterrupted
+  tracked presence. Posture never generates a second alert when a suspected
+  fall becomes long lying. After observed compliance/recovery, the same tracked
+  presence remains suppressed; updates do not create new notification IDs.
+- Restart suppression requires atomic persistence of `export_state()` alongside
+  mutations/outbox and preservation of source epoch/timestamps. A checkpoint
+  cannot be restored with different configuration; restart migration is explicit.
+
+Set `allow_bbox_head_association=true` only after validating sparse, upright
+views: this opt-in permits an item in the upper 30% of a narrow upright bbox
+without visible head keypoints. Default is false.
+
+## Evidence boundary and limitations
+
+This is implemented temporal logic over neural observations, with synthetic
+fixture tests. Geometric pose thresholds are not trained fall recognition,
+physical floor contact, injury, intent, or a diagnosis of lost consciousness.
+They need camera-specific tuning and independent target-video evaluation.
+Perspective, leaning, work under machinery and tracking fragmentation remain
+important negative examples. Immobility of limbs is not yet measured; a stable
+bbox alone does not prove physical immobility.
+
+Identity cannot be guaranteed across occlusion, ambiguous crossings, a stream
+reset or a lost tracker. Such cases interrupt evidence or abstain instead of
+borrowing another person's history; a later generation may create a new event.
+No claim of human re-identification or exactly-once semantic incidents across
+unknown gaps is made. Transport idempotency belongs to the event store/receiver.
+
+Run `python -m unittest discover -s tests -p test_behavior.py -v`.
