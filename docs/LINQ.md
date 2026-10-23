@@ -185,3 +185,27 @@ Proposed bounded sequence, pending root scheduling:
 6. Compare same tensors at every boundary, then decoded person/PPE/visible-kpt outcomes and paired labelled FP/FN/recall/precision with support counts. Numeric maxima are not task quality. Select thresholds on development/validation only; sealed independent test remains untouched until final frozen comparison. Require independent improvement without a critical-scenario regression, completed LinQ ABI/parity evidence and the full frozen bundle before promotion. Otherwise retain current baseline. Recalibration can address observed vendor-path score loss; source-model misses/ownership/scene shift require labels or model/rule work and cannot be repaired by a numeric scale claim.
 
 Checkpoint 24 October 18:00 MSK; freeze 20:00–22:00. Deadline pressure does not relax held-out separation or convert simulated evidence into hardware accuracy. Nine focused numeric/provenance tests use tiny fixtures, not real model-quality tests.
+
+### Allocated Helmet comparison and next candidate
+
+The additional approved CPU-only comparison reused three saved Helmet input tensors. No export, compile, GPU or remote call ran. `/workspace/artifacts/quality/linq/baseline-audit-helmet-pose.json` contains both model audits. Bare-head class maxima (native / simulator / saved TPU):
+
+| Frame | Native | Simulator | TPU |
+|---|---:|---:|---:|
+| industrial-001 F0 | .020349 | .005641 | .005641 |
+| industrial-001 F13 | .130975 | .045131 | .045131 |
+| industrial-002 F51 | .549676 | .330021 | .330021 |
+
+All Helmet class-score tensors match simulator/TPU bitwise. For F51 bare-head anchors>=.25 fall 6→3 and >=.5 fall 1→0. Source-vs-TPU pre-NMS candidate xywh max difference 4.4578 input pixels; simulator-vs-TPU selected 3 anchors have zero box difference. Across all background anchors, simulator/TPU box mean absolute difference is .0163–.0209 pixels, maximum 10.03–20.06. Background extrema are not matched-object localization error. The first two native outputs already have no class>=.25, so a promise that recalibration alone will repair those examples is unsupported; annotations/visibility/source model must be reviewed separately.
+
+Root is preparing an initial **8-frame Mendeley train-only** calibration corpus. Construction, UR and SFCHD groups/sources stay entirely reserved for validation/test; they must not be inserted as convenient calibration images. `candidate.py --max-samples 8` records per-source-group sample min/max/mean, RGB channel mean/std, sample count, source-group count, tensor hashes and corpus size (~37.5MiB for 8 images) before any development metric. These numeric statistics cannot establish scene/pose/PPE coverage or correct labels. Root/dataset owner must freeze and review group lineage and near duplicates before preparation. The 32-frame protocol above is a later allocated expansion, not work already performed.
+
+**Review-pinned upload plan only; not implemented or executed:**
+
+1. Preserve baseline ONNX, calibration, quantized model, TPU files, filenames, pins and completed journals. New corpus/export/compile goes in a unique candidate directory. Do not switch the runtime policy while an old request is pending.
+2. After candidate compilation and local diagnostics, root reviews the full SHA256, compile report, input/output contract and candidate quality on development data. Choose a distinct literal filename, e.g. `helmet-ptq-e05-<first12-of-reviewed-sha>.tpu`; the full 64-character digest is authoritative, not its filename prefix. The candidate hash is **not yet known** because no candidate has been compiled.
+3. Current `upload_agent._MODELS`, the injected reviewed staging helper, `video` factory pins and portable `jupyter` pins intentionally accept baseline hashes only. A new candidate must fail them today. After explicit root selection, prepare a new hash-pinned bootstrap with one additional literal logical candidate key+filename+full digest in the required reviewed tables; retain baseline entries. Do not add wildcard hashes, caller-selected paths, environment pin overrides or arbitrary remote URIs. Root owns staging/bootstrap/pipeline edits outside this agent's scope.
+4. Test candidate wrong-hash rejection, filename/path traversal rejection, original-baseline acceptance, existing-different-file refusal, identical-file idempotence and new manifest/program mismatch rejection before deployment. A candidate must not overwrite `helmet-v1.tpu` or `pose-split-v1.tpu`.
+5. Root stages the selected candidate through the same bounded user-started Jupyter helper and existing durable AmqpRunner model-upload request. Verify digest+byte-count receipt before a fresh candidate inference UUID. Run 5–20 reviewed development goldens through the existing client only; never reinterpret baseline captures as the candidate. Retain the complete baseline bundle for rollback. No app API change, extra broker client or automatic promotion is needed.
+
+Ten focused fixture tests now cover preparation/provenance and numeric comparison; real model results above come only from saved hardware outputs plus allocated CPU evaluations.
