@@ -85,3 +85,24 @@ Actual smoke evidence saved outside Git:
 - `pose-split/capture-simulation-comparison.json`: pre-existing vendor **simulation** outputs compared with their saved float references, 3/3 decoded persons, paired box IoUs .911/.872/.781. Largest all-anchor differences are 170.51 px for box channels, 206.02 px for keypoint XY, .1188 class score and .7634 keypoint confidence. Unselected anchors are included in these maxima; they cannot be replaced by favorable selected examples. This is a diagnostic comparison of simulation, not a hardware capture or a target-video quality result.
 
 Every report states `hardware_execution=NOT_ESTABLISHED_BY_COMPARISON` and `target_quality=NOT_EVALUATED`. Actual Jupyter runtime captures and independently labeled video are still needed.
+
+## Verified runtime manifest from existing real captures
+
+`from ml.detection import prepare_verified_manifest` exposes:
+
+```python
+manifest = prepare_verified_manifest("helmet", artifacts_root="/workspace/artifacts")
+pose_manifest = prepare_verified_manifest("pose-split")
+```
+
+This helper reads the existing `linq-rpc/{name}-001` completed capture, its response, `linq-rpc/{name}/staging-receipt.json`, the original detection manifest and `linq-sdk/{name}-compile/compile-report.json` plus local program. It performs no network call, changes no original/candidate manifest and creates no files. `capture_review.review_capture` checks NPZ/file/tensor hashes, finite numeric values and exact shape/dtype. Additional checks require completed service status 0 (integer, not bool), the same canonical request/response/journal UUID, local/compiled/staged/captured program SHA256 equality, staged byte count/name, source ONNX hash equality, exact compiler/capture/response ABI, matching source input ABI and valid source decoder outputs. Both existing real helmet and split-pose captures were decoded locally by this helper.
+
+The returned new dictionary retains an allowlisted preprocessing/decoder contract and adds `linq.runtime_abi_verified=True`, local `program_path`, exact `program_name`, `program_sha256`, `inputs`, `outputs`, identity `input_map`/`output_map` and local `evidence_paths`. Public source URLs and arbitrary capture/account/broker metadata are omitted. The orchestrator injects RPC directories, timeout and runner factory. ABI verification is based on the recorded completed remote calls and consistent bytes; it is not independent hardware attestation or target-video quality acceptance, and does not establish continuous-video capacity.
+
+### Actual source video recommendation (read-only review)
+
+Use `Deep-Research/datasets/_WORK/MATERIALS/W2-10/4_tr6.mp4`, **0–8 seconds**, as a real industrial-camera replay candidate. It is Önal/Dandıl Mendeley `xjmtb22pff/1`, folder `4_safe_walkway`, author member UUID `730fbd88-bb7e-4444-a826-e5f2f461a2b4`. Local SHA256 was rechecked and matches saved metadata: `f0e34d76de139450b97decbb4e032a525d8ce9959d972cdd0071a1de69250c6a`. Video is H.264 1920×1080, 522 frames, 25.05 FPS (501/20), duration 20.838323 s, native timebase 1/16032. ffprobe presentation timestamps at source frames 0/50/100/150/200 are 0/1.996008/3.992016/5.988024/7.984032 s respectively, matching OpenCV positions in this sample.
+
+Five decoded frames show a foreground seated worker with visibly uncovered head, plus walking/standing people. This is a plausible bare-head replay input, not a labeled helmet-violation holdout: the folder describes walkway use, site helmet policy is unknown, some heads are small or turned away, and no fall was observed in the inspected window. Use this as real-footage plumbing and operator-evidence demonstration; manually annotate before reporting accuracy. `0_tr16.mp4` is a second real candidate (24.8 FPS, foreground walking person in first 0–4 s), but has different initial timestamp/framing. `W2-11/CORE_SAMPLE.mp4` is a close-up concrete-mixing action, unsuitable for whole-person/helmet demonstration.
+
+Inspection artifacts are outside Git: `/workspace/artifacts/video-review/candidates.jpg`, `inspection.json`, `native-pts.json`. The research archive and source videos were not modified or committed. `reference.avi` is repeated bus imagery and must never be described as real industrial source footage.
