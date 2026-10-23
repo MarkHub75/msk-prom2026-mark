@@ -1,0 +1,208 @@
+{
+  "schema_version": "motion-zone-episode-gt-v1",
+  "artifact_kind": "SYNTHETIC_FIXTURE",
+  "config_version": "synthetic-prototype-config-v1",
+  "mapping_version": "synthetic-scenario-map-v1",
+  "scenario_to_diagnostic": {
+    "running": "fast_motion_candidate",
+    "zone_entry": "observed_polygon_entry"
+  },
+  "description": "Evaluator fixture only; no source media, real annotation, inference or quality claim.",
+  "scenes": [
+    {
+      "source_id": "synthetic-clip-1",
+      "camera_id": "synthetic-camera",
+      "source_epoch": "synthetic-epoch",
+      "scene_id": "synthetic-scene",
+      "group_id": "synthetic-group",
+      "split": "validation",
+      "duration_ms": 4000,
+      "source_sha256": null,
+      "image_size": [
+        1000,
+        600
+      ],
+      "annotation_status": "ANNOTATED",
+      "annotator_id": "synthetic-fixture-author",
+      "prediction_blind_annotation": true,
+      "episode_annotations_complete_for": [
+        "running",
+        "zone_entry"
+      ],
+      "actor_ids": [
+        "actor-A",
+        "actor-B"
+      ],
+      "zones": [
+        {
+          "zone_id": "zone-A",
+          "geometry_revision": "synthetic-geometry-v1",
+          "rule_revision": "synthetic-zone-rule-v1",
+          "polygon_provenance": "SYNTHETIC_FIXTURE: no real site policy",
+          "polygon_xy": [
+            [
+              100,
+              100
+            ],
+            [
+              300,
+              100
+            ],
+            [
+              300,
+              400
+            ],
+            [
+              100,
+              400
+            ]
+          ]
+        },
+        {
+          "zone_id": "zone-B",
+          "geometry_revision": "synthetic-geometry-v1",
+          "rule_revision": "synthetic-zone-rule-v1",
+          "polygon_provenance": "SYNTHETIC_FIXTURE: no real site policy",
+          "polygon_xy": [
+            [
+              500,
+              100
+            ],
+            [
+              700,
+              100
+            ],
+            [
+              700,
+              400
+            ],
+            [
+              500,
+              400
+            ]
+          ]
+        }
+      ],
+      "coverage": [
+        {
+          "scenario": "running",
+          "actor_id": "actor-A",
+          "zone_id": null,
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        },
+        {
+          "scenario": "zone_entry",
+          "actor_id": "actor-A",
+          "zone_id": "zone-A",
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        },
+        {
+          "scenario": "zone_entry",
+          "actor_id": "actor-A",
+          "zone_id": "zone-B",
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        },
+        {
+          "scenario": "running",
+          "actor_id": "actor-B",
+          "zone_id": null,
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        },
+        {
+          "scenario": "zone_entry",
+          "actor_id": "actor-B",
+          "zone_id": "zone-A",
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        },
+        {
+          "scenario": "zone_entry",
+          "actor_id": "actor-B",
+          "zone_id": "zone-B",
+          "windows": [
+            {
+              "start_ms": 0,
+              "end_ms": 4000,
+              "observability": "known"
+            }
+          ]
+        }
+      ],
+      "track_bindings": [
+        {
+          "track_key": "synthetic-camera/synthetic-epoch/1/1",
+          "actor_id": "actor-A",
+          "start_ms": 0,
+          "end_ms": 4000,
+          "binding_revision": "synthetic-binding-v1",
+          "provenance": "SYNTHETIC_FIXTURE actor correspondence"
+        },
+        {
+          "track_key": "synthetic-camera/synthetic-epoch/1/2",
+          "actor_id": "actor-B",
+          "start_ms": 0,
+          "end_ms": 4000,
+          "binding_revision": "synthetic-binding-v1",
+          "provenance": "SYNTHETIC_FIXTURE actor correspondence"
+        }
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "episode_id": "synthetic-running-1",
+      "source_id": "synthetic-clip-1",
+      "scenario": "running",
+      "actor_id": "actor-A",
+      "zone_id": null,
+      "onset_lower_ms": 500,
+      "onset_upper_ms": 1000,
+      "end_ms": 3000,
+      "left_censored": false,
+      "right_censored": false,
+      "observability": "known"
+    },
+    {
+      "episode_id": "synthetic-entry-1",
+      "source_id": "synthetic-clip-1",
+      "scenario": "zone_entry",
+      "actor_id": "actor-A",
+      "zone_id": "zone-A",
+      "onset_lower_ms": 1500,
+      "onset_upper_ms": 2000,
+      "end_ms": 3500,
+      "left_censored": false,
+      "right_censored": false,
+      "observability": "known"
+    }
+  ]
+}
