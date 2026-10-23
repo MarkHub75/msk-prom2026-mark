@@ -24,9 +24,13 @@ Pose candidate has four outputs before coordinate/confidence concatenation. Host
 
 ## Deployment and current access
 
-Vast RTX4090 prepares models and runs local reference tests. Compiler runs in an isolated Python3.12 environment. The user reports authenticated LinQ Jupyter access and example.ipynb with a ready ResNet50 TPU program. This confirms user access, not an actual TPU execution or a network route from Vast. Current tools have no authenticated Jupyter/browser session. The immediate bridge is a credential-free execution capture helper run manually inside that existing notebook. Adopt the actual supplied call, then establish the supported transport; no guessed HTTP API.
+Vast RTX4090 is used for preparation and explicitly labelled reference comparisons. ResNet50, Helmet and Split-Pose have completed actual correlated status-0 calls through the official PyTask codec and AMQP bridge at127.0.0.1:15672. The reviewed model programs were placed through a bounded explicit Jupyter consumer, with returned SHA256 checks. Broker access itself never implies remote filesystem access. Models are not trained or recompiled in the video integration stage.
 
-First gate: stock notebook completes with known input, program hash, numeric outputs and completion timing. Second: own helmet and split-pose programs, runtime ABI and reference comparison. Third: actual video cadence, confirmed events, committed backend ACK, alert and journal. Local smoke, compilation and SDK simulation are already available; independent production-video quality is unverified.
+The file MVP uses the existing video CLI and `ml.linq.video:create_runner`. New runtime manifests are derived from the existing real captures, compiler ABI, staging receipts and hashes; historical candidates remain unchanged. One stream submits models sequentially. Per-logical-frame state points to a durable AMQP UUID; terminal results are reused, UNKNOWN reconciles receive-only, and NOT_SUBMITTED alone permits a fresh UUID. A cross-model fence blocks new submissions behind an unresolved request.
+
+The source fingerprint and stream epoch persist across process restarts. SQLite commits the source cursor, observation, behavior checkpoint and event revisions together. Pausing for a pending request preserves the same frame; source gaps and terminal model failures never count as safe observations. Evidence stores the exact original frame ID/PTS and source/RGB/JPEG hashes before event commit. Backend delivery uses the original v1 event schema and persisted ACK contract; see docs/BACKEND_HANDOFF.md. A local test receiver is explicitly separate from Mark's backend.
+
+Real industrial-frame checks and clearly marked repeated-image integration fixtures must be reported separately. A successful end-to-end fixture is not target-video accuracy or throughput validation. Frame cycles include both model calls and can take tens of seconds; this MVP makes no real-time claim.
 
 ## Reliability and boundaries
 

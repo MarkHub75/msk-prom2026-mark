@@ -1,0 +1,6 @@
+{
+  "min_score": 0.25,
+  "keypoint_score": 0.5,
+  "allow_bbox_head_association": false,
+  "rule_version": "behavior-v1-DEMO-confidence025"
+}

@@ -34,5 +34,12 @@ class ContractsTest(unittest.TestCase):
     def test_ready_media_and_retired_epoch_chronology(self):
         value=event();value['evidence']={'status':'ready','snapshot_ref':None}
         with self.assertRaises(ValueError): validate_event(value)
+
+    def test_evidence_pts_is_optional_but_finite_original_media_time(self):
+        for invalid in (True,None,-1,float('nan')):
+            value=event();value['evidence']['media_time_ms']=invalid
+            with self.assertRaises(ValueError):validate_event(value)
+        value=event();value['evidence']['media_time_ms']=2000
+        self.assertIs(validate_event(value),value)
         value=event();value['end_media_ms']=1000
         with self.assertRaises(ValueError): validate_event(value)

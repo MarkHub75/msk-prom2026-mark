@@ -85,4 +85,6 @@ def validate_event(value: dict) -> dict:
         raise ValueError('ready evidence requires a reference')
     if evidence.get('frame_id') is not None and (type(evidence['frame_id']) is not int or evidence['frame_id'] < 0):
         raise ValueError('invalid evidence frame_id')
+    if 'media_time_ms' in evidence and (not _number(evidence['media_time_ms']) or evidence['media_time_ms']<0):
+        raise ValueError('invalid evidence media_time_ms')
     return value

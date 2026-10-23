@@ -1,6 +1,52 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
-## CURRENT STATE — supersedes earlier checkpoints
+## LATEST CHECKPOINT — video MVP iteration
+
+The user explicitly resumed after 0c4cb5ff and requested the video MVP. This section supersedes ALL old pause instructions and pending statuses below. At the end of this iteration stop and wait for the next user decision; do not start new features, research, training or experiments automatically.
+
+Functional file MVP implemented using existing components: verified runtime manifests -> original frame IDs/FPS/PTS -> RGB preprocessing -> sequential real Helmet/Split-Pose AMQP calls -> decode -> existing tracking/temporal rules -> event revisions -> exact-frame evidence -> SQLite outbox -> existing HTTP COMMIT/ACK adapter. No GPU fallback, training, recompilation, VPN/SSH/NetworkManager changes or source archive edits. The main PyTorch environment was not changed. OpenCV 4.10.0.84/jsonschema 4.26.0 were added only to /workspace/.venvs/linq-client.
+
+Actual runtime evidence is outside Git in /workspace/artifacts/video-mvp/:
+
+- industrial-001: REAL 4_tr6.mp4 frame 0 / PTS 0; both models status 0,1 person, no helmet/bare_head output. Frame cycle 21481.22 ms; no confirmed episode. Correctly abstains.
+- industrial-002: REAL 4_te5.mp4 frame 51 / PTS 2009.607564ms; both models status 0, bare_head 0.3300206, no detected person. Frame cycle 21883.31 ms; no owner/track and no event. Correctly abstains. Neither negative result proves compliance.
+- repeated-image-control-001: EXISTING reference.avi is a repeated public still image, explicitly source_kind=repeated-image-fixture / camera CONTROL-FIXTURE-NOT-INDUSTRIAL. 6 frames,12 unique real LinQ RPCs, all matching IDs/status 0,1 missing_helmet incident,2 revisions (open/interrupted EOF),1 snapshot,1 notification in a LOCAL TEST HTTP receiver. This is integration evidence, not a real industrial positive or quality evaluation.
+
+Control performance: 131.7587 s / 6 frames = 0.04554 processed fps; frame-cycle p50 = 22.1603 s, p95 = 25.6389 s; RPC p50 = 10.6766 s, p95 = 13.7390 s including connection/setup/wait/close. Source 5 FPS, requested sample 2 FPS -> actual PTS 0/600/1200/1800/2400/3000ms. Event 94a4106e-87d0-4de8-8e99-5fcd4b41caf7 confirmed on original frame 12 at 2400 ms. Evidence JPEG is evidence/ff39a481-0876-48d9-aac4-f0fe5f6ceeda.jpg. No real-time claim.
+
+integration-review.json verifies event JSON Schema, RPC correlation, source-frame/PTS/RGB/JPEG evidence hashes and real loopback HTTP POST/ACK/GET. resume-review.json confirms cached restart with 0 new RPCs, 12 journals before/after, immutable events.jsonl and1 notification. Cache-invocation timing is separate from original processing metrics. Empty event sets are NOT_EXERCISED for evidence HTTP; historical pre-fix reports are preserved in the negative runs. Source/runtime videos, secrets and model binaries were not added to Git.
+
+Runtime state: video-session.json pins source/config and stream_epoch; requests/<UUID>/ holds numeric inputs/results and intent; rpc/<model>/<logical-hash>/ maps frame/model to transport UUID. SQLite commits observation, video cursor, behavior checkpoint and outbox together. UNKNOWN pauses the SAME frame, exit 3; repeat the same command after network restoration to receive the old response. Only durable NOT_SUBMITTED permits a fresh UUID; cross-model fence and worker lock bound submissions to one. Terminal service errors are gaps, contract errors stop without advancing. Already completed runs make 0 new remote calls. Actual VPN interruption was not provoked; recovery is covered by fault/crash tests.
+
+Commands:
+
+```bash
+# Existing verified integration fixture: repeats reuse completed results.
+bash /workspace/project/scripts/linq_video_mvp.sh \
+  --source /workspace/artifacts/integration/reference.avi \
+  --source-kind repeated-image-fixture \
+  --camera-id CONTROL-FIXTURE-NOT-INDUSTRIAL \
+  --state-dir /workspace/artifacts/video-mvp/repeated-image-control-001 \
+  --sample-fps 2 --end-ms 3200 --demo-policy --local-test-sink
+
+# New real industrial file; requires a different state directory.
+bash /workspace/project/scripts/linq_video_mvp.sh \
+  --source /path/to/industrial.mp4 \
+  --state-dir /workspace/artifacts/video-mvp/camera-01 \
+  --sample-fps 2 --local-test-sink
+```
+
+--demo-policy is explicit min_score 0.25 with unchanged keypoint 0.5 and strict ownership. Defaults remain 0.5 and confirmation 2000 ms / max_gap 750 ms. No thresholds were reduced to force an industrial event. Existing real-video bounded GPU comparisons are labelled NATIVE under /workspace/artifacts/video-review/, not service execution. No suitable sustained industrial positive was established in that finite sample. Positive industrial missing-helmet and positive fall/lying hardware-video acceptance remain OPEN; default confidence policy also needs labelled evaluation.
+
+Backend/frontend handoff: docs/BACKEND_HANDOFF.md and docs/VIDEO_MVP.md; original schema ml/contracts/schemas/event.schema.json, clearly synthetic docs/examples/event.synthetic.json. New optional source_kind/evidence.media_time_ms are backward-compatible v1 fields. Mark's actual backend and permanent evidence hosting are NOT integrated. Local EventSink is a labelled loopback TEST service with committed ACK, stable revision dedup and one notification; it closes after each bounded command. Use a separate state-dir for real backend: already ACKed local-test rows are not automatically resent to another endpoint.
+
+Agents completed in separate worktrees: Detection a6597683 verified manifests +real-video selection; Behavior c654d9ab captured-output acceptance and conservative sampling guidance; LinQ 9a5e5d45 durable per-frame factory/backend pending provenance. Root owns sharedcontracts/fileworker/HTTPtestreceiver/evidence/integration docs. No active delegated tasks remain.
+
+Final verification: python -m unittest discover -s tests -q -> 217 tests PASS. Includes actual-capture ABI checks, behavior replay, pending/UNKNOWN/cached/mismatched requests, SQLite rollback, source epoch/cursor restart, one episode/revisions, evidence PTS and real loopback delivery. Live total this iteration: 4 RPCs across 2 real industrial frames + 12 RPCs in labelled integrationfixture; cached repetitions 0 new calls. Do not repeat these completed TPU checks. Latest integration commit: use git log -1 on matvey_cv; no push performed.
+
+Remaining decisions for next authorized stage: provide/review a suitable positive industrial clip and address model domain/quantization quality; connect Mark's real event/media endpoints; validate fall/lying, end-to-end alert latency and controlled live reconnect on appropriate video. This iteration stops here; artifacts/server remain intact.
+
+## Previous model-RPC checkpoint (historical)
 
 Stock automatic Vast->LinQ ResNet50 has actually completed and passed capture integrity/class checks. Results are /workspace/artifacts/linq-rpc/resnet50-001/; do NOT repeat this job. Official pure-Python format source is /workspace/linq-client/tpu_pycloud_format, user-confirmed version0.0.1 with reviewed hashes at /workspace/artifacts/linq-rpc/format-source.json. Use /workspace/.venvs/linq-client/bin/python with PYTHONPATH=/workspace/linq-client:/workspace/project. Runtime config is /workspace/linq-client/connection.env; never print/commit its values.
 

@@ -19,6 +19,9 @@
     "schema_version": {
       "const": "1.0"
     },
+    "source_kind": {
+      "enum": ["real-video", "repeated-image-fixture"]
+    },
     "event_id": {
       "type": "string",
       "minLength": 1
@@ -92,6 +95,10 @@
             "integer",
             "null"
           ],
+          "minimum": 0
+        },
+        "media_time_ms": {
+          "type": "number",
           "minimum": 0
         }
       },

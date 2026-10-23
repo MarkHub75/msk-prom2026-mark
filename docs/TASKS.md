@@ -1,5 +1,20 @@
 # Active ML/CV task register
 
+## Latest video-MVP iteration
+
+| Item | Owner | Result |
+|---|---|---|
+| Verified runtime manifests | Detection / agent/detection | a6597683 merged; real captures/ABI/hashes checked, candidate artifacts unchanged |
+| Behavioral acceptance | Behavior / agent/fall | c654d9ab merged; original engine reused, strict ownership/gaps/dedup, explicit DEMO policy only |
+| Remote frame factory | LinQ / agent/linq | 9a5e5d45 merged; stable logical-frame mapping, UUID journal/cache/reconcile, one outstanding task fence |
+| File MVP and handoff | Root / matvey_cv | Durable source cursor + observation/behavior/event transaction, snapshots/PTS, local HTTP test receiver, schema/example/docs |
+| Actual LinQ execution | Root | 2 REAL industrial frames /4status0RPCs, no confirmed episode; labelled repeated-image integration fixture6frames/12status0RPCs ->1episode/2revisions/1testnotification |
+| Verification | Root | 217tests PASS; schema/source-evidence/HTTP PASS on labelled fixture; completed restart0newRPCs, no duplicate event export |
+| Industrial positive quality | Requires reviewed source/video | OPEN: current real clips produced insufficient model evidence; never count abstention as compliance |
+| Team backend/frontend | Mark / frontend participant | OPEN: adapter/contract ready; actual two-team-service interaction and permanent evidence hosting not verified |
+
+Current iteration closes after checkpoint/commit. No further feature, research, training or remote experiments start without the user's next instruction. Historical rows below are superseded by this section and RESUME.md.
+
 Baseline: matvey_cv 118e068b; continuation retains the approved MVP. Root is the sole writer here. Existing 61 tests and model/compiler/simulator evidence are documented in docs/STATUS.md.
 
 | ID | Owner / directory | Task | Acceptance | State |

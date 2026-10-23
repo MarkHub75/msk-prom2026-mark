@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "event_id": "9cd53eb9-06e9-4d9b-84e7-10d4655dc3ca",
+  "revision": 1,
+  "camera_id": "CONTRACT-EXAMPLE-NOT-A-CAMERA",
+  "stream_epoch": "synthetic-contract-example",
+  "zone_id": null,
+  "track_key": "CONTRACT-EXAMPLE-NOT-A-CAMERA/synthetic-contract-example/1/1",
+  "type": "missing_helmet",
+  "severity": "warning",
+  "state": "open",
+  "start_media_ms": 0,
+  "confirmed_media_ms": 2000,
+  "emitted_at": "2026-10-23T00:00:00+00:00",
+  "rule_version": "CONTRACT-EXAMPLE-ONLY",
+  "model_ids": ["synthetic-fixture"],
+  "execution_backend": "synthetic-test",
+  "execution_records": [],
+  "evidence": {
+    "frame_id": 40,
+    "media_time_ms": 2000,
+    "snapshot_ref": null,
+    "clip_ref": null,
+    "status": "unavailable"
+  }
+}

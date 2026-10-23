@@ -1,5 +1,7 @@
 # ML-worker integration v1
 
+Current remote file-MVP commands, measured results and recovery: docs/VIDEO_MVP.md. Backend/frontend handoff for Mark: docs/BACKEND_HANDOFF.md. The sections below retain native/replay/local-runtime options; the current Vast file entry point explicitly uses ml.linq.video:create_runner and real AMQP, with no GPU fallback.
+
 ## Scope and verified boundaries
 
 The worker owns video sampling, inference adapters, observation ordering, pose/head ownership, episode rules, snapshots and a persistent event outbox. Backend/frontend remain team-owned. It does not start a public service or modify their source.

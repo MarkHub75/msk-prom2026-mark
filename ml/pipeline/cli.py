@@ -2,6 +2,7 @@
 import argparse
 import importlib
 import json
+import math
 import os
 import sys
 import time
@@ -21,7 +22,8 @@ def build_pipeline(args):
     from ml.behavior import BehaviorEngine
     config = json.loads(Path(args.rules).read_text()) if args.rules else None
     outbox = Outbox(Path(args.state_dir) / 'events.sqlite')
-    sink = HttpEventSink(args.backend_url, os.environ.get('MOSPROM_BACKEND_TOKEN'),
+    token=None if getattr(args,'sink_kind','external')=='local-test' else os.environ.get('MOSPROM_BACKEND_TOKEN')
+    sink = HttpEventSink(args.backend_url, token,
                          evidence_base_url=args.evidence_base_url) if args.backend_url else None
     return Pipeline(BehaviorEngine(config), outbox, args.state_dir, sink)
 
@@ -54,6 +56,9 @@ def _run_video(args, pipeline, stack):
         else:
             from ml.linq import LinQBackend
             effective = {**manifest, **manifest.get('linq', {})}
+            effective.update(rpc_state_dir=str(Path(args.state_dir).resolve()/'rpc'/effective['model_id']),
+                journal_dir=str(Path(args.state_dir).resolve()/'requests'),
+                format_source_manifest=args.linq_format_source_manifest,timeout=args.linq_timeout)
             if not effective.get('runtime_abi_verified'):
                 raise ValueError('LinQ runtime ABI must be verified before video execution')
             if args.linq_runner_factory:
@@ -77,6 +82,10 @@ def _run_video(args, pipeline, stack):
     fps = cap.get(cv2.CAP_PROP_FPS)
     if not live and (not np.isfinite(fps) or fps <= 0):
         raise ValueError('file video has no valid FPS/timebase')
+    if args.backend=='linq' and not live:
+        from ml.pipeline.file_video import run_file_video
+        try:return run_file_video(args,pipeline,cap,manifests,backends,fps)
+        finally:cap.release()
     start = time.monotonic()
     live_source = LatestFrameSource(cap) if live else None
     latencies, events_count, processed, failures = [], 0, 0, 0
@@ -180,6 +189,7 @@ def main(argv=None):
     parser.add_argument('--rules')
     parser.add_argument('--backend-url', help='Full event endpoint URL')
     parser.add_argument('--evidence-base-url', help='Receiver-accessible URL mapping state-dir contents')
+    parser.add_argument('--sink-kind',choices=['external','local-test'],default='external')
     sub = parser.add_subparsers(dest='command', required=True)
     replay = sub.add_parser('replay', help='Replay observation JSONL; does not run neural inference')
     replay.add_argument('--input', required=True)
@@ -191,13 +201,18 @@ def main(argv=None):
     video.add_argument('--backend', choices=['native', 'linq'], required=True)
     video.add_argument('--device', default='cpu')
     video.add_argument('--linq-runner-factory', help='Per-program approved SDK bridge factory module:name')
+    video.add_argument('--linq-timeout',type=float,default=60)
+    video.add_argument('--linq-format-source-manifest',default='/workspace/artifacts/linq-rpc/format-source.json')
+    video.add_argument('--start-ms',type=float,default=0,help='File window start in original media milliseconds')
+    video.add_argument('--end-ms',type=float,help='File window end in original media milliseconds')
+    video.add_argument('--source-kind',choices=['real-video','repeated-image-fixture'],default='real-video')
     video.add_argument('--sample-fps', type=float, default=5)
     video.add_argument('--max-age-ms', type=float, default=2000)
     video.add_argument('--max-frames', type=int, default=0)
     video.add_argument('--live', action='store_true', help='Live source uses monotonic receive timestamps')
     video.add_argument('--realtime', action='store_true', help='Pace file playback by media time')
     args = parser.parse_args(argv)
-    if args.command == 'video' and (args.sample_fps <= 0 or args.max_age_ms <= 0 or args.max_frames < 0):
+    if args.command == 'video' and (not all(math.isfinite(v) for v in (args.sample_fps,args.max_age_ms,args.linq_timeout,args.start_ms)) or args.end_ms is not None and not math.isfinite(args.end_ms) or args.sample_fps <= 0 or args.max_age_ms <= 0 or args.max_frames < 0 or args.linq_timeout<=0 or args.start_ms<0 or args.end_ms is not None and args.end_ms<=args.start_ms):
         parser.error('invalid sampling/freshness limits')
     pipeline = build_pipeline(args)
     try:
@@ -215,6 +230,7 @@ def main(argv=None):
         else:
             summary = run_video(args, pipeline)
         print(json.dumps(summary, allow_nan=False), file=sys.stderr)
+        if summary.get('status')=='WAITING_FOR_LINQ':raise SystemExit(3)
         if args.command == 'video' and (summary['processed_frames'] == 0 or summary['failed_or_stale_frames'] == summary['processed_frames']):
             raise SystemExit(2)
     finally:

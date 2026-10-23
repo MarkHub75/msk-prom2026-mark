@@ -19,22 +19,50 @@ class Outbox:
             next_attempt REAL NOT NULL DEFAULT 0, last_error TEXT,
             PRIMARY KEY(event_id, revision))''')
         self.db.execute('CREATE TABLE IF NOT EXISTS checkpoints (name TEXT PRIMARY KEY, body TEXT NOT NULL)')
+        self.db.execute('''CREATE TABLE IF NOT EXISTS observations (
+            camera_id TEXT, stream_epoch TEXT, frame_id INTEGER, body TEXT NOT NULL,
+            PRIMARY KEY(camera_id,stream_epoch,frame_id))''')
         self.db.commit()
 
-    def checkpoint(self):
-        row = self.db.execute("SELECT body FROM checkpoints WHERE name='behavior'").fetchone()
+    def checkpoint(self, name='behavior'):
+        row = self.db.execute('SELECT body FROM checkpoints WHERE name=?', (name,)).fetchone()
         return json.loads(row[0]) if row else None
 
     def last_evidence(self, event_id):
         row = self.db.execute('SELECT body FROM outbox WHERE event_id=? ORDER BY revision DESC LIMIT 1', (event_id,)).fetchone()
         return json.loads(row[0]).get('evidence') if row else None
 
-    def commit_batch(self, events, state):
+    def commit_batch(self, events, state, *, video_checkpoint=None, observation=None):
         with self.db:
             for event in events:
                 self._enqueue(event)
             self.db.execute("INSERT OR REPLACE INTO checkpoints(name,body) VALUES('behavior',?)",
                             (json.dumps(state, allow_nan=False),))
+            if video_checkpoint is not None:
+                self.db.execute("INSERT OR REPLACE INTO checkpoints(name,body) VALUES('video',?)",
+                                (json.dumps(video_checkpoint, allow_nan=False),))
+            if observation is not None:
+                body=json.dumps(observation,allow_nan=False,sort_keys=True)
+                key=(observation['camera_id'],observation['stream_epoch'],observation['frame_id'])
+                old=self.db.execute('SELECT body FROM observations WHERE camera_id=? AND stream_epoch=? AND frame_id=?',key).fetchone()
+                if old and old[0]!=body:raise ValueError('committed observation is immutable')
+                self.db.execute('INSERT OR IGNORE INTO observations VALUES(?,?,?,?)',(*key,body))
+
+    def export_jsonl(self, directory):
+        """Rebuild exports from committed rows: retries cannot append duplicates."""
+        import os
+        from uuid import uuid4
+        directory=Path(directory)
+        for name,table in (('events','outbox'),('observations','observations')):
+            target=directory/(name+'.jsonl');temporary=directory/(name+'.'+uuid4().hex+'.tmp')
+            try:
+                fd=os.open(temporary,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+                with os.fdopen(fd,'w') as stream:
+                    for row in self.db.execute('SELECT body FROM '+table+' ORDER BY rowid'):
+                        stream.write(row[0]+'\n')
+                    stream.flush();os.fsync(stream.fileno())
+                os.replace(temporary,target)
+            finally:temporary.unlink(missing_ok=True)
 
     def enqueue(self, event):
         with self.db:
