@@ -158,4 +158,76 @@ class BehaviorTests(unittest.TestCase):
         e=BehaviorEngine({'floor_polygon':[[500,500],[700,500],[700,700],[500,700]]})
         for t in range(0,4001,500):self.assertEqual(e.update(batch(t,[person(True)])),[])
 
+def still_person(wrist_shift=0):
+    p=person(True)
+    for i,xy in {7:(150,120),8:(150,150),9:(180+wrist_shift,120),
+                 10:(180,150),13:(240,120),14:(240,150),15:(270,120),16:(270,150)}.items():
+        p["keypoints"][i]=[*xy,.99]
+    return p
+
+
+class ImmobilityTests(unittest.TestCase):
+    def test_still_keypoints_update_existing_incident_once(self):
+        e=BehaviorEngine();out=[]
+        for t in range(0,6501,500):out+=e.update(batch(t,[still_person()]))
+        self.assertEqual(len(out),2)
+        self.assertEqual([v["revision"] for v in out],[1,2])
+        self.assertEqual(out[0]["event_id"],out[1]["event_id"])
+        self.assertTrue(out[1]["attributes"]["immobility_observed"])
+        self.assertEqual(out[1]["attributes"]["immobility_confirmed_media_ms"],3500)
+        self.assertNotIn("attributes",out[0])
+
+    def test_single_moving_wrist_not_hidden_by_other_still_points(self):
+        e=BehaviorEngine();out=[]
+        for i,t in enumerate(range(0,6501,500)):
+            out+=e.update(batch(t,[still_person(20 if i%2 else 0)]))
+        self.assertEqual(len(out),1)
+        self.assertNotIn("attributes",out[0])
+
+    def test_not_enough_observed_points_unknown(self):
+        e=BehaviorEngine();out=[]
+        for t in range(0,6501,500):out+=e.update(batch(t,[person(True)]))
+        self.assertEqual(len(out),1)
+        self.assertNotIn("attributes",out[0])
+
+    def test_movement_restarts_confirmation(self):
+        e=BehaviorEngine();out=[]
+        for t in range(0,3001,500):out+=e.update(batch(t,[still_person()]))
+        out+=e.update(batch(3500,[still_person(30)]))
+        out+=e.update(batch(4000,[still_person()]))
+        for t in range(4500,7001,500):
+            mutations=e.update(batch(t,[still_person()]))
+            self.assertEqual(mutations,[])
+        mutations=e.update(batch(7500,[still_person()]))
+        self.assertTrue(mutations[0]["attributes"]["immobility_observed"])
+
+    def test_unknown_visibility_restarts_confirmation(self):
+        e=BehaviorEngine()
+        for t in range(0,3001,500):e.update(batch(t,[still_person()]))
+        self.assertEqual(e.update(batch(3500,[person(True)])),[])
+        for t in range(4000,7001,500):self.assertEqual(e.update(batch(t,[still_person()])),[])
+        self.assertTrue(e.update(batch(7500,[still_person()]))[0]["attributes"]["immobility_observed"])
+
+    def test_explicit_gap_breaks_motion_window(self):
+        e=BehaviorEngine()
+        for t in range(0,3001,500):e.update(batch(t,[still_person()]))
+        self.assertEqual(e.on_gap(dict(camera_id="c1",media_time_ms=3500))[0]["state"],"interrupted")
+        new=[]
+        for t in range(4000,7001,500):new+=e.update(batch(t,[still_person()]))
+        self.assertEqual(len(new),1)
+        self.assertNotIn("attributes",new[0])
+        self.assertTrue(e.update(batch(7500,[still_person()]))[0]["attributes"]["immobility_observed"])
+
+    def test_checkpoint_preserves_motion_window_and_no_repeat(self):
+        e=BehaviorEngine()
+        for t in range(0,3001,500):out=e.update(batch(t,[still_person()]))
+        eid=out[0]["event_id"]
+        r=BehaviorEngine();r.restore_state(json.loads(json.dumps(e.export_state())))
+        out=r.update(batch(3500,[still_person()]))
+        self.assertEqual((out[0]["event_id"],out[0]["revision"]),(eid,2))
+        restored=BehaviorEngine();restored.restore_state(json.loads(json.dumps(r.export_state())))
+        for t in range(4000,7001,500):self.assertEqual(restored.update(batch(t,[still_person()])),[])
+
+
 if __name__=='__main__':unittest.main()
+

@@ -38,6 +38,22 @@ snapshot production, publication readiness, persistence and delivery.
 - Source-time gap >750 ms interrupts active events, clears pending evidence and
   starts a new tracking generation. Explicit gaps/errors do likewise. No dwell
   bridges unknown pose, missing person observations, or failed inference.
+- Visible-keypoint immobility is an attribute on the existing posture incident,
+  never a new alert or medical diagnosis. For consecutive lying observations,
+  require at least 6 common visible body keypoints (COCO 5..16). Compare the
+  maximum keypoint displacement, normalized by observed torso length and elapsed
+  seconds, against 0.04 torso lengths/second. The maximum prevents a moving wrist
+  from being hidden by many stationary joints. Require 3000 ms continuously low
+  observed motion after the first valid motion comparison. All values are
+  configurable (`immobility_min_points`, `immobility_max_speed`,
+  `confirm_immobility_ms`); movement, unknown pose, insufficient common points,
+  missing observations and gaps reset the pending window.
+- First immobility confirmation emits one new revision of the same event with
+  `attributes.immobility_observed=true`, `immobility_since_media_ms`, and
+  `immobility_confirmed_media_ms`. This records a historical observed interval,
+  not a promise that the person remains still afterwards. No repeat confirmation
+  update is emitted for that incident. Pending motion history and the confirmed
+  marker persist in engine checkpoints.
 - A valid empty frame clears candidates and permits track-exit accounting; it
   is different from a gap. A track absent >2000 ms closes with `track_exit`.
 - Matching uses bbox IoU plus normalized centre distance; conflicting near-equal
@@ -63,8 +79,9 @@ fixture tests. Geometric pose thresholds are not trained fall recognition,
 physical floor contact, injury, intent, or a diagnosis of lost consciousness.
 They need camera-specific tuning and independent target-video evaluation.
 Perspective, leaning, work under machinery and tracking fragmentation remain
-important negative examples. Immobility of limbs is not yet measured; a stable
-bbox alone does not prove physical immobility.
+important negative examples. Immobility uses visible body-keypoint motion, not a stable bbox alone. Occluded
+limbs, small/faint motion, keypoint jitter, perspective and camera motion limit
+this measurement; it does not prove whole-body physical immobility.
 
 Identity cannot be guaranteed across occlusion, ambiguous crossings, a stream
 reset or a lost tracker. Such cases interrupt evidence or abstain instead of

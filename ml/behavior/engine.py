@@ -6,7 +6,7 @@ fall thresholds. Missing observations never count towards confirmation.
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from math import hypot
+from math import hypot, isfinite
 from uuid import uuid4
 
 from ml.contracts import validate_observation
@@ -21,6 +21,8 @@ DEFAULTS = {
     "match_distance": 0.75, "match_ambiguity": 0.08,
     "allow_bbox_head_association": False, "zone_id": None,
     "rule_version": "behavior-v1", "floor_polygon": None,
+    "confirm_immobility_ms": 3000, "immobility_min_points": 6,
+    "immobility_max_speed": 0.04,
 }
 
 
@@ -59,6 +61,8 @@ class Track:
     active: dict = field(default_factory=dict)
     last_upright: float | None = None
     fall_candidate: bool = False
+    motion_previous: dict | None = None
+    still_since: float | None = None
 
 
 @dataclass
@@ -79,9 +83,13 @@ class BehaviorEngine:
     """
     def __init__(self, config=None):
         self.config = {**DEFAULTS, **(config or {})}
-        for k in ("confirm_helmet_ms", "confirm_lying_ms", "confirm_fall_ms", "transition_ms", "max_gap_ms", "track_exit_ms"):
+        for k in ("confirm_helmet_ms", "confirm_lying_ms", "confirm_fall_ms", "transition_ms", "max_gap_ms", "track_exit_ms", "confirm_immobility_ms"):
             if self.config[k] < 0:
                 raise ValueError(f"{k} must be nonnegative")
+        if not 1 <= self.config["immobility_min_points"] <= 12:
+            raise ValueError("immobility_min_points must be between 1 and 12")
+        if self.config["immobility_max_speed"] < 0:
+            raise ValueError("immobility_max_speed must be nonnegative")
         self.cameras = {}
 
     def _posture(self, person):
@@ -190,6 +198,57 @@ class BehaviorEngine:
         track.active[hazard]=event
         return deepcopy(event)
 
+    def _reset_motion(self, track):
+        track.motion_previous=None
+        track.still_since=None
+
+    def _immobility(self, track, person, batch):
+        """Bounded visible-keypoint low-motion evidence, never consciousness."""
+        k=person.get("keypoints") or []
+        points={str(i):list(v[:2]) for i,v in enumerate(k) if i>=5 and len(v)==3
+                and all(isfinite(x) for x in v)
+                and v[2]>=self.config["keypoint_score"]}
+        t=batch["media_time_ms"]
+        if len(points)<self.config["immobility_min_points"]:
+            self._reset_motion(track)
+            return []
+        # _posture has already established four observed torso points.
+        shoulders=[(k[5][j]+k[6][j])/2 for j in (0,1)]
+        hips=[(k[11][j]+k[12][j])/2 for j in (0,1)]
+        scale=max(self.config["min_torso_px"],hypot(hips[0]-shoulders[0],hips[1]-shoulders[1]))
+        previous=track.motion_previous
+        track.motion_previous={"time":t,"points":points,"scale":scale}
+        if previous is None:
+            track.still_since=None
+            return []
+        common=set(points)&set(previous["points"])
+        elapsed=t-previous["time"]
+        if len(common)<self.config["immobility_min_points"] or not 0<elapsed<=self.config["max_gap_ms"]:
+            track.still_since=None
+            return []
+        # Maximum, rather than median, keeps one moving limb observable.
+        speed=max(hypot(points[i][0]-previous["points"][i][0],
+                        points[i][1]-previous["points"][i][1]) for i in common)
+        speed/=max(scale,previous["scale"])*(elapsed/1000)
+        if speed>self.config["immobility_max_speed"]:
+            track.still_since=None
+            return []
+        if track.still_since is None:
+            track.still_since=t
+        event=track.active.get("posture")
+        if (event is None or event.get("attributes",{}).get("immobility_observed")
+                or t-track.still_since<self.config["confirm_immobility_ms"]):
+            return []
+        event.setdefault("attributes",{}).update(
+            immobility_observed=True, immobility_since_media_ms=track.still_since,
+            immobility_confirmed_media_ms=t,
+            immobility_min_points=self.config["immobility_min_points"],
+            immobility_max_speed=self.config["immobility_max_speed"])
+        event["revision"]+=1
+        event["emitted_at"]=datetime.now(timezone.utc).isoformat()
+        event["update_reason"]="visible_keypoint_immobility"
+        return [deepcopy(event)]
+
     def _observe(self, camera_id, camera, track, person, helmet, batch):
         t=batch["media_time_ms"]
         events=[]
@@ -204,6 +263,7 @@ class BehaviorEngine:
                 events.append(self._mutation(track.active.pop("missing_helmet"),"closed","observed_compliance",batch))
         posture=self._posture(person)
         if posture=="upright":
+            self._reset_motion(track)
             track.last_upright=t
             track.candidates.pop("lying",None)
             track.fall_candidate=False
@@ -220,9 +280,12 @@ class BehaviorEngine:
                 event=self._open(camera_id,camera,track,kind,start,batch)
                 if event:events.append(event)
         else:
+            self._reset_motion(track)
             track.candidates.pop("lying",None)
             track.last_upright=None
             track.fall_candidate=False
+        if posture=="lying":
+            events.extend(self._immobility(track,person,batch))
         return events
 
     def update(self, batch):
@@ -279,6 +342,7 @@ class BehaviorEngine:
         for tid,tr in camera.tracks.items():
             if tid not in used:
                 tr.candidates.clear();tr.last_upright=None;tr.fall_candidate=False
+                self._reset_motion(tr)
         for i,p in enumerate(people):
             if i in ambiguous_people:continue
             tid=matched.get(i)
@@ -288,6 +352,7 @@ class BehaviorEngine:
             tr=camera.tracks[tid]
             if t-tr.last_seen>self.config["max_gap_ms"]:
                 tr.candidates.clear();tr.last_upright=None;tr.fall_candidate=False
+                self._reset_motion(tr)
             tr.box=p["bbox_xyxy"];tr.last_seen=t
             events.extend(self._observe(cid,camera,tr,p,helmets[i],batch))
         return events
@@ -305,7 +370,8 @@ class BehaviorEngine:
                 tracks.append({"id":tr.id,"box":tr.box,"last_seen":tr.last_seen,
                                "candidates":tr.candidates,"sent":sorted(tr.sent),
                                "active":tr.active,"last_upright":tr.last_upright,
-                               "fall_candidate":tr.fall_candidate})
+                               "fall_candidate":tr.fall_candidate,
+                               "motion_previous":tr.motion_previous,"still_since":tr.still_since})
             cameras[cid]={"epoch":c.epoch,"generation":c.generation,
                           "last_time":c.last_time,"last_frame":c.last_frame,
                           "next_id":c.next_id,"tracks":tracks,
