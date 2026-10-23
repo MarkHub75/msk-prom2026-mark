@@ -160,3 +160,25 @@ A bounded source-overlap audit downloaded **only** the baseline author's pinned 
 Visual review confirmed the same photograph for development `image804.jpg` and a baseline-source validation member, plus shared actor/site scenes for `image674.jpg` and `image705.jpg`. Three further construction train images also visibly reuse baseline-source photographs. The fixed original32 selection intersects three perceptual/source-scene matches; the added20 had no match under this limited check. The source training archive is778,928,861 bytes and was not downloaded or examined; no-match is not proof of pretraining independence. Artifacts: `pretraining-overlap-audit.json`, `pretraining-source-valid-features.json`, `pretraining-overlap-contact.jpg`. All Construction-PPE remains development-only; no independent test or training/calibration use is authorized by this audit.
 
 Dataset ownership was subsequently transferred to the separate Data Orchestrator. The Helmet agent stopped acquisition/search at that boundary. SH17's frozen selection and partial acquisition are handed off at `/workspace/artifacts/quality/helmet/sh17-test/DATA_HANDOFF.json`:13 exact-release images present, seven response-format failures, no model predictions, GT review or test evaluation. No continuation of SH17 data work is performed by this agent.
+
+### Final Helmet hypothesis H-HELMET-02: fixed overlapping tiles, rejected
+
+The second and final Helmet hypothesis tested an explicitly fixed, non-adaptive four-tile policy using unchanged helmet-v1 weights and640×640 neural input. For original width W and height H, tile size is `((3*W+2)//5, (3*H+2)//5)` and starts are x=`0,(2*W+2)//5`, y=`0,(2*H+2)//5`: nearest-integer60% dimensions with starts at40%. Tile order is row-major. Exactly four tile calls are made, with no full-frame call and no GT-conditioned ROI. Tile boxes are restored to original-image pixels before class-aware global NMS at IoU .45/max300. Raw confidence floor is .001; operating confidence stays .25. Tile-local suppression is disabled semantically using IoU1.0/anchor-count cap, leaving exactly one effective global NMS.
+
+Implementation is `ml.quality.helmet.tiles`. CPU fixtures verify odd-dimension geometry/coverage, source-coordinate offsets, class-aware cross-tile deduplication, exactly four calls, preservation of local candidates until global NMS, and recall-guard rejection. GPU preflight found0% utilization/2MiB/no compute apps; the short job acquired the shared `fcntl` lock and released it immediately after52-image/208-call native inference. There was no data acquisition, training, threshold tuning or hardware call.
+
+The candidate used exactly the same52 quality-v3 images/GT as the baseline (digest `39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a`). Predeclared acceptance required increased macro F1 and no per-class recall decrease greater than .02.
+
+| Metric | Full-frame baseline | Fixed four tiles |
+|---|---:|---:|
+| Macro F1 | .7164 | .6066 |
+| Helmet TP/FP/FN | 19/11/6 | 18/30/7 |
+| Helmet precision/recall/F1 | .6333/.7600/.6909 | .3750/.7200/.4932 |
+| Bare-head TP/FP/FN | 23/7/9 | 27/16/5 |
+| Bare-head precision/recall/F1 | .7667/.71875/.7419 | .6279/.84375/.7200 |
+
+Both required conditions failed: macro F1 decreased and helmet recall fell .04. Additional bare-head recall did not compensate for the increased false positives. The policy is rejected. Candidate AP50 was helmet .4924/bare-head .7867; mean AP50-95 was .1602/.4999, also below baseline. These figures are development-image diagnostics with AI GT/source-overlap limitations, not independent industrial performance.
+
+Native mean four-call time was36.39ms; full per-image tile processing averaged137.11ms, p95 196.54ms. Full timing includes preprocessing, tile decoding, global NMS and diagnostic raw-NPZ writes; it excludes image loading and model initialization. It is neither device-only latency nor LinQ performance. Artifacts are `/workspace/artifacts/quality/helmet/h02-tiles-v1/`: frozen-input.json,208 raw NPZ captures, predictions.json, tile-metadata.json, comparison.json and run.json. Source/candidate artifacts and the baseline were preserved.
+
+The failed-hypothesis budget is exhausted: increased confidence was family1, fixed tiling family2. Freeze the existing full-frame helmet-v1 at confidence .25/NMS .45. No further Helmet parameter search is performed. Because this candidate failed native validation, its potential LinQ tile gate and independent final test were not run; no production manifest or external interface was changed.
