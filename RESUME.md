@@ -2,6 +2,8 @@
 
 ## LATEST CHECKPOINT — ML quality sprint
 
+Preservation update: non-force push of matvey_cv at914739090c7d5662261ed3136e2b197f5d3dee44 failed with exit128/AUTHENTICATION_UNAVAILABLE. Raw credential-bearing output was not retained. All code/metadata commits are saved locally; remote SHA is not verified. Current containing commit is git log-1. Final software check335PASS; independent test and off-Vast binary backup still open.
+
 This section supersedes historical backend priorities and STOP instructions below. Latest user directive: models, ML pipelines and LinQ only. Separate Data Orchestrator owns new dataset search/acquisition/curation. Do not edit backend/frontend/API or /workspace/agents/data-audit. Read ml/SCENARIOS.md, PROGRESS.md, EVAL_REPORT.md, EVAL_PROTOCOL.md, DATA_HANDOFF.md and EXPERIMENTS.csv. Stages: BASELINE -> EVALUATED -> IMPROVED -> FROZEN; stop a scenario after two failed justified hypothesis families. Frozen baseline does not imply independent quality PASS.
 
 **Helmet: FROZEN, unchanged checkpoint.** Fixed52-image quality-v3 (44 complete per class), AI-reviewed development only, confirmed upstream pretraining photo overlap. Full-frame confidence.25/NMS.45: helmet TP19 FP11 FN6, P=.6333 R=.76 F1=.6909; bare_head TP23 FP7 FN9, P=.7667 R=.71875 F1=.7419. MacroF1=.716422. Higher confidence(.4/.5) and fixed four tiles both rejected; two failed families reached. No further Helmet tuning. GT repairs are not model improvement; independent final test and event ownership remain unverified.

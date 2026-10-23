@@ -234,7 +234,7 @@
     "independent_test": "NONE_EVALUATED",
     "test_tuning": false
   },
-  "updated_utc": "2026-10-23T23:46:29.602972+00:00",
+  "updated_utc": "2026-10-23T23:48:06.996949+00:00",
   "software_tests": {
     "last_completed": 335,
     "status": "PASS",
@@ -251,5 +251,16 @@
     "report": "ml/reports/running-zone-readiness.json",
     "annotation_handoff": "ml/quality/temporal/MOTION_EVAL.md"
   },
-  "resource_status": "IDLE; no GPU or CPU model job running"
+  "resource_status": "IDLE; no GPU or CPU model job running",
+  "git_preservation": {
+    "branch": "matvey_cv",
+    "local_commit": "914739090c7d5662261ed3136e2b197f5d3dee44",
+    "force": false,
+    "push_returncode": 128,
+    "status": "LOCAL_COMMITS_SAVED_PUSH_BLOCKED",
+    "reason": "AUTHENTICATION_UNAVAILABLE",
+    "seconds": 1.2984386160969734,
+    "latest_local_commit": "git HEAD of containing manifest",
+    "remote_verified": false
+  }
 }

@@ -2,6 +2,8 @@
 
 Authority: current user directive, /workspace/ML_24H_PLAYBOOK.md and official case (20 pages visually read; PDF contains scanned slides). Application/backend/frontend work is frozen. Existing contracts and video pipeline are retained.
 
+Current checkpoint: Helmet and Fall are FROZEN runtime baselines after two failed hypothesis families each, improvement=false. Fall quality is NOT_ACCEPTED; independent test is absent. Running/Zone prototype+scorer are BASELINE/NOT_EVALUATED pending real GT.335 tests PASS. All specialized agents completed; no heavy ML process is running. Non-force push failed AUTHENTICATION_UNAVAILABLE/exit128; local commits saved, remote not verified. Model-only local archive is ready; external destination/account pending. The allocation/status paragraphs below are a historical log, superseded by this current checkpoint.
+
 | UTC / MSK | Experiment | Problem / hypothesis | Action and evidence | Decision |
 |---|---|---|---|---|
 | 2026-10-23 22:57 / 2026-10-24 01:57 | E00-intake | Working hardware is not measured detection quality | Baseline code13d25593, existing Helmet/Split-Pose checkpoints and actual captures inventoried; Running/Zone production implementation absent | Freeze baseline; do not invent accuracy |
@@ -27,3 +29,5 @@ PTQ closure: H-FALL-01 baseline/candidate BOTH TP1 FP0 FN9, P1.0 (one alert), R.
 The invalid32-call CFR decoder attempt is retained and never scored. Four client-env Torch fixture errors were fixed only in tests;319passed afterward. Data work remains with Data Orchestrator. All heavy ML resources are IDLE; final task is the already-started Running/Zone evaluator and its checks. Local84.2MB/24-member model archive is verified but off-Vast destination/account is pending; external backup is not claimed.
 
 Final code merges: e42d6186 offline motion scorer and explicit synthetic fixtures,059f4055 completed PTQ results, f5796657 dependency-free graph fixture tests. Root actual missing-GT check: NOT_EVALUATED/null metrics.335 software tests passed after all code merges. No app/backend/frontend or Data Orchestrator files changed. Native agents completed and all heavy resources are idle. Next model/data-backed experiments depend on Running/Zone actor/episode/geometry GT; then equipment proximity and phone as suitable annotated data becomes available. No further Helmet/Fall tuning is allocated.
+
+Git preservation: attempted ordinary push matvey_cv at91473909, exit128/AUTHENTICATION_UNAVAILABLE; no force, no credential output retained. Final metadata records the blocker; no repeated authentication attempts or main changes.
