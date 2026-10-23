@@ -57,6 +57,8 @@ class FakeConnection:
 
 class AmqpTransportTests(unittest.TestCase):
     def setUp(self):
+        self.journal_tmp=tempfile.TemporaryDirectory();self.addCleanup(self.journal_tmp.cleanup)
+        self.journal_dir=self.journal_tmp.name
         self.channel=FakeChannel();self.connection=FakeConnection(self.channel);self.parameters=[]
         self.inputs={'input.1':np.ones((1,2),dtype=np.float32)}
         self.response=({'495':np.array([[.2,.8]],dtype=np.float32)},(),
@@ -75,7 +77,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.binding=amqp.official_binding(self.original,request_exchange='explicit-request-exchange',
             request_routing_key='explicit-worker-key',reply_exchange='explicit-reply-exchange',
             output_names=['495'])
-        self.runner=amqp.AmqpRunner(self.binding,'file:///explicit/program.tpu?raw=False',timeout=1)
+        self.runner=amqp.AmqpRunner(self.binding,'file:///explicit/program.tpu?raw=False',timeout=1,journal_dir=self.journal_dir)
 
     def test_official_headers_tuple_and_one_publish_close(self):
         output=self.runner(self.inputs)
@@ -112,7 +114,8 @@ class AmqpTransportTests(unittest.TestCase):
         with self.assertRaises(amqp.AmqpError) as error:self.runner(self.inputs)
         self.assertEqual(error.exception.details['code'],'response_timeout')
         self.assertEqual(self.runner.last_response['remote_completion'],'unknown')
-        self.assertEqual(self.channel.deleted,[{'queue':'exclusive-fixture'}])
+        self.assertEqual(self.channel.deleted,[])
+        self.assertEqual(self.runner.last_response['reply_queue_cleanup'],'retained_for_recovery')
         self.assertEqual(len(self.channel.published),1)
         self.assertEqual(self.connection.closed,1)
 
@@ -120,7 +123,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.response[2]['status_code']=17
         with self.assertRaises(amqp.AmqpError) as error:self.runner(self.inputs)
         self.assertEqual(error.exception.details['status_code'],17)
-        self.assertEqual(self.runner.last_response['outputs'],{})
+        self.assertEqual(self.runner.last_response['journal_state'],'SERVICE_FAILED')
         self.assertEqual(self.channel.acked,[{'delivery_tag':3}])
         self.assertEqual(self.connection.closed,1)
         self.assertEqual(self.runner.last_response['service_error'],'private-worker-error-marker')
@@ -162,7 +165,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertEqual(self.runner.last_response['next_action'],'provide_exact_official_tpu_pycloud_format_0_0_1')
 
     def test_wrong_target_never_connects(self):
-        runner=amqp.AmqpRunner(self.binding,'explicit-uri',host='remote-host')
+        runner=amqp.AmqpRunner(self.binding,'explicit-uri',host='remote-host',journal_dir=self.journal_dir)
         with self.assertRaises(amqp.AmqpError):runner(self.inputs)
         self.assertEqual(self.parameters,[])
 
@@ -182,7 +185,7 @@ class AmqpTransportTests(unittest.TestCase):
     def test_default_reply_exchange_explicit_no_bind(self):
         binding=amqp.official_binding(self.original,request_exchange='',request_routing_key='explicit',
                                      reply_exchange='',output_names=['495'])
-        amqp.AmqpRunner(binding,'explicit-uri')(self.inputs)
+        amqp.AmqpRunner(binding,'explicit-uri',journal_dir=self.journal_dir)(self.inputs)
         self.assertEqual(self.channel.bindings,[])
 
 
