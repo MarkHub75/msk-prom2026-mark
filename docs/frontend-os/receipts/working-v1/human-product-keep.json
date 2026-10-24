@@ -1,0 +1,102 @@
+{
+  "elements": [
+    {
+      "id": "working-keep-1",
+      "action": "KEEP",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Product and visual foundation",
+      "comment": "Сохраняем «Сигнальный пост», тёмную дизайн-систему, секторную сетку, ленту событий, Incident Focus, режим критической тревоги и интерфейс мастера."
+    },
+    {
+      "id": "working-keep-2",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Active queue and terminal history",
+      "comment": "Раздели активную очередь и историю завершённых событий. Не меняй бизнес-статусы на клиенте, а правильно интерпретируй данные API."
+    },
+    {
+      "id": "working-keep-3",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Evidence truthfulness",
+      "comment": "Если подходящего материала нет, показывай честное состояние недоступного или иллюстративного доказательства, а не вводящий в заблуждение кадр."
+    },
+    {
+      "id": "working-keep-4",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Actor identity before action",
+      "comment": "Не подставляй фиктивное имя незаметно."
+    },
+    {
+      "id": "working-keep-5",
+      "action": "AMPLIFY",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "External stateful mock integration",
+      "comment": "Главный приоритет — реальная интеграция с внешним stateful-моком Claude Code в demo/checkpoint, а не локальные fixtures."
+    },
+    {
+      "id": "working-keep-6",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Incident comparison on first viewport",
+      "comment": "Сделай сравнение доступнее, сохранив выбранную командой композицию."
+    },
+    {
+      "id": "working-keep-7",
+      "action": "AMPLIFY",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Frame-matched evidence HUD",
+      "comment": "Сделай HUD на доказательном кадре более контрастным и информативным: рамка и короткая подпись. Не дорисовывай неподтверждённые объекты или зоны."
+    },
+    {
+      "id": "working-keep-8",
+      "action": "AMPLIFY",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Mobile master verified workflow",
+      "comment": "Проверь настоящий мобильный сценарий мастера на 390×844. Нужны скриншоты и проверка принятия события, заполнения отчёта и его отправки."
+    },
+    {
+      "id": "working-keep-9",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post-command"
+      ],
+      "element": "Secondary typography and demo indicator",
+      "comment": "При возможности увеличь слишком мелкие вторичные подписи. Демо-индикатор REVIEW не должен выглядеть как производственная функция для конечного пользователя."
+    }
+  ],
+  "latest_product_brief": {
+    "summary": "Keep the human-approved working Signal Post Command product; complete external stateful mock E2E including journal and targeted queue, evidence, actor, Incident comparison, HUD, mobile and readability fixes. No redesign or new concepts.",
+    "priority": [
+      "external REST/WS integration",
+      "critical UX fixes",
+      "small visual polish",
+      "additional functions"
+    ],
+    "truth_boundaries": [
+      "No mock/backend/DTO changes",
+      "No invisible invented actor",
+      "Actual external mock evidence separate from local fixtures and real backend",
+      "No fake live video or model detections"
+    ],
+    "review_id": "hre-signal-post-command-b1-r0"
+  },
+  "evidence": "evidence/human-product-review-keep-20261024.md"
+}

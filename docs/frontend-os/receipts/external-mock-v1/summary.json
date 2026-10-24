@@ -1,0 +1,112 @@
+{
+  "result": "FAIL",
+  "scope": "External checkpoint stateful REST/WS mock through Vite dev:mock; review=real, never in-browser review fixtures",
+  "source_unchanged": true,
+  "source_before_sha256": "e5a4d536a7cebd56044d3e4b337ef8a648da31ff72c06dd28283f25797cb8f7d",
+  "source_after_sha256": "e5a4d536a7cebd56044d3e4b337ef8a648da31ff72c06dd28283f25797cb8f7d",
+  "cases": [
+    {
+      "name": "external operator -> yellow -> red takeover -> mobile master resolve",
+      "result": "PASS",
+      "error": null
+    },
+    {
+      "name": "journal UI and external journal server state",
+      "result": "FAIL",
+      "error": "Journal UI remains a stub although external /api/events contains resolved event"
+    },
+    {
+      "name": "historical episode:null detail and mock camera501",
+      "result": "PASS",
+      "error": null
+    },
+    {
+      "name": "WS reset/drop reconnect and dashboard REST reconciliation",
+      "result": "PASS",
+      "error": null
+    },
+    {
+      "name": "incident reset404 stale detail/actions probe",
+      "result": "FAIL",
+      "error": "Deleted external event retains stale detail/actions after fresh REST404"
+    },
+    {
+      "name": "evidence404 -> fault-off sameURL card refresh",
+      "result": "FAIL",
+      "error": "Same-URL evidence stays failed after server recovery and card refresh"
+    },
+    {
+      "name": "external fault500 error message and visible retry recovery",
+      "result": "PASS",
+      "error": null
+    },
+    {
+      "name": "actual role/actor request headers",
+      "result": "PASS",
+      "error": null
+    }
+  ],
+  "captures": 21,
+  "browser_runtime_errors": 0,
+  "default_actor_probe": {
+    "scope": "Observed in fresh probe contexts which never entered an actor; distinct from core explicit-actor PASS. Retained for new human-feedback actor UX requirement.",
+    "requests": [
+      {
+        "scenario": "incident-reset404",
+        "url": "http://127.0.0.1:4010/api/events/24/actions",
+        "body": "{\"action\":\"view\",\"comment\":\"\"}",
+        "x_role": "operator",
+        "x_actor": "%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80",
+        "status": 200
+      },
+      {
+        "scenario": "evidence-recovery",
+        "url": "http://127.0.0.1:4010/api/events/25/actions",
+        "body": "{\"action\":\"view\",\"comment\":\"\"}",
+        "x_role": "operator",
+        "x_actor": "%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80",
+        "status": 200
+      }
+    ]
+  },
+  "final_director_state": {
+    "step": 0,
+    "story": [
+      "yellow",
+      "red"
+    ],
+    "escalation": false,
+    "with_episode": true,
+    "faults": {
+      "evidence404": false,
+      "error500": false
+    },
+    "live": [],
+    "open": 0,
+    "history": 18,
+    "ws_clients": {
+      "operator": 2,
+      "master": 0,
+      "ohs": 1,
+      "management": 0,
+      "admin": 0
+    }
+  },
+  "script": "/mnt/d/templates/msk-promhack/safewatch-os-first-pass/docs/frontend-os/external-mock-qa.cjs",
+  "raw": "raw-observations.json",
+  "network": "network.json",
+  "websockets": "ws.json",
+  "upstream_smoke": {
+    "log": "upstream-smoke.log",
+    "result": "PASS",
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "validated_rest": 26,
+    "validated_ws": 32,
+    "mock_worktree": "/mnt/d/templates/msk-promhack/safewatch-checkpoint-mock",
+    "mock_git_head": "f752032024a5bd4aa206214d12a1e8cc6b4bb4f9"
+  },
+  "executed_script": "executed-script.cjs",
+  "executed_script_sha256": "a9125676d5e659873acf802b0dbc3a934e5b3cfaba6eadf4126e9067c1539b67"
+}

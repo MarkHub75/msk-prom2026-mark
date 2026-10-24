@@ -1,10 +1,10 @@
-import type { ActionIn, ApiError, CameraLiveView, CameraState, CameraTile, EventDetail, EventSummary, HumanAction, MasterInbox, OperatorDashboard, Role, SectorState, SectorView, TracksWindow, WsMessage } from "../api/types";
+import type { ActionIn, ApiError, CameraLiveView, CameraState, CameraTile, EventDetail, EventSummary, HumanAction, MasterInbox, OperatorDashboard, Role, Schemas, SectorState, SectorView, TracksWindow, WsMessage } from "../api/types";
 import { createFixtureEvents, FIXTURE_NOW, fixtureAnalysis, fixtureBroadcast, fixtureCameras, fixtureHudForCamera, fixtureImage, fixtureMeta, fixtureSectors, fixtureVideo, fixtureZones, statusTitles } from "./data";
 
 export const REVIEW_SCENARIOS = ["critical", "normal", "error", "empty", "offline", "notimplemented", "disconnected"] as const;
 export type ReviewScenario = typeof REVIEW_SCENARIOS[number];
 const MODE_KEY = "safewatch.review.mode.v1";
-const STATE_PREFIX = "safewatch.review.fixture.v1.";
+const STATE_PREFIX = "safewatch.review.fixture.v2.";
 const memory = new Map<ReviewScenario, EventDetail[]>();
 const subscribers = new Set<{listener: (message: WsMessage) => void; role: Role}>();
 let resetConsumed = false;
@@ -198,6 +198,30 @@ export async function reviewFetch(request: Request): Promise<Response> {
   const events = eventsFor(scenario);
   if (path === "/api/operator/dashboard") return json({sectors: scenario === "empty" ? [] : fixtureSectors.map((sector) => sectorState(sector.id, events)), feed: feedFor(events), server_now: FIXTURE_NOW} satisfies OperatorDashboard);
   if (path === "/api/operator/feed") return json(feedFor(events));
+  if (path === "/api/events") {
+    const q = url.searchParams.get("q")?.toLocaleLowerCase("ru-RU");
+    const items = events.map(item => item.event).filter(event => {
+      for (const key of ["level", "scenario", "status", "sector_id", "camera_id", "zone_id"] as const) {
+        const wanted = url.searchParams.get(key);
+        if (wanted !== null && String(event[key]) !== wanted) return false;
+      }
+      if (url.searchParams.get("include_demo") === "false" && event.is_demo) return false;
+      if (url.searchParams.get("include_superseded") !== "true" && event.status === "superseded") return false;
+      if (q && ![event.title, event.reason_text, event.camera_name, event.sector_name, String(event.id)].some(value => value.toLocaleLowerCase("ru-RU").includes(q))) return false;
+      const from = url.searchParams.get("date_from"), to = url.searchParams.get("date_to");
+      return (!from || event.started_at >= from) && (!to || event.started_at <= to);
+    }).sort((a,b) => b.published_at.localeCompare(a.published_at));
+    const offset = Number(url.searchParams.get("cursor") ?? 0), limit = Number(url.searchParams.get("limit") ?? 50);
+    if (!Number.isInteger(offset) || offset < 0 || !Number.isInteger(limit) || limit < 1 || limit > 200) return error("validation", "Проверьте страницу журнала", 422);
+    return json({items:items.slice(offset,offset+limit),total:items.length,next_cursor:offset+limit<items.length?String(offset+limit):null} satisfies Schemas["EventPage"]);
+  }
+  if (path === "/api/journal/facets") return json({
+    scenarios:fixtureMeta.scenarios.map(item=>({id:item.id,title:item.title})),
+    levels:fixtureMeta.levels.map(item=>({id:item.id,title:item.title})),
+    statuses:fixtureMeta.statuses.map(item=>({id:item.id,title:item.title})),
+    sectors:fixtureSectors.map(item=>({id:String(item.id),title:item.name})),
+    cameras:fixtureCameras.map(item=>({id:String(item.id),title:item.name})), zones:[],
+  } satisfies Schemas["JournalFacets"]);
   if (path === "/api/sectors") return json(scenario === "empty" ? [] : fixtureSectors);
   if (path === "/api/cameras") return json(scenario === "empty" ? [] : fixtureCameras.filter((camera) => !url.searchParams.has("sector_id") || camera.sector_id === Number(url.searchParams.get("sector_id"))));
   if (path === "/api/master/inbox") return json({active: feedFor(events).filter((event) => event.status === "sent_to_master" || event.status === "master_accepted"), recent_resolved: feedFor(events).filter((event) => event.status === "resolved"), server_now: FIXTURE_NOW} satisfies MasterInbox);
@@ -228,8 +252,8 @@ export async function reviewFetch(request: Request): Promise<Response> {
     if (!match[2] && method === "GET") return json(detailFor(detail, role));
     if (match[2] && method === "POST") {
       if (!roleHeader) return error("role_required", "Выберите роль", 400);
-      let actor = role === "master" ? "Мастер · review" : "Оператор · review";
-      try { actor = decodeURIComponent(request.headers.get("X-Actor") ?? actor).trim(); } catch { return error("validation", "Проверьте имя участника", 422); }
+      let actor = "";
+      try { actor = decodeURIComponent(request.headers.get("X-Actor") ?? "").trim(); } catch { return error("validation", "Проверьте имя участника", 422); }
       if (!actor || actor.length > 60) return error("validation", "Имя должно содержать от 1 до 60 символов", 422);
       let input: unknown;
       try { input = await request.json(); } catch { return error("validation", "Проверьте данные действия", 422); }

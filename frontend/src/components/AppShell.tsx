@@ -9,6 +9,7 @@ import { isReviewMode, getReviewScenario } from "../fixtures/review";
 import { menuFor } from "../nav";
 import { ROLES, useRole, type Role } from "../roles";
 import { Icon } from "./ui";
+import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
 
 const MetaContext = createContext<Meta | undefined>(undefined);
 const UpdateContext = createContext(0);
@@ -22,6 +23,9 @@ function Clock({reference}:{reference?:string}) {
   return <time className="shell-clock">{new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "Europe/Moscow" }).format(shown)}<small>{reference?"МСК · время сценария":"МСК"}</small></time>;
 }
 export function AppShell({ children }: { children: ReactNode }) {
+  return <ActorIdentityProvider><ShellContent>{children}</ShellContent></ActorIdentityProvider>;
+}
+function ShellContent({ children }: { children: ReactNode }) {
   const [role, setRole] = useRole();
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,13 +43,13 @@ export function AppShell({ children }: { children: ReactNode }) {
   });
   const wsStatus = ws.status;
   const scenarioTitle: Record<string,string> = {critical:"Критическое событие",normal:"Без активных тревог",error:"Ошибка API",empty:"Пустые данные",offline:"Нет сети",notimplemented:"Метод не реализован",disconnected:"Канал событий отключён"};
-  const [actor, setActor] = useState(() => { try { return localStorage.getItem("safewatch.actor") ?? ""; } catch { return ""; } });
+  const { actor, setActor } = useActorIdentity();
   const changeRole = (next: Role) => {
     setRole(next);
     const match = location.pathname.match(/\/(?:events|master\/events)\/(\d+)/);
     navigate(match && next === "master" ? `/master/events/${match[1]}` : match && next === "operator" ? `/events/${match[1]}` : menuFor(next)[0]?.path ?? "/operator");
   };
-  const actorChange = (value: string) => { setActor(value); try { localStorage.setItem("safewatch.actor", value); } catch { /* per-session actor */ } };
+  const actorChange = (value: string) => setActor(value);
   return <MetaContext.Provider value={meta}><UpdateContext.Provider value={updates}>
     <div className={`app ${role === "master" ? "is-master" : ""}`}>
       <a className="skip-link" href="#workspace">Перейти к содержимому</a>
@@ -59,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <nav className="workspace-nav" aria-label="Разделы">{menuFor(role).map(item => <NavLink key={item.path} to={item.path} end>{item.title}</NavLink>)}</nav>
         <div className="connection" data-status={wsStatus}><i />{wsStatus === "fixture" ? "Синтетический повтор" : wsStatus === "connected" ? "Канал событий подключён" : wsStatus === "disconnected" ? "Канал событий отключён" : "Подключение канала…"}</div>
         <label className="actor-field"><span>Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => actorChange(e.target.value)} /></label>
-        <span className="backend-label" data-testid="backend">{review ? "REVIEW" : meta?.fake ? "Синтетические детекции" : meta ? meta.inference_backend === "linq" ? "LinQ TPU" : "CPU · local" : "Источник не получен"}</span>
+        <span className="backend-label" data-testid="backend">{review ? "Проверочный сценарий" : meta?.fake ? "Синтетические детекции" : meta ? meta.inference_backend === "linq" ? "LinQ TPU" : "CPU · local" : "Источник не получен"}</span>
       </div>
       {review && <div className="review-strip"><span className="review-square" />Синтетический сценарий · {scenarioTitle[getReviewScenario()] ?? "Проверка интерфейса"}<span>Изображения и запись созданы для проверки интерфейса. Не результат наблюдения.</span></div>}
       {!review && wsStatus === "disconnected" && <div className="offline-strip" role="status">Нет соединения с каналом событий. Текущее состояние можно обновить вручную.</div>}

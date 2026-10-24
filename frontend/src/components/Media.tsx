@@ -4,15 +4,23 @@ import { useApi } from "../api/useApi";
 import type { Broadcast, Episode, Evidence, HudObject, Video } from "../api/types";
 import { isReviewMode } from "../fixtures/review";
 import { duration, Empty, ErrorNotice, Icon, time } from "./ui";
+import "../styles/targeted-visual.css";
 
 function Hud({ objects }: { objects: HudObject[] }) {
-  return <svg className="hud-layer" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Объекты на исходном кадре">{objects.map((object, i) => { const [x1,y1,x2,y2] = object.bbox; const level = object.tags.find(t => t.level)?.level ?? "neutral"; return <g key={`${object.track_id}-${i}`} className={`hud-object hud-${level}`}><rect x={x1*1000} y={y1*1000} width={(x2-x1)*1000} height={(y2-y1)*1000} vectorEffect="non-scaling-stroke" /><title>{object.label} · {Math.round(object.score * 100)}%</title></g>; })}</svg>;
+  return <><svg className="hud-layer" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Объекты на исходном кадре">{objects.map((object, i) => { const [x1,y1,x2,y2] = object.bbox; const level = object.tags.find(t => t.level)?.level ?? "neutral"; const box = {x:x1*1000,y:y1*1000,width:(x2-x1)*1000,height:(y2-y1)*1000}; return <g key={`${object.track_id}-${i}`} className={`hud-object hud-${level}`}><rect {...box} className="hud-outline" vectorEffect="non-scaling-stroke" /><rect {...box} vectorEffect="non-scaling-stroke" /><title>{object.label}</title></g>; })}</svg><div className="hud-labels" aria-hidden="true">{objects.map((object,i)=><span key={`${object.track_id}-${i}`} className={`hud-label hud-label-${object.tags.find(tag=>tag.level)?.level ?? "neutral"}`} style={{left:`${object.bbox[0]*100}%`,top:`${object.bbox[1]*100}%`,maxWidth:`${(1-object.bbox[0])*100}%`}} title={object.label}>{object.label}{object.track_id !== null && <small>#{object.track_id}</small>}</span>)}</div></>;
 }
 export function EvidenceFrame({ evidence, camera, level }: { evidence: Evidence; camera: string; level: "red" | "yellow" }) {
   const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [evidence.url]);
-  return <div className={`evidence-frame level-frame-${level}`}>
-    {failed ? <Empty title="Кадр не загрузился" text="Доказательство недоступно по адресу, полученному от API." /> : <div className="evidence-image-wrap"><img src={mediaUrl(evidence.url)} alt={`Доказательный кадр: ${camera}, кадр ${evidence.frame_idx}`} onError={() => setFailed(true)} /><Hud objects={evidence.objects} /><span className="media-stamp">{camera}<b>{duration(evidence.ts_ms)} · кадр {evidence.frame_idx}</b></span><span className="media-source">{isReviewMode() ? "Синтетический кадр" : "Доказательство · исходный кадр"}</span></div>}
+  const [attempt, setAttempt] = useState(0);
+  const [decoded, setDecoded] = useState<{source: string; ratio: number}>();
+  const source = `${evidence.url}:${evidence.sha256}`;
+  const ratio = decoded?.source === source ? decoded.ratio : undefined;
+  // A successful REST refresh is a new evidence snapshot, even when its URL is
+  // unchanged. Remount the image after a transient 404 rather than retaining it.
+  useEffect(() => { setFailed(false); setAttempt(0); }, [evidence]);
+  const retry = () => { setAttempt(value => value + 1); setDecoded(undefined); setFailed(false); };
+  return <div className={`evidence-frame level-frame-${level}`} style={{"--media-ratio": ratio} as CSSProperties}>
+    {failed ? <div className="evidence-error"><Empty title="Кадр не загрузился" text="Доказательство недоступно по адресу, полученному от API." /><button className="button button-small" onClick={retry}>Загрузить кадр повторно <Icon name="arrow" size={14} /></button></div> : <div className="evidence-image-wrap"><img key={`${source}:${attempt}`} data-testid="evidence-image" src={mediaUrl(evidence.url)} alt={`${isReviewMode() ? "Иллюстративный кадр интерфейса" : "Доказательный кадр"}: ${camera}, кадр ${evidence.frame_idx}`} onLoad={event => { const image = event.currentTarget; if (image.naturalWidth > 0 && image.naturalHeight > 0) setDecoded({source, ratio: image.naturalWidth / image.naturalHeight}); }} onError={() => { setFailed(true); setDecoded(undefined); }} />{ratio !== undefined && <Hud objects={evidence.objects} />}<span className="media-stamp">{camera}<b>{duration(evidence.ts_ms)} · кадр {evidence.frame_idx}</b></span><span className="media-source">{isReviewMode() ? "Иллюстрация интерфейса · не подтверждает сценарий" : "Доказательство · исходный кадр"}</span></div>}
   </div>;
 }
 export function VideoWithHud({ video, camera, initialMs = 0, episodes = [], broadcast }: { video: Video; camera: string; initialMs?: number; episodes?: Episode[]; broadcast?: Broadcast | null }) {

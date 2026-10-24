@@ -7,38 +7,54 @@ import { useRole } from "../roles";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates, roleTitles } from "../components/AppShell";
 import { EvidenceFrame, RecordedVideo } from "../components/Media";
+import { useActorIdentity } from "../components/ActorIdentity";
+import "../styles/incident-review.css";
 import { Breadcrumb, duration, Empty, ErrorNotice, Icon, Level, Loading, number, PageHeading, PanelHeading, Status, time } from "../components/ui";
 
-const viewed = new Set<string>();
 const ACTIONS: Record<HumanAction, string> = {view:"Отметить просмотр",confirm:"Подтвердить",false_alarm:"Ложное срабатывание",send_to_master:"Передать мастеру",accept:"Принять в работу",resolve:"Отправить отчёт и завершить"};
 const HISTORY: Record<EventAction["action"], string> = {published:"Событие опубликовано",viewed:"Открыто оператором",confirmed:"Событие подтверждено",false_alarm:"Ложное срабатывание",sent_to_master:"Передано мастеру",level_escalated:"Повышен уровень",timeout_escalated:"Эскалация по таймауту",master_accepted:"Мастер принял в работу",resolved:"Меры приняты · завершено",auto_finished:"Автоматически завершено",superseded:"Заменено новым событием"};
 
 function useEventDetail(id: number) {
   const [role] = useRole(); const updates = useUpdates();
+  const { actor, ensureActor } = useActorIdentity();
   const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role,updates]);
-  const [result, setResult] = useState<EventDetail>();
+  const [result, setResult] = useState<{ detail: EventDetail; rest: EventDetail | undefined; identity: string }>();
   const [busy, setBusy] = useState<HumanAction>();
   const [actionError, setActionError] = useState<{code:string;message:string}>();
   const guard = useRef(false);
+  const viewed = useRef(new Set<string>());
   const identity = `${role}:${id}`;
   const currentIdentity = useRef(identity); currentIdentity.current = identity;
-  useEffect(() => { if (request.data?.event.id === id) setResult(request.data); }, [request.data,id]);
+  const rest = useRef(request.data); rest.current = request.data;
+  const current = result?.identity === identity && result.rest === request.data ? result.detail : request.data;
+  const detail = !request.error && !request.loading && current?.event.id === id ? current : undefined;
+  const latestDetail = useRef(detail); latestDetail.current = detail;
   useEffect(() => { setResult(undefined); setActionError(undefined); }, [id,role]);
   const send = useCallback(async (action: HumanAction, comment = "") => {
     if (guard.current) return false;
     guard.current = true; setBusy(action); setActionError(undefined);
     const sendingIdentity = identity;
     try {
+      if (!await ensureActor() || currentIdentity.current !== sendingIdentity) return false;
+      if (!latestDetail.current?.allowed_actions.includes(action)) {
+        setActionError({code:"state_changed",message:"Состояние изменилось. Обновите событие и выберите доступное действие."});
+        return false;
+      }
       const response = await api.POST("/api/events/{event_id}/actions", { params:{path:{event_id:id}},body:{action,comment:comment.trim()} });
       if (currentIdentity.current !== sendingIdentity) return false;
       if (response.error) { setActionError(apiError(response.error)); return false; }
-      if (response.data) setResult(response.data);
+      if (response.data) setResult({detail:response.data,rest:rest.current,identity:sendingIdentity});
       return true;
     } catch (error) { if (currentIdentity.current===sendingIdentity) setActionError(apiError(error)); return false; }
     finally { guard.current = false; setBusy(undefined); }
-  }, [id,identity]);
-  const detail = result?.event.id === id ? result : request.data?.event.id === id ? request.data : undefined;
-  useEffect(() => { if (detail?.allowed_actions.includes("view") && !viewed.has(identity)) { viewed.add(identity); void send("view"); } }, [detail,identity,send]);
+  }, [id,identity,ensureActor]);
+  useEffect(() => {
+    const key = `${identity}:${detail?.event.published_at}`;
+    if (actor.trim() && detail?.allowed_actions.includes("view") && !viewed.current.has(key)) {
+      viewed.current.add(key);
+      void send("view").then(ok => { if (!ok) viewed.current.delete(key); });
+    }
+  }, [detail,identity,send,actor]);
   return {detail,loading:request.loading,error:request.error,reload:request.reload,busy,actionError,send};
 }
 function History({ actions }: { actions: EventAction[] }) {
@@ -73,12 +89,12 @@ export function IncidentPage({ master = false }: { master?: boolean }) {
   return <div className={`incident-page event-${event.level} ${isMaster?"master-detail":""}`} data-testid={isMaster?"master-detail":"incident-focus"}>
     {isMaster ? <Link className="mobile-back" to="/master"><Icon name="back" size={16} />К поручениям<span>Событие #{event.id}</span></Link> : <Breadcrumb><Link to={`/operator/sectors/${event.sector_id}`}>Сектор {number(event.sector_id)} / {event.sector_name}</Link><span> / </span><Link to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link></Breadcrumb>}
     <PageHeading title={event.title} meta={<><span>{isMaster?`Сектор ${number(event.sector_id)} / ${event.sector_name}`:`Событие #${event.id}`}</span><span className="meta-separator">/</span><span>{time(event.started_at)}</span></>}><Level level={event.level} /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></PageHeading>
-    {state.error && <ErrorNotice error={state.error} retry={state.reload} />}<div className="incident-top"><section className="evidence-panel"><PanelHeading aside={evidence?`Кадр ${evidence.frame_idx} · ${duration(evidence.ts_ms)}`:"Кадр не получен"}>Доказательный кадр</PanelHeading>{evidence ? <EvidenceFrame evidence={evidence} camera={event.camera_name} level={event.level} /> : <Empty title="Доказательство отсутствует" text="Сервер не передал кадр для этого события." />}<div className="evidence-caption"><span>{event.camera_name} · {time(event.started_at)}</span><span>Зафиксированный кадр события</span></div></section>
+    {state.error && <ErrorNotice error={state.error} retry={state.reload} />}<div className="incident-workspace"><section className="evidence-panel"><PanelHeading aside={evidence?`Кадр ${evidence.frame_idx} · ${duration(evidence.ts_ms)}`:"Кадр не получен"}>Доказательный кадр</PanelHeading>{evidence ? <EvidenceFrame evidence={evidence} camera={event.camera_name} level={event.level} /> : <Empty title="Доказательство отсутствует" text="Сервер не передал кадр для этого события." />}<div className="evidence-caption"><span>{event.camera_name} · {time(event.started_at)}</span><span>Зафиксированный кадр события</span></div></section>
     <aside className="decision-panel"><PanelHeading aside={`#${event.id}`}>Состояние и решение</PanelHeading><div className="server-state"><span>Серверное состояние</span><div><Status event={event} /></div><p>{event.reason_text}</p><div className="operator-verdict"><span>Вердикт оператора</span><strong>{event.operator_verdict === "none" ? "Не зафиксирован" : meta?.statuses.find(item=>item.id===event.operator_verdict)?.title ?? event.operator_verdict}</strong></div></div><div className="why-section"><h3>Почему возникло событие</h3><dl>{detail.why.map((item,i)=><div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>{!detail.why.length && <p className="muted">Объяснение не получено.</p>}</div>
     <div className="decision-actions"><h3>{isMaster?"Ваше поручение":"Доступные действия"}</h3>{isMaster && <p className="assignment-copy">{event.notification_text || event.reason_text}</p>}{!isMaster && actions.length>0 && <details className="comment-disclosure"><summary>Добавить комментарий <span>необязательно</span></summary><label className="comment-label"><span className="sr-only">Комментарий к действию</span><textarea aria-label="Комментарий к действию" value={comment} onChange={e=>setComment(e.target.value)} rows={2} placeholder="Уточнение для истории события" maxLength={500} /></label></details>}{reportRequired && <label className="report-label">Принятые меры <span>Обязательно</span><textarea data-testid="measures" value={report} onChange={e=>setReport(e.target.value)} rows={4} placeholder="Что проверено и какие меры приняты на участке" maxLength={500} required /></label>}
     {!actions.length && <div className="no-actions"><Icon name="check" size={19} /><p>Нет доступных действий для текущей роли и состояния.</p></div>}
-    <div className={isMaster?"master-primary-actions":"operator-actions"}>{actionElements}</div>{state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}{actionNotice && <p className="action-notice" role="status">{actionNotice}</p>}<small className="server-authority">Действия и переходы определяет сервер.</small></div><Provenance detail={detail} /></aside></div>
-    <div className="incident-lower"><section className="observation-panel"><PanelHeading aside={detail.broadcast?`Позиция повтора ${duration(detail.broadcast.position_ms)}`:"Архивный фрагмент"}>Последующее наблюдение</PanelHeading>{detail.video_id ? <RecordedVideo videoId={detail.video_id} camera={event.camera_name} initialMs={detail.broadcast?.position_ms ?? detail.video_start_ms ?? 0} broadcast={detail.broadcast} episodes={detail.episode?[detail.episode]:[]} /> : <Empty title="Запись не привязана" text="У события нет связанного видео." />}<p className="observation-note">Кадр доказательства закреплён выше. Позиция записи изменяется независимо.</p></section><History actions={detail.actions} /></div>
+    <div className={isMaster?"master-primary-actions":"operator-actions"}>{actionElements}</div>{state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}{actionNotice && <p className="action-notice" role="status">{actionNotice}</p>}<small className="server-authority">Действия и переходы определяет сервер.</small></div><Provenance detail={detail} /></aside>
+    <section className="observation-panel"><PanelHeading aside={detail.broadcast?`Позиция повтора ${duration(detail.broadcast.position_ms)}`:"Архивный фрагмент"}>Последующее наблюдение</PanelHeading>{detail.video_id ? <RecordedVideo videoId={detail.video_id} camera={event.camera_name} initialMs={detail.broadcast?.position_ms ?? detail.video_start_ms ?? 0} broadcast={detail.broadcast} episodes={detail.episode?[detail.episode]:[]} /> : <Empty title="Запись не привязана" text="У события нет связанного видео." />}<p className="observation-note">Кадр доказательства закреплён выше. Позиция записи изменяется независимо.</p></section><History actions={detail.actions} /></div>
     {!isMaster && <EventAlarm event={event} />}
     {detail.deliveries.length>0 && <details className="deliveries"><summary>Доставка уведомлений · {detail.deliveries.length}</summary><ul>{detail.deliveries.map((delivery,i)=><li key={i}><time>{time(delivery.at)}</time><span>{delivery.channel}</span><span>{delivery.status === "sent" ? "Доставлено" : "Ошибка доставки"}</span>{delivery.error && <span>{delivery.error}</span>}</li>)}</ul></details>}
   </div>;

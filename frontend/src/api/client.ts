@@ -8,15 +8,17 @@ export { getReviewScenario, isReviewMode, resetReview } from "../fixtures/review
 export type ApiError = components["schemas"]["ApiError"];
 
 const KEY_ACTOR = "safewatch.actor";
+let sessionActor = "";
 
 export function getActor(): string {
   try {
-    return localStorage.getItem(KEY_ACTOR) || (getRole() === "master" ? "Мастер смены" : "Оператор");
+    return localStorage.getItem(KEY_ACTOR)?.trim() || "";
   } catch {
-    return getRole() === "master" ? "Мастер смены" : "Оператор";
+    return sessionActor;
   }
 }
 export function setActor(value: string): void {
+  sessionActor = value.trim();
   try { if (value.trim()) localStorage.setItem(KEY_ACTOR, value.trim()); else localStorage.removeItem(KEY_ACTOR); } catch { /* Storage may be disabled. */ }
 }
 

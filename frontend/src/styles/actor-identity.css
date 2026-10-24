@@ -1,0 +1,10 @@
+.actor-dialog{max-width:470px;width:calc(100% - 32px);padding:26px;color:var(--text);background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--amber)}
+.actor-dialog::backdrop{background:rgb(6 11 10 / .8)}
+.actor-dialog h2{font:500 29px/1.2 var(--display);margin:10px 0 16px}
+.actor-dialog p{font-size:14px;line-height:1.65;color:var(--muted);margin:0 0 22px}
+.actor-dialog-kicker{text-transform:uppercase;font-size:11px;letter-spacing:.1em;color:var(--amber)}
+.actor-dialog label{display:flex;flex-direction:column;gap:9px;font-size:13px}
+.actor-dialog input{width:100%;background:var(--bg);border:1px solid var(--line);padding:12px;color:var(--text);font:inherit;font-size:16px}
+.actor-dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+.actor-dialog .identity-error{color:var(--red);margin-top:10px;font-size:13px}
+@media(max-width:500px){.actor-dialog{padding:22px 18px}.actor-dialog-actions{flex-direction:column-reverse}.actor-dialog-actions .button{min-height:46px;justify-content:center}}

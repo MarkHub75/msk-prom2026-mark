@@ -9,6 +9,7 @@ beforeEach(() => {
   history.replaceState({}, "", "/operator?review=critical&reset=1");
   resetReview();
   setRole("operator");
+  setActor("Контрактный тест");
 });
 afterEach(() => {
   history.replaceState({}, "", "/?review=real");
@@ -17,6 +18,19 @@ afterEach(() => {
 });
 
 describe("explicit contract-shaped review transport", () => {
+  it("requires explicit actor identity and provides journal filters/facets from the same state", async () => {
+    setActor("");
+    const unnamed = await api.POST("/api/events/{event_id}/actions",{params:{path:{event_id:41}},body:{action:"confirm",comment:""}});
+    expect(unnamed.response.status).toBe(422);
+    setActor("Контрактный тест");
+    const page = await api.GET("/api/events",{params:{query:{status:"resolved",limit:1}}});
+    expect(page.data?.items.map(item=>item.id)).toEqual([44]);
+    expect(page.data?.total).toBe(1);
+    expect(page.data?.next_cursor).toBeNull();
+    const facets = await api.GET("/api/journal/facets");
+    expect(facets.data?.sectors.every(item=>typeof item.id === "string")).toBe(true);
+    expect(facets.data?.statuses.some(item=>item.id === "resolved")).toBe(true);
+  });
   it("completes operator view/confirm → master accept/report and preserves the same event", async () => {
     setActor("Оператор · проверка");
     const first = await api.GET("/api/events/{event_id}", {params: {path: {event_id: 41}}});

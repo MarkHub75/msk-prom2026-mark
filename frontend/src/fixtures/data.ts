@@ -105,12 +105,15 @@ export function createFixtureEvents(normal = false): EventDetail[] {
       event.level = "yellow"; event.status = "auto_finished"; event.status_title = statusTitles.auto_finished;
       event.priority = 0; event.ended_at = FIXTURE_NOW; event.red_at = null;
     }
+    // The available illustrative still shows a standing person. It cannot serve
+    // as evidence of a fall, nor as subsequent footage for that same scenario.
+    const missingScenarioMedia = event.scenario === "lying";
     const episode: Episode = {id: event.id, analysis_id: event.camera_id, scenario: event.scenario, scenario_title: event.title,
       subject: "Иллюстративный эпизод", zone_id: null, level_initial: event.level, level_max: event.level,
       start_ms: 0, confirm_ms: 0, escalate_ms: null, end_ms: 30000, end_reason: "video_end", reason_code: "review_fixture",
       reason_text: event.reason_text, method: "Синтетический UI fixture, не результат модели", confidence: 0,
       metrics: {}, uncertain_ms: 0,
-      evidence: [{id: event.id, kind: "confirm", frame_idx: 0, ts_ms: 0, url: fixtureImage(event.camera_id), sha256: imageSha(event.camera_id), objects: fixtureHudForCamera(event.camera_id)}]};
+      evidence: missingScenarioMedia ? [] : [{id: event.id, kind: "confirm", frame_idx: 0, ts_ms: 0, url: fixtureImage(event.camera_id), sha256: imageSha(event.camera_id), objects: fixtureHudForCamera(event.camera_id)}]};
     const actions: EventAction[] = [{id: event.id * 10, at: event.published_at, actor_role: "system", actor_name: "Review fixture", action: "published", from_status: null, to_status: "new", comment: "Синтетический пример для проверки интерфейса"}];
     if (event.status === "sent_to_master" || event.status === "resolved") {
       actions.push({id: event.id * 10 + 1, at: event.id === 44 ? "2026-10-24T07:21:00.000Z" : "2026-10-24T07:37:00.000Z", actor_role: "operator", actor_name: "Оператор · демо", action: "sent_to_master", from_status: "new", to_status: "sent_to_master", comment: "Проверьте участок"});
@@ -121,10 +124,10 @@ export function createFixtureEvents(normal = false): EventDetail[] {
     }
     if (event.status === "viewed") actions.push({id: event.id * 10 + 1, at: "2026-10-24T07:39:20.000Z", actor_role: "operator", actor_name: "Оператор · демо", action: "viewed", from_status: "new", to_status: "viewed", comment: ""});
     if (event.status === "auto_finished") actions.push({id: event.id * 10 + 1, at: FIXTURE_NOW, actor_role: "system", actor_name: "Review fixture", action: "auto_finished", from_status: "new", to_status: "auto_finished", comment: "Иллюстративное завершение эпизода"});
-    return {event, episode, why: [{label: "Наблюдение", value: event.reason_text}, {label: "Источник", value: "Локальные синтетические fixtures. Не результат LinQ."}],
+    return {event, episode, why: [{label: "Наблюдение", value: event.reason_text}, {label: "Источник", value: "Локальные синтетические fixtures. Не результат LinQ."}, ...(missingScenarioMedia ? [{label: "Доказательный материал", value: "Подходящий кадр падения не подготовлен. Иллюстрация стоящего человека не используется как доказательство."}] : [{label: "Материал", value: "Иллюстрация интерфейса: не подтверждает движение или классификацию сценария."}])],
       actions, allowed_actions: [], provenance: {backend: "local", fake: true, det_model: null, pose_model: null, job_id: null, video_sha256: videoSha(event.camera_id),
-        analysis_version: 1, rule_params: {}, evidence_sha256: imageSha(event.camera_id)}, deliveries: [],
-      video_id: event.camera_id, video_start_ms: 0, video_end_ms: 30000, broadcast: fixtureBroadcast(event.camera_id)};
+        analysis_version: 1, rule_params: {}, evidence_sha256: missingScenarioMedia ? null : imageSha(event.camera_id)}, deliveries: [],
+      video_id: missingScenarioMedia ? null : event.camera_id, video_start_ms: missingScenarioMedia ? null : 0, video_end_ms: missingScenarioMedia ? null : 30000, broadcast: missingScenarioMedia ? null : fixtureBroadcast(event.camera_id)};
   });
 }
 

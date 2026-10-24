@@ -4,10 +4,11 @@ import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { SectorState } from "../api/types";
 import { EventAlarm } from "../components/AlarmTakeover";
-import { useUpdates } from "../components/AppShell";
+import { useMeta, useUpdates } from "../components/AppShell";
 import { EventFeed } from "../components/EventFeed";
 import { VideoWithHud } from "../components/Media";
 import { Breadcrumb, Empty, ErrorNotice, Icon, Loading, number, PageHeading, PanelHeading, time } from "../components/ui";
+import "../styles/targeted-visual.css";
 
 function SectorPanel({ sector, index }: { sector: SectorState; index: number }) {
   const updates = useUpdates();
@@ -21,15 +22,23 @@ function SectorPanel({ sector, index }: { sector: SectorState; index: number }) 
 }
 export function OperatorPage() {
   const updates = useUpdates();
+  const meta = useMeta();
   const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [updates]);
   const [filter, setFilter] = useState<"all"|"red"|"yellow">("all");
-  const critical = dashboard.data?.feed.find(e => e.level === "red");
+  // operator_feed includes recently closed events (tech.md 8.8). Prefer the
+  // backend's status metadata; its documented priority 0 is the closed fallback
+  // while /meta is loading. Never change an event's status on the client.
+  const isTerminal = (event: NonNullable<typeof dashboard.data>["feed"][number]) =>
+    meta?.statuses.find(status => status.id === event.status)?.terminal ?? event.priority === 0;
+  const active = dashboard.data?.feed.filter(event => !isTerminal(event)) ?? [];
+  const history = dashboard.data?.feed.filter(isTerminal) ?? [];
+  const critical = active.find(event => event.level === "red" && event.operator_verdict === "none");
   const sectors = dashboard.data?.sectors ?? [];
-  const feed = dashboard.data?.feed.filter(event => filter === "all" || event.level === filter) ?? [];
+  const feed = active.filter(event => filter === "all" || event.level === filter);
   return <div className="operator-page" data-testid="operator-view">
     <PageHeading title="Сигнальный пост" meta={<><span>Обзор секторов</span><span className="meta-separator">/</span><span>{dashboard.data ? `Состояние на ${time(dashboard.data.server_now)}` : "Состояние не получено"}</span></>}><button className="button button-small" onClick={dashboard.reload} disabled={dashboard.loading}>Обновить <Icon name="arrow" size={15} /></button></PageHeading>
-    {dashboard.error ? <ErrorNotice error={dashboard.error} retry={dashboard.reload} /> : dashboard.loading && !dashboard.data ? <Loading /> : dashboard.data && <div className="dispatch-layout"><section className="sector-matrix" aria-label="Секторы производства">{sectors.length ? sectors.map((sector,index) => <SectorPanel key={sector.sector_id} sector={sector} index={index} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}</section><aside className="attention-rail"><PanelHeading aside={<span className="count">{dashboard.data.feed.length}</span>}>Требует внимания</PanelHeading><div className="feed-filter" aria-label="Уровень событий">{([["all","Все"],["red","Критические"],["yellow","Внимание"]] as const).map(([id,label]) => <button key={id} className={filter===id?"selected":""} onClick={() => setFilter(id)} aria-pressed={filter===id}>{label}</button>)}</div><EventFeed events={feed} compact /></aside></div>}
-    {dashboard.data && <div className="shift-ribbon"><div><Icon name="list" /><strong>Хронология внимания</strong><span>Публикация событий</span></div><div className="shift-events">{[...dashboard.data.feed].sort((a,b)=>a.published_at.localeCompare(b.published_at)).map(event => <Link to={`/events/${event.id}`} key={event.id} className={`ribbon-event ribbon-${event.level}`}><time>{time(event.published_at,false)}</time><span className="ribbon-tick" /><span>#{event.id} · {event.sector_name}</span></Link>)}</div></div>}
+    {dashboard.error ? <ErrorNotice error={dashboard.error} retry={dashboard.reload} /> : dashboard.loading && !dashboard.data ? <Loading /> : dashboard.data && <div className="dispatch-layout"><section className="sector-matrix" aria-label="Секторы производства">{sectors.length ? sectors.map((sector,index) => <SectorPanel key={sector.sector_id} sector={sector} index={index} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}</section><aside className="attention-rail"><PanelHeading aside={<span className="count" data-testid="active-event-count">{active.length}</span>}>Требует внимания</PanelHeading><div className="feed-filter" aria-label="Уровень активных событий">{([["all","Все"],["red","Критические"],["yellow","Внимание"]] as const).map(([id,label]) => <button key={id} className={filter===id?"selected":""} onClick={() => setFilter(id)} aria-pressed={filter===id}>{label}</button>)}</div>{active.length ? <EventFeed events={feed} compact /> : <Empty title="Активных тревог нет" text="Завершённые события хранятся отдельно в истории." />}<details className="closed-event-history"><summary><span>Недавно завершено</span><span data-testid="closed-event-count">{history.length}</span><Icon name="chevron" size={15} /></summary>{history.length ? <EventFeed events={history} compact /> : <p>Недавно завершённых событий в ответе сервера нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details></aside></div>}
+    {dashboard.data && <div className="shift-ribbon"><div><Icon name="list" /><strong>Хронология событий</strong><span>Публикации и решения</span></div><div className="shift-events">{[...dashboard.data.feed].sort((a,b)=>a.published_at.localeCompare(b.published_at)).map(event => <Link to={`/events/${event.id}`} key={event.id} className={`ribbon-event ribbon-${event.level}${isTerminal(event) ? " ribbon-closed" : ""}`}><time>{time(event.published_at,false)}</time><span className="ribbon-tick" /><span>#{event.id} · {isTerminal(event) ? event.status_title : event.sector_name}</span></Link>)}</div></div>}
     <EventAlarm event={critical} />
   </div>;
 }
