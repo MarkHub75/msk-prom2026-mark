@@ -53,6 +53,8 @@ try {
   await assignment.waitFor();
   assert.match(await assignment.innerText(), /Падение/);
   await page.screenshot({path: `${screenshotDir}/03-master.png`, animations: "disabled"});
+  await page.setViewportSize({width: 390, height: 844});
+  await page.screenshot({path: `${screenshotDir}/03-master-mobile.png`, animations: "disabled"});
   await assignment.click();
   await page.getByTestId("master-detail").waitFor();
   await page.locator('[data-action="accept"]').click();
@@ -60,6 +62,7 @@ try {
   await page.getByTestId("measures").fill("Демонстрация: участок осмотрен, приняты меры.");
   await page.locator('[data-action="resolve"]').click();
   await waitStatus(red.id, "resolved");
+  await page.setViewportSize({width: 1440, height: 1000});
   const unsupported = await page.evaluate(async () => {
     const result = await fetch("/api/stats/management");
     return {status: result.status, body: await result.json()};

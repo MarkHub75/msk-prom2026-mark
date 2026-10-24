@@ -4,6 +4,9 @@ body:has(.static-demo-banner) .app.app-cr.ds-app { height: calc(100dvh - var(--d
 .static-demo-director { position: fixed; z-index: 1100; right: 16px; bottom: 16px; width: min(430px, calc(100vw - 32px)); padding: 12px; background: var(--surface); color: var(--text); border: 1px solid var(--line); box-shadow: 0 4px 20px #0006; }
 .static-demo-director p { font-size: 12px; line-height: 1.5; margin: 0 0 10px; }
 .static-demo-director > div { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 860px) {
+  body:has(.static-demo-banner) .ds-app .ms-actions { position: static; margin-top: 16px; }
+}
 @media (max-width: 600px) {
   body:has(.static-demo-banner) { --demo-top: 58px; --demo-bottom: 180px; }
   .static-demo-banner { min-height: 58px; font-size: 11px; align-items: center; }
