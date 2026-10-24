@@ -227,10 +227,8 @@
 .ops-w-progress { width: 140px; }
 .ops-w-bar { width: 120px; }
 .ops-progress { display: inline-flex; align-items: center; gap: 6px; width: 130px; }
-.ops-progress i { display: block; height: 4px; background: var(--ops-info); }
-.ops-progress::before { content: ""; }
-.ops-progress { position: relative; }
-.ops-progress i { flex: none; max-width: 90px; }
+.ops-track { display: block; width: 86px; height: 4px; background: #1b1b1b; border: 1px solid #333; flex: none; }
+.ops-track i { display: block; height: 100%; background: var(--ops-info); }
 .ops-progress b { font-weight: 400; font-size: 11px; margin-left: auto; }
 .ops-bar { display: block; height: 4px; background: #1b1b1b; margin-top: 7px; }
 .ops-bar i { display: block; height: 100%; background: var(--ops-info); }

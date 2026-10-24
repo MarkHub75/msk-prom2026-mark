@@ -219,7 +219,7 @@ function JobStatusChip({ job }: { job: Job }) {
 }
 function Progress({ value }: { value: number }) {
   const pct = Math.round(Math.max(0, Math.min(1, value)) * 100);
-  return <span className="ops-progress" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><i style={{ width: `${pct}%` }} /><b className="mono">{pct}%</b></span>;
+  return <span className="ops-progress" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><span className="ops-track"><i style={{ width: `${pct}%` }} /></span><b className="mono">{pct}%</b></span>;
 }
 
 function JobsPanel({ queue, recent, names, retry }: { queue: Job[]; recent: Job[]; names: Names; retry: (job: Job) => void }) {
@@ -349,16 +349,14 @@ const CAM_STATE: Record<CameraState["state"], { label: string; tone: Tone; icon:
   no_observation: { label: "Нет наблюдения", tone: "idle", icon: EyeOff },
 };
 function FreshnessPanel({ cameras, names }: { cameras: CameraState[]; names: Names }) {
-  const max = Math.max(1, ...cameras.map(c => c.freshness_ms ?? 0));
   return <section className="ops-panel" data-panel="Свежесть анализа по камерам">
     {cameras.length ? <table className="ops-table">
-      <thead><tr><th>Камера</th><th>Сектор</th><th>Состояние</th><th className="num">Свежесть</th><th className="ops-w-bar" aria-hidden="true" /><th className="num">Открыто ▲ / ■</th></tr></thead>
+      <thead><tr><th>Камера</th><th>Сектор</th><th>Состояние</th><th className="num">Свежесть</th><th className="num">Открыто ▲ / ■</th></tr></thead>
       <tbody>{cameras.map(c => { const s = CAM_STATE[c.state]; return <tr key={c.camera_id}>
         <td><Link to={`/operator/cameras/${c.camera_id}`}>{names.camera.get(c.camera_id) ?? `Камера ${c.camera_id}`}</Link></td>
         <td className="ops-muted">{names.sector.get(c.sector_id) ?? `Сектор ${c.sector_id}`}</td>
         <td><Chip tone={s.tone} icon={s.icon}>{c.state === "no_observation" ? c.reason_text : s.label}</Chip></td>
         <td className="num mono">{c.freshness_ms === null ? "—" : c.freshness_ms < 1000 ? `${num(c.freshness_ms, 0)} мс` : `${num(c.freshness_ms / 1000, 1)} с`}</td>
-        <td aria-hidden="true">{c.freshness_ms !== null && <span className="ops-bar"><i style={{ width: `${Math.max(2, (c.freshness_ms / max) * 100)}%` }} /></span>}</td>
         <td className="num mono"><span className="ops-text-warn">{c.open_yellow}</span> / <span className="ops-text-bad">{c.open_red}</span></td>
       </tr>; })}</tbody>
     </table> : <p className="ops-empty-line">Камер нет.</p>}
