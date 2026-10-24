@@ -11,7 +11,7 @@ import "../styles/mobile-shell.css";
 interface Tab { to: string; label: string; icon: IconName; match: (path: string) => boolean }
 const TABS: Partial<Record<Role, Tab[]>> = {
   operator: [
-    { to: "/operator", label: "Тревоги", icon: "bell", match: p => p === "/operator" || p.startsWith("/events/") || p.startsWith("/m/operator") },
+    { to: "/operator", label: "Тревоги", icon: "bell", match: p => p === "/operator" || p.startsWith("/events/") || p.startsWith("/operator/events/") },
     { to: "/operator/cameras", label: "Камеры", icon: "camera", match: p => p.startsWith("/operator/cameras") || p.startsWith("/operator/sectors") },
     { to: "/operator/shift", label: "Смена", icon: "clock", match: p => p.startsWith("/operator/shift") },
   ],
@@ -22,6 +22,8 @@ const TABS: Partial<Record<Role, Tab[]>> = {
 };
 /** Screens with their own bottom action bar hide the tabs. */
 export const isActionScreen = (path: string) => /^\/(?:master\/|m\/operator\/)?events\/\d+/.test(path);
+/** tech.md 8.14 v5: an operator route on its /m/operator twin (`/events/7` -> `/m/operator/events/7`). */
+export const toMobile = (path: string) => path.replace(/^\/(?:events\/|operator(?=\/|$))/, m => m === "/events/" ? "/m/operator/events/" : "/m/operator");
 export const hasPhoneApp = (role: Role) => Boolean(TABS[role]);
 
 const WS_DOT: Record<WsStatus, string> = { connected: "В сети", fixture: "Повтор", disconnected: "Нет связи", connecting: "Подключение" };
@@ -42,9 +44,10 @@ export function PhoneTabs({ role, updates }: { role: Role; updates: number }) {
   if (!tabs || isActionScreen(location.pathname)) return null;
   return <nav className="mb-tabs" aria-label="Разделы приложения" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
     {tabs.map((tab, i) => {
-      const active = tab.match(location.pathname);
-      // Under /m/operator (tech.md 8.14 v5) the alarms tab stays on the mobile feed.
-      const to = i === 0 && role === "operator" && location.pathname.startsWith("/m/") ? "/m/operator" : tab.to;
+      // Under /m/operator (tech.md 8.14 v5) every tab stays on the mobile routes.
+      const mobile = location.pathname.startsWith("/m/");
+      const active = tab.match(mobile ? location.pathname.slice(2) : location.pathname);
+      const to = mobile ? toMobile(tab.to) : tab.to;
       return <NavLink key={tab.to} to={to} end className={() => active ? "active" : ""} aria-current={active ? "page" : undefined}>
         <span className="mb-tab-icon"><Icon name={tab.icon} size={22} />{i === 0 && waiting ? <b className="mb-badge" aria-label={`Ждут: ${waiting}`}>{waiting > 99 ? "99+" : waiting}</b> : null}</span>
         <span>{tab.label}</span>

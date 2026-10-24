@@ -13,6 +13,8 @@
 .rp-status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ds-text-2); }
 .rp-list b { color: var(--ds-amber); font-weight: 600; }
 .rp-list svg { color: var(--ds-text-3); }
+/* Narrow phones: the whole row is the link, the status gets the chevron's room */
+@media (max-width: 420px) { .rp-list a { grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 8px; } .rp-list a svg { display: none; } }
 
 /* Desktop operator queue: one row per group with the latest frame */
 .cr-q.rp-row > button { grid-template-columns: 72px minmax(0, 1fr); column-gap: 10px; align-items: start; }

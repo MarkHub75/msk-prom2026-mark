@@ -13,6 +13,7 @@ import { LivePlayer } from "./Camera";
 import { EpisodeHistory, Evidence, History, useEventDetail, type EventDetailState } from "./Incident";
 import { LevelChip, ShiftSummary, unconfirmed, useBulkAction } from "./Master";
 import { shortCamera, shortSector } from "./Operator";
+import { toMobile } from "../components/PhoneChrome";
 import { groupRepeats, repeatCount, type RepeatGroup } from "./repeats";
 import "../styles/mobile-shell.css";
 import "../styles/mobile-operator.css";
@@ -24,9 +25,9 @@ const PREVIEW_MS = 2000;
 const RANK = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
 const STATE_SHORT: Record<SectorState["state"], string> = { red: "Тревога", yellow: "Внимание", normal: "Норма", no_observation: "Нет наблюдения" };
 
-/** tech.md 8.14 v5: under /m/operator the feed and the card stay on the mobile routes. */
-function useMobileBase() { return useLocation().pathname.startsWith("/m/") ? "/m/operator" : ""; }
-export function useEventHref() { const base = useMobileBase(); return (id: number) => base ? `${base}/events/${id}` : `/events/${id}`; }
+/** tech.md 8.14 v5: under /m/operator every operator screen (feed, card, cameras, shift) stays on the mobile routes. */
+export function useOperatorHref() { const mobile = useLocation().pathname.startsWith("/m/"); return (path: string) => mobile ? toMobile(path) : path; }
+export function useEventHref() { const href = useOperatorHref(); return (id: number) => href(`/events/${id}`); }
 
 /** Split of operator_feed exactly as the desktop dispatcher does it (tech.md 8.6, 8.8). */
 function useOperatorFeed() {
@@ -96,12 +97,13 @@ export function PhoneAlarms() {
   const groups = groupRepeats(waiting.filter(e => filter === "all" || e.level === filter));
   const sectors = dashboard.data?.sectors ?? [];
   const count = (level?: "red" | "yellow") => waiting.filter(e => !level || e.level === level).length;
+  const href = useOperatorHref();
   return <div className="mb-screen mo-page" data-testid="operator-view">
     <header className="mb-hero">
       <div><h1>Тревоги</h1><p>{dashboard.data ? <>Ждут решения <b data-testid="active-event-count">{waiting.length}</b> · данные на <span className="mono">{time(dashboard.data.server_now)}</span></> : "Очередь оператора"}</p></div>
     </header>
     {dashboard.error ? <ErrorNotice error={dashboard.error} retry={dashboard.reload} /> : !dashboard.data ? <><div className="mb-skel" /><div className="mb-skel" /></> : <>
-      {sectors.length > 0 && <nav className="mb-chips mo-sectors" aria-label="Секторы">{sectors.map(s => <Link key={s.sector_id} className={`mb-chip is-${s.state}`} to={`/operator/sectors/${s.sector_id}`} title={s.reason_text}>
+      {sectors.length > 0 && <nav className="mb-chips mo-sectors" aria-label="Секторы">{sectors.map(s => <Link key={s.sector_id} className={`mb-chip is-${s.state}`} to={href(`/operator/sectors/${s.sector_id}`)} title={s.reason_text}>
         <i /><span className="mono">{number(s.sector_id)}</span>{shortSector(s.name)}{s.open_red + s.open_yellow > 0 && <b>{s.open_red + s.open_yellow}</b>}
       </Link>)}</nav>}
       <div className="mb-chips" role="group" aria-label="Уровень">
@@ -131,9 +133,9 @@ function LiveSection({ cameraId }: { cameraId: number }) {
 
 /** Event card of the operator on a phone: frame with the box, why, where; the three decisions under the thumb. */
 export function PhoneEventPage({ id, state }: { id: number; state: EventDetailState }) {
-  const detail = state.detail; const base = useMobileBase();
+  const detail = state.detail; const href = useOperatorHref();
   return <div className="mb-screen mb-push mo-page mo-event" data-testid="incident-focus">
-    <nav className="mb-navbar"><Link className="mb-back" to={base || "/operator"}><ChevronLeft size={24} strokeWidth={2} aria-hidden />Тревоги</Link><span className="mb-navbar-title mono">#{id}{detail ? ` · ${time(detail.event.started_at)}` : ""}</span></nav>
+    <nav className="mb-navbar"><Link className="mb-back" to={href("/operator")}><ChevronLeft size={24} strokeWidth={2} aria-hidden />Тревоги</Link><span className="mb-navbar-title mono">#{id}{detail ? ` · ${time(detail.event.started_at)}` : ""}</span></nav>
     {state.error && <ErrorNotice error={state.error} retry={state.reload} />}
     {detail ? <PhoneEvent detail={detail} state={state} /> : !state.error && <><div className="mb-skel" /><div className="mb-skel" style={{ height: 140 }} /></>}
   </div>;
@@ -141,7 +143,7 @@ export function PhoneEventPage({ id, state }: { id: number; state: EventDetailSt
 
 function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetailState }) {
   const event = detail.event; const meta = useMeta(); const now = useNow(1000); const updates = useUpdates();
-  const navigate = useNavigate(); const toast = useToast(); const base = useMobileBase();
+  const navigate = useNavigate(); const toast = useToast(); const href = useOperatorHref();
   const [comment, setComment] = useState(""); const [live, setLive] = useState(false); const [withRepeats, setWithRepeats] = useState(true);
   useEffect(() => { setComment(""); setLive(false); setWithRepeats(true); }, [event.id]);
   const actions = ORDER.filter(a => detail.allowed_actions.includes(a));
@@ -158,7 +160,7 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
     if (!await state.send(action, comment)) return;
     if (withRepeats && repeats.length) await bulk.run(`event:${event.id}`, repeats, action, comment);
     toast({ tone: action === "false_alarm" ? "neutral" : "green", title: `${DONE[action]} · #${event.id}` });
-    navigate(base || "/operator");
+    navigate(href("/operator"));
   };
   const verdict = event.operator_verdict === "none" ? "Не зафиксирован" : meta?.statuses.find(s => s.id === event.operator_verdict)?.title ?? event.operator_verdict;
   return <>
@@ -172,7 +174,7 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
       {unconfirmed(event) && <p className="mm-flag"><ShieldAlert size={15} strokeWidth={1.75} aria-hidden />Передано мастеру по таймауту, ждёт вашего вердикта</p>}
     </header>
     <dl className="mb-card mb-facts">
-      <div><dt><MapPin {...IC} size={15} />Место</dt><dd><Link to={`/operator/sectors/${event.sector_id}`}>{event.sector_name}</Link><small><Link to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link>{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</small></dd></div>
+      <div><dt><MapPin {...IC} size={15} />Место</dt><dd><Link to={href(`/operator/sectors/${event.sector_id}`)}>{event.sector_name}</Link><small><Link to={href(`/operator/cameras/${event.camera_id}`)}>{event.camera_name}</Link>{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</small></dd></div>
       <div><dt><Clock {...IC} size={15} />Начало</dt><dd className="mono">{time(event.started_at)}<small>длится {duration(event.duration_s * 1000)}{event.ended_at ? "" : " · идёт"}</small></dd></div>
       <div><dt><Check {...IC} size={15} />Вердикт</dt><dd>{verdict}</dd></div>
     </dl>
@@ -180,7 +182,7 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
     {actions.length > 0 && <label className="mo-comment"><MessageSquareText {...IC} /><input aria-label="Комментарий к действию" value={comment} onChange={e => setComment(e.target.value)} placeholder="Комментарий (необязательно)" maxLength={500} /></label>}
     {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
     {!actions.length && <p className="mm-done"><Check {...IC} />{terminal ? `Событие закрыто: ${event.status_title.toLowerCase()}.` : event.status === "sent_to_master" || event.status === "master_accepted" ? `Решение принято, событие у мастера: ${event.status_title.toLowerCase()}.` : "Для вашей роли действий по событию нет."}</p>}
-    <details className="mb-more" onToggle={e => setLive((e.currentTarget as HTMLDetailsElement).open)}><summary><span><Radio {...IC} /> Эфир камеры сейчас</span><ChevronRight {...IC} /></summary><div className="mb-more-body">{live && <LiveSection cameraId={event.camera_id} />}<Link className="mo-link" to={`/operator/cameras/${event.camera_id}`}>Открыть камеру<ChevronRight {...IC} /></Link></div></details>
+    <details className="mb-more" onToggle={e => setLive((e.currentTarget as HTMLDetailsElement).open)}><summary><span><Radio {...IC} /> Эфир камеры сейчас</span><ChevronRight {...IC} /></summary><div className="mb-more-body">{live && <LiveSection cameraId={event.camera_id} />}<Link className="mo-link" to={href(`/operator/cameras/${event.camera_id}`)}>Открыть камеру<ChevronRight {...IC} /></Link></div></details>
     <details className="mb-more"><summary>Почему<ChevronRight {...IC} /></summary><div className="mb-more-body">{detail.why.length ? <dl className="od-facts">{detail.why.map((item, i) => <div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl> : <p className="mb-muted">Объяснение не получено.</p>}</div></details>
     <details className="mb-more"><summary>История эпизода<ChevronRight {...IC} /></summary><div className="mb-more-body"><EpisodeHistory detail={detail} /></div></details>
     <details className="mb-more"><summary><span>Действия людей <b className="mono">{detail.actions.length}</b></span><ChevronRight {...IC} /></summary><div className="mb-more-body"><History actions={detail.actions} /></div></details>
@@ -214,12 +216,14 @@ function PreviewTile({ tile }: { tile: CameraTile }) {
     image.src = next;
     return () => { live = false; };
   }, [next]);
-  const s = tile.state;
-  return <Link ref={host} className={`mo-tile is-${s.state}`} to={`/operator/cameras/${tile.camera.id}`} aria-label={`Открыть ${tile.camera.name}`} data-testid="phone-camera">
+  const s = tile.state; const href = useOperatorHref();
+  const shown = Boolean(tile.preview_url && src && !failed);
+  return <Link ref={host} className={`mo-tile is-${s.state}`} to={href(`/operator/cameras/${tile.camera.id}`)} aria-label={`Открыть ${tile.camera.name}`} data-testid="phone-camera">
     <div className="mb-frame">
-      {tile.preview_url && src && !failed ? <img src={src} alt="" /> : <span className="mb-frame-none"><VideoOff size={22} strokeWidth={1.5} aria-hidden />{s.state === "no_observation" ? "Нет наблюдения" : "Нет кадра"}</span>}
+      {shown ? <img src={src} alt="" /> : <span className="mb-frame-none"><VideoOff size={22} strokeWidth={1.5} aria-hidden />{s.state === "no_observation" ? "Нет наблюдения" : "Нет кадра"}</span>}
       {tile.broadcast?.status === "playing" && <span className="mb-ov mb-ov-tl mo-onair"><i />Эфир</span>}
-      {s.state !== "normal" && <span className={`mb-ov mb-ov-tr is-${s.state === "no_observation" ? "grey" : s.state}`}><StateIcon state={s.state} size={13} />{STATE_SHORT[s.state]}</span>}
+      {/* Without a frame the placeholder already says «Нет наблюдения»: no second badge over it. */}
+      {s.state !== "normal" && (shown || s.state !== "no_observation") && <span className={`mb-ov mb-ov-tr is-${s.state === "no_observation" ? "grey" : s.state}`}><StateIcon state={s.state} size={13} />{STATE_SHORT[s.state]}</span>}
       <span className="mo-tile-name">{shortCamera(tile.camera.name)}</span>
     </div>
     {(s.open_red > 0 || s.open_yellow > 0) && <span className="mo-tile-counts">{s.open_red > 0 && <b className="is-red">{s.open_red}</b>}{s.open_yellow > 0 && <b className="is-yellow">{s.open_yellow}</b>}</span>}
@@ -228,7 +232,7 @@ function PreviewTile({ tile }: { tile: CameraTile }) {
 
 /** «Камеры»: previews of every camera by sector; a sector chip narrows the grid. */
 export function PhoneCameras({ sectorId }: { sectorId?: number }) {
-  const updates = useUpdates(); const navigate = useNavigate();
+  const updates = useUpdates(); const navigate = useNavigate(); const href = useOperatorHref();
   const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [], { refresh: [updates] });
   const sectors = dashboard.data?.sectors ?? [];
   const ids = sectors.map(s => s.sector_id).join(",");
@@ -245,8 +249,8 @@ export function PhoneCameras({ sectorId }: { sectorId?: number }) {
       <div><h1>Камеры</h1><p>{views.data ? <>Наблюдаются <b>{observed}</b> из <b>{tiles.length}</b> · превью каждые {PREVIEW_MS / 1000} с</> : "Превью камер по секторам"}</p></div>
     </header>
     {sectors.length > 0 && <nav className="mb-chips" aria-label="Секторы">
-      <button className="mb-chip" aria-pressed={!sectorId} onClick={() => navigate("/operator/cameras", { replace: true })}>Все<b>{tiles.length}</b></button>
-      {sectors.map(s => <button key={s.sector_id} className={`mb-chip is-${s.state}`} aria-pressed={s.sector_id === sectorId} onClick={() => navigate(`/operator/sectors/${s.sector_id}`, { replace: true })}><i /><span className="mono">{number(s.sector_id)}</span>{shortSector(s.name)}</button>)}
+      <button className="mb-chip" aria-pressed={!sectorId} onClick={() => navigate(href("/operator/cameras"), { replace: true })}>Все<b>{tiles.length}</b></button>
+      {sectors.map(s => <button key={s.sector_id} className={`mb-chip is-${s.state}`} aria-pressed={s.sector_id === sectorId} onClick={() => navigate(href(`/operator/sectors/${s.sector_id}`), { replace: true })}><i /><span className="mono">{number(s.sector_id)}</span>{shortSector(s.name)}</button>)}
     </nav>}
     {dashboard.error ? <ErrorNotice error={dashboard.error} retry={dashboard.reload} /> : views.error ? <ErrorNotice error={views.error} retry={views.reload} /> : !views.data ? <><div className="mb-skel" /><div className="mb-skel" /></>
       : shownSectors.map(sector => {
@@ -265,7 +269,7 @@ export function PhoneCameras({ sectorId }: { sectorId?: number }) {
 
 /** Camera on a phone: live video with HUD, layers, facts and its open events (repeats grouped). */
 export function PhoneCameraPage({ id }: { id: number }) {
-  const updates = useUpdates(); const meta = useMeta(); const now = useNow(1000);
+  const updates = useUpdates(); const meta = useMeta(); const now = useNow(1000); const href = useOperatorHref();
   const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: id } } }), [id], { refresh: [updates] });
   const events = useApi(() => api.GET("/api/events", { params: { query: { camera_id: id, limit: 200, include_demo: true } } }), [id], { refresh: [updates] });
   const [hud, setHud] = useState(true); const [zones, setZones] = useState(true); const [grid, setGrid] = useState(true);
@@ -280,7 +284,7 @@ export function PhoneCameraPage({ id }: { id: number }) {
   const groups = groupRepeats(open);
   const data = view.data;
   return <div className="mb-screen mb-push mo-page mo-camera" data-testid="camera-view">
-    <nav className="mb-navbar"><Link className="mb-back" to={data ? `/operator/sectors/${data.camera.sector_id}` : "/operator/cameras"}><ChevronLeft size={24} strokeWidth={2} aria-hidden />{data ? `Сектор ${number(data.camera.sector_id)}` : "Камеры"}</Link><span className="mb-navbar-title">{data ? shortCamera(data.camera.name) : ""}</span></nav>
+    <nav className="mb-navbar"><Link className="mb-back" to={href(data ? `/operator/sectors/${data.camera.sector_id}` : "/operator/cameras")}><ChevronLeft size={24} strokeWidth={2} aria-hidden />{data ? `Сектор ${number(data.camera.sector_id)}` : "Камеры"}</Link><span className="mb-navbar-title">{data ? shortCamera(data.camera.name) : ""}</span></nav>
     {view.error ? <ErrorNotice error={view.error} retry={view.reload} /> : !data ? <div className="mb-skel" /> : <>
       <div className="mo-player mo-player-main"><LivePlayer view={data} zones={hud && zones} grid={hud && grid} /></div>
       <div className="mb-chips" role="group" aria-label="Слои">
@@ -294,7 +298,7 @@ export function PhoneCameraPage({ id }: { id: number }) {
       </header>
       <dl className="mb-card mb-facts">
         <div><dt>Свежесть</dt><dd className="mono">{data.state.freshness_ms === null ? "нет эфира" : `${data.state.freshness_ms} мс`}</dd></div>
-        <div><dt>Запись</dt><dd className="mono">{data.video ? `${data.video.width}×${data.video.height} · ${data.video.fps} к/с` : "нет"}</dd></div>
+        <div><dt>Запись</dt><dd className="mono">{data.video ? `${data.video.width}×${data.video.height} · ${Number(data.video.fps.toFixed(1))} к/с` : "нет"}</dd></div>
         <div><dt>Калибровка</dt><dd>{data.calibration ? <span className="mono">RMSE {data.calibration.fit_rmse_m.toFixed(2)} м</span> : "нет · меры в ростах человека"}</dd></div>
         <div><dt>Открыто</dt><dd><span><b className="mo-n is-red">{data.state.open_red}</b> красных · <b className="mo-n is-yellow">{data.state.open_yellow}</b> жёлтых</span></dd></div>
       </dl>
@@ -313,5 +317,10 @@ export function MobileEventRoute() {
 }
 
 export function OperatorShiftPage() {
-  return <ShiftSummary eventLink={id => `/events/${id}`} testId="operator-shift" />;
+  const href = useEventHref();
+  return <ShiftSummary eventLink={href} testId="operator-shift" />;
 }
+
+/** /m/operator/sectors/:sectorId and /m/operator/cameras/:cameraId: the phone screens at any width. */
+export function MobileSectorRoute() { const { sectorId } = useParams(); return <PhoneCameras sectorId={Number(sectorId)} />; }
+export function MobileCameraRoute() { const { cameraId } = useParams(); return <PhoneCameraPage id={Number(cameraId)} />; }
