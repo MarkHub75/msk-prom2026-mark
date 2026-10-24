@@ -7,7 +7,7 @@
 //   ARGUS_VIDEOS       folder of mp4 clips: imported once by `safewatch seed --videos` before serve
 //   UV                 path to uv when it is not on PATH
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -78,6 +78,22 @@ process.on("SIGINT", () => stop(0));
 process.on("SIGTERM", () => stop(0));
 
 if (process.env.ARGUS_VIDEOS) {
+  // `safewatch seed --videos` imports every file of the folder and stops at the first non-video one, leaving
+  // the seed half made; and it imports videos only on the first seed (an existing database: "skipped").
+  const dir = resolve(process.env.ARGUS_VIDEOS);
+  if (!existsSync(dir)) fail([`Нет папки ARGUS_VIDEOS: ${dir}`]);
+  const files = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isFile()).map((d) => d.name);
+  const other = files.filter((name) => !/\.(mp4|avi|mov|mkv)$/i.test(name));
+  if (other.length) fail([
+    `В ARGUS_VIDEOS не только видео: ${other.slice(0, 5).join(", ")}${other.length > 5 ? ` и ещё ${other.length - 5}` : ""}.`,
+    "Бэкенд импортирует каждый файл папки и падает на первом не-видео. Положите ролики (mp4 H.264, .avi, .mov, .mkv) в отдельную папку.",
+  ]);
+  if (!files.length) fail([`В ${dir} нет видео.`]);
+  const db = resolve(backend, "data/app/safewatch.db");
+  if (existsSync(db)) {
+    console.warn(`[backend] сид уже есть (${db}): seed --videos ролики из ARGUS_VIDEOS не импортирует.`);
+    console.warn(`          Для чистого старта удалите ${resolve(backend, "data/app")} или загрузите видео в «Администратор → Камеры → Настроить → Видео».`);
+  }
   console.log(`[backend] seed --videos ${process.env.ARGUS_VIDEOS}`);
   const seeded = spawnSync(uv, ["run", "safewatch", "seed", "--videos", resolve(process.env.ARGUS_VIDEOS)], { cwd: backend, env, stdio: "inherit" });
   if (seeded.status !== 0) fail([`[backend] seed не прошёл: ${seeded.error?.message ?? `код ${seeded.status}`}`]);

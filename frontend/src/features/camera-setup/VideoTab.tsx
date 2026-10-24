@@ -8,6 +8,7 @@ import { useApi, type ApiState } from "../../api/useApi";
 import { VideoWithHud } from "../../components/Media";
 import { duration, Empty, ErrorNotice, time } from "../../components/ui";
 import { Bar, bytes, fmt } from "../../components/admin/AdminUi";
+import { plural } from "./ZonesTab";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
 
@@ -137,7 +138,7 @@ function Episodes({ video, analysis, onSeek, onJob, onChange }: { video: Video; 
   const data = analysis.data;
   return <section className="adm-panel adm-episodes" data-panel={data ? `Эпизоды · анализ v${data.version}` : "Эпизоды"}>
     <div className="adm-panel-bar">
-      <span className="adm-muted">{data ? `${data.episodes.length} эпизодов · ${data.pose_used ? "с позой" : "без позы"} · ${time(data.created_at)}` : "Таймлайн по активному анализу"}</span>
+      <span className="adm-muted">{data ? `${data.episodes.length} ${plural(data.episodes.length, "эпизод", "эпизода", "эпизодов")} · ${data.pose_used ? "с позой" : "без позы"} · ${time(data.created_at)}` : "Таймлайн по активному анализу"}</span>
       <button type="button" className="button button-small" onClick={() => void recompute()} disabled={busy} title="Заново пройти правила по сохранённым трекам, без инференса"><RefreshCw {...I} />{busy ? "Ставим задачу…" : "Пересчитать события"}</button>
     </div>
     {error && <div className="adm-pad"><ErrorNotice error={error} compact /></div>}

@@ -10,10 +10,10 @@ import "../styles/v5.css";
 // frames of the clip window, detections, pose, HUD and label.json; the ZIP adds manifest.json.
 const FILES = [
   { name: "frames/<кадр>.jpg", text: "проанализированные кадры окна клипа" },
-  { name: "detections.jsonl", text: "детекции FrameDetections, формат docs/ML_INTEGRATION.md §4" },
+  { name: "detections.jsonl", text: "детекции моделей по кадрам (формат — docs/ML_INTEGRATION.md, раздел 4)" },
   { name: "pose.jsonl", text: "точки позы, если pose был в анализе" },
   { name: "hud.jsonl", text: "кадры HUD с треками и тегами" },
-  { name: "label.json", text: "метка false_alarm, сценарий, причина, видео, модели, комментарий оператора" },
+  { name: "label.json", text: "метка «ложное срабатывание», сценарий, причина, видео, модели, комментарий оператора" },
 ];
 
 // The worker adds an item a couple of seconds after the verdict and sends no WS message for it.
@@ -51,7 +51,7 @@ export function DatasetPage() {
     {heading}
     <div className="v5-kpis">
       <Kpi label="Событий в датасете" value={data.total} />
-      <Kpi label="Кадров" value={data.frames} hint="JPEG, не больше datasets.max_frames на событие" />
+      <Kpi label="Кадров" value={data.frames} hint="JPEG, на событие — не больше лимита кадров из настроек сервера" />
       <Kpi label="Сценариев" value={byScenario.size} hint={[...byScenario].sort((a, b) => b[1] - a[1]).map(([id, n]) => `${scenario(id)} ${n}`).join(" · ") || undefined} />
     </div>
     <div className="v5-split">
@@ -69,7 +69,7 @@ export function DatasetPage() {
       </Panel>
       <Panel title="Что внутри элемента">
         <ul className="v5-files">{FILES.map(f => <li key={f.name}><code>{f.name}</code><span>{f.text}</span></li>)}</ul>
-        <p className="v5-hint">ZIP содержит все элементы и manifest.json со списком. То же из консоли: <code>safewatch dataset export --out DIR</code>.</p>
+        <p className="v5-hint">ZIP содержит все элементы и <code>manifest.json</code> со списком. То же из консоли: <code>safewatch dataset export --out DIR</code>.</p>
       </Panel>
     </div>
   </div>;

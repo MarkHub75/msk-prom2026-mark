@@ -73,7 +73,7 @@ describe("calculator (tech.md 8.25)", () => {
     expect(within(breakEven).getAllByRole("row")).toHaveLength(4);
     expect(screen.getByText(/1,17 на 1000 работников \(Росстат, 2025\): для 200 человек ≈ 0,23/)).toBeTruthy();
     const market = screen.getByTestId("market");
-    expect(market.textContent).toContain("чужие цены, не цена Argus");
+    expect(market.textContent).toContain("чужие цены, не цена АРГУС");
     expect(market.textContent).toContain("КоАП РФ, ред. 2026");
     expect(market.textContent).toContain("от 480 000 ₽");
   });
