@@ -95,6 +95,18 @@ function SelectedEvent({ event, onDone }: { event: EventSummary; onDone: () => v
   </section>;
 }
 
+const eventsWord = (n: number) => n % 10 === 1 && n % 100 !== 11 ? "событие" : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? "события" : "событий";
+
+/** Shift totals from GET /api/master/shift: verdict counts are the server's per-sector rows summed, never recounted from statuses. */
+function ShiftLine() {
+  const updates = useUpdates();
+  const shift = useApi(() => api.GET("/api/master/shift"), [updates]);
+  if (!shift.data) return null;
+  const confirmed = shift.data.by_sector.reduce((sum, row) => sum + row.confirmed, 0);
+  const falseAlarm = shift.data.by_sector.reduce((sum, row) => sum + row.false_alarm, 0);
+  return <p className="cr-shift" data-testid="shift-line" title={shift.data.title}><span>Смена: <b>{shift.data.total} {eventsWord(shift.data.total)}</b></span><span>· подтверждено <b>{confirmed}</b></span><span>· ложных <b>{falseAlarm}</b></span></p>;
+}
+
 /** All plant cameras in one row, alarming first: the operator sees the whole plant, not only the focused sector. */
 function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; focusCamera?: number; onPick: (sector: number, camera: number) => void }) {
   const updates = useUpdates();
@@ -167,6 +179,7 @@ export function OperatorPage() {
         {inWork.length > 0 && <details className="cr-history cr-inwork"><summary><span>В работе: решение принято, ждём закрытия</span><span className="mono">{inWork.length}</span></summary><ol className="cr-q-list">{inWork.slice(0, 30).map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol>{inWork.length > 30 && <Link className="text-link" to="/ohs/journal">Ещё {inWork.length - 30} — в журнале <Icon name="arrow" size={14} /></Link>}</details>}
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
       </aside>
+      <ShiftLine />
       <section className="cr-sectors" aria-label="Секторы производства">
         {sectors.length ? sectors.map(sector => <SectorCell key={sector.sector_id} sector={sector} selected={sector.sector_id === focusSector?.sector_id} onSelect={() => selectSector(sector.sector_id)} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}
       </section>
