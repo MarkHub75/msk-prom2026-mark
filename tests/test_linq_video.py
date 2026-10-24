@@ -21,8 +21,8 @@ class DurableVideoTests(unittest.TestCase):
         self.program.write_bytes(b'test-program-not-hardware')
         self.digest=hashlib.sha256(self.program.read_bytes()).hexdigest()
         self.addCleanup(patch.stopall)
-        patch.dict(video._MODELS,{'helmet-v1':('helmet-v1.tpu',self.digest),
-                                 'pose-split-v1':('pose-split-v1.tpu',self.digest)}).start()
+        patch.dict(video._MODELS,{'helmet-v1':('matvey_helmet-v1.tpu',self.digest),
+                                 'pose-split-v1':('matvey_pose-split-v1.tpu',self.digest)}).start()
         patch.dict('os.environ',{'LINQ_LOGIN':'unit-test-account'}).start()
         patch.object(video,'_environment_parameters',return_value=object()).start()
         patch.object(video,'official_binding',side_effect=lambda *a,**k:SimpleNamespace(output_names=k['output_names'])).start()

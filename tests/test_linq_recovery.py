@@ -78,6 +78,8 @@ class RequestRecoveryTests(unittest.TestCase):
     def test_upload_context_without_capture_json_gets_durable_pointer(self):
         context=Path(self.journal_dir)/'upload-context'
         self.runner.capture_dir=context;self.runner.purpose='model_upload'
+        self.runner.program='helmet';self.binding.request_exchange=''
+        self.binding.request_routing_key='matvey_upload_00000000-0000-0000-0000-000000000001'
         self.runner(self.inputs)
         pointer=json.loads((context/'request-pointer.json').read_text())
         self.assertEqual(pointer['purpose'],'model_upload')
@@ -148,7 +150,7 @@ class RequestRecoveryTests(unittest.TestCase):
         record=self.runner.journal.load(request_id)
         self.assertEqual(record['state'],'NOT_SUBMITTED')
         self.assertEqual(self.channel.published,[])
-        self.assertEqual(self.channel.deleted,[{'queue':'exclusive-fixture'}])
+        self.assertEqual(self.channel.deleted,[{'queue':'matvey_reply_'+self.runner.last_response['request_id']}])
         self.assertNotIn('private-error-marker',json.dumps(record))
 
     def test_response_commit_failure_does_not_ack_or_delete_queue(self):

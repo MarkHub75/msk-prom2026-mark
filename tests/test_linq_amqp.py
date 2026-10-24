@@ -76,8 +76,8 @@ class AmqpTransportTests(unittest.TestCase):
         self.original=SimpleNamespace(host='unlogged-host',port=5672,credentials='private-credential-marker')
         self.binding=amqp.official_binding(self.original,request_exchange='explicit-request-exchange',
             request_routing_key='explicit-worker-key',reply_exchange='explicit-reply-exchange',
-            output_names=['495'])
-        self.runner=amqp.AmqpRunner(self.binding,'file:///explicit/program.tpu?raw=False',timeout=1,journal_dir=self.journal_dir)
+            output_names=['495'],owner_login='fixture')
+        self.runner=amqp.AmqpRunner(self.binding,'file:///auto/cache/fixture/matvey/matvey_program.tpu?raw=False',timeout=1,journal_dir=self.journal_dir)
 
     def test_official_headers_tuple_and_one_publish_close(self):
         output=self.runner(self.inputs)
@@ -89,14 +89,14 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertTrue(publish['mandatory'])
         headers=publish['properties'].headers
         self.assertEqual(headers['tpu_pycloud_message_id'],self.runner.last_response['request_id'])
-        self.assertEqual(json.loads(headers['response_routing_keys']),['exclusive-fixture'])
-        self.assertEqual(headers['uri'],'file:///explicit/program.tpu?raw=False')
-        self.assertEqual(self.channel.queue_config,dict(queue='',durable=False,exclusive=False,auto_delete=True))
-        self.assertEqual(self.channel.bindings,[dict(queue='exclusive-fixture',exchange='explicit-reply-exchange',routing_key='exclusive-fixture')])
+        self.assertEqual(json.loads(headers['response_routing_keys']),['matvey_reply_'+self.runner.last_response['request_id']])
+        self.assertEqual(headers['uri'],'file:///auto/cache/fixture/matvey/matvey_program.tpu?raw=False')
+        self.assertEqual(self.channel.queue_config,dict(queue='matvey_reply_'+self.runner.last_response['request_id'],durable=False,exclusive=False,auto_delete=True))
+        self.assertEqual(self.channel.bindings,[dict(queue='matvey_reply_'+self.runner.last_response['request_id'],exchange='explicit-reply-exchange',routing_key='matvey_reply_'+self.runner.last_response['request_id'])])
         self.assertEqual(self.connection.closed,1)
         self.assertEqual(self.runner.last_response['status_code'],0)
         self.assertEqual(self.runner.last_response['response_id'],self.runner.last_response['request_id'])
-        self.assertEqual(self.channel.deleted,[{'queue':'exclusive-fixture'}])
+        self.assertEqual(self.channel.deleted,[{'queue':'matvey_reply_'+self.runner.last_response['request_id']}])
         self.assertNotIn('private-worker-error-marker',json.dumps(self.runner.last_response))
         self.assertNotIn('uri',json.dumps(self.runner.last_response))
 
@@ -167,7 +167,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertEqual(self.runner.last_response['next_action'],'provide_exact_official_tpu_pycloud_format_0_0_1')
 
     def test_wrong_target_never_connects(self):
-        runner=amqp.AmqpRunner(self.binding,'explicit-uri',host='remote-host',journal_dir=self.journal_dir)
+        runner=amqp.AmqpRunner(self.binding,'file:///auto/cache/fixture/matvey/matvey_program.tpu?raw=False',host='remote-host',journal_dir=self.journal_dir)
         with self.assertRaises(amqp.AmqpError):runner(self.inputs)
         self.assertEqual(self.parameters,[])
 
@@ -185,16 +185,16 @@ class AmqpTransportTests(unittest.TestCase):
         self.assertEqual(self.connection.closed,1)
 
     def test_default_reply_exchange_explicit_no_bind(self):
-        binding=amqp.official_binding(self.original,request_exchange='',request_routing_key='explicit',
-                                     reply_exchange='',output_names=['495'])
-        amqp.AmqpRunner(binding,'explicit-uri',journal_dir=self.journal_dir)(self.inputs)
+        binding=amqp.official_binding(self.original,request_exchange='worker',request_routing_key='explicit',
+                                     reply_exchange='',output_names=['495'],owner_login='fixture')
+        amqp.AmqpRunner(binding,'file:///auto/cache/fixture/matvey/matvey_program.tpu?raw=False',journal_dir=self.journal_dir)(self.inputs)
         self.assertEqual(self.channel.bindings,[])
 
 
     def test_explicit_stock_queue_name_factory(self):
-        self.binding.reply_queue_factory=lambda request_id:'notebook_'+request_id[:8]
+        self.binding.reply_queue_factory=lambda request_id:'matvey_reply_'+request_id
         self.runner(self.inputs)
-        self.assertEqual(self.channel.queue_config['queue'],'notebook_'+self.runner.last_response['request_id'][:8])
+        self.assertEqual(self.channel.queue_config['queue'],'matvey_reply_'+self.runner.last_response['request_id'])
         self.assertFalse(self.channel.queue_config['exclusive'])
 
     def test_service_error_sanitizes_known_password_and_uri_auth(self):
