@@ -2656,7 +2656,11 @@ async def deliveries_flush() -> int:
     written = 0
     for item in queue:
         event_id, kind, level = item["event_id"], item["kind"], item["level"]
-        summary = events[event_id].model_copy(update={"level": level})
+        current = events[event_id]
+        # The text goes with the row level: a yellow publication sent after the red turn (R25).
+        escalated = current.escalated_by_timeout and level == current.level
+        text = texts.notification_text(level, current.sector_name, current.reason_text, escalated)
+        summary = current.model_copy(update={"level": level, "notification_text": text})
         for name, channel in channels:
             call = isinstance(channel, delivery.CallChannel)
             key = (event_id, name, kind)
@@ -3153,10 +3157,12 @@ def datasets_view() -> DatasetView:
     return DatasetView(items=items, total=len(items), frames=sum(i.frames for i in items))
 
 
-def dataset_export(out: Path | None = None) -> Path:
+async def dataset_export(out: Path | None = None) -> Path:
+    """The items are read here, the zip is written in a worker thread (40 frames an item)."""
     root = config.get_settings().data_dir
     folder = out or root / "datasets"
-    return dataset.export_zip(root, _dataset_items(), folder / "false_alarms.zip")
+    items = _dataset_items()
+    return await asyncio.to_thread(dataset.export_zip, root, items, folder / "false_alarms.zip")
 
 
 def event_identify(

@@ -5,6 +5,7 @@
 ## Требования
 
 - Windows 10/11 или Linux с Docker Desktop (Linux: Docker Engine с плагином compose). Docker Desktop запущен: `docker info` отвечает без ошибки.
+- Docker Compose 2.24 или новее (`docker compose version`): необязательный `.env` (`env_file` с `required: false`) старые версии не читают.
 - Свободный порт 8000. Локальный сервер Argus на этой машине остановлен: `uv run --no-sync safewatch stop`.
 - Интернет на время первой сборки: образ тянет `node:24-slim`, `python:3.12-slim`, `uv` и колёса Python (ffmpeg приходит колесом `imageio-ffmpeg`, отдельно не ставится).
 - Python, Node и uv на хосте не нужны.

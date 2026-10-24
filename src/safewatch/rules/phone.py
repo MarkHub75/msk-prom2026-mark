@@ -41,11 +41,12 @@ class PhonePlugin:
             if phone == "ambiguous":
                 out.append(obs(ID, p, "U", reason_code="owner_ambiguous"))
                 continue
+            zones = zones_at(ctx, p.anchor, DANGER_KINDS)
             # A call to the foreman or a photo for the report from a walkway: no event (8.23).
-            if phone is None or zones_at(ctx, p.anchor, ALLOWED_KINDS):
+            # A walkway across a vehicle path stays a danger zone there (R25).
+            if phone is None or (not zones and zones_at(ctx, p.anchor, ALLOWED_KINDS)):
                 out.append(obs(ID, p, "N"))
                 continue
-            zones = zones_at(ctx, p.anchor, DANGER_KINDS)
             o = obs(
                 ID,
                 p,

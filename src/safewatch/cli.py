@@ -193,7 +193,7 @@ def demo_import(path: Path) -> int:
 
 
 def dataset_export(out: Path | None) -> int:
-    print(services.dataset_export(out))
+    print(asyncio.run(services.dataset_export(out)))
     return 0
 
 

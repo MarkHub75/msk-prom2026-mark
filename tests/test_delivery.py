@@ -270,6 +270,9 @@ async def test_level_fixed_at_enqueue(
     assert await services.deliveries_flush() == 2
     assert [(b["kind"], b["level"]) for b in bodies(chime)] == [("published", "yellow")]
     assert [(b["kind"], b["level"]) for b in bodies(lamp)] == [("escalated", "red")]
+    # The text names the row level too, not the red the event has now (R25).
+    assert bodies(chime)[0]["text"].startswith("Жёлтая опасность · ")
+    assert bodies(lamp)[0]["text"].startswith("Красная опасность · ")
 
 
 @pytest.mark.parametrize(

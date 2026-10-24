@@ -70,6 +70,12 @@ def test_openapi_only_grows() -> None:
         missing += [f"{name}.{f}" for f in schema.get("properties", {}) if f not in props]
     assert missing == []
     assert len(new["paths"]) > len(old["paths"])
+    # The file routes of 6.11.6 name their media type (R25).
+    for path, media in (
+        ("/api/datasets/false-alarms/export.zip", "application/zip"),
+        ("/api/master/shift.pdf", "application/pdf"),
+    ):
+        assert media in new["paths"][path]["get"]["responses"]["200"]["content"]
 
 
 def test_contract_check_detects_drift(

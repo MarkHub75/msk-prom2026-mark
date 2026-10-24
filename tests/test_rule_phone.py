@@ -103,6 +103,11 @@ def test_phone_allowed_in_walkway_and_rest() -> None:
     assert observe(ctx_with([worker()], [phone(500, 150)], [edge]))[0].state == "N"
     out = edge.model_copy(update={"points": [(0.501, 0.4), (0.8, 0.4), (0.8, 0.7), (0.501, 0.7)]})
     assert observe(ctx_with([worker()], [phone(500, 150)], [out]))[0].state == "P"
+    # A walkway across a vehicle path: the danger zone wins there (R25).
+    for kind in ("danger", "vehicle_path"):
+        crossing = [zone("walkway", zone_id=3), zone(kind)]
+        (o,) = observe(ctx_with([worker()], [phone(500, 150)], crossing))
+        assert (o.state, o.level, o.zone_id) == ("P", "red", 7)
 
 
 def test_phone_in_work_zone_yellow() -> None:

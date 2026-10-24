@@ -2,7 +2,7 @@
 
 ## 0. Версия
 
-**Версия: v6** (2026-10-24)
+**Версия: v7** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
@@ -11,6 +11,7 @@ Changelog:
 - v4 (ревью R15): 25 строк `GAP` S11–S15 перенесены в 6.10, 5 строк трассировки 6.7 (`observability.Luma`, `media.LUMA_WIDTH`, `store.publish_latencies`, `services.DELIVERED`, `delivery.target`); решения R15: `LatencyStats` экрана IT по событиям эфира, подписи HUD на `pair:`/`zone:`/`fire`, проверка URL webhook при загрузке, `hub.Client` без `dropped`, тест маршрутов без заглушек, права ролей только у пишущих слайсов.
 - v5 (владелец, второй прогон по `UPGRADE_v1.md`): продукт называется Argus, пакет и CLI остаются `safewatch`; контракт фронта 1.1.0 только добавляет (раздел 6.11: миграция `0002_v5.sql`, 24 типа, 10 маршрутов, ключи конфига, поля существующих типов); новые слайсы S16–S32 и ревью R20, R25, R30, R32 (раздел 16): демо-пакет с детекциями LinQ, клип события и H.264, автокалибровка в м/с, каска и респиратор, модели Матвея, Docker, телефон по зонам, проекция груза, звонок мастеру и оператор с телефона, калькулятор окупаемости, датасет ложных срабатываний, ручная идентификация, паспорт камеры, LinQ под медленную очередь, пробелы `docs/ML_INTEGRATION.md`, отчёт смены в PDF, все долги `## open`; учтён `docs/ML_INTEGRATION.md` (коммит `5d940ba2`, дополнен Матвеем в `f6b5358a`: COCO-80 у детектора, extra-классы, программы `mosprom_matvey_*`, новая `version` при любой смене модели, 19 пробелов, решение по каждому — 8.30); второй прогон — раздел 10.3; лимит живых прогонов — S17, S28, R32.
 - v6 (ревью R20): 17 строк `GAP` S17–S20 перенесены в 6.12, 7 строк трассировки 6.7 (`services.Source`, `services._stage`, `services._web_copy`, `services._clip`, `running.AUTOCAL_SAMPLES`, `texts.AUTOCAL_ONE_ROW`, pad нечётного кадра); решения R20: ffmpeg демо-импорта до транзакции (`_stage`), H.264-копия видео до S18 при повторной загрузке, `pad` нечётного кадра в `media.transcode`, СИЗ: при `no_<сиз>` и `<сиз>` на одной голове побеждает больший `score`, текст `AUTOCAL_ONE_ROW`, фейк LinQ не открывает базу вне `uploads/`, `texts.PRODUCT_TITLE` удалён, заголовок страницы и шапки — Argus.
+- v7 (ревью R25): 16 строк `GAP` S22–S25 перенесены в 6.13, 16 строк трассировки 6.7 (`texts.HUD_LOAD_PROJECTION`, `delivery.phone_mask`, `store.delivery_enqueue`, `delivery_dequeue`, `services._delivery`, `texts.CALL_DELIVERED_STUB`, `services.CALC_EXAMPLE`, `CALC_DIVISORS`, `texts.CALC_OVERRIDDEN`, `store.linq_metrics`, `broadcast_event_counts`, `dataset.item_path`, `dataset.MANIFEST`, `store.dataset_pending`, `api.ZIP_FILE`, `api.PDF_FILE`); решения R25: тело webhook с текстом по уровню строки очереди, телефон: danger и vehicle_path побеждают `walkway`/`rest`, `async def dataset_export` (zip в `to_thread`), `application/zip` и `application/pdf` в `contract/openapi.json` (искомая строка маршрута без закрывающей скобки), необязательный `.env` в compose (Compose 2.24+), «живая камера» калькулятора — камера с событиями.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2774,6 +2775,7 @@ models:
 | v5: телефон разрешён в зонах | 22 | `PhonePlugin` | `src/safewatch/rules/phone.py` | `ALLOWED_KINDS = ("walkway", "rest")` | `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` |
 | v5: тип зоны `walkway` | 22 | зоны, `PhonePlugin` | `config/default.yaml` | `- id: walkway` | `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` |
 | v5: проекция груза в HUD | 22 | фронт | `src/safewatch/analysis/hud.py` | `projection=` | `tests/test_hud.py::test_suspended_load_projection` |
+| v7: текст `HUD_LOAD_PROJECTION` | 22 | `hud.build_hud` | `src/safewatch/texts.py` | `HUD_LOAD_PROJECTION = ` | `tests/test_hud.py::test_suspended_load_projection` |
 | v5: канал `CallChannel` | 23 | `deliveries_flush` | `src/safewatch/delivery.py` | `class CallChannel:` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
 | v5: конфиг звонков | 23 | `deliveries_flush` | `config/default.yaml` | `provider: stub` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
 | v5: очередь доставок в базе | 23 | `deliveries_flush` | `src/safewatch/store.py` | `FROM delivery_queue` | `tests/test_delivery.py::test_queue_survives_restart` |
@@ -2781,6 +2783,11 @@ models:
 | v5: фронт: маршрут `/m/operator/events/:eventId` | 23 | навигация оператора | `frontend/src/nav.ts` | `path: "/m/operator/events/:eventId"` | `frontend/src/screens/screens.test.tsx::operator_mobile_event_renders` |
 | v5: фронт: экран `OperatorMobile` | 23 | `/m/operator` | `frontend/src/screens/operator/OperatorMobile.tsx` | `export function OperatorMobile(` | `frontend/src/screens/screens.test.tsx::operator_mobile_renders` |
 | v5: фронт: экран `OperatorMobileEvent` | 23 | `/m/operator/events/:eventId` | `frontend/src/screens/operator/OperatorMobileEvent.tsx` | `export function OperatorMobileEvent(` | `frontend/src/screens/screens.test.tsx::operator_mobile_event_renders` |
+| v7: `delivery.phone_mask` | 23 | `system_view` | `src/safewatch/delivery.py` | `def phone_mask(` | `tests/test_delivery.py::test_call_channel_in_system_view` |
+| v7: `store.delivery_enqueue` | 23 | `broadcast_tick`, `event_action`, `escalation_tick` | `src/safewatch/store.py` | `def delivery_enqueue(` | `tests/test_delivery.py::test_queue_survives_restart` |
+| v7: `store.delivery_dequeue` | 23 | `deliveries_flush` | `src/safewatch/store.py` | `def delivery_dequeue(` | `tests/test_delivery.py::test_queue_survives_restart` |
+| v7: `services._delivery` | 23 | `event_detail` | `src/safewatch/services.py` | `def _delivery(` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
+| v7: текст `CALL_DELIVERED_STUB` | 23 | `Delivery.status_text` | `src/safewatch/texts.py` | `CALL_DELIVERED_STUB = ` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
 | v5: `calculator.rollout` | 24 | `calculator_rollout` | `src/safewatch/calculator.py` | `def rollout(` | `tests/test_calculator.py::test_rollout_three_tiers_formulas` |
 | v5: `calculator.scale` | 24 | `calculator_scale` | `src/safewatch/calculator.py` | `def scale(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
 | v5: `services.calculator_defaults` | 24 | `GET /api/calculator/defaults` | `src/safewatch/services.py` | `def calculator_defaults(` | `tests/test_calculator.py::test_defaults_list_sources` |
@@ -2790,16 +2797,25 @@ models:
 | v5: `POST /api/calculator/rollout` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/rollout")` | `tests/test_calculator.py::test_roles` |
 | v5: `POST /api/calculator/scale` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/scale")` | `tests/test_calculator.py::test_roles` |
 | v5: секция `calculator` | 24 | `calculator` | `config/default.yaml` | `- key: accelerator.capacity_fps` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
+| v7: пример `services.CALC_EXAMPLE` | 24 | `calculator_defaults` | `src/safewatch/services.py` | `CALC_EXAMPLE = RolloutIn(` | `tests/test_calculator.py::test_defaults_list_sources` |
+| v7: `services.CALC_DIVISORS` | 24 | `_calc_assumptions` | `src/safewatch/services.py` | `CALC_DIVISORS = frozenset(` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
+| v7: текст `CALC_OVERRIDDEN` | 24 | `_calc_assumptions` | `src/safewatch/texts.py` | `CALC_OVERRIDDEN = ` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
+| v7: `store.linq_metrics` | 24 | `calculator_defaults`, `calculator_scale` | `src/safewatch/store.py` | `def linq_metrics(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
+| v7: `store.broadcast_event_counts` | 24 | `calculator_defaults`, `calculator_rollout` | `src/safewatch/store.py` | `def broadcast_event_counts(` | `tests/test_calculator.py::test_defaults_list_sources` |
 | v5: `dataset.build_item` | 25 | `datasets_flush` | `src/safewatch/dataset.py` | `def build_item(` | `tests/test_dataset.py::test_item_files_and_label` |
 | v5: `dataset.export_zip` | 25 | `dataset_export` | `src/safewatch/dataset.py` | `def export_zip(` | `tests/test_dataset.py::test_export_zip_manifest` |
 | v5: `services.datasets_flush` | 25 | `worker` | `src/safewatch/services.py` | `def datasets_flush(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
 | v5: `services.datasets_view` | 25 | `GET /api/datasets/false-alarms` | `src/safewatch/services.py` | `def datasets_view(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
 | v5: `services.dataset_export` | 25 | CLI `dataset export`, API | `src/safewatch/services.py` | `def dataset_export(` | `tests/test_dataset.py::test_export_zip_manifest` |
 | v5: `GET /api/datasets/false-alarms` | 25 | экран IT, Егор | `src/safewatch/api.py` | `@router.get("/api/datasets/false-alarms")` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
-| v5: `GET /api/datasets/false-alarms/export.zip` | 25 | ML-часть | `src/safewatch/api.py` | `@router.get("/api/datasets/false-alarms/export.zip")` | `tests/test_dataset.py::test_export_zip_manifest` |
+| v5: `GET /api/datasets/false-alarms/export.zip` | 25 | ML-часть | `src/safewatch/api.py` | `@router.get("/api/datasets/false-alarms/export.zip"` | `tests/test_dataset.py::test_export_zip_manifest` |
 | v5: CLI `dataset` | 25 | ML-часть | `src/safewatch/cli.py` | `add_parser("dataset"` | `tests/test_dataset.py::test_cli_export` |
 | v5: цикл датасета в `worker` | 25 | `api` lifespan | `src/safewatch/worker.py` | `datasets_flush` | `tests/test_worker.py::test_loop_periods_from_config` |
 | v5: секция `datasets` | 25 | `datasets_flush` | `config/default.yaml` | `max_frames: 40` | `tests/test_dataset.py::test_item_files_and_label` |
+| v7: `dataset.item_path` | 25 | `datasets_flush`, `build_item` | `src/safewatch/dataset.py` | `def item_path(` | `tests/test_dataset.py::test_item_files_and_label` |
+| v7: константа `dataset.MANIFEST` | 25 | `export_zip` | `src/safewatch/dataset.py` | `MANIFEST = "manifest.json"` | `tests/test_dataset.py::test_export_zip_manifest` |
+| v7: `store.dataset_pending` | 25 | `datasets_flush` | `src/safewatch/store.py` | `def dataset_pending(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
+| v7: `api.ZIP_FILE` | 25 | `GET /api/datasets/false-alarms/export.zip` | `src/safewatch/api.py` | `ZIP_FILE: dict[` | `tests/test_contract_files.py::test_openapi_only_grows` |
 | v5: `services.event_identify` | 26 | `PATCH /api/events/{event_id}/identity` | `src/safewatch/services.py` | `def event_identify(` | `tests/test_identity.py::test_identify_writes_fields_and_history` |
 | v5: `services.people_stats_view` | 26 | `GET /api/stats/people` | `src/safewatch/services.py` | `def people_stats_view(` | `tests/test_identity.py::test_people_stats_only_filled` |
 | v5: константа `IDENTITY_MAX` | 26 | валидация | `src/safewatch/services.py` | `IDENTITY_MAX = 80` | `tests/test_identity.py::test_identify_limits` |
@@ -2821,9 +2837,10 @@ models:
 | v5: имя входа модели | 29 | `LinqBackend` | `src/safewatch/inference/linq.py` | `--input-name` | `tests/test_ml_gaps.py::test_input_name_passed` |
 | v5: `report_pdf.shift_pdf` | 30 | `shift_report_pdf` | `src/safewatch/report_pdf.py` | `def shift_pdf(` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
 | v5: `services.shift_report_pdf` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/services.py` | `def shift_report_pdf(` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
-| v5: `GET /api/master/shift.pdf` | 30 | мастер, Егор | `src/safewatch/api.py` | `@router.get("/api/master/shift.pdf")` | `tests/test_shift_pdf.py::test_pdf_route_and_bad_at` |
+| v5: `GET /api/master/shift.pdf` | 30 | мастер, Егор | `src/safewatch/api.py` | `@router.get("/api/master/shift.pdf"` | `tests/test_shift_pdf.py::test_pdf_route_and_bad_at` |
 | v5: шрифт PDF | 30 | `report_pdf` | `src/safewatch/report_pdf.py` | `FONT = "DejaVuSans.ttf"` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
 | v5: ключ `tracker.reattach_bh` | 30 | `Tracker` | `config/default.yaml` | `reattach_bh: 1.0` | `tests/test_tracking.py::test_fall_keeps_track_id` |
+| v7: `api.PDF_FILE` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/api.py` | `PDF_FILE: dict[` | `tests/test_contract_files.py::test_openapi_only_grows` |
 | v5: `media.frame_shift` | 32 | паспорт камеры | `src/safewatch/media.py` | `def frame_shift(` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
 | v5: секция `shift` | 32 | `camera_passport` | `config/default.yaml` | `max_px: 20` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
 
@@ -3689,6 +3706,52 @@ def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
 **Тесты (10.3)**
 
 - R20, `tests/test_clips.py::test_odd_frame_and_late_copy` (нечётный mp4v 321×241 пишет сам ffmpeg через `lavfi`: OpenCV пишет только чётные стороны), `tests/test_demo_pack.py::test_import_transcodes_outside_transaction` (`store._depth` в момент `media.transcode`), `tests/test_rule_ppe.py::test_surer_class_wins_on_one_head`.
+
+### 6.13 Дополнения v7 (строки `GAP` S21–S25 и решения R25)
+
+Перенесены ревью R25 из `## open` файла `progress.md`. Статус тот же, что у 6.8–6.12: часть контракта наравне с 6.1–6.6 и 6.11; `было → стало` заменяет сказанное выше.
+
+**Развёртывание (8.32)**
+
+- R25, `docker-compose.yml`: `.env` необязателен — `env_file: [{path: .env, required: false}]` (было: `env_file: .env`, compose без файла не стартовал): сид и демо-пакет ключей не требуют, стенд поднимается на чистой машине; нужен Docker Compose 2.24 или новее (`docs/DEPLOY.md`, «Требования»). `healthcheck` — `python -c` с `urllib.request` из образа (8.32: curl в `python:3.12-slim` нет).
+
+**Компоненты анализа и правил: телефон и груз (8.23)**
+
+- S22, текст тега проекции груза `texts.HUD_LOAD_PROJECTION = "зона под грузом"`; тег `HudTag(code="load_projection", text=HUD_LOAD_PROJECTION, level=None)` у каждого объекта `suspended_load` HUD (имя — `rules.suspended_load.ID`), полигон — из нормированной рамки с обрезкой 0..1; `projection` у остальных объектов `None`.
+- S22 и R25, порядок проверок `PhonePlugin`: рост `< min_person_px` → `U too_small`; телефон `ambiguous` → `U owner_ambiguous`; телефона нет → `N`; `anchor` в danger или vehicle_path → красный, `danger_hold_s`, `zone_id` первой такой зоны; иначе `anchor` в `walkway`/`rest` → `N` без `zone_id` и `reason_code`; иначе жёлтый, `hold_s` (было, S22: разрешённая зона побеждает и при перекрытии с danger — проход через пути транспорта гасил красный).
+
+**6.2 Фасад `services`: звонок мастеру и очередь доставок (8.24)**
+
+- S23, `delivery.phone_mask(to: str) -> str` для `Channel.target` звонка: цифры номера; от 11 цифр — `+<код> <3 цифры> ***-**-<2 последние>` («+7 (900) 123-45-12» → `+7 900 ***-**-12`), меньше 11 — `***-**-<2 последние>`, без цифр — `texts.CALL_NO_NUMBER = "заглушка"`; `texts.CALL_SENT = "Звонок отправлен"`, `texts.CALL_DELIVERED_STUB = "Звонок доставлен (заглушка)"`.
+- S23, `store.delivery_enqueue(event_id, kind, level, at)` (`INSERT OR IGNORE`, в транзакции вызывающего), `store.delivery_queue()` (по `id`), `store.delivery_dequeue(queue_id)`; `services._delivery(row) -> Delivery` (`status_text` только у `call:<name>`, у webhook `""`); `services._deliveries` удалён (было 6.10 S15), сброс в `tests/conftest.py` убран.
+- S23, постановка: `broadcast_tick` — `level` из `EventSummary` сообщения `event.created`/`event.escalated` внутри транзакции тика; `event_action` и `escalation_tick` — `level` строки события, `created_at` — `clock.now()`.
+- S23, `deliveries_flush`: каналы `webhook:<name>` по порядку `delivery.webhooks`, затем `call:<name>` по `delivery.calls`; строка очереди удаляется после всех каналов, в том числе когда каналов нет или ни один не подошёл; `event.updated` — после каждой строки канала `call`; `CallChannel.deliver` → `(True, None, "")`, `delivered_at = at` только у успешного звонка.
+- S23 и R25, тело webhook — `EventSummary` с `level` строки очереди и `notification_text = texts.notification_text(<level строки>, sector_name, reason_text, escalated_by_timeout and <level строки> = level события)` (было, S23: текущий текст события — жёлтая публикация, эскалированная до flush, уходила с `level: yellow` и текстом «Красная опасность …»). `reason_text` — текущий: текста на момент постановки очередь не хранит.
+- S23, `system_view.channels`: webhook-каналы, затем каналы звонка (`kind="call"`); фронт: пункт меню оператора «С телефона» (`/m/operator`), `EventScreen` показывает `status_text` непустых доставок под историей, `ACTION_TITLES` экспортирован из `EventScreen` (кнопки `OperatorMobileEvent`); `MasterInbox` открывает карточку только на уведомление с `id`, оканчивающимся на `:to_master`.
+
+**6.2 Фасад `services`: калькулятор (8.25)**
+
+- S24, `overrides` заменяет у `CalcAssumption` и `value`, и `source`: `texts.CALC_OVERRIDDEN = "задано в расчёте"` (иначе число пользователя шло бы с подписью конфига).
+- S24, проверка чисел: `ValidationFailed(texts.CALC_INVALID = "Неверное значение: {field}", field=<поле>)`, у `overrides` поле `overrides.<ключ>`; 0 у делителей `accelerator.capacity_fps`, `accelerators_per_server` (`services.CALC_DIVISORS`) тоже 422; `ScaleIn.cameras_now` и `new_cameras` — от 0 (0 текущих — новое внедрение); роль проверяется до чисел.
+- S24, строки расчёта: последний `WhyItem` каждого `TierResult.items` — `("Окупаемость", "<fmt_num> мес.")` или `("Окупаемость", "Не окупается при этих допущениях")`; строки вложений по уровню нарастают (`texts.CALC_ACCELERATORS`, `CALC_SERVERS`, `CALC_INTEGRATION`, `CALC_LIGHT_SOUND`, `CALC_SPEAKERS`, `CALC_NEW_CAMERAS`), `texts.fmt_rub(x)` («500 000 ₽»), количество — целое или `fmt_num`; `texts.CALC_TIER_TITLES` «Базовый», «Расширенный», «Максимальный»; `ScaleResult.items` — добавленные ускорители, серверы, новые камеры; `calculator._ceil` округляет до 9 знаков перед `ceil` (шум float).
+- S24, замеры: `store.linq_metrics()` (`metrics_json` артефактов `backend = linq`, `fake = 0`, новые первыми), учитываются только `throughput_fps > 0` (артефакт, импортированный без `metrics`, даёт 0 и делил бы на ноль); `CalculatorDefaults.measured` — ключи `measured.capacity_fps` (медиана, источник `texts.measured_jobs(n)` «замер приложения: N задач»), `measured.tpu_rtt_p50_ms` (медиана `tpu_rtt_p50_ms` последних `RECENT_JOBS` = 20 артефактов), `measured.events_per_camera_day` (`texts.CALC_EVENTS_SOURCE`); нет данных — строки нет; `calculator_scale` берёт `measured.capacity_fps` целиком (значение и подпись).
+- S24 и R25, «живая камера» 8.25 — камера, у которой есть событие эфира в окне: `events_per_camera_day = события / камеры с событиями / stats.default_days`, окно `[now − default_days, now)` по `started_at`, `store.broadcast_event_counts(start, end) -> Row(events, cameras)`; подпись `CALC_EVENTS_SOURCE` так и говорит («на камеру с событиями»). R25 оставил это чтение: камеру «в эфире» в окне точно не посчитать — у строки `broadcasts` со статусом `ended` нет времени конца; тихие камеры в эфире завышают нагрузку на оператора, это сторона запаса.
+- S24, подпись примера «пример для демо, замените своими» показывает экран Егора: у `CalculatorDefaults` поля под неё нет, текст в `texts` не заведён (был бы мёртвым кодом); пример завода — `services.CALC_EXAMPLE`, `ScaleIn` — 8 + 8. На допущениях 6.11.8 пример даёт базовый уровень «не окупается» (экономия 1 200 000 ₽ ≤ поддержка 1 455 000 ₽ в год), расширенный — 377,1 мес., максимальный — 134,8 мес.: это расчёт по контракту, числа для показа меняет владелец (`config/user.yaml` или `overrides`).
+
+**6.2 Фасад `services`: датасет ложных срабатываний (8.26)**
+
+- S25, `dataset.item_path(event_id)` → `datasets/false_alarms/<event_id>/` (колонка `dataset_items.path`), `dataset.MANIFEST = "manifest.json"`; `store.dataset_pending()` (события `false_alarm` по статусу или вердикту, с эпизодом, без строки `dataset_items`, по `id`), `store.dataset_items()` (по `id`); `build_item(root, event, episode, video, det, pose, hud, frame_ms, label)`: `frame_ms` — `ts_ms` отобранных проанализированных кадров (отбор в `services._dataset_files` в том же потоке: кадры `hud.jsonl` в окне клипа `[start_ms, end_ms]` включительно, при избытке `window[i * n // max_frames]`), `label` — `video_sha256`, `video_filename`, `models`, `analysis_version`, `comment`; остальные поля `label.json` `build_item` берёт из события и эпизода.
+- S25, `label.json`: `start_ms`/`end_ms` — эпизода (время видео), `models` — `model_id@model_version` артефактов анализа (детектор, pose, extra), `comment` — комментарий последнего действия `false_alarm`; JPEG кадров полного размера (`max_width` = ширина кадра), качество `evidence.jpeg_quality` `dataset.py` читает из конфига.
+- S25, `datasets_flush` ловит `OSError` и `ValueError` (кадр, файл): лог `dataset: event <id>: <что>`, папка элемента меняется только после чтения всех кадров; следующий тик повторяет.
+- S25 и R25, `async def dataset_export(out: Path | None = None) -> Path` (было, 6.11.4: `def`; zip на 40 кадров элемента писался в потоке event loop и останавливал эфир и WebSocket): элементы читаются в потоке event loop, `dataset.export_zip` — в `asyncio.to_thread`; пишет `<out>/false_alarms.zip`, без `out` — `data_dir/datasets/false_alarms.zip`; пути в zip от `data_dir` (как `DatasetItem.path`), `manifest.json` в корне; CLI `dataset export` — `asyncio.run(services.dataset_export(out))`.
+
+**6.4 REST: файловые маршруты (6.11.6)**
+
+- R25, `api.ZIP_FILE`, `api.PDF_FILE` — `responses` декоратора `{200: {"content": {"application/zip": {}}}}` и то же с `application/pdf`: `contract/openapi.json` описывает тип файла рядом с прежним `application/json` (только добавление, фронт Егора 1.1.0 не ломается); искомая строка трассировки 6.7 маршрута — `@router.get("<путь>"` без закрывающей скобки (было: `@router.get("<путь>")`, `responses=` её ломал). `GET /api/master/shift.pdf` получил `PDF_FILE` заранее (S30 строит маршрут).
+
+**Тесты (10.3)**
+
+- R25, `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` (проход поверх danger и vehicle_path — красный), `tests/test_delivery.py::test_level_fixed_at_enqueue` (текст тела по уровню строки), `tests/test_contract_files.py::test_openapi_only_grows` (`application/zip`, `application/pdf` у файловых маршрутов).
 
 ---
 
