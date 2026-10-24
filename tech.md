@@ -2,7 +2,7 @@
 
 ## 0. Версия
 
-**Версия: v8** (2026-10-25)
+**Версия: v9** (2026-10-25)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
@@ -13,6 +13,7 @@ Changelog:
 - v6 (ревью R20): 17 строк `GAP` S17–S20 перенесены в 6.12, 7 строк трассировки 6.7 (`services.Source`, `services._stage`, `services._web_copy`, `services._clip`, `running.AUTOCAL_SAMPLES`, `texts.AUTOCAL_ONE_ROW`, pad нечётного кадра); решения R20: ffmpeg демо-импорта до транзакции (`_stage`), H.264-копия видео до S18 при повторной загрузке, `pad` нечётного кадра в `media.transcode`, СИЗ: при `no_<сиз>` и `<сиз>` на одной голове побеждает больший `score`, текст `AUTOCAL_ONE_ROW`, фейк LinQ не открывает базу вне `uploads/`, `texts.PRODUCT_TITLE` удалён, заголовок страницы и шапки — Argus.
 - v7 (ревью R25): 16 строк `GAP` S22–S25 перенесены в 6.13, 16 строк трассировки 6.7 (`texts.HUD_LOAD_PROJECTION`, `delivery.phone_mask`, `store.delivery_enqueue`, `delivery_dequeue`, `services._delivery`, `texts.CALL_DELIVERED_STUB`, `services.CALC_EXAMPLE`, `CALC_DIVISORS`, `texts.CALC_OVERRIDDEN`, `store.linq_metrics`, `broadcast_event_counts`, `dataset.item_path`, `dataset.MANIFEST`, `store.dataset_pending`, `api.ZIP_FILE`, `api.PDF_FILE`); решения R25: тело webhook с текстом по уровню строки очереди, телефон: danger и vehicle_path побеждают `walkway`/`rest`, `async def dataset_export` (zip в `to_thread`), `application/zip` и `application/pdf` в `contract/openapi.json` (искомая строка маршрута без закрывающей скобки), необязательный `.env` в compose (Compose 2.24+), «живая камера» калькулятора — камера с событиями.
 - v8 (ревью R30): 28 строк `GAP` S26–S30 перенесены в 6.14, 20 строк трассировки 6.7 (`texts.IDENTITY_TOO_LONG`, `identity_comment`, `services._stats_period`, `passport.ZONE_REQUIRED`, `texts.PASSPORT_SUITABLE`, `linq.job_timeout_s`, `rate_eta`, `services._live`, `texts.JOB_WAIT_TPU`, `rules.ANY_VEHICLE`, `store._JOBS` с метриками extra, откат extra в `eval_run`, `services.video_upload_check`, `api._UploadGuard`, `cli._server_running`, `texts.EVAL_SERVER_RUNNING`, `services.shift_report_name`, `texts.WHY_FENCE`, `Tracker._reattach`, `async def shift_report_pdf`); решения R30: PDF смены строится в `asyncio.to_thread` (300 событий — 0,9 с в потоке event loop), метрики extra-моделей задачи — в одном запросе `store._JOBS` (без чтений на задачу), `eval_run` идёт без упавшей extra-модели, `demo_build` падает целиком (8.19 п. 4), приняты риски `# sw:start` по pid, ETA в начале прогона, `UPLOAD_PATH`, этап 3 трекера, чтение HUD паспорта в потоке event loop; разобрана сцена ur-fall-03 (код верен); раздел 16: S31 и S32 сняты владельцем (25.10), после R30 идёт только R32 — финальная проверка (короткий живой прогон, готовность к демо).
+- v9 (ревью R32): строк `GAP` нет; решения R32 в 6.15: `backend_close` в CLI `demo build` и `eval` (idle kernel LinQ), раскладка демо-пакета с одинаковыми именами видео → `ValidationFailed`; оставлено: зоны пакета не пишутся на камеру сида с зонами.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -3839,6 +3840,14 @@ def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
 **Тесты (10.3)**
 
 - R30, `tests/test_eval.py::test_eval_extra_fallback` (extra-модель `remote_error` в `eval`: отчёт без неё, детектор и pose на месте).
+
+### 6.15 Решения R32 (v9)
+
+Строк `GAP` после R30 нет. Решения ревью R32; статус тот же, что у 6.8–6.14.
+
+- R32, CLI (8.29, было → стало): `services.backend_close()` зовут ещё `cli.demo_build` и `cli.evaluate` в `finally` — процесс CLI с бэкендом `linq` оставлял idle kernel на общем аккаунте Jupyter. Тест: `tests/test_demo_pack.py::test_cli_build_and_import`.
+- R32, раскладка демо-пакета (8.19 п. 1, было → стало): два видео раскладки с одним именем файла в разных папках (`a/original.mp4`, `b/original.mp4`) → `ValidationFailed(texts.DEMO_LAYOUT_INVALID.format(field="file"), field="file")` до записи; было: второе видео молча получало копию первого (`out/videos/<имя>`). Тест: `tests/test_demo_pack.py::test_build_writes_manifest_and_artifacts`.
+- R32, оставлено: зоны пакета не пишутся на камеру, у которой уже есть зоны (8.19 п. 3); у камер сида 1.1, 1.2, 2.1, 3.1, 3.2, 4.1 свои зоны, поэтому раскладка с реальной сценой берёт новую камеру или камеру сида без зон (2.2, 4.2).
 
 ---
 
