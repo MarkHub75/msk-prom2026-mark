@@ -90,6 +90,20 @@ def decode(outputs, manifest, transform):
     v8 scores are class probabilities. No sigmoid, DFL, stride or anchor decode.
     """
     decoder = manifest["decoder"]
+    if decoder == "split_detect_v8":
+        if not isinstance(outputs, Mapping):
+            raise ValueError("split_detect_v8 requires named outputs")
+        names = manifest["split_outputs"]
+        if set(names) != {"boxes", "class_scores"} or set(outputs) != set(names.values()):
+            raise ValueError("split detection names differ")
+        boxes, scores = (np.asarray(outputs[names[k]]) for k in ("boxes", "class_scores"))
+        if (boxes.ndim != 3 or boxes.shape[:2] != (1,4) or
+                scores.shape != (1,len(manifest["classes"]),boxes.shape[2]) or
+                any(v.dtype.kind != "f" or not np.isfinite(v).all() for v in (boxes,scores))):
+            raise ValueError("split detection shape/dtype/finite mismatch")
+        canonical = dict(manifest, decoder="detect_v8", output_layout="BCN")
+        canonical.pop("output_name",None)
+        return decode(np.concatenate((boxes,scores),axis=1),canonical,transform)
     if decoder == "split_pose_v8":
         if not isinstance(outputs, Mapping):
             raise ValueError("split_pose_v8 requires a named output mapping")

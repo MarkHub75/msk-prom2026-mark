@@ -182,3 +182,90 @@ Both required conditions failed: macro F1 decreased and helmet recall fell .04. 
 Native mean four-call time was36.39ms; full per-image tile processing averaged137.11ms, p95 196.54ms. Full timing includes preprocessing, tile decoding, global NMS and diagnostic raw-NPZ writes; it excludes image loading and model initialization. It is neither device-only latency nor LinQ performance. Artifacts are `/workspace/artifacts/quality/helmet/h02-tiles-v1/`: frozen-input.json,208 raw NPZ captures, predictions.json, tile-metadata.json, comparison.json and run.json. Source/candidate artifacts and the baseline were preserved.
 
 The failed-hypothesis budget is exhausted: increased confidence was family1, fixed tiling family2. Freeze the existing full-frame helmet-v1 at confidence .25/NMS .45. No further Helmet parameter search is performed. Because this candidate failed native validation, its potential LinQ tile gate and independent final test were not run; no production manifest or external interface was changed.
+
+### Night E001: frozen Helmet quantized-reference evaluation
+
+`ml.quality.helmet.quantized` consumes the exact consumer READY snapshot twice,
+requiring `helmet-quality-v3-52/detection_quality` and
+`mendeley8-calibration-v1/calibration` before a forward. The GT JSON byte SHA and
+its semantic dataset digest are separate identities. All52 validation images
+must be pinned by READY; Construction remains development-only with confirmed
+source-photo overlap, AI-only annotation review and unresolved upstream photo
+rights. No sealed test or training data is implied by these results.
+
+The runner uses the existing SDK CPU hardware-aware graph and recorded input /
+output scales, two CPU threads, RGB640 preprocessing, raw confidence floor.001,
+class-aware NMS.45 and primary confidence.25. It preserves named numeric output
+NPZs, transforms, complete prediction maps, metrics and input/artifact hashes in
+fresh output directories. This is **SIMULATED**, never actual LinQ execution.
+`--float-onnx` provides a fixed-source ORT CPU control without a new hypothesis.
+
+The single diverse-calibration candidate uses the unchanged reviewed Helmet
+ONNX and the existing8-tensor Mendeley corpus; no threshold, tiling or network
+weight variants. Acceptance is predeclared against the CURRENT quantized
+baseline: macro F1 gain>=.01, no class recall decrease>.02, and bare-head FP
+nonincrease. Even a passing simulated comparison requires actual LinQ parity and
+independent quality gates before release. Existing native predictions are reused;
+no new native forward or training is authorized by this runner.
+
+E001 completed on the same fixed52 quality-v3 images. Frozen existing native and
+original Float ONNX control have identical class counts and AP/F1 (macro F1
+.716422287; bare-head recall.71875). The current PTQ simulator has macro F1
+.741682360 but bare-head recall.59375: the .125 recall loss is downstream of
+original float export. Conditioning, PTQ and the simulator codec were not
+individually isolated; no actual hardware-quality conclusion follows.
+
+The single Mendeley8 candidate compiled O1/H1M in61.81s, then scored macro F1
+.735185185 (delta-.006497175 versus current PTQ), with unchanged per-class recalls
+and one extra helmet FP. It is REJECTED; baseline remains preserved. Raw output,
+prediction, hash and timing evidence is under
+`/workspace/artifacts/night-20261024/E001/`; `summary.json` records all paired
+metrics. CPU reference runs took112.63s baseline,110.79s candidate and4.68s float
+control. No native rerun, GPU, training, new data, remote staging or actual LinQ
+execution occurred. Night Helmet hypothesis1 failed; a separate training
+hypothesis remains blocked without producer-approved READY training data.
+
+### Night E005: final Helmet output-boundary hypothesis
+
+`ml.detection.split_detect.export_split_detect` verifies the parent export hash
+and extracts the two existing tensors before the final channel Concat:
+`/model.22/Mul_2_output_0` boxes[1,4,8400] and
+`/model.22/Sigmoid_output_0` class probabilities[1,2,8400]. The
+`split_detect_v8` host decoder concatenates them and calls the original decoder,
+with no sigmoid or neural decode on CPU and one unchanged class-aware NMS.
+The native adapter can expose the same logical ABI by slicing existing output;
+no new native inference was performed for this experiment.
+
+This is a hypothesis about compiler/output-boundary quantization sensitivity,
+not an established cause. The original Helmet output already has per-channel
+scales separating coordinate and class channels; it does NOT share one global
+coordinate/confidence scale. E005 changes output ABI only versus E001 Mendeley8:
+same trained weights, parent ONNX, input codec, calibration corpus, O1/H1M and
+operating thresholds. Acceptance remains against the best current PTQ baseline,
+not merely versus the previously rejected data8 candidate.
+
+Before compilation, `ml.quality.helmet.split_control.verify` compared all52
+split float outputs restored by host concatenation to the preserved original
+Float ONNX raw tensors: ALL were bitwise identical; the full decoded metrics
+were identical. Split graph SHA is
+`e802cef32d4fc3398128b770ddc29d0ded6888a2e6a58a921e20202d306ee33a`;
+parent SHA remains `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47`.
+Evidence lives under `/workspace/artifacts/night-20261024/E005/`.
+
+E005 result: REJECTED. The one split candidate compiled in59.62s; the52-image
+CPU simulation completed in114.26s. Macro F1 was.327777778, versus best current
+PTQ.741682360 (delta-.413904583) and same-data8 E001.735185185
+(delta-.407407407). Helmet counts were12TP/3FP/13FN (recall.48); bare-head counts
+were1TP/3FP/31FN (recall.03125). No thresholds or scaling were adjusted to recover
+the result. Both new night Helmet hypotheses failed; preserve and freeze the
+existing baseline and all failed candidate artifacts. No further Helmet
+hypothesis or actual LinQ submission was performed.
+
+CPU graph audit confirms the only removed node is `/model.22/Concat_3`; there are
+no added nodes, retained nodes and ALL initializers are byte-identical. Emitted
+scale metadata changed: E001 data8 combined output uses shape[1,6,1], whereas
+split class output uses shape[1,1,8400] (anchor-dependent) and split boxes scale1.
+This is OBSERVED metadata, not proof of a causal mechanism or authority to alter
+the runtime codec. The original input scale remains127. Evidence:
+`E005/summary.json`, `graph-scale-audit.json`, `anchor-audit.json`, float-parity raw
+outputs and complete split simulation outputs. Hardware quality remains UNKNOWN.

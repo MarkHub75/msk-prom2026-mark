@@ -30,7 +30,10 @@ class NativeReferenceBackend:
         if isinstance(result, (tuple, list)):
             result = result[0]
         output = result.detach().cpu().numpy().copy()
-        if self.manifest.get("decoder") == "split_pose_v8":
+        if self.manifest.get("decoder") == "split_detect_v8":
+            names = self.manifest["split_outputs"]
+            values = {names["boxes"]: output[:,:4].copy(), names["class_scores"]: output[:,4:].copy()}
+        elif self.manifest.get("decoder") == "split_pose_v8":
             names = self.manifest["split_outputs"]
             nc = len(self.manifest["classes"])
             count = self.manifest.get("keypoint_count",17)
