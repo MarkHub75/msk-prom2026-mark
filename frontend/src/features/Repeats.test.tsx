@@ -122,6 +122,24 @@ describe("tech.md v5 mobile routes", () => {
     expect(screen.getByRole("link", { name: /Тревоги/ }).getAttribute("href")).toBe("/m/operator");
   });
 
+  it("tabs «Камеры» and «Смена» from /m/operator stay on the mobile routes at any width", async () => {
+    act(() => setRole("operator"));
+    serve({ "/api/operator/dashboard": dashboard });
+    open("/m/operator");
+    await screen.findAllByTestId("alarm-card");
+    const tabs = () => screen.getByRole("navigation", { name: "Разделы приложения" });
+    expect(within(tabs()).getByRole("link", { name: /Камеры/ }).getAttribute("href")).toBe("/m/operator/cameras");
+    expect(within(tabs()).getByRole("link", { name: /Смена/ }).getAttribute("href")).toBe("/m/operator/shift");
+    fireEvent.click(within(tabs()).getByRole("link", { name: /Камеры/ }));
+    expect(await screen.findByTestId("cameras-view")).toBeTruthy();
+    expect(document.querySelector(".is-phone-app")).toBeTruthy();
+    expect(within(tabs()).getByRole("link", { name: /Камеры/ }).getAttribute("aria-current")).toBe("page");
+    fireEvent.click(within(tabs()).getByRole("link", { name: /Смена/ }));
+    expect(await screen.findByTestId("operator-shift")).toBeTruthy();
+    expect(document.querySelector(".is-phone-app")).toBeTruthy();
+    expect(within(tabs()).getByRole("link", { name: /Тревоги/ }).getAttribute("href")).toBe("/m/operator");
+  });
+
   it("/master opens the card itself when an event is handed over (to_master)", async () => {
     vi.stubGlobal("WebSocket", LiveSocket);
     act(() => setRole("master"));

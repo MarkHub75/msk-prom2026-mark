@@ -66,6 +66,13 @@
 .mm-legend li > i { width: 9px; height: 9px; border-radius: 50%; }
 .mm-legend span { font-size: 12.5px; color: var(--ds-text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mm-legend b { grid-column: 1 / -1; font-family: var(--mono); font-size: 24px; font-weight: 600; }
+/* A phone column is too narrow for three labelled tiles: one row per verdict, the number on the right */
+@media (max-width: 760px) {
+  .mm-legend { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .mm-legend li { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; padding: 9px 12px; }
+  .mm-legend span { font-size: 14px; }
+  .mm-legend b { grid-column: auto; font-size: 20px; line-height: 1; }
+}
 .mm-block { padding: 14px; }
 .mm-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .mm-bar-top { display: flex; justify-content: space-between; gap: 10px; font-size: 15px; }
@@ -94,7 +101,8 @@
 .mm-suggest { display: flex; flex-wrap: wrap; gap: 8px; }
 .mm-suggest button { display: inline-flex; align-items: center; gap: 5px; min-height: 38px; padding: 6px 13px; border: 1px solid var(--ds-line-strong); border-radius: 19px; background: var(--ds-bg-2); color: var(--ds-text); font-size: 14px; line-height: 1.2; text-align: left; transition: background-color .18s var(--ds-ease), border-color .18s var(--ds-ease), transform .12s; }
 .mm-suggest button:active { transform: scale(.96); }
-.mm-suggest button.is-on { background: var(--ds-green-bg); border-color: color-mix(in srgb, var(--ds-green) 45%, transparent); color: var(--ds-green); }
+.mm-suggest button.is-on { background: var(--ds-accent-bg); border-color: var(--ds-accent); color: var(--ds-text); }
+.mm-suggest button.is-on svg { color: var(--ds-accent-hover); }
 .mm-measures textarea { min-height: 112px; padding: 12px; border: 1px solid var(--ds-line-strong); border-radius: 10px; background: var(--ds-well); color: var(--ds-text); font-size: 16px; line-height: 1.45; resize: vertical; }
 .mm-measures textarea:focus { outline: 2px solid var(--ds-accent); outline-offset: -1px; }
 .mm-count { align-self: flex-end; margin-top: -4px; color: var(--ds-text-3); font-size: 12px; }

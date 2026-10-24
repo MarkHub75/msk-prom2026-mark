@@ -7,7 +7,7 @@
   --mb-gutter: 16px;
   --mb-radius: 12px;
   --mb-radius-s: 8px;
-  --mb-glass: color-mix(in srgb, var(--ds-bg-2) 86%, transparent);
+  --mb-glass: color-mix(in srgb, var(--ds-bg-2) 98%, transparent);
   --mb-press: scale(.975);
 }
 .app.app-cr.ds-app.is-phone-app { display: block; height: auto; min-height: 100dvh; overflow: visible; background: var(--ds-bg-0); }
@@ -19,6 +19,7 @@
 @media (min-width: 761px) {
   .ds-app.is-phone-app .mb-screen { max-width: 640px; margin-inline: auto; }
   .ds-app.is-phone-app .mb-actionbar { left: max(0px, calc(50% - 320px)); right: max(0px, calc(50% - 320px)); }
+  .ds-app.is-phone-app .mb-tabs { padding-inline: max(0px, calc(50% - 320px)); }
 }
 
 /* ---------- Top bar ---------- */
@@ -101,7 +102,7 @@
 .mb-asof { margin: 4px 0 0; text-align: center; color: var(--ds-text-3); font-size: 12px; }
 
 /* Chips: filters and sector pickers, scroll sideways */
-.mb-chips { display: flex; gap: 8px; margin: 0 calc(-1 * var(--mb-gutter)); padding: 2px var(--mb-gutter); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.mb-chips { display: flex; gap: 8px; margin: 0 calc(-1 * var(--mb-gutter)); padding: 2px var(--mb-gutter); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: var(--mb-gutter); }
 .mb-chips::-webkit-scrollbar { display: none; }
 .mb-chip { flex: none; display: inline-flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 14px; border: 1px solid var(--ds-line-strong); border-radius: 19px; background: var(--ds-bg-1); color: var(--ds-text-2); font-size: 14px; font-weight: 600; white-space: nowrap; scroll-snap-align: start; transition: background-color .2s var(--ds-ease), color .2s var(--ds-ease), border-color .2s var(--ds-ease); }
 .mb-chip b { font-family: var(--mono); font-weight: 600; color: var(--ds-text-3); }
@@ -127,14 +128,17 @@
 
 /* Bottom action bar (event screens): thumb zone */
 .mb-actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 58; display: grid; gap: 8px; padding: 10px var(--mb-gutter) calc(10px + var(--mb-safe-b)); background: var(--mb-glass); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); border-top: 1px solid var(--ds-line-dark); animation: mb-bar-up .36s var(--ds-ease) both; }
-.mb-actionbar-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mb-actionbar-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.mb-actionbar-row:empty { display: none; }
+.mb-actionbar-row > :only-child { grid-column: 1 / -1; }
 .mb-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 14px; border: 1px solid transparent; border-radius: var(--mb-radius); background: var(--ds-bg-3); color: var(--ds-text); font-size: 17px; font-weight: 700; line-height: 1.1; text-align: center; transition: transform .15s var(--ds-ease), filter .15s; }
 .mb-btn:active:not(:disabled) { transform: var(--mb-press); filter: brightness(1.12); }
 .mb-btn:disabled { opacity: 1; background: var(--ds-bg-3); border-color: var(--ds-line); color: var(--ds-text-3); }
 .mb-btn-s { min-height: 48px; font-size: 15.5px; }
 .mb-btn-red { background: var(--ds-red); color: #fff; }
 .mb-btn-accent { background: var(--ds-accent); color: #fff; }
-.mb-btn-green { background: var(--ds-green); color: #06150f; }
+/* ds.css gives «готово» no colour, so the closing action is the light one, not a grey that reads as disabled */
+.mb-btn-green { background: var(--ds-text); color: var(--ds-bg-0); }
 .mb-btn-line { background: var(--ds-bg-2); border-color: var(--ds-line-strong); }
 .mb-has-actionbar { padding-bottom: 210px; }
 
