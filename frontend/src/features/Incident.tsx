@@ -149,7 +149,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
   const terminal = meta?.statuses.find(s => s.id === event.status)?.terminal;
   const verdict = event.operator_verdict === "none" ? "Не зафиксирован" : meta?.statuses.find(s => s.id === event.operator_verdict)?.title ?? event.operator_verdict;
   return <div className={`ic-op event-${event.level}`}>
-    <EventAlarm event={event} actions={order.filter(a => actions.includes(a)).map(a => ({ id: a, title: ACTIONS[a], key: KEYS[a], danger: a === "confirm" }))} busy={state.busy} onAct={id => void act(id as HumanAction)} />
+    <EventAlarm event={event} actions={order.filter(a => actions.includes(a)).map(a => ({ id: a, title: ACTIONS[a], key: KEYS[a], danger: a === "confirm" }))} busy={state.busy} onAct={id => void act(id as HumanAction)} media={detail.episode?.evidence[0] ? <Evidence detail={detail} compact /> : undefined} />
     <div className="ic-left">
       <section className="ic-stage" data-panel="Доказательный кадр">
         <Evidence detail={detail} />
