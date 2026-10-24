@@ -196,6 +196,10 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
 .cr-selected-media { border-radius: 4px; overflow: hidden; background: var(--surface-sunk); }
 .cr-selected-media .evidence-frame { margin: 0; }
 .cr-selected-media .media-source, .cr-selected-media .media-stamp { display: none; }
+/* Queue scrolls inside the grid; the selected event with its actions stays pinned to the bottom of the queue. */
+.cr-selected { position: sticky; bottom: 0; z-index: 1; background: var(--surface); box-shadow: 0 -10px 14px -10px rgba(0, 0, 0, .6); }
+@media (min-width: 861px) { .cr-queue { contain: size; } }
+@media (max-height: 820px) { .cr-selected-media { width: 100%; max-width: 220px; } }
 .cr-facts { display: grid; grid-template-columns: 72px 1fr; gap: 5px 10px; margin: 0; font-size: 12.5px; }
 .cr-facts dt { color: var(--muted); }
 .cr-facts dd { margin: 0; }
@@ -267,5 +271,6 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
 .cr-roles button:hover { color: var(--text); background: var(--surface-high); }
 .cr-roles button.active { background: #16263a; color: var(--accent-strong); }
 @media (min-width: 861px) { .cr-role.mobile-role { display: none; } }
+@media (max-width: 1440px) { .cr-actor span { display: none; } .cr-top-right { gap: 12px; } .shell-header.cr-top { gap: 10px; } }
 @media (max-width: 1250px) { .cr-actor span, .cr-plant { display: none; } .cr-roles button { padding: 5px 8px; font-size: 12px; } }
 @media (max-width: 860px) { .cr-roles { display: none; } }
