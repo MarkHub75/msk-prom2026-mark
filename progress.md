@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S13 закрыт, следующий S14
+- state: S14 закрыт, следующий S15
 - tech.md: v3
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -45,6 +45,11 @@
 - GAP: S13, вне 6.x: `store.events_where(where)` (все события фильтра `journal_where`, по `started_at, id`); `services`: `OPERATOR_DECISIONS`, `HANDOVERS`, `_percentiles(values, pending)`, `_reactions(events)`, `_fixed_rows(pairs, keyed)`, `_add_levels(row, e)`, `_share(part, whole)`, `_trend(previous, recent, weeks)`; `texts`: `PERIOD_INVALID`, `TREND_CAVEAT`, `TREND_LESS`, `TREND_MORE`, `TREND_SAME`, `TREND_NO_DATA`, `weeks_span(n)` («4 недели к 4 неделям», «1 неделя к 1 неделе», «5 недель к 5 неделям»).
 - GAP: S13, фронт: `recharts@2.15.4` в `frontend/package.json`; графики фиксированного размера 640×240 без `ResponsiveContainer` (ему нужен `ResizeObserver`, в jsdom его нет); `BarChartCard({title, data: {name, value}[]})`, `StackedDaysCard({title, days})`, `LineChartCard({title, weeks})`, `PercentilesCard({title, value})`; фильтры сектора и камеры экрана статистики — из `/api/journal/facets`; `test_api_skeleton.py::test_unbuilt_route_returns_501` подменяет `services.management_view` заглушкой `NotImplementedError` (с S13 построены все маршруты).
 - R15: S13 — `App.test.tsx::stub_screens_show_slice` стал пустым циклом (заглушек в `nav.ts` больше нет); решить: удалить тест вместе со строками трассировки 6.7 или оставить как защиту от новой заглушки.
+- GAP: S14, `evaluate`: `OutcomeKind = Literal["tp", "fn", "fp", "duplicate", "late"]`, `Outcome = tuple[str, OutcomeKind, float | None]` (сценарий, исход, задержка tp в с), `match_episodes(expected: list[ExpectedEvent], episodes: list[EpisodeDraft], deadline_s: float) -> list[Outcome]` (одно видео: tp на пару, fn на эталон без пары, исход на каждый несопоставленный эпизод), `report_md(report: EvalReport) -> str`; границы сравниваются в целых мс (`round(s × 1000)` против `confirm_ms`): ровно `deadline_s` — tp без ошибки float.
+- GAP: S14, сопоставление: несопоставленный эпизод внутри эталона, у которого уже есть пара, — `duplicates` (даже позже дедлайна); внутри только эталонов без пары — `late`; `episodes = tp + fp + duplicates + late`, `expected = tp + fn`; строки — сценарии эталонов и эпизодов по алфавиту, затем `*`; `f1 = None`, если precision или recall `None` или их сумма 0; `fp_per_hour` — на сумму длительностей всех видео разметки (одна для всех строк), 0 часов → `None`; `delay_s = _percentiles(задержки tp, 0)`.
+- GAP: S14, `eval_run`: синхронный, `asyncio.run` на каждое видео; порядок: файл разметки (`NotFound`) → YAML и схема `EvalLabels` (`ValidationFailed`, `field` — путь pydantic через точку, `yaml` при ошибке разбора, `labels` у пустого файла) → `start_s < end_s` (`field="videos.<i>.expected.<j>"`) → все файлы видео (относительный путь — от корня репо `config.ROOT`) и `camera_id` (`NotFound`) до инференса; видео в `videos` не пишется, только строки `artifacts`; нечитаемое видео → `UnsupportedVideo` (CLI exit 2); любая `InferenceError`, в том числе pose, → exit 4 (отката на анализ без pose, как у задачи, нет); `--out DIR` — отчёт прямо в `DIR`, без него `data_dir/eval/<YYYYMMDD-HHMMSS>` по `clock.now()` в UTC; CLI печатает путь и `report.md`, ошибки — в stderr (`InferenceError` как `<code>: <message>`).
+- GAP: S14, вне 6.x: `services._infer(job_id: int | None, ..., video: sqlite3.Row | dict[str, Any])` (`None` — без стадии и прогресса задачи), `_analysis_config(video, camera_id: int | None, extra_ids) -> AnalysisConfig` (общий для `_analyze` и оценки; без камеры: без калибровки и зон, правила `_rules(0, [], metas)`), `_sha256(path)` (и `video_import`), `_eval_labels(path) -> EvalLabels`, `_eval_episodes(path, camera_id) -> (episodes, duration_ms)`, `_eval_rows(outcomes, hours) -> list[EvalMetrics]`; `cli.evaluate(labels, out) -> int`; `texts`: `EVAL_LABELS_INVALID`, `EVAL_INTERVAL_INVALID`, `EVAL_TITLE`, `EVAL_COLUMNS`, `EVAL_FOOTNOTE`.
+- R15: S14 — CLI `eval` при запущенном сервере пишет `artifacts` в ту же базу вторым процессом (WAL; `database is locked` не проверялся); `eval_run` зовёт `asyncio.run` и из работающего event loop (API) не вызывается.
 
 ## log
 
@@ -173,6 +178,13 @@
 - проверено вживую: нет (S13 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_stats_ohs.py`: `cameras()` (2 сектора, по камере), `act(event_id, seconds, role, action)` (действие через `seconds` после `AT`), `counts(rows)`, `stats(client, **params)`, `DAY`; `tests/test_stats_management.py::sector(name, cameras)`; `fake_clock` — суббота 2026-10-24, текущая неделя с 2026-10-19 МСК.
+
+### S14: eval (2026-10-24, PR #18, tech v3)
+- отклонения: правлены файлы вне списка слайса: `texts.py` (тексты отчёта и ошибок разметки); в `services.py` оценка переиспользует `_infer` (`job_id=None`) и общий с `_analyze` снимок `_analysis_config`, `video_import` берёт `_sha256`; правило 4 для `eval.deadline_s` — в `test_report_files_written` (20 с → tp, 0,001 с → fn).
+- решения вне контракта: строки `GAP: S14`; мутаций нет (10.1); живых прогонов нет.
+- проверено вживую: нет (S14 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_eval.py`: `episode(confirm_s, scenario)` (черновик эпизода), `labels_file(tmp_path, data, name)`, `shell(monkeypatch, script)` (бэкенд на `FakeRemoteShell`), `row(rows, scenario)`; README S15: `uv run safewatch eval config/eval.example.yaml`.
 
 ## night
 

@@ -13,7 +13,7 @@ from pydantic import TypeAdapter
 
 from safewatch import config, doctor, services
 from safewatch.config import ROOT
-from safewatch.errors import NotFound, TooLarge, UnsupportedVideo
+from safewatch.errors import InferenceError, NotFound, TooLarge, UnsupportedVideo, ValidationFailed
 from safewatch.types import WsMessage
 
 CONTRACT_DIR = ROOT / "contract"
@@ -128,6 +128,23 @@ def import_video(path: Path, camera_id: int) -> int:
     return 0
 
 
+def evaluate(labels: Path, out: Path | None) -> int:
+    try:
+        report = services.eval_run(labels, out)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except (ValidationFailed, UnsupportedVideo) as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    except InferenceError as exc:
+        print(f"{exc.code}: {exc.message}", file=sys.stderr)
+        return 4
+    print(report.out_dir)
+    print(Path(report.out_dir, "report.md").read_text(encoding="utf-8"), end="")
+    return 0
+
+
 def contract_texts() -> dict[str, str]:
     from safewatch.api import create_app
 
@@ -174,6 +191,9 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("import", help="add a video file to a camera and queue its processing")
     p.add_argument("file", type=Path)
     p.add_argument("--camera", type=int, required=True)
+    p = sub.add_parser("eval", help="score episodes against labels, write eval/<time>/report.*")
+    p.add_argument("labels", type=Path)
+    p.add_argument("--out", type=Path)
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -185,6 +205,8 @@ def main(argv: list[str] | None = None) -> int:
         return seed(args.videos)
     if args.command == "import":
         return import_video(args.file, args.camera)
+    if args.command == "eval":
+        return evaluate(args.labels, args.out)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)

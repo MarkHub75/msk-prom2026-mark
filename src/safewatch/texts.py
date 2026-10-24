@@ -349,6 +349,31 @@ TREND_MORE = "Жёлтых нарушений стало больше на {pct}
 TREND_SAME = "Жёлтых нарушений без изменений ({span}). " + TREND_CAVEAT
 TREND_NO_DATA = "Недостаточно данных для сравнения"
 
+# Quality evaluation (tech.md 8.18, 9; slice 14).
+EVAL_LABELS_INVALID = "Разметка: неверное поле {field}"
+EVAL_INTERVAL_INVALID = "Разметка: start_s должно быть меньше end_s ({field})"
+EVAL_TITLE = "# Оценка качества: {labels}, видео {hours} ч"
+EVAL_COLUMNS = [
+    "сценарий",
+    "эталонов",
+    "эпизодов",
+    "TP",
+    "FN",
+    "FP",
+    "дубли",
+    "поздние",
+    "precision",
+    "recall",
+    "F1",
+    "FP в час",
+    "задержка p50, с",
+    "задержка p95, с",
+    "n",
+]
+EVAL_FOOTNOTE = (
+    "Дедлайн подтверждения {deadline} с. Сноска: recall валиден только при полной разметке видео."
+)
+
 
 def weeks_span(n: int) -> str:
     """«4 недели к 4 неделям»: the Russian plural after a number, then the dative."""
