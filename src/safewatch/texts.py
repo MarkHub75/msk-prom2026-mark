@@ -166,6 +166,7 @@ HUD_LYING = "лежит {n} с"
 HUD_STILL = "неподвижен {n} с"
 HUD_FEET_HIDDEN = "ноги не видны"
 HUD_TOO_SMALL = "слишком мелко"
+HUD_LOAD_PROJECTION = "зона под грузом"
 OBJECT_LABELS = {
     "person": "человек",
     "car": "легковой автомобиль",

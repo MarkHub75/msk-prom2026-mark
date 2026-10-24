@@ -89,3 +89,33 @@ def test_small_person_unknown() -> None:
     ]
     one = observe(ctx_with([left, right], [phone(500, 150)]))
     assert [o.state for o in one] == ["P", "N"]
+
+
+def test_phone_allowed_in_walkway_and_rest() -> None:
+    for kind in ("walkway", "rest"):
+        assert held(20_000, [zone(kind)]) == []
+        (o,) = observe(ctx_with([worker()], [phone(500, 150)], [zone(kind)]))
+        assert o.state == "N"
+    # The bbox (x 450..550 px of 1000) sticks out of the walkway; the anchor x 500 is inside.
+    edge = zone("walkway").model_copy(
+        update={"points": [(0.499, 0.4), (0.8, 0.4), (0.8, 0.7), (0.499, 0.7)]}
+    )
+    assert observe(ctx_with([worker()], [phone(500, 150)], [edge]))[0].state == "N"
+    out = edge.model_copy(update={"points": [(0.501, 0.4), (0.8, 0.4), (0.8, 0.7), (0.501, 0.7)]})
+    assert observe(ctx_with([worker()], [phone(500, 150)], [out]))[0].state == "P"
+
+
+def test_phone_in_work_zone_yellow() -> None:
+    elsewhere = [
+        zone("walkway").model_copy(update={"points": [(0.0, 0.0), (0.1, 0.0), (0.1, 0.1)]})
+    ]
+    assert held(9990, elsewhere) == []
+    (ep,) = held(10_000, elsewhere)
+    assert (ep.level_initial, ep.reason_code) == ("yellow", "phone")
+    (red,) = held(3000, [zone("danger")])
+    assert (red.level_initial, red.reason_code) == ("red", "phone_zone")
+
+
+def test_phone_meta_lists_zone_kinds() -> None:
+    metas = {m.id: m for m in rules.scenario_metas()}
+    assert metas["phone"].zone_kinds == ["danger", "vehicle_path", "walkway", "rest"]
