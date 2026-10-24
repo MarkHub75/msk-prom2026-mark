@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S24 закрыт, следующий S25
+- state: tech v6, второй прогон: S25 закрыт, следующий R25
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -50,6 +50,10 @@
 - GAP: S24, «живая камера» 8.25 — камера, у которой есть событие эфира в окне: `events_per_camera_day = события / камеры с событиями / stats.default_days`, окно `[now − default_days, now)` по `started_at`, `store.broadcast_event_counts(start, end) -> Row(events, cameras)`.
 - GAP: S24, подпись примера «пример для демо, замените своими» показывает экран Егора: у `CalculatorDefaults` поля под неё нет, текст в `texts` не заведён (был бы мёртвым кодом); пример завода — `services.CALC_EXAMPLE`, `ScaleIn` — 8 + 8.
 - R25: S24 — «живая камера» прочитана как камера с событиями эфира в окне (GAP); проверить, не нужна ли камера без `deleted_at` или с эфиром (при одной камере с событиями из десяти показатель на оператора завышен).
+- GAP: S25, `dataset.item_path(event_id)` → `datasets/false_alarms/<event_id>/` (колонка `dataset_items.path`), `dataset.MANIFEST = "manifest.json"`; `build_item(..., frame_ms, label)`: `frame_ms` — `ts_ms` отобранных проанализированных кадров (отбор в `services._dataset_files` в том же потоке: кадры `hud.jsonl` в окне клипа `[start_ms, end_ms]` включительно, при избытке `window[i * n // max_frames]`), `label` — `video_sha256`, `video_filename`, `models`, `analysis_version`, `comment`; остальные поля `label.json` `build_item` берёт из события и эпизода.
+- GAP: S25, `label.json`: `start_ms`/`end_ms` — эпизода (время видео), `models` — `model_id@model_version` артефактов анализа (детектор, pose, extra), `comment` — комментарий последнего действия `false_alarm`; JPEG кадров полного размера (`max_width` = ширина кадра), качество `evidence.jpeg_quality` `dataset.py` читает из конфига.
+- GAP: S25, `dataset_export(out)` пишет `<out>/false_alarms.zip`, без `out` — `data_dir/datasets/false_alarms.zip`; пути в zip от `data_dir` (как `DatasetItem.path`), `manifest.json` в корне; `datasets_flush` ловит `OSError` и `ValueError` (кадр, файл): лог `dataset: event <id>: <что>`, папка элемента меняется только после чтения всех кадров.
+- R25: S25 — `GET /api/datasets/false-alarms/export.zip` собирает zip синхронно в обработчике (цикл событий стоит на время записи; 40 кадров на элемент); при росте датасета — `to_thread` или фоновая сборка.
 
 ## log
 
@@ -273,6 +277,13 @@
 - проверено вживую: нет (S24 без LinQ) | не проверено: —
 - [проверить]: нет
 - следующему: `tests/test_calculator.py::artifact(throughput_fps, backend, fake, rtt)` — строка артефакта с `metrics_json` тем же путём, что ядро; `defaults`, `rollout(client, **update)`, `scale(client, **body)`.
+
+### S25: dataset (2026-10-24, PR #32, tech v6)
+- отклонения: `tests/test_api_skeleton.py` — два маршрута датасета убраны из `V5_REQUESTS`; `api.py` не менялся (маршруты положил S16); `application/zip` в `contract/openapi.json` не добавлен: `responses=` ломает искомую строку декоратора, правка строки трассировки — в `tech.md`, это R25 (строка `R25:` S20 в `## open`).
+- решения вне контракта: строки `GAP: S25` в `## open`; `tests/test_worker.py` — пятая задача (`datasets.tick_ms` 2000 → 2,0 с, в настройке — 900), заглушка `datasets_flush`, 15 пауз вместо 12 (по три вызова на задачу); мутаций нет (10.3). `test_false_alarm_creates_item_once`, `test_frame_error_retries` и `test_worker.py` — 20 прогонов подряд зелёные.
+- проверено вживую: нет (S25 без LinQ) | не проверено: —
+- [проверить]: нет
+- следующему: `tests/test_dataset.py::_false_alarm(client, monkeypatch, tmp_path, clock)` — сцена `demo` на фейке LinQ, публикация в эфире и `false_alarm` оператора через API; `_settings(monkeypatch, core, max_frames)` выключает H.264-копию.
 
 ## night
 

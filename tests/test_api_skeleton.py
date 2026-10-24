@@ -58,8 +58,6 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
 
 
 V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
-    ("get", "/api/datasets/false-alarms", None, "25"),
-    ("get", "/api/datasets/false-alarms/export.zip", None, "25"),
     ("patch", "/api/events/1/identity", {"person_name": "Иванов"}, "26"),
     ("get", "/api/stats/people", None, "26"),
     ("get", "/api/cameras/1/passport", None, "27"),
