@@ -1,8 +1,8 @@
 # SafeWatch — статус frontend
 
-Обновлено: **2026-10-24 06:41 МСК**. Ветка: **codex/safewatch-frontend-v1**.
-Последний опубликованный коммит на момент обновления: `8e390c34` (полное приложение, REST/WS и fixture-сценарии); ассеты — `d3f9e4b1`.
-Текущий этап реализации завершён и опубликован. Версионированный HRE working-v1 сохранён: два настоящих пакета, шесть исходных концепций, frozen sources и доказательства. Следующий этап — внешний stateful-мок, без встроенного reviewFetch.
+Обновлено: **2026-10-24 06:45 МСК**. Ветка: **codex/safewatch-frontend-v1**.
+Последний опубликованный коммит на момент обновления: `ae499962` (OS/HRE handoff); приложение — `8e390c34`, ассеты — `d3f9e4b1`.
+Первый рабочий проход опубликован. Версионированный HRE working-v1 сохранён. Сейчас идёт браузерная интеграционная проверка внешнего stateful-мока без встроенного reviewFetch.
 
 Frontend Hackathon OS 4.0: **HUMAN_PRODUCT_REVIEW**; run `safewatch-20261024-working-r3`. Концепция `signal-post` утверждена человеком, рабочие экраны ещё не утверждены.
 
@@ -14,7 +14,7 @@ Frontend Hackathon OS 4.0: **HUMAN_PRODUCT_REVIEW**; run `safewatch-20261024-wor
 | Мобильный мастер | Работает только на локальных fixtures | accept → обязательные меры → resolved; reload | Поле мер ниже первого экрана |
 | Камера, запись, HUD | Работает только на локальных fixtures | Видео декодируется; play/pause/HUD | Синтетический статичный повтор, не live/LinQ |
 | REST health и WS hello | Работает с настоящим backend S0 | health 200, hello по WS-схеме | Остальные бизнес-методы S0 — 501 |
-| Внешний stateful-мок Claude | В разработке | Ветка origin/demo/checkpoint доступна | Браузерный E2E ещё не выполнен |
+| Внешний stateful-мок Claude | В разработке | Собственный запуск; upstream smoke **30 PASS / 0 FAIL / 0 SKIP**, 26 REST и 32 WS по схемам | Это проверка мока; браузерный E2E frontend ещё выполняется |
 | Полноценный журнал | Не начато | — | Нужен для нового критического пути |
 
 ## Качество
@@ -28,6 +28,8 @@ Frontend Hackathon OS 4.0: **HUMAN_PRODUCT_REVIEW**; run `safewatch-20261024-wor
 Подключены настоящие REST DTO и `allowed_actions`, X-Role/X-Actor, относительные URL медиа, `/ws` с проверкой схемы и переподключением. WS слой принимает hello/notification/event.created/event.updated/camera.state/sector.state/broadcast.state/backend.status/job.progress; применимость отдельных экранов проверяется в E2E. Новое hello вызывает повторное получение REST.
 
 Fetch 06:32 МСК: origin/main `7313e04b` (S5), origin/demo/checkpoint `f7520320`. `contract/openapi.json`, `ws.schema.json`, `ws-examples.json` не изменились относительно нашей базы S0. `progress.md`, CLAUDE.md и чужой frontend прочитаны; merge не выполнялся. Backend, mock и серверные контракты не изменялись.
+
+Мок запущен из отдельного detached worktree `/mnt/d/templates/msk-promhack/safewatch-checkpoint-mock` (f7520320), REST 4010 / WS 4011. Frontend dev:mock — 5185, свежий browser context и `review=real`. Smoke выполнялся перед UI-сценарием, потому что он сбрасывает мир. [Raw smoke с SHA256](receipts/external-mock-v1/upstream-smoke.json). Мок не реализует camera view/video/HUD; это ограничение его покрытия. До исправлений требуют runtime-проверки риски устаревшей Incident-карточки после reset и повторной загрузки evidence после 404.
 
 Зависимости от Марка: готовность S6–S8 и уведомлений для настоящего бизнес-E2E. От Матвея: реальные результаты CV/LinQ и заводские медиа для проверки качества детекции; для UI-E2E они не требуются. Готовность настоящего backend на S5 в этой ветке пока не подтверждена запуском; старый факт 501 относится к проверенному S0.
 
