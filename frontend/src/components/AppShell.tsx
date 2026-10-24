@@ -129,7 +129,7 @@ function ShellContent({ children }: { children: ReactNode }) {
   const [backendStatus, setBackendStatus] = useState<BackendStatus>();
   const sound = useAlertSound();
   // On a phone the operator and the master get an app: own top bar, bottom tabs, profile sheet instead of the rail.
-  const phoneApp = usePhone() && hasPhoneApp(role);
+  const phoneApp = (usePhone() || location.pathname.startsWith("/m/")) && hasPhoneApp(role);
   const [profile, setProfile] = useState(false);
   const ws = useWs(message => {
     if (message.type === "hello") setServerOffset(Date.parse(message.data.server_now) - Date.now());
@@ -137,6 +137,10 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (message.type === "hello" || message.type.startsWith("event.") || message.type === "sector.state" || message.type === "camera.state" || message.type === "broadcast.state") setUpdates(n => n + 1);
     if (message.type === "notification" && message.data.audience.includes(role)) {
       const n = message.data;
+      if (phoneApp) navigator.vibrate?.(n.level === "red" ? [300, 120, 300] : 150);
+      // tech.md 8.24: the master's inbox opens the card handed over to him by itself.
+      if (role === "master" && n.id.endsWith(":to_master") && location.pathname === "/master") { sound.beep(n.sound); navigate(`/master/events/${n.event_id}`); return; }
+      if (role === "operator" && n.takeover && n.level === "red" && location.pathname.startsWith("/m/operator")) { sound.beep(n.sound); navigate(`/m/operator/events/${n.event_id}?takeover=1`); return; }
       if (role === "operator" && n.takeover && n.level === "red") {
         // tech.md 8.8: a red notification takes over the dispatcher and an open event card; sector and camera views get the bar.
         if (location.pathname === "/operator" || location.pathname.startsWith("/events/") || (phoneApp && location.pathname.startsWith("/operator"))) { sound.beep(n.sound); navigate(`/events/${n.event_id}?takeover=1`); return; }

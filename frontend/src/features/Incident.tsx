@@ -9,6 +9,7 @@ import { useRole } from "../roles";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates, roleTitles } from "../components/AppShell";
 import { EvidenceFrame } from "../components/Media";
+import { ClipPlayer } from "../components/ClipPlayer";
 import { useActorIdentity } from "../components/ActorIdentity";
 import { END_REASON, Into, LevelTag, since, StateBadge, useNow } from "../components/operator/kit";
 import { LivePlayer } from "./Camera";
@@ -159,6 +160,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
         <Evidence detail={detail} />
         <div className="ic-stage-cap"><span>{event.camera_name}</span><span className="mono">{detail.episode?.evidence[0] ? `кадр ${detail.episode.evidence[0].frame_idx} · запись ${duration(detail.episode.evidence[0].ts_ms)}` : ""}</span></div>
       </section>
+      {event.clip && <ClipPlayer clip={event.clip} />}
       <section className="ic-live" data-panel="Эфир камеры сейчас">
         <LiveCamera cameraId={event.camera_id} />
       </section>
@@ -189,7 +191,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
       <Panel title="История эпизода"><EpisodeHistory detail={detail} /></Panel>
       <Panel title="Действия людей" aside={detail.actions.length}><History actions={detail.actions} /></Panel>
       <Panel title="Происхождение"><Provenance detail={detail} /></Panel>
-      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status === "sent" ? "доставлено" : "ошибка"}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
+      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
     </aside>
   </div>;
 }

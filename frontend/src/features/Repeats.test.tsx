@@ -95,10 +95,42 @@ describe("operator on a phone", () => {
     const detail: EventDetail = { ...details[0], event: feed[2], allowed_actions: ["confirm", "false_alarm", "send_to_master"], video_id: null, broadcast: null };
     const posts = serve({ "/api/events/13": detail, "/api/operator/dashboard": dashboard });
     const view = open("/events/13");
-    const confirm = await screen.findByRole("button", { name: "Подтвердить · ×3" });
-    expect([...view.container.querySelectorAll(".mb-actionbar button[data-action]")].map(b => b.textContent)).toEqual(["Подтвердить · ×3", "Ложное", "Передать мастеру"]);
+    const confirm = await screen.findByRole("button", { name: "Подтверждаю · ×3" });
+    expect([...view.container.querySelectorAll(".mb-actionbar button[data-action]")].map(b => b.textContent)).toEqual(["Подтверждаю · ×3", "Ложное срабатывание", "Передать мастеру"]);
     fireEvent.click(confirm);
     await waitFor(() => expect(posts.map(p => p.path).sort()).toEqual(["/api/events/11/actions", "/api/events/12/actions", "/api/events/13/actions"]));
     expect(posts.every(p => p.action === "confirm")).toBe(true);
+  });
+});
+
+class LiveSocket { static last?: LiveSocket; onopen = null; onmessage: ((e: { data: string }) => void) | null = null; onclose = null; onerror = null; constructor() { LiveSocket.last = this; } close() {} }
+
+describe("tech.md v5 mobile routes", () => {
+  it("/m/operator is the one-column feed at any width; cards open /m/operator/events/:id with the clip", async () => {
+    act(() => setRole("operator"));
+    const clip = { video_id: 3, url: "/api/videos/3/file#t=1.5,9.0", start_ms: 1500, end_ms: 9000, playable: true };
+    const withClip = { ...feed[3], clip };
+    const detail: EventDetail = { ...details[0], event: withClip, allowed_actions: ["confirm", "false_alarm", "send_to_master"], video_id: null, broadcast: null };
+    serve({ "/api/operator/dashboard": { ...dashboard, feed: [...feed.slice(0, 3), withClip] }, "/api/events/20": detail });
+    open("/m/operator");
+    expect(await screen.findByRole("heading", { name: "Тревоги" })).toBeTruthy();
+    const card = await screen.findByTestId("alarm-card");
+    expect(within(card).getAllByRole("link")[0].getAttribute("href")).toBe("/m/operator/events/20");
+    fireEvent.click(within(card).getAllByRole("link")[0]);
+    const player = await screen.findByTestId("clip-player");
+    expect(player.querySelector("video")?.getAttribute("src")).toContain("/api/videos/3/file#t=1.5,9.0");
+    expect(screen.getByRole("link", { name: /Тревоги/ }).getAttribute("href")).toBe("/m/operator");
+  });
+
+  it("/master opens the card itself when an event is handed over (to_master)", async () => {
+    vi.stubGlobal("WebSocket", LiveSocket);
+    act(() => setRole("master"));
+    const handed = { ...feed[2], status: "sent_to_master" as const, status_title: "Передано мастеру" };
+    serve({ "/api/master/inbox": { server_now: base.published_at, active: [handed], recent_resolved: [] }, "/api/events/13": { ...details[0], event: handed, allowed_actions: ["accept"], video_id: null, broadcast: null } });
+    open("/master");
+    await screen.findByTestId("master-inbox");
+    act(() => LiveSocket.last?.onmessage?.({ data: JSON.stringify({ type: "notification", at: base.published_at, data: { id: "e13:to_master", event_id: 13, level: "yellow", text: "Падение", audience: ["master"], sound: "chime", takeover: false } }) }));
+    expect(await screen.findByTestId("master-detail")).toBeTruthy();
+    expect(await screen.findByRole("button", { name: "Принял, иду" })).toBeTruthy();
   });
 });

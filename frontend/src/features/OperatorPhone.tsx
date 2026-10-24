@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Check, ChevronDown, ChevronLeft, ChevronRight, Clock, Eye, EyeOff, Grid3x3, MapPin, MessageSquareText, Radio, ShieldAlert, Shapes, Timer, VideoOff } from "lucide-react";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { CameraTile, EventDetail, EventSummary, HumanAction, SectorState } from "../api/types";
 import { EventAlarm } from "../components/AlarmTakeover";
+import { ClipPlayer } from "../components/ClipPlayer";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { since, StateBadge, StateIcon, useNow } from "../components/operator/kit";
 import { duration, ErrorNotice, number, Status, time, useToast } from "../components/ui";
 import { LivePlayer } from "./Camera";
-import { EpisodeHistory, Evidence, History, type EventDetailState } from "./Incident";
+import { EpisodeHistory, Evidence, History, useEventDetail, type EventDetailState } from "./Incident";
 import { LevelChip, ShiftSummary, unconfirmed, useBulkAction } from "./Master";
 import { shortCamera, shortSector } from "./Operator";
 import { groupRepeats, repeatCount, type RepeatGroup } from "./repeats";
@@ -22,6 +23,10 @@ const IC = { size: 16, strokeWidth: 1.75, "aria-hidden": true } as const;
 const PREVIEW_MS = 2000;
 const RANK = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
 const STATE_SHORT: Record<SectorState["state"], string> = { red: "Тревога", yellow: "Внимание", normal: "Норма", no_observation: "Нет наблюдения" };
+
+/** tech.md 8.14 v5: under /m/operator the feed and the card stay on the mobile routes. */
+function useMobileBase() { return useLocation().pathname.startsWith("/m/") ? "/m/operator" : ""; }
+export function useEventHref() { const base = useMobileBase(); return (id: number) => base ? `${base}/events/${id}` : `/events/${id}`; }
 
 /** Split of operator_feed exactly as the desktop dispatcher does it (tech.md 8.6, 8.8). */
 function useOperatorFeed() {
@@ -41,10 +46,10 @@ function useOperatorFeed() {
 }
 
 function Repeats({ group, now }: { group: RepeatGroup; now: number }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); const href = useEventHref();
   return <>
     <button className="rp-expand" aria-expanded={open} onClick={() => setOpen(v => !v)}>{open ? "Свернуть повторы" : `Все ${group.events.length} повторов`}<ChevronDown {...IC} /></button>
-    {open && <ol className="rp-list">{group.events.map(e => <li key={e.id}><Link to={`/events/${e.id}`}>
+    {open && <ol className="rp-list">{group.events.map(e => <li key={e.id}><Link to={href(e.id)}>
       <time className="mono">{time(e.published_at)}</time><span className="mono rp-id">#{e.id}</span><span className="rp-status">{e.status_title}</span><b className="mono">{since(e.published_at, now)}</b><ChevronRight {...IC} size={15} />
     </Link></li>)}</ol>}
   </>;
@@ -52,10 +57,10 @@ function Repeats({ group, now }: { group: RepeatGroup; now: number }) {
 
 /** Alarm card: evidence frame, how long it waits, place; repeats of the same camera and scenario are one card. */
 function AlarmCard({ group, now }: { group: RepeatGroup; now: number }) {
-  const e = group.latest; const many = group.events.length > 1;
+  const e = group.latest; const many = group.events.length > 1; const href = useEventHref();
   const oldest = group.events[group.events.length - 1];
   return <li className={`mo-card is-${group.level} ${many ? "rp-stack" : ""}`} data-testid={many ? "repeat-group" : "alarm-card"}>
-    <Link className="mo-card-main" to={`/events/${e.id}`} aria-label={`${e.title}, ${e.sector_name}, ${e.camera_name}`}>
+    <Link className="mo-card-main" to={href(e.id)} aria-label={`${e.title}, ${e.sector_name}, ${e.camera_name}`}>
       <div className="mb-frame">
         {e.evidence_url ? <img src={mediaUrl(e.evidence_url)} alt={`Кадр события #${e.id}`} loading="lazy" /> : <span className="mb-frame-none"><VideoOff size={24} strokeWidth={1.5} aria-hidden />Кадр не получен</span>}
         <LevelChip level={group.level} className="mb-ov-tl" />
@@ -75,7 +80,8 @@ function AlarmCard({ group, now }: { group: RepeatGroup; now: number }) {
 }
 
 function Row({ event, closed }: { event: EventSummary; closed?: boolean }) {
-  return <li><Link className="mo-row" to={`/events/${event.id}`}>
+  const href = useEventHref();
+  return <li><Link className="mo-row" to={href(event.id)}>
     <span className={`mm-dot is-${closed ? "closed" : event.level}`} aria-hidden />
     <span className="mo-row-main"><b>{event.title}</b><small>{shortSector(event.sector_name)} · {shortCamera(event.camera_name)}</small></span>
     <span className="mo-row-side"><small>{event.status_title}</small><time className="mono">{time(event.published_at, false)}</time></span>
@@ -111,7 +117,8 @@ export function PhoneAlarms() {
 }
 
 const ORDER: HumanAction[] = ["confirm", "false_alarm", "send_to_master"];
-const TITLE: Partial<Record<HumanAction, string>> = { confirm: "Подтвердить", false_alarm: "Ложное", send_to_master: "Передать мастеру" };
+// tech.md 8.14: «Подтверждаю», «Ложное срабатывание», «Передать мастеру».
+const TITLE: Partial<Record<HumanAction, string>> = { confirm: "Подтверждаю", false_alarm: "Ложное срабатывание", send_to_master: "Передать мастеру" };
 const DONE: Partial<Record<HumanAction, string>> = { confirm: "Подтверждено", false_alarm: "Отмечено как ложное", send_to_master: "Передано мастеру" };
 
 function LiveSection({ cameraId }: { cameraId: number }) {
@@ -124,9 +131,9 @@ function LiveSection({ cameraId }: { cameraId: number }) {
 
 /** Event card of the operator on a phone: frame with the box, why, where; the three decisions under the thumb. */
 export function PhoneEventPage({ id, state }: { id: number; state: EventDetailState }) {
-  const detail = state.detail;
+  const detail = state.detail; const base = useMobileBase();
   return <div className="mb-screen mb-push mo-page mo-event" data-testid="incident-focus">
-    <nav className="mb-navbar"><Link className="mb-back" to="/operator"><ChevronLeft size={24} strokeWidth={2} aria-hidden />Тревоги</Link><span className="mb-navbar-title mono">#{id}{detail ? ` · ${time(detail.event.started_at)}` : ""}</span></nav>
+    <nav className="mb-navbar"><Link className="mb-back" to={base || "/operator"}><ChevronLeft size={24} strokeWidth={2} aria-hidden />Тревоги</Link><span className="mb-navbar-title mono">#{id}{detail ? ` · ${time(detail.event.started_at)}` : ""}</span></nav>
     {state.error && <ErrorNotice error={state.error} retry={state.reload} />}
     {detail ? <PhoneEvent detail={detail} state={state} /> : !state.error && <><div className="mb-skel" /><div className="mb-skel" style={{ height: 140 }} /></>}
   </div>;
@@ -134,7 +141,7 @@ export function PhoneEventPage({ id, state }: { id: number; state: EventDetailSt
 
 function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetailState }) {
   const event = detail.event; const meta = useMeta(); const now = useNow(1000); const updates = useUpdates();
-  const navigate = useNavigate(); const toast = useToast();
+  const navigate = useNavigate(); const toast = useToast(); const base = useMobileBase();
   const [comment, setComment] = useState(""); const [live, setLive] = useState(false); const [withRepeats, setWithRepeats] = useState(true);
   useEffect(() => { setComment(""); setLive(false); setWithRepeats(true); }, [event.id]);
   const actions = ORDER.filter(a => detail.allowed_actions.includes(a));
@@ -151,12 +158,13 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
     if (!await state.send(action, comment)) return;
     if (withRepeats && repeats.length) await bulk.run(`event:${event.id}`, repeats, action, comment);
     toast({ tone: action === "false_alarm" ? "neutral" : "green", title: `${DONE[action]} · #${event.id}` });
-    navigate("/operator");
+    navigate(base || "/operator");
   };
   const verdict = event.operator_verdict === "none" ? "Не зафиксирован" : meta?.statuses.find(s => s.id === event.operator_verdict)?.title ?? event.operator_verdict;
   return <>
     <EventAlarm event={event} actions={actions.map(a => ({ id: a, title: TITLE[a] ?? a, danger: a === "confirm" }))} busy={state.busy} onAct={a => void act(a as HumanAction)} media={detail.episode?.evidence[0] ? <Evidence detail={detail} compact /> : undefined} />
     <div className={`mo-hero-frame is-${event.level}`}><Evidence detail={detail} compact /></div>
+    {event.clip && <ClipPlayer clip={event.clip} />}
     <header className={`mo-head is-${event.level}`}>
       <div className="mo-head-row"><LevelChip level={event.level} /><Status event={event} />{!terminal && <span className="mo-wait"><Timer {...IC} size={15} /><b className="mono">{since(event.published_at, now)}</b></span>}</div>
       <h1>{event.title}</h1>
@@ -177,7 +185,7 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
     <details className="mb-more"><summary>История эпизода<ChevronRight {...IC} /></summary><div className="mb-more-body"><EpisodeHistory detail={detail} /></div></details>
     <details className="mb-more"><summary><span>Действия людей <b className="mono">{detail.actions.length}</b></span><ChevronRight {...IC} /></summary><div className="mb-more-body"><History actions={detail.actions} /></div></details>
     {actions.length > 0 && <div className="mb-actionbar mo-actionbar">
-      {actions.includes("confirm") && <button data-action="confirm" className={`mb-btn ${event.level === "red" ? "mb-btn-red" : "mb-btn-accent"}`} disabled={busy} onClick={() => void act("confirm")}>{state.busy === "confirm" ? "Сохраняем…" : withRepeats && repeats.length ? `Подтвердить · ×${repeats.length + 1}` : "Подтвердить"}</button>}
+      {actions.includes("confirm") && <button data-action="confirm" className={`mb-btn ${event.level === "red" ? "mb-btn-red" : "mb-btn-accent"}`} disabled={busy} onClick={() => void act("confirm")}>{state.busy === "confirm" ? "Сохраняем…" : withRepeats && repeats.length ? `${TITLE.confirm} · ×${repeats.length + 1}` : TITLE.confirm}</button>}
       <div className="mb-actionbar-row">
         {actions.filter(a => a !== "confirm").map(a => <button key={a} data-action={a} className="mb-btn mb-btn-s mb-btn-line" disabled={busy} onClick={() => void act(a)}>{state.busy === a ? "Сохраняем…" : TITLE[a]}</button>)}
       </div>
@@ -295,6 +303,13 @@ export function PhoneCameraPage({ id }: { id: number }) {
         : <p className="mb-muted">Открытых событий нет{data.state.state === "no_observation" ? " — камера без наблюдения, это не значит, что всё безопасно" : ""}.</p>}
     </>}
   </div>;
+}
+
+/** /m/operator/events/:eventId (tech.md 8.14 v5): the phone card at any width; opening sends `view`. */
+export function MobileEventRoute() {
+  const { eventId } = useParams(); const id = Number(eventId);
+  const state = useEventDetail(id);
+  return <PhoneEventPage id={id} state={state} />;
 }
 
 export function OperatorShiftPage() {

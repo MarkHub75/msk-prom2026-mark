@@ -15,6 +15,12 @@
 .ds-app.is-phone-app .shell-main { overflow: visible; padding: 0 0 calc(var(--mb-tabs-h) + var(--mb-safe-b) + 20px); }
 .ds-app.is-phone-app .shell-main > * { animation: none; }
 
+/* /m/operator on a wide screen (tech.md 8.14 v5): the same one column, centred */
+@media (min-width: 761px) {
+  .ds-app.is-phone-app .mb-screen { max-width: 640px; margin-inline: auto; }
+  .ds-app.is-phone-app .mb-actionbar { left: max(0px, calc(50% - 320px)); right: max(0px, calc(50% - 320px)); }
+}
+
 /* ---------- Top bar ---------- */
 .mb-top { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 6px; height: var(--mb-top-h); padding: 0 10px 0 var(--mb-gutter); background: var(--mb-glass); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border-bottom: 1px solid var(--ds-line-dark); }
 .mb-brand { display: inline-flex; align-items: center; gap: 8px; color: var(--ds-text); font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: .14em; }

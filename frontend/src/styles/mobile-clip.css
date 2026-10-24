@@ -1,0 +1,9 @@
+/* Event clip player (tech.md 8.20): phone cards, master card and the desktop event screen. */
+.clip { display: flex; flex-direction: column; overflow: hidden; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: var(--mb-radius, 4px); }
+.clip-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 40px; padding: 0 12px; background: var(--ds-bg-2); border-bottom: 1px solid var(--ds-line-dark); color: var(--ds-text-2); font-size: 13px; font-weight: 600; }
+.clip-head span:first-child { display: inline-flex; align-items: center; gap: 6px; color: var(--ds-text); }
+.clip-head .mono { color: var(--ds-timecode); }
+.clip-frame { position: relative; background: var(--ds-well); }
+.clip-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--ds-well); }
+.clip-replay { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px; border: 0; border-radius: 15px; background: rgba(8, 9, 10, .78); color: var(--ds-text); font-size: 12.5px; font-weight: 600; }
+.clip .empty-state { padding: 18px 14px; }

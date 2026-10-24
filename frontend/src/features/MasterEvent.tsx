@@ -5,6 +5,7 @@ import { api } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { EventDetail, HumanAction } from "../api/types";
 import { useMeta, useUpdates } from "../components/AppShell";
+import { ClipPlayer } from "../components/ClipPlayer";
 import { since, useNow } from "../components/operator/kit";
 import { duration, ErrorNotice, Status, time, useToast } from "../components/ui";
 import { Evidence, History, type EventDetailState } from "./Incident";
@@ -88,6 +89,7 @@ function MasterEvent({ detail, state }: { detail: EventDetail; state: EventDetai
   };
   return <>
     <div className={`mm-hero-frame is-${event.level}`}><Evidence detail={detail} compact /></div>
+    {event.clip && <ClipPlayer clip={event.clip} />}
     <header className={`mm-head is-${event.level}`}>
       <div className="mm-head-row"><LevelChip level={event.level} /><Status event={event} /></div>
       <h1>{event.title}</h1>
