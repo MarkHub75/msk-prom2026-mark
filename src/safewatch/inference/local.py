@@ -65,7 +65,9 @@ class LocalBackend:  # InferenceBackend: onnxruntime on CPU, same JSONL as the w
         yolo_io = _yolo_io(self.settings.linq.tools_dir)
         input_name = session.get_inputs()[0].name
         nc, kpt = (1, (17, 3)) if model.task == "pose" else (80, None)
-        classes = list(model.classes)
+        classes: list[int] | None = list(model.classes)
+        if f"{model.id}@{model.version}" in self.settings.pipeline.extra:
+            nc, classes = len(model.classes), None  # the worker's --nc: all own classes
         cap = cv2.VideoCapture(str(video))
         if not cap.isOpened():
             raise InferenceError("video_unreadable", video.name)

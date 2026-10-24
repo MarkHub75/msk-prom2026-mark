@@ -21,7 +21,6 @@ from safewatch.types import (
     Observation,
     Point,
     ScenarioPlugin,
-    VehicleState,
 )
 
 VEHICLES = ("car", "bus", "truck", "train")
@@ -35,7 +34,7 @@ def _plugins(config: AnalysisConfig) -> list[tuple[ScenarioPlugin, dict[str, flo
         if meta.status != "active" or (rule is not None and not rule.enabled):
             continue
         params = rules.defaults(meta.id) | (rule.params if rule is not None else {})
-        out.append((rules.PLUGINS[meta.id], params))
+        out.append((rules.plugin(meta.id), params))
     return out
 
 
@@ -61,13 +60,17 @@ def analyze(
     config: AnalysisConfig,
     pose_model: ModelSpec | None,
     det_model: ModelSpec,
+    extra: list[tuple[ModelSpec, list[FrameDetections]]] | None = None,
 ) -> AnalysisResult:
+    """`extra`: frames of the `pipeline.extra` models, their classes become untracked objects."""
     settings = app_config.get_settings()
     ids = itertools.count(1)
     people, machines = Tracker(settings.tracker, ids), Tracker(settings.tracker, ids)
     poses = {f.frame_idx: f.detections for f in pose or []}
+    extras = [(m, {f.frame_idx: f.detections for f in frames}) for m, frames in extra or []]
     pose_names = pose_model.classes if pose_model is not None else {}
     history: features.History = {}
+    vehicle_history: features.VehicleHistory = {}
     # The HUD speed tag follows the camera's running rule, not the config defaults.
     rule = config.rules.get("running")
     hud_running = rules.defaults("running") | (rule.params if rule is not None else {})
@@ -92,6 +95,11 @@ def analyze(
                     vehicles.append(d.model_copy(update={"name": name}))
                 else:
                     objects.append(ObjectState(name=name, bbox=d.bbox_xyxy, score=d.score))
+        for model, by_frame in extras:
+            for d in by_frame.get(frame.frame_idx, []):
+                name = model.classes.get(d.cls)
+                if name is not None and d.score >= config.class_conf.get(name, model.conf):
+                    objects.append(ObjectState(name=name, bbox=d.bbox_xyxy, score=d.score))
         tracked = people.update(ts, persons)
         frame_poses = [
             p for p in poses.get(frame.frame_idx, []) if pose_names.get(p.cls) == "person"
@@ -115,19 +123,9 @@ def analyze(
                 settings.pose.kpt_conf,
                 ground,
             ),
-            vehicles=[
-                VehicleState(
-                    track_id=track_id,
-                    name=d.name,
-                    bbox=d.bbox_xyxy,
-                    score=d.score,
-                    footprint=None,  # slice 9: calibration
-                    height_px=d.bbox_xyxy[3] - d.bbox_xyxy[1],
-                    speed_vh_s=None,  # slice 10: features.vehicle_states
-                    speed_m_s=None,
-                )
-                for track_id, d in machines.update(ts, vehicles)
-            ],
+            vehicles=features.vehicle_states(
+                machines.update(ts, vehicles), ts, vehicle_history, settings.features, ground
+            ),
             objects=objects,
             zones=config.zones,
             calibrated=config.calibration is not None,

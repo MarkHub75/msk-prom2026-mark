@@ -119,6 +119,8 @@ class FakeRemoteShell:
         scene = auto_scene(original) if self.scene == "auto" else self.scene
         step = int(opts["--step"])
         frames = scenes.render(scene, width, height, fps, frame_count, step, task)
+        if "--nc" in opts:  # an extra model: the scenes hold COCO ids, not its classes
+            frames = [f.model_copy(update={"detections": []}) for f in frames]
         jsonl = scenes.to_jsonl(frames)
         if self.fault == "bad_output":
             jsonl += "not json\n"

@@ -34,6 +34,27 @@ def iou(a: Box, b: Box) -> float:
     return inter / union if union > 0 else 0.0
 
 
+def ioa(a: Box, b: Box) -> float:
+    """Share of the area of `a` that lies inside `b`."""
+    w = min(a[2], b[2]) - max(a[0], b[0])
+    h = min(a[3], b[3]) - max(a[1], b[1])
+    area = (a[2] - a[0]) * (a[3] - a[1])
+    if w <= 0 or h <= 0 or area <= 0:
+        return 0.0
+    return w * h / area
+
+
+def segment_crossing(p: Point, q: Point, a: Point, b: Point) -> bool:
+    """The move p → q passes from one side of the line a-b to the other within the segment.
+
+    A point exactly on the line counts as the negative side, so a step onto the line and a step
+    off it are one crossing, not zero or two.
+    """
+    if (_cross(a, b, p) > 0) == (_cross(a, b, q) > 0):
+        return False
+    return _cross(p, q, a) * _cross(p, q, b) <= 0
+
+
 def point_rect_distance(p: Point, box: Box) -> float:
     """Distance from a point to a rectangle, 0 inside it."""
     dx = max(box[0] - p[0], 0.0, p[0] - box[2])

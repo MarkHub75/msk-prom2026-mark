@@ -166,8 +166,9 @@ async def test_meta_lists_running_and_fall(
     client: httpx.AsyncClient, core: Settings, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     meta = Meta.model_validate((await client.get("/api/meta")).json())
-    assert [(s.id, s.status) for s in meta.scenarios] == [("running", "active"), ("fall", "active")]
-    running, fall = meta.scenarios
+    by_id = {s.id: s for s in meta.scenarios}  # slice 10 adds the other plugins of 8.3
+    assert (by_id["running"].status, by_id["fall"].status) == ("active", "active")
+    running, fall = by_id["running"], by_id["fall"]
     assert {p.key: p.default for p in running.params} == core.scenarios.running
     assert {p.key: p.default for p in fall.params} == core.scenarios.fall
     tuned = _tune(
@@ -177,7 +178,7 @@ async def test_meta_lists_running_and_fall(
     assert {p.key: p.default for p in meta.scenarios[0].params}["hold_s"] == 2.0
     monkeypatch.setattr(registry, "active_classes", lambda settings: ["car"])
     meta = Meta.model_validate((await client.get("/api/meta")).json())
-    assert {s.status for s in meta.scenarios} == {"model_missing"}
+    assert {s.status for s in meta.scenarios if s.id != "load_carrying"} == {"model_missing"}
     assert "person" in meta.scenarios[0].status_text
 
     params = tuned.scenarios.running
