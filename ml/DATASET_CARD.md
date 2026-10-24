@@ -1,3 +1,12 @@
+## Final bounded hard-confusor intake
+
+COCO128 official archiveSHA61e5e3028863d8ffc3b81d6a514603954889f0edd5e4b44c4ce60b2da99aeb8e;
+12sourceJPEG/labels frozen before model inference:book/scissors/knife/remote/
+laptop,8withperson,sourcephone67zero. COCOpretrainingoverlap;per-photo rights
+andhumanexhaustivenessUNKNOWN. Source-file diagnostic only, not industrial
+negativevideoGT. No stills turned into artificialMP4. Full provenance outsideGit:
+/workspace/artifacts/matvey-phone-integration-20261025/hard_confusors_intake_v1/.
+
 ## Video-first final integration — 2026-10-24 19:31 UTC
 
 Current package: `/workspace/artifacts/matvey-final-20261025/video-first-v2/`.

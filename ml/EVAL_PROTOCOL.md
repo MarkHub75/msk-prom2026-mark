@@ -1,3 +1,15 @@
+## Final Phone evaluation scope
+
+Same frozen FPI validation127/sourceGT67phoneboxes:unchangedCOCO80 and saved
+fine-tunedPhone compared at fixed.30/NMS.45/IoU.5. Candidate predictions reused;
+newCOCO forwards127GPU. This is development source evaluation, not independent
+industrial quality. Four new full real scenes use640/currentCV/pretrainedPose,
+fixed .1primary/.25Phone/.1Pose and rulephone.30. No ROI/threshold/960 search.
+Source phone actions/document context are not exhaustive unsafe-phone eventGT;
+ArgusN/U/P traces never become GT labels. Twelve source-annotated COCO128stills
+were frozen before24CPUcalls;sourcephone67absent,pretrainingoverlap andhuman
+exhaustivenessUNKNOWN. Report source FP proposals, no industrialFP/hour/F1.
+
 ## Video-first source diagnostic scope — 2026-10-24
 
 DFire30 was fixed by Data before model inference:30 provided test files,

@@ -893,5 +893,50 @@
     "software_tests_seconds": 7.521,
     "active_owned_model_jobs": 0,
     "latest_shared_dependency_receipt": "provenance/LATEST_DATA_TRAINING_RECEIPT.json"
+  },
+  "final_contract_and_phone": {
+    "schema": "matvey-final-contract-integration-v1",
+    "created_utc": "2026-10-24T21:20:05.592699+00:00",
+    "main": "434b0f75d66a46b5fc15294562e8d69ed170d175",
+    "contract": "/workspace/shared/contracts/MATVEY_CONTRACT_v1.md",
+    "contract_sha256": "9893f941a8e1c1ea4adf1343218c75edfe05d9735c77ffce63548c1f366f0ac1",
+    "models": 6,
+    "actual_local_doctor": "PASS4modelprofile_and3modelPhoneprofile",
+    "CPU_normal_job_calls": 816,
+    "CPU_demo_build_calls": 6060,
+    "CPU_deployed_fire_source30_calls": 30,
+    "CPU_phone_probe_calls": 1,
+    "CPU_confusor_calls": 24,
+    "GPU_coco_source127_calls": 127,
+    "GPU_phone_video_calls": 4617,
+    "new_NN_calls_total": 11675,
+    "new_TPU_calls": 0,
+    "CPU_demo_import": {
+      "videos": 6,
+      "source_frames": 2580,
+      "cached_jobs": 6,
+      "new_NN_calls": 0,
+      "events": 5,
+      "evidence": 5,
+      "API": 200
+    },
+    "phone_new_video_scenes": 4,
+    "phone_source_frames": 1539,
+    "phone_Argus_events": 0,
+    "source_phone_F1": 0.765625,
+    "true_COCO_source_F1": 0.3595505617977528,
+    "phone_confusor_proposals": {
+      "COCO": 0,
+      "candidate": 3
+    },
+    "phone_acceptance": "FROZEN_EXPERIMENTAL_NOT_DEFAULT_ACTIVE",
+    "S08": "NOT_IMPLEMENTED_SKELETON",
+    "software_tests": 528,
+    "skipped": 4,
+    "software_test_seconds": 7.485,
+    "src_changed": false,
+    "backend_changed": false,
+    "live_LinQ": "BLOCKED_RUNTIME_ACCESS_AND_OWN_STAGING",
+    "offhost_binary_backup": "NOT_VERIFIED"
   }
 }

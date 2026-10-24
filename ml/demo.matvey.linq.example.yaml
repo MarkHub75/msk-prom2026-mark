@@ -1,0 +1,11 @@
+# CONDITIONAL real LinQ build; never use a local/fake build as LinQ evidence.
+# Requires the existing registered common detector/pose tails and verified authenticated route.
+name: matvey-real-linq-after-admission-v1
+cameras:
+- sector: "Matvey ML \xB7 actual LinQ only after admission"
+  name: S02 equipment source context
+  description: Real source MP4; no distance or hazard-policy GT. This layout has not
+    been run live by Matvey.
+  videos:
+  - file: s02_equipment.mp4
+  zones: []

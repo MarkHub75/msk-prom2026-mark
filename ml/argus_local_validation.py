@@ -16,12 +16,13 @@ from ml.argus_replay import digest, write_json
 from ml.pipeline.video_clock import FilePTS
 
 
-async def run(root, output_name, source_override=None, source_sha256=None, broadcast_seconds=None):
+async def run(root, output_name, source_override=None, source_sha256=None, broadcast_seconds=None,
+              snapshot=None):
     import yaml
     root = Path(root).resolve()
     if not root.is_relative_to(Path('/workspace/artifacts')):
         raise ValueError('isolated local test must be outside Git')
-    original = root / 'argus_snapshot_f6b5358a'
+    original = Path(snapshot) if snapshot else root / 'argus_snapshot_f6b5358a'
     receipt = json.loads((original / 'MATVEY_SNAPSHOT.json').read_text())
     if not output_name.replace('_', '').isalnum():
         raise ValueError('simple output directory name required')
@@ -36,10 +37,20 @@ async def run(root, output_name, source_override=None, source_sha256=None, broad
     with (app / 'config/models.yaml').open() as stream:
         registry = yaml.safe_load(stream)
     additions = yaml.safe_load((root / 'models/matvey_registry_additions.local.yaml').read_text())['models']
-    existing = {(m['id'], m['version']) for m in registry['models']}
-    if any((m['id'], m['version']) in existing for m in additions):
-        raise ValueError('model ref collision')
-    registry['models'].extend(additions)
+    # v6 already registers the original Matvey Pose/Helmet versions. Preserve
+    # those records; never silently replace different semantics under one ref.
+    existing = {(m['id'], m['version']): m for m in registry['models']}
+    for model in additions:
+        key = (model['id'], model['version'])
+        old = existing.get(key)
+        if old is not None:
+            canonical_old = dict(old, classes={str(k): v for k, v in old['classes'].items()})
+            canonical_new = dict(model, classes={str(k): v for k, v in model['classes'].items()})
+            if canonical_old != canonical_new:
+                raise ValueError('model ref collision with different fields')
+        else:
+            registry['models'].append(model)
+            existing[key] = model
     (app / 'config/models.yaml').write_text(yaml.safe_dump(registry, sort_keys=False))
     override = yaml.safe_load((root / 'models/matvey_pipeline.local.yaml').read_text())
     override |= {'data_dir': str(app / 'app_data'), 'local': {'threads': 1},
@@ -178,10 +189,12 @@ def main():
     parser.add_argument('--source', type=Path)
     parser.add_argument('--source-sha256')
     parser.add_argument('--broadcast-seconds', type=float)
+    parser.add_argument('--argus-snapshot', type=Path)
     args = parser.parse_args()
     if bool(args.source) != bool(args.source_sha256):
         parser.error('explicit source requires its pinned SHA256')
-    asyncio.run(run(args.root, args.output_name, args.source, args.source_sha256, args.broadcast_seconds))
+    asyncio.run(run(args.root, args.output_name, args.source, args.source_sha256,
+                    args.broadcast_seconds, args.argus_snapshot))
 
 
 if __name__ == '__main__':

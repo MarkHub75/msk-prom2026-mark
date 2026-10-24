@@ -129,3 +129,10 @@ Checkpoint saved at user request: see ../RESUME.md. All three coding agents comp
 - VF-05 BLOCKED: new LinQ compile/runtime admission requires approved calibration and own staging; historical captures preserved only.
 - VF-06 COMPLETE local release:video-first-v2 with manifests/hashes/commands; exact archives and commits are in the final release checkpoint. Off-host binary backup remains NOT_VERIFIED.
 - VF-07 BLOCKED quality: S07 misses source fall and alerts on bed; no rule edits. Latest Data forklift/person and cigarette candidates require a verified Training handoff and consumer agreement.
+
+## Final contract and urgent Phone integration
+
+- CONTRACT-V1 COMPLETE: pinned main434b/v6, exactModelSpecs/paths/doctor, JSONL/schema/caches, actual6videoCPUdemo build/import with real events/evidence/API.
+- PHONE-V1 COMPLETE research: verified71154817PT/d15369d2productONNX, sourceFPI gain vsactualCOCO127,4newfullCUDA scenes withPose, exactArgusassociation/replay,12hardconfusorstillcontrols. Stable detector preserved; candidate remains experimental.
+- S08 BLOCKED/NOT_IMPLEMENTED: load_carrying is main skeleton, not an implemented scenario.
+- LINQ-V1 BLOCKED: authenticated runtime/ownstaging absent, industrialPhone admission/calibration missing. Static cuts and properCPUtail plan handed toLinQAgent, no newcompile/TPU.

@@ -1,0 +1,253 @@
+{
+  "schema": "matvey-final-contract-model-registry-v1",
+  "created_utc": "2026-10-24T21:20:05.592699+00:00",
+  "tested_main": "434b0f75d66a46b5fc15294562e8d69ed170d175",
+  "models": [
+    {
+      "model_spec": {
+        "id": "coco-reference-yolov8n",
+        "version": "640-v1-a6a8c37f7e45",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "person",
+          "2": "car",
+          "5": "bus",
+          "6": "train",
+          "7": "truck",
+          "67": "cell phone"
+        },
+        "linq_program": null,
+        "linq_tail": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+        "local_onnx": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx"
+      },
+      "role": "detector",
+      "stage": "EXISTING_LOCAL_RUNNABLE_NOT_INDEPENDENT_INDUSTRIAL_QUALIFIED",
+      "active_in_local_evaluation_profile": true,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+          "absolute_path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+          "bytes": 12824064,
+          "sha256": "9c97d577051d16dec85d21f4d2c4ff6d811f0c5d137fe6f28689187dde0ecde1"
+        },
+        {
+          "field": "linq_tail",
+          "path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+          "absolute_path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+          "bytes": 140,
+          "sha256": "d814b78545cb2f1753860ec6ec036fd563550f091787efedcfd0cb4421f9ca0a"
+        }
+      ],
+      "model_fingerprint": "cd3f099d11cc24a5411eeeda5bafa5f79685baa21e41e33018b8a017108a2409",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    },
+    {
+      "model_spec": {
+        "id": "matvey-pose-yolov8n",
+        "version": "640-v1-acc5f51228b9",
+        "task": "pose",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "person"
+        },
+        "linq_program": "mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu",
+        "linq_tail": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+        "local_onnx": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx"
+      },
+      "role": "pose",
+      "stage": "EXISTING_LOCAL_RUNNABLE_NOT_INDEPENDENT_INDUSTRIAL_QUALIFIED",
+      "active_in_local_evaluation_profile": true,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx",
+          "bytes": 13502371,
+          "sha256": "57add6b3e6288e631e3b85a6ecf730b920422e9d8a0bb4a73a36a2775f7ab150"
+        },
+        {
+          "field": "linq_tail",
+          "path": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+          "bytes": 608,
+          "sha256": "23cdfe907f058713b6a617cb2230d52148eb46d508d8f809c8bb186e73615699"
+        }
+      ],
+      "model_fingerprint": "439dc887587641e2745f39709cd1a041bcfec51ff266a4b6d44f624696adcbf3",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    },
+    {
+      "model_spec": {
+        "id": "matvey-helmet-yolov8n",
+        "version": "640-v1-5c3af1f3b855",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "helmet",
+          "1": "no_helmet"
+        },
+        "linq_program": "mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu",
+        "linq_tail": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+        "local_onnx": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx"
+      },
+      "role": "extra",
+      "stage": "EXISTING_LOCAL_RUNNABLE_NOT_INDEPENDENT_INDUSTRIAL_QUALIFIED",
+      "active_in_local_evaluation_profile": true,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx",
+          "bytes": 12239481,
+          "sha256": "75990461c00b7300675abd5714fe7db45352ea1facfbba692e332efe65dcafe8"
+        },
+        {
+          "field": "linq_tail",
+          "path": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+          "bytes": 140,
+          "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+        }
+      ],
+      "model_fingerprint": "b1cc477580e538049ef81137dd57d988abfdfe865b170a25ed00940ec463f8bc",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    },
+    {
+      "model_spec": {
+        "id": "matvey-fire-smoke-yolov8n",
+        "version": "640-s04-v1-4c9f5d05c4d4",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.25,
+        "iou": 0.45,
+        "classes": {
+          "0": "smoke",
+          "1": "fire"
+        },
+        "linq_program": null,
+        "linq_tail": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx",
+        "local_onnx": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx"
+      },
+      "role": "extra",
+      "stage": "EXISTING_LOCAL_RUNNABLE_NOT_INDEPENDENT_INDUSTRIAL_QUALIFIED",
+      "active_in_local_evaluation_profile": true,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx",
+          "bytes": 12239266,
+          "sha256": "065595a20f876c049ff8dfc1bc475a6ef6a4b65e517e969a57a215bd465a4dfe"
+        },
+        {
+          "field": "linq_tail",
+          "path": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx",
+          "bytes": 140,
+          "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+        }
+      ],
+      "model_fingerprint": "f39de4d92a94ea2bd68883e3cd223f979d10f1ac03744d245ba5b8f220cfe6ff",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    },
+    {
+      "model_spec": {
+        "id": "matvey-phone-object-yolov8n",
+        "version": "640-contract-v1-7115481796de",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.25,
+        "iou": 0.45,
+        "classes": {
+          "0": "cell phone"
+        },
+        "linq_program": null,
+        "linq_tail": null,
+        "local_onnx": "models/matvey/matvey-phone-object-yolov8n/640-contract-v1-7115481796de/model.onnx"
+      },
+      "role": "extra",
+      "stage": "FROZEN_EXPERIMENTAL_SOURCE_EVALUATED",
+      "active_in_local_evaluation_profile": false,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/matvey-phone-object-yolov8n/640-contract-v1-7115481796de/model.onnx",
+          "absolute_path": "/workspace/project/models/matvey/matvey-phone-object-yolov8n/640-contract-v1-7115481796de/model.onnx",
+          "bytes": 12748307,
+          "sha256": "d15369d253141315281d59cd93ef0f2c58de7425f72ccd0cd2294a6385f8f1c7"
+        }
+      ],
+      "model_fingerprint": "e3deff1c2391e26764a86e3f4510e8307d9f850cdb7747ecd141f5b29b34874d",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    },
+    {
+      "model_spec": {
+        "id": "matvey-phone-eval-coco-person-vehicles",
+        "version": "640-c010-no67-v1-dc6f449a09f7",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "person",
+          "2": "car",
+          "5": "bus",
+          "6": "train",
+          "7": "truck"
+        },
+        "linq_program": null,
+        "linq_tail": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+        "local_onnx": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx"
+      },
+      "role": "detector",
+      "stage": "FROZEN_EXPERIMENTAL_SOURCE_EVALUATED",
+      "active_in_local_evaluation_profile": false,
+      "files": [
+        {
+          "field": "local_onnx",
+          "path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+          "absolute_path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+          "bytes": 12824064,
+          "sha256": "9c97d577051d16dec85d21f4d2c4ff6d811f0c5d137fe6f28689187dde0ecde1"
+        },
+        {
+          "field": "linq_tail",
+          "path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+          "absolute_path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+          "bytes": 140,
+          "sha256": "d814b78545cb2f1753860ec6ec036fd563550f091787efedcfd0cb4421f9ca0a"
+        }
+      ],
+      "model_fingerprint": "03b4851b35c46ad9ae7c816f77f26d55ca55cd31fd74e528b8ea84bb903e3598",
+      "new_TPU_execution": "NOT_RUN",
+      "remote_placement": "NOT_VERIFIED",
+      "independent_event_quality": "NOT_MEASURED"
+    }
+  ],
+  "models_yaml_sha256": "cad49bb77ceecb647940d9302382abe9f2b81a6cc5ed389862c8b49f9e8a79c6",
+  "phone_producer_fingerprint": "c545cbd85e82df886286b11fb83a2a0e7d59b45fc57a74ca69d3013af07b60cd",
+  "source_model_manifest": "/workspace/artifacts/matvey-phone-integration-20261025/MODEL_INTEGRATION.json",
+  "new_model_weights_by_root": 0,
+  "new_compilation": 0,
+  "new_TPU": 0,
+  "S08": "NOT_IMPLEMENTED_ARGUS_LOAD_CARRYING_SKELETON",
+  "hashes_outside_ModelSpec": true
+}

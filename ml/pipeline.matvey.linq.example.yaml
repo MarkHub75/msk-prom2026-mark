@@ -1,0 +1,10 @@
+# CONDITIONAL: existing common programs read-only; not tested live by this session.
+# Apply only after authenticated route/namespace/one-request admission. No fire/PPE TPU claim.
+pipeline:
+  detector: det-yolov8n@640-ap9999
+  pose: pose-yolov8n@640-ap9999
+  extra: []
+linq:
+  remote_dir: matvey/matvey_final_contract_UNIQUE
+  file_prefix: matvey_
+  inflight: 1

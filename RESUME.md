@@ -1,3 +1,16 @@
+## Final MATVEY contract and Phone integration — 2026-10-24
+
+Read docs/ML_HANDOFF_MATVEY.md. main434b0f75/techv6 checked throughgitshow;
+rootworktree staysmatvey_cv. SixModelSpec records with existingONNXpaths;
+Phone is experimental/inactive in default profile, sourcephone0/face1→cell phone0.
+TrueCOCO127sourceF1.35955 vsPhone.765625;4newfullvideo scenes1539frames/4617GPU
+calls; Argusphoneevents0. Hardconfusors12stills:COCOphone0,candidate3proposals,
+including remotes at.72/.85. No industrial/event accuracy claim or newTPU.
+Actualv6localdemo6videos/6060CPUcalls→cachedimport6jobs/event5/evidence5/API200;
+normalCPUjob816calls.528softwaretestsPASS(4skipped). S08load_carrying is NOT
+implemented:mainplugin remains skeleton. No src/backend/main/foreignworktree edits.
+All assigned model jobs finished. No automatic training/variants/remote calls.
+
 ## ISSUED VIDEO-FIRST V2
 
 Read docs/handoffs/VIDEO_FIRST_RELEASE_CHECKPOINT_20261025.md first. Code933ffa4a;

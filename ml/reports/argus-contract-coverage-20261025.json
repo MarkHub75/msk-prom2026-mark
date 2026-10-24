@@ -1,0 +1,129 @@
+{
+  "schema": "matvey-current-Argus-final-coverage-v1",
+  "source_main": "434b0f75d66a46b5fc15294562e8d69ed170d175",
+  "scenarios": [
+    {
+      "scenario_id": "S01",
+      "readiness": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "technical_note": "Person/Pose exist; no independently qualified running/hazard-event quality",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S02",
+      "readiness": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "technical_note": "Actual proximity prediction and evidence/API; source hazard/distanceGT absent",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S03",
+      "readiness": [
+        "RUNNABLE",
+        "PROTOTYPE",
+        "EVALUATED_SOURCE_DETECTOR_ONLY"
+      ],
+      "technical_note": "Phone source FPI improves; video association yields0episodes; experimental; remote/hand confusor errors",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S04",
+      "readiness": [
+        "RUNNABLE",
+        "PROTOTYPE",
+        "EVALUATED_SOURCE_DETECTOR_ONLY"
+      ],
+      "technical_note": "Actual local fire/smoke detections/events; headlight/equipment false-alert risks; cigarette absent",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S05",
+      "readiness": [
+        "PROTOTYPE",
+        "BLOCKED_ACTION_OR_SITE_GEOMETRY"
+      ],
+      "technical_note": "Main fence/restricted_under prototypes; official climb/under-load action quality not established",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S06",
+      "readiness": [
+        "BLOCKED_MODEL_MISSING"
+      ],
+      "technical_note": "No qualified no_harness/use/visibility model",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S07",
+      "readiness": [
+        "RUNNABLE",
+        "PROTOTYPE",
+        "QUALITY_NOT_ACCEPTED"
+      ],
+      "technical_note": "Full source fall misses/bed alerts retained; historicalPoseTPU sparse, not full/new run",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    },
+    {
+      "scenario_id": "S08",
+      "readiness": [
+        "BLOCKED",
+        "NOT_IMPLEMENTED"
+      ],
+      "technical_note": "Main load_carrying plugin skeleton; observe returns[]; no implemented event logic",
+      "independent_event_metrics": "NOT_MEASURED",
+      "GT_events": null,
+      "TP": null,
+      "FP": null,
+      "FN": null,
+      "event_F1": null
+    }
+  ],
+  "PPE_additional": {
+    "readiness": [
+      "RUNNABLE",
+      "PROTOTYPE"
+    ],
+    "plugin": "no_helmet active in v6; no_helmet event quality not established",
+    "new_PPE_replacement": "REJECTED;baselinepreserved"
+  },
+  "eight_implemented_Argus_scenarios_claim": false
+}

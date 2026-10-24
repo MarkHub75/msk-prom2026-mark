@@ -1,0 +1,57 @@
+# Actual-video layout. Select backend explicitly; current verified profile is LOCAL CPU.
+# Never label a local build as TPU. Helmet zone is illustrative, not site/event GT.
+name: matvey-real-CPU-v6-NOT-LINQ-v1
+cameras:
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: S04 fire source-positive
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    No invented site calibration or allowed-zone GT.
+  videos:
+  - file: s04_fire_positive.mp4
+  zones: []
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: S04 headlight source-negative failure
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    No invented site calibration or allowed-zone GT.
+  videos:
+  - file: s04_headlight_control.mp4
+  zones: []
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: S04 smoke source-positive
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    No invented site calibration or allowed-zone GT.
+  videos:
+  - file: s04_smoke_positive.mp4
+  zones: []
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: S04 smoke source-negative control
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    No invented site calibration or allowed-zone GT.
+  videos:
+  - file: s04_smoke_control.mp4
+  zones: []
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: S02 equipment context, target GT UNKNOWN
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    No invented site calibration or allowed-zone GT.
+  videos:
+  - file: s02_equipment.mp4
+  zones: []
+- sector: Matvey ML · real CPU verification, NOT LinQ
+  name: 'Helmet additional: illustrative required zone, site policy UNKNOWN'
+  description: Real model outputs; source labels only; target event quality NOT_MEASURED.
+    Illustrative demo policy, not a real industrial requirement.
+  videos:
+  - file: ppe_industrial.mp4
+  zones:
+  - kind: helmet_required
+    name: Демо-политика каски; не GT предприятия
+    points:
+    - - 0
+      - 0
+    - - 1
+      - 0
+    - - 1
+      - 1
+    - - 0
+      - 1

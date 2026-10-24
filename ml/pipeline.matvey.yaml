@@ -1,3 +1,13 @@
-# Merge this override into config/user.yaml; keep the captain detector and other extras.
+# Tested LOCAL evaluation profile; INFERENCE_BACKEND=local SAFEWATCH_FAKE=0.
+# Fire quality is source-only and has retained false alerts; this is not automatic industrial acceptance.
+# Merge the complete extra list deliberately; keep application policy/delivery settings with Mark.
 pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: coco-reference-yolov8n@640-v1-a6a8c37f7e45
   pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra:
+  - matvey-helmet-yolov8n@640-v1-5c3af1f3b855
+  - matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4
+local:
+  threads: 1

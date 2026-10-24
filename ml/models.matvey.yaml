@@ -1,7 +1,23 @@
-# Append models to the application registry; no automatic activation.
-# LOCAL ABI PASS; remote placement/new LinQ qualification NOT_RUN.
-# Helmet is an optional extra: SafeWatch currently has NO PPE plugin.
+# Verified local ModelSpecs. Merge by immutable id@version; preserve equal existing records.
+# First4 are existing local models. Phone candidate and no67 comparison primary are EXPERIMENTAL, inactive by default.
+# Source quality/TPU admission are separate; see docs/ML_HANDOFF_MATVEY.md.
 models:
+- id: coco-reference-yolov8n
+  version: 640-v1-a6a8c37f7e45
+  task: detect
+  input_size: 640
+  conf: 0.1
+  iou: 0.45
+  classes:
+    0: person
+    2: car
+    5: bus
+    6: train
+    7: truck
+    67: cell phone
+  linq_program: null
+  linq_tail: models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx
+  local_onnx: models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx
 - id: matvey-pose-yolov8n
   version: 640-v1-acc5f51228b9
   task: pose
@@ -9,7 +25,7 @@ models:
   conf: 0.1
   iou: 0.45
   classes:
-    '0': person
+    0: person
   linq_program: mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu
   linq_tail: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx
   local_onnx: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx
@@ -20,8 +36,46 @@ models:
   conf: 0.1
   iou: 0.45
   classes:
-    '0': helmet
-    '1': no_helmet
+    0: helmet
+    1: no_helmet
   linq_program: mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu
   linq_tail: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx
   local_onnx: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx
+- id: matvey-fire-smoke-yolov8n
+  version: 640-s04-v1-4c9f5d05c4d4
+  task: detect
+  input_size: 640
+  conf: 0.25
+  iou: 0.45
+  classes:
+    0: smoke
+    1: fire
+  linq_program: null
+  linq_tail: models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx
+  local_onnx: models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx
+- id: matvey-phone-object-yolov8n
+  version: 640-contract-v1-7115481796de
+  task: detect
+  input_size: 640
+  conf: 0.25
+  iou: 0.45
+  classes:
+    0: cell phone
+  linq_program: null
+  linq_tail: null
+  local_onnx: models/matvey/matvey-phone-object-yolov8n/640-contract-v1-7115481796de/model.onnx
+- id: matvey-phone-eval-coco-person-vehicles
+  version: 640-c010-no67-v1-dc6f449a09f7
+  task: detect
+  input_size: 640
+  conf: 0.1
+  iou: 0.45
+  classes:
+    0: person
+    2: car
+    5: bus
+    6: train
+    7: truck
+  linq_program: null
+  linq_tail: models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx
+  local_onnx: models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx

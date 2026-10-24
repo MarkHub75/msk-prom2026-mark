@@ -1,0 +1,75 @@
+{
+  "schema": "matvey-phone-final-integration-v1",
+  "best_PT_sha256": "7115481796ded62b8854c51f42897dba714640623bdbdff2ca36480c9faba3e7",
+  "product_ONNX_sha256": "d15369d253141315281d59cd93ef0f2c58de7425f72ccd0cd2294a6385f8f1c7",
+  "source_classes": {
+    "0": "phone",
+    "1": "face"
+  },
+  "product_classes": {
+    "0": "cell phone"
+  },
+  "model_ref": "matvey-phone-object-yolov8n@640-contract-v1-7115481796de",
+  "stable_pipeline_phone_enabled": false,
+  "source_FPI_validation": {
+    "images": 127,
+    "phone_GT_boxes": 67,
+    "operating_confidence": 0.3,
+    "IoU": 0.5,
+    "unchanged_COCO80": {
+      "tp": 16,
+      "fp": 6,
+      "fn": 51,
+      "f1": 0.3595505617977528
+    },
+    "fine_tuned_Phone": {
+      "tp": 49,
+      "fp": 12,
+      "fn": 18,
+      "f1": 0.765625
+    },
+    "independent_industrial": false,
+    "training_overlap_exhaustiveness": "UNKNOWN"
+  },
+  "new_real_GPU_calls": 4744,
+  "new_real_CPU_phone_probe_calls": 1,
+  "new_full_scenes": 4,
+  "source_frames": 1539,
+  "full_video_GPU_calls": 4617,
+  "video_seconds_GPU_queue": 398.159,
+  "new_TPU_calls": 0,
+  "Argus_phone_events": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "video_transfer": "WEAK_NOT_QUALIFIED_INDUSTRIAL;only1frame score>.30 inGMDnavigationhint;0otherclips",
+  "default_Argus_phone_params": {
+    "hold_s": 10,
+    "danger_hold_s": 3,
+    "min_person_px": 120,
+    "upper_frac": 0.6,
+    "wrist_dist_bh": 0.25
+  },
+  "scenario_event_metrics": "NOT_MEASURED_NO_APPROPRIATE_GT",
+  "industrial_phone_positive_or_negative_verified_MP4s": 0,
+  "book_control_scope": "MEVA document actor coexists with phone actors;not scene-negative",
+  "tool_controls": "12source-labelled stills include book/scissors/knife/remote/laptop;not tool-negative videoGT",
+  "LinQ": "STATIC_CUT_PLAN_ONLY;compile gateCLOSED",
+  "readiness": "EVALUATED_SOURCE_ONLY_FROZEN_EXPERIMENTAL",
+  "paired_Argus_summary": "/workspace/artifacts/matvey-phone-integration-20261025/argus_paired_v1/SUMMARY.json",
+  "video_handoff": "/workspace/artifacts/matvey-phone-integration-20261025/paired_videos_v1/HANDOFF.v1.json",
+  "new_real_CPU_hard_confusor_calls": 24,
+  "hard_confusor_source_only": {
+    "images": 12,
+    "COCO_phone_proposals_at030": 0,
+    "candidate_phone_proposals_at030": 3,
+    "candidate_images": 2,
+    "observed_confusors": [
+      "game remote",
+      "TV remote",
+      "hand"
+    ],
+    "not_independent_industrial": true
+  },
+  "new_NN_calls_total_phone_sprint": 4769
+}

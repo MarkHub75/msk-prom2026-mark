@@ -1,0 +1,12 @@
+# RESEARCH ONLY. Does not replace the stable pipeline.
+# Primary is the SAME COCO80 weights with phone67 filtered and a distinct version, to isolate candidate association.
+# Add both experimental records from models.matvey.yaml first; no LinQ program/tail for candidate.
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: matvey-phone-eval-coco-person-vehicles@640-c010-no67-v1-dc6f449a09f7
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra:
+  - matvey-phone-object-yolov8n@640-contract-v1-7115481796de
+local:
+  threads: 1

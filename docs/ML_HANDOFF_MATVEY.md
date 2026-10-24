@@ -1,120 +1,220 @@
-# Matvey → SafeWatch: выдача моделей
+# ML handoff for Mark — final contract and Phone candidate
 
-Проверено 24.10.2026 по `origin/main` **f6b5358afee60d1190f5b5e9decc77292b9087c9** и его `docs/ML_INTEGRATION.md`. Код приложения не изменён. Все изменения выдачи находятся в `matvey_cv`; main не коммитился и не пушился в этой задаче.
+Latest verified main: **434b0f75d66a46b5fc15294562e8d69ed170d175**, tech.md **v6**.
+Read `/workspace/shared/contracts/MATVEY_CONTRACT_v1.md` in full; its SHA256 is
+9893f941a8e1c1ea4adf1343218c75edfe05d9735c77ffce63548c1f366f0ac1.
+LinQ_CONTRACT controls hardware; tech.md controls other disagreements; the older
+ML_INTEGRATION.md still describes several pre-v6 limitations. Source snapshots
+and exact document pins: `/workspace/artifacts/matvey-contract-v1-20261025/contract/`.
+No application source, main branch, backend, external schema or production DB was changed.
 
-## 1. Что действительно готово
+**S08 `load_carrying` is NOT implemented in Argus.** Its plugin has status
+`skeleton` and `observe()` returns `[]`. Historical eight ML observation prototypes
+and software acceptance cases do not implement this application scenario. Do not
+report eight quality-qualified working Argus scenarios.
 
-| Модель | Выдача | Что включает в SafeWatch | Что НЕ подтверждено |
-|---|---|---|---|
-| `matvey-pose-yolov8n@640-v1-acc5f51228b9` | Полный ONNX `[1,56,8400]`, TPU Split-Pose и CPU-хвост; local PASS | COCO17-признаки существующего `fall`, геометрии и привязки объектов; нужен основной COCO80 detector капитана | Новое размещение и запуск в SafeWatch на LinQ, промышленное качество |
-| `matvey-helmet-yolov8n@640-v1-5c3af1f3b855` | ONNX `[1,6,8400]`, существующий TPU и identity-tail; local PASS | Объекты `helmet` / `no_helmet` как extra | **В приложении нет PPE-плагина**: автоматического события отсутствия каски не будет |
+## Files Mark can read from matvey_cv
 
-Это прежние обученные веса, а не новое улучшение. Четыре выхода Split-Pose собраны хвостом в правильном порядке `(x,y,confidence)` для каждой из 17 точек. Сигмоиды, DFL и координатный decode повторно не применяются. На одном одинаковом синтетическом float32-входе полный ONNX и head+tail дали **max abs error 0** у обеих моделей. Это ABI-проверка, не оценка качества или TPU-проверка.
+- `ml/models.matvey.yaml`: six immutable ModelSpec records, integer class IDs.
+- `ml/pipeline.matvey.yaml`: tested local evaluation profile, COCO80 + Pose + Helmet + fire/smoke.
+- `ml/demo.matvey.yaml`: six real source videos for the actual local demo build.
+- `ml/pipeline.matvey.phone.experimental.yaml`: isolated experimental Phone profile.
+- `ml/pipeline.matvey.linq.example.yaml` and `ml/demo.matvey.linq.example.yaml`:
+  conditional existing-common-program LinQ build, **not executed live here**.
+- `ml/reports/phone-integration-20261025.json`: source metrics and video-transfer decision.
 
-Полные сведения с текущими SHA256: [инвентаризация](../ml/safewatch.inventory.json), [выдача и evidence](../ml/safewatch.delivery.json), [реестр](../ml/models.matvey.yaml), [минимальный pipeline override](../ml/pipeline.matvey.yaml), [маппинг классов](../ml/safewatch.class_map.json).
+Merge records by `id@version`. Matvey Pose/Helmet are already registered in main:
+retain identical records instead of appending duplicate references. Never replace
+different bytes/maps/thresholds under an existing version. Lists such as
+`pipeline.extra` are replaced wholesale; preserve the agreed composition deliberately.
+Application policy, zones, delivery and restart remain Mark's responsibility.
 
-## 2. Инвентаризация и несовместимости
+## Exact models and physical binaries
 
-Проверены опубликованные `/workspace/artifacts/detection`, handoff/артефакты `/workspace/artifacts/training`, `/workspace/runs`; чужие worktree и процессы не изменялись. «Не найдено» ниже относится к этой области, а не означает, что никто больше ничего не обучает. Последние опубликованные training reports сообщают завершённые прогоны; действующий scheduler не подменяется этим снимком.
+| Model reference | Role / class map | Evidence and readiness |
+| --- | --- | --- |
+| `coco-reference-yolov8n@640-v1-a6a8c37f7e45` | primary, actual dense COCO80 output; retained IDs0person/2car/5bus/6train/7truck/67`cell phone` | unchanged official weights, local ABI and real video verified; no new Matvey TPU capture |
+| `matvey-pose-yolov8n@640-v1-acc5f51228b9` | pose,0person/COCO17 | unified full ONNX[1,56,8400] and actual four-output TPU→tail historical evidence; new placement not verified |
+| `matvey-helmet-yolov8n@640-v1-5c3af1f3b855` | extra,0helmet/1no_helmet | stable baseline retained; v6 no_helmet plugin exists; site/event quality not independently established |
+| `matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4` | extra,0smoke/1fire | actual local ONNX/video/source metrics; headlight and equipment false-alert risks retained; no new TPU |
+| `matvey-phone-object-yolov8n@640-contract-v1-7115481796de` | experimental extra,0`cell phone` | new trained checkpoint/ONNX/source gain verified, weak video transfer; **inactive in default profile** |
+| `matvey-phone-eval-coco-person-vehicles@640-c010-no67-v1-dc6f449a09f7` | diagnostic primary, same COCO80 weights with ID67 filtered | distinct ID/version/cache, only to isolate the Phone candidate; stable primary weights are not replaced |
 
-| Моя модель / результат | Фактический вход, классы, состояние | Требование приложения / действие |
-|---|---|---|
-| Helmet YOLOv8n DetectionModel | 640 RGB/NCHW; `helmet,bare_head`; веса `/workspace/artifacts/detection/helmet/weights.pt`; ONNX и O1/H1M TPU существуют | Только extra; `bare_head→no_helmet`. PPE-сценарий требует изменения приложения; как detector с nc2 запрещён |
-| Pose YOLOv8n PoseModel | 640; `person`, COCO17; веса `/workspace/artifacts/detection/pose/weights.pt`, полный ONNX есть | Float full ONNX совместим с local. Старый mixed-output TPU отклонён из-за PTQ-confidence проблемы, его не выдаём |
-| Split-Pose, те же веса | `/workspace/artifacts/detection/pose-split/weights.onnx`; четыре decoded выхода; `/workspace/artifacts/linq-sdk/pose-split-compile/model.tpu` | Добавлен concat/reshape-tail и полный ONNX. TPU-байты сохранены; новый бинарник не компилировался |
-| Person-only Detect из Pose | Один класс `person`, preflight compatibility-only; `/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_cpu_preflight_v4/matvey_person_detect_pretrained.pt` | **Не основной detector**: SafeWatch требует все 80 каналов COCO. Padding нулевыми каналами или переименование не выполняются |
-| GMD TCN/MLP, четыре outer-fold head | `pose_window [1,24,74] → fall_logit [1,1]`; ONNX exported, TPU нет, единый production head не выбран | Это временные классификаторы, не YOLO. Нельзя превратить scalar logit в bbox записью реестра; нужен temporal classifier hook приложения |
-| GMD fine-tune MLP | `matvey_gmd_finetune_v1/matvey_best.pt`; source-validation gain 0, rejected | Не публикуется как улучшенная модель и не подменяет baseline |
-| RGB-MIL, обученный кандидат | `matvey_rgb_mil_gpu_fp32_v1/matvey_best.pt`; ONNX `matvey_rgb_core_export_v1/matvey_rgb_core.onnx`; `rgb_frame [1,3,320,320]→frame_logit [1,1]`, TPU нет | Host pooling + raw pose prior; source-validation-only improvement. Нужен classifier integration hook, в `pipeline.extra` сейчас не подходит |
-| Огонь/дым, сигарета | Готовых bbox-checkpoint/ONNX/TPU в опубликованной области не найдено | Нужны отдельные extra с точными `fire`, `smoke`, `cigarette`; не выдаём за них RGB fall-classifier |
-| Погрузчик/техника | Готового Matvey COCO80 fine-tune не найдено | Основной детектор сохраняет 80 COCO-классов; погрузчик — `truck`, ID7. `forklift` или `truck` в extra не участвует в трекинге техники |
-| Привязь, груз, жилет | Соответствующих готовых bbox-моделей в опубликованной области не найдено | Нужны `no_harness` / `suspended_load` как extra. Позитивный `harness` не доказывает отсутствие привязи; жилет пока без PPE-плагина |
-| Собственные восемь observation-модулей | Внутренние правила/`EventCandidate`, включая synthetic acceptance cases | Это код правил, не восемь обученных детекторов. SafeWatch использует свои плагины; этот слой не переносит и не подменяет архитектуру поведения |
+All `local_onnx` paths now exist with verified bytes under
+`/workspace/project/models/matvey/`. They are ignored binaries, not Git content.
+Exact paths, hashes and model fingerprints are in the artifact manifests:
+`/workspace/artifacts/matvey-contract-v1-20261025/MATVEY_MANIFEST.json` and
+`/workspace/artifacts/matvey-phone-integration-20261025/MODEL_INTEGRATION.json`.
+The first manifest describes the initial four-model contract check; Phone/diagnostic
+records are added by the final release manifest. Full ONNX, source graph and decoder
+projection remain separate files. Compilation, placement and actual TPU execution
+are separate gates. Canonical historical program names in Pose/Helmet ModelSpec do
+not prove those names were newly staged. Local-only models keep `linq_program:null`.
 
-Исходники экспорта уже были: `ml/detection/export.py` (CPU weights→static ONNX), `ml/linq/compile.py` (исторический SDK compiler). Новый слой **не заменяет** эти модели, training pipeline, детекции или правила поведения.
+Phone best PT SHA256:
+`7115481796ded62b8854c51f42897dba714640623bdbdff2ca36480c9faba3e7`.
+Canonical product ONNX SHA256:
+`d15369d253141315281d59cd93ef0f2c58de7425f72ccd0cd2294a6385f8f1c7`.
+Source ONNX SHA256:
+`420023c48c993dd2bb87ba1c8b2edaea63a5ff8dde720d302f54cb2d8caafd61`.
+Native FPI classes are **phone0/face1**; face is not person. Product output is
+FP32 `images[1,3,640,640] → decoded[1,5,8400]`, **cell phone0** only. The graph
+preserves native two-class argmax before filtering: if face wins, phone score is
+zero. Simply deleting the face channel changes decisions and is invalid.
+Recording floor .25, NMS .45; actual rule threshold `cell phone:.30`. A real
+current-scene ONNX CPU probe and the supplied 127-frame export parity both pass.
 
-Старые демо `/workspace/artifacts/video-mvp/*` и `/workspace/artifacts/matvey-scenarios/*` содержат `ObservationBatch`/`EventMutation` JSONL, снимки и журналы; это **не** SafeWatch `FrameDetections`. Внешнего JSONL-импорта в SafeWatch нет. Repeated-image/synthetic сценарии помечены; их нельзя выдавать за реальные промышленные нарушения. Исторические реальные video/LinQ-прогоны сохранены отдельно, при этой выдаче не повторялись.
+No new accepted PPE replacement was published. PPE17/PPE19 and the newly trained
+PPE replacement remain rejected. Respirator/no_respirator and no_harness are not
+invented from mask, harness-present or missing labels. GMD scalar heads are not
+YOLO extras. Do not register fictional objects or convert their logits into events.
 
-## 3. Капитану: подключение за 10 минут
+## Real application and demo proof
 
-Действия ниже выполняет владелец приложения в своей рабочей копии. Наш скрипт их на main/боевом сервере не выполняет.
+`/workspace/artifacts/matvey-contract-v1-20261025/doctor_v6_v1.log`: actual
+`safewatch doctor`, exit0, four local ONNX files found. Phone-specific doctor:
+`/workspace/artifacts/matvey-phone-integration-20261025/doctor_phone_v1.log`, exit0.
+All model shapes/classes and version-change cache invalidation were checked.
 
-1. Получить архив и проверить **SHA256 из `ml/safewatch.delivery.json → archive`**. Текущий архив находится вне Git в `/workspace/artifacts/safewatch-delivery/`. В нём только модели и малые handoff-файлы, без видео, секретов и Git-метаданных. Вложенный `MATVEY_MANIFEST.json` перечисляет относительные пути и хеши.
-2. Распаковать в корень SafeWatch: пути начинаются с `models/matvey/`. Общие модели не перезаписываются: имена включают версию и content fingerprint. Не заменять целиком существующую папку `models/`.
-3. **Добавить** обе записи из `ml/models.matvey.yaml` в список `models:` приложения. Не заменять существующие записи реестра. Если PPE не нужен, Helmet можно не добавлять и не активировать.
-4. В `config/user.yaml` поставить только `pipeline.pose: matvey-pose-yolov8n@640-v1-acc5f51228b9` (готовый фрагмент `ml/pipeline.matvey.yaml`). Сохранить `pipeline.detector` капитана и уже подключённые extra. Списки extra заменяются целиком, не дополняются автоматически.
-5. Для проверки без LinQ: `INFERENCE_BACKEND=local`, `SAFEWATCH_FAKE=0`; основной detector капитана тоже должен иметь доступный полный local ONNX. После согласованного перезапуска выполнить `uv run safewatch doctor`, затем `uv run safewatch eval <свой-reviewed-eval.yaml> --out <новая-папка>` или импорт видео через работающий сервер. Подробные Bash/PowerShell-команды — в контракте main.
-6. Для настоящего LinQ нужен отдельный согласованный слот и размещение **наших** TPU-файлов под итоговыми именами из `linq_program`. До этого `backend-check` закономерно может сообщать отсутствующие программы. Наличие локального `.tpu` и старый успешный capture нового размещения не доказывают.
-7. После загрузки и проверки ABI переключить backend на `linq`, явно выключить fake и выполнить один короткий последовательный прогон. Сохранить request/response ID, output/status и полную задержку; местоположение файлов и doctor не заменяют этот тест.
+New normal Argus v6 smoke job: **816 actual CPU ONNX calls**,204/407frames per
+model,96.664s processing; event1/evidence1/API200. Files:
+`/workspace/artifacts/matvey-contract-v1-20261025/matvey_argus_v6_smoke_v3/`.
 
-**Имена и общая инфраструктура:** локальные артефакты начинаются с `matvey_`. Стандартный `upload_program.py` приложения принудительно добавляет `mosprom_`; итоговые записи используют уникальные `mosprom_matvey_*`, как в принятом контракте. Он также использует staging `mosprom_work/`, а не `matvey/`. Поэтому он **не запускался** этой задачей: режим изоляции/слот согласует капитан. Никаких `--force`, перезаписи `baseline/`, общих `mosprom_*_cut_ap9999*`, чужих очередей или ядер. Рабочие папки ML остаются `matvey/`; VPN, SSH, маршруты и службы не меняются. Потоки CPU/ORT/OpenCV — 1; собственный разрешённый запрос — не более одного в полёте.
+Actual `safewatch demo build` with local/fake=false: **6 videos,2580 sourceframes,
+6060 CPU model calls,24 validated model JSONLs**. Then actual `demo import`, six
+cached-only jobs, real-clock broadcasts, event5/evidence5/API200, SQLite integrity
+ok; **zero new inference during import**. Pack:
+`/workspace/artifacts/matvey-contract-v1-20261025/demo_local_v1/`.
+Proof: `demo_import_check_v1/validation.json`, `events.json`, `coverage.json`,
+`api_readbacks.json` and the isolated app database. Events are four fire_smoking
+and one proximity predictions. Fire also triggers in the equipment context;
+headlight false alert is retained. Helmet is formally active but no accepted
+helmet event was produced. The illustrative helmet-required zone is demo policy,
+not enterprise GT. Do not call these events verified violations or TPU results.
 
-## 4. Как выпускать следующий checkpoint
+The new v6 dependency imageio-ffmpeg0.6.0 was installed only into the owned artifact
+runtime_deps directory from the main uv.lock wheel with verified SHA. Existing
+PyTorch, preparation, SDK and application environments were not modified.
 
-Слой: `python -m ml.safewatch_delivery prepare`. Выходная папка должна быть **новой**; существующий bundle не изменяется. `--version` обязателен; к нему автоматически добавляется fingerprint ONNX, классов, роли, порогов и имеющегося TPU. При новой компиляции учитывается также хеш полученного бинарника. Это защищает от старого кэша SafeWatch.
+## Phone: actual source comparison and full videos
 
-Подготовить существующий manifest и ранее скомпилированный Split-Pose (CPU, без новых TPU/compile вызовов):
+Training's reported .35955→.765625 compared the task-adapted two-class baseline
+with fine-tune. Root additionally ran the **unchanged COCO80** on the same127FPI
+validation files. At conf.30/NMS.45/matchIoU.5:
 
-```bash
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' \
-/workspace/.venv-cv-prepare/bin/python -m ml.safewatch_delivery prepare \
-  --manifest /workspace/artifacts/detection/pose-split/manifest.json \
-  --output /workspace/artifacts/safewatch-delivery/NEW-pose-release \
-  --model-id matvey-pose-yolov8n --version 640-v2 --role pose \
-  --compiled /workspace/artifacts/linq-sdk/pose-split-compile/model.tpu \
-  --compile-report /workspace/artifacts/linq-sdk/pose-split-compile/compile-report.json
-```
+| Model | GT phone | TP | FP | FN | Precision | Recall | F1 | AP50 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| unchanged COCO80 phone67 |67|16|6|51|.7273|.2388|.35955|.39668|
+| fine-tuned Phone |67|49|12|18|.8033|.7313|.765625|.79834|
 
-Новые доверенные YOLO-веса: вместо `--manifest` задать `--weights /path/to/best.pt`. Экспорт выполняется на CPU: static batch1, FP32, opset13, `nms=False`. Автоматического скачивания весов нет. `--role detector` проверяет полный порядок COCO80; `--role pose` требует `person` и COCO17; новые object-классы идут `--role extra`. Явный маппинг: `--class-map '{"flame":"fire"}'`; неизвестные/дублирующиеся классы и позитивное `harness→no_harness` отклоняются. Пороги: `--conf 0.1 --iou 0.45`.
+The unchanged COCO operating-point counts happen to equal the adapted baseline;
+identities are separate and their AP differs. This is source validation used in
+development, not an independent industrial benchmark or phone-use event score.
+Source annotation completeness/training overlap remain limited. Candidate FP
+count doubles6→12 at the stated point; the gain is not a production guarantee.
+Numeric FP/FN examples, raw and inputs:
+`/workspace/artifacts/matvey-phone-integration-20261025/coco_fpi127_v1/`.
 
-Для будущей новой компиляции запускать тот же модуль из согласованного **SDK-окружения**, последовательно и с внешним лимитом времени:
+Four NEW complete scenes: **1539frames×3models=4617 actual CUDA calls**,398.159s,
+no skipped/interpolated/tracker-carried neural rows. Original GMD/Mendeley MP4s
+are byte-identical copies. MEVA originals are AVI; the two action-segment MP4s
+are explicit lossless RGB derivatives,963/963source/roundtripRGB matches. Original
+source frame/PTS and derivative frame/PTS are retained separately. Immutable index:
+`paired_videos_v1/CONSUMER_RUNS.FINAL.v1.json`, handoff SHA
+`2e7d717ee651b8b02b4ee9cbdc7576b224f02600790785a61ad069b2ec541f67`.
+Per-scene sources, annotated MP4, three Argus JSONLs, confidence, COCO17, raw,
+input hashes and coverage are under `paired_videos_v1/scenes/`.
 
-```bash
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' \
-timeout 300 /workspace/.venvs/linq-sdk/bin/python -m ml.safewatch_delivery prepare \
-  --manifest /path/to/new-export/manifest.json \
-  --output /workspace/artifacts/safewatch-delivery/NEW-compiled-release \
-  --model-id matvey-fire-yolov8n --version 640-v1 --role extra \
-  --cut-at /model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0 \
-  --compile --calibration /path/to/calibration.npz \
-  --calibration-manifest /path/to/calibration-provenance.json
-```
+At .30 the candidate produces only one proposal in GMD; COCO produces zero.
+Neither detector proposes phones on the other three scenes. GMD's phone hint is
+not GT. MEVA G506 has source phone actions; G331 has a document actor coexisting
+with phone actors, **not a negative scene**. Mendeley is an unlabelled industrial
+context, not a confirmed phone-negative. Exhaustive industrial phone-bbox/event
+GT and labelled tool-negative video are unavailable. Keep FP/FN/event F1
+NOT_MEASURED there rather than manufacturing negatives. Book/tool controls and
+any bounded source-still diagnostic have separate scope in the final report.
 
-Это **шаблон**, не существующая fire-модель и не автоматически выполненный эксперимент. Имена cut проверяются по конкретному графу; не переносить их на другую архитектуру по названию семейства. `calibration-provenance.json` должен явно содержать `split: train` или `calibration`, непустые `groups`, `calibration_allowed: true` и `sha256` NPZ. Validation/test для PTQ не допускаются. Сам пользовательский manifest не доказывает независимость групп — она проверяется до запуска.
+Actual unchanged Argus compared both detector profiles on every frame, with
+shared actual Pose. Candidate evaluation filters primary67 under a NEW reference,
+so a COCO phone cannot be credited to the extra. Read-only return profiling
+records exact `attach_objects` and PhonePlugin outputs; no rule was replaced.
+Candidate's one score.30456 proposal attaches to track1, yielding one P observation;
+**baseline phone episodes0, candidate phone episodes0**. Actual defaults are
+hold10s/danger_hold3s/min_person120px/upper_frac.6/wrist_dist_bh.25. The supplied
+contract's approximate80px is not the pinned configuration; no parameter was
+lowered to force an event. Rule N/U/P traces are predictions, not GT labels.
+Results: `argus_paired_v1/SUMMARY.json`, per-scene `phone_association.jsonl`,
+`analysis.json`, `events.json`. Event accuracy remains NOT_MEASURED.
 
-SDK-ветка реализует conditioning → CPU calibration с `activation_percentile=99.99` → PTQ → batch1/O1/TPU_H1M. Неизвестные SDK-сигнатуры/имена выходов завершают выпуск ошибкой с сохранением отчёта, без молчаливого fallback. Новая SDK-ветка в этой задаче **не выполнялась**: нет нового calibration/compile/TPU-эксперимента. Для текущих двух моделей использованы неизменённые ранее скомпилированные TPU и проверены их хеши, lineage и имена/формы выходов.
+A separately frozen source control set contains12 unchanged COCO128 images:
+book,scissors,knife,remote,laptop;8with people, no source phone67 annotations.
+Actual24CPU ONNX calls at.30: unchanged COCO phone proposals0; candidate3 on2images.
+Visual review shows game/TV remotes at scores.7216/.8524 and a hand-region proposal
+at.3516. Book/tool sample gave no phone proposals. This is source-file diagnostic,
+with COCO pretraining overlap and unknown human exhaustiveness, not an independent
+industrial false-alert rate. Inputs, source labels, raw, annotated FP images and
+review: `hard_confusors_intake_v1/`, `hard_confusors_results_v1/` under the Phone root.
+No still images were repeated into fake videos. Annotated tool-negative MP4 GT
+remains unavailable. Raising a threshold was not used to hide these failures.
 
-Bundle содержит `models/matvey/.../{полный ONNX,head,tail,TPU при наличии}`, `models.matvey.yaml`, `user.matvey.yaml`, `MANIFEST.json`. Manifest различает local ABI, compile, remote placement, новый LinQ и качество. Без скомпилированной программы `linq_program: null`; такой выпуск предназначен только для local.
+**Decision: Phone is EVALUATED_SOURCE_ONLY / FROZEN_EXPERIMENTAL.** It is not
+activated in the stable pipeline and does not replace the COCO detector. No new
+ROI/confidence/tiling hypothesis was run; previous ten video/ROI runs are retained.
 
-## 5. Что проверено в приложении
+## JSONL, PTS and cache
 
-Изолированный detached worktree: `/tmp/safewatch-matvey-local`, исходники `origin/main` f6b5358a. Только временный реестр, временный `config/user.yaml` и игнорируемые бинарники; код, API, миграции и main-ветка не менялись. После прогона пользовательский конфиг удалён, реестр восстановлен. БД/видео/JSONL находятся вне Git в `/workspace/artifacts/safewatch-delivery/local-check-v1/`.
+Actual per-model JSONL is exactly `frame_idx,ts_ms,detections[cls,name,score,
+bbox_xyxy,kpts]`; original-frame pixels,17COCO triples for Pose. `name` is ignored
+by Argus; ModelSpec numeric map is authoritative. Empty processed frames have a
+real empty row. Missing frames are listed separately, never filled as predictions.
+Phone full-scene JSONLs preserve precise encoded scene PTS. The normal local
+backend rounds ts_ms to0.1ms; `coverage.json` also retains exact ffprobe PTS for
+every source frame. MEVA native source PTS/ordinal are not confused with segment PTS.
 
-Вызваны настоящие CLI `python -m safewatch doctor` и `python -m safewatch eval ... --out ...` с `INFERENCE_BACKEND=local`, `SAFEWATCH_FAKE=0`, CPU/ORT threads1. Это те же команды, что `uv run safewatch doctor/eval`; интерпретатор и `PYTHONPATH` явно привязаны к тестовому окружению/checkout. Код капитана не патчился.
+The cache omits weights/classes/conf/IoU. New model, projection, mapping, threshold,
+preprocess or ROI policy needs a new immutable version/fingerprint. The Phone and
+no67 diagnostic refs differ from old cache references; version invalidation passed.
+Hashes belong in MATVEY_MANIFEST, not invented ModelSpec fields.
 
-- Doctor: exit0; все три ONNX найдены.
-- Eval: exit0, примерно **2.83 с** полного вызова на 5 кадрах; это не FPS LinQ и не реальное время камеры.
-- Созданы три настоящих модельных JSONL по 5 `FrameDetections`: официальный COCO-reference, Matvey Pose и Matvey Helmet.
-- `fall/running/proximity/phone/fence_crossing/restricted_under` имеют формальный статус `active`; `fire_smoking/no_harness/suspended_load` — `model_missing`, `load_carrying` — `skeleton`.
-- Видео — **искусственная пустая сцена**, 640×360, 5 FPS. Оно проверяет проводку и схемы, не положительное падение и не промышленное качество. FP/час/accuracy из этого теста не публикуются.
-- Поддерживающий COCO80 YOLOv8n взят из официального Ultralytics assets v8.3.0, SHA `f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36`; он нужен только тесту и **не объявляется дообучением Матвея**. В архив двух моделей он не включён.
+## LinQ route and requested application fixes
 
-Воспроизведение: создать **новый detached** worktree от зафиксированного main и вызвать `python -m ml.safewatch_local_check --app <worktree> --python <SafeWatch-python> --output <новая-папка> --bundle <COCO-reference-bundle> --bundle <pose-bundle> --bundle <helmet-bundle>`. Тест отказывается работать на ветке, менять существующий user-конфиг или перезаписывать модели. Полные команды, параметры, stdout/stderr и source revision сохранены в `local-check-v1/local-check.json` и `command-*.txt`.
+No new TPU request, upload, compile or PTQ occurred. Historical15real TPU calls/
+13unique sourceframes are preserved and their JSONLs pass the new reader at
+`/workspace/artifacts/matvey-contract-v1-20261025/historical_TPU_JSONL/`.
+These sparse captures are historical, not a fresh/full LinQ video run.
 
-## 6. Качество, GT и незакрытые задачи
+LinQ Agent report: `matvey-contract-v1-20261025/linq/ROUTE_HANDOFF.v1.md`.
+The actual route is Matvey's existing laptop VPN gateway → existing SSH tunnel →
+authenticated Jupyter → RabbitMQ, video inference inside Jupyter. This Vast process
+has no configured Jupyter runtime keys or own new staging receipts; current TPU
+availability is UNKNOWN. No gateway/tunnel/service/foreign queue was changed.
+Future own execution: unique matvey directory/file prefix, inflight1 and root gate.
+Legacy uploader's documented namespace exception was not exercised.
 
-Исторический Helmet: native/float object development macroF1 около 0.7164 при conf .25; PTQ менял class tradeoffs. Это пересекающаяся с источником предобучения development-выборка, **не независимая промышленная оценка**. У нового реестра floor .1, поэтому старые метрики не являются оценкой новой конфигурации.
+Phone SDK static preflight: `matvey-phone-integration-20261025/linq_preflight_v1/`.
+Native real cuts: `/model.22/dfl/conv/Conv_output_0`[1,1,4,8400] and
+`/model.22/Sigmoid_output_0`[1,2,8400]. CPU tail must decode AND preserve native
+phone/face argmax then project phone0. The supplied1160B decoded-output projection
+is **not a LinQ cut-tail**. Industrial admission, approved train/calibration groups,
+actual compile/simulator/placement/TPU remain open. Weak video transfer means no
+production LinQ release is approved from this source F1 gain alone.
 
-Исторический Pose/Fall на 225 кадрах 2 FPS: TP1/FP0/FN9, F1≈0.1818; baseline качество не принято. Старые реальные LinQ captures подтверждают прежнее исполнение Split-Pose, а не текущий SafeWatch-bundle или его новое размещение.
+Concrete application gaps at tested main434b, for Mark only:
 
-RGB-MIL по опубликованному `matvey_result_final.json`: source-validation macroF1 .72953→.78363 (+.05409), fall recall .82353 без снижения. Это 37 weak/source clips и отдельная скалярная модель с pooling/prior; не actor-level industrial test и не готовая bbox-модель SafeWatch.
+1. `import-artifact` CLI is still absent; service `artifact_import` exists. Its
+   metrics=None path assumes the current analysis step, which can mis-key sparse
+   historical outputs. Expose/validate true cadence or require supplied metrics.
+2. nc/input_name and local.providers exist in schema/specification but are not yet
+   wired by the corresponding backend; current local runtime is CPU. Our primary
+   remains COCO80 and input images, so this does not block current local models.
+3. Optional-tail, adaptive timeout/--reply-timeout, extra-error fallback and extra
+   metrics are not all implemented yet. New Phone has no TPU program/tail; do not
+   switch it to LinQ based on schema alone.
+4. `load_carrying` remains skeleton. Model registration does not implement S08.
+5. Review strict Matvey namespace/durable-request handling before live remote
+   execution; existing uploader stages under mosprom_work and forces mosprom_;
+   app reply identities differ from the isolated root journal. No unisolated call
+   was made to bypass this review.
 
-Разметка `/workspace/datasets/quality/temporal/episode-gt.source-reference.json` явно не имеет полной независимой human-review; URFall reference содержит uncertainty/unknown. В `safewatch eval` нет масок неизвестного, actor-aware matching или bounded-onset GT. Поэтому разметка **не была молча превращена в полный список expected**. `eval.compatibility-only.yaml` относится только к пустому искусственному control, не к заводскому видео.
-
-Для действительно полностью просмотренной development/validation-разметки есть `python -m ml.safewatch_delivery eval-labels --source reviewed-events.json --output eval.matvey.yaml`. Вход: `reviewed_complete: true`, `scope: development|validation`, `videos: [{path, camera_id?, expected: [{scenario,start_s,end_s}]}]`, опционально `deadline_s`. Weak/неполные/sealed-test данные отклоняются. Нативный `suspected_fall` нельзя автоматически переименовать в `fall` без согласования GT-семантики.
-
-Предложения приложению — **не реализованы**: PPE-плагин; temporal/RGB classifier hook; tracked extra-vehicles; импорт внешних GPU JSONL; отдельный namespace/staging загрузчика; optional no-tail ABI и настраиваемый input name; полноценный actor/unknown-aware scorer. До появления соответствующих object-checkpoint новые fire/cigarette/harness/load записи не создаются как «готовые».
-
-Новые GPU-задачи, TPU-запросы, обучения и компиляции при выдаче: **0**. Активные процессы, сеть, SSH/VPN и общая инфраструктура не останавливались и не перенастраивались. Контроль реального нового LinQ и согласованный слот остаются отдельным release gate.
-
-Проверки слоя выдачи: **7/7** тестов в preparation-окружении (включая реальную ONNX/ORT сборку хвоста); общий `unittest discover` — **499 tests OK, skipped=4** в linQ-client окружении, где ONNX-тесты дополнительно выполнены отдельно. SHA всех файлов выдачи, local evidence и всех членов архива проверены. Программные тесты не являются измерением accuracy. В рабочем дереве оставлены нетронутыми чужие параллельные изменения и `.ipynb_checkpoints/`.
+No source fix is applied by this branch. Final archive paths, verified digests,
+commit and publication receipt are recorded in the release checkpoint.
