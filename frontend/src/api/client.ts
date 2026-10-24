@@ -62,3 +62,8 @@ export function uploadVideo(
     xhr.send(form);
   });
 }
+
+// The <video> element loads the file itself; the URL lives here with the other server paths.
+export function videoUrl(videoId: number): string {
+  return `${import.meta.env.VITE_API_BASE || location.origin}/api/videos/${videoId}/file`;
+}

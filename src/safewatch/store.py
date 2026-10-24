@@ -246,3 +246,20 @@ def finished_jobs(limit: int) -> list[sqlite3.Row]:
 
 def jobs_recover() -> int:
     return run("UPDATE jobs SET status = 'queued' WHERE status = 'running'")
+
+
+def artifact_path(artifact_id: int) -> str:
+    """Path of an artifact the job already holds the id of."""
+    return str(
+        conn().execute("SELECT path FROM artifacts WHERE id = ?", (artifact_id,)).fetchone()[0]
+    )
+
+
+# --- analyses -----------------------------------------------------------------------------
+def analysis_next_version(video_id: int) -> int:
+    row = one("SELECT coalesce(max(version), 0) + 1 FROM analyses WHERE video_id = ?", video_id)
+    return int(row[0]) if row else 1
+
+
+def analysis(analysis_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM analyses WHERE id = ?", analysis_id)

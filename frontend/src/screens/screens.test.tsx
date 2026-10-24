@@ -11,6 +11,7 @@ vi.mock("../api/client", () => ({
   api: { GET: vi.fn(), POST: vi.fn(), PUT: vi.fn(), PATCH: vi.fn(), DELETE: vi.fn() },
   apiError: (e: { code: string; message: string }) => e,
   uploadVideo: vi.fn(),
+  videoUrl: (id: number) => `/api/videos/${id}/file`,
 }));
 vi.mock("../api/ws", () => ({ useWs: vi.fn() }));
 
@@ -89,6 +90,48 @@ describe("screens", () => {
     expect(screen.getByText("Браузер может не воспроизвести кодек mp4v: нужен H.264")).toBeTruthy();
     expect(screen.getByText("21,5")).toBeTruthy();
     expect(screen.getByText("linq (фейк)")).toBeTruthy();
+  });
+
+  it("camera_setup_player_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null); // jsdom has no canvas
+    const camera = {
+      id: 7, sector_id: 1, name: "Пресс №2", description: "", is_demo: false,
+      has_calibration: false, zones_count: 0, videos_count: 1,
+    };
+    const video = {
+      id: 3, camera_id: 7, filename: "walk.mp4", sha256: "ab", size_bytes: 10, width: 320, height: 240,
+      fps: 25, frame_count: 75, duration_ms: 3000, codec: "avc1", browser_playable: true,
+      status: "ready", active_analysis_id: 11, created_at: "2026-10-24T09:00:00.000Z",
+    };
+    const frame = {
+      frame_idx: 0, ts_ms: 0,
+      objects: [
+        {
+          track_id: 1, kind: "person", label: "человек", score: 0.9, bbox: [0.1, 0.2, 0.3, 0.9], kpts: null,
+          tags: [{ code: "speed", text: "бег 2,4 роста/с", level: "yellow" }],
+        },
+      ],
+    };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve(
+        path === "/api/videos/{video_id}/tracks"
+          ? { data: { video_id: 3, analysis_id: 11, from_ms: 0, to_ms: 5000, frames: [frame] } }
+          : { data: { camera, videos: [video], jobs: [], calibration: null, zones: [], rules: [], broadcast: null } },
+      )) as never);
+    render(
+      <MemoryRouter initialEntries={["/admin/cameras/7"]}>
+        <Routes>
+          <Route path="/admin/cameras/:cameraId" element={<CameraSetup />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Скрыть HUD")).toBeTruthy();
+    expect(document.querySelector("video")?.getAttribute("src")).toBe("/api/videos/3/file");
+    expect(vi.mocked(api.GET)).toHaveBeenCalledWith("/api/videos/{video_id}/tracks", {
+      params: { path: { video_id: 3 }, query: { from_ms: 0, to_ms: 5000 } },
+    });
+    fireEvent.keyDown(window, { key: "h" });
+    expect(screen.getByText("Показать HUD")).toBeTruthy();
   });
 
   it("system_screen_renders", async () => {

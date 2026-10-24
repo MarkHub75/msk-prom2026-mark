@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { api, uploadVideo } from "../../api/client";
+import { api, uploadVideo, videoUrl } from "../../api/client";
 import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
 import { useWs } from "../../api/ws";
 import { DataTable } from "../../components/DataTable";
+import { VideoWithHud } from "../../components/VideoWithHud";
 
 type Job = components["schemas"]["Job"];
 type Video = components["schemas"]["Video"];
@@ -25,7 +26,8 @@ function num(x: number | null | undefined, digits = 1): string {
   return x === null || x === undefined ? "—" : x.toFixed(digits).replace(".", ",");
 }
 
-// Tab «Видео» of the camera setup (tech.md 8.14); calibration, zones and rules come with slice 9.
+// Tab «Видео» of the camera setup (tech.md 8.14); calibration, zones and rules come with slice 9,
+// so the player gets no zones and no grid yet.
 export function CameraSetup() {
   const cameraId = Number(useParams().cameraId);
   const view = useApi(
@@ -35,6 +37,7 @@ export function CameraSetup() {
   const [live, setLive] = useState<Record<number, Job>>({});
   const [upload, setUpload] = useState<number>();
   const [error, setError] = useState<string>();
+  const [watch, setWatch] = useState<number>();
 
   useWs((message) => {
     if (message.type !== "job.progress") return;
@@ -57,6 +60,8 @@ export function CameraSetup() {
   if (!view.data) return <p>Загрузка…</p>;
   const jobs = view.data.jobs.map((j) => live[j.id] ?? j);
   const lastJob = (video: Video) => jobs.find((j) => j.video_id === video.id);
+  const analyzed = view.data.videos.filter((v) => v.active_analysis_id !== null);
+  const shown = analyzed.find((v) => v.id === watch) ?? analyzed[0];
   const metrics: Metrics[] = jobs
     .filter((j) => j.status === "done")
     .flatMap((j) => j.metrics.map((m, n) => ({ ...m, id: j.id * 10 + n })));
@@ -96,6 +101,17 @@ export function CameraSetup() {
             },
           },
           {
+            title: "Плеер",
+            cell: (v) =>
+              v.active_analysis_id === null ? (
+                "—"
+              ) : (
+                <button type="button" onClick={() => setWatch(v.id)}>
+                  Смотреть с HUD
+                </button>
+              ),
+          },
+          {
             title: "Кодек",
             cell: (v) =>
               v.browser_playable ? (
@@ -108,6 +124,15 @@ export function CameraSetup() {
         rows={view.data.videos}
         empty="Видео ещё нет"
       />
+      <h2>Плеер</h2>
+      {shown ? (
+        <>
+          <p>{shown.filename}</p>
+          <VideoWithHud key={shown.id} videoId={shown.id} src={videoUrl(shown.id)} zones={[]} grid={[]} />
+        </>
+      ) : (
+        <p>Нет видео с готовым анализом</p>
+      )}
       <h2>Замеры</h2>
       <DataTable
         columns={[

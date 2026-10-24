@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S3 закрыт, следующий S4
+- state: S4 закрыт, следующий S5
 - tech.md: v1
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -46,6 +46,13 @@
 - GAP: S3, `doctor._linq_check(settings)`: без `LINQ_JUPYTER_URL` или `LINQ_JUPYTER_USER` — FAIL «нет ключей» без `backend_check` (с пустым URL `JupyterShell` падает не сетевой ошибкой); строка `связь с LinQ: <state>` с `BackendStatus.message`; `serve` печатает число возвращённых в очередь задач.
 - GAP: S3, фронт: бейдж `data-testid="backend-state"` в `AppShell` (по WS `backend.status`, текст `message`, иконка ●/▲), `SystemScreen` подключён в `nav.ts`; `App.test.tsx` подменяет `WebSocket` в `beforeEach`.
 - R5: в живом прогоне вызвать `POST /api/system/backend-check` без фейка: `ls -1 /auto/cache/<login>` перечисляет программы `mosprom_*`, состояние `ok`; если Jupyter отдаёт HTML через исключение `JupyterError`, сейчас это `unreachable`, а не `bad_answer`.
+- GAP: S4, `analysis.pipeline.analyze` берёт секции `tracker`, `pose`, `features` и порог `scenarios.running.speed_bh_s` (жёлтая подпись скорости) из `config.get_settings()`: в `AnalysisConfig` их нет; параметр `config` сохранён по 8.2, модуль импортирован как `app_config`; `VEHICLES = ("car", "bus", "truck", "train")`; `pose_used = pose is not None`.
+- GAP: S4, `Tracker(cfg: TrackerConfig, ids: itertools.count[int])`, `Tracker.update(ts_ms, dets) -> list[tuple[int, Detection]]` (подтверждённые и сопоставленные в кадре); id выдаётся при подтверждении (предварительный трек без id), открывающая детекция — первое попадание; трек живёт, пока `ts − last_seen ≤ max_lost_s` (ровно 1,0 с — прежний id).
+- GAP: S4, `features.History = dict[int, list[tuple[int, PersonState]]]`, `features.attach_keypoints(boxes, poses, match_iou) -> dict[int, list[Keypoint]]` (индекс рамки → точки), `features.person_states(tracks, kpts, ts_ms, frame_height, history, cfg, kpt_conf) -> list[PersonState]` (дописывает кадр в `history`); `ANKLES`, `SHOULDERS_HIPS`, `FRAME_EDGE_PX = 2`; H_ref до первой вертикальной позы — текущая высота, в позе `lying` — прежний, нет вертикальных точек в окне — прежний.
+- GAP: S4, `hud.build_hud(ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig) -> HudFrame`; скорость `speed_bh_s ≥ run_bh_s` → «бег <v> роста/с», `yellow` (как у правила `running`), иначе «<v> роста/с» без уровня; «неподвижен» при `ts − still_since > still_after_s`; координаты обрезаются в [0, 1]; подписи наблюдений `P` придут с плагинами S5.
+- GAP: S4, `texts.py`: `HUD_SPEED_BH`, `HUD_RUN_BH`, `HUD_LYING`, `HUD_STILL`, `HUD_FEET_HIDDEN`, `HUD_TOO_SMALL`, `OBJECT_LABELS: dict[str, str]` (класс → подпись, нет ключа → имя класса), `VIDEO_NOT_READY`, `TRACKS_WINDOW_INVALID`.
+- GAP: S4, `store`: `artifact_path(artifact_id) -> str`, `analysis_next_version(video_id) -> int`, `analysis(analysis_id)`; `services._analyze(job_id, video, det, pose)` и `_analysis_files(...)` (поток: чтение артефактов, `analyze`, запись `hud.jsonl`); `video_tracks`: сначала 404, потом 422 (`field="to_ms"`), потом 409; `analyses.duration_ms` = длительность видео.
+- GAP: S4, фронт: `DrawOp` (`rect`, `label`, `path`), `Size`, `CHAR_W`, `LINE_H`, `PAD` в `components/hud.ts`; `HudCanvas({ops, size})` (размер холста нужен, ops в пикселях); `videoUrl(videoId)` в `src/api/client.ts`; `VideoWithHud` берёт окна `/tracks` по 5000 мс; клавиша H (и Р в русской раскладке).
 - владелец: удалить случайный лог `D:\scratch_fe.log` (S3 записал вывод `npm run gate` в корень диска, удаление заблокировала защита Claude Code).
 
 ## log
@@ -89,6 +96,13 @@
 - проверено вживую: нет (S3 без LinQ, лимит) | не проверено: LinQ Jupyter (`check`, `ls`)
 - [проверить]: нет
 - следующему: в тестах бэкенд со своим шеллом: `monkeypatch.setattr(services, "_backend", LinqBackend(settings, FakeRemoteShell()))`, недоступность в проверке — `shell.fault = "unavailable"`; `LocalBackend` прогоняется в `tests/test_local_backend.py` на `models/*.onnx` (локально есть, в CI пропуск).
+
+### S4: tracking (2026-10-24, PR #6, tech v1)
+- отклонения: правлены файлы вне списка слайса: `texts.py` (подписи HUD), `frontend/src/api/client.ts` (`videoUrl`); `geometry.ioa`, `point_rect_distance`, `point_segment_distance` из раздела 7 не написаны: их первый потребитель — плагины S10, сейчас это мёртвый код; подписи наблюдений `P` в HUD не написаны (плагинов нет до S5).
+- решения вне контракта: в S4 техника трекается (`VehicleState` с `speed_vh_s=None`, `footprint=None`), прочие классы — объекты без трека; подписи скорости в м/с, калибровка и зоны — S9; плеер вкладки «Видео» показывает видео с `active_analysis_id`, кнопка «Смотреть с HUD».
+- проверено вживую: нет (S4 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `pipeline.analyze` уже строит `FrameContext` на кадр: S5 вызывает плагины и `EpisodeManager` в том же цикле и добавляет подписи наблюдений в `build_hud`; в тестах анализ на синтетике — `scenes.render(scene, 800, 240, 25, n, 2, "detect")` и `analyze(det, None, Path("unused.mp4"), cfg, None, model)` (`tests/test_tracking.py::_people`); готовый анализ через задачу — `_analyzed` в `tests/test_tracks_api.py`.
 
 ## night
 

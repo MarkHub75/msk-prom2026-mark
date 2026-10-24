@@ -143,3 +143,22 @@ DEMO_RESOLVE_COMMENTS = [
 def fmt_num(x: float) -> str:
     """One decimal with a comma: 3.14 → "3,1"."""
     return f"{x:.1f}".replace(".", ",")
+
+
+# HUD tags and object labels (tech.md 8.2 item 8).
+HUD_SPEED_BH = "{v} роста/с"
+HUD_RUN_BH = "бег {v} роста/с"
+HUD_LYING = "лежит {n} с"
+HUD_STILL = "неподвижен {n} с"
+HUD_FEET_HIDDEN = "ноги не видны"
+HUD_TOO_SMALL = "слишком мелко"
+OBJECT_LABELS = {
+    "person": "человек",
+    "car": "легковой автомобиль",
+    "bus": "автобус",
+    "truck": "грузовик",
+    "train": "поезд",
+    "cell phone": "телефон",
+}
+VIDEO_NOT_READY = "Анализ видео ещё не готов"
+TRACKS_WINDOW_INVALID = "Окно: from_ms меньше to_ms, не длиннее {max} мс"
