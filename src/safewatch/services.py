@@ -969,7 +969,6 @@ def models_view() -> ModelsView:
 
 def system_view() -> SystemView:
     settings = config.get_settings()
-    empty = Percentiles(n=0, pending=0, p50=None, p95=None)  # notifications come in slice 6
     return SystemView(
         backend=settings.inference_backend,
         fake=settings.fake,
@@ -978,13 +977,24 @@ def system_view() -> SystemView:
         recent_jobs=[_job(row) for row in store.finished_jobs(RECENT_JOBS)],
         cameras=camera_states(),
         models=registry.active_models(settings),
-        latency=LatencyStats(notify_delay_s=empty, publish_lag_ms=empty),
+        latency=_latency(),
         channels=[
             Channel(name=w.name, kind="webhook", target=delivery.target(w.url), levels=w.levels)
             for w in settings.delivery.webhooks
         ],
         server_now=clock.now(),
     )
+
+
+def _latency() -> LatencyStats:
+    """Every broadcast event: `published_at − started_at`, s, and lag behind the planned confirm."""
+    delay, lag = [], []
+    for r in store.publish_latencies():
+        started, published = clock.parse(r["started_at"]), clock.parse(r["published_at"])
+        planned = started + timedelta(milliseconds=r["confirm_ms"] - r["video_start_ms"])
+        delay.append((published - started).total_seconds())
+        lag.append((published - planned) / timedelta(milliseconds=1))
+    return LatencyStats(notify_delay_s=_percentiles(delay, 0), publish_lag_ms=_percentiles(lag, 0))
 
 
 def video_tracks(video_id: int, from_ms: int, to_ms: int) -> TracksWindow:

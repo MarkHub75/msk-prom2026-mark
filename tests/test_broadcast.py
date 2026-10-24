@@ -372,3 +372,12 @@ async def test_start_stop_conflicts_and_messages(
     assert [(k, d["id"], d["status"]) for k, d in drain(ws)] == [
         ("broadcast.state", third.id, "stopped")
     ]
+
+
+def test_latency_counts_published_events(core: Settings, fake_clock: FakeClock) -> None:
+    b = playing([EPISODE])
+    at(fake_clock, started(b), 5500)  # confirm at 5000 ms, the tick comes 500 ms late
+    services.broadcast_tick()
+    latency = services.system_view().latency
+    assert (latency.notify_delay_s.n, latency.notify_delay_s.p50) == (1, 2.5)
+    assert (latency.publish_lag_ms.n, latency.publish_lag_ms.p95) == (1, 500.0)

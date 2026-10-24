@@ -485,6 +485,14 @@ def events_where(where: tuple[str, list[Any]]) -> list[sqlite3.Row]:
     return all(f"{_EVENTS} WHERE {sql} ORDER BY e.started_at, e.id", *args)
 
 
+def publish_latencies() -> list[sqlite3.Row]:
+    """Broadcast events with the confirm time of their episode (`system_view.latency`)."""
+    return all(
+        """SELECT e.started_at, e.published_at, e.video_start_ms, ep.confirm_ms
+        FROM events e JOIN episodes ep ON ep.id = e.episode_id WHERE e.is_demo = 0"""
+    )
+
+
 def journal_actions(event_ids: list[int]) -> list[sqlite3.Row]:
     """Actions of many events in one query, by event, `at`, `id`."""
     sql = """SELECT * FROM event_actions WHERE event_id IN (SELECT value FROM json_each(?))
