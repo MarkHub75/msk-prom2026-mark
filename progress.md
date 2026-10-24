@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S23 закрыт, следующий S24
+- state: tech v6, второй прогон: S24 в работе
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
