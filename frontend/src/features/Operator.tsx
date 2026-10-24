@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
-import type { CameraTile, EventSummary, SectorState } from "../api/types";
+import type { CameraTile, EventSummary, HumanAction, SectorState } from "../api/types";
+import { useRole } from "../roles";
+import { ACTIONS, useEventActions } from "./eventActions";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { EventFeed } from "../components/EventFeed";
@@ -66,8 +68,16 @@ function QueueRow({ event, selected, onSelect, closed }: { event: EventSummary; 
   </li>;
 }
 
-function SelectedEvent({ event }: { event: EventSummary }) {
+// Quick decisions of the operator; the server's allowed_actions decides which of them are shown.
+const QUICK: HumanAction[] = ["confirm", "false_alarm", "send_to_master"];
+
+function SelectedEvent({ event, onDone }: { event: EventSummary; onDone: () => void }) {
+  const [role] = useRole();
   const detail = useApi(() => api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }), [event.id, event.status]);
+  const shown = detail.data?.event.id === event.id ? detail.data : undefined;
+  const { busy, actionError, send } = useEventActions(event.id, shown, `${role}:${event.id}`);
+  const actions = shown?.allowed_actions.filter(action => QUICK.includes(action)) ?? [];
+  const act = async (action: HumanAction) => { if (await send(action)) onDone(); };
   const evidence = detail.data?.episode?.evidence[0];
   return <section className="cr-selected" aria-label="Выбранное событие">
     <h2>Выбранное событие</h2>
@@ -79,6 +89,8 @@ function SelectedEvent({ event }: { event: EventSummary }) {
       <dt>Место</dt><dd>{shortSector(event.sector_name)} · {event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</dd>
       <dt>Статус</dt><dd><span className={`cr-status cr-status-${event.level}`}>{event.status_title}</span></dd>
     </dl>
+    {actions.length > 0 && <div className="cr-quick" aria-label="Быстрые действия">{actions.map(action => <button key={action} data-action={action} disabled={Boolean(busy)} onClick={() => void act(action)} className={`button button-small ${action === "confirm" ? event.level === "red" ? "button-danger" : "button-primary" : "button-light"}`}>{busy === action ? "Сохраняем…" : ACTIONS[action]}</button>)}</div>}
+    {actionError && <ErrorNotice error={actionError} compact retry={detail.reload} />}
     <Link className={`button cr-open ${event.level === "red" ? "button-danger" : "button-primary"}`} to={`/events/${event.id}`}>Открыть событие <Icon name="arrow" size={16} /></Link>
   </section>;
 }
@@ -151,7 +163,7 @@ export function OperatorPage() {
         <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{waiting.length}</span></div>
         <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
         {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Камеры без наблюдения показаны в полосе секторов: отсутствие тревог там не означает безопасность.</span></div>}
-        {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} />}
+        {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} onDone={dashboard.reload} />}
         {inWork.length > 0 && <details className="cr-history cr-inwork"><summary><span>В работе: решение принято, ждём закрытия</span><span className="mono">{inWork.length}</span></summary><ol className="cr-q-list">{inWork.slice(0, 30).map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol>{inWork.length > 30 && <Link className="text-link" to="/ohs/journal">Ещё {inWork.length - 30} — в журнале <Icon name="arrow" size={14} /></Link>}</details>}
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
       </aside>

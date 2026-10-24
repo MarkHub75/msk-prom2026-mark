@@ -198,6 +198,9 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
 .cr-facts dt { color: var(--muted); }
 .cr-facts dd { margin: 0; }
 .cr-open.button { width: 100%; justify-content: space-between; margin: 0; min-height: 38px; font-size: 13px; }
+.cr-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.cr-quick .button { margin: 0; min-height: 34px; font-size: 12.5px; justify-content: center; }
+.cr-quick .button:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .cr-history { border-top: 1px solid var(--line-soft); padding: 8px 14px 12px; font-size: 12px; }
 .cr-inwork { margin-top: auto; }
 .cr-inwork .cr-q-list { padding: 4px 0; }

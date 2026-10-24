@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { api, apiError } from "../api/client";
+import { api } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { EventAction, EventDetail, HumanAction } from "../api/types";
 import { useRole } from "../roles";
@@ -8,46 +8,29 @@ import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates, roleTitles } from "../components/AppShell";
 import { EvidenceFrame, RecordedVideo } from "../components/Media";
 import { useActorIdentity } from "../components/ActorIdentity";
+import { ACTIONS, useEventActions } from "./eventActions";
 import "../styles/incident-review.css";
 import { Breadcrumb, duration, Empty, ErrorNotice, Icon, Level, Loading, PageHeading, PanelHeading, Status, time } from "../components/ui";
 
-const ACTIONS: Record<HumanAction, string> = {view:"Отметить просмотр",confirm:"Подтвердить",false_alarm:"Ложное срабатывание",send_to_master:"Передать мастеру",accept:"Принять в работу",resolve:"Отправить отчёт и завершить"};
 const HISTORY: Record<EventAction["action"], string> = {published:"Событие опубликовано",viewed:"Открыто оператором",confirmed:"Событие подтверждено",false_alarm:"Ложное срабатывание",sent_to_master:"Передано мастеру",level_escalated:"Повышен уровень",timeout_escalated:"Эскалация по таймауту",master_accepted:"Мастер принял в работу",resolved:"Меры приняты · завершено",auto_finished:"Автоматически завершено",superseded:"Заменено новым событием"};
 
 function useEventDetail(id: number) {
   const [role] = useRole(); const updates = useUpdates();
-  const { actor, ensureActor } = useActorIdentity();
+  const { actor } = useActorIdentity();
   const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role,updates]);
   const [result, setResult] = useState<{ detail: EventDetail; rest: EventDetail | undefined; identity: string }>();
-  const [busy, setBusy] = useState<HumanAction>();
-  const [actionError, setActionError] = useState<{code:string;message:string}>();
-  const guard = useRef(false);
   const viewed = useRef(new Set<string>());
   const identity = `${role}:${id}`;
-  const currentIdentity = useRef(identity); currentIdentity.current = identity;
   const rest = useRef(request.data); rest.current = request.data;
   const current = result?.identity === identity && result.rest === request.data ? result.detail : request.data;
   const detail = !request.error && !request.loading && current?.event.id === id ? current : undefined;
-  const latestDetail = useRef(detail); latestDetail.current = detail;
-  useEffect(() => { setResult(undefined); setActionError(undefined); }, [id,role]);
+  const { busy, actionError, send: post } = useEventActions(id, detail, identity);
+  useEffect(() => { setResult(undefined); }, [id,role]);
   const send = useCallback(async (action: HumanAction, comment = "") => {
-    if (guard.current) return false;
-    guard.current = true; setBusy(action); setActionError(undefined);
-    const sendingIdentity = identity;
-    try {
-      if (!await ensureActor() || currentIdentity.current !== sendingIdentity) return false;
-      if (!latestDetail.current?.allowed_actions.includes(action)) {
-        setActionError({code:"state_changed",message:"Состояние изменилось. Обновите событие и выберите доступное действие."});
-        return false;
-      }
-      const response = await api.POST("/api/events/{event_id}/actions", { params:{path:{event_id:id}},body:{action,comment:comment.trim()} });
-      if (currentIdentity.current !== sendingIdentity) return false;
-      if (response.error) { setActionError(apiError(response.error)); return false; }
-      if (response.data) setResult({detail:response.data,rest:rest.current,identity:sendingIdentity});
-      return true;
-    } catch (error) { if (currentIdentity.current===sendingIdentity) setActionError(apiError(error)); return false; }
-    finally { guard.current = false; setBusy(undefined); }
-  }, [id,identity,ensureActor]);
+    const done = await post(action, comment);
+    if (done && done.saved !== true) setResult({detail:done.saved,rest:rest.current,identity});
+    return Boolean(done);
+  }, [post,identity]);
   useEffect(() => {
     const key = `${identity}:${detail?.event.published_at}`;
     if (actor.trim() && detail?.allowed_actions.includes("view") && !viewed.current.has(key)) {
