@@ -4,7 +4,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { WebSocketServer } from "ws";
-import { AppError, Mock, publicCamera } from "./state.mjs";
+import { AppError, Mock, previewBytes, publicCamera } from "./state.mjs";
 import {
   ACTOR_MAX, CONTRACT, HUMAN_ACTIONS, LEVEL_COLORS, LEVEL_TITLES, MSG, PRODUCT_TITLE, ROLES, ROLE_ACTIONS,
   ROLE_TITLES, SCENARIOS, SCENARIO_TITLES, STATUS_TITLES, TERMINAL, TIMEZONE, ZONE_KINDS,
@@ -291,6 +291,14 @@ async function api(req, res, url) {
     if (mock.faults.evidence404 || !ev?.bytes) throw apiError(404, "not_found", MSG.notFound, { evidence_id: id });
     res.writeHead(200, { ...res.cors, "Content-Type": "image/jpeg", "Cache-Control": "no-store" });
     return res.end(ev.bytes);
+  }
+  if (m === "GET" && (match = p.match(/^\/api\/cameras\/([^/]+)\/preview$/))) {
+    const id = intParam(match[1], "camera_id");
+    const c = mock.camera(id);
+    const bytes = c?.observed ? previewBytes(id) : null;
+    if (!bytes) throw apiError(404, "not_found", "Кадр камеры недоступен", { camera_id: id });
+    res.writeHead(200, { ...res.cors, "Content-Type": "image/jpeg", "Cache-Control": "no-store" });
+    return res.end(bytes);
   }
   // Read-only views of slice 1 that the frontend of main already calls; writes stay 501.
   if (m === "GET" && p === "/api/admin/cameras") return json(res, 200, { sectors: mock.sectors, cameras: mock.cameras.map(publicCamera) });

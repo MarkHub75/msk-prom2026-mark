@@ -8,6 +8,9 @@ import {
 } from "./world.mjs";
 
 export const EVIDENCE_DIR = new URL("../evidence/", import.meta.url);
+// Camera stills for the wall: previews/cam-<id>.jpg (synthetic, see previews/README.md). Missing file -> preview_url null.
+export const PREVIEW_DIR = new URL("../previews/", import.meta.url);
+export function previewBytes(id) { try { return readFileSync(new URL(`cam-${id}.jpg`, PREVIEW_DIR)); } catch { return null; } }
 const FEED_LIMIT = 100;
 const RECENT_CLOSED_MS = 30 * 60 * 1000;
 const ESCALATION_TIMEOUT_MS = 45 * 1000;
@@ -176,7 +179,7 @@ export class Mock {
     const cams = this.cameras.filter((c) => c.sector_id === id);
     return {
       sector: this.sectorState(s),
-      cameras: cams.map((c) => ({ camera: publicCamera(c), state: this.cameraState(c), broadcast: null, preview_url: null })),
+      cameras: cams.map((c) => ({ camera: publicCamera(c), state: this.cameraState(c), broadcast: null, preview_url: c.observed && previewBytes(c.id) ? `/api/cameras/${c.id}/preview` : null })),
       feed: this.feed((e) => e.sector_id === id),
     };
   }
