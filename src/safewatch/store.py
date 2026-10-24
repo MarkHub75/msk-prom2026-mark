@@ -182,11 +182,17 @@ def video_update(video_id: int, values: dict[str, Any]) -> None:
     run(f"UPDATE videos SET {assignments} WHERE id = ?", *values.values(), video_id)
 
 
-# Metrics of the job's artifacts come in the same row: no per-job round trips.
+# Metrics of the job's artifacts come in the same row: no per-job round trips. The extra
+# models are those of the analysis snapshot (tech.md 8.30 item 11): [index, metrics, created].
 _JOBS = """
 SELECT j.*, v.camera_id,
     d.metrics_json AS det_metrics, d.created_at AS det_created,
-    p.metrics_json AS pose_metrics, p.created_at AS pose_created
+    p.metrics_json AS pose_metrics, p.created_at AS pose_created,
+    (SELECT json_group_array(json_array(e.key, x.metrics_json, x.created_at))
+        FROM analyses an
+        JOIN json_each(an.config_json, '$.extra_artifact_ids') e
+        JOIN artifacts x ON x.id = e.value
+        WHERE an.id = j.analysis_id) AS extra_metrics
 FROM jobs j
 JOIN videos v ON v.id = j.video_id
 LEFT JOIN artifacts d ON d.id = j.det_artifact_id
