@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S0 не начат
+- state: S0 в работе (ветка slice-0-skeleton)
 - tech.md: v1
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
