@@ -32,7 +32,8 @@ export class Mock {
   reset() {
     const now = this.now();
     Object.assign(this, buildWorld(now));
-    this.nextEventId = this.events.length + 1;
+    // Live ids keep growing across resets: a frontend must not take a new event for an old one.
+    this.nextEventId = Math.max(this.nextEventId ?? 0, this.events.length + 1);
     this.nextActionId = 1;
     for (const e of this.events) for (const a of e.actions) a.id = this.nextActionId++;
     this.step = 0;

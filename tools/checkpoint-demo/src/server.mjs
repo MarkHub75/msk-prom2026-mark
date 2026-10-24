@@ -307,7 +307,10 @@ async function api(req, res, url) {
 
 async function director(req, res, url) {
   const p = url.pathname.replace(/^\/__demo\/?/, "");
-  if (req.method === "GET" && p === "status") return json(res, 200, mock.status());
+  if (req.method === "GET" && p === "status") {
+    const ws = Object.fromEntries(ROLES.map((r) => [r, [...clients].filter((c) => c.role === r).length]));
+    return json(res, 200, { ...mock.status(), ws_clients: ws });
+  }
   if (req.method !== "POST") throw apiError(405, "method_not_allowed", "POST");
   if (p === "next") {
     const out = mock.publishNext({ force: url.searchParams.get("force") === "1" });
@@ -316,7 +319,8 @@ async function director(req, res, url) {
   }
   if (p === "reset") {
     mock.reset();
-    const dropped = dropWs(); // clients reconnect, get hello and reread their screens
+    // Clients reconnect, get hello and reread their screens; ?keep_ws=1 keeps them (e2e of ws-drop).
+    const dropped = url.searchParams.get("keep_ws") === "1" ? 0 : dropWs();
     log(`demo reset: мир восстановлен, разорвано WS: ${dropped}`);
     return json(res, 200, { reset: true, ws_dropped: dropped, status: mock.status() });
   }

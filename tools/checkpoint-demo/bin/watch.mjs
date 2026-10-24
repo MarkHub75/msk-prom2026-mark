@@ -3,7 +3,8 @@
 // 2) smoke --target real by the contract of main; compare contract/*.json with contract-base.json;
 // 3) stop the backend (uv run --no-sync safewatch stop) and wait for the port;
 // 4) one line in WATCH_LOG.md; a PASS that became FAIL is a line «РЕГРЕССИЯ».
-//   node bin/watch.mjs [--real DIR]
+//   node bin/watch.mjs [--real DIR] [--no-local]
+// Then bin/local-checks.mjs on the private stack (smoke mock x20, e2e); its summary joins the line.
 // Exit: 0 done, 10 the contract changed (the mock must be updated), 2 the scratch worktree is missing.
 import { spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -114,6 +115,17 @@ if (ownBackend) {
   if (!(await waitFor(async () => !(await up()), 20000))) notes.push(`порт 8000 не освободился (${stop.out.slice(0, 60)})`);
 }
 
+// Private stack (mock 4110/4111, Vite 5174): smoke mock x20 and the e2e; port 8000 is not used.
+let local = null;
+if (!args.includes("--no-local")) {
+  const lc = spawnSync(process.execPath, [join(HERE, "bin", "local-checks.mjs")], { cwd: HERE, encoding: "utf8", timeout: 900000 });
+  try {
+    local = JSON.parse(lc.stdout.trim().split("\n").at(-1));
+  } catch {
+    notes.push(`локальные проверки не отработали: ${(lc.stderr || lc.stdout).trim().slice(0, 120)}`);
+  }
+}
+
 // 4. log
 const prev = existsSync(LAST) ? JSON.parse(readFileSync(LAST, "utf8")) : null;
 const before = new Map((prev?.rows ?? []).map((r) => [r.step, r.result]));
@@ -138,6 +150,7 @@ const line = [
   !prev ? "первый прогон" : `заработало: ${fixed.join("; ") || "—"}; сломалось: ${broken.join("; ") || "—"}`,
   ...result.rows.filter((r) => r.result === "FAIL").map((r) => `FAIL: ${r.step} — ${r.detail}`),
   ...(stubs ? [`хвосты ONNX: заглушки (${stubs}), фейк их не читает`] : []),
+  ...(local ? [local.text] : []),
   ...notes,
 ].join(" · ");
 appendFileSync(LOG, `${line}\n`);

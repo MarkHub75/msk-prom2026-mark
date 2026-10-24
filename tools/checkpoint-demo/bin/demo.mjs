@@ -5,7 +5,7 @@ const [cmd, arg] = process.argv.slice(2);
 
 const USAGE = `Команды:
   next [--force]                 опубликовать следующее событие истории (жёлтое, затем красное)
-  reset                          вернуть мир в исходное состояние (рвёт WS: фронт перечитает экран)
+  reset [--keep-ws]              вернуть мир в исходное состояние (рвёт WS: фронт перечитает экран)
   status                         что опубликовано и в каких статусах
   ws-drop                        разорвать все WS-соединения
   fault <evidence-404|500|off>   инъекция ошибок`;
@@ -38,7 +38,8 @@ const commands = {
     return status === 200 ? 0 : 1;
   },
   async reset() {
-    const { body } = await call("POST", "/__demo/reset");
+    const keep = process.argv.includes("--keep-ws") ? "?keep_ws=1" : "";
+    const { body } = await call("POST", `/__demo/reset${keep}`);
     console.log(`мир восстановлен; разорвано WS: ${body.ws_dropped}`);
     printStatus(body.status);
     return 0;

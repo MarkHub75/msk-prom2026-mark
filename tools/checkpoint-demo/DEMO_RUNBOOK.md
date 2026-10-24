@@ -63,3 +63,10 @@ cd tools\checkpoint-demo
 3. `.\demo.cmd reset`. Код не меняется.
 
 Рамка на кадре — ручная разметка. Не называйте её детекцией модели. Заглушки перерисовывает `py -3.12 evidence\make_placeholders.py`.
+
+## 7. Свой стек проверок (не мешает 4010/4011/5173 и 8000)
+
+- `node bin/local-checks.mjs`: мок 4110/4111 (поднимет сам), smoke mock ×20, e2e на фикстуре и на фронте `C:\Users\User\Documents\mosprom2026-hack\frontend` (Vite 5174 со своим конфигом и кэшем во %TEMP%; файлы фронта не меняются, `npm install` там не делается).
+- `node e2e/run.mjs [--fixture | --front DIR] [--no-bugs]`: один прогон e2e, скриншоты в `e2e/screens/` (фикстура в `e2e/screens/fixture/`), провалы фронта в `e2e/FRONT_BUGS.md`.
+- Режиссёр для своего мока: `SW_MOCK_URL=http://127.0.0.1:4110 node bin/demo.mjs status` (`reset --keep-ws` — без разрыва WS).
+- `node bin/watch.mjs` (цикл, раз в 30 мин): main на 8000 + `local-checks`, строка в `WATCH_LOG.md`.
