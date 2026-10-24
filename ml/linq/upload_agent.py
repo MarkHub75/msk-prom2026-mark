@@ -80,7 +80,7 @@ def _headers(fmt, properties):
 
 
 def _stage_payload(fmt, body, cache_dir, model, stage_fn):
-    _cache_namespace(cache_dir)
+    cache_dir = _cache_namespace(cache_dir)
     if not isinstance(body, (bytes, bytearray)) or len(body) > MAX_PROGRAM_BYTES + 65536:
         raise UploadError("INVALID_BODY_SIZE")
     try:
@@ -117,8 +117,8 @@ def _stage_payload(fmt, body, cache_dir, model, stage_fn):
     if digest != expected_hash:
         raise UploadError("PROGRAM_HASH_MISMATCH")
     # No directories/files are created until every request field and hash passes.
-    with tempfile.TemporaryDirectory(prefix="linq-program-") as temporary:
-        source = Path(temporary) / "program.tpu"
+    with tempfile.TemporaryDirectory(prefix="matvey_program_", dir=str(cache_dir)) as temporary:
+        source = Path(temporary) / "matvey_program.tpu"
         source.write_bytes(blob)
         receipt = stage_fn(cache_dir, source, model=model)
     if (not isinstance(receipt, Mapping) or receipt.get("status") not in {"STAGED", "ALREADY_STAGED_IDENTICAL"} or
@@ -137,6 +137,11 @@ def _cache_namespace(cache_dir):
             or not re.fullmatch(r'[A-Za-z0-9_@+-][A-Za-z0-9_@.+-]*', parts[3]) or '..' in parts[3]
             or str(cache_dir) != str(path)):
         raise UploadError('OWNED_CACHE_NAMESPACE_REQUIRED')
+    try:
+        if path.resolve(strict=True) != path or not path.is_dir() or path.is_symlink():
+            raise UploadError('OWNED_CACHE_SYMLINK_OR_MISSING')
+    except OSError:
+        raise UploadError('OWNED_CACHE_SYMLINK_OR_MISSING') from None
     return path
 
 

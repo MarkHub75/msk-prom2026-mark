@@ -70,6 +70,7 @@ class AmqpTransportTests(unittest.TestCase):
         self.pika=SimpleNamespace(BlockingConnection=connect,
             BasicProperties=lambda **kwargs:SimpleNamespace(**kwargs))
         self.addCleanup(patch.stopall)
+        patch.object(amqp,'DEFAULT_ADMISSION_DIR',str(Path(self.journal_dir)/'admission')).start()
         patch.object(amqp,'_load_format',return_value=self.fmt).start()
         patch('ml.linq.amqp.importlib.import_module',side_effect=lambda name:self.pika if name=='pika' else self.fmt).start()
         patch.object(amqp,'monotonic',new=FakeClock()).start()

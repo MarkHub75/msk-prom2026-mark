@@ -26,6 +26,7 @@ import numpy as np
 
 from .notebook import capture_call, _arrays, _file_hash, _name, _save_report
 from .journal import DEFAULT_JOURNAL_DIR, TERMINAL, RequestJournal, atomic_json, fsync_directory
+from .admission import DEFAULT_ADMISSION_DIR, MatveyAdmission, AdmissionError
 
 FORMAT_VERSION = "0.0.1"
 _MAX_BYTES = 128 * 1024 * 1024
@@ -206,7 +207,7 @@ class AmqpRunner:
     """One publish plus durable intent; recovery only receives the original UUID."""
     def __init__(self, binding=None, program=None, *, timeout=30.0, host="127.0.0.1", port=15672,
                  journal_dir=DEFAULT_JOURNAL_DIR, purpose="inference", capture_dir=None,
-                 legacy_request_ids=()):
+                 legacy_request_ids=(), admission_dir=None):
         if (not isinstance(timeout,(int,float)) or isinstance(timeout,bool) or
                 not math.isfinite(timeout) or timeout<=0):
             raise AmqpError("positive_finite_timeout_required","configuration")
@@ -224,6 +225,7 @@ class AmqpRunner:
         self._private_service_error=None
         from .namespace import canonical_id
         self.legacy_request_ids=frozenset(canonical_id(value) for value in legacy_request_ids)
+        self.admission=MatveyAdmission(DEFAULT_ADMISSION_DIR if admission_dir is None else admission_dir)
 
     def _summary(self,request_id,record=None):
         summary={"request_id":request_id,"status":"not_started","status_code":None,
@@ -363,6 +365,14 @@ class AmqpRunner:
             return outputs
 
     def __call__(self,inputs):
+        try:
+            with self.admission.session(): return self._submit(inputs)
+        except AdmissionError as error:
+            summary=self._summary(str(uuid4()))
+            summary.update(status='failed',remote_completion='not_submitted')
+            raise AmqpError(str(error),'matvey_admission') from None
+
+    def _submit(self,inputs):
         started=monotonic();deadline=started+self.timeout;request_id=str(uuid4())
         summary=self._summary(request_id)
         connection=channel=reply_queue=None;publish_possible=False;phase='validate_inputs'
@@ -391,6 +401,7 @@ class AmqpRunner:
                 capture_dir=self.capture_dir,capture_id=capture_id)
             with self.journal.lock(request_id):
                 phase='associate_capture';self._associate(request_id,capture_id)
+                phase='matvey_admission';self.admission.claim(self.journal,request_id)
                 try:
                     with _measure(summary,'connection_setup_ms'):
                         phase='open_connection';fmt,pika,connection=self._open();channel=connection.channel()
@@ -436,6 +447,18 @@ class AmqpRunner:
         finally:summary['timings']['total_ms']=(monotonic()-started)*1000
 
     def reconcile(self,request_id,*,timeout=None):
+        # Terminal cache is offline and cannot submit. It need not wait for an
+        # unrelated active own network request or touch the global admission.
+        if self.journal.load(request_id)['state'] in TERMINAL:
+            return self._reconcile(request_id,timeout=timeout)
+        try:
+            with self.admission.session(request_id=request_id,journal=self.journal):
+                return self._reconcile(request_id,timeout=timeout)
+        except AdmissionError as error:
+            self._summary(request_id,self.journal.load(request_id))
+            raise AmqpError(str(error),'matvey_admission') from None
+
+    def _reconcile(self,request_id,*,timeout=None):
         """Receive original retained queue only; NEVER build/serialize/publish tasks."""
         started=monotonic();duration=self.timeout if timeout is None else timeout
         if not isinstance(duration,(int,float)) or isinstance(duration,bool) or not math.isfinite(duration) or duration<=0:
@@ -466,6 +489,7 @@ class AmqpRunner:
                 try:check_reply_queue(reply_queue,request_id,legacy_request_ids=self.legacy_request_ids)
                 except (ValueError,TypeError):
                     raise AmqpError('reviewed_owned_reconcile_queue_required','reconcile') from None
+                self.admission.claim(self.journal,request_id)
                 try:
                     with _measure(summary,'connection_setup_ms'):
                         fmt,_,connection=self._open(timeout=duration);channel=connection.channel()

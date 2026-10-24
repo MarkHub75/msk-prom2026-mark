@@ -44,8 +44,11 @@ class ChannelFixture:
 
 class UploadProtocolTests(unittest.TestCase):
     def setUp(self):
+        self.cache_temp=tempfile.TemporaryDirectory();self.addCleanup(self.cache_temp.cleanup)
+        self.cache=Path(self.cache_temp.name)/'matvey';self.cache.mkdir()
         self.blob=bytes(range(32));self.digest=hashlib.sha256(self.blob).hexdigest()
         self.addCleanup(patch.stopall)
+        patch.object(ua,'_cache_namespace',return_value=self.cache).start()
         patch.dict(ua._MODELS,{'helmet':('matvey_helmet-v1.tpu',self.digest),
                               'pose-split':('matvey_pose-split-v1.tpu',self.digest)}).start()
         self.fmt=FormatFixture({'program_bytes':np.frombuffer(self.blob,dtype=np.uint8)})
@@ -59,7 +62,10 @@ class UploadProtocolTests(unittest.TestCase):
 
     def stage_valid(self,cache,source,*,model):
         self.assertEqual(Path(source).read_bytes(),self.blob)
-        self.assertEqual(Path(cache),Path('/auto/cache/fixture/matvey'))
+        self.assertEqual(Path(cache),self.cache)
+        self.assertEqual(Path(source).name,'matvey_program.tpu')
+        self.assertEqual(Path(source).parent.parent,self.cache)
+        self.assertTrue(Path(source).parent.name.startswith('matvey_program_'))
         name,digest=ua._MODELS[model]
         return {'status':'STAGED','program_name':name,'program_sha256':digest,
                 'namespace_owner':'matvey','program_path_namespace_verified':True,
@@ -71,7 +77,10 @@ class UploadProtocolTests(unittest.TestCase):
         self.assertEqual(self.channel.acked,[{'delivery_tag':7}])
 
     def test_success_numeric_receipt_official_id_and_default_exchange(self):
-        self.consume()
+        original=ua.tempfile.TemporaryDirectory
+        with patch.object(ua.tempfile,'TemporaryDirectory',wraps=original) as temporary:
+            self.consume()
+            self.assertEqual(temporary.call_args.kwargs,{'prefix':'matvey_program_','dir':str(self.cache)})
         self.stage.assert_called_once()
         receipt=self.fmt.replies[0]
         self.assertEqual(receipt.status_code,0)
@@ -194,6 +203,11 @@ class UploadProtocolTests(unittest.TestCase):
 
 
 class UploadLifecycleTests(unittest.TestCase):
+    def setUp(self):
+        self.cache_temp=tempfile.TemporaryDirectory();self.addCleanup(self.cache_temp.cleanup)
+        cache=Path(self.cache_temp.name)/'matvey';cache.mkdir()
+        patcher=patch.object(ua,'_cache_namespace',return_value=cache)
+        patcher.start();self.addCleanup(patcher.stop)
     def test_ready_stop_copied_parameters_and_thread_owned_close(self):
         fmt=FormatFixture({});channel=ChannelFixture()
         closed=[];params=[]
