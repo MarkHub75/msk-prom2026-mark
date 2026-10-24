@@ -1,4 +1,4 @@
-"""ByteTrack-like tracker (tech.md 8.2 item 4, 8.31): two IoU stages by score, a center stage, TTL."""
+"""ByteTrack-like tracker (tech.md 8.2 item 4, 8.31): two IoU stages, a center stage, TTL."""
 
 import itertools
 import math

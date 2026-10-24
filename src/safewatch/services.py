@@ -480,6 +480,18 @@ def _register(
     return UploadResult(video=video_get(video_id), job=job, reused=reused)
 
 
+UPLOAD_SLACK = 64 * 2**10  # bytes of multipart boundaries and part headers over the file
+
+
+def video_upload_check(role: Role | None, content_length: int | None) -> None:
+    """Before the body is read (debt R5, tech.md 8.31): the role and the declared size.
+    The body counts the multipart framing too; the exact file size is checked while writing."""
+    _require(role, ("admin",))
+    limit = config.get_settings().upload.max_mb * 2**20
+    if content_length is not None and content_length > limit + UPLOAD_SLACK:
+        raise _too_large()
+
+
 async def video_upload(
     camera_id: int, filename: str, chunks: AsyncIterator[bytes], role: Role | None
 ) -> UploadResult:
