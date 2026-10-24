@@ -135,7 +135,7 @@ function CameraDesk({ id }: { id: number }) {
             <Fact k="Состояние"><StateBadge state={state.state} text={state.reason_text} /></Fact>
             <Fact k="Бэкенд анализа">{backendTitle(meta)}</Fact>
             <Fact k="Задержка анализа">{state.freshness_ms === null ? "эфира нет" : <span className="mono">{state.freshness_ms} мс</span>}</Fact>
-            <Fact k="Запись">{video ? <span className="mono">{video.width}×{video.height} · {video.fps} к/с · {video.codec}</span> : "нет"}</Fact>
+            <Fact k="Запись">{video ? <span className="mono">{video.width}×{video.height} · {Number(video.fps.toFixed(1))} к/с · {video.codec}</span> : "нет"}</Fact>
             <Fact k="Длительность">{video ? <span className="mono">{duration(video.duration_ms)} · {video.frame_count} кадров</span> : "—"}</Fact>
             <Fact k="Анализ">{analysis ? <>версия {analysis.version}{analysis.pose_used ? " · с позой" : " · без позы"}</> : "нет"}</Fact>
             <Fact k="Калибровка">{calibration ? <span className="mono">RMSE {calibration.fit_rmse_m.toFixed(2)} м{calibration.control_rmse_m === null ? " · без контроля" : ` · контроль ${calibration.control_rmse_m.toFixed(2)} м`}</span> : "нет · меры в ростах человека"}</Fact>

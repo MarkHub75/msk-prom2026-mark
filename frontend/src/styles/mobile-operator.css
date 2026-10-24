@@ -51,8 +51,8 @@
 .mo-head h1 { margin: 0; font-family: var(--display); font-size: 25px; font-weight: 700; line-height: 1.12; color: var(--ds-text); }
 .mo-reason-big { margin: 0; font-size: 16px; line-height: 1.45; color: var(--ds-text); }
 .mo-comment { display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 14px; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: var(--mb-radius); color: var(--ds-text-3); }
-.mo-comment input { flex: 1; min-width: 0; padding: 12px 0; border: 0; background: transparent; color: var(--ds-text); font-size: 16px; }
-.mo-comment input:focus { outline: 0; }
+.ds-app .mo-comment input:not([type=checkbox]):not([type=radio]) { flex: 1; min-height: 0; border-radius: 0 !important; box-shadow: none; min-width: 0; padding: 12px 0; border: 0; background: transparent; color: var(--ds-text); font-size: 16px; }
+.ds-app .mo-comment input:not([type=checkbox]):not([type=radio]):focus { outline: 0; }
 .mo-comment:focus-within { border-color: var(--ds-accent); }
 .mo-link { display: flex; align-items: center; justify-content: space-between; min-height: 46px; margin-top: 8px; color: var(--ds-accent-hover); font-size: 15px; font-weight: 600; }
 .mo-event .mb-more > summary span { display: inline-flex; align-items: center; gap: 6px; }
@@ -63,7 +63,9 @@
 .mo-player .od-player, .mo-player .recorded-player { width: 100%; }
 .mo-player-main { margin: 0 calc(-1 * var(--mb-gutter)); }
 .mo-player .video-frame { width: 100% !important; }
-.mo-player .player-controls { flex-wrap: wrap; gap: 6px; padding: 8px var(--mb-gutter); }
+.mo-player .player-controls { flex-wrap: wrap; align-items: center; gap: 6px; height: auto; min-height: 0; padding: 8px var(--mb-gutter); }
+/* The camera screen has its own HUD chip under the player */
+.mo-player-main .player-controls .hud-button { display: none; }
 .mo-player .player-controls kbd, .mo-player .player-controls .frame-status { display: none; }
 .mo-player .player-controls button { min-height: 40px; }
 .mo-player .timeline-wrap { padding: 0 var(--mb-gutter); }
@@ -104,7 +106,7 @@
 /* Siren screen on a phone: the whole screen, the frame on top, the decisions at the bottom */
 @media (max-width: 760px) {
   .ds-app.is-phone-app .takeover, .ds-app.is-phone-app .takeover.has-media { position: fixed !important; inset: 0 !important; z-index: 300; display: flex !important; flex-direction: column; gap: 0; width: auto !important; max-width: none !important; height: auto !important; margin: 0 !important; padding: 0 !important; overflow-y: auto; border: 0; box-shadow: none; transform: none !important; background: color-mix(in srgb, var(--ds-red-bg) 82%, #000); animation: mb-fade .2s ease-out both; }
-  .ds-app.is-phone-app .takeover-top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 8px 0 var(--mb-gutter); background: var(--ds-red); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; animation: mb-alarm-flash 1.2s ease-in-out infinite; }
+  .ds-app.is-phone-app .takeover-top, .ds-app.is-phone-app .takeover.has-media .takeover-top { position: sticky; top: 0; margin: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 8px 0 var(--mb-gutter); background: var(--ds-red); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; animation: mb-alarm-flash 1.2s ease-in-out infinite; }
   .ds-app.is-phone-app .takeover-top .button { min-height: 38px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 19px; background: transparent; color: #fff; font-size: 13px; letter-spacing: 0; text-transform: none; }
   .ds-app.is-phone-app .takeover .takeover-media { flex: none; display: block; margin: 0; padding: 0; border: 0; border-bottom: 3px solid var(--ds-red); background: var(--ds-well); }
   .ds-app.is-phone-app .takeover .takeover-media .ic-evidence, .ds-app.is-phone-app .takeover .takeover-media .evidence-frame, .ds-app.is-phone-app .takeover .takeover-img { width: 100% !important; max-height: none; margin: 0; }
@@ -114,11 +116,14 @@
   .ds-app.is-phone-app .takeover-location { color: color-mix(in srgb, var(--ds-red) 55%, #fff); font-size: 13px; line-height: 1.4; }
   .ds-app.is-phone-app .takeover h2 { margin: 6px 0 6px !important; font-size: 25px !important; line-height: 1.15; color: #fff; }
   .ds-app.is-phone-app .takeover p { margin: 0; color: color-mix(in srgb, var(--ds-red) 30%, #fff); font-size: 15px; line-height: 1.45; }
-  .ds-app.is-phone-app .takeover-actions { position: sticky; bottom: 0; z-index: 2; display: grid !important; grid-template-columns: 1fr 1fr; gap: 8px; margin: auto calc(-1 * var(--mb-gutter)) 0 !important; padding: 12px var(--mb-gutter) calc(12px + var(--mb-safe-b)) !important; border-top: 1px solid color-mix(in srgb, var(--ds-red) 35%, transparent); background: color-mix(in srgb, var(--ds-red-bg) 92%, #000); }
+  .ds-app.is-phone-app .takeover-actions { position: sticky; bottom: 0; z-index: 2; display: flex !important; flex-direction: row !important; flex-wrap: wrap; align-items: stretch !important; gap: 8px; margin: auto calc(-1 * var(--mb-gutter)) 0 !important; padding: 12px var(--mb-gutter) calc(12px + var(--mb-safe-b)) !important; border-top: 1px solid color-mix(in srgb, var(--ds-red) 35%, transparent); background: color-mix(in srgb, var(--ds-red-bg) 92%, #000); }
   .ds-app.is-phone-app .takeover-actions .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; width: 100%; border-radius: var(--mb-radius); font-size: 16px; font-weight: 700; }
   .ds-app.is-phone-app .takeover-actions .button kbd { display: none; }
+  /* Two per row; an odd last button (e.g. «Открыть карточку») takes the whole row */
+  .ds-app.is-phone-app .takeover-actions .button { flex: 1 1 calc(50% - 4px); width: auto; min-width: 0; padding: 6px 10px; white-space: normal; line-height: 1.2; text-align: center; }
+  .ds-app.is-phone-app .takeover-actions .button:not([data-action]) svg { flex: none; }
   .ds-app.is-phone-app .takeover-actions .button[data-action] { background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .28); color: #fff; }
-  .ds-app.is-phone-app .takeover-actions .button[data-action="confirm"] { grid-column: 1 / -1; min-height: 58px; font-size: 18px; background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
+  .ds-app.is-phone-app .takeover-actions .button[data-action="confirm"] { flex-basis: 100%; min-height: 58px; font-size: 18px; background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
   .ds-app.is-phone-app .takeover-actions .button:not([data-action]) { min-height: 44px; font-size: 14px; font-weight: 600; background: transparent !important; border: 1px solid rgba(255, 255, 255, .2) !important; color: rgba(255, 255, 255, .85) !important; }
   .ds-app.is-phone-app .takeover-actions .button:active { transform: var(--mb-press); }
   .ds-app.is-phone-app .collapsed-alarm { top: calc(var(--mb-top-h) + 8px); bottom: auto; left: var(--mb-gutter); right: var(--mb-gutter); z-index: 70; min-height: 48px; border-radius: var(--mb-radius); font-size: 14px; font-weight: 700; animation: mb-pulse 1.6s ease-in-out infinite; }
