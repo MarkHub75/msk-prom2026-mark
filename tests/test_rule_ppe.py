@@ -141,6 +141,21 @@ def test_helmet_seen_is_negative() -> None:
     assert observe("no_helmet", [worker()], [away], inside)[0].reason_code == "head_unseen"
 
 
+def test_surer_class_wins_on_one_head() -> None:
+    """R20: `no_helmet` and `helmet` on one head: the higher score wins, a tie stays P."""
+    inside = [zone("helmet_required")]
+    bare, worn = item("no_helmet", 500, 120), item("helmet", 500, 125)
+
+    def state(bare_score: float, worn_score: float) -> str:
+        objects = [
+            bare.model_copy(update={"score": bare_score}),
+            worn.model_copy(update={"score": worn_score}),
+        ]
+        return observe("no_helmet", [worker()], objects, inside)[0].state
+
+    assert (state(0.6, 0.6), state(0.61, 0.6), state(0.6, 0.61)) == ("P", "P", "N")
+
+
 def test_head_unseen_unknown() -> None:
     check_rows(*ROWS[0])
 
