@@ -292,6 +292,13 @@ async function api(req, res, url) {
     res.writeHead(200, { ...res.cors, "Content-Type": "image/jpeg", "Cache-Control": "no-store" });
     return res.end(ev.bytes);
   }
+  // Read-only views of slice 1 that the frontend of main already calls; writes stay 501.
+  if (m === "GET" && p === "/api/admin/cameras") return json(res, 200, { sectors: mock.sectors, cameras: mock.cameras.map(publicCamera) });
+  if (m === "GET" && (match = p.match(/^\/api\/cameras\/([^/]+)$/))) {
+    const c = mock.camera(intParam(match[1], "camera_id"));
+    if (!c) throw apiError(404, "not_found", "Камера не найдена", { camera_id: Number(match[1]) });
+    return json(res, 200, publicCamera(c));
+  }
   const route = contractRoutes.find((r) => r.re.test(p));
   if (route && route.methods.includes(m)) throw apiError(501, "not_implemented", MSG.notImplemented, { path: p });
   if (route) throw apiError(405, "method_not_allowed", MSG.requestInvalid, { method: m });
