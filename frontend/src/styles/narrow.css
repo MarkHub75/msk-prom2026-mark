@@ -1,0 +1,32 @@
+/* Desktop screens (охрана труда, руководство, администратор) opened on a phone (<= 760 px):
+   panes stack into one column instead of squeezing one of them to a few pixels; wide tables and the
+   rules matrix scroll inside their panel. Print keeps its own layout (screen only). */
+@media screen and (max-width: 760px) {
+  /* Journal: filters above the list, not a 224 px column next to a 150 px table */
+  .ds-app .jd-layout, .ds-app .jd-layout.has-preview { grid-template-columns: minmax(0, 1fr); }
+
+  /* System: tasks and the LinQ check one under the other; tiles two per row */
+  .ds-app .ops-grid-main, .ds-app .ops-grid-mid { grid-template-columns: minmax(0, 1fr); }
+  .ds-app .ops-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Rules: the note wraps over the full width; the camera × scenario matrix keeps readable columns and scrolls */
+  .ds-app .ops-rules-bar { flex-wrap: wrap; gap: 6px 12px; }
+  .ds-app .ops-rules-note { flex: 1 1 100%; }
+  .ds-app .ops-matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ds-app .ops-matrix { width: auto; min-width: 1180px; }
+
+  /* Analytics: KPI tiles two per row; the management summary above its chart */
+  .ds-app .an-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ds-app .an-mgmt-top { grid-template-columns: minmax(0, 1fr); }
+
+  /* Admin: sectors above cameras; camera setup — the player and episodes above upload and jobs
+     (two columns left the player column 0 px wide and its panel labels on top of the next panels) */
+  .ds-app .adm-split, .ds-app .adm-video { grid-template-columns: minmax(0, 1fr); }
+
+  /* Report: fluid page, blocks one per row */
+  .ds-app .rp { max-width: 100%; padding: 12px; grid-template-columns: minmax(0, 1fr); }
+  .ds-app .rp > * { min-width: 0; }
+  .ds-app .rp .rp-block { overflow-x: auto; }
+  .ds-app .rp .rp-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ds-app .rp .rp-grid { grid-template-columns: minmax(0, 1fr); }
+}
