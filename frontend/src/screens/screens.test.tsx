@@ -16,7 +16,9 @@ import { ShiftSummaryScreen } from "./master/ShiftSummaryScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
 import { SectorScreen } from "./operator/SectorScreen";
+import { ManagementDashboard } from "./management/ManagementDashboard";
 import { Journal } from "./ohs/Journal";
+import { OhsStats } from "./ohs/OhsStats";
 import { RulesScreen } from "./ohs/RulesScreen";
 
 // One smoke test per screen (tech.md 10.1): the screen renders with a stubbed `api`.
@@ -594,5 +596,46 @@ describe("screens", () => {
     expect(screen.getByRole("link", { name: /\d/ }).getAttribute("href")).toBe("/events/9");
     fireEvent.change(screen.getByLabelText("Камера"), { target: { value: "7" } });
     expect(vi.mocked(api.GET)).toHaveBeenLastCalledWith("/api/events", { params: { query: { camera_id: 7 } } });
+  });
+  it("ohs_stats_renders", async () => {
+    const row = (key: string, title: string, count: number) => ({ key, title, count, confirmed: 1, false_alarm: 0 });
+    const reaction = { n: 5, pending: 2, p50: 3, p95: 5 };
+    const stats = {
+      date_from: "2026-09-24T00:00:00Z", date_to: "2026-10-24T00:00:00Z", include_demo: true, total: 4,
+      by_status: [row("new", "Новое", 4)], by_scenario: [row("running", "Бег и резкие перемещения", 4)],
+      by_sector: [row("1", "Сектор 1 · Цех", 4)], by_camera: [row("2", "Камера Север", 4)],
+      by_shift: [row("day", "Дневная смена", 4)], by_hour: [row("08", "08:00", 4)],
+      by_day: [{ date: "2026-10-23", yellow: 3, red: 1, confirmed: 1, false_alarm: 1 }],
+      reviewed: 3, false_alarm_share: 1 / 3, review_coverage: 0.75,
+      operator_reaction_s: reaction, master_accept_s: { n: 0, pending: 0, p50: null, p95: null },
+      master_resolve_s: reaction,
+    };
+    const facets = { scenarios: [], levels: [], statuses: [], sectors: [], cameras: [], zones: [] };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve({ data: path === "/api/journal/facets" ? facets : stats })) as never);
+    render(<OhsStats />);
+    expect(await screen.findByText("По дням")).toBeTruthy();
+    for (const title of ["По сценариям", "По секторам", "По часам (МСК)", "Реакция оператора"]) {
+      expect(screen.getByText(title)).toBeTruthy();
+    }
+    expect(screen.getByText(/Доля ложных: 33 % \(n = 3\)/)).toBeTruthy();
+    expect(screen.getAllByText(/p50 3\.0 с · p95 5\.0 с · n = 5 · ожидают 2/)).toHaveLength(2);
+    expect(screen.getByText(/включая демо-данные/)).toBeTruthy();
+  });
+
+  it("management_renders", async () => {
+    const text = "Жёлтых нарушений стало меньше на 25 % (4 недели к 4 неделям). Сравнение до и после не доказывает причину.";
+    const view = {
+      weeks: [{ week_start: "2026-10-19", yellow: 2, red: 0, confirmed: 2, false_alarm: 0 }],
+      top_sectors: [{ key: "1", title: "Сектор Б", cameras: 1, confirmed: 2, per_camera: 2 }],
+      top_scenarios: [{ key: "running", title: "Бег и резкие перемещения", count: 6, confirmed: 5, false_alarm: 1 }],
+      yellow_trend: { previous: 4, recent: 3, change_pct: -25, text },
+    };
+    vi.mocked(api.GET).mockResolvedValue({ data: view } as never);
+    render(<ManagementDashboard />);
+    expect(await screen.findByText(text)).toBeTruthy();
+    expect(screen.getByText("По неделям")).toBeTruthy();
+    expect(screen.getByText(/Сектор Б: 2\.00 на камеру/)).toBeTruthy();
+    expect(screen.getByText("Сценарии")).toBeTruthy();
   });
 });
