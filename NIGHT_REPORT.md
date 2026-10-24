@@ -1,5 +1,9 @@
 # MOSPROM 2026 — итог ночного ML-цикла 24 октября
 
+## Follow-up resumed 2026-10-24T01:25:33.254599+00:00
+
+A new user directive authorizes bounded diagnostic work after the frozen cycle below. No new candidate budget, model training or neural rerun is allocated. E006 savedHelmet drift attribution / E007 savedCAVIAR observation audit and root release-evidence checks are IN_PROGRESS. Previous cycle results remain unchanged. Final follow-up findings will be added here after saved evidence/tests/commits.
+
 Цикл завершён. **Новая версия с доказанным улучшением качества не получена; проверенные runtime-baseline сохранены.** По две новые гипотезы на каждое из трёх направлений закрыты, дальнейшего подбора не было. Новых тренировок и запросов LinQ за ночь: **0**. Все ночные commits сохранены локально в `matvey_cv`. Следующий цикл автоматически не начинается.
 
 Общая сеть/VPN/SSH/маршруты/firewall/службы, программы/каталог baseline и очереди капитана не затрагивались. Backend Марка, frontend Егора и Data worktree не изменялись.

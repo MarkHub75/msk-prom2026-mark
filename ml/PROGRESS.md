@@ -1,5 +1,11 @@
 # ML/CV quality sprint — progress
 
+## RESUMED 2026-10-24T01:25:33.254599+00:00 — bounded diagnostic follow-up
+
+OBSERVED: user renewed autonomous mode immediately after f99edc8d; branchmatvey_cv clean, existing READY has no newversions. Do not reset six exhausted candidate slots. Blockers unchanged: independenttest/cleantrain/geometry/ownMatveyplacement/offVastdestination/remoteauth. No intermediate questions or network/service changes.
+
+E006 allocated Detection /workspace/agents/detection: retained52native,float,PTQrawNPZ/predictions/GT exist; audit samefixedmetrics/objectlostvsretained, noforwards/thresholdselection/labelchanges. E007 allocated Behavior /workspace/agents/fall:345savedrecords/sourceXML/protocol exist; audit originalframe/coordinate/decoder.25/consumer.5/ownership/anchor chain, noNN ornewcandidate. Root owns new release_review for source/artifact hash integrity vs actual quality-evidence gates. E006/E007 are diagnostic, not improvements/independenttest. Codebaseheadbeforefollowupf99edc8de074dda020fe655ec82875f6ba23a008. Sharedrulesstillactive; noforeignworktreewrites.
+
 ## CLOSED 2026-10-24T01:22:34.026603+00:00 — final night checkpoint
 
 MEASURED: 397softwaretests PASS on codeb1b102bdba6bbfa1177da03a3a426a0510f36d2b, log /workspace/artifacts/night-20261024/software-tests-002.log. Attempt001 retained (1failure/1error in old staging fixture paths), fixtures corrected only. All E001–E005 results/6hypotheses/2perdirection frozen, no promotion/training/newremote calls. Summary127metric rows/decisionCSV/figures prepared; source SHA links in ml/reports/night-20261024.json. No independent test; all candidate quality rejections recorded, optionalflags OFF. Exact final documentation SHA is gitHEAD containing this entry (cannot self-embed its own hash).
