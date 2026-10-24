@@ -56,7 +56,7 @@ function Panel({ title, aside, children, className = "" }: { title: string; asid
 }
 
 /** Who did what: people and the system, oldest first. */
-function History({ actions }: { actions: EventAction[] }) {
+export function History({ actions }: { actions: EventAction[] }) {
   const meta = useMeta();
   if (!actions.length) return <p className="ic-muted">Действий пока нет.</p>;
   return <ol className="ic-rail">{[...actions].sort((a,b)=>a.at.localeCompare(b.at)).map(action => {
@@ -69,7 +69,7 @@ function History({ actions }: { actions: EventAction[] }) {
 }
 
 /** Episode life: start → published (yellow/red) → escalated to red → end. Video positions next to wall time. */
-function EpisodeHistory({ detail }: { detail: EventDetail }) {
+export function EpisodeHistory({ detail }: { detail: EventDetail }) {
   const meta = useMeta(); const event = detail.event; const ep = detail.episode;
   const level = (id: "red" | "yellow") => meta?.levels.find(l => l.id === id)?.title ?? (id === "red" ? "Красная опасность" : "Жёлтая опасность");
   const steps: { key: string; at?: string | null; ms?: number | null; tone: "red" | "yellow" | "neutral"; title: string; note?: string }[] = [];
@@ -93,7 +93,7 @@ function Hash({ value }: { value: string | null }) {
   return <span className="ic-hash"><span className="mono" title={value}>{value.slice(0, 12)}…{value.slice(-6)}</span><button type="button" onClick={copy} aria-label="Скопировать хеш">{copied ? <Check {...IC} size={13} /> : <Copy {...IC} size={13} />}</button></span>;
 }
 
-function Provenance({ detail }: { detail: EventDetail }) {
+export function Provenance({ detail }: { detail: EventDetail }) {
   const p = detail.provenance; const ep = detail.episode;
   return <dl className="od-facts ic-prov">
     <div><dt>Бэкенд</dt><dd><Cpu {...IC} size={13} /> {p.backend === "linq" ? "LinQ TPU" : p.backend === "local" ? "CPU · local" : "не указан"}{p.fake && <span className="ic-fake">синтетические детекции</span>}</dd></div>
@@ -109,7 +109,7 @@ function Provenance({ detail }: { detail: EventDetail }) {
 }
 
 /** Evidence frame with a callout pinned to the object that triggered the event. */
-function Evidence({ detail, compact = false }: { detail: EventDetail; compact?: boolean }) {
+export function Evidence({ detail, compact = false }: { detail: EventDetail; compact?: boolean }) {
   const host = useRef<HTMLDivElement>(null);
   const event = detail.event; const evidence = detail.episode?.evidence[0];
   if (!evidence) return <Empty title="Доказательство отсутствует" text="Сервер не передал кадр для этого события." />;
@@ -127,7 +127,7 @@ function Evidence({ detail, compact = false }: { detail: EventDetail; compact?: 
 
 function LiveCamera({ cameraId }: { cameraId: number }) {
   const updates = useUpdates();
-  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }), [cameraId], {refresh: [updates]});
+  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }), [cameraId], { refresh: [updates] });
   if (view.error) return <ErrorNotice error={view.error} compact retry={view.reload} />;
   if (!view.data) return <Loading text="Подключаем эфир камеры" />;
   if (!view.data.camera || !view.data.state) return <Empty title="Эфира нет" text="Сервер не вернул состояние камеры." />;

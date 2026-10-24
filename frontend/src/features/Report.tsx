@@ -7,6 +7,7 @@ import { useMeta } from "../components/AppShell";
 import { ErrorNotice, Icon, Loading, time } from "../components/ui";
 import { eventQuery, periodTitle } from "./Journal";
 import "../styles/report.css";
+import "../styles/journal-depth.css";
 
 const PAGE = 200;
 const MAX_PAGES = 10;
@@ -49,6 +50,19 @@ export function ReportPage() {
   const [search] = useSearchParams();
   const meta = useMeta();
   const report = useApi(() => loadAll(search), [search.toString()]);
+  const facets = useApi(() => api.GET("/api/journal/facets"), []);
+  const facet = (list: { id: string; title: string }[] | undefined, id: string) => list?.find(item => item.id === id)?.title ?? id;
+  const filters = [
+    search.get("level") && (meta?.levels.find(l => l.id === search.get("level"))?.title ?? search.get("level")),
+    search.get("status") && (meta?.statuses.find(s => s.id === search.get("status"))?.title ?? search.get("status")),
+    search.get("scenario") && facet(facets.data?.scenarios, search.get("scenario")!),
+    search.get("sector_id") && facet(facets.data?.sectors, search.get("sector_id")!),
+    search.get("camera_id") && facet(facets.data?.cameras, search.get("camera_id")!),
+    search.get("zone_id") && facet(facets.data?.zones, search.get("zone_id")!),
+    search.get("q") && `поиск «${search.get("q")}»`,
+    search.get("demo") === "0" && "без демо-событий",
+    search.get("superseded") === "1" && "с пересчитанными",
+  ].filter(Boolean) as string[];
   const statusTitle = (e: EventSummary) => meta?.statuses.find(s => s.id === e.status)?.title ?? e.status_title;
   const back = `/ohs/journal${search.toString() ? `?${search}` : ""}`;
   if (report.error) return <ErrorNotice error={report.error} retry={report.reload} />;
@@ -57,6 +71,7 @@ export function ReportPage() {
   const red = items.filter(e => e.level === "red").length;
   const falseAlarm = items.filter(e => e.status === "false_alarm").length;
   const resolved = items.filter(e => e.status === "resolved").length;
+  const confirmed = items.filter(e => e.operator_verdict === "confirmed").length;
   const demo = items.some(e => e.is_demo);
   return <article className="rp" data-testid="report-view">
     <div className="rp-toolbar no-print">
@@ -65,7 +80,7 @@ export function ReportPage() {
       <span>В окне печати выберите «Сохранить как PDF».</span>
     </div>
     <header className="rp-head">
-      <div><h1>Отчёт по нарушениям охраны труда</h1><p>{periodTitle(search)} · время московское</p></div>
+      <div><h1>Отчёт по нарушениям охраны труда</h1><p>{periodTitle(search)} · время московское</p><p className="rp-filter">Фильтр: <b>{filters.length ? filters.join(" · ") : "все события"}</b></p></div>
       <div className="rp-meta"><span>{PRODUCT}</span><span>Сформирован {dateTime.format(new Date())}</span></div>
     </header>
     {demo && <p className="rp-demo">В отчёт входят демонстрационные события: данные синтетические, не результат наблюдения на производстве.</p>}
@@ -73,6 +88,7 @@ export function ReportPage() {
       <div><b>{total}</b><span>событий по фильтру</span></div>
       <div><b>{red}</b><span>красных</span></div>
       <div><b>{items.length - red}</b><span>жёлтых</span></div>
+      <div><b>{confirmed}</b><span>подтверждено оператором</span></div>
       <div><b>{resolved}</b><span>решено мастером</span></div>
       <div><b>{falseAlarm}</b><span>ложных срабатываний</span></div>
     </section>

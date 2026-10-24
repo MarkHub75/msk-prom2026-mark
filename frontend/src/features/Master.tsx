@@ -61,7 +61,7 @@ function Card({ event, now, fresh }: { event: EventSummary; now: number; fresh: 
 
 export function MasterPage() {
   const updates = useUpdates(); const [role] = useRole(); const now = useNow(1000);
-  const inbox = useApi(() => api.GET("/api/master/inbox"), [role], {refresh: [updates]});
+  const inbox = useApi(() => api.GET("/api/master/inbox"), [role], { refresh: [updates] });
   const { enabled, enable, alert } = useAlerts();
   const known = useRef<Set<number>>();
   const [fresh, setFresh] = useState<Set<number>>(new Set());
@@ -106,7 +106,7 @@ function Bars({ rows }: { rows: CountRow[] }) {
 export function ShiftPage() {
   const updates = useUpdates(); const [role] = useRole(); const meta = useMeta();
   const [at, setAt] = useState<string>();
-  const shift = useApi(() => api.GET("/api/master/shift", { params: { query: at ? { at } : {} } }), [updates, role, at]);
+  const shift = useApi(() => api.GET("/api/master/shift", { params: { query: at ? { at } : {} } }), [role, at], { refresh: [updates] });
   const data = shift.data;
   const confirmed = data?.by_sector.reduce((s, r) => s + r.confirmed, 0) ?? 0;
   const falseAlarm = data?.by_sector.reduce((s, r) => s + r.false_alarm, 0) ?? 0;

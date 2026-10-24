@@ -66,7 +66,7 @@ export function SectorPage() {
   const { sectorId } = useParams(); const id = Number(sectorId); const updates = useUpdates(); const meta = useMeta();
   const tick = Math.floor(useNow(PREVIEW_MS) / PREVIEW_MS);
   const now = useNow(1000);
-  const view = useApi(() => api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: id } } }), [id], {refresh: [updates]});
+  const view = useApi(() => api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: id } } }), [id], { refresh: [updates] });
   const sectors = useApi(() => api.GET("/api/sectors"), []);
   const [filter, setFilter] = useState<"open" | "all">("open");
   const terminal = (e: EventSummary) => meta?.statuses.find(s => s.id === e.status)?.terminal ?? e.priority === 0;
