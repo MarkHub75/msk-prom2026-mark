@@ -5,9 +5,20 @@ import statistics
 from collections.abc import Callable
 from itertools import pairwise
 
+from safewatch.analysis.autocal import scale_at
 from safewatch.analysis.geometry import iou
 from safewatch.config import FeaturesConfig
-from safewatch.types import Box, Detection, Keypoint, PersonState, Point, Posture, VehicleState
+from safewatch.types import (
+    AutoCalibration,
+    Box,
+    Detection,
+    Keypoint,
+    PersonState,
+    Point,
+    Posture,
+    SpeedSource,
+    VehicleState,
+)
 
 SHOULDERS_HIPS = (5, 6, 11, 12)  # COCO keypoints that give the torso angle
 ANKLES = (15, 16)
@@ -96,10 +107,12 @@ def person_states(
     cfg: FeaturesConfig,
     kpt_conf: float,
     ground: Callable[[Point], Point | None] | None = None,
+    autocal: AutoCalibration | None = None,
 ) -> list[PersonState]:
     """States of the people tracked in this frame; `history` gets this frame appended.
 
     `ground`: pixel point → floor meters inside the calibrated hull, else None (tech.md 8.11).
+    `autocal`: the fit of tech.md 8.21, meters when the calibrated floor gives none.
     """
     states = []
     for track_id, det in tracks:
@@ -132,10 +145,13 @@ def person_states(
         speed = _speed([*((ts, s.foot) for ts, s in recent), (ts_ms, foot)], ref, cfg)
         on_floor = None if ground is None else ground(foot)
         speed_m = None
+        source: SpeedSource = "relative"
         # The same window as speed_bh_s, in meters when both of its ends are on the floor.
         if speed is not None and on_floor is not None and recent[0][1].ground is not None:
             dt_s = (ts_ms - recent[0][0]) / 1000
-            speed_m = math.dist(on_floor, recent[0][1].ground) / dt_s
+            speed_m, source = math.dist(on_floor, recent[0][1].ground) / dt_s, "calibration"
+        elif speed is not None:
+            speed_m, source = _auto_speed(autocal, recent[0][1].foot, foot, ts_ms - recent[0][0])
 
         center, limit = _center(box), cfg.still_motion_bh * ref
         still_since = ts_ms
@@ -162,6 +178,7 @@ def person_states(
             ref_height_px=ref,
             speed_bh_s=speed,
             speed_m_s=speed_m,
+            speed_source=source,
             posture=posture,
             posture_method="pose" if torso_deg is not None else "bbox",
             torso_deg=torso_deg,
@@ -183,12 +200,14 @@ def vehicle_states(
     history: VehicleHistory,
     cfg: FeaturesConfig,
     ground: Callable[[Point], Point | None] | None = None,
+    autocal: AutoCalibration | None = None,
 ) -> list[VehicleState]:
     """States of the vehicles tracked in this frame; `history` gets this frame appended.
 
     `speed_vh_s`: the bbox center over `speed_window_s` in heights of its own bbox per second,
     under the same sample, gap and coverage rules as a person. With calibration, `footprint` is
-    the bottom edge on the floor and `speed_m_s` follows its middle over the same window.
+    the bottom edge on the floor and `speed_m_s` follows its middle over the same window;
+    without it, `autocal` scales the pixels of that middle (tech.md 8.21).
     """
     states = []
     for track_id, det in tracks:
@@ -203,10 +222,14 @@ def vehicle_states(
             left, right = ground((box[0], box[3])), ground((box[2], box[3]))
             footprint = None if left is None or right is None else (left, right)
         speed_m = None
+        source: SpeedSource = "relative"
         first = recent[0][1].footprint if recent else None
         if speed is not None and footprint is not None and first is not None:
             dt_s = (ts_ms - recent[0][0]) / 1000
-            speed_m = math.dist(_middle(footprint), _middle(first)) / dt_s
+            speed_m, source = math.dist(_middle(footprint), _middle(first)) / dt_s, "calibration"
+        elif speed is not None:
+            start = _bottom(recent[0][1].bbox)
+            speed_m, source = _auto_speed(autocal, start, _bottom(box), ts_ms - recent[0][0])
         state = VehicleState(
             track_id=track_id,
             name=det.name,
@@ -216,6 +239,7 @@ def vehicle_states(
             height_px=height,
             speed_vh_s=speed,
             speed_m_s=speed_m,
+            speed_source=source,
         )
         past.append((ts_ms, state))
         states.append(state)
@@ -224,3 +248,17 @@ def vehicle_states(
 
 def _middle(segment: tuple[Point, Point]) -> Point:
     return ((segment[0][0] + segment[1][0]) / 2, (segment[0][1] + segment[1][1]) / 2)
+
+
+def _bottom(box: Box) -> Point:
+    return ((box[0] + box[2]) / 2, box[3])
+
+
+def _auto_speed(
+    autocal: AutoCalibration | None, first: Point, last: Point, dt_ms: int
+) -> tuple[float | None, SpeedSource]:
+    """|Δ| / dt · scale_at at the middle row of the window (tech.md 8.21)."""
+    scale = None if autocal is None else scale_at(autocal, (first[1] + last[1]) / 2)
+    if scale is None:
+        return None, "relative"
+    return math.dist(first, last) / (dt_ms / 1000) * scale, "auto"

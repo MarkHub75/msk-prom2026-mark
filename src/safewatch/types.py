@@ -1096,6 +1096,7 @@ class FrameContext(BaseModel):
     objects: list[ObjectState]
     zones: list[Zone]
     calibrated: bool
+    auto_calibration: AutoCalibration | None = None  # fit of this video (S19, 8.21)
 
 
 class Observation(BaseModel):
@@ -1154,6 +1155,7 @@ class AnalysisResult(BaseModel):
     episodes: list[EpisodeDraft]
     gaps: list[ObservabilityGap]
     pose_used: bool
+    auto_calibration: AutoCalibration | None = None
 
 
 # --- evaluation (slice 14) ---------------------------------------------------------------

@@ -59,6 +59,7 @@ from safewatch.types import (
     Analysis,
     AnalysisConfig,
     AnalysisResult,
+    AutoCalibration,
     BackendName,
     BackendStatus,
     Broadcast,
@@ -784,6 +785,7 @@ async def _analyze(
         "config_json": cfg.model_dump_json(),
         "hud_path": rel,
         "gaps_json": json.dumps([gap.model_dump() for gap in result.gaps]),
+        "autocal_json": None if (cal := result.auto_calibration) is None else cal.model_dump_json(),
         "duration_ms": video["duration_ms"],
         "created_at": clock.iso(clock.now()),
     }
@@ -975,15 +977,26 @@ def _autostart(video: sqlite3.Row) -> int | None:
     return _broadcast_insert(fresh, settings.broadcast.loop_default)
 
 
+def _autocal(analysis_id: int | None) -> AutoCalibration | None:
+    row = store.analysis(analysis_id or 0)
+    if row is None or row["autocal_json"] is None:  # no analysis, or one made before v5
+        return None
+    return AutoCalibration.model_validate_json(row["autocal_json"])
+
+
 def camera_setup_view(camera_id: int) -> CameraSetupView:
+    videos = videos_list(camera_id)
+    # The active analysis of the newest ready video (videos come newest first).
+    ready = next((v for v in videos if v.status == "ready" and v.active_analysis_id), None)
     return CameraSetupView(
         camera=camera_get(camera_id),
-        videos=videos_list(camera_id),
+        videos=videos,
         jobs=[_job(row) for row in store.camera_jobs(camera_id)],
         calibration=calibration_get(camera_id),
         zones=zones_list(camera_id),
         rules=camera_rules(camera_id),
         broadcast=broadcast_get(camera_id),
+        auto_calibration=None if ready is None else _autocal(ready.active_analysis_id),
     )
 
 
@@ -1135,6 +1148,7 @@ def video_analysis(video_id: int) -> Analysis:
         pose_used=row["pose_artifact_id"] is not None,
         episodes=episodes,
         gaps=json.loads(row["gaps_json"]),
+        auto_calibration=_autocal(row["id"]),
     )
 
 

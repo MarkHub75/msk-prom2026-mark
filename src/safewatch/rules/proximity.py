@@ -1,9 +1,11 @@
 """Scenario `proximity` (tech.md 8.3): a person close to moving machinery or in a danger zone."""
 
 from safewatch import texts
+from safewatch.analysis.autocal import scale_at
 from safewatch.analysis.geometry import ioa, point_rect_distance, point_segment_distance
 from safewatch.rules.base import obs, param, why_common, zones_at
 from safewatch.types import (
+    AutoCalibration,
     EpisodeDraft,
     FrameContext,
     Observation,
@@ -25,13 +27,19 @@ def _moving(v: VehicleState, params: dict[str, float]) -> bool | None:
     return None
 
 
-def _pair(p: PersonState, v: VehicleState, params: dict[str, float]) -> Observation:
+def _pair(
+    p: PersonState, v: VehicleState, params: dict[str, float], cal: AutoCalibration | None
+) -> Observation:
     subject = {"subject": f"pair:{p.track_id}-{v.track_id}"}
     moving = _moving(v, params)
     if moving is None:
         return obs(ID, p, "U").model_copy(update=subject)
+    scale = None if cal is None else scale_at(cal, p.foot[1])
     if p.ground is not None and v.footprint is not None:
         dist, method, key = point_segment_distance(p.ground, *v.footprint), "calibrated", "m"
+        text = texts.PROXIMITY_M
+    elif scale is not None:  # autocalibration: pixels at the row of the feet (8.21)
+        dist, method, key = point_rect_distance(p.foot, v.bbox) * scale, "auto", "m"
         text = texts.PROXIMITY_M
     else:
         dist = point_rect_distance(p.foot, v.bbox) / p.ref_height_px
@@ -84,7 +92,7 @@ class ProximityPlugin:
             # A driver sits inside the machine: neither the pair nor a zone is about him.
             if any(ioa(p.bbox, v.bbox) >= params["driver_ioa"] for v in ctx.vehicles):
                 continue
-            out += [_pair(p, v, params) for v in ctx.vehicles]
+            out += [_pair(p, v, params, ctx.auto_calibration) for v in ctx.vehicles]
             inside = {z.id for z in zones_at(ctx, p.anchor, ("danger",))}
             for z in ctx.zones:
                 if z.kind != "danger":
@@ -109,7 +117,7 @@ class ProximityPlugin:
     def explain(self, episode: EpisodeDraft, params: dict[str, float]) -> list[WhyItem]:
         if episode.reason_code == "proximity_zone":
             rule = episode.reason_text
-        elif episode.method == "calibrated":
+        elif episode.method in ("calibrated", "auto"):
             rule = texts.WHY_PROXIMITY_M.format(
                 red=texts.fmt_num(params["red_m"]), yellow=texts.fmt_num(params["yellow_m"])
             )
