@@ -1,6 +1,6 @@
 """Every Russian text of the product (tech.md 4). The frontend gets them through the API."""
 
-from safewatch.types import ActorRole, Level, NoObservationReason, Role
+from safewatch.types import ActorRole, Level, LogAction, NoObservationReason, Role, Verdict
 
 PRODUCT_TITLE = "SafeWatch"
 
@@ -298,6 +298,47 @@ SCENARIO_NOT_FOUND = "Сценарий не найден"
 PARAM_UNKNOWN = "Неизвестный параметр {key}"
 PARAM_RANGE = "Параметр {key}: от {lo} до {hi}"
 RECOMPUTE_COMMENT = "Пересчёт: версия анализа {n}"
+
+
+# Journal and CSV export (tech.md 9, 16; slice 12).
+FILTER_INVALID = "Неверный фильтр: {field}"
+ACTION_TITLES: dict[LogAction, str] = {
+    "published": "опубликовано",
+    "viewed": "просмотрено",
+    "confirmed": "подтверждено",
+    "false_alarm": "ложное срабатывание",
+    "sent_to_master": "передано мастеру",
+    "level_escalated": "повышено до красного",
+    "timeout_escalated": "эскалация по таймауту",
+    "master_accepted": "мастер принял",
+    "resolved": "решено",
+    "auto_finished": "завершилось само",
+    "superseded": "пересчитано",
+}
+VERDICT_TITLES: dict[Verdict, str] = {
+    "none": "нет",
+    "confirmed": "подтверждено",
+    "false_alarm": "ложное",
+}
+YES, NO = "да", "нет"
+CSV_COLUMNS = [
+    "id",
+    "опубликовано (МСК)",
+    "начало",
+    "сектор",
+    "камера",
+    "зона",
+    "сценарий",
+    "уровень",
+    "статус",
+    "вердикт",
+    "эскалация по таймауту",
+    "причина",
+    "длительность (с)",
+    "демо",
+    "sha256 кадра",
+    "история",
+]
 
 
 def notification_text(
