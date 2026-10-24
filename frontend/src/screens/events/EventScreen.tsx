@@ -5,6 +5,7 @@ import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
 import { useWs } from "../../api/ws";
 import { LevelBadge, StatusBadge } from "../../components/Badges";
+import { ClipPlayer } from "../../components/ClipPlayer";
 import { EvidenceImage } from "../../components/EvidenceImage";
 import { playSound } from "../../components/sound";
 import { CameraScreen } from "../operator/CameraScreen";
@@ -91,7 +92,10 @@ export function EventScreen() {
         </button>
       )}
       <div className="event-top">
-        <div>{shot ? <EvidenceImage evidence={shot} hudVisible /> : <p>Нет доказательного кадра</p>}</div>
+        <div>
+          {shot ? <EvidenceImage evidence={shot} hudVisible /> : <p>Нет доказательного кадра</p>}
+          {event.clip && <ClipPlayer clip={event.clip} />}
+        </div>
         <div>
           <h1>
             <LevelBadge level={event.level} /> {event.title}

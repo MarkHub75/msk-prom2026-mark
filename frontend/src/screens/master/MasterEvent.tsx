@@ -5,6 +5,7 @@ import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
 import { useWs } from "../../api/ws";
 import { LevelBadge, StatusBadge } from "../../components/Badges";
+import { ClipPlayer } from "../../components/ClipPlayer";
 import { EvidenceImage } from "../../components/EvidenceImage";
 import { place } from "./MasterInbox";
 
@@ -37,6 +38,7 @@ export function MasterEvent() {
   return (
     <section className="master">
       {shot ? <EvidenceImage evidence={shot} hudVisible /> : <p>Нет доказательного кадра</p>}
+      {event.clip && <ClipPlayer clip={event.clip} />}
       <h1>
         <LevelBadge level={event.level} /> {event.title}
       </h1>
