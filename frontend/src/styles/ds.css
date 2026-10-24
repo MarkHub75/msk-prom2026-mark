@@ -779,3 +779,84 @@ input[type=date] { color-scheme: dark; }
   .ds-app .rp-kpis b { color: #111 !important; }
   .ds-app .shell-main > * { animation: none !important; }
 }
+
+/* ==========================================================================
+   Harmonisation of the stream kits (admin adm-, ops ops-, analytics an-,
+   operator od-/ic-/jd-, master ms-, geometry geo-) onto the same tokens.
+   ========================================================================== */
+/* Toolbars / page bars: one strip look */
+.ds-app .od-bar, .ds-app .jd-bar, .ds-app .adm-setup-head { background: var(--ds-bg-2); border: 1px solid var(--ds-line-dark); }
+.ds-app .od-bar { min-height: 38px; padding: 0 var(--s1) 0 var(--s3); }
+.ds-app .od-bar h1 { font-size: 15px; }
+.ds-app .od-onair.is-on { color: var(--ds-timecode); }
+.ds-app .adm-cams-bar { background: var(--ds-bg-1); border-bottom: 1px solid var(--ds-line); font-size: 12.5px; color: var(--ds-text-2); }
+.ds-app .ops-page, .ds-app .ops-page > *, .ds-app .an-page { gap: var(--s1); }
+
+/* Panels */
+.ds-app .an-panel, .ds-app .adm-panel, .ds-app .ops-panel, .ds-app .geo-stage-panel { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark) !important; border-radius: 0; }
+.ds-app .an-panel-head { min-height: var(--ds-panel-head); padding: 6px var(--s3); background: var(--ds-bg-2); border-bottom: 1px solid var(--ds-line-dark); }
+.ds-app .an-panel-head h2 { font-size: 12.5px; font-weight: 600; color: var(--ds-text); }
+.ds-app .an-panel-head p { font-size: 12px; color: var(--ds-text-3); }
+.ds-app .geo-toolbar { background: var(--ds-bg-2); border-bottom: 1px solid var(--ds-line-dark); }
+
+/* Section sub-headings inside panels: one style (12px caps, secondary) */
+.ds-app .ic-panel h2, .ds-app .ms-block h2, .ds-app .ms-resolved h2 { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ds-text-2); }
+.ds-app .ic-head h2 { font-size: 18px; }
+
+/* Tables: dense, sticky head, normal-case headers, hover, selection */
+.ds-app :is(.adm-table, .ops-table, .jd-table, .geo-table, .an-table) { border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.ds-app :is(.adm-table, .ops-table, .jd-table, .an-table) th { position: sticky; top: 0; z-index: 2; height: 30px; padding: 0 var(--s3) !important; background: var(--ds-bg-2) !important; border-bottom: 1px solid var(--ds-line-dark) !important; color: var(--ds-text-2) !important; font-size: 12px !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; white-space: nowrap; }
+.ds-app .geo-table th { color: var(--ds-text-2); font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.ds-app :is(.adm-table, .ops-table, .jd-table, .an-table) td { padding: 6px var(--s3); border-bottom: 1px solid var(--ds-line); }
+.ds-app :is(.adm-table, .ops-table, .jd-table, .an-table) tbody tr:hover, .ds-app .ops-table tbody tr:hover td { background: var(--ds-bg-2); }
+.ds-app :is(.adm-table, .ops-table, .jd-table, .geo-table) tr.is-selected, .ds-app .geo-table tr.is-selected td { background: var(--ds-accent-bg) !important; }
+.ds-app .jd-table tbody tr.is-selected { box-shadow: inset 3px 0 0 var(--ds-accent); }
+.ds-app .ops-table td.num.mono { color: var(--ds-text); }
+.ds-app .jd-title { font-size: 13.5px; }
+
+/* KPI tiles from every kit look like ds-kpi */
+.ds-app :is(.an-tile, .ops-tile, .od-kpis > div, .ms-kpis > div, .rp-kpis > div) { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: 0; }
+.ds-app .an-tile::before { content: none; }
+.ds-app .od-kpis span, .ds-app .ms-kpis span, .ds-app .rp-kpis span { font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ds-text-2); }
+.ds-app .od-kpis b, .ds-app .ms-kpis b, .ds-app .rp-kpis b { font-family: var(--mono); font-weight: 500; color: #fff; }
+.ds-app .od-kpis .is-red b { color: #ff9aa0; } .ds-app .od-kpis .is-yellow b { color: #ffc985; }
+.ds-app .od-kpis .is-muted { box-shadow: inset 3px 0 0 var(--ds-grey); }
+.ds-app .ops-page { --ops-ok: var(--ds-green); --ops-warn: var(--ds-amber); --ops-bad: var(--ds-red); --ops-info: var(--ds-line-strong); --ops-idle: var(--ds-line-strong); --ops-edge: var(--ds-line-dark); }
+
+/* Labels and key-value captions: normal case, 12px */
+.ds-app :is(.jd-filters label, .jd-period-set legend, .geo-field > span, .adm-facts dt, .adm-kv dt) { font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ds-text-2); }
+.ds-app .geo-legend::before { font-size: 12px; text-transform: none; letter-spacing: 0; }
+
+/* Chips and small badges */
+.ds-app :is(.an-chip, .geo-chip, .adm-air-badge) { height: 22px; padding: 0 7px; border: 1px solid var(--ds-line-strong); border-radius: var(--r2); background: var(--ds-bg-2); color: var(--ds-text-2); font-size: 12px; text-transform: none; letter-spacing: 0; }
+.ds-app .adm-demo { font-size: 11px; letter-spacing: .02em; color: #f3c879; border-color: var(--ds-amber-line); background: var(--ds-amber-bg); border-radius: var(--r1); }
+.ds-app .ops-level { font-size: 12px; letter-spacing: 0; text-transform: none; }
+
+/* Tabs */
+.ds-app .adm-tabs { background: var(--ds-bg-2); border: 1px solid var(--ds-line-dark); }
+.ds-app .adm-tabs button { height: 34px; font-size: 13px; font-weight: 600; }
+.ds-app .adm-tabs button:hover { background: var(--ds-bg-3); }
+.ds-app .adm-tabs button.selected { background: var(--ds-bg-1); box-shadow: inset 0 2px 0 var(--ds-accent); }
+
+/* Empty states from the kits */
+.ds-app :is(.adm-empty, .ops-empty, .ms-empty) { background: var(--ds-bg-1); border: 1px dashed var(--ds-line); color: var(--ds-text-2); }
+.ds-app :is(.adm-empty, .ms-empty) h3, .ds-app .ms-empty strong { font-size: 14px; font-weight: 600; color: var(--ds-text); }
+.ds-app .an-empty { border-radius: var(--r2); border-color: var(--ds-amber-line); background: var(--ds-amber-bg); }
+
+/* Progress bars */
+.ds-app .adm-bar, .ds-app .ops-bar { background: var(--ds-well); border-color: var(--ds-line-dark); }
+
+/* Master on a desktop: page head as a toolbar strip, same as other roles */
+@media (min-width: 861px) {
+  .ds-app .ms-page { max-width: 760px; gap: var(--s2); }
+  .ds-app .ms-head { align-items: center; min-height: 44px; padding: var(--s2) var(--s3); background: var(--ds-bg-2); border: 1px solid var(--ds-line-dark); }
+  .ds-app .ms-head h1 { font-size: 17px; font-weight: 600; }
+  .ds-app .ms-head p { font-size: 13px; }
+}
+.ds-app .ms-card > a { background: var(--ds-bg-1); border-color: var(--ds-line-dark); }
+.ds-app .ms-status { color: #ff9aa0; font-size: 12px; }
+/* "On air" is not an alarm: blue, not red */
+.ds-app .od-tile-live { font-size: 11.5px; border-radius: var(--r2); backdrop-filter: blur(4px); }
+.ds-app .od-tile-live i { background: var(--ds-timecode); }
+.ds-app .od-onair.is-on svg { animation: none; }
+.ds-app .ic-live .video-frame { width: min(100%, calc(260px * var(--media-ratio, 1.7777778))); }
