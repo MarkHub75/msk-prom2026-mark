@@ -1,178 +1,255 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { AlertTriangle, CheckCircle2, Clock3, Flame, RotateCw, ShieldCheck, Siren, UserCheck } from "lucide-react";
 import { api } from "../api/client";
-import type { CountRow, DayRow, EventSummary, OhsStats } from "../api/types";
+import type { CountRow, EventSummary, OhsStats } from "../api/types";
 import { useApi } from "../api/useApi";
-import { ErrorNotice, Loading, PageHeading } from "../components/ui";
-import { eventQuery, periodTitle } from "./Journal";
-import { loadAll } from "./Report";
-import "../styles/stats.css";
+import { DemoBadge, GrowthContext, MSK_MS, Panel, Skeleton, mskDay, ruDay, shortDay, useSticky } from "../components/analytics/kit";
+import { ErrorNotice, PageHeading } from "../components/ui";
+import { AreaChart, Legend } from "../components/charts/AreaChart";
+import { Delta, Donut, HBars, Meter, RangeBullet, Sparkline, StatTile, type BarRow } from "../components/charts/Figures";
+import { Heatmap } from "../components/charts/Heatmap";
+import { C, verdictSegments } from "../components/charts/palette";
+import { fmt, linearFit, niceScale, pct, plural, seconds } from "../components/charts/scale";
+import { ManagementPage } from "./ManagementStats";
+import "../styles/analytics.css";
 
-// Analytics of the OHS and management roles: GET /api/stats/ohs when the backend has it,
-// otherwise the same figures counted over the journal of the period (all pages, see loadAll).
+// OHS analytics (tech.md 8.13/8.14): GET /api/stats/ohs for every figure, the journal pages of the same
+// slice only for the weekday × hour grid (the stats endpoint gives hours, not weekday × hour).
 const PERIODS = [7, 30, 90] as const;
 const DEFAULT_DAYS = 30;
-const MSK_MS = 3 * 3600_000;
-const mskDay = (offsetDays = 0) => new Date(Date.now() + MSK_MS + offsetDays * 86400_000).toISOString().slice(0, 10);
-const eventDay = (iso: string) => new Date(Date.parse(iso) + MSK_MS).toISOString().slice(0, 10);
-const eventHour = (iso: string) => new Date(Date.parse(iso) + MSK_MS).getUTCHours();
-const shortDay = (date: string) => date.slice(5).split("-").reverse().join(".");
+const HORIZON: Record<number, number> = { 7: 7, 30: 14, 90: 28 };
+const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+// config/default.yaml escalation.timeout_s: a red event without operator action goes to the master after it.
+const ESCALATION_S = 45;
 
-type Figures = Pick<OhsStats, "total" | "reviewed" | "false_alarm_share" | "by_day" | "by_hour" | "by_sector" | "by_scenario" | "by_status">;
-interface Stats extends Figures { source: "server" | "journal"; loaded: number }
+interface Slice { days: number; from: string; to: string; sector?: number; camera?: number; demo: boolean }
 
-function countRows(items: EventSummary[], key: (e: EventSummary) => string, title: (e: EventSummary) => string): CountRow[] {
-  const rows = new Map<string, CountRow>();
-  for (const e of items) {
-    const k = key(e);
-    const row = rows.get(k) ?? { key: k, title: title(e), count: 0, confirmed: 0, false_alarm: 0 };
-    row.count++;
-    if (e.operator_verdict === "confirmed") row.confirmed++;
-    if (e.operator_verdict === "false_alarm") row.false_alarm++;
-    rows.set(k, row);
-  }
-  return [...rows.values()].sort((a, b) => b.count - a.count);
-}
-
-/** The OhsStats figures the screen shows, counted over journal events (time of start, Moscow). */
-export function statsFromEvents(items: EventSummary[], total: number): Figures {
-  const days = new Map<string, DayRow>();
-  for (const e of items) {
-    const date = eventDay(e.started_at);
-    const row = days.get(date) ?? { date, red: 0, yellow: 0, confirmed: 0, false_alarm: 0 };
-    row[e.level]++;
-    if (e.operator_verdict === "confirmed") row.confirmed++;
-    if (e.operator_verdict === "false_alarm") row.false_alarm++;
-    days.set(date, row);
-  }
-  const reviewed = items.filter(e => e.operator_verdict !== "none").length;
-  const falseAlarms = items.filter(e => e.operator_verdict === "false_alarm").length;
-  return {
-    total, reviewed,
-    false_alarm_share: reviewed ? falseAlarms / reviewed : null,
-    by_day: [...days.values()],
-    by_hour: countRows(items, e => String(eventHour(e.started_at)), e => String(eventHour(e.started_at))),
-    by_sector: countRows(items, e => String(e.sector_id), e => e.sector_name),
-    by_scenario: countRows(items, e => e.scenario, e => e.title),
-    by_status: countRows(items, e => e.status, e => e.status_title),
-  };
-}
-
-async function loadStats(range: URLSearchParams): Promise<{ data?: Stats; error?: unknown }> {
-  const { date_from, date_to } = eventQuery(range);
-  const server = await api.GET("/api/stats/ohs", { params: { query: { date_from, date_to, include_demo: true } } }).catch(() => undefined);
-  if (server?.data) return { data: { ...server.data, source: "server", loaded: server.data.total } };
-  const journal = await loadAll(range);
-  if (!journal.data) return { error: journal.error };
-  return { data: { ...statsFromEvents(journal.data.items, journal.data.total), source: "journal", loaded: journal.data.items.length } };
-}
-
-interface Column { label: string; tip: string; parts: { value: number; tone: "red" | "yellow" | "grey" }[] }
-
-function niceMax(value: number) {
-  if (value <= 4) return 4;
-  const step = 10 ** Math.floor(Math.log10(value));
-  return [1, 2, 2.5, 5, 10].map(m => m * step).find(m => m >= value) ?? value;
-}
-
-/** Hand-drawn column chart: stacked parts from the baseline, every `every`-th label on the x axis. */
-function Columns({ columns, every, xTitle, label, height = 220 }: { columns: Column[]; every: number; xTitle: string; label: string; height?: number }) {
-  const W = 1200, H = height, left = 36, right = 6, top = 22, bottom = 40;
-  const plotW = W - left - right, plotH = H - top - bottom;
-  const max = niceMax(Math.max(0, ...columns.map(c => c.parts.reduce((s, p) => s + p.value, 0))));
-  const band = plotW / Math.max(1, columns.length);
-  const barW = Math.min(28, Math.max(2, band * 0.68));
-  const y = (v: number) => top + plotH - (v / max) * plotH;
-  const ticks = [0, max / 2, max].filter(t => Number.isInteger(t));
-  return <svg className="st-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
-    <text className="st-axis-title" x={0} y={11}>событий</text>
-    {ticks.map(t => <g key={t}><line className={t ? "st-grid" : "st-base"} x1={left} x2={W - right} y1={y(t)} y2={y(t)} /><text className="st-tick" x={left - 8} y={y(t) + 4} textAnchor="end">{t}</text></g>)}
-    {columns.map((c, i) => {
-      const x = left + i * band + (band - barW) / 2;
-      let acc = 0;
-      return <g key={c.label} className="st-col">
-        <title>{c.tip}</title>
-        <rect className="st-hit" x={left + i * band} y={top} width={band} height={plotH} />
-        {c.parts.filter(p => p.value > 0).map((p, j) => {
-          const y0 = y(acc), y1 = y(acc + p.value); acc += p.value;
-          const gap = j > 0 ? 2 : 0; // 2px surface gap between stacked segments
-          return <rect key={p.tone} className={`st-bar st-${p.tone}`} x={x} y={y1} width={barW} height={Math.max(1, y0 - y1 - gap)} />;
-        })}
-        {i % every === 0 && <text className="st-tick" x={x + barW / 2} y={H - bottom + 16} textAnchor="middle">{c.label}</text>}
-      </g>;
-    })}
-    <text className="st-axis-title" x={W - right} y={H - 4} textAnchor="end">{xTitle}</text>
-  </svg>;
-}
-
-function TopBars({ title, rows }: { title: string; rows: CountRow[] }) {
-  const top = rows.slice(0, 5);
-  const max = Math.max(1, ...top.map(r => r.count));
-  return <section className="st-panel"><h2>{title}</h2>
-    {top.length ? <ol className="st-bars">{top.map(r => <li key={r.key}>
-      <span className="st-bars-label" title={r.title}>{r.title}</span>
-      <span className="st-bars-track"><i style={{ width: `${(r.count / max) * 100}%` }} /></span>
-      <b>{r.count}</b>
-    </li>)}</ol> : <p className="st-none">Событий за период нет.</p>}
-  </section>;
-}
-
-const plural = (n: number, one: string, few: string, many: string) => {
-  const d = n % 10, h = n % 100;
-  return d === 1 && h !== 11 ? one : d >= 2 && d <= 4 && (h < 12 || h > 14) ? few : many;
-};
-
-export function StatsPage({ management = false }: { management?: boolean }) {
-  const [search, setSearch] = useSearchParams();
+function readSlice(search: URLSearchParams): Slice {
   const days = PERIODS.find(d => d === Number(search.get("days"))) ?? DEFAULT_DAYS;
-  const range = new URLSearchParams({ from: mskDay(1 - days), to: mskDay() });
-  const stats = useApi(() => loadStats(range), [range.toString()]);
-  const dates = Array.from({ length: days }, (_, i) => mskDay(i + 1 - days));
+  const id = (key: string) => { const v = Number(search.get(key)); return Number.isInteger(v) && v > 0 ? v : undefined; };
+  return { days, from: mskDay(1 - days), to: mskDay(), sector: id("sector"), camera: id("camera"), demo: search.get("demo") !== "0" };
+}
 
-  const periodButtons = <div className="st-periods" role="group" aria-label="Период">
-    {PERIODS.map(d => <button key={d} className={`button button-small${d === days ? " is-selected" : ""}`} aria-pressed={d === days} onClick={() => setSearch(d === DEFAULT_DAYS ? {} : { days: String(d) })}>{d} дней</button>)}
+const apiRange = (s: Slice) => ({ date_from: `${s.from}T00:00:00+03:00`, date_to: `${s.to}T23:59:59.999+03:00` });
+
+async function loadEvents(s: Slice) {
+  const items: EventSummary[] = [];
+  let cursor: string | undefined, total = 0;
+  for (let page = 0; page < 10; page++) {
+    const query = { ...apiRange(s), include_demo: s.demo, include_superseded: false, limit: 200, ...(s.sector ? { sector_id: s.sector } : {}), ...(s.camera ? { camera_id: s.camera } : {}), ...(cursor ? { cursor } : {}) };
+    const r = await api.GET("/api/events", { params: { query } });
+    if (r.error !== undefined || !r.data) return { error: r.error ?? { code: "network", message: "Сервер не отвечает" } };
+    items.push(...r.data.items); total = r.data.total;
+    if (!r.data.next_cursor) break;
+    cursor = r.data.next_cursor;
+  }
+  return { data: { items, total } };
+}
+
+/** Weekday (Mon first) × hour counts by start time in Moscow. */
+export function weekHourGrid(items: Pick<EventSummary, "started_at">[]): number[][] {
+  const grid = WEEKDAYS.map(() => Array<number>(24).fill(0));
+  for (const e of items) {
+    const d = new Date(Date.parse(e.started_at) + MSK_MS);
+    grid[(d.getUTCDay() + 6) % 7][d.getUTCHours()]++;
+  }
+  return grid;
+}
+
+/** How many times each weekday × hour occurred between the start of `from` (MSK) and `now`; 0 → no data yet. */
+export function weekHourSlots(from: string, now = Date.now()): number[][] {
+  const slots = WEEKDAYS.map(() => Array<number>(24).fill(0));
+  for (let t = Date.parse(`${from}T00:00:00+03:00`); t <= now; t += 3600_000) {
+    const d = new Date(t + MSK_MS);
+    slots[(d.getUTCDay() + 6) % 7][d.getUTCHours()]++;
+  }
+  return slots;
+}
+const weekday = (date: string) => WEEKDAYS[(new Date(`${date}T12:00:00Z`).getUTCDay() + 6) % 7];
+
+/** Linear trend over complete days from the first day with events; null when fewer than 5 such days. */
+export function dailyTrend(totals: number[], partialLast: boolean) {
+  const end = totals.length - (partialLast ? 1 : 0);
+  const start = totals.findIndex(v => v > 0);
+  if (start < 0 || end - start < 5) return null;
+  const xs = Array.from({ length: end - start }, (_, i) => start + i);
+  const fit = linearFit(xs, xs.map(i => totals[i]));
+  return fit && { fit, start };
+}
+
+const journal = (s: Slice, extra: Record<string, string>) => `/ohs/journal?${new URLSearchParams({ from: s.from, to: s.to, ...(s.sector ? { sector_id: String(s.sector) } : {}), ...extra })}`;
+
+function verdictRows(rows: CountRow[], to: (r: CountRow) => string | undefined): BarRow[] {
+  return rows.map(r => ({ key: r.key, label: r.title, value: r.count, sub: `подтв. ${r.confirmed} · ложных ${r.false_alarm}`, to: to(r), segments: verdictSegments(r) }));
+}
+
+const VERDICT_LEGEND = [{ name: "Подтверждено", color: C.confirmed }, { name: "Ложное", color: C.falseAlarm }, { name: "Без вердикта", color: C.noVerdict }];
+
+function Reaction({ stats }: { stats: OhsStats }) {
+  const rows = [
+    { id: "op", title: "Оператор: первая реакция", hint: "от публикации до подтверждения, «ложное» или передачи мастеру", p: stats.operator_reaction_s, color: C.confirmed, threshold: { value: ESCALATION_S, label: `Порог автоэскалации красных — ${ESCALATION_S} с (escalation.timeout_s)` } },
+    { id: "acc", title: "Мастер: принял", hint: "от передачи мастеру до «Принял, иду»", p: stats.master_accept_s, color: C.master },
+    { id: "res", title: "Мастер: решил", hint: "от «Принял» до «Решено»", p: stats.master_resolve_s, color: C.master },
+  ];
+  return <div className="an-react">
+    {rows.map(r => {
+      const max = niceScale(Math.max(r.p.p95 ?? 0, r.threshold?.value ?? 0) * 1.12 || 60, 4).max;
+      return <div key={r.id} className="an-react-row" data-testid={`reaction-${r.id}`}>
+        <div className="an-react-title"><b>{r.title}</b><small>{r.hint}</small></div>
+        {r.p.n ? <div className="an-react-chart">
+          <RangeBullet p50={r.p.p50} p95={r.p.p95} max={max} color={r.color} threshold={r.threshold} />
+          <div className="an-react-scale"><span>0</span>{r.threshold && <span className="an-react-target" style={{ left: `${(r.threshold.value / max) * 100}%` }}>эскалация {r.threshold.value} с</span>}<span>{seconds(max)}</span></div>
+        </div> : <p className="an-none">Нет завершённых реакций за период</p>}
+        <dl className="an-react-nums">
+          <div><dt>p50</dt><dd>{seconds(r.p.p50)}</dd></div>
+          <div><dt>p95</dt><dd>{seconds(r.p.p95)}</dd></div>
+          <div><dt>n</dt><dd>{r.p.n}</dd></div>
+          <div className={r.p.pending ? "is-pending" : ""}><dt>ожидают</dt><dd>{r.p.pending}</dd></div>
+        </dl>
+      </div>;
+    })}
   </div>;
-  const heading = (source?: Stats["source"]) => <PageHeading title="Аналитика" meta={<>{periodTitle(range)} · время московское{source === "journal" && <span className="st-source">Рассчитано по данным журнала</span>}</>}>{periodButtons}</PageHeading>;
+}
 
-  if (stats.error) return <div className="st-page">{heading()}<ErrorNotice error={stats.error} retry={stats.reload} /></div>;
-  if (!stats.data) return <div className="st-page">{heading()}<Loading text="Считаем события за период" /></div>;
-  const s = stats.data;
+function OhsPage() {
+  const [search, setSearch] = useSearchParams();
+  const navigate = useNavigate();
+  const s = readSlice(search);
+  const key = JSON.stringify(s);
+  const state = useApi(() => api.GET("/api/stats/ohs", { params: { query: { ...apiRange(s), include_demo: s.demo, ...(s.sector ? { sector_id: s.sector } : {}), ...(s.camera ? { camera_id: s.camera } : {}) } } }), [key]);
+  const events = useApi(() => loadEvents(s), [key]);
+  const facets = useApi(() => api.GET("/api/journal/facets"), []);
+  const stats = useSticky(state);
+  const evData = useSticky(events);
 
-  const byDay = new Map(s.by_day.map(r => [r.date.slice(0, 10), r]));
-  const dayRows = dates.map(date => byDay.get(date) ?? { date, red: 0, yellow: 0, confirmed: 0, false_alarm: 0 });
-  const red = s.by_day.reduce((sum, r) => sum + r.red, 0);
-  const resolved = s.by_status.find(r => r.key === "resolved")?.count ?? 0;
-  const share = s.false_alarm_share === null ? "—" : `${Math.round(s.false_alarm_share * 100)}%`;
-  const yellowIn = (from: number, to: number) => dayRows.slice(from, to).reduce((sum, r) => sum + r.yellow, 0);
-  const hours = new Map(s.by_hour.map(r => [Number(r.key), r.count]));
+  const set = (patch: Record<string, string | null>) => {
+    const next = new URLSearchParams(search);
+    for (const [k, v] of Object.entries(patch)) { if (v === null || v === "") next.delete(k); else next.set(k, v); }
+    setSearch(next);
+  };
+  const filtered = !!(s.sector || s.camera || !s.demo || s.days !== DEFAULT_DAYS);
 
-  return <div className="st-page" data-testid="stats-view">
-    {heading(s.source)}
-    <section className="st-tiles" aria-label="Итоги периода">
-      <div><span>Событий</span><b>{s.total}</b></div>
-      <div><span><i className="st-key st-red" />Красных</span><b>{red}</b></div>
-      <div><span>Доля ложных срабатываний</span><b>{share}</b><small>ложные из {s.reviewed} с вердиктом оператора</small></div>
-      <div><span>Решено мастером</span><b>{resolved}</b></div>
+  const filters = <div className="an-filters" role="group" aria-label="Период и фильтры">
+    <div className="an-seg" role="group" aria-label="Период">
+      {PERIODS.map(d => <button key={d} type="button" className={d === s.days ? "is-on" : ""} aria-pressed={d === s.days} onClick={() => set({ days: d === DEFAULT_DAYS ? null : String(d) })}>{d} дней</button>)}
+    </div>
+    <label className="an-select"><span>Сектор</span>
+      <select aria-label="Сектор" value={s.sector ?? ""} onChange={e => set({ sector: e.target.value })} disabled={!facets.data}>
+        <option value="">Все секторы</option>{facets.data?.sectors.map(o => <option key={o.id} value={o.id}>{o.title}</option>)}
+      </select></label>
+    <label className="an-select"><span>Камера</span>
+      <select aria-label="Камера" value={s.camera ?? ""} onChange={e => set({ camera: e.target.value })} disabled={!facets.data}>
+        <option value="">Все камеры</option>{facets.data?.cameras.map(o => <option key={o.id} value={o.id}>{o.title}</option>)}
+      </select></label>
+    <label className="an-toggle"><input type="checkbox" checked={s.demo} onChange={e => set({ demo: e.target.checked ? null : "0" })} /><span>Демо-данные</span></label>
+    {filtered && <button type="button" className="button button-small" onClick={() => setSearch({})}>Сбросить</button>}
+    <span className="an-filters-gap" />
+    <button type="button" className="button button-small" onClick={() => { state.reload(); events.reload(); }} disabled={state.loading}><RotateCw size={14} strokeWidth={1.75} />Обновить</button>
+  </div>;
+
+  const heading = <PageHeading title="Аналитика охраны труда" meta={<><span>Период {ruDay(s.from)} — {ruDay(s.to)} · время московское</span><DemoBadge on={s.demo} /></>}>
+    <Link className="button button-small" to={journal(s, {})}>Журнал за период</Link>
+  </PageHeading>;
+
+  if (state.error) return <div className="an-page">{heading}{filters}<ErrorNotice error={state.error} retry={state.reload} /></div>;
+  if (!stats) return <div className="an-page">{heading}{filters}<Skeleton /></div>;
+
+  const dates = Array.from({ length: s.days }, (_, i) => mskDay(i + 1 - s.days));
+  const byDay = new Map(stats.by_day.map(r => [r.date.slice(0, 10), r]));
+  const days = dates.map(date => byDay.get(date) ?? { date, red: 0, yellow: 0, confirmed: 0, false_alarm: 0 });
+  const yellow = days.map(d => d.yellow), red = days.map(d => d.red), totals = days.map(d => d.yellow + d.red);
+  const redSum = red.reduce((a, b) => a + b, 0);
+  const n = days.length;
+  const horizon = HORIZON[s.days];
+  const trend = dailyTrend(totals, true);
+  const future = Array.from({ length: horizon }, (_, i) => mskDay(i + 1));
+  const week = (arr: number[], back: number) => arr.slice(Math.max(0, n - 1 - 7 * (back + 1)), n - 1 - 7 * back).reduce((a, b) => a + b, 0);
+  const hasWeeks = s.days >= 15;
+  const falseCount = Math.round((stats.false_alarm_share ?? 0) * stats.reviewed);
+  const hours = Array.from({ length: 24 }, (_, h) => stats.by_hour.find(r => Number(r.key) === h)?.count ?? 0);
+  const verdicts = verdictSegments({ count: stats.total, confirmed: stats.by_shift.reduce((a, r) => a + r.confirmed, 0), false_alarm: stats.by_shift.reduce((a, r) => a + r.false_alarm, 0) });
+  const empty = stats.total === 0;
+  const stale = state.loading ? " is-stale" : "";
+
+  return <div className="an-page" data-testid="stats-view">
+    {heading}{filters}
+    <section className={`an-tiles${stale}`} aria-label="Итоги периода">
+      <StatTile testId="tile-total" label="Событий" icon={<AlertTriangle size={15} strokeWidth={1.75} />} value={fmt.format(stats.total)}
+        spark={<Sparkline values={totals} color={C.yellow} label="События по дням" partialLast />}
+        delta={hasWeeks ? <Delta now={week(totals, 0)} prev={week(totals, 1)} direction="up_bad" vs="7 дн. к пред. 7" /> : undefined}
+        foot={!hasWeeks ? "сравнение неделя к неделе — на периоде 30 или 90 дней" : undefined} />
+      <StatTile testId="tile-red" label="Красных" icon={<Siren size={15} strokeWidth={1.75} />} value={fmt.format(redSum)}
+        spark={<Sparkline values={red} color={C.red} label="Красные по дням" partialLast />}
+        delta={hasWeeks ? <Delta now={week(red, 0)} prev={week(red, 1)} direction="up_bad" vs="7 дн. к пред. 7" /> : undefined} />
+      <StatTile testId="tile-false" label="Доля ложных" icon={<ShieldCheck size={15} strokeWidth={1.75} />} value={pct(stats.false_alarm_share)}
+        delta={<span title={`ложных ${falseCount} из ${stats.reviewed} с вердиктом`}><Meter share={stats.false_alarm_share} color={C.falseAlarm} label="Доля ложных срабатываний" /></span>}
+        foot={<>ложных <b>{falseCount}</b> из <b>n = {stats.reviewed}</b> с вердиктом оператора</>} />
+      <StatTile testId="tile-coverage" label="Охват проверкой" icon={<CheckCircle2 size={15} strokeWidth={1.75} />} value={pct(stats.review_coverage)}
+        delta={<span title={`с вердиктом ${stats.reviewed} из ${stats.total}`}><Meter share={stats.review_coverage} color={C.confirmed} label="Охват проверкой" /></span>}
+        foot={<>с вердиктом <b>{stats.reviewed}</b> из <b>{stats.total}</b> событий</>} />
+      <StatTile testId="tile-reaction" label="Реакция оператора, p50" icon={<Clock3 size={15} strokeWidth={1.75} />} value={seconds(stats.operator_reaction_s.p50)}
+        spark={<span className="an-tile-side" title={`p95 по ${stats.operator_reaction_s.n} реакциям`}><small>p95</small><b>{seconds(stats.operator_reaction_s.p95)}</b></span>}
+        foot={<>n = <b>{stats.operator_reaction_s.n}</b> завершённых · ожидают <b>{stats.operator_reaction_s.pending}</b></>} />
     </section>
-    {s.loaded < s.total && <p className="st-partial">Посчитаны первые {s.loaded} из {s.total} событий периода: журнал отдаёт не больше 2000 событий за один расчёт.</p>}
 
-    <section className="st-panel">
-      <div className="st-panel-head"><h2>События по дням</h2>
-        <span className="st-legend"><span><i className="st-key st-yellow" />Жёлтые</span><span><i className="st-key st-red" />Красные</span></span></div>
-      {management && <p className="st-trend" data-testid="yellow-trend">Жёлтых за последние 7 дней: <b>{yellowIn(days - 7, days)}</b>, {days >= 14 ? <>за предыдущие 7: <b>{yellowIn(days - 14, days - 7)}</b></> : "за предыдущие 7: вне выбранного периода, выберите 30 или 90 дней"}</p>}
-      <Columns label="Жёлтые и красные события по дням" xTitle="Дата, МСК" every={days <= 7 ? 1 : days <= 30 ? 3 : 7}
-        columns={dayRows.map(r => ({ label: shortDay(r.date), tip: `${shortDay(r.date)}: жёлтых ${r.yellow}, красных ${r.red}`, parts: [{ value: r.yellow, tone: "yellow" }, { value: r.red, tone: "red" }] }))} />
-    </section>
+    {empty && <div className="an-empty"><Flame size={18} strokeWidth={1.75} /><div><b>Событий за период нет</b><p>Это не значит, что всё безопасно, если камера без наблюдения. Проверьте фильтры и состояние камер.</p></div></div>}
 
-    <div className="st-pair">
-      <TopBars title="Топ-5 секторов" rows={s.by_sector} />
-      <TopBars title="Топ-5 сценариев" rows={s.by_scenario} />
+    <Panel className={`an-wide${stale}`} title="События по дням" testId="by-day"
+      sub={<>Жёлтые и красные, сложены · клик по дню — журнал за этот день{trend ? ` · пунктир — линейная экстраполяция на ${horizon} дн.` : ""}</>}
+      aside={<Legend items={[{ name: "Жёлтые", color: C.yellow }, { name: "Красные", color: C.red }, ...(trend ? [{ name: "Линейная экстраполяция, не прогноз модели", color: C.trend, kind: "trend" as const }, ...(trend.fit.ci(0) !== null ? [{ name: "Интервал 95 % линейной модели", color: C.trend, kind: "band" as const }] : [])] : [])]} />}>
+      <AreaChart ariaLabel="Жёлтые и красные события по дням" unit="событий в день" height={290} stacked
+        labels={dates.map(shortDay)} tipLabels={dates.map(d => `${weekday(d)}, ${ruDay(d)} · МСК${d === s.to ? " · день идёт" : ""}`)} futureLabels={trend ? future.map(shortDay) : []}
+        tickEvery={s.days <= 7 ? 1 : s.days <= 30 ? 3 : 10} partialLast="сегодня"
+        series={[{ id: "yellow", name: "жёлтых", values: yellow, color: C.yellow }, { id: "red", name: "красных", values: red, color: C.red }]}
+        projection={trend && { from: trend.start, to: n - 1 + horizon, at: trend.fit.at, ci: trend.fit.ci, name: "экстраполяция", color: C.trend, note: `линейная экстраполяция, не прогноз модели · +${horizon} дн.` }}
+        onPick={i => navigate(journal(s, { from: dates[i], to: dates[i] }))} />
+      {!trend && <p className="an-note">Экстраполяция не показана: меньше 5 полных дней с событиями.</p>}
+      <GrowthContext sectorId={s.sector} confirmed={days.reduce((a, d) => a + d.confirmed, 0)} total={totals.reduce((a, b) => a + b, 0)} per="по дням"
+        shares={days.slice(0, -1).map((d, i) => totals[i] ? d.confirmed / totals[i] : 0)} />
+    </Panel>
+
+    <div className="an-grid an-grid-heat">
+      <Panel title="Когда случаются события" testId="heatmap" className={events.loading && evData ? "is-stale" : ""}
+        sub={<>День недели × час начала, МСК · сверху — итог по часам из статистики, справа — по дням недели</>}
+        aside={evData && <span className="an-chip">по журналу: {evData.items.length}{evData.items.length < evData.total ? ` из ${evData.total}` : ""} {plural(evData.items.length, "событие", "события", "событий")}</span>}>
+        {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !evData ? <i className="an-sk-block" /> : <Heatmap grid={weekHourGrid(evData.items)} slots={weekHourSlots(s.from)} color={C.confirmed} rows={WEEKDAYS} hourTotals={hours} />}
+      </Panel>
+      <div className="an-stack">
+        <Panel title="По сменам" testId="by-shift" aside={<Legend items={VERDICT_LEGEND} />}>
+          <HBars rows={verdictRows(stats.by_shift, () => undefined)} color={C.confirmed} />
+        </Panel>
+        <Panel title="Состояния событий" sub="клик — журнал с этим состоянием">
+          <HBars rows={stats.by_status.map(r => ({ key: r.key, label: r.title, value: r.count, to: journal(s, { status: r.key }) }))} color={C.neutral} />
+        </Panel>
+      </div>
     </div>
 
-    {!management && <section className="st-panel"><h2>По часам суток</h2>
-      <Columns label="События по часам суток" xTitle="Час суток, МСК" every={1} height={170}
-        columns={Array.from({ length: 24 }, (_, h) => { const n = hours.get(h) ?? 0; return { label: String(h), tip: `${String(h).padStart(2, "0")}:00–${String(h).padStart(2, "0")}:59: ${n} ${plural(n, "событие", "события", "событий")}`, parts: [{ value: n, tone: "grey" }] }; })} />
-    </section>}
+    <div className="an-grid an-grid-3">
+      <Panel title="По сценариям" sub="клик — журнал по сценарию" testId="by-scenario">
+        <div className="an-donut-wrap">
+          <Donut parts={verdicts} total={stats.total} caption="событий" />
+          <ul className="an-donut-legend">{verdicts.map(v => <li key={v.name}><i style={{ background: v.color }} /><span>{v.name}</span><b>{v.value}</b><small>{stats.total ? pct(v.value / stats.total) : "—"}</small></li>)}</ul>
+        </div>
+        <HBars rows={verdictRows(stats.by_scenario, r => journal(s, { scenario: r.key }))} color={C.confirmed} />
+      </Panel>
+      <Panel title="По секторам" sub="клик — журнал по сектору" aside={<Legend items={VERDICT_LEGEND} />} testId="by-sector">
+        <HBars rows={verdictRows(stats.by_sector, r => journal(s, { sector_id: r.key }))} color={C.confirmed} />
+      </Panel>
+      <Panel title="По камерам" sub="клик — журнал по камере" aside={<Legend items={VERDICT_LEGEND} />} testId="by-camera">
+        <HBars rows={verdictRows(stats.by_camera, r => journal(s, { q: r.title }))} color={C.confirmed} />
+      </Panel>
+    </div>
 
-    <p className="st-foot">Демо-данные: события синтетические. Время реакции оператора и мастера появится после подключения статистики бэкенда.</p>
+    <Panel className={`an-wide${stale}`} title="Скорость реакции" testId="reaction"
+      sub={<>Медиана (p50) — сплошная часть, до p95 — градиент; n — завершённые, ожидают — без действия. Шкала у каждой строки своя.</>}
+      aside={<Legend items={[{ name: "Оператор", color: C.confirmed }, { name: "Мастер", color: C.master }, { name: `Порог эскалации ${ESCALATION_S} с`, color: C.red, kind: "trend" }]} />}>
+      <Reaction stats={stats} />
+    </Panel>
+
+    <p className="an-foot"><UserCheck size={14} strokeWidth={1.75} />Все цифры — из статистики бэкенда за выбранный срез{s.demo ? ", включая демо-данные" : ""}. Пунктир — линейная экстраполяция: прямая наименьших квадратов по полным дням с первого дня с событиями, продолженная от последнего дня факта; полоса — 95 % интервал для отдельного дня при той же линейной модели. Это не прогноз модели.</p>
   </div>;
+}
+
+export function StatsPage({ management = false }: { management?: boolean }) {
+  return management ? <ManagementPage /> : <OhsPage />;
 }
