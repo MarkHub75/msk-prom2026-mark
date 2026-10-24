@@ -40,7 +40,7 @@ def comparison(baseline,candidate):
             'policy':{'macro_f1_min_gain':.01,'max_per_class_recall_drop':.02,'bare_head_fp_nonincrease':True}}
 
 
-def run(ready,manifest_path,compiled,output,max_seconds=300):
+def run(ready,manifest_path,compiled,output,max_seconds=300, float_onnx=None):
     dataset,quality,_=verified_inputs(ready)
     compiled=Path(compiled); report=json.loads((compiled/'compile-report.json').read_text())
     if report['source_onnx_sha256']!=ONNX_SHA: raise ValueError('source ONNX changed')
@@ -53,13 +53,24 @@ def run(ready,manifest_path,compiled,output,max_seconds=300):
          'dataset_digest':dataset['dataset_digest'],'manifest_sha256':sha256(manifest_path),
          'compile_report_sha256':sha256(compiled/'compile-report.json'),
          'quantized_sha256':sha256(compiled/'quantized.qm.onnx'),'scales_sha256':sha256(compiled/'scales.json'),
-         'score_floor':.001,'primary_confidence':.25,'nms_iou':.45,'cpu_threads':2,'scope':'SIMULATED_CPU_NOT_ACTUAL_LINQ'})
+         'score_floor':.001,'primary_confidence':.25,'nms_iou':.45,'cpu_threads':2,'scope':'SIMULATED_CPU_NOT_ACTUAL_LINQ' if float_onnx is None else 'FLOAT_ONNX_CPU_NOT_ACTUAL_LINQ'})
     import torch
     torch.set_num_threads(2)
     from ml.linq.quantized_reference import QuantizedReferenceBackend
     from ml.detection import preprocess,decode
     start=time.perf_counter()
-    backend=QuantizedReferenceBackend(compiled/'quantized.qm.onnx',compiled/'scales.json',compiled/'compile-report.json',threads=2)
+    if float_onnx is None:
+        backend=QuantizedReferenceBackend(compiled/'quantized.qm.onnx',compiled/'scales.json',compiled/'compile-report.json',threads=2)
+    else:
+        if sha256(float_onnx)!=ONNX_SHA: raise ValueError('float control source changed')
+        import onnxruntime as ort
+        options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
+        session=ort.InferenceSession(str(float_onnx),sess_options=options,providers=['CPUExecutionProvider'])
+        class FloatBackend:
+            def infer(self,inputs):
+                return dict(zip([o.name for o in session.get_outputs()],session.run(None,inputs)))
+        backend=FloatBackend()
+        save('float-control.json',{'scope':'FLOAT_ONNX_CPU_NOT_ACTUAL_LINQ','onnx_sha256':sha256(float_onnx)})
     predictions={};timings=[];transforms={}
     for n,image in enumerate(dataset['images']):
         if time.perf_counter()-start>max_seconds: raise TimeoutError('bounded CPU allocation expired')
@@ -72,7 +83,7 @@ def run(ready,manifest_path,compiled,output,max_seconds=300):
     save('predictions.json',predictions);save('transforms.json',transforms)
     metrics=evaluate_dataset(dataset,predictions,confidence=.25)
     save('metrics-reviewed.json',metrics)
-    status={'status':'COMPLETED','scope':'SIMULATED_CPU_NOT_ACTUAL_LINQ','images':52,'seconds':time.perf_counter()-start,
+    status={'status':'COMPLETED','scope':'SIMULATED_CPU_NOT_ACTUAL_LINQ' if float_onnx is None else 'FLOAT_ONNX_CPU_NOT_ACTUAL_LINQ','images':52,'seconds':time.perf_counter()-start,
             'mean_forward_seconds':float(np.mean(timings)),'final_test':'NOT_RUN'}
     save('run.json',status)
     return status
@@ -80,5 +91,5 @@ def run(ready,manifest_path,compiled,output,max_seconds=300):
 if __name__=='__main__':
     import argparse
     p=argparse.ArgumentParser();p.add_argument('--ready',required=True);p.add_argument('--manifest',required=True)
-    p.add_argument('--compiled',required=True);p.add_argument('--output',required=True);a=p.parse_args()
-    print(json.dumps(run(a.ready,a.manifest,a.compiled,a.output)))
+    p.add_argument('--compiled',required=True);p.add_argument('--output',required=True);p.add_argument('--float-onnx');p.add_argument('--max-seconds',type=int,default=300);a=p.parse_args()
+    print(json.dumps(run(a.ready,a.manifest,a.compiled,a.output,a.max_seconds,a.float_onnx)))
