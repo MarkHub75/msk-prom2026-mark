@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle2, Clock3, Flame, RotateCw, ShieldCheck, Sire
 import { api } from "../api/client";
 import type { CountRow, EventSummary, OhsStats } from "../api/types";
 import { useApi } from "../api/useApi";
-import { DemoBadge, GrowthContext, MSK_MS, Panel, Skeleton, mskDay, ruDay, shortDay, useSticky } from "../components/analytics/kit";
+import { DemoBadge, GrowthContext, MSK_MS, Panel, Skeleton, mskDay, ruDay, shortDay } from "../components/analytics/kit";
 import { ErrorNotice, PageHeading } from "../components/ui";
 import { AreaChart, Legend } from "../components/charts/AreaChart";
 import { Delta, Donut, HBars, Meter, RangeBullet, Sparkline, StatTile, type BarRow } from "../components/charts/Figures";
@@ -116,11 +116,12 @@ function OhsPage() {
   const navigate = useNavigate();
   const s = readSlice(search);
   const key = JSON.stringify(s);
-  const state = useApi(() => api.GET("/api/stats/ohs", { params: { query: { ...apiRange(s), include_demo: s.demo, ...(s.sector ? { sector_id: s.sector } : {}), ...(s.camera ? { camera_id: s.camera } : {}) } } }), [key]);
-  const events = useApi(() => loadEvents(s), [key]);
+  const state = useApi(() => api.GET("/api/stats/ohs", { params: { query: { ...apiRange(s), include_demo: s.demo, ...(s.sector ? { sector_id: s.sector } : {}), ...(s.camera ? { camera_id: s.camera } : {}) } } }), [], { refresh: [key] });
+  // Filters refetch the same screen: the previous figures stay (dimmed) until the new ones arrive.
+  const events = useApi(() => loadEvents(s), [], { refresh: [key] });
   const facets = useApi(() => api.GET("/api/journal/facets"), []);
-  const stats = useSticky(state);
-  const evData = useSticky(events);
+  const stats = state.data;
+  const evData = events.data;
 
   const set = (patch: Record<string, string | null>) => {
     const next = new URLSearchParams(search);
@@ -212,7 +213,7 @@ function OhsPage() {
       <Panel title="Когда случаются события" testId="heatmap" className={events.loading && evData ? "is-stale" : ""}
         sub={<>День недели × час начала, МСК · сверху — итог по часам из статистики, справа — по дням недели</>}
         aside={evData && <span className="an-chip">по журналу: {evData.items.length}{evData.items.length < evData.total ? ` из ${evData.total}` : ""} {plural(evData.items.length, "событие", "события", "событий")}</span>}>
-        {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !evData ? <i className="an-sk-block" /> : <Heatmap grid={weekHourGrid(evData.items)} slots={weekHourSlots(s.from)} color={C.confirmed} rows={WEEKDAYS} hourTotals={hours} />}
+        {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !evData ? <i className="an-sk-block" /> : <Heatmap grid={weekHourGrid(evData.items)} slots={weekHourSlots(s.from)} today={weekHourGrid(evData.items.filter(e => mskDay(0, Date.parse(e.started_at)) === s.to))} todayRow={(new Date(`${s.to}T12:00:00Z`).getUTCDay() + 6) % 7} color={C.confirmed} rows={WEEKDAYS} hourTotals={hours} />}
       </Panel>
       <div className="an-stack">
         <Panel title="По сменам" testId="by-shift" aside={<Legend items={VERDICT_LEGEND} />}>
