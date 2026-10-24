@@ -1,3 +1,11 @@
+## Latest session handoff — user requested closure
+
+Full continuation saved in docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md;
+codecheckpoint2623cabefbe3c9e83e550e5336b1df18c3a17879.7full localGPU scene
+packs ready,522testsOK(4skipped), no newTPU. Own processes0/GPU0/freeGPUlock
+at15:46UTC. No further experiment during handoff. Next session resumes from
+that document and new user/contract steering.
+
 ## Latest: whole-scene neural exports
 
 7full localCUDA videos/770frames/2310modelcalls COMPLETE,9owned validationtests,

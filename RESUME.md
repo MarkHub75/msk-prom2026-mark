@@ -1,3 +1,11 @@
+## LATEST CONTEXT HANDOFF
+
+Read `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md` in full. Full-scene code
+checkpoint2623cabefbe3c9e83e550e5336b1df18c3a17879 is committed. Seven videos,
+770full localCUDA frames,2310model calls,522testsOK(4skipped); no freshLinQ.
+Closing audit15:46UTC: ownjobs0/GPU0/lockFREE snapshot. Mark's new Argus contract
+pending. Session closed at user's handoff request; no automatic next experiment.
+
 ## CURRENT FULL SCENE PACKS
 
 7full localCUDA videos/770frames/2310modelcalls COMPLETE,9owned validationtests,

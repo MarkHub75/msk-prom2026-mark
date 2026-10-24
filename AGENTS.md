@@ -1,3 +1,11 @@
+# Latest session handoff — whole scenes
+
+Read `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md` first for the latest state.
+7whole localCUDA scenes/770frames/2310calls are ready; only11historical matching
+Pose TPUframes, no freshTPU. User requested this session handoff; stop after
+report/commits, resume development only in a newly authorized session. Mark owns
+all Argus rules/app. Historical instructions below retain their safety boundaries.
+
 # Latest captain steering — 24 October, deadline18:00MSK
 
 ML owns models, ONNX/TPU qualification, original MP4 and per-frame neural results.

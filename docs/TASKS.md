@@ -1,3 +1,9 @@
+## Session closed for requested handoff
+
+Latest context: `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md`.
+Code2623cabe is committed, artifacts ready, no own job remains active. Next
+session uses the new Argus contract when supplied; no automatic next cycle.
+
 ## Full-scene delivery status
 
 7full localCUDA videos/770frames/2310modelcalls COMPLETE,9owned validationtests,

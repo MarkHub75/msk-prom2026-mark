@@ -487,5 +487,17 @@
       "bytes": 291,
       "sha256": "9592b0ed2b23670887544576fef4f2c9a2ca7bac5cf1f404b3b45898dc4e471c"
     }
-  ]
+  ],
+  "code_commit_for_reproduction": "2623cabefbe3c9e83e550e5336b1df18c3a17879",
+  "forwards_executed_from_owned_worktree_before_code_commit": true,
+  "session_close_audit": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_session_close_audit.json",
+    "bytes": 354,
+    "sha256": "ec9331f0dc3f8ac8391b83486aa1ff6d4ea9bcbac180c7c381a6c53649af866c"
+  },
+  "context_handoff": {
+    "path": "/workspace/project/docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md",
+    "bytes": 26554,
+    "sha256": "9d840055cff7afc561f996d3518871dc70a1d5c70fd7da8223a1e4fbfc520245"
+  }
 }

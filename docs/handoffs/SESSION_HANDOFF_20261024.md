@@ -1,3 +1,10 @@
+# HISTORICAL HANDOFF — superseded by the scene-pack continuation
+
+**Latest context:** [SESSION_HANDOFF_20261024_SCENES.md](SESSION_HANDOFF_20261024_SCENES.md).
+Read that file first: captain moved rules/app to Mark, and seven full localGPU
+scene packs are now ready. The snapshot below is preserved as history; its old
+"no full scenes"/Git-auth/priority statuses are not current.
+
 # SESSION HANDOFF — MOSPROM-2026, ML/CV
 
 Снимок: **2026-10-24 12:47:31 UTC / 2026-10-24 15:47:31 МСК**. Дедлайн: **25 октября 2026, 10:00 МСК = 07:00 UTC**. Это передача контекста, а не разрешение автоматически начинать новые обучения или сетевые эксперименты.
