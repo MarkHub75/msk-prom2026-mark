@@ -66,7 +66,7 @@ describe("calculator (tech.md 8.25)", () => {
       const last = requests.filter(r => path(r) === "/api/calculator/rollout").at(-1)!;
       expect(await last.clone().json()).toMatchObject({ cameras: 8, workshops: 2, overrides: { "accelerator.price_rub": 600000 } });
     });
-    expect(screen.getByText("своё значение")).toBeTruthy();
+    expect(screen.getByText("своё значение", { selector: ".ds-badge" })).toBeTruthy();
   });
 
   it("does not post an invalid field and says what to fix", async () => {
@@ -84,7 +84,7 @@ describe("calculator (tech.md 8.25)", () => {
     calcServer();
     open("/calculator", "admin");
     expect(await screen.findByText("замер приложения: 3 задачи", { selector: "small" })).toBeTruthy();
-    expect(screen.queryByRole("radio", { name: "Внедрение" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Внедрение" })).toBeNull();
     expect(requests.some(r => path(r) === "/api/calculator/rollout")).toBe(false);
   });
 

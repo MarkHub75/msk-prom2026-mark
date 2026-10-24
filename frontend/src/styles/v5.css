@@ -7,8 +7,8 @@
 .v5-page .heading-meta { color: var(--ds-text-2); font-size: 12px; }
 .v5-page .heading-actions { display: flex; align-items: center; gap: var(--s2); }
 .v5-muted { color: var(--ds-text-3); font-size: 12px; }
-.v5-hint { display: flex; align-items: flex-start; gap: 6px; margin: var(--s2) 0 0; color: var(--ds-text-3); font-size: 12px; line-height: 1.45; }
-.v5-hint svg { flex: none; margin-top: 1px; }
+.v5-hint { display: block; margin: var(--s2) 0 0; color: var(--ds-text-3); font-size: 12px; line-height: 1.45; }
+.v5-hint svg { margin-right: 6px; vertical-align: -2px; }
 .v5-hint code, .v5-files code { font-family: var(--mono); font-size: 12px; color: var(--ds-text-2); }
 .v5-hint.is-error { color: var(--ds-red-text); }
 .v5-page .ds-panel-body > .v5-hint { padding: 0 var(--s3) var(--s3); }
@@ -63,11 +63,12 @@
 .v5-scale-basis b { font-size: 17px; font-weight: 500; color: var(--ds-text); }
 .v5-scale-basis small { color: var(--ds-text-3); font-size: 12px; }
 .v5-assume td b { display: block; font-weight: 500; color: var(--ds-text); }
-.v5-assume td small { display: block; margin-top: 1px; color: var(--ds-text-3); font-size: 11px; }
+.v5-assume td:first-child small { display: block; margin-top: 1px; color: var(--ds-text-3); font-size: 11px; }
 .v5-assume td.num { width: 1%; white-space: nowrap; }
 .v5-assume-input input { width: 110px; flex: none; }
 .v5-assume tr.is-changed { box-shadow: inset 2px 0 0 var(--ds-accent); }
 .v5-source { color: var(--ds-text-3); font-size: 12px; line-height: 1.4; }
+.v5-assume td:first-child .v5-source-inline { display: none; }
 .v5-reset { display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--r2); background: transparent; color: var(--ds-text-3); cursor: pointer; }
 .v5-reset:hover { background: var(--ds-bg-3); color: var(--ds-text); }
 
@@ -131,7 +132,10 @@
   .v5-page .page-heading { flex-wrap: wrap; padding: var(--s2) var(--s3); }
   .v5-page .page-heading h1 { white-space: normal; }
   .v5-page .page-heading > div:first-child { flex-direction: column; gap: 2px; }
-  .v5-form-grid, .v5-scale-basis, .v5-metrics { grid-template-columns: minmax(0, 1fr); }
+  .v5-scale-basis, .v5-metrics { grid-template-columns: minmax(0, 1fr); }
+  /* the source moves under the title: a third column does not fit a phone */
+  .v5-assume th:last-child, .v5-assume td:last-child { display: none; }
+  .v5-assume td:first-child .v5-source-inline { display: block; margin-top: 3px; font-family: var(--display); font-size: 11.5px; }
   .v5-passport-head { flex-wrap: wrap; }
   .v5-verdicts { width: 100%; }
   .v5-verdicts li { flex: 1; min-width: 0; }

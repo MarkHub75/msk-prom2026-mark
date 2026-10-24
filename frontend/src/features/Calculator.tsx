@@ -33,10 +33,13 @@ const SCALE: { key: ScaleField; label: string; min: number }[] = [
 
 const rubFmt = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
 const numFmt = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 });
+const yearsFmt = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 });
 export const rub = (value: number) => `${rubFmt.format(value)} ₽`;
 export function months(value: number | null) {
   if (value === null) return null;
-  return value < 1 ? "меньше месяца" : `${numFmt.format(Math.round(value * 10) / 10)} мес.`;
+  if (value < 1) return "меньше месяца";
+  const text = `${numFmt.format(Math.round(value * 10) / 10)} мес.`;
+  return value >= 24 ? `${text} · ${yearsFmt.format(value / 12)} г.` : text;
 }
 
 type Draft = Record<string, string>;
@@ -147,7 +150,7 @@ function Assumptions({ list, overrides, onChange }: { list: CalcAssumption[]; ov
       const draft = overrides[a.key];
       const changed = draft !== undefined;
       return <tr key={a.key} className={changed ? "is-changed" : undefined}>
-        <td><b>{a.title}</b><small className="mono">{a.key}</small></td>
+        <td><b>{a.title}</b><small className="mono">{a.key}</small><small className="v5-source-inline">{changed ? "своё значение" : a.source}</small></td>
         <td className="num">{a.editable
           ? <span className="v5-num-input v5-assume-input"><TextInput inputMode="decimal" aria-label={a.title} value={draft ?? String(a.value)} onChange={e => onChange(a.key, e.target.value)} /><small>{a.unit}</small>{changed && <button type="button" className="v5-reset" onClick={() => onChange(a.key, null)} aria-label={`Вернуть «${a.title}»`} title="Вернуть исходное"><Icon name="refresh" size={13} /></button>}</span>
           : <span className="mono">{numFmt.format(a.value)} <small>{a.unit}</small></span>}</td>
@@ -224,7 +227,7 @@ export function CalculatorPage() {
       <Panel title="Замеры приложения" flush>
         {base.measured.length ? <table className="ds-table v5-assume" data-testid="measured">
           <thead><tr><th>Замер</th><th className="num">Значение</th><th>Источник</th></tr></thead>
-          <tbody>{base.measured.map(m => <tr key={m.key}><td><b>{m.title}</b></td><td className="num"><span className="mono">{numFmt.format(m.value)} <small>{m.unit}</small></span></td><td className="v5-source">{m.source}</td></tr>)}</tbody>
+          <tbody>{base.measured.map(m => <tr key={m.key}><td><b>{m.title}</b><small className="v5-source-inline">{m.source}</small></td><td className="num"><span className="mono">{numFmt.format(m.value)} <small>{m.unit}</small></span></td><td className="v5-source">{m.source}</td></tr>)}</tbody>
         </table> : <p className="v5-hint">Замеров пока нет: обработайте видео на LinQ, и здесь появится пропускная способность и RTT.</p>}
       </Panel>
     </div>
