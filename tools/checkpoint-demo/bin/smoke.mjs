@@ -172,7 +172,7 @@ function notReady(r, what) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // --- story sources: the director on the mock, the fake mode on the backend ---------------
-const story = { cameraId: null, yellow: null, red: null };
+const story = { cameraId: null, yellow: null, red: null, redStatus: null }; // redStatus: the last status the smoke reached
 
 async function mockNext() {
   const r = await fetch(`${REST}/__demo/next`, { method: "POST" });
@@ -304,12 +304,12 @@ async function main() {
     must(n.data.sound === "chime" && n.data.takeover === false, `sound=${n.data.sound} takeover=${n.data.takeover}`);
     if (MOCK) must(created.data.reason_text === "Бег 2,4 роста/с", `reason ${created.data.reason_text}`);
     return `#${created.data.id} ${created.data.notification_text}`;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "yellow", needs: ["server", "ws", "story"] });
 
   await step("жёлтое: notification НЕ у master", async () => {
     await sleep(500);
     must(!master.messages.some(isNotif(story.yellow.id)), "master получил жёлтое уведомление");
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "yellow", needs: ["server", "ws", "story"] });
 
   await step("карточка жёлтого + view сектора", async () => {
     const d = await http("GET", `/api/events/${story.yellow.id}`, { role: "operator" });
@@ -321,14 +321,14 @@ async function main() {
     must(v.status === 200 && v.data.feed.some((e) => e.id === story.yellow.id), "события нет в ленте сектора");
     if (MOCK) must(v.data.sector.state === "yellow", `сектор ${v.data.sector.state}`);
     return `allowed=${d.data.allowed_actions.join(",")}, сектор ${v.data.sector.state}`;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "yellow", needs: ["server", "ws", "story"] });
 
   await step("operator confirm жёлтого → confirmed", async () => {
     const r = await http("POST", `/api/events/${story.yellow.id}/actions`, { role: "operator", body: { action: "confirm" } });
     notReady(r, "POST actions");
     must(r.status === 200 && r.data.event.status === "confirmed", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
     must(await op.waitFor((m) => m.type === "event.updated" && m.data.id === story.yellow.id && m.data.status === "confirmed", 3000), "нет event.updated");
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "yellow", needs: ["server", "ws", "story"] });
 
   // ---- red ----
   await step("красное событие", async () => {
@@ -336,9 +336,10 @@ async function main() {
     const created = await op.waitFor(isCreated("red"));
     must(created, `нет event.created красного за ${WAIT_MS / 1000} с`);
     story.red = created.data;
+    story.redStatus = created.data.status;
     if (MOCK) must(created.data.reason_text === "Зафиксировано падение", `reason ${created.data.reason_text}`);
     return `#${created.data.id} ${created.data.notification_text}`;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("takeover-notification у operator, не у master", async () => {
     const n = await op.waitFor(isNotif(story.red.id), 3000);
@@ -346,47 +347,50 @@ async function main() {
     must(n.data.audience.length === 1 && n.data.audience[0] === "operator", `audience ${n.data.audience}`);
     await sleep(300);
     must(!master.messages.some(isNotif(story.red.id)), "master получил уведомление до подтверждения");
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("master: нет confirm в allowed_actions", async () => {
     const d = await http("GET", `/api/events/${story.red.id}`, { role: "master" });
     must(d.status === 200, `→ ${d.status}`);
     must(!d.data.allowed_actions.includes("confirm"), `allowed ${d.data.allowed_actions}`);
     return `allowed=[${d.data.allowed_actions.join(",")}]`;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("operator «Подтверждаю» → sent_to_master", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "operator", actor: encodeURIComponent("Иван Петров"), body: { action: "confirm" } });
     must(r.status === 200 && r.data.event.status === "sent_to_master", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story", needs: ["server", "ws"] });
+    story.redStatus = "sent_to_master";
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("master получает notification (chime)", async () => {
     const n = await master.waitFor(isNotif(story.red.id), 3000);
     must(n && n.data.sound === "chime" && n.data.takeover === false && n.data.audience.includes("master"), `notification ${JSON.stringify(n?.data)}`);
     return n.data.text;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("событие во входящих мастера", async () => {
     const r = await http("GET", "/api/master/inbox", { role: "master" });
     notReady(r, "GET /api/master/inbox");
     must(r.status === 200 && r.data.active.some((e) => e.id === story.red.id), "нет в active");
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "inbox", needs: ["server", "ws", "story", "red"] });
 
   await step("master accept → master_accepted", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "accept" } });
     must(r.status === 200 && r.data.event.status === "master_accepted", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story", needs: ["server", "ws"] });
+    story.redStatus = "master_accepted";
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("НЕГАТИВ resolve без комментария → 422", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "resolve", comment: "  " } });
     must(r.status === 422, `→ ${r.status} ${r.data.code}`);
     return r.data.message;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("master resolve с комментарием → resolved", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "resolve", comment: "Пострадавших нет, рабочее место осмотрено" } });
     must(r.status === 200 && r.data.event.status === "resolved", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story", needs: ["server", "ws"] });
+    story.redStatus = "resolved";
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("полная история actions в карточке", async () => {
     const d = await http("GET", `/api/events/${story.red.id}`, { role: "ohs" });
@@ -399,7 +403,7 @@ async function main() {
     const res = d.data.actions.find((a) => a.action === "resolved");
     must(res.comment.length > 0, "у resolved нет комментария");
     return got.join(" → ");
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "red", needs: ["server", "ws", "story"] });
 
   await step("событие в журнале /api/events", async () => {
     const r = await http("GET", "/api/events?limit=200");
@@ -409,7 +413,7 @@ async function main() {
     notReady(f, "GET /api/journal/facets");
     must(f.status === 200, `facets → ${f.status}`);
     return `всего ${r.data.total}`;
-  }, { gate: "story", needs: ["server", "ws"] });
+  }, { gate: "journal", needs: ["server", "ws", "story", "red"] });
 
   // ---- negatives ----
   const anyEvent = () => story.red?.id ?? story.yellow?.id ?? 1;
@@ -481,9 +485,9 @@ async function main() {
     const again = new WsClient("operator");
     must(await again.waitFor((m) => m.type === "hello", 5000), "нет hello после переподключения");
     again.close();
-    if (story.red) {
+    if (story.red && story.redStatus) {
       const d = await http("GET", `/api/events/${story.red.id}`, { role: "operator" });
-      must(d.data.event.status === "resolved", `статус после разрыва ${d.data.event.status}`);
+      must(d.data.event.status === story.redStatus, `статус после разрыва ${d.data.event.status}, ожидался ${story.redStatus}`);
     }
     if (MOCK) {
       const dash = await http("GET", "/api/operator/dashboard");
