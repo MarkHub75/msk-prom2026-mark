@@ -29,6 +29,7 @@ PLUGINS: list[ScenarioPlugin] = [
     RespiratorPlugin(),
 ]
 ANY_CLASS = {"fire_smoking"}  # one of `required_classes` is enough (tech.md 8.3)
+ANY_VEHICLE = {"proximity"}  # person and one of `pipeline.vehicle_classes` (tech.md 8.30)
 
 
 def plugin(scenario: str) -> ScenarioPlugin:
@@ -49,13 +50,16 @@ def scenario_metas(active_classes: list[str] | None = None) -> list[ScenarioMeta
     """Plugins with status and config defaults; `active_classes`: snapshot of an analysis."""
     if active_classes is None:
         active_classes = registry.active_classes(config.get_settings())
+    vehicles = config.get_settings().pipeline.vehicle_classes
     out = []
     for plug in PLUGINS:
         meta = plug.meta
-        required = meta.required_classes
+        required = ["person", *vehicles] if meta.id in ANY_VEHICLE else meta.required_classes
         missing = [c for c in required if c not in active_classes]
         if meta.id in ANY_CLASS and len(missing) < len(required):
             missing = []
+        if meta.id in ANY_VEHICLE and any(v in active_classes for v in vehicles):
+            missing = [c for c in missing if c not in vehicles]
         if meta.status == "skeleton":
             status, text = "skeleton", texts.SCENARIO_SKELETON
         elif missing:
@@ -69,6 +73,7 @@ def scenario_metas(active_classes: list[str] | None = None) -> list[ScenarioMeta
                 update={
                     "status": status,
                     "status_text": text,
+                    "required_classes": required,
                     "params": [
                         p.model_copy(update={"default": values[p.key]}) for p in meta.params
                     ],

@@ -588,13 +588,18 @@ def video_file(video_id: int) -> Path:
 
 
 def _job(row: sqlite3.Row) -> Job:
+    sources = [(row[f"{prefix}_metrics"], row[f"{prefix}_created"]) for prefix in ("det", "pose")]
+    analysis = store.analysis(row["analysis_id"] or 0)
+    if analysis is not None:  # the extra models of its snapshot (tech.md 8.30 item 11)
+        snapshot = AnalysisConfig.model_validate_json(analysis["config_json"])
+        found = [store.artifact_by_id(artifact_id) for artifact_id in snapshot.extra_artifact_ids]
+        sources += [(a["metrics_json"], a["created_at"]) for a in found if a is not None]
     metrics = []
-    for prefix in ("det", "pose"):
-        if row[f"{prefix}_metrics"]:
+    for text, created in sources:
+        if text:
             # The artifact came from an earlier run: this attempt did not call the backend.
-            cached = row["started_at"] is not None and row[f"{prefix}_created"] < row["started_at"]
-            data = json.loads(row[f"{prefix}_metrics"])
-            metrics.append(InferenceMetrics(**data, cached=cached))
+            cached = row["started_at"] is not None and created < row["started_at"]
+            metrics.append(InferenceMetrics(**json.loads(text), cached=cached))
     job = Job.model_validate({**dict(row), "metrics": metrics})
     live = _live.get(job.id) if job.status == "running" else None
     if live is not None:  # LinQ answers frame by frame: rate and time left (tech.md 8.29)
@@ -753,12 +758,20 @@ def _analysis_files(
 
 
 def _analysis_config(
-    video: sqlite3.Row | dict[str, Any], camera_id: int | None, extra_ids: list[int]
+    video: sqlite3.Row | dict[str, Any],
+    camera_id: int | None,
+    extra: list[tuple[ModelSpec, int]],
 ) -> AnalysisConfig:
-    """Snapshot of tech.md 8.2; no camera (`eval_run`): no calibration and zones, default rules."""
+    """Snapshot of tech.md 8.2; no camera (`eval_run`): no calibration and zones, default rules.
+
+    A `pipeline.extra` model without an artifact in `extra` (it failed, tech.md 8.30 item 10)
+    lends no classes: its scenarios are `model_missing` in this analysis.
+    """
     settings = config.get_settings()
     rows = [] if camera_id is None else store.camera_rules(camera_id)
     snapshot = _rules(camera_id or 0, rows, rules.scenario_metas())
+    left_out = set(settings.pipeline.extra) - {f"{m.id}@{m.version}" for m, _ in extra}
+    models = [m for m in registry.active_models(settings) if f"{m.id}@{m.version}" not in left_out]
     return AnalysisConfig(
         width=video["width"],
         height=video["height"],
@@ -769,8 +782,8 @@ def _analysis_config(
         zones=[] if camera_id is None else [_zone(row) for row in store.zones(camera_id)],
         rules={r.scenario: r for r in snapshot},
         class_conf=settings.class_conf,
-        active_classes=registry.active_classes(settings),
-        extra_artifact_ids=extra_ids,
+        active_classes=list(dict.fromkeys(n for m in models for n in m.classes.values())),
+        extra_artifact_ids=[artifact_id for _, artifact_id in extra],
     )
 
 
@@ -788,7 +801,7 @@ async def _analyze(
     video_id = video["id"]
     version = store.analysis_next_version(video_id)
     rel = f"analyses/{video_id}-v{version}/hud.jsonl"
-    cfg = _analysis_config(video, video["camera_id"], [artifact_id for _, artifact_id in extra])
+    cfg = _analysis_config(video, video["camera_id"], extra)
     data = settings.data_dir
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
     started = time.perf_counter()
@@ -911,7 +924,7 @@ async def run_next_job() -> Job | None:
         start = {"status": "running", "attempts": attempts, "started_at": clock.iso(now)}
         store.job_update(job_id, start | {"next_attempt_at": None, "error_code": None})
         store.video_update(video_id, {"status": "processing"})
-    pose_text = None
+    notes: list[str] = []  # models the analysis went without: `jobs.error_text` of a done job
     try:
         video = _video_row(video_id)
         pose: tuple[ModelSpec, int] | None = None
@@ -932,7 +945,14 @@ async def run_next_job() -> Job | None:
             for ref in settings.pipeline.extra:  # own classes, --nc (tech.md 6.1)
                 model = registry.resolve(ref)
                 span = (0.45, 0.45)
-                artifact_id = await _infer(job_id, "inference_detect", span, model, video, src)
+                try:
+                    artifact_id = await _infer(job_id, "inference_detect", span, model, video, src)
+                except InferenceError as exc:
+                    if exc.code not in ("remote_error", "bad_output", "model_missing"):
+                        raise
+                    # The analysis goes on without this model, its scenarios are model_missing.
+                    notes.append(f"extra {ref}: {exc.message}")
+                    continue
                 extra.append((model, artifact_id))
             try:
                 if settings.pipeline.pose is not None:
@@ -945,7 +965,7 @@ async def run_next_job() -> Job | None:
             except InferenceError as exc:
                 if exc.code not in ("remote_error", "bad_output"):
                     raise
-                pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
+                notes.append(f"pose: {exc.message}")  # the analysis goes on without keypoints
         episodes, hud_frames = await _analyze(job_id, video, (detector, det_id), pose, extra)
         await _evidence(job_id, video, episodes, hud_frames)
     except InferenceError as exc:
@@ -955,7 +975,8 @@ async def run_next_job() -> Job | None:
         log.exception("job %s failed", job_id)
         _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
     else:
-        done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
+        note = "; ".join(notes)[:ERROR_TEXT_MAX] or None
+        done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": note}
         with store.tx():
             store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
             store.video_update(video_id, {"status": "ready"})
@@ -2577,7 +2598,7 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
         pose = (pose_model, await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video))
-    cfg = _analysis_config(video, camera_id, [artifact_id for _, artifact_id in extra])
+    cfg = _analysis_config(video, camera_id, extra)
     data = settings.data_dir
     det_path = data / store.artifact_path(det_id)
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))

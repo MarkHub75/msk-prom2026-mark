@@ -1,4 +1,4 @@
-"""LocalBackend (tech.md 8.1): the loop of `video_worker.py` in this process, onnxruntime on CPU.
+"""LocalBackend (tech.md 8.1): the loop of `video_worker.py` in this process, onnxruntime.
 
 Blocking: `services` calls `run` through `asyncio.to_thread`; nothing here writes to the
 database. Pre- and postprocessing come from `tools/linq/yolo_io.py`, so the JSONL matches the
@@ -33,7 +33,7 @@ def _yolo_io(tools_dir: Path) -> ModuleType:
     return module
 
 
-class LocalBackend:  # InferenceBackend: onnxruntime on CPU, same JSONL as the worker
+class LocalBackend:  # InferenceBackend: onnxruntime in this process, same JSONL as the worker
     name: BackendName = "local"
 
     def __init__(self, settings: Settings) -> None:
@@ -52,7 +52,8 @@ class LocalBackend:  # InferenceBackend: onnxruntime on CPU, same JSONL as the w
         options.log_severity_level = 3
         options.intra_op_num_threads = self.settings.local.threads
         options.inter_op_num_threads = 1
-        return ort.InferenceSession(str(onnx), options, providers=["CPUExecutionProvider"])
+        providers = list(self.settings.local.providers)  # CUDA first on a GPU machine (8.30)
+        return ort.InferenceSession(str(onnx), options, providers=providers)
 
     def run(
         self,
@@ -67,8 +68,8 @@ class LocalBackend:  # InferenceBackend: onnxruntime on CPU, same JSONL as the w
         session = self._session(model)
         yolo_io = _yolo_io(self.settings.linq.tools_dir)
         input_name = session.get_inputs()[0].name
-        nc, kpt = (1, (17, 3)) if model.task == "pose" else (80, None)
-        classes: list[int] | None = list(model.classes)
+        nc, kpt = (1, (17, 3)) if model.task == "pose" else (model.nc or 80, None)
+        classes: list[int] | None = [c for c in model.classes if c < nc]
         if f"{model.id}@{model.version}" in self.settings.pipeline.extra:
             nc, classes = len(model.classes), None  # the worker's --nc: all own classes
         cap = cv2.VideoCapture(str(video))
