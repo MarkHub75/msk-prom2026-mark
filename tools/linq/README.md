@@ -33,13 +33,13 @@
 
 ```powershell
 tools\linq\tunnel\Connect-LinQ.cmd
-.venv\Scripts\python.exe tools\linq\linq_tpu.py ping                       # брокер жив, сколько воркеров
-.venv\Scripts\python.exe tools\linq\export_onnx.py --model yolov8n.pt --imgsz 640
+.venv-linq\Scripts\python.exe tools\linq\linq_tpu.py ping                       # брокер жив, сколько воркеров
+.venv-linq\Scripts\python.exe tools\linq\export_onnx.py --model yolov8n.pt --imgsz 640
 wsl -d Ubuntu -- bash /mnt/d/msk-prom2026-mark/tools/linq/sdk/setup_sdk_wsl.sh     # один раз
 wsl -d Ubuntu -- bash -c "cd /mnt/d/msk-prom2026-mark && ~/linq_sdk/venv/bin/python tools/linq/sdk/compile_yolo.py models/yolov8n_640_op13.onnx --preset O1 --cut-at /model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0 --activation-percentile 99.99 --tag det640_cut_ap9999"
-.venv\Scripts\python.exe tools\linq\upload_program.py models\linq\det640_cut_ap9999\det640_cut_ap9999_b1_o1_h1m.tpu
-.venv\Scripts\python.exe tools\linq\run_images.py --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --onnx models\yolov8n_640_op13.onnx --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx IMG1 IMG2
-.venv\Scripts\python.exe tools\linq\run_video.py data\videos\clip.mp4 --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx --step 5   # pose: --task pose
+.venv-linq\Scripts\python.exe tools\linq\upload_program.py models\linq\det640_cut_ap9999\det640_cut_ap9999_b1_o1_h1m.tpu
+.venv-linq\Scripts\python.exe tools\linq\run_images.py --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --onnx models\yolov8n_640_op13.onnx --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx IMG1 IMG2
+.venv-linq\Scripts\python.exe tools\linq\run_video.py data\videos\clip.mp4 --program mosprom_det640_cut_ap9999_b1_o1_h1m.tpu --tail models\linq\det640_cut_ap9999\det640_cut_ap9999_tail.onnx --step 5   # pose: --task pose
 ```
 
 Компиляции — строго по одной (две параллельно + 960 убили ноутбук по памяти).
