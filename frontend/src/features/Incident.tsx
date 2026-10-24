@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useLevelTitle } from "../components/ops/levels";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Check, Clock, Copy, Cpu, Footprints, MapPin, MessageSquareText, ShieldAlert, Timer } from "lucide-react";
+import { ArrowLeft, Check, Copy, Cpu, MessageSquareText, ShieldAlert } from "lucide-react";
 import { api } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { EventAction, EventDetail, EventSummary, HumanAction } from "../api/types";
@@ -9,13 +9,16 @@ import { useRole } from "../roles";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates, roleTitles } from "../components/AppShell";
 import { EvidenceFrame } from "../components/Media";
+import { ClipPlayer } from "../components/ClipPlayer";
 import { useActorIdentity } from "../components/ActorIdentity";
 import { END_REASON, Into, LevelTag, since, StateBadge, useNow } from "../components/operator/kit";
 import { LivePlayer } from "./Camera";
 import { ACTIONS, useEventActions } from "./eventActions";
+import { MasterEventPage } from "./MasterEvent";
+import { PhoneEventPage } from "./OperatorPhone";
+import { usePhone } from "../components/usePhone";
 import "../styles/incident-review.css";
 import "../styles/operator-depth.css";
-import "../styles/master.css";
 import { duration, Empty, ErrorNotice, Loading, number, Status, time } from "../components/ui";
 
 const IC = { size: 15, strokeWidth: 1.75, "aria-hidden": true } as const;
@@ -25,7 +28,7 @@ const KEYS: Partial<Record<HumanAction, string>> = { confirm: "1", false_alarm: 
 const BY_KEY: Record<string, HumanAction> = { "1": "confirm", "2": "false_alarm", "3": "send_to_master" };
 const unconfirmed = (event: EventSummary) => event.escalated_by_timeout && event.operator_verdict === "none";
 
-function useEventDetail(id: number) {
+export function useEventDetail(id: number) {
   const [role] = useRole(); const updates = useUpdates();
   const { actor } = useActorIdentity();
   const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role], {refresh: [updates]});
@@ -135,7 +138,9 @@ function LiveCamera({ cameraId }: { cameraId: number }) {
   return <LivePlayer view={view.data} compact />;
 }
 
-function OperatorIncident({ detail, state }: { detail: EventDetail; state: ReturnType<typeof useEventDetail> }) {
+export type EventDetailState = ReturnType<typeof useEventDetail>;
+
+function OperatorIncident({ detail, state }: { detail: EventDetail; state: EventDetailState }) {
   const event = detail.event; const meta = useMeta(); const now = useNow(1000);
   const [comment, setComment] = useState(""); const [notice, setNotice] = useState("");
   useEffect(() => { setComment(""); setNotice(""); }, [event.id]);
@@ -155,6 +160,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
         <Evidence detail={detail} />
         <div className="ic-stage-cap"><span>{event.camera_name}</span><span className="mono">{detail.episode?.evidence[0] ? `кадр ${detail.episode.evidence[0].frame_idx} · запись ${duration(detail.episode.evidence[0].ts_ms)}` : ""}</span></div>
       </section>
+      {event.clip && <ClipPlayer clip={event.clip} />}
       <section className="ic-live" data-panel="Эфир камеры сейчас">
         <LiveCamera cameraId={event.camera_id} />
       </section>
@@ -190,55 +196,17 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
   </div>;
 }
 
-function MasterIncident({ detail, state }: { detail: EventDetail; state: ReturnType<typeof useEventDetail> }) {
-  const event = detail.event; const meta = useMeta(); const now = useNow(1000);
-  const [report, setReport] = useState(""); const [notice, setNotice] = useState("");
-  useEffect(() => { setReport(""); setNotice(""); }, [event.id]);
-  const canAccept = detail.allowed_actions.includes("accept");
-  const canResolve = detail.allowed_actions.includes("resolve");
-  const terminal = meta?.statuses.find(s => s.id === event.status)?.terminal;
-  const act = async (action: HumanAction) => {
-    if (action === "resolve" && !report.trim()) { setNotice("Опишите принятые меры перед отправкой."); return; }
-    if (await state.send(action, action === "resolve" ? report : "")) { setNotice(action === "resolve" ? "Отчёт сохранён. Событие закрыто." : "Принято. Сервер сохранил, что вы идёте на участок."); if (action === "resolve") setReport(""); }
-  };
-  return <div className={`ms-detail ms-${event.level}`}>
-    <div className="ms-detail-head">
-      <div className="ms-row"><LevelTag level={event.level} title={meta?.levels.find(l => l.id === event.level)?.title} /><Status event={event} /></div>
-      <h1>{event.title}</h1>
-      {unconfirmed(event) && <p className="ms-unconfirmed"><ShieldAlert size={17} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
-      {!terminal && <p className="ms-wait"><Timer {...IC} />{event.status === "master_accepted" ? "В работе" : "Ждёт"} <b className="ds-num">{since(event.published_at, now)}</b><span>с публикации</span></p>}
-    </div>
-    {canResolve && <label className="ms-report">Принятые меры <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
-    <Evidence detail={detail} compact />
-    <dl className="ms-where">
-      <div><dt><MapPin {...IC} />Где</dt><dd>{event.sector_name}<span>{event.camera_name}{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</span></dd></div>
-      <div><dt><Footprints {...IC} />Причина</dt><dd>{event.reason_text}</dd></div>
-      <div><dt><Clock {...IC} />Начало</dt><dd className="mono">{time(event.started_at)} · {duration(event.duration_s * 1000)}</dd></div>
-    </dl>
-    {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
-    {notice && <p className="action-notice ms-notice" role="status">{notice}</p>}
-    {!canAccept && !canResolve && <p className="ms-done"><Check {...IC} />{terminal ? "Поручение закрыто." : "Действий для мастера сейчас нет."}</p>}
-    <details className="ms-more"><summary>Почему и история</summary>
-      {detail.why.length > 0 && <dl className="od-facts">{detail.why.map((item, i) => <div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}
-      <History actions={detail.actions} />
-    </details>
-    {(canAccept || canResolve) && <div className="ms-actions">
-      {canAccept && <button data-action="accept" className="ms-btn ms-btn-go" disabled={Boolean(state.busy)} onClick={() => void act("accept")}>{state.busy === "accept" ? "Сохраняем…" : "Принял, иду"}</button>}
-      {canResolve && <button data-action="resolve" className="ms-btn ms-btn-done" disabled={Boolean(state.busy) || !report.trim()} onClick={() => void act("resolve")}><Check size={20} strokeWidth={2} aria-hidden />{state.busy === "resolve" ? "Сохраняем…" : "Решено"}</button>}
-    </div>}
-  </div>;
-}
-
 export function IncidentPage({ master = false }: { master?: boolean }) {
-  const { eventId } = useParams(); const id = Number(eventId); const [role] = useRole();
+  const { eventId } = useParams(); const id = Number(eventId); const [role] = useRole(); const phone = usePhone();
   const state = useEventDetail(id); const detail = state.detail; const event = detail?.event;
-  const isMaster = master || role === "master"; const levelTitle = useLevelTitle();
-  const back = isMaster ? <Link className="mobile-back ms-back" to="/master"><ArrowLeft {...IC} />К поручениям{event && <span className="mono">#{event.id}</span>}</Link>
-    : <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${levelTitle(event.level)} · ${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
-  if (!event || !detail) return <div className={isMaster ? "ms-page" : "od-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>{back}{state.error ? <ErrorNotice error={state.error} retry={state.reload} /> : <Loading text="Загружаем событие и доступные действия" />}</div>;
-  return <div className={isMaster ? "ms-page master-detail" : "od-page ic-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>
+  const levelTitle = useLevelTitle();
+  if (master || role === "master") return <MasterEventPage id={id} state={state} />;
+  if (phone) return <PhoneEventPage id={id} state={state} />;
+  const back = <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${levelTitle(event.level)} · ${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
+  if (!event || !detail) return <div className="od-page" data-testid="incident-focus">{back}{state.error ? <ErrorNotice error={state.error} retry={state.reload} /> : <Loading text="Загружаем событие и доступные действия" />}</div>;
+  return <div className="od-page ic-page" data-testid="incident-focus">
     {back}
     {state.error && <ErrorNotice error={state.error} retry={state.reload} />}
-    {isMaster ? <MasterIncident detail={detail} state={state} /> : <OperatorIncident detail={detail} state={state} />}
+    <OperatorIncident detail={detail} state={state} />
   </div>;
 }

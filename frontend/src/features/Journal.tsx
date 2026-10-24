@@ -1,6 +1,6 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { Fragment, useEffect, useState, type FormEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight, Download, FileText, Filter, RotateCcw, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Download, FileText, Filter, RotateCcw, Search, X } from "lucide-react";
 import { api, mediaUrl } from "../api/client";
 import type { paths } from "../api/schema";
 import type { EventSummary } from "../api/types";
@@ -12,6 +12,8 @@ import { EpisodeHistory, Evidence, History } from "./Incident";
 import "../styles/journal.css";
 import "../styles/operator-depth.css";
 import "../styles/journal-depth.css";
+import "../styles/mobile-repeats.css";
+import { groupRepeats, repeatCount, type RepeatGroup } from "./repeats";
 
 type EventQuery = NonNullable<paths["/api/events"]["get"]["parameters"]["query"]>;
 const statuses: EventSummary["status"][] = ["new", "viewed", "confirmed", "false_alarm", "sent_to_master", "master_accepted", "resolved", "auto_finished", "superseded"];
@@ -97,6 +99,9 @@ function reaction(published: string, actions: { action: string; at: string; acto
   return `${duration(Date.parse(first.at) - Date.parse(published))} до решения`;
 }
 
+const GROUP_KEY = "safewatch.journal.group";
+function loadGrouped() { try { return localStorage.getItem(GROUP_KEY) === "1"; } catch { return false; } }
+
 export function JournalPage() {
   const [search, setSearch] = useSearchParams();
   const meta = useMeta();
@@ -105,6 +110,11 @@ export function JournalPage() {
   const page = useApi(() => api.GET("/api/events", { params: { query: eventQuery(search) } }), [queryKey], {refresh: [updates]});
   const facets = useApi(() => api.GET("/api/journal/facets"), []);
   const [picked, setPicked] = useState<number>();
+  // «Группировать повторы»: rows of the same camera and scenario within 30 minutes fold into one; the choice is kept on this device.
+  const [grouped, setGrouped] = useState(loadGrouped);
+  const [unfolded, setUnfolded] = useState<Set<string>>(new Set());
+  const toggleGrouped = (next: boolean) => { setGrouped(next); try { localStorage.setItem(GROUP_KEY, next ? "1" : "0"); } catch { /* storage blocked: the choice lives until reload */ } };
+  const unfold = (key: string) => setUnfolded(prev => { const next = new Set(prev); if (next.has(key)) next.delete(key); else next.add(key); return next; });
   const filtersApplied = FILTER_KEYS.some(key => search.has(key));
   const levelOptions = facets.data?.levels ?? meta?.levels.map(item => ({ id: item.id, title: item.title })) ?? [];
   const statusOptions = facets.data?.statuses ?? meta?.statuses.map(item => ({ id: item.id, title: item.title })) ?? [];
@@ -132,6 +142,28 @@ export function JournalPage() {
     return { q: `«${value}»`, level: find(levelOptions), status: statusTitle(value), sector_id: find(facets.data?.sectors), camera_id: find(facets.data?.cameras), zone_id: find(facets.data?.zones), scenario: find(facets.data?.scenarios) }[key];
   };
   const items = page.data?.items ?? [];
+  const row = (event: EventSummary, child = false) => <tr key={event.id} data-event-id={event.id} className={`jd-row-${event.level} ${selected === event.id ? "is-selected" : ""} ${child ? "rp-child" : ""}`} onClick={() => setPicked(event.id)}>
+            <td className="jd-thumb">{event.evidence_url ? <img src={mediaUrl(event.evidence_url)} alt="" loading="lazy" /> : <span>нет кадра</span>}</td>
+            <td className="jd-time"><time dateTime={event.published_at}><span>{day.format(new Date(event.published_at))}</span><strong className="mono">{time(event.published_at)}</strong></time></td>
+            <td className="jd-event"><button type="button" className="jd-title" onClick={e => { e.stopPropagation(); setPicked(event.id); }}>{event.title}</button><p>{event.reason_text}</p><span className="mono jd-id">#{event.id}{event.is_demo && <em>демо</em>}</span></td>
+            <td className="jd-place"><strong>{event.sector_name}</strong><span>{event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</span></td>
+            <td><LevelTag level={event.level} /></td>
+            <td><Status event={{ ...event, status_title: statusTitle(event.status) || event.status_title }} /></td>
+            <td className="mono jd-dur">{duration(event.duration_s * 1000)}</td>
+            <td>{verdict(event, statusTitle)}</td>
+            <td className="jd-open"><Link to={`/events/${event.id}`} onClick={e => e.stopPropagation()} aria-label={`Открыть историю события ${event.id}`}><ArrowRight {...IC} /></Link></td>
+          </tr>;
+  const groupRow = (group: RepeatGroup) => { const event = group.latest; const first = group.events[group.events.length - 1]; const open = unfolded.has(group.key); return <tr key={`g${group.key}`} data-testid="repeat-group" className={`jd-row-${group.level} rp-group-row ${group.events.some(e => e.id === selected) && !open ? "is-selected" : ""}`} onClick={() => unfold(group.key)}>
+    <td className="jd-thumb">{event.evidence_url ? <img src={mediaUrl(event.evidence_url)} alt="" loading="lazy" /> : <span>нет кадра</span>}</td>
+    <td className="jd-time"><time dateTime={event.published_at}><span>{day.format(new Date(event.published_at))}</span><strong className="mono">{time(event.published_at)}</strong></time><span className="rp-range mono">с {time(first.published_at)}</span></td>
+    <td className="jd-event"><span className="rp-group-title"><button type="button" className="jd-title" onClick={e => { e.stopPropagation(); setPicked(event.id); }}>{event.title}</button><span className="rp-tag">{repeatCount(group)}</span></span><p>{event.reason_text}</p><button type="button" className="rp-open-btn" aria-expanded={open} onClick={e => { e.stopPropagation(); unfold(group.key); }}>{open ? "Свернуть" : `Показать все ${group.events.length}`}<ChevronDown {...IC} size={13} /></button></td>
+    <td className="jd-place"><strong>{event.sector_name}</strong><span>{event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</span></td>
+    <td><LevelTag level={group.level} /></td>
+    <td><Status event={{ ...event, status_title: statusTitle(event.status) || event.status_title }} /></td>
+    <td className="mono jd-dur">{duration(event.duration_s * 1000)}</td>
+    <td>{verdict(event, statusTitle)}</td>
+    <td className="jd-open"><Link to={`/events/${event.id}`} onClick={e => e.stopPropagation()} aria-label={`Открыть историю события ${event.id}`}><ArrowRight {...IC} /></Link></td>
+  </tr>; };
   const selected = picked !== undefined && items.some(e => e.id === picked) ? picked : undefined;
 
   return <div className="jd-page" data-testid="journal-view">
@@ -140,6 +172,7 @@ export function JournalPage() {
       <span className="jd-period">{periodTitle(search)} · МСК</span>
       <span className="od-bar-spacer" />
       <span className="jd-count" aria-live="polite">{page.data ? <>Показано <b>{page.data.items.length}</b> из <b>{page.data.total}</b></> : page.loading ? "Получаем данные" : "Данные не получены"}</span>
+      <label className="rp-switch"><input type="checkbox" checked={grouped} onChange={e => toggleGrouped(e.target.checked)} />Группировать повторы</label>
       <a className="button button-small" href={exportUrl(search)} download data-testid="export-csv"><Download {...IC} />Экспорт CSV</a>
       <Link className="button button-small" to={`/ohs/report${reportQuery ? `?${reportQuery}` : ""}`} data-testid="report-link"><FileText {...IC} />Отчёт PDF за период</Link>
       <button className="button button-small" disabled={page.loading} onClick={() => { page.reload(); facets.reload(); }}><Icon name="refresh" size={14} />Обновить</button>
@@ -167,17 +200,7 @@ export function JournalPage() {
         {page.error ? <ErrorNotice error={page.error} retry={page.reload} /> : !page.data ? <Loading text="Загружаем журнал событий" /> : !items.length ? <Empty title="События не найдены" text={filtersApplied ? "По этим фильтрам событий нет. Измените или сбросьте фильтры." : "За период событий нет. Камеры без наблюдения событий не дают: тишина не означает безопасность."} /> : <div className="jd-table-wrap"><table className="jd-table">
           <caption className="sr-only">Журнал событий. Дата и время указаны по Москве.</caption>
           <thead><tr><th scope="col"><span className="sr-only">Кадр</span></th><th scope="col">Время</th><th scope="col">Событие</th><th scope="col">Место</th><th scope="col">Уровень</th><th scope="col">Состояние</th><th scope="col">Длит.</th><th scope="col">Вердикт оператора</th><th scope="col"><span className="sr-only">История события</span></th></tr></thead>
-          <tbody>{items.map(event => <tr key={event.id} data-event-id={event.id} className={`jd-row-${event.level} ${selected === event.id ? "is-selected" : ""}`} onClick={() => setPicked(event.id)}>
-            <td className="jd-thumb">{event.evidence_url ? <img src={mediaUrl(event.evidence_url)} alt="" loading="lazy" /> : <span>нет кадра</span>}</td>
-            <td className="jd-time"><time dateTime={event.published_at}><span>{day.format(new Date(event.published_at))}</span><strong className="mono">{time(event.published_at)}</strong></time></td>
-            <td className="jd-event"><button type="button" className="jd-title" onClick={e => { e.stopPropagation(); setPicked(event.id); }}>{event.title}</button><p>{event.reason_text}</p><span className="mono jd-id">#{event.id}{event.is_demo && <em>демо</em>}</span></td>
-            <td className="jd-place"><strong>{event.sector_name}</strong><span>{event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</span></td>
-            <td><LevelTag level={event.level} /></td>
-            <td><Status event={{ ...event, status_title: statusTitle(event.status) || event.status_title }} /></td>
-            <td className="mono jd-dur">{duration(event.duration_s * 1000)}</td>
-            <td>{verdict(event, statusTitle)}</td>
-            <td className="jd-open"><Link to={`/events/${event.id}`} onClick={e => e.stopPropagation()} aria-label={`Открыть историю события ${event.id}`}><ArrowRight {...IC} /></Link></td>
-          </tr>)}</tbody>
+          <tbody>{grouped ? groupRepeats(items).map(group => group.events.length > 1 ? <Fragment key={group.key}>{groupRow(group)}{unfolded.has(group.key) && group.events.map(e => row(e, true))}</Fragment> : row(group.latest)) : items.map(event => row(event))}</tbody>
         </table></div>}
         {page.data && <div className="jd-pagination"><span>На странице: {page.data.items.length} · Всего по фильтрам: {page.data.total}</span><div>{search.has("cursor") && <button className="button button-small" onClick={() => changePage()}>К началу</button>}{page.data.next_cursor !== null && <button className="button button-small" onClick={() => changePage(page.data!.next_cursor!)}>Следующая страница <Icon name="arrow" size={15} /></button>}</div></div>}
       </section>

@@ -10,7 +10,11 @@ import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { EvidenceFrame, VideoWithHud } from "../components/Media";
 import { duration, Empty, ErrorNotice, Icon, Loading, number, time } from "../components/ui";
+import { usePhone } from "../components/usePhone";
+import { PhoneAlarms } from "./OperatorPhone";
+import { groupRepeats, repeatCount, repeatTitle, type RepeatGroup } from "./repeats";
 import "../styles/targeted-visual.css";
+import "../styles/mobile-repeats.css";
 
 // "Сектор 1 · Прессовый участок" -> "Прессовый участок"
 export function shortSector(name: string) { return name.replace(/^Сектор\s+\d+\s*[·/–-]\s*/i, ""); }
@@ -67,6 +71,24 @@ function QueueRow({ event, selected, onSelect, closed }: { event: EventSummary; 
       <span className="cr-q-place">{shortSector(event.sector_name)} · {shortCamera(event.camera_name)}</span>
       <span className="cr-q-foot"><span className={`cr-status cr-status-${closed ? "closed" : event.level}`}>{event.status_title}</span><span className="mono">{duration(event.duration_s * 1000)}</span></span>
     </button>
+  </li>;
+}
+
+/** Repeats of one camera and scenario: one row with the latest frame and «×N за M мин»; the row selects the latest, the toggle lists all. */
+function QueueGroup({ group, selectedId, onSelect }: { group: RepeatGroup; selectedId?: number; onSelect: (event: EventSummary) => void }) {
+  const [open, setOpen] = useState(false);
+  const event = group.latest;
+  const selected = group.events.some(e => e.id === selectedId);
+  return <li className={`cr-q cr-q-${group.level} rp-row cr-q-stack ${selected && !open ? "is-selected" : ""}`} data-testid="repeat-group">
+    <button onClick={() => onSelect(event)} aria-pressed={selected}>
+      <span className="rp-thumb">{event.evidence_url ? <img src={mediaUrl(event.evidence_url)} alt="" loading="lazy" /> : null}<b>×{group.events.length}</b></span>
+      <span className="cr-q-top"><time className="mono">{time(event.published_at)}</time><span className="rp-tag">{repeatCount(group)}</span></span>
+      <strong>{repeatTitle(group)}</strong>
+      <span className="cr-q-place">{shortSector(event.sector_name)} · {event.reason_text}</span>
+      <span className="cr-q-foot"><span className={`cr-status cr-status-${event.level}`}>{event.status_title}</span><span className="mono">#{event.id}</span></span>
+    </button>
+    <button className="rp-toggle" aria-expanded={open} onClick={() => setOpen(v => !v)}>{open ? "Свернуть повторы" : `Все ${group.events.length} повторов`}<Icon name="chevron-down" size={14} /></button>
+    {open && <ol className="cr-q-sub">{group.events.map(e => <QueueRow key={e.id} event={e} selected={e.id === selectedId} onSelect={() => onSelect(e)} />)}</ol>}
   </li>;
 }
 
@@ -127,7 +149,10 @@ function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; 
   </section>;
 }
 
-export function OperatorPage() {
+/** On a phone the dispatcher becomes the «Тревоги» tab of the operator app. */
+export function OperatorPage() { return usePhone() ? <PhoneAlarms /> : <OperatorDesk />; }
+
+function OperatorDesk() {
   const updates = useUpdates();
   const meta = useMeta();
   const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [], {refresh: [updates]});
@@ -178,7 +203,7 @@ export function OperatorPage() {
       <aside className="cr-queue" data-panel="Очередь тревог" aria-label="Очередь тревог">
         <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{waiting.length}</span></div>
         <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
-        {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Новая тревога появится здесь со звуком. Камеры без наблюдения отмечены в секторах серой штриховкой: тишина там не означает безопасность.</span></div>}
+        {queue.length ? <ol className="cr-q-list">{groupRepeats(queue).map(group => group.events.length > 1 ? <QueueGroup key={group.key} group={group} selectedId={selectedEvent?.id} onSelect={selectEvent} /> : <QueueRow key={group.key} event={group.latest} selected={group.latest.id === selectedEvent?.id} onSelect={() => selectEvent(group.latest)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Новая тревога появится здесь со звуком. Камеры без наблюдения отмечены в секторах серой штриховкой: тишина там не означает безопасность.</span></div>}
         {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} onDone={dashboard.reload} />}
         {inWork.length > 0 && <details className="cr-history cr-inwork"><summary><span>В работе: решение принято, ждём закрытия</span><span className="mono">{inWork.length}</span></summary><ol className="cr-q-list">{inWork.slice(0, 30).map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol>{inWork.length > 30 && <Link className="text-link" to="/ohs/journal">Ещё {inWork.length - 30} — в журнале <Icon name="arrow" size={14} /></Link>}</details>}
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
