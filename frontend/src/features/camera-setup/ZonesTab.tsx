@@ -53,7 +53,7 @@ export function ZoneShape({ zone, kind, w, h, selected, dim, onPick, showLabel =
       ) : (
         <polygon className="geo-zone-poly" points={svgPoints(zone.points, w, h)} />
       )}
-      {showLabel && <ZoneLabel x={c[0] * w} y={c[1] * h} text={zone.name || "Без названия"} sub={kind?.title} color={color} selected={selected} />}
+      {showLabel && <ZoneLabel x={c[0] * w} y={c[1] * h - (line ? 22 : 0)} text={zone.name || "Без названия"} sub={kind?.title} color={color} selected={selected} />}
     </g>
   );
 }
@@ -304,7 +304,7 @@ function ZoneLabelFor({ draft, kind, w, h }: { draft: Draft; kind?: KindMeta; w:
   if (draft.points.length < 2) return null;
   const line = kind?.geometry === "line";
   const c = line ? [(draft.points[0][0] + draft.points[1][0]) / 2, (draft.points[0][1] + draft.points[1][1]) / 2] : centroid(draft.points);
-  return <ZoneLabel x={c[0] * w} y={c[1] * h} text={draft.name || "Без названия"} sub={kind?.title} color={kind?.color ?? "#fff"} selected />;
+  return <ZoneLabel x={c[0] * w} y={c[1] * h - (line ? 22 : 0)} text={draft.name || "Без названия"} sub={kind?.title} color={kind?.color ?? "#fff"} selected />;
 }
 
 export function plural(n: number, one: string, few: string, many: string): string {

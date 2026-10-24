@@ -177,6 +177,9 @@ export function GeometryEditor({
         {children}
         {edit && pts.length > 0 && (
           <g className="geo-edit" style={{ color }}>
+            {edit.geometry !== "points" && pts.length > 1 && (edit.closed && edit.geometry === "polygon"
+              ? <polygon className="geo-edit-under" points={svgPoints(pts, w, h)} />
+              : <polyline className="geo-edit-under" points={svgPoints(pts, w, h)} />)}
             {edit.geometry === "polygon" && (edit.closed
               ? <polygon className="geo-edit-shape" points={svgPoints(pts, w, h)} />
               : <polyline className="geo-edit-path" points={svgPoints(pts, w, h)} />)}

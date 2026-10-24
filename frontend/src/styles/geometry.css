@@ -229,5 +229,7 @@
 .geo-dev-tabs button.is-active { color: var(--text); border-bottom-color: var(--accent); }
 
 /* Contrast on any frame: dark halo under thin strokes, dimmed disabled buttons */
-.geo-zone, .geo-edit, .geo-hull, .geo-grid { filter: drop-shadow(0 0 1px rgba(0,0,0,.95)); }
+.geo-zone { filter: drop-shadow(0 0 1px rgba(0,0,0,.95)); }
+.geo-edit-under { fill: none; stroke: rgba(0,0,0,.65); stroke-width: 3.5; stroke-linejoin: round; pointer-events: none; }
+.geo-grid line { stroke-width: 1.25; }
 .geo-actions .button:disabled, .geo-savebar .button:disabled, .geo-recompute .button:disabled, .geo-side-head .button:disabled { opacity: .4; cursor: default; }
