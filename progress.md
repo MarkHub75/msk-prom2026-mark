@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v7, второй прогон: S27 в работе
+- state: tech v7, второй прогон: S27 закрыт, следующий S28
 - tech.md: v7
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -40,6 +40,11 @@
 - GAP: S26, `services._stats_period(date_from, date_to) -> tuple[datetime, datetime]` — период и проверка `PERIOD_INVALID` `ohs_stats_view` вынесены для `people_stats_view` без изменения поведения.
 - GAP: S26, `PeopleStats.total` — все события периода (как `OhsStats.total`: без `superseded`, демо по `include_demo`); `by_person`/`by_crew` — `CountRow` с `key = title` = значение поля; `X-Actor` по умолчанию — `texts.DEMO_ACTOR[role]`, как у `event_action`; `event.updated` только при изменении.
 - R30: S26, `event_identify` сравнивает поля после обрезки с базой внутри транзакции; одновременные PATCH с разными значениями дают две строки `identified` (последняя побеждает) — как у `event_action`, не проверялось конкурентно.
+- GAP: S27, `build_passport` получает ширину кадра (большая сторона рамки `cell phone` в px, рамки HUD нормированы по ширине и высоте): `..., duration_ms: int, height: int, metas, ...` → `..., duration_ms: int, width: int, height: int, metas, ...`; `services.camera_passport` передаёт `width`/`height` строки видео и `int(features.min_person_px)` (в конфиге float, в сигнатуре int).
+- GAP: S27, `passport.ZONE_REQUIRED = ("fence_crossing", "restricted_under", "no_harness", "no_helmet", "no_respirator")`, `passport.PHONE = "phone"`; правило 6 — у камеры нет ни одной живой зоны из `ScenarioMeta.zone_kinds`; типы в «Нет зон: …» — `title` из `config.get_settings().zone_kinds` через «, » в порядке `zone_kinds`.
+- GAP: S27, тексты `texts.PASSPORT_NO_VIDEO`, `PASSPORT_MODEL_MISSING`, `PASSPORT_FEW_FRAMES`, `PASSPORT_DARK`, `PASSPORT_PEOPLE_TINY`, `PASSPORT_NO_PEOPLE`, `PASSPORT_PHONE_POOR`, `PASSPORT_NO_ZONES` — дословно 8.28; правило 7: `PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оценки: {px} px"`, `PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"`, `PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"`, несколько причин — через «; »; `PASSPORT_SUITABLE = "Годна"`; N px — целая часть, N % — `round(доля × 100)`; `skeleton` → `ScenarioMeta.status_text`.
+- GAP: S27, расчёт: «сценарий на людях» — `person` в `required_classes`; правило 7 по росту только для них, тёмная и пустая доли — для всех; медианы px округляются до 0,1 (нормированные рамки дают 79,99999 вместо 80); `dark_share` — сумма интервалов `dark`/`obstructed`, обрезанных по `[0, duration_ms]`, делённая на `duration_ms` (`stale` не считается); телефон без рамок `cell phone` в записи — проверка объекта правила 5 пропускается (рост людей проверяется); статусы плагинов — текущие `rules.scenario_metas()`, а не снимок анализа; без анализа метрики `None`, `frames = 0`.
+- R30: S27, `camera_passport` читает весь `hud.jsonl` анализа в потоке event loop (маршрут `async def`, как `video_tracks`); на длинном видео эфир и WebSocket стоят на время чтения — проверить размер HUD демо-пакета.
 
 ## log
 
@@ -285,6 +290,13 @@
 - проверено вживую: нет (S26 без LinQ) | не проверено: —
 - [проверить]: нет
 - следующему: `tests/test_identity.py::identify(client, event_id, headers, **body)` и `history(event_id)` (строки журнала без `published`, с комментарием).
+
+### S27: passport (2026-10-24, PR #38, tech v7)
+- отклонения: `store.py` и `api.py` не менялись (запросы `store.videos`, `analysis`, `zones` и маршрут S16 уже есть); `tests/test_api_skeleton.py` — строка паспорта убрана из `V5_REQUESTS` (осталась только `shift.pdf`); сигнатура `build_passport` получила `width` (строка `GAP`); тесты сверх списка: `test_metrics_and_people_rows`, `test_empty_share_partial`, `test_min_frames_key`, `test_ready_video_passport`.
+- решения вне контракта: строки `GAP: S27` в `## open`; мутаций нет (10.3); тестов со временем и конкурентностью нет.
+- проверено вживую: нет (S27 без LinQ) | не проверено: —
+- [проверить]: нет
+- следующему: `tests/test_passport.py`: `build(hud, gaps, kinds, analysis_id, statuses, **passport)` (все плагины активны, зоны всех типов, кадр 1000×1000), `frames(n, objects, empty)`, `person(px)`, `phone(px)`, `verdicts(p)`, `_hud(video_id, frames)` — HUD активного анализа `test_broadcast.ready_video` тем же путём, что пишет анализ; S32 дописывает `shift_px`/`shift_text` в `camera_passport` (сейчас `None` и «»).
 
 ## night
 
