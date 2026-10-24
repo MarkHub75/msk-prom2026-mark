@@ -1,0 +1,11 @@
+{
+  "scenario_id": "04",
+  "prototype_unvalidated": true,
+  "policy_declared": false,
+  "policy_source": null,
+  "fire_class": "flame",
+  "cigarette_class": "cigarette",
+  "allowed_fire_zones": [],
+  "allowed_smoking_zones": [],
+  "min_evidence_score": 0.5
+}
