@@ -57,7 +57,7 @@ class ObjectScenarioTests(unittest.TestCase):
     def test_height_explicit_absence_present_and_missing(self):
         cfg=self.height_config();values=[('p','working_observed',True),('p','harness_area_visible',True),('p','harness_state','absent')]
         c=context(values=values);self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'POSITIVE')
-        c['batch']['scenario_context']['facts'][-1]['value']='present';self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'NEGATIVE')
+        c['batch']['scenario_context']['facts'][-1]['value']='present';self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'UNKNOWN')
         c=context(values=values[:2]);self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'UNKNOWN')
         self.assertEqual(height.evaluate(c,config('06'))[0]['verdict'],'BLOCKED')
         c['batch']['scenario_context']['coverage']={};self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'BLOCKED')
@@ -66,6 +66,20 @@ class ObjectScenarioTests(unittest.TestCase):
         c=context(values=values);self.assertEqual(height.evaluate(c,self.height_config())[0]['verdict'],'UNKNOWN')
         c=context(values=[('p','working_observed',True),('p','harness_area_visible',True),('p','harness_state','present'),('p','harness_absent',True)])
         self.assertEqual(height.evaluate(c,self.height_config())[0]['verdict'],'UNKNOWN')
+    def test_height_usage_present_unattached_in_use_and_stale(self):
+        cfg=self.height_config();values=[('p','working_observed',True),('p','harness_area_visible',True),('p','harness_state','present')]
+        c=context(values=values);self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'UNKNOWN')
+        c=context(values=values+[('p','harness_usage','not_in_use')]);self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'POSITIVE')
+        c['batch']['scenario_context']['facts'][-1]['value']='in_use';self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'NEGATIVE')
+        c['batch']['scenario_context']['facts'][-1]['frame_id']=6;self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'UNKNOWN')
+        c=context(values=values+[('p','harness_usage','unknown')]);self.assertEqual(height.evaluate(c,cfg)[0]['verdict'],'UNKNOWN')
+    def test_height_usage_visibility_and_conflicting_absence(self):
+        cfg=self.height_config();values=[('p','working_observed',True),('p','harness_area_visible',False),('p','harness_state','present'),('p','harness_usage','in_use')]
+        self.assertEqual(height.evaluate(context(values=values),cfg)[0]['verdict'],'UNKNOWN')
+        values[1]=('p','harness_area_visible',True);values[2]=('p','harness_state','absent')
+        self.assertEqual(height.evaluate(context(values=values),cfg)[0]['verdict'],'UNKNOWN')
+        values[2]=('p','harness_state','present');values.append(('p','harness_absent',True))
+        self.assertEqual(height.evaluate(context(values=values),cfg)[0]['verdict'],'UNKNOWN')
     def cargo_config(self,face=False):return dict(config('08'),cargo_policy_declared=True,policy_source='synthetic_policy',forbidden_carry_zones=[] if face else [ZONE],forbid_face_obstruction=face)
     def cargo_context(self,extra=None):return context([obj('cargo','load')],[('p','carrying_observed',True),('p','carried_object_key','load')]+(extra or []))
     def test_cargo_forbidden_zone_positive_and_policy_negative(self):

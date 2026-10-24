@@ -1,4 +1,4 @@
-"""06: declared elevated work plus explicitly observable harness state."""
+"""06: declared elevated work plus explicitly observable harness presence AND usage."""
 from ml.scenarios.common import finding,foot,inside,fact,covered
 
 
@@ -19,16 +19,24 @@ def evaluate(context,config):
         work=observed('working_observed')
         if work and work['value'] is False:emit('NEGATIVE','sourced_not_working');continue
         if not work or work['value'] is not True:emit('UNKNOWN','working_state_unresolved');continue
-        visibility=observed('harness_area_visible');state=observed('harness_state');absent=observed('harness_absent')
-        if not state and not absent:
+        visibility=observed('harness_area_visible');state=observed('harness_state');absent=observed('harness_absent');usage=observed('harness_usage')
+        if not state and not absent and not usage:
             emit('UNKNOWN' if covered(context,config.get('harness_class','harness')) else 'BLOCKED','harness_absence_is_not_a_detection');continue
         if not visibility or visibility['value'] is not True:emit('UNKNOWN','harness_area_not_observable');continue
         if state and state['value']=='absent' and absent and absent['value'] is False:
             emit('UNKNOWN','conflicting_harness_facts');continue
         present=state and state['value']=='present';missing=state and state['value']=='absent' or absent and absent['value'] is True
-        if present and missing:emit('UNKNOWN','conflicting_harness_facts');continue
-        if present:emit('NEGATIVE','positively_observed_harness_present',float(state['score']));continue
-        if not missing:emit('UNKNOWN','harness_state_unresolved');continue
-        score=min(work['score'],visibility['score'],state['score'] if state and state['value']=='absent' else absent['score'])
-        emit('POSITIVE','observed_work_in_declared_height_area_with_visible_harness_absent',float(score),{'height_zone_source':config['height_zone_source'],'location':list(location),'prototype_policy':True})
+        in_use=usage and usage['value']=='in_use'
+        not_in_use=usage and usage['value']=='not_in_use'
+        if present and missing or missing and in_use:emit('UNKNOWN','conflicting_harness_facts');continue
+        attributes={'height_zone_source':config['height_zone_source'],'location':list(location),'prototype_policy':True}
+        scores=[float(person['score']),work['score'],visibility['score']]
+        if missing:
+            scores.append(state['score'] if state and state['value']=='absent' else absent['score'])
+            emit('POSITIVE','observed_work_in_declared_height_area_with_visible_harness_absent',float(min(scores)),attributes);continue
+        if in_use:
+            emit('NEGATIVE','positively_observed_harness_in_use',float(min(scores+[usage['score']])));continue
+        if present and not_in_use:
+            emit('POSITIVE','visible_harness_present_but_not_in_use_during_height_work',float(min(scores+[state['score'],usage['score']])),attributes);continue
+        emit('UNKNOWN','harness_usage_unresolved_presence_is_not_use')
     return out
