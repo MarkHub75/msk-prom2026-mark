@@ -1,4 +1,4 @@
-# SafeWatch image (tech.md 3, slice 15): the frontend is built on node, the app runs on python.
+# Argus image (tech.md 3, slices 15 and 21): the frontend is built on node, the app runs on python.
 FROM node:24-slim AS frontend
 WORKDIR /app/frontend
 COPY frontend/package.json frontend/package-lock.json ./
@@ -19,4 +19,4 @@ COPY tools/linq ./tools/linq
 COPY --from=frontend /app/frontend/dist ./frontend/dist
 RUN uv sync --locked --no-dev
 EXPOSE 8000
-CMD ["uv", "run", "--no-sync", "safewatch", "serve", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "--no-sync", "safewatch", "serve", "--host", "0.0.0.0", "--port", "8000", "--seed"]
