@@ -13,7 +13,7 @@ from test_linq_backend import RecordingShell
 from test_rule_phone import ctx_with, worker
 from test_rule_running import zone
 
-from safewatch import registry, rules, services
+from safewatch import registry, rules, services, store
 from safewatch.analysis.pipeline import analyze
 from safewatch.config import Settings
 from safewatch.fakes import scenes
@@ -145,7 +145,7 @@ async def test_extra_model_enables_fire_without_code(
 
     shell = RecordingShell()
     monkeypatch.setattr(services, "_backend", LinqBackend(tuned, shell))
-    _video(tmp_path, make_video, seconds=1)
+    video_id = _video(tmp_path, make_video, seconds=1)
     job = await services.run_next_job()
     assert job is not None and job.status == "done"
     assert [m.model_id for m in job.metrics] == ["det-yolov8n", "pose-yolov8n"]  # job columns
@@ -154,6 +154,18 @@ async def test_extra_model_enables_fire_without_code(
     (fire,) = [c for c in starts if "baseline_fire.tpu" in c]
     assert "--nc 2" in fire and "--classes" not in fire
     assert all("--nc" not in c for c in starts if c != fire)
+
+    # R10: a recompute reads the extra artifacts from the analysis snapshot, no new inference.
+    first = store.analysis(store.video(video_id)["active_analysis_id"])
+    extra_ids = AnalysisConfig.model_validate_json(first["config_json"]).extra_artifact_ids
+    assert len(extra_ids) == 1
+    services.video_recompute(video_id, "admin")
+    again = await services.run_next_job()
+    assert again is not None and again.status == "done"
+    second = store.analysis(store.video(video_id)["active_analysis_id"])
+    assert second["version"] == first["version"] + 1
+    assert AnalysisConfig.model_validate_json(second["config_json"]).extra_artifact_ids == extra_ids
+    assert len([c for c in shell.commands if c.endswith("# sw:start")]) == 3
 
 
 def _worker_nc(monkeypatch: pytest.MonkeyPatch, clip: Path, out: Path, *extra: str) -> list[int]:

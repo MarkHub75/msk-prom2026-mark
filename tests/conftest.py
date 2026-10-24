@@ -66,6 +66,39 @@ def side_effects(monkeypatch: pytest.MonkeyPatch) -> list[tuple[str, tuple[objec
     return seen
 
 
+# Part 4: the owner's data folder (tech.md 10.2: tests never touch `data/`). A test that would
+# create it or open the base there fails: use `conn`/`core` (or a `data_dir` in `tmp_path`).
+REAL_DATA = ROOT / "data" / "app"
+
+
+def _real_data(path: object) -> bool:
+    if str(path) == ":memory:":
+        return False
+    target = Path(str(path)).resolve()
+    return target == REAL_DATA or REAL_DATA in target.parents
+
+
+@pytest.fixture(autouse=True)
+def no_real_data(monkeypatch: pytest.MonkeyPatch) -> None:
+    from safewatch import doctor
+
+    mkdir = Path.mkdir
+
+    def guarded_mkdir(self: Path, *args: Any, **kwargs: Any) -> None:
+        if _real_data(self):
+            pytest.fail(f"test creates {self}: use the `core` or `conn` fixture")
+        mkdir(self, *args, **kwargs)
+
+    def guarded_connect(path: str | Path) -> sqlite3.Connection:
+        if _real_data(path):
+            pytest.fail(f"test opens {path}: use the `core` or `conn` fixture")
+        return connect(path)
+
+    monkeypatch.setattr(Path, "mkdir", guarded_mkdir)
+    for module in (store, doctor):
+        monkeypatch.setattr(module, "connect", guarded_connect)
+
+
 @pytest.fixture
 def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     """Fresh in-memory database, also used by `store`; lazy singletons start over."""

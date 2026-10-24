@@ -252,7 +252,9 @@ def test_make_backend_by_settings(core: Settings, monkeypatch: pytest.MonkeyPatc
         get_settings.cache_clear()
 
 
-async def test_job_loop_survives_unexpected_error(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_job_loop_survives_unexpected_error(
+    core: Settings, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from safewatch import worker
 
     stop = asyncio.Event()
@@ -266,6 +268,5 @@ async def test_job_loop_survives_unexpected_error(monkeypatch: pytest.MonkeyPatc
         return None
 
     monkeypatch.setattr(services, "run_next_job", flaky)
-    monkeypatch.setattr(services, "broadcast_tick", lambda: 0)  # no database in this test
     await asyncio.wait_for(worker.run_forever(stop), 5)
     assert len(calls) == 2

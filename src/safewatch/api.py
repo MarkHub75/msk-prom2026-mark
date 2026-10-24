@@ -17,7 +17,7 @@ from starlette.websockets import WebSocketDisconnect
 
 from safewatch import clock, registry, services, texts, worker
 from safewatch.config import Settings
-from safewatch.errors import AppError, RoleRequired, ValidationFailed
+from safewatch.errors import AppError, RoleRequired
 from safewatch.hub import Client, hub
 from safewatch.types import (
     ActionIn,
@@ -85,12 +85,8 @@ def _role(x_role: Annotated[str | None, Header(alias="X-Role")] = None) -> Role 
 
 
 def _actor(x_actor: Annotated[str | None, Header(alias="X-Actor")] = None) -> str | None:
-    if x_actor is None:
-        return None
-    name = unquote(x_actor).strip()
-    if not 1 <= len(name) <= services.ACTOR_MAX:
-        raise ValidationFailed(texts.ACTOR_INVALID, field="X-Actor")
-    return name
+    # The length is checked by services.event_action, after the role (tech.md 6.2).
+    return None if x_actor is None else unquote(x_actor)
 
 
 RoleDep = Annotated[Role | None, Depends(_role)]
