@@ -8,9 +8,9 @@
       "detail": "contract 1.0.0"
     },
     {
-      "result": "SKIP",
+      "result": "PASS",
       "step": "meta",
-      "detail": "meta.scenarios пусто: плагины running/fall ещё не подключены (S5)"
+      "detail": "fake=true, active=running,fall"
     },
     {
       "result": "SKIP",
