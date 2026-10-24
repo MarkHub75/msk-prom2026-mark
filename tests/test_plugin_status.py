@@ -20,7 +20,7 @@ from safewatch.fakes import scenes
 from safewatch.inference.linq import LinqBackend
 from safewatch.rules.harness import HarnessPlugin
 from safewatch.rules.suspended_load import SuspendedLoadPlugin
-from safewatch.types import AnalysisConfig, Detection, ModelSpec, ObjectState
+from safewatch.types import AnalysisConfig, Detection, EpisodeDraft, ModelSpec, ObjectState
 
 DEFAULT = ["person", "car", "bus", "train", "truck", "cell phone"]
 ORDER = [
@@ -231,3 +231,26 @@ def test_extra_model_frames_reach_the_plugins(core: Settings) -> None:
     missing = cfg.model_copy(update={"active_classes": DEFAULT})  # status model_missing
     off = analyze(det, None, Path("unused.mp4"), missing, None, detector, [(fire_model, extra)])
     assert off.episodes == []
+
+
+def test_explain_lines_of_every_plugin(core: Settings) -> None:
+    """The event screen asks each plugin "why" with the camera's effective parameters."""
+    draft = EpisodeDraft(
+        scenario="", subject="track:1", zone_id=None, level_initial="red", level_max="red",
+        start_ms=0, confirm_ms=1000, escalate_ms=None, end_ms=2000, end_reason="video_end",
+        reason_code="", reason_text="Причина", method="relative", confidence=0.8, metrics={},
+        uncertain_ms=0, confirm_frame_idx=10, escalate_frame_idx=None,
+    )  # fmt: skip
+    for plugin in rules.PLUGINS:
+        scenario = plugin.meta.id
+        why = plugin.explain(
+            draft.model_copy(update={"scenario": scenario}), rules.defaults(scenario)
+        )
+        if scenario == "load_carrying":
+            assert why == []
+            continue
+        assert why[0].label == "Правило" and why[0].value, scenario
+    proximity = rules.plugin("proximity").explain(draft, rules.defaults("proximity"))
+    assert proximity[0].value.startswith("Сближение: техника движется, дистанция до 0,5 роста")
+    under = rules.plugin("restricted_under").explain(draft, {"under_hold_s": 0.7})
+    assert under[0].value == "Причина дольше 0,7 с"
