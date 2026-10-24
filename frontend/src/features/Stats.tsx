@@ -75,8 +75,8 @@ function niceMax(value: number) {
 }
 
 /** Hand-drawn column chart: stacked parts from the baseline, every `every`-th label on the x axis. */
-function Columns({ columns, every, xTitle, label }: { columns: Column[]; every: number; xTitle: string; label: string }) {
-  const W = 960, H = 210, left = 36, right = 6, top = 18, bottom = 40;
+function Columns({ columns, every, xTitle, label, height = 220 }: { columns: Column[]; every: number; xTitle: string; label: string; height?: number }) {
+  const W = 1200, H = height, left = 36, right = 6, top = 22, bottom = 40;
   const plotW = W - left - right, plotH = H - top - bottom;
   const max = niceMax(Math.max(0, ...columns.map(c => c.parts.reduce((s, p) => s + p.value, 0))));
   const band = plotW / Math.max(1, columns.length);
@@ -84,7 +84,7 @@ function Columns({ columns, every, xTitle, label }: { columns: Column[]; every: 
   const y = (v: number) => top + plotH - (v / max) * plotH;
   const ticks = [0, max / 2, max].filter(t => Number.isInteger(t));
   return <svg className="st-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
-    <text className="st-axis-title" x={left - 8} y={10} textAnchor="end">событий</text>
+    <text className="st-axis-title" x={0} y={11}>событий</text>
     {ticks.map(t => <g key={t}><line className={t ? "st-grid" : "st-base"} x1={left} x2={W - right} y1={y(t)} y2={y(t)} /><text className="st-tick" x={left - 8} y={y(t) + 4} textAnchor="end">{t}</text></g>)}
     {columns.map((c, i) => {
       const x = left + i * band + (band - barW) / 2;
@@ -169,7 +169,7 @@ export function StatsPage({ management = false }: { management?: boolean }) {
     </div>
 
     {!management && <section className="st-panel"><h2>По часам суток</h2>
-      <Columns label="События по часам суток" xTitle="Час суток, МСК" every={1}
+      <Columns label="События по часам суток" xTitle="Час суток, МСК" every={1} height={170}
         columns={Array.from({ length: 24 }, (_, h) => { const n = hours.get(h) ?? 0; return { label: String(h), tip: `${String(h).padStart(2, "0")}:00–${String(h).padStart(2, "0")}:59: ${n} ${plural(n, "событие", "события", "событий")}`, parts: [{ value: n, tone: "grey" }] }; })} />
     </section>}
 
