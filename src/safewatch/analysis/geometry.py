@@ -2,7 +2,6 @@
 
 import math
 
-import cv2
 import numpy as np
 
 from safewatch.types import Box, Point
@@ -60,10 +59,33 @@ def polygon_area(points: list[Point]) -> float:
     return abs(twice) / 2
 
 
+def _similarity(pts: np.ndarray) -> np.ndarray:
+    """Hartley normalization: centroid to 0, mean distance sqrt(2)."""
+    c = pts.mean(axis=0)
+    spread = np.linalg.norm(pts - c, axis=1).mean()
+    k = math.sqrt(2) / spread if spread > 0 else 1.0
+    return np.array([[k, 0, -k * c[0]], [0, k, -k * c[1]], [0, 0, 1]])
+
+
 def homography(image_pts: list[Point], world_pts: list[Point]) -> np.ndarray | None:
-    """3x3 least-squares fit (tech.md 8.11): normalized frame → floor meters; None if degenerate."""
-    h, _ = cv2.findHomography(np.array(image_pts, np.float64), np.array(world_pts, np.float64), 0)
-    return None if h is None else np.asarray(h, np.float64)
+    """3x3 least-squares fit (tech.md 8.11): normalized frame → floor meters; None if degenerate.
+
+    Normalized DLT in float64: the LM refinement of cv2.findHomography stops at ~1e-7 relative
+    error, 1e-6 m on a 17 m floor, and criterion 1 of slice 9 needs an exact 4-point fit.
+    """
+    src, dst = np.array(image_pts, np.float64), np.array(world_pts, np.float64)
+    ts, td = _similarity(src), _similarity(dst)
+    a = []
+    for (x, y, _), (u, v, _) in zip(
+        np.c_[src, np.ones(len(src))] @ ts.T, np.c_[dst, np.ones(len(dst))] @ td.T, strict=True
+    ):
+        a.append([-x, -y, -1, 0, 0, 0, u * x, u * y, u])
+        a.append([0, 0, 0, -x, -y, -1, v * x, v * y, v])
+    m = np.array(a)
+    if np.linalg.matrix_rank(m) < 8:
+        return None
+    h = np.linalg.inv(td) @ np.linalg.svd(m)[2][-1].reshape(3, 3) @ ts
+    return None if abs(h[2, 2]) < 1e-12 else h / h[2, 2]
 
 
 def apply_h(h: np.ndarray, p: Point) -> Point:
