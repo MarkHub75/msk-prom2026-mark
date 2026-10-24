@@ -1,0 +1,14 @@
+/* Siren screen with the evidence frame: the operator decides looking at what happened. */
+.takeover.has-media { position: fixed !important; inset: 3vh 2.5vw !important; width: auto !important; max-width: none !important; height: auto !important; transform: none !important; margin: 0 !important; display: grid !important; grid-template-columns: minmax(0, 1fr) 360px; grid-template-rows: auto minmax(0, 1fr); gap: 14px 18px; padding: 16px 18px !important; z-index: 1000; overflow: hidden; }
+.takeover.has-media .takeover-top { grid-column: 1 / -1; }
+.takeover.has-media .takeover-media { grid-column: 1; grid-row: 2; min-height: 0; display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid rgba(255, 93, 101, .35); overflow: hidden; }
+.takeover.has-media .takeover-media .ic-evidence, .takeover.has-media .takeover-media .takeover-img { width: min(100%, calc((94vh - 110px) * 16 / 9)); max-height: 100%; }
+.takeover.has-media .takeover-img { display: block; height: auto; object-fit: contain; }
+.takeover.has-media .takeover-side { grid-column: 2; grid-row: 2; min-height: 0; display: flex; flex-direction: column; gap: 18px; overflow: auto; }
+.takeover.has-media .takeover-body { display: grid !important; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 0 !important; }
+.takeover.has-media .takeover-sector { font-size: 44px !important; line-height: 1; }
+.takeover.has-media h2 { font-size: 24px !important; margin: 4px 0 6px; }
+.takeover.has-media .takeover-actions { display: flex !important; flex-direction: column; align-items: stretch !important; gap: 8px; margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(255, 93, 101, .3); }
+.takeover.has-media .takeover-actions .button { width: 100%; justify-content: space-between; min-height: 40px; font-size: 14px; }
+@media (max-width: 1400px) { .takeover.has-media { grid-template-columns: minmax(0, 1fr) 300px; } }
+.takeover.has-media .takeover-actions .button-light { background: transparent !important; border-color: rgba(255, 255, 255, .22) !important; color: #fff !important; }
