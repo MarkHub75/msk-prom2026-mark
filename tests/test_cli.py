@@ -121,7 +121,7 @@ def test_doctor_reports_missing_keys(
     assert cli.main(["doctor"]) == 4
     out = capsys.readouterr().out
     assert "LINQ_JUPYTER_URL: есть" in out
-    assert "FAIL связь с LinQ: unreachable" in out and shell.calls == ["check"]
+    assert "FAIL связь с LinQ: unreachable" in out and shell.calls == ["check", "close"]
     for value in ("s3cr3t-pass", "team-user", "127.0.0.1:8888"):
         assert value not in out
     shell.fault = None

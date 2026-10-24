@@ -100,11 +100,15 @@ class FakeRemoteShell:
         out: str = handler(cmd)
         return 0, out, ""
 
+    def close(self) -> None:
+        self.calls.append("close")
+
     def _home(self, cmd: str) -> str:
         return f"{HOME}\n"
 
     def _start(self, cmd: str) -> str:
-        args = shlex.split(cmd.split("(", 1)[1].split(">", 1)[0])
+        worker = cmd[cmd.index("(setsid") + 1 :]  # after the stop of a previous worker (S28)
+        args = shlex.split(worker.split(">", 1)[0])
         opts = dict(zip(args[4::2], args[5::2], strict=True))  # after `python video_worker.py`
         video = self.sources[f"{self.remote_dir}/{opts['--video']}"]
         cap = cv2.VideoCapture(str(video))

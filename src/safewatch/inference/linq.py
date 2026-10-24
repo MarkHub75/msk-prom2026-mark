@@ -18,8 +18,8 @@ from typing import Any
 import requests
 import websocket
 
-from safewatch import clock, registry, texts
-from safewatch.config import ROOT, Settings
+from safewatch import clock, media, registry, texts
+from safewatch.config import ROOT, LinqConfig, Settings
 from safewatch.errors import InferenceError
 from safewatch.inference.artifacts import read_jsonl
 from safewatch.types import (
@@ -33,6 +33,7 @@ from safewatch.types import (
 )
 
 WORKER_FILES = ("linq_tpu.py", "yolo_io.py", "remote/video_worker.py")
+START_S = 120  # worker start and the first in-flight batch (tech.md 8.29)
 
 
 def _load_module(path: Path) -> ModuleType:
@@ -42,6 +43,24 @@ def _load_module(path: Path) -> ModuleType:
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def job_timeout_s(linq: LinqConfig, frames: int) -> float:
+    """The whole run (tech.md 8.29): a slow queue answers `inflight` frames per `slow_rtt_s`."""
+    return max(linq.job_timeout_s, START_S + math.ceil(frames / linq.inflight) * linq.slow_rtt_s)
+
+
+def rate_eta(done: int, total: int, elapsed_s: float) -> tuple[float | None, float | None]:
+    """`Job.rate_fps` and `Job.eta_s` from frames done since `# sw:start`; none before an answer."""
+    if done <= 0 or elapsed_s <= 0:
+        return None, None
+    rate = done / elapsed_s
+    return round(rate, 2), round(max(0, total - done) / rate, 1)
+
+
+def _html(exc: Exception) -> bool:
+    """Jupyter answered with a web page (a proxy or login page) instead of its API (R5)."""
+    return isinstance(exc, requests.JSONDecodeError) or "<html" in str(exc).lower()
 
 
 class JupyterShell:  # RemoteShell over JupyterRemote from tools/linq/jupyter_remote.py
@@ -76,6 +95,9 @@ class JupyterShell:  # RemoteShell over JupyterRemote from tools/linq/jupyter_re
             jupyter = (self._module.JupyterError,) if self._module is not None else ()
             if isinstance(exc, jupyter) and str(exc).startswith("timeout after"):
                 raise InferenceError("timeout", self._clean(str(exc))) from None
+            if isinstance(exc, (*jupyter, requests.JSONDecodeError)) and _html(exc):
+                self._drop()
+                raise InferenceError("bad_output", self._clean(str(exc))) from None
             network = (requests.ConnectionError, requests.Timeout, websocket.WebSocketException)
             if isinstance(exc, (*network, OSError, *jupyter)):
                 self._drop()
@@ -88,6 +110,10 @@ class JupyterShell:  # RemoteShell over JupyterRemote from tools/linq/jupyter_re
         if remote is not None:
             with contextlib.suppress(Exception):  # the old kernel may be gone with the tunnel
                 remote.shutdown_kernel()
+
+    def close(self) -> None:
+        """Shut the kernel of this process on the shared account (tech.md 8.29); again: no-op."""
+        self._drop()
 
     def upload(self, local: Path, remote: str) -> None:
         self._call(lambda jr: jr.upload(local, remote, progress=False))
@@ -120,6 +146,12 @@ class LinqBackend:  # InferenceBackend
     def __init__(self, settings: Settings, shell: RemoteShell) -> None:
         self.settings = settings
         self.shell = shell
+        # (done, total, seconds since `# sw:start`) of the model running now; services reads it
+        # in the progress callback for `Job.rate_fps`, `eta_s` and `status_text` (tech.md 8.29).
+        self.live: tuple[int, int, float] | None = None
+
+    def close(self) -> None:
+        self.shell.close()
 
     def _exec(self, cmd: str) -> str:
         rc, out, err = self.shell.exec(cmd, timeout=self.settings.linq.call_timeout_s)
@@ -160,22 +192,20 @@ class LinqBackend:  # InferenceBackend
         args += ["--program", model.linq_program, "--out", remote_out]
         args += ["--size", str(model.input_size), "--step", str(step), "--task", model.task]
         args += ["--conf", str(model.conf), "--iou", str(model.iou)]
-        args += ["--inflight", str(linq.inflight)]
+        args += ["--inflight", str(linq.inflight), "--reply-timeout", f"{linq.reply_timeout_s:g}"]
         if f"{model.id}@{model.version}" in self.settings.pipeline.extra:
             args += ["--nc", str(len(model.classes))]  # an extra model keeps all its classes
         elif model.task == "detect":
             args += ["--classes", ",".join(str(c) for c in model.classes)]
         args += ["--tail", f"tails/{tail.name}"]
-        worker = " ".join(shlex.quote(a) for a in args)
-        started_out = self._exec(
-            f"mkdir -p {absdir}/out && cd {absdir} && rm -f {remote_out}.progress && "
-            f"(setsid nohup {worker} > {remote_out}.log 2>&1 < /dev/null & "
-            f"echo $! > {remote_out}.pid) && echo started  # sw:start"
-        )
+        probe = media.probe_video(video)
+        frames_total = math.ceil((probe.frame_count if probe else 0) / step)
+        self.live = None
+        started_out = self._exec(self._start_command(absdir, remote_out, args))
         if "started" not in started_out:
             raise InferenceError("remote_error", started_out.strip()[-300:])
 
-        self._wait(remote_out, step, started, progress)
+        self._wait(remote_out, step, started, frames_total, progress)
         self.shell.download(f"{rdir}/out/{base}", out)
         summary_path = out.parent / f"{out.stem}.summary.json"
         self.shell.download(f"{rdir}/out/{base}.summary.json", summary_path)
@@ -209,15 +239,35 @@ class LinqBackend:  # InferenceBackend
             cached=False,
         )
 
+    @staticmethod
+    def _start_command(absdir: str, remote_out: str, args: list[str]) -> str:
+        """`# sw:start`: a worker left on the same `<out>` is stopped first (tech.md 8.29)."""
+        worker = " ".join(shlex.quote(a) for a in args)
+        pid = f"{remote_out}.pid"
+        return (
+            f"mkdir -p {absdir}/out && cd {absdir} && "
+            f"{{ [ -f {pid} ] && kill $(cat {pid}) 2>/dev/null; rm -f {pid}; }} && "
+            f"rm -f {remote_out}.progress && "
+            f"(setsid nohup {worker} > {remote_out}.log 2>&1 < /dev/null & "
+            f"echo $! > {pid}) && echo started  # sw:start"
+        )
+
     def _wait(
-        self, remote_out: str, step: int, started: float, progress: Callable[[float], None]
+        self,
+        remote_out: str,
+        step: int,
+        started: float,
+        frames_total: int,
+        progress: Callable[[float], None],
     ) -> None:
         """Poll the detached worker until it finishes, stops or runs out of time."""
         linq = self.settings.linq
+        limit_s = job_timeout_s(linq, frames_total)
+        worker_started = time.perf_counter()
         while True:
-            if time.perf_counter() - started > linq.job_timeout_s:
+            if time.perf_counter() - started > limit_s:
                 self._exec(f"kill $(cat {remote_out}.pid) 2>/dev/null; echo killed  # sw:kill")
-                raise InferenceError("timeout", f"no result in {linq.job_timeout_s} s")
+                raise InferenceError("timeout", f"no result in {limit_s:g} s")
             out = self._exec(
                 f"cat {remote_out}.progress 2>/dev/null; echo; "
                 f"kill -0 $(cat {remote_out}.pid) 2>/dev/null && echo RUNNING || echo STOPPED"
@@ -238,8 +288,10 @@ class LinqBackend:  # InferenceBackend
             if info.get("finished"):
                 progress(1.0)
                 return
-            if info.get("n_total"):
-                progress(min(1.0, info["done"] / math.ceil(info["n_total"] / step)))
+            total = math.ceil(info["n_total"] / step) if info.get("n_total") else frames_total
+            done = int(info.get("done", 0))
+            self.live = (done, total, time.perf_counter() - worker_started)
+            progress(min(1.0, done / total) if total else 0.0)
             if state == "STOPPED":
                 log = self._exec(f"tail -30 {remote_out}.log  # sw:log")
                 last = next((x for x in reversed(log.splitlines()) if x.strip()), "stopped")
@@ -271,7 +323,9 @@ class LinqBackend:  # InferenceBackend
             programs_dir = settings.linq.programs_dir.format(login=login)
             # A missing folder fails `ls`: then every program is missing, which stdout shows.
             _, listing, _ = self.shell.exec(f"ls -1 {programs_dir}  # sw:ls", timeout=timeout)
-        except InferenceError:
+        except InferenceError as exc:
+            if exc.code == "bad_output":  # a web page instead of the Jupyter API (tech.md 8.29)
+                return _finish(status, "bad_answer", texts.LINQ_BAD_ANSWER)
             return _finish(status, "unreachable", texts.LINQ_UNREACHABLE)
         found = {line.strip() for line in listing.splitlines()}
         present: list[str] = []

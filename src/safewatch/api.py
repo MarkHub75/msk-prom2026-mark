@@ -545,6 +545,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
         tg.create_task(worker.run_forever(stop))
         yield
         stop.set()
+    await asyncio.to_thread(services.backend_close)  # no idle kernel left on LinQ (8.29)
 
 
 def create_app(settings: Settings) -> FastAPI:

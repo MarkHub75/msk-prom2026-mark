@@ -493,6 +493,19 @@ JOB_FAILED_TEXTS: dict[JobErrorCode, str] = {
 }
 
 
+# LinQ progress of a running job (tech.md 8.29; slice 28).
+JOB_PROGRESS = "LinQ: {done} из {total} кадров · {rate} кадр/с · осталось ~{minutes} мин"
+JOB_WAIT_TPU = "LinQ: ждём первый ответ TPU (очередь площадки)"
+
+
+def job_progress_text(done: int, total: int, rate_fps: float | None, eta_s: float | None) -> str:
+    """`Job.status_text` of a running LinQ model; no answer yet — the queue of the platform."""
+    if done <= 0 or rate_fps is None or eta_s is None:
+        return JOB_WAIT_TPU
+    minutes = max(1, round(eta_s / 60))
+    return JOB_PROGRESS.format(done=done, total=total, rate=fmt_num(rate_fps), minutes=minutes)
+
+
 def job_status_text(job: Job, tz: str) -> str:
     """`Job.status_text` (tech.md 8.19); times in the product time zone `tz`."""
     if job.status == "queued":

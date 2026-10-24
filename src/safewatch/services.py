@@ -56,6 +56,7 @@ from safewatch.errors import (
 )
 from safewatch.hub import hub
 from safewatch.inference import artifacts, make_backend
+from safewatch.inference.linq import LinqBackend, rate_eta
 from safewatch.texts import VIDEOS_DIR_MISSING
 from safewatch.types import (
     ActionIn,
@@ -203,6 +204,9 @@ Source = tuple[BackendName, bool]  # backend and fake of a job or an artifact (t
 _backend: InferenceBackend | None = None
 # The last real backend check: backend_check serves it for linq.check_cache_s.
 _backend_status: BackendStatus | None = None
+# LinQ progress of a running job: (done, total, seconds since `# sw:start`) of the model running
+# now (tech.md 8.29); in memory, the `conn` fixture resets it.
+_live: dict[int, tuple[int, int, float]] = {}
 
 
 def health() -> Health:
@@ -592,6 +596,12 @@ def _job(row: sqlite3.Row) -> Job:
             data = json.loads(row[f"{prefix}_metrics"])
             metrics.append(InferenceMetrics(**data, cached=cached))
     job = Job.model_validate({**dict(row), "metrics": metrics})
+    live = _live.get(job.id) if job.status == "running" else None
+    if live is not None:  # LinQ answers frame by frame: rate and time left (tech.md 8.29)
+        done, total, elapsed_s = live
+        rate_fps, eta_s = rate_eta(done, total, elapsed_s)
+        text = texts.job_progress_text(done, total, rate_fps, eta_s)
+        return job.model_copy(update={"status_text": text, "rate_fps": rate_fps, "eta_s": eta_s})
     return job.model_copy(
         update={"status_text": texts.job_status_text(job, config.get_settings().timezone)}
     )
@@ -627,7 +637,9 @@ def _publish_job(job_id: int) -> None:
     hub.publish("job.progress", job_get(job_id))
 
 
-def _progress(job_id: int, value: float) -> None:
+def _progress(job_id: int, value: float, live: tuple[int, int, float] | None = None) -> None:
+    if live is not None:
+        _live[job_id] = live
     store.job_progress(job_id, value)
     _publish_job(job_id)
 
@@ -667,12 +679,17 @@ async def _infer(
 
     def progress(share: float) -> None:  # backend thread: the database belongs to the loop
         if job_id is not None:
-            loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share)
+            live = backend.live if isinstance(backend, LinqBackend) else None
+            loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share, live)
 
     path = settings.data_dir / video["path"]
-    metrics = await asyncio.to_thread(
-        backend.run, path, video["sha256"], model, step, out, progress
-    )
+    try:
+        metrics = await asyncio.to_thread(
+            backend.run, path, video["sha256"], model, step, out, progress
+        )
+    finally:
+        if job_id is not None:
+            _live.pop(job_id, None)
     values = {
         "cache_key": key,
         "video_sha256": video["sha256"],
@@ -3270,4 +3287,6 @@ def shift_report_pdf(at: datetime | None = None) -> bytes:
 
 
 def backend_close() -> None:
-    raise NotImplementedError("slice 28")
+    """Release the backend: the LinQ kernel of this process (lifespan stop, doctor; 8.29)."""
+    if _backend is not None:
+        _backend.close()

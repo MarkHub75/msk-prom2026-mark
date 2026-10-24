@@ -109,6 +109,7 @@ def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     monkeypatch.setattr(hub, "clients", set())
     monkeypatch.setattr(services, "_backend", None)
     monkeypatch.setattr(services, "_backend_status", None)
+    monkeypatch.setattr(services, "_live", {})
     monkeypatch.setattr(services, "_camera_seen", {})
     monkeypatch.setattr(services, "_sector_seen", {})
     monkeypatch.setattr(services, "_preview_cache", {})

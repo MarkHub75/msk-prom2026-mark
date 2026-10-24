@@ -1,4 +1,7 @@
-"""Slice 2, criterion 17: one real run on LinQ through the tunnel (`uv run poe live`)."""
+"""Slices 2 and 28: one short real run on LinQ through the tunnel (`uv run poe live`).
+
+One task on the TPU (tech.md 3.1): the detector only, `--inflight 4`; the kernel is shut after.
+"""
 
 import json
 import sqlite3
@@ -34,15 +37,21 @@ async def test_linq_processes_short_clip(
         pytest.skip("LinQ tunnel is down")
     update = {**keys, "data_dir": tmp_path, "fake": False, "inference_backend": "linq"}
     settings = get_settings().model_copy(update=update)
+    pipeline = settings.pipeline.model_copy(update={"pose": None})
+    settings = settings.model_copy(update={"pipeline": pipeline})
+    assert settings.linq.inflight == 4
     monkeypatch.setattr(config, "get_settings", lambda: settings)
 
     sector = services.sector_create(SectorIn(name="Живой прогон"), "admin")
     camera = services.camera_create(CameraIn(sector_id=sector.id, name="LinQ"), "admin")
     assert cli.main(["import", str(CLIP), "--camera", str(camera.id)]) == 0
-    job = await services.run_next_job()
+    try:
+        job = await services.run_next_job()
+    finally:
+        services.backend_close()  # no idle kernel left on the shared account (tech.md 8.29)
     assert job is not None
     assert (job.status, job.error_code) == ("done", None), job.error_text
-    assert [m.task for m in job.metrics] == ["detect", "pose"]
+    assert [m.task for m in job.metrics] == ["detect"]
     with capsys.disabled():
         for m in job.metrics:
             print(json.dumps(m.model_dump(mode="json"), ensure_ascii=False))
