@@ -1,7 +1,7 @@
 # progress.md
 
-- state: R15 закрыт, очередь раздела 16 пройдена
-- tech.md: v4
+- state: tech v5, второй прогон: очередь раздела 16 с S16
+- tech.md: v5
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
 - updated: 2026-10-24
@@ -13,10 +13,10 @@
 - long-lead: ответ организаторов, какие стадии обязаны быть на LinQ; сейчас все нейросети на LinQ, трекинг и правила на CPU.
 - long-lead: вопросы организаторам из `docs/linq/LINQ_CONTRACT.md` §8 (честное время TPU, вход uint8, число TPU и квоты, изоляция брокера, второй VPN-логин).
 - long-lead: дообученные модели ML-части (огонь, дым, сигарета, погрузчик, привязь); подключаются записью в `config/models.yaml` и `pipeline.extra`, работают с S10.
-- long-lead: фронт Егора по `contract/openapi.json` к 10:00 24.10; заменяет папку `frontend/`.
-- долг: R5, живой прогон (критерий 17 S2, повтор), TPU снова не ответил за 120 с (`TimeoutError: no TPU reply for 1 task(s) in 120 s, unmatched replies 0`, задача `retry_wait`/`remote_error`); `linq_tpu.py ping` очереди `input`: до прогона consumers 1, messages 0; на старте воркера consumers 0, messages 1; после — consumers 1, messages 0 (у TPU-сервиса должно быть около 16). Путь до TPU совпадает со smoke 21b24555, причина в среде; кадр/с (цель около 20), RTT и эпизоды на LinQ не замерены. Повтор — когда ping покажет около 16 консьюмеров.
-- владелец: спросить Матвея или организаторов, почему у очереди `input` брокера 0–1 консьюмер вместо 16 (TPU молчит с ~05:40); в Jupyter открыт `examples/Untitled.ipynb`, он может читать общую очередь.
-- владелец: остановить в Jupyter idle kernels без ноутбука от наших прогонов `e03fcb40…` (05:39, S2) и `475771bb…` (06:36, R5), плюс kernel от `safewatch doctor` R5; удаление на общем аккаунте заблокировала защита Claude Code.
+- long-lead: фронт Егора (`front/argus-main` и `front/final-*`) по `contract/openapi.json`; с S16 — контракт 1.1.0; заменить папку `frontend/` в `main` — решение владельца.
+- long-lead: ресёрч доп-сценариев `docs/research/EXTRA_SCENARIOS_<дата>.md`, нужен к S31; нет файла — S31 закрывается без кода.
+- long-lead: файлы моделей Матвея (`models/matvey/...`, архив из `docs/ML_HANDOFF_MATVEY.md` ветки `matvey_cv`) — для проверки S20 на `local`; без них записи реестра есть, `doctor` пишет «нет файла».
+- владелец: перед S21 запустить Docker Desktop (иначе `docker build` снова уйдёт в `долг`).
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
 - долг: S15, docker build, демон Docker не запущен (`docker info`: нет `dockerDesktopLinuxEngine`); Dockerfile и compose не собирались ни разу.
 - долг: R5, `JupyterShell` не закрывает kernel: каждый процесс (сервер, doctor, живой тест) оставляет один idle kernel на общем аккаунте, `_drop` закрывает его только при ошибке; нужен `close()` в `RemoteShell` из lifespan и doctor. Перенесено из R15: проверяется только вживую, живых прогонов в R15 нет (3.1); владелец: до правки гасить idle kernels в Jupyter вручную.
