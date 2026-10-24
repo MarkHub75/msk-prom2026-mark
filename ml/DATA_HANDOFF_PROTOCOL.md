@@ -13,3 +13,16 @@ Integrity distinction: Helmet quality-v3 semantic digest is39e13db80621e4901f0eb
 Current producer releases received: SHEL5K diagnostic19 (source-label QA only; UNKNOWN raw person attributes; no training/final-test approval), Mendeley factory replay16 (development/calibration/replay only; whole source is calibration-known). Native UR RGB and Running/Zone event labels are requested through handoff; nothing is inferred from a download directory or clip class.
 
 No direct source discovery/download is done by ML. Files are opened only after scoped READY verification. Hash verification is repeated at experiment start, not assumed from an earlier mutable path. Missing or changing data is recorded as BLOCKED/NOT_MEASURABLE and does not trigger a network/storage workaround.
+
+## Separate weak-video schema received in continuation
+
+`ml.quality.weak_video_intake.load_weak_video_ready` supports the reviewed
+`mosprom-training-datasets-v1` schema explicitly. Callers provide both the pinned
+pointer SHA and the independently reviewed CHECKSUMS SHA; the latter is not
+pinned by the producer pointer. The verifier checks all registered files,
+media byte counts, split rows/classes/groups, clock/source/ordinal bindings,
+exact media and pinned-clock RGB cross-split duplicates, and empty blocked test.
+Only VIDEO_WEAK_LABEL_CLASSIFICATION is accepted. It grants neither per-frame
+labels nor bbox/event GT, independent test, production selection or job startup.
+The original diagnostic consumer still rejects this schema. Reports preserve
+near-duplicate/physical-identity uncertainty and forbid repeating four heads.

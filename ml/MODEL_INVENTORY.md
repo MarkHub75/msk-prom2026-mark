@@ -164,3 +164,18 @@ running matches0/46unchanged, walking11/482→27/482 with one old match lost.
 REJECTED on the predeclared primary gate; not in production video inference, not
 compiled/uploaded, no new TPU artifact and no new LinQ invocation. No model or
 threshold replacement is made by this technical eight-rule release.
+
+## Received rejected CPU fine-tune — continuation 24 October
+
+Training handoff10992b4d22c5218569132729de1864726d8cc446f3441338cfdc1c00541c3a65
+was received with verified result/best/last/baseline bytes. This is an MLP temporal
+head on cached GMD pose features, despite the directory name yolo_pilot. Six CPU
+epochs, best epoch1; reported paired weak-video validation macroF1 .72953216374269
+for both baseline and candidate, gain0. REJECT_KEEP_BASELINE; no model promotion,
+export/compile/PTQ/actualLinQ or independent event qualification. Checkpoint digests
+and receipt: reports/intake-20261024.json. No checkpoint was deserialized by root.
+
+Canonical reuse constraints v2 (SHA4598a443...) supersede the mistaken v1 head4
+folder description: head4 trains subjects2/3, selects on1, outer development4.
+Heads1/2/3 saw Subject4 in training/selection. An all-four ensemble cannot be
+reported as held-out Subject4. Four heads remain unselected/export-only.

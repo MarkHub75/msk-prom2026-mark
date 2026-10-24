@@ -1,0 +1,127 @@
+{
+  "schema_version": "mosprom-ml-intake-summary-v1",
+  "created_utc": "2026-10-24T13:27:40.341967+00:00",
+  "evidence_label": "OBSERVED",
+  "weak_video": {
+    "status": "VERIFIED_WEAK_VIDEO_DEVELOPMENT_ONLY",
+    "dataset_id": "mosprom-gmd-video-weakclip",
+    "version": "v1-20261024",
+    "pointer_sha256": "d6b3cf6959b59de4f3daf8d14455ccf7c1d22986e7d1e40a2f08181e37db20ae",
+    "manifest_sha256": "2b17335c33ffd128c54344cf0a10e0ae69d8e19afe7042b4b2983ff9bb8e03ef",
+    "checksums_sha256": "225f20afdef681db79a675c6e22e893c53797a8506f93a10b44a05f7adb6f559",
+    "counts": {
+      "train": {
+        "ADL": 61,
+        "Fall": 62
+      },
+      "val": {
+        "ADL": 20,
+        "Fall": 17
+      }
+    },
+    "verified_media": 160,
+    "media_bytes": 1109791938,
+    "verified_clock_rows": 34172,
+    "verified_registry_files": 343,
+    "groups": {
+      "gmdcsa24-subject1-allviews-sessions": "train",
+      "gmdcsa24-subject2-allviews-sessions": "train",
+      "gmdcsa24-subject3-allviews-sessions": "train",
+      "gmdcsa24-subject4-allviews-sessions": "val"
+    },
+    "exact_media_crosssplit": 0,
+    "exact_native_rgb_crosssplit": 0,
+    "near_duplicates": {
+      "producer_candidates": 270,
+      "independently_recomputed": false,
+      "physical_identity": "UNKNOWN"
+    },
+    "allowed_use": "VIDEO_WEAK_LABEL_CLASSIFICATION",
+    "license": "CC-BY-4.0 primary dataset;citation and change notice in ATTRIBUTION.md",
+    "limitations": [
+      "Domestic/staged domain; no industrial accuracy or fall-onset/immobility claim",
+      "Author folder groups, physical actor/camera/session identity UNKNOWN",
+      "Validation family has previously been inspected; not a new independent test",
+      "Coarse source labels only; source ADL may contain voluntary lying and other hazards",
+      "V2.1 temporal defects are not imported or repaired as frame labels"
+    ],
+    "frame_event_gt": "UNAVAILABLE",
+    "bbox_training": "FORBIDDEN",
+    "independent_test": "BLOCKED_EMPTY",
+    "existing_four_head_retraining": "FORBIDDEN",
+    "automatic_training": false,
+    "new_neural_calls": 0,
+    "new_remote_calls": 0
+  },
+  "rejected_training": {
+    "status": "REJECT_KEEP_BASELINE",
+    "handoff_sha256": "10992b4d22c5218569132729de1864726d8cc446f3441338cfdc1c00541c3a65",
+    "source_training_commit": "a92343cd",
+    "baseline_macro_f1": 0.72953216374269,
+    "candidate_macro_f1": 0.72953216374269,
+    "gain": 0.0,
+    "label_unit": "WHOLE_VIDEO_WEAK_CATEGORY",
+    "metric_evidence": "PRODUCER_REPORTED_PAIRED_VALIDATION_NOT_RECOMPUTED",
+    "scope": "previously inspected source weak-video validation; not a new independent test",
+    "deployment_allowed": false,
+    "independent_event_quality": "NOT_EVALUATED",
+    "checkpoints": {
+      "best": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_gmd_finetune_v1/matvey_best.pt",
+        "bytes": 356223,
+        "sha256": "5726466aa2ae251c54a85f0341f471ed79e966e7702c56346f6b1069c21931a0"
+      },
+      "last": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_gmd_finetune_v1/matvey_last.pt",
+        "bytes": 356223,
+        "sha256": "9e6ff92882a16a148906d45e0ceada18932b84345721a47ce7a0549417d8ffd5"
+      },
+      "baseline_kept": {
+        "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-4/selected.pt",
+        "bytes": 355422,
+        "sha256": "959a963724997f4838a4b66caa8b85d2be41097df334d99014bf38eb8d340ace"
+      }
+    },
+    "mutable_producer_worktree_files": "NOT_CONSUMED",
+    "new_neural_calls": 0,
+    "new_remote_calls": 0
+  },
+  "full_reviews": [
+    {
+      "path": "/workspace/artifacts/matvey-continuation-20261024/intake-v1/weak-video-review.json",
+      "bytes": 1875,
+      "sha256": "84821c450b88035465f5e5bdf257b29ecb57360de0f3f7aebd8d22ae3d6f9699"
+    },
+    {
+      "path": "/workspace/artifacts/matvey-continuation-20261024/intake-v1/training-review.json",
+      "bytes": 1413,
+      "sha256": "d7b4b91f7d7c2add28efc3df8d868c9817ff458431d0badd0495222657232691"
+    }
+  ],
+  "reuse_constraints": {
+    "path": "/workspace/shared/dataset-handoff/data-release-20261024/GMD_MODEL_REUSE_CONSTRAINTS.v2.json",
+    "bytes": 2626,
+    "sha256": "4598a4431ee596e31ef936ad74057c718f7fff45424d78d1436cbf3c050dcf61"
+  },
+  "reuse_findings": {
+    "heads_1_2_3_saw_subject4_during_train_or_selection": true,
+    "head4_train_subjects": [
+      2,
+      3
+    ],
+    "head4_selection_subject": 1,
+    "head4_outer_development_subject": 4,
+    "all_four_ensemble_not_heldout_subject4": true,
+    "production_head_selected": false
+  },
+  "experimental_publication": {
+    "path": "/workspace/shared/dataset-handoff/data-extension-20261024/EXPERIMENTAL_HANDOFF.v2.json",
+    "bytes": 12575,
+    "sha256": "982036c31df6e43feff12f43b9a65ad3ffaee0d71bd0ece61a81696573131185"
+  },
+  "experimental_scope": "REVIEW_ONLY; KTH direct CCTV rejected by E33; no automatic integration",
+  "source_worktrees_modified": false,
+  "new_training_runs": 0,
+  "new_remote_calls": 0,
+  "candidate_promoted": false
+}

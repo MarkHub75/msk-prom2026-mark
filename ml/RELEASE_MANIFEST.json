@@ -469,7 +469,8 @@
     "ml/pipeline/delivery.py": "03be299c6e85b97596a73ed74f5f26ab44fe6fbe7596e2ff9b517a3aa7e0ef7e",
     "ml/pipeline/cli.py": "5b8981a71b4ba8072cd827706cab685b8a8e7b9c8e4e5902cd0545a620521f49",
     "ml/pipeline/video_clock.py": "9079054a9524ddec276a7718c177528fe6d6de620f889893e177262970232a9f",
-    "ml/contracts/schemas/event_candidate.schema.json": "d3590a6d96e4aadcea5e8c54a10cf1ddd3da96fd93433c0fbb7e39bdaa8fa561"
+    "ml/contracts/schemas/event_candidate.schema.json": "d3590a6d96e4aadcea5e8c54a10cf1ddd3da96fd93433c0fbb7e39bdaa8fa561",
+    "ml/quality/weak_video_intake.py": "5c0be378a69710c247ad5be18eca3bfc131d8fe1f91a3dc5a98731a3c5e3fdec"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
@@ -506,7 +507,7 @@
     "final_test_used": false,
     "clean_approved_training": "NOT_AVAILABLE_NO_TRAINING"
   },
-  "updated_utc": "2026-10-24T12:05:43.261983+00:00",
+  "updated_utc": "2026-10-24T13:27:40.341967+00:00",
   "software_tests": {
     "last_completed": 480,
     "status": "PASS",
@@ -796,5 +797,16 @@
     "configs/scenarios/01.json": "5bf2a9b3a1b69ca9098366388bc08e15242d3355ffc85b383fccd4d80b3833dd",
     "configs/scenarios/02.json": "b24cac82f4e0062f48d1975edafc478f4f8117d2af218fc29d8cdb8a42689548",
     "configs/scenarios/06.json": "54714e173fe9bee07613c65e7dcbb0067701326c05f73bc833d3320cea3ebd5a"
+  },
+  "incoming_intake": {
+    "summary": {
+      "path": "/workspace/project/ml/reports/intake-20261024.json",
+      "bytes": 5095,
+      "sha256": "91a573af793fcee87f03c157d70a32ea37702bd8e20b55f5103eb6b317254b1f"
+    },
+    "weak_video_scope": "VERIFIED_WEAK_VIDEO_DEVELOPMENT_ONLY",
+    "rejected_candidate": "REJECT_KEEP_BASELINE",
+    "model_selection_changed": false,
+    "new_training_authorized": false
   }
 }

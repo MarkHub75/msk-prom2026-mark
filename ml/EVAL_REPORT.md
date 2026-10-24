@@ -121,3 +121,13 @@ New data acquisition/curation belongs to Data Orchestrator. Its worktree/branch 
 Final software check after all code merges:335 tests PASS in5.851s. Running/Zone missing-GT readiness check returns NOT_EVALUATED with null P/R/F1; synthetic examples test only software. See ml/quality/temporal/MOTION_EVAL.md for annotation/track/geometry handoff. Precision1.0 in Fall is supported by only one alert; no robust industrial generalization follows. Generalization CIs are not estimated from one conservative temporal source group or unresolved PPE photo lineage. All selected checkpoints remain unchanged.
 
 Preservation limitation: all commits saved locally on matvey_cv; ordinary non-force push failed because Git authentication is unavailable (exit128). Remote commit is not verified. Model-only archive is local, external account/destination not yet selected. These blockers prevent claiming a fully preserved final ML release.
+
+## Continuation intake — weak-video endpoint kept separate
+
+GMD training data are available for whole-video weak-label development, train123
+and validation37; independent final test is empty. This does not close episode,
+floor, machinery, action, or bbox GT gates. Verified producer CPU fine-tune report:
+baseline=candidate macroF1 .72953216374269, gain0; Fall P .666667/R .823529/F1 .736842.
+These are previously inspected source video categories, not comparable to UR
+event F1 .1818. Candidate remains REJECTED. Root performed no new model evaluation
+or training; metadata and binary hashes checked in reports/intake-20261024.json.

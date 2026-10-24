@@ -147,3 +147,19 @@ The invalid32-call CFR decoder attempt is retained and never scored. Four client
 Final code merges: e42d6186 offline motion scorer and explicit synthetic fixtures,059f4055 completed PTQ results, f5796657 dependency-free graph fixture tests. Root actual missing-GT check: NOT_EVALUATED/null metrics.335 software tests passed after all code merges. No app/backend/frontend or Data Orchestrator files changed. Native agents completed and all heavy resources are idle. Next model/data-backed experiments depend on Running/Zone actor/episode/geometry GT; then equipment proximity and phone as suitable annotated data becomes available. No further Helmet/Fall tuning is allocated.
 
 Git preservation: attempted ordinary push matvey_cv at91473909, exit128/AUTHENTICATION_UNAVAILABLE; no force, no credential output retained. Final metadata records the blocker; no repeated authentication attempts or main changes.
+
+## Continued from session handoff — 2026-10-24T13:27:40.341967+00:00
+
+OBSERVED: separate immutable intake completed before further model work. GMD
+train123/val37 weak-video data available; all160 media and34,172 pinned clock rows
+verified without inference. Near-duplicate/physical identity uncertainty retained;
+no event/bbox GT or independent test. CPU MLP training result received/rejected:
+macroF1 .72953216374269 unchanged, gain0, deployment forbidden. Corrected v2 fold
+lineage and E33 rejected transfer preserved. No Data/Training branch merge,
+training/GPU/LinQ job or model promotion. Code/schema rejection checks:12PASS.
+Details reports/intake-20261024.json. Next: package a reproducible07 demo and
+review historical hardware evidence, keeping02/01 missing-model/policy gates open.
+
+Continuation intake validation: unittest discover ran498 tests, OK (3skipped),
+7.466s, intake-v1/software-tests.log. Discovery includes pre-existing untracked
+Safewatch tests; those files are not part of this commit. Owned intake12PASS.

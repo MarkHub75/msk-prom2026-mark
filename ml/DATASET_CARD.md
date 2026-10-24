@@ -25,3 +25,16 @@ Only `/workspace/shared/dataset-handoff/READY.json` entries with matching releas
 | CAVIAR source3/v1-20261024 |1713JPEG/3XML, literal227running/2451walking annotations; visible226/2431 afterappearanceexclusions. Sharedcamera/actors development, sourceBY-SA versionunspecified. Localresearch only; originalJPEG ordinal*40ms nominaltime, not originalPTS; unboxed/otherstatesUNKNOWN |
 
 Root CSV adds release-level metadata references only, not copies of producer's individual asset records. Full verified assets/splits/checksums remain in each immutable release. No independent test or clean complete training release arrived; no training performed. Historical Helmet semanticdigest39e13... is not serializedGTfileSHA346f74...; current fields distinguish both.
+
+## Received weak-video training release — 24 October, continuation
+
+The immutable GMD weak-video release is now consumed with a separate schema-aware
+verifier: 160 media files and 34,172 pinned clock rows, train123/val37, no test.
+Only VIDEO_WEAK_LABEL_CLASSIFICATION is approved; labels are whole-video source
+ADL/Fall categories, with zero new HUMAN_VERIFIED event/bbox annotations.
+CC BY4.0 attribution and restrictions remain pinned. Root rechecked bytes and
+exact cross-split media/RGB digest equality from clocks, without fresh decode.
+270 producer pHash candidates remain unresolved; physical actor/camera independence
+is UNKNOWN. Subject folders1/2/3 train,4 validation; all derivatives stay together.
+New adaptation is a data capability, not authorization to start training. Existing
+four-head retraining is forbidden. Details: reports/intake-20261024.json.
