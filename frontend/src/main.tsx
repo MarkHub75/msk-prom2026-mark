@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import "./theme.css";
 import "./styles/mobile-timeline.css";
+import "./styles/control-room.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -8,7 +8,18 @@ import { FIXTURE_NOW } from "../fixtures/data";
 import { isReviewMode, getReviewScenario } from "../fixtures/review";
 import { menuFor } from "../nav";
 import { ROLES, useRole, type Role } from "../roles";
-import { Icon } from "./ui";
+import { Icon, type IconName } from "./ui";
+
+function navIcon(path: string): IconName {
+  if (path === "/operator") return "monitor";
+  if (path.startsWith("/master/shift")) return "grid";
+  if (path.startsWith("/master")) return "bell";
+  if (path.startsWith("/ohs/journal")) return "journal";
+  if (path.startsWith("/ohs/rules")) return "rules";
+  if (path.startsWith("/ohs/stats") || path.startsWith("/management")) return "chart";
+  if (path.startsWith("/admin/cameras")) return "camera";
+  return "settings";
+}
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
 
 const MetaContext = createContext<Meta | undefined>(undefined);
@@ -50,26 +61,32 @@ function ShellContent({ children }: { children: ReactNode }) {
     navigate(match && next === "master" ? `/master/events/${match[1]}` : match && next === "operator" ? `/events/${match[1]}` : menuFor(next)[0]?.path ?? "/operator");
   };
   const actorChange = (value: string) => setActor(value);
+  const source = review ? "Проверочный сценарий" : meta?.fake ? "Демо · синтетические детекции" : meta ? meta.inference_backend === "linq" ? "LinQ TPU" : "CPU · local" : "Источник не получен";
+  const live = wsStatus === "connected" ? "В сети" : wsStatus === "fixture" ? "Повтор" : wsStatus === "disconnected" ? "Нет связи" : "Подключение…";
   return <MetaContext.Provider value={meta}><UpdateContext.Provider value={updates}>
-    <div className={`app ${role === "master" ? "is-master" : ""}`}>
+    <div className={`app app-cr ${role === "master" ? "is-master" : ""}`}>
       <a className="skip-link" href="#workspace">Перейти к содержимому</a>
-      <header className="shell-header">
-        <Link className="brand" to={menuFor(role)[0]?.path ?? "/operator"}><span className="brand-mark" />SafeWatch<span className="brand-divider" /><span className="plant-name">Промышленная безопасность</span></Link>
-        <nav className="role-tabs" aria-label="Выбор роли">{ROLES.map(id => <button key={id} onClick={() => changeRole(id)} className={role === id ? "active" : ""} aria-current={role === id ? "page" : undefined}>{meta?.roles.find(r => r.id === id)?.title ?? roleTitles[id]}</button>)}</nav>
-        <label className="mobile-role"><span>Роль</span><select aria-label="Роль" value={role} onChange={e => changeRole(e.target.value as Role)}>{ROLES.map(id => <option key={id} value={id}>{roleTitles[id]}</option>)}</select></label>
-        <Clock reference={review?FIXTURE_NOW:undefined} />
-      </header>
-      <div className="shell-strip">
-        <nav className="workspace-nav" aria-label="Разделы">{menuFor(role).map(item => <NavLink key={item.path} to={item.path} end>{item.title}</NavLink>)}</nav>
-        <div className="connection" data-status={wsStatus}><i />{wsStatus === "fixture" ? "Синтетический повтор" : wsStatus === "connected" ? "Канал событий подключён" : wsStatus === "disconnected" ? "Канал событий отключён" : "Подключение канала…"}</div>
-        <label className="actor-field"><span>Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => actorChange(e.target.value)} /></label>
-        <span className="backend-label" data-testid="backend">{review ? "Проверочный сценарий" : meta?.fake ? "Синтетические детекции" : meta ? meta.inference_backend === "linq" ? "LinQ TPU" : "CPU · local" : "Источник не получен"}</span>
+      <aside className="cr-rail">
+        <Link className="cr-logo" to={menuFor(role)[0]?.path ?? "/operator"} aria-label="SafeWatch"><span className="brand-mark" /></Link>
+        <nav className="workspace-nav cr-nav" aria-label="Разделы">{menuFor(role).map(item => <NavLink key={item.path} to={item.path} end title={item.title}><Icon name={navIcon(item.path)} size={20} /><span>{item.title}</span></NavLink>)}</nav>
+        <label className="mobile-role cr-role"><span><Icon name="user" size={16} />Роль</span><select aria-label="Роль" value={role} onChange={e => changeRole(e.target.value as Role)}>{ROLES.map(id => <option key={id} value={id}>{meta?.roles.find(r => r.id === id)?.title ?? roleTitles[id]}</option>)}</select></label>
+      </aside>
+      <div className="cr-body">
+        <header className="shell-header cr-top">
+          <Link className="brand" to={menuFor(role)[0]?.path ?? "/operator"}>SafeWatch</Link>
+          <span className="cr-plant">{roleTitles[role]}</span>
+          <div className="cr-top-right">
+            <span className={`cr-source ${meta?.fake || review ? "is-synthetic" : ""}`} data-testid="backend">{source}</span>
+            <span className="connection cr-live" data-status={wsStatus} title="Канал событий"><i />{live}</span>
+            <label className="actor-field cr-actor"><span>Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => actorChange(e.target.value)} /></label>
+            <Clock reference={review?FIXTURE_NOW:undefined} />
+          </div>
+        </header>
+        {review && <div className="review-strip"><span className="review-square" />Проверочный сценарий · {scenarioTitle[getReviewScenario()] ?? "Проверка интерфейса"} · изображения созданы для проверки интерфейса</div>}
+        {!review && wsStatus === "disconnected" && <div className="offline-strip" role="status">Нет связи с каналом событий. Данные на экране могут быть устаревшими — нажмите «Обновить».</div>}
+        {notification && <div className="notification-strip" role="status"><span>{notification}</span><button aria-label="Закрыть уведомление" onClick={()=>setNotification(undefined)}><Icon name="cross" size={14} /></button></div>}
+        <main key={role} id="workspace" className="shell-main">{children}</main>
       </div>
-      {review && <div className="review-strip"><span className="review-square" />Синтетический сценарий · {scenarioTitle[getReviewScenario()] ?? "Проверка интерфейса"}<span>Изображения и запись созданы для проверки интерфейса. Не результат наблюдения.</span></div>}
-      {!review && wsStatus === "disconnected" && <div className="offline-strip" role="status">Нет соединения с каналом событий. Текущее состояние можно обновить вручную.</div>}
-      {notification && <div className="notification-strip" role="status"><span>{notification}</span><button aria-label="Закрыть уведомление" onClick={()=>setNotification(undefined)}><Icon name="cross" size={14} /></button></div>}
-      <main key={role} id="workspace" className="shell-main">{children}</main>
-      <footer className="shell-footer"><span>SafeWatch <b>/</b> {roleTitles[role]}</span><span>Архивный анализ · без прямого CCTV</span><span>Моспром 2026</span></footer>
       {role === "master" && <nav className="mobile-bottom-nav" aria-label="Рабочее место мастера"><NavLink to="/master" end><Icon name="list" />Поручения</NavLink><NavLink to="/master/shift"><Icon name="grid" />Моя смена</NavLink></nav>}
     </div>
   </UpdateContext.Provider></MetaContext.Provider>;

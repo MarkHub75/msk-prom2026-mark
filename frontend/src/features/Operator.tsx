@@ -2,43 +2,141 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
-import type { SectorState } from "../api/types";
+import type { CameraTile, EventSummary, SectorState } from "../api/types";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { EventFeed } from "../components/EventFeed";
-import { VideoWithHud } from "../components/Media";
-import { Breadcrumb, Empty, ErrorNotice, Icon, Loading, number, PageHeading, PanelHeading, time } from "../components/ui";
+import { EvidenceFrame, VideoWithHud } from "../components/Media";
+import { Breadcrumb, duration, Empty, ErrorNotice, Icon, Loading, number, PageHeading, PanelHeading, time } from "../components/ui";
 import "../styles/targeted-visual.css";
 
-function SectorPanel({ sector, index }: { sector: SectorState; index: number }) {
-  const updates = useUpdates();
-  const view = useApi(() => api.GET("/api/sectors/{sector_id}/view", {params:{path:{sector_id:sector.sector_id}}}), [sector.sector_id, updates]);
-  const tile = sector.state === "no_observation" ? view.data?.cameras.find(camera=>camera.state.state === "no_observation") ?? view.data?.cameras[0] : view.data?.cameras[0];
-  return <article className={`sector-panel sector-${sector.state} ${index === 0 ? "sector-first" : ""}`}>
-    <div className="sector-panel-heading"><Link to={`/operator/sectors/${sector.sector_id}`}><span className="sector-number">{number(sector.sector_id)}</span><h2 title={sector.name}>{sector.name.replace(/^Сектор\s+\d+\s*[·/–-]\s*/i, "")}</h2></Link><div className="sector-source">{tile ? tile.camera.name : `${sector.cameras_total} камер`}<small>{sector.state === "no_observation" ? "Нет наблюдения" : "Архивная запись"}</small></div></div>
-    {tile?.preview_url ? <Link className="sector-media" to={`/operator/cameras/${tile.camera.id}`}><img src={mediaUrl(tile.preview_url)} alt={`${tile.camera.name}: обзор сектора ${sector.name}`} /><span className="sector-media-caption"><span>{tile.camera.name}</span><span>Открыть запись <Icon name="arrow" size={13} /></span></span></Link> : <Link className="sector-no-media" to={`/operator/sectors/${sector.sector_id}`}><Icon name="camera" size={36} /><strong>{view.loading ? "Загружаем кадр" : sector.state === "no_observation" ? "Нет наблюдения" : "Кадр недоступен"}</strong><span>{view.error?.message ?? sector.reason_text}</span></Link>}
-    <div className="sector-panel-foot"><span>{sector.reason_text || "Состояние получено от сервера"}</span><Link to={`/operator/sectors/${sector.sector_id}`}>{sector.open_red ? <b className="critical-text">{sector.open_red} критических</b> : sector.open_yellow ? <b className="caution-text">{sector.open_yellow} требуют внимания</b> : <span>{sector.cameras_total - sector.cameras_no_observation} / {sector.cameras_total} наблюдаются</span>}<Icon name="chevron" size={14} /></Link></div>
-  </article>;
+// "Сектор 1 · Прессовый участок" -> "Прессовый участок"
+export function shortSector(name: string) { return name.replace(/^Сектор\s+\d+\s*[·/–-]\s*/i, ""); }
+export function shortCamera(name: string) { return name.replace(/^Камера\s+/i, "Кам "); }
+const STATE_TITLE: Record<SectorState["state"], string> = { red: "Тревога", yellow: "Внимание", normal: "Норма", no_observation: "Нет наблюдения" };
+
+function StateChip({ state, text }: { state: SectorState["state"]; text?: string }) {
+  return <span className={`cr-chip cr-chip-${state}`}><i />{text ?? STATE_TITLE[state]}</span>;
 }
+
+/** Main camera of the wall: live replay with HUD when the backend has it, otherwise the latest still. */
+function Stage({ tile, sector, event }: { tile?: CameraTile; sector?: SectorState; event?: EventSummary }) {
+  const updates = useUpdates();
+  const live = useApi(() => tile ? api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: tile.camera.id } } }) : Promise.resolve({ data: undefined }), [tile?.camera.id, updates]);
+  const detail = useApi(() => event && event.camera_id === tile?.camera.id ? api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }) : Promise.resolve({ data: undefined }), [event?.id, tile?.camera.id]);
+  if (!tile) return <div className="cr-stage cr-stage-empty"><Empty title="Камера не выбрана" text={sector ? sector.reason_text : "Выберите сектор внизу экрана."} /></div>;
+  const state = tile.state.state;
+  const evidence = detail.data?.episode?.evidence[0];
+  return <section className={`cr-stage cr-frame-${state}`} aria-label={`Камера ${tile.camera.name}`}>
+    <div className="cr-stage-media">
+      {live.data?.video ? <VideoWithHud video={live.data.video} camera={tile.camera.name} broadcast={live.data.broadcast} episodes={live.data.analysis?.episodes} initialMs={live.data.broadcast?.position_ms ?? 0} />
+        : tile.preview_url ? <div className="cr-still"><img src={mediaUrl(tile.preview_url)} alt={`Кадр камеры ${tile.camera.name}`} /><span className="cr-still-note">Последний кадр записи</span></div>
+        : evidence ? <EvidenceFrame evidence={evidence} camera={tile.camera.name} level={event!.level} />
+        : <Empty title={state === "no_observation" ? "Нет наблюдения" : "Кадр не получен"} text={tile.state.reason_text || "Сервер не передал изображение для этой камеры."} />}
+    </div>
+    <div className="cr-stage-tags"><span className="cr-tag">{tile.camera.name}</span><StateChip state={state} text={state === "no_observation" ? tile.state.reason_text || undefined : undefined} /></div>
+  </section>;
+}
+
+function WallTile({ tile, selected, onSelect }: { tile: CameraTile; selected: boolean; onSelect: () => void }) {
+  const state = tile.state.state;
+  return <button className={`cr-tile cr-frame-${state} ${selected ? "is-selected" : ""}`} onClick={onSelect} aria-pressed={selected} aria-label={`Показать ${tile.camera.name}`}>
+    {tile.preview_url ? <img src={mediaUrl(tile.preview_url)} alt="" /> : <span className="cr-tile-empty"><Icon name="camera" size={22} />{state === "no_observation" ? "Нет наблюдения" : "Нет кадра"}</span>}
+    <span className="cr-tag">{shortCamera(tile.camera.name)}</span>
+    {state !== "normal" && <StateChip state={state} />}
+  </button>;
+}
+
+function SectorCell({ sector, selected, onSelect }: { sector: SectorState; selected: boolean; onSelect: () => void }) {
+  const observed = sector.cameras_total - sector.cameras_no_observation;
+  return <button className={`cr-sector cr-sector-${sector.state} ${selected ? "is-selected" : ""}`} onClick={onSelect} aria-pressed={selected}>
+    <span className="cr-sector-top"><b>{number(sector.sector_id)}</b><span>{shortSector(sector.name)}</span></span>
+    <span className="cr-sector-bottom"><StateChip state={sector.state} /><span className="cr-counts">{sector.open_red > 0 && <em className="cr-n-red">{sector.open_red}</em>}{sector.open_yellow > 0 && <em className="cr-n-yellow">{sector.open_yellow}</em>}<span className="mono">{observed}/{sector.cameras_total}</span></span></span>
+  </button>;
+}
+
+function QueueRow({ event, selected, onSelect, closed }: { event: EventSummary; selected: boolean; onSelect: () => void; closed?: boolean }) {
+  return <li className={`cr-q cr-q-${closed ? "closed" : event.level} ${selected ? "is-selected" : ""}`}>
+    <button onClick={onSelect} aria-pressed={selected}>
+      <span className="cr-q-top"><time className="mono">{time(event.published_at)}</time><span className="mono">#{event.id}</span></span>
+      <strong>{event.title}</strong>
+      <span className="cr-q-place">{shortSector(event.sector_name)} · {shortCamera(event.camera_name)}</span>
+      <span className="cr-q-foot"><span className={`cr-status cr-status-${closed ? "closed" : event.level}`}>{event.status_title}</span><span className="mono">{duration(event.duration_s * 1000)}</span></span>
+    </button>
+  </li>;
+}
+
+function SelectedEvent({ event }: { event: EventSummary }) {
+  const detail = useApi(() => api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }), [event.id, event.status]);
+  const evidence = detail.data?.episode?.evidence[0];
+  return <section className="cr-selected" aria-label="Выбранное событие">
+    <h2>Выбранное событие</h2>
+    <div className="cr-selected-media">{evidence ? <EvidenceFrame evidence={evidence} camera={event.camera_name} level={event.level} /> : <span className="cr-tile-empty"><Icon name="camera" size={22} />{detail.loading ? "Загружаем кадр" : "Кадр не получен"}</span>}</div>
+    <dl className="cr-facts">
+      <dt>Событие</dt><dd>{event.title}</dd>
+      <dt>Причина</dt><dd>{event.reason_text}</dd>
+      <dt>Время</dt><dd className="mono">{time(event.started_at)}</dd>
+      <dt>Место</dt><dd>{shortSector(event.sector_name)} · {event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</dd>
+      <dt>Статус</dt><dd><span className={`cr-status cr-status-${event.level}`}>{event.status_title}</span></dd>
+    </dl>
+    <Link className={`button cr-open ${event.level === "red" ? "button-danger" : "button-primary"}`} to={`/events/${event.id}`}>Открыть событие <Icon name="arrow" size={16} /></Link>
+  </section>;
+}
+
 export function OperatorPage() {
   const updates = useUpdates();
   const meta = useMeta();
   const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [updates]);
-  const [filter, setFilter] = useState<"all"|"red"|"yellow">("all");
-  // operator_feed includes recently closed events (tech.md 8.8). Prefer the
-  // backend's status metadata; its documented priority 0 is the closed fallback
-  // while /meta is loading. Never change an event's status on the client.
-  const isTerminal = (event: NonNullable<typeof dashboard.data>["feed"][number]) =>
-    meta?.statuses.find(status => status.id === event.status)?.terminal ?? event.priority === 0;
-  const active = dashboard.data?.feed.filter(event => !isTerminal(event)) ?? [];
-  const history = dashboard.data?.feed.filter(isTerminal) ?? [];
+  const [filter, setFilter] = useState<"all" | "red" | "yellow">("all");
+  const [pickedSector, setPickedSector] = useState<number>();
+  const [pickedCamera, setPickedCamera] = useState<number>();
+  const [pickedEvent, setPickedEvent] = useState<number>();
+  // operator_feed includes recently closed events (tech.md 8.8). Never change an event's status on the client.
+  const isTerminal = (event: EventSummary) => meta?.statuses.find(status => status.id === event.status)?.terminal ?? event.priority === 0;
+  const feedAll = dashboard.data?.feed ?? [];
+  const active = feedAll.filter(event => !isTerminal(event));
+  const history = feedAll.filter(isTerminal);
   const critical = active.find(event => event.level === "red" && event.operator_verdict === "none");
   const sectors = dashboard.data?.sectors ?? [];
-  const feed = active.filter(event => filter === "all" || event.level === filter);
-  return <div className="operator-page" data-testid="operator-view">
-    <PageHeading title="Сигнальный пост" meta={<><span>Обзор секторов</span><span className="meta-separator">/</span><span>{dashboard.data ? `Состояние на ${time(dashboard.data.server_now)}` : "Состояние не получено"}</span></>}><button className="button button-small" onClick={dashboard.reload} disabled={dashboard.loading}>Обновить <Icon name="arrow" size={15} /></button></PageHeading>
-    {dashboard.error ? <ErrorNotice error={dashboard.error} retry={dashboard.reload} /> : dashboard.loading && !dashboard.data ? <Loading /> : dashboard.data && <div className="dispatch-layout"><section className="sector-matrix" aria-label="Секторы производства">{sectors.length ? sectors.map((sector,index) => <SectorPanel key={sector.sector_id} sector={sector} index={index} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}</section><aside className="attention-rail"><PanelHeading aside={<span className="count" data-testid="active-event-count">{active.length}</span>}>Требует внимания</PanelHeading><div className="feed-filter" aria-label="Уровень активных событий">{([["all","Все"],["red","Критические"],["yellow","Внимание"]] as const).map(([id,label]) => <button key={id} className={filter===id?"selected":""} onClick={() => setFilter(id)} aria-pressed={filter===id}>{label}</button>)}</div>{active.length ? <EventFeed events={feed} compact /> : <Empty title="Активных тревог нет" text="Завершённые события хранятся отдельно в истории." />}<details className="closed-event-history"><summary><span>Недавно завершено</span><span data-testid="closed-event-count">{history.length}</span><Icon name="chevron" size={15} /></summary>{history.length ? <EventFeed events={history} compact /> : <p>Недавно завершённых событий в ответе сервера нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details></aside></div>}
-    {dashboard.data && <div className="shift-ribbon"><div><Icon name="list" /><strong>Хронология событий</strong><span>Публикации и решения</span></div><div className="shift-events">{[...dashboard.data.feed].sort((a,b)=>a.published_at.localeCompare(b.published_at)).map(event => <Link to={`/events/${event.id}`} key={event.id} className={`ribbon-event ribbon-${event.level}${isTerminal(event) ? " ribbon-closed" : ""}`}><time>{time(event.published_at,false)}</time><span className="ribbon-tick" /><span>#{event.id} · {isTerminal(event) ? event.status_title : event.sector_name}</span></Link>)}</div></div>}
+  const queue = active.filter(event => filter === "all" || event.level === filter);
+  const focusSector = sectors.find(s => s.sector_id === pickedSector) ?? sectors.find(s => s.state === "red") ?? sectors.find(s => s.state === "yellow") ?? sectors[0];
+  const selectedEvent = feedAll.find(e => e.id === pickedEvent) ?? queue[0];
+  const sectorView = useApi(() => focusSector ? api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: focusSector.sector_id } } }) : Promise.resolve({ data: undefined }), [focusSector?.sector_id, updates]);
+  const tiles = sectorView.data?.cameras ?? [];
+  const rank = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
+  const focusTile = tiles.find(t => t.camera.id === pickedCamera) ?? [...tiles].sort((a, b) => rank[a.state.state] - rank[b.state.state])[0];
+  const stageEvent = active.find(e => e.camera_id === focusTile?.camera.id) ?? (selectedEvent?.camera_id === focusTile?.camera.id ? selectedEvent : undefined);
+  const selectSector = (id: number) => { setPickedSector(id); setPickedCamera(undefined); };
+  const selectEvent = (event: EventSummary) => { setPickedEvent(event.id); setPickedSector(event.sector_id); setPickedCamera(event.camera_id); };
+
+  if (dashboard.error) return <div className="cr-page"><ErrorNotice error={dashboard.error} retry={dashboard.reload} /></div>;
+  if (!dashboard.data) return <div className="cr-page"><Loading /></div>;
+  return <div className="cr-page" data-testid="operator-view">
+    <div className="cr-head">
+      <h1>Диспетчерская</h1>
+      {focusSector && <span className="cr-crumb"><Icon name="pin" size={15} />Сектор {number(focusSector.sector_id)} · {shortSector(focusSector.name)}</span>}
+      <span className="cr-asof">Данные на <span className="mono">{time(dashboard.data.server_now)}</span></span>
+      <button className="button button-small cr-refresh" onClick={dashboard.reload} disabled={dashboard.loading}>Обновить</button>
+    </div>
+    <div className="cr-grid">
+      <div className="cr-wall">
+        <Stage tile={focusTile} sector={focusSector} event={stageEvent} />
+        <div className="cr-side">
+          {sectorView.error ? <ErrorNotice error={sectorView.error} compact retry={sectorView.reload} /> : tiles.map(tile => <WallTile key={tile.camera.id} tile={tile} selected={tile.camera.id === focusTile?.camera.id} onSelect={() => setPickedCamera(tile.camera.id)} />)}
+          {focusSector && <Link className="cr-side-link" to={`/operator/sectors/${focusSector.sector_id}`}>Все камеры сектора <Icon name="chevron" size={14} /></Link>}
+        </div>
+      </div>
+      <aside className="cr-queue" aria-label="Очередь тревог">
+        <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{active.length}</span></div>
+        <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
+        {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Камеры без наблюдения показаны в полосе секторов: отсутствие тревог там не означает безопасность.</span></div>}
+        {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} />}
+        <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
+      </aside>
+      <section className="cr-sectors" aria-label="Секторы производства">
+        {sectors.length ? sectors.map(sector => <SectorCell key={sector.sector_id} sector={sector} selected={sector.sector_id === focusSector?.sector_id} onSelect={() => selectSector(sector.sector_id)} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}
+      </section>
+    </div>
     <EventAlarm event={critical} />
   </div>;
 }

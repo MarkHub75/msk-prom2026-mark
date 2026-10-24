@@ -10,7 +10,7 @@ export interface NavItem {
 
 // Routes of tech.md 8.14; a route of an unbuilt slice renders StubNotice.
 export const NAV: NavItem[] = [
-  { path: "/operator", title: "Секторы", roles: ["operator"], slice: 6, menu: true },
+  { path: "/operator", title: "Диспетчерская", roles: ["operator"], slice: 6, menu: true },
   { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false },
   { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false },
   { path: "/events/:eventId", title: "Событие", roles: ["operator", "master", "ohs", "management", "admin"], slice: 7, menu: false },
