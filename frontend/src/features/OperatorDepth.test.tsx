@@ -105,8 +105,8 @@ describe("master", () => {
     serve({ "/api/master/shift": { shift_id: "day", title: "Дневная смена", start: "2026-10-24T05:00:00Z", end: "2026-10-24T17:00:00Z", total: 9, by_sector: [{ key: "1", title: "Сектор 1 · Прессовый участок", count: 9, confirmed: 4, false_alarm: 2 }], by_scenario: [{ key: "fall", title: "Падение и неподвижность", count: 9, confirmed: 4, false_alarm: 2 }], events: [] } });
     open("/master/shift");
     expect(await screen.findByText("Дневная смена")).toBeTruthy();
-    expect(screen.getByText("9", { selector: ".ms-kpi-main b" })).toBeTruthy();
+    expect(screen.getByText("9", { selector: ".mm-total-n" })).toBeTruthy();
     expect(screen.getByText("Падение и неподвижность")).toBeTruthy();
-    expect(screen.getByText("3", { selector: ".ms-kpis b" })).toBeTruthy();
+    expect(screen.getByText("3", { selector: ".mm-legend b" })).toBeTruthy();
   });
 });

@@ -7,6 +7,8 @@ import type { CameraTile, EventSummary } from "../api/types";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { LevelTag, StateBadge, useNow } from "../components/operator/kit";
 import { duration, Empty, ErrorNotice, Loading, number, time } from "../components/ui";
+import { usePhone } from "../components/usePhone";
+import { PhoneCameras } from "./OperatorPhone";
 import "../styles/operator-depth.css";
 
 const IC = { size: 15, strokeWidth: 1.75, "aria-hidden": true } as const;
@@ -63,7 +65,12 @@ function EvidenceStrip({ events }: { events: EventSummary[] }) {
 function since(iso: string, now: number) { return duration(now - Date.parse(iso)); }
 
 export function SectorPage() {
-  const { sectorId } = useParams(); const id = Number(sectorId); const updates = useUpdates(); const meta = useMeta();
+  const { sectorId } = useParams();
+  return usePhone() ? <PhoneCameras sectorId={Number(sectorId)} /> : <SectorDesk id={Number(sectorId)} />;
+}
+
+function SectorDesk({ id }: { id: number }) {
+  const updates = useUpdates(); const meta = useMeta();
   const tick = Math.floor(useNow(PREVIEW_MS) / PREVIEW_MS);
   const now = useNow(1000);
   const view = useApi(() => api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: id } } }), [id], { refresh: [updates] });

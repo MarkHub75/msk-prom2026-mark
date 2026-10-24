@@ -8,6 +8,8 @@ import { useMeta, useUpdates } from "../components/AppShell";
 import { VideoWithHud } from "../components/Media";
 import { Into, LevelTag, SceneOverlay, StateBadge, useNow } from "../components/operator/kit";
 import { duration, Empty, ErrorNotice, Loading, number, time } from "../components/ui";
+import { usePhone } from "../components/usePhone";
+import { PhoneCameraPage } from "./OperatorPhone";
 import "../styles/operator-depth.css";
 
 const IC = { size: 15, strokeWidth: 1.75, "aria-hidden": true } as const;
@@ -78,7 +80,12 @@ function EpisodeTimeline({ view, events, playhead, onSeek, onOpen, now }: { view
 function Fact({ k, children }: { k: string; children: ReactNode }) { return <div><dt>{k}</dt><dd>{children}</dd></div>; }
 
 export function CameraPage() {
-  const { cameraId } = useParams(); const id = Number(cameraId); const updates = useUpdates(); const meta = useMeta();
+  const { cameraId } = useParams();
+  return usePhone() ? <PhoneCameraPage id={Number(cameraId)} /> : <CameraDesk id={Number(cameraId)} />;
+}
+
+function CameraDesk({ id }: { id: number }) {
+  const updates = useUpdates(); const meta = useMeta();
   const navigate = useNavigate(); const now = useNow(5000);
   const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: id } } }), [id], { refresh: [updates] });
   const events = useApi(() => api.GET("/api/events", { params: { query: { camera_id: id, limit: 200, include_demo: true } } }), [id], { refresh: [updates] });

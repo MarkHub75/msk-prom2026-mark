@@ -11,6 +11,8 @@ import { menuFor, NAV } from "../nav";
 import { ROLES, useRole, type Role } from "../roles";
 import { duration, Icon, ToastProvider, type IconName } from "./ui";
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
+import { hasPhoneApp, PhoneTabs, PhoneTop, ProfileSheet } from "./PhoneChrome";
+import { usePhone } from "./usePhone";
 
 function navIcon(path: string): IconName {
   if (path === "/operator") return "monitor";
@@ -126,6 +128,9 @@ function ShellContent({ children }: { children: ReactNode }) {
   const [serverOffset, setServerOffset] = useState<number>();
   const [backendStatus, setBackendStatus] = useState<BackendStatus>();
   const sound = useAlertSound();
+  // On a phone the operator and the master get an app: own top bar, bottom tabs, profile sheet instead of the rail.
+  const phoneApp = usePhone() && hasPhoneApp(role);
+  const [profile, setProfile] = useState(false);
   const ws = useWs(message => {
     if (message.type === "hello") setServerOffset(Date.parse(message.data.server_now) - Date.now());
     if (message.type === "backend.status") setBackendStatus(message.data);
@@ -134,7 +139,7 @@ function ShellContent({ children }: { children: ReactNode }) {
       const n = message.data;
       if (role === "operator" && n.takeover && n.level === "red") {
         // tech.md 8.8: a red notification takes over the dispatcher and an open event card; sector and camera views get the bar.
-        if (location.pathname === "/operator" || location.pathname.startsWith("/events/")) { sound.beep(n.sound); navigate(`/events/${n.event_id}?takeover=1`); return; }
+        if (location.pathname === "/operator" || location.pathname.startsWith("/events/") || (phoneApp && location.pathname.startsWith("/operator"))) { sound.beep(n.sound); navigate(`/events/${n.event_id}?takeover=1`); return; }
         if (location.pathname === `/events/${n.event_id}` || alarm?.eventId === n.event_id || dismissedAlarms.current.has(n.event_id)) return;
         sound.beep(n.sound);
         setAlarm({ eventId: n.event_id, text: n.text, received: Date.now(), collapsed: false });
@@ -162,9 +167,11 @@ function ShellContent({ children }: { children: ReactNode }) {
   const serverOnline = review ? undefined : health.data ? true : health.error ? false : undefined;
   const home = menuFor(role)[0]?.path ?? "/operator";
   return <MetaContext.Provider value={meta}><UpdateContext.Provider value={updates}>
-    <div className={`app app-cr ds-app ${role === "master" ? "is-master" : ""}`}>
+    <div className={`app app-cr ds-app ${role === "master" ? "is-master" : ""} ${phoneApp ? "is-phone-app" : ""}`}>
       <a className="skip-link" href="#workspace">Перейти к содержимому</a>
-      <header className="shell-header cr-top ds-topbar">
+      {phoneApp ? <PhoneTop brand={<><BrandMark /><span>{PRODUCT}</span></>} home={home} ws={wsStatus} sound={sound.on} onSound={sound.toggle} actor={actor} onProfile={() => setProfile(true)}
+        alarm={alarm?.collapsed && role === "operator" ? <button className="mb-alarm-pill" onClick={() => setAlarm({ ...alarm, collapsed: false })}><Icon name="critical" size={14} />#{alarm.eventId}</button> : undefined} />
+      : <header className="shell-header cr-top ds-topbar">
         <Link className="brand ds-brand" to={home} aria-label={PRODUCT}><BrandMark /><span>{PRODUCT}</span></Link>
         <nav className="cr-roles ds-roles" aria-label="Выбор роли">{ROLES.map(id => <button key={id} onClick={() => changeRole(id)} className={role === id ? "active" : ""} aria-current={role === id ? "page" : undefined}><Icon name={ROLE_ICON[id]} size={15} />{roleTitles[id]}</button>)}</nav>
         <div className="cr-top-right ds-top-right">
@@ -175,11 +182,11 @@ function ShellContent({ children }: { children: ReactNode }) {
           <label className="actor-field cr-actor ds-actor"><Icon name="user" size={14} /><span className="sr-only">Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => setActor(e.target.value)} /></label>
           <Clock reference={review ? FIXTURE_NOW : undefined} />
         </div>
-      </header>
-      <aside className="cr-rail ds-rail">
+      </header>}
+      {!phoneApp && <aside className="cr-rail ds-rail">
         <nav className="workspace-nav cr-nav ds-nav" aria-label="Разделы">{menuFor(role).map(item => <NavLink key={item.path} to={item.path} end title={item.title}><Icon name={navIcon(item.path)} size={18} /><span>{item.title}</span></NavLink>)}</nav>
         <label className="mobile-role cr-role"><span><Icon name="user" size={16} />Роль</span><select aria-label="Роль" value={role} onChange={e => changeRole(e.target.value as Role)}>{ROLES.map(id => <option key={id} value={id}>{meta?.roles.find(r => r.id === id)?.title ?? roleTitles[id]}</option>)}</select></label>
-      </aside>
+      </aside>}
       <div className="cr-body ds-body">
         {review && <div className="review-strip"><span className="review-square" />Проверочный сценарий · {scenarioTitle[getReviewScenario()] ?? "Проверка интерфейса"} · изображения созданы для проверки интерфейса</div>}
         {!review && wsStatus === "disconnected" && <div className="offline-strip" role="status"><Icon name="wifi-off" size={15} />Нет связи с каналом событий. Данные на экране могут быть устаревшими — нажмите «Обновить».</div>}
@@ -187,7 +194,7 @@ function ShellContent({ children }: { children: ReactNode }) {
         {notification && <div className="notification-strip" role="status"><Icon name="bell" size={15} /><span>{notification}</span><button aria-label="Закрыть уведомление" onClick={() => setNotification(undefined)}><Icon name="cross" size={14} /></button></div>}
         <main key={role} id="workspace" className="shell-main">{children}</main>
       </div>
-      <footer className="ds-statusbar" aria-label="Состояние системы">
+      {!phoneApp && <footer className="ds-statusbar" aria-label="Состояние системы">
         <span className={`ds-sb-item ${serverOnline === false ? "is-bad" : serverOnline ? "is-ok" : ""}`}><Icon name="server" size={13} />Сервер: {serverOnline === undefined ? review ? "проверочный режим" : "проверка…" : serverOnline ? "на связи" : "нет ответа"}</span>
         <span className={`ds-sb-item ${wsStatus === "connected" ? "is-ok" : wsStatus === "disconnected" ? "is-warn" : ""}`}><Icon name={wsStatus === "disconnected" ? "wifi-off" : "wifi"} size={13} />{WS_TEXT[wsStatus]}</span>
         <span className="ds-sb-item"><Icon name="cpu" size={13} />Инференс: {backendTitle}{meta?.fake ? " · фейк-режим" : ""}{backendStatus && !meta?.fake ? ` · ${BACKEND_STATE[backendStatus.state]}${backendStatus.latency_ms !== null ? ` · ${Math.round(backendStatus.latency_ms)} мс` : ""}` : ""}</span>
@@ -196,8 +203,11 @@ function ShellContent({ children }: { children: ReactNode }) {
         <span className="ds-sb-item" title="Время сервера по сообщению hello канала событий"><Icon name="clock" size={13} />Сервер <span className="mono">{serverOffset === undefined ? "—" : mskFormat.format(new Date(now + serverOffset))}</span></span>
         <span className="ds-sb-item">Контракт <span className="mono">{health.data?.contract ?? meta?.contract ?? "—"}</span></span>
         <span className="ds-sb-item">{PRODUCT} · {meta?.roles.find(r => r.id === role)?.title ?? roleTitles[role]}</span>
-      </footer>
-      {role === "master" && <nav className="mobile-bottom-nav" aria-label="Рабочее место мастера"><NavLink to="/master" end><Icon name="list" />Поручения</NavLink><NavLink to="/master/shift"><Icon name="grid" />Моя смена</NavLink></nav>}
+      </footer>}
+      {phoneApp && <PhoneTabs role={role} updates={updates} />}
+      {phoneApp && <ProfileSheet open={profile} onClose={() => setProfile(false)} role={role} roleTitle={id => roleTitles[id]} onRole={changeRole} actor={actor} onActor={setActor} meta={meta} source={source}
+        server={serverOnline === undefined ? review ? "проверочный режим" : "проверка…" : serverOnline ? "на связи" : "нет ответа"} />}
+      {role === "master" && !phoneApp && <nav className="mobile-bottom-nav" aria-label="Рабочее место мастера"><NavLink to="/master" end><Icon name="list" />Поручения</NavLink><NavLink to="/master/shift"><Icon name="grid" />Моя смена</NavLink></nav>}
     </div>
   </UpdateContext.Provider></MetaContext.Provider>;
 }

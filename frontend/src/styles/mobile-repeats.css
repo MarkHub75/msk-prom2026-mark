@@ -1,0 +1,43 @@
+/* Repeats of one situation (same camera + same scenario) shown as one card: phone cards, the desktop
+   operator queue and the journal. The stack under the card says "there are more of these". */
+.rp-stack { margin-bottom: 10px; box-shadow: 0 6px 0 -2px var(--ds-bg-2), 0 6px 0 -1px var(--ds-line-dark), 0 12px 0 -5px var(--ds-bg-2), 0 12px 0 -4px var(--ds-line-dark); }
+.rp-count { font-family: var(--mono); font-weight: 700; letter-spacing: -.01em; background: var(--ds-text) !important; color: var(--ds-bg-0) !important; }
+.rp-expand { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 46px; padding: 0 14px; border: 0; border-top: 1px solid var(--ds-line); border-radius: 0 0 var(--mb-radius, 4px) var(--mb-radius, 4px); background: transparent; color: var(--ds-accent-hover); font-size: 14.5px; font-weight: 600; }
+.rp-expand svg { transition: transform .25s var(--ds-ease); }
+.rp-expand[aria-expanded="true"] svg { transform: rotate(180deg); }
+.rp-list { list-style: none; margin: 0; padding: 0 0 6px; border-top: 1px solid var(--ds-line); animation: mb-fade .22s var(--ds-ease) both; }
+.rp-list a { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto auto; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; color: var(--ds-text); font-size: 13.5px; }
+.rp-list a:active, .rp-list a:hover { background: var(--ds-bg-2); }
+.rp-list time { color: var(--ds-timecode); }
+.rp-id { color: var(--ds-text-3); }
+.rp-status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ds-text-2); }
+.rp-list b { color: var(--ds-amber); font-weight: 600; }
+.rp-list svg { color: var(--ds-text-3); }
+
+/* Desktop operator queue: one row per group with the latest frame */
+.cr-q.rp-row > button { grid-template-columns: 72px minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.cr-q.rp-row > button > * { grid-column: 2; }
+.cr-q.rp-row .rp-thumb { grid-column: 1; grid-row: 1 / span 4; position: relative; width: 72px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; background: var(--ds-well); }
+.cr-q.rp-row .rp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cr-q.rp-row .rp-thumb b { position: absolute; right: 3px; bottom: 3px; padding: 0 4px; border-radius: 2px; background: var(--ds-text); color: var(--ds-bg-0); font-family: var(--mono); font-size: 10.5px; line-height: 15px; }
+.rp-tag { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 9px; background: var(--ds-text); color: var(--ds-bg-0); font-family: var(--mono); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.cr-q.rp-row { position: relative; }
+.cr-q-stack { margin-bottom: 6px; box-shadow: 0 4px 0 -2px var(--ds-bg-3), 0 8px 0 -4px var(--ds-bg-2); border-radius: 4px; }
+.cr-q .rp-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; margin-top: 2px; padding: 0 10px 0 12px; border: 0; background: transparent; color: var(--ds-accent-hover); font-size: 12px; font-weight: 600; }
+.cr-q .rp-toggle svg { transition: transform .2s var(--ds-ease); }
+.cr-q .rp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.cr-q-sub { list-style: none; margin: 2px 0 4px 14px; padding: 0 0 0 8px; border-left: 2px solid var(--ds-line-strong); display: flex; flex-direction: column; gap: 3px; }
+
+/* Journal */
+.rp-switch { display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 10px; border: 1px solid var(--ds-line-strong); border-radius: 3px; background: var(--ds-bg-3); color: var(--ds-text); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.rp-switch input { accent-color: var(--ds-accent); }
+.jd-table tr.rp-group-row { cursor: pointer; }
+.jd-table tr.rp-group-row td.jd-thumb { position: relative; }
+.jd-table tr.rp-group-row td.jd-thumb::after { content: ""; position: absolute; inset: 6px -3px -3px 6px; z-index: -1; border: 1px solid var(--ds-line-strong); background: var(--ds-bg-3); }
+.jd-table tr.rp-child td { background: color-mix(in srgb, var(--ds-bg-2) 60%, transparent); }
+.jd-table tr.rp-child td:first-child { box-shadow: inset 3px 0 0 var(--ds-line-strong); }
+.rp-group-title { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.rp-range { display: block; color: var(--ds-text-3); font-size: 11.5px; }
+.rp-open-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; padding: 0; border: 0; background: transparent; color: var(--ds-accent-hover); font-size: 12px; font-weight: 600; }
+.rp-open-btn svg { transition: transform .2s var(--ds-ease); }
+.rp-open-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
