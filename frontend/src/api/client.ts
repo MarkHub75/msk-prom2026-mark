@@ -67,3 +67,8 @@ export function uploadVideo(
 export function videoUrl(videoId: number): string {
   return `${import.meta.env.VITE_API_BASE || location.origin}/api/videos/${videoId}/file`;
 }
+
+// Server paths the API returns (evidence images) as URLs of the backend.
+export function apiUrl(path: string): string {
+  return `${import.meta.env.VITE_API_BASE || location.origin}${path}`;
+}

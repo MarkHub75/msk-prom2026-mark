@@ -12,6 +12,7 @@ vi.mock("../api/client", () => ({
   apiError: (e: { code: string; message: string }) => e,
   uploadVideo: vi.fn(),
   videoUrl: (id: number) => `/api/videos/${id}/file`,
+  apiUrl: (path: string) => path,
 }));
 vi.mock("../api/ws", () => ({ useWs: vi.fn() }));
 
@@ -116,7 +117,9 @@ describe("screens", () => {
       Promise.resolve(
         path === "/api/videos/{video_id}/tracks"
           ? { data: { video_id: 3, analysis_id: 11, from_ms: 0, to_ms: 5000, frames: [frame] } }
-          : { data: { camera, videos: [video], jobs: [], calibration: null, zones: [], rules: [], broadcast: null } },
+          : path === "/api/videos/{video_id}/analysis"
+            ? { error: { code: "video_not_ready", message: "Анализ видео ещё не готов" } }
+            : { data: { camera, videos: [video], jobs: [], calibration: null, zones: [], rules: [], broadcast: null } },
       )) as never);
     render(
       <MemoryRouter initialEntries={["/admin/cameras/7"]}>
@@ -132,6 +135,56 @@ describe("screens", () => {
     });
     fireEvent.keyDown(window, { key: "h" });
     expect(screen.getByText("Показать HUD")).toBeTruthy();
+  });
+
+  it("camera_setup_timeline_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null); // jsdom has no canvas
+    const camera = {
+      id: 7, sector_id: 1, name: "Пресс №2", description: "", is_demo: false,
+      has_calibration: false, zones_count: 0, videos_count: 1,
+    };
+    const video = {
+      id: 3, camera_id: 7, filename: "demo.mp4", sha256: "ab", size_bytes: 10, width: 320, height: 240,
+      fps: 10, frame_count: 200, duration_ms: 20000, codec: "avc1", browser_playable: true,
+      status: "ready", active_analysis_id: 11, created_at: "2026-10-24T09:00:00.000Z",
+    };
+    const shot = { id: 4, kind: "confirm", frame_idx: 45, ts_ms: 4500, url: "/api/evidence/4/image", sha256: "cd", objects: [] };
+    const episode = {
+      id: 21, analysis_id: 11, scenario: "running", scenario_title: "Бег и резкие перемещения", subject: "track:1",
+      zone_id: null, level_initial: "yellow", level_max: "yellow", start_ms: 3500, confirm_ms: 4500,
+      escalate_ms: null, end_ms: 6500, end_reason: "observed_exit", reason_code: "running",
+      reason_text: "Бег 2,5 роста/с", method: "relative", confidence: 0.9, metrics: {}, uncertain_ms: 0,
+      evidence: [shot],
+    };
+    const analysis = {
+      id: 11, video_id: 3, version: 1, created_at: "2026-10-24T09:00:00.000Z", duration_ms: 20000,
+      pose_used: true, episodes: [episode], gaps: [],
+    };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve(
+        path === "/api/videos/{video_id}/analysis"
+          ? { data: analysis }
+          : path === "/api/videos/{video_id}/tracks"
+            ? { data: { video_id: 3, analysis_id: 11, from_ms: 0, to_ms: 5000, frames: [] } }
+            : { data: { camera, videos: [video], jobs: [], calibration: null, zones: [], rules: [], broadcast: null } },
+      )) as never);
+    vi.mocked(api.POST).mockResolvedValue({ data: {} } as never);
+    render(
+      <MemoryRouter initialEntries={["/admin/cameras/7"]}>
+        <Routes>
+          <Route path="/admin/cameras/:cameraId" element={<CameraSetup />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const item = await screen.findByText(/Бег и резкие перемещения: Бег 2,5 роста\/с/);
+    expect(screen.getByText("yellow")).toBeTruthy(); // the level as text, not by color alone
+    expect(document.querySelector("img")?.getAttribute("src")).toBe("/api/evidence/4/image");
+    fireEvent.click(item);
+    expect(document.querySelector("video")?.currentTime).toBe(3.5);
+    fireEvent.click(screen.getByText("Пересчитать события"));
+    expect(vi.mocked(api.POST)).toHaveBeenCalledWith("/api/videos/{video_id}/recompute", {
+      params: { path: { video_id: 3 } },
+    });
   });
 
   it("system_screen_renders", async () => {
