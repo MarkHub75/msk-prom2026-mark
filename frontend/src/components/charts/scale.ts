@@ -39,7 +39,7 @@ const T95 = [12.71, 4.303, 3.182, 2.776, 2.571, 2.447, 2.365, 2.306, 2.262, 2.22
 export interface LinearFit {
   slope: number; intercept: number; n: number;
   at: (x: number) => number;
-  /** Half-width of the 95 % confidence interval of the fitted line (not of single values) at x; null when n < 5. */
+  /** Half-width of the 95 % prediction interval for a single new value at x (linear model, normal residuals); null when n < 5. */
   ci: (x: number) => number | null;
 }
 
@@ -58,7 +58,7 @@ export function linearFit(xs: number[], ys: number[]): LinearFit | null {
   return {
     slope, intercept, n,
     at: x => intercept + slope * x,
-    ci: x => n < 5 ? null : t * s * Math.sqrt(1 / n + (x - mx) ** 2 / sxx),
+    ci: x => n < 5 ? null : t * s * Math.sqrt(1 + 1 / n + (x - mx) ** 2 / sxx),
   };
 }
 

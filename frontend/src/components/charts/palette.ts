@@ -1,15 +1,16 @@
-// Chart colours for the dark theme. Levels keep their product meaning (amber = yellow, red = red);
-// verdicts are blue / light grey / dark grey so they never impersonate a level.
-// Validated with the dataviz validator on surface #232323 (lightness band, CVD separation, contrast).
+// Chart colours (design reference of 24.10): series cyan / violet, semantic warning / critical / resolved.
+// Levels keep their product meaning (warning = yellow, critical = red); verdicts are cyan / violet / grey.
+// Checked with the dataviz validator on surface #232323: adjacent CVD separation passes (ΔE ≥ 13.8);
+// the hues are lighter than its band by design, every mark also has a legend or a written value.
 export const C = {
-  yellow: "#e8a33d",
-  red: "#e5484d",
-  confirmed: "#3987e5",
-  falseAlarm: "#9a9a9a",
-  noVerdict: "#4a4a4a",
-  trend: "#d9d9d9",
-  master: "#9085e9",
-  neutral: "#6f8193",
+  yellow: "#FFB65C",
+  red: "#FF5D65",
+  confirmed: "#55D6F5",
+  falseAlarm: "#A38BFF",
+  noVerdict: "#5b616b",
+  trend: "#c9ced6",
+  master: "#43D6A6",
+  neutral: "#78818E",
 } as const;
 
 export interface Counts { count: number; confirmed: number; false_alarm: number }

@@ -2,8 +2,8 @@ import { cleanup, fireEvent, render, screen, within } from "@testing-library/rea
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { linearFit, niceScale, seconds } from "../components/charts/scale";
-import { weeklyTrend } from "./ManagementStats";
-import { StatsPage, dailyTrend, weekHourGrid } from "./Stats";
+import { isoWeek, weeklyTrend } from "./ManagementStats";
+import { StatsPage, dailyTrend, weekHourGrid, weekHourSlots } from "./Stats";
 
 const row = (key: string, title: string, count: number, confirmed = 0, false_alarm = 0) => ({ key, title, count, confirmed, false_alarm });
 const ohs = {
@@ -79,6 +79,11 @@ describe("chart maths", () => {
   it("puts events into Moscow weekday and hour", () => {
     const grid = weekHourGrid([{ started_at: "2026-10-18T21:30:00Z" }]); // Monday 00:30 MSK
     expect(grid[0][0]).toBe(1);
+    const slots = weekHourSlots("2026-10-24", Date.parse("2026-10-24T09:00:00Z")); // Sat 00:00–12:00 MSK
+    expect(slots[5][12]).toBe(1);
+    expect(slots[5][13]).toBe(0); // not yet happened: «нет данных», not zero
+    expect(slots[0][0]).toBe(0);
+    expect(isoWeek("2026-10-19")).toBe(43);
     expect(niceScale(57).max).toBe(60);
     expect(seconds(213)).toBe("3 мин 33 с");
   });
@@ -113,6 +118,13 @@ describe("OHS analytics", () => {
     await screen.findByText("без демо-данных");
     const last = calls.filter(u => u.pathname === "/api/stats/ohs").at(-1)!;
     expect(last.searchParams.get("include_demo")).toBe("false");
+  });
+
+  it("shows the API error message instead of charts", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => Response.json({ code: "db_unavailable", message: "База недоступна", details: {} }, { status: 503 })));
+    show("/ohs/stats");
+    expect((await screen.findByRole("alert")).textContent).toContain("База недоступна");
+    expect(screen.queryByTestId("stats-view")).toBeNull();
   });
 });
 

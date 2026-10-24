@@ -6,7 +6,7 @@ import { fmt, smoothPath } from "./scale";
 /** 12-ish point sparkline: gradient wash, smooth line, last point dot in the accent ring. */
 export function Sparkline({ values, color, label, partialLast = false }: { values: number[]; color: string; label: string; partialLast?: boolean }) {
   const uid = useId().replace(/:/g, "");
-  const W = 132, H = 34, pad = 4;
+  const W = 132, H = 30, pad = 4;
   const max = Math.max(1, ...values);
   const pts = values.map((v, i) => ({ x: pad + (values.length > 1 ? (i / (values.length - 1)) * (W - pad * 2) : 0), y: H - pad - (v / max) * (H - pad * 2) }));
   if (!pts.length) return null;
@@ -28,7 +28,7 @@ export function Delta({ now, prev, direction, vs }: { now: number; prev: number;
   const diff = now - prev;
   const tone = diff === 0 || direction === "neutral" ? "flat" : (diff > 0) === (direction === "up_good") ? "good" : "bad";
   const Icon = diff > 0 ? ArrowUpRight : diff < 0 ? ArrowDownRight : ArrowRight;
-  const rel = prev ? ` · ${diff > 0 ? "+" : diff < 0 ? "−" : ""}${Math.round(Math.abs(diff) / prev * 100)} %` : "";
+  const rel = prev ? ` · ${diff > 0 ? "+" : diff < 0 ? "−" : ""}${Math.round(Math.abs(diff) / prev * 100)}%` : "";
   return <span className={`an-delta an-delta-${tone}`}><Icon size={14} strokeWidth={1.75} aria-hidden /><b>{diff > 0 ? "+" : diff < 0 ? "−" : "±"}{fmt.format(Math.abs(diff))}{rel}</b> {vs}</span>;
 }
 

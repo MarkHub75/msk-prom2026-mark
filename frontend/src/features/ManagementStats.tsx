@@ -5,7 +5,7 @@ import { api } from "../api/client";
 import type { Schemas } from "../api/types";
 import { useApi } from "../api/useApi";
 import { ErrorNotice, PageHeading } from "../components/ui";
-import { DemoBadge, Panel, Skeleton, mskDay, ruDay, shortDay, useSticky } from "../components/analytics/kit";
+import { DemoBadge, GrowthContext, Panel, Skeleton, mskDay, ruDay, useSticky } from "../components/analytics/kit";
 import { AreaChart, Legend } from "../components/charts/AreaChart";
 import { Delta, HBars, Sparkline, StatTile, type Direction } from "../components/charts/Figures";
 import { C, verdictSegments } from "../components/charts/palette";
@@ -15,6 +15,12 @@ type WeekRow = Schemas["WeekRow"];
 const WEEKS = [8, 12, 26] as const;
 const DEFAULT_WEEKS = 8;
 const AHEAD = 4; // weeks of the dashed projection after the last complete week
+/** ISO week number of a Monday date. */
+export function isoWeek(monday: string) {
+  const d = new Date(Date.parse(`${monday}T00:00:00Z`) + 3 * 86400_000); // Thursday of that week
+  const jan1 = Date.UTC(d.getUTCFullYear(), 0, 1);
+  return Math.floor((d.getTime() - jan1) / 86400_000 / 7) + 1;
+}
 const addDays = (date: string, d: number) => new Date(Date.parse(`${date}T00:00:00Z`) + d * 86400_000).toISOString().slice(0, 10);
 
 /** Weekly linear trend of one series over complete weeks from the first non-empty one; null below 4 weeks. */
@@ -99,20 +105,22 @@ export function ManagementPage() {
     </div>
 
     <Panel className={`an-wide${stale}`} title="Тренд по неделям" testId="weeks"
-      sub={<>Жёлтые и красные — заливка, подтверждённые и ложные — линии · пунктир — линейный тренд жёлтых на {AHEAD} недели после последней полной · клик — журнал за неделю</>}
-      aside={<Legend items={[{ name: "Жёлтые", color: C.yellow }, { name: "Красные", color: C.red }, { name: "Подтверждено", color: C.confirmed, kind: "line" }, { name: "Ложные", color: C.falseAlarm, kind: "line" }, ...(trend ? [{ name: "Линейный тренд жёлтых, не прогноз модели", color: C.yellow, kind: "trend" as const }, ...(trend.fit.ci(0) !== null ? [{ name: "Коридор 95 % линии", color: C.yellow, kind: "band" as const }] : [])] : [])]} />}>
+      sub={<>Жёлтые и красные — заливка, подтверждённые и ложные — линии · пунктир — линейная экстраполяция жёлтых на {AHEAD} недели от последней полной · клик — журнал за неделю</>}
+      aside={<Legend items={[{ name: "Жёлтые", color: C.yellow }, { name: "Красные", color: C.red }, { name: "Подтверждено", color: C.confirmed, kind: "line" }, { name: "Ложные", color: C.falseAlarm, kind: "line" }, ...(trend ? [{ name: "Линейная экстраполяция жёлтых, не прогноз модели", color: C.yellow, kind: "trend" as const }, ...(trend.fit.ci(0) !== null ? [{ name: "Интервал 95 % линейной модели", color: C.yellow, kind: "band" as const }] : [])] : [])]} />}>
       <AreaChart ariaLabel="События по неделям" unit="событий в неделю" height={310}
-        labels={rows.map(r => shortDay(r.week_start))} tipLabels={rows.map((r, i) => `Неделя ${weekTitle(r.week_start)}${partial && i === n - 1 ? " · идёт" : ""}`)}
-        futureLabels={future.map(shortDay)} partialLast={partial ? "неделя идёт" : undefined}
+        labels={rows.map(r => `Нед ${isoWeek(r.week_start)}`)} tipLabels={rows.map((r, i) => `Нед ${isoWeek(r.week_start)} · ${weekTitle(r.week_start)}${partial && i === n - 1 ? " · идёт" : ""}`)}
+        futureLabels={future.map(d => `Нед ${isoWeek(d)}`)} partialLast={partial ? "неделя идёт" : undefined}
         series={[
           { id: "yellow", name: "жёлтых", values: yellow, color: C.yellow },
           { id: "red", name: "красных", values: series("red"), color: C.red },
           { id: "confirmed", name: "подтверждено", values: series("confirmed"), color: C.confirmed, kind: "line" },
           { id: "false", name: "ложных", values: series("false_alarm"), color: C.falseAlarm, kind: "line" },
         ]}
-        projection={trend && { from: trend.start, to: lastFull + AHEAD, at: trend.fit.at, ci: trend.fit.ci, name: "тренд жёлтых", color: C.yellow, note: "линейный тренд, не прогноз модели" }}
+        projection={trend && { from: trend.start, to: lastFull + AHEAD, at: trend.fit.at, ci: trend.fit.ci, name: "экстраполяция жёлтых", color: C.yellow, note: `линейная экстраполяция, не прогноз модели · +${AHEAD} нед.` }}
         onPick={i => navigate(`/ohs/journal?${new URLSearchParams({ from: rows[i].week_start, to: addDays(rows[i].week_start, 6) })}`)} pickHint="Клик — журнал за неделю" />
-      {!trend && <p className="an-note">Тренд не показан: меньше 4 полных недель с событиями.</p>}
+      {!trend && <p className="an-note">Экстраполяция не показана: меньше 4 полных недель с событиями.</p>}
+      <GrowthContext confirmed={rows.reduce((a, r) => a + r.confirmed, 0)} total={rows.reduce((a, r) => a + r.yellow + r.red, 0)} per="по неделям"
+        shares={rows.slice(0, lastFull + 1).map(r => r.yellow + r.red ? r.confirmed / (r.yellow + r.red) : 0)} />
     </Panel>
 
     <div className="an-grid an-grid-2">
@@ -126,6 +134,6 @@ export function ManagementPage() {
         <HBars rows={data.top_scenarios.map(r => ({ key: r.key, label: r.title, value: r.count, sub: `подтв. ${r.confirmed} · ложных ${r.false_alarm}`, segments: verdictSegments(r), to: `/ohs/journal?${new URLSearchParams({ scenario: r.key })}` }))} color={C.confirmed} />
       </Panel>
     </div>
-    <p className="an-foot"><Info size={14} strokeWidth={1.75} />Цифры — из статистики бэкенда{demo ? ", включая демо-данные" : ""}. Тренд — прямая наименьших квадратов по полным неделям с первой недели с событиями; коридор — 95 % доверительный интервал прямой. Это экстраполяция, не прогноз модели. <Link to="/ohs/journal">Журнал событий</Link></p>
+    <p className="an-foot"><Info size={14} strokeWidth={1.75} />Цифры — из статистики бэкенда{demo ? ", включая демо-данные" : ""}. Пунктир — линейная экстраполяция: прямая наименьших квадратов по полным неделям с первой недели с событиями, продолженная от границы факта; полоса — 95 % интервал для отдельной недели при той же линейной модели. Это не прогноз модели. <Link to="/ohs/journal">Журнал событий</Link></p>
   </div>;
 }

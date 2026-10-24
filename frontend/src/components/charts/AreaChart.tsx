@@ -46,7 +46,8 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
   const areas = series.filter(s => s.kind !== "line"), lines = series.filter(s => s.kind === "line");
   const cum: number[][] = [];
   areas.forEach((s, k) => cum.push(s.values.map((v, i) => v + (stacked && k ? cum[k - 1][i] : 0))));
-  const projHi = projection ? Array.from({ length: projection.to - projection.from + 1 }, (_, j) => { const i = projection.from + j; return projection.at(i) + (projection.ci?.(i) ?? 0); }) : [];
+  // The scale follows the trend line; a wide corridor is cut at the top rather than flattening the data.
+  const projHi = projection ? Array.from({ length: projection.to - projection.from + 1 }, (_, j) => { const i = projection.from + j; return projection.at(i); }) : [];
   const peak = (i: number) => Math.max(0, ...cum.map(c => c[i] ?? 0), ...lines.map(s => s.values[i] ?? 0));
   const peaks = Array.from({ length: n }, (_, i) => peak(i));
   const restPeak = Math.max(1, ...peaks.slice(0, -1));
@@ -67,7 +68,9 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
     if (e.key === "Enter" && hover !== null && hover < n) onPick?.(hover);
   };
 
-  const inProj = (i: number) => !!projection && i >= projection.from && i <= projection.to;
+  // The extrapolation starts at the boundary of fact (the last actual slot), never over the history.
+  const projFrom = projection ? Math.min(projection.to, Math.max(projection.from, n - 1)) : 0;
+  const inProj = (i: number) => !!projection && i >= projFrom && i <= projection.to;
   const tipX = hover === null ? 0 : x(hover);
   const flip = tipX > W * 0.62;
   const sum = (i: number) => areas.reduce((s, a) => s + (a.values[i] ?? 0), 0);
@@ -76,9 +79,8 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
     <svg width={W} height={H} role="img" aria-label={ariaLabel} className="an-svg">
       <defs>
         {series.map(s => <linearGradient key={s.id} id={`${uid}-${s.id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={s.color} stopOpacity={0.5} />
-          <stop offset="70%" stopColor={s.color} stopOpacity={0.12} />
-          <stop offset="100%" stopColor={s.color} stopOpacity={0.02} />
+          <stop offset="0%" stopColor={s.color} stopOpacity={0.22} />
+          <stop offset="100%" stopColor={s.color} stopOpacity={0} />
         </linearGradient>)}
         <pattern id={`${uid}-future`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1="0" y1="0" x2="0" y2="6" className="an-hatch" />
@@ -101,21 +103,25 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
         const bottom = stacked && k ? pts(cum[k - 1]) : top.map(p => ({ x: p.x, y: y(0) }));
         return <g key={s.id}>
           <path d={bandPath(top, bottom)} fill={`url(#${uid}-${s.id})`} />
+          {hover !== null && <path d={smoothPath(top)} className="an-glow" stroke={s.color} />}
           <path d={smoothPath(top)} className="an-line" stroke={s.color} />
         </g>;
       })}
-      {lines.map(s => <path key={s.id} d={smoothPath(pts(s.values))} className="an-line" stroke={s.color} />)}
+      {lines.map(s => <g key={s.id}>
+        {hover !== null && <path d={smoothPath(pts(s.values))} className="an-glow" stroke={s.color} />}
+        <path d={smoothPath(pts(s.values))} className="an-line an-line-2" stroke={s.color} />
+      </g>)}
 
       {projection && (() => {
         // The corridor is drawn where it matters: from the last actual slot into the future.
-        const bandFrom = Math.min(projection.to, Math.max(projection.from, n - 1));
+        const bandFrom = projFrom;
         const idx = Array.from({ length: projection.to - bandFrom + 1 }, (_, j) => bandFrom + j);
         const ci = idx.map(i => projection.ci?.(i) ?? null);
         const hasBand = ci.every(c => c !== null);
         const end = { x: x(projection.to), y: y(projection.at(projection.to)) };
         return <g className="an-proj">
           {hasBand && <path d={`${idx.map((i, j) => `${j ? "L" : "M"}${x(i)},${y(projection.at(i) + ci[j]!)}`).join("")}${[...idx].reverse().map((i, j) => `L${x(i)},${y(projection.at(i) - ci[idx.length - 1 - j]!)}`).join("")}Z`} fill={projection.color} opacity={0.1} />}
-          <path d={`M${x(projection.from)},${y(projection.at(projection.from))}L${end.x},${end.y}`} stroke={projection.color} className="an-trend" />
+          <path d={`M${x(projFrom)},${y(projection.at(projFrom))}L${end.x},${end.y}`} stroke={projection.color} className="an-trend" />
           <circle cx={end.x} cy={end.y} r={4} fill="var(--surface)" stroke={projection.color} strokeWidth={2} />
           <text className="an-trend-label" x={end.x - 4} y={end.y - 12} textAnchor="end">{projection.note}</text>
         </g>;
@@ -126,8 +132,8 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
 
       {hover !== null && <g pointerEvents="none">
         <line className="an-cross" x1={tipX} x2={tipX} y1={T} y2={T + plotH} />
-        {hover < n && areas.map((s, k) => <circle key={s.id} cx={tipX} cy={y(cum[k][hover])} r={4.5} fill={s.color} className="an-dot" />)}
-        {hover < n && lines.map(s => <circle key={s.id} cx={tipX} cy={y(s.values[hover])} r={4.5} fill={s.color} className="an-dot" />)}
+        {hover < n && areas.map((s, k) => <circle key={s.id} cx={tipX} cy={y(cum[k][hover])} r={3.5} fill={s.color} className="an-dot" />)}
+        {hover < n && lines.map(s => <circle key={s.id} cx={tipX} cy={y(s.values[hover])} r={3.5} fill={s.color} className="an-dot" />)}
         {inProj(hover) && <circle cx={tipX} cy={y(projection!.at(hover))} r={4} fill="var(--surface)" stroke={projection!.color} strokeWidth={2} />}
       </g>}
       <rect className={`an-overlay${onPick ? " is-pickable" : ""}`} x={L} y={T} width={plotW} height={plotH} tabIndex={0}

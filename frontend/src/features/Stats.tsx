@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle2, Clock3, Flame, RotateCw, ShieldCheck, Sire
 import { api } from "../api/client";
 import type { CountRow, EventSummary, OhsStats } from "../api/types";
 import { useApi } from "../api/useApi";
-import { DemoBadge, MSK_MS, Panel, Skeleton, mskDay, ruDay, shortDay, useSticky } from "../components/analytics/kit";
+import { DemoBadge, GrowthContext, MSK_MS, Panel, Skeleton, mskDay, ruDay, shortDay, useSticky } from "../components/analytics/kit";
 import { ErrorNotice, PageHeading } from "../components/ui";
 import { AreaChart, Legend } from "../components/charts/AreaChart";
 import { Delta, Donut, HBars, Meter, RangeBullet, Sparkline, StatTile, type BarRow } from "../components/charts/Figures";
@@ -55,6 +55,17 @@ export function weekHourGrid(items: Pick<EventSummary, "started_at">[]): number[
   }
   return grid;
 }
+
+/** How many times each weekday × hour occurred between the start of `from` (MSK) and `now`; 0 → no data yet. */
+export function weekHourSlots(from: string, now = Date.now()): number[][] {
+  const slots = WEEKDAYS.map(() => Array<number>(24).fill(0));
+  for (let t = Date.parse(`${from}T00:00:00+03:00`); t <= now; t += 3600_000) {
+    const d = new Date(t + MSK_MS);
+    slots[(d.getUTCDay() + 6) % 7][d.getUTCHours()]++;
+  }
+  return slots;
+}
+const weekday = (date: string) => WEEKDAYS[(new Date(`${date}T12:00:00Z`).getUTCDay() + 6) % 7];
 
 /** Linear trend over complete days from the first day with events; null when fewer than 5 such days. */
 export function dailyTrend(totals: number[], partialLast: boolean) {
@@ -171,34 +182,37 @@ function OhsPage() {
         spark={<Sparkline values={red} color={C.red} label="Красные по дням" partialLast />}
         delta={hasWeeks ? <Delta now={week(red, 0)} prev={week(red, 1)} direction="up_bad" vs="7 дн. к пред. 7" /> : undefined} />
       <StatTile testId="tile-false" label="Доля ложных" icon={<ShieldCheck size={15} strokeWidth={1.75} />} value={pct(stats.false_alarm_share)}
-        delta={<Meter share={stats.false_alarm_share} color={C.falseAlarm} label="Доля ложных срабатываний" />}
+        delta={<span title={`ложных ${falseCount} из ${stats.reviewed} с вердиктом`}><Meter share={stats.false_alarm_share} color={C.falseAlarm} label="Доля ложных срабатываний" /></span>}
         foot={<>ложных <b>{falseCount}</b> из <b>n = {stats.reviewed}</b> с вердиктом оператора</>} />
       <StatTile testId="tile-coverage" label="Охват проверкой" icon={<CheckCircle2 size={15} strokeWidth={1.75} />} value={pct(stats.review_coverage)}
-        delta={<Meter share={stats.review_coverage} color={C.confirmed} label="Охват проверкой" />}
+        delta={<span title={`с вердиктом ${stats.reviewed} из ${stats.total}`}><Meter share={stats.review_coverage} color={C.confirmed} label="Охват проверкой" /></span>}
         foot={<>с вердиктом <b>{stats.reviewed}</b> из <b>{stats.total}</b> событий</>} />
       <StatTile testId="tile-reaction" label="Реакция оператора, p50" icon={<Clock3 size={15} strokeWidth={1.75} />} value={seconds(stats.operator_reaction_s.p50)}
-        foot={<>p95 <b>{seconds(stats.operator_reaction_s.p95)}</b> · n = <b>{stats.operator_reaction_s.n}</b> · ожидают <b>{stats.operator_reaction_s.pending}</b></>} />
+        spark={<span className="an-tile-side" title={`p95 по ${stats.operator_reaction_s.n} реакциям`}><small>p95</small><b>{seconds(stats.operator_reaction_s.p95)}</b></span>}
+        foot={<>n = <b>{stats.operator_reaction_s.n}</b> завершённых · ожидают <b>{stats.operator_reaction_s.pending}</b></>} />
     </section>
 
     {empty && <div className="an-empty"><Flame size={18} strokeWidth={1.75} /><div><b>Событий за период нет</b><p>Это не значит, что всё безопасно, если камера без наблюдения. Проверьте фильтры и состояние камер.</p></div></div>}
 
     <Panel className={`an-wide${stale}`} title="События по дням" testId="by-day"
-      sub={<>Жёлтые и красные, сложены · клик по дню — журнал за этот день{trend ? ` · пунктир — ${horizon} дн. вперёд` : ""}</>}
-      aside={<Legend items={[{ name: "Жёлтые", color: C.yellow }, { name: "Красные", color: C.red }, ...(trend ? [{ name: "Линейный тренд, не прогноз модели", color: C.trend, kind: "trend" as const }, ...(trend.fit.ci(0) !== null ? [{ name: "Коридор 95 % линии тренда", color: C.trend, kind: "band" as const }] : [])] : [])]} />}>
+      sub={<>Жёлтые и красные, сложены · клик по дню — журнал за этот день{trend ? ` · пунктир — линейная экстраполяция на ${horizon} дн.` : ""}</>}
+      aside={<Legend items={[{ name: "Жёлтые", color: C.yellow }, { name: "Красные", color: C.red }, ...(trend ? [{ name: "Линейная экстраполяция, не прогноз модели", color: C.trend, kind: "trend" as const }, ...(trend.fit.ci(0) !== null ? [{ name: "Интервал 95 % линейной модели", color: C.trend, kind: "band" as const }] : [])] : [])]} />}>
       <AreaChart ariaLabel="Жёлтые и красные события по дням" unit="событий в день" height={290} stacked
-        labels={dates.map(shortDay)} tipLabels={dates.map(d => `${ruDay(d)}${d === s.to ? " · день идёт" : ""}`)} futureLabels={trend ? future.map(shortDay) : []}
+        labels={dates.map(shortDay)} tipLabels={dates.map(d => `${weekday(d)}, ${ruDay(d)} · МСК${d === s.to ? " · день идёт" : ""}`)} futureLabels={trend ? future.map(shortDay) : []}
         tickEvery={s.days <= 7 ? 1 : s.days <= 30 ? 3 : 10} partialLast="сегодня"
         series={[{ id: "yellow", name: "жёлтых", values: yellow, color: C.yellow }, { id: "red", name: "красных", values: red, color: C.red }]}
-        projection={trend && { from: trend.start, to: n - 1 + horizon, at: trend.fit.at, ci: trend.fit.ci, name: "линейный тренд", color: C.trend, note: "линейный тренд, не прогноз модели" }}
+        projection={trend && { from: trend.start, to: n - 1 + horizon, at: trend.fit.at, ci: trend.fit.ci, name: "экстраполяция", color: C.trend, note: `линейная экстраполяция, не прогноз модели · +${horizon} дн.` }}
         onPick={i => navigate(journal(s, { from: dates[i], to: dates[i] }))} />
-      {!trend && <p className="an-note">Тренд не показан: меньше 5 полных дней с событиями.</p>}
+      {!trend && <p className="an-note">Экстраполяция не показана: меньше 5 полных дней с событиями.</p>}
+      <GrowthContext sectorId={s.sector} confirmed={days.reduce((a, d) => a + d.confirmed, 0)} total={totals.reduce((a, b) => a + b, 0)} per="по дням"
+        shares={days.slice(0, -1).map((d, i) => totals[i] ? d.confirmed / totals[i] : 0)} />
     </Panel>
 
     <div className="an-grid an-grid-heat">
       <Panel title="Когда случаются события" testId="heatmap" className={events.loading && evData ? "is-stale" : ""}
         sub={<>День недели × час начала, МСК · сверху — итог по часам из статистики, справа — по дням недели</>}
         aside={evData && <span className="an-chip">по журналу: {evData.items.length}{evData.items.length < evData.total ? ` из ${evData.total}` : ""} {plural(evData.items.length, "событие", "события", "событий")}</span>}>
-        {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !evData ? <i className="an-sk-block" /> : <Heatmap grid={weekHourGrid(evData.items)} rows={WEEKDAYS} hourTotals={hours} />}
+        {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !evData ? <i className="an-sk-block" /> : <Heatmap grid={weekHourGrid(evData.items)} slots={weekHourSlots(s.from)} color={C.confirmed} rows={WEEKDAYS} hourTotals={hours} />}
       </Panel>
       <div className="an-stack">
         <Panel title="По сменам" testId="by-shift" aside={<Legend items={VERDICT_LEGEND} />}>
@@ -232,7 +246,7 @@ function OhsPage() {
       <Reaction stats={stats} />
     </Panel>
 
-    <p className="an-foot"><UserCheck size={14} strokeWidth={1.75} />Все цифры — из статистики бэкенда за выбранный срез{s.demo ? ", включая демо-данные" : ""}. Тренд — прямая наименьших квадратов по полным дням с первого дня с событиями; коридор — 95 % доверительный интервал самой прямой, не отдельных дней. Это экстраполяция, а не прогноз модели.</p>
+    <p className="an-foot"><UserCheck size={14} strokeWidth={1.75} />Все цифры — из статистики бэкенда за выбранный срез{s.demo ? ", включая демо-данные" : ""}. Пунктир — линейная экстраполяция: прямая наименьших квадратов по полным дням с первого дня с событиями, продолженная от последнего дня факта; полоса — 95 % интервал для отдельного дня при той же линейной модели. Это не прогноз модели.</p>
   </div>;
 }
 
