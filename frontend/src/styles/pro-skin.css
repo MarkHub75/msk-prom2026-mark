@@ -119,3 +119,15 @@ button, .button, input, select, textarea, .cr-tile, .cr-sector, .cr-q button, .c
 .journal-presets .button { white-space: nowrap; min-height: 30px; }
 .journal-period input { max-width: 180px; }
 .journal-table .level { font-size: 10px; padding: 3px 6px; letter-spacing: .02em; }
+
+/* Type: Adobe's open Source family (Adobe Clean itself is not licensed for the web) */
+:root {
+  --display: 'Source Sans 3', 'Golos Text', Arial, sans-serif;
+  --mono: 'Source Code Pro', ui-monospace, Consolas, monospace;
+  font-family: 'Source Sans 3', 'Golos Text', Arial, sans-serif;
+  font-size: 13px;
+}
+body, button, input, select, textarea { font-family: 'Source Sans 3', 'Golos Text', Arial, sans-serif; }
+h1, h2, h3, .brand, .page-heading h1 { font-family: var(--display); }
+.mono, time, .media-stamp, .shell-clock { font-family: var(--mono); }
+.hud-label, .cr-tag, .cr-chip { font-family: 'Source Sans 3', Arial, sans-serif; }
