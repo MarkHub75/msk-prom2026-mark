@@ -43,8 +43,14 @@ def comparison(baseline,candidate):
 def run(ready,manifest_path,compiled,output,max_seconds=300, float_onnx=None):
     dataset,quality,_=verified_inputs(ready)
     compiled=Path(compiled); report=json.loads((compiled/'compile-report.json').read_text())
-    if report['source_onnx_sha256']!=ONNX_SHA: raise ValueError('source ONNX changed')
     manifest=json.loads(Path(manifest_path).read_text())
+    expected=manifest['artifacts']['onnx']['sha256']
+    if manifest['decoder']=='split_detect_v8':
+        if manifest.get('source_onnx_sha256')!=ONNX_SHA: raise ValueError('split parent changed')
+        graph=Path(manifest_path).parent/manifest['artifacts']['onnx']['file']
+        if sha256(graph)!=expected: raise ValueError('split graph changed')
+    elif expected!=ONNX_SHA: raise ValueError('source ONNX changed')
+    if report['source_onnx_sha256']!=expected: raise ValueError('compiled source differs')
     if manifest['thresholds']['iou']!=.45: raise ValueError('fixed NMS required')
     manifest=deepcopy(manifest);manifest['thresholds']['confidence']=.001
     out=Path(output);out.mkdir(parents=True,exist_ok=False);(out/'raw').mkdir()
@@ -62,7 +68,7 @@ def run(ready,manifest_path,compiled,output,max_seconds=300, float_onnx=None):
     if float_onnx is None:
         backend=QuantizedReferenceBackend(compiled/'quantized.qm.onnx',compiled/'scales.json',compiled/'compile-report.json',threads=2)
     else:
-        if sha256(float_onnx)!=ONNX_SHA: raise ValueError('float control source changed')
+        if sha256(float_onnx)!=expected: raise ValueError('float control source changed')
         import onnxruntime as ort
         options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
         session=ort.InferenceSession(str(float_onnx),sess_options=options,providers=['CPUExecutionProvider'])
