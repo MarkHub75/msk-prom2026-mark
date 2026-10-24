@@ -30,7 +30,7 @@ export function OhsStats() {
           С <input type="date" onChange={(e) => set({ date_from: toIso(e.target.value) })} />
         </label>
         <label>
-          По <input type="date" onChange={(e) => set({ date_to: toIso(e.target.value) })} />
+          До (не включая) <input type="date" onChange={(e) => set({ date_to: toIso(e.target.value) })} />
         </label>
         <label>
           Сектор

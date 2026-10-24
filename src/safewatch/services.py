@@ -1425,6 +1425,8 @@ def _freshness(analysis_id: int, hud_path: str, pos: int) -> int | None:
     """Position minus `ts_ms` of the last analyzed frame not later than it (tech.md 8.9)."""
     if analysis_id not in _frames_ts:
         path = config.get_settings().data_dir / hud_path
+        if not path.exists():  # a cleaned data folder must not break every camera state
+            return None
         with path.open(encoding="utf-8") as f:
             _frames_ts[analysis_id] = [json.loads(line)["ts_ms"] for line in f]
     frames = _frames_ts[analysis_id]
@@ -2062,7 +2064,7 @@ def _journal_where(f: EventFilter) -> tuple[str, list[Any]]:
     date_from, date_to = _utc(f.date_from), _utc(f.date_to)
     if date_from is not None and date_to is not None and date_from > date_to:
         raise bad("date_from")
-    if f.cursor is not None and not f.cursor.isdigit():
+    if f.cursor is not None and not (f.cursor.isascii() and f.cursor.isdigit()):
         raise bad("cursor")
     # LIKE ... ESCAPE '\': the backslash first, then the wildcards are searched literally.
     q = f.q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") if f.q else None

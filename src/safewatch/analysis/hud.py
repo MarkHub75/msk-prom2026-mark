@@ -2,6 +2,7 @@
 
 from safewatch import texts
 from safewatch.config import FeaturesConfig
+from safewatch.rules.fire import FLAMES
 from safewatch.types import (
     Box,
     FrameContext,
@@ -57,6 +58,21 @@ def _person_tags(
     return tags
 
 
+def _keys(subject: str) -> list[str]:
+    """HUD objects of an observation subject (8.2 item 8: a label on every `P`).
+
+    `pair:<p>-<v>` labels person `p` and vehicle `v`, `zone:<p>-<z>` person `p`; `fire` labels
+    every flame of the frame; `track:<id>` is the person itself.
+    """
+    kind, _, rest = subject.partition(":")
+    if kind == "pair":
+        person, vehicle = rest.split("-")
+        return [f"track:{person}", f"vehicle:{vehicle}"]
+    if kind == "zone":
+        return [f"track:{rest.split('-')[0]}"]
+    return [subject]
+
+
 def build_hud(
     ctx: FrameContext,
     running: dict[str, float],
@@ -65,11 +81,12 @@ def build_hud(
 ) -> HudFrame:
     """`running`: effective parameters of the camera's running rule (speed_bh_s, speed_m_s)."""
     w, h = ctx.width, ctx.height
-    violations: dict[str, list[HudTag]] = {}  # subject → one tag per positive observation
+    violations: dict[str, list[HudTag]] = {}  # HUD object key → one tag per positive observation
     for o in observations:
         if o.state == "P":
             tag = HudTag(code=o.scenario, text=o.reason_text, level=o.level)
-            violations.setdefault(o.subject, []).append(tag)
+            for key in _keys(o.subject):
+                violations.setdefault(key, []).append(tag)
     objects = [
         HudObject(
             track_id=p.track_id,
@@ -91,7 +108,7 @@ def build_hud(
             score=v.score,
             bbox=_box(v.bbox, w, h),
             kpts=None,
-            tags=[],
+            tags=violations.get(f"vehicle:{v.track_id}", []),
         )
         for v in ctx.vehicles
     ]
@@ -103,7 +120,7 @@ def build_hud(
             score=o.score,
             bbox=_box(o.bbox, w, h),
             kpts=None,
-            tags=[],
+            tags=violations.get("fire", []) if o.name in FLAMES else [],
         )
         for o in ctx.objects
     ]
