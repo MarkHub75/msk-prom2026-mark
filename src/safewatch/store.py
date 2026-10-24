@@ -464,6 +464,12 @@ LIMIT ?"""
     return rows, total
 
 
+def events_where(where: tuple[str, list[Any]]) -> list[sqlite3.Row]:
+    """Every event of a `journal_where` filter, by start (statistics, tech.md 8.13)."""
+    sql, args = where
+    return all(f"{_EVENTS} WHERE {sql} ORDER BY e.started_at, e.id", *args)
+
+
 def journal_actions(event_ids: list[int]) -> list[sqlite3.Row]:
     """Actions of many events in one query, by event, `at`, `id`."""
     sql = """SELECT * FROM event_actions WHERE event_id IN (SELECT value FROM json_each(?))

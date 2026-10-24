@@ -7,7 +7,7 @@ from fastapi import APIRouter
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from safewatch import api
+from safewatch import api, services
 from safewatch.api import create_app
 from safewatch.config import Settings
 from safewatch.errors import (
@@ -56,12 +56,15 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
     assert missing == []
 
 
-@pytest.mark.parametrize(
-    ("method", "path"),
-    [("get", "/api/stats/management"), ("get", "/api/stats/ohs")],
-)  # fmt: skip
-async def test_unbuilt_route_returns_501(client: httpx.AsyncClient, method: str, path: str) -> None:
-    response = await client.request(method, path)
+async def test_unbuilt_route_returns_501(
+    client: httpx.AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Every route is built since slice 13: an unfinished slice is a facade raising the stub.
+    def unbuilt(*_: object) -> None:
+        raise NotImplementedError("slice 13")
+
+    monkeypatch.setattr(services, "management_view", unbuilt)
+    response = await client.get("/api/stats/management")
     assert response.status_code == 501
     body = ApiError.model_validate(response.json())
     assert body.code == "not_implemented"

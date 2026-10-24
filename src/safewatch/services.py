@@ -17,6 +17,7 @@ import shutil
 import sqlite3
 import time
 import uuid
+from collections import Counter
 from collections.abc import AsyncIterator, Iterable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -62,6 +63,7 @@ from safewatch.types import (
     CameraStateKind,
     CameraTile,
     CountRow,
+    DayRow,
     Episode,
     EpisodeDraft,
     EvalReport,
@@ -101,6 +103,7 @@ from safewatch.types import (
     Percentiles,
     Point,
     Provenance,
+    RateRow,
     Role,
     RoleMeta,
     RulesScreenRow,
@@ -115,9 +118,11 @@ from safewatch.types import (
     StatusMeta,
     SystemView,
     TracksWindow,
+    TrendSummary,
     UploadResult,
     Verdict,
     Video,
+    WeekRow,
     WhyItem,
     WsType,
     Zone,
@@ -2083,6 +2088,88 @@ def journal_facets() -> JournalFacets:
     )
 
 
+OPERATOR_DECISIONS = frozenset({"confirmed", "false_alarm", "sent_to_master"})  # tech.md 8.13
+HANDOVERS = frozenset({"sent_to_master", "timeout_escalated"})  # the event goes to the master
+
+
+def _percentiles(values: list[float], pending: int) -> Percentiles:
+    """Nearest rank: sorted `x[ceil(p·n) − 1]` (tech.md 8.13)."""
+    x = sorted(values)
+
+    def rank(p: float) -> float | None:
+        # round: 0.95·n in floating point may land a hair above an integer rank.
+        return x[math.ceil(round(p * len(x), 9)) - 1] if x else None
+
+    return Percentiles(n=len(x), pending=pending, p50=rank(0.5), p95=rank(0.95))
+
+
+def _reactions(events: list[EventSummary]) -> tuple[Percentiles, Percentiles, Percentiles]:
+    """Operator reaction, master accept and master resolve times of tech.md 8.13, seconds."""
+    log: dict[int, list[sqlite3.Row]] = {}
+    for a in store.journal_actions([e.id for e in events]):
+        log.setdefault(a["event_id"], []).append(a)
+    operator: list[float] = []
+    accept: list[float] = []
+    resolve: list[float] = []
+    pending = [0, 0, 0]
+    for e in events:
+        actions = log.get(e.id, [])
+        first = next(
+            (
+                a
+                for a in actions
+                if a["actor_role"] == "operator" and a["action"] in OPERATOR_DECISIONS
+            ),
+            None,
+        )
+        if first is not None:
+            operator.append((clock.parse(first["at"]) - e.published_at).total_seconds())
+        elif e.status not in TERMINAL_STATUSES:
+            pending[0] += 1
+        handed: datetime | None = None
+        accepted: datetime | None = None
+        for a in actions:
+            at = clock.parse(a["at"])
+            if a["action"] in HANDOVERS and accepted is None:
+                handed = at  # the last hand-over before the master accepts
+            elif a["action"] == "master_accepted" and handed is not None and accepted is None:
+                accepted = at
+                accept.append((at - handed).total_seconds())
+            elif a["action"] == "resolved" and accepted is not None:
+                resolve.append((at - accepted).total_seconds())
+        pending[1] += e.status == "sent_to_master"
+        pending[2] += e.status == "master_accepted"
+    return (
+        _percentiles(operator, pending[0]),
+        _percentiles(accept, pending[1]),
+        _percentiles(resolve, pending[2]),
+    )
+
+
+def _fixed_rows(
+    pairs: Iterable[tuple[str, str]], keyed: Iterable[tuple[str, EventSummary]]
+) -> list[CountRow]:
+    """Count rows in the order of `pairs`, zero rows kept (hours, shifts)."""
+    rows = {k: CountRow(key=k, title=t, count=0, confirmed=0, false_alarm=0) for k, t in pairs}
+    for k, e in keyed:
+        r = rows[k]
+        r.count += 1
+        r.confirmed += e.operator_verdict == "confirmed"
+        r.false_alarm += e.operator_verdict == "false_alarm"
+    return list(rows.values())
+
+
+def _add_levels(row: DayRow | WeekRow, e: EventSummary) -> None:
+    row.yellow += e.level == "yellow"
+    row.red += e.level == "red"
+    row.confirmed += e.operator_verdict == "confirmed"
+    row.false_alarm += e.operator_verdict == "false_alarm"
+
+
+def _share(part: int, whole: int) -> float | None:
+    return part / whole if whole else None
+
+
 def ohs_stats_view(
     date_from: datetime | None = None,
     date_to: datetime | None = None,
@@ -2090,11 +2177,139 @@ def ohs_stats_view(
     camera_id: int | None = None,
     include_demo: bool = True,
 ) -> OhsStats:
-    raise NotImplementedError("slice 13")
+    settings = config.get_settings()
+    tz = settings.timezone
+
+    def aware(dt: datetime) -> datetime:  # a query datetime without a time zone is UTC
+        return dt if dt.tzinfo else dt.replace(tzinfo=UTC)
+
+    end = aware(date_to) if date_to is not None else clock.now()
+    start = (
+        aware(date_from)
+        if date_from is not None
+        else end - timedelta(days=settings.stats.default_days)
+    )
+    if start > end:
+        raise ValidationFailed(texts.PERIOD_INVALID, field="date_from")
+    equal = {"sector_id": sector_id, "camera_id": camera_id}
+    where = store.journal_where(equal, clock.iso(start), clock.iso(end), None, include_demo, False)
+    events = [_summary(row) for row in store.events_where(where)]
+    local = {e.id: clock.local(e.started_at, tz) for e in events}
+    first = clock.local(start, tz).date()
+    last = clock.local(max(start, end - timedelta(milliseconds=1)), tz).date()
+    days = {
+        d.isoformat(): DayRow(date=d.isoformat(), yellow=0, red=0, confirmed=0, false_alarm=0)
+        for d in (first + timedelta(days=i) for i in range((last - first).days + 1))
+    }
+    for e in events:
+        _add_levels(days[local[e.id].date().isoformat()], e)
+    hours = [(f"{h:02d}", f"{h:02d}:00") for h in range(24)]
+    reviewed = sum(e.operator_verdict != "none" for e in events)
+    false_alarm = sum(e.operator_verdict == "false_alarm" for e in events)
+    operator, accept, resolve = _reactions(events)
+    return OhsStats(
+        date_from=start,
+        date_to=end,
+        include_demo=include_demo,
+        total=len(events),
+        by_status=_count_rows(events, "status", texts.STATUS_TITLES),
+        by_scenario=_count_rows(events, "scenario", texts.SCENARIO_TITLES),
+        by_sector=_count_rows(
+            events, "sector_id", {str(e.sector_id): e.sector_name for e in events}
+        ),
+        by_camera=_count_rows(
+            events, "camera_id", {str(e.camera_id): e.camera_name for e in events}
+        ),
+        by_shift=_fixed_rows(
+            ((s.id, s.title) for s in settings.shifts),
+            ((_shift_window(e.started_at)[0], e) for e in events),
+        ),
+        by_hour=_fixed_rows(hours, ((f"{local[e.id].hour:02d}", e) for e in events)),
+        by_day=list(days.values()),
+        reviewed=reviewed,
+        false_alarm_share=_share(false_alarm, reviewed),
+        review_coverage=_share(reviewed, len(events)),
+        operator_reaction_s=operator,
+        master_accept_s=accept,
+        master_resolve_s=resolve,
+    )
+
+
+def _trend(previous: int, recent: int, weeks: int) -> TrendSummary:
+    if previous == 0:
+        return TrendSummary(previous=0, recent=recent, change_pct=None, text=texts.TREND_NO_DATA)
+    change = (recent - previous) / previous * 100
+    pct, span = round(abs(change)), texts.weeks_span(weeks)
+    template = (
+        texts.TREND_SAME if pct == 0 else texts.TREND_LESS if change < 0 else texts.TREND_MORE
+    )
+    text = template.format(pct=pct, span=span)
+    return TrendSummary(previous=previous, recent=recent, change_pct=change, text=text)
 
 
 def management_view(weeks: int | None = None, include_demo: bool = True) -> ManagementStats:
-    raise NotImplementedError("slice 13")
+    settings = config.get_settings()
+    n = settings.stats.weeks_default if weeks is None else weeks
+    if not 1 <= n <= 52:
+        raise ValidationFailed(texts.PERIOD_INVALID, field="weeks")
+    tz, trend = settings.timezone, settings.stats.trend_weeks
+    today = clock.local(clock.now(), tz)
+    week = timedelta(days=7)
+    monday = datetime.combine(
+        today.date() - timedelta(days=today.weekday()), datetime.min.time(), today.tzinfo
+    )
+    first = monday - (n - 1) * week
+    since = min(first, monday - 2 * trend * week)
+    where = store.journal_where(
+        {}, clock.iso(since), clock.iso(monday + week), None, include_demo, False
+    )
+    events = [_summary(row) for row in store.events_where(where)]
+    rows = {
+        start.date().isoformat(): WeekRow(
+            week_start=start.date().isoformat(), yellow=0, red=0, confirmed=0, false_alarm=0
+        )
+        for start in (first + i * week for i in range(n))
+    }
+    for e in events:
+        day = clock.local(e.started_at, tz).date()
+        row = rows.get((day - timedelta(days=day.weekday())).isoformat())
+        if row is not None:
+            _add_levels(row, e)
+    top_from = monday - (trend - 1) * week
+    confirmed = Counter(
+        e.sector_id
+        for e in events
+        if e.operator_verdict == "confirmed" and e.started_at >= top_from
+    )
+    cameras = Counter(c["sector_id"] for c in store.cameras())
+    top = [
+        RateRow(
+            key=str(s["id"]),
+            title=s["name"],
+            cameras=cameras[s["id"]],
+            confirmed=confirmed[s["id"]],
+            per_camera=_share(confirmed[s["id"]], cameras[s["id"]]),
+        )
+        for s in store.sectors()
+        if include_demo or not s["is_demo"]
+    ]
+    top.sort(key=lambda r: (r.per_camera is None, -(r.per_camera or 0), r.title))
+
+    def yellow(lo: datetime, hi: datetime) -> int:
+        return sum(
+            e.level == "yellow" and e.operator_verdict != "false_alarm" and lo <= e.started_at < hi
+            for e in events
+        )
+
+    recent = yellow(monday - trend * week, monday)
+    previous = yellow(monday - 2 * trend * week, monday - trend * week)
+    in_weeks = [e for e in events if e.started_at >= first]
+    return ManagementStats(
+        weeks=list(rows.values()),
+        top_sectors=top,
+        top_scenarios=_count_rows(in_weeks, "scenario", texts.SCENARIO_TITLES),
+        yellow_trend=_trend(previous, recent, trend),
+    )
 
 
 def eval_run(labels: Path, out_dir: Path | None = None) -> EvalReport:

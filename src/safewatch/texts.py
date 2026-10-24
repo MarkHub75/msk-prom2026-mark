@@ -341,6 +341,22 @@ CSV_COLUMNS = [
 ]
 
 
+# Statistics (tech.md 8.13, 9; slice 13).
+PERIOD_INVALID = "Неверный период"
+TREND_CAVEAT = "Сравнение до и после не доказывает причину."
+TREND_LESS = "Жёлтых нарушений стало меньше на {pct} % ({span}). " + TREND_CAVEAT
+TREND_MORE = "Жёлтых нарушений стало больше на {pct} % ({span}). " + TREND_CAVEAT
+TREND_SAME = "Жёлтых нарушений без изменений ({span}). " + TREND_CAVEAT
+TREND_NO_DATA = "Недостаточно данных для сравнения"
+
+
+def weeks_span(n: int) -> str:
+    """«4 недели к 4 неделям»: the Russian plural after a number, then the dative."""
+    one, few = n % 10 == 1 and n % 100 != 11, 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14
+    word = "неделя" if one else "недели" if few else "недель"
+    return f"{n} {word} к {n} {'неделе' if one else 'неделям'}"
+
+
 def notification_text(
     level: Level, sector_name: str, reason_text: str, escalated_by_timeout: bool
 ) -> str:
