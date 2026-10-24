@@ -49,3 +49,8 @@ button, select { min-height: 24px; min-width: 24px; }
 .evidence-frame { position: relative; display: inline-block; }
 .evidence-box { position: absolute; border: 2px solid var(--yellow); }
 .evidence-callout { position: absolute; bottom: 100%; left: 0; white-space: nowrap; padding: 0 4px; font-size: 12px; background: var(--surface); }
+.master { display: grid; gap: 12px; max-width: 480px; margin: 0 auto; }
+.master-card { display: grid; gap: 4px; padding: 16px; background: var(--surface); border-radius: 8px; color: inherit; text-decoration: none; border-left: 6px solid var(--yellow); }
+.master-red { border-left-color: var(--red); }
+.master-button { min-height: 48px; font-size: 18px; }
+.master textarea { min-height: 80px; }

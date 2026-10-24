@@ -10,6 +10,9 @@ import { playSound } from "../components/sound";
 import { TakeoverOverlay } from "../components/TakeoverOverlay";
 import { Toasts } from "../components/Toasts";
 import { EventScreen } from "./events/EventScreen";
+import { MasterEvent } from "./master/MasterEvent";
+import { MasterInbox } from "./master/MasterInbox";
+import { ShiftSummaryScreen } from "./master/ShiftSummaryScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
 import { SectorScreen } from "./operator/SectorScreen";
@@ -426,5 +429,79 @@ describe("screens", () => {
     fireEvent.click(screen.getByText("3. Передать мастеру"));
     expect(post).toHaveBeenCalledWith(...sent("send_to_master"));
     expect(await screen.findByText("Пресс №2")).toBeTruthy(); // the live half
+  });
+
+  it("master_inbox_renders", async () => {
+    const push = wsHandlers();
+    const vibrate = vi.fn();
+    Object.defineProperty(navigator, "vibrate", { value: vibrate, configurable: true });
+    const sent = { ...EVENT, id: 11, level: "red", status: "sent_to_master", title: "Падение и неподвижность" };
+    const done = { ...EVENT, id: 12, status: "resolved", title: "Решённое событие" };
+    vi.mocked(api.GET).mockResolvedValue({ data: { active: [sent], recent_resolved: [done], server_now: AT } } as never);
+    render(
+      <MemoryRouter>
+        <MasterInbox />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Падение и неподвижность")).toBeTruthy();
+    expect(screen.getByText("Решённое событие")).toBeTruthy();
+    expect(screen.getByText("Падение и неподвижность").closest("a")?.getAttribute("href")).toBe("/master/events/11");
+    push({
+      type: "notification", at: AT,
+      data: { id: "e11:to_master", event_id: 11, level: "red", text: "Красная опасность", audience: ["master"], sound: "chime", takeover: false },
+    });
+    expect(vibrate).toHaveBeenCalled();
+    expect(vi.mocked(api.GET)).toHaveBeenCalledTimes(2); // reloaded on the notification
+  });
+
+  it("master_event_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+    const late = { ...EVENT, level: "red", status: "master_accepted", escalated_by_timeout: true, zone_name: "Проход" };
+    const detail = {
+      event: late, episode: null, why: [], actions: [], allowed_actions: ["resolve"],
+      provenance: { backend: null, fake: false, det_model: null, pose_model: null, job_id: null, video_sha256: null, analysis_version: null, rule_params: {}, evidence_sha256: null },
+      deliveries: [], video_id: null, video_start_ms: null, video_end_ms: null, broadcast: null,
+    };
+    vi.mocked(api.GET).mockResolvedValue({ data: detail } as never);
+    vi.mocked(api.POST).mockResolvedValue({ data: detail } as never);
+    render(
+      <MemoryRouter initialEntries={["/master/events/9"]}>
+        <Routes>
+          <Route path="/master/events/:eventId" element={<MasterEvent />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Не подтверждено оператором")).toBeTruthy();
+    expect(screen.getByText("Сектор 5 · Склад · Пресс №2 · Проход")).toBeTruthy();
+    expect(screen.getByText("Бег 2,4 роста/с")).toBeTruthy();
+    const resolve = screen.getByText("Решено") as HTMLButtonElement;
+    expect(resolve.disabled).toBe(true);
+    fireEvent.change(screen.getByLabelText("Принятые меры"), { target: { value: "Остановил работу" } });
+    expect(resolve.disabled).toBe(false);
+    fireEvent.click(resolve);
+    expect(vi.mocked(api.POST)).toHaveBeenCalledWith("/api/events/{event_id}/actions", {
+      params: { path: { event_id: 9 } }, body: { action: "resolve", comment: "Остановил работу" },
+    });
+  });
+
+  it("shift_summary_renders", async () => {
+    const row = { key: "1", title: "Сектор 5 · Склад", count: 3, confirmed: 1, false_alarm: 1 };
+    const summary = {
+      shift_id: "day", title: "Дневная смена", start: "2026-10-24T05:00:00Z", end: "2026-10-24T17:00:00Z", total: 3,
+      by_sector: [row], by_scenario: [{ ...row, key: "running", title: "Бег и резкие перемещения" }],
+      events: [{ ...EVENT, operator_verdict: "confirmed" }],
+    };
+    vi.mocked(api.GET).mockResolvedValue({ data: summary } as never);
+    render(
+      <MemoryRouter>
+        <ShiftSummaryScreen />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Дневная смена")).toBeTruthy();
+    expect(screen.getByText("Всего событий: 3")).toBeTruthy();
+    expect(screen.getAllByText("3 (подтверждено 1, ложных 1)")).toHaveLength(2);
+    expect(screen.getByText("Сектор 5 · Склад · Пресс №2")).toBeTruthy();
+    fireEvent.click(screen.getByText("Предыдущая смена"));
+    expect(vi.mocked(api.GET)).toHaveBeenLastCalledWith("/api/master/shift", { params: { query: { at: "2026-10-24T04:59:59.999Z" } } });
   });
 });
