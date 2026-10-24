@@ -109,3 +109,46 @@ VPN/SSH/маршруты/службы/чужие очереди/программ
 Материалы предназначены для разрешённой командной проверки. Mendeley: CC BY4.0,
 источник DOI10.17632/xjmtb22pff.1; сохранять attribution. URFall: академическая
 NC-SA область; публичная публикация медиа этим экспортом не разрешается.
+
+## Подготовленная команда нового инференса без правил
+
+`ml.linq_frames` вызывает существующий DurableVideoRunner; BehaviorEngine,
+сценарии, зоны, события, backend/frontend приложения не запускаются. Подготовлены
+локальные manifests в `/workspace/artifacts/matvey_frame_inference_bindings_20261024_v1/`.
+Они не являются подтверждением удалённого размещения. План в `matvey_sampling_plan.json`
+выбирает12ближайших кадров к равномерным encoded-PTS целям до первого model call.
+Максимум24последовательных model calls, не более одного запроса в полёте.
+
+```bash
+cd /workspace/project
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+client=/workspace/.venvs/linq-client/bin/python
+bindings=/workspace/artifacts/matvey_frame_inference_bindings_20261024_v1
+
+# Сейчас возвращает BLOCKED/exit2, не открывая сетевого соединения:
+"$client" -m ml.linq_frames --preflight-only \
+  --manifest "$bindings/matvey_helmet_manifest.json" \
+  --manifest "$bindings/matvey_pose-split_manifest.json"
+
+# Только после реального own upload, matching SHA receipt и согласованного слота:
+# runtime connection.env загрузить в свой процесс без печати, как в существующем runbook.
+"$client" -m ml.linq_frames \
+  --source /workspace/artifacts/matvey-egor-linq-demo-20261024-v2/matvey_source_original.mp4 \
+  --source-sha256 f0e34d76de139450b97decbb4e032a525d8ce9959d972cdd0071a1de69250c6a \
+  --manifest "$bindings/matvey_helmet_manifest.json" \
+  --manifest "$bindings/matvey_pose-split_manifest.json" \
+  --frames 0,47,95,142,189,237,284,332,379,426,474,521 \
+  --output /workspace/artifacts/NEW_matvey_linq_frames_run
+```
+
+Gate требует receipt STAGED/namespace=matvey, точные bytes/SHA/name/model и
+реальный completed upload UUID с собственным reply namespace и числовым
+подтверждением SHA/byte_count. Старые bindings/receipts не проходят. На UNKNOWN
+exit3 останавливается тот же кадр; повторить точно ту же команду/папку для
+receive-only reconcile прежнего UUID. Уже сохранённые результаты повторно
+проверяются по исходному RGB, модели, transform и числовому durable journal без
+нового inference. GPU fallback отсутствует. Финальная схема Argus не выдумывается.
+
+Новый driver проверен локальными fixture-тестами gate/cache; actual remote run
+этого entry point NOT_RUN. Runtime capability audit также подтвердил отсутствие
+настроенного Jupyter staging доступа в этой среде; секретные значения не читались.

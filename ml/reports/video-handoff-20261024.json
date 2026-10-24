@@ -99,8 +99,8 @@
   },
   "handoff": {
     "path": "/workspace/project/docs/handoffs/EGOR_LINQ_VIDEO_20261024.md",
-    "bytes": 9087,
-    "sha256": "1d1f8b46ebd52d4863c6ca046a9cd1c273f67bf2e4ff9945e7ceb3901402f864"
+    "bytes": 12269,
+    "sha256": "a4afaf821d8bbddb3821ad80aa19c3fab7a17ec456318e50202b2156b16a2d67"
   },
   "archive": {
     "path": "/workspace/artifacts/matvey_egor_linq_20261024_v2.zip",
@@ -134,5 +134,46 @@
     "linq_client_numpy1.26.4": "PASS_BOTH_PACKAGES",
     "main_numpy2.5.4": "PASS_BOTH_PACKAGES",
     "disposable_app_venv": "BYTE_REDECODING_CHECK_NOT_RUN_MISSING_PIL; legacy schema shape check PASS; no packages installed"
+  },
+  "inference_only_entrypoint": {
+    "code": {
+      "path": "/workspace/project/ml/linq_frames.py",
+      "bytes": 14742,
+      "sha256": "ce6471f6b7dd4030c639b85c127100b7a2085a043500052af4a01b263ca28c8d"
+    },
+    "status": "PREPARED_LOCAL_FIXTURE_TESTS_ONLY_NOT_REMOTE_RUN",
+    "preflight": {
+      "path": "/workspace/artifacts/matvey_frame_inference_preflight_20261024_v2.json",
+      "bytes": 119,
+      "sha256": "656859f4af3d031f22b0cfecad72f4021f45c048d7ff305c17d67df078cacf2e"
+    },
+    "sampling_plan": {
+      "path": "/workspace/artifacts/matvey_frame_inference_bindings_20261024_v1/matvey_sampling_plan.json",
+      "bytes": 1852,
+      "sha256": "d9ab2d3c8e5c3f33c16e0dc669631fd23350a800bfe8da2a9df372e02f20467f"
+    },
+    "runtime_capability": {
+      "path": "/workspace/artifacts/matvey_jupyter_staging_capability_20261024.json",
+      "bytes": 446,
+      "sha256": "670b2ee43ca91c0e099ec999cf546280da0d5ff6f160cdaff4cd719fd58d2e85"
+    },
+    "tests": {
+      "path": "/workspace/artifacts/matvey_frame_inference_software_tests_20261024_v2.log",
+      "bytes": 201,
+      "sha256": "c26b789e2f63cf490ec0288865b2472967c3f0d31080732d157746d7357e92c3"
+    },
+    "new_remote_calls": 0,
+    "scenario_rules_invoked": false,
+    "owned_fixture_tests": 9
+  },
+  "latest_software_tests": {
+    "run": 513,
+    "skipped": 4,
+    "status": "OK",
+    "log": {
+      "path": "/workspace/artifacts/matvey_frame_inference_software_tests_20261024_v2.log",
+      "bytes": 201,
+      "sha256": "c26b789e2f63cf490ec0288865b2472967c3f0d31080732d157746d7357e92c3"
+    }
   }
 }

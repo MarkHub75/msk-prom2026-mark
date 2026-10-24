@@ -180,3 +180,14 @@ records pass actual prior-main FrameDetections type; final Argus schema still
 pending, no final-format output/import or DB write. Combined ZIP59,748,256bytes,
 57members SHA verified; d787e6f28e1ff309faedec6499e7ded522708f8eae41f3f3cb54970db90b9247.
 No new training/compile/TPU request; ownbootstrap verified PREPARED/unpublished.
+
+Inference-only followup: ml.linq_frames prepared; existing durable client only,
+no scenario/event/app path.8gate/cache tests PASS; ownreceipt requires numeric
+remote-upload evidence and Matvey namespace before any network. Actual preflight
+BLOCKED on missing ownreceipt; new remote0.12uniform encoded-PTS targets/24calls
+prepared before inference. Runtime Jupyter capability absent in current process
+and known project runtime config; values never read/logged. Oldcompletions still
+valid/offline; latest fetched main remainsf6b5358a, new Argus contract pending.
+
+Final inference-only check:9owned gate/cache/ABI tests PASS; full discovery
+513tests OK (4skipped),7.548s; exact log pinned in the handoff report.
