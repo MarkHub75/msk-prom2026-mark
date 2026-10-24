@@ -71,6 +71,13 @@ export function subjectTitle(subject: string) {
   if (kind === "fire") return "огонь";
   return subject;
 }
+/** Delivery channel keys `call:<name>` / `webhook:<name>` (tech.md 6.11.7): the kind in words, the name as configured. */
+export function channelTitle(channel: string) {
+  const [kind, ...rest] = channel.split(":");
+  const name = rest.join(":");
+  const title = kind === "call" ? "Звонок" : kind === "webhook" ? "Вебхук" : "";
+  return title && name ? `${title} «${name}»` : channel;
+}
 
 function Panel({ title, aside, children, className = "" }: { title: string; aside?: ReactNode; children: ReactNode; className?: string }) {
   return <section className={`ic-panel ${className}`}><h2>{title}{aside !== undefined && <span>{aside}</span>}</h2>{children}</section>;
@@ -210,7 +217,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
       <Panel title="История эпизода"><EpisodeHistory detail={detail} /></Panel>
       <Panel title="Действия людей" aside={detail.actions.length}><History actions={detail.actions} /></Panel>
       <Panel title="Происхождение"><Provenance detail={detail} /></Panel>
-      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
+      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{channelTitle(d.channel)}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
     </aside>
   </div>;
 }

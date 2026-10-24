@@ -2,7 +2,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../App";
-import { subjectTitle } from "./Incident";
+import { channelTitle, subjectTitle } from "./Incident";
 import { createFixtureEvents, fixtureMeta } from "../fixtures/data";
 import { setRole } from "../roles";
 import type { EventDetail, HumanAction } from "../api/types";
@@ -86,5 +86,10 @@ describe("episode codes in words", () => {
     expect(subjectTitle("pair:3-7")).toBe("человек #3 и техника #7");
     expect(subjectTitle("zone:3-2")).toBe("человек #3 в зоне #2");
     expect(subjectTitle("fire")).toBe("огонь");
+  });
+  it("names delivery channels by kind, keeps the configured name", () => {
+    expect(channelTitle("call:master")).toBe("Звонок «master»");
+    expect(channelTitle("webhook:ohs-bot")).toBe("Вебхук «ohs-bot»");
+    expect(channelTitle("sms")).toBe("sms");
   });
 });
