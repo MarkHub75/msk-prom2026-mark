@@ -12,6 +12,8 @@ import "../styles/demo-console.css";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
 const LIVE_THROTTLE_MS = 1500;
+// After a launch the button stays locked until the list shows the broadcast (WS broadcast.state + refetch).
+const LAUNCH_GUARD_MS = 6000;
 const CAPTION = "Пульт ведущего: управляет повтором записей, события создаёт конвейер";
 
 // The checkpoint-demo mock (tools/checkpoint-demo) answers on REST port 4010 and has a director under /__demo/.
@@ -135,6 +137,10 @@ export function DemoConsolePage({ mockBase = isMockApi() ? import.meta.env.VITE_
   const [errors, setErrors] = useState<Record<number, ApiFailure | undefined>>({});
   const [stopAll, setStopAll] = useState<{ busy: boolean; text?: string }>({ busy: false });
   const [now, setNow] = useState(() => Date.now());
+  // Just launched, the list has not shown «Идёт» yet: a second press would restart the record and publish its episodes again.
+  const [launched, setLaunched] = useState<Record<number, true>>({});
+  const launchTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => launchTimers.current.forEach(clearTimeout), []);
 
   const pending = useRef<ReturnType<typeof setTimeout>>();
   const latestReload = useRef(reload);
@@ -161,6 +167,10 @@ export function DemoConsolePage({ mockBase = isMockApi() ? import.meta.env.VITE_
       ? await api.POST("/api/cameras/{camera_id}/broadcast", { ...path, body: { loop: false, video_id: video?.id ?? null } })
       : await api.DELETE("/api/cameras/{camera_id}/broadcast", path);
     setErrors((e) => ({ ...e, [camera.id]: failure(result) }));
+    if (kind === "play" && !failure(result)) {
+      setLaunched((l) => ({ ...l, [camera.id]: true }));
+      launchTimers.current.push(setTimeout(() => setLaunched((l) => { const next = { ...l }; delete next[camera.id]; return next; }), LAUNCH_GUARD_MS));
+    }
     setBusy((b) => { const next = { ...b }; delete next[camera.id]; return next; });
     reload();
   };
@@ -204,7 +214,7 @@ export function DemoConsolePage({ mockBase = isMockApi() ? import.meta.env.VITE_
             </div>
             <AirState broadcast={r.broadcast} fetchedAt={r.fetchedAt} now={now} />
             <div className="dc-buttons">
-              <button type="button" className="button" disabled={!video || busy[r.camera.id] !== undefined} onClick={() => void act(r.camera, "play", video)} aria-label={`Проиграть один раз: ${r.camera.name}`}><Play {...I} />{busy[r.camera.id] === "play" ? "Запускаем…" : "Проиграть один раз"}</button>
+              <button type="button" className="button" disabled={!video || busy[r.camera.id] !== undefined || onAir || launched[r.camera.id]} title={onAir || launched[r.camera.id] ? "Камера уже в эфире: повторный запуск опубликует события записи ещё раз. Дождитесь конца или остановите эфир." : undefined} onClick={() => void act(r.camera, "play", video)} aria-label={`Проиграть один раз: ${r.camera.name}`}><Play {...I} />{busy[r.camera.id] === "play" ? "Запускаем…" : "Проиграть один раз"}</button>
               <button type="button" className="button" disabled={!onAir || busy[r.camera.id] !== undefined} onClick={() => void act(r.camera, "stop")} aria-label={`Остановить: ${r.camera.name}`}><CircleStop {...I} />{busy[r.camera.id] === "stop" ? "Останавливаем…" : "Остановить"}</button>
             </div>
             {error && <div className="dc-error"><ErrorNotice error={error} compact /></div>}
