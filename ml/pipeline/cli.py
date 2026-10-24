@@ -25,7 +25,11 @@ def build_pipeline(args):
     token=None if getattr(args,'sink_kind','external')=='local-test' else os.environ.get('MOSPROM_BACKEND_TOKEN')
     sink = HttpEventSink(args.backend_url, token,
                          evidence_base_url=args.evidence_base_url) if args.backend_url else None
-    return Pipeline(BehaviorEngine(config), outbox, args.state_dir, sink)
+    suite=None
+    if getattr(args,'scenario_config',None):
+        from ml.scenarios.engine import ScenarioSuite,load_config
+        suite=ScenarioSuite(load_config(args.scenario_config))
+    return Pipeline(BehaviorEngine(config), outbox, args.state_dir, sink,scenario_suite=suite)
 
 
 def run_video(args, pipeline):
@@ -187,6 +191,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--state-dir', default='runtime')
     parser.add_argument('--rules')
+    parser.add_argument('--scenario-config',help='Opt-in internal eight-scenario suite; candidates stay in local journal, external event v1 unchanged')
     parser.add_argument('--backend-url', help='Full event endpoint URL')
     parser.add_argument('--evidence-base-url', help='Receiver-accessible URL mapping state-dir contents')
     parser.add_argument('--sink-kind',choices=['external','local-test'],default='external')

@@ -1,5 +1,9 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
+## COVERAGE SPRINT ACTIVE — 2026-10-24T11:19:15.188246+00:00
+
+URGENTnewdirectiveoverridesoldSTOP/priorities: all8officialgroups first, thenrank3. Pass1COMPLETE: 8modules+8configs+sharedsuitecontext+internalEventCandidate/additiveschema+atomicjournal/evidence+optinexistingpipeline.24syntheticcasesPASS,463softwaretestsPASS; noNN/Training/GPU/network/LinQcalls. Newfacts/currentframe/time/ownership/policyrequired; missingUNKNOWN/BLOCKED, NOTrealmodelaccuracy. ExternalEventMutationv1 remains3types/APIunchanged, newcandidateslocalonly. Modules/configpaths under ml/scenarios,configs/scenarios; docs/SCENARIO_RUNTIME_CONTRACT.md+SCENARIOS_OBJECTS/SPATIAL/MODEL_GATES; TrainingrequirementsJSONall8. Rootcurrentlypass2 real/savedobservations/evidencematching +DetectionvisualscreenMendeley16; thenrank3/document/commit. Originaluntracked.ipynb_checkpoints/untouched. Do not stopatoldclosedreportsbelow orrepeatoldexperiments; preserveLinQnamespace/sharednetwork/captainlimits.
+
 ## FOLLOW-UP CLOSED — 2026-10-24T01:32:31.411557+00:00
 
 **СТОП; продолжать только по новой задаче.** Пользователь возобновил работу послеf99edc8d; E006/E007/E008 завершены без сброса бюджетов E001–E005 и без NN/тренировки/компиляции/LinQ/смены порогов. Code checkpoint6b4493a5777299349579e2f3b81f898b395e21f8; точный последний SHA — gitlog-1 содержащегоRESUME. NIGHT_REPORT.md сверху содержит итог follow-up, предыдущие результаты сохранены ниже.

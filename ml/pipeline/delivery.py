@@ -32,7 +32,7 @@ class Outbox:
         row = self.db.execute('SELECT body FROM outbox WHERE event_id=? ORDER BY revision DESC LIMIT 1', (event_id,)).fetchone()
         return json.loads(row[0]).get('evidence') if row else None
 
-    def commit_batch(self, events, state, *, video_checkpoint=None, observation=None):
+    def commit_batch(self, events, state, *, video_checkpoint=None, observation=None, extension=None):
         with self.db:
             for event in events:
                 self._enqueue(event)
@@ -47,13 +47,17 @@ class Outbox:
                 old=self.db.execute('SELECT body FROM observations WHERE camera_id=? AND stream_epoch=? AND frame_id=?',key).fetchone()
                 if old and old[0]!=body:raise ValueError('committed observation is immutable')
                 self.db.execute('INSERT OR IGNORE INTO observations VALUES(?,?,?,?)',(*key,body))
+            if extension is not None:extension(self.db)
 
     def export_jsonl(self, directory):
         """Rebuild exports from committed rows: retries cannot append duplicates."""
         import os
         from uuid import uuid4
         directory=Path(directory)
-        for name,table in (('events','outbox'),('observations','observations')):
+        exports=[('events','outbox'),('observations','observations')]
+        for name,table in (('candidates','scenario_candidates'),('scenario-diagnostics','scenario_diagnostics')):
+            if self.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone():exports.append((name,table))
+        for name,table in exports:
             target=directory/(name+'.jsonl');temporary=directory/(name+'.'+uuid4().hex+'.tmp')
             try:
                 fd=os.open(temporary,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)

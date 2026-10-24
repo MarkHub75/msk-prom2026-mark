@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "INTERNAL EventCandidate v1; not external EventMutation",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "camera_id",
+    "stream_epoch",
+    "track_key",
+    "subrule",
+    "type",
+    "reason",
+    "episode_group_id",
+    "schema_version",
+    "contract",
+    "scenario_id",
+    "revision",
+    "state",
+    "start_media_ms",
+    "confirmed_media_ms",
+    "confidence",
+    "attributes",
+    "provenance",
+    "qualification",
+    "evidence"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "camera_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stream_epoch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "track_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subrule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "episode_group_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "contract": {
+      "const": "mosprom.event_candidate.v1"
+    },
+    "scenario_id": {
+      "enum": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08"
+      ]
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "state": {
+      "enum": [
+        "open",
+        "closed",
+        "interrupted"
+      ]
+    },
+    "start_media_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "confirmed_media_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "end_media_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "attributes": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "qualification": {
+      "const": "PROTOTYPE_NOT_INDEPENDENTLY_VALIDATED"
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "status",
+        "frame_id",
+        "media_time_ms"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "ready",
+            "unavailable",
+            "partial"
+          ]
+        },
+        "frame_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "media_time_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "snapshot_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "clip_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "snapshot_ref"
+                ],
+                "properties": {
+                  "snapshot_ref": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              {
+                "required": [
+                  "clip_ref"
+                ],
+                "properties": {
+                  "clip_ref": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

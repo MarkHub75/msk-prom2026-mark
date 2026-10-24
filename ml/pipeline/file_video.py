@@ -33,6 +33,7 @@ def _session(args,pipeline,manifests,fps):
           'start_ms':args.start_ms,'end_ms':args.end_ms,
           'rules':pipeline.behavior.config,'manifests':manifests}
     source_kind=getattr(args,'source_kind','real-video')
+    if getattr(pipeline,'scenario_suite',None) is not None:spec['scenario_suite_sha256']=pipeline.scenario_suite.fingerprint
     if source_kind!='real-video':spec['source_kind']=source_kind
     fingerprint=hashlib.sha256(json.dumps(spec,sort_keys=True,allow_nan=False).encode()).hexdigest()
     path=root/'video-session.json'
