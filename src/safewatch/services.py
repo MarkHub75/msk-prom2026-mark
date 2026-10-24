@@ -14,7 +14,7 @@ import sqlite3
 import time
 import uuid
 from collections.abc import AsyncIterator
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import get_args
 
@@ -56,6 +56,7 @@ from safewatch.types import (
     CameraState,
     CameraStateKind,
     CameraTile,
+    CountRow,
     Episode,
     EpisodeDraft,
     EvalReport,
@@ -1206,6 +1207,8 @@ def _play(b: sqlite3.Row, camera: sqlite3.Row, cycle: int, pos: int, out: list[M
             summary = _event_summary(row["id"])
             out.append(("event.escalated", summary, None))
             out.append(("notification", _operator_alert(summary, "escalated"), ["operator"]))
+            if row["status"] in ("sent_to_master", "master_accepted"):  # row 4 of tech.md 8.8
+                out.append(("notification", _master_alert(summary, "master_escalated"), ["master"]))
             written += 1
         if ended and row["ended_at"] is None:
             values = {"ended_at": clock.iso(base + timedelta(milliseconds=ep["end_ms"]))}
@@ -1453,10 +1456,11 @@ def _event_row(event_id: int) -> sqlite3.Row:
     return row
 
 
-def _master_alert(summary: EventSummary) -> Notification:
-    """Row 3 of the table in tech.md 8.8: sent to the master, by the operator or by timeout."""
+def _master_alert(summary: EventSummary, kind: str = "to_master") -> Notification:
+    """Rows 3 and 4 of the table in tech.md 8.8: sent to the master (by the operator or by
+    timeout), or turned red while with the master."""
     return Notification(
-        id=f"e{summary.id}:to_master",
+        id=f"e{summary.id}:{kind}",
         event_id=summary.id,
         level=summary.level,
         text=summary.notification_text,
@@ -1596,11 +1600,58 @@ def escalation_tick() -> int:
 
 
 def master_inbox_view() -> MasterInbox:
-    raise NotImplementedError("slice 8")
+    limit = config.get_settings().master.recent_resolved
+    return MasterInbox(
+        active=[_summary(row) for row in store.master_active()],
+        recent_resolved=[_summary(row) for row in store.master_resolved(limit)],
+        server_now=clock.now(),
+    )
+
+
+def _shift_window(at: datetime) -> tuple[str, str, datetime, datetime]:
+    """The shift of `settings.shifts` holding `at` in `settings.timezone`: id, title, start, end;
+    a shift whose end is not after its start runs over midnight."""
+    settings = config.get_settings()
+    local = clock.local(at, settings.timezone)
+    for shift in settings.shifts:
+        (sh, sm), (eh, em) = (map(int, t.split(":")) for t in (shift.start, shift.end))
+        for day in (local.date() - timedelta(days=1), local.date()):
+            midnight = datetime.combine(day, datetime.min.time(), local.tzinfo)
+            start = midnight + timedelta(hours=sh, minutes=sm)
+            end = midnight + timedelta(hours=eh, minutes=em)
+            if end <= start:
+                end += timedelta(days=1)
+            if start <= local < end:
+                return shift.id, shift.title, start, end
+    raise LookupError(f"no shift at {local}")  # config/default.yaml covers the whole day
+
+
+def _count_rows(events: list[EventSummary], key: str, titles: dict[str, str]) -> list[CountRow]:
+    rows: dict[str, CountRow] = {}
+    for e in events:
+        k = str(getattr(e, key))
+        r = rows.setdefault(k, CountRow(key=k, title=titles[k], count=0, confirmed=0, false_alarm=0))
+        r.count += 1
+        r.confirmed += e.operator_verdict == "confirmed"
+        r.false_alarm += e.operator_verdict == "false_alarm"
+    return sorted(rows.values(), key=lambda r: (-r.count, r.title))
 
 
 def shift_summary_view(at: datetime | None = None) -> ShiftSummary:
-    raise NotImplementedError("slice 8")
+    when = clock.now() if at is None else at if at.tzinfo else at.replace(tzinfo=UTC)
+    shift_id, title, start, end = _shift_window(when)
+    events = [_summary(row) for row in store.shift_events(clock.iso(start), clock.iso(end))]
+    sectors = {str(e.sector_id): e.sector_name for e in events}
+    return ShiftSummary(
+        shift_id=shift_id,
+        title=title,
+        start=start.astimezone(UTC),
+        end=end.astimezone(UTC),
+        total=len(events),
+        by_sector=_count_rows(events, "sector_id", sectors),
+        by_scenario=_count_rows(events, "scenario", texts.SCENARIO_TITLES),
+        events=[e for e in events if e.operator_verdict == "confirmed"],
+    )
 
 
 def calibration_get(camera_id: int) -> Calibration | None:

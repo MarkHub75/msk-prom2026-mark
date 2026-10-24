@@ -383,6 +383,34 @@ ORDER BY e.published_at DESC, e.id DESC"""
     return all(sql, sector_id, sector_id, closed_after)
 
 
+def master_active() -> list[sqlite3.Row]:
+    """Events with the master (tech.md 8.6): red first, then the latest hand-over first."""
+    sql = f"""{_EVENTS}
+WHERE e.status IN ('sent_to_master', 'master_accepted')
+ORDER BY e.level = 'red' DESC,
+    (SELECT max(a.at) FROM event_actions a WHERE a.event_id = e.id
+        AND a.action IN ('sent_to_master', 'timeout_escalated')) DESC, e.id DESC"""
+    return all(sql)
+
+
+def master_resolved(limit: int) -> list[sqlite3.Row]:
+    """The `limit` events resolved last."""
+    sql = f"""{_EVENTS}
+WHERE e.status = 'resolved'
+ORDER BY (SELECT max(a.at) FROM event_actions a WHERE a.event_id = e.id
+    AND a.action = 'resolved') DESC, e.id DESC
+LIMIT ?"""
+    return all(sql, limit)
+
+
+def shift_events(start: str, end: str) -> list[sqlite3.Row]:
+    """Events that started in [start, end), no superseded (tech.md 8.13)."""
+    sql = f"""{_EVENTS}
+WHERE e.started_at >= ? AND e.started_at < ? AND e.status != 'superseded'
+ORDER BY e.started_at, e.id"""
+    return all(sql, start, end)
+
+
 # Inputs of the camera state rules (tech.md 8.9) for every camera in one query.
 _CAMERA_STATES = f"""
 SELECT c.id AS camera_id, c.sector_id,
