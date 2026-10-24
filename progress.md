@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S21 в работе, блокер: диск C: заполнен (строка `владелец`)
+- state: tech v6, второй прогон: S21 закрыт с долгом (docker build: нет места на C:), следующий S22
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -16,9 +16,9 @@
 - long-lead: фронт Егора (`front/argus-main` и `front/final-*`) по `contract/openapi.json`; с S16 — контракт 1.1.0; заменить папку `frontend/` в `main` — решение владельца.
 - long-lead: ресёрч доп-сценариев `docs/research/EXTRA_SCENARIOS_<дата>.md`, нужен к S31; нет файла — S31 закрывается без кода.
 - long-lead: файлы моделей Матвея (`models/matvey/...`, архив из `docs/ML_HANDOFF_MATVEY.md` ветки `matvey_cv`) — для проверки S20 на `local`; без них записи реестра есть, `doctor` пишет «нет файла».
-- владелец: диск C: заполнен до 0 байт (24.10 ~21:27, сборка S21): освободить несколько ГБ на C: (крупное: `%LOCALAPPDATA%\Docker\wsl\disk\docker_data.vhdx` 17,9 ГБ, `%TEMP%` 5,7 ГБ, из них `pytest-of-user` 1,35 ГБ, кэш uv 2,65 ГБ, npm-cache 0,77 ГБ), затем перезапустить Docker Desktop (демон завис: `docker info` не отвечает 30 с). Без места pytest молча падает с кодом 1 (временные файлы и захват вывода в `%TEMP%`), гейт и Docker не работают.
+- владелец: освободить место на C: (Docker Desktop → Troubleshoot → Clean/Purge data или перенести disk image на D:), перезапустить Docker Desktop, затем docker compose up -d --build. На C: ~1,1 ГБ, `docker_data.vhdx` 19,2 ГБ; временные файлы ночи на D: (`TEMP=D:\night-tmp`).
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
-- долг: S21, docker build, сборка `docker compose up -d --build` прошла все шаги (фронт на node, `uv sync --locked --no-dev`) и упала на экспорте образа: `failed to create temp dir ... input/output error`, диск C: заполнен; health и `GET /api/demo/packs` из контейнера не проверены. Повтор после строки `владелец` про диск C:.
+- долг: S21, docker build, сборка дошла до экспорта образа за 82 с и упала: на C: нет места (input/output error)
 - долг: R5, `JupyterShell` не закрывает kernel: каждый процесс (сервер, doctor, живой тест) оставляет один idle kernel на общем аккаунте, `_drop` закрывает его только при ошибке; нужен `close()` в `RemoteShell` из lifespan и doctor. Перенесено из R15: проверяется только вживую, живых прогонов в R15 нет (3.1); владелец: до правки гасить idle kernels в Jupyter вручную.
 - долг: R5, прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid). Перенесено из R15: проверяется только вживую; владелец: перед повтором живого прогона проверить процессы `video_worker.py` в терминале Jupyter.
 - долг: R5, `backend_check`: Jupyter отдал HTML через `JupyterError` → сейчас `unreachable`, по 6.2 — `bad_answer`. Перенесено из R15: не воспроизводится (R5: `ok`, 2 из 2 программ).
@@ -230,6 +230,13 @@
 - чек-лист 17: 1–2 ок (`poe contract` 566 элементов, `poe api` чистый); 3 ок (SQL только в `store`/`db`, `analysis/`/`rules/` без базы; `texts` зовёт `clock.local` — не слой правил); 4 ок; 5 ок; 7 ок (`_web_copy` в `to_thread` не пишет в базу); 8: `vulture` — заглушки v5 (`datasets_flush`, `backend_close`), поля типов и ключи конфига будущих слайсов, `request` обработчиков; 11 ок; 12 нет пунктов; 13: 6 заметок `R20:` и 11 пунктов субагентов закрыты или перенесены; 14: CI PR #22–#26 зелёные в обеих ОС, push-прогоны main зелёные (`95e8e52c` отменён concurrency, не сбой); 15 ок (`test_openapi_only_grows`); 16 ок (`test_e2e.py`, `test_demo_flow_reaches_master_and_journal`); 17: живой прогон S17 один; R20 по ошибке запустил `tests/live` (строка `владелец`), программы `mosprom_*` не трогались, `matvey_cv` не менялась (последние коммиты Матвея).
 - проверено вживую: непреднамеренно — `tests/live/test_linq_live.py` (ролик 40 с, detect и pose), итог не записан | не проверено: —
 - следующему: `tests/test_clips.py::test_odd_frame_and_late_copy` (нечётный mp4v пишет ffmpeg через `lavfi`: OpenCV пишет только чётные стороны); `services._stage(path)` — копия файла и H.264 без базы; pytest — только `uv run poe test` или `-m 'not live'`.
+
+### S21: docker (2026-10-24, PR #28, tech v6)
+- отклонения: критерий 2 — образ не собран: `docker compose up -d --build` дошёл до экспорта образа за 82 с и упал (`input/output error`, на C: 0 байт), демон Docker после этого завис; health и `GET /api/demo/packs` из контейнера не проверены (строки `долг` и `владелец`). Закрыт долг S15 (`docker build` не собирался) — заменён долгом S21.
+- решения вне контракта: `.env` в compose необязателен (`env_file: path/required: false`), чтобы запуск шёл на чистой машине; healthcheck — python образа (`urllib`), curl в `python:3.12-slim` нет; мутаций нет (10.3).
+- проверено вживую: нет (S21 без LinQ); Docker — сборка до экспорта образа | не проверено: запуск контейнера.
+- [проверить]: `env_file` с `required: false` — Docker Compose 2.24+ (docs.docker.com, compose file reference).
+- следующему: гейт и тесты на этой машине — только с `TEMP`/`TMP` на `D:\night-tmp` (на C: ~1,1 ГБ, pytest без места падает молча, кодом 1); `docker` не запускать до строки `владелец` про C:; любой вызов `docker` — через `timeout 30`; вывод `docker compose config` содержит секреты `.env`, не показывать.
 
 ## night
 
