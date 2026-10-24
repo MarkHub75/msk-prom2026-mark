@@ -38,6 +38,7 @@ from safewatch import (
     evaluate,
     media,
     registry,
+    report_pdf,
     rules,
     seed,
     store,
@@ -3304,7 +3305,15 @@ def camera_passport(camera_id: int) -> CameraPassport:
 
 
 def shift_report_pdf(at: datetime | None = None) -> bytes:
-    raise NotImplementedError("slice 30")
+    settings = config.get_settings()
+    summary = shift_summary_view(at)
+    return report_pdf.shift_pdf(summary, settings.product_name, settings.timezone)
+
+
+def shift_report_name(at: datetime) -> str:
+    """File name of `GET /api/master/shift.pdf`: local start date and id of the shift."""
+    shift_id, _, start, _ = _shift_window(at if at.tzinfo else at.replace(tzinfo=UTC))
+    return f"shift-{start:%Y-%m-%d}-{shift_id}.pdf"
 
 
 def backend_close() -> None:

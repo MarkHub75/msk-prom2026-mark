@@ -500,7 +500,10 @@ async def camera_passport(camera_id: int) -> CameraPassport:
 
 @router.get("/api/master/shift.pdf", responses=PDF_FILE)
 async def shift_report_pdf(at: datetime | None = None) -> Response:
-    return Response(services.shift_report_pdf(at), media_type="application/pdf")
+    when = clock.now() if at is None else at  # one instant for the file and its name
+    name = services.shift_report_name(when)
+    headers = {"Content-Disposition": f'attachment; filename="{name}"'}
+    return Response(services.shift_report_pdf(when), media_type="application/pdf", headers=headers)
 
 
 # --- app ---------------------------------------------------------------------------------
