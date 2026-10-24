@@ -1,8 +1,9 @@
-"""Background loops of the server process (tech.md 4): jobs, broadcast tick, escalation tick.
+"""Background loops of the server process (tech.md 4): jobs, ticks, deliveries.
 
 The job loop runs one job at a time and polls the queue while it is empty; the broadcast loop
 calls `broadcast_tick` every `broadcast.tick_ms`, the escalation loop `escalation_tick` every
-`escalation.tick_ms`. All stop within one period of `stop`.
+`escalation.tick_ms`, the delivery loop `deliveries_flush` every `broadcast.tick_ms` (a slow
+webhook delays only itself). All stop within one period of `stop`.
 """
 
 import asyncio
@@ -42,9 +43,19 @@ async def _escalations(stop: asyncio.Event, tick_s: float) -> None:
         await asyncio.sleep(tick_s)
 
 
+async def _delivery(stop: asyncio.Event, tick_s: float) -> None:
+    while not stop.is_set():
+        try:
+            await services.deliveries_flush()
+        except Exception:  # one bad flush must not stop the deliveries for good
+            log.exception("delivery flush")
+        await asyncio.sleep(tick_s)
+
+
 async def run_forever(stop: asyncio.Event) -> None:
     settings = config.get_settings()
     async with asyncio.TaskGroup() as tg:
         tg.create_task(_jobs(stop, settings.jobs.idle_poll_ms / 1000))
         tg.create_task(_broadcasts(stop, settings.broadcast.tick_ms / 1000))
         tg.create_task(_escalations(stop, settings.escalation.tick_ms / 1000))
+        tg.create_task(_delivery(stop, settings.broadcast.tick_ms / 1000))

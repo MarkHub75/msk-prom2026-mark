@@ -12,12 +12,12 @@ from safewatch.config import Settings
 async def _periods(monkeypatch: pytest.MonkeyPatch) -> dict[str, set[float]]:
     stop = asyncio.Event()
     sleeps: list[float] = []
-    calls = {"tick": 0, "job": 0, "escalation": 0}
+    calls = {"tick": 0, "job": 0, "escalation": 0, "delivery": 0}
     real_sleep = asyncio.sleep
 
     async def fake_sleep(delay: float) -> None:
         sleeps.append(delay)
-        if len(sleeps) >= 9:
+        if len(sleeps) >= 12:
             stop.set()
         await real_sleep(0)
 
@@ -32,10 +32,15 @@ async def _periods(monkeypatch: pytest.MonkeyPatch) -> dict[str, set[float]]:
     async def job() -> None:
         calls["job"] += 1
 
+    async def flush() -> int:
+        calls["delivery"] += 1
+        return 0
+
     monkeypatch.setattr(asyncio, "sleep", fake_sleep)
     monkeypatch.setattr(services, "broadcast_tick", tick)
     monkeypatch.setattr(services, "escalation_tick", escalation)
     monkeypatch.setattr(services, "run_next_job", job)
+    monkeypatch.setattr(services, "deliveries_flush", flush)
     await asyncio.wait_for(worker.run_forever(stop), 5)
     assert min(calls.values()) >= 3
     return {"sleeps": set(sleeps)}
