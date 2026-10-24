@@ -256,6 +256,22 @@ def artifact_path(artifact_id: int) -> str:
     )
 
 
+def linq_metrics() -> list[sqlite3.Row]:
+    """Metrics of the artifacts the real TPU made, newest first (calculator, tech.md 8.25)."""
+    sql = """SELECT metrics_json FROM artifacts WHERE backend = 'linq' AND fake = 0
+ORDER BY created_at DESC, id DESC"""
+    return all(sql)
+
+
+def broadcast_event_counts(start: str, end: str) -> sqlite3.Row:
+    """Broadcast events started in [start, end) and the cameras they came from (tech.md 8.25)."""
+    sql = """SELECT count(*) AS events, count(DISTINCT camera_id) AS cameras FROM events
+WHERE is_demo = 0 AND status != 'superseded' AND started_at >= ? AND started_at < ?"""
+    row = one(sql, start, end)
+    assert row is not None  # an aggregate always returns one row
+    return row
+
+
 # --- analyses -----------------------------------------------------------------------------
 def analysis_next_version(video_id: int) -> int:
     row = one("SELECT coalesce(max(version), 0) + 1 FROM analyses WHERE video_id = ?", video_id)

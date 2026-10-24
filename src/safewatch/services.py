@@ -15,6 +15,7 @@ import logging
 import math
 import shutil
 import sqlite3
+import statistics
 import time
 import uuid
 from collections import Counter
@@ -28,6 +29,7 @@ import yaml
 from pydantic import BaseModel, ValidationError
 
 from safewatch import (
+    calculator,
     clock,
     config,
     delivery,
@@ -64,6 +66,7 @@ from safewatch.types import (
     BackendStatus,
     Broadcast,
     BroadcastIn,
+    CalcAssumption,
     CalculatorDefaults,
     Calibration,
     CalibrationIn,
@@ -2950,16 +2953,122 @@ def artifact_import(
         return store.insert("artifacts", values)
 
 
+CALC_EXAMPLE = RolloutIn(
+    workshops=2,
+    cameras=8,
+    shifts_per_day=2,
+    workers=200,
+    operators=2,
+    incidents_per_year=4,
+    downtime_cost_rub=500_000,
+    fine_cost_rub=200_000,
+    treatment_cost_rub=300_000,
+    lawsuit_cost_rub=500_000,
+)  # tech.md 8.25: the demo plant, the screen labels it as an example to replace
+CALC_DIVISORS = frozenset({"accelerator.capacity_fps", "accelerators_per_server"})  # 0 → no answer
+
+
+def _calc_invalid(field: str) -> ValidationFailed:
+    return ValidationFailed(texts.CALC_INVALID.format(field=field), field=field)
+
+
+def _calc_assumptions(overrides: dict[str, float]) -> dict[str, CalcAssumption]:
+    """Config assumptions with the request overrides; an overridden number names its source."""
+    found = {
+        c.key: CalcAssumption.model_validate(c.model_dump())
+        for c in config.get_settings().calculator.assumptions
+    }
+    for key, value in overrides.items():
+        if key not in found or value < 0 or (value == 0 and key in CALC_DIVISORS):
+            raise _calc_invalid(f"overrides.{key}")
+        found[key] = found[key].model_copy(update={"value": value, "source": texts.CALC_OVERRIDDEN})
+    return found
+
+
+def _calc_numbers(data: RolloutIn | ScaleIn, at_least_one: tuple[str, ...]) -> None:
+    for field, value in data.model_dump(exclude={"overrides"}).items():
+        if value < (1 if field in at_least_one else 0):
+            raise _calc_invalid(field)
+
+
+def _linq_runs() -> list[dict[str, Any]]:
+    """Metrics of real LinQ artifacts, newest first; one imported without metrics has 0 fps."""
+    runs = [json.loads(row["metrics_json"]) for row in store.linq_metrics()]
+    return [m for m in runs if m["throughput_fps"] > 0]
+
+
+def _measured_capacity(runs: list[dict[str, Any]]) -> CalcAssumption | None:
+    if not runs:
+        return None
+    return CalcAssumption(
+        key="measured.capacity_fps",
+        title=texts.CALC_CAPACITY,
+        value=statistics.median(m["throughput_fps"] for m in runs),
+        unit="кадр/с",
+        source=texts.measured_jobs(len(runs)),
+        editable=False,
+    )
+
+
+def _events_per_camera_day() -> float | None:
+    """Broadcast events of `stats.default_days` days per camera that had them, per day."""
+    days = config.get_settings().stats.default_days
+    end = clock.now()
+    row = store.broadcast_event_counts(clock.iso(end - timedelta(days=days)), clock.iso(end))
+    return float(row["events"] / row["cameras"] / days) if row["events"] else None
+
+
 def calculator_defaults() -> CalculatorDefaults:
-    raise NotImplementedError("slice 24")
+    runs = _linq_runs()
+    measured = [m for m in [_measured_capacity(runs)] if m is not None]
+    rtt = [m["tpu_rtt_p50_ms"] for m in runs[:RECENT_JOBS] if m["tpu_rtt_p50_ms"] is not None]
+    if rtt:
+        measured.append(
+            CalcAssumption(
+                key="measured.tpu_rtt_p50_ms",
+                title=texts.CALC_RTT,
+                value=statistics.median(rtt),
+                unit="мс",
+                source=texts.measured_jobs(len(rtt)),
+                editable=False,
+            )
+        )
+    events = _events_per_camera_day()
+    if events is not None:
+        days = config.get_settings().stats.default_days
+        measured.append(
+            CalcAssumption(
+                key="measured.events_per_camera_day",
+                title=texts.CALC_EVENTS,
+                value=events,
+                unit="шт.",
+                source=texts.CALC_EVENTS_SOURCE.format(days=days),
+                editable=False,
+            )
+        )
+    return CalculatorDefaults(
+        rollout=CALC_EXAMPLE,
+        scale=ScaleIn(cameras_now=8, new_cameras=8),
+        assumptions=list(_calc_assumptions({}).values()),
+        measured=measured,
+    )
 
 
 def calculator_rollout(data: RolloutIn, role: Role | None) -> RolloutResult:
-    raise NotImplementedError("slice 24")
+    _require(role, ("management",))
+    _calc_numbers(data, ("workshops", "cameras"))
+    found = _calc_assumptions(data.overrides)
+    fps = config.get_settings().pipeline.target_analysis_fps
+    return calculator.rollout(data, found, fps, _events_per_camera_day())
 
 
 def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult:
-    raise NotImplementedError("slice 24")
+    _require(role, ("management", "admin"))
+    _calc_numbers(data, ())
+    found = _calc_assumptions(data.overrides)
+    capacity = _measured_capacity(_linq_runs()) or found["accelerator.capacity_fps"]
+    fps = config.get_settings().pipeline.target_analysis_fps
+    return calculator.scale(data, found, fps, capacity.value, capacity.source)
 
 
 async def datasets_flush() -> int:

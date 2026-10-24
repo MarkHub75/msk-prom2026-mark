@@ -301,18 +301,78 @@ shift:                             # S32
 
 calculator:
   assumptions:
-    - {key: accelerator.capacity_fps, title: "Пропускная способность одного ускорителя LinQ", value: 12.4, unit: "кадр/с", source: "замер LinQ 24.10 14:52: детектор 640, inflight 4, общая очередь площадки"}
-    - {key: models_per_frame, title: "Запросов к TPU на кадр", value: 2, unit: "шт.", source: "конвейер Argus: детектор и pose"}
-    - {key: accelerators_per_server, title: "Ускорителей в одном сервере", value: 4, unit: "шт.", source: "допущение команды, уточнить у ХайТэк"}
-    - {key: accelerator.price_rub, title: "Цена ускорителя LinQ", value: 500000, unit: "₽", source: "допущение команды: цена не опубликована, заменить ценой поставщика"}
-    - {key: server.price_rub, title: "Цена сервера под ускорители", value: 350000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
-    - {key: integration_rub, title: "Пусконаладка и подключение камер", value: 300000, unit: "₽", source: "допущение команды"}
-    - {key: support_share_year, title: "Поддержка в год, доля от вложений", value: 0.15, unit: "доля", source: "допущение команды"}
-    - {key: light_sound_rub, title: "Световой и звуковой сигнал у зоны", value: 25000, unit: "₽ за зону", source: "допущение команды, уточнить у поставщика"}
-    - {key: zones_per_camera, title: "Сигнальных зон на камеру", value: 1, unit: "шт.", source: "допущение команды"}
-    - {key: speaker_rub, title: "Громкоговоритель в цех", value: 40000, unit: "₽ за цех", source: "допущение команды, уточнить у поставщика"}
-    - {key: new_camera_rub, title: "Новая IP-камера с монтажом", value: 30000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
-    - {key: new_cameras_share, title: "Доля новых камер на максимальном уровне", value: 0.2, unit: "доля", source: "допущение команды"}
-    - {key: reduction.base, title: "Снижение инцидентов: базовый уровень", value: 0.2, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
-    - {key: reduction.extended, title: "Снижение инцидентов: расширенный уровень", value: 0.3, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
-    - {key: reduction.max, title: "Снижение инцидентов: максимальный уровень", value: 0.4, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+    - key: accelerator.capacity_fps
+      title: "Пропускная способность одного ускорителя LinQ"
+      value: 12.4
+      unit: "кадр/с"
+      source: "замер LinQ 24.10 14:52: детектор 640, inflight 4, общая очередь площадки"
+    - key: models_per_frame
+      title: "Запросов к TPU на кадр"
+      value: 2
+      unit: "шт."
+      source: "конвейер Argus: детектор и pose"
+    - key: accelerators_per_server
+      title: "Ускорителей в одном сервере"
+      value: 4
+      unit: "шт."
+      source: "допущение команды, уточнить у ХайТэк"
+    - key: accelerator.price_rub
+      title: "Цена ускорителя LinQ"
+      value: 500000
+      unit: "₽"
+      source: "допущение команды: цена не опубликована, заменить ценой поставщика"
+    - key: server.price_rub
+      title: "Цена сервера под ускорители"
+      value: 350000
+      unit: "₽"
+      source: "допущение команды, уточнить у поставщика"
+    - key: integration_rub
+      title: "Пусконаладка и подключение камер"
+      value: 300000
+      unit: "₽"
+      source: "допущение команды"
+    - key: support_share_year
+      title: "Поддержка в год, доля от вложений"
+      value: 0.15
+      unit: "доля"
+      source: "допущение команды"
+    - key: light_sound_rub
+      title: "Световой и звуковой сигнал у зоны"
+      value: 25000
+      unit: "₽ за зону"
+      source: "допущение команды, уточнить у поставщика"
+    - key: zones_per_camera
+      title: "Сигнальных зон на камеру"
+      value: 1
+      unit: "шт."
+      source: "допущение команды"
+    - key: speaker_rub
+      title: "Громкоговоритель в цех"
+      value: 40000
+      unit: "₽ за цех"
+      source: "допущение команды, уточнить у поставщика"
+    - key: new_camera_rub
+      title: "Новая IP-камера с монтажом"
+      value: 30000
+      unit: "₽"
+      source: "допущение команды, уточнить у поставщика"
+    - key: new_cameras_share
+      title: "Доля новых камер на максимальном уровне"
+      value: 0.2
+      unit: "доля"
+      source: "допущение команды"
+    - key: reduction.base
+      title: "Снижение инцидентов: базовый уровень"
+      value: 0.2
+      unit: "доля"
+      source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"
+    - key: reduction.extended
+      title: "Снижение инцидентов: расширенный уровень"
+      value: 0.3
+      unit: "доля"
+      source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"
+    - key: reduction.max
+      title: "Снижение инцидентов: максимальный уровень"
+      value: 0.4
+      unit: "доля"
+      source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"

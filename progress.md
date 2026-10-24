@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S23 закрыт, следующий S24
+- state: tech v6, второй прогон: S24 закрыт, следующий S25
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -43,6 +43,13 @@
 - GAP: S23, `deliveries_flush`: каналы `webhook:<name>` по порядку `delivery.webhooks`, затем `call:<name>` по `delivery.calls`; тело webhook — `EventSummary` с `level` строки очереди (`notification_text` — текущий текст события); строка очереди удаляется после всех каналов, в том числе когда каналов нет или ни один не подошёл; `event.updated` — после каждой строки канала `call`; `CallChannel.deliver` → `(True, None, "")`, `delivered_at = at` только у успешного звонка.
 - GAP: S23, `system_view.channels`: webhook-каналы, затем каналы звонка (`kind="call"`); фронт: пункт меню оператора «С телефона» (`/m/operator`), `EventScreen` показывает `status_text` непустых доставок под историей, `ACTION_TITLES` экспортирован из `EventScreen` (кнопки `OperatorMobileEvent`); `MasterInbox` открывает карточку только на уведомление с `id`, оканчивающимся на `:to_master`.
 - R25: S23 — тело webhook жёлтой публикации, эскалированной до flush, несёт `level: yellow`, но `text` — текущий `notification_text` события («Красная опасность …»); решить, нужен ли текст на момент постановки (8.24 о тексте молчит).
+- GAP: S24, `overrides` заменяет у `CalcAssumption` и `value`, и `source`: `texts.CALC_OVERRIDDEN = "задано в расчёте"` (иначе число пользователя шло бы с подписью конфига).
+- GAP: S24, проверка чисел: `ValidationFailed(texts.CALC_INVALID = "Неверное значение: {field}", field=<поле>)`, у `overrides` поле `overrides.<ключ>`; 0 у делителей `accelerator.capacity_fps`, `accelerators_per_server` (`services.CALC_DIVISORS`) тоже 422; `ScaleIn.cameras_now` и `new_cameras` — от 0 (0 текущих — новое внедрение); роль проверяется до чисел.
+- GAP: S24, строки расчёта: последний `WhyItem` каждого `TierResult.items` — `("Окупаемость", "<fmt_num> мес.")` или `("Окупаемость", "Не окупается при этих допущениях")`; строки вложений по уровню нарастают (`texts.CALC_ACCELERATORS`, `CALC_SERVERS`, `CALC_INTEGRATION`, `CALC_LIGHT_SOUND`, `CALC_SPEAKERS`, `CALC_NEW_CAMERAS`), `texts.fmt_rub(x)` («500 000 ₽»), количество — целое или `fmt_num`; `texts.CALC_TIER_TITLES` «Базовый», «Расширенный», «Максимальный»; `ScaleResult.items` — добавленные ускорители, серверы, новые камеры; `calculator._ceil` округляет до 9 знаков перед `ceil` (шум float).
+- GAP: S24, замеры: `store.linq_metrics()` (`metrics_json` артефактов `backend = linq`, `fake = 0`, новые первыми), учитываются только `throughput_fps > 0` (артефакт, импортированный без `metrics`, даёт 0 и делил бы на ноль); `CalculatorDefaults.measured` — ключи `measured.capacity_fps` (медиана, источник `texts.measured_jobs(n)` «замер приложения: N задач»), `measured.tpu_rtt_p50_ms` (медиана `tpu_rtt_p50_ms` последних `RECENT_JOBS` = 20 артефактов), `measured.events_per_camera_day` (`texts.CALC_EVENTS_SOURCE`); нет данных — строки нет; `calculator_scale` берёт `measured.capacity_fps` целиком (значение и подпись).
+- GAP: S24, «живая камера» 8.25 — камера, у которой есть событие эфира в окне: `events_per_camera_day = события / камеры с событиями / stats.default_days`, окно `[now − default_days, now)` по `started_at`, `store.broadcast_event_counts(start, end) -> Row(events, cameras)`.
+- GAP: S24, подпись примера «пример для демо, замените своими» показывает экран Егора: у `CalculatorDefaults` поля под неё нет, текст в `texts` не заведён (был бы мёртвым кодом); пример завода — `services.CALC_EXAMPLE`, `ScaleIn` — 8 + 8.
+- R25: S24 — «живая камера» прочитана как камера с событиями эфира в окне (GAP); проверить, не нужна ли камера без `deleted_at` или с эфиром (при одной камере с событиями из десяти показатель на оператора завышен).
 
 ## log
 
@@ -259,6 +266,13 @@
 - проверено вживую: нет (S23 без LinQ и без телефонии) | не проверено: реальный провайдер звонков (его нет, 8.24).
 - [проверить]: нет
 - следующему: `tests/test_delivery.py::calls(monkeypatch, core, to, levels, webhooks)` — конфиг с каналом звонка `master`; `queue(event_id, kind, level)` — строка очереди тем же путём, что ядро; `test_queue_survives_restart` — образец теста на файловой базе в `tmp_path` (`store._conn = None`, закрыть соединение в `finally`).
+
+### S24: calculator (2026-10-24, PR #31, tech v6)
+- отклонения: `tests/test_api_skeleton.py` — три маршрута калькулятора убраны из `V5_REQUESTS` (вместе с `ROLLOUT`); `config/default.yaml`: 15 допущений `calculator.assumptions` переписаны из flow-записи `- {key: ...}` (6.11.8) в блочную `- key: ...` с теми же значениями (искомая строка трассировки 6.7 `- key: accelerator.capacity_fps`, загрузка YAML даёт тот же объект); `api.py` не менялся (маршруты положил S16).
+- решения вне контракта: строки `GAP: S24` в `## open`; пример `calculator_defaults` даёт базовый уровень «не окупается» (1 200 000 ≤ 1 455 000 ₽ в год), расширенный — 377,1 мес., максимальный — 134,8 мес.; мутации (2, 10.3): граница окупаемости `>` → `>=` — ловит `test_payback_none_when_not_profitable` (деление на ноль при равенстве); `capex` масштабирования по всем ускорителям вместо добавленных — ловит `test_scale_accelerators_from_measured`; обе откачены. Тестов со временем и конкурентностью нет (`fake_clock` только задаёт окно журнала).
+- проверено вживую: нет (S24 без LinQ) | не проверено: —
+- [проверить]: нет
+- следующему: `tests/test_calculator.py::artifact(throughput_fps, backend, fake, rtt)` — строка артефакта с `metrics_json` тем же путём, что ядро; `defaults`, `rollout(client, **update)`, `scale(client, **body)`.
 
 ## night
 

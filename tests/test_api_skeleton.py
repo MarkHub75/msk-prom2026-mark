@@ -57,15 +57,7 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
     assert missing == []
 
 
-ROLLOUT = {
-    "workshops": 1, "cameras": 4, "shifts_per_day": 2, "workers": 100, "operators": 1,
-    "incidents_per_year": 2, "downtime_cost_rub": 1, "fine_cost_rub": 1,
-    "treatment_cost_rub": 1, "lawsuit_cost_rub": 1,
-}  # fmt: skip
 V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
-    ("get", "/api/calculator/defaults", None, "24"),
-    ("post", "/api/calculator/rollout", ROLLOUT, "24"),
-    ("post", "/api/calculator/scale", {"cameras_now": 4, "new_cameras": 2}, "24"),
     ("get", "/api/datasets/false-alarms", None, "25"),
     ("get", "/api/datasets/false-alarms/export.zip", None, "25"),
     ("patch", "/api/events/1/identity", {"person_name": "Иванов"}, "26"),

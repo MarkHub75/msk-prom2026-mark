@@ -3,6 +3,7 @@
 from safewatch import clock
 from safewatch.types import (
     ActorRole,
+    CalcTier,
     Job,
     JobErrorCode,
     Level,
@@ -410,6 +411,40 @@ DELIVERY_UNREACHABLE = "нет связи ({error})"
 CALL_SENT = "Звонок отправлен"
 CALL_DELIVERED_STUB = "Звонок доставлен (заглушка)"
 CALL_NO_NUMBER = "заглушка"
+
+# Payback and scale calculator (slice 24, tech.md 8.25): tier titles, breakdown lines, sources
+# and titles of the measured numbers.
+CALC_INVALID = "Неверное значение: {field}"
+CALC_TIER_TITLES: dict[CalcTier, str] = {
+    "base": "Базовый",
+    "extended": "Расширенный",
+    "max": "Максимальный",
+}
+CALC_ACCELERATORS = "Ускорители LinQ"
+CALC_SERVERS = "Серверы под ускорители"
+CALC_INTEGRATION = "Пусконаладка и подключение камер"
+CALC_LIGHT_SOUND = "Световой и звуковой сигнал у зон"
+CALC_SPEAKERS = "Громкоговорители в цеха"
+CALC_NEW_CAMERAS = "Новые IP-камеры с монтажом"
+CALC_PAYBACK = "Окупаемость"
+CALC_PAYBACK_MONTHS = "{n} мес."
+CALC_NOT_PROFITABLE = "Не окупается при этих допущениях"
+CALC_OVERRIDDEN = "задано в расчёте"
+CALC_CAPACITY = "Пропускная способность одного ускорителя LinQ по замеру"
+CALC_RTT = "Время ответа TPU, p50 последних задач LinQ"
+CALC_EVENTS = "Событий эфира на камеру в день"
+CALC_EVENTS_SOURCE = "журнал: события эфира за {days} дн. на камеру с событиями"
+
+
+def fmt_rub(x: float) -> str:
+    """Whole rubles with space groups: 500000 → "500 000 ₽"."""
+    return f"{round(x):,} ₽".replace(",", " ")
+
+
+def measured_jobs(n: int) -> str:
+    """«замер приложения: 2 задачи»: the source of a number measured on LinQ."""
+    one, few = n % 10 == 1 and n % 100 != 11, 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14
+    return f"замер приложения: {n} {'задача' if one else 'задачи' if few else 'задач'}"
 
 
 def weeks_span(n: int) -> str:
