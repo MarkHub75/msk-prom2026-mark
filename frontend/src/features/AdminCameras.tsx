@@ -213,7 +213,7 @@ export function AdminCamerasPage() {
               <td><Source camera={c} tile={tile} /></td>
               <td className="adm-setup-cell"><span className={c.has_calibration ? "adm-ok" : "adm-muted"}>{c.has_calibration ? "Калибровка есть" : "Без калибровки"}</span><span className="adm-muted">Зон: {c.zones_count}</span></td>
               <td className="adm-row-tools">
-                <Link className="button button-small" to={`/admin/cameras/${c.id}`}><Settings2 {...I} />Настроить</Link>
+                <Link className="button button-small" to={`/admin/cameras/${c.id}`}><Settings2 {...I} /><span>Настроить</span></Link>
                 <button className="adm-icon" aria-label={`Изменить камеру ${c.name}`} onClick={() => setDialog({ kind: "camera", camera: c })}><Pencil {...I} /></button>
                 <button className="adm-icon adm-icon-danger" aria-label={`Удалить камеру ${c.name}`} onClick={() => setDialog({ kind: "delete-camera", camera: c })}><Trash2 {...I} /></button>
               </td>

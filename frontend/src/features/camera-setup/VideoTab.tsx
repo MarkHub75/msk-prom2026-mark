@@ -170,7 +170,9 @@ export function VideoTab({ camera, videos, jobs, onJob, onChange }: { camera: Ca
     <div className="adm-video-main">
       <section className="adm-panel adm-player" data-panel={video ? `Просмотр с HUD · ${video.filename}` : "Просмотр с HUD"}>
         {!video ? <Empty title="Записей ещё нет" text="Загрузите видео справа: сервер проанализирует его, и здесь появится плеер с рамками объектов." />
-          : video.active_analysis_id === null ? <Empty title={video.status === "failed" ? "Анализ записи не удался" : "Анализ ещё не готов"} text={video.status === "failed" ? "Ошибка задачи показана справа. Повторите задачу, когда причина устранена." : "Плеер с HUD откроется, когда задача анализа закончится."} />
+          : video.active_analysis_id === null ? <Empty title={video.status === "failed" ? "Анализ записи не удался" : "Анализ ещё не готов"} text={video.status === "failed" ? "Ошибка задачи показана справа. Повторите задачу, когда причина устранена." : "Плеер с HUD откроется, когда задача анализа закончится."}>
+            {(() => { const job = lastJob(video); return job && job.status !== "done" && job.status !== "failed" ? <div className="adm-wait"><Bar value={job.progress} label="Прогресс анализа" /><span><span className="adm-tc">{Math.round(job.progress * 100)} %</span> · {STAGE[job.stage]}</span></div> : null; })()}
+          </Empty>
           : <VideoWithHud key={video.id} video={video} camera={camera.name} initialMs={seek} episodes={analysis.data?.episodes ?? []} />}
       </section>
       {video?.active_analysis_id != null && <Episodes video={video} analysis={analysis} onSeek={setSeek} onJob={onJob} onChange={onChange} />}
