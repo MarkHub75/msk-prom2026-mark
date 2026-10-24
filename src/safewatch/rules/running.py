@@ -15,6 +15,7 @@ from safewatch.types import (
 
 ID = "running"
 DANGER_KINDS = ("danger", "vehicle_path")
+AUTOCAL_SAMPLES = "autocal_samples"  # episode metric: standing people behind the "auto" speed
 
 
 def _near_vehicle(ctx: FrameContext, p: PersonState, params: dict[str, float]) -> bool:
@@ -51,9 +52,13 @@ class RunningPlugin:
     def observe(self, ctx: FrameContext, params: dict[str, float]) -> list[Observation]:
         out = []
         for p in ctx.persons:
-            if p.speed_m_s is not None:  # calibrated floor: meters per second
-                speed, limit, method = p.speed_m_s, params["speed_m_s"], "calibrated"
+            metrics: dict[str, float] = {}
+            if p.speed_m_s is not None:  # calibrated floor or autocalibration: m/s (8.21)
+                speed, limit = p.speed_m_s, params["speed_m_s"]
                 key, text = "speed_m_s", texts.RUN_M
+                method = "auto" if p.speed_source == "auto" else "calibrated"
+                if method == "auto" and ctx.auto_calibration is not None:
+                    metrics[AUTOCAL_SAMPLES] = ctx.auto_calibration.samples
             elif p.speed_bh_s is not None:
                 speed, limit, method = p.speed_bh_s, params["speed_bh_s"], "relative"
                 key, text = "speed_bh_s", texts.RUN_BH
@@ -88,7 +93,7 @@ class RunningPlugin:
                     reason_code=code,
                     reason_text=reason,
                     method=method,
-                    metrics={key: speed},
+                    metrics={key: speed} | metrics,
                     zone_id=zone_id,
                 )  # fmt: skip
             )
@@ -96,8 +101,17 @@ class RunningPlugin:
 
     def explain(self, episode: EpisodeDraft, params: dict[str, float]) -> list[WhyItem]:
         hold = texts.fmt_num(params["red_hold_s" if episode.level_initial == "red" else "hold_s"])
-        if episode.method == "calibrated":
+        if episode.method in ("calibrated", "auto"):
             rule = texts.WHY_RUN_M.format(v=texts.fmt_num(params["speed_m_s"]), s=hold)
         else:
             rule = texts.WHY_RUN_BH.format(v=texts.fmt_num(params["speed_bh_s"]), s=hold)
-        return [WhyItem(label=texts.WHY_RULE, value=rule), *why_common(episode)]
+        items = [WhyItem(label=texts.WHY_RULE, value=rule)]
+        # The source of the speed (tech.md 8.21); the sample count is no metric of its own.
+        samples = episode.metrics.get(AUTOCAL_SAMPLES)
+        if episode.method == "auto" and samples is not None:
+            source = texts.WHY_SPEED_AUTO.format(n=round(samples))
+            items.append(WhyItem(label=texts.WHY_SPEED, value=source))
+        elif episode.method == "calibrated":
+            items.append(WhyItem(label=texts.WHY_SPEED, value=texts.WHY_SPEED_CALIBRATION))
+        metrics = {k: v for k, v in episode.metrics.items() if k != AUTOCAL_SAMPLES}
+        return [*items, *why_common(episode.model_copy(update={"metrics": metrics}))]

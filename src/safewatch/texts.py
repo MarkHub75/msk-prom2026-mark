@@ -158,8 +158,10 @@ def fmt_num(x: float) -> str:
 # HUD tags and object labels (tech.md 8.2 item 8).
 HUD_SPEED_BH = "{v} роста/с"
 HUD_RUN_BH = "бег {v} роста/с"
-HUD_SPEED_M = "{v} м/с"
-HUD_RUN_M = "бег {v} м/с"
+HUD_SPEED_M = "{v} м/с (калибровка)"
+HUD_RUN_M = "бег {v} м/с (калибровка)"
+HUD_SPEED_M_AUTO = "≈{v} м/с (авто)"
+HUD_RUN_M_AUTO = "бег ≈{v} м/с (авто)"
 HUD_LYING = "лежит {n} с"
 HUD_STILL = "неподвижен {n} с"
 HUD_FEET_HIDDEN = "ноги не видны"
@@ -253,6 +255,9 @@ WHY_HOLD = "{rule} дольше {s} с"
 WHY_RULE = "Правило"
 WHY_RUN_BH = "Бег: скорость выше {v} роста/с дольше {s} с"
 WHY_RUN_M = "Бег: скорость выше {v} м/с дольше {s} с"
+WHY_SPEED = "Скорость"
+WHY_SPEED_AUTO = "автокалибровка по росту людей ({n} замеров, точность около ±20 %)"
+WHY_SPEED_CALIBRATION = "по калибровке камеры"
 WHY_FALL = "Падение: переход стоя → лёжа не дольше {t} с, лежит дольше {s} с"
 WHY_LYING = "Неподвижность: лежит без движения дольше {s} с"
 WHY_METHOD = "Метод"
@@ -263,6 +268,7 @@ METHOD_TITLES = {
     "pose": "поза",
     "bbox": "рамка",
     "calibrated": "калибровка",
+    "auto": "автокалибровка",
     "relative": "в ростах человека",
 }
 METRIC_TITLES = {
@@ -274,6 +280,8 @@ METRIC_TITLES = {
     "distance_m": "Дистанция до техники, м",
     "score": "Уверенность объекта",
 }
+AUTOCAL_FEW = "Мало стоящих людей в кадре: {n} из {need}"
+AUTOCAL_PERSPECTIVE = "Рост людей не согласуется с перспективой"
 EVIDENCE_NOT_FOUND = "Кадр не найден"
 ARTIFACTS_MISSING = "Нет результатов инференса этого видео: загрузите его заново"
 

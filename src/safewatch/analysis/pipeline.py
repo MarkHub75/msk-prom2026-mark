@@ -6,7 +6,7 @@ from pathlib import Path
 
 from safewatch import config as app_config
 from safewatch import media, rules
-from safewatch.analysis import features, geometry, hud, observability
+from safewatch.analysis import autocal, features, geometry, hud, observability
 from safewatch.analysis.episodes import EpisodeManager
 from safewatch.analysis.tracking import Tracker
 from safewatch.types import (
@@ -79,6 +79,12 @@ def analyze(
         rule.effective | rule.params if rule is not None else {}
     )
     ground = _ground(config)
+    # Fitted anew on every analysis and recompute; the manual calibration wins (tech.md 8.21).
+    person_cls = {cls for cls, name in det_model.classes.items() if name == "person"}
+    cal = autocal.fit(
+        det, person_cls, config.width, config.height, settings.autocal,
+        settings.features.upright_hw, settings.tracker.high_thresh,
+    )  # fmt: skip
     plugins = _plugins(config)
     episodes = EpisodeManager(settings.episodes)
     frames: list[HudFrame] = []
@@ -131,13 +137,15 @@ def analyze(
                 settings.features,
                 settings.pose.kpt_conf,
                 ground,
+                cal,
             ),
             vehicles=features.vehicle_states(
-                machines.update(ts, vehicles), ts, vehicle_history, settings.features, ground
+                machines.update(ts, vehicles), ts, vehicle_history, settings.features, ground, cal
             ),
             objects=objects,
             zones=config.zones,
             calibrated=config.calibration is not None,
+            auto_calibration=cal,
         )
         observations: list[Observation] = []
         for plugin, params in plugins:
@@ -151,4 +159,5 @@ def analyze(
         episodes=episodes.finish(config.duration_ms),
         gaps=gaps,
         pose_used=pose is not None,
+        auto_calibration=cal,
     )

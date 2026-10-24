@@ -153,7 +153,7 @@ def _config(calibration: Calibration | None, rules: dict[str, CameraRule]) -> An
 
 def _speed_tags(result_hud: list[Any]) -> set[tuple[str, str | None]]:
     tags = {(t.text, t.level) for f in result_hud for o in f.objects for t in o.tags}
-    return {(text.split(" ")[-1], level) for text, level in tags}
+    return {(text.split(" (")[0].split(" ")[-1], level) for text, level in tags}
 
 
 def test_running_uses_m_s_with_calibration(core: Settings) -> None:

@@ -33,11 +33,16 @@ def _person_tags(
     p: PersonState, ts_ms: int, running: dict[str, float], cfg: FeaturesConfig
 ) -> list[HudTag]:
     tags = []
-    speed, limit, run_text, speed_text = (
-        (p.speed_m_s, running["speed_m_s"], texts.HUD_RUN_M, texts.HUD_SPEED_M)
-        if p.speed_m_s is not None  # calibrated floor, as in the running rule
-        else (p.speed_bh_s, running["speed_bh_s"], texts.HUD_RUN_BH, texts.HUD_SPEED_BH)
-    )
+    # Meters from the calibrated floor or the autocalibration, as in the running rule (8.21).
+    speed: float | None
+    if p.speed_m_s is not None:
+        auto = p.speed_source == "auto"
+        speed, limit = p.speed_m_s, running["speed_m_s"]
+        run_text = texts.HUD_RUN_M_AUTO if auto else texts.HUD_RUN_M
+        speed_text = texts.HUD_SPEED_M_AUTO if auto else texts.HUD_SPEED_M
+    else:
+        speed, limit = p.speed_bh_s, running["speed_bh_s"]
+        run_text, speed_text = texts.HUD_RUN_BH, texts.HUD_SPEED_BH
     if speed is not None:
         v = texts.fmt_num(speed)
         # Same comparison as the running rule: the HUD turns yellow where the rule would fire.
