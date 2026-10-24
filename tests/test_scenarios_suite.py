@@ -148,5 +148,13 @@ class ScenarioSuiteTests(unittest.TestCase):
         config,_=build_case('02');config.pop('camera_id')
         with self.assertRaises(ValueError):ScenarioSuite(config)
 
+    def test_immobility_candidate_keeps_observed_support_and_confirmation_times(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            config,batches=build_case('07');pipe=self.pipeline(Path(tmp),config)
+            for batch in batches:pipe.process(batch)
+            event=next(e for e in self.candidates(pipe) if e['type']=='immobility_observed')
+            self.assertEqual(event['start_media_ms'],event['attributes']['immobility_since_media_ms'])
+            self.assertEqual(event['confirmed_media_ms'],event['attributes']['immobility_confirmed_media_ms'])
+
 
 if __name__=='__main__':unittest.main()

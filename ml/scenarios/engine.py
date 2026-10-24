@@ -147,6 +147,9 @@ class ScenarioSuite:
                     if f['scenario_id']=='07' and f['subrule'] in ('suspected_fall','prolonged_lying'):
                         a,b=f['attributes'].get('legacy_start_media_ms'),f['attributes'].get('legacy_confirmed_media_ms')
                         if finite(a) and finite(b) and 0<=a<=b<=t:source_start,source_confirm=a,b
+                    elif f['scenario_id']=='07' and f['subrule']=='immobility_observed':
+                        a,b=f['attributes'].get('immobility_since_media_ms'),f['attributes'].get('immobility_confirmed_media_ms')
+                        if finite(a) and finite(b) and 0<=a<=b<=t:source_start,source_confirm=a,b
                     event={'schema_version':'1.0','contract':'mosprom.event_candidate.v1','candidate_id':identity,'revision':1,
                            'scenario_id':f['scenario_id'],'subrule':f['subrule'],'type':f['subrule'],'camera_id':cid,'stream_epoch':epoch,
                            'track_key':f['track_key'],'state':'open','start_media_ms':source_start,'confirmed_media_ms':source_confirm}
