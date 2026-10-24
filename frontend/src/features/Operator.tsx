@@ -29,7 +29,7 @@ function Stage({ tile, sector, event }: { tile?: CameraTile; sector?: SectorStat
   if (!tile) return <div className="cr-stage cr-stage-empty"><Empty title="Камера не выбрана" text={sector ? sector.reason_text : "Выберите сектор внизу экрана."} /></div>;
   const state = tile.state.state;
   const evidence = detail.data?.episode?.evidence[0];
-  return <section className={`cr-stage cr-frame-${state}`} aria-label={`Камера ${tile.camera.name}`}>
+  return <section className={`cr-stage cr-frame-${state}`} data-panel="Монитор камеры" aria-label={`Камера ${tile.camera.name}`}>
     <div className="cr-stage-media">
       {live.data?.video ? <VideoWithHud video={live.data.video} camera={tile.camera.name} broadcast={live.data.broadcast} episodes={live.data.analysis?.episodes} initialMs={live.data.broadcast?.position_ms ?? 0} />
         : tile.preview_url ? <div className="cr-still"><img src={mediaUrl(tile.preview_url)} alt={`Кадр камеры ${tile.camera.name}`} /><span className="cr-still-note">Последний кадр записи</span></div>
@@ -119,7 +119,7 @@ function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; 
   const rank = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
   const tiles = [...(views.data ?? [])].sort((a, b) => rank[a.state.state] - rank[b.state.state] || a.camera.id - b.camera.id);
   if (!tiles.length) return null;
-  return <section className="cr-strip" aria-label="Все камеры завода">
+  return <section className="cr-strip" data-panel="Камеры завода" aria-label="Все камеры завода">
     <div className="cr-strip-head"><h2>Камеры завода</h2><span className="mono">{tiles.filter(t => t.state.state !== "no_observation").length}/{tiles.length} наблюдаются</span></div>
     <div className="cr-strip-row">{tiles.map(tile => <WallTile key={tile.camera.id} tile={tile} selected={tile.camera.id === focusCamera} onSelect={() => onPick(tile.camera.sector_id, tile.camera.id)} />)}</div>
   </section>;
@@ -166,12 +166,12 @@ export function OperatorPage() {
     <div className="cr-grid">
       <div className="cr-wall">
         <Stage tile={focusTile} sector={focusSector} event={stageEvent} />
-        <div className="cr-side">
+        <div className="cr-side" data-panel="Камеры сектора">
           {sectorView.error ? <ErrorNotice error={sectorView.error} compact retry={sectorView.reload} /> : tiles.map(tile => <WallTile key={tile.camera.id} tile={tile} selected={tile.camera.id === focusTile?.camera.id} onSelect={() => setPickedCamera(tile.camera.id)} />)}
           {focusSector && <Link className="cr-side-link" to={`/operator/sectors/${focusSector.sector_id}`}>Все камеры сектора <Icon name="chevron" size={14} /></Link>}
         </div>
       </div>
-      <aside className="cr-queue" aria-label="Очередь тревог">
+      <aside className="cr-queue" data-panel="Очередь тревог" aria-label="Очередь тревог">
         <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{waiting.length}</span></div>
         <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
         {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Камеры без наблюдения показаны в полосе секторов: отсутствие тревог там не означает безопасность.</span></div>}
@@ -180,7 +180,7 @@ export function OperatorPage() {
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
       </aside>
       <ShiftLine />
-      <section className="cr-sectors" aria-label="Секторы производства">
+      <section className="cr-sectors" data-panel="Секторы" aria-label="Секторы производства">
         {sectors.length ? sectors.map(sector => <SectorCell key={sector.sector_id} sector={sector} selected={sector.sector_id === focusSector?.sector_id} onSelect={() => selectSector(sector.sector_id)} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}
       </section>
       <PlantStrip sectors={sectors} focusCamera={focusTile?.camera.id} onPick={(sector, camera) => { setPickedSector(sector); setPickedCamera(camera); }} />
