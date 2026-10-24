@@ -1,0 +1,22 @@
+{
+  "name": "safewatch-checkpoint-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Stateful demo mock of the SafeWatch critical path, director CLI and smoke tests",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "mock": "node src/server.mjs",
+    "demo": "node bin/demo.mjs",
+    "smoke": "node bin/smoke.mjs",
+    "smoke:mock": "node bin/smoke.mjs --target mock",
+    "smoke:real": "node bin/smoke.mjs --target real"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "ws": "^8.22.0"
+  }
+}

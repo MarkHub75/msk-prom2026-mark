@@ -1,0 +1,41 @@
+{
+  "note": "Ручная разметка синтетических кадров, не детекция модели. bbox: x1, y1, x2, y2 в долях кадра 0..1. Свой кадр: положите yellow.jpg / red.jpg (16:9), поправьте bbox и выполните demo reset.",
+  "yellow": {
+    "file": "yellow.jpg",
+    "frame_idx": 100,
+    "ts_ms": 4000,
+    "objects": [
+      {
+        "track_id": 1,
+        "kind": "person",
+        "label": "человек · ручная разметка",
+        "score": 1.0,
+        "bbox": [0.42, 0.26, 0.54, 0.88],
+        "kpts": null,
+        "tags": [
+          { "code": "manual", "text": "ручная разметка, не нейросеть", "level": null },
+          { "code": "speed", "text": "бег 2,4 роста/с", "level": "yellow" }
+        ]
+      }
+    ]
+  },
+  "red": {
+    "file": "red.jpg",
+    "frame_idx": 250,
+    "ts_ms": 10000,
+    "objects": [
+      {
+        "track_id": 1,
+        "kind": "person",
+        "label": "человек · ручная разметка",
+        "score": 1.0,
+        "bbox": [0.30, 0.66, 0.68, 0.86],
+        "kpts": null,
+        "tags": [
+          { "code": "manual", "text": "ручная разметка, не нейросеть", "level": null },
+          { "code": "lying", "text": "лежит", "level": "red" }
+        ]
+      }
+    ]
+  }
+}
