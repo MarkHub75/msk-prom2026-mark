@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S14 закрыт, следующий S15
+- state: S15 закрыт, следующий R15
 - tech.md: v3
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -50,6 +50,13 @@
 - GAP: S14, `eval_run`: синхронный, `asyncio.run` на каждое видео; порядок: файл разметки (`NotFound`) → YAML и схема `EvalLabels` (`ValidationFailed`, `field` — путь pydantic через точку, `yaml` при ошибке разбора, `labels` у пустого файла) → `start_s < end_s` (`field="videos.<i>.expected.<j>"`) → все файлы видео (относительный путь — от корня репо `config.ROOT`) и `camera_id` (`NotFound`) до инференса; видео в `videos` не пишется, только строки `artifacts`; нечитаемое видео → `UnsupportedVideo` (CLI exit 2); любая `InferenceError`, в том числе pose, → exit 4 (отката на анализ без pose, как у задачи, нет); `--out DIR` — отчёт прямо в `DIR`, без него `data_dir/eval/<YYYYMMDD-HHMMSS>` по `clock.now()` в UTC; CLI печатает путь и `report.md`, ошибки — в stderr (`InferenceError` как `<code>: <message>`).
 - GAP: S14, вне 6.x: `services._infer(job_id: int | None, ..., video: sqlite3.Row | dict[str, Any])` (`None` — без стадии и прогресса задачи), `_analysis_config(video, camera_id: int | None, extra_ids) -> AnalysisConfig` (общий для `_analyze` и оценки; без камеры: без калибровки и зон, правила `_rules(0, [], metas)`), `_sha256(path)` (и `video_import`), `_eval_labels(path) -> EvalLabels`, `_eval_episodes(path, camera_id) -> (episodes, duration_ms)`, `_eval_rows(outcomes, hours) -> list[EvalMetrics]`; `cli.evaluate(labels, out) -> int`; `texts`: `EVAL_LABELS_INVALID`, `EVAL_INTERVAL_INVALID`, `EVAL_TITLE`, `EVAL_COLUMNS`, `EVAL_FOOTNOTE`.
 - R15: S14 — CLI `eval` при запущенном сервере пишет `artifacts` в ту же базу вторым процессом (WAL; `database is locked` не проверялся); `eval_run` зовёт `asyncio.run` и из работающего event loop (API) не вызывается.
+- GAP: S15, очередь доставок `services._deliveries: list[tuple[int, DeliveryKind]]` (event id, kind; сбрасывает фикстура `conn`): `published` и `escalated` ставит `broadcast_tick` после коммита по `services.DELIVERED: dict[WsType, DeliveryKind] = {"event.created": "published", "event.escalated": "escalated"}`; `to_master` — `event_action` (переход в `sent_to_master`) и `escalation_tick` (эскалация по таймауту тоже передача мастеру); в очередь идёт публикация любого уровня, фильтр — `level` события на момент `deliveries_flush` среди `levels` канала.
+- GAP: S15, `deliveries_flush`: одна попытка на `(event_id, channel, kind)`, `failed` не повторяется; `channel = "webhook:<name>"`; каналы строятся из `delivery.webhooks` на каждый вызов; отправка — `asyncio.to_thread(channel.deliver, summary, kind)` по одной, строку `deliveries` пишет поток event loop; результат — число записанных строк; `worker._delivery(stop, tick_s)` — четвёртая задача `TaskGroup`, период `broadcast.tick_ms` (своего ключа нет), исключение — лог `delivery flush`, цикл продолжается.
+- GAP: S15, `WebhookChannel`: атрибуты `name`, `url`, `levels`, `timeout_s`; тело: `sector`/`camera`/`zone` — названия (`zone` может быть `null`), `text` — `notification_text`, `at` — `clock.now()` в момент отправки; успех — 2xx; таймаут (`httpx.TimeoutException`) → `texts.DELIVERY_TIMEOUT` «таймаут», `http_status = None`; не 2xx → `texts.DELIVERY_HTTP` «ответ HTTP <код>» с `http_status`; прочая `httpx.HTTPError` → `texts.DELIVERY_UNREACHABLE` «нет связи (<тип исключения>)»: текст исключения может нести URL с учётными данными.
+- GAP: S15, вне 6.x: `delivery.target(url) -> str` (`host[:port]` для `Channel.target`, без схемы, пути, query и учётных данных); `store.events_by_ids(ids)`, `store.event_deliveries(event_id)` (по `at, id`), `store.delivery_keys(ids) -> set[tuple[int, str, str]]`; `system_view.channels` — только webhook-каналы конфига (`kind="ws"` не показывается).
+- GAP: S15, Docker: `node:24-slim` (сборка фронта), `python:3.12-slim` + `ghcr.io/astral-sh/uv:0.13.0`, `uv sync --locked --no-dev` (проект editable, `config.ROOT = /app`), команда `uv run --no-sync safewatch serve --host 0.0.0.0 --port 8000`; compose: `extra_hosts: host.docker.internal:host-gateway` (для Linux-хоста), тома `./data/app:/app/data/app`, `./models:/app/models:ro`; `.dockerignore` исключает `.env*`, `secrets/`, `data/`, `models/`, `vendor/`, `results/`, `Deep-Research/`, `.git/`, `.venv*`.
+- долг: S15, docker build, демон Docker не запущен (`docker info`: нет `dockerDesktopLinuxEngine`); Dockerfile и compose не собирались ни разу.
+- R15: S15 — очередь доставок живёт в памяти: доставки, поставленные перед остановкой сервера, теряются (строк `deliveries` для них нет); жёлтое событие, эскалированное до `deliveries_flush`, уходит в `published` уже красным.
 
 ## log
 
@@ -185,6 +192,13 @@
 - проверено вживую: нет (S14 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_eval.py`: `episode(confirm_s, scenario)` (черновик эпизода), `labels_file(tmp_path, data, name)`, `shell(monkeypatch, script)` (бэкенд на `FakeRemoteShell`), `row(rows, scenario)`; README S15: `uv run safewatch eval config/eval.example.yaml`.
+
+### S15: delivery (2026-10-24, PR #19, tech v3)
+- отклонения: правлены файлы вне списка слайса: `texts.py` (ошибки доставки), `tests/conftest.py` (сброс `_deliveries`), `tests/test_worker.py` (четвёртый цикл `deliveries_flush`, 12 пауз вместо 9); критерий 5 — `docker build` не запускался (демон Docker не запущен, строка `долг`); в README дополнен только раздел «Приложение SafeWatch».
+- решения вне контракта: строки `GAP: S15`; мутаций нет (10.1); живых прогонов нет; webhook в тестах — только `respx`.
+- проверено вживую: нет (S15 без LinQ и без Docker) | не проверено: LinQ Jupyter, `docker build`
+- [проверить]: нет
+- следующему: `tests/test_delivery.py`: `hooks(monkeypatch, core, (name, url, levels), ...)` (каналы `delivery.webhooks`), `bodies(route)` (JSON запросов respx), `deliveries()`; доставку события в тесте ставят `services._deliveries.append((event_id, kind))`.
 
 ## night
 

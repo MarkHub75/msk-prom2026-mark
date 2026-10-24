@@ -375,6 +375,12 @@ EVAL_FOOTNOTE = (
 )
 
 
+# Delivery to outside systems (slice 15): `deliveries.error` of a failed attempt.
+DELIVERY_TIMEOUT = "таймаут"
+DELIVERY_HTTP = "ответ HTTP {status}"
+DELIVERY_UNREACHABLE = "нет связи ({error})"
+
+
 def weeks_span(n: int) -> str:
     """«4 недели к 4 неделям»: the Russian plural after a number, then the dative."""
     one, few = n % 10 == 1 and n % 100 != 11, 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14

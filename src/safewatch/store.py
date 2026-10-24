@@ -364,6 +364,21 @@ def event_actions(event_id: int) -> list[sqlite3.Row]:
     return all("SELECT * FROM event_actions WHERE event_id = ? ORDER BY at, id", event_id)
 
 
+def events_by_ids(event_ids: list[int]) -> list[sqlite3.Row]:
+    return all(_EVENTS + " WHERE e.id IN (SELECT value FROM json_each(?))", json.dumps(event_ids))
+
+
+def event_deliveries(event_id: int) -> list[sqlite3.Row]:
+    return all("SELECT * FROM deliveries WHERE event_id = ? ORDER BY at, id", event_id)
+
+
+def delivery_keys(event_ids: list[int]) -> set[tuple[int, str, str]]:
+    """`(event_id, channel, kind)` already attempted: the `UNIQUE` key of `deliveries`."""
+    sql = """SELECT event_id, channel, kind FROM deliveries
+WHERE event_id IN (SELECT value FROM json_each(?))"""
+    return {(r["event_id"], r["channel"], r["kind"]) for r in all(sql, json.dumps(event_ids))}
+
+
 def escalation_due(red_before: str) -> list[sqlite3.Row]:
     """Red events of tech.md 8.7: still with the operator, red since `red_before` or earlier,
     and no operator decision after `red_at` (a view is not one)."""

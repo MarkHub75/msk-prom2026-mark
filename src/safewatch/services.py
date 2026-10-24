@@ -27,7 +27,7 @@ import numpy as np
 import yaml
 from pydantic import BaseModel, ValidationError
 
-from safewatch import clock, config, evaluate, media, registry, rules, seed, store, texts
+from safewatch import clock, config, delivery, evaluate, media, registry, rules, seed, store, texts
 from safewatch.analysis import geometry, pipeline
 from safewatch.errors import (
     Conflict,
@@ -63,8 +63,11 @@ from safewatch.types import (
     CameraState,
     CameraStateKind,
     CameraTile,
+    Channel,
     CountRow,
     DayRow,
+    Delivery,
+    DeliveryKind,
     Episode,
     EpisodeDraft,
     EvalLabels,
@@ -976,7 +979,10 @@ def system_view() -> SystemView:
         cameras=camera_states(),
         models=registry.active_models(settings),
         latency=LatencyStats(notify_delay_s=empty, publish_lag_ms=empty),
-        channels=[],  # slice 15
+        channels=[
+            Channel(name=w.name, kind="webhook", target=delivery.target(w.url), levels=w.levels)
+            for w in settings.delivery.webhooks
+        ],
         server_now=clock.now(),
     )
 
@@ -1156,6 +1162,8 @@ _sector_seen: dict[int, SectorState] = {}
 _preview_cache: dict[int, tuple[datetime, bytes]] = {}
 # Frame times of an analysis for `freshness_ms`; an analysis never changes once written.
 _frames_ts: dict[int, list[int]] = {}
+# (event id, kind) waiting for `deliveries_flush`: the broadcast tick and actions add to it.
+_deliveries: list[tuple[int, DeliveryKind]] = []
 
 Message = tuple[WsType, BaseModel, list[Role] | None]
 
@@ -1312,6 +1320,13 @@ def _play(b: sqlite3.Row, camera: sqlite3.Row, cycle: int, pos: int, out: list[M
     return written
 
 
+# Broadcast messages that go to the delivery channels too (slice 15).
+DELIVERED: dict[WsType, DeliveryKind] = {
+    "event.created": "published",
+    "event.escalated": "escalated",
+}
+
+
 def broadcast_tick() -> int:
     """Advance every playing broadcast to the server clock; the number of actions written."""
     out: list[Message] = []
@@ -1337,6 +1352,9 @@ def broadcast_tick() -> int:
         sectors = _sector_states(cameras)
     for kind, data, audience in out:
         hub.publish(kind, data, audience)
+        if kind in DELIVERED:  # queued after the commit: a rolled back tick sends nothing
+            assert isinstance(data, EventSummary)
+            _deliveries.append((data.id, DELIVERED[kind]))
     for camera_state in cameras:
         # Freshness moves on every tick; a message goes out only when the state itself changes.
         seen = camera_state.model_copy(update={"freshness_ms": None})
@@ -1645,7 +1663,7 @@ def event_detail(event_id: int, role: Role | None) -> EventDetail:
         actions=[EventAction.model_validate(dict(a)) for a in store.event_actions(event_id)],
         allowed_actions=[a for a in allowed if _steps(a, row) is not None],
         provenance=provenance,
-        deliveries=[],  # slice 15
+        deliveries=[Delivery.model_validate(dict(d)) for d in store.event_deliveries(event_id)],
         video_id=row["video_id"],
         video_start_ms=row["video_start_ms"],
         video_end_ms=row["video_end_ms"],
@@ -1693,6 +1711,7 @@ def event_action(
     hub.publish("event.updated", summary)
     if status == "sent_to_master" and row["status"] != "sent_to_master":
         hub.publish("notification", _master_alert(summary), ["master"])
+        _deliveries.append((event_id, "to_master"))
     return event_detail(event_id, role)
 
 
@@ -1711,6 +1730,7 @@ def escalation_tick() -> int:
         summary = _event_summary(row["id"])
         hub.publish("event.updated", summary)
         hub.publish("notification", _master_alert(summary), ["master"])
+        _deliveries.append((row["id"], "to_master"))
     return len(due)
 
 
@@ -2464,4 +2484,39 @@ def eval_run(labels: Path, out_dir: Path | None = None) -> EvalReport:
 
 
 async def deliveries_flush() -> int:
-    raise NotImplementedError("slice 15")
+    """Send the queued deliveries to every channel with the event level; the rows written.
+
+    One attempt per `(event, channel, kind)`: a key already in `deliveries` is not sent again,
+    a failure stays `failed` and never touches the event.
+    """
+    queued = list(dict.fromkeys(_deliveries))
+    _deliveries.clear()
+    channels = [
+        delivery.WebhookChannel(w.name, w.url, w.levels, w.timeout_s)
+        for w in config.get_settings().delivery.webhooks
+    ]
+    if not queued or not channels:
+        return 0
+    events = {row["id"]: _summary(row) for row in store.events_by_ids([e for e, _ in queued])}
+    done = store.delivery_keys(list(events))
+    written = 0
+    for event_id, kind in queued:
+        summary = events[event_id]
+        for channel in channels:
+            key = (event_id, f"webhook:{channel.name}", kind)
+            if summary.level not in channel.levels or key in done:
+                continue
+            ok, http_status, error = await asyncio.to_thread(channel.deliver, summary, kind)
+            values = {
+                "event_id": event_id,
+                "channel": key[1],
+                "kind": kind,
+                "status": "sent" if ok else "failed",
+                "http_status": http_status,
+                "error": error,
+                "at": clock.iso(clock.now()),
+            }
+            store.insert("deliveries", values)
+            done.add(key)
+            written += 1
+    return written
