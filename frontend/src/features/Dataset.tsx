@@ -4,7 +4,7 @@ import { api, type ApiFailure } from "../api/client";
 import { saveDownload } from "../api/download";
 import { useApi } from "../api/useApi";
 import { useMeta } from "../components/AppShell";
-import { Button, Empty, ErrorNotice, IconButton, Kpi, Loading, PageHeading, Panel } from "../components/ui";
+import { Button, Empty, ErrorNotice, IconButton, isPending, Kpi, Loading, PageHeading, Panel } from "../components/ui";
 import "../styles/v5.css";
 
 // tech.md 8.26: every event with the «false alarm» verdict lands in the dataset once (worker datasets_flush):
@@ -36,17 +36,20 @@ export function DatasetPage() {
   const byScenario = new Map<string, number>();
   for (const item of data?.items ?? []) byScenario.set(item.scenario, (byScenario.get(item.scenario) ?? 0) + 1);
 
+  // A server without the dataset has nothing to refresh or download: no actions next to the pending notice.
   const heading = <PageHeading title="Датасет ложных срабатываний" meta={<span>Каждое событие с вердиктом «Ложное срабатывание» один раз сохраняется для дообучения моделей</span>}>
+    {!isPending(view.error) && <>
     <IconButton icon="refresh" label="Обновить" onClick={view.reload} disabled={view.loading} />
     <Button variant="primary" icon="download" busy={busy} disabled={busy || !data?.total} onClick={() => void download()} data-testid="export-zip">Скачать ZIP</Button>
+    </>}
   </PageHeading>;
 
-  if (view.error) return <div className="v5-page">{heading}<ErrorNotice error={view.error} retry={view.reload} /></div>;
+  if (view.error) return <div className="v5-page">{heading}<ErrorNotice error={view.error} retry={view.reload} pending="Соберёт события с вердиктом «Ложное срабатывание» в датасет для дообучения: кадры, детекции, HUD и метку." /></div>;
   if (!data) return <div className="v5-page">{heading}<Loading text="Получаем состав датасета" /></div>;
 
   return <div className="v5-page" data-testid="dataset">
     {heading}
-    {zipError && <ErrorNotice error={zipError} compact retry={() => void download()} />}
+    {zipError && <ErrorNotice error={zipError} compact retry={() => void download()} pending="Отдаст все элементы датасета одним ZIP-архивом со списком manifest.json." />}
     <div className="v5-kpis">
       <Kpi label="Событий в датасете" value={data.total} />
       <Kpi label="Кадров" value={data.frames} hint="JPEG, не больше datasets.max_frames на событие" />

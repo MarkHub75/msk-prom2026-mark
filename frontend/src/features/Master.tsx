@@ -198,7 +198,7 @@ export function ShiftSummary({ eventLink, testId, children }: { eventLink: (id: 
       <div><h1>{data?.title ?? "Смена"}</h1><p>{data ? <><span className="mono">{day(data.start)} {time(data.start, false)} – {time(data.end, false)}</span>{at ? " · прошедшая" : " · текущая"}</> : "Сводка смены"}</p></div>
       <button type="button" className="v5-pdf" onClick={() => void savePdf()} disabled={!data || pdf.busy} aria-busy={pdf.busy} data-testid="shift-pdf"><FileDown {...IC} />{pdf.busy ? "Готовим…" : "PDF"}</button>
     </header>
-    {pdf.error && <ErrorNotice error={pdf.error} compact retry={() => void savePdf()} />}
+    {pdf.error && <ErrorNotice error={pdf.error} compact retry={() => void savePdf()} pending="Отдаст сводку смены одним файлом A4 для печати и рассылки." />}
     <div className="mm-seg" role="group" aria-label="Какая смена"><button className={!at ? "selected" : ""} aria-pressed={!at} onClick={() => setAt(undefined)}>Текущая</button><button className={at ? "selected" : ""} aria-pressed={Boolean(at)} onClick={previous} disabled={!data}>Предыдущая</button></div>
     {shift.error ? <ErrorNotice error={shift.error} retry={shift.reload} /> : !data ? <div className="mb-skel" /> : <>
       <section className="mb-card mm-total">

@@ -88,11 +88,28 @@ describe("calculator (tech.md 8.25)", () => {
     expect(requests.some(r => path(r) === "/api/calculator/rollout")).toBe(false);
   });
 
-  it("shows 501 of an unbuilt slice instead of numbers", async () => {
+  it("501: a neutral notice and a labelled example on the tech.md 8.25 assumptions", async () => {
     serve(r => path(r).startsWith("/api/calculator") ? notImplemented(24) : undefined);
     open("/calculator", "management");
-    expect(await screen.findByText("Функция появится в слайсе 24")).toBeTruthy();
-    expect(screen.getByText("Этот метод API ещё не реализован")).toBeTruthy();
+    const pending = await screen.findByTestId("pending");
+    expect(pending.textContent).toContain("Функция появится в следующем обновлении сервера");
+    expect(screen.getByTestId("calculator").textContent).not.toMatch(/слайс/);
+    expect(screen.queryByRole("alert")).toBeNull();
+    const example = screen.getByTestId("calc-example");
+    expect(within(example).getByText("пример, сервер ещё не подключён")).toBeTruthy();
+    expect(within(screen.getByTestId("tier-base")).getByText("Не окупается при этих допущениях")).toBeTruthy();
+    expect(screen.getByTestId("tier-max").textContent).toMatch(/10\s040\s000 ₽/);
+    fireEvent.click(screen.getByRole("button", { name: "Масштабирование" }));
+    expect(await screen.findByText("докупить 15")).toBeTruthy();
+  });
+
+  it("a real failure stays red", async () => {
+    serve(r => path(r) === "/api/calculator/defaults" ? Response.json({ code: "internal", message: "База недоступна", details: {} }, { status: 500 }) : undefined);
+    open("/calculator", "management");
+    const alert = await screen.findByRole("alert");
+    expect(alert.textContent).toContain("База недоступна");
+    expect(alert.textContent).toContain("500");
+    expect(screen.queryByTestId("pending")).toBeNull();
   });
 });
 
@@ -120,7 +137,7 @@ describe("false alarm dataset (tech.md 8.26)", () => {
     expect((click.mock.contexts[0] as HTMLAnchorElement).download).toBe("false-alarms-2026-10-24.zip");
   });
 
-  it("a 501 ZIP is an error on screen, not a saved file", async () => {
+  it("a 501 ZIP is a pending notice on screen, not a saved file", async () => {
     const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
     serve(r => {
       if (path(r) === "/api/datasets/false-alarms") return Response.json(VIEW);
@@ -128,7 +145,8 @@ describe("false alarm dataset (tech.md 8.26)", () => {
     });
     open("/ohs/dataset", "ohs");
     fireEvent.click(await screen.findByTestId("export-zip"));
-    expect(await screen.findByText("Функция появится в слайсе 25")).toBeTruthy();
+    expect((await screen.findByTestId("pending")).textContent).toContain("ZIP-архивом");
+    expect(screen.queryByRole("alert")).toBeNull();
     expect(click).not.toHaveBeenCalled();
   });
 });
@@ -211,7 +229,7 @@ describe("manual identification (tech.md 8.27)", () => {
 });
 
 describe("shift PDF (tech.md 8.31)", () => {
-  it("asks shift.pdf for the shown shift and reports 501 honestly", async () => {
+  it("asks shift.pdf for the shown shift; 501 is a pending notice", async () => {
     serve(r => {
       if (path(r) === "/api/master/shift") return Response.json({ title: "Смена 2", start: "2026-10-24T05:00:00Z", end: "2026-10-24T17:00:00Z", total: 0, by_sector: [], by_scenario: [], events: [] });
       if (path(r) === "/api/master/inbox") return Response.json({ active: [], recent_resolved: [], server_now: "2026-10-24T09:00:00Z" });
@@ -220,7 +238,8 @@ describe("shift PDF (tech.md 8.31)", () => {
     open("/master/shift", "master");
     await screen.findByText("Смена 2");
     fireEvent.click(screen.getByTestId("shift-pdf"));
-    expect(await screen.findByText("Функция появится в слайсе 30")).toBeTruthy();
+    expect((await screen.findByTestId("pending")).textContent).toContain("Функция появится в следующем обновлении сервера");
+    expect(screen.getByTestId("master-shift").textContent).not.toMatch(/слайс/);
     expect(requests.some(r => path(r) === "/api/master/shift.pdf")).toBe(true);
   });
 

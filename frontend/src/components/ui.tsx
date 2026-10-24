@@ -2,12 +2,14 @@ import { createContext, useCallback, useContext, useEffect, useId, useRef, useSt
 import { Link } from "react-router-dom";
 import {
   Activity, ArrowLeft, ArrowRight, BarChart3, Bell, Calculator, Check, ChevronDown, ChevronRight, CircleCheck, CircleDashed, Clock, Cpu, Database, Download,
-  Ellipsis, ExternalLink, Eye, EyeOff, FileText, Filter, Inbox, Info, LayoutGrid, List, LoaderCircle, MapPin, MonitorPlay, OctagonAlert, Pause, Play,
+  Ellipsis, ExternalLink, Eye, EyeOff, FileText, Filter, Hourglass, Inbox, Info, LayoutGrid, List, LoaderCircle, MapPin, MonitorPlay, OctagonAlert, Pause, Play,
   RefreshCw, ScrollText, Search, Server, Settings2, ShieldCheck, SlidersHorizontal, TriangleAlert, User, Users, Video, VideoOff, Volume2, VolumeX,
   Wifi, WifiOff, X, type LucideIcon,
 } from "lucide-react";
 import { useMeta } from "./AppShell";
+import { PENDING_MESSAGE } from "../api/client";
 import type { EventSummary } from "../api/types";
+import "../styles/pending.css";
 
 /* ---------- Icons: lucide-react behind the old `Icon name=...` API ---------- */
 const ICONS = {
@@ -17,7 +19,7 @@ const ICONS = {
   pin: MapPin, alert: TriangleAlert, critical: OctagonAlert, info: Info, ok: CircleCheck, "no-observation": CircleDashed, clock: Clock,
   refresh: RefreshCw, search: Search, filter: Filter, download: Download, external: ExternalLink, more: Ellipsis, file: FileText,
   server: Server, cpu: Cpu, wifi: Wifi, "wifi-off": WifiOff, activity: Activity, shield: ShieldCheck, inbox: Inbox, spinner: LoaderCircle,
-  calculator: Calculator, database: Database,
+  calculator: Calculator, database: Database, pending: Hourglass,
 } satisfies Record<string, LucideIcon>;
 export type IconName = keyof typeof ICONS;
 export function Icon({ name, size = 16, className }: { name: IconName; size?: number; className?: string }) {
@@ -38,7 +40,18 @@ export function PageHeading({ title, meta, children }: { title: string; meta?: R
 export function Breadcrumb({ children }: { children: ReactNode }) { return <div className="breadcrumb"><Link to="/operator"><Icon name="back" size={15} /> Диспетчерская</Link><span>{children}</span></div>; }
 export function Empty({ title, text, children, icon = "camera" }: { title: string; text: string; children?: ReactNode; icon?: IconName }) { return <div className="empty-state"><span className="empty-icon"><Icon name={icon} size={22} /></span><h3>{title}</h3><p>{text}</p>{children}</div>; }
 export const EmptyState = Empty;
-export function ErrorNotice({ error, retry, compact = false }: { error: { code: string; message: string }; retry?: () => void; compact?: boolean }) { return <div className={`error-notice ${compact ? "compact" : ""}`} role="alert"><span className="error-code">{error.code.includes("not_implemented") ? "501" : "!"}</span><div><h3>{error.code.includes("not_implemented") ? "Этот метод API ещё не реализован" : "Не удалось получить данные"}</h3><p>{error.message}</p><small>Код: {error.code}. Данные не подменяются демонстрационными.</small></div>{retry && <button className="button" onClick={retry}>Повторить</button>}</div>; }
+/** 501 not_implemented: the server does not have this function yet. Not an error: nothing broke, nothing to retry now. */
+export function isPending(error?: { code: string; status?: number } | null): boolean { return Boolean(error && (error.code === "not_implemented" || error.status === 501)); }
+/** Neutral grey state for a function the server has not shipped yet; `text` is one line of what it will do. */
+export function PendingNotice({ text, compact = false, children }: { text: ReactNode; compact?: boolean; children?: ReactNode }) {
+  return <div className={cx("ds-pending", compact && "is-compact")} role="status" data-testid="pending"><span className="ds-pending-icon"><Icon name="pending" size={compact ? 15 : 18} /></span><div><h3>{PENDING_MESSAGE}</h3><p>{text}</p>{children}</div></div>;
+}
+const PENDING_DEFAULT = "Сервер пока не отвечает на этот запрос; остальные разделы работают.";
+// Red only for real failures (network, 4xx, 5xx other than 501); 501 renders PendingNotice, `pending` says what the function will do.
+export function ErrorNotice({ error, retry, compact = false, pending }: { error: { code: string; message: string; status?: number }; retry?: () => void; compact?: boolean; pending?: ReactNode }) {
+  if (isPending(error)) return <PendingNotice text={pending ?? PENDING_DEFAULT} compact={compact} />;
+  return <div className={`error-notice ${compact ? "compact" : ""}`} role="alert"><span className="error-code">{error.status ?? "!"}</span><div><h3>Не удалось получить данные</h3><p>{error.message}</p><small>Код: {error.code}. Данные не подменяются демонстрационными.</small></div>{retry && <button className="button" onClick={retry}>Повторить</button>}</div>;
+}
 export function Loading({ text = "Получаем данные с сервера" }: { text?: string }) { return <div className="loading-state" role="status"><span className="loading-bar" /><p>{text}</p></div>; }
 export function PanelHeading({ children, aside }: { children: ReactNode; aside?: ReactNode }) { return <div className="panel-heading"><h2>{children}</h2>{aside && <span>{aside}</span>}</div>; }
 

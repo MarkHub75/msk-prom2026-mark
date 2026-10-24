@@ -33,11 +33,13 @@ afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 function renderAt(path: string) { return render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>); }
 
 describe("real-mode shell and contract boundary", () => {
-  it("surfaces an unfinished backend route without substituting fixtures", async () => {
+  it("shows an unfinished backend route as a neutral pending state without substituting fixtures", async () => {
     renderAt("/operator");
-    const alert = await screen.findByRole("alert");
-    expect(alert.textContent).toContain("Функция появится в слайсе 6");
-    expect(alert.textContent).toContain("501");
+    const pending = await screen.findByTestId("pending");
+    expect(pending.getAttribute("role")).toBe("status");
+    expect(pending.textContent).toContain("Функция появится в следующем обновлении сервера");
+    expect(pending.textContent).not.toMatch(/слайс|501/);
+    expect(screen.queryByRole("alert")).toBeNull();
     expect(screen.queryByText(/Синтетический сценарий/)).toBeNull();
     expect(screen.getByTestId("backend").textContent).not.toBe("REVIEW");
   });

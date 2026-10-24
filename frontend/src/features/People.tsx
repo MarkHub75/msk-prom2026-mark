@@ -43,7 +43,7 @@ export function PeoplePage() {
     <button type="button" className="button button-small" onClick={state.reload} disabled={state.loading}><RotateCw size={14} strokeWidth={1.75} />Обновить</button>
   </div>;
 
-  if (state.error) return <div className="an-page">{heading}{filters}<ErrorNotice error={state.error} retry={state.reload} /></div>;
+  if (state.error) return <div className="an-page">{heading}{filters}<ErrorNotice error={state.error} retry={state.reload} pending="Покажет, в скольких событиях указан нарушитель, и разбивку по людям и бригадам." /></div>;
   const stats = state.data;
   if (!stats) return <div className="an-page">{heading}{filters}<Skeleton tiles={4} /></div>;
   const share = stats.total ? stats.identified / stats.total : null;

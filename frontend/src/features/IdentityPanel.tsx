@@ -58,6 +58,6 @@ export function IdentityPanel({ detail, onSaved }: { detail: EventDetail; onSave
       {filled && <Button type="button" size="sm" variant="ghost" disabled={busy} onClick={() => void save({ person_name: "", person_position: "", crew: "" })}>Очистить</Button>}
       <small>Статус события не меняется. Запись попадёт в историю действий.</small>
     </div>
-    {error && <ErrorNotice error={error} compact />}
+    {error && <ErrorNotice error={error} compact pending="Сохранит ФИО, должность и бригаду в событии и запишет это в историю действий." />}
   </form>;
 }

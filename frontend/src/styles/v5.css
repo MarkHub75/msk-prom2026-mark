@@ -143,3 +143,7 @@
   .v5-page .ds-table { font-size: 12px; }
   .v5-assume-input input { width: 84px; }
 }
+
+/* calculator example while the server answers 501 */
+.v5-example-tag { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px dashed var(--ds-line-strong); }
+.v5-example-tag small { color: var(--ds-text-3); font-size: 12px; }

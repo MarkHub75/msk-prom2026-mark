@@ -19,7 +19,7 @@ const px = (v: number | null) => v === null ? "—" : `${Math.round(v)} px`;
 
 export function PassportTab({ cameraId }: { cameraId: number }) {
   const passport = useApi(() => api.GET("/api/cameras/{camera_id}/passport", { params: { path: { camera_id: cameraId } } }), [cameraId]);
-  if (passport.error) return <ErrorNotice error={passport.error} retry={passport.reload} />;
+  if (passport.error) return <ErrorNotice error={passport.error} retry={passport.reload} pending="Оценит по последней записи, какие сценарии камера видит надёжно, а какие частично или никак." />;
   const p = passport.data;
   if (!p) return <Loading text="Оцениваем пригодность камеры по последней записи" />;
   const count = (v: Verdict) => p.scenarios.filter(s => s.verdict === v).length;

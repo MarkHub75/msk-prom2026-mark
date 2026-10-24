@@ -40,10 +40,13 @@ export const api = createClient<paths>({
 });
 api.use(headers);
 
+export const PENDING_MESSAGE = "Функция появится в следующем обновлении сервера";
 export interface ApiFailure { code: string; message: string; status?: number; details?: ApiError["details"] }
 export function apiError(e: unknown): ApiFailure {
   if (e && typeof e === "object" && "code" in e && "message" in e) {
     const { code, message, details, status } = e as ApiError & {status?: number};
+    // The 501 text of the server names an internal build step; screens show the same neutral wording instead.
+    if (code === "not_implemented") return {code, message: PENDING_MESSAGE, ...(details ? {details} : {}), status: status ?? 501};
     if (typeof code === "string" && typeof message === "string") return {code, message, ...(details ? {details} : {}), ...(status ? {status} : {})};
   }
   return { code: "network", message: "Сервер не отвечает" };

@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { api, apiError, type ApiFailure } from "../api/client";
 import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, TierResult } from "../api/types";
 import { useApi } from "../api/useApi";
-import { Badge, Button, ErrorNotice, Field, Icon, Kpi, Loading, PageHeading, Panel, Segmented, TextInput } from "../components/ui";
+import { Badge, Button, ErrorNotice, Field, Icon, isPending, Kpi, Loading, PageHeading, Panel, PendingNotice, Segmented, TextInput } from "../components/ui";
+import { EXAMPLE_ASSUMPTIONS, EXAMPLE_ROLLOUT, EXAMPLE_SCALE, exampleRollout, exampleScale } from "./calculatorExample";
 import { useRole } from "../roles";
 import "../styles/v5.css";
 
@@ -120,7 +121,7 @@ function RolloutView({ result }: { result: RolloutResult }) {
     <div className="v5-kpis">
       <Kpi label="Цена одного инцидента" value={rubFmt.format(result.incident_cost_rub)} unit="₽" hint="простой + штраф + лечение + суды" />
       <Kpi label="Инцидентов на 1000 работников" value={result.incidents_per_1000_workers === null ? "—" : numFmt.format(result.incidents_per_1000_workers)} hint={result.incidents_per_1000_workers === null ? "работников 0" : "в год"} />
-      <Kpi label="Событий на оператора за смену" value={result.events_per_operator_shift === null ? "—" : numFmt.format(result.events_per_operator_shift)} hint={result.events_per_operator_shift === null ? "нет данных эфира или операторов 0" : "по событиям эфира за период статистики"} />
+      <Kpi label="Событий на оператора за смену" value={result.events_per_operator_shift === null ? "—" : numFmt.format(result.events_per_operator_shift)} hint={result.events_per_operator_shift === null ? "нужны события эфира сервера и хотя бы один оператор" : "по событиям эфира за период статистики"} />
     </div>
     <div className="v5-tiers">{result.tiers.map(t => <Tier key={t.tier} tier={t} best={t.tier === best && paying.length > 1} />)}</div>
   </>;
@@ -160,6 +161,29 @@ function Assumptions({ list, overrides, onChange }: { list: CalcAssumption[]; ov
   </table>;
 }
 
+const PENDING_CALC = "Посчитает окупаемость внедрения и цену расширения на ваших цифрах; у каждого допущения — подписанный источник.";
+
+/** 501: what the calculator will answer, counted here on the same assumptions and the demo plant, clearly marked as an example. */
+function Example({ mode }: { mode: Mode }) {
+  const inputs = mode === "rollout"
+    ? [...PLANT, ...COST].map(f => ({ label: f.label, value: COST.some(c => c.key === f.key) ? rub(EXAMPLE_ROLLOUT[f.key]) : String(EXAMPLE_ROLLOUT[f.key]) }))
+    : SCALE.map(f => ({ label: f.label, value: String(EXAMPLE_SCALE[f.key]) }));
+  return <>
+    <PendingNotice text={PENDING_CALC} />
+    <div className="v5-calc-grid" data-testid="calc-example">
+      <Panel title={mode === "rollout" ? "Пример завода" : "Пример расширения"}>
+        <Items items={inputs} />
+        <p className="v5-hint"><Icon name="info" size={14} />Когда сервер подключится, здесь будут поля для ваших цифр.</p>
+      </Panel>
+      <section className="v5-calc-result" aria-label="Пример расчёта">
+        <div className="v5-example-tag"><Badge tone="grey" icon="info">пример, сервер ещё не подключён</Badge><small>те же формулы и допущения, что у сервера; {mode === "rollout" ? "события на оператора считаются только по живым данным" : "пропускная способность — из допущения, а не из замеров приложения"}</small></div>
+        <div>{mode === "rollout" ? <RolloutView result={exampleRollout()} /> : <ScaleView result={exampleScale()} />}</div>
+      </section>
+    </div>
+    <Panel title="Допущения примера" flush><Assumptions list={EXAMPLE_ASSUMPTIONS} overrides={{}} onChange={() => undefined} /></Panel>
+  </>;
+}
+
 export function CalculatorPage() {
   const [role] = useRole();
   const canRollout = role === "management";
@@ -190,6 +214,7 @@ export function CalculatorPage() {
   const heading = <PageHeading title="Калькулятор окупаемости" meta={<span>Все цены и доли — подписанные допущения команды: замените своими. Расчёт не сохраняется.</span>}>
     {canRollout && <Segmented label="Режим" value={shown} onChange={setMode} options={[{ id: "rollout", label: "Внедрение" }, { id: "scale", label: "Масштабирование" }]} />}
   </PageHeading>;
+  if (isPending(defaults.error) || isPending(calc.error)) return <div className="v5-page v5-calc" data-testid="calculator">{heading}<Example mode={shown} /></div>;
   if (defaults.error) return <div className="v5-page">{heading}<ErrorNotice error={defaults.error} retry={defaults.reload} /></div>;
   if (!base || !rollout || !scale) return <div className="v5-page">{heading}<Loading text="Получаем допущения калькулятора" /></div>;
 
