@@ -11,7 +11,7 @@ import "../styles/v5.css";
 const FILES = [
   { name: "frames/<кадр>.jpg", text: "проанализированные кадры окна клипа" },
   { name: "detections.jsonl", text: "детекции моделей по кадрам (формат — docs/ML_INTEGRATION.md, раздел 4)" },
-  { name: "pose.jsonl", text: "точки позы, если pose был в анализе" },
+  { name: "pose.jsonl", text: "точки позы, если анализ считал позу" },
   { name: "hud.jsonl", text: "кадры HUD с треками и тегами" },
   { name: "label.json", text: "метка «ложное срабатывание», сценарий, причина, видео, модели, комментарий оператора" },
 ];
