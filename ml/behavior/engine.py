@@ -92,6 +92,8 @@ class BehaviorEngine:
             raise ValueError("immobility_max_speed must be nonnegative")
         if "retain_upright_during_unknown" in self.config and type(self.config["retain_upright_during_unknown"]) is not bool:
             raise ValueError("retain_upright_during_unknown must be boolean")
+        if "allow_partial_torso_pair" in self.config and type(self.config["allow_partial_torso_pair"]) is not bool:
+            raise ValueError("allow_partial_torso_pair must be boolean")
         self.cameras = {}
 
     def _posture(self, person):
@@ -99,10 +101,19 @@ class BehaviorEngine:
         if not k or len(k) != 17:
             return "unknown"
         indices = (5,6,11,12)
-        if any(len(k[i]) != 3 or k[i][2] < self.config["keypoint_score"] for i in indices):
+        visible = {i for i in indices if len(k[i]) == 3 and k[i][2] >= self.config["keypoint_score"]}
+        if len(visible) == 4:
+            shoulder = tuple((k[5][j]+k[6][j])/2 for j in (0,1))
+            hip = tuple((k[11][j]+k[12][j])/2 for j in (0,1))
+        elif self.config.get("allow_partial_torso_pair", False):
+            # Exactly one complete observed side; never invent a cross-side pair.
+            pairs = [(a,b) for a,b in ((5,11),(6,12)) if a in visible and b in visible]
+            if len(pairs) != 1:
+                return "unknown"
+            a,b = pairs[0]
+            shoulder,hip = k[a][:2],k[b][:2]
+        else:
             return "unknown"
-        shoulder = tuple((k[5][j]+k[6][j])/2 for j in (0,1))
-        hip = tuple((k[11][j]+k[12][j])/2 for j in (0,1))
         dx,dy = abs(hip[0]-shoulder[0]),abs(hip[1]-shoulder[1])
         if hypot(dx,dy) < self.config["min_torso_px"]:
             return "unknown"
@@ -219,7 +230,10 @@ class BehaviorEngine:
         if len(points)<self.config["immobility_min_points"]:
             self._reset_motion(track)
             return []
-        # _posture has already established four observed torso points.
+        # Partial-torso posture must not use hidden points for motion scale.
+        if any(len(k[i]) != 3 or k[i][2] < self.config["keypoint_score"] for i in (5,6,11,12)):
+            self._reset_motion(track)
+            return []
         shoulders=[(k[5][j]+k[6][j])/2 for j in (0,1)]
         hips=[(k[11][j]+k[12][j])/2 for j in (0,1)]
         scale=max(self.config["min_torso_px"],hypot(hips[0]-shoulders[0],hips[1]-shoulders[1]))
