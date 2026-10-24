@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 import { api } from "../api/client";
 import type { components } from "../api/schema";
 import { useApi } from "../api/useApi";
+import { useWs } from "../api/ws";
 import { menuFor } from "../nav";
 import { useRole } from "../roles";
 import { RoleSwitcher } from "./RoleSwitcher";
 
 type Meta = components["schemas"]["Meta"];
+type BackendStatus = components["schemas"]["BackendStatus"];
 
 const MetaContext = createContext<Meta | undefined>(undefined);
 
@@ -34,6 +36,10 @@ function Clock({ timezone }: { timezone: string }) {
 export function AppShell({ children }: { children: ReactNode }) {
   const [role] = useRole();
   const meta = useApi(() => api.GET("/api/meta"), []).data;
+  const [backend, setBackend] = useState<BackendStatus>();
+  useWs((message) => {
+    if (message.type === "backend.status") setBackend(message.data as BackendStatus);
+  });
   return (
     <MetaContext.Provider value={meta}>
       <header className="shell-header">
@@ -48,6 +54,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <span className="badge" data-testid="backend">
           {backendLabel(meta)}
         </span>
+        {backend && (
+          <span className="badge" data-testid="backend-state" title={backend.message}>
+            {backend.state === "ok" ? "● " : "▲ "}
+            {backend.message}
+          </span>
+        )}
         <Clock timezone={meta?.timezone ?? "Europe/Moscow"} />
         <RoleSwitcher />
       </header>

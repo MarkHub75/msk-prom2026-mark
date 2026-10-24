@@ -26,8 +26,17 @@ function renderAt(path: string) {
   );
 }
 
+// The shell listens to `backend.status` (slice 3): no real socket in jsdom.
+class SilentSocket {
+  onopen = null;
+  onmessage = null;
+  onclose = null;
+  close() {}
+}
+
 beforeEach(() => {
   stubFetch();
+  vi.stubGlobal("WebSocket", SilentSocket);
   act(() => setRole("operator"));
 });
 
