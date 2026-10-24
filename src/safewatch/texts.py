@@ -524,3 +524,18 @@ def identity_comment(person_name: str, person_position: str, crew: str) -> str:
         return IDENTITY_CLEARED
     name, position, team = (v or IDENTITY_EMPTY for v in (person_name, person_position, crew))
     return f"ФИО: {name}; должность: {position}; бригада: {team}"
+
+
+# Camera suitability passport (tech.md 8.28; slice 27).
+PASSPORT_NO_VIDEO = "Нет обработанного видео"
+PASSPORT_MODEL_MISSING = "Модель не подключена"
+PASSPORT_FEW_FRAMES = "Мало кадров для оценки"
+PASSPORT_DARK = "Слишком темно или камера закрыта {pct} % времени"
+PASSPORT_PEOPLE_TINY = "Люди слишком мелкие: {px} px"
+PASSPORT_NO_PEOPLE = "В записи нет людей"
+PASSPORT_PHONE_POOR = "Телефон виден плохо: {px} px"
+PASSPORT_NO_ZONES = "Нет зон: {kinds}"
+PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оценки: {px} px"
+PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"
+PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"
+PASSPORT_SUITABLE = "Годна"
