@@ -1,0 +1,740 @@
+[
+ {
+  "file": "01-operator-dispatch-1920.png",
+  "url": "/operator",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".cr-tag: Кам 5.1 · Публичный датасет падений"
+  ],
+  "cls": 0.052300627158993064,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "02-operator-sector-1920.png",
+  "url": "/operator/sectors/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   "small: Камера 1.1 · Пресс №2 · Пресс · Человек в зоне «Пр",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Сближение с погрузчиком: 0",
+   "small: Камера 1.2 · Проход у прессов · Телефон в руке 12 ",
+   "small: Камера 1.2 · Проход у прессов · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 12 с",
+   "small: Камера 1.2 · Проход у прессов · Проезд погрузчика ",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 25 с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,4 роста/с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,0 роста/с ря",
+   "small: Камера 1.2 · Проход у прессов · Бег 3,1 м/с",
+   "small: Камера 1.2 · Проход у прессов · Сближение с погруз"
+  ],
+  "cls": 0.002883556087321215,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "03-operator-camera-1920.png",
+  "url": "/operator/cameras/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.00784363995069339,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "04-operator-event-red-1920.png",
+  "url": "/events/719",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.08509086969163683,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "05-operator-event-yellow-1920.png",
+  "url": "/events/240",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.003778384471626439,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "06-operator-takeover-1920.png",
+  "url": "/events/41?takeover=1&review=critical",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0028481017689646025,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "10-master-inbox-1920.png",
+  "url": "/master",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0034544514707086508,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "11-master-event-1920.png",
+  "url": "/master/events/719",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0025668757207109112,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "12-master-shift-1920.png",
+  "url": "/master/shift",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0032618733904489277,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "20-ohs-journal-1920.png",
+  "url": "/ohs/journal",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск",
+   ".sr-only: Журнал событий. Дата и время указаны по Москве.",
+   "(v) .sr-only: Журнал событий. Дата и время указаны по Москве.",
+   ".sr-only: Кадр",
+   "(v) .sr-only: Кадр",
+   ".sr-only: История события",
+   "(v) .sr-only: История события"
+  ],
+  "cls": 0.0030024367124455455,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "21-ohs-report-1920.png",
+  "url": "/ohs/report",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.002329397990379804,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "22-ohs-rules-1920.png",
+  "url": "/ohs/rules",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   ".sr-only: Высота без страховочной привязи на камере Камера 1",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 1",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   ".sr-only: Высота без страховочной привязи на камере Камера 2",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 2",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   ".sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.2 · Стел"
+  ],
+  "cls": 0.004401004575407553,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "23-ohs-stats-1920.png",
+  "url": "/ohs/stats",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.006457993495611497,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "30-management-1920.png",
+  "url": "/management",
+  "role": "management",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.002604588347697945,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=management' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "40-admin-cameras-1920.png",
+  "url": "/admin/cameras",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004786952183570391,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "41-admin-camera-setup-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".adm-tl-name: Опасное сближение с техникой"
+  ],
+  "cls": 0.007218143384643052,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "42-admin-camera-zones-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.012853246775183657,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "43-admin-camera-calibration-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004898076512686019,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "44-admin-camera-rules-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".geo-param-title: Неподвижность в зоне «лежать допустимо»"
+  ],
+  "cls": 0.0034691892121554405,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "45-admin-system-1920.png",
+  "url": "/admin/system",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "(v) .ops-tile-value.is-text: CPU (local)",
+   "(v) .ops-tile-value.is-text: Не проверено",
+   "(v) .ops-tile-value.is-text: —"
+  ],
+  "cls": 0.0367064123035949,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "50-empty-dispatch-1920.png",
+  "url": "/operator?review=empty",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0015465303821328245,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "51-empty-master-1920.png",
+  "url": "/master?review=empty",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0018942932866728354,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "52-empty-journal-1920.png",
+  "url": "/ohs/journal?review=empty",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск"
+  ],
+  "cls": 0.0019446415410610874,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "01-operator-dispatch-1366.png",
+  "url": "/operator",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".hud-label.hud-label-neutral: человек#5",
+   ".cr-q-place: Ремонтная зона · Кам 5.1 · Публичный датасет паден",
+   ".cr-tag: Кам 5.1 · Публичный датасет падений",
+   ".cr-tag: Кам 1.2 · Проход у прессов",
+   ".cr-tag: Кам 2.1 · Погрузочная рампа",
+   ".cr-tag: Кам 3.2 · Ограждение линии",
+   ".cr-tag: Кам 4.1 · Ремонтная яма"
+  ],
+  "cls": 0.025029848729124282,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "02-operator-sector-1366.png",
+  "url": "/operator/sectors/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   "small: Камера 1.1 · Пресс №2 · Пресс · Человек в зоне «Пр",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Сближение с погрузчиком: 0",
+   "small: Камера 1.1 · Пресс №2 · Бег 2,4 роста/с",
+   "small: Камера 1.2 · Проход у прессов · Телефон в руке 12 ",
+   "small: Камера 1.2 · Проход у прессов · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 12 с",
+   "small: Камера 1.2 · Проход у прессов · Проезд погрузчика ",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 25 с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,4 роста/с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,0 роста/с ря",
+   "small: Камера 1.2 · Проход у прессов · Бег 3,1 м/с",
+   "small: Камера 1.2 · Проход у прессов · Сближение с погруз"
+  ],
+  "cls": 0.003858374194174238,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "03-operator-camera-1366.png",
+  "url": "/operator/cameras/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".hud-label.hud-label-neutral: человек#5",
+   "small: Человек в зоне «Пресс»"
+  ],
+  "cls": 0.005925860599929239,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "04-operator-event-red-1366.png",
+  "url": "/events/719",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.09650896331227618,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "05-operator-event-yellow-1366.png",
+  "url": "/events/240",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005785431824973226,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=operator' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "06-operator-takeover-1366.png",
+  "url": "/events/41?takeover=1&review=critical",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004237828350175013,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "10-master-inbox-1366.png",
+  "url": "/master",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005551900784237466,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "11-master-event-1366.png",
+  "url": "/master/events/719",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.07251626873733726,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "12-master-shift-1366.png",
+  "url": "/master/shift",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005211734308134422,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=master' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "20-ohs-journal-1366.png",
+  "url": "/ohs/journal",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск",
+   ".sr-only: Журнал событий. Дата и время указаны по Москве.",
+   "(v) .sr-only: Журнал событий. Дата и время указаны по Москве.",
+   ".sr-only: Кадр",
+   "(v) .sr-only: Кадр",
+   ".sr-only: История события",
+   "(v) .sr-only: История события",
+   "span: Камера 5.1 · Публичный датасет падений"
+  ],
+  "cls": 0.005577831633393452,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "21-ohs-report-1366.png",
+  "url": "/ohs/report",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.010974630719883416,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "22-ohs-rules-1366.png",
+  "url": "/ohs/rules",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   ".sr-only: Высота без страховочной привязи на камере Камера 1",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 1",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "span: Камера 1.2 · Проход у прессов",
+   ".sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "span: Камера 2.1 · Погрузочная рампа",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   ".sr-only: Высота без страховочной привязи на камере Камера 2",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 2",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   ".sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст"
+  ],
+  "cls": 0.005252992615248649,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "23-ohs-stats-1366.png",
+  "url": "/ohs/stats",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.01201026656967536,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=ohs' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "30-management-1366.png",
+  "url": "/management",
+  "role": "management",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005050751399681177,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=management' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "40-admin-cameras-1366.png",
+  "url": "/admin/cameras",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.011133808087774723,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "41-admin-camera-setup-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".adm-tl-name: Опасное сближение с техникой"
+  ],
+  "cls": 0.008237565774535585,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "42-admin-camera-zones-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "small: Опасная зона / механизм · 7 точек"
+  ],
+  "cls": 0.007271006570673983,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "43-admin-camera-calibration-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.017322873446738447,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "44-admin-camera-rules-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.011479460574076204,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "45-admin-system-1366.png",
+  "url": "/admin/system",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "(v) .ops-tile-value.is-text: CPU (local)",
+   "(v) .ops-tile-value.is-text: Не проверено",
+   "(v) .ops-tile-value.is-text: —",
+   ".mono.ops-path: mosprom_det640_cut_ap9999_b1_o1_h1m.tpu",
+   ".mono.ops-path: mosprom_pose640_cut_ap9999_b1_o1_h1m.tpu",
+   ".mono.ops-path: mosprom_det960_cut_ap9999_b1_o1_h1m.tpu"
+  ],
+  "cls": 0.015548047648854188,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established.",
+   "warning: WebSocket connection to 'ws://127.0.0.1:5176/ws?role=admin' failed: WebSocket is closed before the connection is established."
+  ]
+ },
+ {
+  "file": "50-empty-dispatch-1366.png",
+  "url": "/operator?review=empty",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.00508615156744301,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "51-empty-master-1366.png",
+  "url": "/master?review=empty",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0033656598752159696,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ },
+ {
+  "file": "52-empty-journal-1366.png",
+  "url": "/ohs/journal?review=empty",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск"
+  ],
+  "cls": 0.003416762257781947,
+  "logs": [
+   "warning: ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more informa",
+   "warning: ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see http"
+  ]
+ }
+]

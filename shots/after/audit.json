@@ -1,0 +1,552 @@
+[
+ {
+  "file": "01-operator-dispatch-1920.png",
+  "url": "/operator",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".cr-tag: Кам 5.1 · Публичный датасет падений"
+  ],
+  "cls": 0.01818464512687652,
+  "logs": []
+ },
+ {
+  "file": "02-operator-sector-1920.png",
+  "url": "/operator/sectors/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   "small: Камера 1.1 · Пресс №2 · Пресс · Человек в зоне «Пр",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Сближение с погрузчиком: 0",
+   "small: Камера 1.2 · Проход у прессов · Телефон в руке 12 ",
+   "small: Камера 1.2 · Проход у прессов · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 12 с",
+   "small: Камера 1.2 · Проход у прессов · Проезд погрузчика ",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 25 с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,4 роста/с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,0 роста/с ря",
+   "small: Камера 1.2 · Проход у прессов · Бег 3,1 м/с",
+   "small: Камера 1.2 · Проход у прессов · Сближение с погруз"
+  ],
+  "cls": 0.002665582174136315,
+  "logs": []
+ },
+ {
+  "file": "03-operator-camera-1920.png",
+  "url": "/operator/cameras/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004066080073760861,
+  "logs": []
+ },
+ {
+  "file": "04-operator-event-red-1920.png",
+  "url": "/events/719",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0032918722286145873,
+  "logs": []
+ },
+ {
+  "file": "05-operator-event-yellow-1920.png",
+  "url": "/events/240",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004478521111570759,
+  "logs": []
+ },
+ {
+  "file": "06-operator-takeover-1920.png",
+  "url": "/events/41?takeover=1&review=critical",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0020577423739335174,
+  "logs": []
+ },
+ {
+  "file": "10-master-inbox-1920.png",
+  "url": "/master",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0026181801689995664,
+  "logs": []
+ },
+ {
+  "file": "11-master-event-1920.png",
+  "url": "/master/events/719",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.046996521270814745,
+  "logs": []
+ },
+ {
+  "file": "12-master-shift-1920.png",
+  "url": "/master/shift",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.002946303249877176,
+  "logs": []
+ },
+ {
+  "file": "20-ohs-journal-1920.png",
+  "url": "/ohs/journal",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск",
+   ".sr-only: Журнал событий. Дата и время указаны по Москве.",
+   "(v) .sr-only: Журнал событий. Дата и время указаны по Москве.",
+   ".sr-only: Кадр",
+   "(v) .sr-only: Кадр",
+   ".sr-only: История события",
+   "(v) .sr-only: История события"
+  ],
+  "cls": 0.0027122535823303974,
+  "logs": []
+ },
+ {
+  "file": "21-ohs-report-1920.png",
+  "url": "/ohs/report",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005798294926867073,
+  "logs": []
+ },
+ {
+  "file": "22-ohs-rules-1920.png",
+  "url": "/ohs/rules",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   ".sr-only: Высота без страховочной привязи на камере Камера 1",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 1",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   ".sr-only: Высота без страховочной привязи на камере Камера 2",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 2",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   ".sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.2 · Стел"
+  ],
+  "cls": 0.00271612897331332,
+  "logs": []
+ },
+ {
+  "file": "23-ohs-stats-1920.png",
+  "url": "/ohs/stats",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.00649733070090965,
+  "logs": []
+ },
+ {
+  "file": "30-management-1920.png",
+  "url": "/management",
+  "role": "management",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0026591171060569986,
+  "logs": []
+ },
+ {
+  "file": "40-admin-cameras-1920.png",
+  "url": "/admin/cameras",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0023196195908534675,
+  "logs": []
+ },
+ {
+  "file": "41-admin-camera-setup-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".adm-tl-name: Опасное сближение с техникой"
+  ],
+  "cls": 0.004796624925401475,
+  "logs": []
+ },
+ {
+  "file": "42-admin-camera-zones-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.00682548911090741,
+  "logs": []
+ },
+ {
+  "file": "43-admin-camera-calibration-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004735085832729261,
+  "logs": []
+ },
+ {
+  "file": "44-admin-camera-rules-1920.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".geo-param-title: Неподвижность в зоне «лежать допустимо»"
+  ],
+  "cls": 0.004383402428018704,
+  "logs": []
+ },
+ {
+  "file": "45-admin-system-1920.png",
+  "url": "/admin/system",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "(v) .ops-tile-value.is-text: CPU (local)",
+   "(v) .ops-tile-value.is-text: Не проверено",
+   "(v) .ops-tile-value.is-text: —"
+  ],
+  "cls": 0.002346278178839036,
+  "logs": []
+ },
+ {
+  "file": "50-empty-dispatch-1920.png",
+  "url": "/operator?review=empty",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0026961710423599053,
+  "logs": []
+ },
+ {
+  "file": "51-empty-master-1920.png",
+  "url": "/master?review=empty",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0022331560354664493,
+  "logs": []
+ },
+ {
+  "file": "52-empty-journal-1920.png",
+  "url": "/ohs/journal?review=empty",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск"
+  ],
+  "cls": 0.0028447860866907693,
+  "logs": []
+ },
+ {
+  "file": "01-operator-dispatch-1366.png",
+  "url": "/operator",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".hud-label.hud-label-neutral: человек#5",
+   ".cr-q-place: Ремонтная зона · Кам 5.1 · Публичный датасет паден",
+   ".cr-tag: Кам 5.1 · Публичный датасет падений",
+   ".cr-tag: Кам 1.2 · Проход у прессов",
+   ".cr-tag: Кам 2.1 · Погрузочная рампа",
+   ".cr-tag: Кам 3.2 · Ограждение линии",
+   ".cr-tag: Кам 4.1 · Ремонтная яма"
+  ],
+  "cls": 0.04910513545625764,
+  "logs": []
+ },
+ {
+  "file": "02-operator-sector-1366.png",
+  "url": "/operator/sectors/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   "small: Камера 1.1 · Пресс №2 · Пресс · Человек в зоне «Пр",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Сближение с погрузчиком: 0",
+   "small: Камера 1.1 · Пресс №2 · Бег 2,4 роста/с",
+   "small: Камера 1.2 · Проход у прессов · Телефон в руке 12 ",
+   "small: Камера 1.2 · Проход у прессов · Сближение с грузов",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 12 с",
+   "small: Камера 1.2 · Проход у прессов · Проезд погрузчика ",
+   "small: Камера 1.1 · Пресс №2 · Телефон в руке 25 с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,4 роста/с",
+   "small: Камера 1.1 · Пресс №2 · Пресс · Бег 2,0 роста/с ря",
+   "small: Камера 1.2 · Проход у прессов · Бег 3,1 м/с",
+   "small: Камера 1.2 · Проход у прессов · Сближение с погруз"
+  ],
+  "cls": 0.013408236944376636,
+  "logs": []
+ },
+ {
+  "file": "03-operator-camera-1366.png",
+  "url": "/operator/cameras/1",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [
+   ".hud-label.hud-label-neutral: человек#5",
+   "small: Человек в зоне «Пресс»"
+  ],
+  "cls": 0.008120419146157661,
+  "logs": []
+ },
+ {
+  "file": "04-operator-event-red-1366.png",
+  "url": "/events/719",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.09609362621281246,
+  "logs": []
+ },
+ {
+  "file": "05-operator-event-yellow-1366.png",
+  "url": "/events/240",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.011058787221048376,
+  "logs": []
+ },
+ {
+  "file": "06-operator-takeover-1366.png",
+  "url": "/events/41?takeover=1&review=critical",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.10098236069090485,
+  "logs": []
+ },
+ {
+  "file": "10-master-inbox-1366.png",
+  "url": "/master",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0052148830463153014,
+  "logs": []
+ },
+ {
+  "file": "11-master-event-1366.png",
+  "url": "/master/events/719",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.08234015663497148,
+  "logs": []
+ },
+ {
+  "file": "12-master-shift-1366.png",
+  "url": "/master/shift",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.004909512663215319,
+  "logs": []
+ },
+ {
+  "file": "20-ohs-journal-1366.png",
+  "url": "/ohs/journal",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск",
+   ".sr-only: Журнал событий. Дата и время указаны по Москве.",
+   "(v) .sr-only: Журнал событий. Дата и время указаны по Москве.",
+   ".sr-only: Кадр",
+   "(v) .sr-only: Кадр",
+   ".sr-only: История события",
+   "(v) .sr-only: История события",
+   "span: Камера 5.1 · Публичный датасет падений"
+  ],
+  "cls": 0.009844316098177215,
+  "logs": []
+ },
+ {
+  "file": "21-ohs-report-1366.png",
+  "url": "/ohs/report",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.009354628575048292,
+  "logs": []
+ },
+ {
+  "file": "22-ohs-rules-1366.png",
+  "url": "/ohs/rules",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.1 · Пр",
+   ".sr-only: Высота без страховочной привязи на камере Камера 1",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 1",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.1 · Прес",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.1 ",
+   "span: Камера 1.2 · Проход у прессов",
+   ".sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 1.2 · Пр",
+   ".sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 1.2 · Прох",
+   ".sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 1.2 ",
+   "span: Камера 2.1 · Погрузочная рампа",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   "(v) .sr-only: Курение и открытый огонь на камере Камера 2.1 · По",
+   ".sr-only: Высота без страховочной привязи на камере Камера 2",
+   "(v) .sr-only: Высота без страховочной привязи на камере Камера 2",
+   ".sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   "(v) .sr-only: Под подвешенным грузом на камере Камера 2.1 · Погр",
+   ".sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   "(v) .sr-only: Переноска груза с нарушением на камере Камера 2.1 ",
+   ".sr-only: Курение и открытый огонь на камере Камера 2.2 · Ст"
+  ],
+  "cls": 0.005252992615248649,
+  "logs": []
+ },
+ {
+  "file": "23-ohs-stats-1366.png",
+  "url": "/ohs/stats",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.012139757811328375,
+  "logs": []
+ },
+ {
+  "file": "30-management-1366.png",
+  "url": "/management",
+  "role": "management",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0037163877212522027,
+  "logs": []
+ },
+ {
+  "file": "40-admin-cameras-1366.png",
+  "url": "/admin/cameras",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.002915006803165537,
+  "logs": []
+ },
+ {
+  "file": "41-admin-camera-setup-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   ".adm-tl-name: Опасное сближение с техникой"
+  ],
+  "cls": 0.007225941970001877,
+  "logs": []
+ },
+ {
+  "file": "42-admin-camera-zones-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "small: Опасная зона / механизм · 7 точек"
+  ],
+  "cls": 0.00735160809902524,
+  "logs": []
+ },
+ {
+  "file": "43-admin-camera-calibration-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.007821927144695283,
+  "logs": []
+ },
+ {
+  "file": "44-admin-camera-rules-1366.png",
+  "url": "/admin/cameras/1",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.007225941970001877,
+  "logs": []
+ },
+ {
+  "file": "45-admin-system-1366.png",
+  "url": "/admin/system",
+  "role": "admin",
+  "hscroll": [],
+  "clipped": [
+   "(v) .ops-tile-value.is-text: CPU (local)",
+   "(v) .ops-tile-value.is-text: Не проверено",
+   "(v) .ops-tile-value.is-text: —",
+   ".mono.ops-path: mosprom_det640_cut_ap9999_b1_o1_h1m.tpu",
+   ".mono.ops-path: mosprom_pose640_cut_ap9999_b1_o1_h1m.tpu",
+   ".mono.ops-path: mosprom_det960_cut_ap9999_b1_o1_h1m.tpu"
+  ],
+  "cls": 0.010737926070571226,
+  "logs": []
+ },
+ {
+  "file": "50-empty-dispatch-1366.png",
+  "url": "/operator?review=empty",
+  "role": "operator",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.005097028467572108,
+  "logs": []
+ },
+ {
+  "file": "51-empty-master-1366.png",
+  "url": "/master?review=empty",
+  "role": "master",
+  "hscroll": [],
+  "clipped": [],
+  "cls": 0.0039017718895669297,
+  "logs": []
+ },
+ {
+  "file": "52-empty-journal-1366.png",
+  "url": "/ohs/journal?review=empty",
+  "role": "ohs",
+  "hscroll": [],
+  "clipped": [
+   ".sr-only: Поиск",
+   "(v) .sr-only: Поиск"
+  ],
+  "cls": 0.005077487783612859,
+  "logs": []
+ }
+]
