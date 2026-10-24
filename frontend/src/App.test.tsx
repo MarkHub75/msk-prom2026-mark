@@ -49,7 +49,7 @@ describe("app shell", () => {
   });
 
   it("stub_screens_show_slice", () => {
-    for (const item of NAV) {
+    for (const item of NAV.filter((i) => !i.screen)) {
       const path = item.path.replace(/:\w+/g, "1");
       const view = renderAt(path);
       expect(view.getByText(`Экран появится в слайсе ${item.slice}`)).toBeTruthy();

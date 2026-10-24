@@ -13,7 +13,7 @@ export function App() {
           <Route
             key={item.path}
             path={item.path}
-            element={<StubNotice slice={item.slice} title={item.title} />}
+            element={item.screen ? <item.screen /> : <StubNotice slice={item.slice} title={item.title} />}
           />
         ))}
         <Route path="*" element={<Navigate to={menuFor(role)[0]?.path ?? "/operator"} replace />} />

@@ -4,12 +4,14 @@ Functions of slices that are not built yet raise `NotImplementedError("slice N")
 answers them with 501 `not_implemented`.
 """
 
+import sqlite3
 from collections.abc import AsyncIterator
 from datetime import datetime
 from pathlib import Path
+from typing import get_args
 
-from safewatch import seed
-from safewatch.errors import NotFound
+from safewatch import clock, config, seed, store, texts
+from safewatch.errors import Conflict, Forbidden, NotFound, RoleRequired, ValidationFailed
 from safewatch.texts import VIDEOS_DIR_MISSING
 from safewatch.types import (
     ActionIn,
@@ -32,11 +34,15 @@ from safewatch.types import (
     EventDetail,
     EventFilter,
     EventPage,
+    EventStatus,
     EventSummary,
     Health,
+    HumanAction,
     Job,
     JobStatus,
     JournalFacets,
+    Level,
+    LevelMeta,
     ManagementStats,
     MasterInbox,
     Meta,
@@ -44,22 +50,40 @@ from safewatch.types import (
     OhsStats,
     OperatorDashboard,
     Role,
+    RoleMeta,
     RulesScreenView,
     Sector,
     SectorIn,
     SectorView,
     SeedReport,
     ShiftSummary,
+    StatusMeta,
     SystemView,
     TracksWindow,
     UploadResult,
     Video,
     Zone,
     ZoneIn,
+    ZoneKindMeta,
     ZonePatch,
 )
 
 ACTOR_MAX = 60
+NAME_MAX = 80
+DESCRIPTION_MAX = 300
+
+# Rights table of tech.md 6.2: human actions on events per role.
+ROLE_ACTIONS: dict[Role, list[HumanAction]] = {
+    "operator": ["view", "confirm", "false_alarm", "send_to_master"],
+    "master": ["accept", "resolve"],
+    "ohs": [],
+    "management": [],
+    "admin": [],
+}
+TERMINAL_STATUSES: frozenset[EventStatus] = frozenset(
+    {"false_alarm", "resolved", "auto_finished", "superseded"}
+)  # tech.md 8.6
+LEVEL_COLORS: dict[Level, str] = {"yellow": "#FFC400", "red": "#FF3B30"}  # theme of tech.md 8.14
 
 
 def health() -> Health:
@@ -81,48 +105,177 @@ def seed_demo(videos_dir: Path | None = None) -> SeedReport:
     return report
 
 
+def _require(role: Role | None, allowed: tuple[Role, ...]) -> None:
+    if role is None:
+        raise RoleRequired(texts.ROLE_REQUIRED)
+    if role not in allowed:
+        raise Forbidden(texts.FORBIDDEN_ROLE, role=role)
+
+
 def meta() -> Meta:
-    raise NotImplementedError("slice 1")
+    from safewatch.api import CONTRACT_VERSION  # api imports this module at the top
+
+    settings = config.get_settings()
+    return Meta(
+        product_name=settings.product_name,
+        contract=CONTRACT_VERSION,
+        inference_backend=settings.inference_backend,
+        fake=settings.fake,
+        timezone=settings.timezone,
+        roles=[
+            RoleMeta(id=role, title=texts.ROLE_TITLES[role], actions=ROLE_ACTIONS[role])
+            for role in get_args(Role)
+        ],
+        levels=[
+            LevelMeta(id=level, title=texts.LEVEL_TITLES[level], color=LEVEL_COLORS[level])
+            for level in get_args(Level)
+        ],
+        statuses=[
+            StatusMeta(id=s, title=texts.STATUS_TITLES[s], terminal=s in TERMINAL_STATUSES)
+            for s in get_args(EventStatus)
+        ],
+        zone_kinds=[ZoneKindMeta.model_validate(k.model_dump()) for k in settings.zone_kinds],
+        # rules.scenario_metas() arrives with the first plugins in slice 5.
+        scenarios=[],
+    )
+
+
+def _sector(row: sqlite3.Row) -> Sector:
+    return Sector(
+        id=row["id"], name=row["name"], sort_order=row["sort_order"], is_demo=bool(row["is_demo"])
+    )
+
+
+def _camera(row: sqlite3.Row) -> Camera:
+    return Camera(
+        id=row["id"],
+        sector_id=row["sector_id"],
+        name=row["name"],
+        description=row["description"],
+        is_demo=bool(row["is_demo"]),
+        has_calibration=bool(row["has_calibration"]),
+        zones_count=row["zones_count"],
+        videos_count=row["videos_count"],
+    )
+
+
+def _name(value: str) -> str:
+    name = value.strip()
+    if not 1 <= len(name) <= NAME_MAX:
+        raise ValidationFailed(texts.NAME_INVALID, field="name")
+    return name
+
+
+def _description(value: str) -> str:
+    if len(value) > DESCRIPTION_MAX:
+        raise ValidationFailed(texts.DESCRIPTION_INVALID, field="description")
+    return value
+
+
+def _sector_row(sector_id: int) -> sqlite3.Row:
+    row = store.sector(sector_id)
+    if row is None:
+        raise NotFound(texts.SECTOR_NOT_FOUND, sector_id=sector_id)
+    return row
+
+
+def _sector_exists_for_camera(sector_id: int) -> None:
+    # A missing sector in a camera body is bad input (422), not a missing resource (404).
+    if store.sector(sector_id) is None:
+        raise ValidationFailed(texts.SECTOR_NOT_FOUND, field="sector_id")
 
 
 def cameras_admin_view() -> CamerasAdminView:
-    raise NotImplementedError("slice 1")
+    return CamerasAdminView(sectors=sectors_list(), cameras=cameras_list())
 
 
 def sectors_list() -> list[Sector]:
-    raise NotImplementedError("slice 1")
+    return [_sector(row) for row in store.sectors()]
 
 
 def sector_create(data: SectorIn, role: Role | None) -> Sector:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    name = _name(data.name)
+    with store.tx():
+        if store.sector_name_taken(name):
+            raise Conflict("name_taken", texts.SECTOR_NAME_TAKEN, field="name")
+        values = {"name": name, "sort_order": data.sort_order, "created_at": clock.iso(clock.now())}
+        sector_id = store.insert("sectors", values)
+    return _sector(_sector_row(sector_id))
 
 
 def sector_update(sector_id: int, data: SectorIn, role: Role | None) -> Sector:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    name = _name(data.name)
+    with store.tx():
+        _sector_row(sector_id)
+        if store.sector_name_taken(name, except_id=sector_id):
+            raise Conflict("name_taken", texts.SECTOR_NAME_TAKEN, field="name")
+        store.sector_update(sector_id, name, data.sort_order)
+    return _sector(_sector_row(sector_id))
 
 
 def sector_delete(sector_id: int, role: Role | None) -> None:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    with store.tx():
+        _sector_row(sector_id)
+        if store.sector_has_cameras(sector_id):
+            raise Conflict("sector_not_empty", texts.SECTOR_NOT_EMPTY)
+        try:
+            store.sector_delete(sector_id)
+        except sqlite3.IntegrityError:
+            # Deleted cameras and events keep pointing at the sector (journal history).
+            raise Conflict("sector_not_empty", texts.SECTOR_HAS_HISTORY) from None
 
 
 def cameras_list(sector_id: int | None = None) -> list[Camera]:
-    raise NotImplementedError("slice 1")
+    if sector_id is not None:
+        _sector_row(sector_id)
+    return [_camera(row) for row in store.cameras(sector_id)]
 
 
 def camera_get(camera_id: int) -> Camera:
-    raise NotImplementedError("slice 1")
+    row = store.camera(camera_id)
+    if row is None:
+        raise NotFound(texts.CAMERA_NOT_FOUND, camera_id=camera_id)
+    return _camera(row)
 
 
 def camera_create(data: CameraIn, role: Role | None) -> Camera:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    values = {
+        "sector_id": data.sector_id,
+        "name": _name(data.name),
+        "description": _description(data.description),
+        "created_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        _sector_exists_for_camera(data.sector_id)
+        camera_id = store.insert("cameras", values)
+    return camera_get(camera_id)
 
 
 def camera_update(camera_id: int, data: CameraPatch, role: Role | None) -> Camera:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    values = data.model_dump(exclude_none=True)
+    if "name" in values:
+        values["name"] = _name(values["name"])
+    if "description" in values:
+        values["description"] = _description(values["description"])
+    with store.tx():
+        camera_get(camera_id)
+        if "sector_id" in values:
+            _sector_exists_for_camera(values["sector_id"])
+        if values:
+            store.camera_update(camera_id, values)
+    return camera_get(camera_id)
 
 
 def camera_delete(camera_id: int, role: Role | None) -> None:
-    raise NotImplementedError("slice 1")
+    _require(role, ("admin",))
+    with store.tx():
+        camera_get(camera_id)
+        store.camera_delete(camera_id, clock.iso(clock.now()))
 
 
 async def video_upload(
