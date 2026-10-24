@@ -192,6 +192,11 @@ def demo_import(path: Path) -> int:
     return 0
 
 
+def dataset_export(out: Path | None) -> int:
+    print(services.dataset_export(out))
+    return 0
+
+
 def contract_texts() -> dict[str, str]:
     from safewatch.api import create_app
 
@@ -250,6 +255,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--allow-fake", action="store_true", help="sign the pack as fake detections")
     p = demo.add_parser("import", help="create the pack world and queue its cached jobs")
     p.add_argument("path", type=Path)
+    p = sub.add_parser("dataset", help="the false alarm dataset (datasets/false_alarms/)")
+    dataset = p.add_subparsers(dest="dataset_command", required=True)
+    p = dataset.add_parser("export", help="zip every item with manifest.json")
+    p.add_argument("--out", type=Path, help="folder of false_alarms.zip")
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -267,6 +276,8 @@ def main(argv: list[str] | None = None) -> int:
         return demo_build(args.layout, args.videos, args.out, args.allow_fake)
     if args.command == "demo":
         return demo_import(args.path)
+    if args.command == "dataset":
+        return dataset_export(args.out)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)
