@@ -1,0 +1,15 @@
+{
+  "scenario_id": "07",
+  "source": "existing_shared_behavior_engine",
+  "subrules": [
+    "suspected_fall",
+    "prolonged_lying",
+    "immobility_observed"
+  ],
+  "medical_diagnosis": false,
+  "min_score": 0.5,
+  "min_fact_score": 0.5,
+  "floor_polygon": null,
+  "floor_policy_source": null,
+  "geometry_revision": null
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": "mosprom-scenarios-v1",
+  "modules": {
+    "01": {
+      "scenario_id": "01",
+      "min_score": 0.5,
+      "min_fact_score": 0.5,
+      "running": {
+        "fact_name": "running_action",
+        "interpretation": "sourced action, no gait model claim"
+      },
+      "abrupt_movement": {
+        "work_zone": null,
+        "geometry_revision": null,
+        "policy_source": null,
+        "speed_units": "image_diagonals_per_second",
+        "speed_threshold": 0.2,
+        "max_gap_ms": 750
+      }
+    },
+    "02": {
+      "scenario_id": "02",
+      "min_score": 0.5,
+      "min_fact_score": 0.5,
+      "machine_classes": [
+        "machine",
+        "forklift",
+        "transport"
+      ],
+      "moving_min_image_diagonals_per_second": 0.01,
+      "max_gap_ms": 750,
+      "proximity": {
+        "units": "body_heights",
+        "threshold": 1.0,
+        "policy_source": null
+      }
+    },
+    "03": {
+      "scenario_id": "03",
+      "prototype_unvalidated": true,
+      "phone_class": "phone",
+      "min_evidence_score": 0.5,
+      "max_phone_wrist_body_fraction": 0.15,
+      "max_phone_head_body_fraction": 0.35
+    },
+    "04": {
+      "scenario_id": "04",
+      "prototype_unvalidated": true,
+      "policy_declared": false,
+      "policy_source": null,
+      "fire_class": "flame",
+      "cigarette_class": "cigarette",
+      "allowed_fire_zones": [],
+      "allowed_smoking_zones": [],
+      "min_evidence_score": 0.5
+    },
+    "05": {
+      "scenario_id": "05",
+      "min_score": 0.5,
+      "min_fact_score": 0.5,
+      "fence_climb": {
+        "barrier_id": null,
+        "polygon": null,
+        "geometry_revision": null,
+        "policy_source": null
+      },
+      "under_conveyor": {
+        "barrier_id": null,
+        "polygon": null,
+        "geometry_revision": null,
+        "policy_source": null
+      },
+      "under_suspended_load": {
+        "barrier_id": null,
+        "polygon": null,
+        "geometry_revision": null,
+        "policy_source": null
+      }
+    },
+    "06": {
+      "scenario_id": "06",
+      "prototype_unvalidated": true,
+      "height_policy_declared": false,
+      "height_zone_source": null,
+      "elevated_work_zones": [],
+      "harness_class": "harness",
+      "min_evidence_score": 0.5
+    },
+    "07": {
+      "scenario_id": "07",
+      "source": "existing_shared_behavior_engine",
+      "subrules": [
+        "suspected_fall",
+        "prolonged_lying",
+        "immobility_observed"
+      ],
+      "medical_diagnosis": false,
+      "min_score": 0.5,
+      "min_fact_score": 0.5,
+      "floor_polygon": null,
+      "floor_policy_source": null,
+      "geometry_revision": null
+    },
+    "08": {
+      "scenario_id": "08",
+      "prototype_unvalidated": true,
+      "cargo_policy_declared": false,
+      "policy_source": null,
+      "cargo_class": "cargo",
+      "forbidden_carry_zones": [],
+      "forbid_face_obstruction": false,
+      "min_evidence_score": 0.5
+    }
+  },
+  "temporal": {
+    "confirm_ms": 1000,
+    "min_observations": 2,
+    "max_gap_ms": 750
+  }
+}

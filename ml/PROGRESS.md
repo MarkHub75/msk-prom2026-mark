@@ -1,5 +1,16 @@
 # ML/CV quality sprint — progress
 
+## E009 coverage pass1 complete — 2026-10-24T11:19:15.188246+00:00
+
+MEASURED engineering: all8officialgroups puremodules/configs merged; sharedScenarioSuite context uses existingBehaviorEngineONCE, sharedobjectassociation, originalPTS/sourcecamera, sourcedsameframefacts, common observed-duration/UNKNOWN/gap handling, candidateUUID/revision, evidence and SQLiteatomicextension. AdditiveINTERNAL EventCandidate schema; externaleventv1/API unchanged. Newcandidates separate scenario_candidates table, never MarkHTTPsink. Optional --scenario-config enablesexistingvideo pipeline; configfingerprint bindsvideo session, noautomaticenable/weightswap.
+
+MEASURED syntheticacceptance24cases: each8positive producescandidate, negative/unknown none; all8findinggroups runeachframe, labelledsyntheticJPEGproof/PTSmetadata saved. /workspace/artifacts/matvey-scenarios/coverage-v1/acceptance-summary.json.46focusedtestsPASS after fixingGapNoneguard and ensuringnewtrackgeneration facts cannotborrowoldidentities. Full463testsPASS/7.432s, /workspace/artifacts/matvey-scenarios/software-tests-001.log; notaccuracy. Two earlierfocusedfailurelogs retained.
+
+Semanticreview07 fixedlying/immobility floorobservability: absentfloorUNKNOWN, declarednegativefloorNEG; existingBehaviorEngineunchanged, suspectedtransitionnotmedicaldiagnosis. Positivesforphone/harness/smoking/cargo/barrier requireexplicitobservableobject/action/ownership/policy facts; nativeunitfixtures are not detectorproof. TrainingrequirementsJSONall8/gatescommitted, newGMD4headexportonly notselected, PPEDpresence48 notevent/train.
+
+Activepass2: Data-approvedMendeley16boundedvisualscreen byDetection; rootreplaysavailableactualsavedLinQ2frames and scopednativeCAVIAR/UR withoutnewNN. No GPU/network/sharedLinQoperations; specialization blockersremainexplicit. Then rank3fromevidence andsavecheckpoint; noautomaticHelmetchoice.
+
+
 ## COVERAGE SPRINT ACTIVE — 2026-10-24T10:58:52.517921+00:00
 
 New urgent user directive: executable prototypes for all eight page4 official groups, then evidence-based top3; previous three-direction budget does not block independent coverage implementation. Branch matvey_cv at8f879606; untracked .ipynb_checkpoints/ pre-exists and is neither read, edited nor committed. Officialpage4 reviewed via preserved extractedimage; exact meanings retained including separatefence/underconveyor/underload and08additional.07medicalwording retained as quotation but operationally onlyvisualsigns, neverdiagnosis. Existing eventv1 remains unchanged; newinternalEventCandidate/sink is additive opt-in.
