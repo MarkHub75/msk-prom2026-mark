@@ -226,3 +226,5 @@
 - Происшествие: тест S7 открывал настоящую `data/app/safewatch.db`, тест S9 записал туда строки (удалены точечно); R10 поставил autouse `no_real_data`, гейт `data/app` больше не трогает.
 - Утром владельцу: спросить Матвея или организаторов про консьюмеров очереди `input`, потом `uv run poe live`; остановить idle kernels `e03fcb40…`, `475771bb…` и kernel `doctor`; удалить `D:\npm1.log`, `D:\scratch_fe.log`; запустить Docker Desktop и `docker compose build`; положить заводские видео в `data/videos/`.
 - Результат: main `6a65f377`, запуск `uv run safewatch serve --seed` (README, раздел «Приложение SafeWatch»), контракт фронта `contract/openapi.json`.
+- 19:30 второй прогон (tech v5), очередь с S16, main `ce7bc165`
+- 19:41 S16: ок, PR #22
