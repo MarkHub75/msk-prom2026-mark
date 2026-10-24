@@ -1,0 +1,17 @@
+{
+  "scenario_id": "02",
+  "min_score": 0.5,
+  "min_fact_score": 0.5,
+  "machine_classes": [
+    "machine",
+    "forklift",
+    "transport"
+  ],
+  "moving_min_image_diagonals_per_second": 0.01,
+  "max_gap_ms": 750,
+  "proximity": {
+    "units": "body_heights",
+    "threshold": 1.0,
+    "policy_source": null
+  }
+}

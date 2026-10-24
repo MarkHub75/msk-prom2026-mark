@@ -1,0 +1,23 @@
+{
+  "scenario_id": "05",
+  "min_score": 0.5,
+  "min_fact_score": 0.5,
+  "fence_climb": {
+    "barrier_id": null,
+    "polygon": null,
+    "geometry_revision": null,
+    "policy_source": null
+  },
+  "under_conveyor": {
+    "barrier_id": null,
+    "polygon": null,
+    "geometry_revision": null,
+    "policy_source": null
+  },
+  "under_suspended_load": {
+    "barrier_id": null,
+    "polygon": null,
+    "geometry_revision": null,
+    "policy_source": null
+  }
+}
