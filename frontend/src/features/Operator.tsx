@@ -116,7 +116,10 @@ export function OperatorPage() {
   const history = feedAll.filter(isTerminal);
   const critical = active.find(event => event.level === "red" && event.operator_verdict === "none");
   const sectors = dashboard.data?.sectors ?? [];
-  const queue = active.filter(event => filter === "all" || event.level === filter);
+  // Backend priority (tech.md 8.8): 3 red and 2 yellow still waiting for the operator, 1 other open (already handled, with the master).
+  const waiting = active.filter(event => event.priority >= 2);
+  const inWork = active.filter(event => event.priority < 2);
+  const queue = waiting.filter(event => filter === "all" || event.level === filter);
   const focusSector = sectors.find(s => s.sector_id === pickedSector) ?? sectors.find(s => s.state === "red") ?? sectors.find(s => s.state === "yellow") ?? sectors[0];
   const selectedEvent = feedAll.find(e => e.id === pickedEvent) ?? queue[0];
   const sectorView = useApi(() => focusSector ? api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: focusSector.sector_id } } }) : Promise.resolve({ data: undefined }), [focusSector?.sector_id, updates]);
@@ -145,10 +148,11 @@ export function OperatorPage() {
         </div>
       </div>
       <aside className="cr-queue" aria-label="Очередь тревог">
-        <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{active.length}</span></div>
+        <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{waiting.length}</span></div>
         <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
         {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Камеры без наблюдения показаны в полосе секторов: отсутствие тревог там не означает безопасность.</span></div>}
         {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} />}
+        {inWork.length > 0 && <details className="cr-history cr-inwork"><summary><span>В работе: решение принято, ждём закрытия</span><span className="mono">{inWork.length}</span></summary><ol className="cr-q-list">{inWork.slice(0, 30).map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol>{inWork.length > 30 && <Link className="text-link" to="/ohs/journal">Ещё {inWork.length - 30} — в журнале <Icon name="arrow" size={14} /></Link>}</details>}
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>
       </aside>
       <section className="cr-sectors" aria-label="Секторы производства">
