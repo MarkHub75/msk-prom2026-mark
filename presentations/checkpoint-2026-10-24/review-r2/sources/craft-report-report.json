@@ -1,0 +1,3757 @@
+{
+  "version": "1.0.0",
+  "startedAt": "2026-10-24T05:40:55.498Z",
+  "adapterSha256": "5a3a54d8a08a404782b848159f77580a649562c5cc652ac4288b9f5f0e6d7e3c",
+  "storySha256": "787495aeb879f33baa7ee9668b997a551387e076276d8af021269cbdf5df39f5",
+  "browser": "156.0.8078.4",
+  "browserPlugin": "Browser plugin not available; existing OS Playwright/Chromium. Raster text is outside DOM probe coverage; missing-assertion findings retained and typography checked separately.",
+  "sourceInventory": {
+    "scripts/compose.py": "28ce3496fdc309735169cfc522d185a763394a297e7030ac50f225cfb9c88ae2",
+    "speaker-notes.json": "4765a5fd3460096764985d2dbe7bb3f96ccf56899cfc04e0b4526a9ffc42efb3",
+    "evidence/composition.json": "be838c56117242572eed0e9c32021f975a1c228ad0ced764dc1650a9b766d878",
+    "craft/capture.html": "8f0f40b45643319dabdee80d2a7e24350212abd8f22edfff1a98d402731afa88",
+    "craft/story.json": "787495aeb879f33baa7ee9668b997a551387e076276d8af021269cbdf5df39f5",
+    "slides/slide-01.png": "583f64b36bf8792bbea368c6be034efd2969cb3213a62a84b883d5efef5eb676",
+    "slides/slide-02.png": "5f83d163346cb2a7997d66b240dfcc1ad48a0d724587bf252e524a6509572335",
+    "slides/slide-03.png": "6282b261cacec6b8b04a2f67bb35a7344646ed52c2c236d82b6b19887f99779d",
+    "slides/slide-04.png": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2",
+    "slides/slide-05.png": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46",
+    "slides/slide-06.png": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c",
+    "slides/slide-07.png": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f",
+    "slides/slide-08.png": "97be6e1c59e34c3dadabcaefe69b3400d09aba104e67edc9cf60aa06da5a4d87"
+  },
+  "observations": [
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Промышленная безопасность",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "01-1080-normal.png",
+        "sha256": "79bbe46424aaf028c3445bc387a5878e6225048de30a755fb564bf452fef8028",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видео → событие → действие",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "02-1080-normal.png",
+        "sha256": "59e09fbae897d13900550cecbb6da53a05e7b4b3952a9008b8693d7d447b72d3",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "LinQ: реальное исполнение на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "03-1080-normal.png",
+        "sha256": "16d1a8a00602fe81b3c8f101569b96e48a1165da1cbccdc0048ac160735fcce7",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Собственные модели дошли до TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "04-1080-normal.png",
+        "sha256": "9fdc08ce8f778cb9f03562f2e52f8c21b04415d04d6bd4aa553bb5302bce1527",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Готовность по слоям",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "05-1080-normal.png",
+        "sha256": "c0fb766d9b5810fd47852184c369e14a572dac5ec8a20adf2f8cad6c84ed195d",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Проверяем путь реакции",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "06-1080-normal.png",
+        "sha256": "49c7bf67c09ed7f681693528991d75cfe11784be747c36d46d6ef034058990ed",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "До финальной защиты",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "07-1080-normal.png",
+        "sha256": "5880996686fdf1602ab5d1b670d4eaa35d0d14c7bc82ff4277382e5e37b499de",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Вопросы экспертам LinQ",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "08-1080-normal.png",
+        "sha256": "8bddec51f31c20e65b06395c332c667a9e21460cacdda2c9e07f79e1197cacd6",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Промышленная безопасность",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "01-1080-reduced.png",
+        "sha256": "79bbe46424aaf028c3445bc387a5878e6225048de30a755fb564bf452fef8028",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видео → событие → действие",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "02-1080-reduced.png",
+        "sha256": "59e09fbae897d13900550cecbb6da53a05e7b4b3952a9008b8693d7d447b72d3",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "LinQ: реальное исполнение на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "03-1080-reduced.png",
+        "sha256": "16d1a8a00602fe81b3c8f101569b96e48a1165da1cbccdc0048ac160735fcce7",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Собственные модели дошли до TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "04-1080-reduced.png",
+        "sha256": "9fdc08ce8f778cb9f03562f2e52f8c21b04415d04d6bd4aa553bb5302bce1527",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Готовность по слоям",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "05-1080-reduced.png",
+        "sha256": "c0fb766d9b5810fd47852184c369e14a572dac5ec8a20adf2f8cad6c84ed195d",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Проверяем путь реакции",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "06-1080-reduced.png",
+        "sha256": "49c7bf67c09ed7f681693528991d75cfe11784be747c36d46d6ef034058990ed",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "До финальной защиты",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "07-1080-reduced.png",
+        "sha256": "5880996686fdf1602ab5d1b670d4eaa35d0d14c7bc82ff4277382e5e37b499de",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Вопросы экспертам LinQ",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "08-1080-reduced.png",
+        "sha256": "8bddec51f31c20e65b06395c332c667a9e21460cacdda2c9e07f79e1197cacd6",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Промышленная безопасность",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "01-720-normal.png",
+        "sha256": "0944b1aaaf89204e9943c2531119b856d17fb8e9f6da7d164e095e3ef1a0d752",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видео → событие → действие",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "02-720-normal.png",
+        "sha256": "d8b56cfae46389291b3e51f75ac45b84fa871df9983728a09865276c63316f16",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "LinQ: реальное исполнение на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "03-720-normal.png",
+        "sha256": "bae54e94f06ccdec69930a8ad7c1fc4af83a934b1f11e2e297a70131e4928a10",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Собственные модели дошли до TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "04-720-normal.png",
+        "sha256": "82c3ad66039ca99281e7a1531817c736da2b5323cfc83a9271648772de3be698",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Готовность по слоям",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "05-720-normal.png",
+        "sha256": "ea1d4679f999a4c2e56cde563f7ea6cf3f1d6d2b1340e721fafb0a84e45975c4",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Проверяем путь реакции",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "06-720-normal.png",
+        "sha256": "4515810ac363e86ea02df42923d95d1ed095fd317ed45f8a9ecd0005cdf24d4f",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "До финальной защиты",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "07-720-normal.png",
+        "sha256": "ecc8207ff97b085ecdacffb2100b0a64b83237893dcd40a0004d4422bf3314f8",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Вопросы экспертам LinQ",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-normal",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "08-720-normal.png",
+        "sha256": "001902d078256053613d43f6e889ae8ec817bdf66582aff258c5549cd0bb52a9",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Промышленная безопасность",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "01-720-reduced.png",
+        "sha256": "0944b1aaaf89204e9943c2531119b856d17fb8e9f6da7d164e095e3ef1a0d752",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видео → событие → действие",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "02-720-reduced.png",
+        "sha256": "d8b56cfae46389291b3e51f75ac45b84fa871df9983728a09865276c63316f16",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "LinQ: реальное исполнение на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "03-720-reduced.png",
+        "sha256": "bae54e94f06ccdec69930a8ad7c1fc4af83a934b1f11e2e297a70131e4928a10",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Собственные модели дошли до TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "04-720-reduced.png",
+        "sha256": "82c3ad66039ca99281e7a1531817c736da2b5323cfc83a9271648772de3be698",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Готовность по слоям",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "05-720-reduced.png",
+        "sha256": "ea1d4679f999a4c2e56cde563f7ea6cf3f1d6d2b1340e721fafb0a84e45975c4",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Проверяем путь реакции",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "06-720-reduced.png",
+        "sha256": "4515810ac363e86ea02df42923d95d1ed095fd317ed45f8a9ecd0005cdf24d4f",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "До финальной защиты",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "07-720-reduced.png",
+        "sha256": "ecc8207ff97b085ecdacffb2100b0a64b83237893dcd40a0004d4422bf3314f8",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8724/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Вопросы экспертам LinQ",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Exact text glyph coverage and safe ink bounds checked in composition.json; manual 720p review required.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-reduced",
+        "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+        "title": "SafeWatch — image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "08-720-reduced.png",
+        "sha256": "001902d078256053613d43f6e889ae8ec817bdf66582aff258c5549cd0bb52a9",
+        "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+        "fixture": "safewatch-checkpoint-20261024"
+      },
+      "runtimeErrors": []
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "01-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "01-1080-normal.png",
+      "sha256": "79bbe46424aaf028c3445bc387a5878e6225048de30a755fb564bf452fef8028",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-normal-glance.png"
+    },
+    {
+      "id": "02-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "02-1080-normal.png",
+      "sha256": "59e09fbae897d13900550cecbb6da53a05e7b4b3952a9008b8693d7d447b72d3",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-normal-glance.png"
+    },
+    {
+      "id": "03-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "03-1080-normal.png",
+      "sha256": "16d1a8a00602fe81b3c8f101569b96e48a1165da1cbccdc0048ac160735fcce7",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-normal-glance.png"
+    },
+    {
+      "id": "04-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "04-1080-normal.png",
+      "sha256": "9fdc08ce8f778cb9f03562f2e52f8c21b04415d04d6bd4aa553bb5302bce1527",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-normal-glance.png"
+    },
+    {
+      "id": "05-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "05-1080-normal.png",
+      "sha256": "c0fb766d9b5810fd47852184c369e14a572dac5ec8a20adf2f8cad6c84ed195d",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-normal-glance.png"
+    },
+    {
+      "id": "06-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "06-1080-normal.png",
+      "sha256": "49c7bf67c09ed7f681693528991d75cfe11784be747c36d46d6ef034058990ed",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-normal-glance.png"
+    },
+    {
+      "id": "07-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "07-1080-normal.png",
+      "sha256": "5880996686fdf1602ab5d1b670d4eaa35d0d14c7bc82ff4277382e5e37b499de",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-normal-glance.png"
+    },
+    {
+      "id": "08-1080-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "08-1080-normal.png",
+      "sha256": "8bddec51f31c20e65b06395c332c667a9e21460cacdda2c9e07f79e1197cacd6",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-normal-glance.png"
+    },
+    {
+      "id": "01-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "01-1080-reduced.png",
+      "sha256": "79bbe46424aaf028c3445bc387a5878e6225048de30a755fb564bf452fef8028",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-reduced-glance.png"
+    },
+    {
+      "id": "02-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "02-1080-reduced.png",
+      "sha256": "59e09fbae897d13900550cecbb6da53a05e7b4b3952a9008b8693d7d447b72d3",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-reduced-glance.png"
+    },
+    {
+      "id": "03-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "03-1080-reduced.png",
+      "sha256": "16d1a8a00602fe81b3c8f101569b96e48a1165da1cbccdc0048ac160735fcce7",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-reduced-glance.png"
+    },
+    {
+      "id": "04-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "04-1080-reduced.png",
+      "sha256": "9fdc08ce8f778cb9f03562f2e52f8c21b04415d04d6bd4aa553bb5302bce1527",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-reduced-glance.png"
+    },
+    {
+      "id": "05-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "05-1080-reduced.png",
+      "sha256": "c0fb766d9b5810fd47852184c369e14a572dac5ec8a20adf2f8cad6c84ed195d",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-reduced-glance.png"
+    },
+    {
+      "id": "06-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "06-1080-reduced.png",
+      "sha256": "49c7bf67c09ed7f681693528991d75cfe11784be747c36d46d6ef034058990ed",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-reduced-glance.png"
+    },
+    {
+      "id": "07-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "07-1080-reduced.png",
+      "sha256": "5880996686fdf1602ab5d1b670d4eaa35d0d14c7bc82ff4277382e5e37b499de",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-reduced-glance.png"
+    },
+    {
+      "id": "08-1080-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "08-1080-reduced.png",
+      "sha256": "8bddec51f31c20e65b06395c332c667a9e21460cacdda2c9e07f79e1197cacd6",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-reduced-glance.png"
+    },
+    {
+      "id": "01-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "01-720-normal.png",
+      "sha256": "0944b1aaaf89204e9943c2531119b856d17fb8e9f6da7d164e095e3ef1a0d752",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-normal-glance.png"
+    },
+    {
+      "id": "02-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "02-720-normal.png",
+      "sha256": "d8b56cfae46389291b3e51f75ac45b84fa871df9983728a09865276c63316f16",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-normal-glance.png"
+    },
+    {
+      "id": "03-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "03-720-normal.png",
+      "sha256": "bae54e94f06ccdec69930a8ad7c1fc4af83a934b1f11e2e297a70131e4928a10",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-normal-glance.png"
+    },
+    {
+      "id": "04-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "04-720-normal.png",
+      "sha256": "82c3ad66039ca99281e7a1531817c736da2b5323cfc83a9271648772de3be698",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-normal-glance.png"
+    },
+    {
+      "id": "05-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "05-720-normal.png",
+      "sha256": "ea1d4679f999a4c2e56cde563f7ea6cf3f1d6d2b1340e721fafb0a84e45975c4",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-normal-glance.png"
+    },
+    {
+      "id": "06-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "06-720-normal.png",
+      "sha256": "4515810ac363e86ea02df42923d95d1ed095fd317ed45f8a9ecd0005cdf24d4f",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-normal-glance.png"
+    },
+    {
+      "id": "07-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "07-720-normal.png",
+      "sha256": "ecc8207ff97b085ecdacffb2100b0a64b83237893dcd40a0004d4422bf3314f8",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-normal-glance.png"
+    },
+    {
+      "id": "08-720-normal",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "08-720-normal.png",
+      "sha256": "001902d078256053613d43f6e889ae8ec817bdf66582aff258c5549cd0bb52a9",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-normal-glance.png"
+    },
+    {
+      "id": "01-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=1",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "01-720-reduced.png",
+      "sha256": "0944b1aaaf89204e9943c2531119b856d17fb8e9f6da7d164e095e3ef1a0d752",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-reduced-glance.png"
+    },
+    {
+      "id": "02-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=2",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "02-720-reduced.png",
+      "sha256": "d8b56cfae46389291b3e51f75ac45b84fa871df9983728a09865276c63316f16",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-reduced-glance.png"
+    },
+    {
+      "id": "03-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=3",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "03-720-reduced.png",
+      "sha256": "bae54e94f06ccdec69930a8ad7c1fc4af83a934b1f11e2e297a70131e4928a10",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-reduced-glance.png"
+    },
+    {
+      "id": "04-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=4",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "04-720-reduced.png",
+      "sha256": "82c3ad66039ca99281e7a1531817c736da2b5323cfc83a9271648772de3be698",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-reduced-glance.png"
+    },
+    {
+      "id": "05-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=5",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "05-720-reduced.png",
+      "sha256": "ea1d4679f999a4c2e56cde563f7ea6cf3f1d6d2b1340e721fafb0a84e45975c4",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-reduced-glance.png"
+    },
+    {
+      "id": "06-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=6",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "06-720-reduced.png",
+      "sha256": "4515810ac363e86ea02df42923d95d1ed095fd317ed45f8a9ecd0005cdf24d4f",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-reduced-glance.png"
+    },
+    {
+      "id": "07-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=7",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "07-720-reduced.png",
+      "sha256": "ecc8207ff97b085ecdacffb2100b0a64b83237893dcd40a0004d4422bf3314f8",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-reduced-glance.png"
+    },
+    {
+      "id": "08-720-reduced",
+      "url": "http://127.0.0.1:8724/craft/capture.html?slide=8",
+      "title": "SafeWatch — image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "08-720-reduced.png",
+      "sha256": "001902d078256053613d43f6e889ae8ec817bdf66582aff258c5549cd0bb52a9",
+      "sourceSha256": "b92b4d1e1030ce5dea0ff31ab6b71ccaa8921976c5f28392c1cd13707e86380c",
+      "fixture": "safewatch-checkpoint-20261024",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-reduced-glance.png"
+    }
+  ],
+  "runtimeErrors": [],
+  "sourceInventoryAfter": {
+    "scripts/compose.py": "28ce3496fdc309735169cfc522d185a763394a297e7030ac50f225cfb9c88ae2",
+    "speaker-notes.json": "4765a5fd3460096764985d2dbe7bb3f96ccf56899cfc04e0b4526a9ffc42efb3",
+    "evidence/composition.json": "be838c56117242572eed0e9c32021f975a1c228ad0ced764dc1650a9b766d878",
+    "craft/capture.html": "8f0f40b45643319dabdee80d2a7e24350212abd8f22edfff1a98d402731afa88",
+    "craft/story.json": "787495aeb879f33baa7ee9668b997a551387e076276d8af021269cbdf5df39f5",
+    "slides/slide-01.png": "583f64b36bf8792bbea368c6be034efd2969cb3213a62a84b883d5efef5eb676",
+    "slides/slide-02.png": "5f83d163346cb2a7997d66b240dfcc1ad48a0d724587bf252e524a6509572335",
+    "slides/slide-03.png": "6282b261cacec6b8b04a2f67bb35a7344646ed52c2c236d82b6b19887f99779d",
+    "slides/slide-04.png": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2",
+    "slides/slide-05.png": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46",
+    "slides/slide-06.png": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c",
+    "slides/slide-07.png": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f",
+    "slides/slide-08.png": "97be6e1c59e34c3dadabcaefe69b3400d09aba104e67edc9cf60aa06da5a4d87"
+  },
+  "sourceStable": true,
+  "sources": [
+    {
+      "id": "src01",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:progress.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src02",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:docs/linq/LINQ_CONTRACT.md; original lines [[1, 12], [19, 45], [62, 108], [110, 123], [126, 130], [132, 134]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src03",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src04",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/synthetic_coco_40x1s_mosprom_pose640_cut_ap9999_b1_o1_h1m_s2.summary.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src05",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/det640_cut_ap9999.json; original lines [[1760, 1766]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src06",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/pose640_cut_ap9999.json; original lines [[5009, 5015]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src07",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:tech.md; original lines [[28, 54], [2705, 2734], [2901, 2985], [3056, 3060]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src08",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:config/default.yaml; original lines [[149, 157]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src09",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:config/models.yaml; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src10",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:contract/openapi.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src11",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:contract/ws.schema.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src12",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/rules/__init__.py; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src13",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/rules/load_carrying.py; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src14",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/services.py; original lines [[744, 761], [1638, 1653], [1951, 1982]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src15",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:docs/STATUS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src16",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:docs/validation/jupyter-kit.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src17",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/PROGRESS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src18",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/EVAL_REPORT.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src19",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/RELEASE_MANIFEST.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src20",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:RESUME.md; original lines [[1, 18]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src21",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/SCENARIOS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src22",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/reports/pose-linq-ur01-parity.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src23",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/reports/running-zone-readiness.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src24",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/README.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src25",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/WATCH_LOG.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src26",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/GAPS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src27",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/watch/last-real.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "smoke",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Fresh isolated stateful mock smoke 24.10.2026:30 PASS/0 FAIL/0 SKIP"
+    },
+    {
+      "id": "frontend",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "New front/control-room runtime capture and interactions 08:28–08:29 MSK"
+    },
+    {
+      "id": "audit",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Semantic audit, history reconciliation and explicit limitations"
+    },
+    {
+      "id": "composition",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Exact slide text and ink bounds; UI crop provenance"
+    },
+    {
+      "id": "sources",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Claim/source index after fetch"
+    }
+  ],
+  "claimChecks": [],
+  "critic": {
+    "version": "1.0.0",
+    "status": "TECHNICAL_FINDINGS",
+    "findings": [
+      {
+        "id": "finding-1",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "01",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Industrial image and role chain"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-2",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "02",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Three connected processing lanes"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-3",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "03",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Monumental throughput with measured times"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-4",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "04",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Model proof ladder plus negative quality result"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-5",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "05",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Status ledger beside current screenshot"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-6",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "06",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Three captured interaction steps"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-7",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "07",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Priorities against illustrative industrial camera"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-8",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "08",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Four expert questions with calm visual hierarchy"
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-9",
+        "classification": "ADVISORY",
+        "code": "rubric-unknown",
+        "scene": null,
+        "state": null,
+        "evidence": "Восемь image-based PowerPoint слайдов технического чекпойнта; продуктовый код не меняется.",
+        "message": "Actual rubric unavailable; coverage cannot be certified.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-10",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Промышленная безопасность",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-11",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видео → событие → действие",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-12",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "LinQ: реальное исполнение на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-13",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Собственные модели дошли до TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-14",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Готовность по слоям",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-15",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Проверяем путь реакции",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-16",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "До финальной защиты",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-17",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Вопросы экспертам LinQ",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-18",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Промышленная безопасность",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-19",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видео → событие → действие",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-20",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "LinQ: реальное исполнение на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-21",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Собственные модели дошли до TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-22",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Готовность по слоям",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-23",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Проверяем путь реакции",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-24",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "До финальной защиты",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-25",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Вопросы экспертам LinQ",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-26",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Промышленная безопасность",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-27",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видео → событие → действие",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-28",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "LinQ: реальное исполнение на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-29",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Собственные модели дошли до TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-30",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Готовность по слоям",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-31",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Проверяем путь реакции",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-32",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "До финальной защиты",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-33",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Вопросы экспертам LinQ",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-34",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Промышленная безопасность",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-35",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видео → событие → действие",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-36",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "LinQ: реальное исполнение на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-37",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Собственные модели дошли до TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-38",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Готовность по слоям",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-39",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Проверяем путь реакции",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-40",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "До финальной защиты",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-41",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Вопросы экспертам LinQ",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      }
+    ],
+    "limits": [
+      "DOM probes cannot certify perception, arbitrary factual truth, complex paint, canvas text or physical projector readability.",
+      "Advisories and geometry candidates are not deterministic taste verdicts."
+    ]
+  },
+  "status": "CAPTURED",
+  "finishedAt": "2026-10-24T05:41:15.437Z"
+}

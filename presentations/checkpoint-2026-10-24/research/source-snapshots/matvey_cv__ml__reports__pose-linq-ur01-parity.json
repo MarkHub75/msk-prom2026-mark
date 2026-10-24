@@ -1,0 +1,11 @@
+{
+  "paired_frames": 11,
+  "matched_person_detections": 9,
+  "all_detection_counts_equal": true,
+  "max_score_abs_diff": 0.0,
+  "max_box_pixel_abs_diff": 0.0,
+  "max_keypoint_score_abs_diff": 0.0,
+  "actual_linq_status": "11 correlated status0 replies; arrays independently hash-verified",
+  "quality_scope": "single UR development fall missed; numeric parity is not event quality",
+  "input_tensor_parity": "all11 bitwise identical to SDK frozen RGB preprocessing"
+}

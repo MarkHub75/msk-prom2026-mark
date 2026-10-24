@@ -1,0 +1,2266 @@
+{
+  "version": 1,
+  "canvas": [
+    1920,
+    1080
+  ],
+  "font": "Golos Text (exact frontend source files, OFL)",
+  "method": "Pillow deterministic typography and layout; original generated assets and UI captures untouched",
+  "slides": [
+    {
+      "slide": 1,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "ПРОДУКТ  /  01",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1768,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Промышленная",
+          "size": 100,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            183,
+            885,
+            272
+          ],
+          "essential": true
+        },
+        {
+          "text": "безопасность",
+          "size": 100,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            291,
+            792,
+            365
+          ],
+          "essential": true
+        },
+        {
+          "text": "Внимание оператора —",
+          "size": 43,
+          "weight": "regular",
+          "color": "#e6ebef",
+          "bounds": [
+            108,
+            443,
+            599,
+            482
+          ],
+          "essential": true
+        },
+        {
+          "text": "на опасном событии.",
+          "size": 43,
+          "weight": "regular",
+          "color": "#e6ebef",
+          "bounds": [
+            108,
+            496,
+            555,
+            528
+          ],
+          "essential": true
+        },
+        {
+          "text": "24 октября 2026  ·  11:00 МСК",
+          "size": 28,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            108,
+            572,
+            511,
+            598
+          ],
+          "essential": true
+        },
+        {
+          "text": "Оператор",
+          "size": 38,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            728,
+            288,
+            763
+          ],
+          "essential": true
+        },
+        {
+          "text": "Получает и проверяет",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            791,
+            423,
+            818
+          ],
+          "essential": true
+        },
+        {
+          "text": "Мастер",
+          "size": 38,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            695,
+            728,
+            836,
+            763
+          ],
+          "essential": true
+        },
+        {
+          "text": "Реагирует на поручение",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            695,
+            791,
+            1044,
+            818
+          ],
+          "essential": true
+        },
+        {
+          "text": "Охрана труда",
+          "size": 38,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1290,
+            728,
+            1549,
+            763
+          ],
+          "essential": true
+        },
+        {
+          "text": "Анализирует журнал",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1290,
+            791,
+            1591,
+            818
+          ],
+          "essential": true
+        },
+        {
+          "text": "ПЯТЬ РОЛЕЙ",
+          "size": 21,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            870,
+            239,
+            890
+          ],
+          "essential": true
+        },
+        {
+          "text": "оператор  ·  мастер  ·  охрана труда  ·  руководство  ·  администратор",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            316,
+            868,
+            1194,
+            887
+          ],
+          "essential": true
+        },
+        {
+          "text": "Концепция продукта: tech.md §2  ·  Индустриальное изображение — сгенерированная иллюстрация",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1191,
+            977
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/generated/industrial-hero.png",
+          "role": "generated illustration",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ]
+        }
+      ],
+      "sha256": "583f64b36bf8792bbea368c6be034efd2969cb3213a62a84b883d5efef5eb676"
+    },
+    {
+      "slide": 2,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "СИСТЕМА  /  02",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1771,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Видео → событие → действие",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            1202,
+            228
+          ],
+          "essential": true
+        },
+        {
+          "text": "Обработка архива и эмуляция эфира по серверным часам",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1022,
+            299
+          ],
+          "essential": true
+        },
+        {
+          "text": "Видео",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            128,
+            374,
+            230,
+            402
+          ],
+          "essential": true
+        },
+        {
+          "text": "Загрузка файла",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            128,
+            423,
+            330,
+            447
+          ],
+          "essential": true
+        },
+        {
+          "text": "LinQ Jupyter",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            424,
+            374,
+            628,
+            405
+          ],
+          "essential": true
+        },
+        {
+          "text": "Видео целиком",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            424,
+            423,
+            621,
+            444
+          ],
+          "essential": true
+        },
+        {
+          "text": "TPU-инференс",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            810,
+            374,
+            1052,
+            404
+          ],
+          "essential": true
+        },
+        {
+          "text": "Детектор + поза",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            810,
+            423,
+            1017,
+            446
+          ],
+          "essential": true
+        },
+        {
+          "text": "Кэш детекций",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1246,
+            374,
+            1478,
+            404
+          ],
+          "essential": true
+        },
+        {
+          "text": "JSONL · один анализ записи",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1246,
+            423,
+            1607,
+            444
+          ],
+          "essential": true
+        },
+        {
+          "text": "CPU",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1400,
+            554,
+            1469,
+            577
+          ],
+          "essential": true
+        },
+        {
+          "text": "Трекинг и правила",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1400,
+            603,
+            1639,
+            626
+          ],
+          "essential": true
+        },
+        {
+          "text": "Эпизоды",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1044,
+            554,
+            1190,
+            582
+          ],
+          "essential": true
+        },
+        {
+          "text": "Без дублей",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1044,
+            603,
+            1188,
+            627
+          ],
+          "essential": true
+        },
+        {
+          "text": "Эмуляция эфира",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            485,
+            554,
+            760,
+            584
+          ],
+          "essential": true
+        },
+        {
+          "text": "По серверным часам",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            485,
+            603,
+            754,
+            626
+          ],
+          "essential": true
+        },
+        {
+          "text": "WebSocket",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            128,
+            554,
+            310,
+            577
+          ],
+          "essential": true
+        },
+        {
+          "text": "Публикация",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            128,
+            603,
+            285,
+            627
+          ],
+          "essential": true
+        },
+        {
+          "text": "Оператор",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            128,
+            734,
+            288,
+            764
+          ],
+          "essential": true
+        },
+        {
+          "text": "Мастер",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            650,
+            734,
+            772,
+            764
+          ],
+          "essential": true
+        },
+        {
+          "text": "Журнал реакции",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1172,
+            734,
+            1449,
+            764
+          ],
+          "essential": true
+        },
+        {
+          "text": "Одно продолжающееся нарушение — одно оповещение.",
+          "size": 31,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            865,
+            971,
+            893
+          ],
+          "essential": true
+        },
+        {
+          "text": "Подтверждение, передача и устранение — разные действия.",
+          "size": 31,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            910,
+            1034,
+            939
+          ],
+          "essential": true
+        },
+        {
+          "text": "Contract-first: OpenAPI + WS-схема  ·  Заменяемый frontend  ·  Отдельный stateful-мок  ·  Схема целевого конвейера",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1356,
+            976
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [],
+      "sha256": "5f83d163346cb2a7997d66b240dfcc1ad48a0d724587bf252e524a6509572335"
+    },
+    {
+      "slide": 3,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "LINQ  /  03",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1717,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "LinQ: реальное исполнение на TPU",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            1424,
+            234
+          ],
+          "essential": true
+        },
+        {
+          "text": "Baseline: YOLOv8n 640 и YOLOv8n-pose 640 скомпилированы и выполнены",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1286,
+            299
+          ],
+          "essential": true
+        },
+        {
+          "text": "Тест детектора  ·  400 кадров  ·  1280 × 720",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            346,
+            768,
+            374
+          ],
+          "essential": true
+        },
+        {
+          "text": "≈21",
+          "size": 190,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            96,
+            426,
+            414,
+            561
+          ],
+          "essential": true
+        },
+        {
+          "text": "кадр/с",
+          "size": 43,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            108,
+            641,
+            255,
+            679
+          ],
+          "essential": true
+        },
+        {
+          "text": "Пропускная способность",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            108,
+            704,
+            470,
+            732
+          ],
+          "essential": true
+        },
+        {
+          "text": "19",
+          "size": 135,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            902,
+            444,
+            1054,
+            542
+          ],
+          "essential": true
+        },
+        {
+          "text": "с",
+          "size": 49,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1093,
+            529,
+            1120,
+            558
+          ],
+          "essential": true
+        },
+        {
+          "text": "Обработка",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            908,
+            614,
+            1085,
+            645
+          ],
+          "essential": true
+        },
+        {
+          "text": "19,09 с по логу",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            908,
+            664,
+            1099,
+            687
+          ],
+          "essential": true
+        },
+        {
+          "text": "31",
+          "size": 135,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1372,
+            444,
+            1522,
+            542
+          ],
+          "essential": true
+        },
+        {
+          "text": "с",
+          "size": 49,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1560,
+            529,
+            1587,
+            558
+          ],
+          "essential": true
+        },
+        {
+          "text": "С загрузкой",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1377,
+            614,
+            1575,
+            646
+          ],
+          "essential": true
+        },
+        {
+          "text": "Полное время",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1377,
+            664,
+            1559,
+            687
+          ],
+          "essential": true
+        },
+        {
+          "text": "Интегрированный backend: стабильный ответ TPU пока не получен.",
+          "size": 30,
+          "weight": "regular",
+          "color": "#e8a33d",
+          "bounds": [
+            130,
+            802,
+            1139,
+            830
+          ],
+          "essential": true
+        },
+        {
+          "text": "21 кадр/с — обработка записи, а не время доставки тревоги оператору.",
+          "size": 27,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            876,
+            1057,
+            902
+          ],
+          "essential": true
+        },
+        {
+          "text": "Recall/IoU в отчёте — сохранность при квантовании относительно FP32,",
+          "size": 25,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            916,
+            995,
+            939
+          ],
+          "essential": true
+        },
+        {
+          "text": "а не точность обнаружения нарушений на производстве.",
+          "size": 25,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            949,
+            810,
+            973
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [],
+      "sha256": "6282b261cacec6b8b04a2f67bb35a7344646ed52c2c236d82b6b19887f99779d"
+    },
+    {
+      "slide": 4,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОДЕЛИ  /  04",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1761,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Собственные модели дошли до TPU",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            1464,
+            227
+          ],
+          "essential": true
+        },
+        {
+          "text": "Каска и Split-Pose: исполнение подтверждено; качество ещё проверяем",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1253,
+            299
+          ],
+          "essential": true
+        },
+        {
+          "text": "01  ONNX",
+          "size": 37,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            128,
+            382,
+            299,
+            408
+          ],
+          "essential": true
+        },
+        {
+          "text": "CPU/CUDA и ONNX",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            128,
+            431,
+            371,
+            454
+          ],
+          "essential": true
+        },
+        {
+          "text": "atol = rtol = 1e−3",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            128,
+            462,
+            333,
+            480
+          ],
+          "essential": true
+        },
+        {
+          "text": "На одном кадре",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            128,
+            493,
+            333,
+            516
+          ],
+          "essential": true
+        },
+        {
+          "text": "02  SDK LinQ",
+          "size": 37,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            686,
+            382,
+            918,
+            410
+          ],
+          "essential": true
+        },
+        {
+          "text": "2026.9.45 · TPU_H1M",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            686,
+            431,
+            951,
+            453
+          ],
+          "essential": true
+        },
+        {
+          "text": "Оба графа скомпилированы",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            686,
+            462,
+            1046,
+            486
+          ],
+          "essential": true
+        },
+        {
+          "text": "Split сохраняет confidence¹",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            686,
+            493,
+            1035,
+            519
+          ],
+          "essential": true
+        },
+        {
+          "text": "03  Реальный TPU",
+          "size": 37,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1244,
+            382,
+            1575,
+            409
+          ],
+          "essential": true
+        },
+        {
+          "text": "Helmet + Split-Pose",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1244,
+            431,
+            1492,
+            455
+          ],
+          "essential": true
+        },
+        {
+          "text": "Сохранены ответы status 0",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1244,
+            462,
+            1591,
+            485
+          ],
+          "essential": true
+        },
+        {
+          "text": "с привязкой к запросам",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1244,
+            493,
+            1552,
+            517
+          ],
+          "essential": true
+        },
+        {
+          "text": "335",
+          "size": 118,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            628,
+            317,
+            714
+          ],
+          "essential": true
+        },
+        {
+          "text": "программных проверок",
+          "size": 36,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            397,
+            647,
+            824,
+            674
+          ],
+          "essential": true
+        },
+        {
+          "text": "PASS по свежему отчёту ветки",
+          "size": 28,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            397,
+            704,
+            820,
+            729
+          ],
+          "essential": true
+        },
+        {
+          "text": "Исполнение ещё не подтверждает качество",
+          "size": 42,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            827,
+            1029,
+            866
+          ],
+          "essential": true
+        },
+        {
+          "text": "URfall-01: ответы TPU получены, но единственное падение пропущено.",
+          "size": 30,
+          "weight": "regular",
+          "color": "#e8a33d",
+          "bounds": [
+            104,
+            893,
+            1161,
+            920
+          ],
+          "essential": true
+        },
+        {
+          "text": "¹ Исправление confidence проверено симуляцией SDK  ·  Свежие источники: ml/EVAL_REPORT.md и RELEASE_MANIFEST.json",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1456,
+            977
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [],
+      "sha256": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2"
+    },
+    {
+      "slide": 5,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "ГОТОВНОСТЬ  /  05",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1811,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Готовность по слоям",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            888,
+            217
+          ],
+          "essential": true
+        },
+        {
+          "text": "Статус по коду и проверкам после git fetch; сквозной продукт ещё собирается",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1350,
+            299
+          ],
+          "essential": true
+        },
+        {
+          "text": "Backend и контракт",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            350,
+            428,
+            380
+          ],
+          "essential": true
+        },
+        {
+          "text": "Работает¹",
+          "size": 26,
+          "weight": "regular",
+          "color": "#e6ebef",
+          "bounds": [
+            667,
+            354,
+            790,
+            375
+          ],
+          "essential": true
+        },
+        {
+          "text": "REST/WS, реакции; S0–S10 с долгами",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            404,
+            587,
+            427
+          ],
+          "essential": true
+        },
+        {
+          "text": "Правила детекции",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            487,
+            409,
+            517
+          ],
+          "essential": true
+        },
+        {
+          "text": "На синтетике",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            667,
+            491,
+            839,
+            509
+          ],
+          "essential": true
+        },
+        {
+          "text": "Бег, падение, сближение, телефон,",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            541,
+            553,
+            565
+          ],
+          "essential": true
+        },
+        {
+          "text": "ограждение, опасная зона",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            572,
+            446,
+            591
+          ],
+          "essential": true
+        },
+        {
+          "text": "Frontend и действия",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            624,
+            439,
+            654
+          ],
+          "essential": true
+        },
+        {
+          "text": "На моке",
+          "size": 26,
+          "weight": "regular",
+          "color": "#e8a33d",
+          "bounds": [
+            667,
+            628,
+            772,
+            646
+          ],
+          "essential": true
+        },
+        {
+          "text": "Оператор → мастер → журнал",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            678,
+            482,
+            701
+          ],
+          "essential": true
+        },
+        {
+          "text": "Демо-контур",
+          "size": 33,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            761,
+            319,
+            791
+          ],
+          "essential": true
+        },
+        {
+          "text": "30/30",
+          "size": 26,
+          "weight": "regular",
+          "color": "#e6ebef",
+          "bounds": [
+            667,
+            765,
+            742,
+            788
+          ],
+          "essential": true
+        },
+        {
+          "text": "Свежий smoke stateful-мока",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            815,
+            468,
+            834
+          ],
+          "essential": true
+        },
+        {
+          "text": "Снимок 8161719d · кадры синтетические",
+          "size": 26,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            891,
+            897,
+            1410,
+            920
+          ],
+          "essential": true
+        },
+        {
+          "text": "¹ LinQ-интеграция нестабильна.",
+          "size": 25,
+          "weight": "regular",
+          "color": "#e8a33d",
+          "bounds": [
+            891,
+            934,
+            1281,
+            959
+          ],
+          "essential": true
+        },
+        {
+          "text": "Огонь / СИЗ: нет моделей в main  ·  Перенос груза: skeleton  ·  Журнал backend (S12) ещё в работе",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1166,
+            977
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screenshots/01-control-room.png",
+          "role": "actual frontend capture",
+          "original": [
+            1920,
+            1080
+          ],
+          "crop": null,
+          "rect": [
+            891,
+            350,
+            925,
+            520
+          ],
+          "sha256": "7dff569f608baefcefd515038ba6abe91f630320b4851eb2d83531370f8373e8"
+        }
+      ],
+      "sha256": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46"
+    },
+    {
+      "slide": 6,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "ДЕМО  /  06",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1729,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Проверяем путь реакции",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            1058,
+            232
+          ],
+          "essential": true
+        },
+        {
+          "text": "Живая демонстрация текущего frontend на stateful-моке",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1006,
+            298
+          ],
+          "essential": true
+        },
+        {
+          "text": "01",
+          "size": 31,
+          "weight": "semi",
+          "color": "#e8a33d",
+          "bounds": [
+            104,
+            347,
+            139,
+            369
+          ],
+          "essential": true
+        },
+        {
+          "text": "Бег",
+          "size": 43,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            164,
+            343,
+            238,
+            374
+          ],
+          "essential": true
+        },
+        {
+          "text": "02",
+          "size": 31,
+          "weight": "semi",
+          "color": "#e5484d",
+          "bounds": [
+            693,
+            347,
+            731,
+            369
+          ],
+          "essential": true
+        },
+        {
+          "text": "Падение",
+          "size": 43,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            753,
+            343,
+            939,
+            379
+          ],
+          "essential": true
+        },
+        {
+          "text": "03",
+          "size": 31,
+          "weight": "semi",
+          "color": "#aab5bf",
+          "bounds": [
+            1446,
+            347,
+            1485,
+            369
+          ],
+          "essential": true
+        },
+        {
+          "text": "Мастер",
+          "size": 43,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            1506,
+            343,
+            1666,
+            381
+          ],
+          "essential": true
+        },
+        {
+          "text": "Проверяет событие",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            901,
+            387,
+            929
+          ],
+          "essential": true
+        },
+        {
+          "text": "Доказательство → передача",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            647,
+            901,
+            1048,
+            928
+          ],
+          "essential": true
+        },
+        {
+          "text": "Меры → журнал",
+          "size": 29,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1446,
+            901,
+            1672,
+            928
+          ],
+          "essential": true
+        },
+        {
+          "text": "Демонстрационные данные. Кадры синтетические. Рамки размечены вручную.",
+          "size": 28,
+          "weight": "regular",
+          "color": "#e8a33d",
+          "bounds": [
+            104,
+            951,
+            1203,
+            976
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screenshots/03-yellow-control-room.png",
+          "role": "actual frontend capture",
+          "original": [
+            1920,
+            1080
+          ],
+          "crop": [
+            1559,
+            145,
+            1904,
+            710
+          ],
+          "rect": [
+            210,
+            417,
+            276,
+            452
+          ],
+          "sha256": "6815b756daf24a178df5719f9bfca5dc92cbd1e92610ab07d4c2cd8ca08f4b41"
+        },
+        {
+          "path": "assets/screenshots/07-red-incident.png",
+          "role": "actual frontend capture",
+          "original": [
+            1920,
+            1080
+          ],
+          "crop": [
+            274,
+            239,
+            1005,
+            650
+          ],
+          "rect": [
+            763,
+            417,
+            496,
+            279
+          ],
+          "sha256": "a517b2944e1eca437f07384ab6a49c93aab09bf4bf2be8e625d02e42aac1bf7b"
+        },
+        {
+          "path": "assets/screenshots/07-red-incident.png",
+          "role": "actual frontend capture",
+          "original": [
+            1920,
+            1080
+          ],
+          "crop": [
+            1203,
+            586,
+            1903,
+            751
+          ],
+          "rect": [
+            693,
+            719,
+            636,
+            150
+          ],
+          "sha256": "a517b2944e1eca437f07384ab6a49c93aab09bf4bf2be8e625d02e42aac1bf7b"
+        },
+        {
+          "path": "assets/screenshots/10-master-mobile-task.png",
+          "role": "actual frontend capture",
+          "original": [
+            390,
+            844
+          ],
+          "crop": null,
+          "rect": [
+            1520,
+            414,
+            222,
+            480
+          ],
+          "sha256": "8a7fc2d165aebf6b4fd4a1a40b595faf011cae74d1ad4a85e73a5545500cef99"
+        }
+      ],
+      "sha256": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c"
+    },
+    {
+      "slide": 7,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "ДАЛЬШЕ  /  07",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1760,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "До финальной защиты",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            956,
+            234
+          ],
+          "essential": true
+        },
+        {
+          "text": "Приоритет — доказать весь конвейер и измерить качество.",
+          "size": 34,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            278,
+            1097,
+            309
+          ],
+          "essential": true
+        },
+        {
+          "text": "01",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            394,
+            134,
+            413
+          ],
+          "essential": true
+        },
+        {
+          "text": "Стабильный интегрированный прогон LinQ",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            388,
+            927,
+            421
+          ],
+          "essential": true
+        },
+        {
+          "text": "02",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            475,
+            136,
+            494
+          ],
+          "essential": true
+        },
+        {
+          "text": "Интеграция своих моделей в общий конвейер",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            469,
+            980,
+            502
+          ],
+          "essential": true
+        },
+        {
+          "text": "03",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            556,
+            137,
+            575
+          ],
+          "essential": true
+        },
+        {
+          "text": "Precision/Recall на размеченных видео",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            550,
+            864,
+            583
+          ],
+          "essential": true
+        },
+        {
+          "text": "04",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            637,
+            137,
+            656
+          ],
+          "essential": true
+        },
+        {
+          "text": "Ложные тревоги на камеро-час",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            631,
+            726,
+            663
+          ],
+          "essential": true
+        },
+        {
+          "text": "05",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            718,
+            136,
+            737
+          ],
+          "essential": true
+        },
+        {
+          "text": "Задержка от события до оповещения",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            712,
+            831,
+            745
+          ],
+          "essential": true
+        },
+        {
+          "text": "06",
+          "size": 27,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            799,
+            137,
+            818
+          ],
+          "essential": true
+        },
+        {
+          "text": "Оставшиеся сценарии и журнал backend",
+          "size": 35,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            176,
+            793,
+            891,
+            825
+          ],
+          "essential": true
+        },
+        {
+          "text": "Без обещаний метрик до измерений  ·  Промышленная камера — сгенерированная иллюстрация",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1153,
+            977
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/generated/industrial-camera.png",
+          "role": "generated illustration",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ]
+        }
+      ],
+      "sha256": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f"
+    },
+    {
+      "slide": 8,
+      "text": [
+        {
+          "text": "SafeWatch",
+          "size": 34,
+          "weight": "bold",
+          "color": "#e6ebef",
+          "bounds": [
+            150,
+            70,
+            331,
+            94
+          ],
+          "essential": true
+        },
+        {
+          "text": "МОСПРОМ 2026  /  ТЕХНИЧЕСКИЙ ЧЕКПОЙНТ",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            996,
+            607,
+            1021
+          ],
+          "essential": true
+        },
+        {
+          "text": "ЭКСПЕРТАМ  /  08",
+          "size": 22,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            1605,
+            996,
+            1799,
+            1016
+          ],
+          "essential": true
+        },
+        {
+          "text": "Вопросы экспертам LinQ",
+          "size": 76,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            163,
+            1044,
+            234
+          ],
+          "essential": true
+        },
+        {
+          "text": "Нужны критерии доказательства и воспроизводимый способ измерения",
+          "size": 32,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            270,
+            1257,
+            299
+          ],
+          "essential": true
+        },
+        {
+          "text": "01",
+          "size": 34,
+          "weight": "semi",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            369,
+            143,
+            394
+          ],
+          "essential": true
+        },
+        {
+          "text": "Какое подтверждение работы на LinQ",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            364,
+            946,
+            401
+          ],
+          "essential": true
+        },
+        {
+          "text": "примет жюри?",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            409,
+            490,
+            444
+          ],
+          "essential": true
+        },
+        {
+          "text": "02",
+          "size": 34,
+          "weight": "semi",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            508,
+            146,
+            533
+          ],
+          "essential": true
+        },
+        {
+          "text": "Какие стадии конвейера",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            503,
+            688,
+            540
+          ],
+          "essential": true
+        },
+        {
+          "text": "обязательно выполнять на TPU?",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            548,
+            837,
+            576
+          ],
+          "essential": true
+        },
+        {
+          "text": "03",
+          "size": 34,
+          "weight": "semi",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            647,
+            146,
+            672
+          ],
+          "essential": true
+        },
+        {
+          "text": "Как стабилизировать очередь",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            642,
+            794,
+            678
+          ],
+          "essential": true
+        },
+        {
+          "text": "при ограниченном числе обработчиков?",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            687,
+            995,
+            723
+          ],
+          "essential": true
+        },
+        {
+          "text": "04",
+          "size": 34,
+          "weight": "semi",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            786,
+            147,
+            811
+          ],
+          "essential": true
+        },
+        {
+          "text": "Как получить достоверное время",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            781,
+            860,
+            816
+          ],
+          "essential": true
+        },
+        {
+          "text": "выполнения непосредственно на TPU?",
+          "size": 39,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            208,
+            826,
+            965,
+            861
+          ],
+          "essential": true
+        },
+        {
+          "text": "Стабильность очереди остаётся открытой  ·  Время RPC и wall-clock не равно чистому времени исполнения TPU",
+          "size": 22,
+          "weight": "regular",
+          "color": "#7f8d9a",
+          "bounds": [
+            104,
+            956,
+            1322,
+            977
+          ],
+          "essential": true
+        }
+      ],
+      "assets": [],
+      "sha256": "97be6e1c59e34c3dadabcaefe69b3400d09aba104e67edc9cf60aa06da5a4d87"
+    }
+  ]
+}

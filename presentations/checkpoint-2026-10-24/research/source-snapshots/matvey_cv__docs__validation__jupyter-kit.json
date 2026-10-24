@@ -1,0 +1,21 @@
+{
+  "path": "/workspace/artifacts/linq-jupyter-kit.zip",
+  "bytes": 9525930,
+  "sha256": "14e82ac1a60883d978058cc806c7ba1bec46bf6d27ef1ac6adcbda58fc899da1",
+  "file_count": 37,
+  "models": [
+    "helmet",
+    "pose-split"
+  ],
+  "actual_remote_api_binding": "NOT_PROVIDED_YET",
+  "archive_inventory": "PASS",
+  "isolated_imports": "PASS",
+  "helmet_prepare_case": "PASS",
+  "split_pose_prepare_case": "PASS",
+  "unconfigured_binding_guard": "PASS",
+  "forbidden_archive_members": [],
+  "tests_passed": 113,
+  "stock_run": "USER_REPORTED_STATUS0_CLASS257_RESPONSE0.39s",
+  "remote_api_binding": "PENDING_CREDENTIAL_FREE_NOTEBOOK_SNIPPET",
+  "own_model_hardware_inference": "NOT_RUN"
+}

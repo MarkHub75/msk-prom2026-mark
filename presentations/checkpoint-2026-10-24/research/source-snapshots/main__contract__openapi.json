@@ -1,0 +1,7396 @@
+{
+  "components": {
+    "schemas": {
+      "ActionIn": {
+        "properties": {
+          "action": {
+            "enum": [
+              "view",
+              "confirm",
+              "false_alarm",
+              "send_to_master",
+              "accept",
+              "resolve"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "comment": {
+            "default": "",
+            "title": "Comment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActionIn",
+        "type": "object"
+      },
+      "Analysis": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_ms": {
+            "title": "Duration Ms",
+            "type": "integer"
+          },
+          "episodes": {
+            "items": {
+              "$ref": "#/components/schemas/Episode"
+            },
+            "title": "Episodes",
+            "type": "array"
+          },
+          "gaps": {
+            "items": {
+              "$ref": "#/components/schemas/ObservabilityGap"
+            },
+            "title": "Gaps",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "pose_used": {
+            "title": "Pose Used",
+            "type": "boolean"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          },
+          "video_id": {
+            "title": "Video Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "video_id",
+          "version",
+          "created_at",
+          "duration_ms",
+          "pose_used",
+          "episodes",
+          "gaps"
+        ],
+        "title": "Analysis",
+        "type": "object"
+      },
+      "ApiError": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "details": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default": {},
+            "title": "Details",
+            "type": "object"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ApiError",
+        "type": "object"
+      },
+      "BackendStatus": {
+        "properties": {
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "checked_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checked At"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missing",
+            "type": "array"
+          },
+          "present": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Present",
+            "type": "array"
+          },
+          "state": {
+            "enum": [
+              "ok",
+              "models_missing",
+              "unreachable",
+              "bad_answer",
+              "unchecked"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "backend",
+          "fake",
+          "state",
+          "checked_at",
+          "latency_ms",
+          "present",
+          "missing",
+          "message"
+        ],
+        "title": "BackendStatus",
+        "type": "object"
+      },
+      "Body_video_upload_api_cameras__camera_id__videos_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_video_upload_api_cameras__camera_id__videos_post",
+        "type": "object"
+      },
+      "Broadcast": {
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "integer"
+          },
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "cycle": {
+            "title": "Cycle",
+            "type": "integer"
+          },
+          "duration_ms": {
+            "title": "Duration Ms",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "loop": {
+            "title": "Loop",
+            "type": "boolean"
+          },
+          "position_ms": {
+            "title": "Position Ms",
+            "type": "integer"
+          },
+          "server_now": {
+            "format": "date-time",
+            "title": "Server Now",
+            "type": "string"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "playing",
+              "stopped",
+              "ended"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "video_id": {
+            "title": "Video Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "camera_id",
+          "video_id",
+          "analysis_id",
+          "status",
+          "loop",
+          "cycle",
+          "started_at",
+          "position_ms",
+          "duration_ms",
+          "server_now"
+        ],
+        "title": "Broadcast",
+        "type": "object"
+      },
+      "BroadcastIn": {
+        "properties": {
+          "loop": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loop"
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          }
+        },
+        "title": "BroadcastIn",
+        "type": "object"
+      },
+      "Calibration": {
+        "properties": {
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "control_points": {
+            "items": {
+              "$ref": "#/components/schemas/ControlPoint"
+            },
+            "title": "Control Points",
+            "type": "array"
+          },
+          "control_rmse_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Control Rmse M"
+          },
+          "fit_rmse_m": {
+            "title": "Fit Rmse M",
+            "type": "number"
+          },
+          "grid": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Grid",
+            "type": "array"
+          },
+          "image_points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Image Points",
+            "type": "array"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "world_points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "World Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "camera_id",
+          "image_points",
+          "world_points",
+          "control_points",
+          "fit_rmse_m",
+          "control_rmse_m",
+          "grid",
+          "updated_at"
+        ],
+        "title": "Calibration",
+        "type": "object"
+      },
+      "CalibrationIn": {
+        "properties": {
+          "control_points": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ControlPoint"
+            },
+            "title": "Control Points",
+            "type": "array"
+          },
+          "image_points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Image Points",
+            "type": "array"
+          },
+          "world_points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "World Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "image_points",
+          "world_points"
+        ],
+        "title": "CalibrationIn",
+        "type": "object"
+      },
+      "Camera": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "has_calibration": {
+            "title": "Has Calibration",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_demo": {
+            "title": "Is Demo",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sector_id": {
+            "title": "Sector Id",
+            "type": "integer"
+          },
+          "videos_count": {
+            "title": "Videos Count",
+            "type": "integer"
+          },
+          "zones_count": {
+            "title": "Zones Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "sector_id",
+          "name",
+          "description",
+          "is_demo",
+          "has_calibration",
+          "zones_count",
+          "videos_count"
+        ],
+        "title": "Camera",
+        "type": "object"
+      },
+      "CameraIn": {
+        "properties": {
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sector_id": {
+            "title": "Sector Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sector_id",
+          "name"
+        ],
+        "title": "CameraIn",
+        "type": "object"
+      },
+      "CameraLiveView": {
+        "properties": {
+          "analysis": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Analysis"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "broadcast": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Broadcast"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "calibration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Calibration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "camera": {
+            "$ref": "#/components/schemas/Camera"
+          },
+          "state": {
+            "$ref": "#/components/schemas/CameraState"
+          },
+          "video": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Video"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/Zone"
+            },
+            "title": "Zones",
+            "type": "array"
+          }
+        },
+        "required": [
+          "camera",
+          "state",
+          "broadcast",
+          "video",
+          "analysis",
+          "zones",
+          "calibration"
+        ],
+        "title": "CameraLiveView",
+        "type": "object"
+      },
+      "CameraPatch": {
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "sector_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sector Id"
+          }
+        },
+        "title": "CameraPatch",
+        "type": "object"
+      },
+      "CameraRule": {
+        "properties": {
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "effective": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Effective",
+            "type": "object"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "params": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Params",
+            "type": "object"
+          },
+          "scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "model_missing",
+              "skeleton"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "camera_id",
+          "scenario",
+          "enabled",
+          "params",
+          "effective",
+          "status"
+        ],
+        "title": "CameraRule",
+        "type": "object"
+      },
+      "CameraRuleIn": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "params": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "default": {},
+            "title": "Params",
+            "type": "object"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "title": "CameraRuleIn",
+        "type": "object"
+      },
+      "CameraSetupView": {
+        "properties": {
+          "broadcast": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Broadcast"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "calibration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Calibration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "camera": {
+            "$ref": "#/components/schemas/Camera"
+          },
+          "jobs": {
+            "items": {
+              "$ref": "#/components/schemas/Job"
+            },
+            "title": "Jobs",
+            "type": "array"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/CameraRule"
+            },
+            "title": "Rules",
+            "type": "array"
+          },
+          "videos": {
+            "items": {
+              "$ref": "#/components/schemas/Video"
+            },
+            "title": "Videos",
+            "type": "array"
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/Zone"
+            },
+            "title": "Zones",
+            "type": "array"
+          }
+        },
+        "required": [
+          "camera",
+          "videos",
+          "jobs",
+          "calibration",
+          "zones",
+          "rules",
+          "broadcast"
+        ],
+        "title": "CameraSetupView",
+        "type": "object"
+      },
+      "CameraState": {
+        "properties": {
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "freshness_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Freshness Ms"
+          },
+          "open_red": {
+            "title": "Open Red",
+            "type": "integer"
+          },
+          "open_yellow": {
+            "title": "Open Yellow",
+            "type": "integer"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "no_source",
+                  "processing",
+                  "failed",
+                  "ended",
+                  "stale",
+                  "dark",
+                  "obstructed"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "reason_text": {
+            "title": "Reason Text",
+            "type": "string"
+          },
+          "sector_id": {
+            "title": "Sector Id",
+            "type": "integer"
+          },
+          "state": {
+            "enum": [
+              "normal",
+              "yellow",
+              "red",
+              "no_observation"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "camera_id",
+          "sector_id",
+          "state",
+          "reason",
+          "reason_text",
+          "freshness_ms",
+          "open_yellow",
+          "open_red"
+        ],
+        "title": "CameraState",
+        "type": "object"
+      },
+      "CameraTile": {
+        "properties": {
+          "broadcast": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Broadcast"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "camera": {
+            "$ref": "#/components/schemas/Camera"
+          },
+          "preview_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Url"
+          },
+          "state": {
+            "$ref": "#/components/schemas/CameraState"
+          }
+        },
+        "required": [
+          "camera",
+          "state",
+          "broadcast",
+          "preview_url"
+        ],
+        "title": "CameraTile",
+        "type": "object"
+      },
+      "CamerasAdminView": {
+        "properties": {
+          "cameras": {
+            "items": {
+              "$ref": "#/components/schemas/Camera"
+            },
+            "title": "Cameras",
+            "type": "array"
+          },
+          "sectors": {
+            "items": {
+              "$ref": "#/components/schemas/Sector"
+            },
+            "title": "Sectors",
+            "type": "array"
+          }
+        },
+        "required": [
+          "sectors",
+          "cameras"
+        ],
+        "title": "CamerasAdminView",
+        "type": "object"
+      },
+      "Channel": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "ws",
+              "webhook"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "levels": {
+            "items": {
+              "enum": [
+                "yellow",
+                "red"
+              ],
+              "type": "string"
+            },
+            "title": "Levels",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "target",
+          "levels"
+        ],
+        "title": "Channel",
+        "type": "object"
+      },
+      "ControlPoint": {
+        "properties": {
+          "image": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Image",
+            "type": "array"
+          },
+          "world": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "World",
+            "type": "array"
+          }
+        },
+        "required": [
+          "image",
+          "world"
+        ],
+        "title": "ControlPoint",
+        "type": "object"
+      },
+      "CountRow": {
+        "properties": {
+          "confirmed": {
+            "title": "Confirmed",
+            "type": "integer"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "false_alarm": {
+            "title": "False Alarm",
+            "type": "integer"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "count",
+          "confirmed",
+          "false_alarm"
+        ],
+        "title": "CountRow",
+        "type": "object"
+      },
+      "DayRow": {
+        "properties": {
+          "confirmed": {
+            "title": "Confirmed",
+            "type": "integer"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "false_alarm": {
+            "title": "False Alarm",
+            "type": "integer"
+          },
+          "red": {
+            "title": "Red",
+            "type": "integer"
+          },
+          "yellow": {
+            "title": "Yellow",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date",
+          "yellow",
+          "red",
+          "confirmed",
+          "false_alarm"
+        ],
+        "title": "DayRow",
+        "type": "object"
+      },
+      "Delivery": {
+        "properties": {
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          },
+          "error": {
+            "title": "Error",
+            "type": "string"
+          },
+          "http_status": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Http Status"
+          },
+          "kind": {
+            "enum": [
+              "published",
+              "escalated",
+              "to_master"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "sent",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "kind",
+          "status",
+          "http_status",
+          "error",
+          "at"
+        ],
+        "title": "Delivery",
+        "type": "object"
+      },
+      "Episode": {
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "integer"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "confirm_ms": {
+            "title": "Confirm Ms",
+            "type": "integer"
+          },
+          "end_ms": {
+            "title": "End Ms",
+            "type": "integer"
+          },
+          "end_reason": {
+            "enum": [
+              "observed_exit",
+              "track_lost_timeout",
+              "video_end"
+            ],
+            "title": "End Reason",
+            "type": "string"
+          },
+          "escalate_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escalate Ms"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "level_initial": {
+            "enum": [
+              "yellow",
+              "red"
+            ],
+            "title": "Level Initial",
+            "type": "string"
+          },
+          "level_max": {
+            "enum": [
+              "yellow",
+              "red"
+            ],
+            "title": "Level Max",
+            "type": "string"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Metrics",
+            "type": "object"
+          },
+          "reason_code": {
+            "title": "Reason Code",
+            "type": "string"
+          },
+          "reason_text": {
+            "title": "Reason Text",
+            "type": "string"
+          },
+          "scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "scenario_title": {
+            "title": "Scenario Title",
+            "type": "string"
+          },
+          "start_ms": {
+            "title": "Start Ms",
+            "type": "integer"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          },
+          "uncertain_ms": {
+            "title": "Uncertain Ms",
+            "type": "integer"
+          },
+          "zone_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Zone Id"
+          }
+        },
+        "required": [
+          "id",
+          "analysis_id",
+          "scenario",
+          "scenario_title",
+          "subject",
+          "zone_id",
+          "level_initial",
+          "level_max",
+          "start_ms",
+          "confirm_ms",
+          "escalate_ms",
+          "end_ms",
+          "end_reason",
+          "reason_code",
+          "reason_text",
+          "method",
+          "confidence",
+          "metrics",
+          "uncertain_ms",
+          "evidence"
+        ],
+        "title": "Episode",
+        "type": "object"
+      },
+      "EventAction": {
+        "properties": {
+          "action": {
+            "enum": [
+              "published",
+              "viewed",
+              "confirmed",
+              "false_alarm",
+              "sent_to_master",
+              "level_escalated",
+              "timeout_escalated",
+              "master_accepted",
+              "resolved",
+              "auto_finished",
+              "superseded"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "actor_name": {
+            "title": "Actor Name",
+            "type": "string"
+          },
+          "actor_role": {
+            "enum": [
+              "operator",
+              "master",
+              "ohs",
+              "management",
+              "admin",
+              "system"
+            ],
+            "title": "Actor Role",
+            "type": "string"
+          },
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "comment": {
+            "title": "Comment",
+            "type": "string"
+          },
+          "from_status": {
+            "anyOf": [
+              {
+                "enum": [
+                  "new",
+                  "viewed",
+                  "confirmed",
+                  "false_alarm",
+                  "sent_to_master",
+                  "master_accepted",
+                  "resolved",
+                  "auto_finished",
+                  "superseded"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Status"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "to_status": {
+            "anyOf": [
+              {
+                "enum": [
+                  "new",
+                  "viewed",
+                  "confirmed",
+                  "false_alarm",
+                  "sent_to_master",
+                  "master_accepted",
+                  "resolved",
+                  "auto_finished",
+                  "superseded"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To Status"
+          }
+        },
+        "required": [
+          "id",
+          "at",
+          "actor_role",
+          "actor_name",
+          "action",
+          "from_status",
+          "to_status",
+          "comment"
+        ],
+        "title": "EventAction",
+        "type": "object"
+      },
+      "EventDetail": {
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/EventAction"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "allowed_actions": {
+            "items": {
+              "enum": [
+                "view",
+                "confirm",
+                "false_alarm",
+                "send_to_master",
+                "accept",
+                "resolve"
+              ],
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "broadcast": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Broadcast"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "deliveries": {
+            "items": {
+              "$ref": "#/components/schemas/Delivery"
+            },
+            "title": "Deliveries",
+            "type": "array"
+          },
+          "episode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Episode"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventSummary"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "video_end_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video End Ms"
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          },
+          "video_start_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Start Ms"
+          },
+          "why": {
+            "items": {
+              "$ref": "#/components/schemas/WhyItem"
+            },
+            "title": "Why",
+            "type": "array"
+          }
+        },
+        "required": [
+          "event",
+          "episode",
+          "why",
+          "actions",
+          "allowed_actions",
+          "provenance",
+          "deliveries",
+          "video_id",
+          "video_start_ms",
+          "video_end_ms",
+          "broadcast"
+        ],
+        "title": "EventDetail",
+        "type": "object"
+      },
+      "EventPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "next_cursor"
+        ],
+        "title": "EventPage",
+        "type": "object"
+      },
+      "EventSummary": {
+        "properties": {
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "camera_name": {
+            "title": "Camera Name",
+            "type": "string"
+          },
+          "duration_s": {
+            "title": "Duration S",
+            "type": "number"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "escalated_by_timeout": {
+            "title": "Escalated By Timeout",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_demo": {
+            "title": "Is Demo",
+            "type": "boolean"
+          },
+          "level": {
+            "enum": [
+              "yellow",
+              "red"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "replay",
+              "demo"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "notification_text": {
+            "title": "Notification Text",
+            "type": "string"
+          },
+          "operator_verdict": {
+            "enum": [
+              "none",
+              "confirmed",
+              "false_alarm"
+            ],
+            "title": "Operator Verdict",
+            "type": "string"
+          },
+          "priority": {
+            "title": "Priority",
+            "type": "integer"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "reason_text": {
+            "title": "Reason Text",
+            "type": "string"
+          },
+          "red_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Red At"
+          },
+          "scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "sector_id": {
+            "title": "Sector Id",
+            "type": "integer"
+          },
+          "sector_name": {
+            "title": "Sector Name",
+            "type": "string"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "new",
+              "viewed",
+              "confirmed",
+              "false_alarm",
+              "sent_to_master",
+              "master_accepted",
+              "resolved",
+              "auto_finished",
+              "superseded"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "status_title": {
+            "title": "Status Title",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "zone_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Zone Id"
+          },
+          "zone_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Zone Name"
+          }
+        },
+        "required": [
+          "id",
+          "scenario",
+          "title",
+          "level",
+          "status",
+          "status_title",
+          "operator_verdict",
+          "escalated_by_timeout",
+          "mode",
+          "camera_id",
+          "camera_name",
+          "sector_id",
+          "sector_name",
+          "zone_id",
+          "zone_name",
+          "reason_text",
+          "notification_text",
+          "started_at",
+          "published_at",
+          "red_at",
+          "ended_at",
+          "duration_s",
+          "priority",
+          "is_demo"
+        ],
+        "title": "EventSummary",
+        "type": "object"
+      },
+      "Evidence": {
+        "properties": {
+          "frame_idx": {
+            "title": "Frame Idx",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "enum": [
+              "confirm",
+              "escalate"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "objects": {
+            "items": {
+              "$ref": "#/components/schemas/HudObject"
+            },
+            "title": "Objects",
+            "type": "array"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "ts_ms": {
+            "title": "Ts Ms",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "frame_idx",
+          "ts_ms",
+          "url",
+          "sha256",
+          "objects"
+        ],
+        "title": "Evidence",
+        "type": "object"
+      },
+      "FacetItem": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "FacetItem",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "contract": {
+            "title": "Contract",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "contract"
+        ],
+        "title": "Health",
+        "type": "object"
+      },
+      "HudFrame": {
+        "properties": {
+          "frame_idx": {
+            "title": "Frame Idx",
+            "type": "integer"
+          },
+          "objects": {
+            "items": {
+              "$ref": "#/components/schemas/HudObject"
+            },
+            "title": "Objects",
+            "type": "array"
+          },
+          "ts_ms": {
+            "title": "Ts Ms",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "frame_idx",
+          "ts_ms",
+          "objects"
+        ],
+        "title": "HudFrame",
+        "type": "object"
+      },
+      "HudObject": {
+        "properties": {
+          "bbox": {
+            "maxItems": 4,
+            "minItems": 4,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Bbox",
+            "type": "array"
+          },
+          "kind": {
+            "enum": [
+              "person",
+              "vehicle",
+              "phone",
+              "other"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "kpts": {
+            "anyOf": [
+              {
+                "items": {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kpts"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/HudTag"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "track_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track Id"
+          }
+        },
+        "required": [
+          "track_id",
+          "kind",
+          "label",
+          "score",
+          "bbox",
+          "kpts",
+          "tags"
+        ],
+        "title": "HudObject",
+        "type": "object"
+      },
+      "HudTag": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "enum": [
+                  "yellow",
+                  "red"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "text",
+          "level"
+        ],
+        "title": "HudTag",
+        "type": "object"
+      },
+      "InferenceMetrics": {
+        "properties": {
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "cached": {
+            "title": "Cached",
+            "type": "boolean"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "frames_processed": {
+            "title": "Frames Processed",
+            "type": "integer"
+          },
+          "input_size": {
+            "title": "Input Size",
+            "type": "integer"
+          },
+          "model_id": {
+            "title": "Model Id",
+            "type": "string"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "postprocess_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Postprocess Ms"
+          },
+          "preprocess_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preprocess Ms"
+          },
+          "step": {
+            "title": "Step",
+            "type": "integer"
+          },
+          "task": {
+            "enum": [
+              "detect",
+              "pose"
+            ],
+            "title": "Task",
+            "type": "string"
+          },
+          "throughput_fps": {
+            "title": "Throughput Fps",
+            "type": "number"
+          },
+          "total_s": {
+            "title": "Total S",
+            "type": "number"
+          },
+          "tpu_rtt_p50_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tpu Rtt P50 Ms"
+          },
+          "tpu_rtt_p90_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tpu Rtt P90 Ms"
+          },
+          "upload_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload S"
+          },
+          "wall_s": {
+            "title": "Wall S",
+            "type": "number"
+          }
+        },
+        "required": [
+          "backend",
+          "fake",
+          "model_id",
+          "model_version",
+          "task",
+          "input_size",
+          "step",
+          "frames_processed",
+          "wall_s",
+          "throughput_fps",
+          "preprocess_ms",
+          "postprocess_ms",
+          "tpu_rtt_p50_ms",
+          "tpu_rtt_p90_ms",
+          "upload_s",
+          "total_s",
+          "cached"
+        ],
+        "title": "InferenceMetrics",
+        "type": "object"
+      },
+      "Job": {
+        "properties": {
+          "analysis_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Id"
+          },
+          "analysis_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Ms"
+          },
+          "attempts": {
+            "title": "Attempts",
+            "type": "integer"
+          },
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "enum": [
+                  "linq_unavailable",
+                  "timeout",
+                  "remote_error",
+                  "bad_output",
+                  "model_missing",
+                  "video_unreadable",
+                  "artifacts_missing",
+                  "internal"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "error_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Text"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "enum": [
+              "process",
+              "recompute"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/InferenceMetrics"
+            },
+            "title": "Metrics",
+            "type": "array"
+          },
+          "next_attempt_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Attempt At"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "number"
+          },
+          "stage": {
+            "enum": [
+              "queued",
+              "inference_detect",
+              "inference_pose",
+              "analysis",
+              "evidence",
+              "done"
+            ],
+            "title": "Stage",
+            "type": "string"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "retry_wait",
+              "done",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "video_id": {
+            "title": "Video Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "video_id",
+          "camera_id",
+          "backend",
+          "fake",
+          "status",
+          "stage",
+          "progress",
+          "attempts",
+          "next_attempt_at",
+          "error_code",
+          "error_text",
+          "metrics",
+          "analysis_id",
+          "analysis_ms",
+          "created_at",
+          "started_at",
+          "finished_at"
+        ],
+        "title": "Job",
+        "type": "object"
+      },
+      "JournalFacets": {
+        "properties": {
+          "cameras": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Cameras",
+            "type": "array"
+          },
+          "levels": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Levels",
+            "type": "array"
+          },
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          },
+          "sectors": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Sectors",
+            "type": "array"
+          },
+          "statuses": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Statuses",
+            "type": "array"
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/FacetItem"
+            },
+            "title": "Zones",
+            "type": "array"
+          }
+        },
+        "required": [
+          "scenarios",
+          "levels",
+          "statuses",
+          "sectors",
+          "cameras",
+          "zones"
+        ],
+        "title": "JournalFacets",
+        "type": "object"
+      },
+      "LatencyStats": {
+        "properties": {
+          "notify_delay_s": {
+            "$ref": "#/components/schemas/Percentiles"
+          },
+          "publish_lag_ms": {
+            "$ref": "#/components/schemas/Percentiles"
+          }
+        },
+        "required": [
+          "notify_delay_s",
+          "publish_lag_ms"
+        ],
+        "title": "LatencyStats",
+        "type": "object"
+      },
+      "LevelMeta": {
+        "properties": {
+          "color": {
+            "title": "Color",
+            "type": "string"
+          },
+          "id": {
+            "enum": [
+              "yellow",
+              "red"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "color"
+        ],
+        "title": "LevelMeta",
+        "type": "object"
+      },
+      "ManagementStats": {
+        "properties": {
+          "top_scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "Top Scenarios",
+            "type": "array"
+          },
+          "top_sectors": {
+            "items": {
+              "$ref": "#/components/schemas/RateRow"
+            },
+            "title": "Top Sectors",
+            "type": "array"
+          },
+          "weeks": {
+            "items": {
+              "$ref": "#/components/schemas/WeekRow"
+            },
+            "title": "Weeks",
+            "type": "array"
+          },
+          "yellow_trend": {
+            "$ref": "#/components/schemas/TrendSummary"
+          }
+        },
+        "required": [
+          "weeks",
+          "top_sectors",
+          "top_scenarios",
+          "yellow_trend"
+        ],
+        "title": "ManagementStats",
+        "type": "object"
+      },
+      "MasterInbox": {
+        "properties": {
+          "active": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Active",
+            "type": "array"
+          },
+          "recent_resolved": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Recent Resolved",
+            "type": "array"
+          },
+          "server_now": {
+            "format": "date-time",
+            "title": "Server Now",
+            "type": "string"
+          }
+        },
+        "required": [
+          "active",
+          "recent_resolved",
+          "server_now"
+        ],
+        "title": "MasterInbox",
+        "type": "object"
+      },
+      "Meta": {
+        "properties": {
+          "contract": {
+            "title": "Contract",
+            "type": "string"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "inference_backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Inference Backend",
+            "type": "string"
+          },
+          "levels": {
+            "items": {
+              "$ref": "#/components/schemas/LevelMeta"
+            },
+            "title": "Levels",
+            "type": "array"
+          },
+          "product_name": {
+            "title": "Product Name",
+            "type": "string"
+          },
+          "roles": {
+            "items": {
+              "$ref": "#/components/schemas/RoleMeta"
+            },
+            "title": "Roles",
+            "type": "array"
+          },
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioMeta"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          },
+          "statuses": {
+            "items": {
+              "$ref": "#/components/schemas/StatusMeta"
+            },
+            "title": "Statuses",
+            "type": "array"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          },
+          "zone_kinds": {
+            "items": {
+              "$ref": "#/components/schemas/ZoneKindMeta"
+            },
+            "title": "Zone Kinds",
+            "type": "array"
+          }
+        },
+        "required": [
+          "product_name",
+          "contract",
+          "inference_backend",
+          "fake",
+          "timezone",
+          "roles",
+          "levels",
+          "statuses",
+          "zone_kinds",
+          "scenarios"
+        ],
+        "title": "Meta",
+        "type": "object"
+      },
+      "ModelSpec": {
+        "properties": {
+          "classes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Classes",
+            "type": "object"
+          },
+          "conf": {
+            "title": "Conf",
+            "type": "number"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "input_size": {
+            "title": "Input Size",
+            "type": "integer"
+          },
+          "iou": {
+            "title": "Iou",
+            "type": "number"
+          },
+          "linq_program": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linq Program"
+          },
+          "linq_tail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linq Tail"
+          },
+          "local_onnx": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Local Onnx"
+          },
+          "task": {
+            "enum": [
+              "detect",
+              "pose"
+            ],
+            "title": "Task",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "task",
+          "input_size",
+          "conf",
+          "iou",
+          "classes",
+          "linq_program",
+          "linq_tail",
+          "local_onnx"
+        ],
+        "title": "ModelSpec",
+        "type": "object"
+      },
+      "ModelsView": {
+        "properties": {
+          "active": {
+            "items": {
+              "$ref": "#/components/schemas/ModelSpec"
+            },
+            "title": "Active",
+            "type": "array"
+          },
+          "available": {
+            "items": {
+              "$ref": "#/components/schemas/ModelSpec"
+            },
+            "title": "Available",
+            "type": "array"
+          },
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "backend",
+          "fake",
+          "active",
+          "available"
+        ],
+        "title": "ModelsView",
+        "type": "object"
+      },
+      "ObservabilityGap": {
+        "properties": {
+          "end_ms": {
+            "title": "End Ms",
+            "type": "integer"
+          },
+          "reason": {
+            "enum": [
+              "no_source",
+              "processing",
+              "failed",
+              "ended",
+              "stale",
+              "dark",
+              "obstructed"
+            ],
+            "title": "Reason",
+            "type": "string"
+          },
+          "start_ms": {
+            "title": "Start Ms",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "start_ms",
+          "end_ms",
+          "reason"
+        ],
+        "title": "ObservabilityGap",
+        "type": "object"
+      },
+      "OhsStats": {
+        "properties": {
+          "by_camera": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Camera",
+            "type": "array"
+          },
+          "by_day": {
+            "items": {
+              "$ref": "#/components/schemas/DayRow"
+            },
+            "title": "By Day",
+            "type": "array"
+          },
+          "by_hour": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Hour",
+            "type": "array"
+          },
+          "by_scenario": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Scenario",
+            "type": "array"
+          },
+          "by_sector": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Sector",
+            "type": "array"
+          },
+          "by_shift": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Shift",
+            "type": "array"
+          },
+          "by_status": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Status",
+            "type": "array"
+          },
+          "date_from": {
+            "format": "date-time",
+            "title": "Date From",
+            "type": "string"
+          },
+          "date_to": {
+            "format": "date-time",
+            "title": "Date To",
+            "type": "string"
+          },
+          "false_alarm_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "False Alarm Share"
+          },
+          "include_demo": {
+            "title": "Include Demo",
+            "type": "boolean"
+          },
+          "master_accept_s": {
+            "$ref": "#/components/schemas/Percentiles"
+          },
+          "master_resolve_s": {
+            "$ref": "#/components/schemas/Percentiles"
+          },
+          "operator_reaction_s": {
+            "$ref": "#/components/schemas/Percentiles"
+          },
+          "review_coverage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Coverage"
+          },
+          "reviewed": {
+            "title": "Reviewed",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date_from",
+          "date_to",
+          "include_demo",
+          "total",
+          "by_status",
+          "by_scenario",
+          "by_sector",
+          "by_camera",
+          "by_shift",
+          "by_hour",
+          "by_day",
+          "reviewed",
+          "false_alarm_share",
+          "review_coverage",
+          "operator_reaction_s",
+          "master_accept_s",
+          "master_resolve_s"
+        ],
+        "title": "OhsStats",
+        "type": "object"
+      },
+      "OperatorDashboard": {
+        "properties": {
+          "feed": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Feed",
+            "type": "array"
+          },
+          "sectors": {
+            "items": {
+              "$ref": "#/components/schemas/SectorState"
+            },
+            "title": "Sectors",
+            "type": "array"
+          },
+          "server_now": {
+            "format": "date-time",
+            "title": "Server Now",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sectors",
+          "feed",
+          "server_now"
+        ],
+        "title": "OperatorDashboard",
+        "type": "object"
+      },
+      "Percentiles": {
+        "properties": {
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50"
+          },
+          "p95": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95"
+          },
+          "pending": {
+            "title": "Pending",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "n",
+          "pending",
+          "p50",
+          "p95"
+        ],
+        "title": "Percentiles",
+        "type": "object"
+      },
+      "Provenance": {
+        "properties": {
+          "analysis_version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Version"
+          },
+          "backend": {
+            "anyOf": [
+              {
+                "enum": [
+                  "linq",
+                  "local"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Backend"
+          },
+          "det_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Det Model"
+          },
+          "evidence_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Sha256"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "pose_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pose Model"
+          },
+          "rule_params": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Rule Params",
+            "type": "object"
+          },
+          "video_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Sha256"
+          }
+        },
+        "required": [
+          "backend",
+          "fake",
+          "det_model",
+          "pose_model",
+          "job_id",
+          "video_sha256",
+          "analysis_version",
+          "rule_params",
+          "evidence_sha256"
+        ],
+        "title": "Provenance",
+        "type": "object"
+      },
+      "RateRow": {
+        "properties": {
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "confirmed": {
+            "title": "Confirmed",
+            "type": "integer"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "per_camera": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Per Camera"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "cameras",
+          "confirmed",
+          "per_camera"
+        ],
+        "title": "RateRow",
+        "type": "object"
+      },
+      "RoleMeta": {
+        "properties": {
+          "actions": {
+            "items": {
+              "enum": [
+                "view",
+                "confirm",
+                "false_alarm",
+                "send_to_master",
+                "accept",
+                "resolve"
+              ],
+              "type": "string"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "id": {
+            "enum": [
+              "operator",
+              "master",
+              "ohs",
+              "management",
+              "admin"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "actions"
+        ],
+        "title": "RoleMeta",
+        "type": "object"
+      },
+      "RulesScreenRow": {
+        "properties": {
+          "camera": {
+            "$ref": "#/components/schemas/Camera"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/CameraRule"
+            },
+            "title": "Rules",
+            "type": "array"
+          }
+        },
+        "required": [
+          "camera",
+          "rules"
+        ],
+        "title": "RulesScreenRow",
+        "type": "object"
+      },
+      "RulesScreenView": {
+        "properties": {
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/RulesScreenRow"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioMeta"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          }
+        },
+        "required": [
+          "scenarios",
+          "rows"
+        ],
+        "title": "RulesScreenView",
+        "type": "object"
+      },
+      "ScenarioMeta": {
+        "properties": {
+          "default_level": {
+            "enum": [
+              "yellow",
+              "red"
+            ],
+            "title": "Default Level",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "icon": {
+            "title": "Icon",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "params": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioParam"
+            },
+            "title": "Params",
+            "type": "array"
+          },
+          "required_classes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Required Classes",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "model_missing",
+              "skeleton"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "status_text": {
+            "title": "Status Text",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "zone_kinds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Zone Kinds",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "icon",
+          "default_level",
+          "status",
+          "status_text",
+          "required_classes",
+          "zone_kinds",
+          "params"
+        ],
+        "title": "ScenarioMeta",
+        "type": "object"
+      },
+      "ScenarioParam": {
+        "properties": {
+          "default": {
+            "title": "Default",
+            "type": "number"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "max": {
+            "title": "Max",
+            "type": "number"
+          },
+          "min": {
+            "title": "Min",
+            "type": "number"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "unit",
+          "default",
+          "min",
+          "max"
+        ],
+        "title": "ScenarioParam",
+        "type": "object"
+      },
+      "Sector": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_demo": {
+            "title": "Is Demo",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sort_order": {
+            "title": "Sort Order",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sort_order",
+          "is_demo"
+        ],
+        "title": "Sector",
+        "type": "object"
+      },
+      "SectorIn": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sort_order": {
+            "default": 0,
+            "title": "Sort Order",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "SectorIn",
+        "type": "object"
+      },
+      "SectorState": {
+        "properties": {
+          "cameras_no_observation": {
+            "title": "Cameras No Observation",
+            "type": "integer"
+          },
+          "cameras_total": {
+            "title": "Cameras Total",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "open_red": {
+            "title": "Open Red",
+            "type": "integer"
+          },
+          "open_yellow": {
+            "title": "Open Yellow",
+            "type": "integer"
+          },
+          "reason_text": {
+            "title": "Reason Text",
+            "type": "string"
+          },
+          "sector_id": {
+            "title": "Sector Id",
+            "type": "integer"
+          },
+          "state": {
+            "enum": [
+              "normal",
+              "yellow",
+              "red",
+              "no_observation"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sector_id",
+          "name",
+          "state",
+          "reason_text",
+          "cameras_total",
+          "cameras_no_observation",
+          "open_yellow",
+          "open_red"
+        ],
+        "title": "SectorState",
+        "type": "object"
+      },
+      "SectorView": {
+        "properties": {
+          "cameras": {
+            "items": {
+              "$ref": "#/components/schemas/CameraTile"
+            },
+            "title": "Cameras",
+            "type": "array"
+          },
+          "feed": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Feed",
+            "type": "array"
+          },
+          "sector": {
+            "$ref": "#/components/schemas/SectorState"
+          }
+        },
+        "required": [
+          "sector",
+          "cameras",
+          "feed"
+        ],
+        "title": "SectorView",
+        "type": "object"
+      },
+      "ShiftSummary": {
+        "properties": {
+          "by_scenario": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Scenario",
+            "type": "array"
+          },
+          "by_sector": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Sector",
+            "type": "array"
+          },
+          "end": {
+            "format": "date-time",
+            "title": "End",
+            "type": "string"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "shift_id": {
+            "title": "Shift Id",
+            "type": "string"
+          },
+          "start": {
+            "format": "date-time",
+            "title": "Start",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "shift_id",
+          "title",
+          "start",
+          "end",
+          "total",
+          "by_sector",
+          "by_scenario",
+          "events"
+        ],
+        "title": "ShiftSummary",
+        "type": "object"
+      },
+      "StatusMeta": {
+        "properties": {
+          "id": {
+            "enum": [
+              "new",
+              "viewed",
+              "confirmed",
+              "false_alarm",
+              "sent_to_master",
+              "master_accepted",
+              "resolved",
+              "auto_finished",
+              "superseded"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "terminal": {
+            "title": "Terminal",
+            "type": "boolean"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "terminal"
+        ],
+        "title": "StatusMeta",
+        "type": "object"
+      },
+      "SystemView": {
+        "properties": {
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "backend_status": {
+            "$ref": "#/components/schemas/BackendStatus"
+          },
+          "cameras": {
+            "items": {
+              "$ref": "#/components/schemas/CameraState"
+            },
+            "title": "Cameras",
+            "type": "array"
+          },
+          "channels": {
+            "items": {
+              "$ref": "#/components/schemas/Channel"
+            },
+            "title": "Channels",
+            "type": "array"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "latency": {
+            "$ref": "#/components/schemas/LatencyStats"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelSpec"
+            },
+            "title": "Models",
+            "type": "array"
+          },
+          "queue": {
+            "items": {
+              "$ref": "#/components/schemas/Job"
+            },
+            "title": "Queue",
+            "type": "array"
+          },
+          "recent_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/Job"
+            },
+            "title": "Recent Jobs",
+            "type": "array"
+          },
+          "server_now": {
+            "format": "date-time",
+            "title": "Server Now",
+            "type": "string"
+          }
+        },
+        "required": [
+          "backend",
+          "fake",
+          "backend_status",
+          "queue",
+          "recent_jobs",
+          "cameras",
+          "models",
+          "latency",
+          "channels",
+          "server_now"
+        ],
+        "title": "SystemView",
+        "type": "object"
+      },
+      "TracksWindow": {
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "integer"
+          },
+          "frames": {
+            "items": {
+              "$ref": "#/components/schemas/HudFrame"
+            },
+            "title": "Frames",
+            "type": "array"
+          },
+          "from_ms": {
+            "title": "From Ms",
+            "type": "integer"
+          },
+          "to_ms": {
+            "title": "To Ms",
+            "type": "integer"
+          },
+          "video_id": {
+            "title": "Video Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "video_id",
+          "analysis_id",
+          "from_ms",
+          "to_ms",
+          "frames"
+        ],
+        "title": "TracksWindow",
+        "type": "object"
+      },
+      "TrendSummary": {
+        "properties": {
+          "change_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Change Pct"
+          },
+          "previous": {
+            "title": "Previous",
+            "type": "integer"
+          },
+          "recent": {
+            "title": "Recent",
+            "type": "integer"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "previous",
+          "recent",
+          "change_pct",
+          "text"
+        ],
+        "title": "TrendSummary",
+        "type": "object"
+      },
+      "UploadResult": {
+        "properties": {
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Job"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reused": {
+            "title": "Reused",
+            "type": "boolean"
+          },
+          "video": {
+            "$ref": "#/components/schemas/Video"
+          }
+        },
+        "required": [
+          "video",
+          "job",
+          "reused"
+        ],
+        "title": "UploadResult",
+        "type": "object"
+      },
+      "Video": {
+        "properties": {
+          "active_analysis_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Analysis Id"
+          },
+          "browser_playable": {
+            "title": "Browser Playable",
+            "type": "boolean"
+          },
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "codec": {
+            "title": "Codec",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_ms": {
+            "title": "Duration Ms",
+            "type": "integer"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "fps": {
+            "title": "Fps",
+            "type": "number"
+          },
+          "frame_count": {
+            "title": "Frame Count",
+            "type": "integer"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "uploaded",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "camera_id",
+          "filename",
+          "sha256",
+          "size_bytes",
+          "width",
+          "height",
+          "fps",
+          "frame_count",
+          "duration_ms",
+          "codec",
+          "browser_playable",
+          "status",
+          "active_analysis_id",
+          "created_at"
+        ],
+        "title": "Video",
+        "type": "object"
+      },
+      "WeekRow": {
+        "properties": {
+          "confirmed": {
+            "title": "Confirmed",
+            "type": "integer"
+          },
+          "false_alarm": {
+            "title": "False Alarm",
+            "type": "integer"
+          },
+          "red": {
+            "title": "Red",
+            "type": "integer"
+          },
+          "week_start": {
+            "title": "Week Start",
+            "type": "string"
+          },
+          "yellow": {
+            "title": "Yellow",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "week_start",
+          "yellow",
+          "red",
+          "confirmed",
+          "false_alarm"
+        ],
+        "title": "WeekRow",
+        "type": "object"
+      },
+      "WhyItem": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ],
+        "title": "WhyItem",
+        "type": "object"
+      },
+      "Zone": {
+        "properties": {
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "camera_id",
+          "kind",
+          "name",
+          "points"
+        ],
+        "title": "Zone",
+        "type": "object"
+      },
+      "ZoneIn": {
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "points": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "kind",
+          "name",
+          "points"
+        ],
+        "title": "ZoneIn",
+        "type": "object"
+      },
+      "ZoneKindMeta": {
+        "properties": {
+          "color": {
+            "title": "Color",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "geometry": {
+            "enum": [
+              "polygon",
+              "line"
+            ],
+            "title": "Geometry",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "color",
+          "geometry",
+          "description"
+        ],
+        "title": "ZoneKindMeta",
+        "type": "object"
+      },
+      "ZonePatch": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "points": {
+            "anyOf": [
+              {
+                "items": {
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Points"
+          }
+        },
+        "title": "ZonePatch",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "SafeWatch API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/admin/cameras": {
+      "get": {
+        "operationId": "cameras_admin_view_api_admin_cameras_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CamerasAdminView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Cameras Admin View"
+      }
+    },
+    "/api/admin/cameras/{camera_id}": {
+      "get": {
+        "operationId": "camera_setup_view_api_admin_cameras__camera_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CameraSetupView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Setup View"
+      }
+    },
+    "/api/cameras": {
+      "get": {
+        "operationId": "cameras_list_api_cameras_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sector_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sector Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Camera"
+                  },
+                  "title": "Response Cameras List Api Cameras Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Cameras List"
+      },
+      "post": {
+        "operationId": "camera_create_api_cameras_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CameraIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Camera"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Create"
+      }
+    },
+    "/api/cameras/{camera_id}": {
+      "delete": {
+        "operationId": "camera_delete_api_cameras__camera_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Delete"
+      },
+      "get": {
+        "operationId": "camera_get_api_cameras__camera_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Camera"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Get"
+      },
+      "patch": {
+        "operationId": "camera_update_api_cameras__camera_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CameraPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Camera"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Update"
+      }
+    },
+    "/api/cameras/{camera_id}/broadcast": {
+      "delete": {
+        "operationId": "broadcast_stop_api_cameras__camera_id__broadcast_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Broadcast Stop"
+      },
+      "get": {
+        "operationId": "broadcast_get_api_cameras__camera_id__broadcast_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Broadcast"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Broadcast Get Api Cameras  Camera Id  Broadcast Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Broadcast Get"
+      },
+      "post": {
+        "operationId": "broadcast_start_api_cameras__camera_id__broadcast_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BroadcastIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Broadcast"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Broadcast Start"
+      }
+    },
+    "/api/cameras/{camera_id}/calibration": {
+      "delete": {
+        "operationId": "calibration_delete_api_cameras__camera_id__calibration_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calibration Delete"
+      },
+      "get": {
+        "operationId": "calibration_get_api_cameras__camera_id__calibration_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Calibration"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Calibration Get Api Cameras  Camera Id  Calibration Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calibration Get"
+      },
+      "put": {
+        "operationId": "calibration_set_api_cameras__camera_id__calibration_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalibrationIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Calibration"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calibration Set"
+      }
+    },
+    "/api/cameras/{camera_id}/preview": {
+      "get": {
+        "operationId": "camera_preview_api_cameras__camera_id__preview_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Preview"
+      }
+    },
+    "/api/cameras/{camera_id}/rules": {
+      "get": {
+        "operationId": "camera_rules_api_cameras__camera_id__rules_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CameraRule"
+                  },
+                  "title": "Response Camera Rules Api Cameras  Camera Id  Rules Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Rules"
+      }
+    },
+    "/api/cameras/{camera_id}/rules/{scenario}": {
+      "put": {
+        "operationId": "camera_rule_set_api_cameras__camera_id__rules__scenario__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "scenario",
+            "required": true,
+            "schema": {
+              "title": "Scenario",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CameraRuleIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CameraRule"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Rule Set"
+      }
+    },
+    "/api/cameras/{camera_id}/videos": {
+      "get": {
+        "operationId": "videos_list_api_cameras__camera_id__videos_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Video"
+                  },
+                  "title": "Response Videos List Api Cameras  Camera Id  Videos Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Videos List"
+      },
+      "post": {
+        "operationId": "video_upload_api_cameras__camera_id__videos_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_video_upload_api_cameras__camera_id__videos_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video Upload"
+      }
+    },
+    "/api/cameras/{camera_id}/view": {
+      "get": {
+        "operationId": "camera_live_view_api_cameras__camera_id__view_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CameraLiveView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Live View"
+      }
+    },
+    "/api/cameras/{camera_id}/zones": {
+      "get": {
+        "operationId": "zones_list_api_cameras__camera_id__zones_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Zone"
+                  },
+                  "title": "Response Zones List Api Cameras  Camera Id  Zones Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Zones List"
+      },
+      "post": {
+        "operationId": "zone_create_api_cameras__camera_id__zones_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ZoneIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zone"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Zone Create"
+      }
+    },
+    "/api/events": {
+      "get": {
+        "operationId": "events_list_api_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "yellow",
+                    "red"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "new",
+                    "viewed",
+                    "confirmed",
+                    "false_alarm",
+                    "sent_to_master",
+                    "master_accepted",
+                    "resolved",
+                    "auto_finished",
+                    "superseded"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sector_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sector Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "camera_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Camera Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "zone_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_demo",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Demo",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_superseded",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Include Superseded",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Events List"
+      }
+    },
+    "/api/events/export.csv": {
+      "get": {
+        "operationId": "events_export_csv_api_events_export_csv_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "yellow",
+                    "red"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "scenario",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "new",
+                    "viewed",
+                    "confirmed",
+                    "false_alarm",
+                    "sent_to_master",
+                    "master_accepted",
+                    "resolved",
+                    "auto_finished",
+                    "superseded"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sector_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sector Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "camera_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Camera Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "zone_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_demo",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Demo",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_superseded",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Include Superseded",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Events Export Csv"
+      }
+    },
+    "/api/events/{event_id}": {
+      "get": {
+        "operationId": "event_detail_api_events__event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Event Detail"
+      }
+    },
+    "/api/events/{event_id}/actions": {
+      "post": {
+        "operationId": "event_action_api_events__event_id__actions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Actor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Actor"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Event Action"
+      }
+    },
+    "/api/evidence/{evidence_id}/image": {
+      "get": {
+        "operationId": "evidence_image_api_evidence__evidence_id__image_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "evidence_id",
+            "required": true,
+            "schema": {
+              "title": "Evidence Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Evidence Image"
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/api/jobs": {
+      "get": {
+        "operationId": "jobs_list_api_jobs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "retry_wait",
+                    "done",
+                    "failed"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  },
+                  "title": "Response Jobs List Api Jobs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Jobs List"
+      }
+    },
+    "/api/jobs/{job_id}": {
+      "get": {
+        "operationId": "job_get_api_jobs__job_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Job Get"
+      }
+    },
+    "/api/jobs/{job_id}/retry": {
+      "post": {
+        "operationId": "job_retry_api_jobs__job_id__retry_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Job Retry"
+      }
+    },
+    "/api/journal/facets": {
+      "get": {
+        "operationId": "journal_facets_api_journal_facets_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JournalFacets"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Journal Facets"
+      }
+    },
+    "/api/master/inbox": {
+      "get": {
+        "operationId": "master_inbox_view_api_master_inbox_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterInbox"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Master Inbox View"
+      }
+    },
+    "/api/master/shift": {
+      "get": {
+        "operationId": "shift_summary_view_api_master_shift_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "at",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "At"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShiftSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Shift Summary View"
+      }
+    },
+    "/api/meta": {
+      "get": {
+        "operationId": "meta_api_meta_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Meta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Meta"
+      }
+    },
+    "/api/models": {
+      "get": {
+        "operationId": "models_view_api_models_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelsView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Models View"
+      }
+    },
+    "/api/ohs/rules": {
+      "get": {
+        "operationId": "rules_screen_view_api_ohs_rules_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RulesScreenView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Rules Screen View"
+      }
+    },
+    "/api/operator/dashboard": {
+      "get": {
+        "operationId": "operator_dashboard_view_api_operator_dashboard_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorDashboard"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Operator Dashboard View"
+      }
+    },
+    "/api/operator/feed": {
+      "get": {
+        "operationId": "operator_feed_api_operator_feed_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EventSummary"
+                  },
+                  "title": "Response Operator Feed Api Operator Feed Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Operator Feed"
+      }
+    },
+    "/api/sectors": {
+      "get": {
+        "operationId": "sectors_list_api_sectors_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Sector"
+                  },
+                  "title": "Response Sectors List Api Sectors Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Sectors List"
+      },
+      "post": {
+        "operationId": "sector_create_api_sectors_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectorIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sector"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Sector Create"
+      }
+    },
+    "/api/sectors/{sector_id}": {
+      "delete": {
+        "operationId": "sector_delete_api_sectors__sector_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sector_id",
+            "required": true,
+            "schema": {
+              "title": "Sector Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Sector Delete"
+      },
+      "put": {
+        "operationId": "sector_update_api_sectors__sector_id__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sector_id",
+            "required": true,
+            "schema": {
+              "title": "Sector Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectorIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sector"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Sector Update"
+      }
+    },
+    "/api/sectors/{sector_id}/view": {
+      "get": {
+        "operationId": "sector_view_api_sectors__sector_id__view_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sector_id",
+            "required": true,
+            "schema": {
+              "title": "Sector Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectorView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Sector View"
+      }
+    },
+    "/api/stats/management": {
+      "get": {
+        "operationId": "management_view_api_stats_management_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "weeks",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Weeks"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_demo",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Demo",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementStats"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Management View"
+      }
+    },
+    "/api/stats/ohs": {
+      "get": {
+        "operationId": "ohs_stats_view_api_stats_ohs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sector_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sector Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "camera_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Camera Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_demo",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Demo",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OhsStats"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Ohs Stats View"
+      }
+    },
+    "/api/system": {
+      "get": {
+        "operationId": "system_view_api_system_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "System View"
+      }
+    },
+    "/api/system/backend-check": {
+      "post": {
+        "operationId": "backend_check_api_system_backend_check_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackendStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Backend Check"
+      }
+    },
+    "/api/videos/{video_id}": {
+      "get": {
+        "operationId": "video_get_api_videos__video_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "video_id",
+            "required": true,
+            "schema": {
+              "title": "Video Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Video"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video Get"
+      }
+    },
+    "/api/videos/{video_id}/analysis": {
+      "get": {
+        "operationId": "video_analysis_api_videos__video_id__analysis_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "video_id",
+            "required": true,
+            "schema": {
+              "title": "Video Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Analysis"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video Analysis"
+      }
+    },
+    "/api/videos/{video_id}/file": {
+      "get": {
+        "operationId": "video_file_api_videos__video_id__file_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "video_id",
+            "required": true,
+            "schema": {
+              "title": "Video Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video File"
+      }
+    },
+    "/api/videos/{video_id}/recompute": {
+      "post": {
+        "operationId": "video_recompute_api_videos__video_id__recompute_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "video_id",
+            "required": true,
+            "schema": {
+              "title": "Video Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video Recompute"
+      }
+    },
+    "/api/videos/{video_id}/tracks": {
+      "get": {
+        "operationId": "video_tracks_api_videos__video_id__tracks_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "video_id",
+            "required": true,
+            "schema": {
+              "title": "Video Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from_ms",
+            "required": true,
+            "schema": {
+              "title": "From Ms",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to_ms",
+            "required": true,
+            "schema": {
+              "title": "To Ms",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TracksWindow"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Video Tracks"
+      }
+    },
+    "/api/zones/{zone_id}": {
+      "delete": {
+        "operationId": "zone_delete_api_zones__zone_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "zone_id",
+            "required": true,
+            "schema": {
+              "title": "Zone Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Zone Delete"
+      },
+      "patch": {
+        "operationId": "zone_update_api_zones__zone_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "zone_id",
+            "required": true,
+            "schema": {
+              "title": "Zone Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ZonePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zone"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Zone Update"
+      }
+    }
+  }
+}

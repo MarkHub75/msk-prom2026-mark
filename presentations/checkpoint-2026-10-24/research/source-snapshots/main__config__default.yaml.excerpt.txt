@@ -1,0 +1,10 @@
+# Excerpts with ORIGINAL source line numbers. See source-index.json.
+149: escalation:
+150:   enabled: true
+151:   timeout_s: 45
+152:   tick_ms: 500
+153: 
+154: broadcast:
+155:   tick_ms: 250
+156:   loop_default: true
+157:   autostart: true

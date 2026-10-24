@@ -1,0 +1,8 @@
+# Excerpts with ORIGINAL source line numbers. See source-index.json.
+1760:  "summary": {
+1761:   "mean_recall_vs_cpu": 0.9068362193362193,
+1762:   "mean_precision_vs_cpu": 0.9042735042735043,
+1763:   "mean_iou": 0.9307762454916383,
+1764:   "mean_abs_score_diff": 0.05321779314446565
+1765:  }
+1766: }

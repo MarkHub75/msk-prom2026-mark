@@ -1,0 +1,34 @@
+{
+  "protocol": "offline-motion-zone-episode-v1",
+  "public_event_schema_changed": false,
+  "real_quality_claim": false,
+  "running_is_experimental_proxy": true,
+  "delivery_latency_measured": false,
+  "artifact_kind": "REAL_EPISODE_GT_NOT_SUPPLIED",
+  "per_type": {
+    "running": {
+      "status": "NOT_EVALUATED",
+      "reason": "SCENE_GT_UNAVAILABLE",
+      "tp": null,
+      "fp": null,
+      "fn": null,
+      "precision": null,
+      "recall": null,
+      "f1": null
+    },
+    "zone_entry": {
+      "status": "NOT_EVALUATED",
+      "reason": "SCENE_GT_UNAVAILABLE",
+      "tp": null,
+      "fp": null,
+      "fn": null,
+      "precision": null,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "status": "NOT_EVALUATED",
+  "implementation": "offline prototype and scorer ready; no production running/zone event schema changes",
+  "neural_reference": "existing Split-Pose actual LinQ; no model task rerun for this readiness check",
+  "required_annotation_handoff": "ml/quality/temporal/MOTION_EVAL.md"
+}

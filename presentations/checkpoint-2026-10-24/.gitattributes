@@ -1,0 +1,10 @@
+# Frozen source snapshots, receipts and review manifests have byte-level hashes.
+# Preserve all presentation artifacts exactly across checkout platforms.
+* -text
+# These are immutable third-party/source bytes or sealed evidence copies.
+# Their original whitespace is part of the hash; authoring scripts still check.
+assets/fonts/OFL.txt -whitespace
+research/source-snapshots/** -whitespace
+evidence/** -whitespace
+review/** -whitespace
+review-r2/** -whitespace

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>SafeWatch — image-slide QA capture</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#0e1114;overflow:hidden}
+#stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#slide{display:block;width:100vw;height:100vh;object-fit:contain}
+</style>
+<main id="stage"><img id="slide" alt="Готовый растровый слайд SafeWatch"></main>
+<script>
+// This is a measurement harness, without presentation UI or navigation controls.
+const slide=Number(new URL(location.href).searchParams.get('slide'));
+if(!Number.isInteger(slide)||slide<1||slide>8)throw new Error('Expected slide=1…8');
+const image=document.querySelector('#slide');
+image.src='../slides/slide-'+String(slide).padStart(2,'0')+'.png';
+image.decode().then(()=>{document.querySelector('#stage').dataset.craftSettled='true';});
+</script>
+</html>

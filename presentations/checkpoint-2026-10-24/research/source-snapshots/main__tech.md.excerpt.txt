@@ -1,0 +1,148 @@
+# Excerpts with ORIGINAL source line numbers. See source-index.json.
+28: ## 2. Проект
+29: 
+30: SafeWatch: веб-сервис видеоконтроля промышленной безопасности для кейса «Открой#Моспром 2026» (ООО «ХайТэк», ускорители LinQ). Сервис принимает видео камер, один раз прогоняет нейросети на LinQ TPU, превращает детекции в эпизоды нарушений, оповещает оператора и мастера без дублей, ведёт неизменяемый журнал с доказательными кадрами и считает статистику.
+31: 
+32: Пользователи: оператор/диспетчер (главный герой, лента событий), мастер смены (телефон), специалист по охране труда (журнал, правила, статистика), менеджмент (тренды), IT/администратор (камеры, калибровка, зоны, замеры LinQ). Работник у станка интерфейсом не пользуется.
+33: 
+34: Режим работы: «анализ видеоархива / эмуляция потока». Видео загружается в сервис, обрабатывается внутри LinQ Jupyter (стримить кадры на LinQ запрещено), результат детекций кэшируется. «Эфир» камеры воспроизводит запись по серверным часам; событие публикуется, когда воспроизведение доходит до момента его подтверждения. Так красный захват экрана, автоэскалация и уведомление мастера работают в реальном времени на честно обработанной записи.
+35: 
+36: Это baseline: полный каркас продукта со всеми функциями брифа. День после ночи уходит на точность моделей, полировку UI, презентацию. Чем baseline не является:
+37: - не live RTSP: архитектура это допускает (те же стадии инкрементально), но не делаем;
+38: - не обучает модели: дообученные веса подключаются записью в `config/models.yaml`;
+39: - нет логина и паролей: роль выбирается переключателем в шапке, сервер доверяет заголовку `X-Role`;
+40: - нет звонков, Telegram, SMS, громкоговорителя, ламп и сирен: есть только точка расширения webhook (S15);
+41: - нет идентификации работников и персональной статистики;
+42: - не заявляет «первые на LinQ», снижение травматизма и цифры-иллюстрации кейса как факты.
+43: 
+44: Обязательные требования кейса (слайд 13) и где они закрыты:
+45: 
+46: | Требование | Слайс | Как |
+47: | --- | --- | --- |
+48: | Приём видео | 2 | загрузка файла камеры, очередь обработки |
+49: | Распознавание нейросетями | 2, 4, 5, 10 | YOLOv8n и YOLOv8n-pose на LinQ, правила-плагины |
+50: | Оперативное уведомление с кадром, камерой, временем, типом | 6, 7, 8 | WebSocket, лента, захват экрана, мастер |
+51: | Одно нарушение — одно оповещение | 5, 6 | менеджер эпизодов, идемпотентная публикация |
+52: | Журнал с фильтрами по типу, камере, зоне, времени и кадрами | 12 | `/ohs/journal`, CSV |
+53: | Инференс на LinQ с замерами скорости | 2, 3 | адаптер `linq`, экран IT |
+54: 
+2705: ### 6.9 Дополнения v3 (строки `GAP` S6–S10 и решения R10)
+2706: 
+2707: Перенесены ревью R10 из `## open` файла `progress.md`. Статус тот же, что у 6.8: часть контракта наравне с 6.1–6.6; `было → стало` заменяет сказанное выше.
+2708: 
+2709: **5.2 Типы**
+2710: 
+2711: - R10, `AnalysisConfig.extra_artifact_ids: list[int] = []` — артефакты моделей `pipeline.extra` этого анализа (схема 5.1 не меняется: ссылки живут в `analyses.config_json`); задача `recompute` берёт их отсюда, нет строки или файла → `artifacts_missing`, как у детектора. Старый снимок без поля — пересчёт без extra.
+2712: 
+2713: **6.1 Бэкенды инференса и фейк**
+2714: 
+2715: - S10, модели `pipeline.extra`: проход каждой модели — сразу после детектора, стадия `inference_detect`, доля 0,45; `LinqBackend` и `LocalBackend` узнают модель extra по `id@version` в `pipeline.extra`: `--nc len(classes)` без `--classes` (local: `nc = len(classes)`, `classes=None`); `FakeRemoteShell` с `--nc` отдаёт кадры без детекций (сцены в id COCO); `Job.metrics` по-прежнему только детектор и pose (колонок для extra в `jobs` нет).
+2716: 
+2717: **6.2 Фасад `services`**
+2718: 
+2719: - S6, `services` вне 6.2: `PRIORITY = {"red_pending": 3, "yellow_pending": 2, "open": 1, "terminal": 0}` и `_priority(level, status)`; синглтоны `_camera_seen: dict[int, CameraState]`, `_sector_seen: dict[int, SectorState]`, `_preview_cache: dict[int, tuple[datetime, bytes]]` (сбрасывает фикстура `conn`); помощники `_broadcast`, `_broadcast_by_id`, `_broadcast_insert`, `_stop_playing`, `_autostart`, `_play`, `_summary`, `_event_summary`, `_system_action`, `_operator_alert`, `_camera_state`, `_sector_state`, `_sector_states`, `_feed`; `broadcast_tick` возвращает число записанных действий (`published`, `level_escalated`, `auto_finished`); `Notification.id = "e<event>:published|escalated"`.
+2720: - S6, эфир: `broadcast_get` и поле `broadcast` у `CameraTile`, `CameraLiveView`, `CameraSetupView` — играющий эфир камеры, иначе последний любого статуса, иначе `null`; `broadcast_start` с чужим или несуществующим `video_id` → 404 `not_found`, `ready` без `active_analysis_id` → 409 `video_not_ready`; остановленный при старте эфир шлёт свой `broadcast.state` (`stopped`); `broadcast_stop` без играющего эфира → 204 без сообщения; `camera_delete` шлёт `broadcast.state` остановленного эфира.
+2721: - S6, лента: «терминальные за последние `recent_closed_min`» — по времени последнего действия события (`max(event_actions.at)`); жёлтое, опубликованное уже закончившимся (догоняющий тик), сразу получает `ended_at` и по 8.5 дословно не получает `auto_finished`.
+2722: - S6, превью: кадр `round(position_ms / 1000 × fps)` играющего эфира, иначе кадр 0 последнего `ready` видео; JPEG `evidence.jpeg_quality`, ширина `preview.max_width`; `CameraTile.preview_url` есть при `videos_count > 0`; `CameraState.freshness_ms = None` до S11.
+2723: - S7, `services` вне 6.2: `VERDICTS: dict[HumanAction, Verdict]`, `Step = tuple[LogAction, EventStatus]`, `_steps(action, row) -> list[Step] | None` (человеческие строки 8.6; `None` — пары нет), `_event_row(id)`, `_provenance(episode)`, `_evidence_item(row)` и `_episode(row, evidence)` (общие с `video_analysis`).
+2724: - S7, журнал действий: `confirm` красного пишет две строки цепочкой — `confirmed` (`<статус> → confirmed`), затем `sent_to_master` (`confirmed → sent_to_master`); `confirm` после таймаута — `confirmed` (`sent_to_master → sent_to_master`); комментарий — в первой строке действия, хранится обрезанным, длина `COMMENT_MAX` считается до обрезки; `actor_name` — обрезанный `X-Actor` или `texts.DEMO_ACTOR[role]`, длину проверяет только `services` (`ValidationFailed`, поле `X-Actor`).
+2725: - S7, порядок проверок `event_action`: роль (400, 403 по `ROLE_ACTIONS`) → комментарий (422) → имя (422) → 404 → 409; `event.updated` на любое действие, включая `view`; уведомление мастеру (8.8, строка 3) — при переходе в `sent_to_master` (оператором и в `escalation_tick`); `confirm`/`false_alarm` после таймаута — только `event.updated`.
+2726: - S7, `event_detail`: `provenance.backend`/`fake` — из артефакта детектора анализа; `rule_params` = `rules.defaults(scenario) | effective` правила камеры из снимка `AnalysisConfig.rules`; `why` = `explain` плагина над `EpisodeDraft` эпизода (`confirm_frame_idx`/`escalate_frame_idx` из кадров доказательств); демо-событие: `why = [WhyItem("Причина", reason_text)]`, `provenance` пустой (`fake=false`, `rule_params={}`); `broadcast` — `store.camera_broadcast` камеры события (у удалённой камеры не 404); без роли `allowed_actions = []`; `deliveries = []` до S15.
+2727: - S7, S8, уведомления мастеру: `_master_alert(summary, kind="to_master")` (`Notification.id = "e<event>:<kind>"`, аудитория `master`, `chime`, без захвата); строка 4 таблицы 8.8: `level_escalated` в `broadcast_tick` у события в `sent_to_master`/`master_accepted` шлёт мастеру `Notification.id = "e<event>:master_escalated"` (сирена оператору остаётся).
+2728: - S8, `services` вне 6.2: `_shift_window(at) -> (id, title, start, end)`, `_count_rows(events, key, titles) -> list[CountRow]`.
+2729: - S8, `shift_summary_view`: `at` без часового пояса считается UTC; `start`/`end` в UTC; смена с `end <= start` идёт через полночь; `CountRow.key` сектора — `str(sector_id)`, строки по убыванию `count`, затем по `title`; `confirmed`/`false_alarm` — по `operator_verdict`; `events` — события с `operator_verdict = confirmed` по `started_at`; демо-события считаются (флага нет), `superseded` нет.
+2730: - S8, входящие мастера: «по времени передачи» — новые передачи первыми; `recent_resolved` включает демо-события сида.
+2731: - S9, `services` вне 6.2: `WORLD_MIN_AREA = 0.01`, `_in_frame(points, field)`, `_collinear(points, min_area)`, `_rmse(h, pairs)`, `_calibration(row)`, `_calibration_of(camera_id)` (без проверки камеры: снимок анализа), `_zone(row)`, `_zone_name`, `_zone_points(kind, points) -> str`, `_zone_row(zone_id)`, `_rules(camera_id, rows, metas) -> list[CameraRule]`, `_range(x)`, `_recomputed(video_id) -> (id событий superseded, [остановленный, новый эфир])`; `_system_action(..., comment="")`.
+2732: - S9, валидация: калибровка — число точек кадра (`image_points`) → число мировых равно (`world_points`, `CAL_POINTS_MISMATCH`) → контрольных до 8 (`CAL_CONTROL_MAX`) → точки кадра и контрольные в [0, 1] → коллинеарность (`image_points`); `fit_rmse_m`, `control_rmse_m` — СКО расстояния в метрах; `PUT` заменяет калибровку целиком, `DELETE` без калибровки — 204. Зона: роль → 404 камеры → тип → точки в кадре → геометрия типа; имя 1..60 после обрезки (`ZONE_NAME_INVALID`); вырожденный полигон `ZONE_DEGENERATE`; `PATCH` тип не меняет, точки проверяются по типу зоны; удалённая зона или зона удалённой камеры → 404 `ZONE_NOT_FOUND`. Правило: роль → 404 камеры → 404 сценария (`SCENARIO_NOT_FOUND`) → 422 параметра (`field="params.<key>"`, `PARAM_UNKNOWN`, `PARAM_RANGE`); `PUT` заменяет `params` целиком; без строки в базе `enabled = status == "active"`, `effective = rules.defaults | params`.
+2733: - S9, пересчёт: `superseded` получают события видео в `new`/`auto_finished`, чей эпизод из другой версии анализа; эфир перезапускается, только если камера играет это видео, с прежним `loop`, WS `broadcast.state` остановленного и нового; `video_recompute` при задаче `recompute` этого видео в `queued` возвращает её (после проверок 409); `CameraSetupView.rules` — строка на каждый плагин.
+2734: - S10, `services._analysis_files(..., hud_path, extra)`, `_analyze(job_id, video, det, pose, extra)`; R10: `_analysis_inputs(video)` → `(det, pose, extra) | None` (extra из `AnalysisConfig.extra_artifact_ids`).
+2901: ### 8.4 Менеджер эпизодов
+2902: 
+2903: Состояние ведётся на пару (сценарий, субъект). Время — `ts_ms` кадров источника. Параметры — секция `episodes`, удержание — `Observation.hold_s`.
+2904: 
+2905: | Ситуация | Правило |
+2906: | --- | --- |
+2907: | `P` при отсутствии эпизода | кандидат, `start_ms = ts` |
+2908: | `P` у кандидата, `ts − start_ms ≥ hold_s` текущего наблюдения | активный эпизод: `confirm_ms = ts`, `level_initial` = уровень наблюдения, `confirm_frame_idx` |
+2909: | `N` у кандидата | кандидат сброшен |
+2910: | нет наблюдения или `U` у кандидата дольше `candidate_gap_s` | кандидат сброшен |
+2911: | `P` красного уровня у активного жёлтого эпизода держится `≥ hold_s` красного наблюдения | `escalate_ms = ts`, `level_max = red`, тот же эпизод |
+2912: | `N` у активного | начало закрытия с первого `N`; `N` подряд `≥ end_after_s` → эпизод закрыт, `end_ms` = первый `N`, `observed_exit` |
+2913: | `P` во время закрытия | закрытие отменено |
+2914: | нет наблюдения или `U` у активного | интервал добавляется в `uncertain_ms`; дольше `lost_timeout_s` → эпизод закрыт, `end_ms` = последний `P`, `track_lost_timeout` |
+2915: | конец видео при активном | `end_ms` = длительность видео, `video_end` |
+2916: | новый субъект с `P` того же сценария, пока прежний субъект активного эпизода не наблюдается, его `anchor` не дальше `merge_dist_bh × H_ref` от последнего `anchor` прежнего | продолжение того же эпизода (смена track id), субъект добавляется как синоним |
+2917: | `P` после закрытия | новый кандидат и новый эпизод; таймера тишины нет |
+2918: 
+2919: Два человека с одновременными `P` — два эпизода (субъекты наблюдаются оба, слияния нет). `confidence` эпизода — максимум за эпизод, `metrics` — пики. `reason_text` фиксируется при подтверждении и обновляется при эскалации.
+2920: 
+2921: ### 8.5 Эфир и публикация событий
+2922: 
+2923: Эфир — проигрывание проанализированного видео камеры по серверным часам. Одна запись `playing` на камеру. Длительность `D = videos.duration_ms`. На каждом тике (`broadcast.tick_ms`) для каждого `playing`:
+2924: - `t = now − started_at`; при `loop`: `cycle = t // D`, `pos = t % D`; без `loop`: `cycle = 0`, `pos = min(t, D)`, и при `t ≥ D` после обработки статус `ended`;
+2925: - `cycle` вырос: сначала прежний цикл дообрабатывается до `pos = D`, затем новый с 0; пропущенные целиком циклы (сервер был выключен) не публикуются;
+2926: - база цикла `base = started_at + cycle × D`; для каждого эпизода активного анализа:
+2927:   - `confirm_ms ≤ pos` и нет события с `pub_key = "b<id>:c<cycle>:e<episode>"` → событие `new`: уровень красный, если `level_initial = red` или `escalate_ms ≤ pos`; `started_at = base + start_ms`, `published_at = now`, `red_at = now` для красного, `ended_at = base + end_ms`, если `end_ms ≤ pos`; действие `published`; WS `event.created` и `notification`;
+2928:   - событие жёлтое и `escalate_ms ≤ pos` → уровень красный, `red_at = now`, действие `level_escalated`, WS `event.escalated` и красное `notification` с захватом экрана;
+2929:   - `end_ms ≤ pos` и `ended_at` пусто → `ended_at = base + end_ms`; жёлтое в статусе `new` или `viewed` → `auto_finished` (действие); WS `event.updated`;
+2930: - `position_ms`, `cycle` записываются; при смене цикла и окончании — WS `broadcast.state`; состояния камер и секторов пересчитываются, изменившиеся уходят в `camera.state` и `sector.state`.
+2931: 
+2932: Тик идемпотентен: повтор с теми же часами ничего не создаёт (`pub_key UNIQUE`), перезапуск сервера продолжает эфир с того же `started_at`.
+2933: 
+2934: `broadcast_start`: видео не указано → последнее `ready` видео камеры, нет такого → `Conflict(no_ready_video)`; указанное видео не `ready` → `Conflict(video_not_ready)`. Прежний `playing` этой камеры → `stopped`. Новый эфир: `started_at = now`, `analysis_id = videos.active_analysis_id`, `loop` из запроса или `broadcast.loop_default`. `broadcast_stop` → `stopped`, публикации прекращаются. Автостарт: задача `process` завершилась, у камеры нет `playing`, `broadcast.autostart = true` → эфир этого видео.
+2935: 
+2936: Синхронизация плеера: фронт берёт `Broadcast` (`server_now`, `started_at`, `duration_ms`, `loop`) и ставит `currentTime = ((server_now − started_at) + прошедшее с ответа) mod D`; расхождение больше 0,5 с исправляется перемоткой.
+2937: 
+2938: ### 8.6 Статусы события
+2939: 
+2940: Терминальные статусы: `false_alarm`, `resolved`, `auto_finished`, `superseded`. Открытые — остальные. Каждый переход пишет строку `event_actions` (кто, роль, когда, из какого статуса, в какой, комментарий).
+2941: 
+2942: | Действие | Роль | Уровень | Из статусов | В статус | Вердикт | Запись журнала |
+2943: | --- | --- | --- | --- | --- | --- | --- |
+2944: | `view` | operator | любой | `new` | `viewed` | — | `viewed` |
+2945: | `confirm` | operator | жёлтый | `new`, `viewed` | `confirmed` | `confirmed` | `confirmed` |
+2946: | `confirm` | operator | красный | `new`, `viewed`, `confirmed` | `sent_to_master` | `confirmed` | `confirmed`, затем `sent_to_master` |
+2947: | `confirm` | operator | красный | `sent_to_master` с `escalated_by_timeout=1` и вердиктом `none` | без изменения | `confirmed` | `confirmed` |
+2948: | `false_alarm` | operator | любой | `new`, `viewed`, `confirmed` | `false_alarm` | `false_alarm` | `false_alarm` |
+2949: | `false_alarm` | operator | любой | `sent_to_master` с `escalated_by_timeout=1` и вердиктом `none` | `false_alarm` | `false_alarm` | `false_alarm` |
+2950: | `send_to_master` | operator | любой | `new`, `viewed`, `confirmed` | `sent_to_master` | `confirmed`, если был `none` | `sent_to_master` |
+2951: | `accept` | master | любой | `sent_to_master` | `master_accepted` | — | `master_accepted` |
+2952: | `resolve` | master | любой | `master_accepted` | `resolved` | — | `resolved`, комментарий обязателен |
+2953: | публикация | system | — | — | `new` | — | `published` |
+2954: | эскалация уровня | system | жёлтый → красный | любой открытый | без изменения | — | `level_escalated` |
+2955: | таймаут оператора | system | красный | 8.7 | `sent_to_master`, `escalated_by_timeout=1` | — | `timeout_escalated` |
+2956: | автозавершение | system | жёлтый | `new`, `viewed`, эпизод закончился | `auto_finished` | — | `auto_finished` |
+2957: | пересчёт | system | любой | `new`, `auto_finished`, событие старой версии анализа | `superseded` | — | `superseded` |
+2958: 
+2959: Любая другая пара (действие, статус) → `Conflict(invalid_transition)`. `allowed_actions` в `EventDetail` — действия из таблицы, допустимые для роли запроса и текущего статуса. Мастер видит событие в статусах `sent_to_master`, `master_accepted`, `resolved`; изменения вердикта оператора после таймаута приходят ему в той же карточке (`event.updated`).
+2960: 
+2961: ### 8.7 Автоэскалация красного
+2962: 
+2963: Флаг `escalation.enabled`, таймаут `escalation.timeout_s`, проверка каждые `escalation.tick_ms`. Красное событие эскалируется, когда одновременно:
+2964: - статус `new`, `viewed` или `confirmed`;
+2965: - после `red_at` нет действий оператора `confirmed`, `false_alarm`, `sent_to_master` (`viewed` реакцией не считается);
+2966: - `now − red_at ≥ timeout_s` (44,9 с — нет, 45,0 с — да).
+2967: 
+2968: Итог: статус `sent_to_master`, `escalated_by_timeout = 1`, действие `timeout_escalated` от `system`, WS `event.updated` и уведомление мастеру с припиской «· Не подтверждено оператором». Флаг выключен — ничего не происходит.
+2969: 
+2970: ### 8.8 Уведомления, тексты, лента
+2971: 
+2972: `texts.notification_text(level, sector_name, reason_text, escalated_by_timeout)`:
+2973: - `<уровень> · <сектор> · <причина>`, где уровень — «Жёлтая опасность» или «Красная опасность», сектор — часть названия до первого « · », причина — `reason_text`;
+2974: - с `escalated_by_timeout` в конце добавляется « · Не подтверждено оператором».
+2975: Примеры: «Жёлтая опасность · Сектор 5 · Бег 2,4 роста/с», «Красная опасность · Сектор 7 · Человек лежит неподвижно 15 с».
+2976: 
+2977: | Повод | Аудитория | Звук | Захват экрана |
+2978: | --- | --- | --- | --- |
+2979: | публикация жёлтого | operator | `chime` | нет |
+2980: | публикация красного, эскалация до красного | operator | `siren` | да |
+2981: | `sent_to_master` (оператором или по таймауту) | master | `chime` | нет |
+2982: | эскалация уровня у события в `sent_to_master` или `master_accepted` | master | `chime` | нет |
+2983: 
+2984: Приоритет события (`PRIORITY`): красное открытое без решения оператора (`new`, `viewed`) — 3; жёлтое `new` или `viewed` — 2; прочее открытое — 1; терминальное — 0. Лента оператора (`operator_feed`): открытые события и терминальные за последние `feed.recent_closed_min` минут, кроме `superseded`, по убыванию `priority`, затем `published_at`; не больше `feed.limit`. `duration_s` = `ended_at − started_at` или `now − started_at`, пока эпизод идёт.
+2985: 
+3056: ### 8.15 Контракт фронта, мок-режим, заменяемый фронт
+3057: 
+3058: - Фронт ходит в бэкенд только через `src/api/` по `contract/openapi.json`; типы генерирует `openapi-typescript` в `src/api/schema.d.ts` (`npm run api:gen`), гейт фронта сверяет их с контрактом (`npm run api:check`).
+3059: - Мок: `npm run mock` поднимает Prism (`prism mock -d ../contract/openapi.json -p 4010`) и `mock/ws-mock.mjs` на 4011, который по кругу раз в 3 с шлёт сообщения из `contract/ws-examples.json`; `npm run dev:mock` запускает Vite с `.env.mock`. Бэкенд для этого не нужен.
+3060: - Логика продукта только на бэкенде. Фронт можно удалить и заменить фронтом Егора: бэкенд не зависит от `frontend/`, кроме раздачи `server.static_dir`, если папка есть. Замене нужен скрипт `npm run gate` (или строка `долг` в `## open`).

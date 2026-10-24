@@ -1,0 +1,157 @@
+{
+  "target": "mock",
+  "verdict": 0,
+  "rows": [
+    {
+      "result": "PASS",
+      "step": "health",
+      "detail": "contract 1.0.0"
+    },
+    {
+      "result": "PASS",
+      "step": "meta",
+      "detail": "fake=true, active=running,fall"
+    },
+    {
+      "result": "PASS",
+      "step": "reset мира (mock)",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "dashboard",
+      "detail": "секторов 4, в ленте 0"
+    },
+    {
+      "result": "PASS",
+      "step": "WS operator: hello",
+      "detail": "contract 1.0.0"
+    },
+    {
+      "result": "PASS",
+      "step": "жёлтое событие (demo next)",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "event.created + notification у operator",
+      "detail": "#19 Жёлтая опасность · Сектор 1 · Бег 2,4 роста/с"
+    },
+    {
+      "result": "PASS",
+      "step": "жёлтое: notification НЕ у master",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "карточка жёлтого + view сектора",
+      "detail": "allowed=view,confirm,false_alarm,send_to_master, сектор yellow"
+    },
+    {
+      "result": "PASS",
+      "step": "operator confirm жёлтого → confirmed",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "красное событие",
+      "detail": "#20 Красная опасность · Сектор 1 · Зафиксировано падение"
+    },
+    {
+      "result": "PASS",
+      "step": "takeover-notification у operator, не у master",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "master: нет confirm в allowed_actions",
+      "detail": "allowed=[]"
+    },
+    {
+      "result": "PASS",
+      "step": "operator «Подтверждаю» → sent_to_master",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "master получает notification (chime)",
+      "detail": "Красная опасность · Сектор 1 · Зафиксировано падение"
+    },
+    {
+      "result": "PASS",
+      "step": "событие во входящих мастера",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "master accept → master_accepted",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ resolve без комментария → 422",
+      "detail": "Опишите принятые меры"
+    },
+    {
+      "result": "PASS",
+      "step": "master resolve с комментарием → resolved",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "полная история actions в карточке",
+      "detail": "published → confirmed → sent_to_master → master_accepted → resolved"
+    },
+    {
+      "result": "PASS",
+      "step": "событие в журнале /api/events",
+      "detail": "всего 20"
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ неизвестная X-Role → 400 role_required",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ WS с неизвестной ролью → 4400",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ неверный переход → 409 invalid_transition",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ действие чужой роли → 403",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "НЕГАТИВ X-Actor длиннее 60 → 422",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "evidence: кадр image/jpeg, затем 404 при fault",
+      "detail": "178101 байт, fault → 404"
+    },
+    {
+      "result": "PASS",
+      "step": "fault 500 → ApiError, затем off",
+      "detail": ""
+    },
+    {
+      "result": "PASS",
+      "step": "WS-разрыв → переподключение, hello, REST совпадает",
+      "detail": "server drop"
+    },
+    {
+      "result": "PASS",
+      "step": "контракт: ответы и WS-сообщения по схемам",
+      "detail": "ответов 26, WS-сообщений 32: расхождений нет"
+    }
+  ],
+  "contract_errors": []
+}

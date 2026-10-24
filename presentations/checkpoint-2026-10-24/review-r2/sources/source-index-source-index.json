@@ -1,0 +1,360 @@
+{
+  "verified_at_utc": "2026-10-24T05:29:55.327586+00:00",
+  "last_fetch_review_msk": "2026-10-24 08:28; final full source fetch before presentation source freeze",
+  "frozen_heads": {
+    "origin/main": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+    "origin/matvey_cv": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+    "origin/demo/checkpoint": "9f652236589698857ba05eabbcf361b4ab3779b2",
+    "origin/front/control-room": "8161719d687083c7a3578b0f5de8bc2043a95ce1"
+  },
+  "repo": "/mnt/d/templates/msk-promhack/msk-prom2026-mark",
+  "mode": "read-only git show; reports reviewed; no live TPU or software test rerun",
+  "linq_contract_network_lines_omitted": "Avoid copying shared broker credentials/account/network locators; factual result and method lines retained.",
+  "sources": [
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "progress.md",
+      "git_blob": "61b959ac1e01487c61cae747dfcac2eb745206a6",
+      "original_sha256": "9af0e626ac29b980428ad8d29bb6f790e550dee6685ecb07d992cadf28ecc26e",
+      "snapshot": "main__progress.md",
+      "snapshot_sha256": "9af0e626ac29b980428ad8d29bb6f790e550dee6685ecb07d992cadf28ecc26e",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "docs/linq/LINQ_CONTRACT.md",
+      "git_blob": "789b5b5c8c6875548e8b249b048a40c85c95201b",
+      "original_sha256": "3a6345f67133a9b48150db685719dd8d1749165abae47008c9dcb65ebe30f2a0",
+      "snapshot": "main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "snapshot_sha256": "18b16e4fdcd6f3c48fad66deea1d07f4adbb04e35e349fd3f4641a9a9c0731dd",
+      "original_line_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          19,
+          45
+        ],
+        [
+          62,
+          108
+        ],
+        [
+          110,
+          123
+        ],
+        [
+          126,
+          130
+        ],
+        [
+          132,
+          134
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "git_blob": "7d6863f4bbcbe0019deaacdf091143e9b6f51e19",
+      "original_sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6",
+      "snapshot": "main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "snapshot_sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "results/linq_smoke/synthetic_coco_40x1s_mosprom_pose640_cut_ap9999_b1_o1_h1m_s2.summary.json",
+      "git_blob": "47400af3a699bb6b7d233f82375d509144777cb8",
+      "original_sha256": "1dcfe949fdd5d19777c3f25bda9f3f8a202e243fe4bc1bea13cd82e527c33efc",
+      "snapshot": "main__results__linq_smoke__synthetic_coco_40x1s_mosprom_pose640_cut_ap9999_b1_o1_h1m_s2.summary.json",
+      "snapshot_sha256": "1dcfe949fdd5d19777c3f25bda9f3f8a202e243fe4bc1bea13cd82e527c33efc",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "results/linq_smoke/det640_cut_ap9999.json",
+      "git_blob": "175aa07201279ad3d4cee87d35f049d9b21b0817",
+      "original_sha256": "c482b018309df297d10c827c96541f7f2ddfc22c6a42036e83005305e49fa2d3",
+      "snapshot": "main__results__linq_smoke__det640_cut_ap9999.json.excerpt.txt",
+      "snapshot_sha256": "091efe701cc4a83f8cd31d8750d5103465c3224766686c1386da62524ca416f8",
+      "original_line_ranges": [
+        [
+          1760,
+          1766
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "results/linq_smoke/pose640_cut_ap9999.json",
+      "git_blob": "d254e227c4883898a2b5a2dbe156214de5937c0e",
+      "original_sha256": "31c8c3ae6113d563f4e7957aced517f2f932ef94ce0178b569452813df5292ce",
+      "snapshot": "main__results__linq_smoke__pose640_cut_ap9999.json.excerpt.txt",
+      "snapshot_sha256": "56fa656923fee3139b2a7957e0deae28fedf3575bd633a5e78cd2131bad668c9",
+      "original_line_ranges": [
+        [
+          5009,
+          5015
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "tech.md",
+      "git_blob": "15a6653470e6bc7a838012bdd1ce4bcb7458e7e9",
+      "original_sha256": "fbb6393b080055c40db54a8b4d23238e3833f31c4c671e560acbe36a79e1a2ff",
+      "snapshot": "main__tech.md.excerpt.txt",
+      "snapshot_sha256": "a797acbea2313f83d741a0e80dc4fc4d6f6ab4e12fc202e499c1a753430bc92d",
+      "original_line_ranges": [
+        [
+          28,
+          54
+        ],
+        [
+          2705,
+          2734
+        ],
+        [
+          2901,
+          2985
+        ],
+        [
+          3056,
+          3060
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "config/default.yaml",
+      "git_blob": "eb9cbf10f06ad76452542cd22d5d78aabcf9847e",
+      "original_sha256": "80605b62f2f29d67d10306b5fcf1e88dc7fa8568d94e840b3c40b61be2b0815f",
+      "snapshot": "main__config__default.yaml.excerpt.txt",
+      "snapshot_sha256": "692176318611fcc37f266e94f8322d8dc0c3747b65561e77226a7fa8983fde64",
+      "original_line_ranges": [
+        [
+          149,
+          157
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "config/models.yaml",
+      "git_blob": "e9a8b073f612d0db5028917f2deeee263aad26fd",
+      "original_sha256": "c72d0681e6a16f4067da8cdf092f4f50fff51f1d333f91b96031eae895004c3a",
+      "snapshot": "main__config__models.yaml",
+      "snapshot_sha256": "c72d0681e6a16f4067da8cdf092f4f50fff51f1d333f91b96031eae895004c3a",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "contract/openapi.json",
+      "git_blob": "a74416da510758532e9fc95350773d69f1b25a30",
+      "original_sha256": "f2399435537139a52b1185223bc35ef40b7700e60007083cbe47cf88b3f1300c",
+      "snapshot": "main__contract__openapi.json",
+      "snapshot_sha256": "f2399435537139a52b1185223bc35ef40b7700e60007083cbe47cf88b3f1300c",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "contract/ws.schema.json",
+      "git_blob": "ac71319de473d0293ff8b058e5650abc74ddd960",
+      "original_sha256": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+      "snapshot": "main__contract__ws.schema.json",
+      "snapshot_sha256": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "src/safewatch/rules/__init__.py",
+      "git_blob": "a2da31c1031aeddac1a5cfdc7297a4f3fd2e4d25",
+      "original_sha256": "46f165a0bd21ff52d21461b82b47485d55e63efcf3da2d22615b81df85ade71a",
+      "snapshot": "main__src__safewatch__rules____init__.py",
+      "snapshot_sha256": "46f165a0bd21ff52d21461b82b47485d55e63efcf3da2d22615b81df85ade71a",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "src/safewatch/rules/load_carrying.py",
+      "git_blob": "212474d98ba62378dcae1229491ddfc190a696bc",
+      "original_sha256": "ff05a8f44c701d3e81e85aff402586a95d95e56f14e766f448a19007c66f5b8a",
+      "snapshot": "main__src__safewatch__rules__load_carrying.py",
+      "snapshot_sha256": "ff05a8f44c701d3e81e85aff402586a95d95e56f14e766f448a19007c66f5b8a",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/main",
+      "commit": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
+      "path": "src/safewatch/services.py",
+      "git_blob": "f7407d3dd6d00b0638eb40c53a67a262b665ccd5",
+      "original_sha256": "e1aea685f16b22cb65a59c53eca270796c823e6f17029ae15c9303572319131e",
+      "snapshot": "main__src__safewatch__services.py.excerpt.txt",
+      "snapshot_sha256": "01fbc2f1bf66bcaa2fab4b77e88d67414b4693db40bddf5683755443680750a6",
+      "original_line_ranges": [
+        [
+          744,
+          761
+        ],
+        [
+          1638,
+          1653
+        ],
+        [
+          1951,
+          1982
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "docs/STATUS.md",
+      "git_blob": "9c3147b8276f0f87538062ae0a12616fc964b9f6",
+      "original_sha256": "2d51324ae89a117a6442de397b2f00ec5783e4e8ce3d8cf8df5db9868a78cf83",
+      "snapshot": "matvey_cv__docs__STATUS.md",
+      "snapshot_sha256": "2d51324ae89a117a6442de397b2f00ec5783e4e8ce3d8cf8df5db9868a78cf83",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "docs/validation/jupyter-kit.json",
+      "git_blob": "da8b27a0e052b30f4022d62df03e881d553d7f7f",
+      "original_sha256": "4ca48534b8036d1c3aac075c9b605409e65a3da986c7dabae0710b271cb6ff89",
+      "snapshot": "matvey_cv__docs__validation__jupyter-kit.json",
+      "snapshot_sha256": "4ca48534b8036d1c3aac075c9b605409e65a3da986c7dabae0710b271cb6ff89",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/PROGRESS.md",
+      "git_blob": "0c8f9789a62dc5ad95133d910edc242a6ba07c99",
+      "original_sha256": "c5fbb634e4792b206e5c69273731667220ad851ba7fa96ba11c073a1e94bea11",
+      "snapshot": "matvey_cv__ml__PROGRESS.md",
+      "snapshot_sha256": "c5fbb634e4792b206e5c69273731667220ad851ba7fa96ba11c073a1e94bea11",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/EVAL_REPORT.md",
+      "git_blob": "1ecc88fb863e20b838217af8707a1da1ae2cd53a",
+      "original_sha256": "88d97e6de94da273271a6f18c36162e17393ac2fbb57c3f75c7309f066e33f31",
+      "snapshot": "matvey_cv__ml__EVAL_REPORT.md",
+      "snapshot_sha256": "88d97e6de94da273271a6f18c36162e17393ac2fbb57c3f75c7309f066e33f31",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/RELEASE_MANIFEST.json",
+      "git_blob": "de3057e0aa4fba3ecbc095dca9cde21c2428638e",
+      "original_sha256": "a849cfc0d82fd444c0b7d6eb6a4b114768089995bf5bb971cb84a19dfc8a251b",
+      "snapshot": "matvey_cv__ml__RELEASE_MANIFEST.json",
+      "snapshot_sha256": "a849cfc0d82fd444c0b7d6eb6a4b114768089995bf5bb971cb84a19dfc8a251b",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "RESUME.md",
+      "git_blob": "b090b6f50215a9e16dcc4af45f2944a0d11cdeb4",
+      "original_sha256": "f2a5c7264fd2282f3fb184d820e28c2ea3f8187dc2ab504ddb61e4410a8db539",
+      "snapshot": "matvey_cv__RESUME.md.excerpt.txt",
+      "snapshot_sha256": "3881e1790a6d149526067a8941d68be1c1c26db5712e463320aae128ae790376",
+      "original_line_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/SCENARIOS.md",
+      "git_blob": "b91a2b6c2eba549b641eea8bff3afefc2ab09adc",
+      "original_sha256": "36eb4285f95c7f043c2edfe7ffe77e3a77d94469decd4eeddfbdb65c2b9841c9",
+      "snapshot": "matvey_cv__ml__SCENARIOS.md",
+      "snapshot_sha256": "36eb4285f95c7f043c2edfe7ffe77e3a77d94469decd4eeddfbdb65c2b9841c9",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/reports/pose-linq-ur01-parity.json",
+      "git_blob": "af54fb1c1040426ae20de599b89734dd7e1fe5c6",
+      "original_sha256": "bc25f25af7bfa624ec660b50e4f3ee2e2c57d26b6d9fe7a0a3dcfc15eb1d657c",
+      "snapshot": "matvey_cv__ml__reports__pose-linq-ur01-parity.json",
+      "snapshot_sha256": "bc25f25af7bfa624ec660b50e4f3ee2e2c57d26b6d9fe7a0a3dcfc15eb1d657c",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/matvey_cv",
+      "commit": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
+      "path": "ml/reports/running-zone-readiness.json",
+      "git_blob": "b3671e191ea225f6293f2a5ddf5562c48b2626c8",
+      "original_sha256": "30f608df2726d0aeaaa9914c884bbceb7bb5bd671ef98f6fec8ee741bab01c42",
+      "snapshot": "matvey_cv__ml__reports__running-zone-readiness.json",
+      "snapshot_sha256": "30f608df2726d0aeaaa9914c884bbceb7bb5bd671ef98f6fec8ee741bab01c42",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/demo/checkpoint",
+      "commit": "9f652236589698857ba05eabbcf361b4ab3779b2",
+      "path": "tools/checkpoint-demo/README.md",
+      "git_blob": "851db62f645fc6336af3b04bcdc9e7db4e075217",
+      "original_sha256": "91d0a894d84c5f3607a449a105aa38ee30e975eb59213c295a1c671747e5504a",
+      "snapshot": "demo-checkpoint__tools__checkpoint-demo__README.md",
+      "snapshot_sha256": "91d0a894d84c5f3607a449a105aa38ee30e975eb59213c295a1c671747e5504a",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/demo/checkpoint",
+      "commit": "9f652236589698857ba05eabbcf361b4ab3779b2",
+      "path": "tools/checkpoint-demo/WATCH_LOG.md",
+      "git_blob": "57022c7bebb1433a69c63cceb939ee5754d8867f",
+      "original_sha256": "69e46f72aa7beb4d0e2ff78c206d4712e15507cfcb24d052fee69653e1b0e85e",
+      "snapshot": "demo-checkpoint__tools__checkpoint-demo__WATCH_LOG.md",
+      "snapshot_sha256": "69e46f72aa7beb4d0e2ff78c206d4712e15507cfcb24d052fee69653e1b0e85e",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/demo/checkpoint",
+      "commit": "9f652236589698857ba05eabbcf361b4ab3779b2",
+      "path": "tools/checkpoint-demo/GAPS.md",
+      "git_blob": "9892f39624153b5424f13f61d36acd1f3dcc5278",
+      "original_sha256": "9b4eff71dcb62d13d03f28de28a1b3d9abb72c7b4d71d87988b439b6b5a1b67c",
+      "snapshot": "demo-checkpoint__tools__checkpoint-demo__GAPS.md",
+      "snapshot_sha256": "9b4eff71dcb62d13d03f28de28a1b3d9abb72c7b4d71d87988b439b6b5a1b67c",
+      "original_line_ranges": null
+    },
+    {
+      "ref_at_verification": "origin/demo/checkpoint",
+      "commit": "9f652236589698857ba05eabbcf361b4ab3779b2",
+      "path": "tools/checkpoint-demo/watch/last-real.json",
+      "git_blob": "7e55f09bd6602ffe8c21701140cc47ad158537c6",
+      "original_sha256": "f9f09575963543c2751da750b1f5b752f0a28915e0b034f488f7c691732f1b0e",
+      "snapshot": "demo-checkpoint__tools__checkpoint-demo__watch__last-real.json",
+      "snapshot_sha256": "f9f09575963543c2751da750b1f5b752f0a28915e0b034f488f7c691732f1b0e",
+      "original_line_ranges": null
+    }
+  ]
+}

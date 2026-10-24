@@ -1,0 +1,67 @@
+# Excerpts with ORIGINAL source line numbers. See source-index.json.
+744: 
+745: def _analysis_inputs(
+746:     video: sqlite3.Row,
+747: ) -> tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None, list[tuple[ModelSpec, int]]] | None:
+748:     """Artifacts of the active analysis for a recompute; `None` when a file is gone."""
+749:     analysis = store.analysis(video["active_analysis_id"] or 0)
+750:     if analysis is None:
+751:         return None
+752:     det = _stored_artifact(analysis["det_artifact_id"])
+753:     pose_id = analysis["pose_artifact_id"]
+754:     pose = None if pose_id is None else _stored_artifact(pose_id)
+755:     if det is None or (pose_id is not None and pose is None):
+756:         return None
+757:     ids = AnalysisConfig.model_validate_json(analysis["config_json"]).extra_artifact_ids
+758:     extra = [_stored_artifact(artifact_id) for artifact_id in ids]
+759:     found = [item for item in extra if item is not None]
+760:     return None if len(found) < len(ids) else (det, pose, found)
+761: 
+1638: def escalation_tick() -> int:
+1639:     """Red events the operator left without a decision go to the master (tech.md 8.7)."""
+1640:     settings = config.get_settings().escalation
+1641:     if not settings.enabled:
+1642:         return 0
+1643:     red_before = clock.iso(clock.now() - timedelta(seconds=settings.timeout_s))
+1644:     with store.tx():
+1645:         due = store.escalation_due(red_before)
+1646:         for row in due:
+1647:             store.event_update(row["id"], {"status": "sent_to_master", "escalated_by_timeout": 1})
+1648:             _system_action(row["id"], "timeout_escalated", row["status"], "sent_to_master")
+1649:     for row in due:
+1650:         summary = _event_summary(row["id"])
+1651:         hub.publish("event.updated", summary)
+1652:         hub.publish("notification", _master_alert(summary), ["master"])
+1653:     return len(due)
+1951: def events_list(f: EventFilter) -> EventPage:
+1952:     raise NotImplementedError("slice 12")
+1953: 
+1954: 
+1955: def events_export_csv(f: EventFilter) -> str:
+1956:     raise NotImplementedError("slice 12")
+1957: 
+1958: 
+1959: def journal_facets() -> JournalFacets:
+1960:     raise NotImplementedError("slice 12")
+1961: 
+1962: 
+1963: def ohs_stats_view(
+1964:     date_from: datetime | None = None,
+1965:     date_to: datetime | None = None,
+1966:     sector_id: int | None = None,
+1967:     camera_id: int | None = None,
+1968:     include_demo: bool = True,
+1969: ) -> OhsStats:
+1970:     raise NotImplementedError("slice 13")
+1971: 
+1972: 
+1973: def management_view(weeks: int | None = None, include_demo: bool = True) -> ManagementStats:
+1974:     raise NotImplementedError("slice 13")
+1975: 
+1976: 
+1977: def eval_run(labels: Path, out_dir: Path | None = None) -> EvalReport:
+1978:     raise NotImplementedError("slice 14")
+1979: 
+1980: 
+1981: async def deliveries_flush() -> int:
+1982:     raise NotImplementedError("slice 15")
