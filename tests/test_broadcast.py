@@ -10,7 +10,7 @@ import pytest
 from conftest import FakeClock
 from test_jobs import _tune, _video
 
-from safewatch import clock, services, store
+from safewatch import clock, config, services, store
 from safewatch.config import Settings
 from safewatch.hub import Client, hub
 from safewatch.types import ApiError, Broadcast, BroadcastIn, CameraIn, SectorIn
@@ -36,6 +36,16 @@ EPISODE: dict[str, Any] = {
 }
 
 
+def hud_file(name: str, frames_ts: list[int]) -> str:
+    """HUD file of a hand-made analysis: `freshness_ms` reads the frame times from it."""
+    rel = f"analyses/{name}/hud.jsonl"
+    path = config.get_settings().data_dir / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = "".join(json.dumps({"ts_ms": t}) + "\n" for t in frames_ts)
+    path.write_text(lines, encoding="utf-8", newline="\n")
+    return rel
+
+
 def ready_video(camera_id: int, episodes: list[dict[str, Any]], duration_ms: int = 20_000) -> int:
     """A ready video of the camera with an active analysis holding `episodes`."""
     with store.tx():
@@ -53,7 +63,8 @@ def ready_video(camera_id: int, episodes: list[dict[str, Any]], duration_ms: int
         })  # fmt: skip
         analysis = store.insert("analyses", {
             "video_id": video, "version": 1, "det_artifact_id": artifact, "config_json": "{}",
-            "hud_path": "h", "gaps_json": "[]", "duration_ms": duration_ms, "created_at": AT,
+            "hud_path": hud_file(f"h{n}", list(range(0, duration_ms, 100))), "gaps_json": "[]",
+            "duration_ms": duration_ms, "created_at": AT,
         })  # fmt: skip
         for ep in episodes:
             store.insert("episodes", {**EPISODE, **ep, "analysis_id": analysis})

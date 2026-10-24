@@ -7,7 +7,7 @@ from typing import Any
 import httpx
 import pytest
 from conftest import FakeClock
-from test_broadcast import AT, at, camera, drain, playing, ready_video, started
+from test_broadcast import AT, at, camera, drain, hud_file, playing, ready_video, started
 from test_jobs import _tune
 
 from safewatch import clock, media, services, store
@@ -266,7 +266,8 @@ async def test_preview_jpeg(
         })  # fmt: skip
         analysis = store.insert("analyses", {
             "video_id": video.id, "version": 1, "det_artifact_id": artifact, "config_json": "{}",
-            "hud_path": "h", "gaps_json": "[]", "duration_ms": 2000, "created_at": AT,
+            "hud_path": hud_file("h", [0, 1000]), "gaps_json": "[]", "duration_ms": 2000,
+            "created_at": AT,
         })  # fmt: skip
         store.video_update(video.id, {"active_analysis_id": analysis})
     services.broadcast_start(camera_id, BroadcastIn(), "admin")

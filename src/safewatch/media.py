@@ -71,3 +71,30 @@ def encode_jpeg(img: np.ndarray, quality: int, max_width: int) -> bytes:
         img = cv2.resize(img, (max_width, round(h * max_width / w)), interpolation=cv2.INTER_AREA)
     _, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, quality])
     return bytes(buf.tobytes())
+
+
+LUMA_WIDTH = 160  # brightness statistics need no detail; a small frame is cheap to read
+
+
+def sample_luma(path: Path, every_s: float) -> list[tuple[int, float, float]]:
+    """`(ts_ms, mean, std)` of a grey, downscaled frame every `every_s`; `[]` if unreadable."""
+    cap = cv2.VideoCapture(str(path))
+    try:
+        fps = float(cap.get(cv2.CAP_PROP_FPS)) if cap.isOpened() else 0.0
+        if fps <= 0:
+            return []
+        step, idx, out = max(1, round(every_s * fps)), 0, []
+        while cap.grab():
+            if idx % step == 0:
+                ok, img = cap.retrieve()
+                if ok:
+                    h, w = img.shape[:2]
+                    size = (LUMA_WIDTH, max(1, round(h * LUMA_WIDTH / w)))
+                    grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    # Nearest keeps the spread of pixels; averaging would flatten texture and noise.
+                    grey = cv2.resize(grey, size, interpolation=cv2.INTER_NEAREST)
+                    out.append((round(idx * 1000 / fps), float(grey.mean()), float(grey.std())))
+            idx += 1
+        return out
+    finally:
+        cap.release()

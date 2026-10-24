@@ -5,6 +5,7 @@ answers them with 501 `not_implemented`.
 """
 
 import asyncio
+import bisect
 import hashlib
 import itertools
 import json
@@ -91,6 +92,7 @@ from safewatch.types import (
     ModelsView,
     NoObservationReason,
     Notification,
+    ObservabilityGap,
     OhsStats,
     OperatorDashboard,
     Percentiles,
@@ -1119,6 +1121,8 @@ _camera_seen: dict[int, CameraState] = {}
 _sector_seen: dict[int, SectorState] = {}
 # Camera id -> (made at, JPEG): preview frames live for preview.cache_s.
 _preview_cache: dict[int, tuple[datetime, bytes]] = {}
+# Frame times of an analysis for `freshness_ms`; an analysis never changes once written.
+_frames_ts: dict[int, list[int]] = {}
 
 Message = tuple[WsType, BaseModel, list[Role] | None]
 
@@ -1300,8 +1304,10 @@ def broadcast_tick() -> int:
     for kind, data, audience in out:
         hub.publish(kind, data, audience)
     for camera_state in cameras:
-        if _camera_seen.get(camera_state.camera_id) != camera_state:
-            _camera_seen[camera_state.camera_id] = camera_state
+        # Freshness moves on every tick; a message goes out only when the state itself changes.
+        seen = camera_state.model_copy(update={"freshness_ms": None})
+        if _camera_seen.get(camera_state.camera_id) != seen:
+            _camera_seen[camera_state.camera_id] = seen
             hub.publish("camera.state", camera_state)
     for sector_state in sectors:
         if _sector_seen.get(sector_state.sector_id) != sector_state:
@@ -1311,8 +1317,13 @@ def broadcast_tick() -> int:
 
 
 def _camera_state(row: sqlite3.Row) -> CameraState:
-    """The first rule of tech.md 8.9 that fits; gaps of the analysis (rule 4) come in S11."""
+    """The first rule of tech.md 8.9 that fits."""
     reason: NoObservationReason | None = None
+    pos = row["position_ms"]
+    gap = None
+    if row["playing"]:
+        gaps = [ObservabilityGap.model_validate(g) for g in json.loads(row["gaps_json"])]
+        gap = next((g for g in gaps if g.start_ms <= pos < g.end_ms), None)
     if row["open_red"]:
         state: CameraStateKind = "red"
         text = texts.LEVEL_TITLES["red"]
@@ -1329,6 +1340,9 @@ def _camera_state(row: sqlite3.Row) -> CameraState:
         else:
             reason = "no_source"
         text = texts.NO_OBSERVATION_TEXTS[reason]
+    elif gap is not None:
+        state, reason = "no_observation", gap.reason
+        text = texts.NO_OBSERVATION_TEXTS[reason]
     else:
         state, text = "normal", texts.STATE_NORMAL
     return CameraState(
@@ -1337,10 +1351,23 @@ def _camera_state(row: sqlite3.Row) -> CameraState:
         state=state,
         reason=reason,
         reason_text=text,
-        freshness_ms=None,  # slice 11
+        freshness_ms=_freshness(row["analysis_id"], row["hud_path"], pos)
+        if row["playing"]
+        else None,
         open_yellow=row["open_yellow"],
         open_red=row["open_red"],
     )
+
+
+def _freshness(analysis_id: int, hud_path: str, pos: int) -> int | None:
+    """Position minus `ts_ms` of the last analyzed frame not later than it (tech.md 8.9)."""
+    if analysis_id not in _frames_ts:
+        path = config.get_settings().data_dir / hud_path
+        with path.open(encoding="utf-8") as f:
+            _frames_ts[analysis_id] = [json.loads(line)["ts_ms"] for line in f]
+    frames = _frames_ts[analysis_id]
+    i = bisect.bisect_right(frames, pos)
+    return pos - frames[i - 1] if i else None
 
 
 def camera_states() -> list[CameraState]:
