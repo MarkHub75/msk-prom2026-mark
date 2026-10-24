@@ -6,7 +6,9 @@ answers them with 501 `not_implemented`.
 
 import asyncio
 import bisect
+import csv
 import hashlib
+import io
 import itertools
 import json
 import logging
@@ -15,10 +17,10 @@ import shutil
 import sqlite3
 import time
 import uuid
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Iterable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import get_args
+from typing import Any, get_args
 
 import numpy as np
 from pydantic import BaseModel
@@ -70,6 +72,7 @@ from safewatch.types import (
     EventStatus,
     EventSummary,
     Evidence,
+    FacetItem,
     Health,
     HudFrame,
     HumanAction,
@@ -1170,6 +1173,7 @@ def _summary(row: sqlite3.Row) -> EventSummary:
         duration_s=(end - started).total_seconds(),
         priority=_priority(level, row["status"]),
         is_demo=bool(row["is_demo"]),
+        evidence_url=f"/api/evidence/{row['evidence_id']}/image" if row["evidence_id"] else None,
     )
 
 
@@ -1975,16 +1979,108 @@ def rules_screen_view() -> RulesScreenView:
     return RulesScreenView(scenarios=metas, rows=rows)
 
 
+QUERY_MAX = 100
+
+
+def _utc(dt: datetime | None) -> str | None:
+    """A query datetime as stored; one without a time zone is UTC."""
+    if dt is None:
+        return None
+    return clock.iso(dt if dt.tzinfo else dt.replace(tzinfo=UTC))
+
+
+def _journal_where(f: EventFilter) -> tuple[str, list[Any]]:
+    """Checks of tech.md 9 «фильтр журнала» and the WHERE of the filter."""
+
+    def bad(field: str) -> ValidationFailed:
+        return ValidationFailed(texts.FILTER_INVALID.format(field=field), field=field)
+
+    if not 1 <= f.limit <= config.get_settings().journal.page_max:
+        raise bad("limit")
+    if f.q is not None and len(f.q) > QUERY_MAX:
+        raise bad("q")
+    date_from, date_to = _utc(f.date_from), _utc(f.date_to)
+    if date_from is not None and date_to is not None and date_from > date_to:
+        raise bad("date_from")
+    if f.cursor is not None and not f.cursor.isdigit():
+        raise bad("cursor")
+    # LIKE ... ESCAPE '\': the backslash first, then the wildcards are searched literally.
+    q = f.q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") if f.q else None
+    equal = {
+        "level": f.level,
+        "scenario": f.scenario,
+        "status": f.status,
+        "sector_id": f.sector_id,
+        "camera_id": f.camera_id,
+        "zone_id": f.zone_id,
+    }
+    return store.journal_where(equal, date_from, date_to, q, f.include_demo, f.include_superseded)
+
+
 def events_list(f: EventFilter) -> EventPage:
-    raise NotImplementedError("slice 12")
+    where = _journal_where(f)
+    after = int(f.cursor) if f.cursor is not None else None
+    rows, total = store.journal(where, after, f.limit + 1)
+    items = [_summary(row) for row in rows[: f.limit]]
+    more = len(rows) > f.limit
+    return EventPage(items=items, total=total, next_cursor=str(items[-1].id) if more else None)
+
+
+def _msk(dt: datetime) -> str:
+    return clock.local(dt, config.get_settings().timezone).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def events_export_csv(f: EventFilter) -> str:
-    raise NotImplementedError("slice 12")
+    """The whole filtered journal up to `journal.export_max_rows`: `;`, UTF-8 with BOM."""
+    rows, _ = store.journal(_journal_where(f), None, config.get_settings().journal.export_max_rows)
+    history: dict[int, list[str]] = {}
+    for a in store.journal_actions([row["id"] for row in rows]):
+        role = a["actor_role"]
+        who = texts.DEMO_ACTOR["system"] if role == "system" else texts.ROLE_TITLES[role]
+        step = f"{_msk(clock.parse(a['at']))} {who}: {texts.ACTION_TITLES[a['action']]}"
+        history.setdefault(a["event_id"], []).append(
+            f"{step} ({a['comment']})" if a["comment"] else step
+        )
+    out = io.StringIO()
+    writer = csv.writer(out, delimiter=";", lineterminator="\r\n")
+    writer.writerow(texts.CSV_COLUMNS)
+    for row in rows:
+        e = _summary(row)
+        writer.writerow(
+            [
+                e.id,
+                _msk(e.published_at),
+                _msk(e.started_at),
+                e.sector_name,
+                e.camera_name,
+                e.zone_name or "",
+                e.title,
+                texts.LEVEL_TITLES[e.level],
+                e.status_title,
+                texts.VERDICT_TITLES[e.operator_verdict],
+                texts.YES if e.escalated_by_timeout else texts.NO,
+                e.reason_text,
+                f"{e.duration_s:.1f}".replace(".", ","),  # the decimal comma of Russian Excel
+                texts.YES if e.is_demo else texts.NO,
+                row["evidence_sha256"] or "",
+                "; ".join(history.get(e.id, [])),
+            ]
+        )
+    return "﻿" + out.getvalue()
 
 
 def journal_facets() -> JournalFacets:
-    raise NotImplementedError("slice 12")
+    def items(pairs: Iterable[tuple[object, str]]) -> list[FacetItem]:
+        return [FacetItem(id=str(key), title=title) for key, title in pairs]
+
+    return JournalFacets(
+        scenarios=items(texts.SCENARIO_TITLES.items()),
+        levels=items(texts.LEVEL_TITLES.items()),
+        statuses=items(texts.STATUS_TITLES.items()),
+        sectors=items((s["id"], s["name"]) for s in store.sectors()),
+        cameras=items((c["id"], c["name"]) for c in store.cameras()),
+        zones=items((z["id"], f"{z['camera_name']} · {z['name']}") for z in store.all_zones()),
+    )
 
 
 def ohs_stats_view(

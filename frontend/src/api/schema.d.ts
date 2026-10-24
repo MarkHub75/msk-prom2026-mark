@@ -1246,6 +1246,8 @@ export interface components {
             ended_at: string | null;
             /** Escalated By Timeout */
             escalated_by_timeout: boolean;
+            /** Evidence Url */
+            evidence_url?: string | null;
             /** Id */
             id: number;
             /** Is Demo */

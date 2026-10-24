@@ -1,5 +1,6 @@
 """All SQL of the app besides migrations (tech.md 4). Only the event loop thread calls it."""
 
+import json
 import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -336,11 +337,13 @@ def last_ready_video(camera_id: int) -> sqlite3.Row | None:
 _TERMINAL = "('false_alarm', 'resolved', 'auto_finished', 'superseded')"
 
 _EVENTS = """
-SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name
+SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name,
+    ev.id AS evidence_id, ev.sha256 AS evidence_sha256
 FROM events e
 JOIN cameras c ON c.id = e.camera_id
 JOIN sectors s ON s.id = e.sector_id
 LEFT JOIN zones z ON z.id = e.zone_id
+LEFT JOIN evidence ev ON ev.episode_id = e.episode_id AND ev.kind = 'confirm'
 """
 
 
@@ -409,6 +412,71 @@ def shift_events(start: str, end: str) -> list[sqlite3.Row]:
 WHERE e.started_at >= ? AND e.started_at < ? AND e.status != 'superseded'
 ORDER BY e.started_at, e.id"""
     return all(sql, start, end)
+
+
+def journal_where(
+    equal: dict[str, Any],
+    date_from: str | None,
+    date_to: str | None,
+    q: str | None,
+    include_demo: bool,
+    include_superseded: bool,
+) -> tuple[str, list[Any]]:
+    """The WHERE of the journal filter (tech.md 9): `q` comes escaped for LIKE ... ESCAPE '\\'."""
+    terms: list[str] = ["1"]
+    args: list[Any] = []
+    for column, value in equal.items():
+        if value is not None:
+            terms.append(f"e.{column} = ?")
+            args.append(value)
+    if date_from is not None:
+        terms.append("e.started_at >= ?")
+        args.append(date_from)
+    if date_to is not None:
+        terms.append("e.started_at < ?")
+        args.append(date_to)
+    if q is not None:
+        terms.append(
+            "casefold(e.title || ' ' || e.reason_text || ' ' || c.name)"
+            " LIKE casefold('%' || ? || '%') ESCAPE '\\'"
+        )
+        args.append(q)
+    if not include_demo:
+        terms.append("e.is_demo = 0")
+    if not include_superseded:
+        terms.append("e.status != 'superseded'")
+    return " AND ".join(terms), args
+
+
+def journal(
+    where: tuple[str, list[Any]], after_id: int | None, limit: int
+) -> tuple[list[sqlite3.Row], int]:
+    """A page of the journal, newest start first, after the event `after_id`; and the total."""
+    sql, args = where
+    count = f"SELECT count(*) FROM events e JOIN cameras c ON c.id = e.camera_id WHERE {sql}"
+    total = int(all(count, *args)[0][0])
+    page = f"""{_EVENTS}
+WHERE {sql} AND (? IS NULL
+    OR (e.started_at, e.id) < (SELECT started_at, id FROM events WHERE id = ?))
+ORDER BY e.started_at DESC, e.id DESC
+LIMIT ?"""
+    rows = all(page, *args, after_id, after_id, limit)
+    return rows, total
+
+
+def journal_actions(event_ids: list[int]) -> list[sqlite3.Row]:
+    """Actions of many events in one query, by event, `at`, `id`."""
+    sql = """SELECT * FROM event_actions WHERE event_id IN (SELECT value FROM json_each(?))
+ORDER BY event_id, at, id"""
+    return all(sql, json.dumps(event_ids))
+
+
+def all_zones() -> list[sqlite3.Row]:
+    """Live zones of live cameras with the camera name, for the journal facets."""
+    sql = """SELECT z.id, z.name, c.name AS camera_name FROM zones z
+JOIN cameras c ON c.id = z.camera_id
+WHERE z.deleted_at IS NULL AND c.deleted_at IS NULL ORDER BY c.name, z.name, z.id"""
+    return all(sql)
 
 
 # Inputs of the camera state rules (tech.md 8.9) for every camera in one query.

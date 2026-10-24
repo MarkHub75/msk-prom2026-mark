@@ -16,6 +16,7 @@ import { ShiftSummaryScreen } from "./master/ShiftSummaryScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
 import { SectorScreen } from "./operator/SectorScreen";
+import { Journal } from "./ohs/Journal";
 import { RulesScreen } from "./ohs/RulesScreen";
 
 // One smoke test per screen (tech.md 10.1): the screen renders with a stubbed `api`.
@@ -570,5 +571,28 @@ describe("screens", () => {
       params: { path: { camera_id: 7, scenario: "running" } },
       body: { enabled: false, params: {} },
     });
+  });
+  it("journal_renders", async () => {
+    const item = (id: string, title: string) => ({ id, title });
+    const facets = {
+      scenarios: [item("running", "Бег и резкие перемещения")], levels: [item("yellow", "Жёлтая опасность")],
+      statuses: [item("new", "Новое")], sectors: [item("1", "Сектор 5 · Склад")], cameras: [item("7", "Пресс №2")],
+      zones: [],
+    };
+    const page = { items: [{ ...EVENT, evidence_url: "/api/evidence/4/image" }], total: 3, next_cursor: "9" };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve({ data: path === "/api/journal/facets" ? facets : page })) as never);
+    render(
+      <MemoryRouter>
+        <Journal />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("показано 1 из 3")).toBeTruthy();
+    expect(screen.getByText("Сбросить")).toBeTruthy();
+    expect(screen.getByAltText("Кадр события").getAttribute("src")).toBe("/api/evidence/4/image");
+    expect(screen.getByText("Экспорт CSV").getAttribute("href")).toBe("/api/events/export.csv?");
+    expect(screen.getByRole("link", { name: /\d/ }).getAttribute("href")).toBe("/events/9");
+    fireEvent.change(screen.getByLabelText("Камера"), { target: { value: "7" } });
+    expect(vi.mocked(api.GET)).toHaveBeenLastCalledWith("/api/events", { params: { query: { camera_id: 7 } } });
   });
 });

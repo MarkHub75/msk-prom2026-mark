@@ -1,4 +1,4 @@
-"""Slice 8: the demo story through the API, from the upload to the master (fake LinQ)."""
+"""Slices 8, 12: the demo story through the API, from the upload to the master (fake LinQ)."""
 
 from pathlib import Path
 
@@ -6,11 +6,12 @@ import httpx
 import pytest
 from conftest import FakeClock
 from test_analysis_api import _textured
+from test_export import rows
 
 from safewatch import config, services
 from safewatch.fakes.remote import FakeRemoteShell
 from safewatch.inference.linq import LinqBackend
-from safewatch.types import EventDetail, EventSummary, MasterInbox
+from safewatch.types import EventDetail, EventPage, EventSummary, MasterInbox
 
 ADMIN, OPERATOR, MASTER = {"X-Role": "admin"}, {"X-Role": "operator"}, {"X-Role": "master"}
 
@@ -21,13 +22,14 @@ async def _act(client: httpx.AsyncClient, event_id: int, role: dict[str, str], *
     return EventDetail.model_validate(r.json()).event.status
 
 
-async def test_upload_to_master_flow(
+async def _flow(
     client: httpx.AsyncClient,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     linq_tails: Path,
     fake_clock: FakeClock,
-) -> None:
+) -> tuple[int, int]:
+    """Upload, red fall, operator, master; the camera and the event."""
     monkeypatch.setattr(services, "_backend", LinqBackend(config.get_settings(), FakeRemoteShell()))
     r = await client.post("/api/sectors", json={"name": "Сектор 7 · Цех"}, headers=ADMIN)
     body = {"sector_id": r.json()["id"], "name": "Камера 1"}
@@ -68,3 +70,38 @@ async def test_upload_to_master_flow(
     assert detail.actions[-1].comment == "Помог подняться"
     inbox = MasterInbox.model_validate((await client.get("/api/master/inbox")).json())
     assert inbox.active == [] and [e.id for e in inbox.recent_resolved] == [event_id]
+    return camera_id, event_id
+
+
+async def test_upload_to_master_flow(
+    client: httpx.AsyncClient,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    linq_tails: Path,
+    fake_clock: FakeClock,
+) -> None:
+    await _flow(client, monkeypatch, tmp_path, linq_tails, fake_clock)
+
+
+async def test_flow_lands_in_journal(
+    client: httpx.AsyncClient,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    linq_tails: Path,
+    fake_clock: FakeClock,
+) -> None:
+    camera_id, event_id = await _flow(client, monkeypatch, tmp_path, linq_tails, fake_clock)
+    params = {"camera_id": camera_id, "scenario": "fall"}
+    r = await client.get("/api/events", params=params)
+    journal = EventPage.model_validate(r.json())
+    assert [e.id for e in journal.items] == [event_id] and journal.total == 1
+    assert journal.items[0].evidence_url is not None
+    image = await client.get(journal.items[0].evidence_url)
+    assert image.headers["content-type"] == "image/jpeg"
+    body = (await client.get("/api/events/export.csv", params=params)).content
+    (row,) = rows(body)[1:]
+    history = row[-1]
+    steps = ["опубликовано", "подтверждено", "передано мастеру", "мастер принял", "решено"]
+    assert [part.split(": ", 1)[1].split(" (")[0] for part in history.split("; ")] == steps
+    assert history.endswith("(Помог подняться)")
+    assert len(row[-2]) == 64  # sha256 of the confirm frame

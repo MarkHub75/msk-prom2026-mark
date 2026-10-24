@@ -534,6 +534,7 @@ class EventSummary(BaseModel):
     duration_s: float  # until ended_at, or until now while the episode lasts
     priority: int
     is_demo: bool
+    evidence_url: str | None = None  # confirm frame of the episode (GAP S12), None for demo
 
 
 class OperatorDashboard(BaseModel):
