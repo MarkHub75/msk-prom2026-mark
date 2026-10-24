@@ -5,6 +5,7 @@ import asyncio
 import json
 import socket
 import sys
+import time
 from pathlib import Path
 
 import psutil
@@ -17,6 +18,7 @@ from safewatch.types import WsMessage
 
 CONTRACT_DIR = ROOT / "contract"
 STOP_WAIT_S = 10
+STOP_POLL_S = 0.1
 
 
 def _pid_file() -> Path:
@@ -60,6 +62,23 @@ def serve(host: str | None, port: int | None, seed: bool) -> int:
     return 0
 
 
+def _exited(proc: psutil.Process) -> bool:
+    try:
+        # On POSIX an exited child of another process stays a zombie until its parent reaps
+        # it; psutil.wait() from here would wait for that.
+        return proc.status() == psutil.STATUS_ZOMBIE
+    except psutil.NoSuchProcess:
+        return True
+
+
+def _wait_exit(proc: psutil.Process) -> None:
+    deadline = time.perf_counter() + STOP_WAIT_S
+    while not _exited(proc):
+        if time.perf_counter() > deadline:
+            raise psutil.TimeoutExpired(STOP_WAIT_S, proc.pid)
+        time.sleep(STOP_POLL_S)
+
+
 def stop() -> int:
     pid_file = _pid_file()
     if not pid_file.exists():
@@ -77,7 +96,7 @@ def stop() -> int:
         print(f"pid {record['pid']} is not the server; removed {pid_file.name}")
         return 1
     proc.terminate()
-    proc.wait(STOP_WAIT_S)
+    _wait_exit(proc)
     pid_file.unlink(missing_ok=True)
     print(f"stopped {record['pid']}")
     return 0
