@@ -6,6 +6,9 @@ export function packSource(pack: Pick<DemoPack, "backend" | "fake">): string {
   return pack.backend === "linq" ? "детекции LinQ" : "детекции CPU (local)";
 }
 
+const IMPORTED = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
+export const packImported = (pack: Pick<DemoPack, "imported_at">) => IMPORTED.format(new Date(pack.imported_at));
+
 export function packLabel(pack: Pick<DemoPack, "name" | "backend" | "fake">): string {
   return `Демо-пакет ${pack.name}: ${packSource(pack)}`;
 }

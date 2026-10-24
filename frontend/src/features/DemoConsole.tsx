@@ -6,13 +6,12 @@ import type { Broadcast, Camera, Video } from "../api/types";
 import { useApi } from "../api/useApi";
 import { useWs } from "../api/ws";
 import { duration, Empty, ErrorNotice, Loading, PageHeading } from "../components/ui";
-import { packLabel, packList } from "../demoPacks";
+import { packImported, packLabel, packList } from "../demoPacks";
 import "../styles/admin.css";
 import "../styles/demo-console.css";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
 const LIVE_THROTTLE_MS = 1500;
-const IMPORTED = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
 const CAPTION = "Пульт ведущего: управляет повтором записей, события создаёт конвейер";
 
 // The checkpoint-demo mock (tools/checkpoint-demo) answers on REST port 4010 and has a director under /__demo/.
@@ -66,7 +65,7 @@ function PacksPanel() {
       : !list.length ? <p className="dc-packs-note adm-muted">Пакетов нет. Демо-события сида видны только в журнале и аналитике: в ленту оператора попадают события эфира, поэтому для показа запустите повтор записи ниже.</p>
       : <ol className="dc-packs">{list.map((p) => <li key={p.id} className={`dc-pack ${p.fake ? "dc-pack-fake" : ""}`}>
         <b>{packLabel(p)}</b>
-        <span className="adm-muted">камер {p.cameras} · видео {p.videos} · импорт {IMPORTED.format(new Date(p.imported_at))}</span>
+        <span className="adm-muted">камер {p.cameras} · видео {p.videos} · импорт {packImported(p)}</span>
         <code className="adm-muted" title={p.sha256}>{p.sha256.slice(0, 12)}</code>
       </li>)}</ol>}
   </section>;

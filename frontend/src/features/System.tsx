@@ -10,6 +10,7 @@ import type { BackendStatus, Job, Schemas } from "../api/types";
 import { useApi } from "../api/useApi";
 import { useWs } from "../api/ws";
 import { ErrorNotice, Loading, PageHeading, time } from "../components/ui";
+import { packImported, packList, packSource } from "../demoPacks";
 
 type Metrics = Schemas["InferenceMetrics"];
 type ModelSpec = Schemas["ModelSpec"];
@@ -62,6 +63,7 @@ export function SystemPage() {
   const models = useApi(() => api.GET("/api/models"), []);
   const health = useApi(() => api.GET("/api/health"), []);
   const admin = useApi(() => api.GET("/api/admin/cameras"), []);
+  const packs = useApi(() => api.GET("/api/demo/packs"), []);
   const [status, setStatus] = useState<BackendStatus>();
   const [checks, setChecks] = useState<Check[]>([]);
   const [checking, setChecking] = useState(false);
@@ -105,7 +107,7 @@ export function SystemPage() {
     if (result.error) setError(apiError(result.error));
     reload();
   }
-  function reload() { setLive(new Map()); system.reload(); models.reload(); health.reload(); admin.reload(); }
+  function reload() { setLive(new Map()); system.reload(); models.reload(); health.reload(); admin.reload(); packs.reload(); }
 
   const names: Names = useMemo(() => ({
     camera: new Map((admin.data?.cameras ?? []).map(c => [c.id, c.name])),
@@ -178,6 +180,7 @@ export function SystemPage() {
       <FreshnessPanel cameras={data.cameras} names={names} />
       <ChannelsPanel channels={data.channels} />
     </div>
+    <PacksPanel state={packs} />
     <footer className="ops-statusbar" aria-label="Статус">
       <span>{health.data ? <Chip tone="ok" icon={CircleCheck}>API отвечает</Chip> : health.error ? <Chip tone="bad" icon={CircleX}>API: {health.error.message}</Chip> : <Chip tone="idle" icon={LoaderCircle} spin>API…</Chip>}</span>
       {health.data && <span>контракт <b className="mono">{health.data.contract}</b></span>}
@@ -363,6 +366,28 @@ function FreshnessPanel({ cameras, names }: { cameras: CameraState[]; names: Nam
       </tr>; })}</tbody>
     </table> : <p className="ops-empty-line">Камер нет.</p>}
     <p className="ops-small ops-muted ops-pad">Свежесть — отставание последнего проанализированного кадра от позиции эфира. «—»: эфира нет, мерить нечего.</p>
+  </section>;
+}
+
+// tech.md 8.19: which demo packs the server imported and where their detections come from.
+const PACK_SOURCE = { linq: { tone: "ok", icon: Server }, local: { tone: "info", icon: Cpu }, fake: { tone: "warn", icon: AlertTriangle } } as const;
+function PacksPanel({ state }: { state: { data?: unknown; error?: ApiFailure } }) {
+  const list = packList(state.data);
+  return <section className="ops-panel" data-panel={`Демо-пакеты${state.data ? ` · ${list.length}` : ""}`} data-testid="system-packs">
+    {state.error ? <p className="ops-empty-line">Список пакетов недоступен ({state.error.status ?? state.error.code}): бэкенд без <code>GET /api/demo/packs</code> или мок.</p>
+      : !state.data ? <p className="ops-empty-line">Получаем пакеты…</p>
+      : !list.length ? <p className="ops-empty-line">Пакетов нет: записи камер обрабатываются бэкендом инференса выше.</p>
+      : <div className="ops-table-scroll"><table className="ops-table">
+        <thead><tr><th>Пакет</th><th>Детекции</th><th className="num">Камер</th><th className="num">Видео</th><th>Импорт, МСК</th><th>SHA-256</th></tr></thead>
+        <tbody>{list.map((p, i) => { const s = PACK_SOURCE[p.fake ? "fake" : p.backend]; return <tr key={p.id} className={i ? "is-idle" : "is-active"}>
+          <td><span className="mono">{p.name}</span>{!i && list.length > 1 && <span className="ops-tag">последний</span>}</td>
+          <td><Chip tone={s.tone} icon={s.icon}>{packSource(p)}</Chip></td>
+          <td className="num mono">{p.cameras}</td><td className="num mono">{p.videos}</td>
+          <td className="mono">{packImported(p)}</td>
+          <td className="mono ops-path" title={p.sha256}>{p.sha256.slice(0, 12)}</td>
+        </tr>; })}</tbody>
+      </table></div>}
+    <p className="ops-small ops-muted ops-pad">Детекции пакета посчитаны заранее: задачи берут их из пакета и не вызывают бэкенд инференса. Пакет на фейке подписан «фейк». Повтор записей — в <Link to="/admin/demo">демо-пульте</Link>.</p>
   </section>;
 }
 

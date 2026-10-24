@@ -22,6 +22,12 @@ const VIEW: Schemas["SystemView"] = {
   channels: [{ name: "АСУ ТП", kind: "webhook", target: "scada.local", levels: ["red"] }], server_now: "2026-10-24T09:01:00Z",
 };
 
+const PACKS: Schemas["DemoPack"][] = [
+  { id: 1, name: "rehearsal", backend: "linq", fake: true, cameras: 1, videos: 1, sha256: "0123456789abcdef0123", imported_at: "2026-10-24T08:00:00Z" },
+  { id: 2, name: "argus", backend: "linq", fake: false, cameras: 3, videos: 4, sha256: "fedcba9876543210fedc", imported_at: "2026-10-24T09:00:00Z" },
+];
+
+let packs: Schemas["DemoPack"][] | null;
 let posts: string[];
 let sockets: FakeSocket[];
 class FakeSocket {
@@ -37,13 +43,14 @@ function serve(check: BackendStatus, fail = false) {
     if (path === "/api/system") return fail ? Response.json({ code: "internal", message: "База недоступна", details: {} }, { status: 500 }) : Response.json(VIEW);
     if (path === "/api/models") return Response.json({ backend: "linq", fake: false, active: [], available: [] });
     if (path === "/api/health") return Response.json({ status: "ok", contract: "1.0.0" });
+    if (path === "/api/demo/packs") return packs ? Response.json(packs) : Response.json({ code: "not_implemented", message: "Нет", details: {} }, { status: 501 });
     if (path === "/api/admin/cameras") return Response.json({ sectors: [{ id: 1, name: "Прессы", sort_order: 1, is_demo: false }], cameras: [{ id: 1, sector_id: 1, name: "Пресс №2", description: "", is_demo: false, has_calibration: false, zones_count: 0, videos_count: 1 }] });
     return Response.json({ code: "not_found", message: "Нет", details: {} }, { status: 404 });
   }));
 }
 const show = () => render(<MemoryRouter initialEntries={["/admin/system"]}><SystemPage /></MemoryRouter>);
 
-beforeEach(() => { localStorage.clear(); sessionStorage.clear(); history.replaceState({}, "", "/?review=real"); sockets = []; vi.stubGlobal("WebSocket", FakeSocket); });
+beforeEach(() => { localStorage.clear(); sessionStorage.clear(); history.replaceState({}, "", "/?review=real"); sockets = []; packs = PACKS; vi.stubGlobal("WebSocket", FakeSocket); });
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
 describe("system panel", () => {
@@ -92,5 +99,26 @@ describe("system panel", () => {
     serve(status(), true);
     show();
     expect((await screen.findByRole("alert")).textContent).toContain("База недоступна");
+  });
+
+  it("lists the imported demo packs newest first and says where their detections come from", async () => {
+    serve(status());
+    show();
+    const panel = await screen.findByTestId("system-packs");
+    await waitFor(() => expect(panel.querySelectorAll("tbody tr")).toHaveLength(2));
+    const rows = [...panel.querySelectorAll("tbody tr")].map(r => r.textContent);
+    expect(rows[0]).toContain("argus");
+    expect(rows[0]).toContain("детекции LinQ");
+    expect(rows[0]).toContain("последний");
+    expect(rows[1]).toContain("rehearsal");
+    expect(rows[1]).toContain("фейк");
+    expect(panel.getAttribute("data-panel")).toBe("Демо-пакеты · 2");
+  });
+
+  it("says so when the backend has no demo packs route", async () => {
+    packs = null;
+    serve(status());
+    show();
+    expect((await screen.findByTestId("system-packs")).textContent).toMatch(/Список пакетов недоступен \(501\)/);
   });
 });
