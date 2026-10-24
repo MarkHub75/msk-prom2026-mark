@@ -102,7 +102,7 @@ export function JournalPage() {
   const meta = useMeta();
   const updates = useUpdates();
   const queryKey = search.toString();
-  const page = useApi(() => api.GET("/api/events", { params: { query: eventQuery(search) } }), [queryKey, updates]);
+  const page = useApi(() => api.GET("/api/events", { params: { query: eventQuery(search) } }), [queryKey], {refresh: [updates]});
   const facets = useApi(() => api.GET("/api/journal/facets"), []);
   const [picked, setPicked] = useState<number>();
   const filtersApplied = FILTER_KEYS.some(key => search.has(key));

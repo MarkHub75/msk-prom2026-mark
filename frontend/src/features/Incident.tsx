@@ -27,7 +27,7 @@ const unconfirmed = (event: EventSummary) => event.escalated_by_timeout && event
 function useEventDetail(id: number) {
   const [role] = useRole(); const updates = useUpdates();
   const { actor } = useActorIdentity();
-  const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role,updates]);
+  const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role], {refresh: [updates]});
   const [result, setResult] = useState<{ detail: EventDetail; rest: EventDetail | undefined; identity: string }>();
   const viewed = useRef(new Set<string>());
   const identity = `${role}:${id}`;
@@ -127,7 +127,7 @@ export function Evidence({ detail, compact = false }: { detail: EventDetail; com
 
 function LiveCamera({ cameraId }: { cameraId: number }) {
   const updates = useUpdates();
-  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }), [cameraId, updates]);
+  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }), [cameraId], { refresh: [updates] });
   if (view.error) return <ErrorNotice error={view.error} compact retry={view.reload} />;
   if (!view.data) return <Loading text="Подключаем эфир камеры" />;
   if (!view.data.camera || !view.data.state) return <Empty title="Эфира нет" text="Сервер не вернул состояние камеры." />;

@@ -23,7 +23,7 @@ function StateChip({ state, text }: { state: SectorState["state"]; text?: string
 /** Main camera of the wall: live replay with HUD when the backend has it, otherwise the latest still. */
 function Stage({ tile, sector, event }: { tile?: CameraTile; sector?: SectorState; event?: EventSummary }) {
   const updates = useUpdates();
-  const live = useApi(() => tile ? api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: tile.camera.id } } }) : Promise.resolve({ data: undefined }), [tile?.camera.id, updates]);
+  const live = useApi(() => tile ? api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: tile.camera.id } } }) : Promise.resolve({ data: undefined }), [tile?.camera.id], {refresh: [updates]});
   const detail = useApi(() => event && event.camera_id === tile?.camera.id ? api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }) : Promise.resolve({ data: undefined }), [event?.id, tile?.camera.id]);
   if (!tile) return <div className="cr-stage cr-stage-empty"><Empty title="Камера не выбрана" text={sector ? sector.reason_text : "Выберите сектор внизу экрана."} /></div>;
   const state = tile.state.state;
@@ -72,7 +72,7 @@ const QUICK: HumanAction[] = ["confirm", "false_alarm", "send_to_master"];
 
 function SelectedEvent({ event, onDone }: { event: EventSummary; onDone: () => void }) {
   const [role] = useRole();
-  const detail = useApi(() => api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }), [event.id, event.status]);
+  const detail = useApi(() => api.GET("/api/events/{event_id}", { params: { path: { event_id: event.id } } }), [event.id], {refresh: [event.status]});
   const shown = detail.data?.event.id === event.id ? detail.data : undefined;
   const { busy, actionError, send } = useEventActions(event.id, shown, `${role}:${event.id}`);
   const actions = shown?.allowed_actions.filter(action => QUICK.includes(action)) ?? [];
@@ -99,7 +99,7 @@ const eventsWord = (n: number) => n % 10 === 1 && n % 100 !== 11 ? "событи
 /** Shift totals from GET /api/master/shift: verdict counts are the server's per-sector rows summed, never recounted from statuses. */
 function ShiftLine() {
   const updates = useUpdates();
-  const shift = useApi(() => api.GET("/api/master/shift"), [updates]);
+  const shift = useApi(() => api.GET("/api/master/shift"), [], {refresh: [updates]});
   if (!shift.data) return null;
   const confirmed = shift.data.by_sector.reduce((sum, row) => sum + row.confirmed, 0);
   const falseAlarm = shift.data.by_sector.reduce((sum, row) => sum + row.false_alarm, 0);
@@ -114,7 +114,7 @@ function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; 
     const results = await Promise.all(sectors.map(s => api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: s.sector_id } } })));
     const failed = results.find(r => r.error !== undefined);
     return failed ? { error: failed.error } : { data: results.flatMap(r => r.data?.cameras ?? []) };
-  }, [ids, updates]);
+  }, [ids], {refresh: [updates]});
   const rank = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
   const tiles = [...(views.data ?? [])].sort((a, b) => rank[a.state.state] - rank[b.state.state] || a.camera.id - b.camera.id);
   if (!tiles.length) return null;
@@ -127,7 +127,7 @@ function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; 
 export function OperatorPage() {
   const updates = useUpdates();
   const meta = useMeta();
-  const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [updates]);
+  const dashboard = useApi(() => api.GET("/api/operator/dashboard"), [], {refresh: [updates]});
   const [filter, setFilter] = useState<"all" | "red" | "yellow">("all");
   const [pickedSector, setPickedSector] = useState<number>();
   const [pickedCamera, setPickedCamera] = useState<number>();
@@ -145,7 +145,7 @@ export function OperatorPage() {
   const queue = waiting.filter(event => filter === "all" || event.level === filter);
   const focusSector = sectors.find(s => s.sector_id === pickedSector) ?? sectors.find(s => s.state === "red") ?? sectors.find(s => s.state === "yellow") ?? sectors[0];
   const selectedEvent = feedAll.find(e => e.id === pickedEvent) ?? queue[0];
-  const sectorView = useApi(() => focusSector ? api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: focusSector.sector_id } } }) : Promise.resolve({ data: undefined }), [focusSector?.sector_id, updates]);
+  const sectorView = useApi(() => focusSector ? api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: focusSector.sector_id } } }) : Promise.resolve({ data: undefined }), [focusSector?.sector_id], {refresh: [updates]});
   const tiles = sectorView.data?.cameras ?? [];
   const rank = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
   const focusTile = tiles.find(t => t.camera.id === pickedCamera) ?? [...tiles].sort((a, b) => rank[a.state.state] - rank[b.state.state])[0];

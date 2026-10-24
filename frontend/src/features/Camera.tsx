@@ -80,8 +80,8 @@ function Fact({ k, children }: { k: string; children: ReactNode }) { return <div
 export function CameraPage() {
   const { cameraId } = useParams(); const id = Number(cameraId); const updates = useUpdates(); const meta = useMeta();
   const navigate = useNavigate(); const now = useNow(5000);
-  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: id } } }), [id, updates]);
-  const events = useApi(() => api.GET("/api/events", { params: { query: { camera_id: id, limit: 200, include_demo: true } } }), [id, updates]);
+  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: id } } }), [id], { refresh: [updates] });
+  const events = useApi(() => api.GET("/api/events", { params: { query: { camera_id: id, limit: 200, include_demo: true } } }), [id], { refresh: [updates] });
   const sectors = useApi(() => api.GET("/api/sectors"), []);
   const [hud, setHud] = useState(true);
   const [zones, setZones] = useState(true);
