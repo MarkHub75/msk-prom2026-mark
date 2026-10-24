@@ -25,10 +25,13 @@ export const NAV: NavItem[] = [
   { path: "/ohs/rules", title: "Правила", roles: ["ohs"], slice: 9, menu: true },
   { path: "/ohs/stats", title: "Аналитика", roles: ["ohs"], slice: 13, menu: true },
   { path: "/management", title: "Аналитика", roles: ["management"], slice: 13, menu: true },
+  { path: "/ohs/people", title: "Люди", roles: ["ohs", "management"], slice: 26, menu: true },
   { path: "/admin/cameras", title: "Камеры", roles: ["admin"], slice: 1, menu: true },
   { path: "/admin/cameras/:cameraId", title: "Настройка камеры", roles: ["admin", "ohs"], slice: 2, menu: false },
   { path: "/admin/system", title: "Система", roles: ["admin"], slice: 3, menu: true },
   { path: "/admin/demo", title: "Демо", roles: ["admin"], slice: 6, menu: true },
+  { path: "/ohs/dataset", title: "Датасет", roles: ["ohs", "admin"], slice: 25, menu: true },
+  { path: "/calculator", title: "Калькулятор", roles: ["management", "admin"], slice: 24, menu: true },
 ];
 
 export function menuFor(role: Role): NavItem[] {

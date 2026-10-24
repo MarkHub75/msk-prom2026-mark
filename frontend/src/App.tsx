@@ -15,6 +15,9 @@ import { CameraSetupPage } from "./features/CameraSetup";
 import { RulesPage } from "./features/Rules";
 import { SystemPage } from "./features/System";
 import { DemoConsolePage } from "./features/DemoConsole";
+import { CalculatorPage } from "./features/Calculator";
+import { DatasetPage } from "./features/Dataset";
+import { PeoplePage } from "./features/People";
 import { useRole } from "./roles";
 
 export function App() {
@@ -38,6 +41,9 @@ export function App() {
         <Route path="/ohs/rules" element={<RulesPage />} />
         <Route path="/ohs/stats" element={<StatsPage />} />
         <Route path="/management" element={<StatsPage management />} />
+        <Route path="/ohs/people" element={<PeoplePage />} />
+        <Route path="/ohs/dataset" element={<DatasetPage />} />
+        <Route path="/calculator" element={<CalculatorPage />} />
         <Route path="/admin/cameras" element={<AdminCamerasPage />} />
         <Route path="/admin/cameras/:cameraId" element={<CameraSetupPage />} />
         <Route path="/admin/system" element={<SystemPage />} />

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { ChevronRight, Cpu, Crosshair, Film, ListChecks, Radio, Shapes } from "lucide-react";
+import { ChevronRight, ClipboardCheck, Cpu, Crosshair, Film, ListChecks, Radio, Shapes } from "lucide-react";
 import { api } from "../api/client";
 import type { Broadcast, CameraState, Job } from "../api/types";
 import { useApi } from "../api/useApi";
@@ -14,6 +14,7 @@ import { BroadcastTab } from "./camera-setup/BroadcastTab";
 import { CalibrationTab } from "./camera-setup/CalibrationTab";
 import { ZonesTab } from "./camera-setup/ZonesTab";
 import { CameraRulesTab } from "./camera-setup/CameraRulesTab";
+import { PassportTab } from "./camera-setup/PassportTab";
 import "../styles/admin.css";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
@@ -23,6 +24,7 @@ const TABS = [
   { id: "calibration", title: "Калибровка", icon: <Crosshair {...I} /> },
   { id: "zones", title: "Зоны", icon: <Shapes {...I} /> },
   { id: "rules", title: "Правила", icon: <ListChecks {...I} /> },
+  { id: "passport", title: "Пригодность", icon: <ClipboardCheck {...I} /> },
 ] as const;
 type TabId = typeof TABS[number]["id"];
 
@@ -79,6 +81,7 @@ export function CameraSetupPage() {
     calibration: <CalibrationTab cameraId={cameraId} />,
     zones: <ZonesTab cameraId={cameraId} />,
     rules: <CameraRulesTab cameraId={cameraId} />,
+    passport: <PassportTab cameraId={cameraId} />,
   };
 
   return <div className="adm-page adm-setup">

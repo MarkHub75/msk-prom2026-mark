@@ -15,6 +15,7 @@ import { END_REASON, Into, LevelTag, since, StateBadge, useNow } from "../compon
 import { LivePlayer } from "./Camera";
 import { ACTIONS, useEventActions } from "./eventActions";
 import { MasterEventPage } from "./MasterEvent";
+import { IdentityPanel, identityText } from "./IdentityPanel";
 import { PhoneEventPage } from "./OperatorPhone";
 import { usePhone } from "../components/usePhone";
 import "../styles/incident-review.css";
@@ -52,7 +53,9 @@ export function useEventDetail(id: number) {
       void send("view").then(ok => { if (!ok) viewed.current.delete(key); });
     }
   }, [detail,identity,send,actor]);
-  return {detail,loading:request.loading,error:request.error,reload:request.reload,busy,actionError,send};
+  // A PATCH answer (identity) replaces the detail the same way an action answer does.
+  const apply = useCallback((next: EventDetail) => setResult({detail:next,rest:rest.current,identity}), [identity]);
+  return {detail,loading:request.loading,error:request.error,reload:request.reload,busy,actionError,send,apply};
 }
 
 function Panel({ title, aside, children, className = "" }: { title: string; aside?: ReactNode; children: ReactNode; className?: string }) {
@@ -177,6 +180,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
         <div><dt>Начало</dt><dd className="mono">{time(event.started_at)}</dd></div>
         <div><dt>Длительность</dt><dd className="mono">{duration(event.duration_s * 1000)}{!event.ended_at && " · идёт"}</dd></div>
         <div><dt>Вердикт оператора</dt><dd>{verdict}</dd></div>
+        {identityText(event) && <div><dt>Нарушитель</dt><dd data-testid="identity-text">{identityText(event)}</dd></div>}
         {!terminal && <div><dt>Открыто</dt><dd className="ds-num">{since(event.published_at, now)}</dd></div>}
       </dl>
       <div className="ic-actions">
@@ -187,6 +191,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
         {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
         {notice && <p className="action-notice" role="status">{notice}</p>}
       </div>
+      {detail.can_identify && <Panel title="Нарушитель" aside={identityText(event) ? "указан" : "не указан"}><IdentityPanel detail={detail} onSaved={state.apply} /></Panel>}
       <Panel title="Почему">{detail.why.length ? <dl className="od-facts">{detail.why.map((item, i) => <div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl> : <p className="ic-muted">Объяснение не получено.</p>}</Panel>
       <Panel title="История эпизода"><EpisodeHistory detail={detail} /></Panel>
       <Panel title="Действия людей" aside={detail.actions.length}><History actions={detail.actions} /></Panel>

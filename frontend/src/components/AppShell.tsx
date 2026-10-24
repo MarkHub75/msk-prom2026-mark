@@ -26,6 +26,9 @@ function navIcon(path: string): IconName {
   if (path.startsWith("/admin/cameras")) return "camera";
   if (path.startsWith("/admin/system")) return "server";
   if (path.startsWith("/admin/demo")) return "play";
+  if (path.startsWith("/calculator")) return "calculator";
+  if (path.startsWith("/ohs/dataset")) return "database";
+  if (path.startsWith("/ohs/people")) return "users";
   return "settings";
 }
 const ROLE_ICON: Record<Role, IconName> = { operator: "monitor", master: "user", ohs: "shield", management: "chart", admin: "settings" };
