@@ -1,3 +1,13 @@
+## VERIFIED FINAL PACKAGE — 2026-10-24
+
+Read docs/handoffs/FINAL_RELEASE_CHECKPOINT_20261025.md first. FullZIP291139722bytes
+SHA221d2fc1334d57ad3377087a93f571243c4c225506dd608867c6b97b211decc9;
+preview13061488bytes. Codefab9569d,527testsOK(4skipped); portable extracted archive
+515payload filesPASS. Paths/digests/limits in ml/reports/final-release-20261025.json.
+ActualCPUArgus event/evidence/API1verified; no freshTPU, no independentindustrial
+quality. Models frozen unchanged; subsequent work requires new actual capability
+or qualified release, not another old hypothesis. No own GPU/TPU jobs left active.
+
 ## FINAL ML INTEGRATION — 2026-10-24 16:53 UTC snapshot
 
 Latest concrete handoff: docs/handoffs/FINAL_ML_EVIDENCE_20261025.md,

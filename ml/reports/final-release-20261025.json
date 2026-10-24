@@ -1,0 +1,55 @@
+{
+  "schema": "matvey-final-release-freeze-v1",
+  "frozen_utc": "2026-10-24T17:13:00.817527+00:00",
+  "code_commit": "fab9569db79e2bcdc547aca3fb9bf5b1bab25d4d",
+  "branch": "matvey_cv",
+  "main_commit_unchanged": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+  "archive": {
+    "status": "PASS_ARCHIVE_MEMBERS",
+    "archive": "/workspace/artifacts/matvey-final-20261025/matvey_final_v1.zip",
+    "bytes": 291139722,
+    "sha256": "221d2fc1334d57ad3377087a93f571243c4c225506dd608867c6b97b211decc9",
+    "members": 516,
+    "checksummed_payload_files": 515,
+    "verified_external_backup": false
+  },
+  "preview": {
+    "path": "/workspace/artifacts/matvey-final-20261025/matvey_demo_preview_v1.zip",
+    "bytes": 13061488,
+    "sha256": "09bace977372f05876086f7882338c738acb75b11185be63b5c9758a82e00c27",
+    "status": "PASS_PREVIEW_MEMBERS",
+    "full_scene_evidence_package": false,
+    "members": 10
+  },
+  "portable_verification": {
+    "status": "PASS_FINAL_PACKAGE_INTEGRITY",
+    "files": 515,
+    "full_local_scenes": 12,
+    "full_local_frames": 2830,
+    "full_local_model_calls": 8490,
+    "saved_local_replay_episodes": 1,
+    "actual_local_argus_events": 1,
+    "actual_local_argus_onnx_calls": 114,
+    "historical_tpu_calls": 15,
+    "historical_tpu_unique_frames": 13,
+    "fresh_tpu_calls": 0,
+    "independent_industrial_quality": "NOT_QUALIFIED",
+    "live_tpu_to_argus": "NOT_VERIFIED",
+    "verification_neural_calls": 0,
+    "executed_from": "/tmp",
+    "requires_ml_packages": false,
+    "archive_extraction_verified": true
+  },
+  "root": "/workspace/artifacts/matvey-final-20261025",
+  "docs": {
+    "evidence": "/workspace/artifacts/matvey-final-20261025/FINAL_ML_EVIDENCE.md",
+    "coverage": "/workspace/artifacts/matvey-final-20261025/SCENARIO_COVERAGE.json",
+    "videos": "/workspace/artifacts/matvey-final-20261025/VIDEO_MANIFEST.json",
+    "models": "/workspace/artifacts/matvey-final-20261025/MODEL_REGISTRY_HANDOFF.md"
+  },
+  "new_safe_capability_required_for_live_linq": true,
+  "no_automatic_risky_experiments": true,
+  "models_frozen_without_quality_promotion": true,
+  "recipient_receipt": "NOT_VERIFIED; prepared local paths and shared notice only",
+  "external_binary_backup": "NOT_VERIFIED"
+}
