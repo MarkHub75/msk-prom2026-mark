@@ -337,3 +337,5 @@ ight-tmp`), PR #28
 - 22:46 S25: ок, PR #32
 - 23:04 R25: ок, PR #33, tech v7
 - 23:17 S26: ок, PR #34
+- 23:27 fix S18: ок (мигающий тест ffmpeg на windows CI, push `9abc297f`), PR #35
+- 23:32 пакет Матвея video-first v2 распакован в `data/incoming/video-first-v2/` (461 МБ, вне git), PR #37
