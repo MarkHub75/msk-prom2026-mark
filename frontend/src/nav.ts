@@ -10,6 +10,7 @@ import { ShiftSummaryScreen } from "./screens/master/ShiftSummaryScreen";
 import { CameraScreen } from "./screens/operator/CameraScreen";
 import { OperatorDashboard } from "./screens/operator/OperatorDashboard";
 import { SectorScreen } from "./screens/operator/SectorScreen";
+import { Journal } from "./screens/ohs/Journal";
 import { RulesScreen } from "./screens/ohs/RulesScreen";
 
 export interface NavItem {
@@ -30,7 +31,7 @@ export const NAV: NavItem[] = [
   { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true, screen: MasterInbox },
   { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false, screen: MasterEvent },
   { path: "/master/shift", title: "Смена", roles: ["master"], slice: 8, menu: true, screen: ShiftSummaryScreen },
-  { path: "/ohs/journal", title: "Журнал", roles: ["ohs"], slice: 12, menu: true },
+  { path: "/ohs/journal", title: "Журнал", roles: ["ohs"], slice: 12, menu: true, screen: Journal },
   { path: "/ohs/rules", title: "Правила", roles: ["ohs"], slice: 9, menu: true, screen: RulesScreen },
   { path: "/ohs/stats", title: "Статистика", roles: ["ohs"], slice: 13, menu: true },
   { path: "/management", title: "Тренды", roles: ["management"], slice: 13, menu: true },
