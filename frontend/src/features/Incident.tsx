@@ -175,7 +175,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
         {actions.length ? <>
           <div className="ic-action-row">{order.filter(a => actions.includes(a)).map(action => <button key={action} data-action={action} disabled={Boolean(state.busy)} onClick={() => void act(action)} className={`button ic-act ic-act-${action} ${action === "confirm" ? (event.level === "red" ? "button-danger" : "button-primary") : ""}`}><span>{state.busy === action ? "Сохраняем…" : ACTIONS[action]}</span><kbd>{KEYS[action]}</kbd></button>)}</div>
           <label className="ic-comment"><MessageSquareText {...IC} /><input aria-label="Комментарий к действию" value={comment} onChange={e => setComment(e.target.value)} placeholder="Комментарий к действию (необязательно)" maxLength={500} /></label>
-        </> : <p className="ic-muted"><Check {...IC} /> Для вашей роли действий по событию нет.</p>}
+        </> : <p className="ic-muted"><Check {...IC} /> {terminal ? `Событие закрыто: ${event.status_title.toLowerCase()}.` : event.status === "sent_to_master" || event.status === "master_accepted" ? `Решение принято, событие у мастера: ${event.status_title.toLowerCase()}.` : "Для вашей роли действий по событию нет."}</p>}
         {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
         {notice && <p className="action-notice" role="status">{notice}</p>}
       </div>
@@ -204,15 +204,15 @@ function MasterIncident({ detail, state }: { detail: EventDetail; state: ReturnT
       <div className="ms-row"><LevelTag level={event.level} title={meta?.levels.find(l => l.id === event.level)?.title} /><Status event={event} /></div>
       <h1>{event.title}</h1>
       {unconfirmed(event) && <p className="ms-unconfirmed"><ShieldAlert size={17} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
-      {!terminal && <p className="ms-wait"><Timer {...IC} />Ждёт <b className="mono">{since(event.published_at, now)}</b><span>с публикации</span></p>}
+      {!terminal && <p className="ms-wait"><Timer {...IC} />{event.status === "master_accepted" ? "В работе" : "Ждёт"} <b className="mono">{since(event.published_at, now)}</b><span>с публикации</span></p>}
     </div>
+    {canResolve && <label className="ms-report">Какие меры приняты <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
     <Evidence detail={detail} compact />
     <dl className="ms-where">
       <div><dt><MapPin {...IC} />Где</dt><dd>{event.sector_name}<span>{event.camera_name}{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</span></dd></div>
       <div><dt><Footprints {...IC} />Причина</dt><dd>{event.reason_text}</dd></div>
       <div><dt><Clock {...IC} />Начало</dt><dd className="mono">{time(event.started_at)} · {duration(event.duration_s * 1000)}</dd></div>
     </dl>
-    {canResolve && <label className="ms-report">Какие меры приняты <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
     {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
     {notice && <p className="action-notice ms-notice" role="status">{notice}</p>}
     {!canAccept && !canResolve && <p className="ms-done"><Check {...IC} />{terminal ? "Поручение закрыто." : "Действий для мастера сейчас нет."}</p>}
@@ -232,7 +232,7 @@ export function IncidentPage({ master = false }: { master?: boolean }) {
   const state = useEventDetail(id); const detail = state.detail; const event = detail?.event;
   const isMaster = master || role === "master";
   const back = isMaster ? <Link className="mobile-back ms-back" to="/master"><ArrowLeft {...IC} />К поручениям{event && <span className="mono">#{event.id}</span>}</Link>
-    : <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
+    : <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${event.level === "red" ? "Красная" : "Жёлтая"} · ${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
   if (!event || !detail) return <div className={isMaster ? "ms-page" : "od-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>{back}{state.error ? <ErrorNotice error={state.error} retry={state.reload} /> : <Loading text="Загружаем событие и доступные действия" />}</div>;
   return <div className={isMaster ? "ms-page master-detail" : "od-page ic-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>
     {back}
