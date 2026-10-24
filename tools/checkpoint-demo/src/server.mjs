@@ -264,7 +264,7 @@ async function api(req, res, url) {
   if (m === "GET" && p === "/api/sectors") return json(res, 200, mock.sectors);
   if (m === "GET" && p === "/api/cameras") {
     const sid = q.has("sector_id") ? intParam(q.get("sector_id"), "sector_id") : null;
-    if (sid != null && !mock.sector(sid)) throw apiError(404, "not_found", MSG.notFound, { sector_id: sid });
+    if (sid != null && !mock.sector(sid)) throw apiError(404, "not_found", "Сектор не найден", { sector_id: sid });
     return json(res, 200, mock.cameras.filter((c) => sid == null || c.sector_id === sid).map(publicCamera));
   }
   if (m === "GET" && p === "/api/events") return json(res, 200, eventsList(q));

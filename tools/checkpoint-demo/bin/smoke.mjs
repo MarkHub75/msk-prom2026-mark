@@ -139,8 +139,12 @@ const must = (cond, msg) => {
   if (!cond) throw new Fail(msg);
 };
 
-async function step(name, fn, { gate } = {}) {
-  if (gate && skipReason.has(gate)) return record("SKIP", name, skipReason.get(gate));
+async function step(name, fn, { gate, needs = [] } = {}) {
+  const blocked = [gate, ...needs].find((g) => g && skipReason.has(g));
+  if (blocked) {
+    if (gate && !skipReason.has(gate)) skipReason.set(gate, skipReason.get(blocked));
+    return record("SKIP", name, skipReason.get(blocked));
+  }
   try {
     const detail = await fn();
     record("PASS", name, detail ?? "");
@@ -186,6 +190,12 @@ function makeVideo() {
 }
 
 async function realUploadAndBroadcast() {
+  // Never start a real LinQ run from a smoke: the upload goes only to the fake or the CPU backend.
+  const meta = await http("GET", "/api/meta");
+  notReady(meta, "GET /api/meta");
+  if (meta.data.inference_backend === "linq" && meta.data.fake !== true) {
+    throw new Skip("бэкенд на настоящем LinQ (fake=false): запустите с SAFEWATCH_FAKE=1, загрузку не делаю");
+  }
   const cams = await http("GET", "/api/cameras");
   notReady(cams, "GET /api/cameras");
   must(cams.status === 200 && Array.isArray(cams.data), `GET /api/cameras → ${cams.status}`);
@@ -246,10 +256,11 @@ async function main() {
     notReady(r, "GET /api/meta");
     must(r.status === 200, `meta → ${r.status}`);
     const active = r.data.scenarios.filter((s) => s.status === "active").map((s) => s.id);
+    if (!MOCK && !r.data.scenarios.length) throw new Skip("meta.scenarios пусто: плагины running/fall ещё не подключены (S5)");
     must(active.includes("running") && active.includes("fall"), `active: ${active.join(",")}`);
     if (MOCK) must(r.data.fake === true, "fake должен быть true");
     return `fake=${r.data.fake}, active=${active.join(",")}`;
-  }, { gate: "server" });
+  }, { gate: "meta", needs: ["server"] });
 
   if (MOCK) {
     await step("reset мира (mock)", async () => {
@@ -264,7 +275,7 @@ async function main() {
     must(r.status === 200 && Array.isArray(r.data.sectors), `dashboard → ${r.status}`);
     if (MOCK) must(r.data.sectors.length === 4, `секторов ${r.data.sectors.length}`);
     return `секторов ${r.data.sectors.length}, в ленте ${r.data.feed.length}`;
-  }, { gate: "server" });
+  }, { gate: "dashboard", needs: ["server"] });
 
   await step("WS operator: hello", async () => {
     op = new WsClient("operator");
@@ -273,13 +284,13 @@ async function main() {
     must(h && h.data.role === "operator", "нет hello у operator");
     must(await master.waitFor((m) => m.type === "hello", 5000), "нет hello у master");
     return `contract ${h.data.contract}`;
-  }, { gate: "ws" });
+  }, { gate: "ws", needs: ["server"] });
 
   // ---- yellow ----
   await step(MOCK ? "жёлтое событие (demo next)" : "жёлтое событие (загрузка, задача, эфир)", async () => {
     if (MOCK) await mockNext();
     else return await realUploadAndBroadcast();
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("event.created + notification у operator", async () => {
     const created = await op.waitFor(isCreated("yellow"));
@@ -291,12 +302,12 @@ async function main() {
     must(n.data.sound === "chime" && n.data.takeover === false, `sound=${n.data.sound} takeover=${n.data.takeover}`);
     if (MOCK) must(created.data.reason_text === "Бег 2,4 роста/с", `reason ${created.data.reason_text}`);
     return `#${created.data.id} ${created.data.notification_text}`;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("жёлтое: notification НЕ у master", async () => {
     await sleep(500);
     must(!master.messages.some(isNotif(story.yellow.id)), "master получил жёлтое уведомление");
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("карточка жёлтого + view сектора", async () => {
     const d = await http("GET", `/api/events/${story.yellow.id}`, { role: "operator" });
@@ -308,14 +319,14 @@ async function main() {
     must(v.status === 200 && v.data.feed.some((e) => e.id === story.yellow.id), "события нет в ленте сектора");
     if (MOCK) must(v.data.sector.state === "yellow", `сектор ${v.data.sector.state}`);
     return `allowed=${d.data.allowed_actions.join(",")}, сектор ${v.data.sector.state}`;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("operator confirm жёлтого → confirmed", async () => {
     const r = await http("POST", `/api/events/${story.yellow.id}/actions`, { role: "operator", body: { action: "confirm" } });
     notReady(r, "POST actions");
     must(r.status === 200 && r.data.event.status === "confirmed", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
     must(await op.waitFor((m) => m.type === "event.updated" && m.data.id === story.yellow.id && m.data.status === "confirmed", 3000), "нет event.updated");
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   // ---- red ----
   await step("красное событие", async () => {
@@ -325,7 +336,7 @@ async function main() {
     story.red = created.data;
     if (MOCK) must(created.data.reason_text === "Зафиксировано падение", `reason ${created.data.reason_text}`);
     return `#${created.data.id} ${created.data.notification_text}`;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("takeover-notification у operator, не у master", async () => {
     const n = await op.waitFor(isNotif(story.red.id), 3000);
@@ -333,47 +344,47 @@ async function main() {
     must(n.data.audience.length === 1 && n.data.audience[0] === "operator", `audience ${n.data.audience}`);
     await sleep(300);
     must(!master.messages.some(isNotif(story.red.id)), "master получил уведомление до подтверждения");
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("master: нет confirm в allowed_actions", async () => {
     const d = await http("GET", `/api/events/${story.red.id}`, { role: "master" });
     must(d.status === 200, `→ ${d.status}`);
     must(!d.data.allowed_actions.includes("confirm"), `allowed ${d.data.allowed_actions}`);
     return `allowed=[${d.data.allowed_actions.join(",")}]`;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("operator «Подтверждаю» → sent_to_master", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "operator", actor: encodeURIComponent("Иван Петров"), body: { action: "confirm" } });
     must(r.status === 200 && r.data.event.status === "sent_to_master", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("master получает notification (chime)", async () => {
     const n = await master.waitFor(isNotif(story.red.id), 3000);
     must(n && n.data.sound === "chime" && n.data.takeover === false && n.data.audience.includes("master"), `notification ${JSON.stringify(n?.data)}`);
     return n.data.text;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("событие во входящих мастера", async () => {
     const r = await http("GET", "/api/master/inbox", { role: "master" });
     notReady(r, "GET /api/master/inbox");
     must(r.status === 200 && r.data.active.some((e) => e.id === story.red.id), "нет в active");
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("master accept → master_accepted", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "accept" } });
     must(r.status === 200 && r.data.event.status === "master_accepted", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("НЕГАТИВ resolve без комментария → 422", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "resolve", comment: "  " } });
     must(r.status === 422, `→ ${r.status} ${r.data.code}`);
     return r.data.message;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("master resolve с комментарием → resolved", async () => {
     const r = await http("POST", `/api/events/${story.red.id}/actions`, { role: "master", body: { action: "resolve", comment: "Пострадавших нет, рабочее место осмотрено" } });
     must(r.status === 200 && r.data.event.status === "resolved", `→ ${r.status} ${r.data.event?.status ?? r.data.code}`);
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("полная история actions в карточке", async () => {
     const d = await http("GET", `/api/events/${story.red.id}`, { role: "ohs" });
@@ -386,7 +397,7 @@ async function main() {
     const res = d.data.actions.find((a) => a.action === "resolved");
     must(res.comment.length > 0, "у resolved нет комментария");
     return got.join(" → ");
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   await step("событие в журнале /api/events", async () => {
     const r = await http("GET", "/api/events?limit=200");
@@ -396,7 +407,7 @@ async function main() {
     notReady(f, "GET /api/journal/facets");
     must(f.status === 200, `facets → ${f.status}`);
     return `всего ${r.data.total}`;
-  }, { gate: "story" });
+  }, { gate: "story", needs: ["server", "ws"] });
 
   // ---- negatives ----
   const anyEvent = () => story.red?.id ?? story.yellow?.id ?? 1;
@@ -406,31 +417,33 @@ async function main() {
     must(r.status === 400 && r.data.code === "role_required", `→ ${r.status} ${r.data.code}`);
     const p = await http("POST", `/api/events/${anyEvent()}/actions`, { role: "hacker", body: { action: "view" } });
     must(p.status === 400 && p.data.code === "role_required", `POST → ${p.status} ${p.data.code}`);
-  }, { gate: "server" });
+  }, { needs: ["server"] });
 
   await step("НЕГАТИВ WS с неизвестной ролью → 4400", async () => {
     const c = new WsClient("hacker");
     const code = await Promise.race([c.closed, sleep(5000).then(() => null)]);
     must(code === 4400, `close ${code}`);
-  }, { gate: "ws" });
+  }, { needs: ["server", "ws"] });
 
   await step("НЕГАТИВ неверный переход → 409 invalid_transition", async () => {
-    if (!story.yellow) throw new Skip("нет жёлтого события");
-    const r = await http("POST", `/api/events/${story.yellow.id}/actions`, { role: "operator", body: { action: "view" } });
+    const id = story.yellow?.id ?? 1; // without the story: event 1 of the seed, terminal
+    const r = await http("POST", `/api/events/${id}/actions`, { role: "operator", body: { action: "view" } });
+    notReady(r, "POST actions");
     must(r.status === 409 && r.data.code === "invalid_transition", `→ ${r.status} ${r.data.code}`);
-  }, { gate: "story" });
+  }, { needs: ["server"] });
 
   await step("НЕГАТИВ действие чужой роли → 403", async () => {
-    if (!story.yellow) throw new Skip("нет жёлтого события");
-    const r = await http("POST", `/api/events/${story.yellow.id}/actions`, { role: "master", body: { action: "confirm" } });
+    const id = story.yellow?.id ?? 1;
+    const r = await http("POST", `/api/events/${id}/actions`, { role: "master", body: { action: "confirm" } });
+    notReady(r, "POST actions");
     must(r.status === 403, `→ ${r.status} ${r.data.code}`);
-  }, { gate: "story" });
+  }, { needs: ["server"] });
 
   await step("НЕГАТИВ X-Actor длиннее 60 → 422", async () => {
-    if (!story.yellow) throw new Skip("нет жёлтого события");
-    const r = await http("POST", `/api/events/${story.yellow.id}/actions`, { role: "operator", actor: encodeURIComponent("Я".repeat(61)), body: { action: "false_alarm" } });
+    const id = story.yellow?.id ?? 1;
+    const r = await http("POST", `/api/events/${id}/actions`, { role: "operator", actor: encodeURIComponent("Я".repeat(61)), body: { action: "false_alarm" } });
     must(r.status === 422, `→ ${r.status} ${r.data.code}`);
-  }, { gate: "story" });
+  }, { needs: ["server"] });
 
   await step("evidence: кадр image/jpeg, затем 404 при fault", async () => {
     const d = await http("GET", `/api/events/${story.red?.id ?? anyEvent()}`, { role: "operator" });
@@ -446,17 +459,16 @@ async function main() {
     await fetch(`${REST}/__demo/fault/off`, { method: "POST" });
     must(miss.status === 404 && miss.data.code === "not_found", `при fault → ${miss.status}`);
     return `${ok.bytes.length} байт, fault → 404`;
-  }, { gate: "story" });
+  }, { needs: ["server"] });
 
-  await step("fault 500 → ApiError, затем off", async () => {
-    if (!MOCK) throw new Skip("инъекция ошибок есть только в моке");
+  if (MOCK) await step("fault 500 → ApiError, затем off", async () => {
     await fetch(`${REST}/__demo/fault/500`, { method: "POST" });
     const r = await http("GET", "/api/operator/dashboard");
     await fetch(`${REST}/__demo/fault/off`, { method: "POST" });
     must(r.status === 500 && r.data.code === "internal", `→ ${r.status}`);
     const back = await http("GET", "/api/operator/dashboard");
     must(back.status === 200, `после off → ${back.status}`);
-  }, { gate: "server" });
+  }, { needs: ["server"] });
 
   await step("WS-разрыв → переподключение, hello, REST совпадает", async () => {
     if (MOCK) {
@@ -477,7 +489,7 @@ async function main() {
       must(s1.state === "normal" && s1.open_red === 0, `сектор 1: ${s1.state}, red ${s1.open_red}`);
     }
     return MOCK ? "server drop" : "client drop";
-  }, { gate: "ws" });
+  }, { needs: ["server", "ws"] });
 
   await step("контракт: ответы и WS-сообщения по схемам", async () => {
     if (!openapi && !validateWs) throw new Skip("contract/*.json нет");
@@ -496,4 +508,12 @@ console.log("");
 for (const r of rows) console.log(`${r.result.padEnd(4)}  ${r.step.padEnd(width)}  ${r.detail}`);
 const count = (k) => rows.filter((r) => r.result === k).length;
 console.log(`\nPASS ${count("PASS")} · FAIL ${count("FAIL")} · SKIP ${count("SKIP")} · target=${TARGET}`);
-process.exit(count("FAIL") ? 1 : 0);
+// 0: every step passed, the target is ready for the show; 1: a step failed; 3: no failures,
+// but skipped steps (a slice is not done yet): not ready.
+const verdict = count("FAIL") ? 1 : count("SKIP") ? 3 : 0;
+console.log(
+  verdict === 0 ? "ГОТОВ К ПОКАЗУ: весь сценарий прошёл"
+    : verdict === 1 ? "НЕ ГОТОВ: есть FAIL"
+      : "НЕ ГОТОВ: часть шагов SKIP (слайсы не закрыты), FAIL нет",
+);
+process.exit(verdict);

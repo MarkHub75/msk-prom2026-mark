@@ -67,7 +67,7 @@ export class Mock {
   zone(id) { return id == null ? null : this.zones.find((z) => z.id === id); }
   event(id) {
     const e = this.events.find((x) => x.id === id);
-    if (!e) throw new AppError(404, "not_found", "Не найдено", { event_id: id });
+    if (!e) throw new AppError(404, "not_found", "Событие не найдено", { event_id: id });
     return e;
   }
 
@@ -171,7 +171,7 @@ export class Mock {
 
   sectorView(id) {
     const s = this.sector(id);
-    if (!s) throw new AppError(404, "not_found", "Не найдено", { sector_id: id });
+    if (!s) throw new AppError(404, "not_found", "Сектор не найден", { sector_id: id });
     const cams = this.cameras.filter((c) => c.sector_id === id);
     return {
       sector: this.sectorState(s),
