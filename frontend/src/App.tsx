@@ -8,6 +8,8 @@ import { MasterPage, ShiftPage } from "./features/Master";
 import { JournalPage } from "./features/Journal";
 import { ReportPage } from "./features/Report";
 import { StatsPage } from "./features/Stats";
+import { AdminCamerasPage } from "./features/AdminCameras";
+import { CameraSetupPage } from "./features/CameraSetup";
 import { useRole } from "./roles";
 
 export function App() {
@@ -27,8 +29,8 @@ export function App() {
         <Route path="/ohs/rules" element={<StubNotice slice={9} title="Правила наблюдения" />} />
         <Route path="/ohs/stats" element={<StatsPage />} />
         <Route path="/management" element={<StatsPage management />} />
-        <Route path="/admin/cameras" element={<StubNotice slice={1} title="Управление камерами" />} />
-        <Route path="/admin/cameras/:cameraId" element={<StubNotice slice={2} title="Настройка камеры" />} />
+        <Route path="/admin/cameras" element={<AdminCamerasPage />} />
+        <Route path="/admin/cameras/:cameraId" element={<CameraSetupPage />} />
         <Route path="/admin/system" element={<StubNotice slice={3} title="Состояние системы" />} />
         <Route path="*" element={<Navigate to={menuFor(role)[0]?.path ?? "/operator"} replace />} />
       </Routes>
