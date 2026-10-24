@@ -182,3 +182,45 @@ Both required conditions failed: macro F1 decreased and helmet recall fell .04. 
 Native mean four-call time was36.39ms; full per-image tile processing averaged137.11ms, p95 196.54ms. Full timing includes preprocessing, tile decoding, global NMS and diagnostic raw-NPZ writes; it excludes image loading and model initialization. It is neither device-only latency nor LinQ performance. Artifacts are `/workspace/artifacts/quality/helmet/h02-tiles-v1/`: frozen-input.json,208 raw NPZ captures, predictions.json, tile-metadata.json, comparison.json and run.json. Source/candidate artifacts and the baseline were preserved.
 
 The failed-hypothesis budget is exhausted: increased confidence was family1, fixed tiling family2. Freeze the existing full-frame helmet-v1 at confidence .25/NMS .45. No further Helmet parameter search is performed. Because this candidate failed native validation, its potential LinQ tile gate and independent final test were not run; no production manifest or external interface was changed.
+
+### Night E001: frozen Helmet quantized-reference evaluation
+
+`ml.quality.helmet.quantized` consumes the exact consumer READY snapshot twice,
+requiring `helmet-quality-v3-52/detection_quality` and
+`mendeley8-calibration-v1/calibration` before a forward. The GT JSON byte SHA and
+its semantic dataset digest are separate identities. All52 validation images
+must be pinned by READY; Construction remains development-only with confirmed
+source-photo overlap, AI-only annotation review and unresolved upstream photo
+rights. No sealed test or training data is implied by these results.
+
+The runner uses the existing SDK CPU hardware-aware graph and recorded input /
+output scales, two CPU threads, RGB640 preprocessing, raw confidence floor.001,
+class-aware NMS.45 and primary confidence.25. It preserves named numeric output
+NPZs, transforms, complete prediction maps, metrics and input/artifact hashes in
+fresh output directories. This is **SIMULATED**, never actual LinQ execution.
+`--float-onnx` provides a fixed-source ORT CPU control without a new hypothesis.
+
+The single diverse-calibration candidate uses the unchanged reviewed Helmet
+ONNX and the existing8-tensor Mendeley corpus; no threshold, tiling or network
+weight variants. Acceptance is predeclared against the CURRENT quantized
+baseline: macro F1 gain>=.01, no class recall decrease>.02, and bare-head FP
+nonincrease. Even a passing simulated comparison requires actual LinQ parity and
+independent quality gates before release. Existing native predictions are reused;
+no new native forward or training is authorized by this runner.
+
+E001 completed on the same fixed52 quality-v3 images. Frozen existing native and
+original Float ONNX control have identical class counts and AP/F1 (macro F1
+.716422287; bare-head recall.71875). The current PTQ simulator has macro F1
+.741682360 but bare-head recall.59375: the .125 recall loss is downstream of
+original float export. Conditioning, PTQ and the simulator codec were not
+individually isolated; no actual hardware-quality conclusion follows.
+
+The single Mendeley8 candidate compiled O1/H1M in61.81s, then scored macro F1
+.735185185 (delta-.006497175 versus current PTQ), with unchanged per-class recalls
+and one extra helmet FP. It is REJECTED; baseline remains preserved. Raw output,
+prediction, hash and timing evidence is under
+`/workspace/artifacts/night-20261024/E001/`; `summary.json` records all paired
+metrics. CPU reference runs took112.63s baseline,110.79s candidate and4.68s float
+control. No native rerun, GPU, training, new data, remote staging or actual LinQ
+execution occurred. Night Helmet hypothesis1 failed; a separate training
+hypothesis remains blocked without producer-approved READY training data.
