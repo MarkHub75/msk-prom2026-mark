@@ -4,7 +4,7 @@
     "at": "2026-10-24T07:30:00.000Z",
     "data": {
       "server_now": "2026-10-24T07:30:00.000Z",
-      "contract": "1.0.0",
+      "contract": "1.1.0",
       "role": "operator"
     }
   },
@@ -35,7 +35,17 @@
       "ended_at": null,
       "duration_s": 2.5,
       "priority": 2,
-      "is_demo": false
+      "is_demo": false,
+      "clip": {
+        "video_id": 7,
+        "url": "/api/videos/7/file#t=9.5,20.0",
+        "start_ms": 9500,
+        "end_ms": 20000,
+        "playable": true
+      },
+      "person_name": "",
+      "person_position": "",
+      "crew": ""
     }
   },
   {
@@ -65,7 +75,17 @@
       "ended_at": null,
       "duration_s": 2.5,
       "priority": 2,
-      "is_demo": false
+      "is_demo": false,
+      "clip": {
+        "video_id": 7,
+        "url": "/api/videos/7/file#t=9.5,20.0",
+        "start_ms": 9500,
+        "end_ms": 20000,
+        "playable": true
+      },
+      "person_name": "Петров А. С.",
+      "person_position": "Кладовщик",
+      "crew": "Бригада 2"
     }
   },
   {
@@ -95,7 +115,17 @@
       "ended_at": null,
       "duration_s": 2.5,
       "priority": 3,
-      "is_demo": false
+      "is_demo": false,
+      "clip": {
+        "video_id": 7,
+        "url": "/api/videos/7/file#t=9.5,20.0",
+        "start_ms": 9500,
+        "end_ms": 20000,
+        "playable": true
+      },
+      "person_name": "",
+      "person_position": "",
+      "crew": ""
     }
   },
   {

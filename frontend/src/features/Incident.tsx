@@ -21,7 +21,7 @@ import "../styles/operator-depth.css";
 import { duration, Empty, ErrorNotice, Loading, number, Status, time } from "../components/ui";
 
 const IC = { size: 15, strokeWidth: 1.75, "aria-hidden": true } as const;
-const HISTORY: Record<EventAction["action"], string> = {published:"Событие опубликовано",viewed:"Открыто оператором",confirmed:"Событие подтверждено",false_alarm:"Ложное срабатывание",sent_to_master:"Передано мастеру",level_escalated:"Повышен уровень",timeout_escalated:"Эскалация по таймауту",master_accepted:"Мастер принял в работу",resolved:"Меры приняты · завершено",auto_finished:"Автоматически завершено",superseded:"Заменено новым событием"};
+const HISTORY: Record<EventAction["action"], string> = {published:"Событие опубликовано",viewed:"Открыто оператором",confirmed:"Событие подтверждено",false_alarm:"Ложное срабатывание",sent_to_master:"Передано мастеру",level_escalated:"Повышен уровень",timeout_escalated:"Эскалация по таймауту",master_accepted:"Мастер принял в работу",resolved:"Меры приняты · завершено",auto_finished:"Автоматически завершено",superseded:"Заменено новым событием",identified:"Указан нарушитель"};
 // tech.md 8.14: buttons «Подтверждаю», «Ложное срабатывание», «Передать мастеру» on keys 1, 2, 3.
 const KEYS: Partial<Record<HumanAction, string>> = { confirm: "1", false_alarm: "2", send_to_master: "3" };
 const BY_KEY: Record<string, HumanAction> = { "1": "confirm", "2": "false_alarm", "3": "send_to_master" };
