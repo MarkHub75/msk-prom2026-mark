@@ -1,5 +1,27 @@
 # Evaluation report — quality sprint checkpoint
 
+## Night results — 24 October 2026 (supersedes historical readiness below)
+
+No model was promoted. MEASURED native/float and SIMULATED vendor PTQ are separate. All object metrics below use SAME52development images,44complete/class; helmet25GT, bare_head32GT. Confirmed upstream-photo overlap and AI-only review prevent independent accuracy claims. AP is the documented custom101-point evaluator, not an asserted exact COCO implementation.
+
+| Variant / execution | Helmet P / R / F1 | Bare P / R / F1 | MacroF1 | Decision |
+|---|---|---|---|---|
+| Native saved / original float ONNX CPU | .6333 / .7600 / .6909 | .7667 / .7188 / .7419 | .716422 | Float reproduces native counts/AP |
+| Original TPU graph, SIMULATED | .6765 / .9200 / .7797 | .8636 / .5938 / .7037 | .741682 | Retain runtime baseline; bare recall regression disclosed |
+| E001 data8 PTQ, SIMULATED | .6571 / .9200 / .7667 | .8636 / .5938 / .7037 | .735185 | REJECT |
+| E005 split-output PTQ, SIMULATED | .8000 / .4800 / .6000 | .2500 / .0313 / .0556 | .327778 | REJECT; float raw parity was bitwise |
+
+E004 UR20 partial-torso candidate: identical baseline/candidate TP1/FP0/FN9 at2FPS225frames, P1.0 (only one alert), R.10/F1.1818. At full3274frames TP0/FP0/FN10,F1=0,Pundefined. Cadences are separate comparisons; no apparent gain from sampling is claimed. Unknown-only reductions are not event improvement; option remains OFF.
+
+E002 EDF native320x240 vs half/restored,2584samples each: torso/frame .641254→.553793; frameUNKNOWN/missing .541796→.597523; positive support-window hits1/24→0/24; confirmation-in-window0/24both. Complement90.48% UNKNOWN; P/F1/falsealerts-hour/personrecall NOT_MEASURABLE. This measures input-information sensitivity, not independent event accuracy or fullperson recall. Two GPU passes86.636s combined, not LinQ speed.
+
+E003 CAVIAR baseline/H1/H2 all episodeTP0/FP0/FN3,R0,F1=0,Pundefined; frameTP0/FP0/FN46. Only11/528knownactorframes uniquely associated,0/46running associated; no accepted person316/345frames. Intrinsic running-vs-walking discrimination is NOT_MEASURABLE with zero running observations, although scoped end-to-end recall is measured0. One censored source window retained. Source-derived25FPS time is not original cameraPTS. Operational falsealerts/hour and Zone metrics NOT_MEASURABLE. Both motion hypotheses rejected; no third.
+
+All three directions exhausted the two-NEW-hypothesis budget. Existing trained checkpoints/TPU are unchanged. No fine-tuning (clean approved train/heldout unavailable), no new LinQ call, no eight-scenario quality claim. Newremote namespace/staging guards are software checked; no Matvey remote placement yet. Historical11real UR01calls131.018s/.083958FPS, RPCp50 10.630s/p95 18.967s remain historical timing, not realtime. New CAVIAR native mean9.32ms/median8.31ms is neural+output transfer only, not fullpipeline/TPU latency.
+
+Source summaries/hashes: ml/reports/night-20261024.json; graph data/decisions CSV beside it. Figures PNG/SVG/PDF: /workspace/artifacts/night-20261024/figures. Reproduction is report-only: /venv/main/bin/python scripts/summarize_ml_night.py. No test tuning or source data mutation.
+
+
 No candidate has been promoted. Software tests and hardware execution are separate from task accuracy. All quality numbers below are DEVELOPMENT diagnostics, not independent industrial test results.
 
 ## Helmet, fixed quality-v3

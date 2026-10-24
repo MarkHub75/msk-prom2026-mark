@@ -1,5 +1,13 @@
 # ML/CV quality sprint — progress
 
+## CLOSED 2026-10-24T01:22:34.026603+00:00 — final night checkpoint
+
+MEASURED: 397softwaretests PASS on codeb1b102bdba6bbfa1177da03a3a426a0510f36d2b, log /workspace/artifacts/night-20261024/software-tests-002.log. Attempt001 retained (1failure/1error in old staging fixture paths), fixtures corrected only. All E001–E005 results/6hypotheses/2perdirection frozen, no promotion/training/newremote calls. Summary127metric rows/decisionCSV/figures prepared; source SHA links in ml/reports/night-20261024.json. No independent test; all candidate quality rejections recorded, optionalflags OFF. Exact final documentation SHA is gitHEAD containing this entry (cannot self-embed its own hash).
+
+OBSERVED isolation closeout: root-owned deployment wrappers now agree with ownnamespace core; stale bootstrap caller/False-confirm/missingowner/foreignqueue/oldreceipt stop before submission. Local PREPARED bootstrap structure/hash/syntax PASS, payload2b1860be..., no publication. OwnMatvey placement/namespace-aware video runtime manifest still BLOCKED; oldcaptures terminaloffline only. No realVPN/disconnect/sharedservice test. Read-only LinQ agent review findings addressed; no credentials supplied to agents.
+
+OBSERVED preservation: model-only19file localarchive81,683,583bytes/SHA41bdddf35b647c76d04c2994187c529bf8285f2847ca9ecb91f043a418484601, everymemberhashverified. OffVastcopy BLOCKED no confirmeddestination; localGit commits saved, remote authunchanged/unverified, no repeatedauthenticationloops. All own GPUjobs done/released; no server/oldartifact stopped/deleted, no otherworktree/main/captain/backend/frontend changes. Source-search/training and newscenarios notstarted withoutapprovedREADY. See NIGHT_REPORT.md for honestjuryclaims/unknowns/next3actions. **Nightcycle stopped; waitfornewdirective.**
+
 ## Night checkpoint 2026-10-24T01:12:56.048453+00:00
 
 MEASURED / SIMULATED: E001–E005 finished, all three directions used their two NEW hypothesis budgets. No training, no new LinQ calls, no network/service changes. Root integrated Detection b26aaf74 and Behavior 0082c8de in isolated branches. Numeric summaries: ml/reports/night-20261024.json; graph-ready CSV and decision table beside it. Source artifacts remain immutable outside Git. Code checkpoint before this record: d9d616899992818d7d9bd5eafe99b338747ff2c3.
@@ -33,7 +41,7 @@ Shared infrastructure constraints are active: no network/VPN/SSH/firewall/servic
 
 Authority: current user directive, /workspace/ML_24H_PLAYBOOK.md and official case (20 pages visually read; PDF contains scanned slides). Application/backend/frontend work is frozen. Existing contracts and video pipeline are retained.
 
-Current checkpoint: Helmet and Fall are FROZEN runtime baselines after two failed hypothesis families each, improvement=false. Fall quality is NOT_ACCEPTED; independent test is absent. Running/Zone prototype+scorer are BASELINE/NOT_EVALUATED pending real GT.335 tests PASS. All specialized agents completed; no heavy ML process is running. Non-force push failed AUTHENTICATION_UNAVAILABLE/exit128; local commits saved, remote not verified. Model-only local archive is ready; external destination/account pending. The allocation/status paragraphs below are a historical log, superseded by this current checkpoint.
+Historical pre-night checkpoint: Helmet and Fall are FROZEN runtime baselines after two failed hypothesis families each, improvement=false. Fall quality is NOT_ACCEPTED; independent test is absent. Running/Zone prototype+scorer are BASELINE/NOT_EVALUATED pending real GT.335 tests PASS. All specialized agents completed; no heavy ML process is running. Non-force push failed AUTHENTICATION_UNAVAILABLE/exit128; local commits saved, remote not verified. Model-only local archive is ready; external destination/account pending. The allocation/status paragraphs below are a historical log, superseded by this current checkpoint.
 
 | UTC / MSK | Experiment | Problem / hypothesis | Action and evidence | Decision |
 |---|---|---|---|---|

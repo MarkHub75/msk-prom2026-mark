@@ -1,5 +1,23 @@
 # LQ-01: безопасный захват одного вызова из Jupyter LinQ
 
+## Текущее ограничение общего аккаунта — 24.10.2026
+
+**Нижние инструкции исторические. Не запускайте их команды с notebook_ очередями, root-cache путями или в kernel капитана.** Штатный ResNet50 и собственные Helmet/Split-Pose давно выполнены; их вызовы не повторять. Новые собственные файлы только /auto/cache/<runtime account>/matvey/, имена matvey_; запрещены baseline/ и mosprom_*_cut_ap9999*.tpu/чужие очереди. Не менять сеть/VPN/SSH/службы.
+
+Безопасная подготовка (офлайн, не публикует сообщение):
+
+```bash
+cd /workspace/project
+/workspace/.venvs/linq-client/bin/python -m ml.pipeline.upload_bootstrap --prepare-only
+```
+
+Подготовлены /workspace/artifacts/linq-rpc/matvey-bootstrap-v1/matvey_jupyter_upload_bootstrap.zip (ровно два проверенных helper-файла), matvey_upload_bridge.json и matvey_start_jupyter_upload.py. SHA payload2b1860be05e98adac98697262545e109d7a03a4703eabfe8197930493e35e2f0; PREPARED/не опубликован. Повторная подготовка использует ту же pinned metadata. Это не комплект моделей и не доказательство TPU-инференса.
+
+Следующий разрешённый этап требует отдельного Matvey notebook/kernel и уже настроенных приватных connection/header переменных штатного примера без нового запуска ResNet. Сначала просмотреть generatedcell; только после согласования нагрузки команды явно публиковать собственный bootstrap через --publish-own-bootstrap и читать его в собственном kernel. В эту ночь этого не делали. Helper ограничивает OMP/MKL/OpenBLAS/NUMEXPR2, OpenCV1, optional own ORT2/1; держится300с, <=4uploadmessages, касается только ownUUIDqueue и reviewedbaselinebytes. Нет прав на чужие файлы/очереди, не переносится всё окружение.
+
+Пока нет собственного Matvey stagingreceipt, **новые удалённые видеозапросы блокируются**. Исторический verifiedmanifest содержит старое program_name и пригоден для сохранённого офлайн-replay; он не подтверждает новое размещение. Перед следующим live этапом нужна reviewed namespace-aware runtime manifest привязка к НОВОМУ staged receipt (SHA/ABI исходной модели сохраняются), затем один собственный ограниченный вызов. Не переименовывать старый receipt или объявлять размещение выполненным. Старые pending UUID требуют явной receive-only проверки; их нельзя добавлять в legacy allowlist автоматически. Неопределённый запрос блокирует новые отправки, blindretry запрещён.
+
+
 Обновление: пользователь успешно выполнил штатный пример — status_code=0, класс257, ответ0,39с. Актуальный комплект: linq-jupyter-kit.zip, инструкции docs/JUPYTER_KIT.md и README внутри ZIP. Код удалённого вызова из example.ipynb пока не передан; нижний пример остаётся явным шаблоном привязки, а не утверждением о сигнатуре сервиса.
 
 Пользователь подтвердил доступ к аутентифицированному Jupyter и наличие штатного `example.ipynb` с программой ResNet50 TPU. Этот доступ не передан агенту. Старый preflight с Vast описывает только сеть и окружение Vast; он не опровергает доступ пользователя. Факт выполнения штатного вызова и его результаты нужно зафиксировать отдельно.

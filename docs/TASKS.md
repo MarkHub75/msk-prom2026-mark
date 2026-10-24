@@ -1,5 +1,15 @@
 # Active ML/CV task register
 
+## Ночной ML-этап 24.10.2026 — завершён
+
+- Инвентаризация: две обученные YOLOv8n модели, точные checkpoint/export версии, SHA256, исходные/отклонённые ONNX/TPU в ml/MODEL_INVENTORY.md.
+- E001/E005 Helmet, E002/E004 Fall, E003H1/H2 Running: две новые гипотезы на направление закрыты; ни одного promotion. История/метрики в ml/EXPERIMENTS.csv и ml/reports/night-20261024*. Ни одной новой тренировки или TPU-задачи.
+- Data Orchestrator handoff: read-only четыре READY версии, EDF/CAVIAR использованы строго в approved development scope. Независимый test/clean train/zone-policy GT не готовы.
+- Безопасность общего LinQ: matvey/ и matvey_ namespace, один собственный активный запрос между журналами, durable UNKNOWN, own bootstrap publication lock/fsync, старые completed captures доступны офлайн. Физическая сеть/очереди капитана не тронуты.
+- Проверки:397softwaretests PASS; новые графики PNG/SVG/PDF и контрольные суммы вне Git. Bootstrap только PREPARED, не опубликован; новое размещение в matvey/ не подтверждено.
+- Backend/frontend не менялись. Переход к интеграции/новым функциям в этот цикл не выполняется. NIGHT_REPORT.md и RESUME.md — точка продолжения. Новые heavy jobs не активны.
+
+
 ## Latest backend/recovery stage
 
 - Baseline c8dd54a2 clean and matched origin/matvey_cv. Mark backend code/URL not supplied; GitHub connector404 and noninteractive remote-head read failed. Actual external backend integration remains OPEN, not a local-test PASS.

@@ -98,7 +98,7 @@ SIMULATED paired225-frame event quality: both old/new TP1FP0FN9/F1.1818. REJECTE
 
 Architecture exactness: UNKNOWN at checkpoint/topology level; ResNet50 is the official example/program claim only. No separately supplied trained checkpoint or source ONNX. Source training version/exporter/IR/opset/calibration/quantization: UNKNOWN. Do not infer compiler preset/target solely from filename.
 TPU /workspace/artifacts/linq-api/torch_resnet50_b1_o5_h1m.tpu; SHA2560bac3ad590505fb20753e4888bec3fce9202a6e1c96cad3abe74a2a4b283d60c. Official example /workspace/artifacts/linq-api/example_torch_resnet50.py is hash-pinned in static audit.
-Input input.1 float32[1,3,224,224]; output495 float32[1,1000]. Classes are1000ImageNet logits/scores per example; exact class-index vocabulary/version UNKNOWN. Supplied example uses ImageNet mean/std normalization; preserve its exact code, not detector/255 preprocessing.
+Input input.1 float32[1,3,224,224]; output495 float32[1,1000]. Classes are1000ImageNet logits/scores per example; exact class-index vocabulary/version UNKNOWN. Supplied example center-crops a square85%of the short dimension, PIL-resizes224, then(RGB/255-mean[.485,.456,.406])/std[.229,.224,.225], classoffset1; preserve its exact default resize kernel, not detector/255 preprocessing.
 Actual automatic completion status0 and saved numerical/class checks exist under /workspace/artifacts/linq-rpc/resnet50-001. This is a stock service/format smoke test, not an industrial model. Do not rerun it as a network check.
 
 ## Shared infrastructure and preservation boundary
@@ -106,3 +106,14 @@ Actual automatic completion status0 and saved numerical/class checks exist under
 Historical execution paths/names are evidence only. NEW remote files must be under matvey/ with matvey_ names; protected captain/baseline programs and foreign queues are never touched. One own TPU request maximum, Jupyter CPU threads1–2. Own isolated staging and any new candidate LinQ qualification remain separately gated; no old root-cache submission is authorized by this inventory.
 
 Raw static audit subreports (no neural forward): /workspace/artifacts/night-20261024/inventory/{detection-audit,linq-audit}.json. SHA256 fields above refer to file bytes. Helmet dataset semantic digest39e13... differs from serialized JSON fileSHA346f74...; these identities must not be interchanged. Existing successful unit tests are software evidence, not model accuracy.
+
+## New night candidates — rejected, never deployed
+
+Both use the SAME YOLOv8n Helmet checkpoint05ed3a...; no new trained weights/version. Same exporter/IR/opset13/static640 preprocessing/decoder/conf.25/NMS.45 and8Mendeleycalibration tensorsSHA161c8692d1b15249762c6fcb28867c6eaf1c98f190729544d6e917015829544b; O1/TPU_H1M. Actual LinQ for both: NOT_RUN because validation failed. Preserve baseline for rollback.
+
+| Variant | Source ONNX / outputs | TPU SHA256 / artifact | SIMULATED decision |
+|---|---|---|---|
+| E001 matvey_helmet_ptq_mendeley8_v1 | Existing b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47, output0[1,6,8400]f32 | ecd5a8853745bc9055b7a2c8eb4ddee43177761b9b6e4a04048a32751b5fae5e; /workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/model.tpu | macroF1 .741682→.735185; bareR .59375unchanged; REJECT |
+| E005 matvey_helmet_split_v1 | e802cef32d4fc3398128b770ddc29d0ded6888a2e6a58a921e20202d306ee33a; /model.22/Mul_2_output_0[1,4,8400] and /model.22/Sigmoid_output_0[1,2,8400]f32; split_detect_v8 | 27c1801181a6637c1744a13e45a2713f3afbc36fce517ec6705696a51b8289f6; /workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/model.tpu | float52bitwiseequal, PTQ macroF1 .327778/bareR .03125; REJECT |
+
+E001 compile61.81s; E005 compile59.62s (CPU2, not device inference time). Split output changes quantization-boundary behavior despite float parity; scale/anchor audits saved, mechanism UNKNOWN. The baseline combined output already has per-channel scales. Baseline PTQ52diagnostic object metrics differ from saved native: helmetTP23FP11FN2, bareTP19FP3FN13; macro .741682. These are vendor SIMULATED values, not52newhardware calls. Fall/Running candidates change input/rules only and remain OFF/unpromoted; same pose architecture/checkpoint/ONNX/TPU. See report for all rejected decisions.

@@ -1,5 +1,7 @@
 # MOSPROM 2026 — AI knowledge index
 
+Current implementation/night evidence: [NIGHT_REPORT.md](NIGHT_REPORT.md), [MODEL_INVENTORY](ml/MODEL_INVENTORY.md), [SCENARIO_COVERAGE](ml/SCENARIO_COVERAGE.md), [RESUME](RESUME.md). The research snapshot below is historical; its missing-case/own-inference statements do not describe the current implementation.
+
 This repository supports a five-person team building industrial-safety video analytics for «Открой#Моспром» 2026. Neural inference must run on LinQ; CPU/RTX preparation does not satisfy that requirement. Public examples include missing helmets, removed respirators, dangerous-zone entry and smoking near flammables. They are **examples, not the complete technical case**. The saved schedule gives 23 October 13:00 → 25 October 10:00 MSK (45 hours).
 
 **Inventory:** ten topic directories under [Deep-Research](Deep-Research/), nine complete human/machine report pairs, and one **incomplete `model_stack`** investigation. No full organizer case or demonstrated own-model LinQ execution was found in the saved research. The reports mostly describe a morning-of-23-October preparation snapshot; compilation timestamps do not establish refreshed sources or current access.

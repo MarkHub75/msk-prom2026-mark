@@ -1,5 +1,7 @@
 # MOSPROM ML/CV implementation guide
 
+Night checkpoint is CLOSED: read NIGHT_REPORT.md and the top of RESUME.md. Do not automatically repeat E001–E005 or start another experiment; a new user directive is required after the report. Shared-infrastructure restrictions below remain active.
+
 ## Current directive: ML quality sprint
 
 Night cycle 2026-10-24 is explicitly authorized after the previous checkpoint. Do not repeat the previous confidence/tiling, upright-history or Pose industrial-PTQ hypotheses without new data. At most two NEW justified candidates per direction; evidence labels OBSERVED/MEASURED/SIMULATED/INFERRED/UNKNOWN, readiness flags may coexist. Root owns MODEL_INVENTORY.md, SCENARIO_COVERAGE.md, NIGHT_REPORT.md and the consumer handoff contract. Use immutable READY snapshots with verified bytes/hashes, split/groups, rights scope and task capabilities; READY for annotation is not event GT. No source discovery duplicated from Data Orchestrator and no automatic merge of its branch.

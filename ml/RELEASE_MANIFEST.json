@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "release_id": "mosprom-ml-quality-checkpoint-20261024",
-  "status": "FROZEN_RUNTIME_CHECKPOINT_QUALITY_GATES_OPEN",
+  "status": "NIGHT_CHECKPOINT_RUNTIME_FROZEN_NOT_INDEPENDENT_QUALITY_RELEASE",
   "baseline_code_commit": "13d255939834e3d86ea7f7ee90f7a46365e79a6b",
   "scope": "ML only; data intake handed to separate Data Orchestrator",
   "models": [
@@ -75,8 +75,33 @@
         "initial_capture": "/workspace/artifacts/linq-rpc/helmet-001",
         "new_video_capture": null
       },
-      "failed_hypotheses": 2,
-      "freeze_reason": "two justified hypothesis families rejected; baseline retained for rollback"
+      "failed_hypotheses": 4,
+      "freeze_reason": "two new bounded night hypotheses plus prior rejected cycle; no promotion; retain original hashes/config for rollback",
+      "readiness_flags": [
+        "BASELINE",
+        "EVALUATED_DEVELOPMENT_ONLY",
+        "LINQ_VERIFIED_HISTORICAL",
+        "FROZEN_RUNTIME",
+        "BLOCKED_INDEPENDENT_QUALITY"
+      ],
+      "historical_failed_hypotheses": 2,
+      "night_failed_hypotheses": 2,
+      "new_remote_placement_verified": false,
+      "new_remote_program_name": "matvey_helmet-v1.tpu",
+      "night_quantized_development": {
+        "evidence": "SIMULATED_CPU_NOT_HARDWARE",
+        "macro_f1": 0.7416823603264282,
+        "bare_head": {
+          "tp": 19,
+          "fp": 3,
+          "fn": 13,
+          "precision": 0.8636363636363636,
+          "recall": 0.59375,
+          "f1": 0.7037037037037037
+        },
+        "vs_native_bare_recall_delta": -0.125,
+        "report": "ml/reports/night-20261024.json"
+      }
     },
     {
       "model_id": "pose-split-v1",
@@ -179,11 +204,22 @@
         "initial_capture": "/workspace/artifacts/linq-rpc/pose-split-001",
         "new_video_capture": "/workspace/artifacts/quality/pose/e00-linq-urfall01-2fps"
       },
-      "failed_hypotheses": 2,
-      "freeze_reason": "two justified hypothesis families rejected; baseline retained for rollback"
+      "failed_hypotheses": 4,
+      "freeze_reason": "two new bounded night hypotheses plus prior rejected cycle; no promotion; retain original hashes/config for rollback",
+      "readiness_flags": [
+        "BASELINE",
+        "EVALUATED_DEVELOPMENT_ONLY",
+        "LINQ_VERIFIED_HISTORICAL",
+        "FROZEN_RUNTIME",
+        "BLOCKED_INDEPENDENT_QUALITY"
+      ],
+      "historical_failed_hypotheses": 2,
+      "night_failed_hypotheses": 2,
+      "new_remote_placement_verified": false,
+      "new_remote_program_name": "matvey_pose-split-v1.tpu"
     }
   ],
-  "scenario_matrix": "ml/SCENARIOS.md",
+  "scenario_matrix": "ml/SCENARIO_COVERAGE.md",
   "candidate_promoted": false,
   "final_test_status": "NOT_RUN_WAITING_FOR_DATA_ORCHESTRATOR",
   "off_vast_backup": {
@@ -191,7 +227,132 @@
     "local_archive": "/workspace/artifacts/quality/release/mosprom-ml-models-quality-checkpoint-20261024.tar.gz",
     "local_archive_sha256": "e30f1034b79b6d1610c047b131693c58f15fc667c42ed4fe7c26741c45292445",
     "local_archive_bytes": 84222307,
-    "external_copy_verified": false
+    "external_copy_verified": false,
+    "night_local_archive": {
+      "archive_path": "/workspace/artifacts/night-20261024/preservation/matvey_models_night_20261024.tar.gz",
+      "sha256": "41bdddf35b647c76d04c2994187c529bf8285f2847ca9ecb91f043a418484601",
+      "bytes": 81683583,
+      "model_files": 19,
+      "member_checksums_verified": true,
+      "external_backup_verified": false,
+      "blocker": "No confirmed authorized off-Vast destination/account; do not choose one autonomously.",
+      "files": [
+        {
+          "path": "/workspace/artifacts/detection/helmet/weights.pt",
+          "archive_name": "detection/helmet/weights.pt",
+          "sha256": "05ed3a517485292d42d6eb6c9be3987ea51cd162e04807d2741eadcac8a19e6c",
+          "bytes": 6229688
+        },
+        {
+          "path": "/workspace/artifacts/detection/helmet/weights.onnx",
+          "archive_name": "detection/helmet/weights.onnx",
+          "sha256": "b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47",
+          "bytes": 12239437
+        },
+        {
+          "path": "/workspace/artifacts/detection/helmet/manifest.json",
+          "archive_name": "detection/helmet/manifest.json",
+          "sha256": "71d6a489f1e2c1b10214371482f5bb4d928d9d2c9585d2d7782b10514d18e7cc",
+          "bytes": 1121
+        },
+        {
+          "path": "/workspace/artifacts/linq-sdk/helmet-compile/model.tpu",
+          "archive_name": "linq-sdk/helmet-compile/model.tpu",
+          "sha256": "408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa",
+          "bytes": 2751596
+        },
+        {
+          "path": "/workspace/artifacts/linq-sdk/helmet-compile/compile-report.json",
+          "archive_name": "linq-sdk/helmet-compile/compile-report.json",
+          "sha256": "afcfa19735bf674e89cd2176baf009376dccc7ee89e0a801490c1653bf7a25c9",
+          "bytes": 826
+        },
+        {
+          "path": "/workspace/artifacts/detection/pose-split/weights.pt",
+          "archive_name": "detection/pose-split/weights.pt",
+          "sha256": "c6fa93dd1ee4a2c18c900a45c1d864a1c6f7aba75d84f91648a30b7fb641d212",
+          "bytes": 6832633
+        },
+        {
+          "path": "/workspace/artifacts/detection/pose-split/weights.onnx",
+          "archive_name": "detection/pose-split/weights.onnx",
+          "sha256": "802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00",
+          "bytes": 13502215
+        },
+        {
+          "path": "/workspace/artifacts/detection/pose-split/manifest.json",
+          "archive_name": "detection/pose-split/manifest.json",
+          "sha256": "eac2ba5e8f46c5ecfad8ec3d09b2fd96d8d53ebc564c04685b4e505f2a339a35",
+          "bytes": 1988
+        },
+        {
+          "path": "/workspace/artifacts/linq-sdk/pose-split-compile/model.tpu",
+          "archive_name": "linq-sdk/pose-split-compile/model.tpu",
+          "sha256": "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b",
+          "bytes": 2929222
+        },
+        {
+          "path": "/workspace/artifacts/linq-sdk/pose-split-compile/compile-report.json",
+          "archive_name": "linq-sdk/pose-split-compile/compile-report.json",
+          "sha256": "f108c34cccb87a8a7c4542da854ae5664e6c43586c79687ef41b25dbaaabd3f5",
+          "bytes": 1300
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/model.tpu",
+          "archive_name": "night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/model.tpu",
+          "sha256": "ecd5a8853745bc9055b7a2c8eb4ddee43177761b9b6e4a04048a32751b5fae5e",
+          "bytes": 2756345
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/compile-report.json",
+          "archive_name": "night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/compile-report.json",
+          "sha256": "b0875a99d4fdd280efc8e04189d972f925bfe80d00407257d9fd97cfc1d2b9ec",
+          "bytes": 900
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/quantized.qm.onnx",
+          "archive_name": "night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/quantized.qm.onnx",
+          "sha256": "6b6f0edbdafe8bd3e090b34d046e09baa834a376284244b1e49b5be7310ed4b4",
+          "bytes": 3365347
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/optimized.onnx",
+          "archive_name": "night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/optimized.onnx",
+          "sha256": "792f7eb4f7c29a9da612acb70cfb1713a8a15376952cbc8c12ff678cac4ba4b4",
+          "bytes": 12252756
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/model.tpu",
+          "archive_name": "night-20261024/E005/matvey_helmet_split_v1/compile/model.tpu",
+          "sha256": "27c1801181a6637c1744a13e45a2713f3afbc36fce517ec6705696a51b8289f6",
+          "bytes": 2758844
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/compile-report.json",
+          "archive_name": "night-20261024/E005/matvey_helmet_split_v1/compile/compile-report.json",
+          "sha256": "2dfd14b333b85ed73e4a72299bbee24c5426ae64693174d3d55733fba1fbb366",
+          "bytes": 1150
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/quantized.qm.onnx",
+          "archive_name": "night-20261024/E005/matvey_helmet_split_v1/compile/quantized.qm.onnx",
+          "sha256": "561117118cfaf829d581190c0ba0c3926aa4fa81b203abb3058fe2c97f49639d",
+          "bytes": 3499362
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/optimized.onnx",
+          "archive_name": "night-20261024/E005/matvey_helmet_split_v1/compile/optimized.onnx",
+          "sha256": "9e518a8a75b6ae87e087eb7c49ccb34c78534cfcdec610e4f45cba985ef0dde4",
+          "bytes": 12252070
+        },
+        {
+          "path": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/weights.onnx",
+          "archive_name": "night-20261024/E005/matvey_helmet_split_v1/weights.onnx",
+          "sha256": "e802cef32d4fc3398128b770ddc29d0ded6888a2e6a58a921e20202d306ee33a",
+          "bytes": 12254729
+        }
+      ]
+    }
   },
   "candidates": [
     {
@@ -200,6 +361,26 @@
       "program_sha256": "0aed469bd7771348ca39c3a3d429166a74e26cb97154ca655a6491800cb67918",
       "status": "REJECTED_NO_EVENT_QUALITY_GAIN; NOT_DEPLOYED; LINQ_NOT_RUN",
       "paired_validation_report": "/workspace/artifacts/quality/pose/e03-paired-event-comparison.json"
+    },
+    {
+      "exp_id": "E001",
+      "model_id": "matvey_helmet_ptq_mendeley8_v1",
+      "architecture": "same YOLOv8n Helmet weights; E005 output ABI variant only",
+      "program": "/workspace/artifacts/night-20261024/E001/matvey_helmet_ptq_mendeley8_v1/compile/model.tpu",
+      "program_sha256": "ecd5a8853745bc9055b7a2c8eb4ddee43177761b9b6e4a04048a32751b5fae5e",
+      "bytes": 2756345,
+      "status": "REJECTED_NO_PAIRED_QUALITY_GAIN_NOT_DEPLOYED_LINQ_NOT_RUN",
+      "report": "/workspace/artifacts/night-20261024/E001/summary.json"
+    },
+    {
+      "exp_id": "E005",
+      "model_id": "matvey_helmet_split_v1",
+      "architecture": "same YOLOv8n Helmet weights; E005 output ABI variant only",
+      "program": "/workspace/artifacts/night-20261024/E005/matvey_helmet_split_v1/compile/model.tpu",
+      "program_sha256": "27c1801181a6637c1744a13e45a2713f3afbc36fce517ec6705696a51b8289f6",
+      "bytes": 2758844,
+      "status": "REJECTED_NO_PAIRED_QUALITY_GAIN_NOT_DEPLOYED_LINQ_NOT_RUN",
+      "report": "/workspace/artifacts/night-20261024/E005/summary.json"
     }
   ],
   "experimental_host_rules": [
@@ -213,44 +394,117 @@
       "status": "UNVALIDATED_PROTOTYPE_NOT_PRODUCTION_EVENT",
       "precision": null,
       "recall": null
+    },
+    {
+      "id": "E004",
+      "status": "REJECTED_NO_EVENT_GAIN",
+      "enabled_by_default": false
+    },
+    {
+      "id": "E003-H1",
+      "status": "REJECTED; source TP0 FP0 FN3",
+      "production_enabled": false
+    },
+    {
+      "id": "E003-H2",
+      "status": "REJECTED; source TP0 FP0 FN3",
+      "production_enabled": false
     }
   ],
   "components": {
-    "ml/detection/codec.py": "bd6364768b93a05f277002f4c2541438cf044d0e625f31f376861593f7ab33e7",
-    "ml/behavior/engine.py": "13cf1e8140ee622d13af6d9b5426c54a40b59adb1151d06fe577cf1c4fe20052",
+    "ml/detection/codec.py": "c7038a77ab9f69bc7eb4701fe38f10ce4214957f2cec59ef085c2b9c07f7c3f0",
+    "ml/behavior/engine.py": "fa5bb8ec4bfabd3ce36dff40e6c0caa460569456d3304791db9e5497451108e6",
     "ml/pipeline/file_video.py": "810077e348ff234f295eb1eddf1057a1e47c6c39d31053bb3a97b3736ac614c9",
-    "ml/linq/video.py": "59d520c0ae513800d219d2d7ad8e6283539b15f62dfffcbc5020116c31fc55e8",
+    "ml/linq/video.py": "11204894f1f7b59767063e78fcba5f9c4b58c342a0cbe7a3953603dfadc8ab37",
     "ml/quality/temporal/evaluation.py": "b11641d7c64c4a66959b199bb07f04b7f9efb4b7496cf43fbdffc57cf8f2a796",
-    "ml/quality/temporal/running_zone.py": "477e854d1fa70809739759e7bd2748d92c3ff8ca3316ee5449b36a577469ba5e",
+    "ml/quality/temporal/running_zone.py": "70bd1447948443df69b3f9f4a3aaa1204a8436d251d898e4883759c6fad4f054",
     "ml/quality/pose_reference.py": "38d286e091e4d8e4d8c1bd0608bb70862df683586d5578a1963afbe145aada38",
     "ml/quality/replay.py": "bc0f4060062e5954623002e30ccbd9b217cb5686b3510f7b98ef4ec0acbdf0b1",
     "ml/linq/quantized_reference.py": "ebfa52d60527e385602f9ba9c392b913e3d2a717d1f1b270a7405a782076035a",
     "ml/linq/quantized_video.py": "6b8e182fedca48b8c4cbe9e3b53450a6d731d9513bb5a0c7678e1937f02f9787",
-    "ml/quality/temporal/motion_evaluation.py": "fc4f9da9ec8087e6983d0fc3a1f6710374972f654d809e208be0b6b6ddb6f8ab"
+    "ml/quality/temporal/motion_evaluation.py": "fc4f9da9ec8087e6983d0fc3a1f6710374972f654d809e208be0b6b6ddb6f8ab",
+    "ml/quality/handoff.py": "669c492b8e8c342b216da480355435644f2026b89f6d4fc776ce769c7b2a5d32",
+    "ml/quality/edf_reference.py": "978f5a23add2cabf46c4d13d77c2e7753afdebcf992d4f2a6cc1597e64229e0d",
+    "ml/quality/temporal/caviar.py": "53a08a34836bcf3a35df3961a4b83a3f219e77453cb39cc17763bd3e2340ee37",
+    "ml/quality/temporal/caviar_features.py": "c5168cf76da921f75e2818e51818390996b77e42ebd02602700f46780cb3f821",
+    "ml/detection/split_detect.py": "0bada1efe45281073b3417c97fd96f0d66d919271850fcf802253f7ad0db45df",
+    "ml/linq/namespace.py": "5ad73d2a2d1e6e159c8c7d3350249fca7958afd48e715db787498bfe1aa23d5c",
+    "ml/linq/admission.py": "eec3dfc526d7feceb1ea23be291db0056720a3c7df2a32bf9858d444622ca887",
+    "ml/linq/amqp.py": "d3ef268449058827a82cda77b0f80a8a85778f0e5406246cf0688abfafaef2f9",
+    "ml/linq/upload_agent.py": "1d38926de747b995bd4c12e4a2553f0cecb70b50ccd8e3dfc80bc135a2cd2775",
+    "ml/pipeline/stage_program.py": "5629c7e4c6e95e5d34409e9d40021d6c43ba3064eb444176cc6580fa44a351af",
+    "ml/pipeline/upload_bootstrap.py": "9ea17252f459c0137e964191a8b7b40b7d5039a0075f8089276a940e50bb0b08",
+    "ml/pipeline/remote_deploy.py": "9548100343f03dd7493d3b451f82425949e8231845c9b070fae15d4a1077718e",
+    "scripts/summarize_ml_night.py": "6f300312645eaf1976661f26ee8afdf92f0c076c91b21ee9e521e87f5a04eb1b"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
     "independent_test": "NONE_EVALUATED",
     "test_tuning": false,
     "helmet_validation_semantic_digest": "39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a",
-    "helmet_validation_manifest_file_sha256": "346f74cab99ddc2cc9c0f18b3efd95027a0b1ea782738469f502bc771dfd27e0"
+    "helmet_validation_manifest_file_sha256": "346f74cab99ddc2cc9c0f18b3efd95027a0b1ea782738469f502bc771dfd27e0",
+    "night_ready_releases": [
+      {
+        "dataset_id": "shel5k-sourcebox-diagnostic19",
+        "version": "v1-20261024",
+        "manifest_sha256": "552e821ee6c758d12b10414347c056052bc230c5ab40e5bc2f57633e9c3a8155",
+        "role": "TASK_SCOPED_DEVELOPMENT_ONLY"
+      },
+      {
+        "dataset_id": "mendeley-factory-replay16",
+        "version": "v1-20261024",
+        "manifest_sha256": "0a51efec6b04dba61bfde9ff24d8f48e418094b0f51789f35f49e5da99458a16",
+        "role": "TASK_SCOPED_DEVELOPMENT_ONLY"
+      },
+      {
+        "dataset_id": "edf-native-fall-source3",
+        "version": "v1-20261024",
+        "manifest_sha256": "938eee89db240694263a78e282e836ccd84170dba694e392666884d8a8dec284",
+        "role": "TASK_SCOPED_DEVELOPMENT_ONLY"
+      },
+      {
+        "dataset_id": "caviar-running-walking-source3",
+        "version": "v1-20261024",
+        "manifest_sha256": "8141488a97d3cdad6e4d322b85177d6db3d95667858153e027a1b598cb4f9ae7",
+        "role": "TASK_SCOPED_DEVELOPMENT_ONLY"
+      }
+    ],
+    "final_test_used": false,
+    "clean_approved_training": "NOT_AVAILABLE_NO_TRAINING"
   },
-  "updated_utc": "2026-10-23T23:48:06.996949+00:00",
+  "updated_utc": "2026-10-24T01:19:00.035821+00:00",
   "software_tests": {
-    "last_completed": 335,
+    "last_completed": 397,
     "status": "PASS",
+    "code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
     "environment": "/workspace/.venvs/linq-client",
-    "evidence": "/workspace/artifacts/quality/software-tests-final.log",
-    "scope": "software checks, not model accuracy"
+    "evidence": "/workspace/artifacts/night-20261024/software-tests-002.log",
+    "scope": "software/fault/fixture checks, not model accuracy",
+    "first_attempt": {
+      "tests": 397,
+      "failures": 1,
+      "errors": 1,
+      "evidence": "/workspace/artifacts/night-20261024/software-tests-001.log",
+      "reason": "two upload recovery fixtures still used the old staging directory; fixed test fixture paths only"
+    }
   },
   "running_zone": {
-    "stage": "BASELINE",
+    "stage": "FROZEN_PROTOTYPE",
     "implementation": "UNVALIDATED_OFFLINE_PROTOTYPE_AND_SCORER",
-    "quality_status": "NOT_EVALUATED",
+    "quality_status": "NOT_ACCEPTED; source running TP0 FP0 FN3",
     "precision": null,
-    "recall": null,
-    "report": "ml/reports/running-zone-readiness.json",
-    "annotation_handoff": "ml/quality/temporal/MOTION_EVAL.md"
+    "recall": 0.0,
+    "report": "ml/reports/night-20261024.json",
+    "annotation_handoff": "ml/quality/temporal/MOTION_EVAL.md",
+    "readiness_flags": [
+      "BASELINE",
+      "EVALUATED_SOURCE_SCOPE",
+      "FROZEN_PROTOTYPE",
+      "BLOCKED_INDUSTRIAL_QUALITY"
+    ],
+    "f1": 0.0,
+    "zone_quality": "NOT_MEASURABLE_NO_GT",
+    "independent_test": false
   },
   "resource_status": "IDLE; no GPU or CPU model job running",
   "git_preservation": {
@@ -259,18 +513,61 @@
     "force": false,
     "push_returncode": 128,
     "status": "LOCAL_COMMITS_SAVED_PUSH_BLOCKED",
-    "reason": "AUTHENTICATION_UNAVAILABLE",
+    "reason": "Existing authentication failure unchanged; no repeated authentication loops",
     "seconds": 1.2984386160969734,
     "latest_local_commit": "git HEAD of containing manifest",
-    "remote_verified": false
+    "remote_verified": false,
+    "night_code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
+    "night_status": "LOCAL_COMMITS_SAVED_REMOTE_UNVERIFIED",
+    "night_push_attempted": false
   },
   "night_cycle": {
-    "status": "ACTIVE",
+    "status": "CLOSED_BOUNDED_EXPERIMENTS_COMPLETE",
     "started_utc": "2026-10-24T00:31:35.783154+00:00",
     "baseline_commit": "1bdeeafc",
     "network_mutations": false,
-    "new_remote_tasks": "BLOCKED_UNTIL_MATVEY_ISOLATION_AND_STAGING",
+    "new_remote_tasks": "BLOCKED_UNTIL_OWN_MATVEY_STAGING_AND_REVIEWED_RUNTIME_MANIFEST",
     "dataset_handoff": "/workspace/shared/dataset-handoff/READY.json",
-    "existing_ml_ready": "/workspace/shared/dataset-handoff/ml-baseline-night-v1/READY.json"
+    "existing_ml_ready": "/workspace/shared/dataset-handoff/ml-baseline-night-v1/READY.json",
+    "closed_utc": "2026-10-24T01:19:00.035821+00:00",
+    "code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
+    "new_training_runs": 0,
+    "new_real_linq_requests": 0,
+    "new_hypotheses": {
+      "helmet": 2,
+      "fall_lying": 2,
+      "running": 2
+    },
+    "promotion": false,
+    "data_orchestrator_worktree_modified": false,
+    "backend_frontend_modified": false
+  },
+  "model_inventory": "ml/MODEL_INVENTORY.md",
+  "night_report": "NIGHT_REPORT.md",
+  "linq_shared_safety": {
+    "new_files": "runtime account matvey/ only",
+    "new_names": "matvey_ prefix",
+    "own_active_tpu_limit": 1,
+    "admission": "durable cross-journal fence and nonblocking flock; UNKNOWN blocks fresh tasks",
+    "reply_queues": "matvey_reply_<canonical UUID>; never foreign discovery/declare/consume/delete",
+    "bootstrap": "PREPARED_ONLY_NOT_PUBLISHED",
+    "bootstrap_sha256": "2b1860be05e98adac98697262545e109d7a03a4703eabfe8197930493e35e2f0",
+    "new_staging": "NOT_PERFORMED",
+    "network_mutations": false,
+    "captain_files_or_queues_touched": false,
+    "jupyter_threads": {
+      "OMP": 2,
+      "OpenCV": 1,
+      "own_ORT_intra": 2,
+      "own_ORT_inter": 1
+    },
+    "actual_new_namespace_hardware_test": "NOT_RUN"
+  },
+  "presentation": {
+    "summary": "ml/reports/night-20261024.json",
+    "metric_csv": "ml/reports/night-20261024-metrics.csv",
+    "decision_csv": "ml/reports/night-20261024-decisions.csv",
+    "figures": "/workspace/artifacts/night-20261024/figures",
+    "source_hashes_verified": true
   }
 }

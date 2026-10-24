@@ -1,5 +1,15 @@
 # Error analysis — measured checkpoint
 
+## Night error analysis — measured limits
+
+- E001: Native→floatONNX keeps class metrics; downstream conditioning/PTQ/simulator changes bare TP23→19 and FN9→13. Aggregate macroF1 rise hides class recall loss. Eight-image calibration did not repair it. No isolated conditioned-float control: do not claim a proven PTQ mechanism.
+- E005: Removing finalconcat preserves all52float tensors bitwise, but split PTQ macroF1 drops to.327778. Anchors/names/mapping checked. Baseline has per-channel scales already, so a single combined globalscale is not the proven cause. Compiler/output-boundary sensitivity is INFERRED, not mechanistically established. Reject and preserve graphs/scale reports.
+- E002: Conditional torso/detection .7890→.7869 hides missing-person increase; unconditional torso/frame .6413→.5538 exposes it. Original source quality matters. Source fall-process is neither floorlying nor episode-onset GT. One support hit cannot be advertised as a confirmed timely fall.
+- E004: Partial torso reduces unknown counts without adding a true fall episode. Missing KPs cannot supply immobility. Default remains OFF.
+- E003: Upstream observation/ownership is the dominant observed bottleneck:0/46knownrunning actorframes associated. Neither apparent speed normalization nor bboxanchor repairs absent observations. Missing detections remainFN, not excluded from recall. No false-alerts/hour estimate from unknown/unboxed background.
+- Remaining unmeasured Helmet errors: held/neighbor helmet, hiddenhead, wearer association, small/distant heads. Existing object GT does not fully supervise them. Fall: alreadylying/work-on-floor/hardnegatives and3spositive support absent. Running: industrial gait/fastwalk/turns and approved zonepolicy absent. All require scoped independent actor-level data; no labels fabricated from clip captions.
+
+
 | Evidence | Error / consequence | Decision |
 |---|---|---|
 | Construction sourceaudit |1416pairs/1268proxycomponents;30cross-original-split components;10orphanlabels; confirmed pretraining-source photo overlap | Entire source development-only; no independent test claim |

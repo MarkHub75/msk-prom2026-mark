@@ -12,3 +12,16 @@ No target-site holdout or expert-adjudicated event GT was supplied. Dataset auth
 | OmniFall | Primary card/repo/temporal annotations audit, no bulk acquisition | License header/body conflict and separate source-video rights; cross-domain source/component split required |
 
 Data lives in /workspace/datasets/quality and /workspace/artifacts/quality. Source images/videos, full annotations and predictions are not committed. New sourcework/curation afterthelatestdirective is ownedbytheseparateDataOrchestrator; thiscard/CSVareexistingintakesnapshots. Dataset CSV stores provenance/checksums/grouping, not identifiable media. Any redistribution, training or external display beyond the verified licence scope remains gated.
+
+## Immutable producer handoff used during the night
+
+Only `/workspace/shared/dataset-handoff/READY.json` entries with matching release manifest/file hashes and exact approved use were consumed; no Data Orchestrator worktree changes/merge/search/download.
+
+| Release | Approved role and limits |
+|---|---|
+| SHEL5K diagnostic19/v1-20261024 |19images/312sourceobjects;8rawperson UNKNOWN; CC BY-NC3.0. Parser/geometry/QA only, not training, independent test or public employee imagery |
+| Mendeley replay16/v1-20261024 |16videos/3112frames, source already calibration-known, CC BY4.0; replay/import/calib preparation only. No actor/event/zone GT |
+| EDF native source3/v1-20261024 |3original320x240MP4/12917frames,24nativefall-process positive windows. Originalmedia/nativeGT CC BY4.0 via producer primary-source audit; staged air-mattress, fullfamily development. +/-1frame origin uncertainty; complementUNKNOWN. Not floorlying/immobility or industrial finaltest |
+| CAVIAR source3/v1-20261024 |1713JPEG/3XML, literal227running/2451walking annotations; visible226/2431 afterappearanceexclusions. Sharedcamera/actors development, sourceBY-SA versionunspecified. Localresearch only; originalJPEG ordinal*40ms nominaltime, not originalPTS; unboxed/otherstatesUNKNOWN |
+
+Root CSV adds release-level metadata references only, not copies of producer's individual asset records. Full verified assets/splits/checksums remain in each immutable release. No independent test or clean complete training release arrived; no training performed. Historical Helmet semanticdigest39e13... is not serializedGTfileSHA346f74...; current fields distinguish both.

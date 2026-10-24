@@ -1,5 +1,10 @@
 # Scenario quality register
 
+## Актуальный ночной итог
+
+Эта старая матрица сохранена как история предыдущего цикла. Текущие стадии и восемь сценариев: [SCENARIO_COVERAGE.md](SCENARIO_COVERAGE.md). CAVIAR теперь оценён на source-scoped development:0/3runningwindows, обе новые гипотезы отклонены; Zone по-прежнему без GT. Helmet E001/E005 и Fall E002/E004 также закрыты без promotion. Старые «ожидаем/не оценено» ниже не относятся к текущему READY/ночному циклу.
+
+
 Authority: official LinQ case page4 lists eight example scenarios, not an obligation to ship eight unvalidated recognizers. Helmet is supplementary. The app contract and existing production video worker are unchanged.
 
 Stage policy: BASELINE pins executable/checkpoint/config; EVALUATED requires saved TP/FP/FN and support on fixed labelled data; IMPROVED requires the predeclared validation criterion and LinQ qualification; FROZEN pins the best verified bundle and rollback. Unavailable prototypes remain BASELINE/NOT_IMPLEMENTED. A baseline may be frozen unchanged with improvement=false and open independent-test gates. At most two failed justified hypotheses per scenario; threshold .4/.5 are operating points of one hypothesis, not two unrelated experiments. No test-driven tuning.
