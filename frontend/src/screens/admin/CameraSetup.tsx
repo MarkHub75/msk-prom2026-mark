@@ -10,6 +10,7 @@ import { Timeline } from "../../components/Timeline";
 import { VideoWithHud } from "../../components/VideoWithHud";
 
 type Analysis = components["schemas"]["Analysis"];
+type Broadcast = components["schemas"]["Broadcast"];
 type Job = components["schemas"]["Job"];
 type Video = components["schemas"]["Video"];
 type Metrics = components["schemas"]["InferenceMetrics"] & { id: number };
@@ -63,6 +64,51 @@ function Episodes({ video, onSeek, onRecompute }: { video: Video; onSeek: (ms: n
           </div>
         </>
       )}
+    </>
+  );
+}
+
+const BROADCAST_STATUS: Record<Broadcast["status"], string> = {
+  playing: "идёт",
+  stopped: "остановлен",
+  ended: "запись закончилась",
+};
+
+// Tab «Эфир» (slice 6): start the latest ready video, stop, repeat in a loop.
+function BroadcastPanel({ cameraId, broadcast, onChange }: { cameraId: number; broadcast: Broadcast | null; onChange: () => void }) {
+  const [loop, setLoop] = useState(true);
+  const [error, setError] = useState<string>();
+  const path = { params: { path: { camera_id: cameraId } } };
+  const start = async () => {
+    setError(undefined);
+    const result = await api.POST("/api/cameras/{camera_id}/broadcast", { ...path, body: { loop } });
+    if (result.error) setError(result.error.message);
+    onChange();
+  };
+  const stop = async () => {
+    setError(undefined);
+    const result = await api.DELETE("/api/cameras/{camera_id}/broadcast", path);
+    if (result.error) setError(result.error.message);
+    onChange();
+  };
+  return (
+    <>
+      <h2>Эфир</h2>
+      <p>
+        {broadcast
+          ? `Эфир ${BROADCAST_STATUS[broadcast.status]}, цикл ${broadcast.cycle + 1}, повтор: ${broadcast.loop ? "да" : "нет"}`
+          : "Эфира нет"}
+      </p>
+      <label>
+        <input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} /> Повтор по кругу
+      </label>{" "}
+      <button type="button" onClick={() => void start()}>
+        Запустить эфир
+      </button>{" "}
+      <button type="button" disabled={broadcast?.status !== "playing"} onClick={() => void stop()}>
+        Остановить эфир
+      </button>
+      {error && <p role="alert">{error}</p>}
     </>
   );
 }
@@ -166,6 +212,7 @@ export function CameraSetup() {
         rows={view.data.videos}
         empty="Видео ещё нет"
       />
+      <BroadcastPanel cameraId={cameraId} broadcast={view.data.broadcast} onChange={view.reload} />
       <h2>Плеер</h2>
       {shown ? (
         <>

@@ -1,10 +1,17 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { api } from "../api/client";
 import { CameraSetup } from "./admin/CameraSetup";
 import { CamerasScreen } from "./admin/CamerasScreen";
 import { SystemScreen } from "./admin/SystemScreen";
+import { useWs, type WsMessage } from "../api/ws";
+import { playSound } from "../components/sound";
+import { TakeoverOverlay } from "../components/TakeoverOverlay";
+import { Toasts } from "../components/Toasts";
+import { CameraScreen } from "./operator/CameraScreen";
+import { OperatorDashboard } from "./operator/OperatorDashboard";
+import { SectorScreen } from "./operator/SectorScreen";
 
 // One smoke test per screen (tech.md 10.1): the screen renders with a stubbed `api`.
 vi.mock("../api/client", () => ({
@@ -15,6 +22,46 @@ vi.mock("../api/client", () => ({
   apiUrl: (path: string) => path,
 }));
 vi.mock("../api/ws", () => ({ useWs: vi.fn() }));
+const stopSound = vi.fn();
+vi.mock("../components/sound", () => ({
+  playSound: vi.fn(() => stopSound),
+  soundBlocked: () => false,
+  unlockSound: vi.fn(),
+}));
+
+// Handlers given to useWs by the rendered components; `push` delivers a message to all of them.
+function wsHandlers(): (message: WsMessage) => void {
+  const handlers: ((message: WsMessage) => void)[] = [];
+  vi.mocked(useWs).mockImplementation((handler) => {
+    handlers.push(handler);
+  });
+  return (message) => act(() => handlers.forEach((h) => h(message)));
+}
+
+const AT = "2026-10-24T09:00:00.000Z";
+const CAMERA = {
+  id: 7, sector_id: 1, name: "Пресс №2", description: "", is_demo: false,
+  has_calibration: false, zones_count: 0, videos_count: 1,
+};
+const SECTOR_STATE = {
+  sector_id: 1, name: "Сектор 5 · Склад", state: "no_observation", reason_text: "Нет наблюдения: 1 из 2 камер",
+  cameras_total: 2, cameras_no_observation: 1, open_yellow: 1, open_red: 0,
+};
+const CAMERA_STATE = {
+  camera_id: 7, sector_id: 1, state: "yellow", reason: null, reason_text: "Жёлтая опасность",
+  freshness_ms: null, open_yellow: 1, open_red: 0,
+};
+const EVENT = {
+  id: 9, scenario: "running", title: "Бег и резкие перемещения", level: "yellow", status: "new",
+  status_title: "Новое", operator_verdict: "none", escalated_by_timeout: false, mode: "replay", camera_id: 7,
+  camera_name: "Пресс №2", sector_id: 1, sector_name: "Сектор 5 · Склад", zone_id: null, zone_name: null,
+  reason_text: "Бег 2,4 роста/с", notification_text: "Жёлтая опасность · Сектор 5 · Бег 2,4 роста/с",
+  started_at: AT, published_at: AT, red_at: null, ended_at: null, duration_s: 4, priority: 2, is_demo: false,
+};
+const BROADCAST = {
+  id: 3, camera_id: 7, video_id: 3, analysis_id: 11, status: "playing", loop: true, cycle: 0,
+  started_at: AT, position_ms: 0, duration_ms: 20000, server_now: AT,
+};
 
 afterEach(() => {
   cleanup();
@@ -228,5 +275,105 @@ describe("screens", () => {
     expect(screen.getByText("Повторить")).toBeTruthy();
     fireEvent.click(screen.getByText("Проверить LinQ"));
     expect(await screen.findByText(/LinQ недоступен: туннель или VPN/)).toBeTruthy();
+  });
+
+  it("operator_dashboard_renders", async () => {
+    const push = wsHandlers();
+    vi.mocked(api.GET).mockResolvedValue({
+      data: { sectors: [SECTOR_STATE], feed: [EVENT], server_now: AT },
+    } as never);
+    render(
+      <MemoryRouter>
+        <OperatorDashboard />
+        <Toasts />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Сектор 5 · Склад")).toBeTruthy();
+    expect(screen.getByText(/Нет наблюдения: 1 из 2 камер/)).toBeTruthy();
+    expect(screen.getByText(/Сектор 5 · Склад · Бег 2,4 роста\/с/)).toBeTruthy();
+    push({
+      type: "notification", at: AT,
+      data: { id: "e9:published", event_id: 9, level: "yellow", text: EVENT.notification_text, audience: ["operator"], sound: "chime", takeover: false },
+    });
+    expect(await screen.findByText(/Жёлтая опасность · Сектор 5 · Бег 2,4 роста\/с/)).toBeTruthy();
+    expect(vi.mocked(playSound)).toHaveBeenCalledWith("chime");
+  });
+
+  it("sector_screen_renders", async () => {
+    vi.mocked(api.GET).mockResolvedValue({
+      data: {
+        sector: SECTOR_STATE,
+        cameras: [{ camera: CAMERA, state: CAMERA_STATE, broadcast: BROADCAST, preview_url: "/api/cameras/7/preview" }],
+        feed: [EVENT],
+      },
+    } as never);
+    render(
+      <MemoryRouter initialEntries={["/operator/sectors/1"]}>
+        <Routes>
+          <Route path="/operator/sectors/:sectorId" element={<SectorScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Пресс №2")).toBeTruthy();
+    expect(screen.getByText(/Жёлтая опасность/)).toBeTruthy();
+    expect(document.querySelector("img")?.getAttribute("src")).toBe("/api/cameras/7/preview?n=0");
+  });
+
+  it("camera_screen_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null); // jsdom has no canvas
+    const video = {
+      id: 3, camera_id: 7, filename: "demo.mp4", sha256: "ab", size_bytes: 10, width: 320, height: 240,
+      fps: 10, frame_count: 200, duration_ms: 20000, codec: "avc1", browser_playable: true,
+      status: "ready", active_analysis_id: 11, created_at: AT,
+    };
+    const episode = {
+      id: 21, analysis_id: 11, scenario: "running", scenario_title: "Бег и резкие перемещения", subject: "track:1",
+      zone_id: null, level_initial: "yellow", level_max: "yellow", start_ms: 3500, confirm_ms: 4500,
+      escalate_ms: null, end_ms: 6500, end_reason: "observed_exit", reason_code: "running",
+      reason_text: "Бег 2,5 роста/с", method: "relative", confidence: 0.9, metrics: {}, uncertain_ms: 0, evidence: [],
+    };
+    const analysis = { id: 11, video_id: 3, version: 1, created_at: AT, duration_ms: 20000, pose_used: true, episodes: [episode], gaps: [] };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve(
+        path === "/api/videos/{video_id}/tracks"
+          ? { data: { video_id: 3, analysis_id: 11, from_ms: 0, to_ms: 5000, frames: [] } }
+          : { data: { camera: CAMERA, state: CAMERA_STATE, broadcast: BROADCAST, video, analysis, zones: [], calibration: null } },
+      )) as never);
+    render(
+      <MemoryRouter initialEntries={["/operator/cameras/7"]}>
+        <Routes>
+          <Route path="/operator/cameras/:cameraId" element={<CameraScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Пресс №2")).toBeTruthy();
+    expect(document.querySelector("video")?.getAttribute("src")).toBe("/api/videos/3/file");
+    expect(screen.getByText("Скрыть HUD")).toBeTruthy();
+    expect(screen.getByText(/Бег и резкие перемещения: Бег 2,5 роста\/с/)).toBeTruthy();
+  });
+
+  it("takeover_on_red_notification", async () => {
+    const push = wsHandlers();
+    render(
+      <MemoryRouter initialEntries={["/operator"]}>
+        <TakeoverOverlay />
+        <Routes>
+          <Route path="/operator" element={<p>Секторы</p>} />
+          <Route path="/events/:eventId" element={<p>Экран события</p>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+    const text = "Красная опасность · Сектор 7 · Человек лежит неподвижно 15 с";
+    push({
+      type: "notification", at: AT,
+      data: { id: "e5:published", event_id: 5, level: "red", text, audience: ["operator"], sound: "siren", takeover: true },
+    });
+    expect((await screen.findByRole("alertdialog")).textContent).toContain(text);
+    expect(vi.mocked(playSound)).toHaveBeenCalledWith("siren");
+    fireEvent.click(screen.getByText("Открыть событие"));
+    expect(stopSound).toHaveBeenCalled();
+    expect(screen.getByText("Экран события")).toBeTruthy();
+    expect(screen.queryByRole("alertdialog")).toBeNull();
   });
 });
