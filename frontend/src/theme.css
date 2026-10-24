@@ -28,3 +28,6 @@ button, select { min-height: 24px; min-width: 24px; }
 .form-buttons { display: flex; gap: 8px; }
 .data-table { width: 100%; border-collapse: collapse; margin: 8px 0 24px; }
 .data-table th, .data-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--bg); }
+.timeline { display: grid; gap: 4px; margin: 8px 0; }
+.timeline-item { justify-self: start; text-align: left; background: var(--surface); color: inherit; border: 1px solid currentcolor; }
+.evidence { display: inline-block; margin: 0 8px 8px 0; }

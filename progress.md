@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S4 закрыт, следующий S5
+- state: S5 закрыт, следующий R5
 - tech.md: v1
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -25,7 +25,6 @@
 - GAP: S1, `sector_delete` сектора, на который ссылаются только удалённые камеры или события (FK, у секторов нет `deleted_at`): 409 `sector_not_empty` с текстом `texts.SECTOR_HAS_HISTORY` вместо 204.
 - GAP: S1, `store`: `sectors()`, `sector(id)`, `sector_name_taken(name, except_id=None) -> bool`, `sector_update(id, name, sort_order)`, `sector_has_cameras(id) -> bool`, `sector_delete(id)`, `cameras(sector_id=None)` и `camera(id)` (строки без удалённых, с `has_calibration`, `zones_count`, `videos_count` одним запросом), `camera_update(id, values: dict)`, `camera_delete(id, at)` (`deleted_at` и `playing`-эфир → `stopped`); в `services` приватные `_require(role, allowed)`, `_name`, `_description`.
 - GAP: S1, фронт: `Modal({title, onClose, children})`, `FormField({label, children})`, `FormModal({title, error, submitText, onSubmit, onClose, children})` (форма в модалке с текстом ошибки API), `ConfirmDialog({text, error, onConfirm, onClose})`; `NavItem.screen?: ComponentType` в `nav.ts`, `App.tsx` рендерит `screen` вместо `StubNotice`; `DataTable` — generic-перегрузка над негенерик-реализацией.
-- R5: S5 — `services.meta()` должен брать `scenarios` из `rules.scenario_metas()`; в S1 там пустой список.
 - R10: S6 — `camera_delete` останавливает `playing`-эфир только в базе; S6 добавляет WS `broadcast.state` и проверяет это своим тестом.
 - долг: S2, критерий 17 (живой прогон), прогон дошёл до TPU (загрузка файлов и видео в `~/work/baseline/`, старт воркера, опрос, хвост лога), но TPU не ответил на первый запрос за 120 с (`TimeoutError: no TPU reply for 1 task(s) in 120 s`, задача `retry_wait`/`remote_error`, воркер сам остановился); кадр/с и RTT не замерены. Лимит один прогон на шаг: повтор в R5.
 - R5: повторить живой прогон S2 (`uv run poe live`, `tests/live/test_linq_live.py`): если TPU снова молчит — проверить очередь `input` и логин в URI программы (`JUPYTERHUB_USER` в процессе воркера); записать кадр/с, RTT p50/p90 и время всего.
@@ -54,6 +53,18 @@
 - GAP: S4, `store`: `artifact_path(artifact_id) -> str`, `analysis_next_version(video_id) -> int`, `analysis(analysis_id)`; `services._analyze(job_id, video, det, pose)` и `_analysis_files(...)` (поток: чтение артефактов, `analyze`, запись `hud.jsonl`); `video_tracks`: сначала 404, потом 422 (`field="to_ms"`), потом 409; `analyses.duration_ms` = длительность видео.
 - GAP: S4, фронт: `DrawOp` (`rect`, `label`, `path`), `Size`, `CHAR_W`, `LINE_H`, `PAD` в `components/hud.ts`; `HudCanvas({ops, size})` (размер холста нужен, ops в пикселях); `videoUrl(videoId)` в `src/api/client.ts`; `VideoWithHud` берёт окна `/tracks` по 5000 мс; клавиша H (и Р в русской раскладке).
 - владелец: удалить случайный лог `D:\scratch_fe.log` (S3 записал вывод `npm run gate` в корень диска, удаление заблокировала защита Claude Code).
+- GAP: S5, `AnalysisConfig.duration_ms: int` (= `videos.duration_ms`, конец эпизода `video_end`; тип внутренний, в openapi его нет).
+- GAP: S5, `EpisodeManager(cfg: EpisodesConfig)`, `update(frame_idx, ts_ms, observations)`, `finish(duration_ms) -> list[EpisodeDraft]` (по `start_ms`); `U` = нет наблюдения; слияние смены id — только с подтверждённым эпизодом, по `anchor` и `ref_height_px` его последнего `P`; удержание красного для эскалации сбрасывает любой кадр без красного `P`; `uncertain_ms` копится покадрово (ts − ts прошлого кадра); `{duration_s}` подставляется при выдаче черновика.
+- GAP: S5, `rules`: `defaults(scenario) -> dict[str, float]`, `scenario_metas(active_classes: list[str] | None = None)` (снимок анализа; `None` → `registry.active_classes`); статус `skeleton` и «любой класс» для `fire_smoking` — в S10; `rules/base.py`: `param(key, lo, hi) -> ScenarioParam` (`default` ставит `scenario_metas`), `obs(scenario, person, state, *, level, hold_s, reason_code, reason_text, method, metrics, zone_id) -> Observation` (субъект `track:<id>`, `confidence` = score), `why_common(episode) -> list[WhyItem]`; `RunningPlugin`, `FallPlugin` с `ID`, `running.DANGER_KINDS`; `reason_code`: `running`, `running_zone`, `running_vehicle`, `fall`, `lying_still`, `lying_still_allowed`; `method`: running `relative`/`calibrated`, fall — `posture_method`.
+- GAP: S5, `fall`: «человек меньше `features.min_person_px`» → `ref_height_px < min_person_px` (рамка лежащего низкая по природе), порог из `config.get_settings()`.
+- GAP: S5, `hud.build_hud(ctx, run_bh_s, cfg)` → `build_hud(ctx, run_bh_s, cfg, observations: list[Observation])` (тег `code=<scenario>`, текст причины и уровень на каждое `P` у человека `track:<id>`).
+- GAP: S5, `geometry.point_rect_distance(p, box) -> float`, `point_segment_distance(p, a, b) -> float`; `ioa` не написан (потребитель — S10).
+- GAP: S5, `media.read_frame(path, frame_idx) -> np.ndarray` (кадр не читается → `ValueError` → задача `internal`), `media.encode_jpeg(img, quality, max_width) -> bytes`.
+- GAP: S5, `services`: `_enqueue(video_id, kind: JobKind = "process")`, `_evidence`, `_evidence_files`, `_stored_artifact`, `_analysis_inputs(video)` (артефакты активного анализа; нет строки или файла → `None`: `video_recompute` 409 `artifacts_missing`, задача `recompute` → `failed`, `artifacts_missing`); задача `recompute` берёт модели из строк `artifacts` (`model_id@model_version`), не из `pipeline`; `_analyze` возвращает `(эпизоды с id, hud)`; `video_recompute`: роль (admin, ohs) → 404 → 409 `video_not_ready` (статус не `ready` или нет активного анализа) → 409 `artifacts_missing`; `evidence_file`: нет строки или файла → 404.
+- GAP: S5, `store`: `artifact_by_id`, `episodes(analysis_id)`, `analysis_evidence(analysis_id)`, `evidence(evidence_id)`.
+- GAP: S5, `texts.py`: `SCENARIO_DESCRIPTIONS`, `SCENARIO_ACTIVE`, `SCENARIO_MODEL_MISSING`, `PARAM_TITLES: dict[str, tuple[str, str]]` (ключ → подпись, единица), `RUN_BH`, `RUN_M`, `IN_ZONE`, `NEAR_VEHICLE`, `FALL_SEEN`, `LYING_STILL`, `IN_REPAIR_ZONE`, `WHY_RULE`, `WHY_RUN_BH`, `WHY_RUN_M`, `WHY_FALL`, `WHY_LYING`, `WHY_METHOD`, `WHY_CONFIDENCE`, `WHY_UNCERTAIN`, `WHY_SECONDS`, `METHOD_TITLES`, `METRIC_TITLES`, `EVIDENCE_NOT_FOUND`, `ARTIFACTS_MISSING`.
+- GAP: S5, фронт: `apiUrl(path)` в `src/api/client.ts` (URL сервера для `Evidence.url`); блок `Episodes` внутри `CameraSetup.tsx`; `EvidenceImage` в S5 — миниатюра с подписью (время, число объектов), рамка и выноска — S7.
+- R5: синтетическая сцена `demo`: трекер теряет id в момент падения (прогноз центра продолжает скачок рамки стоя → лёжа), поэтому падение подтверждается веткой «лежит неподвижно» (около 18,7 с), а эпизод бега закрывается `track_lost_timeout`; на кадре 320 px человек оборачивается у края и бега нет: тесты берут кадр 1600×300. Проверить на заводском видео.
 
 ## log
 
@@ -103,6 +114,13 @@
 - проверено вживую: нет (S4 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `pipeline.analyze` уже строит `FrameContext` на кадр: S5 вызывает плагины и `EpisodeManager` в том же цикле и добавляет подписи наблюдений в `build_hud`; в тестах анализ на синтетике — `scenes.render(scene, 800, 240, 25, n, 2, "detect")` и `analyze(det, None, Path("unused.mp4"), cfg, None, model)` (`tests/test_tracking.py::_people`); готовый анализ через задачу — `_analyzed` в `tests/test_tracks_api.py`.
+
+### S5: episodes (2026-10-24, PR #7, tech v1)
+- отклонения: правлены файлы вне списка слайса: `types.py` (`AnalysisConfig.duration_ms`), `analysis/hud.py` (теги наблюдений), `analysis/geometry.py` (расстояния), `texts.py`, `frontend/src/api/client.ts` (`apiUrl`), `frontend/src/theme.css`, `frontend/src/components/{Timeline,EvidenceImage}.tsx` по разделу 7, `tests/test_{hud,tracking}.py` (новые аргументы), `tests/test_cameras.py` (сценарии в meta), `tests/test_api_skeleton.py` (пример 501: `/api/operator/feed` вместо заработавшего `/analysis`); заметка R5 от S1 закрыта: `meta()` берёт `rules.scenario_metas()`.
+- решения вне контракта: пересчёт до S9 даёт тот же снимок (зон, калибровки и правил камеры ещё нет), `superseded` нет; мутации: сдвиг порога `end_after_s` (`>=` → `>`) и перевёрнутое условие перехода в `fall`, обе пойманы.
+- проверено вживую: нет (S5 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: в `tests/test_analysis_api.py` хелперы `_textured(path, seed)` (видео 20 с, 10 fps, 1600×300 с шумом) и `_demo_job` (задача на сцене `demo`: жёлтый бег и красное падение); `tests/test_rule_running.py`: `person(**update)`, `context(p, zones, vehicles, ts_ms)`, `zone(kind)`, `truck(x1, footprint)` (импорт `from test_rule_running import ...`); эпизоды анализа для эфира S6 — `store.episodes(analysis_id)`.
 
 ## night
 

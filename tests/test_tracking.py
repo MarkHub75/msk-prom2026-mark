@@ -23,7 +23,7 @@ VIDEO = Path("unused.mp4")  # analyze reads the video only from slice 11 on
 def _cfg() -> AnalysisConfig:
     s = get_settings()
     return AnalysisConfig(
-        width=W, height=H, fps=25, step=2, calibration=None, zones=[], rules={},
+        width=W, height=H, fps=25, step=2, duration_ms=0, calibration=None, zones=[], rules={},
         class_conf=s.class_conf, active_classes=registry.active_classes(s),
     )  # fmt: skip
 

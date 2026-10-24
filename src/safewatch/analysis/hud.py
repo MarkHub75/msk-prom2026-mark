@@ -2,7 +2,16 @@
 
 from safewatch import texts
 from safewatch.config import FeaturesConfig
-from safewatch.types import Box, FrameContext, HudFrame, HudObject, HudTag, Keypoint, PersonState
+from safewatch.types import (
+    Box,
+    FrameContext,
+    HudFrame,
+    HudObject,
+    HudTag,
+    Keypoint,
+    Observation,
+    PersonState,
+)
 
 
 def _unit(v: float, size: int) -> float:
@@ -41,9 +50,16 @@ def _person_tags(p: PersonState, ts_ms: int, run_bh_s: float, cfg: FeaturesConfi
     return tags
 
 
-def build_hud(ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig) -> HudFrame:
+def build_hud(
+    ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig, observations: list[Observation]
+) -> HudFrame:
     """`run_bh_s`: the running threshold that turns the speed tag yellow."""
     w, h = ctx.width, ctx.height
+    violations: dict[str, list[HudTag]] = {}  # subject → one tag per positive observation
+    for o in observations:
+        if o.state == "P":
+            tag = HudTag(code=o.scenario, text=o.reason_text, level=o.level)
+            violations.setdefault(o.subject, []).append(tag)
     objects = [
         HudObject(
             track_id=p.track_id,
@@ -52,7 +68,8 @@ def build_hud(ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig) -> HudFra
             score=p.score,
             bbox=_box(p.bbox, w, h),
             kpts=_kpts(p.kpts, w, h),
-            tags=_person_tags(p, ctx.ts_ms, run_bh_s, cfg),
+            tags=_person_tags(p, ctx.ts_ms, run_bh_s, cfg)
+            + violations.get(f"track:{p.track_id}", []),
         )
         for p in ctx.persons
     ]

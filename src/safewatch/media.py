@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import cv2
+import numpy as np
 from pydantic import BaseModel
 
 BROWSER_CODECS = ("avc1", "h264", "vp09", "av01")
@@ -47,3 +48,26 @@ def probe_video(path: Path) -> VideoProbe | None:
         )
     finally:
         cap.release()
+
+
+def read_frame(path: Path, frame_idx: int) -> np.ndarray:
+    """BGR frame `frame_idx` of the video."""
+    cap = cv2.VideoCapture(str(path))
+    try:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
+        ok, img = cap.read()
+    finally:
+        cap.release()
+    if not ok:
+        raise ValueError(f"frame {frame_idx} of {path.name} is not readable")
+    frame: np.ndarray = img
+    return frame
+
+
+def encode_jpeg(img: np.ndarray, quality: int, max_width: int) -> bytes:
+    """JPEG of `img`, scaled down to `max_width` keeping the aspect ratio."""
+    h, w = img.shape[:2]
+    if w > max_width:
+        img = cv2.resize(img, (max_width, round(h * max_width / w)), interpolation=cv2.INTER_AREA)
+    _, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, quality])
+    return bytes(buf.tobytes())

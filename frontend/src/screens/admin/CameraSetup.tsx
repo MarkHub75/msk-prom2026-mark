@@ -5,8 +5,11 @@ import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
 import { useWs } from "../../api/ws";
 import { DataTable } from "../../components/DataTable";
+import { EvidenceImage } from "../../components/EvidenceImage";
+import { Timeline } from "../../components/Timeline";
 import { VideoWithHud } from "../../components/VideoWithHud";
 
+type Analysis = components["schemas"]["Analysis"];
 type Job = components["schemas"]["Job"];
 type Video = components["schemas"]["Video"];
 type Metrics = components["schemas"]["InferenceMetrics"] & { id: number };
@@ -26,6 +29,44 @@ function num(x: number | null | undefined, digits = 1): string {
   return x === null || x === undefined ? "—" : x.toFixed(digits).replace(".", ",");
 }
 
+// Episodes of the active analysis: timeline, evidence thumbnails, «Пересчитать события».
+function Episodes({ video, onSeek, onRecompute }: { video: Video; onSeek: (ms: number) => void; onRecompute: () => void }) {
+  const analysis = useApi(
+    () => api.GET("/api/videos/{video_id}/analysis", { params: { path: { video_id: video.id } } }),
+    [video.id, video.active_analysis_id],
+  );
+  // openapi-fetch widens the tuples of the schema (bbox, kpts) to arrays; the server sends tuples.
+  const data = analysis.data as Analysis | undefined;
+  const [error, setError] = useState<string>();
+  const recompute = async () => {
+    setError(undefined);
+    const result = await api.POST("/api/videos/{video_id}/recompute", { params: { path: { video_id: video.id } } });
+    if (result.error) setError(result.error.message);
+    onRecompute();
+  };
+  return (
+    <>
+      <h2>Эпизоды</h2>
+      <button type="button" onClick={() => void recompute()}>
+        Пересчитать события
+      </button>
+      {error && <p role="alert">{error}</p>}
+      {analysis.error && <p role="alert">{analysis.error.message}</p>}
+      {data && (
+        <>
+          <p>Версия анализа {data.version}</p>
+          <Timeline episodes={data.episodes} durationMs={data.duration_ms} onSeek={onSeek} />
+          <div>
+            {data.episodes.flatMap((e) =>
+              e.evidence.map((ev) => <EvidenceImage key={ev.id} evidence={ev} hudVisible />),
+            )}
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
 // Tab «Видео» of the camera setup (tech.md 8.14); calibration, zones and rules come with slice 9,
 // so the player gets no zones and no grid yet.
 export function CameraSetup() {
@@ -38,6 +79,7 @@ export function CameraSetup() {
   const [upload, setUpload] = useState<number>();
   const [error, setError] = useState<string>();
   const [watch, setWatch] = useState<number>();
+  const [seekMs, setSeekMs] = useState<number>();
 
   useWs((message) => {
     if (message.type !== "job.progress") return;
@@ -128,7 +170,15 @@ export function CameraSetup() {
       {shown ? (
         <>
           <p>{shown.filename}</p>
-          <VideoWithHud key={shown.id} videoId={shown.id} src={videoUrl(shown.id)} zones={[]} grid={[]} />
+          <VideoWithHud
+            key={shown.id}
+            videoId={shown.id}
+            src={videoUrl(shown.id)}
+            positionMs={seekMs}
+            zones={[]}
+            grid={[]}
+          />
+          <Episodes video={shown} onSeek={setSeekMs} onRecompute={view.reload} />
         </>
       ) : (
         <p>Нет видео с готовым анализом</p>
