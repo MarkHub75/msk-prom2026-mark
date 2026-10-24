@@ -147,3 +147,20 @@
 /* calculator example while the server answers 501 */
 .v5-example-tag { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px dashed var(--ds-line-strong); }
 .v5-example-tag small { color: var(--ds-text-3); font-size: 12px; }
+
+/* calculator: break-even and market benchmarks (docs/ECONOMICS_SOURCES.md) */
+.v5-calc-result .ds-panel { margin-top: 0; }
+.v5-breakeven td b { display: block; font-weight: 500; }
+.v5-breakeven td small { display: block; margin-top: 1px; color: var(--ds-text-3); font-size: 11px; font-family: var(--display); }
+.v5-breakeven td.num small { text-align: right; }
+.v5-breakeven td:last-child { width: 1%; white-space: nowrap; }
+.v5-stack { display: grid; gap: var(--s1); min-width: 0; }
+.v5-market td b { display: block; font-weight: 500; }
+.v5-market td small { display: block; margin-top: 3px; font-size: 11.5px; color: var(--ds-text-3); }
+.v5-market .v5-source-inline { display: none; }
+.v5-market-value { font-family: var(--mono); font-size: 12.5px; color: var(--ds-text); }
+@media (max-width: 860px) {
+  .v5-breakeven-wrap, [data-testid=break-even] .ds-panel-body { overflow-x: auto; }
+  .v5-market th:last-child, .v5-market td:last-child { display: none; }
+  .v5-market .v5-source-inline { display: block; }
+}

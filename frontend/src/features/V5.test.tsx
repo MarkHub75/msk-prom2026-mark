@@ -67,6 +67,14 @@ describe("calculator (tech.md 8.25)", () => {
       expect(await last.clone().json()).toMatchObject({ cameras: 8, workshops: 2, overrides: { "accelerator.price_rub": 600000 } });
     });
     expect(screen.getByText("своё значение", { selector: ".ds-badge" })).toBeTruthy();
+    const breakEven = screen.getByTestId("break-even");
+    expect(breakEven.textContent).toContain("расчёт от ваших допущений");
+    expect(within(breakEven).getAllByRole("row")).toHaveLength(4);
+    expect(screen.getByText(/1,17 на 1000 работников \(Росстат, 2025\): для 200 человек ≈ 0,23/)).toBeTruthy();
+    const market = screen.getByTestId("market");
+    expect(market.textContent).toContain("чужие цены, не цена Argus");
+    expect(market.textContent).toContain("КоАП РФ, ред. 2026");
+    expect(market.textContent).toContain("от 480 000 ₽");
   });
 
   it("does not post an invalid field and says what to fix", async () => {

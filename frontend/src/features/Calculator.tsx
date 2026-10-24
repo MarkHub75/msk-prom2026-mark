@@ -4,6 +4,7 @@ import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, Ti
 import { useApi } from "../api/useApi";
 import { Badge, Button, ErrorNotice, Field, Icon, isPending, Kpi, Loading, PageHeading, Panel, PendingNotice, Segmented, TextInput } from "../components/ui";
 import { EXAMPLE_ASSUMPTIONS, EXAMPLE_ROLLOUT, EXAMPLE_SCALE, exampleRollout, exampleScale } from "./calculatorExample";
+import { BreakEvenPanel, industryHint, MarketPanel } from "./calculatorEconomics";
 import { useRole } from "../roles";
 import "../styles/v5.css";
 
@@ -77,8 +78,8 @@ function useCalc<T>(post: () => Promise<{ data?: T; error?: unknown; response: R
   return state;
 }
 
-function NumberField({ label, unit, value, error, onChange }: { label: string; unit?: string; value: string; error?: string; onChange: (v: string) => void }) {
-  return <Field label={label} error={error}>
+function NumberField({ label, unit, value, error, hint, onChange }: { label: string; unit?: string; value: string; error?: string; hint?: string; onChange: (v: string) => void }) {
+  return <Field label={label} error={error} hint={hint}>
     <span className="v5-num-input"><TextInput inputMode="decimal" value={value} onChange={e => onChange(e.target.value)} aria-invalid={Boolean(error)} aria-label={label} />{unit && <small>{unit}</small>}</span>
   </Field>;
 }
@@ -114,7 +115,9 @@ function Tier({ tier, best }: { tier: TierResult; best: boolean }) {
   </article>;
 }
 
-function RolloutView({ result }: { result: RolloutResult }) {
+interface Plant { incidents?: number; workers?: number }
+
+function RolloutView({ result, plant }: { result: RolloutResult; plant: Plant }) {
   const paying = result.tiers.filter(t => t.payback_months !== null);
   const best = paying.length ? paying.reduce((a, b) => (b.payback_months! < a.payback_months! ? b : a)).tier : undefined;
   return <>
@@ -124,6 +127,7 @@ function RolloutView({ result }: { result: RolloutResult }) {
       <Kpi label="Событий на оператора за смену" value={result.events_per_operator_shift === null ? "—" : numFmt.format(result.events_per_operator_shift)} hint={result.events_per_operator_shift === null ? "нужны события эфира сервера и хотя бы один оператор" : "по событиям эфира за период статистики"} />
     </div>
     <div className="v5-tiers">{result.tiers.map(t => <Tier key={t.tier} tier={t} best={t.tier === best && paying.length > 1} />)}</div>
+    <BreakEvenPanel tiers={result.tiers} assumptions={result.assumptions} incidents={plant.incidents} workers={plant.workers} cost={result.incident_cost_rub} />
   </>;
 }
 
@@ -173,14 +177,16 @@ function Example({ mode }: { mode: Mode }) {
     <div className="v5-calc-grid" data-testid="calc-example">
       <Panel title={mode === "rollout" ? "Пример завода" : "Пример расширения"}>
         <Items items={inputs} />
+        {mode === "rollout" && <p className="v5-hint">{industryHint(EXAMPLE_ROLLOUT.workers)}. В примере 4 инцидента в год: это выше среднего, замените своими.</p>}
         <p className="v5-hint"><Icon name="info" size={14} />Когда сервер подключится, здесь будут поля для ваших цифр.</p>
       </Panel>
       <section className="v5-calc-result" aria-label="Пример расчёта">
         <div className="v5-example-tag"><Badge tone="grey" icon="info">пример, сервер ещё не подключён</Badge><small>те же формулы и допущения, что у сервера; {mode === "rollout" ? "события на оператора считаются только по живым данным" : "пропускная способность — из допущения, а не из замеров приложения"}</small></div>
-        <div>{mode === "rollout" ? <RolloutView result={exampleRollout()} /> : <ScaleView result={exampleScale()} />}</div>
+        <div>{mode === "rollout" ? <RolloutView result={exampleRollout()} plant={{ incidents: EXAMPLE_ROLLOUT.incidents_per_year, workers: EXAMPLE_ROLLOUT.workers }} /> : <ScaleView result={exampleScale()} />}</div>
       </section>
     </div>
     <Panel title="Допущения примера" flush><Assumptions list={EXAMPLE_ASSUMPTIONS} overrides={{}} onChange={() => undefined} /></Panel>
+    <MarketPanel cameras={mode === "rollout" ? EXAMPLE_ROLLOUT.cameras : EXAMPLE_SCALE.cameras_now + EXAMPLE_SCALE.new_cameras} />
   </>;
 }
 
@@ -231,7 +237,7 @@ export function CalculatorPage() {
       <Panel title={shown === "rollout" ? "Ваш завод" : "Камеры"} tools={<Button size="sm" variant="ghost" icon="refresh" onClick={reset}>Пример для демо</Button>}>
         <form className="v5-form" onSubmit={e => e.preventDefault()}>
           {shown === "rollout" ? <>
-            <div className="v5-form-grid">{PLANT.map(f => <NumberField key={f.key} label={f.label} value={rollout[f.key] ?? ""} error={r.errors[f.key]} onChange={setR(f.key)} />)}</div>
+            <div className="v5-form-grid">{PLANT.map(f => <NumberField key={f.key} label={f.label} value={rollout[f.key] ?? ""} error={r.errors[f.key]} hint={f.key === "incidents_per_year" ? industryHint(r.values.workers) : undefined} onChange={setR(f.key)} />)}</div>
             <h3 className="v5-form-h">Цена одного инцидента</h3>
             <div className="v5-form-grid">{COST.map(f => <NumberField key={f.key} label={f.label} unit="₽" value={rollout[f.key] ?? ""} error={r.errors[f.key]} onChange={setR(f.key)} />)}</div>
           </> : <div className="v5-form-grid">{SCALE.map(f => <NumberField key={f.key} label={f.label} value={scale[f.key] ?? ""} error={s.errors[f.key]} onChange={setS(f.key)} />)}</div>}
@@ -240,7 +246,7 @@ export function CalculatorPage() {
       </Panel>
       <section className="v5-calc-result" aria-label="Результат расчёта" aria-busy={calc.busy}>
         {calc.error && <ErrorNotice error={calc.error} compact />}
-        {result ? <div className={calc.busy ? "is-stale" : undefined}>{shown === "rollout" ? <RolloutView result={result as RolloutResult} /> : <ScaleView result={result as ScaleResult} />}</div>
+        {result ? <div className={calc.busy ? "is-stale" : undefined}>{shown === "rollout" ? <RolloutView result={result as RolloutResult} plant={{ incidents: r.values.incidents_per_year, workers: r.values.workers }} /> : <ScaleView result={result as ScaleResult} />}</div>
           : (shown === "rollout" ? okR : okS) ? !calc.error && <Loading text="Считаем" /> : <p className="v5-hint is-error" role="alert">Исправьте отмеченные поля: расчёт ждёт чисел.</p>}
       </section>
     </div>
@@ -249,12 +255,15 @@ export function CalculatorPage() {
         <Assumptions list={base.assumptions} overrides={overrides} onChange={setOverride} />
         {Object.keys(o.errors).length > 0 && <p className="v5-hint is-error" role="alert">В допущениях есть не число или отрицательное значение: расчёт ждёт исправления.</p>}
       </Panel>
+      <div className="v5-stack">
       <Panel title="Замеры приложения" flush>
         {base.measured.length ? <table className="ds-table v5-assume" data-testid="measured">
           <thead><tr><th>Замер</th><th className="num">Значение</th><th>Источник</th></tr></thead>
           <tbody>{base.measured.map(m => <tr key={m.key}><td><b>{m.title}</b><small className="v5-source-inline">{m.source}</small></td><td className="num"><span className="mono">{numFmt.format(m.value)} <small>{m.unit}</small></span></td><td className="v5-source">{m.source}</td></tr>)}</tbody>
         </table> : <p className="v5-hint">Замеров пока нет: обработайте видео на LinQ, и здесь появится пропускная способность и RTT.</p>}
       </Panel>
+      <MarketPanel cameras={shown === "rollout" ? r.values.cameras : (s.values.cameras_now ?? 0) + (s.values.new_cameras ?? 0)} />
+      </div>
     </div>
   </div>;
 }
