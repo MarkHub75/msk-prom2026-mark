@@ -99,6 +99,8 @@ export class Mock {
       red_at: iso(e.red_at), ended_at: iso(e.ended_at),
       duration_s: Math.round(((e.ended_at ?? now) - e.started_at) / 100) / 10,
       priority: this.priority(e), is_demo: e.is_demo,
+      // Contract main 62161986 (slice 12): confirm frame of the episode, null without one.
+      evidence_url: e.episode?.evidence?.[0]?.url ?? null,
     };
   }
 

@@ -474,6 +474,9 @@ async function main() {
     if (!ev) throw new Skip("у события нет episode.evidence");
     const ok = await http("GET", ev.url, { raw: true });
     must(ok.status === 200 && ok.type.startsWith("image/jpeg"), `кадр → ${ok.status} ${ok.type}`);
+    // EventSummary.evidence_url (contract main 62161986): optional; when set, the same confirm frame.
+    const url = d.data.event.evidence_url;
+    must(url == null || url === ev.url, `event.evidence_url ${url} ≠ ${ev.url}`);
     const unknown = await http("GET", "/api/evidence/999999/image");
     must(unknown.status === 404, `неизвестный кадр → ${unknown.status}`);
     if (!MOCK) return "fault evidence-404: только в моке";

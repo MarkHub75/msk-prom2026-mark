@@ -1,6 +1,6 @@
 {
-  "note": "sha256 of contract/*.json the mock and smoke are built on (main d4709bea, contract 1.0.0)",
-  "openapi.json": "f2399435537139a52b1185223bc35ef40b7700e60007083cbe47cf88b3f1300c",
-  "ws.schema.json": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+  "note": "sha256 of contract/*.json the mock and smoke are built on (main 62161986, contract 1.0.0)",
+  "openapi.json": "9401a516ab6390ccc1bbd068ba7dd1d16ff40ea3154f9e0a140662314531aec2",
+  "ws.schema.json": "5f3255f76d86fbf4e0dd4d298213075187d8b128fc9daeeb9681dbc2c1e48f6e",
   "ws-examples.json": "a1fa202d7b60ed0500a32fedd607eda31e1b21d733f2949194fb412c66800abc"
 }
