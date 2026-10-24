@@ -1,6 +1,7 @@
-"""ByteTrack-like tracker (tech.md 8.2 item 4): two score stages, IoU cost, TTL on source time."""
+"""ByteTrack-like tracker (tech.md 8.2 item 4, 8.31): two IoU stages by score, a center stage, TTL."""
 
 import itertools
+import math
 from dataclasses import dataclass
 
 import numpy as np
@@ -56,6 +57,31 @@ class Tracker:
             if ious[r, c] >= self.cfg.min_iou
         ]
 
+    def _reattach(
+        self, tracks: list[_Track], dets: list[Detection], ts_ms: int
+    ) -> list[tuple[_Track, Detection]]:
+        """Stage 3 (tech.md 8.31): standing → lying changes the box so much that IoU fails;
+        a strong detection whose center is near the track's keeps the track's id."""
+        if not tracks or not dets:
+            return []
+
+        def center(box: Box) -> tuple[float, float]:
+            return (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+
+        dist = np.array(
+            [
+                [math.dist(center(t.predict(ts_ms)), center(d.bbox_xyxy)) for d in dets]
+                for t in tracks
+            ]
+        )
+        limit = np.array([[self.cfg.reattach_bh * (t.box[3] - t.box[1])] for t in tracks])
+        rows, cols = linear_sum_assignment(dist)
+        return [
+            (tracks[r], dets[c])
+            for r, c in zip(rows, cols, strict=True)
+            if dist[r, c] < limit[r, 0]
+        ]
+
     def update(self, ts_ms: int, dets: list[Detection]) -> list[tuple[int, Detection]]:
         """Confirmed tracks matched in this frame with their detections; a prediction is not one."""
         cfg = self.cfg
@@ -66,6 +92,13 @@ class Tracker:
         pairs = self._match(self.tracks, high, ts_ms)
         used = {id(t) for t, _ in pairs}
         pairs += self._match([t for t in self.tracks if id(t) not in used], low, ts_ms)
+        used = {id(t) for t, _ in pairs}
+        taken = {id(d) for _, d in pairs}
+        pairs += self._reattach(
+            [t for t in self.tracks if id(t) not in used],
+            [d for d in high if id(d) not in taken],
+            ts_ms,
+        )
         matched = {id(t) for t, _ in pairs}
         taken = {id(d) for _, d in pairs}
         # A tentative track that missed a frame is dropped: confirmation needs hits in a row.
