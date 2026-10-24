@@ -1,3 +1,18 @@
+## Final Argus integration evidence — 2026-10-24
+
+Current independent industrial event metrics forS01–S08:NOT_MEASURED. See
+ml/reports/final-scenario-coverage-20261025.json. No exhaustive appropriate target
+GT/site policy, so safewatch eval was not fed an empty expected list for real videos.
+One actual local Argus proximity event/evidence/API readback establishes wiring,
+not TP or accuracy. Same-video GPU replay confirm2760ms and actual CPU job2800ms
+are distinct consumers/thresholds/preprocessing/cadences, not paired model gains.
+Full source CAVIAR derivatives yield known running actor localization2/168COCO,
+0/168Pose; walking87/743+51/662COCO,27/743+59/662Pose. This is person localization,
+not gait classification or event recall; unlabelled regions UNKNOWN, precision
+undefined. Full records:ml/reports/final-source-detector-metrics-20261025.json.
+Historical Helmet boxes/Fall/Running metrics below retain their old consumer and
+source-development scope; do not relabel them current Argus/industrial benchmarks.
+
 # Evaluation report — quality sprint checkpoint
 
 ## Current eight-scenario technical release

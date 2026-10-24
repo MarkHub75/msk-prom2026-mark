@@ -1,0 +1,84 @@
+{
+  "schema": "matvey-final-integration-summary-v1",
+  "package_root": "/workspace/artifacts/matvey-final-20261025",
+  "coverage_file": "/workspace/artifacts/matvey-final-20261025/SCENARIO_COVERAGE.json",
+  "videos": 12,
+  "frames": 2830,
+  "local_model_calls_including_previous": 8490,
+  "new_native_calls": 6180,
+  "actual_app_cpu_onnx_calls": 114,
+  "actual_app_events": 1,
+  "actual_app_evidence": 1,
+  "event_api_readback": "PASS",
+  "historical_tpu_calls": 15,
+  "historical_tpu_unique_source_frames": 13,
+  "fresh_tpu_calls": 0,
+  "software_tests": 527,
+  "skipped": 4,
+  "live_tpu_argus": "BLOCKED",
+  "independent_industrial_quality": "NOT_QUALIFIED",
+  "blockers": [
+    {
+      "id": "LINQ_OWN_STAGING",
+      "status": "BLOCKED",
+      "owner": "ML root + authorized own Jupyter session",
+      "fact": "two own program staging receipts absent at16:53UTC; no usable own auth/channel",
+      "impact": "fresh TPU/liveLinQ→Argus not executed"
+    },
+    {
+      "id": "PRIMARY_COCO_TPU",
+      "status": "BLOCKED",
+      "owner": "ML + Mark runtime namespace",
+      "fact": "full COCO80 ONNX reference available; no compiled qualified Matvey TPU detector capture",
+      "impact": "saved TPU route is explicitly mixed with local primary"
+    },
+    {
+      "id": "ARGUS_REMOTE_NAMESPACE",
+      "status": "BLOCKED",
+      "owner": "Mark",
+      "fact": "old uploader uses baseline/mosprom_work/root-cache, conflicts with strict ownmatvey area",
+      "impact": "no automatic upload or live backend execution by ML"
+    },
+    {
+      "id": "SPECIALIST_MODELS",
+      "status": "BLOCKED",
+      "owner": "Data/Training qualified release, ML gates",
+      "fact": "fire/smoke/cigarette/no_harness/suspended_load/cargo qualified heads absent",
+      "impact": "S04/S06/S08 and raised-load subcase cannot be claimed"
+    },
+    {
+      "id": "SITE_ZONES_POLICY",
+      "status": "BLOCKED",
+      "owner": "Mark + site calibration/GT",
+      "fact": "fence/height/under_load/manual-load policy and calibrated distance not supplied",
+      "impact": "S05/S06 and unsafe-semantics evaluation incomplete"
+    },
+    {
+      "id": "INDEPENDENT_GT",
+      "status": "BLOCKED",
+      "owner": "Data reviewed release",
+      "fact": "only dev/source/partial/weak labels; no independent exhaustive industrial event corpus",
+      "impact": "independent event TP/FP/FN/P/R/F1/FP-hour/delay NOT_MEASURED"
+    },
+    {
+      "id": "ARGUS_PPE_CARGO_RULE",
+      "status": "BLOCKED",
+      "owner": "Mark",
+      "fact": "PPE plugin absent, load_carrying skeleton in pinned main",
+      "impact": "no PPE/cargo application event claim"
+    },
+    {
+      "id": "OFF_VAST_BACKUP",
+      "status": "NOT_VERIFIED",
+      "owner": "authorized external destination",
+      "fact": "no destination provided; local package is not external backup",
+      "impact": "workspace preservation depends on instance lifecycle"
+    }
+  ],
+  "new_models": 0,
+  "model_versions": [
+    "coco-reference-yolov8n@640-v1-a6a8c37f7e45",
+    "matvey-pose-yolov8n@640-v1-acc5f51228b9",
+    "matvey-helmet-yolov8n@640-v1-5c3af1f3b855"
+  ]
+}

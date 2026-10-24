@@ -1,3 +1,13 @@
+## Final current-Argus matrix — 2026-10-24
+
+See ml/reports/final-scenario-coverage-20261025.json and final evidence handoff.
+Current main f6b5358a unmodified:01/02/03/07 RUNNABLE+PROTOTYPE;04/06/08 BLOCKED;
+05PROTOTYPE+BLOCKED (configured spatial subcases vs true climbing/load semantics).
+Independent event quality NOT_MEASURED for all8. PPE additional object module,
+no Argus rule. Actual local02event1/evidence1/API200, not GT-confirmed violation.
+Old8rule synthetic technical freeze below is historical, not proof of current
+application/fullscenario TPU quality. Mark alone owns current rules/app.
+
 ## Full-scene neural inputs — 24October continuation
 
 7whole GPU videos/770frames/2310calls now available in scene-packs-20261024.

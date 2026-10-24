@@ -60,7 +60,26 @@ def selected_scenes():
     return scenes
 
 
-def run(scene_ids=None):
+def load_scene_catalog(path):
+    """Pinned, already-published intake only; this performs no source discovery."""
+    data = json.loads(Path(path).read_text())
+    if data.get('schema') != 'MATVEY_PINNED_SCENE_INPUTS_V1' or not data.get('scenes'):
+        raise ValueError('versioned pinned scene input catalog required')
+    producer = data['producer']
+    if sha256(producer['path']) != producer['sha256']:
+        raise ValueError('published producer manifest changed')
+    ids = []
+    for scene in data['scenes']:
+        ids.append(scene['scene_id'])
+        if (not scene['scene_id'].replace('_', '').isalnum() or not scene.get('rights')
+                or sha256(scene['source']) != scene['source_sha256']):
+            raise ValueError('pinned source bytes/rights/scene ID required')
+    if len(ids) != len(set(ids)):
+        raise ValueError('duplicate input scene IDs')
+    return data['scenes']
+
+
+def run(scene_ids=None, scenes_override=None):
     import cv2
     import torch
     cv2.setNumThreads(1)
@@ -92,7 +111,7 @@ def run(scene_ids=None):
                             'class_map': {i: ('no_helmet' if name == 'bare_head' else name)
                                           for i, name in enumerate(manifest['classes'])},
                             'thresholds': manifest['thresholds'], 'decoder': manifest['decoder']}))
-        scenes = selected_scenes()
+        scenes = selected_scenes() if scenes_override is None else scenes_override
         if scene_ids:
             scenes = [s for s in scenes if s['scene_id'] in scene_ids]
         for scene in scenes:
@@ -241,8 +260,11 @@ def finalize_scene(directory):
         'S01': {'available': 'person/pose and generic vehicle context over every frame',
                 'absent': 'qualified running action head and actor-level gait GT',
                 'cannot_confirm': 'running versus walking; this is a context scene, not a positive running demonstration'},
+        'PPE': {'available': 'helmet/no_helmet proposals, people and poses on the complete source timeline',
+                'absent': 'exhaustive video PPE GT and Argus PPE rule',
+                'cannot_confirm': 'site-specific PPE violations, head/person ownership or independent accuracy'},
     }
-    meta['signal_review'] = signals[meta['scenario_id']]
+    meta['signal_review'] = meta.get('input_signal_review', signals[meta['scenario_id']])
     meta['signal_review']['method'] = 'model-output census plus prior source screen; no new event GT'
     save(directory / 'matvey_scene.json', meta)
     save(directory / 'matvey_detections.json', {'format': 'MATVEY_SCENE_INTERMEDIATE_NOT_ARGUS_FINAL',
@@ -378,6 +400,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', default=str(ROOT))
     parser.add_argument('--scene', action='append')
+    parser.add_argument('--scene-catalog', help='pinned existing producer scenes, no acquisition')
     parser.add_argument('--verify-only', action='store_true')
     parser.add_argument('--review-output')
     args = parser.parse_args()
@@ -398,7 +421,7 @@ def main():
             stream.write('\n')
         print(json.dumps({'status': 'PASS', 'scenes': len(reports), 'frames': sum(r['frames'] for r in reports)}))
         return
-    run(args.scene)
+    run(args.scene, load_scene_catalog(args.scene_catalog) if args.scene_catalog else None)
 
 
 if __name__ == '__main__':

@@ -1,3 +1,16 @@
+## Final ML integration delivered — 2026-10-24
+
+-12full scenes+per-model JSON/PTS+annotatedMP4; 2830frames/8490localcalls total.
+-Actual isolated local Argus:114ONNXCPU calls → event1/evidence1/API200; no UI claim.
+-Saved raw TPU→Argus tail/postprocess/rules15completions PASS as MIXED replay,
+  newTPU0. Fresh ownstaging unavailable; no forbidden uploader fallback.
+-527testsOK(4skipped); source/ABI/provenance audits;8scenario flags/metrics separate.
+-Models and runtime steps:docs/handoffs/MODEL_REGISTRY_HANDOFF_20261025.md.
+-Final artifacts /workspace/artifacts/matvey-final-20261025, see FINAL_ML_EVIDENCE.md.
+-Remaining gates:ownnamespace/auth+primaryTPU, liveappUI, qualified specialist
+  heads/targetGT/sitezones/policy; external binary backup destination unavailable.
+  No Mark app/backend/rule edits or foreign worktree writes by ML root.
+
 ## Session closed for requested handoff
 
 Latest context: `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md`.

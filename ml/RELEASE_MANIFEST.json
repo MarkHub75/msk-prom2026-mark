@@ -834,5 +834,18 @@
     "matching_historical_linq_frames": 11,
     "new_linq_calls": 0,
     "code_commit": "2623cabefbe3c9e83e550e5336b1df18c3a17879"
+  },
+  "final_integration_20261025": {
+    "artifact_root": "/workspace/artifacts/matvey-final-20261025",
+    "summary": "ml/reports/final-integration-20261025.json",
+    "full_local_scenes": 12,
+    "full_local_frames": 2830,
+    "actual_argus_local_event": true,
+    "saved_tpu_argus_replay": "PASS_MIXED",
+    "fresh_linq_execution": false,
+    "independent_industrial_quality": "NOT_QUALIFIED",
+    "new_models": 0,
+    "new_training": 0,
+    "new_compile": 0
   }
 }

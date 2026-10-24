@@ -1,3 +1,23 @@
+## Final integration — 2026-10-24
+
+- Re-read full scene handoff and main contract f6b5358a; remote main unchanged16:53UTC.
+- Added only ML adapter/replay/render/package code. Mark's Argus source/rules unchanged.
+- Five new full existing-source scenes:2060frames/6180sequential CUDA calls under
+  root GPU lock; source/PTS/RGB/input auditPASS. Total including prior:12/2830/8490.
+- Actual isolated Argus local job on3_tr45:114CPU ONNX calls,38/75frames/model,
+  episode1/evidence1/event1,GETevents/detail200,15.855s. No fake/cache injection.
+  First local attempt found missing COCO bytes in historical two-model tar before
+  any NN call; separate COCO files now included, corrected runPASS.
+-15historical real TPU replies/tails revalidated; actual frozen Argus postprocess
+  and analyze on saved tensorsPASS as mixed replay.0newTPU,0replayepisodes.
+-12full local visuals+2sampledTPU+1actualCPUvideo; no frame interpolation.
+-527testsOK(4skipped),7.497s in existing client env. Main env first attempt lacked
+  jsonschema; no installation/environment change. LinQ live ownstaging absent.
+- New detector-only source metrics:running actor localizationCOCO2/168,Pose0/168;
+  precision/target event quality NOT_MEASURED. No model improvement/promotion.
+- Concrete package /workspace/artifacts/matvey-final-20261025; final report and
+  three selected demo paths in docs/handoffs/FINAL_ML_EVIDENCE_20261025.md.
+
 # ML/CV quality sprint — progress
 
 Final preservation check 2026-10-24T12:14:59.878723+00:00: selectedbaseline/4unselectedhead/component/config/source-artifact SHA checks PASS; internal synthetic+real-native examples pass manualvalidator and JSONSchema; old observation/event schemas+Pythonvalidator byte-identical to8f879606. Local release_review integrityPASS, qualityNOT_QUALIFIED,0newcalls. Source/externalbackup claims unchanged, no hiddenpromotion. Finalcoded480testlog and sourceprops pinned; closingdocumentationcommit follows.

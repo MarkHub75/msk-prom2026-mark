@@ -1,3 +1,19 @@
+## FINAL ML INTEGRATION — 2026-10-24 16:53 UTC snapshot
+
+Latest concrete handoff: docs/handoffs/FINAL_ML_EVIDENCE_20261025.md,
+MODEL_REGISTRY_HANDOFF_20261025.md and DEMO_SELECTION_20261025.md. Final package
+/workspace/artifacts/matvey-final-20261025/.12full localCUDA scenes/2830frames,
+8490calls including prior scenes;6180new native calls. Separate REAL Argus local
+CPU job114calls/38of75frames → episode1/evidence1/event1/API200,15.855s; no UI/liveTPU
+claim. Saved actual TPU raw→tail→frozenArguspostprocess→analyze15calls PASS as
+MIXED replay,0episodes/0newTPU.527softwaretestsOK(4skipped),5newscenes2060inputaudit
+PASS. Main f6b5358a/contract unchanged; ownstaging still absent16:53UTC. RootGPU
+jobs finished/GPU0/lockFREE snapshot. Mark owns app/rules; no app code patches.
+Models unchanged, no training/compile/promotion. Three demos selected S02/S07/PPE
+with explicit quality gaps; S01running person localization2/168COCO,0/168Pose.
+All independent target-event metrics NOT_MEASURED. Preserve old7scene/partialTPU
+packs. Previous full session handoff below remains historical context.
+
 ## LATEST CONTEXT HANDOFF
 
 Read `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md` in full. Full-scene code

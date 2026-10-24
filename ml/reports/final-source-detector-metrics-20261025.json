@@ -1,0 +1,97 @@
+{
+  "schema": "matvey-source-scoped-detector-recall-v1",
+  "results": [
+    {
+      "scene_id": "S01_caviar_run",
+      "sequence": "Fight_RunAway1",
+      "model_id": "coco-reference-yolov8n",
+      "source_sha256": "19ea4bb0eecbc31a22fc9faf486838e7249c92dc1e482d71e726fc0144cf7f91",
+      "metrics": {
+        "walking_known_gt_actor_frames": 743,
+        "walking_matched_person_actor_frames": 87,
+        "running_known_gt_actor_frames": 168,
+        "running_matched_person_actor_frames": 2,
+        "walking_known_positive_person_recall": 0.11709286675639301,
+        "running_known_positive_person_recall": 0.011904761904761904
+      },
+      "unmatched_person_proposals_unknown": 25,
+      "precision": null,
+      "event_precision_recall_f1": "NOT_MEASURED",
+      "independent_test": false,
+      "target_industrial_quality": "NOT_MEASURED",
+      "scope": "person localization on visible source walking/running actor boxes; NOT gait classification accuracy",
+      "matching": "existing unique bidirectional IoU>=0.5, ambiguity unmatched; every decoded frame",
+      "source_video": "full lossy source-JPEG MP4 reconstruction; nominal25FPS projection, not capture PTS",
+      "missing_annotations_are_negative": false
+    },
+    {
+      "scene_id": "S01_caviar_run",
+      "sequence": "Fight_RunAway1",
+      "model_id": "pose-split-v1",
+      "source_sha256": "19ea4bb0eecbc31a22fc9faf486838e7249c92dc1e482d71e726fc0144cf7f91",
+      "metrics": {
+        "walking_known_gt_actor_frames": 743,
+        "walking_matched_person_actor_frames": 27,
+        "running_known_gt_actor_frames": 168,
+        "running_matched_person_actor_frames": 0,
+        "walking_known_positive_person_recall": 0.03633916554508748,
+        "running_known_positive_person_recall": 0.0
+      },
+      "unmatched_person_proposals_unknown": 192,
+      "precision": null,
+      "event_precision_recall_f1": "NOT_MEASURED",
+      "independent_test": false,
+      "target_industrial_quality": "NOT_MEASURED",
+      "scope": "person localization on visible source walking/running actor boxes; NOT gait classification accuracy",
+      "matching": "existing unique bidirectional IoU>=0.5, ambiguity unmatched; every decoded frame",
+      "source_video": "full lossy source-JPEG MP4 reconstruction; nominal25FPS projection, not capture PTS",
+      "missing_annotations_are_negative": false
+    },
+    {
+      "scene_id": "S01_caviar_walk",
+      "sequence": "Walk1",
+      "model_id": "coco-reference-yolov8n",
+      "source_sha256": "f114a54cb53038ffe2356430d2fca4bffe7cf04b2f265742bf789e1dd4beec58",
+      "metrics": {
+        "walking_known_gt_actor_frames": 662,
+        "walking_matched_person_actor_frames": 51,
+        "walking_known_positive_person_recall": 0.0770392749244713,
+        "running_known_positive_person_recall": null
+      },
+      "unmatched_person_proposals_unknown": 1,
+      "precision": null,
+      "event_precision_recall_f1": "NOT_MEASURED",
+      "independent_test": false,
+      "target_industrial_quality": "NOT_MEASURED",
+      "scope": "person localization on visible source walking/running actor boxes; NOT gait classification accuracy",
+      "matching": "existing unique bidirectional IoU>=0.5, ambiguity unmatched; every decoded frame",
+      "source_video": "full lossy source-JPEG MP4 reconstruction; nominal25FPS projection, not capture PTS",
+      "missing_annotations_are_negative": false
+    },
+    {
+      "scene_id": "S01_caviar_walk",
+      "sequence": "Walk1",
+      "model_id": "pose-split-v1",
+      "source_sha256": "f114a54cb53038ffe2356430d2fca4bffe7cf04b2f265742bf789e1dd4beec58",
+      "metrics": {
+        "walking_known_gt_actor_frames": 662,
+        "walking_matched_person_actor_frames": 59,
+        "walking_known_positive_person_recall": 0.0891238670694864,
+        "running_known_positive_person_recall": null
+      },
+      "unmatched_person_proposals_unknown": 347,
+      "precision": null,
+      "event_precision_recall_f1": "NOT_MEASURED",
+      "independent_test": false,
+      "target_industrial_quality": "NOT_MEASURED",
+      "scope": "person localization on visible source walking/running actor boxes; NOT gait classification accuracy",
+      "matching": "existing unique bidirectional IoU>=0.5, ambiguity unmatched; every decoded frame",
+      "source_video": "full lossy source-JPEG MP4 reconstruction; nominal25FPS projection, not capture PTS",
+      "missing_annotations_are_negative": false
+    }
+  ],
+  "annotation_path": "/workspace/datasets/research/releases/caviar-running-walking-source3/v1-20261024/frame_annotations.jsonl",
+  "annotation_sha256": "bf9d1a2d2e26ba0602122f46275de1eb1054ae83922762a006d8e04be8d52fae",
+  "new_neural_calls": 0,
+  "source_gt_provenance": "SOURCE_ANNOTATION, development only"
+}

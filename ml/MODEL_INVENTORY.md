@@ -1,3 +1,15 @@
+## Final integration inventory — unchanged checkpoints
+
+Registry handoff docs/handoffs/MODEL_REGISTRY_HANDOFF_20261025.md. Primary COCO80
+coco-reference-yolov8n@640-v1-a6a8c37f7e45 local-only; Pose matvey-pose-yolov8n@
+640-v1-acc5f51228b9; Helmet matvey-helmet-yolov8n@640-v1-5c3af1f3b855. Full ONNX,
+tails, historical TPU binaries/hash manifest outsideGit in finalmodels/. No new
+weights/training/compile/remoteplacement/promotion. Actual Argus CPU114callsPASS;
+existing TPU tails15savednumeric callsPASS, no live requests. New specialist fire/
+smoke/cigarette/no_harness/suspended_load/cargo absent; export-only scalar training
+heads remain unselected. Current strict remote namespace conflicts with old app
+uploader; local-only additions setlinq_program:null, never invoke unsafe uploader.
+
 # Model inventory — night2026-10-24
 
 ## Current coverage release

@@ -1,3 +1,14 @@
+# Final integration checkpoint
+
+Latest read-first result: docs/handoffs/FINAL_ML_EVIDENCE_20261025.md and
+MODEL_REGISTRY_HANDOFF_20261025.md.12full local scenes/2830frames; separate real
+Argus CPU job persisted event1/evidence1/API200, no app source patches.15savedTPU
+raw-tail/postprocess checks PASS; liveLinQ BLOCKED ownstaging, no freshTPU.
+527softwaretestsOK(4skipped). Source flags/quality UNKNOWN remain explicit.
+Mark owns all app/rules; historical8-ML-rule freeze is not current Argus coverage.
+User's final integration sprint supersedes earlier session STOP blocks below.
+No new research/training/hypothesis reset; preserve issued models and artifacts.
+
 # Latest session handoff — whole scenes
 
 Read `docs/handoffs/SESSION_HANDOFF_20261024_SCENES.md` first for the latest state.
