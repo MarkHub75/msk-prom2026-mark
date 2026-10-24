@@ -5,7 +5,7 @@ import { api } from "../api/client";
 import type { Schemas } from "../api/types";
 import { useApi } from "../api/useApi";
 import { ErrorNotice, PageHeading } from "../components/ui";
-import { DemoBadge, GrowthContext, Panel, Skeleton, mskDay, ruDay, useSticky } from "../components/analytics/kit";
+import { DemoBadge, GrowthContext, Panel, Skeleton, mskDay, ruDay } from "../components/analytics/kit";
 import { AreaChart, Legend } from "../components/charts/AreaChart";
 import { Delta, HBars, Sparkline, StatTile, type Direction } from "../components/charts/Figures";
 import { C, verdictSegments } from "../components/charts/palette";
@@ -44,8 +44,8 @@ export function ManagementPage() {
   const navigate = useNavigate();
   const weeks = WEEKS.find(w => w === Number(search.get("weeks"))) ?? DEFAULT_WEEKS;
   const demo = search.get("demo") !== "0";
-  const state = useApi(() => api.GET("/api/stats/management", { params: { query: { weeks, include_demo: demo } } }), [weeks, demo]);
-  const data = useSticky(state);
+  const state = useApi(() => api.GET("/api/stats/management", { params: { query: { weeks, include_demo: demo } } }), [], { refresh: [weeks, demo] });
+  const data = state.data;
   const set = (k: string, v: string | null) => { const next = new URLSearchParams(search); if (v === null) next.delete(k); else next.set(k, v); setSearch(next); };
 
   const filters = <div className="an-filters" role="group" aria-label="Период и фильтры">

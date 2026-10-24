@@ -1,16 +1,9 @@
-import { useRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Database, Info } from "lucide-react";
 import { api } from "../../api/client";
-import { useApi, type ApiState } from "../../api/useApi";
+import { useApi } from "../../api/useApi";
 import { Sparkline } from "../charts/Figures";
 import { C } from "../charts/palette";
-
-/** Keep the last loaded data while a refetch runs, so filters do not blank the screen. */
-export function useSticky<T>(state: ApiState<T>): T | undefined {
-  const last = useRef<T>();
-  if (state.data !== undefined) last.current = state.data;
-  return state.error ? undefined : last.current;
-}
 
 export function Panel({ title, sub, aside, children, className = "", testId }: { title: string; sub?: ReactNode; aside?: ReactNode; children: ReactNode; className?: string; testId?: string }) {
   return <section className={`an-panel ${className}`} data-testid={testId} aria-label={title}>

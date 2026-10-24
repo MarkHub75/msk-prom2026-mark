@@ -7,16 +7,16 @@ import { fmt, smoothPath } from "./scale";
 export function Sparkline({ values, color, label, partialLast = false }: { values: number[]; color: string; label: string; partialLast?: boolean }) {
   const uid = useId().replace(/:/g, "");
   const W = 132, H = 30, pad = 4;
-  const max = Math.max(1, ...values);
-  const pts = values.map((v, i) => ({ x: pad + (values.length > 1 ? (i / (values.length - 1)) * (W - pad * 2) : 0), y: H - pad - (v / max) * (H - pad * 2) }));
-  if (!pts.length) return null;
-  const solid = partialLast ? pts.slice(0, -1) : pts;
-  const last = solid[solid.length - 1] ?? pts[0];
+  // An unfinished last value is left out: it would set the scale and look like a collapse or a burst.
+  const shown = partialLast && values.length > 2 ? values.slice(0, -1) : values;
+  const max = Math.max(1, ...shown);
+  const solid = shown.map((v, i) => ({ x: pad + (shown.length > 1 ? (i / (shown.length - 1)) * (W - pad * 2) : 0), y: H - pad - (v / max) * (H - pad * 2) }));
+  if (!solid.length) return null;
+  const last = solid[solid.length - 1];
   return <svg className="an-spark" width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
     <defs><linearGradient id={`${uid}-g`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity={0.45} /><stop offset="100%" stopColor={color} stopOpacity={0} /></linearGradient></defs>
     <path d={`${smoothPath(solid)}L${last.x},${H}L${solid[0].x},${H}Z`} fill={`url(#${uid}-g)`} />
     <path d={smoothPath(solid)} fill="none" stroke={color} strokeWidth={1.75} strokeLinecap="round" />
-    {partialLast && pts.length > 1 && <path d={`M${last.x},${last.y}L${pts[pts.length - 1].x},${pts[pts.length - 1].y}`} stroke={color} strokeWidth={1.5} strokeDasharray="2 3" fill="none" />}
     <circle cx={last.x} cy={last.y} r={3.5} fill={color} stroke="var(--surface)" strokeWidth={2} />
   </svg>;
 }

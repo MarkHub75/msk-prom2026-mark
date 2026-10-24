@@ -35,7 +35,9 @@
 .an-delta { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--faint); }
 .an-delta b { font-family: var(--mono); font-weight: 500; font-size: 12px; white-space: nowrap; }
 .an-delta { flex-wrap: wrap; }
-.an-now-label.is-clipped { fill: #ff8a8d; }
+.an-ghost-frame { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 1; stroke-dasharray: 3 3; }
+.an-ghost-label { fill: #d9dde3; font-family: var(--mono) !important; font-size: 11.5px !important; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+.an-ghost-up { fill: #d9dde3; font-size: 10px !important; }
 .an-delta-bad b, .an-delta-bad svg { color: #ff7b7f; }
 .an-delta-good b, .an-delta-good svg { color: #63c58e; }
 .an-delta-flat b, .an-delta-flat svg { color: var(--muted); }
@@ -232,3 +234,18 @@
 .an-context-fig span { grid-column: 1 / -1; font-size: 11.5px; color: var(--faint); }
 .an-context-fig b { font-family: var(--mono); font-size: 20px; font-weight: 600; color: #f0f0f0; white-space: nowrap; }
 .an-context-fig b small { font-size: 12px; font-weight: 400; color: var(--muted); }
+
+/* Heatmap: today's unfinished day and values above the scale */
+.an-heat-cell { position: relative; }
+.an-heat-cell.is-today { box-shadow: inset 0 0 0 1px rgba(255,255,255,.75); }
+.an-heat-cell.is-over::before { content: "▲"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 9px; color: #0b1418; }
+.an-heat-day.is-today { color: #fff; font-weight: 600; }
+.an-heat-day.is-today::after { content: " •"; color: var(--c); }
+.an-heat-margin { position: relative; }
+.an-heat-margin.is-over::after, .an-heat-total.is-over b::after { content: "▲"; font-size: 8px; color: var(--muted); margin-left: 1px; }
+.an-heat-margin.is-over::after { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); }
+.an-heat-scale i.an-heat-todaykey { width: 12px; height: 12px; border-radius: 3px; margin-left: 10px; background: #1b1b1b; box-shadow: inset 0 0 0 1px rgba(255,255,255,.75); }
+@media (max-width: 1500px) {
+  .an-tile-main:has(.an-tile-side) { flex-direction: row; align-items: flex-end; }
+  .an-tile-side b { font-size: 18px; }
+}

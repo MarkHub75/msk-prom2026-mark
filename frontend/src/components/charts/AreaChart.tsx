@@ -48,15 +48,15 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
   areas.forEach((s, k) => cum.push(s.values.map((v, i) => v + (stacked && k ? cum[k - 1][i] : 0))));
   // The scale follows the trend line; a wide corridor is cut at the top rather than flattening the data.
   const projHi = projection ? Array.from({ length: projection.to - projection.from + 1 }, (_, j) => { const i = projection.from + j; return projection.at(i); }) : [];
+  // An unfinished last slot (today, the current week) is not joined to the series and does not set
+  // the axis: it is a ghost column at the right edge with «идёт: N». The axis follows complete slots.
+  const done = partialLast && n > 1 ? n - 1 : n;
+  const last = done - 1;
   const peak = (i: number) => Math.max(0, ...cum.map(c => c[i] ?? 0), ...lines.map(s => s.values[i] ?? 0));
-  const peaks = Array.from({ length: n }, (_, i) => peak(i));
-  const restPeak = Math.max(1, ...peaks.slice(0, -1));
-  // An unfinished last slot far above the rest (a live burst today) would flatten the history:
-  // the axis is then cut at the complete slots and the last value is written out above the plot.
-  const clipped = !!partialLast && n > 2 && peaks[n - 1] > 2 * restPeak;
-  const { max, ticks } = niceScale(Math.max(1, ...(clipped ? [restPeak * 1.15] : peaks), ...projHi));
-  const y = (v: number) => Math.max(T - 4, T + plotH - (Math.max(0, v) / max) * plotH);
-  const pts = (vals: number[]) => vals.map((v, i) => ({ x: x(i), y: y(v) }));
+  const peaks = Array.from({ length: done }, (_, i) => peak(i));
+  const { max, ticks } = niceScale(Math.max(1, ...peaks, ...projHi));
+  const y = (v: number) => Math.max(T, T + plotH - (Math.max(0, v) / max) * plotH);
+  const pts = (vals: number[]) => vals.slice(0, done).map((v, i) => ({ x: x(i), y: y(v) }));
 
   const pick = (e: PointerEvent<SVGRectElement>) => {
     const box = e.currentTarget.getBoundingClientRect();
@@ -69,7 +69,7 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
   };
 
   // The extrapolation starts at the boundary of fact (the last actual slot), never over the history.
-  const projFrom = projection ? Math.min(projection.to, Math.max(projection.from, n - 1)) : 0;
+  const projFrom = projection ? Math.min(projection.to, Math.max(projection.from, last)) : 0;
   const inProj = (i: number) => !!projection && i >= projFrom && i <= projection.to;
   const tipX = hover === null ? 0 : x(hover);
   const flip = tipX > W * 0.62;
@@ -91,12 +91,22 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
         <line className={t ? "an-gridline" : "an-base"} x1={L} x2={W - R} y1={y(t)} y2={y(t)} />
         <text className="an-tick" x={L - 8} y={y(t) + 4} textAnchor="end">{fmt.format(t)}</text>
       </g>)}
-      {futureLabels.length > 0 && <g>
-        <rect x={x(n - 1)} y={T} width={x(slots - 1) - x(n - 1) + R / 2} height={plotH} fill={`url(#${uid}-future)`} />
-        <line className="an-now" x1={x(n - 1)} x2={x(n - 1)} y1={T - 6} y2={T + plotH} />
-        <text className="an-now-label" x={x(n - 1) + 6} y={T - 8}>проекция →</text>
+      {(futureLabels.length > 0 || done < n) && <g>
+        <rect x={x(last)} y={T} width={x(slots - 1) - x(last) + R / 2} height={plotH} fill={`url(#${uid}-future)`} />
+        <line className="an-now" x1={x(last)} x2={x(last)} y1={T - 6} y2={T + plotH} />
+        {futureLabels.length > 0 && <text className="an-now-label" x={W - R} y={T - 8} textAnchor="end">проекция →</text>}
       </g>}
-      {partialLast && <text className={`an-now-label${clipped ? " is-clipped" : ""}`} x={x(n - 1) - 6} y={T - 8} textAnchor="end">{clipped ? `${partialLast}: ${fmt.format(peaks[n - 1])} ↑ выше шкалы` : partialLast}</text>}
+      {done < n && (() => {
+        // Ghost column of the unfinished slot: stacked level parts, dashed outline, ▲ when above the axis.
+        const total = sum(n - 1), bw = Math.max(8, Math.min(22, step * 0.55)), cx = x(n - 1);
+        let acc = 0;
+        return <g className="an-ghost" aria-label={`${partialLast}: ${total}`}>
+          {areas.map(a => { const v = a.values[n - 1] ?? 0, y0 = y(acc), y1 = y(acc + v); acc += v; return v > 0 && y0 - y1 > 0.5 ? <rect key={a.id} x={cx - bw / 2} y={y1} width={bw} height={Math.max(1, y0 - y1 - 1)} fill={a.color} opacity={0.28} /> : null; })}
+          <rect className="an-ghost-frame" x={cx - bw / 2} y={y(total)} width={bw} height={Math.max(1, y(0) - y(total))} rx={3} />
+          {total > max && <text className="an-ghost-up" x={cx} y={T + 12} textAnchor="middle">▲</text>}
+          <text className="an-ghost-label" x={cx} y={y(total) - 8} textAnchor={cx > W - 60 ? "end" : "middle"} dx={cx > W - 60 ? bw / 2 : 0}>идёт: {fmt.format(total)}</text>
+        </g>;
+      })()}
 
       {areas.map((s, k) => {
         const top = pts(cum[k]);
@@ -132,8 +142,8 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
 
       {hover !== null && <g pointerEvents="none">
         <line className="an-cross" x1={tipX} x2={tipX} y1={T} y2={T + plotH} />
-        {hover < n && areas.map((s, k) => <circle key={s.id} cx={tipX} cy={y(cum[k][hover])} r={3.5} fill={s.color} className="an-dot" />)}
-        {hover < n && lines.map(s => <circle key={s.id} cx={tipX} cy={y(s.values[hover])} r={3.5} fill={s.color} className="an-dot" />)}
+        {hover < done && areas.map((s, k) => <circle key={s.id} cx={tipX} cy={y(cum[k][hover])} r={3.5} fill={s.color} className="an-dot" />)}
+        {hover < done && lines.map(s => <circle key={s.id} cx={tipX} cy={y(s.values[hover])} r={3.5} fill={s.color} className="an-dot" />)}
         {inProj(hover) && <circle cx={tipX} cy={y(projection!.at(hover))} r={4} fill="var(--surface)" stroke={projection!.color} strokeWidth={2} />}
       </g>}
       <rect className={`an-overlay${onPick ? " is-pickable" : ""}`} x={L} y={T} width={plotW} height={plotH} tabIndex={0}
