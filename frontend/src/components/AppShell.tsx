@@ -1,3 +1,4 @@
+import { PRODUCT } from "../brand";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
@@ -67,13 +68,13 @@ function ShellContent({ children }: { children: ReactNode }) {
     <div className={`app app-cr ${role === "master" ? "is-master" : ""}`}>
       <a className="skip-link" href="#workspace">Перейти к содержимому</a>
       <aside className="cr-rail">
-        <Link className="cr-logo" to={menuFor(role)[0]?.path ?? "/operator"} aria-label="SafeWatch"><span className="brand-mark" /></Link>
+        <Link className="cr-logo" to={menuFor(role)[0]?.path ?? "/operator"} aria-label={PRODUCT}><span className="brand-mark" /></Link>
         <nav className="workspace-nav cr-nav" aria-label="Разделы">{menuFor(role).map(item => <NavLink key={item.path} to={item.path} end title={item.title}><Icon name={navIcon(item.path)} size={20} /><span>{item.title}</span></NavLink>)}</nav>
         <label className="mobile-role cr-role"><span><Icon name="user" size={16} />Роль</span><select aria-label="Роль" value={role} onChange={e => changeRole(e.target.value as Role)}>{ROLES.map(id => <option key={id} value={id}>{meta?.roles.find(r => r.id === id)?.title ?? roleTitles[id]}</option>)}</select></label>
       </aside>
       <div className="cr-body">
         <header className="shell-header cr-top">
-          <Link className="brand" to={menuFor(role)[0]?.path ?? "/operator"}>SafeWatch</Link>
+          <Link className="brand" to={menuFor(role)[0]?.path ?? "/operator"}>{PRODUCT}</Link>
           <nav className="cr-roles" aria-label="Выбор роли">{ROLES.map(id => <button key={id} onClick={() => changeRole(id)} className={role === id ? "active" : ""} aria-current={role === id ? "page" : undefined}>{roleTitles[id]}</button>)}</nav>
           <div className="cr-top-right">
             <span className={`cr-source ${meta?.fake || review ? "is-synthetic" : ""}`} data-testid="backend">{source}</span>

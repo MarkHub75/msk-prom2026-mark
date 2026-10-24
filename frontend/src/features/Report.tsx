@@ -1,3 +1,4 @@
+import { PRODUCT } from "../brand";
 import { Link, useSearchParams } from "react-router-dom";
 import { api } from "../api/client";
 import type { EventSummary } from "../api/types";
@@ -65,7 +66,7 @@ export function ReportPage() {
     </div>
     <header className="rp-head">
       <div><h1>Отчёт по нарушениям охраны труда</h1><p>{periodTitle(search)} · время московское</p></div>
-      <div className="rp-meta"><span>SafeWatch</span><span>Сформирован {dateTime.format(new Date())}</span></div>
+      <div className="rp-meta"><span>{PRODUCT}</span><span>Сформирован {dateTime.format(new Date())}</span></div>
     </header>
     {demo && <p className="rp-demo">В отчёт входят демонстрационные события: данные синтетические, не результат наблюдения на производстве.</p>}
     <section className="rp-kpis">
@@ -85,6 +86,6 @@ export function ReportPage() {
       <table className="rp-table"><thead><tr><th>№</th><th>Дата и время</th><th>Событие</th><th>Причина</th><th>Место</th><th>Уровень</th><th>Состояние</th></tr></thead>
         <tbody>{items.map(e => <tr key={e.id}><td>{e.id}</td><td>{dateTime.format(new Date(e.started_at))}</td><td>{e.title}</td><td>{e.reason_text}</td><td>{e.sector_name}<br /><small>{e.camera_name}{e.zone_name ? ` · ${e.zone_name}` : ""}</small></td><td>{e.level === "red" ? "Красный" : "Жёлтый"}</td><td>{statusTitle(e)}</td></tr>)}</tbody></table>
     </section>
-    <footer className="rp-foot">Источник: журнал событий SafeWatch, фильтр как в журнале на момент формирования. Время начала события — по Москве. Последнее обновление данных: {time(new Date().toISOString())}.</footer>
+    <footer className="rp-foot">Источник: журнал событий {PRODUCT}, фильтр как в журнале на момент формирования. Время начала события — по Москве. Последнее обновление данных: {time(new Date().toISOString())}.</footer>
   </article>;
 }

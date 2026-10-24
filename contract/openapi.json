@@ -1559,6 +1559,17 @@
             "title": "Escalated By Timeout",
             "type": "boolean"
           },
+          "evidence_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Url"
+          },
           "id": {
             "title": "Id",
             "type": "integer"
