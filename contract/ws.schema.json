@@ -1,0 +1,949 @@
+{
+  "$defs": {
+    "BackendStatus": {
+      "properties": {
+        "backend": {
+          "enum": [
+            "linq",
+            "local"
+          ],
+          "title": "Backend",
+          "type": "string"
+        },
+        "checked_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Checked At"
+        },
+        "fake": {
+          "title": "Fake",
+          "type": "boolean"
+        },
+        "latency_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Latency Ms"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "missing": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing",
+          "type": "array"
+        },
+        "present": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Present",
+          "type": "array"
+        },
+        "state": {
+          "enum": [
+            "ok",
+            "models_missing",
+            "unreachable",
+            "bad_answer",
+            "unchecked"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "backend",
+        "fake",
+        "state",
+        "checked_at",
+        "latency_ms",
+        "present",
+        "missing",
+        "message"
+      ],
+      "title": "BackendStatus",
+      "type": "object"
+    },
+    "Broadcast": {
+      "properties": {
+        "analysis_id": {
+          "title": "Analysis Id",
+          "type": "integer"
+        },
+        "camera_id": {
+          "title": "Camera Id",
+          "type": "integer"
+        },
+        "cycle": {
+          "title": "Cycle",
+          "type": "integer"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "loop": {
+          "title": "Loop",
+          "type": "boolean"
+        },
+        "position_ms": {
+          "title": "Position Ms",
+          "type": "integer"
+        },
+        "server_now": {
+          "format": "date-time",
+          "title": "Server Now",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "playing",
+            "stopped",
+            "ended"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "video_id": {
+          "title": "Video Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "camera_id",
+        "video_id",
+        "analysis_id",
+        "status",
+        "loop",
+        "cycle",
+        "started_at",
+        "position_ms",
+        "duration_ms",
+        "server_now"
+      ],
+      "title": "Broadcast",
+      "type": "object"
+    },
+    "CameraState": {
+      "properties": {
+        "camera_id": {
+          "title": "Camera Id",
+          "type": "integer"
+        },
+        "freshness_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Freshness Ms"
+        },
+        "open_red": {
+          "title": "Open Red",
+          "type": "integer"
+        },
+        "open_yellow": {
+          "title": "Open Yellow",
+          "type": "integer"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "no_source",
+                "processing",
+                "failed",
+                "ended",
+                "stale",
+                "dark",
+                "obstructed"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "reason_text": {
+          "title": "Reason Text",
+          "type": "string"
+        },
+        "sector_id": {
+          "title": "Sector Id",
+          "type": "integer"
+        },
+        "state": {
+          "enum": [
+            "normal",
+            "yellow",
+            "red",
+            "no_observation"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "camera_id",
+        "sector_id",
+        "state",
+        "reason",
+        "reason_text",
+        "freshness_ms",
+        "open_yellow",
+        "open_red"
+      ],
+      "title": "CameraState",
+      "type": "object"
+    },
+    "EventSummary": {
+      "properties": {
+        "camera_id": {
+          "title": "Camera Id",
+          "type": "integer"
+        },
+        "camera_name": {
+          "title": "Camera Name",
+          "type": "string"
+        },
+        "duration_s": {
+          "title": "Duration S",
+          "type": "number"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ended At"
+        },
+        "escalated_by_timeout": {
+          "title": "Escalated By Timeout",
+          "type": "boolean"
+        },
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "is_demo": {
+          "title": "Is Demo",
+          "type": "boolean"
+        },
+        "level": {
+          "enum": [
+            "yellow",
+            "red"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "replay",
+            "demo"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "notification_text": {
+          "title": "Notification Text",
+          "type": "string"
+        },
+        "operator_verdict": {
+          "enum": [
+            "none",
+            "confirmed",
+            "false_alarm"
+          ],
+          "title": "Operator Verdict",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "published_at": {
+          "format": "date-time",
+          "title": "Published At",
+          "type": "string"
+        },
+        "reason_text": {
+          "title": "Reason Text",
+          "type": "string"
+        },
+        "red_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Red At"
+        },
+        "scenario": {
+          "title": "Scenario",
+          "type": "string"
+        },
+        "sector_id": {
+          "title": "Sector Id",
+          "type": "integer"
+        },
+        "sector_name": {
+          "title": "Sector Name",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "new",
+            "viewed",
+            "confirmed",
+            "false_alarm",
+            "sent_to_master",
+            "master_accepted",
+            "resolved",
+            "auto_finished",
+            "superseded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "status_title": {
+          "title": "Status Title",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "zone_id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zone Id"
+        },
+        "zone_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zone Name"
+        }
+      },
+      "required": [
+        "id",
+        "scenario",
+        "title",
+        "level",
+        "status",
+        "status_title",
+        "operator_verdict",
+        "escalated_by_timeout",
+        "mode",
+        "camera_id",
+        "camera_name",
+        "sector_id",
+        "sector_name",
+        "zone_id",
+        "zone_name",
+        "reason_text",
+        "notification_text",
+        "started_at",
+        "published_at",
+        "red_at",
+        "ended_at",
+        "duration_s",
+        "priority",
+        "is_demo"
+      ],
+      "title": "EventSummary",
+      "type": "object"
+    },
+    "InferenceMetrics": {
+      "properties": {
+        "backend": {
+          "enum": [
+            "linq",
+            "local"
+          ],
+          "title": "Backend",
+          "type": "string"
+        },
+        "cached": {
+          "title": "Cached",
+          "type": "boolean"
+        },
+        "fake": {
+          "title": "Fake",
+          "type": "boolean"
+        },
+        "frames_processed": {
+          "title": "Frames Processed",
+          "type": "integer"
+        },
+        "input_size": {
+          "title": "Input Size",
+          "type": "integer"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "postprocess_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Postprocess Ms"
+        },
+        "preprocess_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Preprocess Ms"
+        },
+        "step": {
+          "title": "Step",
+          "type": "integer"
+        },
+        "task": {
+          "enum": [
+            "detect",
+            "pose"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "throughput_fps": {
+          "title": "Throughput Fps",
+          "type": "number"
+        },
+        "total_s": {
+          "title": "Total S",
+          "type": "number"
+        },
+        "tpu_rtt_p50_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tpu Rtt P50 Ms"
+        },
+        "tpu_rtt_p90_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tpu Rtt P90 Ms"
+        },
+        "upload_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Upload S"
+        },
+        "wall_s": {
+          "title": "Wall S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "backend",
+        "fake",
+        "model_id",
+        "model_version",
+        "task",
+        "input_size",
+        "step",
+        "frames_processed",
+        "wall_s",
+        "throughput_fps",
+        "preprocess_ms",
+        "postprocess_ms",
+        "tpu_rtt_p50_ms",
+        "tpu_rtt_p90_ms",
+        "upload_s",
+        "total_s",
+        "cached"
+      ],
+      "title": "InferenceMetrics",
+      "type": "object"
+    },
+    "Job": {
+      "properties": {
+        "analysis_id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Analysis Id"
+        },
+        "analysis_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Analysis Ms"
+        },
+        "attempts": {
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "backend": {
+          "enum": [
+            "linq",
+            "local"
+          ],
+          "title": "Backend",
+          "type": "string"
+        },
+        "camera_id": {
+          "title": "Camera Id",
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "linq_unavailable",
+                "timeout",
+                "remote_error",
+                "bad_output",
+                "model_missing",
+                "video_unreadable",
+                "artifacts_missing",
+                "internal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        },
+        "error_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Text"
+        },
+        "fake": {
+          "title": "Fake",
+          "type": "boolean"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "process",
+            "recompute"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "metrics": {
+          "items": {
+            "$ref": "#/$defs/InferenceMetrics"
+          },
+          "title": "Metrics",
+          "type": "array"
+        },
+        "next_attempt_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Attempt At"
+        },
+        "progress": {
+          "title": "Progress",
+          "type": "number"
+        },
+        "stage": {
+          "enum": [
+            "queued",
+            "inference_detect",
+            "inference_pose",
+            "analysis",
+            "evidence",
+            "done"
+          ],
+          "title": "Stage",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "retry_wait",
+            "done",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "video_id": {
+          "title": "Video Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "video_id",
+        "camera_id",
+        "backend",
+        "fake",
+        "status",
+        "stage",
+        "progress",
+        "attempts",
+        "next_attempt_at",
+        "error_code",
+        "error_text",
+        "metrics",
+        "analysis_id",
+        "analysis_ms",
+        "created_at",
+        "started_at",
+        "finished_at"
+      ],
+      "title": "Job",
+      "type": "object"
+    },
+    "Notification": {
+      "properties": {
+        "audience": {
+          "items": {
+            "enum": [
+              "operator",
+              "master",
+              "ohs",
+              "management",
+              "admin"
+            ],
+            "type": "string"
+          },
+          "title": "Audience",
+          "type": "array"
+        },
+        "event_id": {
+          "title": "Event Id",
+          "type": "integer"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "yellow",
+            "red"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "sound": {
+          "enum": [
+            "siren",
+            "chime",
+            "none"
+          ],
+          "title": "Sound",
+          "type": "string"
+        },
+        "takeover": {
+          "title": "Takeover",
+          "type": "boolean"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "event_id",
+        "level",
+        "text",
+        "audience",
+        "sound",
+        "takeover"
+      ],
+      "title": "Notification",
+      "type": "object"
+    },
+    "SectorState": {
+      "properties": {
+        "cameras_no_observation": {
+          "title": "Cameras No Observation",
+          "type": "integer"
+        },
+        "cameras_total": {
+          "title": "Cameras Total",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "open_red": {
+          "title": "Open Red",
+          "type": "integer"
+        },
+        "open_yellow": {
+          "title": "Open Yellow",
+          "type": "integer"
+        },
+        "reason_text": {
+          "title": "Reason Text",
+          "type": "string"
+        },
+        "sector_id": {
+          "title": "Sector Id",
+          "type": "integer"
+        },
+        "state": {
+          "enum": [
+            "normal",
+            "yellow",
+            "red",
+            "no_observation"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sector_id",
+        "name",
+        "state",
+        "reason_text",
+        "cameras_total",
+        "cameras_no_observation",
+        "open_yellow",
+        "open_red"
+      ],
+      "title": "SectorState",
+      "type": "object"
+    },
+    "WsHello": {
+      "properties": {
+        "contract": {
+          "title": "Contract",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "operator",
+            "master",
+            "ohs",
+            "management",
+            "admin"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "server_now": {
+          "format": "date-time",
+          "title": "Server Now",
+          "type": "string"
+        }
+      },
+      "required": [
+        "server_now",
+        "contract",
+        "role"
+      ],
+      "title": "WsHello",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "at": {
+      "format": "date-time",
+      "title": "At",
+      "type": "string"
+    },
+    "data": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WsHello"
+        },
+        {
+          "$ref": "#/$defs/EventSummary"
+        },
+        {
+          "$ref": "#/$defs/Notification"
+        },
+        {
+          "$ref": "#/$defs/CameraState"
+        },
+        {
+          "$ref": "#/$defs/SectorState"
+        },
+        {
+          "$ref": "#/$defs/Job"
+        },
+        {
+          "$ref": "#/$defs/Broadcast"
+        },
+        {
+          "$ref": "#/$defs/BackendStatus"
+        }
+      ],
+      "title": "Data"
+    },
+    "type": {
+      "enum": [
+        "hello",
+        "event.created",
+        "event.updated",
+        "event.escalated",
+        "notification",
+        "camera.state",
+        "sector.state",
+        "job.progress",
+        "broadcast.state",
+        "backend.status"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "at",
+    "data"
+  ],
+  "title": "WsMessage",
+  "type": "object"
+}

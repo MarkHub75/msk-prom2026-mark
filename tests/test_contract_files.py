@@ -1,0 +1,87 @@
+import importlib.util
+import json
+import re
+import shutil
+import subprocess
+from pathlib import Path
+from types import ModuleType
+from typing import get_args
+
+import pytest
+from pydantic import TypeAdapter
+
+from safewatch import cli, types
+from safewatch.api import CONTRACT_VERSION, create_app
+from safewatch.config import Settings
+from safewatch.types import WsMessage, WsType
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT = ROOT / "contract"
+
+
+def _load(name: str) -> ModuleType:
+    spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _git(repo: Path, *args: str) -> None:
+    subprocess.run(["git", "-c", "core.autocrlf=false", *args], cwd=repo, check=True)
+
+
+def test_eol_check_flags_crlf(tmp_path: Path) -> None:
+    eol = _load("eol_check")
+    _git(tmp_path, "init", "-q")
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src" / "good.py").write_bytes(b"x = 1\n")
+    (tmp_path / "notes.txt").write_bytes(b"research\r\nfile\r\n")  # outside app paths
+    _git(tmp_path, "add", ".")
+    assert eol.main(["--root", str(tmp_path)]) == 0
+    (tmp_path / "src" / "bad.py").write_bytes(b"x = 1\r\n")
+    _git(tmp_path, "add", ".")
+    assert eol.crlf_files(tmp_path) == ["src/bad.py"]
+    assert eol.main(["--root", str(tmp_path)]) == 1
+
+
+def test_openapi_matches_app(settings: Settings) -> None:
+    on_disk = json.loads((CONTRACT / "openapi.json").read_text(encoding="utf-8"))
+    assert on_disk == create_app(settings).openapi()
+    assert on_disk["info"]["version"] == CONTRACT_VERSION == "1.0.0"
+
+
+def test_contract_check_detects_drift(
+    core: Settings, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    for name in ("openapi.json", "ws.schema.json"):
+        shutil.copy(CONTRACT / name, tmp_path / name)
+    monkeypatch.setattr(cli, "CONTRACT_DIR", tmp_path)
+    assert cli.main(["contract", "--check"]) == 0
+    # The schema of one model on disk differs from the app, as after an edit of types.py.
+    path = tmp_path / "ws.schema.json"
+    text = path.read_text(encoding="utf-8").replace('"server_now"', '"now"')
+    path.write_text(text, encoding="utf-8", newline="\n")
+    assert cli.main(["contract", "--check"]) == 1
+    assert cli.main(["contract"]) == 0
+    assert cli.main(["contract", "--check"]) == 0
+
+
+def test_ws_schema_matches_types() -> None:
+    on_disk = json.loads((CONTRACT / "ws.schema.json").read_text(encoding="utf-8"))
+    assert on_disk == TypeAdapter(WsMessage).json_schema()
+
+
+def test_ws_examples_cover_every_type() -> None:
+    examples = json.loads((CONTRACT / "ws-examples.json").read_text(encoding="utf-8"))
+    messages = [WsMessage.model_validate(item) for item in examples]
+    assert sorted(m.type for m in messages) == sorted(get_args(WsType))
+
+
+def test_types_export_contract_names() -> None:
+    tech = (ROOT / "tech.md").read_text(encoding="utf-8")
+    block = tech.split("### 5.2", 1)[1].split("```python", 1)[1].split("```", 1)[0]
+    names = re.findall(r"^class (\w+)", block, re.M) + re.findall(r"^(\w+) = ", block, re.M)
+    assert len(names) > 100
+    missing = [name for name in names if not hasattr(types, name)]
+    assert missing == []
