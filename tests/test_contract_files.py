@@ -10,7 +10,7 @@ from typing import get_args
 import pytest
 from pydantic import TypeAdapter
 
-from safewatch import cli, types
+from safewatch import cli, texts, types
 from safewatch.api import CONTRACT_VERSION, create_app
 from safewatch.config import Settings
 from safewatch.types import WsMessage, WsType
@@ -85,3 +85,11 @@ def test_types_export_contract_names() -> None:
     assert len(names) > 100
     missing = [name for name in names if not hasattr(types, name)]
     assert missing == []
+
+
+def test_texts_cover_every_literal() -> None:
+    assert set(texts.STATUS_TITLES) == set(get_args(types.EventStatus))
+    assert set(texts.LEVEL_TITLES) == set(get_args(types.Level))
+    assert set(texts.ROLE_TITLES) == set(get_args(types.Role))
+    assert set(texts.DEMO_ACTOR) == set(get_args(types.ActorRole))
+    assert set(texts.NO_OBSERVATION_TEXTS) == set(get_args(types.NoObservationReason))

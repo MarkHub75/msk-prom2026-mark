@@ -72,7 +72,8 @@ UPLOAD_CHUNK = 1 << 20
 WS_UNKNOWN_ROLE = 4400
 WS_TOO_SLOW = 1013
 
-router = APIRouter()
+# Every error body is ApiError (tech.md 6.2); 4XX also covers the 422 of a malformed request.
+router = APIRouter(responses={"4XX": {"model": ApiError}, 501: {"model": ApiError}})
 
 
 def _role(x_role: Annotated[str | None, Header(alias="X-Role")] = None) -> Role | None:
@@ -465,7 +466,7 @@ class _Frontend(StaticFiles):
         try:
             return await super().get_response(path, scope)
         except HTTPException as exc:
-            if exc.status_code != 404:
+            if exc.status_code != 404 or scope["path"].startswith("/api/"):
                 raise
             return await super().get_response("index.html", scope)
 

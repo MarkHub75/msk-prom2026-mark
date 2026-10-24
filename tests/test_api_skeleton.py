@@ -97,9 +97,11 @@ ERRORS: list[tuple[AppError, int, str]] = [
 
 @pytest.mark.parametrize(("error", "status", "code"), ERRORS)
 def test_app_errors_map_to_status_codes(
-    settings: Settings, error: AppError, status: int, code: str
+    settings: Settings, error: AppError, status: int, code: str, tmp_path: Path
 ) -> None:
-    app = create_app(settings)
+    bare = settings.model_copy(deep=True)
+    bare.server.static_dir = tmp_path / "no-frontend"  # the temp route goes after the mount
+    app = create_app(bare)
     temp = APIRouter()
 
     @temp.get("/api/test-error")
@@ -125,3 +127,16 @@ def test_ws_hello_and_unknown_role(settings: Settings, conn: object) -> None:
         with client.websocket_connect("/ws?role=boss") as ws:
             ws.receive_json()
     assert closed.value.code == 4400
+
+
+async def test_frontend_is_served_with_spa_fallback(core: Settings, tmp_path: Path) -> None:
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    (dist / "index.html").write_text("<p>SafeWatch</p>", encoding="utf-8")
+    app_settings = core.model_copy(deep=True)
+    app_settings.server.static_dir = dist
+    transport = httpx.ASGITransport(app=create_app(app_settings))
+    async with httpx.AsyncClient(transport=transport, base_url="http://127.0.0.1") as c:
+        assert (await c.get("/operator/cameras/3")).text == "<p>SafeWatch</p>"
+        assert (await c.get("/api/health")).json()["status"] == "ok"
+        assert (await c.get("/api/no-such-route")).status_code == 404

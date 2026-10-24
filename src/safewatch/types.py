@@ -972,9 +972,8 @@ class EvalReport(BaseModel):
 
 
 # --- protocols (tech.md 6.1) -------------------------------------------------------------
-class RemoteShell(
-    Protocol
-):  # LinQ Jupyter: inference/linq.JupyterShell, fakes/remote.FakeRemoteShell
+# LinQ Jupyter: inference/linq.JupyterShell, fakes/remote.FakeRemoteShell
+class RemoteShell(Protocol):
     def upload(self, local: Path, remote: str) -> None: ...
     def download(self, remote: str, local: Path) -> int: ...
     def exec(self, cmd: str, timeout: float) -> tuple[int, str, str]: ...

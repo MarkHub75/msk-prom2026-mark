@@ -82,6 +82,45 @@
         "title": "Analysis",
         "type": "object"
       },
+      "ApiError": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "details": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default": {},
+            "title": "Details",
+            "type": "object"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ApiError",
+        "type": "object"
+      },
       "BackendStatus": {
         "properties": {
           "backend": {
@@ -1740,19 +1779,6 @@
           "title"
         ],
         "title": "FacetItem",
-        "type": "object"
-      },
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "title": "Detail",
-            "type": "array"
-          }
-        },
-        "title": "HTTPValidationError",
         "type": "object"
       },
       "Health": {
@@ -3601,46 +3627,6 @@
         "title": "UploadResult",
         "type": "object"
       },
-      "ValidationError": {
-        "properties": {
-          "ctx": {
-            "title": "Context",
-            "type": "object"
-          },
-          "input": {
-            "title": "Input"
-          },
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            },
-            "title": "Location",
-            "type": "array"
-          },
-          "msg": {
-            "title": "Message",
-            "type": "string"
-          },
-          "type": {
-            "title": "Error Type",
-            "type": "string"
-          }
-        },
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "title": "ValidationError",
-        "type": "object"
-      },
       "Video": {
         "properties": {
           "active_analysis_id": {
@@ -3970,6 +3956,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Cameras Admin View"
@@ -4000,15 +4006,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Setup View"
@@ -4050,15 +4066,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Cameras List"
@@ -4104,15 +4130,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Create"
@@ -4152,15 +4188,25 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Delete"
@@ -4189,15 +4235,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Get"
@@ -4252,15 +4308,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Update"
@@ -4300,15 +4366,25 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Broadcast Stop"
@@ -4345,15 +4421,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Broadcast Get"
@@ -4408,15 +4494,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Broadcast Start"
@@ -4456,15 +4552,25 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Calibration Delete"
@@ -4501,15 +4607,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Calibration Get"
@@ -4564,15 +4680,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Calibration Set"
@@ -4601,15 +4727,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Preview"
@@ -4644,15 +4780,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Rules"
@@ -4718,15 +4864,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Rule Set"
@@ -4761,15 +4917,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Videos List"
@@ -4824,15 +4990,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video Upload"
@@ -4863,15 +5039,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Camera Live View"
@@ -4906,15 +5092,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Zones List"
@@ -4969,15 +5165,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Zone Create"
@@ -5206,15 +5412,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Events List"
@@ -5441,15 +5657,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Events Export Csv"
@@ -5496,15 +5722,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Event Detail"
@@ -5577,15 +5813,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Event Action"
@@ -5614,15 +5860,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Evidence Image"
@@ -5641,6 +5897,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Health"
@@ -5699,15 +5975,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Jobs List"
@@ -5738,15 +6024,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Job Get"
@@ -5793,15 +6089,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Job Retry"
@@ -5820,6 +6126,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Journal Facets"
@@ -5838,6 +6164,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Master Inbox View"
@@ -5876,15 +6222,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Shift Summary View"
@@ -5903,6 +6259,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Meta"
@@ -5921,6 +6297,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Models View"
@@ -5939,6 +6335,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Rules Screen View"
@@ -5957,6 +6373,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Operator Dashboard View"
@@ -5979,6 +6415,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Operator Feed"
@@ -6001,6 +6457,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Sectors List"
@@ -6046,15 +6522,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Sector Create"
@@ -6094,15 +6580,25 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Sector Delete"
@@ -6157,15 +6653,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Sector Update"
@@ -6196,15 +6702,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Sector View"
@@ -6252,15 +6768,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Management View"
@@ -6358,15 +6884,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Ohs Stats View"
@@ -6385,6 +6921,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "System View"
@@ -6403,6 +6959,26 @@
               }
             },
             "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Backend Check"
@@ -6433,15 +7009,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video Get"
@@ -6472,15 +7058,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video Analysis"
@@ -6509,15 +7105,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video File"
@@ -6564,15 +7170,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video Recompute"
@@ -6621,15 +7237,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Video Tracks"
@@ -6669,15 +7295,25 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Zone Delete"
@@ -6732,15 +7368,25 @@
             },
             "description": "Successful Response"
           },
-          "422": {
+          "4XX": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             },
-            "description": "Validation Error"
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
           }
         },
         "summary": "Zone Update"
