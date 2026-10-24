@@ -338,12 +338,18 @@ _TERMINAL = "('false_alarm', 'resolved', 'auto_finished', 'superseded')"
 
 _EVENTS = """
 SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name,
-    ev.id AS evidence_id, ev.sha256 AS evidence_sha256
+    ev.id AS evidence_id, ev.sha256 AS evidence_sha256,
+    ep.start_ms AS clip_start_ms, ep.confirm_ms AS clip_confirm_ms, v.id AS clip_video_id,
+    v.duration_ms AS clip_duration_ms, v.browser_playable AS clip_browser_playable,
+    v.web_path AS clip_web_path
 FROM events e
 JOIN cameras c ON c.id = e.camera_id
 JOIN sectors s ON s.id = e.sector_id
 LEFT JOIN zones z ON z.id = e.zone_id
 LEFT JOIN evidence ev ON ev.episode_id = e.episode_id AND ev.kind = 'confirm'
+LEFT JOIN episodes ep ON ep.id = e.episode_id
+LEFT JOIN analyses an ON an.id = ep.analysis_id
+LEFT JOIN videos v ON v.id = an.video_id
 """
 
 
