@@ -63,9 +63,11 @@ def transcode(src: Path, dst: Path, cfg: TranscodeConfig) -> bool:
     # ffmpeg writes beside `dst`: a killed run never leaves a half file under the final name.
     part = dst.with_name(dst.name + ".part")
     try:
+        # libx264 with yuv420p needs even sides: an odd frame gets one black column or row
+        # on the right or bottom, the pixels of the HUD stay where they were.
         cmd = [
             imageio_ffmpeg.get_ffmpeg_exe(),
-            *("-y", "-v", "error", "-i", str(src)),
+            *("-y", "-v", "error", "-i", str(src), "-vf", "pad=ceil(iw/2)*2:ceil(ih/2)*2"),
             *("-c:v", "libx264", "-preset", cfg.preset, "-crf", str(cfg.crf)),
             *("-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", "-f", "mp4", str(part)),
         ]

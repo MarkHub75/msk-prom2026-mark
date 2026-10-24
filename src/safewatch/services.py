@@ -452,6 +452,8 @@ def _register(
             new_job, reused = True, False
         else:
             video_id, reused = row["id"], True
+            if web_path is not None and row["web_path"] is None:  # a video from before slice 18
+                store.video_update(video_id, {"web_path": web_path})
             if row["status"] == "ready":
                 job_id = None
             elif row["status"] == "failed":
@@ -521,13 +523,14 @@ def _sha256(path: Path) -> str:
 
 
 def video_import(camera_id: int, path: Path) -> UploadResult:
-    return _video_import(camera_id, path, None)
-
-
-def _video_import(camera_id: int, path: Path, source: Source | None) -> UploadResult:
     if not path.is_file():
         raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
     camera_get(camera_id)
+    return _register(camera_id, path.name, *_stage(path))
+
+
+def _stage(path: Path) -> tuple[str, int, media.VideoProbe, str | None]:
+    """Checks of tech.md 8.1, the copy into `uploads/` and its H.264 copy (8.20); no database."""
     ext = _extension(path.name)
     settings = config.get_settings()
     size = path.stat().st_size
@@ -541,8 +544,7 @@ def _video_import(camera_id: int, path: Path, source: Source | None) -> UploadRe
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
-    web_path = _web_copy(target, sha256, probe)
-    return _register(camera_id, path.name, sha256, size, probe, web_path, source)
+    return sha256, size, probe, _web_copy(target, sha256, probe)
 
 
 def _video(row: sqlite3.Row) -> Video:
@@ -2816,12 +2818,16 @@ def demo_import(path: Path) -> DemoImportReport:
         return DemoImportReport(skipped=True, jobs=0, **counts)
     backend = pack[0].backend if pack else config.get_settings().inference_backend
     source: Source = (backend, any(a.fake for a in pack))
+    # Files and ffmpeg (8.20) before the transaction: a transcode does not lock the database.
+    files = dict.fromkeys(v.file for c in manifest.cameras for v in c.videos)
+    staged = {file: _stage(path / file) for file in files}
     jobs = 0
     with store.tx():
         for camera in manifest.cameras:
             camera_id = _demo_camera(camera)
             for video in camera.videos:
-                result = _video_import(camera_id, path / video.file, source)
+                name = Path(video.file).name
+                result = _register(camera_id, name, *staged[video.file], source)
                 for a in video.artifacts:
                     artifact_import(
                         result.video.id, a.model, path / a.file, a.backend, a.fake, a.metrics
