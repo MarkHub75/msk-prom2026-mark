@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S10 в работе
+- state: S10 закрыт, следующий R10
 - tech.md: v2
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -58,6 +58,16 @@
 - GAP: S9, фронт: `PolygonEditor({image, mode, value, onChange, maxPoints, grid?})` — необязательная сетка калибровки под точками; кадр редактора — `/api/cameras/{id}/preview`; `CalibrationPanel`, `ZonesPanel`, `RulesPanel` внутри `CameraSetup.tsx` секциями страницы (вкладок нет, как в S6); контрольные точки вводит только API; параметр правила сохраняется по `blur`; «Пересчитать события» в «Правилах» — для видео плеера; на `/ohs/rules` переключатель сценария не `active` выключен.
 - R10: S9 — `pipeline._plugins` и HUD берут `rules.defaults` из текущего конфига, а не `CameraRule.effective` снимка (тест S5 строит правило с `effective={}`); `explain` в `event_detail` тоже читает текущие defaults.
 - R10: тест без фикстуры `core`/`conn` пишет в настоящую `data/app/safewatch.db` (S9 так записал и удалил свои строки); нужна защита в `conftest` (autouse `data_dir` в `tmp_path`); ещё какой-то шаг гейта открывает эту базу (меняется mtime папки `data/app`).
+- GAP: S10, `rules.PLUGINS: dict[str, ScenarioPlugin]` → `PLUGINS: list[ScenarioPlugin]` (строка 6.7, порядок таблицы 8.3) и `rules.plugin(scenario) -> ScenarioPlugin` (`KeyError` без плагина; раздел 4); `rules.ANY_CLASS = {"fire_smoking"}` (достаточно одного из `required_classes`); статус `skeleton` берётся из `meta.status` плагина, текст `texts.SCENARIO_SKELETON`; `required_classes`: proximity `person, car, bus, truck, train`, phone `person, cell phone`, no_harness `person, no_harness`, suspended_load `person, suspended_load`, fire_smoking `fire, smoke, cigarette`, load_carrying `[]`.
+- GAP: S10, `geometry.ioa(a, b) -> float` (доля площади `a` внутри `b`), `segment_crossing(p, q, a, b) -> bool` (точка на прямой считается отрицательной стороной: шаг на линию и шаг с неё — одно пересечение; пересечение вне отрезка `a-b` — нет).
+- GAP: S10, `features.VehicleHistory = dict[int, list[tuple[int, VehicleState]]]`, `features.vehicle_states(tracks, ts_ms, history, cfg, ground=None) -> list[VehicleState]` (`speed_vh_s` — центр рамки, те же окно и условия, что у человека; `footprint` — нижняя кромка через `ground`, обе точки внутри оболочки; `speed_m_s` — середина `footprint` по тому же окну); `_recent` стал обобщённым.
+- GAP: S10, `rules/base.attach_objects`: «внутри верхней доли» — `x1 ≤ cx ≤ x2`, `y1 ≤ cy ≤ y1 + upper_frac × h`; «ближе к запястью» — строго `<`, запястье видно при `conf ≥ pose.kpt_conf`; `ambiguous` перекрывает привязку; `WRISTS = (9, 10)`; сигарета `fire_smoking` привязывается по `upper_frac`, `wrist_dist_bh` из `scenarios.phone` (в `scenarios.fire_smoking` таких ключей нет).
+- GAP: S10, субъекты и коды: proximity `pair:<p>-<v>` (`reason_code` `proximity`/`proximity_red`, `metrics` `distance_bh`/`distance_m`, метод `relative`/`calibrated`; скорость техники: `speed_m_s` важнее `speed_vh_s`) и `zone:<p>-<z>` (`proximity_zone`, N на каждую зону danger вне неё); водитель (`ioa(person, vehicle) ≥ driver_ioa` любой техники) исключён из proximity целиком; phone `phone`/`phone_zone`, U `too_small` (по `height_px`), `owner_ambiguous`, `metrics.score`; fence — одно наблюдение на человека (первая пересечённая линия), `fence_crossing`/`fence_unseen`, разрыв — `ts − prev_ts_ms > max_gap_s`; under `under_zone`; fire_smoking — субъект `fire` (одно наблюдение на кадр, `anchor=None`) и `track:<id>` (`smoking`/`smoking_zone`, удержание `smoking_hold_s` и в зоне danger); no_harness — пересечение рамок `ioa > 0`; suspended_load — `x1 ≤ anchor.x ≤ x2` и `anchor.y > y2` груза.
+- GAP: S10, `texts.py`: `SCENARIO_SKELETON`, `VEHICLE_WITH`, `PROXIMITY_BH`, `PROXIMITY_M`, `PERSON_IN_ZONE`, `PHONE_HELD`, `FENCE_CROSSED`, `FENCE_UNSEEN = ": момент не виден"`, `FIRE_OUTSIDE`, `SMOKING`, `NO_HARNESS`, `UNDER_LOAD`, `WHY_PROXIMITY_BH`, `WHY_PROXIMITY_M`, `WHY_HOLD = "{rule} дольше {s} с"`; описания, подписи параметров, метрики (`distance_bh`, `distance_m`, `score`) и `OBJECT_LABELS` классов огня, дыма, сигареты, привязи, груза.
+- GAP: S10, модели `pipeline.extra`: `analyze(..., det_model, extra: list[tuple[ModelSpec, list[FrameDetections]]] | None = None)` (классы → `ObjectState` по `class_conf`, иначе `ModelSpec.conf`); `services._analysis_files(..., hud_path, extra)`, `_analyze(job_id, video, det, pose, extra)`; проход каждой модели — сразу после детектора, стадия `inference_detect`, доля 0,45; `LinqBackend` и `LocalBackend` узнают модель extra по `id@version` в `pipeline.extra`: `--nc len(classes)` без `--classes` (local: `nc = len(classes)`, `classes=None`); `FakeRemoteShell` с `--nc` отдаёт кадры без детекций (сцены в id COCO); `Job.metrics` по-прежнему только детектор и pose (колонок для extra в `jobs` нет).
+- долг: S10, «модели `pipeline.extra` в конвейере» для `recompute`: в `analyses` нет колонки артефактов extra (схема 5.1 заморожена), пересчёт идёт без них и теряет события огня, привязи и груза; нужна колонка или таблица связей (решение ревью или владельца).
+- R10: S10 — HUD (`build_hud`) подписывает только наблюдения субъекта `track:<id>`: `pair:`/`zone:` (proximity) и `fire` на кадре не видны; 8.2 п. 8 просит подпись на каждое `P`.
+- R10: S10 — `explain` новых плагинов: одна строка правила + `why_common`; без единицы дистанции в `explain` зоны proximity (берётся `reason_text`).
 
 ## log
 
@@ -150,6 +160,13 @@
 - проверено вживую: нет (S9 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_calibration.py`: `camera()` (нужен `core` или `client`), `body(image, world, control)`, `SQUARE`, `FLOOR`, `_walk(x0)` (человек 100 px/с), `_config(calibration, rules)`; плагины S10 получают зоны снимка через `ctx.zones`, метры — `PersonState.ground`; тесты пересчёта — `tests/test_recompute.py` (события на эпизодах `_demo_job` через `test_operator_views.event`).
+
+### S10: zone scenarios (2026-10-24, PR #13, tech v2)
+- отклонения: правлены файлы вне списка слайса: `services.py` (третий проход extra, `rules.plugin`), `inference/local.py` (`nc` модели extra), `fakes/remote.py` (`--nc` → пустые кадры), `texts.py`, `tests/test_{analysis_api,camera_rules,cameras,videos}.py` (список из 10 сценариев вместо двух S5), `tests/test_geometry.py` (свойства `ioa`, `segment_crossing`); `PLUGINS` из словаря стал списком по строке 6.7; пересчёт без моделей extra — строка `долг`.
+- решения вне контракта: строки `GAP: S10`; мутаций нет (10.1); живых прогонов нет; критерий 7 проверен запуском `video_worker.main()` с заглушками `linq_tpu`/`yolo_io` (`tests/test_plugin_status.py::test_worker_nc_argument`).
+- проверено вживую: нет (S10 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: хелперы `tests/test_rule_phone.py`: `worker()` (человек 200 px), `ctx_with(people, objects, zones, ts_ms)`, `phone(cx, cy)`; `tests/test_rule_proximity.py::truck(distance_bh, vh_s, m_s, footprint, x1)`; фикстура `extra_registry` в `tests/test_plugin_status.py` (реестр с моделью огня `fire-test@1`, хвост в `linq_tails`).
 
 ## night
 
