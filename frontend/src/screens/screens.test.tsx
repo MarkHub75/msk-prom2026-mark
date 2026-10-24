@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { api } from "../api/client";
 import { CameraSetup } from "./admin/CameraSetup";
 import { CamerasScreen } from "./admin/CamerasScreen";
@@ -9,6 +9,7 @@ import { useWs, type WsMessage } from "../api/ws";
 import { playSound } from "../components/sound";
 import { TakeoverOverlay } from "../components/TakeoverOverlay";
 import { Toasts } from "../components/Toasts";
+import { EventScreen } from "./events/EventScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
 import { SectorScreen } from "./operator/SectorScreen";
@@ -354,26 +355,76 @@ describe("screens", () => {
 
   it("takeover_on_red_notification", async () => {
     const push = wsHandlers();
+    function Probe() {
+      return <p>{`Экран события ${useLocation().search}`}</p>;
+    }
     render(
       <MemoryRouter initialEntries={["/operator"]}>
         <TakeoverOverlay />
         <Routes>
           <Route path="/operator" element={<p>Секторы</p>} />
-          <Route path="/events/:eventId" element={<p>Экран события</p>} />
+          <Route path="/events/:eventId" element={<Probe />} />
         </Routes>
       </MemoryRouter>,
     );
-    expect(screen.queryByRole("alertdialog")).toBeNull();
     const text = "Красная опасность · Сектор 7 · Человек лежит неподвижно 15 с";
     push({
       type: "notification", at: AT,
       data: { id: "e5:published", event_id: 5, level: "red", text, audience: ["operator"], sound: "siren", takeover: true },
     });
-    expect((await screen.findByRole("alertdialog")).textContent).toContain(text);
+    expect(await screen.findByText("Экран события ?takeover=1")).toBeTruthy();
+  });
+
+  it("event_screen_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null); // jsdom has no canvas
+    const red = { ...EVENT, level: "red", title: "Падение и неподвижность", reason_text: "Человек лежит неподвижно 15 с" };
+    const evidence = {
+      id: 4, kind: "confirm", frame_idx: 50, ts_ms: 5000, url: "/api/evidence/4/image", sha256: "cafe",
+      objects: [{ track_id: 1, kind: "person", label: "человек", score: 0.9, bbox: [0.1, 0.2, 0.3, 0.9], kpts: null, tags: [] }],
+    };
+    const episode = {
+      id: 21, analysis_id: 11, scenario: "fall", scenario_title: "Падение и неподвижность", subject: "track:1",
+      zone_id: null, level_initial: "red", level_max: "red", start_ms: 3000, confirm_ms: 5000,
+      escalate_ms: null, end_ms: 20000, end_reason: "video_end", reason_code: "lying_still",
+      reason_text: red.reason_text, method: "pose", confidence: 0.8, metrics: {}, uncertain_ms: 0, evidence: [evidence],
+    };
+    const detail = {
+      event: red, episode, why: [{ label: "Правило", value: "Неподвижность лёжа 10 с" }],
+      actions: [{ id: 1, at: AT, actor_role: "system", actor_name: "система", action: "published", from_status: null, to_status: "new", comment: "" }],
+      allowed_actions: ["view", "confirm", "false_alarm", "send_to_master"],
+      provenance: {
+        backend: "linq", fake: true, det_model: "det-yolov8n@640", pose_model: null, job_id: 2, video_sha256: "ab",
+        analysis_version: 1, rule_params: { still_s: 10 }, evidence_sha256: "cafe",
+      },
+      deliveries: [], video_id: 3, video_start_ms: 3000, video_end_ms: 20000, broadcast: BROADCAST,
+    };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve(
+        path === "/api/events/{event_id}"
+          ? { data: detail }
+          : { data: { camera: CAMERA, state: CAMERA_STATE, broadcast: BROADCAST, video: null, analysis: null, zones: [], calibration: null } },
+      )) as never);
+    vi.mocked(api.POST).mockResolvedValue({ data: detail } as never);
+    render(
+      <MemoryRouter initialEntries={["/events/9?takeover=1"]}>
+        <Routes>
+          <Route path="/events/:eventId" element={<EventScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Неподвижность лёжа 10 с")).toBeTruthy();
+    expect(screen.getByText("Почему")).toBeTruthy();
+    expect(screen.getByText("человек")).toBeTruthy(); // the callout of the evidence box
+    expect(screen.getByText("cafe")).toBeTruthy();
     expect(vi.mocked(playSound)).toHaveBeenCalledWith("siren");
-    fireEvent.click(screen.getByText("Открыть событие"));
-    expect(stopSound).toHaveBeenCalled();
-    expect(screen.getByText("Экран события")).toBeTruthy();
-    expect(screen.queryByRole("alertdialog")).toBeNull();
+    const post = vi.mocked(api.POST);
+    const sent = (action: string) => ["/api/events/{event_id}/actions", { params: { path: { event_id: 9 } }, body: { action, comment: "" } }];
+    expect(post).toHaveBeenCalledWith(...sent("view"));
+    expect(screen.getByText("1. Подтверждаю")).toBeTruthy();
+    fireEvent.keyDown(window, { key: "1" });
+    expect(post).toHaveBeenCalledWith(...sent("confirm"));
+    fireEvent.click(screen.getByText("3. Передать мастеру"));
+    expect(post).toHaveBeenCalledWith(...sent("send_to_master"));
+    expect(await screen.findByText("Пресс №2")).toBeTruthy(); // the live half
   });
 });

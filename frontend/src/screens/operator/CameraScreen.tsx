@@ -20,8 +20,10 @@ function position(b: Broadcast, received: number): number {
 }
 
 // /operator/cameras/:cameraId: the broadcast in sync with the server, HUD and the episode timeline.
-export function CameraScreen() {
-  const cameraId = Number(useParams().cameraId);
+// The event screen shows it as its live half with the camera of the event.
+export function CameraScreen({ cameraId: fixed }: { cameraId?: number }) {
+  const param = Number(useParams().cameraId);
+  const cameraId = fixed ?? param;
   const view = useApi(
     () => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }),
     [cameraId],
