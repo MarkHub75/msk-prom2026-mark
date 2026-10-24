@@ -38,12 +38,13 @@ from safewatch import (
     evaluate,
     media,
     registry,
+    report_pdf,
     rules,
     seed,
     store,
     texts,
 )
-from safewatch.analysis import geometry, pipeline
+from safewatch.analysis import geometry, passport, pipeline
 from safewatch.errors import (
     Conflict,
     Forbidden,
@@ -56,6 +57,7 @@ from safewatch.errors import (
 )
 from safewatch.hub import hub
 from safewatch.inference import artifacts, make_backend
+from safewatch.inference.linq import LinqBackend, rate_eta
 from safewatch.texts import VIDEOS_DIR_MISSING
 from safewatch.types import (
     ActionIn,
@@ -203,6 +205,9 @@ Source = tuple[BackendName, bool]  # backend and fake of a job or an artifact (t
 _backend: InferenceBackend | None = None
 # The last real backend check: backend_check serves it for linq.check_cache_s.
 _backend_status: BackendStatus | None = None
+# LinQ progress of a running job: (done, total, seconds since `# sw:start`) of the model running
+# now (tech.md 8.29); in memory, the `conn` fixture resets it.
+_live: dict[int, tuple[int, int, float]] = {}
 
 
 def health() -> Health:
@@ -475,6 +480,18 @@ def _register(
     return UploadResult(video=video_get(video_id), job=job, reused=reused)
 
 
+UPLOAD_SLACK = 64 * 2**10  # bytes of multipart boundaries and part headers over the file
+
+
+def video_upload_check(role: Role | None, content_length: int | None) -> None:
+    """Before the body is read (debt R5, tech.md 8.31): the role and the declared size.
+    The body counts the multipart framing too; the exact file size is checked while writing."""
+    _require(role, ("admin",))
+    limit = config.get_settings().upload.max_mb * 2**20
+    if content_length is not None and content_length > limit + UPLOAD_SLACK:
+        raise _too_large()
+
+
 async def video_upload(
     camera_id: int, filename: str, chunks: AsyncIterator[bytes], role: Role | None
 ) -> UploadResult:
@@ -584,14 +601,23 @@ def video_file(video_id: int) -> Path:
 
 
 def _job(row: sqlite3.Row) -> Job:
+    sources = [(row[f"{prefix}_metrics"], row[f"{prefix}_created"]) for prefix in ("det", "pose")]
+    # The extra models of the analysis snapshot, in its order (tech.md 8.30 item 11).
+    extra = sorted(json.loads(row["extra_metrics"] or "[]"))
+    sources += [(text, created) for _, text, created in extra]
     metrics = []
-    for prefix in ("det", "pose"):
-        if row[f"{prefix}_metrics"]:
+    for text, created in sources:
+        if text:
             # The artifact came from an earlier run: this attempt did not call the backend.
-            cached = row["started_at"] is not None and row[f"{prefix}_created"] < row["started_at"]
-            data = json.loads(row[f"{prefix}_metrics"])
-            metrics.append(InferenceMetrics(**data, cached=cached))
+            cached = row["started_at"] is not None and created < row["started_at"]
+            metrics.append(InferenceMetrics(**json.loads(text), cached=cached))
     job = Job.model_validate({**dict(row), "metrics": metrics})
+    live = _live.get(job.id) if job.status == "running" else None
+    if live is not None:  # LinQ answers frame by frame: rate and time left (tech.md 8.29)
+        done, total, elapsed_s = live
+        rate_fps, eta_s = rate_eta(done, total, elapsed_s)
+        text = texts.job_progress_text(done, total, rate_fps, eta_s)
+        return job.model_copy(update={"status_text": text, "rate_fps": rate_fps, "eta_s": eta_s})
     return job.model_copy(
         update={"status_text": texts.job_status_text(job, config.get_settings().timezone)}
     )
@@ -627,7 +653,9 @@ def _publish_job(job_id: int) -> None:
     hub.publish("job.progress", job_get(job_id))
 
 
-def _progress(job_id: int, value: float) -> None:
+def _progress(job_id: int, value: float, live: tuple[int, int, float] | None = None) -> None:
+    if live is not None:
+        _live[job_id] = live
     store.job_progress(job_id, value)
     _publish_job(job_id)
 
@@ -667,12 +695,17 @@ async def _infer(
 
     def progress(share: float) -> None:  # backend thread: the database belongs to the loop
         if job_id is not None:
-            loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share)
+            live = backend.live if isinstance(backend, LinqBackend) else None
+            loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share, live)
 
     path = settings.data_dir / video["path"]
-    metrics = await asyncio.to_thread(
-        backend.run, path, video["sha256"], model, step, out, progress
-    )
+    try:
+        metrics = await asyncio.to_thread(
+            backend.run, path, video["sha256"], model, step, out, progress
+        )
+    finally:
+        if job_id is not None:
+            _live.pop(job_id, None)
     values = {
         "cache_key": key,
         "video_sha256": video["sha256"],
@@ -736,12 +769,20 @@ def _analysis_files(
 
 
 def _analysis_config(
-    video: sqlite3.Row | dict[str, Any], camera_id: int | None, extra_ids: list[int]
+    video: sqlite3.Row | dict[str, Any],
+    camera_id: int | None,
+    extra: list[tuple[ModelSpec, int]],
 ) -> AnalysisConfig:
-    """Snapshot of tech.md 8.2; no camera (`eval_run`): no calibration and zones, default rules."""
+    """Snapshot of tech.md 8.2; no camera (`eval_run`): no calibration and zones, default rules.
+
+    A `pipeline.extra` model without an artifact in `extra` (it failed, tech.md 8.30 item 10)
+    lends no classes: its scenarios are `model_missing` in this analysis.
+    """
     settings = config.get_settings()
     rows = [] if camera_id is None else store.camera_rules(camera_id)
     snapshot = _rules(camera_id or 0, rows, rules.scenario_metas())
+    left_out = set(settings.pipeline.extra) - {f"{m.id}@{m.version}" for m, _ in extra}
+    models = [m for m in registry.active_models(settings) if f"{m.id}@{m.version}" not in left_out]
     return AnalysisConfig(
         width=video["width"],
         height=video["height"],
@@ -752,8 +793,8 @@ def _analysis_config(
         zones=[] if camera_id is None else [_zone(row) for row in store.zones(camera_id)],
         rules={r.scenario: r for r in snapshot},
         class_conf=settings.class_conf,
-        active_classes=registry.active_classes(settings),
-        extra_artifact_ids=extra_ids,
+        active_classes=list(dict.fromkeys(n for m in models for n in m.classes.values())),
+        extra_artifact_ids=[artifact_id for _, artifact_id in extra],
     )
 
 
@@ -771,7 +812,7 @@ async def _analyze(
     video_id = video["id"]
     version = store.analysis_next_version(video_id)
     rel = f"analyses/{video_id}-v{version}/hud.jsonl"
-    cfg = _analysis_config(video, video["camera_id"], [artifact_id for _, artifact_id in extra])
+    cfg = _analysis_config(video, video["camera_id"], extra)
     data = settings.data_dir
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
     started = time.perf_counter()
@@ -894,7 +935,7 @@ async def run_next_job() -> Job | None:
         start = {"status": "running", "attempts": attempts, "started_at": clock.iso(now)}
         store.job_update(job_id, start | {"next_attempt_at": None, "error_code": None})
         store.video_update(video_id, {"status": "processing"})
-    pose_text = None
+    notes: list[str] = []  # models the analysis went without: `jobs.error_text` of a done job
     try:
         video = _video_row(video_id)
         pose: tuple[ModelSpec, int] | None = None
@@ -915,7 +956,14 @@ async def run_next_job() -> Job | None:
             for ref in settings.pipeline.extra:  # own classes, --nc (tech.md 6.1)
                 model = registry.resolve(ref)
                 span = (0.45, 0.45)
-                artifact_id = await _infer(job_id, "inference_detect", span, model, video, src)
+                try:
+                    artifact_id = await _infer(job_id, "inference_detect", span, model, video, src)
+                except InferenceError as exc:
+                    if exc.code not in ("remote_error", "bad_output", "model_missing"):
+                        raise
+                    # The analysis goes on without this model, its scenarios are model_missing.
+                    notes.append(f"extra {ref}: {exc.message}")
+                    continue
                 extra.append((model, artifact_id))
             try:
                 if settings.pipeline.pose is not None:
@@ -928,7 +976,7 @@ async def run_next_job() -> Job | None:
             except InferenceError as exc:
                 if exc.code not in ("remote_error", "bad_output"):
                     raise
-                pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
+                notes.append(f"pose: {exc.message}")  # the analysis goes on without keypoints
         episodes, hud_frames = await _analyze(job_id, video, (detector, det_id), pose, extra)
         await _evidence(job_id, video, episodes, hud_frames)
     except InferenceError as exc:
@@ -938,7 +986,8 @@ async def run_next_job() -> Job | None:
         log.exception("job %s failed", job_id)
         _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
     else:
-        done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
+        note = "; ".join(notes)[:ERROR_TEXT_MAX] or None
+        done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": note}
         with store.tx():
             store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
             store.video_update(video_id, {"status": "ready"})
@@ -2555,12 +2604,25 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     extra = []
     for ref in settings.pipeline.extra:
         model = registry.resolve(ref)
-        extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        try:
+            extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output", "model_missing"):
+                raise
+            # Like a job (tech.md 8.30 item 10): its scenarios are model_missing in this analysis.
+            log.warning("eval: %s, extra %s: %s", path.name, ref, exc.message)
     pose = None
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
-        pose = (pose_model, await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video))
-    cfg = _analysis_config(video, camera_id, [artifact_id for _, artifact_id in extra])
+        try:
+            pose_id = await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video)
+            pose = (pose_model, pose_id)
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output"):
+                raise
+            # Like a job (tech.md 8.1 item 5): the analysis goes on without keypoints.
+            log.warning("eval: %s, pose: %s", path.name, exc.message)
+    cfg = _analysis_config(video, camera_id, extra)
     data = settings.data_dir
     det_path = data / store.artifact_path(det_id)
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
@@ -2733,6 +2795,9 @@ def _demo_videos(cameras: list[DemoCamera], videos_dir: Path) -> dict[str, Path]
             if media.probe_video(path) is None:
                 raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
             found[video.file] = path
+    # The pack keeps videos/<name>: two files of one name would silently share one copy.
+    if len({path.name for path in found.values()}) < len(found):
+        raise ValidationFailed(texts.DEMO_LAYOUT_INVALID.format(field="file"), field="file")
     return found
 
 
@@ -3237,12 +3302,50 @@ def people_stats_view(
 
 
 def camera_passport(camera_id: int) -> CameraPassport:
-    raise NotImplementedError("slice 27")
+    settings = config.get_settings()
+    camera_get(camera_id)
+    # The active analysis of the newest ready video (videos come newest first).
+    videos = store.videos(camera_id)
+    video = next((v for v in videos if v["status"] == "ready" and v["active_analysis_id"]), None)
+    row = None if video is None else store.analysis(video["active_analysis_id"])
+    hud: list[HudFrame] = []
+    gaps: list[ObservabilityGap] = []
+    if row is not None:
+        with (settings.data_dir / row["hud_path"]).open(encoding="utf-8") as f:
+            hud = [HudFrame.model_validate_json(line) for line in f]
+        gaps = [ObservabilityGap.model_validate(g) for g in json.loads(row["gaps_json"])]
+    return passport.build_passport(
+        camera_id,
+        None if row is None else row["id"],
+        hud,
+        gaps,
+        0 if row is None else row["duration_ms"],
+        0 if video is None else video["width"],
+        0 if video is None else video["height"],
+        rules.scenario_metas(),
+        [_zone(z) for z in store.zones(camera_id)],
+        settings.passport,
+        int(settings.features.min_person_px),
+        rules.defaults("phone")["min_person_px"],
+    )
 
 
-def shift_report_pdf(at: datetime | None = None) -> bytes:
-    raise NotImplementedError("slice 30")
+async def shift_report_pdf(at: datetime | None = None) -> bytes:
+    """The summary is read here, the PDF is built in a worker thread (300 events take ~0.9 s)."""
+    settings = config.get_settings()
+    summary = shift_summary_view(at)
+    return await asyncio.to_thread(
+        report_pdf.shift_pdf, summary, settings.product_name, settings.timezone
+    )
+
+
+def shift_report_name(at: datetime) -> str:
+    """File name of `GET /api/master/shift.pdf`: local start date and id of the shift."""
+    shift_id, _, start, _ = _shift_window(at if at.tzinfo else at.replace(tzinfo=UTC))
+    return f"shift-{start:%Y-%m-%d}-{shift_id}.pdf"
 
 
 def backend_close() -> None:
-    raise NotImplementedError("slice 28")
+    """Release the backend: the LinQ kernel of this process (lifespan stop, doctor; 8.29)."""
+    if _backend is not None:
+        _backend.close()

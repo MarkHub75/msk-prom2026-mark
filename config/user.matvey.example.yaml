@@ -5,3 +5,7 @@
 pipeline:
   pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
   extra: [matvey-helmet-yolov8n@640-v1-5c3af1f3b855]
+# Fire and smoke (interim, no TPU program: INFERENCE_BACKEND=local; on linq the job goes on
+# without it, `error_text` "extra ..."). A new version of a model is a new entry of
+# config/models.yaml with a new `version`: replace only its reference here.
+#   extra: [matvey-helmet-yolov8n@640-v1-5c3af1f3b855, matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4]

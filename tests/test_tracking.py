@@ -8,7 +8,7 @@ from hypothesis import given
 from hypothesis import settings as hyp_settings
 from hypothesis import strategies as st
 
-from safewatch import registry
+from safewatch import config, registry
 from safewatch.analysis.pipeline import analyze
 from safewatch.analysis.tracking import Tracker
 from safewatch.config import get_settings
@@ -113,6 +113,32 @@ def test_steady_walker_never_switches_id(x: float, speed: float, frames: int) ->
         for track_id, _ in tracker.update(n * STEP_MS, [_det((dx, 50, dx + 40, 150))]):
             seen.add(track_id)
     assert seen == {1}
+
+
+@pytest.mark.parametrize(
+    ("reattach_bh", "ids", "reason"), [(1.0, {1}, "fall"), (0.0, {1, 2}, "lying_still")]
+)
+def test_fall_keeps_track_id(
+    monkeypatch: pytest.MonkeyPatch, reattach_bh: float, ids: set[int], reason: str
+) -> None:
+    """Debt S5: standing → lying breaks IoU; the center stage keeps the id and the fall is seen."""
+    s = get_settings()
+    tuned = s.model_copy(
+        update={"tracker": s.tracker.model_copy(update={"reattach_bh": reattach_bh})}
+    )
+    monkeypatch.setattr(config, "get_settings", lambda: tuned)
+    w, h, fps, n = 1600, 300, 10, 200  # the demo scene: 20 s at 10 fps
+    cfg = _cfg().model_copy(update={"width": w, "height": h, "fps": fps, "step": 1})
+    det = scenes.render("demo", w, h, fps, n, 1, "detect")
+    pose = scenes.render("demo", w, h, fps, n, 1, "pose")
+    model = registry.resolve(tuned.pipeline.detector)
+    result = analyze(det, pose, VIDEO, cfg, registry.resolve(tuned.pipeline.pose), model)
+    seen = {o.track_id for f in result.hud for o in f.objects if o.kind == "person"}
+    assert seen == ids
+    falls = [e for e in result.episodes if e.scenario == "fall"]
+    assert [(e.reason_code, e.subject) for e in falls] == [(reason, f"track:{max(ids)}")]
+    if reason == "fall":
+        assert falls[0].reason_text == "Зафиксировано падение"
 
 
 @pytest.mark.parametrize(("score", "kept"), [(0.34, False), (0.35, True)])

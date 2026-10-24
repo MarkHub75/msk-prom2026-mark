@@ -3,9 +3,11 @@
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 import httpx
 import pytest
+from starlette import formparsers
 
 from safewatch import cli, config, services
 from safewatch.config import Settings
@@ -122,6 +124,38 @@ async def test_upload_rejects_bad_files(
         await _upload(client, camera_id, clip, headers={"X-Role": "operator"})
     ).status_code == 403
     assert _uploads(core) == []
+
+
+async def test_upload_rejected_before_body(
+    client: httpx.AsyncClient,
+    core: Settings,
+    monkeypatch: pytest.MonkeyPatch,
+    make_video,
+    tmp_path: Path,
+) -> None:
+    """Debt R5: no role or a declared size over the limit → no temporary file at all."""
+    spooled: list[object] = []
+    real = formparsers.SpooledTemporaryFile
+
+    def recording(*args: Any, **kwargs: Any) -> Any:
+        spooled.append(args)
+        return real(*args, **kwargs)
+
+    monkeypatch.setattr(formparsers, "SpooledTemporaryFile", recording)
+    camera_id = _camera()
+    big = b"\0" * (2 * 2**20)  # over the spool size of starlette: a disk file once parsed
+    tuned = core.model_copy(update={"upload": core.upload.model_copy(update={"max_mb": 1})})
+    monkeypatch.setattr(config, "get_settings", lambda: tuned)
+    no_role = await _upload(client, camera_id, big, headers={})
+    assert (no_role.status_code, no_role.json()["code"]) == (400, "role_required")
+    stranger = await _upload(client, camera_id, big, headers={"X-Role": "operator"})
+    assert stranger.status_code == 403
+    over = await _upload(client, camera_id, big)
+    assert (over.status_code, over.json()["code"]) == (413, "too_large")
+    assert spooled == [] and _uploads(core) == []
+    # The guard reads headers only: an admin upload within the limit is parsed and stored.
+    ok = await _upload(client, camera_id, make_video(tmp_path, 1, 25).read_bytes())
+    assert ok.status_code == 201 and len(spooled) == 1
 
 
 async def test_upload_limit_boundary(

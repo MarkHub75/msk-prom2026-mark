@@ -2,7 +2,7 @@
 
     python video_worker.py --video v.mp4 --program yolov8n_640.tpu --out v.jsonl [--step 5]
            [--size 640] [--conf 0.25] [--inflight 8] [--task detect|pose] [--classes 0,2,5,7,67]
-           [--nc 2]
+           [--nc 2] [--reply-timeout 120]
 
 Each output line: {"frame_idx", "ts_ms", "detections": [{"cls","name","score","bbox_xyxy"[, "kpts"]}]}.
 A summary with timings goes to <out>.summary.json; progress to <out>.progress (polled by run_video.py).
@@ -47,6 +47,7 @@ def main() -> None:
     ap.add_argument("--nc", type=int, default=0, help="class count of the model (default: 80 detect, 1 pose)")
     ap.add_argument("--input-name", default="images")
     ap.add_argument("--output-name", default="", help="TPU output tensor name (default: the only one)")
+    ap.add_argument("--reply-timeout", type=float, default=120, help="seconds to wait for one TPU reply")
     ap.add_argument("--tail", default="", help="tail ONNX for cut programs (decode on CPU, onnxruntime)")
     a = ap.parse_args()
     tail = None
@@ -77,7 +78,7 @@ def main() -> None:
         nonlocal t_post, n_done
         while len(pending) > block_until:
             mid, fidx, ts, meta = pending.popleft()
-            r = client.collect([mid], timeout=120)[0]
+            r = client.collect([mid], timeout=a.reply_timeout)[0]
             if not r.ok:
                 raise RuntimeError(f"TPU error frame {fidx}: {r.worker.get('error_message')}")
             rtts.append(r.rtt_s)

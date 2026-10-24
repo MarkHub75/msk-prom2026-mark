@@ -104,6 +104,17 @@ def test_build_writes_manifest_and_artifacts(
     bad = _layout(tmp_path, [{"sector": "С", "name": "К", "videos": [{"file": "bad.mp4"}]}])
     with pytest.raises(UnsupportedVideo):
         services.demo_build(bad, tmp_path / "videos", tmp_path / "x", allow_fake=True)
+    (tmp_path / "videos" / "b").mkdir()
+    shutil.copyfile(tmp_path / "videos" / "demo.mp4", tmp_path / "videos" / "b" / "demo.mp4")
+    twins = _layout(
+        tmp_path,
+        [
+            {"sector": "С", "name": "К", "videos": [{"file": "demo.mp4"}]},
+            {"sector": "С", "name": "К2", "videos": [{"file": "b/demo.mp4"}]},
+        ],
+    )
+    with pytest.raises(ValidationFailed, match="file"):  # both would get one videos/demo.mp4
+        services.demo_build(twins, tmp_path / "videos", tmp_path / "x", allow_fake=True)
     (tmp_path / "broken.yaml").write_text("name: x\ncameras: 5\n", encoding="utf-8")
     with pytest.raises(ValidationFailed):
         services.demo_build(tmp_path / "broken.yaml", tmp_path / "videos", tmp_path / "x", True)
@@ -294,10 +305,14 @@ def test_cli_build_and_import(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     _shell(monkeypatch)
+    closed: list[str] = []
+    close = services.backend_close
+    monkeypatch.setattr(services, "backend_close", lambda: (closed.append("close"), close()))
     layout, videos, out = _layout(tmp_path), str(tmp_path / "videos"), tmp_path / "pack"
     build = ["demo", "build", str(layout), "--videos", videos, "--out", str(out)]
     assert cli.main(build) == 2 and not out.exists()
     assert cli.main([*build, "--allow-fake"]) == 0
+    assert closed == ["close", "close"]  # no idle kernel after a build on LinQ (8.29)
     printed = json.loads(capsys.readouterr().out)
     first = printed["cameras"][0]["videos"][0]["artifacts"][0]
     assert first["frames"] == 200 and "metrics" not in first

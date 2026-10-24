@@ -100,11 +100,15 @@ class FakeRemoteShell:
         out: str = handler(cmd)
         return 0, out, ""
 
+    def close(self) -> None:
+        self.calls.append("close")
+
     def _home(self, cmd: str) -> str:
         return f"{HOME}\n"
 
     def _start(self, cmd: str) -> str:
-        args = shlex.split(cmd.split("(", 1)[1].split(">", 1)[0])
+        worker = cmd[cmd.index("(setsid") + 1 :]  # after the stop of a previous worker (S28)
+        args = shlex.split(worker.split(">", 1)[0])
         opts = dict(zip(args[4::2], args[5::2], strict=True))  # after `python video_worker.py`
         video = self.sources[f"{self.remote_dir}/{opts['--video']}"]
         cap = cv2.VideoCapture(str(video))
@@ -121,7 +125,7 @@ class FakeRemoteShell:
         scene = auto_scene(original) if self.scene == "auto" else self.scene
         step = int(opts["--step"])
         frames = scenes.render(scene, width, height, fps, frame_count, step, task)
-        if "--nc" in opts:  # an extra model: the scenes hold COCO ids, not its classes
+        if "--nc" in opts and "--classes" not in opts:  # an extra model: scenes hold COCO ids
             frames = [f.model_copy(update={"detections": []}) for f in frames]
         jsonl = scenes.to_jsonl(frames)
         if self.fault == "bad_output":

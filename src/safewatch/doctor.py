@@ -80,7 +80,10 @@ def _linq_check(settings: Settings) -> Check:
 
 
 def run(settings: Settings) -> int:
-    checks = _checks(settings)
+    try:
+        checks = _checks(settings)
+    finally:
+        services.backend_close()  # the kernel of the check leaves the shared account (8.29)
     for check in checks:
         mark = "ok  " if check.ok else "FAIL"
         hint = f" — {check.hint}" if check.hint else ""

@@ -3,12 +3,14 @@
 import json
 from pathlib import Path
 
+import psutil
 import pytest
+import test_plugin_status
 import yaml
 from test_analysis_api import _camera, _textured
 from test_jobs import _tune
 
-from safewatch import cli, config, evaluate, services
+from safewatch import cli, config, evaluate, services, store
 from safewatch.config import Settings
 from safewatch.errors import NotFound, ValidationFailed
 from safewatch.fakes.remote import FakeRemoteShell
@@ -16,6 +18,7 @@ from safewatch.inference.linq import LinqBackend
 from safewatch.types import CameraRuleIn, EpisodeDraft, EvalMetrics, EvalReport, ExpectedEvent
 
 FALL = ExpectedEvent(scenario="fall", start_s=12.0, end_s=30.0)
+extra_registry = test_plugin_status.extra_registry  # the fixture: a registry with fire-test@1
 
 
 def episode(confirm_s: float, scenario: str = "fall") -> EpisodeDraft:
@@ -244,3 +247,48 @@ def test_report_files_written(
     report = services.eval_run(labels_file(tmp_path, on_camera, "cam.yaml"), tmp_path / "cam")
     assert all(r.scenario != "running" for r in report.rows)
     assert row(report.rows, "fall").tp == 0  # deadline still 0.001
+
+
+def test_eval_refuses_running_server(
+    core: Settings, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Debt S14: a live server owns the database; a reused pid of server.pid is not one."""
+    me = psutil.Process()
+    pid_file = core.data_dir / "server.pid"
+    pid_file.write_text(json.dumps({"pid": me.pid, "create_time": me.create_time()}), "utf-8")
+    assert cli.main(["eval", str(tmp_path / "missing.yaml")]) == 5
+    assert "Остановите сервер: uv run safewatch stop" in capsys.readouterr().err
+    pid_file.write_text(json.dumps({"pid": me.pid, "create_time": 1.0}), "utf-8")
+    assert cli.main(["eval", str(tmp_path / "missing.yaml")]) == 3  # went on to the labels
+
+
+def test_eval_pose_fallback(
+    core: Settings, tmp_path: Path, linq_tails: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Debt S14: pose remote_error in eval → the analysis without keypoints, like a job."""
+    video = _textured(tmp_path / "demo.mp4")
+    expected = [{"scenario": "fall", "start_s": 0.0, "end_s": 20.0}]
+    labels = labels_file(tmp_path, {"videos": [{"path": str(video), "expected": expected}]})
+    fake = shell(monkeypatch, [None, "remote_error"])  # detector fine, pose stops
+    report = services.eval_run(labels, tmp_path / "out")
+    assert fake.calls.count("start") == 2
+    tasks = [r["task"] for r in store.all("SELECT task FROM artifacts")]
+    assert tasks == ["detect"]  # no keypoints were stored
+    assert row(report.rows, "running").episodes > 0
+    assert (tmp_path / "out" / "report.md").is_file()
+
+
+def test_eval_extra_fallback(
+    core: Settings, tmp_path: Path, extra_registry: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """R30: an extra model failing in eval → the analysis without it, like a job (8.30 item 10)."""
+    _tune(monkeypatch, core, pipeline={"extra": ["fire-test@1"]})
+    video = _textured(tmp_path / "demo.mp4")
+    expected = [{"scenario": "fall", "start_s": 0.0, "end_s": 20.0}]
+    labels = labels_file(tmp_path, {"videos": [{"path": str(video), "expected": expected}]})
+    fake = shell(monkeypatch, [None, "remote_error", None])  # only the extra model stops
+    report = services.eval_run(labels, tmp_path / "out")
+    assert fake.calls.count("start") == 3  # detector, extra, pose
+    models = [r["model_id"] for r in store.all("SELECT model_id FROM artifacts ORDER BY id")]
+    assert models == ["det-yolov8n", "pose-yolov8n"]
+    assert row(report.rows, "running").episodes > 0

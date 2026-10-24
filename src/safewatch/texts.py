@@ -259,6 +259,7 @@ WHY_PROXIMITY_M = (
     "Сближение: техника движется, дистанция до {red} м — красный, до {yellow} м — жёлтый"
 )
 WHY_HOLD = "{rule} дольше {s} с"
+WHY_FENCE = "{rule}; момент виден при разрыве наблюдения до {s} с"
 WHY_RULE = "Правило"
 WHY_RUN_BH = "Бег: скорость выше {v} роста/с дольше {s} с"
 WHY_RUN_M = "Бег: скорость выше {v} м/с дольше {s} с"
@@ -493,6 +494,19 @@ JOB_FAILED_TEXTS: dict[JobErrorCode, str] = {
 }
 
 
+# LinQ progress of a running job (tech.md 8.29; slice 28).
+JOB_PROGRESS = "LinQ: {done} из {total} кадров · {rate} кадр/с · осталось ~{minutes} мин"
+JOB_WAIT_TPU = "LinQ: ждём первый ответ TPU (очередь площадки)"
+
+
+def job_progress_text(done: int, total: int, rate_fps: float | None, eta_s: float | None) -> str:
+    """`Job.status_text` of a running LinQ model; no answer yet — the queue of the platform."""
+    if done <= 0 or rate_fps is None or eta_s is None:
+        return JOB_WAIT_TPU
+    minutes = max(1, round(eta_s / 60))
+    return JOB_PROGRESS.format(done=done, total=total, rate=fmt_num(rate_fps), minutes=minutes)
+
+
 def job_status_text(job: Job, tz: str) -> str:
     """`Job.status_text` (tech.md 8.19); times in the product time zone `tz`."""
     if job.status == "queued":
@@ -524,3 +538,32 @@ def identity_comment(person_name: str, person_position: str, crew: str) -> str:
         return IDENTITY_CLEARED
     name, position, team = (v or IDENTITY_EMPTY for v in (person_name, person_position, crew))
     return f"ФИО: {name}; должность: {position}; бригада: {team}"
+
+
+# Camera suitability passport (tech.md 8.28; slice 27).
+PASSPORT_NO_VIDEO = "Нет обработанного видео"
+PASSPORT_MODEL_MISSING = "Модель не подключена"
+PASSPORT_FEW_FRAMES = "Мало кадров для оценки"
+PASSPORT_DARK = "Слишком темно или камера закрыта {pct} % времени"
+PASSPORT_PEOPLE_TINY = "Люди слишком мелкие: {px} px"
+PASSPORT_NO_PEOPLE = "В записи нет людей"
+PASSPORT_PHONE_POOR = "Телефон виден плохо: {px} px"
+PASSPORT_NO_ZONES = "Нет зон: {kinds}"
+PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оценки: {px} px"
+PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"
+PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"
+PASSPORT_SUITABLE = "Годна"
+
+# Shift summary PDF (tech.md 8.31; slice 30) and the running server `eval` refuses to share.
+PDF_TITLE = "{product} · Сводка смены"
+PDF_SHIFT = "Смена: {title}"
+PDF_PERIOD = "Период: с {start} до {end} (МСК)"
+PDF_TOTAL = "Всего событий: {n}"
+PDF_BY_SECTOR = "По секторам"
+PDF_BY_SCENARIO = "По сценариям"
+PDF_SECTOR = "Сектор"
+PDF_SCENARIO = "Сценарий"
+PDF_COUNT_HEAD = ("Всего", "Подтверждено", "Ложные")
+PDF_CONFIRMED = "Подтверждённые события"
+PDF_EVENTS_HEAD = ("Время", "Сектор", "Камера", "Причина", "Статус")
+EVAL_SERVER_RUNNING = "Остановите сервер: uv run safewatch stop"

@@ -11,10 +11,10 @@ from pathlib import Path
 import psutil
 from pydantic import TypeAdapter
 
-from safewatch import config, doctor, services
+from safewatch import config, doctor, services, texts
 from safewatch.config import ROOT
 from safewatch.errors import InferenceError, NotFound, TooLarge, UnsupportedVideo, ValidationFailed
-from safewatch.types import WsMessage
+from safewatch.types import BackendName, WsMessage
 
 CONTRACT_DIR = ROOT / "contract"
 STOP_WAIT_S = 10
@@ -142,7 +142,23 @@ def import_video(path: Path, camera_id: int) -> int:
     return 0
 
 
+def _server_running() -> bool:
+    """The process of server.pid is alive and is the server, not a reused pid."""
+    pid_file = _pid_file()
+    if not pid_file.exists():
+        return False
+    record = json.loads(pid_file.read_text(encoding="utf-8"))
+    try:
+        return bool(psutil.Process(record["pid"]).create_time() == record["create_time"])
+    except psutil.NoSuchProcess:
+        return False
+
+
 def evaluate(labels: Path, out: Path | None) -> int:
+    # A second process writing artifacts into the database of a live server (debt S14, 8.31).
+    if _server_running():
+        print(texts.EVAL_SERVER_RUNNING, file=sys.stderr)
+        return 5
     try:
         report = services.eval_run(labels, out)
     except NotFound as exc:
@@ -154,6 +170,8 @@ def evaluate(labels: Path, out: Path | None) -> int:
     except InferenceError as exc:
         print(f"{exc.code}: {exc.message}", file=sys.stderr)
         return 4
+    finally:
+        services.backend_close()  # the kernel of the run leaves the shared account (8.29)
     print(report.out_dir)
     print(Path(report.out_dir, "report.md").read_text(encoding="utf-8"), end="")
     return 0
@@ -171,6 +189,8 @@ def demo_build(layout: Path, videos: Path, out: Path, allow_fake: bool) -> int:
     except InferenceError as exc:
         print(f"{exc.code}: {exc.message}", file=sys.stderr)
         return 4
+    finally:
+        services.backend_close()  # the kernel of the build leaves the shared account (8.29)
     # The artifacts by name and frame count; their metrics stay in manifest.json.
     skip = {
         "cameras": {"__all__": {"videos": {"__all__": {"artifacts": {"__all__": {"metrics"}}}}}}
@@ -189,6 +209,20 @@ def demo_import(path: Path) -> int:
         print(exc.message, file=sys.stderr)
         return 2
     print(report.model_dump_json())
+    return 0
+
+
+def import_artifact(path: Path, video_id: int, model: str, backend: BackendName, fake: bool) -> int:
+    """Detections made elsewhere (Vast, a GPU machine): the job cache of that backend finds them."""
+    try:
+        artifact_id = services.artifact_import(video_id, model, path, backend, fake)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except ValidationFailed as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    print(artifact_id)
     return 0
 
 
@@ -259,6 +293,12 @@ def main(argv: list[str] | None = None) -> int:
     dataset = p.add_subparsers(dest="dataset_command", required=True)
     p = dataset.add_parser("export", help="zip every item with manifest.json")
     p.add_argument("--out", type=Path, help="folder of false_alarms.zip")
+    p = sub.add_parser("import-artifact", help="add detections JSONL made elsewhere to the cache")
+    p.add_argument("file", type=Path)
+    p.add_argument("--video", type=int, required=True)
+    p.add_argument("--model", required=True, help="id@version of config/models.yaml")
+    p.add_argument("--backend", choices=["linq", "local"], help="default: INFERENCE_BACKEND")
+    p.add_argument("--fake", action="store_true", help="the detections are fake ones")
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -278,6 +318,9 @@ def main(argv: list[str] | None = None) -> int:
         return demo_import(args.path)
     if args.command == "dataset":
         return dataset_export(args.out)
+    if args.command == "import-artifact":
+        backend = args.backend or config.get_settings().inference_backend
+        return import_artifact(args.file, args.video, args.model, backend, args.fake)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)
