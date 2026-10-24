@@ -1,5 +1,11 @@
 # ML/CV quality sprint — progress
 
+## COVERAGE SPRINT ACTIVE — 2026-10-24T10:58:52.517921+00:00
+
+New urgent user directive: executable prototypes for all eight page4 official groups, then evidence-based top3; previous three-direction budget does not block independent coverage implementation. Branch matvey_cv at8f879606; untracked .ipynb_checkpoints/ pre-exists and is neither read, edited nor committed. Officialpage4 reviewed via preserved extractedimage; exact meanings retained including separatefence/underconveyor/underload and08additional.07medicalwording retained as quotation but operationally onlyvisualsigns, neverdiagnosis. Existing eventv1 remains unchanged; newinternalEventCandidate/sink is additive opt-in.
+
+Nativeagents independently assigned: Detection4object/context rules; Behavior4motion/spatial/fallwrappers; LinQ Training/Data requirements/gates audit. Rootcommoncontext/schema/duration/dedup/evidence/journal/opt-in video hook. No GPU allocation, network/VPN/SSH/sharedLinQ calls or foreignworktree changes. New TrainingGMDexport isEXPERIMENTAL_EXPORT_VERIFIED only (notselected, notLinQ), READYPPEDpresence48diagnostic noteventGT/training. Exactrequestsandranking follow implementation/evidence, notautomaticHelmet/Fall/Running selection.
+
 ## CLOSED 2026-10-24T01:32:31.411557+00:00 — diagnostic follow-up checkpoint
 
 MEASURED: E006/E007 attributed savederrors, E008 separatedbyte/runtimeevidence fromblockedquality;417softwaretestsPASS, testedMLb85d4f84. Rootsummary+CSV13rows+figure persisted, sourcehashes pinned, code/docs saved. OBSERVED finalproducerREADY unchanged, no eligibleindependenttest/train/geometry. Sharedconsumerfeedback updated withoutDataworktree/producerpointer edits. NoNN/training/compile/GPU/LinQ/networkcalls orcandidatebudgetreset. Originalweights/TPU/archives preserved, no newbinaryduplication. OffVastbackup/remoteauth/ownMatveyplacement stillblocked; noquestions/recoveryattempts.
