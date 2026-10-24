@@ -208,7 +208,7 @@ function MasterIncident({ detail, state }: { detail: EventDetail; state: ReturnT
       {unconfirmed(event) && <p className="ms-unconfirmed"><ShieldAlert size={17} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
       {!terminal && <p className="ms-wait"><Timer {...IC} />{event.status === "master_accepted" ? "В работе" : "Ждёт"} <b className="mono">{since(event.published_at, now)}</b><span>с публикации</span></p>}
     </div>
-    {canResolve && <label className="ms-report">Какие меры приняты <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
+    {canResolve && <label className="ms-report">Принятые меры <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
     <Evidence detail={detail} compact />
     <dl className="ms-where">
       <div><dt><MapPin {...IC} />Где</dt><dd>{event.sector_name}<span>{event.camera_name}{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</span></dd></div>
