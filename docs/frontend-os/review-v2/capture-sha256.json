@@ -1,0 +1,13 @@
+{
+  "01-operator-empty-1440.png": "97f4bddc514e0cefff0fd1229dd29c341c393d2f38e86994994df3178a4d478b",
+  "02-yellow-incident-1440.png": "71d6e600aff534c993f6f39e137e75ee54a1a2a7f5f213039e6d7b2fcae8217b",
+  "03-red-takeover-1440.png": "9f2ebe86f78e691ba9991c82fe4c75eb8f53b7122b59a837696fc8cdd5ef8768",
+  "04-red-handoff-1440.png": "1e2d754c12bb9308024e0488e9b47edeebebf8951735cccb4e8eda169d6f44a0",
+  "06-master-pending-390.png": "e3eb299fae8dcb7e4d97de1e0b103acbe06c41fd351d625427d7d267ba671fa9",
+  "06a-identity-dialog-master-390.png": "2999eee5c949385d11e77b40602818cd83b2c8df2024851119001f9e96d6db78",
+  "07-master-accepted-390.png": "38ba6a3e383bfe9ae69c7aeaea6c26f3ae196b02b528c9d6af578b09fa3c4dc1",
+  "08-master-resolved-390.png": "ca1383a4e6e5be14575ef706d275209567fa99d45340274399caf8d43007e954",
+  "10b-journal-filtered-390.png": "b52b7ec2ec66f56927a9311203155101218fb695579b22caa7a6a046f3694197",
+  "16-incident-reset404.png": "f400a0fc70b8fc2187fa223bc6d1f322542a8d12a0fc6421f9f3a9ebb9670c90",
+  "18-evidence-off-refresh.png": "71ffad17a997ba08a957c962e9aaf1afdd4e476887a39d02de5df9d7f5aa530d"
+}

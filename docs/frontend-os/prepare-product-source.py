@@ -44,7 +44,9 @@ project = {
     "serve_dir": ".",
     "flows": [{
         "id": "red-confirm-handoff", "signature": True,
-        "steps": [{"action": "click", "selector": "a[href*='/events/41']"}, {"action": "click", "selector": "button[data-action='confirm']"}],
+        "steps": [{"action": "click", "selector": "a[href*='/events/41']"}, {"action": "click", "selector": "button[data-action='confirm']"},
+                  {"action": "fill", "selector": ".actor-dialog input", "value": "Проверка рабочего сценария"},
+                  {"action": "click", "selector": ".actor-dialog button[type='submit']"}],
         "expect": {"selector": "[data-testid='event-status']", "contains": "Передано мастеру"},
     }],
     "required_flows": ["red-confirm-handoff"],

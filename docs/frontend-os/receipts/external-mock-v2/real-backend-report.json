@@ -1,0 +1,61 @@
+{
+  "verdict": "PARTIAL: real S0 transport verified; business integration unavailable; fresh S5 runtime blocked by missing dependency",
+  "recorded_at": "2026-10-24T03:59:19.085117+00:00",
+  "target_kind": "Real local backend, explicitly separate from stateful mock4010/4011 and review fixtures",
+  "current_8000": {
+    "backend_source_commit": "9e53010c6a6c75cca6ace27ae96f7961f296dd2a",
+    "source_delta_from_baseline": [],
+    "health": "200; contract1.0.0",
+    "meta": "501 not_implemented",
+    "business_routes": "All probed operator/event/journal/master routes501 not_implemented",
+    "websocket": "Operator and master each received hello contract1.0.0",
+    "contract_validation": {
+      "checked": 16,
+      "valid": 16
+    },
+    "raw_probe_summary": "s0-probe-summary.json",
+    "raw_http_files": "s0-<probe-id>.json",
+    "raw_websocket": "s0-ws-hello.json"
+  },
+  "browser_vite_proxy": {
+    "url": "http://127.0.0.1:5173",
+    "target_backend": "http://127.0.0.1:8000",
+    "health_status": 200,
+    "routes": [
+      "operator",
+      "ohs/journal",
+      "master"
+    ],
+    "review_strips": 0,
+    "page_errors": [],
+    "horizontal_overflow": false,
+    "outcome": "Real501 error states visibly rendered; no synthetic fixture substitution",
+    "evidence": "s0-vite-proxy-browser.json"
+  },
+  "isolated_s5_attempt": {
+    "commit": "7313e04b2608b1a043117b051654ce0b6f9a2531",
+    "worktree": "/tmp/safewatch-real-s5-7313e04b-v1",
+    "port": 8020,
+    "source_files": 43,
+    "source_unchanged": true,
+    "startup_exit": 1,
+    "failure": "ModuleNotFoundError: cv2 in safewatch.media",
+    "runtime_verified": false,
+    "dependency_installation": false,
+    "evidence": "s5-startup-result.json"
+  },
+  "latest_upstream": {
+    "main": "d82fd7d5445c1747140dd09c595feeaa4601cd32",
+    "mock": "93ad427fa2d9214bdb90e4b19a74ce1ebc6c32de",
+    "runtime_verified": false,
+    "reviewed_static_only": "latest-upstream-review.json",
+    "contracts_unchanged": true,
+    "automatic_merge": false
+  },
+  "limits": [
+    "No full operator-to-master/journal business integration is claimed against the real backend.",
+    "No LinQ, Jupyter, model validation, video upload, inference, analysis job, or seeded latest-server run was performed.",
+    "No .env credentials read; isolated checkout contains no .env.",
+    "No frontend/backend/mock/contract source changes or commits; no mock requests or resets; only authorized isolated detached worktree and evidence files created."
+  ]
+}

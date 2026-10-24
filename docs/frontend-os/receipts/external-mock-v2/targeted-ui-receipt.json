@@ -1,0 +1,316 @@
+{
+  "scope": "Rendered frozen-source correction QA using explicit local review fixtures; not external mock or final human acceptance",
+  "started_at": "2026-10-24T03:55:39.356Z",
+  "checks": [
+    {
+      "name": "normal queue and separately inspectable history, 1440/1280/390",
+      "started_at": "2026-10-24T03:55:39.908Z",
+      "observed": {
+        "active": 0,
+        "terminal_history": 4,
+        "sizes": [
+          {
+            "width": 1440,
+            "height": 900,
+            "scroll_width": 1440
+          },
+          {
+            "width": 1280,
+            "height": 800,
+            "scroll_width": 1280
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scroll_width": 390
+          }
+        ]
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "Incident first-screen comparison, exact HUD plane and explicit actor",
+      "started_at": "2026-10-24T03:55:41.064Z",
+      "observed": {
+        "geometry": {
+          "image": {
+            "top": 311.390625,
+            "bottom": 561.375,
+            "width": 444.203125,
+            "height": 249.984375,
+            "natural_width": 1672,
+            "natural_height": 941
+          },
+          "video": {
+            "top": 666.765625,
+            "bottom": 886.75,
+            "height": 219.984375
+          },
+          "expected": {
+            "left": 489.049390890625,
+            "top": 405.69923034375,
+            "width": 23.64493234375,
+            "height": 58.179113578125005
+          },
+          "actual": {
+            "left": 489.04937744140625,
+            "top": 405.69921875,
+            "width": 23.64495849609375,
+            "height": 58.17913818359375
+          },
+          "max_box_error": 0.00002615234375014097,
+          "label": "Человек · иллюстрация#1",
+          "label_font": "11px",
+          "media_ratio": "1.7768331562167907"
+        },
+        "actor_prompt": "empty and cancellable; no hidden view",
+        "sizes": [
+          {
+            "width": 1440,
+            "height": 900,
+            "scroll_width": 1440
+          },
+          {
+            "width": 1280,
+            "height": 800,
+            "scroll_width": 1280
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scroll_width": 390
+          }
+        ]
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "390 mobile master: missing fall media, explicit identity, accept, measures, resolve and reload history",
+      "started_at": "2026-10-24T03:55:42.156Z",
+      "observed": {
+        "image_count": 0,
+        "video_count": 0,
+        "actor": "explicitly entered through visible dialog",
+        "empty_and_whitespace_report": "blocked",
+        "resolution_and_reload": "PASS",
+        "measures_box": {
+          "x": 16,
+          "y": 398.90625,
+          "width": 358,
+          "height": 145
+        },
+        "resolve_box": {
+          "x": 16,
+          "y": 718,
+          "width": 358,
+          "height": 54
+        },
+        "sizes": [
+          {
+            "width": 390,
+            "height": 844,
+            "scroll_width": 390
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scroll_width": 390
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scroll_width": 390
+          }
+        ]
+      },
+      "result": "PASS"
+    }
+  ],
+  "failures": [],
+  "page_errors": [],
+  "console_errors": [],
+  "unexpected_external_requests": [],
+  "captures": [
+    {
+      "path": "operator-normal-1440x900.png",
+      "sha256": "44259783726d7a2b4367fe8e3c3d812b51d1c0f4260efc98ccb42199c978fa2b"
+    },
+    {
+      "path": "operator-history-1440x900.png",
+      "sha256": "58b7570788e2c934c0df27a64372da55d9b805cc54a721580280b05bd880469e"
+    },
+    {
+      "path": "operator-normal-1280x800.png",
+      "sha256": "666e2ac16f029e15cc3316f32b6a56195c7e65e4f7fc2074a2e45ecda320c76d"
+    },
+    {
+      "path": "operator-normal-390x844.png",
+      "sha256": "7c4eace1e6521d3ccb63bff27ea17c3eedbf3564290bc4bb4e585b927ef8d2c3"
+    },
+    {
+      "path": "incident-comparison-1440x900.png",
+      "sha256": "8eb698dd6644f0328450aa4f3569e6c1ee51ecb8e40f0cb421ae8d1045bbc739"
+    },
+    {
+      "path": "actor-dialog-1440x900.png",
+      "sha256": "8c2ad86b0c705c773a0bea48a4b0b2a312ef5150951dfce92de0b0c9a70fd8cc"
+    },
+    {
+      "path": "incident-comparison-1280x800.png",
+      "sha256": "3cd7bee44aa13ef6b75ca41b4d9ee1cca244ceb5af63948a3ff38db4cfcf344e"
+    },
+    {
+      "path": "incident-comparison-390x844.png",
+      "sha256": "f8930a54d7d2d4eaf4dcd53157dd02fdfab2b834e89b5734a1644be000087e75"
+    },
+    {
+      "path": "master-fall-no-media-390x844.png",
+      "sha256": "0aa883b1c13feb8d583c6ff8c4f7b989fe235c714173785d8385e4d024d58a1c"
+    },
+    {
+      "path": "master-actor-390x844.png",
+      "sha256": "f4b84308675fcf7e4a2270f4b86b2954023e428536dc4872b6ee03a18957f69a"
+    },
+    {
+      "path": "master-measures-390x844.png",
+      "sha256": "54c9ba409d0a23ad92b7ceafea2403a0a3d8a4b8fb8415df7f3516c3576c6dac"
+    },
+    {
+      "path": "master-resolved-before-reload-390x844.png",
+      "sha256": "9aa72833368772bdcf92704a09d4210ef5042c1dc85e32cb6b996d82428339a4"
+    },
+    {
+      "path": "master-resolved-history-390x844.png",
+      "sha256": "6da11210782e184da582e585fc813cc63723d4d48fe30cb7904082ba45ce662f"
+    }
+  ],
+  "source_before": {
+    "method": "SHA256 of JSON of sorted frontend source/public/config per-file SHA256 map; independent of OS frozen-source identity",
+    "files": {
+      "frontend/index.html": "77c2b29924d3e3c95266e3815785cb0dadf73244dc5e788a18e866e8d0f70c40",
+      "frontend/package-lock.json": "4f46a16693acf59a8fa61b20529cfac9f39e13318ab9d8f63ce120c8479093a9",
+      "frontend/package.json": "42975d7e4d696d7e0cbedd62a19532c7eb585e5b4914456c869b7b106399ca82",
+      "frontend/public/fixtures/factory-cutting.png": "4d1ba7e6b436b84ce5d1a9f9e51e22a2e5e6af87cedcbe90f22683225f84721f",
+      "frontend/public/fixtures/factory-replay.mp4": "ef1e12b21d705f24e347d39b22540507ddb2f380c78658e0451e3c95f382008f",
+      "frontend/public/fixtures/factory-welding-replay.mp4": "4193508a5198d52533692a5f6eb7558bdf60d120d59e60fae16a6bdb40ec0620",
+      "frontend/public/fixtures/factory-welding.png": "069cf7588a5733eaf59131c05317ad0a39b6fee5fa458385daca6b503c8c9e95",
+      "frontend/public/fonts/fonts.css": "3572aa614ad181ed5688f40b73909abb3b555b857bcc3fe220c1567f0fa630eb",
+      "frontend/public/fonts/GolosText-OFL.txt": "ff532f9e8789f09a9fdffc3c0954eedfb0a48be77b2e2eb90f5f82e4f347f50c",
+      "frontend/public/fonts/Oswald-OFL.txt": "0fd731a904b729a4e02eaf5e8ebd06783edd9abe400e8882760160230675b652",
+      "frontend/public/fonts/safewatch-0.woff2": "7c255885e99e7df35f846074e6b780ee166a725e565e3a67f760dd12f4e5b77a",
+      "frontend/public/fonts/safewatch-1.woff2": "6dd89b893d2534ebb655520f2a1ac9258007af1a0daf4b8a32763f13b47fad4a",
+      "frontend/public/fonts/safewatch-2.woff2": "1d38fc3b3f03e9f22003bbf360e4cd58e8890f81e65f9a98b3773a0199ba4354",
+      "frontend/public/fonts/safewatch-3.woff2": "8b9ab44deba060e3f7a1a60bd2d8b19c4bab581e85c2e1f150a1e73a4f6aa8b4",
+      "frontend/public/fonts/safewatch-4.woff2": "edca7f2098242ead25675251ac9c35ecd2a9d001e4bcb641e07471148b6c365b",
+      "frontend/public/fonts/safewatch-5.woff2": "20987dd8fd1d3e9ab087a55cb90e98081c873c729c113043e0bfb1ef0f9e0bd7",
+      "frontend/public/fonts/safewatch-6.woff2": "a6ee8b91ec269a6f48631ba4ba1a3ab7e5039e5482dda8dc9672ee4620d7bd68",
+      "frontend/public/fonts/sources.json": "974f3fa115e6398ed688fe964e025fc14817e973cf9d0d5ad78032dd62a1bf0f",
+      "frontend/src/api/client.ts": "c582af6ba17f83fed1029416f7a496b3e1369e768457654c7cd6a975136e8e36",
+      "frontend/src/api/schema.d.ts": "da518de1738fc466e2952845783de956f000e2bbee3c2d5356602841e98afc41",
+      "frontend/src/api/types.ts": "642c379017961940bbe44fc43c4ddda2cafc97ccb22a2767fe9d4ebd2f528031",
+      "frontend/src/api/useApi.test.ts": "d2a1252ec83e1163655989882b536b5875245f3799aad567fe6ca9d94329ffbf",
+      "frontend/src/api/useApi.ts": "77c3340fdb46d068e845c793e493b10a6aee661bd679d1f0f9273e90458b9d51",
+      "frontend/src/api/ws.schema.generated.json": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+      "frontend/src/api/ws.test.ts": "8613fc3a11e8ca1b46b4af1c83721d800cb2be87f0244526a48b150b86530288",
+      "frontend/src/api/ws.ts": "41979b6baccbb0af3e4aff7d33a8cfc9cac3791d3b1886f103b2f8d629451d32",
+      "frontend/src/App.test.tsx": "04bb58be2ec77c6f877d37a420768d7ff915fa4e9e3e752ff95436e96f191f50",
+      "frontend/src/App.tsx": "4bc5e21f33811f84e858076bf77c7f388c08719b998bf6826792d2452bcf3fd0",
+      "frontend/src/components/ActorIdentity.tsx": "be2c219611fff7191bef6435be5b310cf0fb1e1ae7a678ef9b4bfba088c783e0",
+      "frontend/src/components/AlarmTakeover.tsx": "2c18197fb91ae1da378ac23b98ea7fd90c93f531596bcce03087953ba18d704c",
+      "frontend/src/components/AppShell.tsx": "f179b472559fedc88c1795f8402cdc00d2e759ab2e76922725a9f6034bcef6bb",
+      "frontend/src/components/Badges.tsx": "b7e27c1eedd29340492540ca05de840e53de560461598e82b9eb09b7a7c2cb83",
+      "frontend/src/components/EventFeed.tsx": "aed2d4bf1dbc9b123bc999867a099261d29aec713cfdd3f1a61a2ac0ae2378f5",
+      "frontend/src/components/Media.tsx": "80414fc7d7125819164b2fcf3557931310fbc6d41a52663033bbd55263b7658d",
+      "frontend/src/components/RoleSwitcher.tsx": "40287d32a80ec523771c037b672af2efdc380c10358de2070991f09aaf6c6b74",
+      "frontend/src/components/StubNotice.tsx": "474e093e023a361f0a7325fa5f2edfa28ba39bf5ca0391a9783bce3ded2227b5",
+      "frontend/src/components/ui.tsx": "88dcd9ff9f0d3bb14a5f4cabdd96d4ded011a492f4b27e28c98fd09444d42987",
+      "frontend/src/features/Incident.test.tsx": "c942c3eff2638b6c69a37eed281445feb6e5265c8e3b73e1875660f22fe150c7",
+      "frontend/src/features/Incident.tsx": "6d0241621d6bdb4d6988505192513d99379fceb844ab392b452ee7bc4bcfaefd",
+      "frontend/src/features/Journal.test.tsx": "2cd921ca723923db64729f28716ca574b0202638632d328823399d6f0a4d6dc9",
+      "frontend/src/features/Journal.tsx": "6c761665eba2258b7c30cda5d11b4e5bdbacac1d454b6aa045cf29cb6750101c",
+      "frontend/src/features/Master.tsx": "5e064729b431adef9be81151a1c429c297213eb8436b727b68d96395e21ef914",
+      "frontend/src/features/Operator.tsx": "f6371116de09aaadd820491e739207435545616b080c79f7c581a05b20e296ec",
+      "frontend/src/fixtures/data.ts": "8291b90eddb9c818cac0f5e4d61b314faaeea042ae7b28d0343c02fc7984ec81",
+      "frontend/src/fixtures/review.test.ts": "ca7cfa5d5dd85f8b817d422366ca35c02fe6b365d1bbba5bcc2005f60bdee6fe",
+      "frontend/src/fixtures/review.ts": "6783bdc55c4f7c1129f1caf115973a4382f7da48843f3f305c451daed403feac",
+      "frontend/src/main.tsx": "e310255a4c9f1e3944ff3585d8529ad3d668cb8b3a7a2213e4f3b3eb78837fc5",
+      "frontend/src/nav.ts": "f463b516baa7dbd6d33b37c36c8afbcc231fb55e1e77f58226302f82bd6d6386",
+      "frontend/src/roles.ts": "f75bb2e7cbeb812f282c35d2eed3000276d2835e6cf904896a6bb63e0d4a3da5",
+      "frontend/src/styles/actor-identity.css": "88a0597bf7184eaeebff0fd34faf43528f3d1a7d27c934381c730ebe5dd87918",
+      "frontend/src/styles/incident-review.css": "ee150d5f352122cdd3a6ed165c977f264b14f5a49850db2895a91933bc968572",
+      "frontend/src/styles/journal.css": "14c0d89bab1e8be542428138f0f3e442658c9a2da7bcaf8fb87b3c94f62e05bb",
+      "frontend/src/styles/mobile-timeline.css": "e4eabb55bda41030e4eaaea25ff7ed91d16d4937460e125154b2245970fd5f4e",
+      "frontend/src/styles/targeted-visual.css": "a618c291623159a1f29798c75834387b09a86c1cada27aff6bc51f97140eb7c3",
+      "frontend/src/theme.css": "7729a11984348ba61927665cb5218e171362229abf1082ca75c10887d9a9b38d",
+      "frontend/vite.config.ts": "abd3b8e74cd1c16a53bb94fa3fb83a3e562282eee1ef8f4290804bce68e79c62"
+    },
+    "sha256": "bdc377285abfc558accc0860f99e897e0cc4757b81efcbd190df59552e628649",
+    "git_head": "8a1a83bd0c3ec5bd1331e4bbe510f20774bdf34f"
+  },
+  "source_after": {
+    "method": "SHA256 of JSON of sorted frontend source/public/config per-file SHA256 map; independent of OS frozen-source identity",
+    "files": {
+      "frontend/index.html": "77c2b29924d3e3c95266e3815785cb0dadf73244dc5e788a18e866e8d0f70c40",
+      "frontend/package-lock.json": "4f46a16693acf59a8fa61b20529cfac9f39e13318ab9d8f63ce120c8479093a9",
+      "frontend/package.json": "42975d7e4d696d7e0cbedd62a19532c7eb585e5b4914456c869b7b106399ca82",
+      "frontend/public/fixtures/factory-cutting.png": "4d1ba7e6b436b84ce5d1a9f9e51e22a2e5e6af87cedcbe90f22683225f84721f",
+      "frontend/public/fixtures/factory-replay.mp4": "ef1e12b21d705f24e347d39b22540507ddb2f380c78658e0451e3c95f382008f",
+      "frontend/public/fixtures/factory-welding-replay.mp4": "4193508a5198d52533692a5f6eb7558bdf60d120d59e60fae16a6bdb40ec0620",
+      "frontend/public/fixtures/factory-welding.png": "069cf7588a5733eaf59131c05317ad0a39b6fee5fa458385daca6b503c8c9e95",
+      "frontend/public/fonts/fonts.css": "3572aa614ad181ed5688f40b73909abb3b555b857bcc3fe220c1567f0fa630eb",
+      "frontend/public/fonts/GolosText-OFL.txt": "ff532f9e8789f09a9fdffc3c0954eedfb0a48be77b2e2eb90f5f82e4f347f50c",
+      "frontend/public/fonts/Oswald-OFL.txt": "0fd731a904b729a4e02eaf5e8ebd06783edd9abe400e8882760160230675b652",
+      "frontend/public/fonts/safewatch-0.woff2": "7c255885e99e7df35f846074e6b780ee166a725e565e3a67f760dd12f4e5b77a",
+      "frontend/public/fonts/safewatch-1.woff2": "6dd89b893d2534ebb655520f2a1ac9258007af1a0daf4b8a32763f13b47fad4a",
+      "frontend/public/fonts/safewatch-2.woff2": "1d38fc3b3f03e9f22003bbf360e4cd58e8890f81e65f9a98b3773a0199ba4354",
+      "frontend/public/fonts/safewatch-3.woff2": "8b9ab44deba060e3f7a1a60bd2d8b19c4bab581e85c2e1f150a1e73a4f6aa8b4",
+      "frontend/public/fonts/safewatch-4.woff2": "edca7f2098242ead25675251ac9c35ecd2a9d001e4bcb641e07471148b6c365b",
+      "frontend/public/fonts/safewatch-5.woff2": "20987dd8fd1d3e9ab087a55cb90e98081c873c729c113043e0bfb1ef0f9e0bd7",
+      "frontend/public/fonts/safewatch-6.woff2": "a6ee8b91ec269a6f48631ba4ba1a3ab7e5039e5482dda8dc9672ee4620d7bd68",
+      "frontend/public/fonts/sources.json": "974f3fa115e6398ed688fe964e025fc14817e973cf9d0d5ad78032dd62a1bf0f",
+      "frontend/src/api/client.ts": "c582af6ba17f83fed1029416f7a496b3e1369e768457654c7cd6a975136e8e36",
+      "frontend/src/api/schema.d.ts": "da518de1738fc466e2952845783de956f000e2bbee3c2d5356602841e98afc41",
+      "frontend/src/api/types.ts": "642c379017961940bbe44fc43c4ddda2cafc97ccb22a2767fe9d4ebd2f528031",
+      "frontend/src/api/useApi.test.ts": "d2a1252ec83e1163655989882b536b5875245f3799aad567fe6ca9d94329ffbf",
+      "frontend/src/api/useApi.ts": "77c3340fdb46d068e845c793e493b10a6aee661bd679d1f0f9273e90458b9d51",
+      "frontend/src/api/ws.schema.generated.json": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+      "frontend/src/api/ws.test.ts": "8613fc3a11e8ca1b46b4af1c83721d800cb2be87f0244526a48b150b86530288",
+      "frontend/src/api/ws.ts": "41979b6baccbb0af3e4aff7d33a8cfc9cac3791d3b1886f103b2f8d629451d32",
+      "frontend/src/App.test.tsx": "04bb58be2ec77c6f877d37a420768d7ff915fa4e9e3e752ff95436e96f191f50",
+      "frontend/src/App.tsx": "4bc5e21f33811f84e858076bf77c7f388c08719b998bf6826792d2452bcf3fd0",
+      "frontend/src/components/ActorIdentity.tsx": "be2c219611fff7191bef6435be5b310cf0fb1e1ae7a678ef9b4bfba088c783e0",
+      "frontend/src/components/AlarmTakeover.tsx": "2c18197fb91ae1da378ac23b98ea7fd90c93f531596bcce03087953ba18d704c",
+      "frontend/src/components/AppShell.tsx": "f179b472559fedc88c1795f8402cdc00d2e759ab2e76922725a9f6034bcef6bb",
+      "frontend/src/components/Badges.tsx": "b7e27c1eedd29340492540ca05de840e53de560461598e82b9eb09b7a7c2cb83",
+      "frontend/src/components/EventFeed.tsx": "aed2d4bf1dbc9b123bc999867a099261d29aec713cfdd3f1a61a2ac0ae2378f5",
+      "frontend/src/components/Media.tsx": "80414fc7d7125819164b2fcf3557931310fbc6d41a52663033bbd55263b7658d",
+      "frontend/src/components/RoleSwitcher.tsx": "40287d32a80ec523771c037b672af2efdc380c10358de2070991f09aaf6c6b74",
+      "frontend/src/components/StubNotice.tsx": "474e093e023a361f0a7325fa5f2edfa28ba39bf5ca0391a9783bce3ded2227b5",
+      "frontend/src/components/ui.tsx": "88dcd9ff9f0d3bb14a5f4cabdd96d4ded011a492f4b27e28c98fd09444d42987",
+      "frontend/src/features/Incident.test.tsx": "c942c3eff2638b6c69a37eed281445feb6e5265c8e3b73e1875660f22fe150c7",
+      "frontend/src/features/Incident.tsx": "6d0241621d6bdb4d6988505192513d99379fceb844ab392b452ee7bc4bcfaefd",
+      "frontend/src/features/Journal.test.tsx": "2cd921ca723923db64729f28716ca574b0202638632d328823399d6f0a4d6dc9",
+      "frontend/src/features/Journal.tsx": "6c761665eba2258b7c30cda5d11b4e5bdbacac1d454b6aa045cf29cb6750101c",
+      "frontend/src/features/Master.tsx": "5e064729b431adef9be81151a1c429c297213eb8436b727b68d96395e21ef914",
+      "frontend/src/features/Operator.tsx": "f6371116de09aaadd820491e739207435545616b080c79f7c581a05b20e296ec",
+      "frontend/src/fixtures/data.ts": "8291b90eddb9c818cac0f5e4d61b314faaeea042ae7b28d0343c02fc7984ec81",
+      "frontend/src/fixtures/review.test.ts": "ca7cfa5d5dd85f8b817d422366ca35c02fe6b365d1bbba5bcc2005f60bdee6fe",
+      "frontend/src/fixtures/review.ts": "6783bdc55c4f7c1129f1caf115973a4382f7da48843f3f305c451daed403feac",
+      "frontend/src/main.tsx": "e310255a4c9f1e3944ff3585d8529ad3d668cb8b3a7a2213e4f3b3eb78837fc5",
+      "frontend/src/nav.ts": "f463b516baa7dbd6d33b37c36c8afbcc231fb55e1e77f58226302f82bd6d6386",
+      "frontend/src/roles.ts": "f75bb2e7cbeb812f282c35d2eed3000276d2835e6cf904896a6bb63e0d4a3da5",
+      "frontend/src/styles/actor-identity.css": "88a0597bf7184eaeebff0fd34faf43528f3d1a7d27c934381c730ebe5dd87918",
+      "frontend/src/styles/incident-review.css": "ee150d5f352122cdd3a6ed165c977f264b14f5a49850db2895a91933bc968572",
+      "frontend/src/styles/journal.css": "14c0d89bab1e8be542428138f0f3e442658c9a2da7bcaf8fb87b3c94f62e05bb",
+      "frontend/src/styles/mobile-timeline.css": "e4eabb55bda41030e4eaaea25ff7ed91d16d4937460e125154b2245970fd5f4e",
+      "frontend/src/styles/targeted-visual.css": "a618c291623159a1f29798c75834387b09a86c1cada27aff6bc51f97140eb7c3",
+      "frontend/src/theme.css": "7729a11984348ba61927665cb5218e171362229abf1082ca75c10887d9a9b38d",
+      "frontend/vite.config.ts": "abd3b8e74cd1c16a53bb94fa3fb83a3e562282eee1ef8f4290804bce68e79c62"
+    },
+    "sha256": "bdc377285abfc558accc0860f99e897e0cc4757b81efcbd190df59552e628649",
+    "git_head": "8a1a83bd0c3ec5bd1331e4bbe510f20774bdf34f"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-24T03:55:43.795Z",
+  "result": "PASS"
+}

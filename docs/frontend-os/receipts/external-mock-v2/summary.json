@@ -1,0 +1,99 @@
+{
+  "result": "PASS",
+  "scope": "External checkpoint stateful REST/WS mock through Vite dev:mock; review=real, never in-browser review fixtures",
+  "source_unchanged": true,
+  "frontend_source_sha256": "bdc377285abfc558accc0860f99e897e0cc4757b81efcbd190df59552e628649",
+  "served_ts_tsx_sources_verified": 20,
+  "served_ts_tsx_matching_responses": 140,
+  "cases": [
+    {
+      "name": "external operator -> yellow -> red takeover -> mobile master resolve",
+      "result": "PASS"
+    },
+    {
+      "name": "journal UI and external journal server state",
+      "result": "PASS"
+    },
+    {
+      "name": "historical episode:null detail and mock camera501",
+      "result": "PASS"
+    },
+    {
+      "name": "WS reset/drop reconnect and dashboard REST reconciliation",
+      "result": "PASS"
+    },
+    {
+      "name": "incident reset404 stale detail/actions probe",
+      "result": "PASS"
+    },
+    {
+      "name": "evidence404 -> fault-off sameURL card refresh",
+      "result": "PASS"
+    },
+    {
+      "name": "external fault500 error message and visible retry recovery",
+      "result": "PASS"
+    },
+    {
+      "name": "actual role/actor request headers",
+      "result": "PASS"
+    }
+  ],
+  "captures": 25,
+  "runtime_errors": [],
+  "unclassified_console": [],
+  "expected_console_note": "Injected external404/500 and unsupported camera501 produce HTTP console errors; development warnings are retained and classified.",
+  "request_failures": [
+    {
+      "at": "2026-10-24T03:54:21.795Z",
+      "scenario": "evidence-recovery",
+      "url": "http://127.0.0.1:4010/api/evidence/1/image",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_ORB"
+      }
+    }
+  ],
+  "resolved_external_event_id": 29,
+  "fixes_verified": [
+    "No fabricated X-Actor and no automatic view POST before explicit identity, desktop operator + fresh mobile master",
+    "Identity cancel and whitespace cannot POST; explicit name resumes correct action",
+    "Real external journal status/level filters via Найти, refresh and URL/browser reload",
+    "Deleted event REST404 clears prior status and all actions after WS reconnect",
+    "Same-URL evidence image reloads with explicit Загрузить кадр повторно button after fault-off",
+    "Actual reset/ws-drop reconnect receives hello and then re-fetches REST dashboard"
+  ],
+  "viewports": [
+    "1440x900",
+    "1280x800",
+    "390x844"
+  ],
+  "mobile_captures": {
+    "identity": "06a-identity-dialog-master-390.png",
+    "accept": "06-master-pending-390.png",
+    "report": "07-master-accepted-390.png",
+    "resolved": "08-master-resolved-390.png",
+    "journal": "10b-journal-filtered-390.png"
+  },
+  "raw": "raw-observations.json",
+  "network": "network.json",
+  "websockets": "ws.json",
+  "executed_script": "executed-script.cjs",
+  "executed_script_sha256": "55099d9e7bd73d8386e22de16ded0944a1daa6a9b0aa389e07dbcfa7bb5ab95b",
+  "upstream_smoke": "../external-mock-v1/upstream-smoke.log",
+  "limits": [
+    "External checkpoint mock remains synthetic; no inference/LinQ/production backend proof.",
+    "External mock camera/video/HUD endpoints are not implemented, expected501.",
+    "Chromium dev server run; React development warnings and deliberate HTTP error probes are retained."
+  ],
+  "visual_inspection": {
+    "result": "PASS",
+    "inspected": [
+      "06a-identity-dialog-master-390.png",
+      "07-master-accepted-390.png",
+      "08-master-resolved-390.png",
+      "10b-journal-filtered-390.png"
+    ],
+    "observed": "Mobile identity dialog is readable with explicit name field; required-measures form is reachable and has disabled completion for whitespace; resolved external29 status and actual mock evidence visible; filtered journal shows resolved29 without horizontal clipping."
+  },
+  "cleanup_state": "cleanup-state.json"
+}

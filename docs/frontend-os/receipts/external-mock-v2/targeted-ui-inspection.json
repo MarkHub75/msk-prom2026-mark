@@ -1,0 +1,29 @@
+{
+  "verdict": "PASS",
+  "review_scope": "Focused rendered correction QA; not an independent full-product design verdict or human approval",
+  "p0_p1_findings": [],
+  "source_sha256": "bdc377285abfc558accc0860f99e897e0cc4757b81efcbd190df59552e628649",
+  "source_files": 56,
+  "source_guard": "Identical before and after the browser review",
+  "visual_checks": [
+    "Normal queue visibly reports zero active events and separately exposes four terminal history events.",
+    "At 1440x900 evidence ends at y561.375 and the complete subsequent 219.984px video ends at y886.75.",
+    "Evidence HUD geometry matches the decoded image plane within 0.000027px; natural ratio comes from actual1672x941 pixels.",
+    "Actual short object label is legible at11px with high-contrast outline and background.",
+    "The390px identity modal is readable, initially empty and has visible cancel/continue actions.",
+    "The390px required measures field and54px report action are reachable and visually distinct.",
+    "Resolved history after reload visibly retains the explicitly entered master name and exact report.",
+    "No standing-person image or video is used for the local fall fixture.",
+    "No horizontal overflow at1440x900,1280x800 or390x844; no page errors, console errors or external mock traffic."
+  ],
+  "prior_attempt": {
+    "directory": "../targeted-ui-final-dev",
+    "preserved": true,
+    "reason_for_rerun": "The first test retained the explicit reset=1 director instruction while testing reload persistence. That instruction intentionally resets local fixtures on each page load. The corrected recipe removes reset from the URL before an ordinary reload; product source was unchanged."
+  },
+  "boundaries": [
+    "Explicit local fixtures only; external mock validation is owned by the separate browser agent.",
+    "This does not assert CV/LinQ correctness or real backend business integration.",
+    "No repository source, backend, mock, contract or OS controller file was changed during review."
+  ]
+}
