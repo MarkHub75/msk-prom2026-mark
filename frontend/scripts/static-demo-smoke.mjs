@@ -81,6 +81,9 @@ try {
   await page.waitForFunction(async () => (await (await fetch("/api/operator/feed")).json()).length === 0);
   assert(await page.getByRole("button", {name: "Следующий шаг демо", exact: true}).isEnabled());
   await page.setViewportSize({width: 390, height: 844});
+  await page.locator(".cr-stage img").waitFor();
+  const cameraFrame = await page.locator(".cr-stage img").boundingBox();
+  assert(cameraFrame && cameraFrame.height > 100, "Camera frame must retain visible height on mobile");
   await page.screenshot({path: `${screenshotDir}/04-mobile.png`, animations: "disabled"});
   const director = await page.getByRole("complementary", {name: "Режиссёр демо"}).boundingBox();
   assert(director && director.x >= 0 && director.x + director.width <= 391);

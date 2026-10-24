@@ -16,7 +16,8 @@ body:has(.static-demo-banner) .app.app-cr.ds-app { height: calc(100dvh - var(--d
   body:has(.static-demo-banner) .ds-app .cr-page { min-height: 0; }
   body:has(.static-demo-banner) .ds-app .cr-head { flex-wrap: wrap; }
   body:has(.static-demo-banner) .ds-app .cr-grid { height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "queue" "wall" "shift" "sectors" "strip"; }
-  body:has(.static-demo-banner) .ds-app .cr-wall { grid-template-columns: minmax(0, 1fr); }
+  body:has(.static-demo-banner) .ds-app .cr-wall { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; }
+  body:has(.static-demo-banner) .ds-app .cr-stage { height: 260px; min-height: 260px; }
   body:has(.static-demo-banner) .ds-app .cr-queue { max-height: none; overflow: visible; }
   body:has(.static-demo-banner) .ds-app .cr-side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
