@@ -4,25 +4,25 @@
 
 /* Alarm cards */
 .mo-cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
-.mo-card { position: relative; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: var(--mb-radius); animation: mb-enter .32s var(--ds-ease) both; }
-.mo-card:nth-child(2) { animation-delay: .04s; } .mo-card:nth-child(3) { animation-delay: .08s; } .mo-card:nth-child(n+4) { animation-delay: .12s; }
-.mo-card.is-red { border-color: var(--ds-red-line); }
-.mo-card-main { display: block; color: inherit; border-radius: var(--mb-radius); overflow: hidden; transition: transform .15s var(--ds-ease); }
-.mo-card-main:active { transform: scale(.99); }
-.mo-card.is-red .mb-frame { box-shadow: inset 0 3px 0 var(--ds-red); }
-.mo-card.is-yellow .mb-frame { box-shadow: inset 0 3px 0 var(--ds-amber); }
-.mo-card .mb-ov b { color: var(--ds-amber); }
+/* The level is the 3 px stripe on the left edge of the card, as in the desktop queue */
+.mo-card { position: relative; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: var(--mb-radius); }
+.mo-card::before { content: ""; position: absolute; z-index: 2; left: -1px; top: -1px; bottom: -1px; width: 3px; border-radius: var(--mb-radius) 0 0 var(--mb-radius); pointer-events: none; }
+.mo-card.is-red::before { background: var(--ds-red); }
+.mo-card.is-yellow::before { background: var(--ds-amber); }
+.mo-card-main { display: block; color: inherit; border-radius: var(--mb-radius); overflow: hidden; }
+.mo-card-main:active { background: var(--ds-bg-2); }
+.mo-card .mb-ov b { color: var(--ds-timecode); }
 .mo-card-body { display: flex; flex-direction: column; gap: 5px; padding: 12px 14px 12px; }
-.mo-card-body h2 { margin: 0; font-family: var(--display); font-size: 19px; font-weight: 700; line-height: 1.2; color: var(--ds-text); }
+.mo-card-body h2 { margin: 0; font-family: var(--display); font-size: 17px; font-weight: 600; line-height: 1.25; color: var(--ds-text); }
 .mo-place { margin: 0; display: flex; align-items: center; gap: 5px; color: var(--ds-text); font-size: 14px; font-weight: 600; }
 .mo-place svg { color: var(--ds-text-3); }
 .mo-reason { margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--ds-text-2); font-size: 14px; line-height: 1.4; }
 .mo-foot { margin: 4px 0 0; display: flex; align-items: center; gap: 8px; color: var(--ds-text-3); }
 .mo-foot > svg { margin-left: auto; }
-.mo-status { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 12px; background: var(--ds-bg-3); color: var(--ds-text-2); font-size: 12.5px; font-weight: 600; }
-.mo-status.is-red { background: var(--ds-red-bg); color: var(--ds-red); }
-.mo-status.is-yellow { background: var(--ds-amber-bg); color: var(--ds-amber); }
-.mo-flag { display: inline-flex; align-items: center; gap: 4px; color: var(--ds-amber); font-size: 12.5px; font-weight: 600; }
+/* Status is a state of handling, not a level: grey dot and text, as on the desktop */
+.mo-status { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0; color: var(--ds-text-2); font-size: 13px; font-weight: 600; }
+.mo-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ds-grey); }
+.mo-flag { display: inline-flex; align-items: center; gap: 4px; color: var(--ds-amber-text); font-size: 12.5px; font-weight: 600; }
 .mo-cards.is-compact .mb-frame { aspect-ratio: 21 / 9; }
 .mb-ov.is-grey { background: var(--ds-grey-bg); color: var(--ds-text-2); border: 1px dashed var(--ds-grey); }
 
@@ -45,10 +45,10 @@
 .mo-hero-frame.is-yellow { box-shadow: 0 3px 0 var(--ds-amber); }
 .mo-head { display: flex; flex-direction: column; gap: 8px; }
 .mo-head-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.mo-head-row .mb-ov { position: static; }
+.mo-head-row .mb-ov { position: static; background: var(--ds-bg-2); border: 1px solid var(--ds-line-strong); }
 .mo-wait { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; color: var(--ds-text-2); }
-.mo-wait b { color: var(--ds-amber); font-size: 18px; font-weight: 600; }
-.mo-head h1 { margin: 0; font-family: var(--display); font-size: 25px; font-weight: 700; line-height: 1.12; color: var(--ds-text); }
+.mo-wait b { color: var(--ds-timecode); font-size: 16px; font-weight: 500; }
+.mo-head h1 { margin: 0; font-family: var(--display); font-size: 22px; font-weight: 600; line-height: 1.2; color: var(--ds-text); }
 .mo-reason-big { margin: 0; font-size: 16px; line-height: 1.45; color: var(--ds-text); }
 .mo-comment { display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 14px; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: var(--mb-radius); color: var(--ds-text-3); }
 .ds-app .mo-comment input:not([type=checkbox]):not([type=radio]) { flex: 1; min-height: 0; border-radius: 0 !important; box-shadow: none; min-width: 0; padding: 12px 0; border: 0; background: transparent; color: var(--ds-text); font-size: 16px; }
@@ -70,65 +70,61 @@
 .mo-player .player-controls button { min-height: 40px; }
 .mo-player .timeline-wrap { padding: 0 var(--mb-gutter); }
 .mo-player .timeline-labels span:nth-child(2), .mo-player .timeline-labels span:nth-child(4) { visibility: hidden; }
-.mo-onair-chip { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 13px; background: var(--ds-bg-3); color: var(--ds-text-2); font-size: 12.5px; font-weight: 600; }
+.mo-onair-chip { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: var(--r2); background: var(--ds-bg-3); color: var(--ds-text-2); font-size: 12.5px; font-weight: 600; }
 .mo-onair-chip.is-on { color: var(--ds-timecode); background: var(--ds-accent-bg); }
 .mo-n.is-red { color: var(--ds-red); } .mo-n.is-yellow { color: var(--ds-amber); }
 
 /* Cameras by sector */
-.mo-sector { display: flex; flex-direction: column; gap: 10px; animation: mb-enter .32s var(--ds-ease) both; }
+.mo-sector { display: flex; flex-direction: column; gap: 10px; }
 .mo-sector-head { display: flex; align-items: center; gap: 12px; padding-top: 6px; }
-.mo-sector-num { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--ds-bg-2); border: 1px solid var(--ds-line-strong); color: var(--ds-text); font-size: 15px; font-weight: 600; }
-.mo-sector.is-red .mo-sector-num { background: var(--ds-red-bg); border-color: var(--ds-red-line); color: var(--ds-red); }
-.mo-sector.is-yellow .mo-sector-num { background: var(--ds-amber-bg); border-color: var(--ds-amber-line); color: var(--ds-amber); }
+.mo-sector-num { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: var(--r3); background: var(--ds-bg-2); border: 1px solid var(--ds-line-strong); color: var(--ds-text); font-family: var(--mono); font-size: 15px; font-weight: 500; }
+.mo-sector.is-red .mo-sector-num { box-shadow: inset 3px 0 0 var(--ds-red); }
+.mo-sector.is-yellow .mo-sector-num { box-shadow: inset 3px 0 0 var(--ds-amber); }
 .mo-sector.is-no_observation .mo-sector-num { border-style: dashed; color: var(--ds-text-2); }
 .mo-sector-name { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.mo-sector-name b { font-size: 17px; font-weight: 700; }
+.mo-sector-name b { font-size: 16px; font-weight: 600; }
 .mo-sector-name small { color: var(--ds-text-2); font-size: 13px; }
+/* Open events: labelled figures on dark plates, not filled circles */
 .mo-sector-counts, .mo-tile-counts { display: inline-flex; gap: 4px; }
-.mo-sector-counts b, .mo-tile-counts b { min-width: 24px; height: 24px; padding: 0 7px; border-radius: 12px; font-family: var(--mono); font-size: 12.5px; font-weight: 700; line-height: 24px; text-align: center; }
-.mo-sector-counts .is-red, .mo-tile-counts .is-red { background: var(--ds-red); color: #fff; }
-.mo-sector-counts .is-yellow, .mo-tile-counts .is-yellow { background: var(--ds-amber); color: #1a1205; }
+.mo-sector-counts b, .mo-tile-counts b { min-width: 24px; height: 22px; padding: 0 6px; border-radius: var(--r2); border: 1px solid var(--ds-line-strong); background: var(--ds-bg-2); font-family: var(--mono); font-size: 12.5px; font-weight: 600; line-height: 20px; text-align: center; }
+.mo-sector-counts .is-red, .mo-tile-counts .is-red { border-color: var(--ds-red-line); background: var(--ds-red-bg); color: var(--ds-red-text); }
+.mo-sector-counts .is-yellow, .mo-tile-counts .is-yellow { border-color: var(--ds-amber-line); background: var(--ds-amber-bg); color: var(--ds-amber-text); }
 .mo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.mo-tile { position: relative; display: block; overflow: hidden; border-radius: 10px; border: 1px solid var(--ds-line-dark); background: var(--ds-well); color: inherit; transition: transform .15s var(--ds-ease); }
-.mo-tile:active { transform: var(--mb-press); }
-.mo-tile.is-red { border: 2px solid var(--ds-red); }
-.mo-tile.is-yellow { border: 2px solid var(--ds-amber); }
+.mo-tile { position: relative; display: block; overflow: hidden; border-radius: var(--r3); border: 1px solid var(--ds-line-dark); background: var(--ds-well); color: inherit; }
+.mo-tile::before { content: ""; position: absolute; z-index: 2; left: 0; top: 0; bottom: 0; width: 3px; background: transparent; pointer-events: none; }
+.mo-tile.is-red::before { background: var(--ds-red); }
+.mo-tile.is-yellow::before { background: var(--ds-amber); }
 .mo-tile.is-no_observation { border-style: dashed; border-color: var(--ds-grey); }
-.mo-tile .mb-ov { height: 22px; padding: 0 7px; font-size: 11px; }
+.mo-tile .mb-ov { height: 22px; padding: 0 6px; font-size: 11px; }
 .mo-tile .mb-ov-tl { left: 6px; top: 6px; } .mo-tile .mb-ov-tr { right: 6px; top: 6px; }
-.mo-tile-name { position: absolute; z-index: 1; left: 8px; bottom: 7px; right: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; font-size: 12.5px; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, .8); }
+.mo-tile-name { position: absolute; z-index: 1; left: 6px; bottom: 6px; max-width: calc(100% - 52px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px 6px; border-radius: var(--r2); background: rgba(10, 10, 11, .84); color: var(--ds-text); font-size: 12px; font-weight: 600; }
 .mo-tile-counts { position: absolute; z-index: 1; right: 6px; bottom: 6px; }
-.mo-tile-counts b { min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 20px; }
-.mo-onair i { width: 7px; height: 7px; border-radius: 50%; background: var(--ds-red); animation: mb-blink 1.4s ease-in-out infinite; }
+.mo-tile-counts b { min-width: 20px; height: 20px; padding: 0 5px; font-size: 11px; line-height: 18px; }
+.mo-onair i { width: 7px; height: 7px; border-radius: 50%; background: var(--ds-timecode); }
 .mo-sectors .mb-chip .mono { color: var(--ds-text-3); font-size: 12.5px; }
-@keyframes mb-blink { 50% { opacity: .25; } }
 
-/* Siren screen on a phone: the whole screen, the frame on top, the decisions at the bottom */
+/* Siren screen on a phone: the whole screen, the frame on top, the decisions at the bottom.
+   As on the desktop takeover: graphite window, the only solid red is the header and «Подтвердить». */
 @media (max-width: 760px) {
-  .ds-app.is-phone-app .takeover, .ds-app.is-phone-app .takeover.has-media { position: fixed !important; inset: 0 !important; z-index: 300; display: flex !important; flex-direction: column; gap: 0; width: auto !important; max-width: none !important; height: auto !important; margin: 0 !important; padding: 0 !important; overflow-y: auto; border: 0; box-shadow: none; transform: none !important; background: color-mix(in srgb, var(--ds-red-bg) 82%, #000); animation: mb-fade .2s ease-out both; }
-  .ds-app.is-phone-app .takeover-top, .ds-app.is-phone-app .takeover.has-media .takeover-top { position: sticky; top: 0; margin: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 8px 0 var(--mb-gutter); background: var(--ds-red); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; animation: mb-alarm-flash 1.2s ease-in-out infinite; }
-  .ds-app.is-phone-app .takeover-top .button { min-height: 38px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 19px; background: transparent; color: #fff; font-size: 13px; letter-spacing: 0; text-transform: none; }
+  .ds-app.is-phone-app .takeover, .ds-app.is-phone-app .takeover.has-media { position: fixed !important; inset: 0 !important; z-index: 300; display: flex !important; flex-direction: column; gap: 0; width: auto !important; max-width: none !important; height: auto !important; margin: 0 !important; padding: 0 !important; overflow-y: auto; border: 0; box-shadow: none; transform: none !important; background: var(--ds-bg-1); }
+  .ds-app.is-phone-app .takeover-top, .ds-app.is-phone-app .takeover.has-media .takeover-top { position: sticky; top: 0; margin: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 8px 0 var(--mb-gutter); background: var(--ds-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+  .ds-app.is-phone-app .takeover-top .button { min-height: 38px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .5); border-radius: var(--r3); background: transparent; color: #fff; font-size: 13px; letter-spacing: 0; text-transform: none; }
   .ds-app.is-phone-app .takeover .takeover-media { flex: none; display: block; margin: 0; padding: 0; border: 0; border-bottom: 3px solid var(--ds-red); background: var(--ds-well); }
   .ds-app.is-phone-app .takeover .takeover-media .ic-evidence, .ds-app.is-phone-app .takeover .takeover-media .evidence-frame, .ds-app.is-phone-app .takeover .takeover-img { width: 100% !important; max-height: none; margin: 0; }
   .ds-app.is-phone-app .takeover-side { flex: 1; display: flex !important; flex-direction: column; gap: 14px; padding: 16px var(--mb-gutter) 0; overflow: visible; }
   .ds-app.is-phone-app .takeover-body { display: flex !important; align-items: flex-start; gap: 14px !important; padding: 0 !important; }
   .ds-app.is-phone-app .takeover-sector { flex: none; font-size: 46px !important; line-height: .9; color: var(--ds-red); }
-  .ds-app.is-phone-app .takeover-location { color: color-mix(in srgb, var(--ds-red) 55%, #fff); font-size: 13px; line-height: 1.4; }
-  .ds-app.is-phone-app .takeover h2 { margin: 6px 0 6px !important; font-size: 25px !important; line-height: 1.15; color: #fff; }
-  .ds-app.is-phone-app .takeover p { margin: 0; color: color-mix(in srgb, var(--ds-red) 30%, #fff); font-size: 15px; line-height: 1.45; }
-  .ds-app.is-phone-app .takeover-actions { position: sticky; bottom: 0; z-index: 2; display: flex !important; flex-direction: row !important; flex-wrap: wrap; align-items: stretch !important; gap: 8px; margin: auto calc(-1 * var(--mb-gutter)) 0 !important; padding: 12px var(--mb-gutter) calc(12px + var(--mb-safe-b)) !important; border-top: 1px solid color-mix(in srgb, var(--ds-red) 35%, transparent); background: color-mix(in srgb, var(--ds-red-bg) 92%, #000); }
-  .ds-app.is-phone-app .takeover-actions .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; width: 100%; border-radius: var(--mb-radius); font-size: 16px; font-weight: 700; }
+  .ds-app.is-phone-app .takeover-location { color: var(--ds-text-2); font-size: 13px; line-height: 1.4; }
+  .ds-app.is-phone-app .takeover h2 { margin: 6px 0 6px !important; font-size: 22px !important; font-weight: 600; line-height: 1.2; color: var(--ds-text); }
+  .ds-app.is-phone-app .takeover p { margin: 0; color: var(--ds-text-2); font-size: 15px; line-height: 1.45; }
+  .ds-app.is-phone-app .takeover-actions { position: sticky; bottom: 0; z-index: 2; display: flex !important; flex-direction: row !important; flex-wrap: wrap; align-items: stretch !important; gap: 8px; margin: auto calc(-1 * var(--mb-gutter)) 0 !important; padding: 12px var(--mb-gutter) calc(12px + var(--mb-safe-b)) !important; border-top: 1px solid var(--ds-line-dark); background: var(--ds-bg-2); }
+  .ds-app.is-phone-app .takeover-actions .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; width: 100%; border-radius: var(--mb-radius); font-size: 16px; font-weight: 600; }
   .ds-app.is-phone-app .takeover-actions .button kbd { display: none; }
   /* Two per row; an odd last button (e.g. «Открыть карточку») takes the whole row */
   .ds-app.is-phone-app .takeover-actions .button { flex: 1 1 calc(50% - 4px); width: auto; min-width: 0; padding: 6px 10px; white-space: normal; line-height: 1.2; text-align: center; }
   .ds-app.is-phone-app .takeover-actions .button:not([data-action]) svg { flex: none; }
-  .ds-app.is-phone-app .takeover-actions .button[data-action] { background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .28); color: #fff; }
-  .ds-app.is-phone-app .takeover-actions .button[data-action="confirm"] { flex-basis: 100%; min-height: 58px; font-size: 18px; background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
-  .ds-app.is-phone-app .takeover-actions .button:not([data-action]) { min-height: 44px; font-size: 14px; font-weight: 600; background: transparent !important; border: 1px solid rgba(255, 255, 255, .2) !important; color: rgba(255, 255, 255, .85) !important; }
-  .ds-app.is-phone-app .takeover-actions .button:active { transform: var(--mb-press); }
-  .ds-app.is-phone-app .collapsed-alarm { top: calc(var(--mb-top-h) + 8px); bottom: auto; left: var(--mb-gutter); right: var(--mb-gutter); z-index: 70; min-height: 48px; border-radius: var(--mb-radius); font-size: 14px; font-weight: 700; animation: mb-pulse 1.6s ease-in-out infinite; }
-}
-@keyframes mb-alarm-flash { 50% { background: color-mix(in srgb, var(--ds-red) 70%, #000); } }
-@media (prefers-reduced-motion: reduce) {
-  .mo-card, .mo-sector, .mo-onair i, .ds-app.is-phone-app .takeover, .ds-app.is-phone-app .takeover-top { animation: none !important; }
+  .ds-app.is-phone-app .takeover-actions .button[data-action] { background: var(--ds-bg-3); border: 1px solid var(--ds-line-strong); color: var(--ds-text); }
+  .ds-app.is-phone-app .takeover-actions .button[data-action="confirm"] { flex-basis: 100%; min-height: 56px; font-size: 17px; background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
+  .ds-app.is-phone-app .takeover-actions .button:not([data-action]) { min-height: 44px; font-size: 14px; font-weight: 600; background: transparent !important; border: 1px solid var(--ds-line-strong) !important; color: var(--ds-text-2) !important; }
+  .ds-app.is-phone-app .collapsed-alarm { top: calc(var(--mb-top-h) + 8px); bottom: auto; left: var(--mb-gutter); right: var(--mb-gutter); z-index: 70; min-height: 48px; border-radius: var(--mb-radius); font-size: 14px; font-weight: 600; }
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { CircleStop, Play, Radio, RotateCcw, SkipForward, Square } from "lucide-react";
+import { CircleStop, Play, Radio, RotateCcw, SkipForward } from "lucide-react";
 import { api, apiError, type ApiFailure } from "../api/client";
 import type { Broadcast, Camera, Video } from "../api/types";
 import { useApi } from "../api/useApi";
@@ -50,10 +50,10 @@ function position(b: Broadcast, fetchedAt: number, now: number): number {
 }
 
 function AirState({ broadcast, fetchedAt, now }: { broadcast: Broadcast | null; fetchedAt: number; now: number }) {
-  if (!broadcast) return <span className="dc-air"><Square {...I} />Эфир не запущен</span>;
+  if (!broadcast) return <span className="dc-air"><CircleStop {...I} />Эфир не запущен</span>;
   const pos = <span className="adm-tc">{duration(position(broadcast, fetchedAt, now))} / {duration(broadcast.duration_ms)}</span>;
   if (broadcast.status === "playing") return <span className="dc-air dc-air-on"><Radio {...I} /><b>Идёт</b><em>{broadcast.loop ? "по кругу" : "один раз"}</em>{pos}</span>;
-  return <span className="dc-air"><Square {...I} />{broadcast.status === "ended" ? "Запись закончилась" : "Остановлен"}{pos}</span>;
+  return <span className="dc-air"><CircleStop {...I} />{broadcast.status === "ended" ? "Запись закончилась" : "Остановлен"}{pos}</span>;
 }
 
 function PacksPanel() {
@@ -204,7 +204,7 @@ export function DemoConsolePage({ mockBase = isMockApi() ? import.meta.env.VITE_
             </div>
             <AirState broadcast={r.broadcast} fetchedAt={r.fetchedAt} now={now} />
             <div className="dc-buttons">
-              <button type="button" className="button button-primary" disabled={!video || busy[r.camera.id] !== undefined} onClick={() => void act(r.camera, "play", video)} aria-label={`Проиграть один раз: ${r.camera.name}`}><Play {...I} />{busy[r.camera.id] === "play" ? "Запускаем…" : "Проиграть один раз"}</button>
+              <button type="button" className="button" disabled={!video || busy[r.camera.id] !== undefined} onClick={() => void act(r.camera, "play", video)} aria-label={`Проиграть один раз: ${r.camera.name}`}><Play {...I} />{busy[r.camera.id] === "play" ? "Запускаем…" : "Проиграть один раз"}</button>
               <button type="button" className="button" disabled={!onAir || busy[r.camera.id] !== undefined} onClick={() => void act(r.camera, "stop")} aria-label={`Остановить: ${r.camera.name}`}><CircleStop {...I} />{busy[r.camera.id] === "stop" ? "Останавливаем…" : "Остановить"}</button>
             </div>
             {error && <div className="dc-error"><ErrorNotice error={error} compact /></div>}

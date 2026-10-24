@@ -1,7 +1,7 @@
 import { api } from "../../api/client";
 import type { PassportScenario } from "../../api/types";
 import { useApi } from "../../api/useApi";
-import { Badge, ErrorNotice, IconButton, Loading, type IconName, type Tone } from "../../components/ui";
+import { Badge, ErrorNotice, IconButton, Loading, Panel, type IconName, type Tone } from "../../components/ui";
 import { pct } from "../../components/charts/scale";
 import "../../styles/v5.css";
 
@@ -33,25 +33,26 @@ export function PassportTab({ cameraId }: { cameraId: number }) {
     { label: "Кадров в оценке", value: String(p.frames), hint: p.analysis_id ? `анализ #${p.analysis_id}` : "обработанного видео нет" },
   ];
 
+  // Same frame as the other setup tabs: panels with a tab-like title, the summary on the right of the head.
   return <div className="v5-passport" data-testid="passport">
-    <header className="v5-passport-head">
-      <div>
-        <h2>Паспорт пригодности</h2>
+    <Panel title="Паспорт пригодности" tools={<IconButton icon="refresh" label="Пересчитать" onClick={passport.reload} disabled={passport.loading} />}>
+      <div className="v5-passport-head">
         <p>Что эта камера может видеть надёжно, а что нет — по последней обработанной записи. Пересчитывается при каждом открытии.</p>
+        <ul className="v5-verdicts" aria-label="Итог по сценариям">{(["suitable", "partial", "unsuitable", "unknown"] as Verdict[]).map(v => <li key={v} className={`is-${v}`}><b className="mono">{count(v)}</b><span>{VERDICT[v].title}</span></li>)}</ul>
       </div>
-      <ul className="v5-verdicts" aria-label="Итог по сценариям">{(["suitable", "partial", "unsuitable", "unknown"] as Verdict[]).map(v => <li key={v} className={`is-${v}`}><b className="mono">{count(v)}</b><span>{VERDICT[v].title}</span></li>)}</ul>
-      <IconButton icon="refresh" label="Пересчитать" onClick={passport.reload} disabled={passport.loading} />
-    </header>
-    {p.shift_text && <p className="v5-shift" role="status"><Badge tone={p.shift_px ? "amber" : "neutral"} icon={p.shift_px ? "alert" : "info"}>Положение камеры</Badge>{p.shift_text}</p>}
-    <dl className="v5-metrics">{metrics.map(m => <div key={m.label}><dt>{m.label}</dt><dd className="mono">{m.value}</dd><small>{m.hint}</small></div>)}</dl>
-    <table className="ds-table v5-passport-table">
-      <thead><tr><th>Сценарий</th><th>Вердикт</th><th>Причина</th></tr></thead>
-      <tbody>{sorted.map(s => <tr key={s.scenario} data-verdict={s.verdict}>
-        <td><b>{s.title}</b><small className="mono">{s.scenario}</small></td>
-        <td><Badge tone={VERDICT[s.verdict].tone} icon={VERDICT[s.verdict].icon}>{VERDICT[s.verdict].title}</Badge></td>
-        <td>{s.reason}</td>
-      </tr>)}</tbody>
-    </table>
-    <p className="v5-hint">«Частично» — сценарий работает, но с пропусками: проверьте зоны, ракурс и освещение. Плохой свет и ночь лечит модель, а не настройка: система честно пишет «Слишком темно».</p>
+      {p.shift_text && <p className="v5-shift" role="status"><Badge tone={p.shift_px ? "amber" : "neutral"} icon={p.shift_px ? "alert" : "info"}>Положение камеры</Badge>{p.shift_text}</p>}
+      <dl className="v5-metrics">{metrics.map(m => <div key={m.label}><dt>{m.label}</dt><dd className="mono">{m.value}</dd><small>{m.hint}</small></div>)}</dl>
+    </Panel>
+    <Panel title="Сценарии" tools={<span className="v5-muted">{p.scenarios.length}</span>} flush>
+      <table className="ds-table v5-passport-table">
+        <thead><tr><th>Сценарий</th><th>Вердикт</th><th>Причина</th></tr></thead>
+        <tbody>{sorted.map(s => <tr key={s.scenario} data-verdict={s.verdict}>
+          <td><b>{s.title}</b><small className="mono">{s.scenario}</small></td>
+          <td><Badge tone={VERDICT[s.verdict].tone} icon={VERDICT[s.verdict].icon}>{VERDICT[s.verdict].title}</Badge></td>
+          <td>{s.reason}</td>
+        </tr>)}</tbody>
+      </table>
+      <p className="v5-hint">«Частично» — сценарий работает, но с пропусками: проверьте зоны, ракурс и освещение. Плохой свет и ночь лечит модель, а не настройка: система честно пишет «Слишком темно».</p>
+    </Panel>
   </div>;
 }

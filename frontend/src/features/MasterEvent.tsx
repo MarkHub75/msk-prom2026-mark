@@ -87,34 +87,39 @@ function MasterEvent({ detail, state }: { detail: EventDetail; state: EventDetai
     if (action === "resolve") { toast({ tone: "green", title: `Отчёт сохранён · #${event.id} закрыто` }); setReport(""); navigate("/master"); }
     else setNotice("Принято. Сервер сохранил, что вы идёте на участок.");
   };
-  return <>
-    <div className={`mm-hero-frame is-${event.level}`}><Evidence detail={detail} compact /></div>
-    {event.clip && <ClipPlayer clip={event.clip} />}
-    <header className={`mm-head is-${event.level}`}>
-      <div className="mm-head-row"><LevelChip level={event.level} /><Status event={event} /></div>
-      <h1>{event.title}</h1>
-      {!terminal && <p className="mm-wait"><Timer {...IC} size={18} /><span>{event.status === "master_accepted" ? "В работе" : "Ждёт"}</span><b className="mono">{since(event.published_at, now)}</b><small>с публикации</small></p>}
-      {unconfirmed(event) && <p className="mm-flag"><ShieldAlert size={16} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
-    </header>
-    <dl className="mb-card mb-facts">
-      <div><dt><MapPin {...IC} size={15} />Где</dt><dd>{event.sector_name}<small>{event.camera_name}{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</small></dd></div>
-      <div><dt><Footprints {...IC} size={15} />Причина</dt><dd>{event.reason_text}</dd></div>
-      <div><dt><Clock {...IC} size={15} />Начало</dt><dd className="mono">{time(event.started_at)} · {duration(event.duration_s * 1000)}</dd></div>
-    </dl>
-    {canResolve && <Measures value={report} onChange={setReport} scenario={event.scenario} />}
-    {(canAccept || canResolve) && repeats.length > 0 && <label className="mm-repeats-opt"><input type="checkbox" checked={withRepeats} onChange={e => setWithRepeats(e.target.checked)} /><span><b>{canAccept ? "Принять" : "Закрыть"} и повторы: ещё {repeats.length}</b><small>Та же камера и тот же сценарий{canResolve ? ", те же меры" : ""}</small></span></label>}
-    {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
-    {notice && <p className="action-notice mm-notice" role="status">{notice}</p>}
-    {!canAccept && !canResolve && <p className="mm-done"><Check {...IC} />{terminal ? "Поручение закрыто." : "Действий для мастера сейчас нет."}</p>}
-    <details className="mb-more"><summary>Почему и история<ChevronRight {...IC} /></summary>
-      <div className="mb-more-body">
-        {detail.why.length > 0 && <dl className="od-facts">{detail.why.map((item, i) => <div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}
-        <History actions={detail.actions} />
-      </div>
-    </details>
-    {(canAccept || canResolve) && <div className="mb-actionbar mm-actionbar">
-      {canAccept && <button data-action="accept" className="mb-btn mb-btn-red" disabled={busy} onClick={() => void act("accept")}>{state.busy === "accept" || bulk.busy ? "Сохраняем…" : withRepeats && repeats.length ? `Принял, иду · ×${repeats.length + 1}` : "Принял, иду"}</button>}
-      {canResolve && <button data-action="resolve" className="mb-btn mb-btn-green" disabled={busy || !report.trim()} onClick={() => void act("resolve")}><Check size={21} strokeWidth={2.2} aria-hidden />{state.busy === "resolve" || bulk.busy ? "Сохраняем…" : withRepeats && repeats.length ? `Решено · ×${repeats.length + 1}` : "Решено"}</button>}
-    </div>}
-  </>;
+  // Two wrappers: transparent on a phone (one column), the two columns of the card on a desktop.
+  return <div className="mm-detail-body">
+    <div className="mm-media">
+      <div className={`mm-hero-frame is-${event.level}`}><Evidence detail={detail} compact /></div>
+      {event.clip && <ClipPlayer clip={event.clip} />}
+    </div>
+    <div className="mm-info">
+      <header className={`mm-head is-${event.level}`}>
+        <div className="mm-head-row"><LevelChip level={event.level} /><Status event={event} /></div>
+        <h1>{event.title}</h1>
+        {!terminal && <p className="mm-wait"><Timer {...IC} size={18} /><span>{event.status === "master_accepted" ? "В работе" : "Ждёт"}</span><b className="mono">{since(event.published_at, now)}</b><small>с публикации</small></p>}
+        {unconfirmed(event) && <p className="mm-flag"><ShieldAlert size={16} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
+      </header>
+      <dl className="mb-card mb-facts">
+        <div><dt><MapPin {...IC} size={15} />Где</dt><dd>{event.sector_name}<small>{event.camera_name}{event.zone_name ? ` · зона «${event.zone_name}»` : ""}</small></dd></div>
+        <div><dt><Footprints {...IC} size={15} />Причина</dt><dd>{event.reason_text}</dd></div>
+        <div><dt><Clock {...IC} size={15} />Начало</dt><dd className="mono">{time(event.started_at)} · {duration(event.duration_s * 1000)}</dd></div>
+      </dl>
+      {canResolve && <Measures value={report} onChange={setReport} scenario={event.scenario} />}
+      {(canAccept || canResolve) && repeats.length > 0 && <label className="mm-repeats-opt"><input type="checkbox" checked={withRepeats} onChange={e => setWithRepeats(e.target.checked)} /><span><b>{canAccept ? "Принять" : "Закрыть"} и повторы: ещё {repeats.length}</b><small>Та же камера и тот же сценарий{canResolve ? ", те же меры" : ""}</small></span></label>}
+      {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
+      {notice && <p className="action-notice mm-notice" role="status">{notice}</p>}
+      {!canAccept && !canResolve && <p className="mm-done"><Check {...IC} />{terminal ? "Поручение закрыто." : "Действий для мастера сейчас нет."}</p>}
+      <details className="mb-more"><summary>Почему и история<ChevronRight {...IC} /></summary>
+        <div className="mb-more-body">
+          {detail.why.length > 0 && <dl className="od-facts">{detail.why.map((item, i) => <div key={`${item.label}-${i}`}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}
+          <History actions={detail.actions} />
+        </div>
+      </details>
+      {(canAccept || canResolve) && <div className="mb-actionbar mm-actionbar">
+        {canAccept && <button data-action="accept" className="mb-btn mb-btn-accent" disabled={busy} onClick={() => void act("accept")}>{state.busy === "accept" || bulk.busy ? "Сохраняем…" : withRepeats && repeats.length ? `Принял, иду · ×${repeats.length + 1}` : "Принял, иду"}</button>}
+        {canResolve && <button data-action="resolve" className="mb-btn mb-btn-accent" disabled={busy || !report.trim()} onClick={() => void act("resolve")}><Check size={21} strokeWidth={2.2} aria-hidden />{state.busy === "resolve" || bulk.busy ? "Сохраняем…" : withRepeats && repeats.length ? `Решено · ×${repeats.length + 1}` : "Решено"}</button>}
+      </div>}
+    </div>
+  </div>;
 }
