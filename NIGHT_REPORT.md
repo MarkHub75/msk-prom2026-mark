@@ -1,3 +1,14 @@
+## Captain handoff update — 2026-10-24T14:03:58.123953+00:00
+
+New deadline24October18:00MSK supersedes earlier development priority. Original
+MP4 and per-frame model outputs now own two validated v2 packages: industrial
+2of522frames/4historicalTPUcalls plus URFall01 11of160frames/11historicalTPUcalls.
+No new neural/remote call, compile/training or rule/backend/frontend edit. Exact
+originalframe/PTS/RGB/input/output/UUID/status0/decoder checks passed; raw tensors
+and transform retained for pending Argus schema. SourceMP4 unchanged. Freshown
+Matveyplacement remainsunsatisfied; liveavailabilityUNKNOWN. See
+docs/handoffs/EGOR_LINQ_VIDEO_20261024.md and ml/reports/video-handoff-20261024.json.
+
 # MOSPROM 2026 — итог ночного ML-цикла 24 октября
 
 ## Latest: eight-scenario technical release — 2026-10-24T12:10:24.449814+00:00

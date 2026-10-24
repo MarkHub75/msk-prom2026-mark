@@ -1,3 +1,13 @@
+# Latest captain steering — 24 October, deadline18:00MSK
+
+ML owns models, ONNX/TPU qualification, original MP4 and per-frame neural results.
+Mark owns Argus rules/zones/events/backend/frontend; do not duplicate those. Read
+main:docs/ML_INTEGRATION.md with git show, never switch/overwrite main. Updated
+Argus result schema is pending; retain full intermediate numeric outputs. Current
+verified handoff: docs/handoffs/EGOR_LINQ_VIDEO_20261024.md. Historical15actualTPU
+completions across13frames exported; freshownMatveystaging remains BLOCKED.
+Existing namespace/credentials/worktree/one-own-request restrictions below apply.
+
 # MOSPROM ML/CV implementation guide
 
 Eight-scenario coverage stage is TECHNICALLY FROZEN:8runnable observation modules,24syntheticcases,480softwaretests; independent quality/fullscenarioLinQ NOTestablished. Read top RESUME.md, SCENARIO_COVERAGE.md and SCENARIO_RUNBOOK.md. Developmentselection07/02/01; one CPU-only E012ROI was rejected, no further automatic variants. Wait for a new user task after report. Preserve sharedinfrastructure restrictions and worktree ownership: Detection owns objectrules03/04/06/08+E012experiment, Behavior owns spatial01/02/05/07, LinQ owns Trainingrequirements docs; root owns commonengine/contracts/journal/pipeline integration and registers. EventCandidate is INTERNAL additive profile; externalEventMutationv1/backend/frontend unchanged. Manual/syntheticfacts are not modelproof, missingvisibility/model/policy UNKNOWN/BLOCKED. GMDcandidateheads unselectedexport-only. No GPU allocation competing with TrainingAgent; no auto-starttraining or newLinQcalls; ownMatveyplacement remains separate gate.

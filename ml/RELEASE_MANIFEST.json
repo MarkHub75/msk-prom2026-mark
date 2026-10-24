@@ -470,7 +470,8 @@
     "ml/pipeline/cli.py": "5b8981a71b4ba8072cd827706cab685b8a8e7b9c8e4e5902cd0545a620521f49",
     "ml/pipeline/video_clock.py": "9079054a9524ddec276a7718c177528fe6d6de620f889893e177262970232a9f",
     "ml/contracts/schemas/event_candidate.schema.json": "d3590a6d96e4aadcea5e8c54a10cf1ddd3da96fd93433c0fbb7e39bdaa8fa561",
-    "ml/quality/weak_video_intake.py": "5c0be378a69710c247ad5be18eca3bfc131d8fe1f91a3dc5a98731a3c5e3fdec"
+    "ml/quality/weak_video_intake.py": "5c0be378a69710c247ad5be18eca3bfc131d8fe1f91a3dc5a98731a3c5e3fdec",
+    "ml/video_handoff.py": "cd37c097fc459664c06eaad69bfdd9c87c30d39882eff942766d49f0e3c8fe57"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
@@ -507,7 +508,7 @@
     "final_test_used": false,
     "clean_approved_training": "NOT_AVAILABLE_NO_TRAINING"
   },
-  "updated_utc": "2026-10-24T13:27:40.341967+00:00",
+  "updated_utc": "2026-10-24T14:03:58.123953+00:00",
   "software_tests": {
     "last_completed": 480,
     "status": "PASS",
@@ -808,5 +809,16 @@
     "rejected_candidate": "REJECT_KEEP_BASELINE",
     "model_selection_changed": false,
     "new_training_authorized": false
+  },
+  "video_handoff": {
+    "summary": {
+      "path": "/workspace/project/ml/reports/video-handoff-20261024.json",
+      "bytes": 5422,
+      "sha256": "a6ecb645c8c6877baff63d01d69f8032bb6398cf94bf0a3a3db1db2e21dca6d9"
+    },
+    "format": "INTERMEDIATE_PENDING_ARGUS",
+    "historical_tpu_calls": 15,
+    "fresh_tpu_calls": 0,
+    "source_mp4_unchanged": true
   }
 }

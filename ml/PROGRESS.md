@@ -163,3 +163,20 @@ review historical hardware evidence, keeping02/01 missing-model/policy gates ope
 Continuation intake validation: unittest discover ran498 tests, OK (3skipped),
 7.466s, intake-v1/software-tests.log. Discovery includes pre-existing untracked
 Safewatch tests; those files are not part of this commit. Owned intake12PASS.
+
+## Captain video priority — 2026-10-24T14:03:58.123953+00:00
+
+OBSERVED/MEASURED: immutable v2 exports contain unchanged sourceMP4 +13processed
+frames/15historical actualTPUcompletions. Verified every sourceRGB/encodedPTS and
+bitwise preprocessing input; numeric file/tensor SHA/ABI/correlation/status0 and
+redecoded results PASS. No freshNN/remote/train/compile. Code ml/video_handoff.py
+uses existing decoder/journal only, no rules or app edits. FinalArguscontract
+pending; exacttransform/fullselectedtensors retained. Newrun blocked by own
+Matveyplacement/receipt; no availabilityclaim. Pre-steering WIP deferred outsideGit.
+
+Video handoff validation:504tests OK (4skipped),7.756s. Export revalidation PASS
+in both NumPy1.26.4 client and NumPy2.5.4 main environments.15in-memory frame-model
+records pass actual prior-main FrameDetections type; final Argus schema still
+pending, no final-format output/import or DB write. Combined ZIP59,748,256bytes,
+57members SHA verified; d787e6f28e1ff309faedec6499e7ded522708f8eae41f3f3cb54970db90b9247.
+No new training/compile/TPU request; ownbootstrap verified PREPARED/unpublished.

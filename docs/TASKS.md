@@ -1,3 +1,12 @@
+## Current captain deadline — video/model delivery
+
+Before24October18:00MSK: originalMP4 + true frame/model results. Mark owns all
+application rules/events/zones. Intermediate packages v2 READY:13frames/15historical
+actualTPUcompletions, partialscopeexplicit, sourcebytes/input/output/decodedparity
+checked. FinalArgusJSONcontract PENDING, no inventedfinalschema. FreshLinQ BLOCKED
+byownMatveyplacement/receipt; availabilityUNKNOWN, no newrequestattempt. Model ABI
+delivery39dcc93d reused. Paths/reproduction: handoffs/EGOR_LINQ_VIDEO_20261024.md.
+
 # Active ML/CV task register
 
 ## Current coverage stage — technical freeze

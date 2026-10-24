@@ -1,3 +1,22 @@
+## CAPTAIN DEADLINE HANDOFF — 2026-10-24T14:03:58.123953+00:00
+
+Latest priority: original MP4 + real per-frame LinQ detections for Egor/Mark by
+24October18:00MSK (15:00UTC). Mark owns rules/zones/events/app; ML does not extend
+them. Read main:docs/ML_INTEGRATION.md atf6b5358a without branch switch.
+Ready intermediate v2 packages: /workspace/artifacts/matvey-egor-linq-demo-20261024-v2
+(industrial522frames, actualTPU only0/13,4calls) and
+/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2 (160frames,11Posecalls
+at0/15/.../150). OriginalMP4 bytes unchanged; inputRGB/preprocess and rawoutputs
+verified, exact decoded results and timestamps retained.15historicalactualcalls,
+0freshrequests; not full inference and not independentquality. FinalArguscontract
+pending. OwnMatveystaging/receipt absent; no legacyfreshsubmission or networkchanges.
+Historical PIL resize differs from Argus OpenCV; exact tensors/transforms retained.
+Runbook docs/handoffs/EGOR_LINQ_VIDEO_20261024.md; report ml/reports/video-handoff-20261024.json.
+Existing compatible models delivery39dcc93d reused; no retraining/compile.
+Pre-steering demo/feature74WIP preserved under artifacts/matvey-continuation-20261024/
+deferred-before-captain-deadline, not activated/merged. Feature arithmetic initial
+parity issue (NumPy1/2 scalar promotion) remains deferred, no quality claim.
+
 # Resume MOSPROM ML/CV — saved checkpoint
 
 ## COVERAGE TECHNICAL FREEZE — 2026-10-24T12:10:24.449814+00:00

@@ -179,3 +179,13 @@ Canonical reuse constraints v2 (SHA4598a443...) supersede the mistaken v1 head4
 folder description: head4 trains subjects2/3, selects on1, outer development4.
 Heads1/2/3 saw Subject4 in training/selection. An all-four ensemble cannot be
 reported as held-out Subject4. Four heads remain unselected/export-only.
+
+## Captain video handoff before18:00MSK
+
+Existing Helmet/Split-Pose bytes retained. Portable intermediate exports now
+carry13real-source frames/15historical actualTPUcompletions, with full selected
+numeric arrays, original MP4, source/PTS/RGB/input/decoder proof. No new model or
+TPU submission. Exact paths and limits: docs/handoffs/EGOR_LINQ_VIDEO_20261024.md
+and reports/video-handoff-20261024.json. Product mapping helmet/no_helmet/person
+follows main contract; final Argus schema pending. Historical PIL preprocessing
+is not identical to current app OpenCV, and full actual transforms are preserved.
