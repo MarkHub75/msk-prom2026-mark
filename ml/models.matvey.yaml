@@ -1,0 +1,27 @@
+# Append models to the application registry; no automatic activation.
+# LOCAL ABI PASS; remote placement/new LinQ qualification NOT_RUN.
+# Helmet is an optional extra: SafeWatch currently has NO PPE plugin.
+models:
+- id: matvey-pose-yolov8n
+  version: 640-v1-acc5f51228b9
+  task: pose
+  input_size: 640
+  conf: 0.1
+  iou: 0.45
+  classes:
+    '0': person
+  linq_program: mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu
+  linq_tail: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx
+  local_onnx: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx
+- id: matvey-helmet-yolov8n
+  version: 640-v1-5c3af1f3b855
+  task: detect
+  input_size: 640
+  conf: 0.1
+  iou: 0.45
+  classes:
+    '0': helmet
+    '1': no_helmet
+  linq_program: mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu
+  linq_tail: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx
+  local_onnx: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx

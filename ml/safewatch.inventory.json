@@ -1,0 +1,285 @@
+{
+  "schema": "matvey-safewatch-inventory-v1",
+  "created_utc": "2026-10-24T13:20:26.126474+00:00",
+  "scope": [
+    "/workspace/artifacts/detection",
+    "published /workspace/artifacts/training handoffs",
+    "/workspace/runs"
+  ],
+  "models": [
+    {
+      "id": "helmet",
+      "architecture": "YOLOv8n DetectionModel",
+      "classes": [
+        "helmet",
+        "bare_head"
+      ],
+      "source_classes": [
+        "Hardhat",
+        "NO-Hardhat"
+      ],
+      "input": {
+        "name": "images",
+        "shape": [
+          1,
+          3,
+          640,
+          640
+        ],
+        "layout": "NCHW",
+        "dtype": "float32",
+        "scale": 0.00392156862745098
+      },
+      "decoder": "detect_v8",
+      "manifest": {
+        "path": "/workspace/artifacts/detection/helmet/manifest.json",
+        "bytes": 1121,
+        "sha256": "71d6a489f1e2c1b10214371482f5bb4d928d9d2c9585d2d7782b10514d18e7cc"
+      },
+      "weights": {
+        "path": "/workspace/artifacts/detection/helmet/weights.pt",
+        "bytes": 6229688,
+        "sha256": "05ed3a517485292d42d6eb6c9be3987ea51cd162e04807d2741eadcac8a19e6c"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/detection/helmet/weights.onnx",
+        "bytes": 12239437,
+        "sha256": "b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47"
+      },
+      "tpu": {
+        "path": "/workspace/artifacts/linq-sdk/helmet-compile/model.tpu",
+        "bytes": 2751596,
+        "sha256": "408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa"
+      },
+      "role": "extra"
+    },
+    {
+      "id": "pose",
+      "architecture": "YOLOv8n PoseModel",
+      "classes": [
+        "person"
+      ],
+      "source_classes": [
+        "person"
+      ],
+      "input": {
+        "name": "images",
+        "shape": [
+          1,
+          3,
+          640,
+          640
+        ],
+        "layout": "NCHW",
+        "dtype": "float32",
+        "scale": 0.00392156862745098
+      },
+      "decoder": "pose_v8",
+      "manifest": {
+        "path": "/workspace/artifacts/detection/pose/manifest.json",
+        "bytes": 1108,
+        "sha256": "da955b16b8bf3bfc147cb1d1282a02714d7fac45a74a4416e1b0ef4744c63daa"
+      },
+      "weights": {
+        "path": "/workspace/artifacts/detection/pose/weights.pt",
+        "bytes": 6832633,
+        "sha256": "c6fa93dd1ee4a2c18c900a45c1d864a1c6f7aba75d84f91648a30b7fb641d212"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/detection/pose/weights.onnx",
+        "bytes": 13484437,
+        "sha256": "398cc23eac1b4702656d2ec4486d7aa1e5bda8563d33babaa9017ab3fdd5b02f"
+      },
+      "tpu": {
+        "path": "/workspace/artifacts/linq-sdk/pose-compile/model.tpu",
+        "bytes": 2927624,
+        "sha256": "23c0e53439032860706c28d1e9f493f1e84bda85b679997b7336412db62c4e1c"
+      },
+      "role": "pose"
+    },
+    {
+      "id": "pose-split",
+      "architecture": "YOLOv8n PoseModel",
+      "classes": [
+        "person"
+      ],
+      "source_classes": [
+        "person"
+      ],
+      "input": {
+        "name": "images",
+        "shape": [
+          1,
+          3,
+          640,
+          640
+        ],
+        "layout": "NCHW",
+        "dtype": "float32",
+        "scale": 0.00392156862745098
+      },
+      "decoder": "split_pose_v8",
+      "manifest": {
+        "path": "/workspace/artifacts/detection/pose-split/manifest.json",
+        "bytes": 1988,
+        "sha256": "eac2ba5e8f46c5ecfad8ec3d09b2fd96d8d53ebc564c04685b4e505f2a339a35"
+      },
+      "weights": {
+        "path": "/workspace/artifacts/detection/pose-split/weights.pt",
+        "bytes": 6832633,
+        "sha256": "c6fa93dd1ee4a2c18c900a45c1d864a1c6f7aba75d84f91648a30b7fb641d212"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/detection/pose-split/weights.onnx",
+        "bytes": 13502215,
+        "sha256": "802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00"
+      },
+      "tpu": {
+        "path": "/workspace/artifacts/linq-sdk/pose-split-compile/model.tpu",
+        "bytes": 2929222,
+        "sha256": "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b"
+      },
+      "role": "pose"
+    },
+    {
+      "id": "matvey_rgb_core_export_v1",
+      "architecture": "RGB-MIL scalar classifier; incompatible with YOLO bbox ABI",
+      "report": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_rgb_core_export_v1/matvey_export_report.json",
+        "bytes": 2301,
+        "sha256": "0017e6776172f4c4e9b91b5415ee6bdd640b2fd8227f55ea8ed3de84b3d0feab"
+      },
+      "decision": "PASS_FLOAT_ONNX_PARITY",
+      "input": {
+        "name": "rgb_frame",
+        "dtype": "float32",
+        "shape": [
+          1,
+          3,
+          320,
+          320
+        ]
+      },
+      "output": {
+        "name": "frame_logit",
+        "dtype": "float32",
+        "shape": [
+          1,
+          1
+        ]
+      },
+      "checkpoint": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_rgb_mil_gpu_fp32_v1/matvey_best.pt",
+        "bytes": 10587163,
+        "sha256": "0403026dc71f208f8890f2c0b2c817f2a6857291f1eb2e174b197374937599c9"
+      },
+      "macro_f1_gain": null,
+      "deployment_allowed": false,
+      "linq_ready": false
+    },
+    {
+      "id": "matvey_rgb_mil_gpu_fp32_v1",
+      "architecture": "source-validation-only RGB improvement",
+      "report": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_rgb_mil_gpu_fp32_v1/matvey_result_final.json",
+        "bytes": 6045,
+        "sha256": "bdeeb1bdf47e1f07aa11b157f517ce197458e6a4693650f267ed0fcb21e89556"
+      },
+      "decision": "ACCEPT_SOURCE_VALIDATION_ONLY",
+      "input": null,
+      "output": null,
+      "checkpoint": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_rgb_mil_gpu_fp32_v1/matvey_best.pt",
+        "bytes": 10587163,
+        "sha256": "0403026dc71f208f8890f2c0b2c817f2a6857291f1eb2e174b197374937599c9"
+      },
+      "macro_f1_gain": 0.05409356725146208,
+      "deployment_allowed": false,
+      "linq_ready": false
+    },
+    {
+      "id": "matvey_gmd_finetune_v1",
+      "architecture": "rejected temporal MLP finetune",
+      "report": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_gmd_finetune_v1/matvey_result.json",
+        "bytes": 5647,
+        "sha256": "1f9048e1ddaac36fa59066ae87df47d613794e77a51c5905d259e332a5cdcf30"
+      },
+      "decision": "REJECT_KEEP_BASELINE",
+      "input": null,
+      "output": null,
+      "checkpoint": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_gmd_finetune_v1/matvey_best.pt",
+        "bytes": 356223,
+        "sha256": "5726466aa2ae251c54a85f0341f471ed79e966e7702c56346f6b1069c21931a0"
+      },
+      "macro_f1_gain": 0.0,
+      "deployment_allowed": false,
+      "linq_ready": false
+    },
+    {
+      "id": "gmd-outer-heads",
+      "architecture": "TCN/MLP temporal heads",
+      "input": {
+        "pose_window": [
+          1,
+          24,
+          74
+        ]
+      },
+      "output": {
+        "fall_logit": [
+          1,
+          1
+        ]
+      },
+      "handoff": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_training_handoff_final.json",
+        "bytes": 2406,
+        "sha256": "302387a0ceacca54c4056ecf847cbad697b7799ae253129c3858877fcf5829d4"
+      },
+      "gates": {
+        "pytorch_checkpoint": "PASS_HASH_STATE_DICT_GROUPS",
+        "onnx_export": "PASS",
+        "float_onnx_parity": "PASS_CACHED_FEATURES_ONLY",
+        "linq_compilation": "NOT_RUN",
+        "linq_ptq_parity": "NOT_RUN",
+        "linq_runtime_abi": "NOT_RUN",
+        "linq_execution": "NOT_RUN",
+        "independent_video_quality": "BLOCKED_NO_ELIGIBLE_GT",
+        "external_backup": "NOT_VERIFIED"
+      },
+      "selected": false
+    },
+    {
+      "id": "person-only-derived-detect",
+      "architecture": "YOLOv8n Detect derived from existing Pose detection branch",
+      "weights": {
+        "path": "/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_cpu_preflight_v4/matvey_person_detect_pretrained.pt",
+        "bytes": 12257171,
+        "sha256": "19175c97d865bd169f75902a7a939e31cb021a1272097a0adc50778f3be8a3a2"
+      },
+      "classes": [
+        "person"
+      ],
+      "application_primary_detector": "REJECT_NC1_NOT_COCO80",
+      "quality_evidence": false
+    }
+  ],
+  "not_found_in_published_scope": [
+    "fire/smoke bbox detector",
+    "cigarette bbox detector",
+    "forklift COCO80 finetune",
+    "no_harness bbox detector",
+    "suspended_load bbox detector",
+    "vest bbox detector"
+  ],
+  "training_activity": "published runs report completion; no processes stopped, no GPU/TPU allocation; this is not a global live training scheduler",
+  "exporters": [
+    "ml/detection/export.py",
+    "ml/linq/compile.py",
+    "ml/safewatch_delivery.py"
+  ],
+  "old_demo_format": "ObservationBatch/EventMutation JSONL and evidence snapshots; not SafeWatch FrameDetections JSONL",
+  "safewatch_external_artifact_import": false
+}

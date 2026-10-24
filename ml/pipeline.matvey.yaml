@@ -1,0 +1,3 @@
+# Merge this override into config/user.yaml; keep the captain detector and other extras.
+pipeline:
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9

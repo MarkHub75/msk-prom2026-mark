@@ -1,0 +1,38 @@
+{
+  "schema": "matvey-safewatch-class-map-v1",
+  "detector": {
+    "require_full_coco80": true,
+    "forklift_target": {
+      "name": "truck",
+      "id": 7
+    },
+    "partial_person_model": "REJECT"
+  },
+  "pose": {
+    "classes": [
+      "person"
+    ],
+    "keypoints": "COCO17",
+    "decoded_channels": 56
+  },
+  "extra_exact_names": [
+    "fire",
+    "smoke",
+    "cigarette",
+    "no_harness",
+    "suspended_load",
+    "cell phone"
+  ],
+  "helmet_aliases": {
+    "Hardhat": "helmet",
+    "NO-Hardhat": "no_helmet",
+    "bare_head": "no_helmet"
+  },
+  "unsupported_rules": [
+    "helmet",
+    "no_helmet",
+    "vest",
+    "no_vest"
+  ],
+  "forbidden_inference": "harness non-detection is not no_harness"
+}
