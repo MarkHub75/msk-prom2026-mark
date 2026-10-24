@@ -31,6 +31,8 @@ export function App() {
         <Route path="/operator/cameras/:cameraId" element={<CameraPage />} />
         <Route path="/operator/shift" element={<OperatorShiftPage />} />
         <Route path="/events/:eventId" element={<IncidentPage />} />
+        {/* start_url of the installed app (manifest): the start screen of the saved role */}
+        <Route path="/m" element={<Navigate to={role === "operator" ? "/m/operator" : menuFor(role)[0]?.path ?? "/m/operator"} replace />} />
         <Route path="/m/operator" element={<PhoneAlarms />} />
         <Route path="/m/operator/events/:eventId" element={<MobileEventRoute />} />
         <Route path="/m/operator/cameras" element={<PhoneCameras />} />

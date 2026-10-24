@@ -1,0 +1,17 @@
+/* Installable app: the offline screen and the install / notification rows of the profile sheet. Tokens from ds.css only. */
+.pwa-offline { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: calc(100dvh - 160px); padding: 32px 24px; text-align: center; color: var(--ds-text); }
+.pwa-offline-icon { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--ds-bg-2); border: 1px solid var(--ds-line-strong); color: var(--ds-text-2); }
+.pwa-offline h1 { max-width: 420px; margin: 8px 0 0; font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.pwa-offline p { max-width: 380px; margin: 0; color: var(--ds-text-2); font-size: 15px; line-height: 1.45; }
+.pwa-offline-retry { min-height: 48px; margin-top: 8px; padding: 0 22px; border: 1px solid var(--ds-line-strong); border-radius: 12px; background: var(--ds-bg-3); color: var(--ds-text); font-size: 16px; font-weight: 600; }
+
+.pwa-rows { margin: 16px 0 0; display: grid; gap: 1px; overflow: hidden; border-radius: var(--mb-radius, 12px); background: var(--ds-line); }
+.pwa-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-height: 56px; padding: 10px 14px; background: var(--ds-bg-2); }
+.pwa-row > svg { flex: none; color: var(--ds-text-2); }
+.pwa-row-text { flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pwa-row-text b { font-size: 15px; font-weight: 600; color: var(--ds-text); }
+.pwa-row-text small { color: var(--ds-text-2); font-size: 13px; line-height: 1.35; }
+.pwa-row-btn { flex: none; margin-left: auto; min-height: 40px; padding: 0 14px; border: 0; border-radius: 20px; background: var(--ds-text); color: var(--ds-bg-0); font-size: 14px; font-weight: 700; white-space: nowrap; }
+.pwa-row-btn:active { transform: scale(.97); }
+.pwa-row-state { margin-top: 2px; color: var(--ds-text); font-size: 13px; font-style: normal; font-weight: 600; }
+.pwa-row-state.is-denied, .pwa-row-state.is-unsupported { color: var(--ds-amber); }

@@ -1,5 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { BellRing, Download, Share } from "lucide-react";
+import { useInstall, useNotifyPermission } from "../pwa";
 import { api } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { WsStatus } from "../api/ws";
@@ -7,6 +9,7 @@ import type { Meta } from "../api/types";
 import { ROLES, type Role } from "../roles";
 import { Icon, type IconName } from "./ui";
 import "../styles/mobile-shell.css";
+import "../styles/pwa.css";
 
 interface Tab { to: string; label: string; icon: IconName; match: (path: string) => boolean }
 const TABS: Partial<Record<Role, Tab[]>> = {
@@ -69,6 +72,21 @@ export function PhoneTop({ brand, home, ws, sound, onSound, actor, onProfile, al
   </header>;
 }
 
+const NOTIFY_TEXT = { granted: "Разрешены", denied: "Запрещены в настройках браузера", default: "", unsupported: "Браузер не умеет" } as const;
+/** «Установить на телефон» (Chrome's install prompt, a hint on iOS) and the permission for system notifications. */
+function AppRows() {
+  const { state, install } = useInstall();
+  const notify = useNotifyPermission();
+  return <div className="pwa-rows">
+    {state === "installed" ? <div className="pwa-row"><Download size={20} aria-hidden /><span className="pwa-row-text"><b>Приложение установлено</b><small>Открыто с экрана «Домой»</small></span></div>
+      : state === "available" ? <div className="pwa-row"><Download size={20} aria-hidden /><span className="pwa-row-text"><b>Приложение на телефон</b><small>Иконка на экране «Домой», полный экран</small></span><button className="pwa-row-btn" onClick={() => void install()}>Установить на телефон</button></div>
+      : state === "ios" ? <div className="pwa-row" data-testid="ios-install-hint"><Share size={20} aria-hidden /><span className="pwa-row-text"><b>Установить на телефон</b><small>В Safari: «Поделиться» → «На экран „Домой“»</small></span></div>
+      : null}
+    <div className="pwa-row"><BellRing size={20} aria-hidden /><span className="pwa-row-text"><b>Уведомления о тревогах</b><small>Звук и вибрация телефона, даже когда приложение свёрнуто</small>{notify.state !== "default" && <em className={`pwa-row-state is-${notify.state}`}>{NOTIFY_TEXT[notify.state]}</em>}</span>
+      {notify.state === "default" && <button className="pwa-row-btn" onClick={() => void notify.ask()}>Разрешить</button>}</div>
+  </div>;
+}
+
 /** Bottom sheet: who works on this phone, which role, what the system runs on. */
 export function ProfileSheet({ open, onClose, role, roleTitle, onRole, actor, onActor, meta, source, server }: { open: boolean; onClose: () => void; role: Role; roleTitle: (role: Role) => string; onRole: (role: Role) => void; actor: string; onActor: (value: string) => void; meta?: Meta; source: string; server: string }) {
   const [shown, setShown] = useState(open);
@@ -89,6 +107,7 @@ export function ProfileSheet({ open, onClose, role, roleTitle, onRole, actor, on
           <span>{meta?.roles.find(r => r.id === id)?.title ?? roleTitle(id)}</span>{role === id && <Icon name="check" size={18} />}
         </button>)}
       </div>
+      <AppRows />
       <dl className="mb-sysinfo">
         <div><dt>Источник детекций</dt><dd>{source}</dd></div>
         <div><dt>Сервер</dt><dd>{server}</dd></div>

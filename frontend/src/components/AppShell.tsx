@@ -14,6 +14,8 @@ import { duration, Icon, ToastProvider, type IconName } from "./ui";
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
 import { hasPhoneApp, PhoneTabs, PhoneTop, ProfileSheet } from "./PhoneChrome";
 import { usePhone } from "./usePhone";
+import { OfflineScreen } from "./OfflineScreen";
+import { askNotifications, systemNotify } from "../pwa";
 
 function navIcon(path: string): IconName {
   if (path === "/operator") return "monitor";
@@ -71,7 +73,16 @@ function useAlertSound() {
     const next = !on; setOn(next);
     try { localStorage.setItem(SOUND_KEY, next ? "1" : "0"); } catch { /* storage blocked: the choice lives until reload */ }
     if (next && typeof AudioContext !== "undefined") { ctx.current = ctx.current ?? new AudioContext(); void ctx.current.resume(); }
+    // The same tap allows system notifications: on a phone they carry the sound and vibration when the app is in the background.
+    if (next) void askNotifications();
   };
+  // A relaunched app (standalone) keeps «sound on» but the browser starts audio suspended: the first tap anywhere unlocks it.
+  useEffect(() => {
+    if (!on || typeof AudioContext === "undefined") return;
+    const unlock = () => { ctx.current = ctx.current ?? new AudioContext(); void ctx.current.resume(); };
+    window.addEventListener("pointerdown", unlock, { once: true });
+    return () => window.removeEventListener("pointerdown", unlock);
+  }, [on]);
   const beep = (kind: "siren" | "chime" | "none") => {
     if (!on || kind === "none" || typeof AudioContext === "undefined") return;
     const audio = ctx.current = ctx.current ?? new AudioContext();
@@ -146,6 +157,11 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (message.type === "notification" && message.data.audience.includes(role)) {
       const n = message.data;
       if (phoneApp) navigator.vibrate?.(n.level === "red" ? [300, 120, 300] : 150);
+      // System notification (sound and vibration of the phone even with the app in the background): a new red for the operator, a hand-over for the master.
+      if (phoneApp || document.hidden) {
+        if (role === "operator" && n.level === "red") void systemNotify(`${PRODUCT}: красная тревога`, n.text, { tag: `event-${n.event_id}`, url: phoneApp ? `/m/operator/events/${n.event_id}` : `/events/${n.event_id}`, urgent: true });
+        if (role === "master" && n.id.endsWith(":to_master")) void systemNotify(`${PRODUCT}: новое поручение`, n.text, { tag: `event-${n.event_id}`, url: `/master/events/${n.event_id}`, urgent: n.level === "red" });
+      }
       // tech.md 8.24: the master's inbox opens the card handed over to him by itself.
       if (role === "master" && n.id.endsWith(":to_master") && location.pathname === "/master") { sound.beep(n.sound); navigate(`/master/events/${n.event_id}`); return; }
       if (role === "operator" && n.takeover && n.level === "red" && location.pathname.startsWith("/m/operator")) { sound.beep(n.sound); navigate(`/m/operator/events/${n.event_id}?takeover=1`); return; }
@@ -163,8 +179,18 @@ function ShellContent({ children }: { children: ReactNode }) {
   });
   const wsStatus = ws.status;
   const [healthTick, setHealthTick] = useState(0);
-  useEffect(() => { if (review) return; const timer = setInterval(() => setHealthTick(n => n + 1), 15000); return () => clearInterval(timer); }, [review]);
   const health = useApi(() => review ? Promise.resolve({ data: undefined }) : api.GET("/api/health"), [healthTick, review]);
+  // No answer from the server (or no network at all): the screen shows no data rather than stale alarms.
+  const [serverDown, setServerDown] = useState(false);
+  const [browserOnline, setBrowserOnline] = useState(() => typeof navigator === "undefined" || navigator.onLine !== false);
+  useEffect(() => { if (health.data) setServerDown(false); else if (health.error) setServerDown(health.error.code === "network"); }, [health.data, health.error]);
+  useEffect(() => {
+    const sync = () => { setBrowserOnline(navigator.onLine !== false); setHealthTick(n => n + 1); };
+    window.addEventListener("online", sync); window.addEventListener("offline", sync);
+    return () => { window.removeEventListener("online", sync); window.removeEventListener("offline", sync); };
+  }, []);
+  const offline = !review && (serverDown || !browserOnline);
+  useEffect(() => { if (review) return; const timer = setInterval(() => setHealthTick(n => n + 1), offline ? 5000 : 15000); return () => clearInterval(timer); }, [review, offline]);
   const scenarioTitle: Record<string, string> = { critical: "Критическое событие", normal: "Без активных тревог", error: "Ошибка API", empty: "Пустые данные", offline: "Нет сети", notimplemented: "Метод не реализован", disconnected: "Канал событий отключён" };
   const { actor, setActor } = useActorIdentity();
   const changeRole = (next: Role) => {
@@ -202,10 +228,10 @@ function ShellContent({ children }: { children: ReactNode }) {
       </aside>}
       <div className="cr-body ds-body">
         {review && <div className="review-strip"><span className="review-square" />Проверочный сценарий · {scenarioTitle[getReviewScenario()] ?? "Проверка интерфейса"} · изображения созданы для проверки интерфейса</div>}
-        {!review && wsStatus === "disconnected" && <div className="offline-strip" role="status"><Icon name="wifi-off" size={15} />Нет связи с каналом событий. Данные на экране могут быть устаревшими — нажмите «Обновить».</div>}
-        {alarm && !alarm.collapsed && role === "operator" && location.pathname !== `/events/${alarm.eventId}` && <AlarmBar alarm={alarm} siren={sound.on ? () => sound.beep("siren") : undefined} onOpen={() => { const id = alarm.eventId; closeAlarm(); navigate(`/events/${id}`); }} onCollapse={() => setAlarm({ ...alarm, collapsed: true })} />}
-        {notification && <div className="notification-strip" role="status"><Icon name="bell" size={15} /><span>{notification}</span><button aria-label="Закрыть уведомление" onClick={() => setNotification(undefined)}><Icon name="cross" size={14} /></button></div>}
-        <main key={role} id="workspace" className="shell-main">{children}</main>
+        {!review && !offline && wsStatus === "disconnected" && <div className="offline-strip" role="status"><Icon name="wifi-off" size={15} />Нет связи с каналом событий. Данные на экране могут быть устаревшими — нажмите «Обновить».</div>}
+        {!offline && alarm && !alarm.collapsed && role === "operator" && location.pathname !== `/events/${alarm.eventId}` && <AlarmBar alarm={alarm} siren={sound.on ? () => sound.beep("siren") : undefined} onOpen={() => { const id = alarm.eventId; closeAlarm(); navigate(`/events/${id}`); }} onCollapse={() => setAlarm({ ...alarm, collapsed: true })} />}
+        {!offline && notification && <div className="notification-strip" role="status"><Icon name="bell" size={15} /><span>{notification}</span><button aria-label="Закрыть уведомление" onClick={() => setNotification(undefined)}><Icon name="cross" size={14} /></button></div>}
+        {offline ? <OfflineScreen network={browserOnline} onRetry={() => setHealthTick(n => n + 1)} /> : <main key={role} id="workspace" className="shell-main">{children}</main>}
       </div>
       {!phoneApp && <footer className="ds-statusbar" aria-label="Состояние системы">
         <span className={`ds-sb-item ${serverOnline === false ? "is-bad" : serverOnline ? "is-ok" : ""}`}><Icon name="server" size={13} />Сервер: {serverOnline === undefined ? review ? "проверочный режим" : "проверка…" : serverOnline ? "на связи" : "нет ответа"}</span>
