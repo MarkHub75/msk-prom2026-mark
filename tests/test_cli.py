@@ -10,8 +10,10 @@ import httpx
 import psutil
 import pytest
 
-from safewatch import cli, config
+from safewatch import cli, config, services
 from safewatch.config import Settings
+from safewatch.fakes.remote import FakeRemoteShell
+from safewatch.inference.linq import LinqBackend
 
 # The server runs in a child process: the same isolation as conftest, data in tmp_path.
 BOOT = """
@@ -97,7 +99,10 @@ def test_doctor_fake_mode_ok(fake_core: Settings, capsys: pytest.CaptureFixture[
 
 
 def test_doctor_reports_missing_keys(
-    core: Settings, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+    core: Settings,
+    linq_tails: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     assert cli.main(["doctor"]) == 4
     assert "LINQ_JUPYTER_URL: нет" in capsys.readouterr().out
@@ -109,11 +114,20 @@ def test_doctor_reports_missing_keys(
         }
     )
     monkeypatch.setattr(config, "get_settings", lambda: secret)
-    cli.main(["doctor"])
+    # Slice 3: with keys the doctor asks backend_check(force=True); LinQ here is the fake.
+    shell = FakeRemoteShell()
+    shell.fault = "unavailable"
+    monkeypatch.setattr(services, "_backend", LinqBackend(secret, shell))
+    assert cli.main(["doctor"]) == 4
     out = capsys.readouterr().out
     assert "LINQ_JUPYTER_URL: есть" in out
+    assert "FAIL связь с LinQ: unreachable" in out and shell.calls == ["check"]
     for value in ("s3cr3t-pass", "team-user", "127.0.0.1:8888"):
         assert value not in out
+    shell.fault = None
+    cli.main(["doctor"])
+    assert "ok   связь с LinQ: ok" in capsys.readouterr().out
+    assert shell.calls.count("check") == 2  # force: no cache between doctor runs
 
 
 def test_cli_survives_cp1252_stdout(fake_core: Settings, monkeypatch: pytest.MonkeyPatch) -> None:

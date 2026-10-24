@@ -1,8 +1,9 @@
 """`safewatch doctor` (tech.md 8.17): what is set up, never the value of a key."""
 
+import asyncio
 from dataclasses import dataclass
 
-from safewatch import registry
+from safewatch import registry, services
 from safewatch.config import ENV_NAMES, ROOT, Settings
 from safewatch.db import connect, migrate
 
@@ -57,9 +58,7 @@ def _checks(settings: Settings) -> list[Check]:
         for name in TOOLS:
             present = (settings.linq.tools_dir / name).is_file()
             checks.append(Check(f"tools/linq/{name}", "есть" if present else "нет", present))
-        # The live check of Jupyter and the TPU programs comes with backend_check (slice 3).
-        result = "фейк" if settings.fake else "не проверено"
-        checks.append(Check("связь с LinQ", result, True, "" if settings.fake else "слайс 3"))
+        checks.append(_linq_check(settings))
     try:
         settings.data_dir.mkdir(parents=True, exist_ok=True)
         db = connect(settings.data_dir / "safewatch.db")
@@ -69,6 +68,15 @@ def _checks(settings: Settings) -> list[Check]:
     except Exception as exc:  # any failure here is the answer of the check
         checks.append(Check("база", "ошибка", False, type(exc).__name__))
     return checks
+
+
+def _linq_check(settings: Settings) -> Check:
+    if settings.fake:
+        return Check("связь с LinQ", "фейк", True)
+    if not (settings.linq_jupyter_url and settings.linq_jupyter_user):
+        return Check("связь с LinQ", "нет ключей", False, "LINQ_JUPYTER_URL, LINQ_JUPYTER_USER")
+    status = asyncio.run(services.backend_check(force=True))
+    return Check("связь с LinQ", status.state, status.state == "ok", status.message)
 
 
 def run(settings: Settings) -> int:

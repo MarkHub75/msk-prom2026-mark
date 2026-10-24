@@ -63,6 +63,7 @@ from safewatch.types import (
     JobStage,
     JobStatus,
     JournalFacets,
+    LatencyStats,
     Level,
     LevelMeta,
     ManagementStats,
@@ -72,6 +73,7 @@ from safewatch.types import (
     ModelsView,
     OhsStats,
     OperatorDashboard,
+    Percentiles,
     Role,
     RoleMeta,
     RulesScreenView,
@@ -112,8 +114,12 @@ TERMINAL_STATUSES: frozenset[EventStatus] = frozenset(
 )  # tech.md 8.6
 LEVEL_COLORS: dict[Level, str] = {"yellow": "#FFC400", "red": "#FF3B30"}  # theme of tech.md 8.14
 
+RECENT_JOBS = 20  # finished jobs on the IT screen (slice 3)
+
 # Lazy: made from the settings on the first job; the `conn` fixture resets it.
 _backend: InferenceBackend | None = None
+# The last real backend check: backend_check serves it for linq.check_cache_s.
+_backend_status: BackendStatus | None = None
 
 
 def health() -> Health:
@@ -617,23 +623,79 @@ def camera_setup_view(camera_id: int) -> CameraSetupView:
 
 
 def job_retry(job_id: int, role: Role | None) -> Job:
-    raise NotImplementedError("slice 3")
+    _require(role, ("admin",))
+    with store.tx():
+        row = store.job(job_id)
+        if row is None:
+            raise NotFound(texts.JOB_NOT_FOUND, job_id=job_id)
+        if row["status"] != "failed":
+            raise Conflict("job_not_failed", texts.JOB_NOT_FAILED)
+        fresh = {"status": "queued", "stage": "queued", "progress": 0.0, "attempts": 0}
+        cleared = {"next_attempt_at": None, "error_code": None, "error_text": None}
+        store.job_update(job_id, fresh | cleared | {"finished_at": None})
+        store.video_update(row["video_id"], {"status": "uploaded"})
+    _publish_job(job_id)
+    return job_get(job_id)
 
 
 def recover_jobs() -> int:
-    raise NotImplementedError("slice 3")
+    """A job left `running` by a stopped server goes back to the queue."""
+    with store.tx():
+        return store.jobs_recover()
+
+
+def _unchecked() -> BackendStatus:
+    settings = config.get_settings()
+    return BackendStatus(
+        backend=settings.inference_backend,
+        fake=settings.fake,
+        state="unchecked",
+        checked_at=None,
+        latency_ms=None,
+        present=[],
+        missing=[],
+        message=texts.BACKEND_UNCHECKED,
+    )
 
 
 async def backend_check(force: bool = False) -> BackendStatus:
-    raise NotImplementedError("slice 3")
+    global _backend_status
+    last = _backend_status
+    fresh_s = config.get_settings().linq.check_cache_s
+    if not force and last is not None and last.checked_at is not None:
+        if clock.now() - last.checked_at < timedelta(seconds=fresh_s):
+            return last
+    status = await asyncio.to_thread(_backend_instance().check)
+    _backend_status = status
+    hub.publish("backend.status", status)
+    return status
 
 
 def models_view() -> ModelsView:
-    raise NotImplementedError("slice 3")
+    settings = config.get_settings()
+    return ModelsView(
+        backend=settings.inference_backend,
+        fake=settings.fake,
+        active=registry.active_models(settings),
+        available=registry.load_models(registry.MODELS_FILE),
+    )
 
 
 def system_view() -> SystemView:
-    raise NotImplementedError("slice 3")
+    settings = config.get_settings()
+    empty = Percentiles(n=0, pending=0, p50=None, p95=None)  # notifications come in slice 6
+    return SystemView(
+        backend=settings.inference_backend,
+        fake=settings.fake,
+        backend_status=_backend_status or _unchecked(),
+        queue=[_job(row) for row in store.queue_jobs()],
+        recent_jobs=[_job(row) for row in store.finished_jobs(RECENT_JOBS)],
+        cameras=[],  # slice 6
+        models=registry.active_models(settings),
+        latency=LatencyStats(notify_delay_s=empty, publish_lag_ms=empty),
+        channels=[],  # slice 15
+        server_now=clock.now(),
+    )
 
 
 def video_tracks(video_id: int, from_ms: int, to_ms: int) -> TracksWindow:

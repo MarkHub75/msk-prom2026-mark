@@ -232,3 +232,17 @@ def artifact(cache_key: str) -> sqlite3.Row | None:
 def artifact_update(artifact_id: int, values: dict[str, Any]) -> None:
     assignments = ", ".join(f"{column} = ?" for column in values)
     run(f"UPDATE artifacts SET {assignments} WHERE id = ?", *values.values(), artifact_id)
+
+
+def queue_jobs() -> list[sqlite3.Row]:
+    sql = " WHERE j.status IN ('queued', 'running', 'retry_wait') ORDER BY j.created_at, j.id"
+    return all(_JOBS + sql)
+
+
+def finished_jobs(limit: int) -> list[sqlite3.Row]:
+    sql = " WHERE j.status IN ('done', 'failed') ORDER BY j.finished_at DESC, j.id DESC LIMIT ?"
+    return all(_JOBS + sql, limit)
+
+
+def jobs_recover() -> int:
+    return run("UPDATE jobs SET status = 'queued' WHERE status = 'running'")

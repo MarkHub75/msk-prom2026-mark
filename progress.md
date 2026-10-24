@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S2 закрыт, следующий S3
+- state: S3 закрыт, следующий S4
 - tech.md: v1
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -38,6 +38,15 @@
 - GAP: S2, `FakeRemoteShell`: сцена `auto` берёт исходное имя через `store.video_filename(<стем uploads/<sha256><ext>>)`, иначе имя локального файла (закрывает заметку R5 от S0).
 - GAP: S2, `texts.py`: `VIDEO_EXTENSION`, `VIDEO_UNREADABLE`, `VIDEO_TOO_LARGE`, `VIDEO_NOT_FOUND`, `FILE_NOT_FOUND`, `JOB_NOT_FOUND`, `LIMIT_INVALID`.
 - GAP: S2, фронт: `uploadVideo(cameraId, file, onProgress)` в `src/api/client.ts` (XMLHttpRequest: у fetch нет прогресса загрузки).
+- GAP: S3, `texts.py`: `JOB_NOT_FAILED`, `BACKEND_UNCHECKED`, `BACKEND_FAKE = "Фейк: детекции синтетические. {text}"` (префикс сообщения фейка), `LINQ_OK`, `LINQ_UNREACHABLE`, `LINQ_MODELS_MISSING`, `LINQ_BAD_ANSWER`, `LOCAL_OK`, `LOCAL_MODELS_MISSING`.
+- GAP: S3, `services`: `RECENT_JOBS = 20`; синглтон `_backend_status: BackendStatus | None` (последняя реальная проверка, сбрасывает фикстура `conn`), `_unchecked()`; кэш живёт, пока `now - checked_at < linq.check_cache_s` (ровно на границе — новая проверка); `job_retry` ставит `stage=queued`, `progress=0`, `attempts=0`, чистит `error_*`, `next_attempt_at`, `finished_at`, видео → `uploaded`, шлёт `job.progress`; `recover_jobs` меняет только `status`.
+- GAP: S3, `store`: `queue_jobs()` (`queued`, `running`, `retry_wait` по `created_at`), `finished_jobs(limit)` (`done`, `failed` по `finished_at` убыв.), `jobs_recover() -> int`.
+- GAP: S3, `LinqBackend.check`: `present` — найденные программы активных моделей, `missing` — недостающие программы и пути хвостов; любая `InferenceError` → `unreachable`; код возврата `ls` не проверяется (нет папки — все программы в `missing`); `latency_ms` — время `# sw:check`; помощник `_finish(status, state, text, names=None)`.
+- GAP: S3, `LocalBackend`: `PROGRESS_EVERY = 25`, `_yolo_io(tools_dir)` (импорт по пути), `fake=False` в метриках и статусе, нет видео → `video_unreadable`, `check()`: `ok`/`models_missing` по файлам `local_onnx` активных моделей, текст `LOCAL_*`.
+- GAP: S3, `doctor._linq_check(settings)`: без `LINQ_JUPYTER_URL` или `LINQ_JUPYTER_USER` — FAIL «нет ключей» без `backend_check` (с пустым URL `JupyterShell` падает не сетевой ошибкой); строка `связь с LinQ: <state>` с `BackendStatus.message`; `serve` печатает число возвращённых в очередь задач.
+- GAP: S3, фронт: бейдж `data-testid="backend-state"` в `AppShell` (по WS `backend.status`, текст `message`, иконка ●/▲), `SystemScreen` подключён в `nav.ts`; `App.test.tsx` подменяет `WebSocket` в `beforeEach`.
+- R5: в живом прогоне вызвать `POST /api/system/backend-check` без фейка: `ls -1 /auto/cache/<login>` перечисляет программы `mosprom_*`, состояние `ok`; если Jupyter отдаёт HTML через исключение `JupyterError`, сейчас это `unreachable`, а не `bad_answer`.
+- владелец: удалить случайный лог `D:\scratch_fe.log` (S3 записал вывод `npm run gate` в корень диска, удаление заблокировала защита Claude Code).
 
 ## log
 
@@ -73,6 +82,13 @@
 - проверено вживую: LinQ Jupyter (вход, загрузка, старт и опрос воркера, лог) | не проверено: ответ TPU (таймаут 120 с, строка `долг`)
 - [проверить]: нет
 - следующему: фикстура `linq_tails` (пустые хвосты ONNX под подменённым `linq.ROOT`); в тестах бэкенд со сценарием: `monkeypatch.setattr(services, "_backend", LinqBackend(settings, FakeRemoteShell([...])))`; `_tune(monkeypatch, settings, section={...})` в `tests/test_jobs.py` копирует секцию, а не мутирует общий объект; живой прогон: `uv run poe live` (ключи берёт из `.env` сам тест).
+
+### S3: backend status (2026-10-24, PR #5, tech v1)
+- отклонения: правлены файлы вне списка слайса: `store.py` (SQL очереди и восстановления), `texts.py`, `inference/__init__.py` (`local` → `LocalBackend`), `frontend/src/nav.ts`, `frontend/src/App.test.tsx` (заглушка WebSocket), `tests/conftest.py` (сброс `_backend_status`), `tests/test_jobs.py` (`make_backend("local")`), `tests/test_api_skeleton.py` (примеры 501: `/api/videos/1/analysis`, `/api/ohs/rules` вместо заработавших `/api/system`, `/api/models`); фейк не менялся: `unreachable` и `bad_answer` тесты задают через `shell.fault` и подмену `_check`.
+- решения вне контракта: `backend_check` идёт через ленивый `services._backend` (тот же, что у задач); бейдж шапки появляется только после первого `backend.status` (до проверки шапка показывает только бэкенд из `meta`); `system_view.models` — активные модели; `latency` — нули до S6.
+- проверено вживую: нет (S3 без LinQ, лимит) | не проверено: LinQ Jupyter (`check`, `ls`)
+- [проверить]: нет
+- следующему: в тестах бэкенд со своим шеллом: `monkeypatch.setattr(services, "_backend", LinqBackend(settings, FakeRemoteShell()))`, недоступность в проверке — `shell.fault = "unavailable"`; `LocalBackend` прогоняется в `tests/test_local_backend.py` на `models/*.onnx` (локально есть, в CI пропуск).
 
 ## night
 
