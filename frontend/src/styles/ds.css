@@ -626,7 +626,7 @@ input[type=date] { color-scheme: dark; }
 .ds-app .why-section { padding: var(--s3) 0; border-bottom: 1px solid var(--ds-line); }
 .ds-app .why-section h3, .ds-app .decision-actions h3 { margin-bottom: var(--s2); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ds-text-2); }
 .ds-app .why-section dl { display: grid; gap: 0; margin: 0; }
-.ds-app .why-section dl > div { display: grid; grid-template-columns: minmax(120px, 40%) 1fr; gap: var(--s2); padding: 5px 0; border-bottom: 1px dashed var(--ds-line); font-size: 13px; }
+.ds-app .why-section dl > div { display: grid; grid-template-columns: minmax(120px, 40%) 1fr; gap: var(--s2); padding: 4px 0 !important; margin: 0 !important; line-height: 1.35; border-bottom: 1px dashed var(--ds-line); font-size: 13px; }
 .ds-app .why-section dl > div:last-child { border-bottom: 0; }
 .ds-app .why-section dt { color: var(--ds-text-2); }
 .ds-app .why-section dd { max-width: none; width: auto; margin: 0; color: var(--ds-text); text-align: right; font-variant-numeric: tabular-nums; }
@@ -653,6 +653,11 @@ input[type=date] { color-scheme: dark; }
 .ds-app .history-rail small { font-size: 12px; color: var(--ds-text-3); }
 .ds-app .history-node { border-radius: 50%; }
 .ds-app .deliveries { margin-top: var(--s1); padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); font-size: 12.5px; }
+
+@media (max-height: 820px) {
+  .ds-app .incident-workspace > .evidence-panel .evidence-frame { width: min(100%, calc(300px * var(--media-ratio, 1.7777778))); }
+  .ds-app .incident-workspace > .observation-panel .video-frame { width: min(100%, calc(240px * var(--media-ratio, 1.7777778))); }
+}
 
 /* ========================== Journal ========================== */
 .ds-app .journal-filters { display: grid; grid-template-columns: minmax(220px, 1.6fr) repeat(4, minmax(130px, 1fr)); gap: var(--s2) var(--s3); margin: 0 0 var(--s1); padding: var(--s3); background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: 0; }
