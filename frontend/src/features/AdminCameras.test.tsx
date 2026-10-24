@@ -69,7 +69,7 @@ describe("admin cameras", () => {
     await waitFor(() => expect(screen.queryByText("нет хвоста модели")).toBeNull());
     expect(retried).toBe(true);
     fireEvent.click(screen.getByRole("tab", { name: /Калибровка/ }));
-    expect(screen.getByText("Вкладка подключается.")).toBeTruthy();
+    expect(screen.getByRole("tab", { name: /Калибровка/ }).getAttribute("aria-selected")).toBe("true");
   });
   it("opens the camera setup for the ohs role with its own breadcrumb and X-Role", async () => {
     setRole("ohs");
