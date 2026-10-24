@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowDown, ArrowUp, Camera as CameraIcon, FolderTree, ImageOff, Layers, Pencil, Plus, Radio, Settings2, Trash2 } from "lucide-react";
 import { api, apiError, mediaUrl, type ApiFailure } from "../api/client";
@@ -111,10 +111,17 @@ async function loadViews(sectors: Sector[]) {
 }
 
 export function AdminCamerasPage() {
-  const view = useApi(() => api.GET("/api/admin/cameras"), []);
+  const fresh = useApi(() => api.GET("/api/admin/cameras"), []);
+  // A reload after a save keeps the previous list on screen instead of a loading flash.
+  const last = useRef(fresh.data);
+  if (fresh.data) last.current = fresh.data;
+  const view = { ...fresh, data: fresh.data ?? last.current };
   const sectors = [...(view.data?.sectors ?? [])].sort((a, b) => a.sort_order - b.sort_order || a.id - b.id);
   const cameras = view.data?.cameras ?? [];
-  const live = useApi(() => view.data ? loadViews(view.data.sectors) : Promise.resolve({ data: [] }), [view.data]);
+  const liveFresh = useApi(() => fresh.data ? loadViews(fresh.data.sectors) : Promise.resolve({ data: undefined }), [fresh.data]);
+  const lastLive = useRef(liveFresh.data);
+  if (liveFresh.data) lastLive.current = liveFresh.data;
+  const live = { ...liveFresh, data: liveFresh.data ?? lastLive.current };
   const [params, setParams] = useSearchParams();
   const [dialog, setDialog] = useState<Dialog>();
   const [orderError, setOrderError] = useState<ApiFailure>();
@@ -129,7 +136,7 @@ export function AdminCamerasPage() {
     return error;
   };
 
-  if (view.error) return <><PageHeading title="Камеры и секторы" /><ErrorNotice error={view.error} retry={view.reload} /></>;
+  if (view.error && !view.data) return <><PageHeading title="Камеры и секторы" /><ErrorNotice error={view.error} retry={view.reload} /></>;
   if (!view.data) return <><PageHeading title="Камеры и секторы" /><Loading text="Загружаем секторы и камеры" /></>;
 
   const tiles = new Map<number, CameraTile>((live.data ?? []).flatMap((v) => v.cameras.map((t) => [t.camera.id, t] as const)));

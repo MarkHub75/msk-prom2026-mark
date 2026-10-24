@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ChevronRight, Cpu, Crosshair, Film, ListChecks, Radio, Shapes } from "lucide-react";
 import { api } from "../api/client";
@@ -33,6 +33,10 @@ export function CameraSetupPage() {
   const [params, setParams] = useSearchParams();
   const tab: TabId = TABS.find((t) => t.id === params.get("tab"))?.id ?? "video";
   const setup = useApi(() => api.GET("/api/admin/cameras/{camera_id}", { params: { path: { camera_id: cameraId } } }), [cameraId]);
+  // A reload keeps the previous snapshot on screen: the tabs, the player and the upload note stay mounted.
+  const last = useRef(setup.data);
+  if (setup.data) last.current = setup.data;
+  if (last.current && last.current.camera.id !== cameraId) last.current = undefined;
   const camView = useApi(() => api.GET("/api/cameras/{camera_id}/view", { params: { path: { camera_id: cameraId } } }), [cameraId]);
   const sectors = useApi(() => api.GET("/api/sectors"), []);
   const [jobs, setJobs] = useState<Record<number, Job>>({});
@@ -56,10 +60,10 @@ export function CameraSetupPage() {
 
   const back = role === "admin" ? <Link to="/admin/cameras">Камеры и секторы</Link> : <Link to="/ohs/rules">Правила наблюдения</Link>;
   if (!Number.isInteger(cameraId) || cameraId <= 0) return <ErrorNotice error={{ code: "not_found", message: "В адресе нет номера камеры" }} />;
-  if (setup.error) return <div className="adm-page"><nav className="adm-crumbs">{back}</nav><ErrorNotice error={setup.error} retry={setup.reload} /></div>;
-  if (!setup.data) return <div className="adm-page"><nav className="adm-crumbs">{back}</nav><Loading text="Загружаем настройки камеры" /></div>;
+  if (setup.error && !last.current) return <div className="adm-page"><nav className="adm-crumbs">{back}</nav><ErrorNotice error={setup.error} retry={setup.reload} /></div>;
+  if (!last.current) return <div className="adm-page"><nav className="adm-crumbs">{back}</nav><Loading text="Загружаем настройки камеры" /></div>;
 
-  const data = setup.data;
+  const data = last.current;
   const camera = data.camera;
   const liveState = state ?? camView.data?.state;
   const liveBroadcast = broadcast !== undefined ? broadcast : (camView.data?.broadcast ?? data.broadcast);

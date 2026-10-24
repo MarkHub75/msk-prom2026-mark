@@ -214,7 +214,7 @@
   .adm-ep-list button { grid-template-columns: 80px minmax(110px, auto) 86px minmax(0, 1fr); }
   .adm-ep-list button > :last-child { display: none; }
 }
-.adm-player .recorded-player { max-width: max(480px, calc((100vh - 470px) * 16 / 9)); margin: 0 auto; width: 100%; }
+.adm-player .recorded-player { max-width: max(480px, calc((100vh - 560px) * 16 / 9)); margin: 0 auto; width: 100%; }
 .adm-job header .adm-tag { flex: none; }
 .adm-jobs { overflow-x: hidden; }
 
