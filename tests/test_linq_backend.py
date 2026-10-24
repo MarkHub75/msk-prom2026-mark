@@ -134,3 +134,27 @@ def test_jupyter_shell_maps_errors(
         JupyterShell(settings).exec("echo ok  # sw:check", timeout=5)
     assert info.value.code == code
     assert "s3cret-pw" not in str(info.value)
+
+
+def test_jupyter_shell_starts_fresh_session_after_network_error(
+    core: Settings, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    made: list[object] = []
+
+    class Remote:
+        def __init__(self, *args: object) -> None:
+            made.append(self)
+
+        def exec(self, cmd: str, timeout: float) -> tuple[int, str, str]:
+            raise requests.ConnectionError("tunnel down")
+
+        def shutdown_kernel(self) -> None:
+            raise requests.ConnectionError("tunnel down")
+
+    module = SimpleNamespace(JupyterRemote=Remote, JupyterError=JupyterError)
+    monkeypatch.setattr(linq, "_load_module", lambda path: module)
+    shell = JupyterShell(core)
+    for _ in range(2):
+        with pytest.raises(InferenceError):
+            shell.exec("echo ok  # sw:check", timeout=5)
+    assert len(made) == 2

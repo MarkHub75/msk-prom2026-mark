@@ -1,6 +1,8 @@
 """Slice 2: the job queue, artifact cache and retry policy of tech.md 8.1 on FakeRemoteShell."""
 
+import asyncio
 import math
+import sqlite3
 from datetime import timedelta
 from pathlib import Path
 from typing import Any
@@ -246,3 +248,21 @@ def test_make_backend_by_settings(core: Settings, monkeypatch: pytest.MonkeyPatc
     finally:
         monkeypatch.delenv("INFERENCE_BACKEND")
         get_settings.cache_clear()
+
+
+async def test_job_loop_survives_unexpected_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    from safewatch import worker
+
+    stop = asyncio.Event()
+    calls: list[int] = []
+
+    async def flaky() -> Job | None:
+        calls.append(1)
+        if len(calls) == 1:
+            raise sqlite3.OperationalError("database is locked")
+        stop.set()
+        return None
+
+    monkeypatch.setattr(services, "run_next_job", flaky)
+    await asyncio.wait_for(worker.run_forever(stop), 5)
+    assert len(calls) == 2
