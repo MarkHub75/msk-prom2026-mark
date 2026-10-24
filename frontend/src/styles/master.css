@@ -1,0 +1,112 @@
+/* Master workplace: one column, thumb-sized targets, works from 360 px. */
+.ms-page { max-width: 720px; margin: 0 auto; padding: 4px 0 24px; display: flex; flex-direction: column; gap: 12px; color: var(--text); font-size: 15px; }
+.ms-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 4px 2px 0; }
+.ms-head h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
+.ms-head p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.ms-head p b { color: var(--text); font-family: var(--mono); font-weight: 500; }
+.ms-bell { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; background: var(--surface); border: 1px solid var(--line); color: var(--text); font-size: 14px; white-space: nowrap; }
+.ms-bell.is-on { color: #6fd39b; border-color: #24452f; background: #15281d; }
+.ms-muted { color: var(--muted); font-size: 14px; margin: 6px 0; line-height: 1.4; }
+.ms-asof { color: var(--faint, var(--muted)); font-size: 12px; margin: 0; text-align: center; }
+
+/* Active cards */
+.ms-cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.ms-card > a { display: block; color: inherit; background: var(--surface); border: 1px solid #0c0c0c; box-shadow: inset 4px 0 0 var(--line); overflow: hidden; }
+.ms-card.ms-red > a { box-shadow: inset 4px 0 0 var(--red); border-color: #4a2224; }
+.ms-card.ms-yellow > a { box-shadow: inset 4px 0 0 var(--amber); }
+.ms-card.is-fresh > a { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ms-card-media { position: relative; aspect-ratio: 16 / 7; background: #0b0b0b; margin-left: 4px; }
+.ms-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ms-noimg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+.ms-card-level { position: absolute; left: 8px; top: 8px; }
+.ms-card-level .od-level { font-size: 12.5px; padding: 3px 8px; background: rgba(20, 10, 10, .85); }
+.ms-card-new { position: absolute; right: 8px; top: 8px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 8px; }
+.ms-card-body { padding: 12px 14px 14px 18px; display: flex; flex-direction: column; gap: 6px; }
+.ms-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ms-status { font-size: 13px; font-weight: 600; color: #ff8a8d; text-transform: uppercase; letter-spacing: .04em; }
+.ms-status.is-accepted { color: var(--accent-strong); }
+.ms-timer { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 13px; }
+.ms-timer b { color: var(--text); font-size: 17px; font-weight: 500; }
+.ms-card h2 { margin: 0; font-size: 21px; line-height: 1.2; font-weight: 700; }
+.ms-place { margin: 0; font-size: 15px; font-weight: 600; display: flex; flex-direction: column; }
+.ms-place span { font-weight: 400; color: var(--muted); font-size: 14px; }
+.ms-reason { margin: 0; font-size: 15px; color: var(--text); }
+.ms-unconfirmed { margin: 2px 0 0; display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-size: 13.5px; font-weight: 600; color: #f2c06d; background: var(--amber-bg); border: 1px solid #5a4a22; padding: 4px 9px; }
+.ms-card-go { margin-top: 6px; display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 14px; background: var(--surface-high); border: 1px solid var(--line); font-size: 16px; font-weight: 600; color: #fff; }
+.ms-red .ms-card-go { background: #6b1f23; border-color: #8a2a2f; }
+.ms-more-btn { min-height: 48px; background: transparent; border: 1px dashed var(--line); color: var(--text); font-size: 15px; }
+.ms-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 36px 16px; background: var(--surface); border: 1px solid #0c0c0c; color: var(--muted); }
+.ms-empty strong { color: var(--text); font-size: 18px; }
+
+/* Resolved */
+.ms-resolved, .ms-block { background: var(--surface); border: 1px solid #0c0c0c; padding: 12px 14px; }
+.ms-resolved h2, .ms-block h2 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: flex; justify-content: space-between; font-weight: 600; }
+.ms-resolved ol, .ms-confirmed { list-style: none; margin: 0; padding: 0; }
+.ms-resolved li a, .ms-confirmed li a { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; min-height: 52px; padding: 8px 0; border-bottom: 1px solid var(--line-soft); color: inherit; }
+.ms-resolved li span b, .ms-confirmed li span b { display: block; font-size: 15px; font-weight: 600; }
+.ms-resolved li span small, .ms-confirmed li span small { display: block; color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ms-res-status { font-size: 12.5px; color: #6fd39b; text-align: right; display: flex; flex-direction: column; }
+.ms-res-status small { color: var(--muted); }
+.ms-confirmed time { font-size: 14px; color: var(--timecode, var(--muted)); }
+.ms-link { display: flex; align-items: center; justify-content: space-between; min-height: 48px; margin-top: 4px; color: var(--accent-strong); font-size: 15px; font-weight: 600; }
+
+/* Shift */
+.ms-seg { display: flex; border: 1px solid var(--line); align-self: stretch; }
+.ms-seg button { flex: 1; min-height: 44px; background: transparent; border: 0; color: var(--muted); font-size: 15px; }
+.ms-seg button.selected { background: var(--surface-high); color: #fff; box-shadow: inset 0 -2px 0 var(--accent); }
+.ms-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.ms-kpis > div { background: var(--surface); border: 1px solid #0c0c0c; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.ms-kpis .ms-kpi-main { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: baseline; }
+.ms-kpis span { font-size: 12.5px; color: var(--muted); }
+.ms-kpis b { font-family: var(--mono); font-weight: 500; font-size: 26px; }
+.ms-kpis .ms-kpi-main b { font-size: 40px; }
+.ms-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.ms-bar-top { display: flex; justify-content: space-between; gap: 8px; font-size: 15px; }
+.ms-bar-top b { font-weight: 500; }
+.ms-bar { position: relative; height: 10px; background: var(--surface-sunk, #101010); margin: 5px 0 3px; }
+.ms-bar i, .ms-bar em { position: absolute; left: 0; top: 0; bottom: 0; }
+.ms-bar i { background: #4a5058; }
+.ms-bar em { background: var(--red); }
+.ms-bars small { color: var(--muted); font-size: 12.5px; }
+
+/* Event detail for the master */
+.ms-back { display: flex !important; align-items: center; gap: 8px; min-height: 44px; color: var(--text); font-size: 15px; }
+.ms-back span { margin-left: auto; color: var(--muted); }
+.ms-detail { display: flex; flex-direction: column; gap: 12px; padding-bottom: 96px; }
+.ms-detail-head { background: var(--surface); border: 1px solid #0c0c0c; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; box-shadow: inset 4px 0 0 var(--line); }
+.ms-detail.ms-red .ms-detail-head { box-shadow: inset 4px 0 0 var(--red); }
+.ms-detail.ms-yellow .ms-detail-head { box-shadow: inset 4px 0 0 var(--amber); }
+.ms-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ms-detail-head h1 { margin: 0; font-size: 24px; line-height: 1.15; }
+.ms-wait { margin: 0; display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; }
+.ms-wait b { color: var(--text); font-size: 18px; font-weight: 500; }
+.ms-where { margin: 0; background: var(--surface); border: 1px solid #0c0c0c; padding: 4px 14px; }
+.ms-where > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.ms-where > div:last-child { border-bottom: 0; }
+.ms-where dt { color: var(--muted); font-size: 13.5px; display: flex; gap: 6px; align-items: center; }
+.ms-where dd { margin: 0; font-size: 16px; font-weight: 600; display: flex; flex-direction: column; }
+.ms-where dd span { font-weight: 400; color: var(--muted); font-size: 14px; }
+.ms-report { display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600; }
+.ms-report span { font-weight: 400; color: #f2c06d; font-size: 13px; }
+.ms-report textarea { min-height: 110px; padding: 10px 12px; font-size: 16px; background: var(--surface-sunk, #101010); color: var(--text); border: 1px solid var(--line); resize: vertical; }
+.ms-report textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.ms-done { display: flex; align-items: center; gap: 8px; margin: 0; color: #6fd39b; font-size: 15px; }
+.ms-more { background: var(--surface); border: 1px solid #0c0c0c; padding: 0 14px; }
+.ms-more summary { min-height: 48px; display: flex; align-items: center; font-size: 15px; cursor: pointer; }
+.ms-more[open] { padding-bottom: 12px; }
+.ms-actions { position: fixed; left: 0; right: 0; bottom: 62px; z-index: 39; display: flex; gap: 8px; padding: 10px 12px; background: rgba(22, 22, 22, .96); border-top: 1px solid var(--line); max-width: 720px; margin: 0 auto; }
+.ms-btn { flex: 1; min-height: 56px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 700; border: 1px solid; color: #fff; }
+.ms-btn-go { background: #b4262c; border-color: #d1343a; }
+.ms-btn-done { background: #1f7a4a; border-color: #2a9a5e; }
+.ms-btn:disabled { background: #2c2c2c; border-color: var(--line); color: #8a8a8a; opacity: 1; }
+.ms-notice { margin: 0; }
+.ms-detail .ic-evidence .evidence-frame { width: 100%; }
+@media (min-width: 761px) { .ms-actions { bottom: 0; } .ms-detail { padding-bottom: 90px; } }
+@media (max-width: 380px) {
+  .ms-head h1 { font-size: 21px; }
+  .ms-bell span { display: none; }
+  .ms-card h2 { font-size: 19px; }
+  .ms-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ms-kpis b { font-size: 22px; }
+  .ms-where > div { grid-template-columns: 84px minmax(0, 1fr); }
+}

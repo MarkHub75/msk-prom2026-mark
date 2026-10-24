@@ -1,0 +1,58 @@
+name: Docker
+
+on:
+  push:
+    branches: [build/docker]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          # Research and generated results are not needed to build the application.
+          sparse-checkout: |
+            .github
+            frontend
+            src
+            config
+            contract
+            tools/linq
+      - name: Build image
+        run: docker build --progress=plain --tag argus:local .
+      - name: Start with Compose (no .env or LinQ credentials)
+        run: docker compose up --build --detach --wait --wait-timeout 120
+      - name: Check API, built frontend and seed
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=http://127.0.0.1:8000
+          test "$(curl --silent --show-error --fail --max-time 10 -o /tmp/health.json -w '%{http_code}' "$base/api/health")" = 200
+          jq -e '.status == "ok"' /tmp/health.json
+          test "$(curl --silent --show-error --fail --max-time 10 -o /tmp/index.html -w '%{http_code}' "$base/")" = 200
+          grep -q '<title>АРГУС</title>' /tmp/index.html
+          asset=$(sed -n 's/.*src="\([^"]*\/assets\/[^"]*\.js\)".*/\1/p' /tmp/index.html | head -n 1)
+          test -n "$asset"
+          test "$(curl --silent --show-error --fail --max-time 10 -o /tmp/app.js -w '%{http_code}' "$base$asset")" = 200
+          test -s /tmp/app.js
+          curl --silent --show-error --fail --max-time 10 "$base/api/meta" | jq -e '.fake == true and .inference_backend == "linq"'
+          curl --silent --show-error --fail --max-time 10 "$base/api/sectors" | jq -e 'length == 4'
+          curl --silent --show-error --fail --max-time 10 "$base/api/cameras" | jq -e 'length == 8'
+          curl --silent --show-error --fail --max-time 10 "$base/api/events" | jq -e '.total == 240'
+      - name: Container logs
+        if: always()
+        run: |
+          docker compose ps --all
+          docker compose logs --no-color
+      - name: Stop containers
+        if: always()
+        run: docker compose down --volumes --remove-orphans

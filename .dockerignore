@@ -1,6 +1,9 @@
 # Secrets, data and research never go into the image.
 .env
 .env.*
+**/.env
+**/.env.*
+config/user.yaml
 secrets/
 data/
 models/
@@ -8,6 +11,7 @@ vendor/
 results/
 Deep-Research/
 .git/
+**/.git
 .venv/
 .venv-linq/
 **/__pycache__/
