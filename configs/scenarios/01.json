@@ -1,0 +1,17 @@
+{
+  "scenario_id": "01",
+  "min_score": 0.5,
+  "min_fact_score": 0.5,
+  "running": {
+    "fact_name": "running_action",
+    "interpretation": "sourced action, no gait model claim"
+  },
+  "abrupt_movement": {
+    "work_zone": null,
+    "geometry_revision": null,
+    "policy_source": null,
+    "speed_units": "image_diagonals_per_second",
+    "speed_threshold": 0.2,
+    "max_gap_ms": 750
+  }
+}
