@@ -1,3 +1,4 @@
+import { PRODUCT } from "../brand";
 import type { CalcAssumption, TierResult } from "../api/types";
 import { Badge, Panel } from "../components/ui";
 
@@ -81,7 +82,7 @@ export function marketRows(cameras: number | undefined): MarketRow[] {
 }
 
 export function MarketPanel({ cameras }: { cameras?: number }) {
-  return <Panel title="Рыночные ориентиры" tools={<Badge tone="grey">чужие цены, не цена Argus</Badge>} flush data-testid="market">
+  return <Panel title="Рыночные ориентиры" tools={<Badge tone="grey">{`чужие цены, не цена ${PRODUCT}`}</Badge>} flush data-testid="market">
     <table className="ds-table v5-market">
       <thead><tr><th>Что</th><th>Цена</th><th>Источник, дата</th></tr></thead>
       <tbody>{marketRows(cameras).map(m => <tr key={m.title}><td><b>{m.title}</b><small className="v5-source-inline">{m.source}</small></td><td className="v5-market-value">{m.value}</td><td className="v5-source">{m.source}</td></tr>)}</tbody>

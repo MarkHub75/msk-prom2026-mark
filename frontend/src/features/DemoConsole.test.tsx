@@ -67,9 +67,15 @@ describe("demo console", () => {
     expect(screen.queryByRole("button", { name: "Следующий шаг" })).toBeNull();
     expect((screen.getByRole("button", { name: "Остановить: Камера 1.1 · Пресс" }) as HTMLButtonElement).disabled).toBe(true);
 
+    // A camera on air cannot be launched again: the restart would publish the record's events a second time.
+    expect((screen.getByRole("button", { name: "Проиграть один раз: Камера 1.2 · Склад" }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.click(screen.getByRole("button", { name: "Проиграть один раз: Камера 1.1 · Пресс" }));
     await waitFor(() => expect(calls.some((c) => c.method === "POST")).toBe(true));
     expect(calls.find((c) => c.method === "POST")).toMatchObject({ path: "/api/cameras/1/broadcast", body: { loop: false, video_id: 12 }, role: "admin" });
+    // Launched, the list has not shown «Идёт» yet: still locked, a double press makes no second POST.
+    await waitFor(() => expect((screen.getByRole("button", { name: "Проиграть один раз: Камера 1.1 · Пресс" }) as HTMLButtonElement).disabled).toBe(true));
+    fireEvent.click(screen.getByRole("button", { name: "Проиграть один раз: Камера 1.1 · Пресс" }));
+    expect(calls.filter((c) => c.method === "POST")).toHaveLength(1);
 
     fireEvent.click(screen.getByRole("button", { name: "Остановить: Камера 1.2 · Склад" }));
     await waitFor(() => expect(calls.some((c) => c.method === "DELETE" && c.path === "/api/cameras/2/broadcast")).toBe(true));

@@ -58,6 +58,27 @@ export function useEventDetail(id: number) {
   return {detail,loading:request.loading,error:request.error,reload:request.reload,busy,actionError,send,apply};
 }
 
+
+// Episode ids come from the backend as codes (`track:3`, `pair:3-7`, `zone:3-2`, `fire`; method `relative`, `pose`…):
+// shown in words, as the HUD labels them («человек #3») and as the backend titles the method in «почему».
+const METHOD_TITLES: Record<string, string> = { pose: "поза", bbox: "рамка", calibrated: "калибровка", auto: "автокалибровка", relative: "в ростах человека" };
+export function subjectTitle(subject: string) {
+  const [kind, rest = ""] = subject.split(":");
+  const [a, b] = rest.split("-");
+  if (kind === "track") return `человек #${a}`;
+  if (kind === "pair") return `человек #${a} и техника #${b}`;
+  if (kind === "zone") return `человек #${a} в зоне #${b}`;
+  if (kind === "fire") return "огонь";
+  return subject;
+}
+/** Delivery channel keys `call:<name>` / `webhook:<name>` (tech.md 6.11.7): the kind in words, the name as configured. */
+export function channelTitle(channel: string) {
+  const [kind, ...rest] = channel.split(":");
+  const name = rest.join(":");
+  const title = kind === "call" ? "Звонок" : kind === "webhook" ? "Вебхук" : "";
+  return title && name ? `${title} «${name}»` : channel;
+}
+
 function Panel({ title, aside, children, className = "" }: { title: string; aside?: ReactNode; children: ReactNode; className?: string }) {
   return <section className={`ic-panel ${className}`}><h2>{title}{aside !== undefined && <span>{aside}</span>}</h2>{children}</section>;
 }
@@ -80,7 +101,7 @@ export function EpisodeHistory({ detail }: { detail: EventDetail }) {
   const meta = useMeta(); const event = detail.event; const ep = detail.episode;
   const level = (id: "red" | "yellow") => meta?.levels.find(l => l.id === id)?.title ?? (id === "red" ? "Красная опасность" : "Жёлтая опасность");
   const steps: { key: string; at?: string | null; ms?: number | null; tone: "red" | "yellow" | "neutral"; title: string; note?: string }[] = [];
-  steps.push({ key: "start", at: event.started_at, ms: ep?.start_ms, tone: "neutral", title: "Начало эпизода", note: ep ? `${ep.scenario_title} · трек ${ep.subject}` : undefined });
+  steps.push({ key: "start", at: event.started_at, ms: ep?.start_ms, tone: "neutral", title: "Начало эпизода", note: ep ? `${ep.scenario_title} · ${subjectTitle(ep.subject)}` : undefined });
   const initial = ep?.level_initial ?? (event.red_at && event.red_at === event.published_at ? "red" : "yellow");
   steps.push({ key: "pub", at: event.published_at, ms: ep?.confirm_ms, tone: initial, title: `Подтверждено правилом: ${level(initial)}`, note: ep?.reason_text });
   if (event.red_at && (initial === "yellow" || ep?.escalate_ms != null)) steps.push({ key: "red", at: event.red_at, ms: ep?.escalate_ms, tone: "red", title: `Повышено до: ${level("red")}` });
@@ -108,7 +129,7 @@ export function Provenance({ detail }: { detail: EventDetail }) {
     <div><dt>Детекция</dt><dd className="mono">{p.det_model ?? "не указана"}</dd></div>
     <div><dt>Поза</dt><dd className="mono">{p.pose_model ?? "не использовалась"}</dd></div>
     <div><dt>Задача · анализ</dt><dd className="mono">{p.job_id !== null ? `#${p.job_id}` : "—"} · {ep ? `#${ep.analysis_id}` : "—"} v{p.analysis_version ?? "—"}</dd></div>
-    {ep && <div><dt>Метод · уверенность</dt><dd>{ep.method} · <span className="mono">{ep.confidence.toFixed(2)}</span></dd></div>}
+    {ep && <div><dt>Метод · уверенность</dt><dd>{METHOD_TITLES[ep.method] ?? ep.method} · <span className="mono">{ep.confidence.toFixed(2)}</span></dd></div>}
     <div><dt>SHA-256 кадра</dt><dd><Hash value={p.evidence_sha256} /></dd></div>
     <div><dt>SHA-256 видео</dt><dd><Hash value={p.video_sha256} /></dd></div>
     {Object.keys(p.rule_params).length > 0 && <div><dt>Параметры правила</dt><dd className="mono ic-params">{Object.entries(p.rule_params).map(([k, v]) => <span key={k}>{k}={v}</span>)}</dd></div>}
@@ -196,7 +217,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Event
       <Panel title="История эпизода"><EpisodeHistory detail={detail} /></Panel>
       <Panel title="Действия людей" aside={detail.actions.length}><History actions={detail.actions} /></Panel>
       <Panel title="Происхождение"><Provenance detail={detail} /></Panel>
-      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
+      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{channelTitle(d.channel)}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
     </aside>
   </div>;
 }
