@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S11 начат
+- state: S11 закрыт, следующий S12
 - tech.md: v3
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -22,11 +22,17 @@
 - R15: прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid). Перенесено из R10: правка проверяется только вживую.
 - R15: `backend_check`, Jupyter отдал HTML через `JupyterError`: сейчас `unreachable`, по 6.2 — `bad_answer`; вживую не воспроизвелось (R5: `ok`, 2 из 2 программ). Перенесено из R10: нет воспроизведения.
 - R15: сцена `demo` теряет id трекера в момент падения (падение подтверждается веткой «лежит неподвижно», бег закрывается `track_lost_timeout`); проверить на заводском видео, когда оно появится (заводских видео всё ещё нет).
-- R15: `system_view.latency` (`notify_delay_s`, `publish_lag_ms`) всё ещё нули; S11 (наблюдаемость) — первый слайс, где это можно закрыть.
+- R15: `system_view.latency` (`notify_delay_s`, `publish_lag_ms`) всё ещё нули; в критериях S11 их нет (S11 — свежесть и интервалы), оставлено ревью.
 - R15: лента и состояния камер считают демо-события: жёлтые `confirmed` сида открыты и попадают в ленту оператора с приоритетом 1 (до `feed.limit`); решать вместе с флагом демо в S12–S13.
-- R15: S10 — HUD (`build_hud`) подписывает только наблюдения субъекта `track:<id>`: `pair:`/`zone:` (proximity) и `fire` на кадре не видны; 8.2 п. 8 просит подпись на каждое `P`. Перенесено: `analysis/hud.py` — файл S11.
+- R15: S10 — HUD (`build_hud`) подписывает только наблюдения субъекта `track:<id>`: `pair:`/`zone:` (proximity) и `fire` на кадре не видны; 8.2 п. 8 просит подпись на каждое `P`. Перенесено: `analysis/hud.py` — файл S11, но в критериях S11 подписей HUD нет, не сделано.
 - R15: S10 — `explain` новых плагинов: одна строка правила + `why_common`; без единицы дистанции в `explain` зоны proximity (берётся `reason_text`).
-- R15: загрузка большого файла целиком ложится на диск до проверки роли и размера (Starlette `UploadFile`, с R5); `hub.Client.dropped` не читается — потребитель в S11 (наблюдаемость), иначе удалить.
+- R15: загрузка большого файла целиком ложится на диск до проверки роли и размера (Starlette `UploadFile`, с R5); `hub.Client.dropped` не читается — в критериях S11 потребителя нет, решить в R15 (удалить или показать на экране IT).
+- R15: S11 — `services._freshness` читает `hud.jsonl` анализа один раз в потоке event loop (потом кэш `_frames_ts`); для длинных видео перенести чтение в `to_thread`.
+- GAP: S11, `ObservabilityGap` — полуинтервал `[start_ms, end_ms)`; `stale` — между соседними кадрами анализа (`start_ms` кадр до разрыва, `end_ms` кадр после; начало и хвост видео не проверяются, `min_duration_s` к `stale` не применяется: иначе 2001 мс не считался бы); серия `dark`/`obstructed` длится до первого хорошего сэмпла или до `duration_ms`; список по `(start_ms, stale < dark < obstructed)`, интервалы `dark` и `obstructed` могут перекрываться, камера берёт первый содержащий позицию.
+- GAP: S11, `observability.Luma = tuple[int, float, float]` (`ts_ms, mean, std`), помощник `_runs`; `media.LUMA_WIDTH = 160`, уменьшение `INTER_NEAREST` (усреднение `INTER_AREA` гасит разброс шума и текстуры: тестовое видео с шумом становилось `obstructed`); `sample_luma` нечитаемого файла → `[]`.
+- GAP: S11, `analyze`: кадры внутри `dark`/`obstructed` не дают наблюдений (`U` у всех субъектов, 8.10); `stale` отдельно не обрабатывается — менеджер эпизодов сам добавляет разрыв `ts − ts прошлого кадра` в `uncertain_ms` и проверяет `lost_timeout_s`.
+- GAP: S11, `store.camera_state_rows()` добавляет `position_ms`, `analysis_id`, `gaps_json`, `hud_path` играющего эфира (`LEFT JOIN`); `services._freshness(analysis_id, hud_path, pos) -> int | None` (до первого кадра анализа — `None`), синглтон `_frames_ts: dict[int, list[int]]` (сбрасывает фикстура `conn`).
+- GAP: S11, WS `camera.state` уходит только при смене состояния без учёта `freshness_ms` (`_camera_seen` хранит копию с `freshness_ms=None`): свежесть меняется каждый тик, её читают через REST (`system_view`, плитки).
 
 ## log
 
@@ -134,6 +140,13 @@
 - чек-лист 17: 1–2 ок (`poe contract` 447 элементов, `poe api` чистый, `contract/openapi.json` не менялся); 3 ок; 5 ок, кроме записи `superseded` по событию в цикле `_recomputed` (записи, не чтения); 7 ок (`to_thread` пишет только файлы); 8: `vulture` — заглушки S13–S15 и параметры обработчиков ошибок; 11 ок; 12 нет пунктов; 13 закрыт; 14: CI PR #9–#13 зелёные в обеих ОС (PR #13 проверен в R10). Коммит закрытия S6 ушёл в `refactor(feed)`, а не в `docs(progress): close slice 6` (squash скрыл, не правилось).
 - проверено вживую: нет (живых прогонов в R10 нет) | не проверено: LinQ Jupyter; `data/app` владельца после полного прогона тестов не изменилась (mtime 08:02 до и после).
 - следующему: autouse `no_real_data` валит тест, который открывает базу без `core`/`conn`; пересчёт с extra — `tests/test_plugin_status.py::test_extra_model_enables_fire_without_code`; `CameraRule` в тестах можно строить с `effective={}` (поверх идут defaults и `params`).
+
+### S11: observability (2026-10-24, PR #15, tech v3)
+- отклонения: правлены файлы вне списка слайса: `tests/conftest.py` (сброс `_frames_ts`), `tests/test_{broadcast,cameras,operator_views}.py` (ручные анализы пишут `hud.jsonl` через `test_broadcast.hud_file`, иначе `freshness_ms` не читает кадры); `SectorTile.tsx`, `hud.py`, `scenes.py` не менялись (плитки уже показывают `reason_text` сервера, сцена `dark` есть); критерий 5 проверен в `system_screen_renders` (таблица свежести, «Слишком темно»), `operator_dashboard_renders` уже проверяет причину сектора.
+- решения вне контракта: строки `GAP: S11`; мутаций нет (10.1); живых прогонов нет; `latency` и `Client.dropped` не тронуты (нет в критериях), заметки `R15` уточнены.
+- проверено вживую: нет (S11 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_broadcast.py::hud_file(name, frames_ts)` (HUD-файл ручного анализа); `tests/test_observability.py`: фикстура `luma` (что `sample_luma` вернёт в `analyze`), `_run(mean, std, start, end, duration)`, `_episodes(scene, det_drop, speed_bh_s)`; `tests/test_camera_state.py::_at_position(pos, *setup)` (камера с `GAPS` на позиции эфира).
 
 ## night
 
