@@ -1064,6 +1064,18 @@ _preview_cache: dict[int, tuple[datetime, bytes]] = {}
 Message = tuple[WsType, BaseModel, list[Role] | None]
 
 
+# Event priority of tech.md 8.8: red waiting for the operator, yellow waiting, other open, closed.
+PRIORITY = {"red_pending": 3, "yellow_pending": 2, "open": 1, "terminal": 0}
+
+
+def _priority(level: Level, status: EventStatus) -> int:
+    if status in TERMINAL_STATUSES:
+        return PRIORITY["terminal"]
+    if status in ("new", "viewed"):
+        return PRIORITY[f"{level}_pending"]
+    return PRIORITY["open"]
+
+
 def _summary(row: sqlite3.Row) -> EventSummary:
     started = clock.parse(row["started_at"])
     end = clock.parse(row["ended_at"]) if row["ended_at"] else clock.now()
@@ -1093,7 +1105,7 @@ def _summary(row: sqlite3.Row) -> EventSummary:
         red_at=clock.parse(row["red_at"]) if row["red_at"] else None,
         ended_at=clock.parse(row["ended_at"]) if row["ended_at"] else None,
         duration_s=(end - started).total_seconds(),
-        priority=row["priority"],
+        priority=_priority(level, row["status"]),
         is_demo=bool(row["is_demo"]),
     )
 
@@ -1307,8 +1319,9 @@ def _sector_states(cameras: list[CameraState]) -> list[SectorState]:
 def _feed(sector_id: int | None = None) -> list[EventSummary]:
     settings = config.get_settings()
     closed_after = clock.now() - timedelta(minutes=settings.feed.recent_closed_min)
-    rows = store.feed(clock.iso(closed_after), settings.feed.limit, sector_id)
-    return [_summary(row) for row in rows]
+    items = [_summary(row) for row in store.feed(clock.iso(closed_after), sector_id)]
+    items.sort(key=lambda e: (e.priority, e.published_at, e.id), reverse=True)
+    return items[: settings.feed.limit]
 
 
 def operator_dashboard_view() -> OperatorDashboard:

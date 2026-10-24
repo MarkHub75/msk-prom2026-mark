@@ -322,15 +322,8 @@ def last_ready_video(camera_id: int) -> sqlite3.Row | None:
 # --- events -------------------------------------------------------------------------------
 _TERMINAL = "('false_alarm', 'resolved', 'auto_finished', 'superseded')"
 
-# PRIORITY of tech.md 8.8 in SQL, so the feed sorts and limits in one query.
-_EVENTS = f"""
-SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name,
-    CASE
-        WHEN e.status IN {_TERMINAL} THEN 0
-        WHEN e.status IN ('new', 'viewed') AND e.level = 'red' THEN 3
-        WHEN e.status IN ('new', 'viewed') THEN 2
-        ELSE 1
-    END AS priority
+_EVENTS = """
+SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name
 FROM events e
 JOIN cameras c ON c.id = e.camera_id
 JOIN sectors s ON s.id = e.sector_id
@@ -351,14 +344,14 @@ def event_update(event_id: int, values: dict[str, Any]) -> None:
     run(f"UPDATE events SET {assignments} WHERE id = ?", *values.values(), event_id)
 
 
-def feed(closed_after: str, limit: int, sector_id: int | None = None) -> list[sqlite3.Row]:
+def feed(closed_after: str, sector_id: int | None = None) -> list[sqlite3.Row]:
     """Open events and those closed after `closed_after` (their last action), no superseded."""
     sql = f"""{_EVENTS}
 WHERE e.status != 'superseded' AND (? IS NULL OR e.sector_id = ?)
     AND (e.status NOT IN {_TERMINAL}
         OR (SELECT max(a.at) FROM event_actions a WHERE a.event_id = e.id) >= ?)
-ORDER BY priority DESC, e.published_at DESC, e.id DESC LIMIT ?"""
-    return all(sql, sector_id, sector_id, closed_after, limit)
+ORDER BY e.published_at DESC, e.id DESC"""
+    return all(sql, sector_id, sector_id, closed_after)
 
 
 # Inputs of the camera state rules (tech.md 8.9) for every camera in one query.

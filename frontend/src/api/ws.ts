@@ -7,6 +7,17 @@ export interface WsMessage {
   data: unknown;
 }
 
+// Payload of `notification` (contract/ws.schema.json): WS-only types are not in openapi.json.
+export interface WsNotification {
+  id: string;
+  event_id: number;
+  level: "yellow" | "red";
+  text: string;
+  audience: string[];
+  sound: "siren" | "chime" | "none";
+  takeover: boolean;
+}
+
 const BACKOFF_S = [1, 2, 4, 8];
 
 function wsUrl(role: string): string {

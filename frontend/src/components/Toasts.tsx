@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import type { components } from "../api/schema";
-import { useWs } from "../api/ws";
+import { useWs, type WsNotification } from "../api/ws";
 import { LevelBadge } from "./Badges";
 import { playSound } from "./sound";
 
-type Notification = components["schemas"]["Notification"];
+type Notification = WsNotification;
 
 const SHOW_MS = 10_000;
 

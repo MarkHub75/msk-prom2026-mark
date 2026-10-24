@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { components } from "../api/schema";
-import { useWs } from "../api/ws";
+import { useWs, type WsNotification } from "../api/ws";
 import { playSound } from "./sound";
 
-type Notification = components["schemas"]["Notification"];
+type Notification = WsNotification;
 
 // A red notification takes the whole screen with a siren until the operator opens the event.
 export function TakeoverOverlay() {

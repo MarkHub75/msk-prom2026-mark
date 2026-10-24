@@ -1,6 +1,6 @@
-import type { components } from "../api/schema";
+import type { WsNotification } from "../api/ws";
 
-type Sound = components["schemas"]["Notification"]["sound"];
+type Sound = WsNotification["sound"];
 
 let context: AudioContext | undefined;
 
