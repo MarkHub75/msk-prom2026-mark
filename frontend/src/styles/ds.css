@@ -5,36 +5,44 @@
    ========================================================================== */
 :root {
   /* surfaces, darkest to lightest */
-  --ds-bg-0: #0e0f11;   /* app background, gutters between panels */
-  --ds-bg-1: #16171a;   /* panel body */
-  --ds-bg-2: #1c1e22;   /* panel header strip, toolbars, bars */
-  --ds-bg-3: #24272c;   /* inputs, raised rows, hover */
-  --ds-bg-4: #2d3137;   /* pressed / neutral selection */
+  --ds-bg-0: #111214;   /* app background, gutters between panels */
+  --ds-bg-1: #191b1f;   /* panel body */
+  --ds-bg-2: #1f2125;   /* panel header strip, toolbars, bars */
+  --ds-bg-3: #26292f;   /* inputs, raised rows, hover */
+  --ds-bg-4: #30343b;   /* pressed / neutral selection */
   --ds-well: #060708;   /* video wells */
   /* lines */
   --ds-line-dark: #050506;
-  --ds-line: #2a2d33;
-  --ds-line-strong: #3b3f47;
+  --ds-line: #2c2f36;
+  --ds-line-strong: #353941;
   /* text */
-  --ds-text: #e6e8eb;
-  --ds-text-2: #a5abb3;
-  --ds-text-3: #6e747d;
+  --ds-text: #f2f4f7;
+  --ds-text-2: #a3abb7;
+  --ds-text-3: #78818e;
   /* accent and semantics */
   --ds-accent: #3d8bfd;
   --ds-accent-hover: #5a9dfd;
   --ds-accent-bg: #142438;
   --ds-timecode: #6cb6ff;
-  --ds-red: #f0484a;
-  --ds-red-hover: #ff5f5f;
+  --ds-red: #ff5d65;
+  --ds-red-hover: #ff7178;
   --ds-red-bg: #2c1416;
   --ds-red-line: #6b2427;
-  --ds-amber: #f2a735;
+  --ds-amber: #ffb65c;
   --ds-amber-bg: #2b2010;
   --ds-amber-line: #644818;
-  --ds-green: #3fb67a;
+  --ds-green: #43d6a6;
   --ds-green-bg: #10261b;
-  --ds-grey: #7f868f;
+  --ds-grey: #8a929e;
   --ds-grey-bg: #1d2024;
+  /* charts (shared with the analytics stream; semantic ones equal the UI semantics) */
+  --chart-1: #55d6f5;
+  --chart-2: #a38bff;
+  --chart-red: var(--ds-red);
+  --chart-amber: var(--ds-amber);
+  --chart-green: var(--ds-green);
+  --chart-axis: #78818e;
+  --chart-grid: #2c2f36;
   /* spacing: 4px scale */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
   /* radii, elevation, focus */
@@ -119,7 +127,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .ds-source.cr-source.is-synthetic::before { background: var(--ds-amber); }
 .ds-live.connection.cr-live { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: var(--ds-text-2); font-size: 12px; white-space: nowrap; }
 .ds-live.connection i { width: 8px; height: 8px; border-radius: 50%; background: var(--ds-text-3); }
-.ds-live.connection[data-status=connected] i { background: var(--ds-green); box-shadow: 0 0 0 3px rgba(63, 182, 122, .18); }
+.ds-live.connection[data-status=connected] i { background: var(--ds-green); box-shadow: 0 0 0 3px rgba(67, 214, 166, .18); }
 .ds-live.connection[data-status=disconnected] { color: var(--ds-amber); }
 .ds-live.connection[data-status=disconnected] i { background: var(--ds-amber); animation: ds-blink 1.2s steps(2) infinite; }
 .ds-live.connection[data-status=connecting] i { background: var(--ds-text-3); animation: ds-blink 1s steps(2) infinite; }
@@ -150,6 +158,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .ds-app .notification-strip > span { flex: 1; }
 .ds-app .notification-strip button { display: inline-flex; padding: 4px; border: 0; background: transparent; color: var(--ds-text-2); border-radius: var(--r2); }
 .ds-app .notification-strip button:hover { background: var(--ds-bg-3); color: #fff; }
+
+/* Pinned alarm bar (red takeover notification away from the dispatcher) */
+.ds-alarm-bar { position: relative; z-index: 6; display: flex; align-items: center; gap: var(--s3); min-height: 44px; padding: 6px var(--s2) 6px var(--s3); background: linear-gradient(90deg, #4a1519, #2c1416 55%); border-bottom: 1px solid var(--ds-red); box-shadow: inset 4px 0 0 var(--ds-red), 0 6px 16px rgba(0, 0, 0, .45); animation: ds-drop .25s var(--ds-ease); }
+.ds-alarm-level { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 9px; border-radius: var(--r2); background: var(--ds-red); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; animation: ds-alarm-pulse 1.6s ease-in-out infinite; }
+.ds-alarm-what { display: grid; min-width: 0; flex: 1; line-height: 1.3; }
+.ds-alarm-what strong { font-size: 14px; font-weight: 700; color: #fff; }
+.ds-alarm-what span { font-size: 12.5px; color: #ffc2c5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-alarm-timer { font-size: 18px; font-weight: 500; color: #fff; padding: 0 var(--s2); border-left: 1px solid var(--ds-red-line); }
+.ds-alarm-open.ds-btn { background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
+.ds-alarm-open.ds-btn:hover:not(:disabled) { background: var(--ds-red-hover); border-color: var(--ds-red-hover); }
+.ds-alarm-collapse.ds-btn { color: #ffc2c5; }
+.ds-alarm-pill { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px; border: 0; border-radius: var(--r2); background: var(--ds-red); color: #fff; font-size: 12px; font-weight: 700; white-space: nowrap; animation: ds-alarm-pulse 1.6s ease-in-out infinite; }
 
 .ds-statusbar { grid-area: status; display: flex; align-items: center; gap: 0; height: var(--ds-status-h); padding: 0 var(--s2); background: var(--ds-bg-2); border-top: 1px solid var(--ds-line-dark); color: var(--ds-text-2); font-size: 12px; white-space: nowrap; overflow: hidden; }
 .ds-sb-item { display: inline-flex; align-items: center; gap: 6px; padding: 0 var(--s3); height: 100%; border-right: 1px solid var(--ds-line); }
@@ -393,6 +413,11 @@ input[type=date] { color-scheme: dark; }
 .ds-app .cr-still { width: min(100cqw, calc(100cqh * 16 / 9)); aspect-ratio: 16 / 9; margin: auto; }
 .ds-app .cr-stage-media > .evidence-frame { width: min(100cqw, calc(100cqh * var(--media-ratio, 1.7777778))); margin: auto; }
 .ds-app .cr-stage-media > .empty-state { width: 100%; border: 0; background: repeating-linear-gradient(135deg, #0b0c0e 0 10px, #08090a 10px 20px); }
+.ds-app .cr-stage.cr-stage-empty { border: 1px solid var(--ds-line-dark); }
+.ds-app .cr-stage.cr-stage-empty > .empty-state { flex: 1; border: 0; background: repeating-linear-gradient(135deg, #0b0c0e 0 10px, #08090a 10px 20px); }
+.ds-app .cr-page > .loading-state, .ds-app .cr-page > .error-notice { align-self: start; }
+.ds-app .cr-stage .media-stamp { font-size: 0; }
+.ds-app .cr-stage .media-stamp b { font-size: 14px; }
 .ds-app .cr-stage-tags { position: absolute; top: calc(var(--ds-panel-head) + 8px); left: 8px; display: flex; gap: 6px; z-index: 5; pointer-events: none; }
 .ds-app .cr-stage.cr-frame-red, .ds-app .cr-stage.cr-frame-yellow { outline: 0; box-shadow: none; }
 .ds-app .cr-stage.cr-frame-red::before { box-shadow: inset 0 2px 0 var(--ds-red); color: #fff; }
@@ -434,7 +459,7 @@ input[type=date] { color-scheme: dark; }
 .ds-app .cr-sector:hover { background: var(--ds-bg-3); }
 .ds-app .cr-sector.is-selected { background: var(--ds-accent-bg); border-color: #24456f; }
 .ds-app .cr-sector-red, .ds-app .cr-sector.is-selected.cr-sector-red { border-left-color: var(--ds-red); }
-.ds-app .cr-sector-red { background: linear-gradient(90deg, rgba(240, 72, 74, .14), transparent 60%), var(--ds-bg-2); }
+.ds-app .cr-sector-red { background: linear-gradient(90deg, rgba(255, 93, 101, .14), transparent 60%), var(--ds-bg-2); }
 .ds-app .cr-sector-yellow, .ds-app .cr-sector.is-selected.cr-sector-yellow { border-left-color: var(--ds-amber); }
 .ds-app .cr-sector-normal { border-left-color: var(--ds-green); }
 .ds-app .cr-sector-no_observation { border-left-style: dashed; border-left-color: var(--ds-grey); }
@@ -467,7 +492,7 @@ input[type=date] { color-scheme: dark; }
 .ds-app .cr-q { animation: ds-row-in .3s var(--ds-ease) both; }
 .ds-app .cr-q button { width: 100%; display: grid; gap: 2px; padding: 7px 10px 8px 12px; border: 0; border-bottom: 1px solid var(--ds-line); border-left: 3px solid transparent; border-radius: 0 !important; background: transparent; color: var(--ds-text); text-align: left; transition: background .1s; }
 .ds-app .cr-q button:hover { background: var(--ds-bg-2); }
-.ds-app .cr-q-red button { border-left-color: var(--ds-red); background: linear-gradient(90deg, rgba(240, 72, 74, .12), transparent 70%); }
+.ds-app .cr-q-red button { border-left-color: var(--ds-red); background: linear-gradient(90deg, rgba(255, 93, 101, .12), transparent 70%); }
 .ds-app .cr-q-yellow button { border-left-color: var(--ds-amber); }
 .ds-app .cr-q-closed button { border-left-color: var(--ds-line-strong); color: var(--ds-text-2); }
 .ds-app .cr-q.is-selected button { background: var(--ds-accent-bg); box-shadow: inset 0 0 0 1px #2a5288; }
@@ -523,7 +548,11 @@ input[type=date] { color-scheme: dark; }
 .ds-app .attention-rail { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); }
 
 /* ========================== Takeover (critical alarm) ========================== */
-.takeover { border-radius: var(--r3) !important; background: #1a0d0e !important; border: 1px solid var(--ds-red) !important; box-shadow: var(--shadow-modal), 0 0 0 4px rgba(240, 72, 74, .18) !important; animation: ds-pop .22s var(--ds-ease); }
+.takeover { border-radius: var(--r3) !important; background: #1a0d0e !important; border: 1px solid var(--ds-red) !important; box-shadow: var(--shadow-modal), 0 0 0 4px rgba(255, 93, 101, .18) !important; animation: ds-pop .22s var(--ds-ease); }
+.takeover { box-shadow: 0 0 0 100vmax rgba(4, 5, 6, .62), var(--shadow-modal), 0 0 0 4px rgba(255, 93, 101, .2) !important; }
+.takeover .button-light { background: var(--ds-red); border-color: var(--ds-red); color: #fff; }
+.takeover .button-light:hover:not(:disabled) { background: var(--ds-red-hover); border-color: var(--ds-red-hover); }
+.takeover-actions { border-top-color: var(--ds-red-line) !important; }
 .takeover-top { font-family: var(--display) !important; font-size: 12px !important; font-weight: 700; letter-spacing: .08em !important; text-transform: uppercase; color: #ff8a8a !important; }
 .takeover h2 { font-size: 28px !important; font-weight: 700 !important; color: #fff; }
 .takeover-sector { font-family: var(--mono) !important; color: var(--ds-red) !important; }

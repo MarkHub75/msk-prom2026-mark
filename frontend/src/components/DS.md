@@ -12,6 +12,7 @@
 | Текст | `--ds-text`, `--ds-text-2` (подписи), `--ds-text-3` (третичный) |
 | Акцент | `--ds-accent`, `--ds-accent-hover`, `--ds-accent-bg` (выбор), `--ds-timecode` (время, таймкоды) |
 | Семантика | `--ds-red(-bg,-line)` тревога, `--ds-amber(-bg,-line)` внимание, `--ds-green(-bg)` норма, `--ds-grey(-bg)` нет наблюдения |
+| Графики | `--chart-1` cyan, `--chart-2` violet, `--chart-red/amber/green` = UI-семантика, `--chart-axis`, `--chart-grid` |
 | Отступы | `--s1` 4 … `--s8` 32 (шаг 4px) |
 | Радиусы, тени | `--r1` 2, `--r2` 3, `--r3` 4; `--shadow-pop`, `--shadow-modal`; `--focus` (фокус-кольцо) |
 | Оболочка | `--ds-top-h` 44, `--ds-status-h` 26, `--ds-rail-w`, `--ds-panel-head` 30 |
