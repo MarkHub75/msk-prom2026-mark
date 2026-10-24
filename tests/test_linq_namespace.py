@@ -93,10 +93,21 @@ class NamespacePureTests(unittest.TestCase):
         fmt = SimpleNamespace(deserialize=lambda body: ({'program_bytes': np.frombuffer(blob,np.uint8)},(),{'status_code':0}))
         for name in ['mosprom_captain_cut_ap9999.tpu', 'matvey_../foreign.tpu']:
             with patch.dict(upload_agent._MODELS, {'helmet': (name,hashlib.sha256(blob).hexdigest())}), \
+                 patch.object(upload_agent,'_cache_namespace',return_value=__import__('pathlib').Path('/auto/cache/fixture/matvey')), \
                  patch.object(upload_agent.tempfile,'TemporaryDirectory') as temporary:
                 with self.assertRaises(upload_agent.UploadError):
                     upload_agent._stage_payload(fmt,b'body','/auto/cache/fixture/matvey','helmet',lambda:None)
                 temporary.assert_not_called()
+
+    def test_upload_symlink_escape_rejected_before_temp_files_or_thread(self):
+        from pathlib import Path
+        with patch.object(Path,'resolve',return_value=Path('/auto/cache/fixture/baseline')), \
+             patch.object(upload_agent.tempfile,'TemporaryDirectory') as temporary, \
+             patch.object(upload_agent.threading,'Thread') as thread:
+            with self.assertRaises(upload_agent.UploadError):
+                upload_agent.UploadAgent(None,'/auto/cache/fixture/matvey',
+                    'matvey_upload_00000000-0000-0000-0000-000000000001',lambda:None)
+            temporary.assert_not_called();thread.assert_not_called()
 
     def test_owned_uri_and_full_uuid_queue(self):
         value='00000000-0000-0000-0000-000000000001'
