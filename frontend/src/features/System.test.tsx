@@ -11,7 +11,7 @@ const metrics = (task: "detect" | "pose"): Schemas["InferenceMetrics"] => ({
 });
 const job = (id: number, patch: Partial<Job> = {}): Job => ({
   id, kind: "process", video_id: id, camera_id: 1, backend: "linq", fake: false, status: "done", stage: "done", progress: 1, attempts: 1,
-  next_attempt_at: null, error_code: null, error_text: null, metrics: [metrics("detect"), metrics("pose")], analysis_id: 1, analysis_ms: 50,
+  next_attempt_at: null, error_code: null, error_text: null, status_text: "", metrics: [metrics("detect"), metrics("pose")], analysis_id: 1, analysis_ms: 50,
   created_at: "2026-10-24T09:00:00Z", started_at: "2026-10-24T09:00:01Z", finished_at: "2026-10-24T09:00:13Z", ...patch,
 });
 const VIEW: Schemas["SystemView"] = {

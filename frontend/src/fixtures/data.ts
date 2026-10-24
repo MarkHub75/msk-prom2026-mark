@@ -63,7 +63,7 @@ export function fixtureHudForCamera(cameraId: number): HudObject[] {
 export function fixtureVideo(cameraId: number): Video {
   return {id: cameraId, camera_id: cameraId, filename: cameraId % 3 === 0 ? "factory-welding-replay.mp4" : "factory-replay.mp4", sha256: videoSha(cameraId),
     size_bytes: cameraId % 3 === 0 ? 2145524 : 2213485, width: 1672, height: 940, fps: 25, frame_count: 750, duration_ms: 30000,
-    codec: "h264", browser_playable: true, status: "ready", active_analysis_id: cameraId,
+    codec: "h264", browser_playable: true, web_playable: true, status: "ready", active_analysis_id: cameraId,
     created_at: "2026-10-24T07:00:00.000Z"};
 }
 
@@ -87,7 +87,7 @@ function summary(id: number, cameraId: number, overrides: Partial<EventSummary>)
     sector_id: sector.id, sector_name: sector.name, zone_id: null, zone_name: null,
     reason_text: "Человек в зоне работы оборудования", notification_text: `Красная опасность · Сектор ${sector.id} · Проверьте доказательный кадр`,
     started_at: "2026-10-24T07:41:52.000Z", published_at: "2026-10-24T07:42:00.000Z", red_at: "2026-10-24T07:42:00.000Z",
-    ended_at: null, duration_s: 26, priority: 3, is_demo: true, ...overrides};
+    ended_at: null, duration_s: 26, priority: 3, is_demo: true, crew: "", ...overrides} as EventSummary;
 }
 
 export function createFixtureEvents(normal = false): EventDetail[] {
@@ -125,7 +125,7 @@ export function createFixtureEvents(normal = false): EventDetail[] {
     if (event.status === "viewed") actions.push({id: event.id * 10 + 1, at: "2026-10-24T07:39:20.000Z", actor_role: "operator", actor_name: "Оператор · демо", action: "viewed", from_status: "new", to_status: "viewed", comment: ""});
     if (event.status === "auto_finished") actions.push({id: event.id * 10 + 1, at: FIXTURE_NOW, actor_role: "system", actor_name: "Review fixture", action: "auto_finished", from_status: "new", to_status: "auto_finished", comment: "Иллюстративное завершение эпизода"});
     return {event, episode, why: [{label: "Наблюдение", value: event.reason_text}, {label: "Источник", value: "Локальные синтетические fixtures. Не результат LinQ."}, ...(missingScenarioMedia ? [{label: "Доказательный материал", value: "Подходящий кадр падения не подготовлен. Иллюстрация стоящего человека не используется как доказательство."}] : [{label: "Материал", value: "Иллюстрация интерфейса: не подтверждает движение или классификацию сценария."}])],
-      actions, allowed_actions: [], provenance: {backend: "local", fake: true, det_model: null, pose_model: null, job_id: null, video_sha256: videoSha(event.camera_id),
+      actions, allowed_actions: [], can_identify: false, provenance: {backend: "local", fake: true, det_model: null, pose_model: null, job_id: null, video_sha256: videoSha(event.camera_id),
         analysis_version: 1, rule_params: {}, evidence_sha256: missingScenarioMedia ? null : imageSha(event.camera_id)}, deliveries: [],
       video_id: missingScenarioMedia ? null : event.camera_id, video_start_ms: missingScenarioMedia ? null : 0, video_end_ms: missingScenarioMedia ? null : 30000, broadcast: missingScenarioMedia ? null : fixtureBroadcast(event.camera_id)};
   });
