@@ -188,7 +188,7 @@ function ShellContent({ children }: { children: ReactNode }) {
         <main key={role} id="workspace" className="shell-main">{children}</main>
       </div>
       <footer className="ds-statusbar" aria-label="Состояние системы">
-        <span className={`ds-sb-item ${serverOnline === false ? "is-bad" : serverOnline ? "is-ok" : ""}`}><Icon name="server" size={13} />Сервер: {serverOnline === undefined ? review ? "проверочный режим" : "проверка…" : serverOnline ? "на связи" : "нет ответа"}</span>
+        <span className={`ds-sb-item ${serverOnline === false ? "is-bad" : serverOnline ? "is-ok" : ""}`}><Icon name="server" size={13} />{import.meta.env.VITE_STATIC_DEMO === "1" ? "Сервер: отсутствует · мок в браузере" : <>Сервер: {serverOnline === undefined ? review ? "проверочный режим" : "проверка…" : serverOnline ? "на связи" : "нет ответа"}</>}</span>
         <span className={`ds-sb-item ${wsStatus === "connected" ? "is-ok" : wsStatus === "disconnected" ? "is-warn" : ""}`}><Icon name={wsStatus === "disconnected" ? "wifi-off" : "wifi"} size={13} />{WS_TEXT[wsStatus]}</span>
         <span className="ds-sb-item"><Icon name="cpu" size={13} />Инференс: {backendTitle}{meta?.fake ? " · фейк-режим" : ""}{backendStatus && !meta?.fake ? ` · ${BACKEND_STATE[backendStatus.state]}${backendStatus.latency_ms !== null ? ` · ${Math.round(backendStatus.latency_ms)} мс` : ""}` : ""}</span>
         {synthetic && <span className="ds-sb-item is-demo"><Icon name="info" size={13} />{review ? "Проверочные данные" : "Демо-данные: синтетические детекции"}</span>}

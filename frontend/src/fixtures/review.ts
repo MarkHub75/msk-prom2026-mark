@@ -26,6 +26,8 @@ function isScenario(value: string | null | undefined): value is ReviewScenario {
 
 /** Review mode is explicit and visible. It is never enabled because a real API failed. */
 export function getReviewScenario(): ReviewScenario | "" {
+  // Pages always runs the checkpoint scenario, even after an earlier review session.
+  if (import.meta.env.VITE_STATIC_DEMO === "1") return "";
   const query = new URLSearchParams(location.search);
   const requested = query.get("review");
   if (["real", "live", "off"].includes(requested ?? "")) {

@@ -9,6 +9,9 @@ export interface UploadProgress { loaded: number; total: number }
 // POST /api/cameras/{id}/videos as multipart with upload progress (fetch has no upload progress).
 // Same headers as the openapi-fetch client: X-Role and X-Actor.
 export function uploadVideo(cameraId: number, file: File, onProgress: (p: UploadProgress) => void): { done: Promise<{ data?: UploadResult; error?: ApiFailure }>; abort: () => void } {
+  if (import.meta.env.VITE_STATIC_DEMO === "1") {
+    return {done: Promise.resolve({error: {code: "not_implemented", message: "Недоступно в статическом демо", status: 501}}), abort: () => {}};
+  }
   const xhr = new XMLHttpRequest();
   const done = new Promise<{ data?: UploadResult; error?: ApiFailure }>((resolve) => {
     const base = import.meta.env.VITE_API_BASE || location.origin;

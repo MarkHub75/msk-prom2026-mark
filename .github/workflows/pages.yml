@@ -1,0 +1,95 @@
+name: Pages
+
+on:
+  push:
+    branches: [front/pages]
+  workflow_dispatch:
+
+concurrency:
+  group: argus-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      pages_enabled: ${{ steps.pages.outputs.enabled }}
+    defaults:
+      run:
+        working-directory: frontend
+    env:
+      PAGES_BASE: /${{ github.event.repository.name }}/
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          sparse-checkout: |
+            .github
+            frontend
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - name: Build static demo
+        env:
+          VITE_STATIC_DEMO: "1"
+        run: |
+          npm run build -- --base "$PAGES_BASE"
+          node scripts/pages-prepare.mjs
+      - name: Install browser on the cloud runner
+        run: |
+          npm install --prefix "$RUNNER_TEMP/argus-playwright" --no-package-lock --no-audit --no-fund playwright@1.64.1
+          "$RUNNER_TEMP/argus-playwright/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Playwright smoke against static files
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/argus-playwright/node_modules/playwright/index.mjs
+          SMOKE_OUTPUT: ${{ runner.temp }}/argus-smoke
+        run: |
+          node scripts/static-demo-serve.mjs > "$RUNNER_TEMP/argus-static-server.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          curl --retry 20 --retry-connrefused --retry-delay 1 --fail --silent --show-error "http://127.0.0.1:4173$PAGES_BASE" -o /dev/null
+          node scripts/static-demo-smoke.mjs
+      - name: Upload smoke screenshots
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: static-demo-smoke
+          path: ${{ runner.temp }}/argus-smoke
+          if-no-files-found: ignore
+      - uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: frontend/dist
+      - name: Check Pages configuration
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/$GITHUB_REPOSITORY/pages" > "$RUNNER_TEMP/argus-pages.json"; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo '::warning::Build and smoke passed. An admin must enable Settings > Pages > Source: GitHub Actions, allow front/pages in the github-pages environment, then rerun this workflow.'
+            echo '### Deployment pending: repository admin must enable GitHub Pages' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.pages_enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1
