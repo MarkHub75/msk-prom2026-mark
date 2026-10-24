@@ -6,7 +6,7 @@ import httpx
 import pytest
 from conftest import FakeClock
 from test_analysis_api import _textured
-from test_export import rows
+from test_export import COLUMNS, rows
 
 from safewatch import config, services
 from safewatch.fakes.remote import FakeRemoteShell
@@ -100,8 +100,8 @@ async def test_flow_lands_in_journal(
     assert image.headers["content-type"] == "image/jpeg"
     body = (await client.get("/api/events/export.csv", params=params)).content
     (row,) = rows(body)[1:]
-    history = row[-1]
+    history = row[COLUMNS.index("история")]
     steps = ["опубликовано", "подтверждено", "передано мастеру", "мастер принял", "решено"]
     assert [part.split(": ", 1)[1].split(" (")[0] for part in history.split("; ")] == steps
     assert history.endswith("(Помог подняться)")
-    assert len(row[-2]) == 64  # sha256 of the confirm frame
+    assert len(row[COLUMNS.index("sha256 кадра")]) == 64  # sha256 of the confirm frame
