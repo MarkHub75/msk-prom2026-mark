@@ -112,6 +112,7 @@ def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     monkeypatch.setattr(services, "_camera_seen", {})
     monkeypatch.setattr(services, "_sector_seen", {})
     monkeypatch.setattr(services, "_preview_cache", {})
+    monkeypatch.setattr(services, "_frames_ts", {})
     yield db
     db.close()
 

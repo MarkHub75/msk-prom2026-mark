@@ -427,8 +427,11 @@ SELECT c.id AS camera_id, c.sector_id,
     (SELECT j.status FROM jobs j JOIN videos v ON v.id = j.video_id WHERE v.camera_id = c.id
         ORDER BY j.id DESC LIMIT 1) AS last_job,
     (SELECT b.status FROM broadcasts b WHERE b.camera_id = c.id ORDER BY b.id DESC LIMIT 1)
-        AS last_broadcast
+        AS last_broadcast,
+    b.position_ms, b.analysis_id, a.gaps_json, a.hud_path
 FROM cameras c
+LEFT JOIN broadcasts b ON b.camera_id = c.id AND b.status = 'playing'
+LEFT JOIN analyses a ON a.id = b.analysis_id
 WHERE c.deleted_at IS NULL
 ORDER BY c.sector_id, c.name, c.id
 """

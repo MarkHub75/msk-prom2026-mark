@@ -4,6 +4,7 @@ from typing import Any
 
 import httpx
 import pytest
+from test_broadcast import hud_file
 
 from safewatch import services, store
 from safewatch.config import Settings
@@ -147,7 +148,7 @@ def _playing_broadcast(camera_id: int) -> int:
         })  # fmt: skip
         analysis = store.insert("analyses", {
             "video_id": video, "version": 1, "det_artifact_id": artifact, "config_json": "{}",
-            "hud_path": "h", "gaps_json": "[]", "duration_ms": 40, "created_at": AT,
+            "hud_path": hud_file("h", [0]), "gaps_json": "[]", "duration_ms": 40, "created_at": AT,
         })  # fmt: skip
         return store.insert("broadcasts", {
             "camera_id": camera_id, "video_id": video, "analysis_id": analysis,

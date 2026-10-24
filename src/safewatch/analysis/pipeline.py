@@ -5,8 +5,8 @@ from collections.abc import Callable
 from pathlib import Path
 
 from safewatch import config as app_config
-from safewatch import rules
-from safewatch.analysis import features, geometry, hud
+from safewatch import media, rules
+from safewatch.analysis import features, geometry, hud, observability
 from safewatch.analysis.episodes import EpisodeManager
 from safewatch.analysis.tracking import Tracker
 from safewatch.types import (
@@ -58,7 +58,7 @@ def _ground(config: AnalysisConfig) -> Callable[[Point], Point | None] | None:
 def analyze(
     det: list[FrameDetections],
     pose: list[FrameDetections] | None,
-    video_path: Path,  # read from slice 11 on (sample_luma)
+    video_path: Path,  # only for sample_luma
     config: AnalysisConfig,
     pose_model: ModelSpec | None,
     det_model: ModelSpec,
@@ -82,6 +82,11 @@ def analyze(
     plugins = _plugins(config)
     episodes = EpisodeManager(settings.episodes)
     frames: list[HudFrame] = []
+    obs = settings.observability
+    luma = media.sample_luma(video_path, obs.sample_s)
+    gaps = observability.find_gaps([round(f.ts_ms) for f in det], luma, config.duration_ms, obs)
+    # A stale gap has no frames: the episode manager counts its time as unseen by itself.
+    blind = [g for g in gaps if g.reason != "stale"]
     for frame in det:
         ts = round(frame.ts_ms)
         persons: list[Detection] = []
@@ -137,11 +142,13 @@ def analyze(
         observations: list[Observation] = []
         for plugin, params in plugins:
             observations += plugin.observe(ctx, params)
+        if any(g.start_ms <= ts < g.end_ms for g in blind):
+            observations = []  # a dark or covered frame says nothing: U for every subject
         episodes.update(frame.frame_idx, ts, observations)
         frames.append(hud.build_hud(ctx, hud_running, settings.features, observations))
     return AnalysisResult(
         hud=frames,
         episodes=episodes.finish(config.duration_ms),
-        gaps=[],
+        gaps=gaps,
         pose_used=pose is not None,
     )
