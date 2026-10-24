@@ -52,6 +52,7 @@ def summarize(observations,mutations,windows):
              'possible_duplicate_additional_episodes':max(0,sum(x[1] for x in supported)-1)})
     count=len(records);persons=sum(o['eligible_persons'] for o in observations);unknown=sum(o['unknown_postures'] for o in observations)
     return {'scope':'SOURCE_POSITIVE_WINDOW_HIT_COVERAGE_NOT_INDEPENDENT_EVENT_RECALL',
+        'source_unknown_fraction_of_sampled_frames':sum(o.get('source_membership','UNKNOWN')=='UNKNOWN' for o in observations)/len(observations) if observations else None,
         'sampled_frames':len(observations),'frames_with_eligible_person':sum(o['eligible_persons']>0 for o in observations),
         'eligible_person_detections':persons,'full_visible_torso_detections':sum(o['full_torsos'] for o in observations),
         'torso_available_fraction_of_eligible_detections':sum(o['full_torsos'] for o in observations)/persons if persons else None,
@@ -103,8 +104,10 @@ def prepare(pointer,output):
 
 def run(pointer,output,model_manifest,weights):
     # Reverify producer bytes and use BEFORE decoding any pixels/model forward.
-    load_producer_ready(pointer,dataset_id=DATASET,allowed_use=USE)
+    current,verified=load_producer_ready(pointer,dataset_id=DATASET,allowed_use=USE)
     out=Path(output);protocol=json.loads((out/'protocol.json').read_text())
+    if current!=protocol['producer_manifest'] or verified['manifest_sha256']!=protocol['producer_verification']['manifest_sha256']:
+        raise ValueError('prepared producer version changed')
     manifest=json.loads(Path(model_manifest).read_text())
     if manifest['decoder']!='split_pose_v8' or sha256(weights)!=manifest['artifacts']['weights']['sha256']:
         raise ValueError('same trusted split-pose checkpoint required')
@@ -150,7 +153,8 @@ def run(pointer,output,model_manifest,weights):
                                     if all(k[i][2]>=engine.config['keypoint_score'] for i in (5,6,11,12)):
                                         a=[(k[5][j]+k[6][j])/2 for j in (0,1)];b=[(k[11][j]+k[12][j])/2 for j in (0,1)]
                                         full+=math.hypot(a[0]-b[0],a[1]-b[1])>=engine.config['min_torso_px']
-                                row={'video_id':video['video_id'],'source_frame_index':index,'source_pts_ms':batch['media_time_ms'],
+                                membership=[w['native_event_ordinal'] for w in protocol['windows'] if w['video_path']==video['path'] and w['start_ms']<=batch['media_time_ms']<=w['last_ms']]
+                                row={'source_membership':membership or 'UNKNOWN','video_id':video['video_id'],'source_frame_index':index,'source_pts_ms':batch['media_time_ms'],
                                      'eligible_persons':len(people),'full_torsos':int(full),'unknown_postures':sum(engine._posture(p)=='unknown' for p in people),'batch':batch}
                                 obsfile.write(json.dumps(row,allow_nan=False)+'\n');observations.append(row)
                                 events=engine.update(batch)
