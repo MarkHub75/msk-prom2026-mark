@@ -1,5 +1,7 @@
 """Slice 10: the `proximity` plugin (tech.md 8.3) and the vehicle features (8.2 item 6)."""
 
+import re
+
 import pytest
 from test_rule_running import PERSON, context, person, zone
 
@@ -8,7 +10,14 @@ from safewatch.analysis import features
 from safewatch.analysis.episodes import EpisodeManager
 from safewatch.config import get_settings
 from safewatch.rules.proximity import ProximityPlugin
-from safewatch.types import Detection, FrameContext, Observation, PersonState, VehicleState
+from safewatch.types import (
+    Detection,
+    EpisodeDraft,
+    FrameContext,
+    Observation,
+    PersonState,
+    VehicleState,
+)
 
 
 def truck(
@@ -139,3 +148,41 @@ def test_two_people_two_episodes() -> None:
     episodes = manager.finish(2000)
     assert sorted(e.subject for e in episodes) == ["pair:1-9", "pair:2-9"]
     assert {e.level_initial for e in episodes} == {"red"}
+
+
+@pytest.mark.parametrize(
+    ("scenario", "code", "reason", "method", "zone_id"),
+    [
+        ("proximity", "proximity_zone", "Человек в зоне «Пресс»", "bbox", 7),
+        ("proximity", "proximity_red", "Сближение с грузовиком: 0,4 роста", "relative", None),
+        ("proximity", "proximity_red", "Сближение с грузовиком: 1,0 м", "calibrated", None),
+        ("phone", "phone_zone", "Телефон в руке", "bbox", 7),
+        (
+            "fence_crossing",
+            "fence_unseen",
+            "Пересечение ограждения «Л»: момент не виден",
+            "bbox",
+            7,
+        ),
+        ("restricted_under", "under_zone", "Человек в зоне «Кран»", "bbox", 7),
+        ("fire_smoking", "fire", "Открытый огонь вне разрешённой зоны", "bbox", None),
+        ("no_harness", "no_harness", "Работа на высоте без привязи", "bbox", None),
+        ("suspended_load", "suspended_load", "Человек под подвешенным грузом", "bbox", None),
+    ],
+)
+def test_explain_has_units(
+    scenario: str, code: str, reason: str, method: str, zone_id: int | None
+) -> None:
+    """Debt S10: the rule line of every S10 plugin names its threshold with a unit."""
+    draft = EpisodeDraft(
+        scenario=scenario, subject="fire" if scenario == "fire_smoking" else "track:1",
+        zone_id=zone_id, level_initial="red", level_max="red", start_ms=0, confirm_ms=1000,
+        escalate_ms=None, end_ms=5000, end_reason="video_end", reason_code=code,
+        reason_text=reason, method=method, confidence=0.9, metrics={"score": 0.8},
+        uncertain_ms=0, confirm_frame_idx=10, escalate_frame_idx=None,
+    )  # fmt: skip
+    rule, *rest = rules.plugin(scenario).explain(draft, rules.defaults(scenario))
+    assert rule.label == "Правило"
+    assert reason in rule.value or code in ("proximity_red", "phone_zone")  # zone in the reason
+    assert re.search(r"\d(,\d+)? (с|м|роста)", rule.value), rule.value
+    assert ("Уверенность объекта", "0,8") in [(w.label, w.value) for w in rest]
