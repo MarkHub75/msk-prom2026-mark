@@ -46,7 +46,7 @@ export function BroadcastTab({ camera, videos, broadcast, onChange }: { camera: 
             <div><dt>Запись</dt><dd className="adm-ellipsis">{airVideo?.filename ?? `видео ${broadcast.video_id}`}</dd></div>
             <div><dt>Анализ</dt><dd>#{broadcast.analysis_id}</dd></div>
             <div><dt>Старт</dt><dd>{time(broadcast.started_at)}</dd></div>
-            <div><dt>Позиция</dt><dd className="adm-tc">{duration(broadcast.position_ms)} / {duration(broadcast.duration_ms)}</dd></div>
+            <div><dt title="На момент последнего ответа сервера">Позиция</dt><dd className="adm-tc">{duration(broadcast.position_ms)} / {duration(broadcast.duration_ms)}</dd></div>
             <div><dt>Круг</dt><dd>{broadcast.cycle + 1}</dd></div>
             <div><dt>Повтор</dt><dd>{broadcast.loop ? "по кругу" : "один раз"}</dd></div>
           </dl>}

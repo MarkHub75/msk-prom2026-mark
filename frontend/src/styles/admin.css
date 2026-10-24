@@ -239,3 +239,6 @@
   .adm-table td, .adm-table th { padding-left: 6px; padding-right: 6px; }
 }
 .adm-wait { display: grid; gap: 6px; width: 320px; font-size: 12px; color: var(--muted); }
+.adm-air .recorded-player { max-width: max(480px, calc((100vh - 330px) * 16 / 9)); }
+.adm-ep-list .adm-tc { white-space: nowrap; }
+@media (max-width: 1500px) { .adm-ep-list button { grid-template-columns: 80px minmax(110px, auto) 100px minmax(0, 1fr); } }
