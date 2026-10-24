@@ -744,10 +744,7 @@ def _stored_artifact(artifact_id: int) -> tuple[ModelSpec, int] | None:
 
 def _analysis_inputs(
     video: sqlite3.Row,
-) -> (
-    tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None, list[tuple[ModelSpec, int]]]
-    | None
-):
+) -> tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None, list[tuple[ModelSpec, int]]] | None:
     """Artifacts of the active analysis for a recompute; `None` when a file is gone."""
     analysis = store.analysis(video["active_analysis_id"] or 0)
     if analysis is None:
