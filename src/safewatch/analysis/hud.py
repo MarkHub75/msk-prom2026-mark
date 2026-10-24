@@ -28,15 +28,22 @@ def _kpts(points: list[Keypoint] | None, w: int, h: int) -> list[Keypoint] | Non
     return [(_unit(x, w), _unit(y, h), conf) for x, y, conf in points]
 
 
-def _person_tags(p: PersonState, ts_ms: int, run_bh_s: float, cfg: FeaturesConfig) -> list[HudTag]:
+def _person_tags(
+    p: PersonState, ts_ms: int, running: dict[str, float], cfg: FeaturesConfig
+) -> list[HudTag]:
     tags = []
-    if p.speed_bh_s is not None:
-        v = texts.fmt_num(p.speed_bh_s)
+    speed, limit, run_text, speed_text = (
+        (p.speed_m_s, running["speed_m_s"], texts.HUD_RUN_M, texts.HUD_SPEED_M)
+        if p.speed_m_s is not None  # calibrated floor, as in the running rule
+        else (p.speed_bh_s, running["speed_bh_s"], texts.HUD_RUN_BH, texts.HUD_SPEED_BH)
+    )
+    if speed is not None:
+        v = texts.fmt_num(speed)
         # Same comparison as the running rule: the HUD turns yellow where the rule would fire.
-        if p.speed_bh_s >= run_bh_s:
-            tags.append(HudTag(code="speed", text=texts.HUD_RUN_BH.format(v=v), level="yellow"))
+        if speed >= limit:
+            tags.append(HudTag(code="speed", text=run_text.format(v=v), level="yellow"))
         else:
-            tags.append(HudTag(code="speed", text=texts.HUD_SPEED_BH.format(v=v), level=None))
+            tags.append(HudTag(code="speed", text=speed_text.format(v=v), level=None))
     if p.posture == "lying" and p.lying_since_ms is not None:
         n = (ts_ms - p.lying_since_ms) // 1000
         tags.append(HudTag(code="lying", text=texts.HUD_LYING.format(n=n), level=None))
@@ -51,9 +58,12 @@ def _person_tags(p: PersonState, ts_ms: int, run_bh_s: float, cfg: FeaturesConfi
 
 
 def build_hud(
-    ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig, observations: list[Observation]
+    ctx: FrameContext,
+    running: dict[str, float],
+    cfg: FeaturesConfig,
+    observations: list[Observation],
 ) -> HudFrame:
-    """`run_bh_s`: the running threshold that turns the speed tag yellow."""
+    """`running`: effective parameters of the camera's running rule (speed_bh_s, speed_m_s)."""
     w, h = ctx.width, ctx.height
     violations: dict[str, list[HudTag]] = {}  # subject → one tag per positive observation
     for o in observations:
@@ -68,7 +78,7 @@ def build_hud(
             score=p.score,
             bbox=_box(p.bbox, w, h),
             kpts=_kpts(p.kpts, w, h),
-            tags=_person_tags(p, ctx.ts_ms, run_bh_s, cfg)
+            tags=_person_tags(p, ctx.ts_ms, running, cfg)
             + violations.get(f"track:{p.track_id}", []),
         )
         for p in ctx.persons

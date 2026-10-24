@@ -436,3 +436,57 @@ ORDER BY c.sector_id, c.name, c.id
 
 def camera_state_rows() -> list[sqlite3.Row]:
     return all(_CAMERA_STATES)
+
+
+def supersedable_events(video_id: int, analysis_id: int) -> list[sqlite3.Row]:
+    """Untouched events of the video from analyses older than `analysis_id` (tech.md 8.12)."""
+    sql = """SELECT e.* FROM events e JOIN episodes ep ON ep.id = e.episode_id
+WHERE e.video_id = ? AND ep.analysis_id != ? AND e.status IN ('new', 'auto_finished')
+ORDER BY e.id"""
+    return all(sql, video_id, analysis_id)
+
+
+# --- calibration, zones, rules ------------------------------------------------------------
+def calibration(camera_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM calibrations WHERE camera_id = ?", camera_id)
+
+
+def calibration_put(values: dict[str, Any]) -> None:
+    run("DELETE FROM calibrations WHERE camera_id = ?", values["camera_id"])
+    insert("calibrations", values)
+
+
+def calibration_delete(camera_id: int) -> None:
+    run("DELETE FROM calibrations WHERE camera_id = ?", camera_id)
+
+
+def zones(camera_id: int) -> list[sqlite3.Row]:
+    sql = "SELECT * FROM zones WHERE camera_id = ? AND deleted_at IS NULL ORDER BY id"
+    return all(sql, camera_id)
+
+
+def zone(zone_id: int) -> sqlite3.Row | None:
+    """A live zone of a live camera."""
+    sql = """SELECT z.* FROM zones z JOIN cameras c ON c.id = z.camera_id
+WHERE z.id = ? AND z.deleted_at IS NULL AND c.deleted_at IS NULL"""
+    return one(sql, zone_id)
+
+
+def zone_update(zone_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE zones SET {assignments} WHERE id = ?", *values.values(), zone_id)
+
+
+def camera_rules(camera_id: int | None = None) -> list[sqlite3.Row]:
+    """Stored rule rows of one camera, or of every camera when `camera_id` is None."""
+    sql = "SELECT * FROM camera_rules WHERE ? IS NULL OR camera_id = ?"
+    return all(sql, camera_id, camera_id)
+
+
+def camera_rule_put(values: dict[str, Any]) -> None:
+    sql = """INSERT INTO camera_rules (camera_id, scenario, enabled, params_json, updated_at)
+VALUES (?, ?, ?, ?, ?) ON CONFLICT (camera_id, scenario) DO UPDATE SET
+    enabled = excluded.enabled, params_json = excluded.params_json,
+    updated_at = excluded.updated_at"""
+    run(sql, values["camera_id"], values["scenario"], values["enabled"],
+        values["params_json"], values["updated_at"])  # fmt: skip
