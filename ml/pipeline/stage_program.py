@@ -1,8 +1,7 @@
-"""Run INSIDE organizer Jupyter to stage reviewed Helmet bytes, stdlib only.
+"""Stage reviewed own bytes INSIDE an explicitly owned Matvey Jupyter folder.
 
-The AMQP file:// URI refers to the worker's filesystem, never the Vast path.
-This checks the existing stock-program namespace before creating one new file.
-No credentials, broker connection, guessed alternative paths or overwrites.
+Stdlib only. No stock/captain/baseline lookup, guessed path, broker access or
+overwrite. Account identity is supplied privately by the authorized notebook.
 """
 import argparse
 import hashlib
@@ -10,13 +9,13 @@ import json
 import os
 from pathlib import Path
 import shutil
-import stat
+import re
 
-PROGRAM_NAME='helmet-v1.tpu'
+PROGRAM_NAME='matvey_helmet-v1.tpu'
 PROGRAM_SHA256='408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa'
-STOCK_NAME='torch_resnet50_b1_o5_h1m.tpu'
-POSE_NAME='pose-split-v1.tpu'
+POSE_NAME='matvey_pose-split-v1.tpu'
 POSE_SHA256='c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b'
+CACHE_ROOT=Path('/auto/cache')
 
 
 def file_hash(path):
@@ -26,17 +25,38 @@ def file_hash(path):
     return value.hexdigest()
 
 
-def stage(cache_dir, source=None, model='helmet'):
+def owned_cache_directory(cache_dir, owner_login, *, create=False):
+    """Validate literal identity and reject symlink escapes before any write."""
+    if (not isinstance(owner_login,str) or not re.fullmatch(r'[A-Za-z0-9_@+-][A-Za-z0-9_@.+-]*',owner_login)
+            or '..' in owner_login):
+        raise ValueError('private explicit runtime account required')
+    expected=CACHE_ROOT/owner_login/'matvey'
+    directory=Path(cache_dir)
+    if directory!=expected or str(cache_dir)!=str(directory):
+        raise ValueError('only the runtime account matvey directory is allowed')
+    parent=expected.parent
+    if not parent.is_dir() or parent.resolve()!=parent or directory.is_symlink():
+        raise ValueError('owned directory parent is missing or symlinked')
+    if create and not directory.exists():directory.mkdir(mode=0o755)
+    if not directory.is_dir() or directory.resolve()!=directory:
+        raise FileNotFoundError('owned matvey directory must be explicitly prepared')
+    return directory
+
+
+def stage(cache_dir, source=None, model='helmet', *, owner_login=None):
+    directory=owned_cache_directory(cache_dir,owner_login)
     if model=='helmet':
         name,expected=PROGRAM_NAME,PROGRAM_SHA256
     elif model=='pose-split':
         name,expected=POSE_NAME,POSE_SHA256
     else:
         raise ValueError('only reviewed Helmet and Split-Pose programs are allowed')
+    if not name.startswith('matvey_') or '/' in name or '..' in name or 'mosprom_' in name or '_cut_ap9999' in name:
+        raise ValueError('protected or foreign program name forbidden')
     source=Path(source) if source is not None else Path(__file__).resolve().parent/name
-    directory=Path(cache_dir).resolve()
-    if not directory.is_dir() or not (directory/STOCK_NAME).is_file():
-        raise FileNotFoundError('the selected cache directory does not contain the confirmed stock program')
+    if (source.is_symlink() or not source.resolve().is_relative_to(directory)
+            or not source.name.startswith('matvey_') or not source.is_file()):
+        raise ValueError('source must be a regular own program inside matvey')
     if file_hash(source)!=expected:
         raise ValueError('source program differs from reviewed Helmet bytes')
     target=directory/name
@@ -51,8 +71,8 @@ def stage(cache_dir, source=None, model='helmet'):
                 created=True
                 shutil.copyfileobj(incoming,output,1024*1024)
                 output.flush();os.fsync(output.fileno())
-                # Match read permissions of the already working stock program.
-                os.fchmod(output.fileno(),stat.S_IMODE((directory/STOCK_NAME).stat().st_mode)&0o666)
+                # Own model bytes contain no credentials; service worker needs read.
+                os.fchmod(output.fileno(),0o644)
             if file_hash(target)!=expected:
                 raise ValueError('staged program checksum mismatch')
         except Exception:
@@ -60,7 +80,7 @@ def stage(cache_dir, source=None, model='helmet'):
             raise
         state='STAGED'
     return {'status':state,'program_name':name,'program_sha256':expected,
-            'stock_program_present_in_selected_namespace':True,
+            'namespace_owner':'matvey','program_path_namespace_verified':True,
             'worker_visibility':'NOT_VERIFIED_UNTIL_HELMET_REQUEST',
             'filesystem_path_and_account_not_exported':True}
 
@@ -70,14 +90,18 @@ def main():
     parser.add_argument('--cache-dir',required=True)
     parser.add_argument('--program-file')
     parser.add_argument('--model',choices=['helmet','pose-split'],default='helmet')
-    parser.add_argument('--receipt',default='helmet-staging-receipt.json')
+    parser.add_argument('--receipt',default='matvey_staging_receipt.json')
     args=parser.parse_args()
     try:
-        result=stage(args.cache_dir,args.program_file,args.model)
+        directory=owned_cache_directory(args.cache_dir,os.environ.get('LINQ_LOGIN'))
+        receipt=directory/args.receipt
+        if Path(args.receipt).name!=args.receipt or not args.receipt.startswith('matvey_'):
+            raise ValueError('own receipt basename required')
+        result=stage(directory,args.program_file,args.model,owner_login=os.environ.get('LINQ_LOGIN'))
     except Exception as exc:
         print(json.dumps({'status':'NOT_STAGED','error_type':type(exc).__name__}))
         return 1
-    with Path(args.receipt).open('x') as output:json.dump(result,output,indent=2)
+    with receipt.open('x') as output:json.dump(result,output,indent=2)
     print(json.dumps(result))
     return 0
 
