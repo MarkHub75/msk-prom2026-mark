@@ -77,6 +77,24 @@ describe("calculator (tech.md 8.25)", () => {
     expect(market.textContent).toContain("от 480 000 ₽");
   });
 
+  it("a 422 with details.field marks that assumption and keeps the last result (live backend, slice 24)", async () => {
+    serve(async r => {
+      if (path(r) === "/api/calculator/defaults") return Response.json(DEFAULTS);
+      if (path(r) === "/api/calculator/rollout") {
+        const body = await r.json() as { overrides: Record<string, number> };
+        if (body.overrides["accelerator.price_rub"] === 0) return Response.json({ code: "validation", message: "Неверное значение: overrides.accelerator.price_rub", details: { field: "overrides.accelerator.price_rub" } }, { status: 422 });
+        return Response.json({ ...ROLLOUT, tiers: ROLLOUT.tiers.map(t => ({ ...t, items: [...t.items, { label: "Окупаемость", value: "13,4 мес." }] })) });
+      }
+    });
+    open("/calculator", "management");
+    await screen.findByTestId("tier-base");
+    expect(within(screen.getByTestId("tier-base")).queryByText("Окупаемость", { selector: "dt" })).toBeNull();
+    fireEvent.change(screen.getByLabelText("Цена ускорителя LinQ"), { target: { value: "0" } });
+    expect(await screen.findByText("Сервер не принял это значение")).toBeTruthy();
+    expect(screen.queryByText(/overrides.accelerator/)).toBeNull();
+    expect(screen.getByTestId("tier-base")).toBeTruthy();
+  });
+
   it("does not post an invalid field and says what to fix", async () => {
     calcServer();
     open("/calculator", "management");
