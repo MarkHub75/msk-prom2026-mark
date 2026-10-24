@@ -185,7 +185,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
       <Panel title="История эпизода"><EpisodeHistory detail={detail} /></Panel>
       <Panel title="Действия людей" aside={detail.actions.length}><History actions={detail.actions} /></Panel>
       <Panel title="Происхождение"><Provenance detail={detail} /></Panel>
-      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status === "sent" ? "доставлено" : "ошибка"}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
+      {detail.deliveries.length > 0 && <Panel title="Доставка уведомлений" aside={detail.deliveries.length}><ul className="ic-deliveries">{detail.deliveries.map((d, i) => <li key={i}><time className="mono">{time(d.at)}</time><span>{d.channel}</span><span>{d.status_text || (d.status === "sent" ? "доставлено" : "ошибка")}</span>{d.error && <small>{d.error}</small>}</li>)}</ul></Panel>}
     </aside>
   </div>;
 }
