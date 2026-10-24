@@ -66,20 +66,17 @@ function Uploader({ camera, onJob, onChange }: { camera: Camera; onJob: (job: Jo
 
 function Metrics({ job }: { job: Job }) {
   if (!job.metrics.length) return <p className="adm-muted adm-metrics-none">{job.status === "done" ? "Сервер не прислал замеров для этой задачи." : "Замеры появятся, когда закончится инференс."}</p>;
-  return <table className="adm-metrics">
-    <thead><tr><th>Задача</th><th>Модель</th><th title="Кадров обработано">Кадров</th><th title="Кадров в секунду">кадр/с</th><th title="Предобработка, мс на кадр">пре, мс</th><th title="Постобработка, мс на кадр">пост, мс</th><th title="Время ответа TPU, мс: медиана / 90-й перцентиль">RTT p50 / p90</th><th title="Загрузка на TPU, с">загр., с</th><th title="Всего, с">всего, с</th></tr></thead>
-    <tbody>{job.metrics.map((m, i) => <tr key={i}>
-      <td>{TASK[m.task] ?? m.task}{m.cached && <i className="adm-tag" title="Результат взят из кэша">кэш</i>}</td>
-      <td><code>{m.model_id}@{m.model_version}</code><small>{m.backend === "linq" ? "LinQ" : "локально"}{m.fake ? " · фейк" : ""} · {m.input_size}px · шаг {m.step}</small></td>
-      <td className="num">{m.frames_processed}</td>
-      <td className="num">{fmt(m.throughput_fps)}</td>
-      <td className="num">{fmt(m.preprocess_ms)}</td>
-      <td className="num">{fmt(m.postprocess_ms)}</td>
-      <td className="num">{fmt(m.tpu_rtt_p50_ms, 0)} / {fmt(m.tpu_rtt_p90_ms, 0)}</td>
-      <td className="num">{fmt(m.upload_s)}</td>
-      <td className="num">{fmt(m.total_s)}</td>
-    </tr>)}</tbody>
-  </table>;
+  return <div className="adm-metrics">{job.metrics.map((m, i) => <div key={i} className="adm-metric">
+    <div className="adm-metric-head"><b>{TASK[m.task] ?? m.task}</b><code className="adm-ellipsis" title={`${m.model_id}@${m.model_version}`}>{m.model_id}@{m.model_version}</code><span className="adm-muted">{m.input_size}px · шаг {m.step}</span>{m.cached && <i className="adm-tag" title="Результат взят из кэша">кэш</i>}</div>
+    <dl>
+      <div><dt>кадров</dt><dd>{m.frames_processed}</dd></div>
+      <div><dt>кадр/с</dt><dd>{fmt(m.throughput_fps)}</dd></div>
+      <div><dt title="мс на кадр: предобработка / постобработка">пре / пост, мс</dt><dd>{fmt(m.preprocess_ms)} / {fmt(m.postprocess_ms)}</dd></div>
+      <div><dt title="Время ответа TPU: медиана / 90-й перцентиль">RTT p50 / p90, мс</dt><dd>{fmt(m.tpu_rtt_p50_ms, 0)} / {fmt(m.tpu_rtt_p90_ms, 0)}</dd></div>
+      <div><dt>загрузка, с</dt><dd>{fmt(m.upload_s, 2)}</dd></div>
+      <div><dt>всего, с</dt><dd>{fmt(m.total_s, 2)}</dd></div>
+    </dl>
+  </div>)}</div>;
 }
 
 function JobCard({ job, video, onJob, onChange }: { job: Job; video?: Video; onJob: (job: Job) => void; onChange: () => void }) {
