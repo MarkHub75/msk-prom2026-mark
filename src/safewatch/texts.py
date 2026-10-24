@@ -69,6 +69,16 @@ ROLE_REQUIRED = "Выберите роль"
 ACTOR_INVALID = "Имя: до 60 символов"
 NOT_IMPLEMENTED = "Функция появится в слайсе {slice}"
 VIDEOS_DIR_MISSING = "Папка с видео не найдена: {path}"
+FORBIDDEN_ROLE = "Действие недоступно для этой роли"
+
+# Sectors and cameras (tech.md 9).
+NAME_INVALID = "Название: от 1 до 80 символов"
+DESCRIPTION_INVALID = "Описание: до 300 символов"
+SECTOR_NOT_FOUND = "Сектор не найден"
+CAMERA_NOT_FOUND = "Камера не найдена"
+SECTOR_NAME_TAKEN = "Сектор с таким названием уже есть"
+SECTOR_NOT_EMPTY = "В секторе есть камеры: сначала удалите или перенесите их"
+SECTOR_HAS_HISTORY = "Сектор хранит историю удалённых камер и событий: его нельзя удалить"
 
 # Demo world (tech.md 8.16).
 DEMO_SECTORS = [

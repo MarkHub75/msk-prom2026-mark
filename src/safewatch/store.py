@@ -71,6 +71,66 @@ def insert(table: str, values: dict[str, Any]) -> int:
     return run(f"INSERT INTO {table} ({columns}) VALUES ({marks})", *values.values())
 
 
+# --- sectors, cameras ---------------------------------------------------------------------
+def sectors() -> list[sqlite3.Row]:
+    return all("SELECT * FROM sectors ORDER BY sort_order, name")
+
+
+def sector(sector_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM sectors WHERE id = ?", sector_id)
+
+
+def sector_name_taken(name: str, except_id: int | None = None) -> bool:
+    row = one("SELECT 1 FROM sectors WHERE name = ? AND id IS NOT ?", name, except_id)
+    return row is not None
+
+
+def sector_update(sector_id: int, name: str, sort_order: int) -> None:
+    run("UPDATE sectors SET name = ?, sort_order = ? WHERE id = ?", name, sort_order, sector_id)
+
+
+def sector_has_cameras(sector_id: int) -> bool:
+    sql = "SELECT 1 FROM cameras WHERE sector_id = ? AND deleted_at IS NULL LIMIT 1"
+    return one(sql, sector_id) is not None
+
+
+def sector_delete(sector_id: int) -> None:
+    run("DELETE FROM sectors WHERE id = ?", sector_id)
+
+
+# Counters of the Camera model in one query: no per-camera round trips.
+_CAMERAS = """
+SELECT c.*,
+    EXISTS (SELECT 1 FROM calibrations k WHERE k.camera_id = c.id) AS has_calibration,
+    (SELECT count(*) FROM zones z WHERE z.camera_id = c.id AND z.deleted_at IS NULL)
+        AS zones_count,
+    (SELECT count(*) FROM videos v WHERE v.camera_id = c.id) AS videos_count
+FROM cameras c
+WHERE c.deleted_at IS NULL
+"""
+
+
+def cameras(sector_id: int | None = None) -> list[sqlite3.Row]:
+    if sector_id is None:
+        return all(_CAMERAS + " ORDER BY c.sector_id, c.name, c.id")
+    return all(_CAMERAS + " AND c.sector_id = ? ORDER BY c.name, c.id", sector_id)
+
+
+def camera(camera_id: int) -> sqlite3.Row | None:
+    return one(_CAMERAS + " AND c.id = ?", camera_id)
+
+
+def camera_update(camera_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE cameras SET {assignments} WHERE id = ?", *values.values(), camera_id)
+
+
+def camera_delete(camera_id: int, at: str) -> None:
+    run("UPDATE cameras SET deleted_at = ? WHERE id = ?", at, camera_id)
+    sql = "UPDATE broadcasts SET status = 'stopped', stopped_at = ?"
+    run(sql + " WHERE camera_id = ? AND status = 'playing'", at, camera_id)
+
+
 # --- seed ---------------------------------------------------------------------------------
 def demo_world_exists() -> bool:
     return one("SELECT 1 FROM sectors WHERE is_demo = 1 LIMIT 1") is not None
