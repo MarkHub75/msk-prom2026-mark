@@ -15,8 +15,8 @@ from .journal import RequestJournal, TERMINAL, atomic_json, fsync_directory, ten
 from .notebook import _arrays, _file_hash
 
 _MODELS={
-    'helmet-v1':('helmet-v1.tpu','408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa'),
-    'pose-split-v1':('pose-split-v1.tpu','c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b'),
+    'helmet-v1':('matvey_helmet-v1.tpu','408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa'),
+    'pose-split-v1':('matvey_pose-split-v1.tpu','c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b'),
 }
 
 
@@ -50,7 +50,9 @@ class DurableVideoRunner:
         if self.model_id not in _MODELS:raise ValueError('unsupported reviewed model')
         expected_name,expected_hash=_MODELS[self.model_id]
         self.program_name=manifest['program_name'];self.program_sha256=manifest['program_sha256']
-        if self.program_name!=expected_name or self.program_sha256!=expected_hash:
+        # Old names may load existing local terminal journals only. _uri rejects
+        # them before any fresh submission; never rename/migrate old journals.
+        if self.program_name not in (expected_name,expected_name.removeprefix('matvey_')) or self.program_sha256!=expected_hash:
             raise ValueError('unreviewed TPU program binding')
         if _file_hash(manifest['program_path'])!=expected_hash:raise ValueError('local TPU program changed')
         self.inputs=_specs(manifest['inputs']);self.outputs=_specs(manifest['outputs'])
@@ -145,7 +147,9 @@ class DurableVideoRunner:
         login=os.environ.get('LINQ_LOGIN')
         if (not isinstance(login,str) or not re.fullmatch(r'[A-Za-z0-9_@.+-]{1,128}',login) or login in {'.','..'}):
             raise PendingRequestError('linq_not_submitted',{'journal_state':'NOT_SUBMITTED','remote_completion':'not_submitted'})
-        uri='file:///auto/cache/'+login+'/'+self.program_name+'?raw=False'
+        from .namespace import program_uri
+        try:uri=program_uri(login,self.program_name)
+        except ValueError:raise PendingRequestError('linq_not_submitted') from None
         value=_read(context/'logical.json');digest=hashlib.sha256(uri.encode()).hexdigest()
         if 'program_uri_sha256' in value and value['program_uri_sha256']!=digest:
             raise ValueError('runtime namespace changed for existing logical request')
@@ -157,7 +161,7 @@ class DurableVideoRunner:
         return official_binding(_environment_parameters(),request_exchange='tpu.direct',
             request_routing_key='input',reply_exchange='tpu.direct',output_names=list(self.outputs),
             format_source_manifest=self.format_source_manifest,
-            reply_queue_factory=lambda request_id:'notebook_'+request_id[:8])
+            owner_login=os.environ.get('LINQ_LOGIN'))
 
     @staticmethod
     def _provenance(summary):

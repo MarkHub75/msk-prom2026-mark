@@ -21,8 +21,8 @@ from uuid import UUID
 import numpy as np
 
 _MODELS = {
-    "helmet": ("helmet-v1.tpu", "408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa"),
-    "pose-split": ("pose-split-v1.tpu", "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b"),
+    "helmet": ("matvey_helmet-v1.tpu", "408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa"),
+    "pose-split": ("matvey_pose-split-v1.tpu", "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b"),
 }
 MAX_PROGRAM_BYTES = 8 * 1024 * 1024
 MAX_AGENT_SECONDS = 300
@@ -37,14 +37,14 @@ class UploadError(ValueError):
 
 
 def _queue_name(value):
-    if not isinstance(value, str) or not value.startswith("notebook_upload_"):
+    if not isinstance(value, str) or not value.startswith("matvey_upload_"):
         raise UploadError("INVALID_UPLOAD_QUEUE")
-    token = value[len("notebook_upload_"):]
+    token = value[len("matvey_upload_"):]
     try:
         parsed = UUID(token)
     except (ValueError, TypeError, AttributeError):
         raise UploadError("INVALID_UPLOAD_QUEUE") from None
-    if token not in (str(parsed), parsed.hex):
+    if token != str(parsed):
         raise UploadError("INVALID_UPLOAD_QUEUE")
     return value
 
@@ -64,7 +64,7 @@ def _headers(fmt, properties):
         if not isinstance(route, str):
             raise ValueError("JSON routing list required")
         routes = json.loads(route)
-        expected = "notebook_" + request_id[:8]
+        expected = "matvey_reply_" + request_id
         if not isinstance(routes, list) or routes != [expected]:
             raise ValueError("single generated callback required")
         callback = routes[0]
@@ -80,6 +80,7 @@ def _headers(fmt, properties):
 
 
 def _stage_payload(fmt, body, cache_dir, model, stage_fn):
+    _cache_namespace(cache_dir)
     if not isinstance(body, (bytes, bytearray)) or len(body) > MAX_PROGRAM_BYTES + 65536:
         raise UploadError("INVALID_BODY_SIZE")
     try:
@@ -110,6 +111,9 @@ def _stage_payload(fmt, body, cache_dir, model, stage_fn):
     blob = value.tobytes(order="C")
     digest = hashlib.sha256(blob).hexdigest()
     expected_name, expected_hash = _MODELS[model]
+    if (not re.fullmatch(r'matvey_[A-Za-z0-9][A-Za-z0-9_.-]*\.tpu', expected_name)
+            or '..' in expected_name or 'mosprom_' in expected_name or '_cut_ap9999' in expected_name):
+        raise UploadError('PROTECTED_OR_FOREIGN_PROGRAM_NAME')
     if digest != expected_hash:
         raise UploadError("PROGRAM_HASH_MISMATCH")
     # No directories/files are created until every request field and hash passes.
@@ -119,10 +123,21 @@ def _stage_payload(fmt, body, cache_dir, model, stage_fn):
         receipt = stage_fn(cache_dir, source, model=model)
     if (not isinstance(receipt, Mapping) or receipt.get("status") not in {"STAGED", "ALREADY_STAGED_IDENTICAL"} or
             receipt.get("program_name") != expected_name or receipt.get("program_sha256") != expected_hash or
-            receipt.get("stock_program_present_in_selected_namespace") is not True):
+            receipt.get("namespace_owner") != "matvey" or
+            receipt.get("program_path_namespace_verified") is not True):
         raise UploadError("INVALID_STAGE_RECEIPT")
     return {"sha256": np.frombuffer(bytes.fromhex(digest), dtype=np.uint8).copy(),
             "byte_count": np.array([len(blob)], dtype=np.int64)}
+
+
+def _cache_namespace(cache_dir):
+    path = Path(cache_dir)
+    parts = path.parts
+    if (len(parts) != 5 or parts[:3] != ('/', 'auto', 'cache') or parts[4] != 'matvey'
+            or not re.fullmatch(r'[A-Za-z0-9_@+-][A-Za-z0-9_@.+-]*', parts[3]) or '..' in parts[3]
+            or str(cache_dir) != str(path)):
+        raise UploadError('OWNED_CACHE_NAMESPACE_REQUIRED')
+    return path
 
 
 class UploadAgent:
@@ -132,7 +147,7 @@ class UploadAgent:
         if not callable(stage_fn):
             raise UploadError("STAGE_FUNCTION_REQUIRED")
         self._parameters = parameters
-        self._cache_dir, self._stage_fn = Path(cache_dir), stage_fn
+        self._cache_dir, self._stage_fn = _cache_namespace(cache_dir), stage_fn
         self._stop = threading.Event()
         self._ready = threading.Event()
         self._startup_done = threading.Event()

@@ -68,6 +68,7 @@ class AmqpBinding:
     reply_queue_factory: object = None  # explicit (request_id)->queue_name, or server-generated
     get_service_error: object = None  # optional explicit worker error selector, never public JSON
     reply_exclusive: bool = True  # generic policy; official notebook explicitly uses False
+    owner_login: object = None  # private caller-supplied account; never journal/log
 
 
 def _load_format(source_manifest=None):
@@ -171,14 +172,14 @@ def _connection_parameters(original, timeout, host, port):
         raise AmqpError("invalid_connection_parameters", "connection_parameters", exception_type=type(error).__name__) from None
 
 
-def _service_error_excerpt(value, parameters):
+def _service_error_excerpt(value, parameters, owner_login=None):
     """Allow only bounded sanitized worker error text, never worker metadata."""
     if not isinstance(value, str):
         return None
     # Explicitly supplied credentials only; no environment/store inspection here.
     credentials = getattr(parameters, "credentials", None)
     secrets = (getattr(credentials, "password", None),
-               getattr(credentials, "username", None), os.environ.get("LINQ_LOGIN"))
+               getattr(credentials, "username", None), owner_login, os.environ.get("LINQ_LOGIN"))
     for secret in secrets:
         if isinstance(secret, str) and secret:
             value = value.replace(secret, "[redacted]")
@@ -204,7 +205,8 @@ def _measure(summary,key):
 class AmqpRunner:
     """One publish plus durable intent; recovery only receives the original UUID."""
     def __init__(self, binding=None, program=None, *, timeout=30.0, host="127.0.0.1", port=15672,
-                 journal_dir=DEFAULT_JOURNAL_DIR, purpose="inference", capture_dir=None):
+                 journal_dir=DEFAULT_JOURNAL_DIR, purpose="inference", capture_dir=None,
+                 legacy_request_ids=()):
         if (not isinstance(timeout,(int,float)) or isinstance(timeout,bool) or
                 not math.isfinite(timeout) or timeout<=0):
             raise AmqpError("positive_finite_timeout_required","configuration")
@@ -220,6 +222,8 @@ class AmqpRunner:
         self.purpose,self.capture_dir=purpose,capture_dir
         self.last_response=None
         self._private_service_error=None
+        from .namespace import canonical_id
+        self.legacy_request_ids=frozenset(canonical_id(value) for value in legacy_request_ids)
 
     def _summary(self,request_id,record=None):
         summary={"request_id":request_id,"status":"not_started","status_code":None,
@@ -342,7 +346,7 @@ class AmqpRunner:
                 if self.binding.get_service_error is not None:
                     message=self.binding.get_service_error(response)
                     if isinstance(message,str):
-                        self._private_service_error=_service_error_excerpt(message,self.binding.parameters)
+                        self._private_service_error=_service_error_excerpt(message,self.binding.parameters,self.binding.owner_login)
                         summary['service_error']=self._private_service_error
                 try:outputs=_arrays(self.binding.get_outputs(response),names=self.binding.output_names,max_bytes=_MAX_BYTES)
                 except Exception:outputs={}
@@ -367,8 +371,20 @@ class AmqpRunner:
                 raise AmqpError('explicit_binding_and_program_required','configuration')
             arrays=_arrays(inputs,max_bytes=_MAX_BYTES)
             capture_id=self._capture_context()
-            requested_queue='' if self.binding.reply_queue_factory is None else self.binding.reply_queue_factory(request_id)
-            if not isinstance(requested_queue,str):raise AmqpError('invalid_reply_queue_name','declare_reply_queue')
+            from .namespace import reply_queue as own_reply_queue, check_reply_queue, check_program_uri, check_upload_queue
+            requested_queue=(own_reply_queue(request_id) if self.binding.reply_queue_factory is None
+                             else self.binding.reply_queue_factory(request_id))
+            try:
+                check_reply_queue(requested_queue,request_id)
+                if self.purpose=='inference':
+                    check_program_uri(self.program,self.binding.owner_login)
+                    if not self.binding.request_exchange:raise ValueError('worker exchange required')
+                else:
+                    if self.program not in ('helmet','pose-split'):raise ValueError('reviewed upload model required')
+                    if self.binding.request_exchange!='':raise ValueError('owned direct upload queue required')
+                    check_upload_queue(self.binding.request_routing_key)
+            except (ValueError,TypeError):
+                raise AmqpError('owned_namespace_required','validate_namespace') from None
             self.journal.create(request_id,purpose=self.purpose,
                 program_uri_sha256=hashlib.sha256(self.program.encode()).hexdigest(),inputs=arrays,
                 output_names=self.binding.output_names,reply_queue=requested_queue or None,
@@ -379,8 +395,9 @@ class AmqpRunner:
                     with _measure(summary,'connection_setup_ms'):
                         phase='open_connection';fmt,pika,connection=self._open();channel=connection.channel()
                         declared=channel.queue_declare(queue=requested_queue,durable=False,exclusive=False,auto_delete=True)
-                        reply_queue=declared.method.queue
-                        if not isinstance(reply_queue,str) or not reply_queue:raise AmqpError('invalid_reply_queue','declare_reply_queue')
+                        if declared.method.queue!=requested_queue:
+                            raise AmqpError('unexpected_reply_queue','declare_reply_queue')
+                        reply_queue=requested_queue
                         self.journal.update(request_id,reply_queue=reply_queue)
                         phase='reply_setup'
                         if self.binding.reply_policy=='custom_setup':self.binding.reply_setup(channel,reply_queue,request_id)
@@ -445,6 +462,10 @@ class AmqpRunner:
                     raise AmqpError('reconcile_output_names_mismatch','reconcile')
                 if not isinstance(reply_queue,str) or not reply_queue:
                     raise AmqpError('retained_reply_queue_missing','reconcile')
+                from .namespace import check_reply_queue
+                try:check_reply_queue(reply_queue,request_id,legacy_request_ids=self.legacy_request_ids)
+                except (ValueError,TypeError):
+                    raise AmqpError('reviewed_owned_reconcile_queue_required','reconcile') from None
                 try:
                     with _measure(summary,'connection_setup_ms'):
                         fmt,_,connection=self._open(timeout=duration);channel=connection.channel()
@@ -458,7 +479,8 @@ class AmqpRunner:
 
 
 def official_binding(parameters, *, request_exchange, request_routing_key, reply_exchange,
-                     output_names, format_source_manifest=None, program_file=None, reply_queue_factory=None):
+                     output_names, format_source_manifest=None, program_file=None, reply_queue_factory=None,
+                     owner_login=None):
     """Use the INSPECTED official format; routing/URI/credentials stay explicit.
 
     PyTask(data=inputs) is the actual exported dataclass. deserialize returns
@@ -506,7 +528,7 @@ def official_binding(parameters, *, request_exchange, request_routing_key, reply
         reply_setup=None if reply_exchange == "" else reply_setup,
         properties_factory=properties_factory, program_file=program_file,
         format_source_manifest=format_source_manifest, reply_queue_factory=reply_queue_factory,
-        get_service_error=service_error, reply_exclusive=False)
+        get_service_error=service_error, reply_exclusive=False,owner_login=owner_login)
 
 
 def _environment_parameters(config_path=None):
@@ -559,8 +581,8 @@ def main(argv=None):
     parser.add_argument("--output-name", action="append", help="Exact numeric response name; repeat for multiple outputs")
     parser.add_argument("--connection-config", help="Explicit private outside-Git JSON: username/password/virtual_host")
     parser.add_argument("--program", "--target-uri", dest="program", help="Exact actual program URI passed verbatim as official uri header")
-    parser.add_argument("--login-env", help="Explicit env key containing actual LinQ login for the USER-CONFIRMED stock ResNet URI only")
-    parser.add_argument("--notebook-reply-queue", action="store_true", help="Use actual notebook_{request_id[:8]} reply queue")
+    parser.add_argument("--login-env", help="Disabled legacy stock shortcut; new submissions require owned explicit URI")
+    parser.add_argument("--notebook-reply-queue", action="store_true", help="Disabled legacy queue option; new replies use matvey_reply_UUID")
     parser.add_argument("--save-service-error", action="store_true", help="Preserve bounded worker error text privately outside Git; never stdout")
     parser.add_argument("--program-file", help="Local .tpu bytes for hash; not proof of loaded remote identity")
     parser.add_argument("--input-npz")
@@ -577,6 +599,8 @@ def main(argv=None):
     runner = None
     try:
         args = parser.parse_args(argv)
+        if args.notebook_reply_queue or args.login_env is not None:
+            raise AmqpError('legacy_submission_options_disabled','configuration')
         if args.reconcile is not None:
             record=RequestJournal(args.journal_dir).load(args.reconcile)
             runner=AmqpRunner(None,timeout=args.timeout,journal_dir=args.journal_dir)
@@ -600,13 +624,7 @@ def main(argv=None):
         if args.program is not None and args.login_env is not None:
             raise AmqpError("choose_exact_uri_or_explicit_login_env", "configuration")
         if args.program is None:
-            if args.login_env is None:
-                raise AmqpError("explicit_target_uri_required", "configuration")
-            login = os.environ.get(args.login_env)
-            if not isinstance(login, str) or not login or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-" for char in login):
-                raise AmqpError("valid_explicit_linq_login_required", "configuration")
-            # This path was explicitly supplied and confirmed by the user, not inferred.
-            args.program = "file:///auto/cache/" + login + "/torch_resnet50_b1_o5_h1m.tpu?raw=False"
+            raise AmqpError("explicit_owned_target_uri_required", "configuration")
         # Useful action error before importing user binding/network dependencies.
         _load_format(args.format_source_manifest)
         if args.binding:
@@ -620,7 +638,7 @@ def main(argv=None):
                 request_exchange=args.exchange, request_routing_key=args.routing_key,
                 reply_exchange=args.reply_exchange, output_names=args.output_name,
                 format_source_manifest=args.format_source_manifest, program_file=args.program_file,
-                reply_queue_factory=(lambda request_id: "notebook_" + request_id[:8]) if args.notebook_reply_queue else None)
+                owner_login=os.environ.get('LINQ_LOGIN'))
         local_program = args.program_file or binding.program_file
         if local_program is None:
             raise AmqpError("explicit_local_program_file_required", "configuration")

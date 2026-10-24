@@ -46,23 +46,23 @@ class UploadProtocolTests(unittest.TestCase):
     def setUp(self):
         self.blob=bytes(range(32));self.digest=hashlib.sha256(self.blob).hexdigest()
         self.addCleanup(patch.stopall)
-        patch.dict(ua._MODELS,{'helmet':('helmet-v1.tpu',self.digest),
-                              'pose-split':('pose-split-v1.tpu',self.digest)}).start()
+        patch.dict(ua._MODELS,{'helmet':('matvey_helmet-v1.tpu',self.digest),
+                              'pose-split':('matvey_pose-split-v1.tpu',self.digest)}).start()
         self.fmt=FormatFixture({'program_bytes':np.frombuffer(self.blob,dtype=np.uint8)})
         self.pika=SimpleNamespace(BasicProperties=lambda **kwargs:SimpleNamespace(**kwargs))
         self.channel=ChannelFixture();self.request_id=str(uuid4())
         self.headers={'tpu_pycloud_message_id':self.request_id,
-                      'response_routing_keys':json.dumps(['notebook_'+self.request_id[:8]]),'uri':'helmet'}
+                      'response_routing_keys':json.dumps(['matvey_reply_'+self.request_id]),'uri':'helmet'}
         self.stage=Mock(side_effect=self.stage_valid)
-        self.agent=ua.UploadAgent(SimpleNamespace(),'/chosen/cache',
-                                  'notebook_upload_'+uuid4().hex,self.stage)
+        self.agent=ua.UploadAgent(SimpleNamespace(),'/auto/cache/fixture/matvey',
+                                  'matvey_upload_'+str(uuid4()),self.stage)
 
     def stage_valid(self,cache,source,*,model):
         self.assertEqual(Path(source).read_bytes(),self.blob)
-        self.assertEqual(Path(cache),Path('/chosen/cache'))
+        self.assertEqual(Path(cache),Path('/auto/cache/fixture/matvey'))
         name,digest=ua._MODELS[model]
         return {'status':'STAGED','program_name':name,'program_sha256':digest,
-                'stock_program_present_in_selected_namespace':True,
+                'namespace_owner':'matvey','program_path_namespace_verified':True,
                 'worker_visibility':'NOT_VERIFIED_UNTIL_REQUEST'}
 
     def consume(self,body=b'body-fixture'):
@@ -83,7 +83,7 @@ class UploadProtocolTests(unittest.TestCase):
         np.testing.assert_equal(receipt.data['byte_count'],[32])
         published=self.channel.published[0]
         self.assertEqual(published['exchange'],'')
-        self.assertEqual(published['routing_key'],'notebook_'+self.request_id[:8])
+        self.assertEqual(published['routing_key'],'matvey_reply_'+self.request_id)
         self.assertEqual(published['properties'].headers,{'tpu_pycloud_message_id':self.request_id})
         self.assertEqual(receipt.error_message,'')
 
@@ -154,7 +154,7 @@ class UploadProtocolTests(unittest.TestCase):
         self.stage.side_effect=None
         self.stage.return_value={'status':'STAGED','program_name':'wrong.tpu',
                                  'program_sha256':self.digest,
-                                 'stock_program_present_in_selected_namespace':True}
+                                 'namespace_owner':'matvey','program_path_namespace_verified':True}
         self.consume()
         self.assertEqual(self.fmt.replies[0].error_message,'INVALID_STAGE_RECEIPT')
         self.assertNotEqual(self.fmt.replies[0].status_code,0)
@@ -175,7 +175,7 @@ class UploadProtocolTests(unittest.TestCase):
     def test_only_uuid_upload_queue_namespace(self):
         for name in ['input','tpu.direct','notebook_other','notebook_upload_not-uuid','../target']:
             with self.assertRaises(ua.UploadError):
-                ua.UploadAgent(SimpleNamespace(),'/cache',name,self.stage)
+                ua.UploadAgent(SimpleNamespace(),'/auto/cache/fixture/matvey',name,self.stage)
 
 
     def test_message_limit_never_stages_extra_messages(self):
@@ -207,7 +207,7 @@ class UploadLifecycleTests(unittest.TestCase):
         original=SimpleNamespace(host='original-host',credentials='not-exported')
         imports=lambda name:fmt if name=='tpu_pycloud_format' else fake_pika
         with patch.object(ua.importlib,'import_module',side_effect=imports):
-            handle=ua.start_agent(original,'/selected/cache','notebook_upload_'+uuid4().hex,lambda *a,**k:None)
+            handle=ua.start_agent(original,'/auto/cache/fixture/matvey','matvey_upload_'+str(uuid4()),lambda *a,**k:None)
             self.assertTrue(handle.wait_ready(1))
             self.assertTrue(handle.is_ready)
             self.assertTrue(handle.stop(1))
@@ -223,7 +223,7 @@ class UploadLifecycleTests(unittest.TestCase):
 
     def test_startup_failure_reports_type_only(self):
         with patch.object(ua.importlib,'import_module',side_effect=ImportError('private-marker')):
-            handle=ua.start_agent(SimpleNamespace(),'/cache','notebook_upload_'+uuid4().hex,lambda *a,**k:None)
+            handle=ua.start_agent(SimpleNamespace(),'/auto/cache/fixture/matvey','matvey_upload_'+str(uuid4()),lambda *a,**k:None)
             self.assertFalse(handle.wait_ready(1))
             self.assertTrue(handle.stop(1))
         self.assertEqual(handle.last_error_type,'ImportError')
