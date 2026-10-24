@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/safewatch-0.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/safewatch-1.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/fonts/safewatch-2.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/safewatch-3.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/safewatch-4.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/fonts/safewatch-5.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/safewatch-6.woff2) format('truetype');
+}

@@ -1,0 +1,12 @@
+@media (max-width: 760px) {
+  .shift-events { margin-bottom: 42px; }
+  .ribbon-event > span:last-child {
+    max-width: 78px;
+    white-space: normal;
+    line-height: 1.4;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .ribbon-event:first-child > span:last-child { left: 0; text-align: left; }
+  .ribbon-event:last-child > span:last-child { right: 0; text-align: right; }
+}
