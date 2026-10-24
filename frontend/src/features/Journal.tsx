@@ -49,7 +49,7 @@ export function JournalPage() {
   const meta = useMeta();
   const updates = useUpdates();
   const queryKey = search.toString();
-  const page = useApi(() => api.GET("/api/events", { params: { query: eventQuery(search) } }), [queryKey, updates]);
+  const page = useApi(() => api.GET("/api/events", { params: { query: eventQuery(search) } }), [queryKey], {refresh: [updates]});
   const facets = useApi(() => api.GET("/api/journal/facets"), []);
   const filtersApplied = ["q", "level", "status", "sector_id", "scenario", "from", "to"].some(key => search.has(key));
   const levelOptions = facets.data?.levels ?? meta?.levels.map(item => ({ id: item.id, title: item.title })) ?? [];
