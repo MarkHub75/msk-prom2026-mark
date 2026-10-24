@@ -29,7 +29,7 @@ const COST: { key: RolloutField; label: string }[] = [
   { key: "lawsuit_cost_rub", label: "Суды" },
 ];
 const SCALE: { key: ScaleField; label: string; min: number }[] = [
-  { key: "cameras_now", label: "Камер подключено сейчас", min: 1 },
+  { key: "cameras_now", label: "Камер подключено сейчас", min: 0 }, // 0 — new rollout (tech.md v7, 6.13)
   { key: "new_cameras", label: "Добавить камер", min: 0 },
 ];
 

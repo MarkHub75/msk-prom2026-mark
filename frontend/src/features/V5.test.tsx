@@ -2,6 +2,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../App";
+import { History } from "./Incident";
 import { setActor } from "../api/client";
 import { fileName } from "../api/download";
 import { createFixtureEvents, fixtureMeta } from "../fixtures/data";
@@ -104,6 +105,17 @@ describe("calculator (tech.md 8.25)", () => {
     expect(await screen.findByText("Не меньше 1")).toBeTruthy();
     await new Promise(done => setTimeout(done, 400));
     expect(requests.filter(r => path(r) === "/api/calculator/rollout").length).toBe(before);
+  });
+
+  it("scale accepts 0 current cameras: a new rollout (tech.md v7)", async () => {
+    calcServer();
+    open("/calculator", "admin");
+    await screen.findByText("замер приложения: 3 задачи", { selector: "small" });
+    fireEvent.change(screen.getByLabelText("Камер подключено сейчас"), { target: { value: "0" } });
+    await waitFor(async () => {
+      const last = requests.filter(r => path(r) === "/api/calculator/scale").at(-1)!;
+      expect(await last.clone().json()).toMatchObject({ cameras_now: 0, new_cameras: 8 });
+    });
   });
 
   it("admin gets the scale mode only", async () => {
@@ -250,6 +262,18 @@ describe("manual identification (tech.md 8.27)", () => {
     expect(await patch.json()).toEqual({ person_name: "Петров Пётр", person_position: "", crew: "Бригада 3" });
     expect(decodeURIComponent(patch.headers.get("X-Actor") ?? "")).toBe("Сидорова А. В.");
     expect(patch.headers.get("X-Role")).toBe("ohs");
+  });
+
+  it("history: «Указан нарушитель» keeps the status, so no «→ status» arrow (live backend, slice 26)", () => {
+    const base = { id: 1, event_id: 242, at: "2026-10-24T20:18:51Z", actor_role: "ohs" as const, actor_name: "Сидорова А. В." };
+    render(<MemoryRouter><History actions={[
+      { ...base, id: 1, action: "identified", from_status: "sent_to_master", to_status: "sent_to_master", comment: "ФИО: Петров; должность: ; бригада: Бригада №3" },
+      { ...base, id: 2, at: "2026-10-24T20:19:00Z", actor_role: "operator", action: "confirmed", from_status: "viewed", to_status: "confirmed", comment: "" },
+    ]} /></MemoryRouter>);
+    const rows = screen.getAllByRole("listitem");
+    expect(rows[0].textContent).toContain("Указан нарушитель");
+    expect(rows[0].textContent).not.toContain("→");
+    expect(rows[1].textContent).toContain("→");
   });
 
   it("no identity form without can_identify", async () => {
