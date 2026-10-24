@@ -88,7 +88,11 @@ describe("screens", () => {
     } as never);
     const taken = { code: "name_taken", message: "Сектор с таким названием уже есть" };
     vi.mocked(api.POST).mockResolvedValue({ error: taken } as never);
-    render(<CamerasScreen />);
+    render(
+      <MemoryRouter>
+        <CamerasScreen />
+      </MemoryRouter>,
+    );
     expect(await screen.findByText("Пресс №2")).toBeTruthy();
     expect(screen.getAllByText("Прессовый участок").length).toBe(2); // sector row, camera row
 

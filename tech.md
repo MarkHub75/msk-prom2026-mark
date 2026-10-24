@@ -2,11 +2,12 @@
 
 ## 0. Версия
 
-**Версия: v2** (2026-10-24)
+**Версия: v3** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
 - v2 (ревью R5): 44 строки `GAP` S0–S5 перенесены в 6.8 и строки трассировки 6.7; 8.1: `model_missing` только по `not readable`; 8.2: жёлтая скорость при `≥` порога; 7: `registry.resolve(ref, models=None)`, `HudCanvas({ops, size})`; решения R5: `PUT` сектора, `PATCH` камеры, doctor без ключей, импорты `api.py`, устойчивость цикла задач и сессии Jupyter, диагностика очереди TPU.
+- v3 (ревью R10): 37 строк `GAP` S6–S10 перенесены в 6.9, 3 строки трассировки 6.7; решения R10: `AnalysisConfig.extra_artifact_ids` (пересчёт с моделями `pipeline.extra` без изменения схемы), параметры правил из `CameraRule.effective` снимка, длина `X-Actor` проверяется только в `services`, ссылка на настройку камеры из списка, autouse-защита `data/app` в `tests/conftest.py`.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2526,6 +2527,9 @@ models:
 | `hud.build_hud` | 4 | `analyze` | `src/safewatch/analysis/hud.py` | `def build_hud(` | `tests/test_hud.py::test_tags_texts_russian_format` |
 | `rules.scenario_metas` | 5 | `meta`, правила | `src/safewatch/rules/__init__.py` | `def scenario_metas(` | `tests/test_analysis_api.py::test_meta_lists_running_and_fall` |
 | `rules.PLUGINS` | 10 | `analyze`, `meta` | `src/safewatch/rules/__init__.py` | `PLUGINS: list[ScenarioPlugin] = [` | `tests/test_plugin_status.py::test_skeletons_listed_with_texts` |
+| `rules.plugin` | 10 | `analyze`, `event_detail` | `src/safewatch/rules/__init__.py` | `def plugin(` | `tests/test_plugin_status.py::test_skeletons_listed_with_texts` |
+| `geometry.ioa` | 10 | `proximity`, `no_harness` | `src/safewatch/analysis/geometry.py` | `def ioa(` | `tests/test_geometry.py::test_ioa_properties` |
+| поле `AnalysisConfig.extra_artifact_ids` | 10 | `recompute` | `src/safewatch/types.py` | `extra_artifact_ids: list[int] = []` | `tests/test_plugin_status.py::test_extra_model_enables_fire_without_code` |
 | плагин `running` | 5 | `analyze` | `src/safewatch/rules/running.py` | `class RunningPlugin:` | `tests/test_rule_running.py::test_running_threshold_boundary` |
 | плагин `fall` | 5 | `analyze` | `src/safewatch/rules/fall.py` | `class FallPlugin:` | `tests/test_rule_fall.py::test_fall_transition_red` |
 | плагин `proximity` | 10 | `analyze` | `src/safewatch/rules/proximity.py` | `class ProximityPlugin:` | `tests/test_rule_proximity.py::test_moving_vehicle_distance_levels` |
@@ -2695,6 +2699,84 @@ models:
 - `worker.run_forever`: исключение шага пишется в лог (`job loop`), цикл ждёт `jobs.idle_poll_ms` и продолжает; `_video_row` в `run_next_job` внутри `try` (задача не остаётся `running`).
 - `JupyterShell._drop()`: сетевая ошибка или `JupyterError` сбрасывают сессию (`shutdown_kernel` без гарантий), следующий вызов входит заново и открывает новый kernel.
 - `tools/linq/remote/video_worker.py` перед первым кадром пишет в stderr (`<out>.log`) строку `{"input_queue": {"messages", "consumers"}, "uri": <program_uri>}`; `TimeoutError` из `TpuClient.collect` оканчивается `unmatched replies <n>` (`TpuClient.unmatched` — ответы без известного id).
+
+---
+
+### 6.9 Дополнения v3 (строки `GAP` S6–S10 и решения R10)
+
+Перенесены ревью R10 из `## open` файла `progress.md`. Статус тот же, что у 6.8: часть контракта наравне с 6.1–6.6; `было → стало` заменяет сказанное выше.
+
+**5.2 Типы**
+
+- R10, `AnalysisConfig.extra_artifact_ids: list[int] = []` — артефакты моделей `pipeline.extra` этого анализа (схема 5.1 не меняется: ссылки живут в `analyses.config_json`); задача `recompute` берёт их отсюда, нет строки или файла → `artifacts_missing`, как у детектора. Старый снимок без поля — пересчёт без extra.
+
+**6.1 Бэкенды инференса и фейк**
+
+- S10, модели `pipeline.extra`: проход каждой модели — сразу после детектора, стадия `inference_detect`, доля 0,45; `LinqBackend` и `LocalBackend` узнают модель extra по `id@version` в `pipeline.extra`: `--nc len(classes)` без `--classes` (local: `nc = len(classes)`, `classes=None`); `FakeRemoteShell` с `--nc` отдаёт кадры без детекций (сцены в id COCO); `Job.metrics` по-прежнему только детектор и pose (колонок для extra в `jobs` нет).
+
+**6.2 Фасад `services`**
+
+- S6, `services` вне 6.2: `PRIORITY = {"red_pending": 3, "yellow_pending": 2, "open": 1, "terminal": 0}` и `_priority(level, status)`; синглтоны `_camera_seen: dict[int, CameraState]`, `_sector_seen: dict[int, SectorState]`, `_preview_cache: dict[int, tuple[datetime, bytes]]` (сбрасывает фикстура `conn`); помощники `_broadcast`, `_broadcast_by_id`, `_broadcast_insert`, `_stop_playing`, `_autostart`, `_play`, `_summary`, `_event_summary`, `_system_action`, `_operator_alert`, `_camera_state`, `_sector_state`, `_sector_states`, `_feed`; `broadcast_tick` возвращает число записанных действий (`published`, `level_escalated`, `auto_finished`); `Notification.id = "e<event>:published|escalated"`.
+- S6, эфир: `broadcast_get` и поле `broadcast` у `CameraTile`, `CameraLiveView`, `CameraSetupView` — играющий эфир камеры, иначе последний любого статуса, иначе `null`; `broadcast_start` с чужим или несуществующим `video_id` → 404 `not_found`, `ready` без `active_analysis_id` → 409 `video_not_ready`; остановленный при старте эфир шлёт свой `broadcast.state` (`stopped`); `broadcast_stop` без играющего эфира → 204 без сообщения; `camera_delete` шлёт `broadcast.state` остановленного эфира.
+- S6, лента: «терминальные за последние `recent_closed_min`» — по времени последнего действия события (`max(event_actions.at)`); жёлтое, опубликованное уже закончившимся (догоняющий тик), сразу получает `ended_at` и по 8.5 дословно не получает `auto_finished`.
+- S6, превью: кадр `round(position_ms / 1000 × fps)` играющего эфира, иначе кадр 0 последнего `ready` видео; JPEG `evidence.jpeg_quality`, ширина `preview.max_width`; `CameraTile.preview_url` есть при `videos_count > 0`; `CameraState.freshness_ms = None` до S11.
+- S7, `services` вне 6.2: `VERDICTS: dict[HumanAction, Verdict]`, `Step = tuple[LogAction, EventStatus]`, `_steps(action, row) -> list[Step] | None` (человеческие строки 8.6; `None` — пары нет), `_event_row(id)`, `_provenance(episode)`, `_evidence_item(row)` и `_episode(row, evidence)` (общие с `video_analysis`).
+- S7, журнал действий: `confirm` красного пишет две строки цепочкой — `confirmed` (`<статус> → confirmed`), затем `sent_to_master` (`confirmed → sent_to_master`); `confirm` после таймаута — `confirmed` (`sent_to_master → sent_to_master`); комментарий — в первой строке действия, хранится обрезанным, длина `COMMENT_MAX` считается до обрезки; `actor_name` — обрезанный `X-Actor` или `texts.DEMO_ACTOR[role]`, длину проверяет только `services` (`ValidationFailed`, поле `X-Actor`).
+- S7, порядок проверок `event_action`: роль (400, 403 по `ROLE_ACTIONS`) → комментарий (422) → имя (422) → 404 → 409; `event.updated` на любое действие, включая `view`; уведомление мастеру (8.8, строка 3) — при переходе в `sent_to_master` (оператором и в `escalation_tick`); `confirm`/`false_alarm` после таймаута — только `event.updated`.
+- S7, `event_detail`: `provenance.backend`/`fake` — из артефакта детектора анализа; `rule_params` = `rules.defaults(scenario) | effective` правила камеры из снимка `AnalysisConfig.rules`; `why` = `explain` плагина над `EpisodeDraft` эпизода (`confirm_frame_idx`/`escalate_frame_idx` из кадров доказательств); демо-событие: `why = [WhyItem("Причина", reason_text)]`, `provenance` пустой (`fake=false`, `rule_params={}`); `broadcast` — `store.camera_broadcast` камеры события (у удалённой камеры не 404); без роли `allowed_actions = []`; `deliveries = []` до S15.
+- S7, S8, уведомления мастеру: `_master_alert(summary, kind="to_master")` (`Notification.id = "e<event>:<kind>"`, аудитория `master`, `chime`, без захвата); строка 4 таблицы 8.8: `level_escalated` в `broadcast_tick` у события в `sent_to_master`/`master_accepted` шлёт мастеру `Notification.id = "e<event>:master_escalated"` (сирена оператору остаётся).
+- S8, `services` вне 6.2: `_shift_window(at) -> (id, title, start, end)`, `_count_rows(events, key, titles) -> list[CountRow]`.
+- S8, `shift_summary_view`: `at` без часового пояса считается UTC; `start`/`end` в UTC; смена с `end <= start` идёт через полночь; `CountRow.key` сектора — `str(sector_id)`, строки по убыванию `count`, затем по `title`; `confirmed`/`false_alarm` — по `operator_verdict`; `events` — события с `operator_verdict = confirmed` по `started_at`; демо-события считаются (флага нет), `superseded` нет.
+- S8, входящие мастера: «по времени передачи» — новые передачи первыми; `recent_resolved` включает демо-события сида.
+- S9, `services` вне 6.2: `WORLD_MIN_AREA = 0.01`, `_in_frame(points, field)`, `_collinear(points, min_area)`, `_rmse(h, pairs)`, `_calibration(row)`, `_calibration_of(camera_id)` (без проверки камеры: снимок анализа), `_zone(row)`, `_zone_name`, `_zone_points(kind, points) -> str`, `_zone_row(zone_id)`, `_rules(camera_id, rows, metas) -> list[CameraRule]`, `_range(x)`, `_recomputed(video_id) -> (id событий superseded, [остановленный, новый эфир])`; `_system_action(..., comment="")`.
+- S9, валидация: калибровка — число точек кадра (`image_points`) → число мировых равно (`world_points`, `CAL_POINTS_MISMATCH`) → контрольных до 8 (`CAL_CONTROL_MAX`) → точки кадра и контрольные в [0, 1] → коллинеарность (`image_points`); `fit_rmse_m`, `control_rmse_m` — СКО расстояния в метрах; `PUT` заменяет калибровку целиком, `DELETE` без калибровки — 204. Зона: роль → 404 камеры → тип → точки в кадре → геометрия типа; имя 1..60 после обрезки (`ZONE_NAME_INVALID`); вырожденный полигон `ZONE_DEGENERATE`; `PATCH` тип не меняет, точки проверяются по типу зоны; удалённая зона или зона удалённой камеры → 404 `ZONE_NOT_FOUND`. Правило: роль → 404 камеры → 404 сценария (`SCENARIO_NOT_FOUND`) → 422 параметра (`field="params.<key>"`, `PARAM_UNKNOWN`, `PARAM_RANGE`); `PUT` заменяет `params` целиком; без строки в базе `enabled = status == "active"`, `effective = rules.defaults | params`.
+- S9, пересчёт: `superseded` получают события видео в `new`/`auto_finished`, чей эпизод из другой версии анализа; эфир перезапускается, только если камера играет это видео, с прежним `loop`, WS `broadcast.state` остановленного и нового; `video_recompute` при задаче `recompute` этого видео в `queued` возвращает её (после проверок 409); `CameraSetupView.rules` — строка на каждый плагин.
+- S10, `services._analysis_files(..., hud_path, extra)`, `_analyze(job_id, video, det, pose, extra)`; R10: `_analysis_inputs(video)` → `(det, pose, extra) | None` (extra из `AnalysisConfig.extra_artifact_ids`).
+
+**6.2 Хранилище `store` и помощники слоёв**
+
+- S6, `store`: `broadcast(id)`, `camera_broadcast(camera_id)` (играющий эфир, иначе последний), `latest_broadcasts()`, `playing_broadcasts()`, `broadcast_update`, `last_ready_video(camera_id)`, `event(id)` (с `camera_name`, `sector_name`, `zone_name`), `broadcast_events(broadcast_id, cycle)`, `event_update`, `feed(closed_after, sector_id=None)`, `camera_state_rows()` (входы правил 8.9 всех камер одним запросом).
+- S7, `store`: `episode(id)`, `episode_evidence(episode_id)`, `analysis_job(analysis_id)` (задача с этим `analysis_id`), `event_actions(event_id)` (по `at`, `id`), `escalation_due(red_before)` (условия 8.7; «после `red_at`» — `at >= red_at`, считаются только строки `actor_role = operator`).
+- S8, `store`: `master_active()` (`sent_to_master`, `master_accepted`; красные первыми, затем по последнему действию `sent_to_master`/`timeout_escalated` от нового к старому), `master_resolved(limit)` (по последнему действию `resolved`, новые первыми), `shift_events(start, end)` (`started_at` в `[start, end)`, без `superseded`, по `started_at`).
+- S9, `store`: `supersedable_events(video_id, analysis_id)`, `calibration(camera_id)`, `calibration_put(values)`, `calibration_delete(camera_id)`, `zones(camera_id)`, `zone(zone_id)`, `zone_update(zone_id, values)`, `camera_rules(camera_id=None)` (все камеры одним запросом), `camera_rule_put(values)`.
+
+**6.4 REST и воркер**
+
+- R10, `api._actor` только декодирует `X-Actor` (percent-encoding); длину 1..`ACTOR_MAX` после обрезки проверяет `services.event_action` после роли (порядок S7). `services.ACTOR_MAX` читает только `services`.
+- S6, `worker`: `_jobs(stop, idle_s)` и `_broadcasts(stop, tick_s)` в `asyncio.TaskGroup`, паузы через `asyncio.sleep` (остановка в пределах одного периода); исключение тика — лог `broadcast tick`, цикл продолжается.
+- S7, `worker._escalations(stop, tick_s)` — третья задача `TaskGroup`, период `escalation.tick_ms`, исключение тика — лог `escalation tick`, цикл продолжается.
+
+**6.6 Константы и тексты `texts.py`**
+
+- S6, `texts.py`: `STATE_NORMAL = "Норма"`, `SECTOR_NO_OBSERVATION = "Нет наблюдения: {n} из {total} камер"`, `SECTOR_EMPTY = "В секторе нет камер"`, `NO_READY_VIDEO`, `PREVIEW_NOT_FOUND`, `NOT_CONFIRMED_SUFFIX`; `reason_text` камеры и сектора: red/yellow — `LEVEL_TITLES`, normal — «Норма».
+- S7, `texts.py`: `EVENT_NOT_FOUND`, `INVALID_TRANSITION`, `COMMENT_REQUIRED = "Опишите принятые меры"`, `COMMENT_TOO_LONG = "Комментарий: до 500 символов"`, `WHY_REASON = "Причина"`.
+- S9, `texts.py`: `CAL_POINTS_COUNT`, `CAL_POINTS_MISMATCH`, `CAL_CONTROL_MAX`, `CAL_COLLINEAR`, `POINTS_OUTSIDE`, `ZONE_KIND_UNKNOWN`, `ZONE_NAME_INVALID`, `ZONE_LINE_POINTS`, `ZONE_POLYGON_POINTS`, `ZONE_DEGENERATE`, `ZONE_NOT_FOUND`, `SCENARIO_NOT_FOUND`, `PARAM_UNKNOWN = "Неизвестный параметр {key}"`, `PARAM_RANGE = "Параметр {key}: от {lo} до {hi}"`, `RECOMPUTE_COMMENT = "Пересчёт: версия анализа {n}"`.
+- S10, `texts.py`: `SCENARIO_SKELETON`, `VEHICLE_WITH`, `PROXIMITY_BH`, `PROXIMITY_M`, `PERSON_IN_ZONE`, `PHONE_HELD`, `FENCE_CROSSED`, `FENCE_UNSEEN = ": момент не виден"`, `FIRE_OUTSIDE`, `SMOKING`, `NO_HARNESS`, `UNDER_LOAD`, `WHY_PROXIMITY_BH`, `WHY_PROXIMITY_M`, `WHY_HOLD = "{rule} дольше {s} с"`; описания, подписи параметров, метрики (`distance_bh`, `distance_m`, `score`) и `OBJECT_LABELS` классов огня, дыма, сигареты, привязи, груза.
+
+**Компоненты анализа и правил (разделы 7, 8.2–8.3)**
+
+- S9, `analysis/geometry`: `homography(image_pts, world_pts) -> np.ndarray | None` — нормированный DLT numpy (Хартли, SVD) вместо `cv2.findHomography` метод 0: LM-уточнение OpenCV останавливается на ~1e-7 относительной ошибки (1e-6 м на полу 17 м), а критерий 1 S9 требует < 1e-6; `apply_h(h, p) -> Point`, `hull_contains(points, p) -> bool` (граница внутри), `grid_segments(h, world_pts) -> list[tuple[Point, Point]]` (целые метры в прямоугольнике мировых точек, отсечение `_clip` по [0, 1]), `polygon_area(points) -> float`.
+- S9, `features.person_states(..., kpt_conf)` → `person_states(..., kpt_conf, ground: Callable[[Point], Point | None] | None = None)` (пиксель → метры внутри оболочки, иначе `None`); `speed_m_s` — то же окно и те же условия, что у `speed_bh_s`, по `ground` первой точки окна и текущей; `pipeline._ground(config)` строит `ground` из снимка калибровки.
+- S9, `hud.build_hud(ctx, run_bh_s, cfg, observations)` → `build_hud(ctx, running: dict[str, float], cfg, observations)`: действующие параметры `running` камеры; при `speed_m_s` подпись `HUD_SPEED_M = "{v} м/с"` / `HUD_RUN_M = "бег {v} м/с"` и порог `speed_m_s`.
+- R10, параметры правила в анализе, HUD и `event_detail`: `rules.defaults(id) | CameraRule.effective | CameraRule.params` снимка (было `defaults | params`): правило работает с параметрами на момент анализа, а не с текущими значениями по умолчанию; `defaults` и `params` по краям нужны снимкам без полного `effective`.
+- S10, `rules.PLUGINS: dict[str, ScenarioPlugin]` → `PLUGINS: list[ScenarioPlugin]` (строка 6.7, порядок таблицы 8.3) и `rules.plugin(scenario) -> ScenarioPlugin` (`KeyError` без плагина; раздел 4); `rules.ANY_CLASS = {"fire_smoking"}` (достаточно одного из `required_classes`); статус `skeleton` берётся из `meta.status` плагина, текст `texts.SCENARIO_SKELETON`; `required_classes`: proximity `person, car, bus, truck, train`, phone `person, cell phone`, no_harness `person, no_harness`, suspended_load `person, suspended_load`, fire_smoking `fire, smoke, cigarette`, load_carrying `[]`.
+- S10, `geometry.ioa(a, b) -> float` (доля площади `a` внутри `b`), `segment_crossing(p, q, a, b) -> bool` (точка на прямой считается отрицательной стороной: шаг на линию и шаг с неё — одно пересечение; пересечение вне отрезка `a-b` — нет).
+- S10, `features.VehicleHistory = dict[int, list[tuple[int, VehicleState]]]`, `features.vehicle_states(tracks, ts_ms, history, cfg, ground=None) -> list[VehicleState]` (`speed_vh_s` — центр рамки, те же окно и условия, что у человека; `footprint` — нижняя кромка через `ground`, обе точки внутри оболочки; `speed_m_s` — середина `footprint` по тому же окну); `_recent` стал обобщённым.
+- S10, `rules/base.attach_objects`: «внутри верхней доли» — `x1 ≤ cx ≤ x2`, `y1 ≤ cy ≤ y1 + upper_frac × h`; «ближе к запястью» — строго `<`, запястье видно при `conf ≥ pose.kpt_conf`; `ambiguous` перекрывает привязку; `WRISTS = (9, 10)`; сигарета `fire_smoking` привязывается по `upper_frac`, `wrist_dist_bh` из `scenarios.phone` (в `scenarios.fire_smoking` таких ключей нет).
+- S10, субъекты и коды: proximity `pair:<p>-<v>` (`reason_code` `proximity`/`proximity_red`, `metrics` `distance_bh`/`distance_m`, метод `relative`/`calibrated`; скорость техники: `speed_m_s` важнее `speed_vh_s`) и `zone:<p>-<z>` (`proximity_zone`, N на каждую зону danger вне неё); водитель (`ioa(person, vehicle) ≥ driver_ioa` любой техники) исключён из proximity целиком; phone `phone`/`phone_zone`, U `too_small` (по `height_px`), `owner_ambiguous`, `metrics.score`; fence — одно наблюдение на человека (первая пересечённая линия), `fence_crossing`/`fence_unseen`, разрыв — `ts − prev_ts_ms > max_gap_s`; under `under_zone`; fire_smoking — субъект `fire` (одно наблюдение на кадр, `anchor=None`) и `track:<id>` (`smoking`/`smoking_zone`, удержание `smoking_hold_s` и в зоне danger); no_harness — пересечение рамок `ioa > 0`; suspended_load — `x1 ≤ anchor.x ≤ x2` и `anchor.y > y2` груза.
+- S10, `analyze(..., det_model, extra: list[tuple[ModelSpec, list[FrameDetections]]] | None = None)`: классы моделей extra → `ObjectState` по `class_conf`, иначе `ModelSpec.conf`.
+
+**Фронт (разделы 7, 8.14)**
+
+- S6, фронт: `WsNotification` в `src/api/ws.ts` (нагрузка `notification`: WS-типов нет в openapi); `playSound(kind)` возвращает функцию остановки, `soundBlocked()` и `unlockSound()` в `components/sound.ts` (кнопка «Включить звук» в шапке); `STATE_ICON` из `components/SectorTile.tsx`; `Toasts` и `TakeoverOverlay` без пропсов, сами слушают `useWs`; `BroadcastPanel` внутри `CameraSetup.tsx`.
+- S7, фронт: `TakeoverOverlay` без своего оверлея (заменяет оверлей S6): красное уведомление сразу открывает `/events/:id?takeover=1`, сирену играет `EventScreen` до действия (кроме `view`) или «Свернуть»; `CameraScreen({cameraId?})` — живая половина экрана события; `EvidenceImage` рисует рамки объектов кадра с выноской (подпись и теги); `view` отправляется сам, если он в `allowed_actions`; кнопки — `allowed_actions` без `view`, клавиши 1–3 по порядку; поле «Принятые меры» при `resolve`.
+- S8, фронт: `place(event)` экспортирует `screens/master/MasterInbox.tsx` (сектор · камера · зона, общий для экранов мастера); звук уведомления мастера играет `Toasts` шапки, `MasterInbox` добавляет `navigator.vibrate(300)` и браузерное `Notification` при выданном разрешении (разрешение не запрашивает); `MasterEvent` берёт `/api/events/{event_id}`; на `/master/shift` кнопки «Предыдущая смена» (`at = start − 1 мс`) и «Текущая смена».
+- S9, фронт: `PolygonEditor({image, mode, value, onChange, maxPoints, grid?})` — необязательная сетка калибровки под точками; кадр редактора — `/api/cameras/{id}/preview`; `CalibrationPanel`, `ZonesPanel`, `RulesPanel` внутри `CameraSetup.tsx` секциями страницы (вкладок нет, как в S6); контрольные точки вводит только API; параметр правила сохраняется по `blur`; «Пересчитать события» в «Правилах» — для видео плеера; на `/ohs/rules` переключатель сценария не `active` выключен.
+- R10, фронт: имя камеры в списке `/admin/cameras` — ссылка на `/admin/cameras/:id`.
+
+**Тесты (раздел 10.2)**
+
+- R10, `tests/conftest.py`: autouse-фикстура `no_real_data` — создание `data/app` или открытие базы в ней (`Path.mkdir`, `store.connect`, `doctor.connect`) валит тест: тесту с `services`/`store` нужна фикстура `core` или `conn`.
 
 ---
 

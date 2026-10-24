@@ -899,6 +899,7 @@ class AnalysisConfig(BaseModel):  # snapshot stored in analyses.config_json
     rules: dict[str, CameraRule]  # by scenario
     class_conf: dict[str, float]
     active_classes: list[str]  # class names provided by the active models
+    extra_artifact_ids: list[int] = []  # artifacts of pipeline.extra, read by a recompute
 
 
 class EpisodeDraft(BaseModel):

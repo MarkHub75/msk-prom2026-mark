@@ -648,6 +648,7 @@ async def _analyze(
         rules={r.scenario: r for r in _rules(camera_id, store.camera_rules(camera_id), metas)},
         class_conf=settings.class_conf,
         active_classes=registry.active_classes(settings),
+        extra_artifact_ids=[artifact_id for _, artifact_id in extra],
     )
     data = settings.data_dir
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
@@ -743,7 +744,7 @@ def _stored_artifact(artifact_id: int) -> tuple[ModelSpec, int] | None:
 
 def _analysis_inputs(
     video: sqlite3.Row,
-) -> tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None] | None:
+) -> tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None, list[tuple[ModelSpec, int]]] | None:
     """Artifacts of the active analysis for a recompute; `None` when a file is gone."""
     analysis = store.analysis(video["active_analysis_id"] or 0)
     if analysis is None:
@@ -753,7 +754,10 @@ def _analysis_inputs(
     pose = None if pose_id is None else _stored_artifact(pose_id)
     if det is None or (pose_id is not None and pose is None):
         return None
-    return det, pose
+    ids = AnalysisConfig.model_validate_json(analysis["config_json"]).extra_artifact_ids
+    extra = [_stored_artifact(artifact_id) for artifact_id in ids]
+    found = [item for item in extra if item is not None]
+    return None if len(found) < len(ids) else (det, pose, found)
 
 
 async def run_next_job() -> Job | None:
@@ -776,7 +780,7 @@ async def run_next_job() -> Job | None:
             inputs = _analysis_inputs(video)
             if inputs is None:
                 raise InferenceError("artifacts_missing", texts.ARTIFACTS_MISSING)
-            (detector, det_id), pose = inputs
+            (detector, det_id), pose, extra = inputs
             pose_id = None if pose is None else pose[1]
             store.job_update(job_id, {"det_artifact_id": det_id, "pose_artifact_id": pose_id})
         else:
@@ -1528,7 +1532,9 @@ def _provenance(episode: Episode) -> Provenance:
     assert det is not None and video is not None
     # The rule ran with config defaults and the camera overrides of the snapshot (tech.md 8.3).
     rule = AnalysisConfig.model_validate_json(analysis["config_json"]).rules.get(episode.scenario)
-    params = rules.defaults(episode.scenario) | (rule.params if rule is not None else {})
+    params = rules.defaults(episode.scenario) | (
+        rule.effective | rule.params if rule is not None else {}
+    )
     shot = next((e.sha256 for e in episode.evidence if e.kind == "confirm"), None)
     return Provenance(
         backend=det["backend"],

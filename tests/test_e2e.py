@@ -7,10 +7,10 @@ import pytest
 from conftest import FakeClock
 from test_analysis_api import _textured
 
-from safewatch import config, services, store
+from safewatch import config, services
 from safewatch.fakes.remote import FakeRemoteShell
 from safewatch.inference.linq import LinqBackend
-from safewatch.types import EventDetail, MasterInbox
+from safewatch.types import EventDetail, EventSummary, MasterInbox
 
 ADMIN, OPERATOR, MASTER = {"X-Role": "admin"}, {"X-Role": "operator"}, {"X-Role": "master"}
 
@@ -40,16 +40,17 @@ async def test_upload_to_master_flow(
     assert job is not None and job.status == "done"
     r = await client.get(f"/api/cameras/{camera_id}/broadcast")
     assert r.json()["status"] == "playing"  # autostart
-    # The broadcast plays by the server clock until the fall gets published.
+    # The broadcast plays by the server clock until the fall reaches the operator feed.
     red = None
     for _ in range(40):
         fake_clock.advance(0.5)
-        services.broadcast_tick()
-        red = store.one("SELECT id FROM events WHERE level = 'red'")
+        services.broadcast_tick()  # one step of the worker's broadcast loop
+        feed = (await client.get("/api/operator/feed", headers=OPERATOR)).json()
+        red = next((e for e in map(EventSummary.model_validate, feed) if e.level == "red"), None)
         if red is not None:
             break
     assert red is not None
-    event_id = red["id"]
+    event_id = red.id
     assert await _act(client, event_id, OPERATOR, action="confirm") == "sent_to_master"
     inbox = MasterInbox.model_validate((await client.get("/api/master/inbox")).json())
     assert [e.id for e in inbox.active] == [event_id]

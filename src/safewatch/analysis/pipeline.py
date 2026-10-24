@@ -33,7 +33,9 @@ def _plugins(config: AnalysisConfig) -> list[tuple[ScenarioPlugin, dict[str, flo
         rule = config.rules.get(meta.id)
         if meta.status != "active" or (rule is not None and not rule.enabled):
             continue
-        params = rules.defaults(meta.id) | (rule.params if rule is not None else {})
+        params = rules.defaults(meta.id) | (
+            rule.effective | rule.params if rule is not None else {}
+        )
         out.append((rules.plugin(meta.id), params))
     return out
 
@@ -73,7 +75,9 @@ def analyze(
     vehicle_history: features.VehicleHistory = {}
     # The HUD speed tag follows the camera's running rule, not the config defaults.
     rule = config.rules.get("running")
-    hud_running = rules.defaults("running") | (rule.params if rule is not None else {})
+    hud_running = rules.defaults("running") | (
+        rule.effective | rule.params if rule is not None else {}
+    )
     ground = _ground(config)
     plugins = _plugins(config)
     episodes = EpisodeManager(settings.episodes)

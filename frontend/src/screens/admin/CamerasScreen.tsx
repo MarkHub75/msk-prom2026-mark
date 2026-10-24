@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { api, apiError } from "../../api/client";
 import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
@@ -174,7 +175,7 @@ export function CamerasScreen() {
         empty="Камер нет"
         rows={cameras}
         columns={[
-          { title: "Название", cell: (c) => c.name },
+          { title: "Название", cell: (c) => <Link to={`/admin/cameras/${c.id}`}>{c.name}</Link> },
           { title: "Сектор", cell: (c) => sectorName(c.sector_id) },
           { title: "Описание", cell: (c) => c.description },
           { title: "Калибровка", cell: (c) => (c.has_calibration ? "есть" : "нет") },
