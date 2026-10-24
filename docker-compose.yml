@@ -3,7 +3,10 @@ services:
     build: .
     ports:
       - "8000:8000"
-    env_file: .env
+    # A fresh machine without .env still starts: the seed and the demo pack need no keys.
+    env_file:
+      - path: .env
+        required: false
     environment:
       # Jupyter of LinQ is reached through the SSH tunnel on the host (tech.md 3.1).
       LINQ_JUPYTER_URL: http://host.docker.internal:8888
@@ -11,4 +14,12 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./data/app:/app/data/app
+      - ./data/demo:/app/data/demo:ro
       - ./models:/app/models:ro
+    healthcheck:
+      # The slim image has no curl: python of the image asks the API itself.
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 60s

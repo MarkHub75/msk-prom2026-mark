@@ -3,6 +3,7 @@
 .env.*
 secrets/
 data/
+!data/demo/README.md
 models/
 vendor/
 results/
