@@ -11,7 +11,7 @@ from pathlib import Path
 import psutil
 from pydantic import TypeAdapter
 
-from safewatch import config, doctor, services
+from safewatch import config, doctor, services, texts
 from safewatch.config import ROOT
 from safewatch.errors import InferenceError, NotFound, TooLarge, UnsupportedVideo, ValidationFailed
 from safewatch.types import BackendName, WsMessage
@@ -142,7 +142,23 @@ def import_video(path: Path, camera_id: int) -> int:
     return 0
 
 
+def _server_running() -> bool:
+    """The process of server.pid is alive and is the server, not a reused pid."""
+    pid_file = _pid_file()
+    if not pid_file.exists():
+        return False
+    record = json.loads(pid_file.read_text(encoding="utf-8"))
+    try:
+        return bool(psutil.Process(record["pid"]).create_time() == record["create_time"])
+    except psutil.NoSuchProcess:
+        return False
+
+
 def evaluate(labels: Path, out: Path | None) -> int:
+    # A second process writing artifacts into the database of a live server (debt S14, 8.31).
+    if _server_running():
+        print(texts.EVAL_SERVER_RUNNING, file=sys.stderr)
+        return 5
     try:
         report = services.eval_run(labels, out)
     except NotFound as exc:

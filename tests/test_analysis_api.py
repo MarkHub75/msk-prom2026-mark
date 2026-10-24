@@ -66,7 +66,7 @@ async def test_job_creates_episodes_and_evidence(
     running, fall = analysis.episodes
     assert running.scenario_title == "Бег и резкие перемещения"
     assert running.reason_text.startswith("Бег ") and running.confirm_ms - running.start_ms >= 1000
-    assert fall.reason_text.startswith("Человек лежит неподвижно")
+    assert fall.reason_text == "Зафиксировано падение"  # the track survives the fall (S30)
     assert fall.end_reason == "video_end" and fall.end_ms == 20_000
     for episode in analysis.episodes:
         (shot,) = episode.evidence

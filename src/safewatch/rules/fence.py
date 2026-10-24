@@ -54,4 +54,7 @@ class FencePlugin:
         return out
 
     def explain(self, episode: EpisodeDraft, params: dict[str, float]) -> list[WhyItem]:
-        return [WhyItem(label=texts.WHY_RULE, value=episode.reason_text), *why_common(episode)]
+        rule = texts.WHY_FENCE.format(
+            rule=episode.reason_text, s=texts.fmt_num(params["max_gap_s"])
+        )
+        return [WhyItem(label=texts.WHY_RULE, value=rule), *why_common(episode)]

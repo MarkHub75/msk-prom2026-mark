@@ -1,6 +1,7 @@
 """REST and WebSocket (tech.md 6.4, 6.5). Handlers only call the facade."""
 
 import asyncio
+import re
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from datetime import datetime
@@ -12,7 +13,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException
-from starlette.types import Scope
+from starlette.types import ASGIApp, Receive, Scope, Send
 from starlette.websockets import WebSocketDisconnect
 
 from safewatch import clock, registry, services, texts, worker
@@ -500,7 +501,10 @@ async def camera_passport(camera_id: int) -> CameraPassport:
 
 @router.get("/api/master/shift.pdf", responses=PDF_FILE)
 async def shift_report_pdf(at: datetime | None = None) -> Response:
-    return Response(services.shift_report_pdf(at), media_type="application/pdf")
+    when = clock.now() if at is None else at  # one instant for the file and its name
+    name = services.shift_report_name(when)
+    headers = {"Content-Disposition": f'attachment; filename="{name}"'}
+    return Response(services.shift_report_pdf(when), media_type="application/pdf", headers=headers)
 
 
 # --- app ---------------------------------------------------------------------------------
@@ -524,6 +528,30 @@ async def _invalid_request(request: Request, exc: Exception) -> JSONResponse:
     errors = cast(RequestValidationError, exc).errors()
     field = ".".join(str(part) for part in errors[0]["loc"]) if errors else None
     return _error(422, "validation", texts.REQUEST_INVALID, {"field": field})
+
+
+UPLOAD_PATH = re.compile(r"/api/cameras/[^/]+/videos")
+
+
+class _UploadGuard:
+    """FastAPI parses a multipart body into temporary files before any dependency runs: the
+    role and Content-Length of an upload are checked here, before the body (debt R5, 8.31)."""
+
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] == "http" and scope["method"] == "POST":
+            if UPLOAD_PATH.fullmatch(scope["path"]):
+                request = Request(scope)
+                length = request.headers.get("content-length", "")
+                try:
+                    role = _role(request.headers.get("x-role"))
+                    services.video_upload_check(role, int(length) if length.isdigit() else None)
+                except AppError as exc:
+                    await (await _app_error(request, exc))(scope, receive, send)
+                    return
+        await self.app(scope, receive, send)
 
 
 class _Frontend(StaticFiles):
@@ -555,6 +583,7 @@ def create_app(settings: Settings) -> FastAPI:
     app.add_exception_handler(AppError, _app_error)
     app.add_exception_handler(NotImplementedError, _not_implemented)
     app.add_exception_handler(RequestValidationError, _invalid_request)
+    app.add_middleware(_UploadGuard)
     app.include_router(router)
     if settings.server.static_dir.is_dir():
         app.mount("/", _Frontend(directory=settings.server.static_dir, html=True), name="frontend")

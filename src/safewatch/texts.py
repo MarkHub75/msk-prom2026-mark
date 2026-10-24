@@ -259,6 +259,7 @@ WHY_PROXIMITY_M = (
     "Сближение: техника движется, дистанция до {red} м — красный, до {yellow} м — жёлтый"
 )
 WHY_HOLD = "{rule} дольше {s} с"
+WHY_FENCE = "{rule}; момент виден при разрыве наблюдения до {s} с"
 WHY_RULE = "Правило"
 WHY_RUN_BH = "Бег: скорость выше {v} роста/с дольше {s} с"
 WHY_RUN_M = "Бег: скорость выше {v} м/с дольше {s} с"
@@ -552,3 +553,17 @@ PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оце�
 PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"
 PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"
 PASSPORT_SUITABLE = "Годна"
+
+# Shift summary PDF (tech.md 8.31; slice 30) and the running server `eval` refuses to share.
+PDF_TITLE = "{product} · Сводка смены"
+PDF_SHIFT = "Смена: {title}"
+PDF_PERIOD = "Период: с {start} до {end} (МСК)"
+PDF_TOTAL = "Всего событий: {n}"
+PDF_BY_SECTOR = "По секторам"
+PDF_BY_SCENARIO = "По сценариям"
+PDF_SECTOR = "Сектор"
+PDF_SCENARIO = "Сценарий"
+PDF_COUNT_HEAD = ("Всего", "Подтверждено", "Ложные")
+PDF_CONFIRMED = "Подтверждённые события"
+PDF_EVENTS_HEAD = ("Время", "Сектор", "Камера", "Причина", "Статус")
+EVAL_SERVER_RUNNING = "Остановите сервер: uv run safewatch stop"

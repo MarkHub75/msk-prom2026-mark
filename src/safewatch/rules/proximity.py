@@ -115,8 +115,10 @@ class ProximityPlugin:
         return out
 
     def explain(self, episode: EpisodeDraft, params: dict[str, float]) -> list[WhyItem]:
-        if episode.reason_code == "proximity_zone":
-            rule = episode.reason_text
+        if episode.reason_code == "proximity_zone":  # a zone has no distance, only the hold
+            rule = texts.WHY_HOLD.format(
+                rule=episode.reason_text, s=texts.fmt_num(params["red_hold_s"])
+            )
         elif episode.method in ("calibrated", "auto"):
             rule = texts.WHY_PROXIMITY_M.format(
                 red=texts.fmt_num(params["red_m"]), yellow=texts.fmt_num(params["yellow_m"])

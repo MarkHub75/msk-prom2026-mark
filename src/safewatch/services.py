@@ -38,6 +38,7 @@ from safewatch import (
     evaluate,
     media,
     registry,
+    report_pdf,
     rules,
     seed,
     store,
@@ -477,6 +478,18 @@ def _register(
     if new_job and job is not None:
         hub.publish("job.progress", job)
     return UploadResult(video=video_get(video_id), job=job, reused=reused)
+
+
+UPLOAD_SLACK = 64 * 2**10  # bytes of multipart boundaries and part headers over the file
+
+
+def video_upload_check(role: Role | None, content_length: int | None) -> None:
+    """Before the body is read (debt R5, tech.md 8.31): the role and the declared size.
+    The body counts the multipart framing too; the exact file size is checked while writing."""
+    _require(role, ("admin",))
+    limit = config.get_settings().upload.max_mb * 2**20
+    if content_length is not None and content_length > limit + UPLOAD_SLACK:
+        raise _too_large()
 
 
 async def video_upload(
@@ -2597,7 +2610,14 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     pose = None
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
-        pose = (pose_model, await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video))
+        try:
+            pose_id = await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video)
+            pose = (pose_model, pose_id)
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output"):
+                raise
+            # Like a job (tech.md 8.1 item 5): the analysis goes on without keypoints.
+            log.warning("eval: %s, pose: %s", path.name, exc.message)
     cfg = _analysis_config(video, camera_id, extra)
     data = settings.data_dir
     det_path = data / store.artifact_path(det_id)
@@ -3304,7 +3324,15 @@ def camera_passport(camera_id: int) -> CameraPassport:
 
 
 def shift_report_pdf(at: datetime | None = None) -> bytes:
-    raise NotImplementedError("slice 30")
+    settings = config.get_settings()
+    summary = shift_summary_view(at)
+    return report_pdf.shift_pdf(summary, settings.product_name, settings.timezone)
+
+
+def shift_report_name(at: datetime) -> str:
+    """File name of `GET /api/master/shift.pdf`: local start date and id of the shift."""
+    shift_id, _, start, _ = _shift_window(at if at.tzinfo else at.replace(tzinfo=UTC))
+    return f"shift-{start:%Y-%m-%d}-{shift_id}.pdf"
 
 
 def backend_close() -> None:

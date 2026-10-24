@@ -7,7 +7,7 @@ from fastapi import APIRouter
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from safewatch import api
+from safewatch import api, services
 from safewatch.api import create_app
 from safewatch.config import Settings
 from safewatch.errors import (
@@ -57,21 +57,20 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
     assert missing == []
 
 
-V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
-    ("get", "/api/master/shift.pdf", None, "30"),
-]
+async def test_unbuilt_route_returns_501(
+    client: httpx.AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Every route is built since slice 30: an unbuilt facade is a stub of its slice (as in S13).
+    def stub(at: object = None) -> bytes:
+        raise NotImplementedError("slice 30")
 
-
-async def test_unbuilt_route_returns_501(client: httpx.AsyncClient) -> None:
-    # The v5 routes are declared in slice 16, their facade raises the stub of its slice.
-    headers = {"X-Role": "management", "X-Actor": "ivan"}
-    for method, path, body, slice_no in V5_REQUESTS:
-        response = await client.request(method, path, json=body, headers=headers)
-        assert response.status_code == 501, path
-        error = ApiError.model_validate(response.json())
-        assert error.code == "not_implemented"
-        assert error.message.startswith("Функция появится в слайсе")
-        assert error.details == {"slice": slice_no}
+    monkeypatch.setattr(services, "shift_report_pdf", stub)
+    response = await client.get("/api/master/shift.pdf")
+    assert response.status_code == 501
+    error = ApiError.model_validate(response.json())
+    assert error.code == "not_implemented"
+    assert error.message.startswith("Функция появится в слайсе")
+    assert error.details == {"slice": "30"}
 
 
 async def test_request_errors_are_api_errors(client: httpx.AsyncClient) -> None:
