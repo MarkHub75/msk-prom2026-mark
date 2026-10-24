@@ -472,7 +472,8 @@
     "ml/contracts/schemas/event_candidate.schema.json": "d3590a6d96e4aadcea5e8c54a10cf1ddd3da96fd93433c0fbb7e39bdaa8fa561",
     "ml/quality/weak_video_intake.py": "5c0be378a69710c247ad5be18eca3bfc131d8fe1f91a3dc5a98731a3c5e3fdec",
     "ml/video_handoff.py": "cd37c097fc459664c06eaad69bfdd9c87c30d39882eff942766d49f0e3c8fe57",
-    "ml/linq_frames.py": "ce6471f6b7dd4030c639b85c127100b7a2085a043500052af4a01b263ca28c8d"
+    "ml/linq_frames.py": "ce6471f6b7dd4030c639b85c127100b7a2085a043500052af4a01b263ca28c8d",
+    "ml/scene_packs.py": "499007807fa39a9db607f755d23c8752c8a6b7b9026ec88fbe066361b8c4c21f"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
@@ -821,5 +822,16 @@
     "historical_tpu_calls": 15,
     "fresh_tpu_calls": 0,
     "source_mp4_unchanged": true
+  },
+  "scene_packs": {
+    "report": {
+      "path": "/workspace/project/ml/reports/scene-packs-20261024.json",
+      "bytes": 24795,
+      "sha256": "60120dea99c3ca33855fa991527a1118cd755ed864e371f38195ec0105649b4e"
+    },
+    "event_quality": "NOT_QUALIFIED",
+    "local_full_frames": 770,
+    "matching_historical_linq_frames": 11,
+    "new_linq_calls": 0
   }
 }

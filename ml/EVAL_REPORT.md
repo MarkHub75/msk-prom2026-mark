@@ -131,3 +131,15 @@ baseline=candidate macroF1 .72953216374269, gain0; Fall P .666667/R .823529/F1 .
 These are previously inspected source video categories, not comparable to UR
 event F1 .1818. Candidate remains REJECTED. Root performed no new model evaluation
 or training; metadata and binary hashes checked in reports/intake-20261024.json.
+
+## Full scenes are observation coverage, not a quality gain
+
+Seven full local CUDA scenes/770frames/2310model calls now have independently
+verified sourceRGB/encodedPTS/input hashes, class maps and poses. All frames are
+represented; no interpolation. Only11historical UR01 Pose frames have matching
+TPU evidence, kept separate. No fresh TPU request, trained checkpoint or threshold
+change. S02/S07 have observations; S04 haze has no fire/smoking model, S01 factory
+context has no qualified running action, S08 manual cargo is blocked. Generic
+COCO vehicle and indoor Helmet proposals can be false; counts are not GT, unique
+objects or events. No P/R/F1/false-alert-hour or independent acceptance is claimed.
+Artifacts: /workspace/artifacts/matvey-scene-packs-20261024; summary reports/scene-packs-20261024.json.

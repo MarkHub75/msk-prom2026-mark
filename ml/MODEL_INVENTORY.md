@@ -189,3 +189,12 @@ TPU submission. Exact paths and limits: docs/handoffs/EGOR_LINQ_VIDEO_20261024.m
 and reports/video-handoff-20261024.json. Product mapping helmet/no_helmet/person
 follows main contract; final Argus schema pending. Historical PIL preprocessing
 is not identical to current app OpenCV, and full actual transforms are preserved.
+
+## Complete local scene export
+
+Same Helmet/Pose weights plus existing official COCO80 reference f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36
+were run on all770frames/7videos on free lockedRTX4090. COCO reference is local
+only, not Matvey-trained or TPUqualified. No new checkpoint/compile/promotion.
+All classmaps, fixed.25/.45 thresholds, decoded observations and per-model TPU
+coverage are in scene-packs-20261024. Object proposals are not GT/events;
+report/limits docs/handoffs/SCENE_PACKS_20261024.md.

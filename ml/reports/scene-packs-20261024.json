@@ -1,0 +1,491 @@
+{
+  "schema": "matvey-full-scene-export-summary-v1",
+  "created_utc": "2026-10-24T15:32:15.047854+00:00",
+  "catalog": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_manifest.json",
+    "bytes": 12256,
+    "sha256": "faaae7127c04522894b242b9fbdc1e46dbfc27b78bb091c50dc28bb41b43a410"
+  },
+  "code": {
+    "path": "/workspace/project/ml/scene_packs.py",
+    "bytes": 26345,
+    "sha256": "499007807fa39a9db607f755d23c8752c8a6b7b9026ec88fbe066361b8c4c21f"
+  },
+  "source_backend_code": {
+    "path": "/workspace/project/ml/detection/reference.py",
+    "bytes": 2538,
+    "sha256": "b20d986bedd704b1c022d97f9c9deee713af38fdf3bf5cd5b5fd2109afb99a8b"
+  },
+  "source_codec_code": {
+    "path": "/workspace/project/ml/detection/codec.py",
+    "bytes": 10162,
+    "sha256": "c7038a77ab9f69bc7eb4701fe38f10ce4214957f2cec59ef085c2b9c07f7c3f0"
+  },
+  "scenes": [
+    {
+      "scene_id": "S01_3_tr45",
+      "scenario_id": "S01",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 75,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "2020127242e62532028e5f2a4947d0611c97dd0b7f68b5c52e8fe813b07e0dbf",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "person/pose and generic vehicle context over every frame",
+        "absent": "qualified running action head and actor-level gait GT",
+        "cannot_confirm": "running versus walking; this is a context scene, not a positive running demonstration",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_source_original.mp4",
+        "bytes": 7182718,
+        "sha256": "2020127242e62532028e5f2a4947d0611c97dd0b7f68b5c52e8fe813b07e0dbf"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_detections.json",
+        "bytes": 559854,
+        "sha256": "02443c86e9a6761c203461195e390460ad8d2c4bbf946e6bc296b45c00d754cd"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_scene.json",
+        "bytes": 9911,
+        "sha256": "5892bb0e450a4c3a64db3ef4d85c9ff27013ae4313c243f2eb90523762d1b901"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S01_3_tr45/matvey_independent_validation_v1.json",
+        "bytes": 451,
+        "sha256": "d7e224c734beb083a1a7ad959afa76a3f017c9eb6f27c32eecc5bff2d85fb3de"
+      },
+      "wall_seconds": 7.123901313170791,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 92,
+        "coco-reference-yolov8n:truck": 73,
+        "coco-reference-yolov8n:suitcase": 111,
+        "coco-reference-yolov8n:car": 72,
+        "coco-reference-yolov8n:person": 36
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 2960.0
+    },
+    {
+      "scene_id": "S02_7_te4",
+      "scenario_id": "S02",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 101,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "edffc7547cd187b138e05c92440732e8ada60fe96061d90b9b0022ba4065a48d",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "person, generic COCO vehicle proposals and poses over all frames",
+        "absent": "qualified forklift-specific model, metric distance and danger policy",
+        "cannot_confirm": "unsafe approach; COCO car/bus/truck/suitcase overlap may be misclassification",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_source_original.mp4",
+        "bytes": 2396553,
+        "sha256": "edffc7547cd187b138e05c92440732e8ada60fe96061d90b9b0022ba4065a48d"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_detections.json",
+        "bytes": 748259,
+        "sha256": "0b07ad08860c83cda00a8866587d5eeb2f17da083fe74e0ad833b52cd45ef735"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_scene.json",
+        "bytes": 9951,
+        "sha256": "016d2cfe3f56acf9535a76093fa272670b3e6c3eb690010f61f5513fa32e8bd2"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_te4/matvey_independent_validation_v1.json",
+        "bytes": 451,
+        "sha256": "132b72960eef10681ab60931962fd05fc2d48a809d612e0917473c5ecd9ae0b1"
+      },
+      "wall_seconds": 9.410998377949,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 121,
+        "coco-reference-yolov8n:bus": 11,
+        "coco-reference-yolov8n:suitcase": 95,
+        "coco-reference-yolov8n:truck": 96,
+        "coco-reference-yolov8n:car": 93,
+        "coco-reference-yolov8n:person": 62,
+        "helmet-v1:helmet": 48
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 3968.984
+    },
+    {
+      "scene_id": "S02_7_tr15",
+      "scenario_id": "S02",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 52,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "c686dd4787b819a6ee259efd1722112e6509b4e1270cb7563e8587e15f62fdb3",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "person, generic COCO vehicle proposals and poses over all frames",
+        "absent": "qualified forklift-specific model, metric distance and danger policy",
+        "cannot_confirm": "unsafe approach; COCO car/bus/truck/suitcase overlap may be misclassification",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_source_original.mp4",
+        "bytes": 1591226,
+        "sha256": "c686dd4787b819a6ee259efd1722112e6509b4e1270cb7563e8587e15f62fdb3"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_detections.json",
+        "bytes": 324536,
+        "sha256": "9bb7546d1112b3b5d14071f80419f17ad34a132dc1aa39ccbf401a4940fc4352"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_scene.json",
+        "bytes": 9913,
+        "sha256": "39fb961f6661aa14b59e060a48ed5c7bdd2ea27795a575e2fbb5561a2ff28e49"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S02_7_tr15/matvey_independent_validation_v1.json",
+        "bytes": 451,
+        "sha256": "1c2c0d1ed6881cdbfd6f8f4b346615b024bf19f97a5042070fee43572b5ef520"
+      },
+      "wall_seconds": 4.719537615776062,
+      "proposal_counts_not_unique_objects": {
+        "coco-reference-yolov8n:truck": 63,
+        "coco-reference-yolov8n:car": 51,
+        "pose-split-v1:person": 49,
+        "helmet-v1:helmet": 15,
+        "coco-reference-yolov8n:person": 17,
+        "coco-reference-yolov8n:suitcase": 1
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 2075.391
+    },
+    {
+      "scene_id": "S04_5_tr19",
+      "scenario_id": "S04",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 247,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "262cfcfc0f6140c967feb45c00701922a5e7f67536f6ceceffd78307e7a3e563",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "people/poses and scene context in previously screened haze footage",
+        "absent": "fire/smoke/cigarette specialist inference; these classes NOT_EVALUATED",
+        "cannot_confirm": "haze origin, smoking/open flame or violation; equipment COCO labels may be wrong",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_source_original.mp4",
+        "bytes": 4946801,
+        "sha256": "262cfcfc0f6140c967feb45c00701922a5e7f67536f6ceceffd78307e7a3e563"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_detections.json",
+        "bytes": 2208870,
+        "sha256": "da2a64ff5d23e8fc4b8b0552fce32d7054f76751d9a49f8914faadceb1c85c58"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_scene.json",
+        "bytes": 9978,
+        "sha256": "a419041342753ee2c0b34da5099093a7997880674d9bf04f4814682e6f1a3835"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_5_tr19/matvey_independent_validation_v1.json",
+        "bytes": 452,
+        "sha256": "bb3aeaf48981d0af9b3cb4e3f66c17d18ff061d5f61c66d8e85a7f3c36cd920e"
+      },
+      "wall_seconds": 22.97540126275271,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 415,
+        "coco-reference-yolov8n:truck": 238,
+        "coco-reference-yolov8n:person": 430,
+        "coco-reference-yolov8n:motorcycle": 238,
+        "coco-reference-yolov8n:chair": 49,
+        "helmet-v1:bare_head": 117,
+        "helmet-v1:helmet": 9
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 10402.806
+    },
+    {
+      "scene_id": "S04_6_tr15",
+      "scenario_id": "S04",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 35,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "dccf83f75e0caff79c3ecd2493288bd45f100ef29070ba844b73cbaf963da6ca",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "people/poses and scene context in previously screened haze footage",
+        "absent": "fire/smoke/cigarette specialist inference; these classes NOT_EVALUATED",
+        "cannot_confirm": "haze origin, smoking/open flame or violation; equipment COCO labels may be wrong",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_source_original.mp4",
+        "bytes": 4165557,
+        "sha256": "dccf83f75e0caff79c3ecd2493288bd45f100ef29070ba844b73cbaf963da6ca"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_detections.json",
+        "bytes": 260051,
+        "sha256": "46beda6f085a009eb74a24f660b045bfa02ff7b0f0e2a1769985c47c7cb16f5f"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_scene.json",
+        "bytes": 10054,
+        "sha256": "9ad3e44c29c6dc3d19c00fcfacdc004ece0ff6072799907d5886d4e716e5513b"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S04_6_tr15/matvey_independent_validation_v1.json",
+        "bytes": 451,
+        "sha256": "f24cdf93b4742ddb141373d771f404681394285a0d610464ece6e1e3f251ee68"
+      },
+      "wall_seconds": 3.510293477680534,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 36,
+        "coco-reference-yolov8n:person": 70,
+        "coco-reference-yolov8n:motorcycle": 35,
+        "coco-reference-yolov8n:truck": 35,
+        "coco-reference-yolov8n:bicycle": 3,
+        "coco-reference-yolov8n:chair": 7,
+        "helmet-v1:bare_head": 20,
+        "coco-reference-yolov8n:boat": 1
+      },
+      "first_encoded_pts_ms": 39.028,
+      "last_encoded_pts_ms": 1393.07
+    },
+    {
+      "scene_id": "S07_urfall01",
+      "scenario_id": "S07",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 160,
+      "device": "cuda:0",
+      "linq_frames": [
+        0,
+        15,
+        30,
+        45,
+        60,
+        75,
+        90,
+        105,
+        120,
+        135,
+        150
+      ],
+      "source_sha256": "ad08c42886c274c03876a68fb7f2be3b065c951d7202847317d126c61bb1d760",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "person bbox/COCO17 sequence over a source fall reference",
+        "absent": "qualified temporal classifier and independent floor/episode GT",
+        "cannot_confirm": "fall event acceptance, prolonged lying, unconsciousness; PPE detections in indoor scene may be false positives",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_source_original.mp4",
+        "bytes": 172002,
+        "sha256": "ad08c42886c274c03876a68fb7f2be3b065c951d7202847317d126c61bb1d760"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_detections.json",
+        "bytes": 1057363,
+        "sha256": "71225d64252f5df1c4d5f72b896e0087fdb08adff0d243aa58a27fa7648aac93"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_scene.json",
+        "bytes": 10078,
+        "sha256": "36de63617b8ca001071cf550d4430766865205faf535d9c89f16aac4a82ae6ab"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall01/matvey_independent_validation_v1.json",
+        "bytes": 795,
+        "sha256": "70ffec7d87a8bbaa5f40236f0079f5d90549e7281da751a7451dcd21f84a9cf6"
+      },
+      "wall_seconds": 9.73607334587723,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 140,
+        "helmet-v1:helmet": 35,
+        "coco-reference-yolov8n:chair": 490,
+        "coco-reference-yolov8n:person": 148,
+        "helmet-v1:bare_head": 24,
+        "coco-reference-yolov8n:dog": 4,
+        "coco-reference-yolov8n:bed": 1,
+        "coco-reference-yolov8n:couch": 5
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 5300.0
+    },
+    {
+      "scene_id": "S07_urfall06",
+      "scenario_id": "S07",
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06",
+      "status": "COMPLETE_LOCAL_ALL_FRAMES",
+      "frames": 100,
+      "device": "cuda:0",
+      "linq_frames": [],
+      "source_sha256": "8e867b39f72f239e61c04f6cd1857c8abf760725af4f5d5767e7c5204f730f64",
+      "original_mp4": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_source_original.mp4",
+      "detections_json": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_detections.json",
+      "detections_jsonl": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_detections.jsonl",
+      "linq_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_linq_frames.json",
+      "missing_frame_list": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_missing_frames.json",
+      "verification": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_validation.json",
+      "technical_report": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_report.txt",
+      "target_event_quality": "NOT_QUALIFIED",
+      "signal_review": {
+        "available": "person bbox/COCO17 sequence over a source fall reference",
+        "absent": "qualified temporal classifier and independent floor/episode GT",
+        "cannot_confirm": "fall event acceptance, prolonged lying, unconsciousness; PPE detections in indoor scene may be false positives",
+        "method": "model-output census plus prior source screen; no new event GT"
+      },
+      "source_mp4": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_source_original.mp4",
+        "bytes": 119492,
+        "sha256": "8e867b39f72f239e61c04f6cd1857c8abf760725af4f5d5767e7c5204f730f64"
+      },
+      "detections": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_detections.json",
+        "bytes": 702292,
+        "sha256": "7e6bd48f2f91a7eb4424ed6ab6d3915a9a7bfd6c489649c14554ddcc41146d7c"
+      },
+      "scene_metadata": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_scene.json",
+        "bytes": 9952,
+        "sha256": "3cfda17a2f64131d2587dcdc59666817ee1b1e97b0319390712f4e9b1eb4b200"
+      },
+      "independent_review": {
+        "path": "/workspace/artifacts/matvey-scene-packs-20261024/S07_urfall06/matvey_independent_validation_v1.json",
+        "bytes": 454,
+        "sha256": "4e5eabfad638a5a625e3095d091a7cb9196356e2c9aba277e6cb3e499c1c26c2"
+      },
+      "wall_seconds": 5.374415858183056,
+      "proposal_counts_not_unique_objects": {
+        "pose-split-v1:person": 103,
+        "coco-reference-yolov8n:person": 101,
+        "coco-reference-yolov8n:chair": 297,
+        "helmet-v1:bare_head": 19,
+        "helmet-v1:helmet": 5,
+        "coco-reference-yolov8n:dog": 1,
+        "coco-reference-yolov8n:backpack": 1
+      },
+      "first_encoded_pts_ms": 0.0,
+      "last_encoded_pts_ms": 3300.0
+    }
+  ],
+  "complete_videos": 7,
+  "complete_local_frames": 770,
+  "local_model_calls": 2310,
+  "new_training": 0,
+  "new_linq_calls": 0,
+  "matching_historical_linq_calls": 11,
+  "hardware_capture_scope": "S07_urfall01 Pose only; other scene/model pairs no TPU inference",
+  "independent_frame_audit": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_independent_review_v2.json",
+    "bytes": 4007,
+    "sha256": "713a7c2c6e9f491d6d871e6aba3cdbd99b3147b6caa74ab86eb3ccfa1b7bb33d"
+  },
+  "linq_readiness": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_linq_readiness.json",
+    "bytes": 747,
+    "sha256": "7028227a67f02d179f28daeedbd97a0fd944c983c22213d791561000137e0cb7"
+  },
+  "best_three_archive": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_best_three_v1.zip",
+    "bytes": 21876290,
+    "sha256": "2fb53f9a24de4bb09c13bf7f6f3b26c857f9022724f345c5805084cd0d7943f6",
+    "members": 68,
+    "member_sha_verification": "PASS",
+    "external_backup": false
+  },
+  "first_three_full_forward_completion_observed_utc": "2026-10-24T14:58:55Z",
+  "event_accuracy": "NOT_EVALUATED",
+  "scenarios": "S02/S07 observations; S04 haze context only; S01 factory context only; S08 blocked manual-cargo source/model",
+  "models_promoted": false,
+  "rules_events_backend_frontend_modified": false,
+  "software_tests": {
+    "count": 522,
+    "skipped": 4,
+    "result": "OK",
+    "log": {
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_software_tests_v2.log",
+      "bytes": 201,
+      "sha256": "f47cbdaa95049cdc2710e9068d23bc97f0a6037e3b85be8b5f9146ea85cbe496"
+    }
+  },
+  "all_scenes_archive": {
+    "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_all_scenes_v1.zip",
+    "bytes": 35438479,
+    "sha256": "247333eadbafde0ff1dc81e0060942623611cdca2697e8bca231855f98ae2f28",
+    "members": 108,
+    "member_sha_verification": "PASS",
+    "complete_scenes": 7,
+    "full_local_frames": 770,
+    "external_backup": false
+  },
+  "source_capability_rechecks": [
+    {
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_producer_recheck.json",
+      "bytes": 518,
+      "sha256": "f132e28654041880dc1edfc1b83dac4db16ab993b903542e32a95596eda79dac"
+    },
+    {
+      "path": "/workspace/artifacts/matvey-scene-packs-20261024/matvey_ur_ready_recheck.json",
+      "bytes": 291,
+      "sha256": "9592b0ed2b23670887544576fef4f2c9a2ca7bac5cf1f404b3b45898dc4e471c"
+    }
+  ]
+}

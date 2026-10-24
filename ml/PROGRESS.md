@@ -191,3 +191,19 @@ valid/offline; latest fetched main remainsf6b5358a, new Argus contract pending.
 
 Final inference-only check:9owned gate/cache/ABI tests PASS; full discovery
 513tests OK (4skipped),7.548s; exact log pinned in the handoff report.
+
+## Full scene packs — 2026-10-24T15:32:15.047854+00:00
+
+MEASURED:7whole videos/770originalframes/2310PyTorchCUDAmodel calls, unchanged
+Pose+Helmet+COCO80reference, no interpolation or missinglocalframes. First3forward
+completions observed14:58:55UTC beforecheckpoint.7sourceRGB/encodedPTS/all2310input
+hashes/transforms/classmaps/poses rechecked independently aftercheckpoint.9owned
+validationtestsPASS;522softwaretestsOK(4skipped),7.434s. No candidate promotion
+or independentP/R. S01 factorycontext only; S04 haze/specialistmissing; S08blocked
+manualcargo source/model. Only11historicalPoseTPUframes shareUR01source; fresh0
+blocked byownplacement/Jupytercapability. Root GPUlock acquired afterempty nvidia
+andTrainingFINISHED_GPU_RELEASED, sequentialwaves, releasedafter. No source
+search/training/newcompile/rules/API/frontend/foreignworktree edit.
+Report ml/reports/scene-packs-20261024.json; instructions docs/handoffs/SCENE_PACKS_20261024.md.
+
+Finalsceneexportcheck:522testsOK(4skipped),7.432s; both delivery ZIP memberSHA checks PASS. ProducerMendeley and frozenUR capability/bytes rechecked postrun (sourceSHA was checked before every forward). New Argus contract not yet published in fetched mainf6b5358a at last check.

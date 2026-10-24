@@ -1,3 +1,12 @@
+## Full-scene delivery status
+
+7full localCUDA videos/770frames/2310modelcalls COMPLETE,9owned validationtests,
+522softwaretestsOK(4skipped). Best3 were forward-complete before18:00MSK; full
+independent source audit after. SourceMP4 unchanged. Only11historicalUR01PoseTPU
+frames; no freshLinQ (ownstaging/Jupyterabsent). S01/S04contextonly, S08BLOCKED.
+Index /workspace/artifacts/matvey-scene-packs-20261024/matvey_manifest.json;
+runbook docs/handoffs/SCENE_PACKS_20261024.md. Argus rules/app remain Mark-owned.
+
 ## Current captain deadline — video/model delivery
 
 Before24October18:00MSK: originalMP4 + true frame/model results. Mark owns all

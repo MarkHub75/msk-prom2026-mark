@@ -1,3 +1,12 @@
+## Full-scene neural inputs — 24October continuation
+
+7whole GPU videos/770frames/2310calls now available in scene-packs-20261024.
+S02:2vehicle/person contexts, S07:2laboratory fall references; S04:2haze contexts
+with no specialist, S01:1factory context without running head. This is complete
+input observation coverage, NOT qualified event coverage; S08manualcargo blocked.
+Only11historicalUR01Poseframes on TPU; other scene/model pairs no LinQ.
+Runbook docs/handoffs/SCENE_PACKS_20261024.md; small summary reports/scene-packs-20261024.json.
+
 # Восемь исполняемых прототипов — текущий технический checkpoint
 
 Приоритет изменён срочной директивой пользователя. Точная транскрипция страницы4 официального кейса и SHA источника: `ml/scenarios/catalog.json`. Helmet — дополнительный прежний модуль, вне восьми групп. Полная история baseline сохранена в EXPERIMENTS/EVAL_REPORT и предыдущих Git-коммитах.

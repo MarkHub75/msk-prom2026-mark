@@ -1,3 +1,12 @@
+## CURRENT FULL SCENE PACKS
+
+7full localCUDA videos/770frames/2310modelcalls COMPLETE,9owned validationtests,
+522softwaretestsOK(4skipped). Best3 were forward-complete before18:00MSK; full
+independent source audit after. SourceMP4 unchanged. Only11historicalUR01PoseTPU
+frames; no freshLinQ (ownstaging/Jupyterabsent). S01/S04contextonly, S08BLOCKED.
+Index /workspace/artifacts/matvey-scene-packs-20261024/matvey_manifest.json;
+runbook docs/handoffs/SCENE_PACKS_20261024.md. Argus rules/app remain Mark-owned.
+
 ## CAPTAIN DEADLINE HANDOFF — 2026-10-24T14:03:58.123953+00:00
 
 Latest priority: original MP4 + real per-frame LinQ detections for Egor/Mark by

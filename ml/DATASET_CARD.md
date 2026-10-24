@@ -38,3 +38,15 @@ exact cross-split media/RGB digest equality from clocks, without fresh decode.
 is UNKNOWN. Subject folders1/2/3 train,4 validation; all derivatives stay together.
 New adaptation is a data capability, not authorization to start training. Existing
 four-head retraining is forbidden. Details: reports/intake-20261024.json.
+
+## Complete scene-export inputs, 24 October
+
+Seven already available MP4 inputs were exported without changing bytes: five
+Mendeley factory clips and two URFall lossy RGB-crop previews. All770frames were
+forwarded through unchanged Pose/Helmet/COCO80-reference weights, with sourceSHA,
+encodedPTS/RGB/input checks. This creates model proposals, not new GT. Entire
+Mendeley family is calibration-known; UR remains source-development/academic
+NC-SA. No independent final test or new source acquisition. Producer READY roles
+were rechecked after the runs; each selected source SHA was checked before its
+forward. Partial specialist/action coverage remains UNKNOWN. Paths and precise
+rights/limits: docs/handoffs/SCENE_PACKS_20261024.md.
