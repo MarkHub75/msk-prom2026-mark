@@ -860,3 +860,17 @@ input[type=date] { color-scheme: dark; }
 .ds-app .od-tile-live i { background: var(--ds-timecode); }
 .ds-app .od-onair.is-on svg { animation: none; }
 .ds-app .ic-live .video-frame { width: min(100%, calc(260px * var(--media-ratio, 1.7777778))); }
+
+/* Journal: level and state never wrap; event/place give way */
+.ds-app .jd-table td:nth-child(5), .ds-app .jd-table td:nth-child(6), .ds-app .jd-table td.jd-dur, .ds-app .jd-table td.jd-time { white-space: nowrap; }
+.ds-app .jd-table td:nth-child(6) .status { white-space: nowrap; }
+.ds-app .jd-table td.jd-place { min-width: 0; }
+@media (max-width: 1500px) {
+  .ds-app .jd-layout { grid-template-columns: 224px minmax(0, 1fr); }
+  .ds-app .jd-table td, .ds-app .jd-table th { padding-left: 8px !important; padding-right: 8px !important; }
+  .ds-app .jd-table td.jd-thumb img { width: 64px; height: auto; }
+  .ds-app .jd-table td.jd-place span, .ds-app .jd-table td.jd-place small { display: block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+/* Camera setup (zones, calibration): the workspace fits the screen under the setup head and tabs */
+.ds-app .geo-workspace { --geo-offset: 236px; height: max(400px, calc(100vh - var(--geo-offset))); }
