@@ -28,6 +28,9 @@ def evaluate(ctx,config):
             out.append(finding('01','abrupt_in_machinery_zone',key,'UNKNOWN','current_foot_unobservable'));continue
         if not inside(anchor,zone):
             out.append(finding('01','abrupt_in_machinery_zone',key,'NEGATIVE','outside_declared_machinery_work_zone'));continue
+        camera_source=config.get('camera_policy_source')
+        if config.get('stationary_camera_declared') is not True or not isinstance(camera_source,str) or not camera_source.strip():
+            out.append(finding('01','abrupt_in_machinery_zone',key,'UNKNOWN','stationary_camera_policy_unavailable'));continue
         previous=p.get('previous');dt=p.get('dt_ms')
         old=foot(previous,minimum) if previous and previous.get('score',0)>=minimum else None
         if old is None or type(dt) not in (int,float) or not isfinite(dt) or not 0<dt<=policy.get('max_gap_ms',750):
@@ -38,5 +41,5 @@ def evaluate(ctx,config):
         speed=hypot(anchor[0]-old[0],anchor[1]-old[1])/(dt/1000)
         if units=='image_diagonals_per_second':speed/=hypot(w,h)
         out.append(finding('01','abrupt_in_machinery_zone',key,'POSITIVE' if speed>=threshold else 'NEGATIVE','configured_apparent_motion_proxy',float(min(p['score'],previous['score'])),
-            {'speed':speed,'speed_units':units,'threshold':threshold,'geometry_revision':policy['geometry_revision'],'policy_source':policy['policy_source'],'apparent_motion_only':True,'validated_gait':False,'physical_speed':False}))
+            {'speed':speed,'speed_units':units,'threshold':threshold,'geometry_revision':policy['geometry_revision'],'policy_source':policy['policy_source'],'apparent_motion_only':True,'validated_gait':False,'physical_speed':False,'stationary_camera_declared':True,'camera_policy_source':camera_source}))
     return out

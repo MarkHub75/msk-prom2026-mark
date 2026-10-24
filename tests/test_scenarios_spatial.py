@@ -40,7 +40,7 @@ def moving_object(x=230,old_x=210):
 
 class MotionTests(unittest.TestCase):
     def policy(self):
-        c=config('01');c['abrupt_movement'].update(work_zone=ZONE,geometry_revision='synthetic-v1',policy_source='explicit-synthetic-test');return c
+        c=config('01');c.update(stationary_camera_declared=True,camera_policy_source='explicit-synthetic-stationary-camera');c['abrupt_movement'].update(work_zone=ZONE,geometry_revision='synthetic-v1',policy_source='explicit-synthetic-test');return c
 
     def test_running_positive_negative_and_missing_not_speed_inferred(self):
         ctx=context();c=self.policy();self.assertEqual(byrule(motion.evaluate(ctx,c))['running']['verdict'],'UNKNOWN')
@@ -73,6 +73,17 @@ class MotionTests(unittest.TestCase):
         ctx=context();addfact(ctx,'running_action',True);addfact(ctx,'running_action',False)
         self.assertEqual(byrule(motion.evaluate(ctx,self.policy()))['running']['verdict'],'UNKNOWN')
 
+    def test_camera_pan_or_missing_declaration_cannot_be_abrupt_positive(self):
+        ctx=context();ctx['people'][0].update(previous=person(50),dt_ms=500)
+        for changes in ({'stationary_camera_declared':False},{'stationary_camera_declared':1},{'camera_policy_source':None},{'camera_policy_source':' '}):
+            c=self.policy();c.update(changes)
+            r=byrule(motion.evaluate(ctx,c))['abrupt_in_machinery_zone']
+            self.assertEqual(r['verdict'],'UNKNOWN');self.assertEqual(r['reason'],'stationary_camera_policy_unavailable')
+        c=self.policy();c['stationary_camera_declared']=False;addfact(ctx,'running_action',True)
+        rows=byrule(motion.evaluate(ctx,c))
+        self.assertEqual(rows['running']['verdict'],'POSITIVE')
+        self.assertEqual(rows['abrupt_in_machinery_zone']['verdict'],'UNKNOWN')
+
     def test_degenerate_or_wrong_image_geometry_is_blocked(self):
         for polygon in ([[0,0],[1,1],[2,2]],[[0,0],[2000,0],[0,600]]):
             ctx=context();c=self.policy();c['abrupt_movement']['work_zone']=polygon
@@ -85,7 +96,7 @@ class MotionTests(unittest.TestCase):
 
 class MachineryTests(unittest.TestCase):
     def policy(self):
-        c=config('02');c['proximity']['policy_source']='explicit-synthetic-test';return c
+        c=config('02');c.update(stationary_camera_declared=True,camera_policy_source='explicit-synthetic-stationary-camera');c['proximity']['policy_source']='explicit-synthetic-test';return c
 
     def test_moving_near_positive_stationary_and_far_negative(self):
         ctx=context();obj=moving_object();ctx['objects']=[obj]
@@ -112,6 +123,18 @@ class MachineryTests(unittest.TestCase):
         self.assertEqual(machinery.evaluate(ctx,config('02'))[0]['verdict'],'BLOCKED')
         ctx['objects'][0]['dt_ms']=1000
         self.assertEqual(machinery.evaluate(ctx,self.policy())[0]['verdict'],'UNKNOWN')
+
+    def test_camera_pan_cannot_supply_machine_motion_but_sourced_fact_can(self):
+        ctx=context();ctx['objects']=[moving_object()]
+        c=self.policy();c['stationary_camera_declared']=False
+        r=machinery.evaluate(ctx,c)[0]
+        self.assertEqual(r['verdict'],'UNKNOWN');self.assertEqual(r['reason'],'stationary_camera_policy_unavailable')
+        c=self.policy();c['camera_policy_source']=None
+        self.assertEqual(machinery.evaluate(ctx,c)[0]['verdict'],'UNKNOWN')
+        c=self.policy();c['stationary_camera_declared']=False
+        addfact(ctx,'moving_state',True,key=ctx['objects'][0]['object_key'])
+        r=machinery.evaluate(ctx,c)[0]
+        self.assertEqual(r['verdict'],'POSITIVE');self.assertFalse(r['attributes']['translation_inference_used'])
 
     def test_multiple_objects_aggregate_one_finding_and_do_not_mask_unknown(self):
         ctx=context();unknown=moving_object(900,None);unknown['object_key']='other'

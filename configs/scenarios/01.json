@@ -13,5 +13,7 @@
     "speed_units": "image_diagonals_per_second",
     "speed_threshold": 0.2,
     "max_gap_ms": 750
-  }
+  },
+  "stationary_camera_declared": false,
+  "camera_policy_source": null
 }
