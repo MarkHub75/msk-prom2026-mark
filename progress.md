@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v8, второй прогон: R30 закрыт, следующий R32 (S31 и S32 сняты владельцем)
+- state: tech v8, второй прогон: R32 в работе (финальная проверка)
 - tech.md: v8
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
