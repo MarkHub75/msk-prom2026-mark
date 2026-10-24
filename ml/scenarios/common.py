@@ -68,6 +68,13 @@ def fact(context, track_key, name):
                 or not isinstance(item.get('source'), str) or not item['source']
                 or 'value' not in item or not _json_finite(item['value'])):
             continue
+        if any(k in item and item[k]!=batch.get(k) for k in ('camera_id','stream_epoch','source_sha256')):
+            continue
+        if batch.get('backend')!='synthetic-test':
+            if item.get('camera_id')!=batch['camera_id'] or item.get('stream_epoch')!=batch['stream_epoch']:
+                continue
+            if batch.get('source_sha256') is not None and item.get('source_sha256')!=batch['source_sha256']:
+                continue
         found.append(item)
     return found[0] if len(found) == 1 else None
 

@@ -118,5 +118,35 @@ class ScenarioSuiteTests(unittest.TestCase):
             event=next(e for e in self.candidates(pipe) if e['scenario_id']=='03')
             with self.assertRaises(ValueError):validate_event(event)
 
+    def test_duplicate_object_keys_cannot_borrow_machine_moving_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            config,batches=build_case('02');pipe=self.pipeline(Path(tmp),config)
+            for raw in batches:
+                batch=deepcopy(raw);machine=deepcopy(batch['detections'][1]);machine['bbox_xyxy']=[400,300,480,400]
+                batch['detections'].append(machine);pipe.process(batch)
+            self.assertFalse([c for c in self.candidates(pipe) if c['scenario_id']=='02'])
+
+    def test_real_facts_require_camera_epoch_and_media_binding(self):
+        _,batches=build_case('01');batch=batches[0];batch['backend']='linq';batch['source_sha256']='a'*64
+        item=batch['scenario_context']['facts'][0];ctx={'batch':batch};key=item['track_key'];name=item['name']
+        self.assertIsNone(fact(ctx,key,name))
+        item.update(camera_id=batch['camera_id'],stream_epoch=batch['stream_epoch'],source_sha256=batch['source_sha256'])
+        self.assertIsNotNone(fact(ctx,key,name))
+        for field in ('camera_id','stream_epoch','source_sha256'):
+            old=item[field];item[field]='wrong';self.assertIsNone(fact(ctx,key,name));item[field]=old
+
+    def test_replay_writer_lock_is_acquired_before_state_restore(self):
+        from ml.scenarios.cli import replay
+        from ml.pipeline.runtime_lock import deployment_lock
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            with deployment_lock(root/'video.lock'),patch('ml.scenarios.cli.Outbox') as constructor:
+                with self.assertRaises(RuntimeError):replay([],root,load_config())
+                constructor.assert_not_called()
+
+    def test_site_policy_cannot_apply_to_an_unbound_camera_geometry(self):
+        config,_=build_case('02');config.pop('camera_id')
+        with self.assertRaises(ValueError):ScenarioSuite(config)
+
 
 if __name__=='__main__':unittest.main()

@@ -1,5 +1,6 @@
 """One shared context and temporal engine for all eight observation rule groups."""
 from copy import deepcopy
+from collections import Counter
 import hashlib
 import importlib
 import json
@@ -25,6 +26,11 @@ class ScenarioSuite:
         self.config=deepcopy(config)
         if config.get('schema_version')!='mosprom-scenarios-v1' or set(config.get('modules',{}))!=set(MODULES):
             raise ValueError('explicit eight-module suite config required')
+        def has_site_policy(value):
+            return isinstance(value,dict) and any((k in ('policy_source','height_zone_source','floor_policy_source','camera_policy_source') and bool(v)) or has_site_policy(v) for k,v in value.items())
+        if has_site_policy(config['modules']):
+            if not isinstance(config.get('camera_id'),str) or not config['camera_id'] or not isinstance(config.get('image_size'),list) or len(config['image_size'])!=2 or any(type(v) is not int or v<=0 for v in config['image_size']):
+                raise ValueError('declared site policies require camera and original geometry binding')
         self.policy={'confirm_ms':1000,'min_observations':2,'max_gap_ms':750,**config.get('temporal',{})}
         for key in ('confirm_ms','max_gap_ms'):
             if not finite(self.policy[key]) or self.policy[key]<0:raise ValueError('invalid temporal policy')
@@ -63,8 +69,12 @@ class ScenarioSuite:
                 self.previous_people[key]={'time':batch['media_time_ms'],'detection':deepcopy(found[0])}
                 for event in track['active'].values():active.setdefault(event['event_id'],event)
         objects=[];old_objects=self.previous_objects.get(batch['camera_id'],[]);used=set()
+        counts=Counter(d.get('object_key') for d in batch['detections'] if isinstance(d.get('object_key'),str))
+        ambiguous_classes={d['class_name'] for d in batch['detections'] if isinstance(d.get('object_key'),str) and counts.get(d['object_key'],0)>1}
         for det in batch['detections']:
             if det['class_name'] in ('person','helmet','bare_head'):continue
+            if det.get('object_key') is not None and (not isinstance(det['object_key'],str) or not det['object_key'] or counts.get(det['object_key'],0)>1):
+                ambiguous_classes.add(det['class_name']);continue
             matches=[(iou(det['bbox_xyxy'],old['detection']['bbox_xyxy']),i,old) for i,old in enumerate(old_objects)
                      if i not in used and old['epoch']==batch['stream_epoch'] and old['detection']['class_name']==det['class_name']
                      and 0<batch['media_time_ms']-old['time']<=self.policy['max_gap_ms']
@@ -79,7 +89,11 @@ class ScenarioSuite:
                             'dt_ms':batch['media_time_ms']-old['time'] if old else None})
         self.previous_objects[batch['camera_id']]=[{'key':o['object_key'],'detection':{k:v for k,v in o.items() if k not in ('previous','dt_ms')},
                                                    'epoch':batch['stream_epoch'],'time':batch['media_time_ms']} for o in objects]
-        return {'batch':batch,'people':people,'objects':objects,'legacy_events':list(active.values())}
+        effective=batch
+        if ambiguous_classes:
+            effective=deepcopy(batch);extra=effective.setdefault('scenario_context',{});coverage=extra.setdefault('coverage',{})
+            for cls in ambiguous_classes:coverage[cls]='unknown'
+        return {'batch':effective,'people':people,'objects':objects,'legacy_events':list(active.values())}
 
     def _interrupt(self,key,end,reason):
         record=self.episodes[key];record['start']=None;record['n']=0

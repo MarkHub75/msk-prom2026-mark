@@ -4,6 +4,8 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 from ml.pipeline.video_clock import FilePTS
+from ml.scenarios.cli import VideoEvidenceFrames
+import numpy as np
 
 
 class ScenarioClockTest(unittest.TestCase):
@@ -24,3 +26,21 @@ class ScenarioClockTest(unittest.TestCase):
         with patch('ml.pipeline.video_clock.subprocess.run',return_value=self.probe([.039])):clock=FilePTS('/synthetic-no-video')
         for index in (-1,1,True):
             with self.assertRaises(ValueError):clock.at(index)
+
+    def test_evidence_uses_sequential_frame_ordinal_without_approximate_seek(self):
+        class Capture:
+            def __init__(self):self.reads=0
+            def read(self):
+                image=np.full((3,4,3),self.reads,dtype=np.uint8);self.reads+=1;return True,image
+            def set(self,*args):raise AssertionError('approximate seeking must not be used')
+            def release(self):pass
+            def isOpened(self):return True
+        cap=Capture();reader=object.__new__(VideoEvidenceFrames)
+        reader.cv2=SimpleNamespace(COLOR_BGR2RGB=1,cvtColor=lambda bgr,code:bgr.copy(),VideoCapture=lambda path:Capture())
+        reader.cap=cap;reader.path='/synthetic';reader.sha256='fixture';reader.clock=SimpleNamespace(at=lambda i:i*40)
+        reader.cursor=-1;reader.last_frame=None
+        batch={'source_sha256':'fixture','frame_id':5,'media_time_ms':200,'image_size':[4,3]}
+        self.assertEqual(int(reader(batch)[0,0,0]),5);self.assertEqual(cap.reads,6)
+        batch.update(frame_id=0,media_time_ms=0);self.assertEqual(int(reader(batch)[0,0,0]),0)
+        batch['source_sha256']='wrong'
+        with self.assertRaises(ValueError):reader(batch)

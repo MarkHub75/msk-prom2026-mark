@@ -223,7 +223,16 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == 'video' and (not all(math.isfinite(v) for v in (args.sample_fps,args.max_age_ms,args.linq_timeout,args.start_ms)) or args.end_ms is not None and not math.isfinite(args.end_ms) or args.sample_fps <= 0 or args.max_age_ms <= 0 or args.max_frames < 0 or args.linq_timeout<=0 or args.start_ms<0 or args.end_ms is not None and args.end_ms<=args.start_ms):
         parser.error('invalid sampling/freshness limits')
+    if args.scenario_config:
+        from ml.pipeline.runtime_lock import deployment_lock
+        with deployment_lock(Path(args.state_dir)/'video.lock'):
+            return _execute(args,parser,state_lock_held=True)
+    return _execute(args,parser)
+
+
+def _execute(args,parser,*,state_lock_held=False):
     pipeline = build_pipeline(args)
+    pipeline.scenario_state_lock_held=state_lock_held
     try:
         if args.command == 'replay':
             count = 0

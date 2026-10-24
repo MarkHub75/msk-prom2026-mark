@@ -10,6 +10,7 @@ import math
 from pathlib import Path
 import time
 from uuid import uuid4
+from contextlib import nullcontext
 
 import cv2
 import numpy as np
@@ -73,7 +74,8 @@ def run_file_video(args,pipeline,cap,manifests,backends,fps):
     if not args.linq_runner_factory:raise ValueError('offline remote MVP requires explicit LinQ runner factory')
     root=Path(args.state_dir)
     # Serializes the MVP entry point across distinct state directories as well.
-    with deployment_lock(GLOBAL_VIDEO_LOCK),deployment_lock(root/'video.lock'):
+    local_lock=nullcontext() if getattr(pipeline,'scenario_state_lock_held',False) else deployment_lock(root/'video.lock')
+    with deployment_lock(GLOBAL_VIDEO_LOCK),local_lock:
         opened=time.monotonic()
         session=_session(args,pipeline,manifests,fps)
         checkpoint=pipeline.outbox.checkpoint('video')

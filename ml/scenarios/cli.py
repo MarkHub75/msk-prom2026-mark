@@ -10,6 +10,7 @@ from ml.contracts import validate_observation
 from ml.pipeline.delivery import Outbox
 from ml.pipeline.runner import Pipeline
 from ml.pipeline.capture_recovery import save_json
+from ml.pipeline.runtime_lock import deployment_lock
 from .engine import ScenarioSuite,load_config
 
 
@@ -19,15 +20,23 @@ class VideoEvidenceFrames:
         import cv2
         from ml.pipeline.file_video import file_hash
         from ml.pipeline.video_clock import FilePTS
-        self.clock=FilePTS(path)
+        self.clock=FilePTS(path);self.path=str(path);self.cursor=-1;self.last_frame=None
         self.cv2=cv2;self.sha256=file_hash(path);self.cap=cv2.VideoCapture(str(path))
         if not self.cap.isOpened():raise ValueError('evidence source unavailable')
 
     def __call__(self,batch):
         if batch.get('source_sha256')!=self.sha256:raise ValueError('original video source hash required for evidence')
-        cv2=self.cv2;self.cap.set(cv2.CAP_PROP_POS_FRAMES,batch['frame_id']);ok,bgr=self.cap.read()
-        if not ok or abs(self.clock.at(batch['frame_id'])-batch['media_time_ms'])>2:
+        cv2=self.cv2;index=batch['frame_id']
+        if abs(self.clock.at(index)-batch['media_time_ms'])>2:
             raise ValueError('evidence frame/PTS differs from analyzed frame')
+        if index<self.cursor:
+            self.cap.release();self.cap=cv2.VideoCapture(self.path);self.cursor=-1;self.last_frame=None
+            if not self.cap.isOpened():raise ValueError('evidence source cannot reopen')
+        while self.cursor<index:
+            ok,bgr=self.cap.read()
+            if not ok:raise ValueError('evidence decoder ended before requested frame')
+            self.cursor+=1;self.last_frame=bgr
+        bgr=self.last_frame
         if [bgr.shape[1],bgr.shape[0]]!=list(batch['image_size']):raise ValueError('evidence original geometry differs')
         return cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB)
 
@@ -36,6 +45,11 @@ class VideoEvidenceFrames:
 
 def replay(source,state_dir,config,*,frame_provider=None):
     root=Path(state_dir);root.mkdir(parents=True,exist_ok=True)
+    with deployment_lock(root/'video.lock'):
+        return _replay_locked(source,root,config,frame_provider=frame_provider)
+
+
+def _replay_locked(source,root,config,*,frame_provider=None):
     outbox=Outbox(root/'events.sqlite')
     try:
         suite=ScenarioSuite(config);pipeline=Pipeline(BehaviorEngine(config.get('behavior')),outbox,root,scenario_suite=suite)
