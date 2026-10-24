@@ -269,3 +269,33 @@ This is OBSERVED metadata, not proof of a causal mechanism or authority to alter
 the runtime codec. The original input scale remains127. Evidence:
 `E005/summary.json`, `graph-scale-audit.json`, `anchor-audit.json`, float-parity raw
 outputs and complete split simulation outputs. Hardware quality remains UNKNOWN.
+
+### E006: saved-output Helmet drift closeout (no new hypothesis)
+
+`python -m ml.quality.helmet.drift_audit --help` exposes a reproducible saved-only
+CLI. It reads frozen predictions/raw NPZs and unchanged quality-v3 GT. The fixed
+.25 confidence/.5 matching IoU, stable greedy assignment, COMPLETE-only primary
+scope, partial-known recall and ignore-region policy reproduce the existing
+scorer exactly. Per-GT records expose retained/lost/recovered matches, nearest
+saved boxes and bounded diagnostic candidates; per-FP correspondence makes
+turnover visible even when net FP count falls. Nearest other-class overlap is
+not proof of a class error. Raw anchor crossings are not object counts.
+
+All three sets have52 saved raw NPZs. Historical native NPZs lack embedded image
+identity: numeric index binding is explicitly limited to preserved dataset and
+prediction insertion order. Native/float primary GT matches and18FP counterparts
+agree; raw values are close but not bitwise identical (max class-score difference
+about1.94e-6). Baseline PTQ retains19helmetTP and recovers4; it retains19bareTP and
+loses4. Every lost bare GT has an overlapping saved same-class box at the raw
+floor, but no same-class IoU>=.5 box above the unchanged primary threshold. This
+is a saved-output symptom, not a proven internal PTQ cause or new threshold
+recommendation. Primary FP18->14 hides9retained,9source FP without same-class
+counterpart and5new target FP (diagnostic IoU correspondence).
+
+Authoritative expanded files are outside Git in
+`/workspace/artifacts/night-20261024/E006-helmet-drift-audit/audit-v2/`:
+protocol, summary, complete per-GT/per-image lists, false positives, paired FP
+correspondence and raw numeric comparisons. Initial provisional files remain
+preserved at the parent directory. This is developmental DIAGNOSTIC evidence,
+not independent accuracy or improvement. No NN/compilation/GPU/LinQ, new source,
+GT edit, tuning or reopening of closed candidate budgets occurred.
