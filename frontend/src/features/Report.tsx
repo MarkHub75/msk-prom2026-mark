@@ -12,7 +12,7 @@ const MAX_PAGES = 10;
 const dateTime = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
 
 /** Every event of the journal filter, page by page (the server owns filtering and order). */
-async function loadAll(search: URLSearchParams) {
+export async function loadAll(search: URLSearchParams) {
   const items: EventSummary[] = [];
   let cursor: string | undefined;
   let total = 0;
