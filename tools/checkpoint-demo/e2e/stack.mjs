@@ -10,7 +10,8 @@ export const HERE = fileURLToPath(new URL("..", import.meta.url));
 export const REST = "http://127.0.0.1:4110";
 export const WS = "ws://127.0.0.1:4111/ws";
 export const FRONT_URL = "http://127.0.0.1:5174";
-export const OWNER_FRONT = "C:/Users/User/Documents/mosprom2026-hack/frontend";
+// The new frontend: worktree of origin/front/control-room (replaces the Codex one).
+export const OWNER_FRONT = "C:/Users/User/Documents/mosprom2026-front/frontend";
 // Vite for the fixture front (e2e/fixture-front) comes from the main frontend of the watch worktree.
 export const FIXTURE_FRONT = join(HERE, "e2e", "fixture-front");
 const MAIN_FRONT = "C:/Users/User/Documents/mosprom2026-real/frontend";

@@ -18,6 +18,7 @@ const SCREENS = join(HERE, "e2e", "screens", args.includes("--fixture") ? "fixtu
 const BUGS = join(HERE, "e2e", "FRONT_BUGS.md");
 const STEP_MS = 10000;
 const COMMENT = "Пострадавших нет, рабочее место осмотрено";
+const ACTOR = "Иван Петров";
 const time = () => new Date().toLocaleTimeString("ru-RU", { timeZone: "Europe/Moscow", hour: "2-digit", minute: "2-digit" });
 const stamp = () => new Date().toISOString().replace(/[-:]/g, "").slice(0, 13);
 
@@ -79,71 +80,99 @@ async function noReload(fn) {
   if (navigations !== before) throw new StepFail("без перезагрузки страницы", `перезагрузок: ${navigations - before}`);
 }
 
+// Texts of the control-room frontend (origin/front/control-room): «Диспетчерская», «Очередь тревог»,
+// «Открыть событие», «Подтвердить», «Принять в работу», «Решено» / «Принятые меры».
+const CONFIRM = /^(Подтвердить|Подтверждаю)(\s|$)/;
+const queue = () => page.getByRole("complementary", { name: "Очередь тревог" });
+async function click(locator, expected) {
+  await expectUi(locator, expected);
+  try {
+    await locator.first().click({ timeout: 3000 });
+  } catch {
+    throw new StepFail(`${expected}: элемент виден, но клик не проходит (перекрыт или неактивен)`);
+  }
+  // The control-room front asks for a name before the first action (it goes to the history).
+  const intro = page.getByRole("dialog").filter({ hasText: "Представьтесь для действия" });
+  if (await intro.first().waitFor({ state: "visible", timeout: 1000 }).then(() => true, () => false)) {
+    await intro.getByRole("textbox").first().fill(ACTOR);
+    await intro.getByRole("button", { name: /Сохранить имя/ }).first().click();
+  }
+}
+
 const STEPS = [
   ["оператор: 4 сектора и «нет наблюдения» в секторе 4", async () => {
     await director("reset");
     await page.goto(`${FRONT_URL}/operator`);
     await selectRole("Оператор");
-    for (const name of ["Сектор 1 · Прессовый участок", "Сектор 2 · Склад и погрузка", "Сектор 3 · Сборочный цех", "Сектор 4 · Ремонтная зона"]) {
-      await expectUi(page.getByText(name), `плитка «${name}»`);
+    await expectUi(page.getByRole("heading", { name: "Диспетчерская" }), "заголовок «Диспетчерская»");
+    const sectors = page.getByRole("region", { name: "Секторы производства" });
+    for (const name of ["Прессовый участок", "Склад и погрузка", "Сборочный цех", "Ремонтная зона"]) {
+      await expectUi(sectors.getByRole("button", { name: new RegExp(name) }), `плитка сектора «${name}» в «Секторы производства»`);
     }
-    const tile = page.locator("a, button, li, article, section, div").filter({ hasText: "Сектор 4 · Ремонтная зона" }).filter({ hasText: /нет наблюдения/i });
-    await expectUi(tile, "в плитке сектора 4 текст «Нет наблюдения»");
+    await expectUi(sectors.getByRole("button", { name: /Ремонтная зона.*Нет наблюдения/i }), "у сектора 4 «Нет наблюдения»");
+    await expectUi(queue(), "панель «Очередь тревог»");
   }],
-  ["demo next → жёлтое в ленте без перезагрузки", async () => {
+  ["demo next → жёлтое в «Очереди тревог» без перезагрузки", async () => {
     await noReload(async () => {
       await director("next");
-      await expectUi(page.getByText("Бег 2,4 роста/с"), "в ленте событие «Бег 2,4 роста/с» (жёлтое) без F5");
+      await expectUi(queue().getByRole("button", { name: /Бег и резкие перемещения/ }), "в «Очереди тревог» событие «Бег и резкие перемещения» без F5");
     });
   }],
-  ["карточка жёлтого", async () => {
-    await page.getByText("Бег 2,4 роста/с").first().click();
-    await expectState(async () => /\/events\/\d+/.test(page.url()), "переход на /events/:id");
-    await expectUi(page.getByRole("button", { name: "Подтверждаю" }), "кнопка «Подтверждаю»");
+  ["«Открыть событие» → карточка жёлтого", async () => {
+    await click(queue().getByRole("button", { name: /Бег и резкие перемещения/ }), "событие в очереди");
+    await click(page.getByRole("link", { name: "Открыть событие" }), "ссылка «Открыть событие»");
+    const yellow = await liveOf("yellow");
+    await expectState(async () => page.url().includes(`/events/${yellow.id}`), `переход на /events/${yellow.id}`);
+    await expectUi(page.getByRole("button", { name: CONFIRM }), "кнопка «Подтвердить»");
   }],
-  ["«Подтверждаю» → жёлтое confirmed", async () => {
-    await page.getByRole("button", { name: "Подтверждаю" }).first().click();
+  ["«Подтвердить» → жёлтое confirmed", async () => {
+    await click(page.getByRole("button", { name: CONFIRM }), "кнопка «Подтвердить»");
     await expectState(async () => (await liveOf("yellow"))?.status === "confirmed", "мок: жёлтое в статусе confirmed");
     await expectUi(page.getByText("Подтверждено"), "статус «Подтверждено» на экране");
   }],
   ["demo next → захват экрана красным сам", async () => {
     await director("next");
-    await expectUi(page.getByText("Зафиксировано падение"), "красное «Зафиксировано падение» на экране без клика");
     const red = await liveOf("red");
-    await expectState(async () => page.url().includes(`/events/${red.id}`), `экран сам перешёл на /events/${red.id} (захват)`);
-    await expectUi(page.getByRole("button", { name: "Подтверждаю" }), "кнопка «Подтверждаю» в захвате");
+    const dialog = page.getByRole("alertdialog").filter({ hasText: "Зафиксировано падение" });
+    try {
+      await dialog.first().waitFor({ state: "visible", timeout: STEP_MS });
+    } catch {
+      if (!page.url().includes(`/events/${red.id}`)) throw new StepFail("сам открылся захват экрана (alertdialog с «Зафиксировано падение» или /events/:id красного)");
+    }
   }],
-  ["«Подтверждаю» → красное мастеру", async () => {
-    await page.getByRole("button", { name: "Подтверждаю" }).first().click();
+  ["«Подтвердить» → красное мастеру", async () => {
+    await click(page.getByRole("button", { name: CONFIRM }), "кнопка «Подтвердить» в захвате");
     await expectState(async () => (await liveOf("red"))?.status === "sent_to_master", "мок: красное в sent_to_master");
     await expectUi(page.getByText("Передано мастеру"), "статус «Передано мастеру» на экране");
   }],
-  ["мастер: «Принял, иду»", async () => {
+  ["мастер: «Принять в работу»", async () => {
     await selectRole("Мастер смены");
-    if (!page.url().includes("/master")) await page.goto(`${FRONT_URL}/master`);
-    await expectUi(page.getByText("Зафиксировано падение"), "красное во входящих мастера");
-    await page.getByText("Зафиксировано падение").first().click();
-    await expectUi(page.getByRole("button", { name: "Принял, иду" }), "кнопка «Принял, иду»");
-    await page.getByRole("button", { name: "Принял, иду" }).first().click();
+    const red = await liveOf("red");
+    await page.waitForTimeout(1000);
+    // The control-room front may open the card of the new task by itself after the role switch.
+    if (!new RegExp(`/events/${red.id}(\\?|$)`).test(page.url())) {
+      if (!page.url().includes("/master")) await page.goto(`${FRONT_URL}/master`);
+      await click(page.getByRole("link", { name: /Зафиксировано падение/ }), "красное во входящих мастера");
+    }
+    await click(page.getByRole("button", { name: /^Принять в работу|^Принял, иду/ }), "кнопка «Принять в работу»");
     await expectState(async () => (await liveOf("red"))?.status === "master_accepted", "мок: красное в master_accepted");
   }],
-  ["мастер: «Решено» с комментарием", async () => {
-    await expectUi(page.getByRole("button", { name: "Решено" }), "кнопка «Решено»");
-    await page.getByRole("button", { name: "Решено" }).first().click();
-    const box = page.getByRole("textbox");
-    await expectUi(box, "поле комментария о мерах");
+  ["мастер: «Решено» с «Принятые меры»", async () => {
+    let box = page.getByRole("textbox", { name: /Принятые меры/ });
+    if (!(await box.first().isVisible().catch(() => false))) {
+      await click(page.getByRole("button", { name: /^Решено/ }), "кнопка «Решено»");
+      box = page.getByRole("textbox", { name: /Принятые меры/ });
+    }
+    await expectUi(box, "поле «Принятые меры»");
     await box.first().fill(COMMENT);
-    const submit = page.getByRole("button", { name: /^(Решено|Отправить|Сохранить|Готово)$/ });
-    await submit.last().click();
+    await click(page.getByRole("button", { name: /^(Решено|Отправить|Сохранить|Готово)(\s|$)/ }).last(), "кнопка отправки «Решено»");
     await expectState(async () => (await liveOf("red"))?.status === "resolved", "мок: красное в resolved с комментарием");
   }],
   ["охрана труда: событие и история в журнале", async () => {
     await selectRole("Охрана труда");
-    const link = page.getByRole("link", { name: "Журнал" });
-    await expectUi(link, "пункт меню «Журнал»");
-    await link.first().click();
-    await expectUi(page.getByText("Зафиксировано падение"), "красное событие в журнале");
-    await page.getByText("Зафиксировано падение").first().click();
+    await click(page.getByRole("link", { name: "Журнал" }), "пункт меню «Журнал»");
+    const red = await liveOf("red");
+    await click(page.getByRole("link", { name: new RegExp(`Открыть историю события ${red.id}$`) }), `в журнале «Открыть историю события ${red.id}»`);
     await expectUi(page.getByText(COMMENT), `комментарий мастера «${COMMENT}» в истории`);
     await expectUi(page.getByText(/Решено/), "запись «Решено» в истории");
   }],
@@ -156,7 +185,7 @@ const STEPS = [
     await expectState(async () => (await director("status", "GET")).ws_clients?.operator > 0, "оператор переподключился к WS после разрыва");
     await noReload(async () => {
       await director("next");
-      await expectUi(page.getByText("Бег 2,4 роста/с"), "новое жёлтое в ленте после разрыва WS");
+      await expectUi(queue().getByRole("button", { name: /Бег и резкие перемещения/ }), "новое жёлтое в «Очереди тревог» после разрыва WS");
     });
   }],
 ];

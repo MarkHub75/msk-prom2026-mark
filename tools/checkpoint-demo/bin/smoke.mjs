@@ -418,6 +418,20 @@ async function main() {
     return `всего ${r.data.total}`;
   }, { gate: "journal", needs: ["server", "ws", "story", "red"] });
 
+  // ---- 8.7: a red one nobody answers goes to the master by itself (on for the show) ----
+  if (!MOCK) await step("автоэскалация 8.7: красное без оператора → мастеру за 45 с", async () => {
+    const created = await op.waitFor(isCreated("red"), 40000, true); // the loop publishes again every cycle
+    must(created, "нет нового красного из эфира за 40 с");
+    const id = created.data.id;
+    const upd = await op.waitFor((m) => m.type === "event.updated" && m.data.id === id && m.data.escalated_by_timeout, 65000);
+    must(upd, `#${id}: нет event.updated с escalated_by_timeout за 65 с`);
+    must(upd.data.status === "sent_to_master", `#${id}: статус ${upd.data.status}`);
+    const n = await master.waitFor(isNotif(id), 3000);
+    must(n && n.data.text.endsWith("Не подтверждено оператором"), `уведомление мастеру: ${n?.data.text ?? "нет"}`);
+    const s = (Date.parse(upd.at) - Date.parse(created.data.red_at ?? created.data.published_at)) / 1000;
+    return `#${id} через ${s.toFixed(1)} с: ${n.data.text}`;
+  }, { gate: "escalation", needs: ["server", "ws", "story"] });
+
   // ---- negatives ----
   const anyEvent = () => story.red?.id ?? story.yellow?.id ?? 1;
   await step("НЕГАТИВ неизвестная X-Role → 400 role_required", async () => {
