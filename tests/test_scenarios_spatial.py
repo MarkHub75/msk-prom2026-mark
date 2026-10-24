@@ -169,7 +169,7 @@ class FallWrapperTests(unittest.TestCase):
 
     def test_only_matching_legacy_event_positive_no_new_posture_classifier(self):
         for kind in ('suspected_fall','prolonged_lying'):
-            ctx=context();ctx['legacy_events']=[self.event(kind)]
+            ctx=context();ctx['legacy_events']=[self.event(kind)];addfact(ctx,'floor_observed',True)
             r=byrule(fall.evaluate(ctx,config('07')))
             self.assertEqual(r[kind]['verdict'],'POSITIVE');self.assertEqual(r[kind]['attributes']['legacy_event_id'],'legacy-uuid')
             self.assertFalse(r[kind]['attributes']['medical_diagnosis'])
@@ -182,10 +182,46 @@ class FallWrapperTests(unittest.TestCase):
             self.assertTrue(all(r['verdict']=='UNKNOWN' for r in fall.evaluate(ctx,config('07'))))
 
     def test_immobility_attribute_is_observable_not_unconsciousness(self):
-        ctx=context();ctx['legacy_events']=[self.event(attributes={'immobility_observed':True})]
+        ctx=context();ctx['legacy_events']=[self.event(attributes={'immobility_observed':True,'immobility_since_media_ms':100,'immobility_confirmed_media_ms':1000})];addfact(ctx,'floor_observed',True)
         r=byrule(fall.evaluate(ctx,config('07')))['immobility_observed']
         self.assertEqual(r['verdict'],'POSITIVE');self.assertFalse(r['attributes']['medical_diagnosis'])
         self.assertEqual(r['attributes']['consciousness_status'],'NOT_DETERMINABLE_FROM_VISUAL_STATE')
+        self.assertEqual(r['attributes']['immobility_since_media_ms'],100)
+        self.assertEqual(r['attributes']['immobility_confirmed_media_ms'],1000)
+
+    def test_lying_floor_required_unknown_bed_negative_and_current_fact_positive(self):
+        ctx=context();ctx['legacy_events']=[self.event('prolonged_lying',attributes={'immobility_observed':True})]
+        for name in ('prolonged_lying','immobility_observed'):
+            self.assertEqual(byrule(fall.evaluate(ctx,config('07')))[name]['verdict'],'UNKNOWN')
+        f=addfact(ctx,'floor_observed',False)
+        for name in ('prolonged_lying','immobility_observed'):
+            self.assertEqual(byrule(fall.evaluate(ctx,config('07')))[name]['verdict'],'NEGATIVE')
+        f['value']=True
+        for name in ('prolonged_lying','immobility_observed'):
+            self.assertEqual(byrule(fall.evaluate(ctx,config('07')))[name]['verdict'],'POSITIVE')
+        f['frame_id']=4
+        self.assertEqual(byrule(fall.evaluate(ctx,config('07')))['prolonged_lying']['verdict'],'UNKNOWN')
+
+    def test_suspected_fall_does_not_require_floor_or_assert_floor_lying(self):
+        ctx=context();ctx['legacy_events']=[self.event()]
+        rows=byrule(fall.evaluate(ctx,config('07')))
+        self.assertEqual(rows['suspected_fall']['verdict'],'POSITIVE')
+        self.assertEqual(rows['prolonged_lying']['verdict'],'UNKNOWN')
+        self.assertEqual(rows['immobility_observed']['verdict'],'UNKNOWN')
+
+    def test_floor_geometry_requires_source_revision_and_current_center(self):
+        ctx=context();ctx['legacy_events']=[self.event('prolonged_lying')];c=config('07');c['floor_polygon']=ZONE
+        self.assertEqual(byrule(fall.evaluate(ctx,c))['prolonged_lying']['verdict'],'UNKNOWN')
+        c.update(floor_policy_source='explicit-synthetic-test',geometry_revision='floor-v1')
+        self.assertEqual(byrule(fall.evaluate(ctx,c))['prolonged_lying']['verdict'],'POSITIVE')
+        ctx['people']=[person(900)]
+        self.assertEqual(byrule(fall.evaluate(ctx,c))['prolonged_lying']['verdict'],'NEGATIVE')
+
+    def test_shared_upright_negative_unknown_pose_abstains_without_legacy(self):
+        ctx=context();ctx['people'][0]['posture']='upright'
+        self.assertTrue(all(r['verdict']=='NEGATIVE' for r in fall.evaluate(ctx,config('07'))))
+        ctx['people'][0]['posture']='unknown'
+        self.assertTrue(all(r['verdict']=='UNKNOWN' for r in fall.evaluate(ctx,config('07'))))
 
     def test_closed_upright_negative_and_interrupted_unknown(self):
         ctx=context();ctx['legacy_events']=[self.event(state='closed',close_reason='observed_upright')]
