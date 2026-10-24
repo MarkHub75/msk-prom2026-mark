@@ -233,9 +233,9 @@ function JobsPanel({ queue, recent, names, retry }: { queue: Job[]; recent: Job[
   return <section className="ops-panel ops-jobs" data-panel="Задачи и замеры">
     <div className="ops-subhead"><h3>Очередь</h3><span className="mono">{queue.length}</span></div>
     {queue.length ? <table className="ops-table">
-      <thead><tr><th>Задача</th><th>Камера</th><th>Видео</th><th>Тип</th><th>Статус</th><th>Стадия</th><th className="ops-w-progress">Прогресс</th><th className="num">Попытки</th><th>Следующая попытка</th><th>Ошибка</th></tr></thead>
+      <thead><tr><th>Задача</th><th>Камера</th><th>Статус</th><th>Стадия</th><th className="ops-w-progress">Прогресс</th><th className="num">Попытки</th><th>Следующая попытка</th><th>Ошибка</th></tr></thead>
       <tbody>{queue.map(j => <tr key={j.id}>
-        <td className="mono">#{j.id}</td><td>{camera(j.camera_id)}</td><td className="mono">{j.video_id}</td><td>{KIND[j.kind]}</td>
+        <td className="mono ops-job-id">#{j.id}<small>{KIND[j.kind]}</small></td><td>{camera(j.camera_id)}<small className="ops-block ops-muted">видео {j.video_id}</small></td>
         <td><JobStatusChip job={j} /></td><td>{JOB_STAGE[j.stage]}</td><td><Progress value={j.progress} /></td><td className="num mono">{j.attempts}</td>
         <td className="mono">{j.next_attempt_at ? time(j.next_attempt_at) : "—"}</td><td className="ops-err-text">{j.error_text ?? ""}</td>
       </tr>)}</tbody>
