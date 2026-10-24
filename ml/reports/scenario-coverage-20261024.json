@@ -1,0 +1,240 @@
+{
+  "scope": "EIGHT_RUNNABLE_PROTOTYPES_NOT_INDEPENDENT_QUALITY_RELEASE",
+  "code_commit": "77e019f47242d38a97adb513fbe68a76e8295309",
+  "updated_utc": "2026-10-24T11:57:18.413441+00:00",
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "scenario_id": "01",
+      "official_text": "бег по цеху, резкие перемещения в зоне работы техники;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE",
+        "EXISTING_MOTION_HELPER_ONLY"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "SOURCE_RUN_WALK_PRESENT_BUT_RUNNING_UNOBSERVED",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "running-action model; camera-bound machinery zone/static-camera policy; person coverage poor",
+      "rule_file": "ml/scenarios/rules/motion.py",
+      "config": "configs/scenarios/01.json"
+    },
+    {
+      "scenario_id": "02",
+      "official_text": "опасное сближение человека с движущимися механизмами или транспортом;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "THREE_INDUSTRIAL_CONTEXTS_NOT_VIOLATION_GT",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "machine/vehicle boxes and motion plus verified projected-danger policy; camera stability",
+      "rule_file": "ml/scenarios/rules/machinery.py",
+      "config": "configs/scenarios/02.json"
+    },
+    {
+      "scenario_id": "03",
+      "official_text": "использование мобильного телефона при работе с оборудованием или при перемещении по цеху;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "NOT_ESTABLISHED",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "phone/use/ownership and activity classifier; visible head/wrist evidence",
+      "rule_file": "ml/scenarios/rules/phone.py",
+      "config": "configs/scenarios/03.json"
+    },
+    {
+      "scenario_id": "04",
+      "official_text": "курение или использование открытого огня вне отведенных мест;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "AMBIGUOUS_HAZE_NOT_FIRE_OR_SMOKING",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "cigarette/gesture or flame discrimination; ownership and allowed-place geometry",
+      "rule_file": "ml/scenarios/rules/fire_smoking.py",
+      "config": "configs/scenarios/04.json"
+    },
+    {
+      "scenario_id": "05",
+      "official_text": "перелезание через ограждения, пролезание под конвейером или подвешенным грузом;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "NOT_ESTABLISHED",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "three distinct action/pose/operation evidence streams and surveyed barrier/clearance geometry",
+      "rule_file": "ml/scenarios/rules/barriers.py",
+      "config": "configs/scenarios/05.json"
+    },
+    {
+      "scenario_id": "06",
+      "official_text": "работа на высоте без использования страховочной привязи;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "NOT_ESTABLISHED",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "height/work area, observable wearer-linked harness absence AND use/attachment state",
+      "rule_file": "ml/scenarios/rules/height.py",
+      "config": "configs/scenarios/06.json"
+    },
+    {
+      "scenario_id": "07",
+      "official_text": "падение человека, неподвижное лежание на полу, признаки потери сознания;",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE",
+        "EXISTING",
+        "EVALUATED_SOURCE_REFERENCE_ONLY"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "ONE_NATIVE_POSITIVE_READY_EVIDENCE_AND_ORDINARY_REFERENCE",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "independent episode GT, floor visibility, low baseline recall; GMD candidate not qualified",
+      "rule_file": "ml/scenarios/rules/fall.py",
+      "config": "configs/scenarios/07.json"
+    },
+    {
+      "scenario_id": "08",
+      "official_text": "переноска груза с нарушением правил (дополнительный сценарий).",
+      "statuses": [
+        "PROTOTYPE",
+        "RUNNABLE"
+      ],
+      "synthetic_cases": [
+        "positive",
+        "negative",
+        "insufficient"
+      ],
+      "real_video": "NOT_ESTABLISHED",
+      "full_scenario_linq": "NOT_VERIFIED",
+      "shared_pose_linq": "HISTORICAL_STATUS0_ONLY",
+      "blockers": "owned manual cargo, carrying/visibility and explicit site rule; no load weight inference",
+      "rule_file": "ml/scenarios/rules/cargo.py",
+      "config": "configs/scenarios/08.json"
+    }
+  ],
+  "synthetic_cases": 24,
+  "software_tests": 480,
+  "test_log": "/workspace/artifacts/matvey-scenarios/software-tests-release.log",
+  "new_training_runs": 0,
+  "new_gpu_runs": 0,
+  "new_cpu_neural_calls": 1380,
+  "new_linq_calls": 0,
+  "prior_correlated_linq_replies_replayed": 4,
+  "selected_development_priorities": [
+    "07",
+    "02",
+    "01"
+  ],
+  "three_defense_ready_scenarios": "NOT_ESTABLISHED",
+  "selection_reason": {
+    "07": "only new real-source positive candidate+ready evidence, existingPoseLinQ; poor baseline quality disclosed",
+    "02": "three actual industrial moving-forklift contexts and explainable rule; requires trained object/motion evidence and approved danger policy",
+    "01": "labelled run/walk development and existingPoseLinQ, but source runningrecall0 and ROI hypothesis rejected; experimental fallback only"
+  },
+  "not_selected_reason": {
+    "03": "phone/use unresolved, detector unavailable",
+    "04": "haze is not smoking/fire; source discrimination/zoneGT missing",
+    "05": "no observed whole-body crossing/underpass; action/geometry missing",
+    "06": "no establishedheight/harnessusage; absence not inferred",
+    "08": "forkliftstack is not manualcargo violation; ownership/policyGT missing"
+  },
+  "source_artifacts": {
+    "synthetic_acceptance": {
+      "path": "/workspace/artifacts/matvey-scenarios/release-acceptance-v1/coverage-acceptance.json",
+      "sha256": "c061b32086c65bc067a7f9f3817bd731bb2deabd19f6f654101537fffe1fcbb9"
+    },
+    "actual_linq_record_replay": {
+      "path": "/workspace/artifacts/matvey-scenarios/real-replay-v1/real-replay-check.json",
+      "sha256": "b9ae6fbff44bd097729be9a4e4796db63d80a93287386d8ffe5ea8c7d25ecf29"
+    },
+    "real_native_positive_and_reference": {
+      "path": "/workspace/artifacts/matvey-scenarios/ur07-video-evidence-v1/check.json",
+      "sha256": "c8d6e6161dd845ccb96e1e3ee901726d4b239fa7ca58bfe218d6ad691721102d"
+    },
+    "video_screen": {
+      "path": "/workspace/artifacts/matvey-scenarios/video-screen-v1/report.json",
+      "sha256": "e2ce1858e54c93f09d6cf76c592de409481430df4fdc1ef86032a6f71b486cc3"
+    },
+    "roi_closeout": {
+      "path": "/workspace/artifacts/matvey-scenarios/E012-person-roi-v1/closeout.json",
+      "sha256": "42a26f1cee46f056c6d5e7dfbee23b7c9a6fd8591a43f22a305de2baa82786e6"
+    },
+    "encoded_sequential_evidence": {
+      "path": "/workspace/artifacts/matvey-scenarios/encoded-evidence-review.json",
+      "sha256": "502e23b0aa55ac42ce976e218ba34dbade35010bfbcc601fe5f9d7363556a9d9"
+    }
+  },
+  "roi_result": {
+    "status": "REJECTED_PREDECLARED_GATE",
+    "running_matched_before": 0,
+    "running_matched_after": 0,
+    "running_support": 46,
+    "walking_before": 11,
+    "walking_after": 27,
+    "walking_support": 482,
+    "walking_transitions": {
+      "False->False": 454,
+      "False->True": 17,
+      "True->True": 10,
+      "True->False": 1
+    },
+    "native_cpu_seconds": 173.06,
+    "accepted": false
+  },
+  "backbone_weights_changed": false,
+  "external_event_v1_changed": false,
+  "shared_network_modified": false,
+  "captain_files_or_queues_touched": false,
+  "backend_frontend_modified": false,
+  "data_training_worktrees_modified": false,
+  "remaining_live_gate": "ownMatvey staging+namespace-aware runtime manifest; specialist models remain unqualified",
+  "technical_release": "FROZEN_EXECUTABLE_PROTOTYPES_NOT_INDEPENDENT_QUALITY_RELEASE"
+}

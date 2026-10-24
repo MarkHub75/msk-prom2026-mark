@@ -55,3 +55,29 @@ E005 fixed second Helmet candidate extracts only the last Concatenation inputs, 
 E003 uses producer CAVIAR source3 immutable originalJPEG/XML, every5th sourceframe345frames, sourceFrameID*40ms NOMINAL25FPS_DERIVED (not originalcameraPTS). Source visible literal run/walk only; appear/disappear, other states and unboxed regions UNKNOWN. Class-aware unique bidirectional IoU>=.5 ownership; missing model observation of known running actor remains FN. Three running windows (one right-censored),46sampled running actorframes,482walking actorframes. Baseline observedankles .2image-diagonals/s,1000ms confirmation,750msmaxgap,person/KP.5; H1 bodyheight normalization1.5/s; H2 observedbboxcenter same.2diag/s, with edge/visibility/gap resets, running-only and no invented polygon. One nativeNNpass is reused; policies are fixed before each replay. Gain in scoped eventF1 required, no accepted gain. See ml/quality/temporal/CAVIAR.md. Operational falsealerts/hour, industrial gait accuracy and Zone metrics NOT_MEASURABLE. Both NEW hypotheses consumed, no ROI third experiment.
 
 No independent final test was available or used. New neural candidates did not qualify on development and therefore no new actual LinQ task was justified. Historical runtime qualification remains valid evidence; new Matvey-path placement remains a separate unsatisfied gate. No network/services/captain state were changed.
+
+## Eight-scenario coverage phase E009–E013
+
+Urgent user scope change authorizes coverage before deeper tuning. Every rule has
+positive/negative/insufficient synthetic checks; engineering acceptance is never
+reported as independent accuracy. Site geometry binds camera/image dimensions;
+non-synthetic facts bind exact source/camera/epoch/frame/PTS; ambiguous/stale facts
+are UNKNOWN. New candidates use a separate internal profile, no external enum swap.
+Real-source saved-output replay identifies its original native or LinQ provenance;
+no replay is called a new remote execution. Medical state is never inferred.
+
+E011 selected07/02/01 BEFORE E012 outputs. E012 alone is a bounded follow-on to the
+new top3 priority: fixed four60%corner tiles on all345frozenCAVIARJPEGs; unchanged
+weights/conf.25/consumer.5/globalNMS.45, no GT-guidedROI or parametersearch. Running
+known-positive unique-association recall must improve>=.10; walking matchedcount
+must stay>=baseline11 ANDrecall-drop<=.02. Entireprotocol pinned beforefirstforward,
+CPU2/CV1/600s cap, noGPU competition. Complete345/1380forwardrun took173.06s, running
+0/46unchanged so REJECT.11OOBwalkingboxes preserved, background/unboxed/otherstates
+UNKNOWN; per-actor turnover retained. No fullprecision/FPR/event-quality gain or
+candidateLinQ claim. No secondROIvariant, no finaltest tuning.
+
+Data role/rights gates remain: Mendeley16 private replay/manualannotation preparation,
+CAVIAR source-scoped development, UR20AI/source references. PPED48/SHEL5K diagnostic
+roles are not training/event-GT approval. GMD cached-feature export parity is not
+independent event evaluation or selectedproductionhead. Candidate neural replacement
+still requires ONNX/compile/PTQ/actualLinQ and independent frozen-test comparison.

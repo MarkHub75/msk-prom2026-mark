@@ -1,5 +1,41 @@
 # Error analysis — measured checkpoint
 
+## Current eight-scenario technical release
+
+All8official groups now have executable independent rules/configs in ONE shared
+observation/tracking/temporal/evidence/journal pipeline.24labelledsynthetic cases
+and480software tests PASS. This demonstrates engineering coverage, not eight
+trained/accurate recognizers. Newinternal EventCandidate is additive; external
+EventMutationv1/backend/frontend untouched. Full matrix: SCENARIO_COVERAGE.md;
+commands: docs/SCENARIO_RUNBOOK.md; pinned summary: reports/scenario-coverage-20261024.json.
+
+Real checks:2industrialframes consumed4historicalcorrelatedLinQreplies, no newRPC,
+no confirmedviolation; originalmediaSHA/frame/PTS evidence verified.07Fall06
+saved-native replay produced suspected_fall start1500/confirm2500ms with ready
+JPEGframe75; ordinaryADL01 produced0. This is a developmental/source reference,
+not new LinQ execution or independentindustrialP/R. HistoricalfullUR20fall
+baseline at2FPS TP1FP0FN9/P1.0(1alert)/R.10/F1.1818 remains weak; prolongedlying
+positiveGT inadequate. HardwareUR01 previously missed1/1, despite11status0calls.
+
+After16industrialvideos/84uniqueviewedframes,02has3forklift/context reviewcandidates,
+not confirmed unsafeapproachGT.04haze is not smoking/fire.03/05/06/08 not established.
+Allspecialist eventprecision/recall/F1/falsealerts-hour NOT_MEASURABLE without GT.
+Prototype current01running_action has no qualifiedactionhead, so UNKNOWN rather
+than GT-as-predictions. EarlierCAVIARproxyR0/F10 is historical source-scoped evidence.
+
+Selecteddevelopment priorities07→02→01; THREEQUALITYQUALIFIEDDEMOSNOTESTABLISHED.
+E012fixed4corner60%ROI failed its declared primarygate: runningmatches0/46→0/46,
+walking11/482→27/482(10retained/1lost/17new).1380CPUcalls/173.06s, noGPU/LinQ/train.
+PartialactorGT means FPprecision NOTMEASURABLE; walkinggain does not establish
+running/eventquality. Rejected, no secondvariant orbaseline replacement.
+
+Engineering fixes, not measuredaccuracygains: stationarycamera+source guard for
+image-motion01/02; lying/immobilityfloor evidence07; harnessUSE06 vs merepresence;
+exactsourcebound facts/uniqueobjectIDs; encodedPTS(notCV-relativeclock), sequential
+sourceordinal evidence and writerlock before state restore. Allold results retained.
+GMD4fold heads remain unselected/export-only; accepted models unchanged.
+
+
 ## Saved-output diagnostic follow-up (E006–E008)
 
 No new model experiments or quality gains. E006: all4native→PTQ lostbareGT have saved same-class overlapIoU>=.5 but scorebelow.25; helmet recovers4GT; totalFP18→14 comprises9retained/9withoutcounterpart/5new. Native/float match primaryGT/FP exactly, rawfloat arrays are not bitwiseequal. Conditioning vsPTQcausality remains UNKNOWN; no threshold advice from these developmental errors.

@@ -1,0 +1,39 @@
+{
+  "schema_version": "mosprom-scenario-training-addendum-v1",
+  "status": "REQUEST_ONLY_NO_AUTOSTART",
+  "source_contract": "docs/SCENARIO_RUNTIME_CONTRACT.md",
+  "clarifications": [
+    {
+      "scenario_id": "06",
+      "requirement": "harness present is not in use; wearer-linked harness_usage in_use/not_in_use/unknown, attachment/usage visibility and occlusion labels required; no absence from missing annotation"
+    },
+    {
+      "scenario_id": "07",
+      "requirement": "lying/immobility on floor needs verified floor visibility/geometry; bed/work-on-floor negatives, medical state never inferred"
+    },
+    {
+      "scenario_id": "02",
+      "requirement": "unique machine object IDs, current moving state, stationary/compensated camera policy for image translation; no metric distance without calibration"
+    },
+    {
+      "scenario_id": "01",
+      "requirement": "running and apparent abrupt motion distinct; ROI trial failed knownrunning detection0/46; need upstream person coverage before gait claim"
+    }
+  ],
+  "fact_envelope": {
+    "required_for_non_synthetic": [
+      "track_key",
+      "name",
+      "value",
+      "score",
+      "source",
+      "frame_id",
+      "media_time_ms",
+      "camera_id",
+      "stream_epoch"
+    ],
+    "required_when_media_hash_available": "source_sha256 must match batch",
+    "conflicts": "duplicate/stale/other-camera/other-epoch/other-media facts ignored"
+  },
+  "selection": "07,02,01 development priorities; zero claim of three quality-qualified scenarios"
+}

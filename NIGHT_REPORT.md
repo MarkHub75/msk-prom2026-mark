@@ -1,5 +1,24 @@
 # MOSPROM 2026 — итог ночного ML-цикла 24 октября
 
+## Latest: eight-scenario technical release — 2026-10-24T12:10:24.449814+00:00
+
+**8исполняемых прототипов готовы; это не восемь точных распознавателей.** Общие tracker/context/timestamps/temporal/dedup/EventCandidate/evidence/SQLite;480tests и24явноsynthetic casesPASS. ВнешнийEventMutationv1 иbackend/frontend не менялись. Полная [матрица](ml/SCENARIO_COVERAGE.md), [запуск](docs/SCENARIO_RUNBOOK.md), [контракт](docs/SCENARIO_RUNTIME_CONTRACT.md), [pinnedsummary](ml/reports/scenario-coverage-20261024.json).
+
+|01|02|03|04|05|06|07|08|
+|---|---|---|---|---|---|---|---|
+|motion/run|movingmachineproximity|phoneuse|smoking/openfire|3barrier/underpassrules|height/harnessuse|fall/floorlying/immobility|unsafeownedcargo|
+|RUNNABLE|RUNNABLE|RUNNABLE|RUNNABLE|RUNNABLE|RUNNABLE|RUNNABLE|RUNNABLE|
+
+Eachhasconfig/positive/negative/unknown/syntheticJSON; absentqualifiedobjects/actions/policy produceUNKNOWN/BLOCKED. Realnative07fall06replay:1suspected_fallstart1500/confirm2500ms, originalframe75JPEGready;ADL01reference0. UnderlyingoutputsNATIVE, notnewTPU. Realindustrial2framesused4historicalcorrelatedLinQreplies; no confirmedviolation.16industrialvideos/84frames:02has3forklift/workareareviewcontexts, no eventGT;04hazeunknown;03/05/06/08notestablished. No fullscenarioLinQ_VERIFIED/independentqualityclaim.
+
+Selecteddevelopment priorities **07→02→01**:07realpositive/evidence+priorposehardware;02industrialcontexts+explainable rule;01actorGT/backbonebutknownrunningobservationfailure. Threequality-qualifieddefensedemos **notestablished**. Aftercoverage oneE012fixedROI trial,345frames/1380CPUcalls/173.06s, running0/46unchanged,walking11/482→27/482(1oldmatchlost); REJECTED/no secondvariant. GPU/train/LinQcalls0. Existingweights/TPU preserved. GMD4foldheads areUNSELECTED export-only, notnewactualLinQ.
+
+Engineeringsemantics:06presence≠use(in_use requiredfornegative);07floorrequiredforlying/immobility,nomedicaldiagnosis;01/02camera-motionguard. IndependentreviewclosedduplicateobjectID/cross-sourcefact/wrongseekframe/concurrentcheckpoint risks. Sitepoliciescamera/imagebound; snapshotssequentialsourceordinal+SHA+encodedPTS,6_tr15offset39.028mspreserved. These are softwarefixes, not measuredprecision gains.
+
+Artifacts:/workspace/artifacts/matvey-scenarios/{release-acceptance-v1,real-replay-v1,ur07-video-evidence-v1,video-screen-v1,E012-person-roi-v1}; finaltests software-tests-release.log. Trainingrequirements+usage/sourceaddendumpublishedconsumer /workspace/shared/training-handoff/ML_REQUESTS.json(REQUEST_ONLY_NO_AUTOSTART). OwnMatveystaging/livequalifiedmanifests/specialistmodels/independenttest/externalbackup remainopen. No VPN/SSH/routes/services/captainqueues/files/main/forcepush. Preexisting.ipynb_checkpoints/untrackeduntouched. Code77e019f47242d38a97adb513fbe68a76e8295309; finalcontainingcommit printedinfinalanswer. **Stageclosed; waitfornewtask.**
+
+## Previous night checkpoints (historical)
+
 ## Дополнительный этап закрыт — 2026-10-24T01:32:31.411557+00:00
 
 После новой команды пользователя выполнен только анализ сохранённых результатов E006–E008. Кандидатные бюджеты E001–E005 не сбрасывались, веса/правила/пороги не менялись. Нового инференса, обучения, компиляции и сетевых операций не было. Дальнейшая работа требует новых eligible READY данных или отдельного решения о следующем цикле.

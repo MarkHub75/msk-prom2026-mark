@@ -1,0 +1,39 @@
+{
+  "attributes": {
+    "head_distance": 0.10912070191401309,
+    "object_key": "fixture-phone",
+    "prototype_policy": true,
+    "wrist_distance": 0.007340252743933794
+  },
+  "camera_id": "SYNTHETIC-03-positive",
+  "candidate_id": "da74a2c9-61c9-5f08-a98a-3e5ef0be5356",
+  "confidence": 0.99,
+  "confirmed_media_ms": 1000,
+  "contract": "mosprom.event_candidate.v1",
+  "episode_group_id": "da74a2c9-61c9-5f08-a98a-3e5ef0be5356",
+  "evidence": {
+    "clip_ref": null,
+    "frame_id": 2,
+    "media_time_ms": 1000,
+    "snapshot_ref": "evidence/f9d07043-ea02-4311-bf7a-a6f91acc0f1b.jpg",
+    "status": "ready"
+  },
+  "provenance": {
+    "observation_backend": "synthetic-test",
+    "source_kind": "unknown",
+    "supplied_current_fact_sources": [
+      "explicit-synthetic-test-not-model-output"
+    ]
+  },
+  "qualification": "PROTOTYPE_NOT_INDEPENDENTLY_VALIDATED",
+  "reason": "owned_visible_phone_use_during_moving_or_equipment_work",
+  "revision": 1,
+  "scenario_id": "03",
+  "schema_version": "1.0",
+  "start_media_ms": 0,
+  "state": "open",
+  "stream_epoch": "SYNTHETIC-EPOCH",
+  "subrule": "phone_use_during_activity",
+  "track_key": "SYNTHETIC-03-positive/SYNTHETIC-EPOCH/1/1",
+  "type": "phone_use_during_activity"
+}

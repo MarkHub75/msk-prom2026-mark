@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "release_id": "mosprom-ml-quality-checkpoint-20261024",
-  "status": "NIGHT_CHECKPOINT_RUNTIME_FROZEN_NOT_INDEPENDENT_QUALITY_RELEASE",
+  "status": "FROZEN_EIGHT_SCENARIO_EXECUTABLE_PROTOTYPES_QUALITY_GATES_OPEN",
   "baseline_code_commit": "13d255939834e3d86ea7f7ee90f7a46365e79a6b",
   "scope": "ML only; data intake handed to separate Data Orchestrator",
   "models": [
@@ -409,12 +409,19 @@
       "id": "E003-H2",
       "status": "REJECTED; source TP0 FP0 FN3",
       "production_enabled": false
+    },
+    {
+      "id": "E012-person-roi",
+      "status": "REJECTED_RUNNING_RECALL_GAIN_0",
+      "enabled_by_default": false,
+      "report": "/workspace/artifacts/matvey-scenarios/E012-person-roi-v1/closeout.json",
+      "checkpoint_unchanged": true
     }
   ],
   "components": {
     "ml/detection/codec.py": "c7038a77ab9f69bc7eb4701fe38f10ce4214957f2cec59ef085c2b9c07f7c3f0",
     "ml/behavior/engine.py": "fa5bb8ec4bfabd3ce36dff40e6c0caa460569456d3304791db9e5497451108e6",
-    "ml/pipeline/file_video.py": "810077e348ff234f295eb1eddf1057a1e47c6c39d31053bb3a97b3736ac614c9",
+    "ml/pipeline/file_video.py": "b452791c00f19e837a8b55d94e2f4d59a46afdf052e79043365013ff60343d43",
     "ml/linq/video.py": "11204894f1f7b59767063e78fcba5f9c4b58c342a0cbe7a3953603dfadc8ab37",
     "ml/quality/temporal/evaluation.py": "b11641d7c64c4a66959b199bb07f04b7f9efb4b7496cf43fbdffc57cf8f2a796",
     "ml/quality/temporal/running_zone.py": "70bd1447948443df69b3f9f4a3aaa1204a8436d251d898e4883759c6fad4f054",
@@ -439,7 +446,30 @@
     "ml/quality/helmet/drift_audit.py": "323310279dbd5bd93cc8a2a29494eb078a235ab9535dedf6690be0640adbbb83",
     "ml/quality/temporal/observation_audit.py": "a83f67c8f69f7c9ccb869335a77394ff366f25a8e793ebab2be71376682a9a35",
     "ml/quality/release_review.py": "20353c193612fbbf67bc70303a7db74a9f10fac662c87d3a0619620b868652ed",
-    "scripts/summarize_ml_followup.py": "64d8ddee53ea8b342e899aa7b32d8bb11fcb5a8f096538faf0dc91a6043f8df3"
+    "scripts/summarize_ml_followup.py": "64d8ddee53ea8b342e899aa7b32d8bb11fcb5a8f096538faf0dc91a6043f8df3",
+    "ml/scenarios/__init__.py": "e452cc0e02d08ed6363d45abc0283d761f37b77daf259ce5438625d1b74f792c",
+    "ml/scenarios/common.py": "ed4ea2a09719e8e5b49c89e610fb9a6d0f670d2098a6347c78650f19315c6acc",
+    "ml/scenarios/contracts.py": "398e86eb667bc21c2b95abaf93fd36e5761df5ecbaca997bbf6a44748108f4ba",
+    "ml/scenarios/engine.py": "d782e42e761352019911fa6d30ee0ea8c202d25f20b803f2bdeaf3539a9b6898",
+    "ml/scenarios/journal.py": "0d57387ffbc4c7d3f9d100235c44d9315e1bed390edf77fdd0036f95d57df0de",
+    "ml/scenarios/fixtures.py": "56d760614afe6ea7bbb362a99c5e8ac939b941c4f255ea78d3464b0539896fc8",
+    "ml/scenarios/cli.py": "589f85969358ecf4018545353e59ae8c5bc1bab979cf341a9931158681017389",
+    "ml/scenarios/rules/__init__.py": "f0e43374d73b5b66c605aa0b55f7a6d82484a9bd668d68ced9e79a5212afda55",
+    "ml/scenarios/rules/cargo.py": "1c52f03ebc2110e76ea53340d0f89fcef0d4a9e48d38b1e28077b42aa2643984",
+    "ml/scenarios/rules/fire_smoking.py": "73a4929b9950818f9a0f1b0b66b39cab462257849ab6d4927a8f1916a62a7f1b",
+    "ml/scenarios/rules/phone.py": "1c956e667993be559ab0eae48a954a134a0c41a1df745be7d82f23581394eb47",
+    "ml/scenarios/rules/barriers.py": "c36375b591458e5e5665be61931fc7b7635db49bacce6fc29e3dfa1246147449",
+    "ml/scenarios/rules/fall.py": "e2c342b6c29783b74fc420d063dab59d7ee93116f78036165b2926d313b2d215",
+    "ml/scenarios/rules/machinery.py": "1f45718caf69d5bb8c9ad63a54b67f0ceb88924e18e7b0b1f9f3e0f7015a55df",
+    "ml/scenarios/rules/motion.py": "58586ae5cafeb18166c6fd8ed465d9985153f00d9e510547ae6c5941174aa89b",
+    "ml/scenarios/rules/height.py": "345cf8ecc2dba21b7241507cac76082dc50bf2ec4b5be499c907c5be27f482fa",
+    "ml/scenarios/experiments/__init__.py": "49fc4d74e0c602b9a41f6a9509193af3224bd779a140f0150f620e9a491d8a70",
+    "ml/scenarios/experiments/person_roi.py": "3c5fbc0881cc21fe3cd8aa71360ff1cc8f28e833aec6fdcc1fcd15fa60f833b2",
+    "ml/pipeline/runner.py": "0534f76aeac816f8aecab4e53f46ce91e16f4bd1a614bb96cbf72f1a1458eaf6",
+    "ml/pipeline/delivery.py": "03be299c6e85b97596a73ed74f5f26ab44fe6fbe7596e2ff9b517a3aa7e0ef7e",
+    "ml/pipeline/cli.py": "5b8981a71b4ba8072cd827706cab685b8a8e7b9c8e4e5902cd0545a620521f49",
+    "ml/pipeline/video_clock.py": "9079054a9524ddec276a7718c177528fe6d6de620f889893e177262970232a9f",
+    "ml/contracts/schemas/event_candidate.schema.json": "d3590a6d96e4aadcea5e8c54a10cf1ddd3da96fd93433c0fbb7e39bdaa8fa561"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
@@ -476,15 +506,14 @@
     "final_test_used": false,
     "clean_approved_training": "NOT_AVAILABLE_NO_TRAINING"
   },
-  "updated_utc": "2026-10-24T01:32:31.411557+00:00",
+  "updated_utc": "2026-10-24T12:05:43.261983+00:00",
   "software_tests": {
-    "last_completed": 417,
+    "last_completed": 480,
     "status": "PASS",
-    "code_commit": "b85d4f84",
+    "code_commit": "77e019f47242d38a97adb513fbe68a76e8295309",
     "environment": "/workspace/.venvs/linq-client",
-    "evidence": "/workspace/artifacts/night-20261024/software-tests-followup-001.log",
-    "scope": "software/fault/fixture checks, not model accuracy",
-    "previous_checkpoint_count": 397
+    "evidence": "/workspace/artifacts/matvey-scenarios/software-tests-release.log",
+    "scope": "software/synthetic/fault regressions, never model accuracy"
   },
   "running_zone": {
     "stage": "FROZEN_PROTOTYPE",
@@ -513,12 +542,13 @@
     "status": "LOCAL_COMMITS_SAVED_PUSH_BLOCKED",
     "reason": "Existing authentication failure unchanged; no repeated authentication loops",
     "seconds": 1.2984386160969734,
-    "latest_local_commit": "git HEAD of containing manifest",
+    "latest_local_commit": "git HEAD containing this manifest; local commits retained, remote authentication unchanged/unverified",
     "remote_verified": false,
     "night_code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
     "night_status": "LOCAL_COMMITS_SAVED_REMOTE_UNVERIFIED",
     "night_push_attempted": false,
-    "night_followup_status": "LOCAL_COMMITS_SAVED; remote auth unchanged/unverified; no repeat authentication loop"
+    "night_followup_status": "LOCAL_COMMITS_SAVED; remote auth unchanged/unverified; no repeat authentication loop",
+    "coverage_code_commit": "77e019f47242d38a97adb513fbe68a76e8295309"
   },
   "night_cycle": {
     "status": "CLOSED_BOUNDED_EXPERIMENTS_COMPLETE",
@@ -590,5 +620,181 @@
     "consumer_feedback": "/workspace/shared/dataset-handoff/ML_REQUIREMENTS.json",
     "local_final_review": "/workspace/artifacts/night-20261024/E008-release-evidence/followup-final-review.json",
     "quality_status": "NOT_QUALIFIED_AS_INDEPENDENT_RELEASE"
+  },
+  "coverage_sprint": {
+    "status": "TECHNICAL_FROZEN",
+    "report": "ml/reports/scenario-coverage-20261024.json",
+    "case_catalog": "ml/scenarios/catalog.json",
+    "internal_candidate_schema": "ml/contracts/schemas/event_candidate.schema.json",
+    "external_event_v1_changed": false,
+    "scenario_count": 8,
+    "synthetic_cases": 24,
+    "selected_development": [
+      "07",
+      "02",
+      "01"
+    ],
+    "three_quality_qualified_scenarios": false,
+    "new_cpu_neural_calls": 1380,
+    "new_gpu_runs": 0,
+    "new_training_runs": 0,
+    "new_linq_calls": 0,
+    "specialist_vision_gates": "BLOCKED; exact Training requests provided",
+    "own_new_namespace_placement": "NOT_PERFORMED",
+    "runbook": "docs/SCENARIO_RUNBOOK.md",
+    "network_mutations": false
+  },
+  "unselected_temporal_candidates": [
+    {
+      "candidate_id": "gmd-outer-1",
+      "architecture_reported": "tcn",
+      "checkpoint": {
+        "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-1/selected.pt",
+        "bytes": 334422,
+        "sha256": "132351e26f19c6cb29a5bd5a990419d7060ba552eb2f552db6c71653658a7af2"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_1_window.onnx",
+        "bytes": 109661,
+        "sha256": "8f966bd8dbf22148567325a37fa2bc7735748f8fd268f54269d95acec771641f"
+      },
+      "input": {
+        "name": "pose_window",
+        "shape": [
+          1,
+          24,
+          74
+        ],
+        "dtype": "float32"
+      },
+      "output": {
+        "name": "fall_logit",
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "opset": 13,
+      "ir_version": 7,
+      "status": "UNSELECTED_EXPORT_ONLY_NOT_LINQ_COMPILED_OR_VALIDATED",
+      "scope": "fold-specific weak source-clip heads; not an independent industrial event model"
+    },
+    {
+      "candidate_id": "gmd-outer-2",
+      "architecture_reported": "mlp",
+      "checkpoint": {
+        "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-2/selected.pt",
+        "bytes": 355422,
+        "sha256": "24b266bdd948b548c85f48641a342829f1238793fb3ef4eff8774013d1659de3"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_2_window.onnx",
+        "bytes": 116212,
+        "sha256": "bdf106cd1050455856bfe99b8ca621f545645ef966e7f780a0a6f0594105de60"
+      },
+      "input": {
+        "name": "pose_window",
+        "shape": [
+          1,
+          24,
+          74
+        ],
+        "dtype": "float32"
+      },
+      "output": {
+        "name": "fall_logit",
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "opset": 13,
+      "ir_version": 7,
+      "status": "UNSELECTED_EXPORT_ONLY_NOT_LINQ_COMPILED_OR_VALIDATED",
+      "scope": "fold-specific weak source-clip heads; not an independent industrial event model"
+    },
+    {
+      "candidate_id": "gmd-outer-3",
+      "architecture_reported": "tcn",
+      "checkpoint": {
+        "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-3/selected.pt",
+        "bytes": 334422,
+        "sha256": "68cffe43c63583b8231294664395e293923632e7373e103c5d9055641107305d"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_3_window.onnx",
+        "bytes": 109661,
+        "sha256": "500c7411a6731aedaf778ae29afd84a1e566d9ecc7c89ad318bd8c87131d8666"
+      },
+      "input": {
+        "name": "pose_window",
+        "shape": [
+          1,
+          24,
+          74
+        ],
+        "dtype": "float32"
+      },
+      "output": {
+        "name": "fall_logit",
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "opset": 13,
+      "ir_version": 7,
+      "status": "UNSELECTED_EXPORT_ONLY_NOT_LINQ_COMPILED_OR_VALIDATED",
+      "scope": "fold-specific weak source-clip heads; not an independent industrial event model"
+    },
+    {
+      "candidate_id": "gmd-outer-4",
+      "architecture_reported": "mlp",
+      "checkpoint": {
+        "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-4/selected.pt",
+        "bytes": 355422,
+        "sha256": "959a963724997f4838a4b66caa8b85d2be41097df334d99014bf38eb8d340ace"
+      },
+      "onnx": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_4_window.onnx",
+        "bytes": 116212,
+        "sha256": "4a2aa6a8279cf224cdb8f9ce03c362c9bbd405f20634c521b4c9c9e26fcf3aa5"
+      },
+      "input": {
+        "name": "pose_window",
+        "shape": [
+          1,
+          24,
+          74
+        ],
+        "dtype": "float32"
+      },
+      "output": {
+        "name": "fall_logit",
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32"
+      },
+      "opset": 13,
+      "ir_version": 7,
+      "status": "UNSELECTED_EXPORT_ONLY_NOT_LINQ_COMPILED_OR_VALIDATED",
+      "scope": "fold-specific weak source-clip heads; not an independent industrial event model"
+    }
+  ],
+  "configuration_artifacts": {
+    "configs/scenarios/03.json": "06c7b121458efd3dd45b5f27acd4e092f80d00063cdd64d3ae9630ef7eb46b60",
+    "configs/scenarios/04.json": "5592e196cabf15806ac34b8ff8a0609da52cf5f1bddc4d554afb1b56b55141af",
+    "configs/scenarios/08.json": "6fce8333cfd8be3c7faaccab5841e7eb49b45cbbab5766db44449abf791a603b",
+    "configs/scenarios/05.json": "cae14618d11e23ffb88fff56686f2eaa0c3afca69efdcc687cef9521ecc3de41",
+    "configs/scenarios/07.json": "2439534966677508c193d77cab606dfbba62832f07309a1b910c1cc4bd26fba4",
+    "configs/scenarios/suite.example.json": "dac5e04a02cefdebab64880e2b2d736083807cf93fd5e736ca715f622bd16c11",
+    "configs/scenarios/01.json": "5bf2a9b3a1b69ca9098366388bc08e15242d3355ffc85b383fccd4d80b3833dd",
+    "configs/scenarios/02.json": "b24cac82f4e0062f48d1975edafc478f4f8117d2af218fc29d8cdb8a42689548",
+    "configs/scenarios/06.json": "54714e173fe9bee07613c65e7dcbb0067701326c05f73bc833d3320cea3ebd5a"
   }
 }

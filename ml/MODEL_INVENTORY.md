@@ -1,5 +1,17 @@
 # Model inventory — night2026-10-24
 
+## Current coverage release
+
+Eight rules share the original person/Pose and Helmet runtimes; no eight duplicate
+CV engines were created. Original baseline weights/ONNX/TPU remain unchanged.
+There are still two original selected trained baselines; a later Training Agent
+handoff additionally supplies four UNSELECTED fold-specific temporal heads, listed
+below. The old "two unique trained checkpoints" statement is a night inventory,
+not a denial of these new candidate files. Missing specialist models and exact
+requested ABI/annotation semantics are in ml/scenarios/TRAINING_REQUIREMENTS.json
+and TRAINING_ADDENDUM.json. Full scenario LinQ validation is not established.
+
+
 Audit UTC: 2026-10-24T00:29:25.901450+00:00. OBSERVED means inspected checkpoint/graph/file metadata; MEASURED means saved results; SIMULATED is the vendor CPU graph; UNKNOWN is not filled from filenames. Two unique trained checkpoints are present. Split-Pose is an output-ABI variant of the same pose weights. No new neural forward was run for this inventory.
 
 ## Common detector/pose implementation
@@ -123,3 +135,32 @@ E001 compile61.81s; E005 compile59.62s (CPU2, not device inference time). Split 
 E006 GT-level attribution: native/float primaryTP/FP assignments are identical, but raw native/float arrays are NOTbitwiseequal. Historical NPZ binding uses preserved common52image/prediction insertion order; no embedded nativeNPZimageIDs, so disclose that limitation. OriginalPTQ retains19helmetTP and recovers4; bare retains19 and loses4, each loss with saved sameclassIoU>=.5 overlap but below primaryscore.25. Native FP18 vsPTQ14 splits9corresponding/9withoutcounterpart/5new. These are saved developmental outputs, not new hardware or causalconditioning isolation. Originalthresholds/weights/TPU unchanged.
 
 E007 source running46frames:30no decodedperson,16IoUbelow.5,zero lost at existing consumer.5gate. All345sourceIDs/geometry/hash records verified;768nativeXMLboxes match,188decodedboxes/keypoints inoriginal384x288 bounds. ElevenoutofboundsGTboxes arewalkingonly, preserved. No storedpreNMS for CAVIAR, so threshold/NMS/rawnonresponse causes remainUNKNOWN; no inverseletterboxnumericalreplay claim. No newNNcalls, training, compile, remoteoperation or modelpromotion. See ml/reports/night-followup-20261024.json and EVAL_REPORT.
+
+## Training Agent temporal candidates — metadata/hash intake only
+
+Source: /workspace/artifacts/training/matvey_training_20261024/matvey_training_handoff.json;
+EXPERIMENTAL_EXPORT_VERIFIED, new_training=false for that handoff operation,
+improved=false, production_model_selected=false. Export report SHA256 3e813883813b363169dc17aaefd12c739e89c5268ec7e8895cf7a51514d0fb8a.
+Reported TCN/MLP kinds and graph operators are supplied by the Training export
+report; root verified file bytes/descriptors, did not deserialize checkpoints or
+retrain. Original external author/repository and full independent episode GT are
+UNKNOWN. GMD weak source-clip/group CV is not industrial event accuracy. Input
+pose_window float32[1,24,74] -> fall_logit float32[1,1], static opset13/IR7; exact
+74-feature ordering/mask/sampling plan is required before integration. Four fold
+heads are not automatically a single deployable checkpoint; no best outer-test
+fold selection. CPU cached-feature float export parity only; compilation/PTQ/ABI/
+actual LinQ and independent video quality NOT_RUN/BLOCKED. No head is selected.
+
+| Candidate | Reported kind | Checkpoint SHA256 | ONNX SHA256 |
+|---|---|---|---|
+|gmd-outer-1|tcn|132351e26f19c6cb29a5bd5a990419d7060ba552eb2f552db6c71653658a7af2|8f966bd8dbf22148567325a37fa2bc7735748f8fd268f54269d95acec771641f|
+|gmd-outer-2|mlp|24b266bdd948b548c85f48641a342829f1238793fb3ef4eff8774013d1659de3|bdf106cd1050455856bfe99b8ca621f545645ef966e7f780a0a6f0594105de60|
+|gmd-outer-3|tcn|68cffe43c63583b8231294664395e293923632e7373e103c5d9055641107305d|500c7411a6731aedaf778ae29afd84a1e566d9ecc7c89ad318bd8c87131d8666|
+|gmd-outer-4|mlp|959a963724997f4838a4b66caa8b85d2be41097df334d99014bf38eb8d340ace|4a2aa6a8279cf224cdb8f9ce03c362c9bbd405f20634c521b4c9c9e26fcf3aa5|
+
+E012 camera-fixed ROI is a HOST-ONLY experiment using the unchanged Split-Pose
+checkpoint, four cropped calls and one global NMS.345frames/1380CPUcalls/173.06s;
+running matches0/46unchanged, walking11/482→27/482 with one old match lost.
+REJECTED on the predeclared primary gate; not in production video inference, not
+compiled/uploaded, no new TPU artifact and no new LinQ invocation. No model or
+threshold replacement is made by this technical eight-rule release.

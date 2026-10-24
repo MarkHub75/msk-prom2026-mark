@@ -1,0 +1,41 @@
+{
+  "attributes": {
+    "consciousness_status": "NOT_DETERMINABLE_FROM_VISUAL_STATE",
+    "legacy_confirmed_media_ms": 2500.0,
+    "legacy_event_id": "92a67a17-6488-4fe2-b344-b4314f065b3a",
+    "legacy_revision": 1,
+    "legacy_start_media_ms": 1500.0,
+    "legacy_state": "open",
+    "legacy_type": "suspected_fall",
+    "medical_diagnosis": false
+  },
+  "camera_id": "fall-06-cam0",
+  "candidate_id": "6c476aa3-f201-5a49-bd37-988e44173011",
+  "confidence": null,
+  "confirmed_media_ms": 2500.0,
+  "contract": "mosprom.event_candidate.v1",
+  "episode_group_id": "92a67a17-6488-4fe2-b344-b4314f065b3a",
+  "evidence": {
+    "clip_ref": null,
+    "frame_id": 75,
+    "media_time_ms": 2500.0,
+    "snapshot_ref": "evidence/198ed2d9-3b6f-40a3-a120-4f8f6777b2c1.jpg",
+    "status": "ready"
+  },
+  "provenance": {
+    "observation_backend": "pytorch",
+    "source_kind": "real-video",
+    "supplied_current_fact_sources": []
+  },
+  "qualification": "PROTOTYPE_NOT_INDEPENDENTLY_VALIDATED",
+  "reason": "legacy_confirmed_observable_state",
+  "revision": 1,
+  "scenario_id": "07",
+  "schema_version": "1.0",
+  "start_media_ms": 1500.0,
+  "state": "open",
+  "stream_epoch": "56f64f50-674a-4a27-bc11-2336a62b143b/fall-06-cam0",
+  "subrule": "suspected_fall",
+  "track_key": "fall-06-cam0/56f64f50-674a-4a27-bc11-2336a62b143b/fall-06-cam0/1/1",
+  "type": "suspected_fall"
+}

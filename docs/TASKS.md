@@ -1,5 +1,17 @@
 # Active ML/CV task register
 
+## Current coverage stage — technical freeze
+
+8rules/configs, commoncontext/tracker/objectassociation, internalcandidate schema,
+atomicjournal/dedup/evidence and optinexistingvideo worker COMPLETE.24syntheticcases,
+480softwaretestsPASS. Realnative07fall06candidate+frame75/2500msready/ADLreference0;
+2industrialframes replay4historicalLinQreplies; no newLinQ/GPU/train.16industrialvideo
+screen:02contexts3, no unsafeGT; others unknown. Selecteddevelopment07/02/01,
+not3qualifieddemos. E012CPUROI rejected(0/46running). ExactTrainingrequests/handoff
+published, GMDunselectedexport-only. Newlive runs blockedbyownMatveystaging/models/
+policies; no network/captain/API changes. SCENARIO_RUNBOOK/SCENARIO_COVERAGE current;
+oldernight/backend rows below are historical. Stopafterstage report, no extra cycle.
+
 ## Закрыт дополнительный анализ сохранённых выходов
 
 E006: четыре потерянных bare_head TP послеPTQ имеют savedoverlapIoU>=.5, score<.25; Native/float primarymatches одинаковы, raw неbitwise. E007: running30/46безdecodedperson,16/46IoU<.5,0потерь наconsumer.5. E008: localartifact/runtimeevidence integrityPASS, independentquality/newplacement/backup всёещёнеподтверждены.417softwaretestsPASS. НиодногоновогоNN/TPU/GPU/обучения/порогов, budgetsнеобнулены. Отчёты: NIGHT_REPORT.md и ml/reports/night-followup-20261024.json. Переходкследующемуциклу толькопоновойзадаче.

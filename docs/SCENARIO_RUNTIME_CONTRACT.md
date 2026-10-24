@@ -34,3 +34,21 @@ Neural stages reuse existing LinQ backends and the own Matvey admission/namespac
 No new model is selected from an export-only handoff. Specialist classes/actions,
 rights/GT and camera policies remain separate gates. Current rule thresholds and
 synthetic demonstrations are prototypes, not industrial accuracy or realtime.
+
+## Freeze clarifications
+
+For every non-synthetic fact, camera_id and stream_epoch must match the batch;
+source_sha256 is mandatory when the batch has a media hash. Contradicting these
+fields is rejected even in synthetic mode. Unknown object identity is not borrowed
+from a different detection. All duplicate explicit object_key instances are
+quarantined and coverage for those classes becomes unknown. Real sourced facts
+remain classifier/manual observations, not independent GT or an implicit approved
+model release. Training producers must preserve model/checkpoint provenance.
+
+Real frame evidence is decoded sequentially by ordinal against encoded PTS and
+source SHA, never accepted from an unchecked seek. Opt-in state writers acquire
+the same video.lock before restoring behavior/suite state; candidate and legacy
+writes share one SQLite transaction. Site policies bind camera_id and original
+image_size. Mere harness presence does not establish in_use; floor lying needs
+observable floor. Candidate07 support/confirmation times preserve original legacy
+or visible-immobility support, while evidence names the exact observed frame.

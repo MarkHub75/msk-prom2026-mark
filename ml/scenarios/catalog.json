@@ -1,0 +1,56 @@
+{
+  "source_pdf_sha256": "7dbece3cf414e2a09ff03c93e9e1ed87172d7724fb7edd5cd3a3ad565063689e",
+  "page": 4,
+  "visually_reviewed_page_image_sha256": "8dcd6ecfc8e0bfceb5a7cf5064bcc8e7f85bf5ba3f1a861e1f9aa02ee298b12f",
+  "scenarios": [
+    {
+      "scenario_id": "01",
+      "official_text": "бег по цеху, резкие перемещения в зоне работы техники;",
+      "rule_module": "ml.scenarios.rules.motion",
+      "config": "configs/scenarios/01.json"
+    },
+    {
+      "scenario_id": "02",
+      "official_text": "опасное сближение человека с движущимися механизмами или транспортом;",
+      "rule_module": "ml.scenarios.rules.machinery",
+      "config": "configs/scenarios/02.json"
+    },
+    {
+      "scenario_id": "03",
+      "official_text": "использование мобильного телефона при работе с оборудованием или при перемещении по цеху;",
+      "rule_module": "ml.scenarios.rules.phone",
+      "config": "configs/scenarios/03.json"
+    },
+    {
+      "scenario_id": "04",
+      "official_text": "курение или использование открытого огня вне отведенных мест;",
+      "rule_module": "ml.scenarios.rules.fire_smoking",
+      "config": "configs/scenarios/04.json"
+    },
+    {
+      "scenario_id": "05",
+      "official_text": "перелезание через ограждения, пролезание под конвейером или подвешенным грузом;",
+      "rule_module": "ml.scenarios.rules.barriers",
+      "config": "configs/scenarios/05.json"
+    },
+    {
+      "scenario_id": "06",
+      "official_text": "работа на высоте без использования страховочной привязи;",
+      "rule_module": "ml.scenarios.rules.height",
+      "config": "configs/scenarios/06.json"
+    },
+    {
+      "scenario_id": "07",
+      "official_text": "падение человека, неподвижное лежание на полу, признаки потери сознания;",
+      "rule_module": "ml.scenarios.rules.fall",
+      "config": "configs/scenarios/07.json"
+    },
+    {
+      "scenario_id": "08",
+      "official_text": "переноска груза с нарушением правил (дополнительный сценарий).",
+      "rule_module": "ml.scenarios.rules.cargo",
+      "config": "configs/scenarios/08.json"
+    }
+  ],
+  "semantic_note": "07 official wording is retained as a quote; runtime reports observable suspected state, never a medical diagnosis;08 is additional;Helmet is separate."
+}
