@@ -23,3 +23,10 @@
   .dc-row { grid-template-columns: minmax(0, 1fr); }
   .dc-buttons .button { flex: 1 1 auto; justify-content: center; }
 }
+.dc-packs { list-style: none; margin: 0; padding: 0; }
+.dc-pack { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); font-size: 12.5px; }
+.dc-pack b { font-weight: 600; }
+.dc-pack-fake b { color: var(--amber); }
+.dc-packs-note { margin: 0; padding: 8px 10px; font-size: 12px; }
+/* Narrow header: the detection source chip stays, the pack chip lives on the demo console */
+@media (max-width: 860px) { .ds-source.ds-pack { display: none; } }

@@ -49,6 +49,14 @@ describe("real-mode shell and contract boundary", () => {
     expect(links).toEqual(menuFor("master").map(item => item.path));
     expect(await screen.findByTestId("master-inbox")).toBeTruthy();
   });
+  it("names the imported demo pack and its detection source in the header (tech.md 8.19)", async () => {
+    const pack = { id: 1, name: "argus", sha256: "a1", backend: "linq", fake: false, cameras: 3, videos: 3, imported_at: "2026-10-24T14:00:00Z" };
+    vi.stubGlobal("fetch", vi.fn(async (request: Request) => new URL(request.url).pathname === "/api/demo/packs"
+      ? Response.json([pack])
+      : Response.json({ code: "not_implemented", message: "нет", details: {} }, { status: 501 })));
+    renderAt("/operator");
+    expect((await screen.findByTestId("demo-pack")).textContent).toBe("Демо-пакет argus: детекции LinQ");
+  });
   it("sends the active role and encoded actor through the real transport", async () => {
     const fetch = stubFetch();
     act(() => setRole("ohs"));

@@ -2,15 +2,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CircleStop, Play, Radio, RotateCcw, SkipForward, Square } from "lucide-react";
 import { api, apiError, type ApiFailure } from "../api/client";
-import type { Broadcast, Camera, Video } from "../api/types";
+import type { Broadcast, Camera, DemoPack, Video } from "../api/types";
 import { useApi } from "../api/useApi";
 import { useWs } from "../api/ws";
 import { duration, Empty, ErrorNotice, Loading, PageHeading } from "../components/ui";
+import { packLabel } from "../demoPacks";
 import "../styles/admin.css";
 import "../styles/demo-console.css";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
 const LIVE_THROTTLE_MS = 1500;
+const IMPORTED = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
 const CAPTION = "Пульт ведущего: управляет повтором записей, события создаёт конвейер";
 
 // The checkpoint-demo mock (tools/checkpoint-demo) answers on REST port 4010 and has a director under /__demo/.
@@ -53,6 +55,21 @@ function AirState({ broadcast, fetchedAt, now }: { broadcast: Broadcast | null; 
   const pos = <span className="adm-tc">{duration(position(broadcast, fetchedAt, now))} / {duration(broadcast.duration_ms)}</span>;
   if (broadcast.status === "playing") return <span className="dc-air dc-air-on"><Radio {...I} /><b>Идёт</b><em>{broadcast.loop ? "по кругу" : "один раз"}</em>{pos}</span>;
   return <span className="dc-air"><Square {...I} />{broadcast.status === "ended" ? "Запись закончилась" : "Остановлен"}{pos}</span>;
+}
+
+function PacksPanel() {
+  const packs = useApi(() => api.GET("/api/demo/packs"), []);
+  const list = [...(packs.data ?? [])].sort((a: DemoPack, b: DemoPack) => b.imported_at.localeCompare(a.imported_at));
+  return <section className="adm-panel" data-panel={`Демо-пакеты${packs.data ? ` · ${list.length}` : ""}`}>
+    {packs.error ? <p className="dc-packs-note adm-muted">Список пакетов недоступен ({packs.error.status ?? packs.error.code}): бэкенд без <code>GET /api/demo/packs</code> или мок.</p>
+      : !packs.data ? <p className="dc-packs-note adm-muted">Получаем пакеты…</p>
+      : !list.length ? <p className="dc-packs-note adm-muted">Пакетов нет. Демо-события сида видны только в журнале и аналитике: в ленту оператора попадают события эфира, поэтому для показа запустите повтор записи ниже.</p>
+      : <ol className="dc-packs">{list.map((p) => <li key={p.id} className={`dc-pack ${p.fake ? "dc-pack-fake" : ""}`}>
+        <b>{packLabel(p)}</b>
+        <span className="adm-muted">камер {p.cameras} · видео {p.videos} · импорт {IMPORTED.format(new Date(p.imported_at))}</span>
+        <code className="adm-muted" title={p.sha256}>{p.sha256.slice(0, 12)}</code>
+      </li>)}</ol>}
+  </section>;
 }
 
 function ScenarioPanel({ base }: { base: string }) {
@@ -167,6 +184,7 @@ export function DemoConsolePage({ mockBase = isMockApi() ? import.meta.env.VITE_
   return <div className="adm-page dc-page">
     {heading}
     {mockBase !== undefined && <ScenarioPanel base={mockBase} />}
+    <PacksPanel />
     <section className="adm-panel" data-panel={`Камеры с записями${data ? ` · ${rows.length}` : ""}`}>
       {stopAll.text && <p className="dc-message adm-pad" role="status">{stopAll.text}</p>}
       {fresh.error && !data ? <div className="adm-pad"><ErrorNotice error={fresh.error} retry={reload} /></div>

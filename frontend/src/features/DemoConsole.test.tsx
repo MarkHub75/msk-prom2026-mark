@@ -3,6 +3,8 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DemoConsolePage, isMockApi } from "./DemoConsole";
 import { menuFor } from "../nav";
+import { latestPack, packLabel } from "../demoPacks";
+import type { DemoPack } from "../api/types";
 import { setRole } from "../roles";
 
 vi.mock("../api/ws", () => ({ useWs: () => ({ status: "connected" }) }));
@@ -11,6 +13,11 @@ const sectors = [{ id: 1, name: "Сектор 1 · Прессовый участ
 const cam = (id: number, name: string, videos_count = 1) => ({ id, sector_id: 1, name, description: "", is_demo: true, has_calibration: true, zones_count: 1, videos_count });
 const video = (id: number, camera_id: number, over: object = {}) => ({ id, camera_id, filename: `clip-${id}.mp4`, sha256: "x", size_bytes: 1, width: 1280, height: 720, fps: 25, frame_count: 750, duration_ms: 30000, codec: "h264", browser_playable: true, status: "ready", active_analysis_id: id * 10, created_at: "2026-10-24T11:00:00Z", ...over });
 const playing = { id: 4, camera_id: 2, video_id: 21, analysis_id: 210, status: "playing", loop: true, cycle: 0, started_at: "2026-10-24T11:00:00Z", position_ms: 5000, duration_ms: 30000, server_now: "2026-10-24T11:00:05Z" };
+
+const packs = [
+  { id: 1, name: "argus", sha256: "a1b2c3d4e5f6a7b8", backend: "linq", fake: false, cameras: 3, videos: 3, imported_at: "2026-10-24T14:00:00Z" },
+  { id: 2, name: "rehearsal", sha256: "ffff0000ffff0000", backend: "linq", fake: true, cameras: 1, videos: 1, imported_at: "2026-10-24T15:00:00Z" },
+];
 
 interface Call { method: string; path: string; body?: unknown; role: string | null }
 
@@ -28,6 +35,7 @@ function stub() {
     if (url.pathname === "/api/cameras/2/broadcast" && request.method === "GET") return Response.json(playing);
     if (url.pathname.endsWith("/broadcast") && request.method === "POST") return Response.json({ ...playing, camera_id: 1, video_id: 12, loop: false }, { status: 201 });
     if (url.pathname.endsWith("/broadcast") && request.method === "DELETE") return new Response(null, { status: 204 });
+    if (url.pathname === "/api/demo/packs") return Response.json(packs);
     if (url.pathname === "/__demo/status") return Response.json({ step: 1, story: ["yellow", "red"], open: 3 });
     if (url.pathname === "/__demo/next") return Response.json({ published: { id: 77, notification_text: "Красное событие: падение" } });
     if (url.pathname === "/__demo/reset") return Response.json({ reset: true, ws_dropped: 2 });
@@ -71,6 +79,15 @@ describe("demo console", () => {
     fireEvent.click(screen.getByRole("button", { name: "Остановить все эфиры" }));
     expect(await screen.findByText("Остановлено эфиров: 1")).toBeTruthy();
     expect(calls.filter((c) => c.method === "DELETE").slice(before).map((c) => c.path)).toEqual(["/api/cameras/2/broadcast"]);
+  });
+
+  it("lists the imported demo packs with the source of their detections", async () => {
+    stub();
+    render(<MemoryRouter><DemoConsolePage /></MemoryRouter>);
+    expect(await screen.findByText("Демо-пакет argus: детекции LinQ")).toBeTruthy();
+    expect(screen.getByText("Демо-пакет rehearsal: фейк")).toBeTruthy();
+    expect(packLabel({ name: "cpu", backend: "local", fake: false })).toBe("Демо-пакет cpu: детекции CPU (local)");
+    expect(latestPack(packs as DemoPack[])?.name).toBe("rehearsal");
   });
 
   it("drives the mock scenario with next and reset", async () => {
