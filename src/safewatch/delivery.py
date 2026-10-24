@@ -4,6 +4,7 @@
 and writes the outcome to the base itself.
 """
 
+from typing import Literal
 from urllib.parse import urlsplit
 
 import httpx
@@ -48,3 +49,24 @@ class WebhookChannel:  # DeliveryChannel: POST JSON to delivery.webhooks[i].url,
         if response.is_success:
             return True, response.status_code, ""
         return False, response.status_code, texts.DELIVERY_HTTP.format(status=response.status_code)
+
+
+def phone_mask(to: str) -> str:
+    """`+7 900 ***-**-12` for `Channel.target` of a call; no number — the stub (tech.md 8.24)."""
+    digits = "".join(ch for ch in to if ch.isdigit())
+    if not digits:
+        return texts.CALL_NO_NUMBER
+    if len(digits) < 11:
+        return f"***-**-{digits[-2:]}"
+    return f"+{digits[:-10]} {digits[-10:-7]} ***-**-{digits[-2:]}"
+
+
+class CallChannel:  # DeliveryChannel: provider "stub" answers delivered at once
+    def __init__(self, name: str, to: str, levels: list[Level], provider: Literal["stub"]) -> None:
+        self.name = name
+        self.to = to
+        self.levels = levels
+        self.provider = provider
+
+    def deliver(self, event: EventSummary, kind: DeliveryKind) -> tuple[bool, int | None, str]:
+        return True, None, ""  # no telephony behind the stub: the call counts as delivered

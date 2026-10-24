@@ -223,6 +223,14 @@ class DeliveryConfig(_Section):
     webhooks: list[WebhookConfig]
     calls: list[CallConfig]
 
+    @model_validator(mode="after")
+    def _unique_names(self) -> "DeliveryConfig":
+        # The channel key `webhook:<name>` / `call:<name>`: a shared name would starve one (S15).
+        names = [w.name for w in self.webhooks] + [c.name for c in self.calls]
+        if len(names) != len(set(names)):
+            raise ValueError("delivery: channel names must be unique")
+        return self
+
 
 class EvalConfig(_Section):
     deadline_s: float

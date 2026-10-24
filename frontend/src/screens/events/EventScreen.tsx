@@ -15,7 +15,7 @@ type EventSummary = components["schemas"]["EventSummary"];
 type HumanAction = EventDetail["allowed_actions"][number];
 
 // Button titles of tech.md 8.14; the keys 1, 2, 3 press the buttons in the order shown.
-const ACTION_TITLES: Record<HumanAction, string> = {
+export const ACTION_TITLES: Record<HumanAction, string> = {
   view: "Просмотрено",
   confirm: "Подтверждаю",
   false_alarm: "Ложное срабатывание",
@@ -131,6 +131,11 @@ export function EventScreen() {
               </li>
             ))}
           </ol>
+          {detail.deliveries
+            .filter((d) => d.status_text)
+            .map((d) => (
+              <p key={`${d.channel}:${d.kind}`}>{d.status_text}</p>
+            ))}
           <h2>Происхождение</h2>
           <dl className="facts">
             {facts.map(([label, value]) => (

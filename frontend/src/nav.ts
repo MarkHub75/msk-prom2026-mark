@@ -9,6 +9,8 @@ import { MasterInbox } from "./screens/master/MasterInbox";
 import { ShiftSummaryScreen } from "./screens/master/ShiftSummaryScreen";
 import { CameraScreen } from "./screens/operator/CameraScreen";
 import { OperatorDashboard } from "./screens/operator/OperatorDashboard";
+import { OperatorMobile } from "./screens/operator/OperatorMobile";
+import { OperatorMobileEvent } from "./screens/operator/OperatorMobileEvent";
 import { SectorScreen } from "./screens/operator/SectorScreen";
 import { ManagementDashboard } from "./screens/management/ManagementDashboard";
 import { Journal } from "./screens/ohs/Journal";
@@ -29,6 +31,8 @@ export const NAV: NavItem[] = [
   { path: "/operator", title: "Секторы", roles: ["operator"], slice: 6, menu: true, screen: OperatorDashboard },
   { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false, screen: SectorScreen },
   { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false, screen: CameraScreen },
+  { path: "/m/operator", title: "С телефона", roles: ["operator"], slice: 23, menu: true, screen: OperatorMobile },
+  { path: "/m/operator/events/:eventId", title: "Событие", roles: ["operator"], slice: 23, menu: false, screen: OperatorMobileEvent },
   { path: "/events/:eventId", title: "Событие", roles: ["operator", "master", "ohs", "management", "admin"], slice: 7, menu: false, screen: EventScreen },
   { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true, screen: MasterInbox },
   { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false, screen: MasterEvent },
