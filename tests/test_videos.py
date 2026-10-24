@@ -69,7 +69,8 @@ async def test_upload_probes_and_queues_job(
         video.id,
     )
     sha = hashlib.sha256(clip.read_bytes()).hexdigest()
-    assert _uploads(core) == [f"{sha}.mp4"]
+    # The H.264 copy of slice 18 sits beside the source (tech.md 8.20).
+    assert _uploads(core) == [f"{sha}.mp4", f"{sha}.web.mp4"]
     message = WsMessage.model_validate_json(ws.queue.get_nowait() or "")
     assert message.type == "job.progress" and message.data == result.job
     got = await client.get(f"/api/videos/{video.id}")
@@ -138,8 +139,16 @@ async def test_upload_limit_boundary(
 
 
 async def test_video_file_supports_range(
-    client: httpx.AsyncClient, tmp_path: Path, make_video
+    client: httpx.AsyncClient,
+    core: Settings,
+    tmp_path: Path,
+    make_video,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    # No H.264 copy: the source itself is served (the copy: tests/test_clips.py).
+    off = core.transcode.model_copy(update={"enabled": False})
+    tuned = core.model_copy(update={"transcode": off})
+    monkeypatch.setattr(config, "get_settings", lambda: tuned)
     camera_id = _camera()
     data = make_video(tmp_path, 1, 25).read_bytes()
     video = UploadResult.model_validate((await _upload(client, camera_id, data)).json()).video

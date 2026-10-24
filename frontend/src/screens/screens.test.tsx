@@ -496,6 +496,44 @@ describe("screens", () => {
     });
   });
 
+  it("event_screen_plays_clip", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+    const pause = vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {}); // jsdom plays nothing
+    const clip = { video_id: 3, url: "/api/videos/3/file#t=0.0,7.0", start_ms: 0, end_ms: 7000, playable: true };
+    const detail = {
+      event: { ...EVENT, clip }, episode: null, why: [], actions: [], allowed_actions: ["view"],
+      provenance: { backend: null, fake: false, det_model: null, pose_model: null, job_id: null, video_sha256: null, analysis_version: null, rule_params: {}, evidence_sha256: null },
+      deliveries: [], video_id: 3, video_start_ms: 0, video_end_ms: 7000, broadcast: null,
+    };
+    const camera = { camera: CAMERA, state: CAMERA_STATE, broadcast: null, video: null, analysis: null, zones: [], calibration: null };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve({ data: path === "/api/events/{event_id}" ? detail : camera })) as never);
+    vi.mocked(api.POST).mockResolvedValue({ data: detail } as never);
+    render(
+      <MemoryRouter initialEntries={["/events/9"]}>
+        <Routes>
+          <Route path="/events/:eventId" element={<EventScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const video = (await screen.findByLabelText("Клип события")) as HTMLVideoElement;
+    expect(video.getAttribute("src")).toBe("/api/videos/3/file#t=0.0,7.0");
+    Object.defineProperty(video, "currentTime", { value: 7, configurable: true });
+    fireEvent.timeUpdate(video);
+    expect(pause).toHaveBeenCalled(); // stops at the end of the window
+    cleanup();
+    const unplayable = { ...detail, event: { ...EVENT, clip: { ...clip, playable: false } } };
+    vi.mocked(api.GET).mockResolvedValue({ data: unplayable } as never);
+    render(
+      <MemoryRouter initialEntries={["/master/events/9"]}>
+        <Routes>
+          <Route path="/master/events/:eventId" element={<MasterEvent />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Видео не воспроизводится браузером")).toBeTruthy();
+  });
+
   it("shift_summary_renders", async () => {
     const row = { key: "1", title: "Сектор 5 · Склад", count: 3, confirmed: 1, false_alarm: 1 };
     const summary = {

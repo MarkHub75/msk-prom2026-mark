@@ -266,7 +266,8 @@ async def test_demo_flow_reaches_master_and_journal(
     assert await _act(client, red.id, MASTER, action="accept") == "master_accepted"
     assert await _act(client, red.id, MASTER, action="resolve", comment="Помог") == "resolved"
     page = services.events_list(EventFilter(camera_id=red.camera_id, scenario="fall"))
-    assert [(e.id, e.status, e.clip) for e in page.items] == [(red.id, "resolved", None)]
+    assert red.clip is not None  # the episode of the pack video (tech.md 8.20)
+    assert [(e.id, e.status, e.clip) for e in page.items] == [(red.id, "resolved", red.clip)]
 
 
 def test_cli_build_and_import(

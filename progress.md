@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v5, второй прогон: S17 закрыт, следующий S18
+- state: tech v5, второй прогон: S18 закрыт, следующий S19
 - tech.md: v5
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -37,6 +37,10 @@
 - GAP: S17, `store.demo_pack(name)`, `store.demo_packs()` (по `imported_at, id`), `store.sector_by_name(name)`, `store.camera_by_name(sector_id, name)`; `demo.write_manifest` пишет `model_dump_json(indent=2)` + `\n`; тексты `texts.DEMO_*`, `ARTIFACT_INVALID`, `JOB_*`, `JOB_FAILED_TEXTS`.
 - R20: `demo_import` копирует видео и артефакты в `uploads/`/`artifacts/` до коммита транзакции: откат (например, зона пакета не проходит проверку) оставляет файлы без строк в базе.
 - R20: `data/demo/argus` собран на LinQ из `synthetic_coco_40x1s.mp4` (сцена COCO, не завод); при заводских видео пересобрать: `uv run safewatch demo build config/demo.example.yaml --videos data/videos --out data/demo/argus` (папку `data/demo/argus` удалить заранее).
+- GAP: S18, `services._web_copy(src, sha256, probe) -> str | None`: копия только при `codec` не из `BROWSER_CODECS` и `transcode.enabled`; готовый `uploads/<sha256>.web.mp4` (от прошлой загрузки того же файла, в том числе на другую камеру) берётся без ffmpeg; `_register(..., probe, web_path, source)` пишет `web_path` только новой строке видео (повторная загрузка существующего видео копию не добавляет).
+- GAP: S18, `media.transcode`: ffmpeg пишет `<dst>.part` (`-y -v error ... -f mp4`), после проверки `probe_video` файл переименовывается в `dst`; любой отказ удаляет `.part`; лог `transcode: <что>` — логгер `safewatch.media`, уровень WARNING; `RuntimeError` imageio-ffmpeg (нет ffmpeg) = отказ.
+- GAP: S18, `store._EVENTS` добавляет `LEFT JOIN episodes ep`, `analyses an`, `videos v` и столбцы `clip_start_ms`, `clip_confirm_ms`, `clip_video_id`, `clip_duration_ms`, `clip_browser_playable`, `clip_web_path`; `services._clip(row)` строит `Clip` (нет эпизода — `None`), `services._video(row)` — `Video.web_playable = browser_playable or web_path`; `ClipPlayer` с `aria-label="Клип события"`, на экране события — под кадром доказательства, у мастера — после кадра.
+- R20: видео, принятые до S18 (`data/app` владельца, пакет `data/demo/argus` уже импортирован), остаются с `web_path = NULL`: копии задним числом не делаются (повторный `demo_import` того же `name` пропускается); `demo_import` перекодирует внутри своей транзакции (блокирует базу на время ffmpeg); кадр с нечётной шириной или высотой libx264 с `yuv420p` не кодирует → видео без копии.
 
 ## log
 
@@ -203,6 +207,13 @@
 - проверено вживую: LinQ (критерий 9, один прогон): `demo build config/demo.example.yaml --videos data/videos --out data/demo/argus`, ролик 40 с (400 кадров, 10 кадр/с, step 1), 2 задачи по очереди, `--inflight 4`, 1 мин 50 с всего; детектор 7,22 кадр/с, RTT p50 495 мс, p90 693 мс, wall 55,4 с; поза 8,97 кадр/с, RTT p50 399 мс, p90 564 мс, wall 44,6 с; пакет `fake=false`; до прогона `linq_tpu.py ping`: очередь `input` 16 консьюмеров, 0 сообщений; после — воркеров `video_worker.py` нет; импорт пакета в базу в scratchpad: задача `cached=true` обоих артефактов, 4 эпизода | не проверено: —
 - [проверить]: нет
 - следующему: `tests/test_demo_pack.py`: `_layout(tmp_path, cameras)` (камера сида и новая, одно видео `demo.mp4` — сцена demo), `_build(tmp_path, monkeypatch)` (фейковый пакет в `tmp_path/pack`), `_counts()` (строки таблиц мира); импортированные артефакты кэшируются только после `fake_clock.advance` (`cached` — `created_at < started_at`); `services.Source` — провенанс задачи.
+
+### S18: clips (2026-10-24, PR #24, tech v5)
+- отклонения: правлены файлы вне списка слайса: `tests/test_videos.py` (у mp4v теперь лежит копия `.web.mp4`; `test_video_file_supports_range` проверяет исходник при `transcode.enabled=false`), `tests/test_demo_pack.py` (у события пакета теперь есть `clip`), `frontend/src/screens/master/MasterEvent.tsx` по списку; `pyproject.toml` — `imageio_ffmpeg` в `ignore_missing_imports` mypy (пакет без `py.typed`); `uv add` записал `imageio-ffmpeg>=0.6.0`.
+- решения вне контракта: строки `GAP: S18` в `## open`; мутаций нет (10.3); тест таймаута — настоящий ffmpeg с `timeout_s=0.001`, ветка проверяется по логу `transcode: timeout`; тесты с ffmpeg (5 из 8) прогнаны 20 раз подряд: 20 из 20 зелёные, процессов ffmpeg после прогона нет.
+- проверено вживую: нет (S18 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: imageio-ffmpeg 0.6.0 — последняя на PyPI (2025-01-16); `get_ffmpeg_exe()` ищет `IMAGEIO_FFMPEG_EXE`, затем бинарник из колеса, conda, системный, иначе `RuntimeError`; в колесе Windows ffmpeg 7.1 (gyan.dev essentials, есть libx264); копия mp4v 320x240 2 с — 0,15 с, FourCC OpenCV `h264`, кадры и fps прежние.
+- следующему: `tests/test_clips.py`: `FFMPEG` (skipif без ffmpeg), `_tune(monkeypatch, core, **transcode)`, `_no_ffmpeg_running()` (дочерние процессы pytest), `_web_files(core)`; любой тест, загружающий mp4v (`make_video`, `_textured`), теперь запускает настоящий ffmpeg (~0,15 с на ролик 320x240).
 
 ## night
 

@@ -79,6 +79,7 @@ from safewatch.types import (
     CameraStateKind,
     CameraTile,
     Channel,
+    Clip,
     CountRow,
     DatasetView,
     DayRow,
@@ -425,6 +426,7 @@ def _register(
     sha256: str,
     size: int,
     probe: media.VideoProbe,
+    web_path: str | None,
     source: Source | None = None,
 ) -> UploadResult:
     """Steps 5 and 6 of tech.md 8.1: the file already sits in `uploads/<sha256><ext>`."""
@@ -440,6 +442,7 @@ def _register(
                 "size_bytes": size,
                 **probe.model_dump(),
                 "browser_playable": int(probe.browser_playable),
+                "web_path": web_path,
                 "status": "uploaded",
                 "created_at": clock.iso(clock.now()),
             }
@@ -492,7 +495,20 @@ async def video_upload(
             tmp.replace(target)
     finally:
         tmp.unlink(missing_ok=True)
-    return _register(camera_id, filename, sha256, size, probe)
+    web_path = await asyncio.to_thread(_web_copy, target, sha256, probe)
+    return _register(camera_id, filename, sha256, size, probe, web_path)
+
+
+def _web_copy(src: Path, sha256: str, probe: media.VideoProbe) -> str | None:
+    """`videos.web_path` of tech.md 8.20: an H.264 copy for a codec browsers do not play.
+    A copy made for an earlier upload of the same file is reused."""
+    cfg = config.get_settings().transcode
+    if probe.browser_playable or not cfg.enabled:
+        return None
+    dst = src.with_name(f"{sha256}{media.WEB_SUFFIX}")
+    if not dst.exists() and not media.transcode(src, dst, cfg):
+        return None
+    return f"uploads/{dst.name}"
 
 
 def _sha256(path: Path) -> str:
@@ -524,12 +540,18 @@ def _video_import(camera_id: int, path: Path, source: Source | None) -> UploadRe
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
-    return _register(camera_id, path.name, sha256, size, probe, source)
+    web_path = _web_copy(target, sha256, probe)
+    return _register(camera_id, path.name, sha256, size, probe, web_path, source)
+
+
+def _video(row: sqlite3.Row) -> Video:
+    web_playable = bool(row["browser_playable"]) or row["web_path"] is not None
+    return Video.model_validate({**dict(row), "web_playable": web_playable})
 
 
 def videos_list(camera_id: int) -> list[Video]:
     camera_get(camera_id)
-    return [Video.model_validate(dict(row)) for row in store.videos(camera_id)]
+    return [_video(row) for row in store.videos(camera_id)]
 
 
 def _video_row(video_id: int) -> sqlite3.Row:
@@ -540,11 +562,13 @@ def _video_row(video_id: int) -> sqlite3.Row:
 
 
 def video_get(video_id: int) -> Video:
-    return Video.model_validate(dict(_video_row(video_id)))
+    return _video(_video_row(video_id))
 
 
 def video_file(video_id: int) -> Path:
-    path: Path = config.get_settings().data_dir / _video_row(video_id)["path"]
+    """The H.264 copy when there is one (tech.md 8.20), else the source."""
+    row = _video_row(video_id)
+    path: Path = config.get_settings().data_dir / (row["web_path"] or row["path"])
     if not path.is_file():
         raise NotFound(texts.VIDEO_NOT_FOUND, video_id=video_id)
     return path
@@ -1277,6 +1301,28 @@ def _summary(row: sqlite3.Row) -> EventSummary:
         priority=_priority(level, row["status"]),
         is_demo=bool(row["is_demo"]),
         evidence_url=f"/api/evidence/{row['evidence_id']}/image" if row["evidence_id"] else None,
+        clip=_clip(row),
+    )
+
+
+def _clip(row: sqlite3.Row | dict[str, Any]) -> Clip | None:
+    """Window of the source video around the episode (tech.md 8.20); none for a seed event."""
+    if row["clip_video_id"] is None:
+        return None
+    cfg = config.get_settings().clips
+    start_ms = max(0, round(row["clip_start_ms"] - cfg.pre_s * 1000))
+    end_ms = min(
+        row["clip_duration_ms"],
+        round(row["clip_confirm_ms"] + cfg.post_s * 1000),
+        round(start_ms + cfg.max_s * 1000),
+    )
+    video_id = row["clip_video_id"]
+    return Clip(
+        video_id=video_id,
+        url=f"/api/videos/{video_id}/file#t={start_ms / 1000:.1f},{end_ms / 1000:.1f}",
+        start_ms=start_ms,
+        end_ms=end_ms,
+        playable=bool(row["clip_browser_playable"]) or row["clip_web_path"] is not None,
     )
 
 
@@ -1568,7 +1614,7 @@ def camera_live_view(camera_id: int) -> CameraLiveView:
     camera = camera_get(camera_id)
     broadcast = broadcast_get(camera_id)
     video_row = store.video(broadcast.video_id) if broadcast else store.last_ready_video(camera_id)
-    video = None if video_row is None else Video.model_validate(dict(video_row))
+    video = None if video_row is None else _video(video_row)
     analysis = None if video is None or not video.active_analysis_id else video_analysis(video.id)
     (state,) = [c for c in camera_states() if c.camera_id == camera_id]
     return CameraLiveView(
