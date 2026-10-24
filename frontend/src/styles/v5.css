@@ -171,3 +171,6 @@
 }
 .v5-cell-error { display: block; margin-top: 3px; color: var(--ds-red-text); font-family: var(--display); font-size: 11.5px; text-align: right; white-space: normal; }
 .v5-assume tr[aria-invalid=true] input { border-color: var(--ds-red-line); }
+.v5-verdicts li.is-zero b, .v5-verdicts li.is-zero span { color: var(--ds-text-3); }
+.v5-reason-fix { display: inline-flex; align-items: center; gap: 4px; margin-left: var(--s3); color: var(--ds-accent-hover); font-size: 12.5px; text-decoration: none; }
+.v5-reason-fix:hover { text-decoration: underline; }

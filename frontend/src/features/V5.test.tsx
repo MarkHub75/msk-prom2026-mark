@@ -235,6 +235,26 @@ describe("camera passport (tech.md 8.28)", () => {
   });
 });
 
+describe("camera passport on live answers (slice 27)", () => {
+  const setup = { camera: { id: 1, sector_id: 1, name: "Пресс №2", description: "", is_demo: false }, videos: [], jobs: [], calibration: null, zones: [], rules: [], broadcast: null };
+  const empty = { camera_id: 1, analysis_id: null, frames: 0, person_height_px_p50: null, small_object_px_p50: null, person_frames_share: null, dark_share: null, empty_share: null, shift_px: null, shift_text: "" };
+  it("no ready video: one empty state with a way to the Video tab, not 12 identical rows", async () => {
+    serve(r => path(r) === "/api/admin/cameras/1" ? Response.json(setup) : path(r) === "/api/cameras/1/passport" ? Response.json({ ...empty, scenarios: ["running", "phone"].map(id => ({ scenario: id, title: id, verdict: "unknown", reason: "Нет обработанного видео" })) }) : undefined);
+    open("/admin/cameras/1?tab=passport", "admin");
+    const box = await screen.findByTestId("passport");
+    expect(within(box).getByText("Нет обработанной записи")).toBeTruthy();
+    expect(within(box).queryByRole("table")).toBeNull();
+    expect(within(box).getByRole("link", { name: /Видео/ }).getAttribute("href")).toBe("/admin/cameras/1?tab=video");
+  });
+  it("«Нет зон: …» leads to the Zones tab; a missing phone size says why", async () => {
+    serve(r => path(r) === "/api/admin/cameras/1" ? Response.json(setup) : path(r) === "/api/cameras/1/passport" ? Response.json({ ...empty, analysis_id: 1, frames: 241, person_height_px_p50: 148.5, person_frames_share: 1, dark_share: 0, empty_share: 0, scenarios: [{ scenario: "fence_crossing", title: "Перелезание через ограждение", verdict: "partial", reason: "Нет зон: Ограждение" }, { scenario: "running", title: "Бег", verdict: "suitable", reason: "Годна" }] }) : undefined);
+    open("/admin/cameras/1?tab=passport", "admin");
+    const box = await screen.findByTestId("passport");
+    expect(within(box).getByRole("link", { name: /Добавить зоны/ }).getAttribute("href")).toBe("/admin/cameras/1?tab=zones");
+    expect(within(box).getByText("телефонов в записи не было")).toBeTruthy();
+  });
+});
+
 describe("manual identification (tech.md 8.27)", () => {
   function eventServer(canIdentify: boolean) {
     let detail: EventDetail = { ...createFixtureEvents()[0], video_id: null, broadcast: null, allowed_actions: [], can_identify: canIdentify };
