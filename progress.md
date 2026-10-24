@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v5, второй прогон: S19 в работе
+- state: tech v5, второй прогон: S19 закрыт, следующий S20
 - tech.md: v5
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -41,6 +41,13 @@
 - GAP: S18, `media.transcode`: ffmpeg пишет `<dst>.part` (`-y -v error ... -f mp4`), после проверки `probe_video` файл переименовывается в `dst`; любой отказ удаляет `.part`; лог `transcode: <что>` — логгер `safewatch.media`, уровень WARNING; `RuntimeError` imageio-ffmpeg (нет ffmpeg) = отказ.
 - GAP: S18, `store._EVENTS` добавляет `LEFT JOIN episodes ep`, `analyses an`, `videos v` и столбцы `clip_start_ms`, `clip_confirm_ms`, `clip_video_id`, `clip_duration_ms`, `clip_browser_playable`, `clip_web_path`; `services._clip(row)` строит `Clip` (нет эпизода — `None`), `services._video(row)` — `Video.web_playable = browser_playable or web_path`; `ClipPlayer` с `aria-label="Клип события"`, на экране события — под кадром доказательства, у мастера — после кадра.
 - R20: видео, принятые до S18 (`data/app` владельца, пакет `data/demo/argus` уже импортирован), остаются с `web_path = NULL`: копии задним числом не делаются (повторный `demo_import` того же `name` пропускается); `demo_import` перекодирует внутри своей транзакции (блокирует базу на время ffmpeg); кадр с нечётной шириной или высотой libx264 с `yuv420p` не кодирует → видео без копии.
+- GAP: S19, `FrameContext.auto_calibration: AutoCalibration | None = None`, `AnalysisResult.auto_calibration: AutoCalibration | None = None`; `pipeline.analyze` вызывает `autocal.fit` по кадрам детектора (классы `person` из `ModelSpec.classes`) на каждом анализе и пересчёте, при ручной калибровке тоже; `services._analyze` пишет `analyses.autocal_json` из `result.auto_calibration`.
+- GAP: S19, `features.person_states(..., ground=None, autocal: AutoCalibration | None = None)`, `features.vehicle_states(..., ground=None, autocal=None)`: `speed_source = "calibration"` только при метрах по гомографии; иначе при `speed_bh_s`/`speed_vh_s` не `None` и `scale_at` не `None` — `"auto"`; ручная калибровка с точкой вне оболочки → автокалибровка.
+- GAP: S19, `autocal.fit`: меньше 2 замеров или нулевой разброс `y2` (все ноги в одной строке) — линии нет, `a_px = b = rmse_px = r2 = 0`; «Мало стоящих людей…» проверяется первым, затем «перспектива» (нет линии, `ĥ(0) ≤ 0` или `ĥ(height) ≤ 0`); `r2 = 1` при нулевом разбросе высот; «стоит по рамке» — `w > 0` и `h/w ≥ upright_hw`; отступ — минимум из четырёх краёв.
+- GAP: S19, `Observation.method` = `Episode.method` = `"auto"` у `running` и `proximity` при автокалибровке (`"calibrated"` остаётся за гомографией); `running` пишет в `metrics` наблюдения `autocal_samples` (`running.AUTOCAL_SAMPLES`), `explain` бега берёт N оттуда и убирает её из строк `why_common`; строка `WhyItem("Скорость", ...)` только при `auto` и `calibrated`; `running.near_vehicle_*` при автокалибровке по-прежнему в ростах; `proximity` при `auto` — `distance_m`, `PROXIMITY_M`, `WHY_PROXIMITY_M`.
+- GAP: S19, тексты `texts.AUTOCAL_FEW = "Мало стоящих людей в кадре: {n} из {need}"`, `AUTOCAL_PERSPECTIVE = "Рост людей не согласуется с перспективой"`, `WHY_SPEED = "Скорость"`, `WHY_SPEED_AUTO = "автокалибровка по росту людей ({n} замеров, точность около ±20 %)"`, `WHY_SPEED_CALIBRATION = "по калибровке камеры"`, `METHOD_TITLES["auto"] = "автокалибровка"`; причина бега при `auto` — прежний `RUN_M` «Бег {v} м/с» (без «≈»).
+- GAP: S19, `CameraSetupView.auto_calibration`: первое видео `status = ready` с `active_analysis_id` в порядке `store.videos` (новые первыми); `services._autocal(analysis_id) -> AutoCalibration | None` — `None` без анализа и при `autocal_json IS NULL`.
+- R20: автокалибровка считает замером каждую детекцию каждого кадра: `min_samples = 30` — это 3 с одного человека при 10 кадр/с, а не 30 людей; камера без перспективы (все в одной строке) получает «не согласуется с перспективой», хотя рост постоянен.
 
 ## log
 
@@ -214,6 +221,13 @@
 - проверено вживую: нет (S18 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: imageio-ffmpeg 0.6.0 — последняя на PyPI (2025-01-16); `get_ffmpeg_exe()` ищет `IMAGEIO_FFMPEG_EXE`, затем бинарник из колеса, conda, системный, иначе `RuntimeError`; в колесе Windows ffmpeg 7.1 (gyan.dev essentials, есть libx264); копия mp4v 320x240 2 с — 0,15 с, FourCC OpenCV `h264`, кадры и fps прежние.
 - следующему: `tests/test_clips.py`: `FFMPEG` (skipif без ffmpeg), `_tune(monkeypatch, core, **transcode)`, `_no_ffmpeg_running()` (дочерние процессы pytest), `_web_files(core)`; любой тест, загружающий mp4v (`make_video`, `_textured`), теперь запускает настоящий ffmpeg (~0,15 с на ролик 320x240).
+
+### S19: autocal (2026-10-24, PR #25, tech v5)
+- отклонения: правлены файлы вне списка слайса: `src/safewatch/types.py` (поле `auto_calibration` у `FrameContext` и `AnalysisResult`), `tests/test_calibration.py` (`_speed_tags` режет хвост «(калибровка)»); `store.py` не менялся (`store.analysis` уже отдаёт `autocal_json`).
+- решения вне контракта: строки `GAP: S19` в `## open`; мутации (10.3, 2 шт.): отступ от края `<= edge_px` → `< edge_px` — ловит `test_outliers_rejected`; `autocal_json` не пишется — ловит `test_analysis_stores_autocal`; обе откачены.
+- проверено вживую: нет (S19 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_autocal.py`: `CAL` (готовая `AutoCalibration`, `h = 50 + 0,4·y`), `_people(n, a, b, rows, jitter)`, `_fit(dets, **autocal)`, `_walk(calibrators)` (кадр 1600×900, идущий 2,9 м/с + 8 стоящих), `_draft(method, metrics)`; тесты сцен с людьми на разных строках теперь могут уйти в `auto` (м/с, порог `speed_m_s`).
 
 ## night
 
