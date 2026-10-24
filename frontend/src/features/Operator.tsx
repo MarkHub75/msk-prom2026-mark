@@ -83,6 +83,24 @@ function SelectedEvent({ event }: { event: EventSummary }) {
   </section>;
 }
 
+/** All plant cameras in one row, alarming first: the operator sees the whole plant, not only the focused sector. */
+function PlantStrip({ sectors, focusCamera, onPick }: { sectors: SectorState[]; focusCamera?: number; onPick: (sector: number, camera: number) => void }) {
+  const updates = useUpdates();
+  const ids = sectors.map(s => s.sector_id).join(",");
+  const views = useApi(async () => {
+    const results = await Promise.all(sectors.map(s => api.GET("/api/sectors/{sector_id}/view", { params: { path: { sector_id: s.sector_id } } })));
+    const failed = results.find(r => r.error !== undefined);
+    return failed ? { error: failed.error } : { data: results.flatMap(r => r.data?.cameras ?? []) };
+  }, [ids, updates]);
+  const rank = { red: 0, yellow: 1, normal: 2, no_observation: 3 } as const;
+  const tiles = [...(views.data ?? [])].sort((a, b) => rank[a.state.state] - rank[b.state.state] || a.camera.id - b.camera.id);
+  if (!tiles.length) return null;
+  return <section className="cr-strip" aria-label="Все камеры завода">
+    <div className="cr-strip-head"><h2>Камеры завода</h2><span className="mono">{tiles.filter(t => t.state.state !== "no_observation").length}/{tiles.length} наблюдаются</span></div>
+    <div className="cr-strip-row">{tiles.map(tile => <WallTile key={tile.camera.id} tile={tile} selected={tile.camera.id === focusCamera} onSelect={() => onPick(tile.camera.sector_id, tile.camera.id)} />)}</div>
+  </section>;
+}
+
 export function OperatorPage() {
   const updates = useUpdates();
   const meta = useMeta();
@@ -136,6 +154,7 @@ export function OperatorPage() {
       <section className="cr-sectors" aria-label="Секторы производства">
         {sectors.length ? sectors.map(sector => <SectorCell key={sector.sector_id} sector={sector} selected={sector.sector_id === focusSector?.sector_id} onSelect={() => selectSector(sector.sector_id)} />) : <Empty title="Секторы не найдены" text="Сервер вернул пустой список секторов." />}
       </section>
+      <PlantStrip sectors={sectors} focusCamera={focusTile?.camera.id} onPick={(sector, camera) => { setPickedSector(sector); setPickedCamera(camera); }} />
     </div>
     <EventAlarm event={critical} />
   </div>;

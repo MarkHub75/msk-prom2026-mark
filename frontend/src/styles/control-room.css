@@ -97,7 +97,7 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
 .cr-head h1 { font-size: 18px; }
 .cr-crumb { display: inline-flex; align-items: center; gap: 6px; color: var(--text); font-size: 13px; padding-left: 14px; border-left: 1px solid var(--line); }
 .cr-asof { margin-left: auto; color: var(--muted); font-size: 12px; }
-.cr-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: auto 1fr; grid-template-areas: "wall queue" "sectors queue"; gap: 10px; flex: 1; min-height: 0; }
+.cr-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: auto auto 1fr; grid-template-areas: "wall queue" "sectors queue" "strip queue"; gap: 10px; flex: 1; min-height: 0; }
 .cr-wall { grid-area: wall; display: grid; grid-template-columns: minmax(0, 1fr) 236px; gap: 10px; min-height: 0; align-items: start; }
 .cr-stage { position: relative; background: var(--surface-sunk); border: 1px solid var(--line-soft); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; min-height: 240px; }
 .cr-stage-media { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
@@ -153,6 +153,16 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
 .cr-counts em { font-style: normal; font-family: var(--mono); font-size: 11.5px; font-weight: 700; min-width: 20px; text-align: center; padding: 1px 5px; border-radius: 3px; }
 .cr-n-red { background: var(--red); color: #fff; }
 .cr-n-yellow { background: var(--amber); color: #1a1205; }
+
+/* All plant cameras */
+.cr-strip { grid-area: strip; align-self: start; display: grid; gap: 8px; }
+.cr-strip-head { display: flex; align-items: baseline; justify-content: space-between; }
+.cr-strip-head h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.cr-strip-head span { font-size: 11.5px; color: var(--faint); }
+.cr-strip-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.cr-strip-row .cr-tile { aspect-ratio: 16/9; }
+.cr-strip-row .cr-tile .cr-tag { font-size: 10.5px; padding: 2px 6px; }
+.cr-strip-row .cr-chip { font-size: 10px; padding: 2px 6px; }
 
 /* Alarm queue */
 .cr-queue { grid-area: queue; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 6px; min-height: 0; overflow: auto; }
@@ -221,6 +231,26 @@ input, textarea, select { background: var(--surface-sunk); border-color: var(--l
   .cr-plant, .cr-actor span, .cr-live { display: none; }
   .cr-top-right { gap: 8px; }
   .actor-field.cr-actor input { width: 110px; }
-  .cr-grid { grid-template-columns: 1fr; grid-template-areas: "queue" "wall" "sectors"; }
+  .cr-grid { grid-template-columns: 1fr; grid-template-areas: "queue" "wall" "sectors" "strip"; }
   .cr-stage { min-height: 220px; }
 }
+
+/* Denser journal */
+.journal-result-heading h2 { font-size: 15px; }
+.journal-event-title { font-family: var(--display); font-size: 14px; font-weight: 600; line-height: 1.35; }
+.journal-event > p { font-size: 12px; margin-top: 3px; }
+.journal-table td { padding-top: 10px; padding-bottom: 10px; vertical-align: top; }
+.journal-table .level { white-space: nowrap; font-size: 10.5px; }
+.journal-date time { font-size: 12px; }
+/* Master, phone */
+.master-inbox h1, .master-shift h1 { font-size: 20px; }
+.master-inbox h2, .master-resolved h2, .master-shift h2 { font-family: var(--display); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.is-master .feed-event h3 { font-size: 16px; }
+.is-master .feed-topline time { font-size: 15px; }
+.cr-tile .cr-tag { max-width: calc(100% - 12px); overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 860px) {
+  .is-master .cr-nav.workspace-nav { display: none; }
+}
+/* Incident: bigger evidence, calmer status */
+.incident-workspace > .evidence-panel .evidence-frame { width: min(100%, calc(410px * var(--media-ratio, 1.7777778))); }
+.incident-workspace h2 { font-size: 15px; }
