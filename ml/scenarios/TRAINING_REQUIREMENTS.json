@@ -1,0 +1,1260 @@
+{
+  "schema_version": "matvey-scenario-training-requests-v1",
+  "status": "REQUESTS_ONLY_NO_TRAINING_OR_PROMOTION",
+  "generated_utc_date": "2026-10-24",
+  "owner": "ML LinQ intake; root forwards requests; GPU Training Agent owns model jobs",
+  "source_case": {
+    "page": 4,
+    "image_sha256": "8dcd6ecfc8e0bfceb5a7cf5064bcc8e7f85bf5ba3f1a861e1f9aa02ee298b12f",
+    "scenario_count": 8,
+    "cargo_role": "page4 example08 explicitly additional; preserved, not silently removed",
+    "helmet_role": "supplementary, not replacement for any of the eight"
+  },
+  "resource_state": {
+    "gpu": "OWNED_BY_TRAINING_AGENT_NO_ALLOCATION_TO_THIS_TASK",
+    "training": "NOT_RUN",
+    "compile": "NOT_RUN",
+    "inference": "NOT_RUN",
+    "linq": "NOT_RUN",
+    "network": "NOT_USED"
+  },
+  "data_ready_audit": {
+    "pointer": "/workspace/shared/dataset-handoff/READY.json",
+    "pointer_sha256": "a64075cade3db2e1befde7e1854084f0b64e0e8fe04b7fa11eaff57eb5ae54cf",
+    "method": "existing load_producer_ready exact-approved-use, pinned manifest/ALLfile bytes/hash verified before metadata use; no raw media decoding",
+    "releases": [
+      {
+        "dataset_id": "shel5k-sourcebox-diagnostic19",
+        "version": "v1-20261024",
+        "manifest_sha256": "552e821ee6c758d12b10414347c056052bc230c5ab40e5bc2f57633e9c3a8155",
+        "verified_file_count": 43,
+        "allowed_uses": [
+          "private non-commercial annotation parser and geometry diagnostic",
+          "source-label visual QA and review preparation"
+        ],
+        "prohibited_uses": [
+          "final independent test",
+          "industrial accuracy claims",
+          "commercial use",
+          "public employee imagery/demo",
+          "training/calibration without explicit source-rights and label-scope review",
+          "mapping raw person to no_helmet"
+        ],
+        "capability_expansion": "FORBIDDEN_WITHOUT_NEW_PRODUCER_READY"
+      },
+      {
+        "dataset_id": "mendeley-factory-replay16",
+        "version": "v1-20261024",
+        "manifest_sha256": "0a51efec6b04dba61bfde9ff24d8f48e418094b0f51789f35f49e5da99458a16",
+        "verified_file_count": 22,
+        "allowed_uses": [
+          "private research replay/import/timing diagnostics",
+          "existing development/calibration inputs",
+          "manual actor/zone/event annotation preparation"
+        ],
+        "prohibited_uses": [
+          "independent validation or final test",
+          "exclusive whole-frame/person safe-vs-unsafe ground truth",
+          "running/fall GT inferred from folder labels",
+          "operational false-alerts-per-hour claims"
+        ],
+        "capability_expansion": "FORBIDDEN_WITHOUT_NEW_PRODUCER_READY"
+      },
+      {
+        "dataset_id": "edf-native-fall-source3",
+        "version": "v1-20261024",
+        "manifest_sha256": "938eee89db240694263a78e282e836ccd84170dba694e392666884d8a8dec284",
+        "verified_file_count": 10,
+        "allowed_uses": [
+          "local original RGB replay and source-positive-window import",
+          "noncommercial research temporal/pose development with UNKNOWN mask outside source positives",
+          "native-frame/encoded-PTS projection investigation retaining33.333msoriginuncertainty"
+        ],
+        "prohibited_uses": [
+          "independent industrial finaltest",
+          "treatingnativeGTcomplementasnegative",
+          "unqualifiedeventprecision/recallorfalsealertsperhour",
+          "ground-floor lying or keypoint-immobility GT inferred fromfall-processwindows",
+          "silentlymergingOmniFallNCrelabeledintervals"
+        ],
+        "capability_expansion": "FORBIDDEN_WITHOUT_NEW_PRODUCER_READY"
+      },
+      {
+        "dataset_id": "caviar-running-walking-source3",
+        "version": "v1-20261024",
+        "manifest_sha256": "8141488a97d3cdad6e4d322b85177d6db3d95667858153e027a1b598cb4f9ae7",
+        "verified_file_count": 1721,
+        "allowed_uses": [
+          "sourceXMLactor/bbox/movement import and temporal development",
+          "local research training/prototyping on explicitly annotated walking/running actor windows with unknown/unboxed regions masked",
+          "originalsourceJPEGsequence replay with declared nominal25FPSderivedtime"
+        ],
+        "prohibited_uses": [
+          "independentindustrialfinaltest",
+          "exhaustivepersonorbackgroundnegativeGT",
+          "clinical/keypointimmobilityinferredfrominactive/immobile",
+          "physicalspeedm/s or hazardouszone policyGT",
+          "treatnativeMPEGPTSasJPEGordinal/25timewithoutdeclaredmapping"
+        ],
+        "capability_expansion": "FORBIDDEN_WITHOUT_NEW_PRODUCER_READY"
+      },
+      {
+        "dataset_id": "pped-object-presence48-exif-diagnostic",
+        "version": "v1-20261024",
+        "manifest_sha256": "fd06001a76fd9a5f39461472602e604a1ba25b4d2a43134002ade494e617e5c4",
+        "verified_file_count": 102,
+        "allowed_uses": [
+          "offline bbox/parser/preprocessing diagnostics in explicit canonicalframe",
+          "objectpositive andscale/condition researchinspection",
+          "queue generation forhuman review"
+        ],
+        "prohibited_uses": [
+          "independent orindustrial modelquality claims",
+          "finaltest or thresholdselection",
+          "automatic modeltraining/calibration approval",
+          "negative compliance orwearer-state GT",
+          "Helmet/BareHead task"
+        ],
+        "capability_expansion": "FORBIDDEN_WITHOUT_NEW_PRODUCER_READY"
+      }
+    ]
+  },
+  "training_handoff_audit": {
+    "pointer": "/workspace/artifacts/training/matvey_training_20261024/matvey_training_handoff.json",
+    "pointer_sha256": "363d0d62ba5bd1ecd5c2e05b5366dec5173d56eaa3409dc4fd0b0fc3c0898df5",
+    "allowlisted_top_level_files": {
+      "input_audit": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_input_audit.json",
+        "bytes": 37448,
+        "sha256": "1be3ed69aedfd54faad85e49f0d3b0235ee82c347d38d9be1efa7bba13a100f1"
+      },
+      "export_report": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_export_report.json",
+        "bytes": 9164,
+        "sha256": "3e813883813b363169dc17aaefd12c739e89c5268ec7e8895cf7a51514d0fb8a"
+      },
+      "original_runs": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_original_training_runs.json",
+        "bytes": 42957,
+        "sha256": "8aa9c7acef466fd03f7877625c6f58722646d6f332277d1eb13df3948dce1fa3"
+      },
+      "source_cv_summary": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_source_cv_summary.json",
+        "bytes": 1313,
+        "sha256": "6cc1ba176c14fe4839b3da9a4a9d6690e6af92a542baab0697ed2e93fb9351d1"
+      },
+      "failed_attempt": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v1/matvey_failure.json",
+        "bytes": 148,
+        "sha256": "d0f1b1838498082e5dd825f50fdee6e824961a983a09726c9e57ee07ed203be5"
+      },
+      "resources": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_resource_observation.json",
+        "bytes": 297,
+        "sha256": "90afee45915bfebfd6da7a539583da62e47d469d9864e947571d94563e2bb263"
+      },
+      "tests": {
+        "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_protocol_tests.log",
+        "bytes": 1271,
+        "sha256": "c32cfb5e8f21a172c0fca001a40b864f462ec035bafe1b1c30e66c8646330f9a"
+      }
+    },
+    "four_head_checkpoint_and_onnx_hashes_verified": true,
+    "heads": [
+      {
+        "outer_group": 1,
+        "kind": "tcn",
+        "checkpoint": {
+          "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-1/selected.pt",
+          "bytes": 334422,
+          "sha256": "132351e26f19c6cb29a5bd5a990419d7060ba552eb2f552db6c71653658a7af2"
+        },
+        "onnx": {
+          "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_1_window.onnx",
+          "bytes": 109661,
+          "sha256": "8f966bd8dbf22148567325a37fa2bc7735748f8fd268f54269d95acec771641f"
+        },
+        "input": {
+          "name": "pose_window",
+          "shape": [
+            1,
+            24,
+            74
+          ],
+          "dtype": "float32"
+        },
+        "output": {
+          "name": "fall_logit",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "train_subjects": [
+          "Subject 3",
+          "Subject 4"
+        ],
+        "validation_subject": "Subject 2",
+        "outer_subject": "Subject 1"
+      },
+      {
+        "outer_group": 2,
+        "kind": "mlp",
+        "checkpoint": {
+          "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-2/selected.pt",
+          "bytes": 355422,
+          "sha256": "24b266bdd948b548c85f48641a342829f1238793fb3ef4eff8774013d1659de3"
+        },
+        "onnx": {
+          "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_2_window.onnx",
+          "bytes": 116212,
+          "sha256": "bdf106cd1050455856bfe99b8ca621f545645ef966e7f780a0a6f0594105de60"
+        },
+        "input": {
+          "name": "pose_window",
+          "shape": [
+            1,
+            24,
+            74
+          ],
+          "dtype": "float32"
+        },
+        "output": {
+          "name": "fall_logit",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "train_subjects": [
+          "Subject 1",
+          "Subject 4"
+        ],
+        "validation_subject": "Subject 3",
+        "outer_subject": "Subject 2"
+      },
+      {
+        "outer_group": 3,
+        "kind": "tcn",
+        "checkpoint": {
+          "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-3/selected.pt",
+          "bytes": 334422,
+          "sha256": "68cffe43c63583b8231294664395e293923632e7373e103c5d9055641107305d"
+        },
+        "onnx": {
+          "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_3_window.onnx",
+          "bytes": 109661,
+          "sha256": "500c7411a6731aedaf778ae29afd84a1e566d9ecc7c89ad318bd8c87131d8666"
+        },
+        "input": {
+          "name": "pose_window",
+          "shape": [
+            1,
+            24,
+            74
+          ],
+          "dtype": "float32"
+        },
+        "output": {
+          "name": "fall_logit",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "train_subjects": [
+          "Subject 1",
+          "Subject 2"
+        ],
+        "validation_subject": "Subject 4",
+        "outer_subject": "Subject 3"
+      },
+      {
+        "outer_group": 4,
+        "kind": "mlp",
+        "checkpoint": {
+          "path": "/workspace/datasets/research/experiments/night-20261024-extension/gmd/models-v1/outer-4/selected.pt",
+          "bytes": 355422,
+          "sha256": "959a963724997f4838a4b66caa8b85d2be41097df334d99014bf38eb8d340ace"
+        },
+        "onnx": {
+          "path": "/workspace/artifacts/training/matvey_training_20261024/matvey_gmd_window_export_v2/matvey_gmd_outer_4_window.onnx",
+          "bytes": 116212,
+          "sha256": "4a2aa6a8279cf224cdb8f9ce03c362c9bbd405f20634c521b4c9c9e26fcf3aa5"
+        },
+        "input": {
+          "name": "pose_window",
+          "shape": [
+            1,
+            24,
+            74
+          ],
+          "dtype": "float32"
+        },
+        "output": {
+          "name": "fall_logit",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "train_subjects": [
+          "Subject 2",
+          "Subject 3"
+        ],
+        "validation_subject": "Subject 1",
+        "outer_subject": "Subject 4"
+      }
+    ],
+    "status": "EXPERIMENTAL_EXPORT_VERIFIED",
+    "new_training": false,
+    "production_model_selected": false,
+    "feature_boundary": "cached highest-score person proposal; source actor binding unverified, native FP32 features not LinQ pose features",
+    "source_cv_scope": "160clips,4source/subject outer groups, weakADL/Fall clip labels; imported macroF1 .7999687451, not rescored/event GT",
+    "parity_scope": "607validwindowcalls/head on cached features, changeddecisions at frozen.5=0; not new video quality",
+    "missing": [
+      "exact deployable74-feature schema and aggregation ABI",
+      "production model selection with independent actor/video GT",
+      "compiled/PTQ/actual LinQ head and feature extractor chain qualification"
+    ]
+  },
+  "common": {
+    "annotation_schema": "proposed-training-intake-v1; training request only, NOT event API/engine contract",
+    "identity": [
+      "immutable source_id/file_sha256",
+      "original_video_id",
+      "source_group/site/camera/actor grouping with uncertainty",
+      "split train|calibration|val|sealed_test assigned by source component before frames",
+      "original zero-based frame_index plus source PTS_ms and declared conversion from any 1-based source IDs",
+      "actor_id local to original video; object_id and track_id; no inferred cross-camera identity"
+    ],
+    "object_labels": [
+      "original-frame pixel xyxy bbox, literal class_id/name, visibility/occlusion/truncation/size",
+      "actor-object relation owner_actor_id or UNKNOWN/AMBIGUOUS; no nearest-box ownership guessing",
+      "class_coverage per image/class complete|partial|unknown; ignore regions and known negatives separately",
+      "source annotation, annotator, reviewer, uncertainty, annotation_version and SHA"
+    ],
+    "temporal_labels": [
+      "actor-linked action/state intervals onset/offset with uncertainty bounds",
+      "positive/verified-negative/unknown support intervals and censoring",
+      "track association switches, camera cuts, gaps and visibility masks",
+      "policy version and observed trigger; annotation independence from model predictions"
+    ],
+    "pilot_minimum_interpretation": "Engineering annotation/intake floor requested below, NOT official accuracy target, sample-size guarantee or automatic training approval.",
+    "split_gate": "READY training and validation rights/coverage explicitly approved; no label, source-video, subject, camera or near-duplicate component leakage. Calibration train-only. Never promote a diagnostic READY to another use.",
+    "quality_gate": [
+      "Pin matched operating point and evaluate same original sources for baseline/candidate; report TP/FP/FN, P/R/F1 per subtype with denominators and independent group support. No eligible complete GT -> NOT_MEASURABLE/null, never zero-filled accuracy.",
+      "Report object AP50/AP50:95 and per-class P/R/recall-by-input-size only on explicitly complete annotations; partial known-positive recall separately.",
+      "Report actor-state and episode P/R/F1 on reviewed positive AND verified-negative exposure, matching/uncertainty protocol fixed first; false alerts/time only on exhaustively reviewed negative continuous footage.",
+      "Predeclare candidate gain and safety-regression criteria with root before runs, thresholds selected on val only; frozen final test once. No invented absolute accuracy requirement.",
+      "Confidence0.25/0.5 and existing posture thresholds are operating parameters, not validated quality guarantees. Source clip classification is not event P/R/F1."
+    ],
+    "taxonomy_gate": "Freeze exact ordered mutually exclusive detection leaf classes and source map before training; state/context attributes are separate multi-label tasks. No automatic alias mapping across source datasets."
+  },
+  "requests": [
+    {
+      "scenario_id": "S01",
+      "official_page": 4,
+      "title": "Running / abrupt movement in equipment area",
+      "status": "PROTOTYPE_NO_INDUSTRIAL_QUALITY",
+      "requested_object_classes": [],
+      "requested_actor_actions_or_states": [
+        "walk",
+        "run",
+        "abrupt_turn_or_acceleration",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "actor boxes/tracks and actor-linked movement intervals; walking vs running labels separate from model velocity",
+        "abrupt-movement subtype explicitly annotated, not inferred from clip running label",
+        "hazard zone polygon/version, camera motion, actual PTS and dropped-frame records; meter/s only with surveyed calibration"
+      ],
+      "candidate_baseline": {
+        "family": "reuse exact retained Split-Pose640 plus candidate static masked temporal head only after actor/feature contract approval",
+        "image_model": "existing Split-Pose; no new download/training implied"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "per-actor temporal scores/states+observability; event requires configured equipment-area context and time support",
+        "image-plane displacement is not metric speed; existing zone helper is not recognized running"
+      ],
+      "hard_negative_video_families": [
+        "fast walking",
+        "turning/reaching",
+        "camera pan/zoom",
+        "ID switch/crowd/occlusion",
+        "vehicle motion without running actor"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "walk",
+          "run",
+          "abrupt_turn_or_acceleration",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "CAVIAR source3 only explicit walking/running actor-window training/prototyping per READY; unboxed/time-unknown masks retained",
+        "Mendeley replay16 manual annotation preparation only; clip folder categories not movement GT"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "action_model_request": {
+        "candidate": "optional static per-actor masked TCN/MLP baseline after feature/actor labels approved; no GMD weights reused as another action",
+        "input": {
+          "name": "actor_window",
+          "proposed_shape": [
+            1,
+            24,
+            "F_TO_FREEZE_IN_FEATURE_SCHEMA"
+          ],
+          "dtype": "float32",
+          "scope": "24 frames is proposed bounded baseline, not validated temporal optimum; F/cadence/object-pose-context features MUST be frozen before export, never dynamic at deployment"
+        },
+        "output": {
+          "name": "actor_state_logits",
+          "proposed_static_shape": [
+            1,
+            3
+          ],
+          "ordered_states": [
+            "walk",
+            "run",
+            "abrupt_turn_or_acceleration"
+          ],
+          "semantics": "multi-label logits, not calibrated probabilities; source visibility/context UNKNOWN gates external to logits; sigmoid once only if required by pinned output contract"
+        },
+        "mandatory_deliverables": [
+          "feature_schema.json fullorderednames/units/masks/F/staticcadence",
+          "actor-object ownership and eventwindow annotations",
+          "window-to-episode aggregation/reset policy and matched rule-only baseline"
+        ],
+        "use": "detector-only output does not qualify actor use, smoking, climbing or cargo-policy action"
+      }
+    },
+    {
+      "scenario_id": "S02",
+      "official_page": 4,
+      "title": "Dangerous proximity to moving machinery/transport",
+      "status": "BLOCKED_NO_EQUIPMENT_MODEL_OR_PAIR_GT",
+      "requested_object_classes": [
+        "person",
+        "forklift",
+        "industrial_vehicle",
+        "industrial_machine"
+      ],
+      "requested_actor_actions_or_states": [
+        "equipment_moving",
+        "equipment_stationary",
+        "near_under_policy",
+        "safe_separation",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "equipment instance box/mask and persistent ID; moving state and permitted/forbidden relative geometry",
+        "actor-machine pair_id per interval, occlusion/ownership and safe/near reviewed support",
+        "surveyed floor homography/scale and uncertainty if metric distance required; otherwise site-approved image-plane danger region"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "forklift",
+              "industrial_vehicle",
+              "industrial_machine"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "object detections plus actor-equipment paired trajectories; near-event only if movement and policy geometry are observable",
+        "2D bbox IoU alone does not establish physical danger or metric separation"
+      ],
+      "hard_negative_video_families": [
+        "near stationary machine",
+        "safe parallel paths",
+        "perspective overlap at different depths",
+        "authorized maintenance/shutdown",
+        "machine-only or person-only scenes"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "equipment_moving",
+          "equipment_stationary",
+          "near_under_policy",
+          "safe_separation",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "Mendeley replay16 can queue actor/equipment annotation; no approved machinery detector training/event GT"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables"
+    },
+    {
+      "scenario_id": "S03",
+      "official_page": 4,
+      "title": "Phone use while moving or operating equipment",
+      "status": "BLOCKED_NO_PHONE_USE_MODEL_OR_GT",
+      "requested_object_classes": [
+        "person",
+        "mobile_phone"
+      ],
+      "requested_actor_actions_or_states": [
+        "phone_in_hand_use",
+        "phone_at_ear_use",
+        "phone_visible_not_used",
+        "operating_equipment",
+        "moving_actor",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "phone bbox with original and resized-input size; hand/head or owner_actor_id relation",
+        "use intervals distinguished from presence; worker operating/moving context and authorized exceptions",
+        "review occluded/small phone visibility; hand keypoints if supplied must carry confidence/annotation visibility"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              2,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "mobile_phone"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "phone detection is object presence only; event requires observable actor use AND moving/equipment context plus versioned policy",
+        "no phone box means UNKNOWN if hand/device unobservable"
+      ],
+      "hard_negative_video_families": [
+        "hand tools/radio/scanner",
+        "empty hand near face",
+        "phone nearby or carried but not used",
+        "authorized stationary phone use",
+        "distant/occluded hands"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "phone_in_hand_use",
+          "phone_at_ear_use",
+          "phone_visible_not_used",
+          "operating_equipment",
+          "moving_actor",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "No current READY release approves phone training or complete phone-use episodes"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "action_model_request": {
+        "candidate": "optional static per-actor masked TCN/MLP baseline after feature/actor labels approved; no GMD weights reused as another action",
+        "input": {
+          "name": "actor_window",
+          "proposed_shape": [
+            1,
+            24,
+            "F_TO_FREEZE_IN_FEATURE_SCHEMA"
+          ],
+          "dtype": "float32",
+          "scope": "24 frames is proposed bounded baseline, not validated temporal optimum; F/cadence/object-pose-context features MUST be frozen before export, never dynamic at deployment"
+        },
+        "output": {
+          "name": "actor_state_logits",
+          "proposed_static_shape": [
+            1,
+            5
+          ],
+          "ordered_states": [
+            "phone_in_hand_use",
+            "phone_at_ear_use",
+            "phone_visible_not_used",
+            "operating_equipment",
+            "moving_actor"
+          ],
+          "semantics": "multi-label logits, not calibrated probabilities; source visibility/context UNKNOWN gates external to logits; sigmoid once only if required by pinned output contract"
+        },
+        "mandatory_deliverables": [
+          "feature_schema.json fullorderednames/units/masks/F/staticcadence",
+          "actor-object ownership and eventwindow annotations",
+          "window-to-episode aggregation/reset policy and matched rule-only baseline"
+        ],
+        "use": "detector-only output does not qualify actor use, smoking, climbing or cargo-policy action"
+      }
+    },
+    {
+      "scenario_id": "S04",
+      "official_page": 4,
+      "title": "Smoking or open flame outside designated places",
+      "status": "BLOCKED_NO_SMOKING_FLAME_MODEL_OR_GT",
+      "requested_object_classes": [
+        "person",
+        "cigarette",
+        "flame"
+      ],
+      "requested_actor_actions_or_states": [
+        "smoking_observed",
+        "open_flame_observed",
+        "authorized_area",
+        "unauthorized_area",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "separate smoking and flame actor/event labels; smoke plume optional evidence not cigarette substitute",
+        "cigarette bbox/hand-mouth ownership and repeated gesture support; flame polygon/box and source if observable",
+        "allowed-area polygons, camera/policy version; exhaustively reviewed non-event exposure"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              3,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "cigarette",
+              "flame"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "two independent subtypes, not a single smoke==smoking label",
+        "flame detection does not establish flammable contents; outside-designated-area policy must be supplied"
+      ],
+      "hard_negative_video_families": [
+        "vaping/breath/steam/dust",
+        "glare/reflections/bright lamps",
+        "welding in approved area",
+        "hand tools near mouth",
+        "smoke without visible smoker"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "smoking_observed",
+          "open_flame_observed",
+          "authorized_area",
+          "unauthorized_area",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "No current READY release approves smoking/flame training or event quality"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "action_model_request": {
+        "candidate": "optional static per-actor masked TCN/MLP baseline after feature/actor labels approved; no GMD weights reused as another action",
+        "input": {
+          "name": "actor_window",
+          "proposed_shape": [
+            1,
+            24,
+            "F_TO_FREEZE_IN_FEATURE_SCHEMA"
+          ],
+          "dtype": "float32",
+          "scope": "24 frames is proposed bounded baseline, not validated temporal optimum; F/cadence/object-pose-context features MUST be frozen before export, never dynamic at deployment"
+        },
+        "output": {
+          "name": "actor_state_logits",
+          "proposed_static_shape": [
+            1,
+            4
+          ],
+          "ordered_states": [
+            "smoking_observed",
+            "open_flame_observed",
+            "authorized_area",
+            "unauthorized_area"
+          ],
+          "semantics": "multi-label logits, not calibrated probabilities; source visibility/context UNKNOWN gates external to logits; sigmoid once only if required by pinned output contract"
+        },
+        "mandatory_deliverables": [
+          "feature_schema.json fullorderednames/units/masks/F/staticcadence",
+          "actor-object ownership and eventwindow annotations",
+          "window-to-episode aggregation/reset policy and matched rule-only baseline"
+        ],
+        "use": "detector-only output does not qualify actor use, smoking, climbing or cargo-policy action"
+      }
+    },
+    {
+      "scenario_id": "S05",
+      "official_page": 4,
+      "title": "Climbing barriers / passing under conveyor or suspended load",
+      "status": "PROTOTYPE_GEOMETRY_ONLY_NO_SCENARIO_QUALITY",
+      "requested_object_classes": [
+        "person",
+        "barrier",
+        "conveyor",
+        "suspended_load"
+      ],
+      "requested_actor_actions_or_states": [
+        "climb_over_barrier",
+        "pass_under_conveyor",
+        "pass_under_suspended_load",
+        "boundary_touch_no_crossing",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "actor-linked crossing onset/offset, entry/exit side and full original-frame geometry",
+        "barrier/conveyor/load geometry and suspension/operating state; load shadow not load extent",
+        "scene-approved forbidden path/region and calibration/height evidence where 2D under/over is ambiguous"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "barrier",
+              "conveyor",
+              "suspended_load"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "object boxes plus reviewed geometry; crossing and over/under require temporal/scene evidence",
+        "generic polygon entry alone is not climbing or passing beneath physical machinery"
+      ],
+      "hard_negative_video_families": [
+        "walking beside barrier",
+        "bending near conveyor without passage",
+        "safe marked walkway",
+        "load grounded not suspended",
+        "occluded crossing/camera cut/ROI boundary touch"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "climb_over_barrier",
+          "pass_under_conveyor",
+          "pass_under_suspended_load",
+          "boundary_touch_no_crossing",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "Mendeley replay16 annotation preparation only; no approved crossing/climbing episode GT"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "action_model_request": {
+        "candidate": "optional static per-actor masked TCN/MLP baseline after feature/actor labels approved; no GMD weights reused as another action",
+        "input": {
+          "name": "actor_window",
+          "proposed_shape": [
+            1,
+            24,
+            "F_TO_FREEZE_IN_FEATURE_SCHEMA"
+          ],
+          "dtype": "float32",
+          "scope": "24 frames is proposed bounded baseline, not validated temporal optimum; F/cadence/object-pose-context features MUST be frozen before export, never dynamic at deployment"
+        },
+        "output": {
+          "name": "actor_state_logits",
+          "proposed_static_shape": [
+            1,
+            4
+          ],
+          "ordered_states": [
+            "climb_over_barrier",
+            "pass_under_conveyor",
+            "pass_under_suspended_load",
+            "boundary_touch_no_crossing"
+          ],
+          "semantics": "multi-label logits, not calibrated probabilities; source visibility/context UNKNOWN gates external to logits; sigmoid once only if required by pinned output contract"
+        },
+        "mandatory_deliverables": [
+          "feature_schema.json fullorderednames/units/masks/F/staticcadence",
+          "actor-object ownership and eventwindow annotations",
+          "window-to-episode aggregation/reset policy and matched rule-only baseline"
+        ],
+        "use": "detector-only output does not qualify actor use, smoking, climbing or cargo-policy action"
+      }
+    },
+    {
+      "scenario_id": "S06",
+      "official_page": 4,
+      "title": "Work at height without safety harness",
+      "status": "BLOCKED_NO_HARNESS_WEARER_TRAINING_OR_HEIGHT_POLICY",
+      "requested_object_classes": [
+        "person",
+        "full_body_harness",
+        "safety_lanyard"
+      ],
+      "requested_actor_actions_or_states": [
+        "harness_worn_visible",
+        "harness_absence_verified_visible_body",
+        "harness_state_unknown",
+        "anchor_connection_visible",
+        "working_in_height_risk_region"
+      ],
+      "annotation_requirements": [
+        "wearer-state GT linked to actor separately from PPE object boxes; full relevant torso/straps visibility",
+        "completeness review certifies observable harness absence; occluded back/torso must be UNKNOWN",
+        "height-risk region and site rule, work-platform geometry and independently established height; anchor attachment only when visible"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              3,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "full_body_harness",
+              "safety_lanyard"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "harness detector non-detection is NOT absence; negative wearer state needs positive observability and complete review",
+        "apparent image height does not establish working at height; connection/fit cannot be guessed from harness presence"
+      ],
+      "hard_negative_video_families": [
+        "ground-level worker",
+        "harness hidden by clothing/occlusion",
+        "nearby unworn harness",
+        "backpack/straps/reflections",
+        "person on perspective-overlapping distant structure"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "harness_worn_visible",
+          "harness_absence_verified_visible_body",
+          "harness_state_unknown",
+          "anchor_connection_visible",
+          "working_in_height_risk_region"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "PPED48 has six literal PPE categories, NO harness class and NO wearer linkage/training approval; must not be repurposed"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "wearer_model_request": {
+        "candidate": "static per-actor visible torso/whole-person ROI classifier only with reviewed wearer-linked labels, alongside object detector",
+        "input": "RGB actor ROI letterboxed [1,3,640,640]; crop/version/original mapping pinned",
+        "output": "wearer_state_logits [1,2] ordered harness_worn_visible, harness_absence_verified_visible_body; independently gated by visibility and height-policy UNKNOWN",
+        "limits": "two visible-state logits do not infer attachment, fit, hidden PPE or physical working height"
+      }
+    },
+    {
+      "scenario_id": "S07",
+      "official_page": 4,
+      "title": "Fall / prolonged floor lying / visible immobility",
+      "status": "RUNTIME_BASELINE_RETAINED_QUALITY_BLOCKED_NEW_GMD_EXPORT_ONLY",
+      "requested_object_classes": [],
+      "requested_actor_actions_or_states": [
+        "fall_transition",
+        "already_lying_on_floor",
+        "visible_lying_immobility",
+        "nonfall_ADL",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "actor-linked fall onset/offset, floor/body contact and uncertainty; already-lying is separate from fall transition",
+        "continuous floor-lying observation including requested >=3s segments plus pre/post context; scene floor vs bed/bench labels",
+        "keypoint/body visibility/movement tracks, missing observations and cuts; no medical unconsciousness GT inferred from RGB",
+        "for GMD supply exact74-channel schema, units/masks/window PTS/stride, actor-binding proof and frozen window-to-bag aggregation; confidence0.25/person and0.3/joints are source recipe only"
+      ],
+      "candidate_baseline": {
+        "family": "reuse exact retained Split-Pose640 plus candidate static masked temporal head only after actor/feature contract approval",
+        "image_model": "existing Split-Pose; no new download/training implied"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "Split-Pose boxes/person score/COCO17 XY+confidence are retained baseline observations, not accepted fall detector",
+        "GMD pose_window[1,24,74] float32 -> fall_logit[1,1] is optional unqualified static action head; do not select any outer-fold head automatically",
+        "all-invalid/actor-unbound windows ->UNKNOWN and zero head neural requests; no interpolation across gaps",
+        "suspected visible immobility only; do not diagnose unconsciousness"
+      ],
+      "hard_negative_video_families": [
+        "sitting/lying on bed",
+        "crouch/bend/kneel/work on floor",
+        "controlled descent/exercise",
+        "already prone on entry",
+        "occlusion/freeze/repeated still/camera cut"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 5,
+        "positive_subtypes_required": [
+          "fall_transition",
+          "already_lying_on_floor",
+          "visible_lying_immobility",
+          "nonfall_ADL",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "EDF source3 positive process-window development only; complement UNKNOWN, no lying/immobility or event-negative completeness",
+        "UR20 old source-reference development only; cannot label as approved new independent test",
+        "GMD four heads imported/export-only on cached weak clip features; no new training or event approval"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables"
+    },
+    {
+      "scenario_id": "S08",
+      "official_page": 4,
+      "title": "Cargo handling violating explicit workplace rule (additional example)",
+      "status": "BLOCKED_NO_LOAD_MODEL_ACTOR_LINKS_OR_CARGO_POLICY",
+      "requested_object_classes": [
+        "person",
+        "carried_load"
+      ],
+      "requested_actor_actions_or_states": [
+        "carrying_load",
+        "put_down_or_pick_up",
+        "safe_policy_compliant_carry",
+        "observable_policy_violation",
+        "unknown"
+      ],
+      "annotation_requirements": [
+        "load bbox/mask and owner_actor_id, hands/contact and carry intervals",
+        "versioned rule with measurable observable trigger: route/obstructed view/two-person/hand-use etc; label safe and violation under SAMErule",
+        "load mass/allowed weight only from independently measured linked metadata; no weight inference from visual size",
+        "manual review object type/occlusion and actor association for shared loads"
+      ],
+      "candidate_baseline": {
+        "family": "proposed YOLOv8n detect, static batch1 RGB640; reviewed initialization checkpoint/rights/hash still REQUIRED, no implicit download",
+        "input": {
+          "images": {
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "dtype": "float32",
+            "normalization": "RGB bilinear letterbox114 /255, original transform saved"
+          }
+        },
+        "proposed_output_boundary": {
+          "decoder": "split_detect_v8 when verified extraction applies",
+          "boxes": {
+            "shape": [
+              1,
+              4,
+              8400
+            ],
+            "semantics": "already decoded xywh input pixels"
+          },
+          "class_scores": {
+            "shape": [
+              1,
+              2,
+              8400
+            ],
+            "class_order": [
+              "person",
+              "carried_load"
+            ],
+            "semantics": "sigmoid probabilities already applied; host layout/NMS only"
+          }
+        },
+        "compatibility": "family resemblance is NOT compilation/ABI proof; exact exported tensor names and graph must be inspected; splitting mixed coordinate/score outputs is a diagnostic boundary, not promised quality gain"
+      },
+      "expected_outputs_and_policy_semantics": [
+        "presence of carried cargo is not violation; output actor-load relation/action plus rule_id and observable trigger",
+        "unknown mass/route policy means UNKNOWN for mass/route violation; no generic unsafe-carry label from posture alone"
+      ],
+      "hard_negative_video_families": [
+        "empty-hand walking",
+        "pushing trolley rather than carrying",
+        "placing/picking permitted load",
+        "safe two-person handling",
+        "large lightweight vs small heavy load"
+      ],
+      "minimum_video_requested": {
+        "continuous_source_clips": 6,
+        "independent_site_camera_components_requested": 3,
+        "reviewed_positive_episodes_requested": 10,
+        "reviewed_hard_negative_episodes_requested": 10,
+        "continuous_negative_exposure_minutes_requested": 10,
+        "context_before_and_after_seconds": 3,
+        "positive_subtypes_required": [
+          "carrying_load",
+          "put_down_or_pick_up",
+          "safe_policy_compliant_carry",
+          "observable_policy_violation",
+          "unknown"
+        ],
+        "role": "ANNOTATION_PILOT_FLOOR_NOT_STATISTICAL_ADEQUACY",
+        "if_unavailable": "BLOCKED_NOT_READY; report actual support; do not fabricate examples or label absent boxes negative"
+      },
+      "currently_eligible_data": [
+        "Mendeley replay16 can support reviewed annotation preparation; no cargo-policy episode training/event GT READY"
+      ],
+      "training_launch": "BLOCKED_UNTIL_APPROVED_SCOPED_READY_AND_ROOT_RESOURCE_ALLOCATION",
+      "quality_gate_ref": "common.quality_gate",
+      "linq_gate_ref": "linq_release_gates",
+      "checkpoint_handoff_ref": "checkpoint_deliverables",
+      "action_model_request": {
+        "candidate": "optional static per-actor masked TCN/MLP baseline after feature/actor labels approved; no GMD weights reused as another action",
+        "input": {
+          "name": "actor_window",
+          "proposed_shape": [
+            1,
+            24,
+            "F_TO_FREEZE_IN_FEATURE_SCHEMA"
+          ],
+          "dtype": "float32",
+          "scope": "24 frames is proposed bounded baseline, not validated temporal optimum; F/cadence/object-pose-context features MUST be frozen before export, never dynamic at deployment"
+        },
+        "output": {
+          "name": "actor_state_logits",
+          "proposed_static_shape": [
+            1,
+            4
+          ],
+          "ordered_states": [
+            "carrying_load",
+            "put_down_or_pick_up",
+            "safe_policy_compliant_carry",
+            "observable_policy_violation"
+          ],
+          "semantics": "multi-label logits, not calibrated probabilities; source visibility/context UNKNOWN gates external to logits; sigmoid once only if required by pinned output contract"
+        },
+        "mandatory_deliverables": [
+          "feature_schema.json fullorderednames/units/masks/F/staticcadence",
+          "actor-object ownership and eventwindow annotations",
+          "window-to-episode aggregation/reset policy and matched rule-only baseline"
+        ],
+        "use": "detector-only output does not qualify actor use, smoking, climbing or cargo-policy action"
+      }
+    }
+  ],
+  "linq_release_gates": [
+    "Deliver reloadable FP checkpoint+class/feature maps and exact source/exporter dependency hashes. Static image NCHW batch1 640 where appropriate; temporal fixed shape explicitly versioned, no dynamic state guessed.",
+    "Verify native FP -> exported ONNX -> conditioned graph -> vendor PTQ simulator using same pinned inputs, normalization and decoder. Actual names/dtypes/shapes from manifests, no shape-based renaming.",
+    "Calibrate train/calibration groups ONLY; save sourceIDs, tensor hashes, thresholds/scales/quantized graph and SDK versions. No val/test calibration, no silent fallback/retry or percentile sweep.",
+    "Compiler PASS and CPU simulation are separate from actual hardware. Every newly trained head/detector needs independently reviewed compiledprogram hash, actual named ABI and correlated status0 numeric captures; all neural components must use LinQ at submission.",
+    "Existing Helmet/Split-Pose historical service execution remains historicalPASS only. NEW Matvey placement is BLOCKED_NOT_UPLOADED_NOT_EXECUTED in this intake; no legacy path/receipt establishes new placement.",
+    "Root alone stages own /auto/cache/<runtimeLogin>/matvey/matvey_*.tpu with reviewedhash, owned queues and central admission; no protected mosprom_*_cut_ap9999*.tpu/baseline/foreign changes.",
+    "Then evaluate paired reviewed object/actor/episode quality and complete video->event->alert->journal latency; compilation/export-only accuracy is not enough."
+  ],
+  "checkpoint_deliverables": [
+    "artifact manifest with path, bytes, sha256 for initialization, best,last,resumable state and source commit/code/env locks; no arbitrary pickle execution by recipient",
+    "model_id/version, literal ordered taxonomy, input/output/feature schema, normalization, original transform, graph decoder/NMS, temporalwindow/state/reset/mask/aggregation policy",
+    "seed, epochs, optimizer/schedule,batch/precision,train/val/calibration source-group IDs and approved READY manifest hashes; splitnear-duplicate lineage/rights",
+    "per-epoch trainloss and val metrics/support/unknowncoverage, frozen selection rationale; no post-outer/final-test tuning",
+    "bestcheckpoint+ONNX bytehashes and native/export parity inputs/outputs; vendor PTQ/compile/runtime proof when separately allocated",
+    "retained baseline full bundle and failedattempts; precise gate statuses BASELINE/EVALUATED/IMPROVED/FROZEN plus independentquality/placement UNKNOWNs"
+  ],
+  "forwarding": "Root may copy this request to agreed shared Training handoff. Do not edit producer READY, foreign worktree or external event contracts. No messages to other accounts."
+}
