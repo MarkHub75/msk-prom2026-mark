@@ -64,14 +64,19 @@ page.on("framenavigated", (f) => {
   if (f === page.mainFrame()) navigations += 1;
 });
 
+// Role switch: a combobox «Роль» (fixture, mobile) or role tabs nav «Выбор роли» (control-room top bar since 8161719d).
 async function selectRole(label) {
   const box = page.getByRole("combobox", { name: /роль/i });
+  // Tabs use the short title: «Мастер смены» in the combobox is «Мастер» on the tab.
+  const short = label.split(" ")[0];
+  const tab = page.getByRole("navigation", { name: "Выбор роли" }).getByRole("button", { name: new RegExp(`^(${label}|${short})$`) });
   try {
-    await box.waitFor({ state: "visible", timeout: STEP_MS });
+    await box.or(tab).first().waitFor({ state: "visible", timeout: STEP_MS });
   } catch {
-    throw new StepFail(`переключатель роли (combobox «Роль») с вариантом «${label}»`);
+    throw new StepFail(`переключатель роли (combobox «Роль» или вкладки «Выбор роли») с вариантом «${label}»`);
   }
-  await box.selectOption({ label });
+  if (await tab.isVisible()) await tab.click();
+  else await box.selectOption({ label });
 }
 
 async function noReload(fn) {
