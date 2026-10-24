@@ -2795,6 +2795,9 @@ def _demo_videos(cameras: list[DemoCamera], videos_dir: Path) -> dict[str, Path]
             if media.probe_video(path) is None:
                 raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
             found[video.file] = path
+    # The pack keeps videos/<name>: two files of one name would silently share one copy.
+    if len({path.name for path in found.values()}) < len(found):
+        raise ValidationFailed(texts.DEMO_LAYOUT_INVALID.format(field="file"), field="file")
     return found
 
 

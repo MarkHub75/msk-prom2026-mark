@@ -170,6 +170,8 @@ def evaluate(labels: Path, out: Path | None) -> int:
     except InferenceError as exc:
         print(f"{exc.code}: {exc.message}", file=sys.stderr)
         return 4
+    finally:
+        services.backend_close()  # the kernel of the run leaves the shared account (8.29)
     print(report.out_dir)
     print(Path(report.out_dir, "report.md").read_text(encoding="utf-8"), end="")
     return 0
@@ -187,6 +189,8 @@ def demo_build(layout: Path, videos: Path, out: Path, allow_fake: bool) -> int:
     except InferenceError as exc:
         print(f"{exc.code}: {exc.message}", file=sys.stderr)
         return 4
+    finally:
+        services.backend_close()  # the kernel of the build leaves the shared account (8.29)
     # The artifacts by name and frame count; their metrics stay in manifest.json.
     skip = {
         "cameras": {"__all__": {"videos": {"__all__": {"artifacts": {"__all__": {"metrics"}}}}}}
