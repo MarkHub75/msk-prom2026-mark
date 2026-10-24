@@ -1,4 +1,6 @@
+import type { ComponentType } from "react";
 import type { Role } from "./roles";
+import { CamerasScreen } from "./screens/admin/CamerasScreen";
 
 export interface NavItem {
   path: string;
@@ -6,9 +8,10 @@ export interface NavItem {
   roles: Role[];
   slice: number;
   menu: boolean; // shown in the navigation of its roles; routes with ids are reached by links
+  screen?: ComponentType; // the built screen; without it the route renders StubNotice
 }
 
-// Routes of tech.md 8.14; a route of an unbuilt slice renders StubNotice.
+// Routes of tech.md 8.14; a route of an unbuilt slice has no screen and renders StubNotice.
 export const NAV: NavItem[] = [
   { path: "/operator", title: "Секторы", roles: ["operator"], slice: 6, menu: true },
   { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false },
@@ -21,7 +24,7 @@ export const NAV: NavItem[] = [
   { path: "/ohs/rules", title: "Правила", roles: ["ohs"], slice: 9, menu: true },
   { path: "/ohs/stats", title: "Статистика", roles: ["ohs"], slice: 13, menu: true },
   { path: "/management", title: "Тренды", roles: ["management"], slice: 13, menu: true },
-  { path: "/admin/cameras", title: "Камеры", roles: ["admin"], slice: 1, menu: true },
+  { path: "/admin/cameras", title: "Камеры", roles: ["admin"], slice: 1, menu: true, screen: CamerasScreen },
   { path: "/admin/cameras/:cameraId", title: "Настройка камеры", roles: ["admin", "ohs"], slice: 2, menu: false },
   { path: "/admin/system", title: "Система", roles: ["admin"], slice: 3, menu: true },
 ];
