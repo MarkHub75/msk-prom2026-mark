@@ -1,0 +1,38 @@
+{
+  "schema": "matvey-final-contract-phone-release-v1",
+  "created_utc": "2026-10-24T21:55:17.428835+00:00",
+  "code_commit": "fae4c444fd56219951433fde335d7b0659722810",
+  "verification": {
+    "status": "PASS_OFFLINE_BYTES_MODELS_VIDEO_AND_ARGUS_PROOF",
+    "payload_files": 348,
+    "models": 6,
+    "full_phone_GPU_frames": 1539,
+    "full_phone_GPU_calls": 4617,
+    "CPU_demo_calls": 6060,
+    "actual_cached_demo_events": 5,
+    "phone_events": 0,
+    "Phone_candidate": "EXPERIMENTAL",
+    "fresh_TPU_calls": 0,
+    "S08": "NOT_IMPLEMENTED",
+    "new_NN_calls": 0
+  },
+  "archives": [
+    {
+      "path": "/workspace/artifacts/matvey-final-20261025/matvey_contract_phone_v1.zip",
+      "bytes": 558485921,
+      "sha256": "4578c04e617cd21f947fb588b513b9dbe71ccbd8712f43d9a8b629c2283daa70",
+      "CRC": "PASS",
+      "all_payload_SHA_readback": "PASS"
+    },
+    {
+      "path": "/workspace/artifacts/matvey-final-20261025/matvey_phone_preview_v1.zip",
+      "bytes": 72308778,
+      "sha256": "1a733b8e580d197490051b71ab0996d8bf4a4f1d263fe7c3b2a7b9e51eae1b80",
+      "CRC": "PASS",
+      "all_payload_SHA_readback": "PREVIEW_CRC_PASS"
+    }
+  ],
+  "new_TPU_calls": 0,
+  "offhost_binary_backup": "NOT_VERIFIED",
+  "recipient_ACK": "NOT_RECEIVED"
+}

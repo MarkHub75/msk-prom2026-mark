@@ -1,3 +1,12 @@
+## ISSUED FINAL CONTRACT + PHONE PACKAGE
+
+Read docs/handoffs/FINAL_CONTRACT_PHONE_CHECKPOINT_20261025.md first.
+Codefae4c444; fullZIP558485921bytes SHA4578c04e617cd21f947fb588b513b9dbe71ccbd8712f43d9a8b629c2283daa70;
+preview72308778bytes.348payloadSHA/ZIPCRCpassed. ModelSpecs6,Phoneexperimental
+inactive; sourceFPI gain but weak video transfer/remote confusors retained.
+RealCPUdemo6/6060calls/cachedimport event5+evidence5/API200; freshTPU0;
+S08main skeleton NOT_IMPLEMENTED. All own jobs ended;528testsPASS(4skipped).
+
 ## Final MATVEY contract and Phone integration — 2026-10-24
 
 Read docs/ML_HANDOFF_MATVEY.md. main434b0f75/techv6 checked throughgitshow;

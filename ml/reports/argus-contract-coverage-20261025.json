@@ -35,7 +35,7 @@
       "readiness": [
         "RUNNABLE",
         "PROTOTYPE",
-        "EVALUATED_SOURCE_DETECTOR_ONLY"
+        "EVALUATED"
       ],
       "technical_note": "Phone source FPI improves; video association yields0episodes; experimental; remote/hand confusor errors",
       "independent_event_metrics": "NOT_MEASURED",
@@ -43,14 +43,15 @@
       "TP": null,
       "FP": null,
       "FN": null,
-      "event_F1": null
+      "event_F1": null,
+      "evaluation_scope": "source object detector only;not industrial/event quality"
     },
     {
       "scenario_id": "S04",
       "readiness": [
         "RUNNABLE",
         "PROTOTYPE",
-        "EVALUATED_SOURCE_DETECTOR_ONLY"
+        "EVALUATED"
       ],
       "technical_note": "Actual local fire/smoke detections/events; headlight/equipment false-alert risks; cigarette absent",
       "independent_event_metrics": "NOT_MEASURED",
@@ -58,13 +59,14 @@
       "TP": null,
       "FP": null,
       "FN": null,
-      "event_F1": null
+      "event_F1": null,
+      "evaluation_scope": "source object detector only;not industrial/event quality"
     },
     {
       "scenario_id": "S05",
       "readiness": [
         "PROTOTYPE",
-        "BLOCKED_ACTION_OR_SITE_GEOMETRY"
+        "BLOCKED"
       ],
       "technical_note": "Main fence/restricted_under prototypes; official climb/under-load action quality not established",
       "independent_event_metrics": "NOT_MEASURED",
@@ -77,7 +79,7 @@
     {
       "scenario_id": "S06",
       "readiness": [
-        "BLOCKED_MODEL_MISSING"
+        "BLOCKED"
       ],
       "technical_note": "No qualified no_harness/use/visibility model",
       "independent_event_metrics": "NOT_MEASURED",
@@ -91,8 +93,7 @@
       "scenario_id": "S07",
       "readiness": [
         "RUNNABLE",
-        "PROTOTYPE",
-        "QUALITY_NOT_ACCEPTED"
+        "PROTOTYPE"
       ],
       "technical_note": "Full source fall misses/bed alerts retained; historicalPoseTPU sparse, not full/new run",
       "independent_event_metrics": "NOT_MEASURED",
@@ -100,13 +101,13 @@
       "TP": null,
       "FP": null,
       "FN": null,
-      "event_F1": null
+      "event_F1": null,
+      "quality_status": "NOT_ACCEPTED"
     },
     {
       "scenario_id": "S08",
       "readiness": [
-        "BLOCKED",
-        "NOT_IMPLEMENTED"
+        "BLOCKED"
       ],
       "technical_note": "Main load_carrying plugin skeleton; observe returns[]; no implemented event logic",
       "independent_event_metrics": "NOT_MEASURED",
@@ -114,7 +115,8 @@
       "TP": null,
       "FP": null,
       "FN": null,
-      "event_F1": null
+      "event_F1": null,
+      "implementation": "NOT_IMPLEMENTED"
     }
   ],
   "PPE_additional": {
