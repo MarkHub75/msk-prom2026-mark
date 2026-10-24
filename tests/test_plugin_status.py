@@ -25,7 +25,7 @@ from safewatch.types import AnalysisConfig, Detection, EpisodeDraft, ModelSpec, 
 DEFAULT = ["person", "car", "bus", "train", "truck", "cell phone"]
 ORDER = [
     "running", "proximity", "phone", "fall", "fence_crossing", "restricted_under",
-    "fire_smoking", "no_harness", "suspended_load", "load_carrying",
+    "fire_smoking", "no_harness", "suspended_load", "load_carrying", "no_helmet", "no_respirator",
 ]  # fmt: skip
 FIRE_MODEL = {
     "id": "fire-test",
@@ -49,10 +49,16 @@ def test_status_follows_active_model_classes(core: Settings) -> None:
     default = statuses(DEFAULT)
     assert default["fire_smoking"] == (
         "model_missing",
-        "Нет модели с классами: fire, smoke, cigarette",
+        "Модель не подключена: нужны классы fire, smoke, cigarette",
     )
-    assert default["no_harness"] == ("model_missing", "Нет модели с классами: no_harness")
-    assert default["suspended_load"] == ("model_missing", "Нет модели с классами: suspended_load")
+    assert default["no_harness"] == (
+        "model_missing",
+        "Модель не подключена: нужны классы no_harness",
+    )
+    assert default["suspended_load"] == (
+        "model_missing",
+        "Модель не подключена: нужны классы suspended_load",
+    )
     for scenario in ("running", "proximity", "phone", "fall", "fence_crossing", "restricted_under"):
         assert default[scenario] == ("active", "Сценарий работает")
     # fire_smoking needs any one of its classes, the others need all of theirs.
@@ -61,8 +67,11 @@ def test_status_follows_active_model_classes(core: Settings) -> None:
     assert statuses([*DEFAULT, "no_harness"])["no_harness"][0] == "active"
     assert statuses([*DEFAULT, "suspended_load"])["suspended_load"][0] == "active"
     no_truck = statuses([c for c in DEFAULT if c != "truck"])
-    assert no_truck["proximity"] == ("model_missing", "Нет модели с классами: truck")
-    assert statuses(["person"])["phone"] == ("model_missing", "Нет модели с классами: cell phone")
+    assert no_truck["proximity"] == ("model_missing", "Модель не подключена: нужны классы truck")
+    assert statuses(["person"])["phone"] == (
+        "model_missing",
+        "Модель не подключена: нужны классы cell phone",
+    )
     # The registry of the running config is the default snapshot.
     assert statuses(registry.active_classes(core)) == default
 

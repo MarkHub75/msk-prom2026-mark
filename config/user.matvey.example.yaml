@@ -1,0 +1,7 @@
+# Matvey's models (docs/ML_HANDOFF_MATVEY.md, branch matvey_cv): copy into config/user.yaml.
+# Unpack the model archive into the repo root first (paths start with models/matvey/),
+# then check the files with `uv run safewatch doctor`. The detector stays the default one;
+# `pipeline.extra` replaces the whole list, keep your other extra models in it.
+pipeline:
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra: [matvey-helmet-yolov8n@640-v1-5c3af1f3b855]

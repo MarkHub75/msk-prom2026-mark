@@ -61,6 +61,33 @@ def attach_objects(
     return out
 
 
+def head_objects(
+    ctx: FrameContext, name: str, head_frac: float
+) -> dict[int, ObjectState | Literal["ambiguous"]]:
+    """Objects `name` on a person's head (tech.md 8.22), by track id.
+
+    An object fits a person when its center is within the bbox x range and inside the upper
+    `head_frac` of the bbox height. One fit: attached; two or more: `ambiguous` for each.
+    """
+    out: dict[int, ObjectState | Literal["ambiguous"]] = {}
+    for o in ctx.objects:
+        if o.name != name:
+            continue
+        cx, cy = (o.bbox[0] + o.bbox[2]) / 2, (o.bbox[1] + o.bbox[3]) / 2
+        owners = [
+            p.track_id
+            for p in ctx.persons
+            if p.bbox[0] <= cx <= p.bbox[2]
+            and p.bbox[1] <= cy <= p.bbox[1] + head_frac * (p.bbox[3] - p.bbox[1])
+        ]
+        for track_id in owners:
+            if len(owners) > 1:
+                out[track_id] = "ambiguous"
+            elif out.get(track_id) != "ambiguous":
+                out.setdefault(track_id, o)
+    return out
+
+
 def param(key: str, lo: float, hi: float) -> ScenarioParam:
     """A plugin parameter with its range; titles and units live in `texts.PARAM_TITLES`."""
     title, unit = texts.PARAM_TITLES[key]
