@@ -21,6 +21,13 @@ def export_split_detect(source_manifest, output_dir, model_id='matvey_helmet_spl
     names=dict(zip(('boxes','class_scores'),final.input))
     result=onnx.utils.Extractor(graph).extract_model([m['input']['name']],list(names.values()))
     shapes={v.name:[d.dim_value for d in v.type.tensor_type.shape.dim] for v in result.graph.output}
+    # Shape inference leaves decoded boxes batch symbolic despite static batch1 input/output.
+    parent_shape=[d.dim_value for d in graph.graph.output[0].type.tensor_type.shape.dim]
+    if m['input']['shape'][0]!=1 or parent_shape!=[1,4+len(m['classes']),8400]:
+        raise ValueError('static source batch1 required')
+    if shapes[names['boxes']]==[0,4,8400]:
+        shapes[names['boxes']][0]=1
+        result.graph.output[0].type.tensor_type.shape.dim[0].dim_value=1
     if shapes[names['boxes']]!=[1,4,8400] or shapes[names['class_scores']]!=[1,len(m['classes']),8400]:
         raise ValueError('unexpected static ABI')
     if any(m['output_name'] in n.output for n in result.graph.node): raise ValueError('final concat retained')
