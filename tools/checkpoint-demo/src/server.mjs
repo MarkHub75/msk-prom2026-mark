@@ -308,9 +308,30 @@ async function api(req, res, url) {
     return json(res, 200, publicCamera(c));
   }
   const route = contractRoutes.find((r) => r.re.test(p));
+  if (route && route.methods.includes(m) && FALLBACK_ROUTE.test(p)) return proxy(req, res, url);
   if (route && route.methods.includes(m)) throw apiError(501, "not_implemented", MSG.notImplemented, { path: p });
   if (route) throw apiError(405, "method_not_allowed", MSG.requestInvalid, { method: m });
   throw apiError(404, "not_found", MSG.notFound, { path: p });
+}
+
+// Screens outside the demo story (analytics, rules, system, camera setup) come from a real backend
+// when one runs: DEMO_STATS_API for /api/stats, DEMO_FALLBACK_API for the rest (unset or down -> 501 as before).
+// The operator story (dashboard, feed, events, master, journal, camera views) always stays in the mock.
+const FALLBACK_API = process.env.DEMO_FALLBACK_API ?? "http://127.0.0.1:8010";
+const STATS_API = process.env.DEMO_STATS_API ?? "http://127.0.0.1:8000";
+const FALLBACK_ROUTE = /^\/api\/(stats\/|ohs\/rules|system|models|jobs|zones\/|videos\/|admin\/cameras\/|cameras\/[^/]+\/(zones|calibration|rules|videos))/;
+async function proxy(req, res, url) {
+  const target = (url.pathname.startsWith("/api/stats/") ? STATS_API : FALLBACK_API) + url.pathname + url.search;
+  const headers = {};
+  for (const h of ["content-type", "x-role", "x-actor", "range"]) if (req.headers[h]) headers[h] = req.headers[h];
+  const payload = req.method === "GET" || req.method === "HEAD" ? undefined : Buffer.concat(await Array.fromAsync(req));
+  let r;
+  try { r = await fetch(target, { method: req.method, headers, body: payload }); }
+  catch { throw apiError(501, "not_implemented", MSG.notImplemented, { path: url.pathname, fallback: "backend not reachable" }); }
+  const out = { ...res.cors, "Content-Type": r.headers.get("content-type") ?? "application/octet-stream" };
+  for (const h of ["content-range", "accept-ranges", "content-disposition"]) if (r.headers.get(h)) out[h] = r.headers.get(h);
+  res.writeHead(r.status, out);
+  res.end(Buffer.from(await r.arrayBuffer()));
 }
 
 async function director(req, res, url) {
