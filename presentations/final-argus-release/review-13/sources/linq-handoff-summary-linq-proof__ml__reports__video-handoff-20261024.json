@@ -1,0 +1,138 @@
+{
+  "schema_version": "mosprom-video-handoff-summary-v1",
+  "created_utc": "2026-10-24T14:03:58.123953+00:00",
+  "deadline_utc": "2026-10-24T15:00:00Z",
+  "application_main_revision": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+  "format": "INTERMEDIATE_NOT_ARGUS_FINAL",
+  "packages": [
+    {
+      "directory": "/workspace/artifacts/matvey-egor-linq-demo-20261024-v2",
+      "source": {
+        "path": "/workspace/artifacts/matvey-egor-linq-demo-20261024-v2/matvey_source_original.mp4",
+        "bytes": 42290441,
+        "sha256": "f0e34d76de139450b97decbb4e032a525d8ce9959d972cdd0071a1de69250c6a"
+      },
+      "intermediate": {
+        "path": "/workspace/artifacts/matvey-egor-linq-demo-20261024-v2/matvey_linq_frames.intermediate.json",
+        "bytes": 21729,
+        "sha256": "ad53ffa2f1ac8cbdca452fe63d2d311b080cfe9b2d61ecbc4e8caf218c3ec571"
+      },
+      "proof": {
+        "path": "/workspace/artifacts/matvey-egor-linq-demo-20261024-v2/matvey_tpu_proof.json",
+        "bytes": 7745,
+        "sha256": "e55163a8fa6b07c0f110645f9f7b3d5ef6d8530690bcd4839576ce85d1250392"
+      },
+      "checksums": {
+        "path": "/workspace/artifacts/matvey-egor-linq-demo-20261024-v2/matvey_checksums.json",
+        "bytes": 2843,
+        "sha256": "c0b30fac454cbf51ef983025d208d4ffa35912a08506c1afc67e372690a99822"
+      },
+      "original_frames": 522,
+      "processed_frame_indices": [
+        0,
+        13
+      ],
+      "historical_tpu_calls": 4,
+      "transport_total_ms_sum": 42657.43916248903,
+      "partial": true,
+      "fresh_tpu_calls": 0
+    },
+    {
+      "directory": "/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2",
+      "source": {
+        "path": "/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2/matvey_source_original.mp4",
+        "bytes": 172002,
+        "sha256": "ad08c42886c274c03876a68fb7f2be3b065c951d7202847317d126c61bb1d760"
+      },
+      "intermediate": {
+        "path": "/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2/matvey_linq_frames.intermediate.json",
+        "bytes": 74556,
+        "sha256": "00c5d79d660d13ebb179702ffd9999128bd2fba7edf3360baf3b2a12711aedf1"
+      },
+      "proof": {
+        "path": "/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2/matvey_tpu_proof.json",
+        "bytes": 26951,
+        "sha256": "7a57f81a785a43b72aef5b540cc785379fc97a79d96f2ccb462a599df7eb6b44"
+      },
+      "checksums": {
+        "path": "/workspace/artifacts/matvey-egor-linq-urfall01-20261024-v2/matvey_checksums.json",
+        "bytes": 6427,
+        "sha256": "ae2351433ac95c671789abc63a500d30cfc51e386e7e631557d9da2b9af759b7"
+      },
+      "original_frames": 160,
+      "processed_frame_indices": [
+        0,
+        15,
+        30,
+        45,
+        60,
+        75,
+        90,
+        105,
+        120,
+        135,
+        150
+      ],
+      "historical_tpu_calls": 11,
+      "transport_total_ms_sum": 130654.39478307962,
+      "partial": true,
+      "fresh_tpu_calls": 0
+    }
+  ],
+  "total_historical_tpu_calls": 15,
+  "total_processed_frames": 13,
+  "fresh_tpu_calls": 0,
+  "actual_neural_inference_this_stage": 0,
+  "source_mp4_unchanged": true,
+  "checks": "source RGB and original encoded frame/PTS; input bitwise parity; response IDs/status0; file/tensor SHA; decoded detections reproduced",
+  "new_run_status": "BLOCKED_OWN_MATVEY_STAGING_AND_RECEIPT_ABSENT",
+  "live_tpu_availability": "UNKNOWN_NO_ACTIVE_PROBE_OR_SUBMISSION",
+  "preprocessing_caveat": "Historical PIL BILINEAR differs from current Argus OpenCV INTER_LINEAR; exact actual tensors/transforms retained",
+  "app_schema": "PENDING_UPDATED_CONTRACT_FROM_MARK",
+  "event_rules_backend_frontend_changed": false,
+  "hardware_attestation": "NOT_INDEPENDENTLY_ESTABLISHED",
+  "quality": "NOT_AN_INDEPENDENT_EVENT_QUALITY_RELEASE",
+  "code": {
+    "path": "/workspace/project/ml/video_handoff.py",
+    "bytes": 17707,
+    "sha256": "cd37c097fc459664c06eaad69bfdd9c87c30d39882eff942766d49f0e3c8fe57"
+  },
+  "handoff": {
+    "path": "/workspace/project/docs/handoffs/EGOR_LINQ_VIDEO_20261024.md",
+    "bytes": 9087,
+    "sha256": "1d1f8b46ebd52d4863c6ca046a9cd1c273f67bf2e4ff9945e7ceb3901402f864"
+  },
+  "archive": {
+    "path": "/workspace/artifacts/matvey_egor_linq_20261024_v2.zip",
+    "bytes": 59748256,
+    "sha256": "d787e6f28e1ff309faedec6499e7ded522708f8eae41f3f3cb54970db90b9247",
+    "members_verified": 57,
+    "member_digests": "PASS",
+    "external_backup": false
+  },
+  "software_tests": {
+    "run": 504,
+    "skipped": 4,
+    "result": "OK",
+    "log": {
+      "path": "/workspace/artifacts/matvey-egor-linq-software-tests-20261024-v2.log",
+      "bytes": 201,
+      "sha256": "71c69a956e51d93ddf35c8a5a74ed050c18e20b4026b1dfc263c041c5d37f279"
+    }
+  },
+  "legacy_main_shape_check": {
+    "path": "/workspace/artifacts/matvey_argus_legacy_shape_review_20261024.json",
+    "bytes": 648,
+    "sha256": "eacf2b457dc96c687480a3a1031f2f29acc4ea092b6216aa275b7032e841eae6"
+  },
+  "fresh_readiness": {
+    "path": "/workspace/artifacts/matvey_egor_linq_fresh_readiness_20261024.json",
+    "bytes": 550,
+    "sha256": "e2bd146b4fc15a4aacf7d536662100d08bfa5ee7b704d141a1fd0671f9cb1eaf"
+  },
+  "verification_environments": {
+    "linq_client_numpy1.26.4": "PASS_BOTH_PACKAGES",
+    "main_numpy2.5.4": "PASS_BOTH_PACKAGES",
+    "disposable_app_venv": "BYTE_REDECODING_CHECK_NOT_RUN_MISSING_PIL; legacy schema shape check PASS; no packages installed"
+  }
+}

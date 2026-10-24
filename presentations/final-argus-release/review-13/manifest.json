@@ -1,0 +1,3537 @@
+{
+  "schema_version": "1.0.0",
+  "renderer_version": "1.0.0",
+  "review": {
+    "id": "argus-final-release-production",
+    "revision": 2,
+    "title": "Финальная презентация · 13 слайдов",
+    "description": "HUMAN_ARGUS_FINAL_REVIEW. Полная image-based презентация; решения человека не заполнены.",
+    "created_at": "2026-10-24T14:46:44.474082+00:00"
+  },
+  "revisions": {
+    "baseline": {
+      "id": "unpaired",
+      "label": "Earlier eight-scene skeleton: not paired",
+      "git_commit": null,
+      "snapshot_sha256": null,
+      "provenance": "UNVERIFIED",
+      "notes": "An earlier eight-slide skeleton exists; its sequence is not paired to this twelve-slide release."
+    },
+    "current": {
+      "id": "final",
+      "label": "Final presentation release image-slide production",
+      "git_commit": null,
+      "snapshot_sha256": "ac95cb43fb38f517c0ef3d5b0ad1967e9b11642914477828d7bbfd1547c4e080",
+      "provenance": "VERIFIED",
+      "notes": "Thirteen source PNG hashes and stable Craft capture inventory; human approval pending."
+    }
+  },
+  "viewports": [
+    {
+      "id": "1080",
+      "label": "1920 × 1080",
+      "width": 1920,
+      "height": 1080,
+      "device_scale_factor": 1
+    },
+    {
+      "id": "720",
+      "label": "1280 × 720",
+      "width": 1280,
+      "height": 720,
+      "device_scale_factor": 1
+    }
+  ],
+  "states": [
+    {
+      "id": "01",
+      "label": "Видеоконтроль промышленной безопасности",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "02",
+      "label": "Камеры есть. Реакция не гарантирована.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "03",
+      "label": "От опасности — к подтверждённым мерам.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "04",
+      "label": "Каждому — свой экран. И своя задача.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "05",
+      "label": "Тревога заканчивается действием.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "06",
+      "label": "Больше событий ≠ больше опасности.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "07",
+      "label": "Настроить участок — прямо на кадре.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "08",
+      "label": "Нейросеть видит. Правило решает.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "09",
+      "label": "Модели исполняются на LinQ TPU",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "10",
+      "label": "Тревога не должна потеряться.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "11",
+      "label": "Начинаем с участка. Масштабируем по фактам.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "12",
+      "label": "Цикл реакции собран. Качество проверяем.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "13",
+      "label": "Увидеть — мало. Нужно довести до мер.",
+      "description": "One manually advanced static image slide."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "final-01-1080-normal",
+      "kind": "image",
+      "path": "assets/final-01-1080-normal-01-1080-normal.png",
+      "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+      "mime": "image/png",
+      "label": "final-01-1080-normal",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-1080-normal",
+      "kind": "image",
+      "path": "assets/final-02-1080-normal-02-1080-normal.png",
+      "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+      "mime": "image/png",
+      "label": "final-02-1080-normal",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-1080-normal",
+      "kind": "image",
+      "path": "assets/final-03-1080-normal-03-1080-normal.png",
+      "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+      "mime": "image/png",
+      "label": "final-03-1080-normal",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-1080-normal",
+      "kind": "image",
+      "path": "assets/final-04-1080-normal-04-1080-normal.png",
+      "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+      "mime": "image/png",
+      "label": "final-04-1080-normal",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-1080-normal",
+      "kind": "image",
+      "path": "assets/final-05-1080-normal-05-1080-normal.png",
+      "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+      "mime": "image/png",
+      "label": "final-05-1080-normal",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-1080-normal",
+      "kind": "image",
+      "path": "assets/final-06-1080-normal-06-1080-normal.png",
+      "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+      "mime": "image/png",
+      "label": "final-06-1080-normal",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-1080-normal",
+      "kind": "image",
+      "path": "assets/final-07-1080-normal-07-1080-normal.png",
+      "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+      "mime": "image/png",
+      "label": "final-07-1080-normal",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-1080-normal",
+      "kind": "image",
+      "path": "assets/final-08-1080-normal-08-1080-normal.png",
+      "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+      "mime": "image/png",
+      "label": "final-08-1080-normal",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-09-1080-normal",
+      "kind": "image",
+      "path": "assets/final-09-1080-normal-09-1080-normal.png",
+      "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+      "mime": "image/png",
+      "label": "final-09-1080-normal",
+      "revision_id": "final",
+      "state_id": "09",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-10-1080-normal",
+      "kind": "image",
+      "path": "assets/final-10-1080-normal-10-1080-normal.png",
+      "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+      "mime": "image/png",
+      "label": "final-10-1080-normal",
+      "revision_id": "final",
+      "state_id": "10",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-11-1080-normal",
+      "kind": "image",
+      "path": "assets/final-11-1080-normal-11-1080-normal.png",
+      "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+      "mime": "image/png",
+      "label": "final-11-1080-normal",
+      "revision_id": "final",
+      "state_id": "11",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-12-1080-normal",
+      "kind": "image",
+      "path": "assets/final-12-1080-normal-12-1080-normal.png",
+      "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+      "mime": "image/png",
+      "label": "final-12-1080-normal",
+      "revision_id": "final",
+      "state_id": "12",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-13-1080-normal",
+      "kind": "image",
+      "path": "assets/final-13-1080-normal-13-1080-normal.png",
+      "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+      "mime": "image/png",
+      "label": "final-13-1080-normal",
+      "revision_id": "final",
+      "state_id": "13",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-01-1080-reduced-01-1080-reduced.png",
+      "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+      "mime": "image/png",
+      "label": "final-01-1080-reduced",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-02-1080-reduced-02-1080-reduced.png",
+      "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+      "mime": "image/png",
+      "label": "final-02-1080-reduced",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-03-1080-reduced-03-1080-reduced.png",
+      "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+      "mime": "image/png",
+      "label": "final-03-1080-reduced",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-04-1080-reduced-04-1080-reduced.png",
+      "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+      "mime": "image/png",
+      "label": "final-04-1080-reduced",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-05-1080-reduced-05-1080-reduced.png",
+      "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+      "mime": "image/png",
+      "label": "final-05-1080-reduced",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-06-1080-reduced-06-1080-reduced.png",
+      "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+      "mime": "image/png",
+      "label": "final-06-1080-reduced",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-07-1080-reduced-07-1080-reduced.png",
+      "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+      "mime": "image/png",
+      "label": "final-07-1080-reduced",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-08-1080-reduced-08-1080-reduced.png",
+      "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+      "mime": "image/png",
+      "label": "final-08-1080-reduced",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-09-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-09-1080-reduced-09-1080-reduced.png",
+      "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+      "mime": "image/png",
+      "label": "final-09-1080-reduced",
+      "revision_id": "final",
+      "state_id": "09",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-10-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-10-1080-reduced-10-1080-reduced.png",
+      "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+      "mime": "image/png",
+      "label": "final-10-1080-reduced",
+      "revision_id": "final",
+      "state_id": "10",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-11-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-11-1080-reduced-11-1080-reduced.png",
+      "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+      "mime": "image/png",
+      "label": "final-11-1080-reduced",
+      "revision_id": "final",
+      "state_id": "11",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-12-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-12-1080-reduced-12-1080-reduced.png",
+      "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+      "mime": "image/png",
+      "label": "final-12-1080-reduced",
+      "revision_id": "final",
+      "state_id": "12",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-13-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-13-1080-reduced-13-1080-reduced.png",
+      "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+      "mime": "image/png",
+      "label": "final-13-1080-reduced",
+      "revision_id": "final",
+      "state_id": "13",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-720-normal",
+      "kind": "image",
+      "path": "assets/final-01-720-normal-01-720-normal.png",
+      "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+      "mime": "image/png",
+      "label": "final-01-720-normal",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-720-normal",
+      "kind": "image",
+      "path": "assets/final-02-720-normal-02-720-normal.png",
+      "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+      "mime": "image/png",
+      "label": "final-02-720-normal",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-720-normal",
+      "kind": "image",
+      "path": "assets/final-03-720-normal-03-720-normal.png",
+      "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+      "mime": "image/png",
+      "label": "final-03-720-normal",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-720-normal",
+      "kind": "image",
+      "path": "assets/final-04-720-normal-04-720-normal.png",
+      "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+      "mime": "image/png",
+      "label": "final-04-720-normal",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-720-normal",
+      "kind": "image",
+      "path": "assets/final-05-720-normal-05-720-normal.png",
+      "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+      "mime": "image/png",
+      "label": "final-05-720-normal",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-720-normal",
+      "kind": "image",
+      "path": "assets/final-06-720-normal-06-720-normal.png",
+      "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+      "mime": "image/png",
+      "label": "final-06-720-normal",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-720-normal",
+      "kind": "image",
+      "path": "assets/final-07-720-normal-07-720-normal.png",
+      "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+      "mime": "image/png",
+      "label": "final-07-720-normal",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-720-normal",
+      "kind": "image",
+      "path": "assets/final-08-720-normal-08-720-normal.png",
+      "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+      "mime": "image/png",
+      "label": "final-08-720-normal",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-09-720-normal",
+      "kind": "image",
+      "path": "assets/final-09-720-normal-09-720-normal.png",
+      "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+      "mime": "image/png",
+      "label": "final-09-720-normal",
+      "revision_id": "final",
+      "state_id": "09",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-10-720-normal",
+      "kind": "image",
+      "path": "assets/final-10-720-normal-10-720-normal.png",
+      "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+      "mime": "image/png",
+      "label": "final-10-720-normal",
+      "revision_id": "final",
+      "state_id": "10",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-11-720-normal",
+      "kind": "image",
+      "path": "assets/final-11-720-normal-11-720-normal.png",
+      "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+      "mime": "image/png",
+      "label": "final-11-720-normal",
+      "revision_id": "final",
+      "state_id": "11",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-12-720-normal",
+      "kind": "image",
+      "path": "assets/final-12-720-normal-12-720-normal.png",
+      "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+      "mime": "image/png",
+      "label": "final-12-720-normal",
+      "revision_id": "final",
+      "state_id": "12",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-13-720-normal",
+      "kind": "image",
+      "path": "assets/final-13-720-normal-13-720-normal.png",
+      "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+      "mime": "image/png",
+      "label": "final-13-720-normal",
+      "revision_id": "final",
+      "state_id": "13",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-720-reduced",
+      "kind": "image",
+      "path": "assets/final-01-720-reduced-01-720-reduced.png",
+      "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+      "mime": "image/png",
+      "label": "final-01-720-reduced",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-720-reduced",
+      "kind": "image",
+      "path": "assets/final-02-720-reduced-02-720-reduced.png",
+      "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+      "mime": "image/png",
+      "label": "final-02-720-reduced",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-720-reduced",
+      "kind": "image",
+      "path": "assets/final-03-720-reduced-03-720-reduced.png",
+      "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+      "mime": "image/png",
+      "label": "final-03-720-reduced",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-720-reduced",
+      "kind": "image",
+      "path": "assets/final-04-720-reduced-04-720-reduced.png",
+      "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+      "mime": "image/png",
+      "label": "final-04-720-reduced",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-720-reduced",
+      "kind": "image",
+      "path": "assets/final-05-720-reduced-05-720-reduced.png",
+      "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+      "mime": "image/png",
+      "label": "final-05-720-reduced",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-720-reduced",
+      "kind": "image",
+      "path": "assets/final-06-720-reduced-06-720-reduced.png",
+      "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+      "mime": "image/png",
+      "label": "final-06-720-reduced",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-720-reduced",
+      "kind": "image",
+      "path": "assets/final-07-720-reduced-07-720-reduced.png",
+      "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+      "mime": "image/png",
+      "label": "final-07-720-reduced",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-720-reduced",
+      "kind": "image",
+      "path": "assets/final-08-720-reduced-08-720-reduced.png",
+      "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+      "mime": "image/png",
+      "label": "final-08-720-reduced",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-09-720-reduced",
+      "kind": "image",
+      "path": "assets/final-09-720-reduced-09-720-reduced.png",
+      "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+      "mime": "image/png",
+      "label": "final-09-720-reduced",
+      "revision_id": "final",
+      "state_id": "09",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-10-720-reduced",
+      "kind": "image",
+      "path": "assets/final-10-720-reduced-10-720-reduced.png",
+      "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+      "mime": "image/png",
+      "label": "final-10-720-reduced",
+      "revision_id": "final",
+      "state_id": "10",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-11-720-reduced",
+      "kind": "image",
+      "path": "assets/final-11-720-reduced-11-720-reduced.png",
+      "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+      "mime": "image/png",
+      "label": "final-11-720-reduced",
+      "revision_id": "final",
+      "state_id": "11",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-12-720-reduced",
+      "kind": "image",
+      "path": "assets/final-12-720-reduced-12-720-reduced.png",
+      "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+      "mime": "image/png",
+      "label": "final-12-720-reduced",
+      "revision_id": "final",
+      "state_id": "12",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-13-720-reduced",
+      "kind": "image",
+      "path": "assets/final-13-720-reduced-13-720-reduced.png",
+      "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+      "mime": "image/png",
+      "label": "final-13-720-reduced",
+      "revision_id": "final",
+      "state_id": "13",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-release",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "craft-report",
+      "kind": "document",
+      "path": "sources/craft-report-report.json",
+      "sha256": "50a04444f4c4736e97b8c521f9720264ed914a7cb9f10bf31c92597e3473484d",
+      "mime": "application/json",
+      "label": "craft-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "exports-report",
+      "kind": "document",
+      "path": "sources/exports-report-report.json",
+      "sha256": "4eab4f10c3c22717a62b108f06884001f21e3986317156dd18d0e919f467b29c",
+      "mime": "application/json",
+      "label": "exports-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "speaker-notes",
+      "kind": "document",
+      "path": "sources/speaker-notes-speaker-notes.json",
+      "sha256": "667c566628800162dcb6dacf2722cedac11dc6897423155e50053ac8aa3d64b8",
+      "mime": "application/json",
+      "label": "speaker-notes",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "craft-story",
+      "kind": "document",
+      "path": "sources/craft-story-story.json",
+      "sha256": "42ba20f3a96421747cb3df8d667d2954bde43e6acd8722085fe6b61adf5bc926",
+      "mime": "application/json",
+      "label": "craft-story",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "craft-adapter",
+      "kind": "document",
+      "path": "sources/craft-adapter-adapter.json",
+      "sha256": "0aef84894dde429f9107f4946907b90b527a42c2c861d60aa6e65d2bd4726a1f",
+      "mime": "application/json",
+      "label": "craft-adapter",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "source-index-current",
+      "kind": "document",
+      "path": "sources/source-index-current-source-index.json",
+      "sha256": "497ef08d5fb1e6def3e46d951cbdd4db94f5b8c6cbf6951711d7777305f1b7b9",
+      "mime": "application/json",
+      "label": "source-index-current",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "visual-review",
+      "kind": "document",
+      "path": "sources/visual-review-visual-review.json",
+      "sha256": "cd01fd03ffabe3f608357c4bdc269f7f15885982ac5f0336643dac5bca07ab4e",
+      "mime": "application/json",
+      "label": "visual-review",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "powerpoint-report",
+      "kind": "document",
+      "path": "sources/powerpoint-report-report.json",
+      "sha256": "af3d36ea04709942aea327edda3fd8eed4a2a89d14fc83211df41536c524661f",
+      "mime": "application/json",
+      "label": "powerpoint-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "composition-report",
+      "kind": "document",
+      "path": "sources/composition-report-composition.json",
+      "sha256": "47df6260ddf888a595ac4e8b1f6070055fc00dd60e080a5ff26c911afb214bd7",
+      "mime": "application/json",
+      "label": "composition-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "content-report",
+      "kind": "document",
+      "path": "sources/content-report-content-report.json",
+      "sha256": "8fd9813aeb1fb6200217a0e1f9fd312dc1cdf1fe15209f6168232705320d7851",
+      "mime": "application/json",
+      "label": "content-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "pdf-report",
+      "kind": "document",
+      "path": "sources/pdf-report-pdf-report.json",
+      "sha256": "5251488c50110666340345edf439513695aebfb8e0691789eb908f9d9573b8c6",
+      "mime": "application/json",
+      "label": "pdf-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "frontend-tests",
+      "kind": "document",
+      "path": "sources/frontend-tests-frontend-tests.json",
+      "sha256": "667ae18ab2d24515ef684424e00930931d2f5559d43920c9418b72e1ec364181",
+      "mime": "application/json",
+      "label": "frontend-tests",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "frontend-provenance",
+      "kind": "document",
+      "path": "sources/frontend-provenance-frontend-provenance.json",
+      "sha256": "3ec94f226093d571f1507166f7769571420a2aea20b6fdc85e5f2f6b94eb947b",
+      "mime": "application/json",
+      "label": "frontend-provenance",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "linq-proof-index",
+      "kind": "document",
+      "path": "sources/linq-proof-index-linq-proof-index.json",
+      "sha256": "e67d3ff2ab91ca4f00605ae0a50afb84488cc3b43493b9711d07e1b84a88470d",
+      "mime": "application/json",
+      "label": "linq-proof-index",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "linq-handoff-summary",
+      "kind": "document",
+      "path": "sources/linq-handoff-summary-linq-proof__ml__reports__video-handoff-20261024.json",
+      "sha256": "a6ecb645c8c6877baff63d01d69f8032bb6398cf94bf0a3a3db1db2e21dca6d9",
+      "mime": "application/json",
+      "label": "linq-handoff-summary",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "dataset-attribution",
+      "kind": "document",
+      "path": "sources/dataset-attribution-ATTRIBUTION.txt",
+      "sha256": "a03fd261b17ec0cb0b758c02020d44ae6bcb020f03a599403e1f04e3a8a842da",
+      "mime": "text/plain",
+      "label": "dataset-attribution",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-01",
+      "kind": "document",
+      "path": "sources/doc-01-README.md",
+      "sha256": "2c4367b35d94134fe7ed6e9169372e33f6ce53dc4e982c66c72be594c1137c49",
+      "mime": "text/markdown",
+      "label": "doc-01",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-02",
+      "kind": "document",
+      "path": "sources/doc-02-SOURCES.md",
+      "sha256": "05d42412c49e2888d5b34f1fa58a2bbb29097c8d4ad65ea633ac45ab7cdd9585",
+      "mime": "text/markdown",
+      "label": "doc-02",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-03",
+      "kind": "document",
+      "path": "sources/doc-03-SPEAKER_SCRIPT.md",
+      "sha256": "c6f914b71ed0e7e15bbe85bbb27c023ef0beabb4d1785266d22b398a2f228182",
+      "mime": "text/markdown",
+      "label": "doc-03",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "powerpoint-01",
+      "kind": "image",
+      "path": "assets/powerpoint-01-slide-01.png",
+      "sha256": "c68a826790ad082a6572c6bea8b5bc09e39839ae12787d1eec11ea266716db48",
+      "mime": "image/png",
+      "label": "powerpoint-01",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-02",
+      "kind": "image",
+      "path": "assets/powerpoint-02-slide-02.png",
+      "sha256": "8536ccafcf88e5c2b2e42fb0d789ca5a02920ebc3c18f46994a7ea24d0c33cf3",
+      "mime": "image/png",
+      "label": "powerpoint-02",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-03",
+      "kind": "image",
+      "path": "assets/powerpoint-03-slide-03.png",
+      "sha256": "5a970412cdcea1bc9844ba96d95e2d67f49599add026eab768679252172aa1ed",
+      "mime": "image/png",
+      "label": "powerpoint-03",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-04",
+      "kind": "image",
+      "path": "assets/powerpoint-04-slide-04.png",
+      "sha256": "de1038d319ab9701cb241060dcd1de041309060d8b3c192a3651615ae6676c3c",
+      "mime": "image/png",
+      "label": "powerpoint-04",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-05",
+      "kind": "image",
+      "path": "assets/powerpoint-05-slide-05.png",
+      "sha256": "69c5aa0f37b8656f23033224c083daad67d752d14baf00498b9d61d3b3a1a3dc",
+      "mime": "image/png",
+      "label": "powerpoint-05",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-06",
+      "kind": "image",
+      "path": "assets/powerpoint-06-slide-06.png",
+      "sha256": "316a0e828fffb1b52f5e644ced43c5d762d6f749f635934771fd671cf0e19f59",
+      "mime": "image/png",
+      "label": "powerpoint-06",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-07",
+      "kind": "image",
+      "path": "assets/powerpoint-07-slide-07.png",
+      "sha256": "793dec36328fe3ac2031da43f04394e69677cbc6b4bc040bb94fc88a6d6f83ed",
+      "mime": "image/png",
+      "label": "powerpoint-07",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-08",
+      "kind": "image",
+      "path": "assets/powerpoint-08-slide-08.png",
+      "sha256": "c888d58edb8b6fab8eacff0ec2f091f590700047a04b4d34a8d147e52eff2d88",
+      "mime": "image/png",
+      "label": "powerpoint-08",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-09",
+      "kind": "image",
+      "path": "assets/powerpoint-09-slide-09.png",
+      "sha256": "b19741da1ec8cb6d49f4f06269560fa7d85450619593d29c94bbddfe96cb75db",
+      "mime": "image/png",
+      "label": "powerpoint-09",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-10",
+      "kind": "image",
+      "path": "assets/powerpoint-10-slide-10.png",
+      "sha256": "824924e1baeb6d8ea54bad7a6dd51bfa1855f0a6703a084abfd08510cbb28984",
+      "mime": "image/png",
+      "label": "powerpoint-10",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-11",
+      "kind": "image",
+      "path": "assets/powerpoint-11-slide-11.png",
+      "sha256": "f8ef323a2c0141cedae68dacf54bea077a9642ebf7b68e7f4c3106a2d5c7ca74",
+      "mime": "image/png",
+      "label": "powerpoint-11",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-12",
+      "kind": "image",
+      "path": "assets/powerpoint-12-slide-12.png",
+      "sha256": "08a790d7d6ffc8be4b0c804b9008a64c13aefdaa57072e28fca5eec6144b14f5",
+      "mime": "image/png",
+      "label": "powerpoint-12",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-13",
+      "kind": "image",
+      "path": "assets/powerpoint-13-slide-13.png",
+      "sha256": "41cf4c5689a0f84a0df8862c2c83b1378e5e2c29d4d41389a7b90ba2c86d85d3",
+      "mime": "image/png",
+      "label": "powerpoint-13",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "export-index",
+      "kind": "document",
+      "path": "sources/export-index-exports.txt",
+      "sha256": "709743f309b296bd250bed9612d904487dfb477381077cce2aced57cda01ade2",
+      "mime": "text/plain",
+      "label": "export-index",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "source-linq-image",
+      "kind": "image",
+      "path": "assets/source-linq-image-ARGUS_linq_tpu_frame0.png",
+      "sha256": "37be69e3a8831d4f0727c4f3801a8cdcc4a7795af9c14072d2446b9392f635d8",
+      "mime": "image/png",
+      "label": "source-linq-image",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 6291456,
+      "height": 4292542531,
+      "provenance": "VERIFIED",
+      "notes": "Exact original user-supplied source image; all annotations preserved."
+    }
+  ],
+  "items": [
+    {
+      "id": "slide-01",
+      "title": "01 · Видеоконтроль промышленной безопасности",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-01.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-01"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-01-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-01-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-01-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-01-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-02",
+      "title": "02 · Камеры есть. Реакция не гарантирована.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-02.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-02"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-02-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-02-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-02-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-02-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-03",
+      "title": "03 · От опасности — к подтверждённым мерам.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-03.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-03"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-03-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-03-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-03-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-03-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-04",
+      "title": "04 · Каждому — свой экран. И своя задача.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-04.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-04"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-04-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-04-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-04-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-04-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-05",
+      "title": "05 · Тревога заканчивается действием.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-05.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-05"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-05-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-05-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-05-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-05-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-06",
+      "title": "06 · Больше событий ≠ больше опасности.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-06.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-06"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-06-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-06-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-06-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-06-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-07",
+      "title": "07 · Настроить участок — прямо на кадре.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-07.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-07"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-07-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-07-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-07-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-07-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-08",
+      "title": "08 · Нейросеть видит. Правило решает.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-08.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-08"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-08-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-08-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-08-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-08-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-09",
+      "title": "09 · Модели исполняются на LinQ TPU",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-09.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "source-linq-image",
+        "powerpoint-09"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "09",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-09-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "09",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-09-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "09",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-09-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "09",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-09-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-10",
+      "title": "10 · Тревога не должна потеряться.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-10.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-10"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "10",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-10-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "10",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-10-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "10",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-10-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "10",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-10-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-11",
+      "title": "11 · Начинаем с участка. Масштабируем по фактам.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-11.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-11"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "11",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-11-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "11",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-11-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "11",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-11-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "11",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-11-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-12",
+      "title": "12 · Цикл реакции собран. Качество проверяем.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-12.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-12"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "12",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-12-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "12",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-12-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "12",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-12-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "12",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-12-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-13",
+      "title": "13 · Увидеть — мало. Нужно довести до мер.",
+      "delta": "Final product narrative with authentic supplied UI captures and source-scoped technical claims.",
+      "changes": [
+        {
+          "path": "slides/slide-13.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "frontend-tests",
+        "frontend-provenance",
+        "linq-proof-index",
+        "linq-handoff-summary",
+        "dataset-attribution",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "export-index",
+        "powerpoint-13"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Thirteen exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "13",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-13-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "13",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-13-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "13",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-13-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "13",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "Earlier eight-scene skeleton uses a different narrative; no paired BEFORE supplied for the final twelve-scene release."
+          },
+          "after": {
+            "image": "final-13-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "Different sequence and scene count; no fabricated historical pairing."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

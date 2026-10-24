@@ -1,0 +1,77 @@
+1540:         video, pos = store.video(playing["video_id"]), playing["position_ms"]
+1541:     else:
+1542:         video, pos = store.last_ready_video(camera_id), 0
+1543:     if video is None:
+1544:         raise NotFound(texts.PREVIEW_NOT_FOUND, camera_id=camera_id)
+1545:     frame_idx = min(video["frame_count"] - 1, round(pos / 1000 * video["fps"]))
+1546:     path = settings.data_dir / video["path"]
+1547:     q, width = settings.evidence.jpeg_quality, settings.preview.max_width
+1548:     img = await asyncio.to_thread(media.read_frame, path, frame_idx)
+1549:     data = await asyncio.to_thread(media.encode_jpeg, img, q, width)
+1550:     _preview_cache[camera_id] = (now, data)
+1551:     return data
+1552: 
+1553: 
+1554: COMMENT_MAX = 500
+1555: 
+1556: # A step of a human action: (journal action, status after it); the event ends in the status of
+1557: # the last step, `from_status` of a step is the status after the previous one.
+1558: Step = tuple[LogAction, EventStatus]
+1559: VERDICTS: dict[HumanAction, Verdict] = {
+1560:     "confirm": "confirmed",
+1561:     "false_alarm": "false_alarm",
+1562:     "send_to_master": "confirmed",  # the operator only sends what he takes for real
+1563: }
+1564: 
+1565: 
+1566: def _steps(action: HumanAction, row: sqlite3.Row) -> list[Step] | None:
+1567:     """Human rows of the table in tech.md 8.6; None: the pair (action, status) is not there."""
+1568:     status, red = row["status"], row["level"] == "red"
+1569:     deciding = status in ("new", "viewed", "confirmed")
+1570:     # A timeout escalation leaves the operator his verdict (rows 4 and 6 of the table).
+1571:     late = (
+1572:         status == "sent_to_master"
+1573:         and bool(row["escalated_by_timeout"])
+1574:         and row["operator_verdict"] == "none"
+1575:     )
+1576:     if action == "view" and status == "new":
+1577:         return [("viewed", "viewed")]
+1578:     if action == "confirm" and red and deciding:
+1579:         return [("confirmed", "confirmed"), ("sent_to_master", "sent_to_master")]
+1580:     if action == "confirm" and not red and status in ("new", "viewed"):
+1581:         return [("confirmed", "confirmed")]
+1582:     if action == "confirm" and red and late:
+1583:         return [("confirmed", "sent_to_master")]
+1584:     if action == "false_alarm" and (deciding or late):
+1585:         return [("false_alarm", "false_alarm")]
+1586:     if action == "send_to_master" and deciding:
+1587:         return [("sent_to_master", "sent_to_master")]
+1588:     if action == "accept" and status == "sent_to_master":
+1589:         return [("master_accepted", "master_accepted")]
+1590:     if action == "resolve" and status == "master_accepted":
+1730: def escalation_tick() -> int:
+1731:     """Red events the operator left without a decision go to the master (tech.md 8.7)."""
+1732:     settings = config.get_settings().escalation
+1733:     if not settings.enabled:
+1734:         return 0
+1735:     red_before = clock.iso(clock.now() - timedelta(seconds=settings.timeout_s))
+1736:     with store.tx():
+1737:         due = store.escalation_due(red_before)
+1738:         for row in due:
+1739:             store.event_update(row["id"], {"status": "sent_to_master", "escalated_by_timeout": 1})
+1740:             _system_action(row["id"], "timeout_escalated", row["status"], "sent_to_master")
+1741:     for row in due:
+1742:         summary = _event_summary(row["id"])
+1743:         hub.publish("event.updated", summary)
+1744:         hub.publish("notification", _master_alert(summary), ["master"])
+1745:         _deliveries.append((row["id"], "to_master"))
+1746:     return len(due)
+1747: 
+1748: 
+1749: def master_inbox_view() -> MasterInbox:
+1750:     limit = config.get_settings().master.recent_resolved
+1751:     return MasterInbox(
+1752:         active=[_summary(row) for row in store.master_active()],
+1753:         recent_resolved=[_summary(row) for row in store.master_resolved(limit)],
+1754:         server_now=clock.now(),
+1755:     )

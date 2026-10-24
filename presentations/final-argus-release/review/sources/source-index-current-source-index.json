@@ -1,0 +1,550 @@
+{
+  "checked_at": "2026-10-24T13:53:37.642286+00:00",
+  "heads": {
+    "main": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+    "front/final": "3f13f1936114f97946bc1bdaac1a420091748a80",
+    "matvey_cv": "39dcc93def2d95cf260c7d980df0a3090e6bbf0f"
+  },
+  "sources": [
+    {
+      "id": "s01",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "tech.md",
+      "path": "research/main__tech.md.excerpt.txt",
+      "ranges": [
+        [
+          29,
+          78
+        ],
+        [
+          2994,
+          3058
+        ],
+        [
+          3094,
+          3131
+        ]
+      ],
+      "sha256": "295804932a72f0bf76ee8d0d8c9222aca7a98f81e9028afb37b147568a5b369d"
+    },
+    {
+      "id": "s02",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "progress.md",
+      "path": "research/main__progress.md.excerpt.txt",
+      "ranges": [
+        [
+          1,
+          32
+        ],
+        [
+          173,
+          184
+        ],
+        [
+          210,
+          219
+        ]
+      ],
+      "sha256": "38577643b436d23e76a9f095e333d9abfb25131fdd9ca99d9a8771df949252ae"
+    },
+    {
+      "id": "s03",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "docs/linq/LINQ_CONTRACT.md",
+      "path": "research/main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "ranges": [
+        [
+          73,
+          109
+        ]
+      ],
+      "sha256": "a362a9374f1ca70ed7df76fa38c4d8b0d3100628dc6e638cf435e5b9096c46ce"
+    },
+    {
+      "id": "s04",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "path": "research/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "ranges": null,
+      "sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6"
+    },
+    {
+      "id": "s05",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "config/default.yaml",
+      "path": "research/main__config__default.yaml.excerpt.txt",
+      "ranges": [
+        [
+          139,
+          164
+        ]
+      ],
+      "sha256": "249be06b58b05f7e679b9b6f62460a17e652d8f7aac8c4302016a155c44399c1"
+    },
+    {
+      "id": "s06",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "src/safewatch/services.py",
+      "path": "research/main__src__safewatch__services.py.excerpt.txt",
+      "ranges": [
+        [
+          1540,
+          1590
+        ],
+        [
+          1730,
+          1755
+        ]
+      ],
+      "sha256": "232f65fa4ec3e8c87bed0239875668c5fb3dc7d60bd88dc4c3d4e13d79cc0c69"
+    },
+    {
+      "id": "s07",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "docs/ML_INTEGRATION.md",
+      "path": "research/main__docs__ML_INTEGRATION.md",
+      "ranges": null,
+      "sha256": "f26c4351739fd1faccb1a2a47599773414061e100393b8e12dbe80e55732e828"
+    },
+    {
+      "id": "s08",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "contract/openapi.json",
+      "path": "research/main__contract__openapi.json",
+      "ranges": null,
+      "sha256": "9401a516ab6390ccc1bbd068ba7dd1d16ff40ea3154f9e0a140662314531aec2"
+    },
+    {
+      "id": "s09",
+      "ref": "main",
+      "commit": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+      "original": "contract/ws.schema.json",
+      "path": "research/main__contract__ws.schema.json",
+      "ranges": null,
+      "sha256": "5f3255f76d86fbf4e0dd4d298213075187d8b128fc9daeeb9681dbc2c1e48f6e"
+    },
+    {
+      "id": "s10",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Stats.tsx",
+      "path": "research/front-final__frontend__src__features__Stats.tsx",
+      "ranges": null,
+      "sha256": "7b485b60df8b5d53fa931c95dc67ea62b7eb124ccb1f870345a33094be09b0ab"
+    },
+    {
+      "id": "s11",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/ManagementStats.tsx",
+      "path": "research/front-final__frontend__src__features__ManagementStats.tsx",
+      "ranges": null,
+      "sha256": "1f67b7b5f4775756b46b501a7351f11eeea3b012609babd615e8ada30ffb6cb2"
+    },
+    {
+      "id": "s12",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/CameraSetup.tsx",
+      "path": "research/front-final__frontend__src__features__CameraSetup.tsx",
+      "ranges": null,
+      "sha256": "c13bd6345c8554869b1c9598fecc5d2a00a472629fefd7ff50753cd7777b0531"
+    },
+    {
+      "id": "s13",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Rules.tsx",
+      "path": "research/front-final__frontend__src__features__Rules.tsx",
+      "ranges": null,
+      "sha256": "a7d636542a47bea815d486df37cd59ceee90e2a85e6dbbb40d45d9c285119c6b"
+    },
+    {
+      "id": "s14",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Incident.tsx",
+      "path": "research/front-final__frontend__src__features__Incident.tsx",
+      "ranges": null,
+      "sha256": "11471629f0015b4fa2bf6f68deaffc9a12cf6dd51f5ca67b5515f8104941cf5b"
+    },
+    {
+      "id": "s15",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Master.tsx",
+      "path": "research/front-final__frontend__src__features__Master.tsx",
+      "ranges": null,
+      "sha256": "823f730ebeeab7b0a129374dfd28ed2ddf8a7e06f54030f644544a67c8658ea9"
+    },
+    {
+      "id": "s16",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Journal.tsx",
+      "path": "research/front-final__frontend__src__features__Journal.tsx",
+      "ranges": null,
+      "sha256": "56b777a26ef87547d9cb362de4b00a1af33851e5270d1b6ef3b3e19ef00be844"
+    },
+    {
+      "id": "s17",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/features/Report.tsx",
+      "path": "research/front-final__frontend__src__features__Report.tsx",
+      "ranges": null,
+      "sha256": "c76cf977a65452574ab75b18de0b60b0af6aef4f1a0a7addb9402057829e80f0"
+    },
+    {
+      "id": "s18",
+      "ref": "front/final",
+      "commit": "3f13f1936114f97946bc1bdaac1a420091748a80",
+      "original": "frontend/src/styles/ds.css",
+      "path": "research/front-final__frontend__src__styles__ds.css.excerpt.txt",
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "sha256": "b379f2be662345fb23e3c7056a5251da3bde20069fbd077b316fcf2aff074172"
+    },
+    {
+      "id": "s19",
+      "ref": "matvey_cv",
+      "commit": "39dcc93def2d95cf260c7d980df0a3090e6bbf0f",
+      "original": "ml/EVAL_REPORT.md",
+      "path": "research/matvey_cv__ml__EVAL_REPORT.md",
+      "ranges": null,
+      "sha256": "76f5456eb3bb969e0b9d751e50628a3076de48db2bbb25941f6678ec870c1f83"
+    },
+    {
+      "id": "s20",
+      "ref": "matvey_cv",
+      "commit": "39dcc93def2d95cf260c7d980df0a3090e6bbf0f",
+      "original": "ml/SCENARIO_COVERAGE.md",
+      "path": "research/matvey_cv__ml__SCENARIO_COVERAGE.md",
+      "ranges": null,
+      "sha256": "b2e31a8a9d9e5b725b2c6a030ce56295c1d763c1753a43bcf09bd8b60e555356"
+    },
+    {
+      "id": "s21",
+      "ref": "matvey_cv",
+      "commit": "39dcc93def2d95cf260c7d980df0a3090e6bbf0f",
+      "original": "docs/ML_HANDOFF_MATVEY.md",
+      "path": "research/matvey_cv__docs__ML_HANDOFF_MATVEY.md",
+      "ranges": null,
+      "sha256": "c2a1bb83a37591787f9a5e663d2abc94f443ffb46907dbeb029b4cb6aca68746"
+    },
+    {
+      "id": "s22",
+      "ref": "matvey_cv",
+      "commit": "39dcc93def2d95cf260c7d980df0a3090e6bbf0f",
+      "original": "ml/safewatch.delivery.json",
+      "path": "research/matvey_cv__ml__safewatch.delivery.json",
+      "ranges": null,
+      "sha256": "45476baaca48b911c445d9676e8306d54fbc6676071e804b455006557fbbe595"
+    }
+  ],
+  "asset_archive": {
+    "path": "/mnt/d/templates/msk-promhack/msk-prom2026-mark/Downloads (2).zip",
+    "sha256": "e8902c73624c98eebcb4ba6bf2e5c3887f8f2a31aecd5b5f89e4b39369d31159"
+  },
+  "assets": [
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/04-red-event-card-backend.png",
+      "path": "assets/screens/04-red-event-card-backend.png",
+      "sha256": "79766da32bae8bb06c48dd0011c76bc52fa78081192bac0e54041cf55655b1a0",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/17-system-linq.png",
+      "path": "assets/screens/17-system-linq.png",
+      "sha256": "1f5e07b96ea54965f3891fc0be3d22a1109e2e30d6942e5a7b9fe35dbb47650a",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/10-ohs-analytics.png",
+      "path": "assets/screens/10-ohs-analytics.png",
+      "sha256": "1ceb15d98a1c7863c4f6228a69d2977e8211f8af1eda21e608e0431ceab42e26",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/07-master-resolved.png",
+      "path": "assets/screens/07-master-resolved.png",
+      "sha256": "401f78758624eaaadc5484ca593480a234aca685fb0306105745d8d38f1eb77b",
+      "size": [
+        780,
+        1688
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/16-admin-video.png",
+      "path": "assets/screens/16-admin-video.png",
+      "sha256": "e28a167e8e751ffc3edcec1c058472da4d27b33f045c174babd42dae3e64d3d6",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/03-takeover-red-mock.png",
+      "path": "assets/screens/03-takeover-red-mock.png",
+      "sha256": "c46d215bab6aa39de4ef595f9273e5cd3b9a68e14f004b052a2b801d589ac05b",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/13-camera-live.png",
+      "path": "assets/screens/13-camera-live.png",
+      "sha256": "c949b7f068dc236afec6e660dfd2cde75e4c23982ab77279169c94ee77821ac5",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/12-rules-matrix.png",
+      "path": "assets/screens/12-rules-matrix.png",
+      "sha256": "d3063c1652f4ba8a2085449252c617ab2541494fc0105dedcb59dffc5cfb6a64",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/11-management.png",
+      "path": "assets/screens/11-management.png",
+      "sha256": "2c358bb5b98ea048b47816f51cd286ebbe86574d03bc6348a220b8be5b2e5b17",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/03-takeover-red.png",
+      "path": "assets/screens/03-takeover-red.png",
+      "sha256": "f619639d5579a8fbde1a0c5dc36cfb45e7ebc7ac7e6770ebe4aca9a1fa36ea83",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/08-journal-preview.png",
+      "path": "assets/screens/08-journal-preview.png",
+      "sha256": "89cffe0c569fd4979d0530f92e5a3a49c695d9aae234d382a339fdd5887810f5",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/09-report.png",
+      "path": "assets/screens/09-report.png",
+      "sha256": "8069296bc017b025ac39218b3109d78698b8472d1498078e498803409b924e50",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/02-dispatcher-yellow.png",
+      "path": "assets/screens/02-dispatcher-yellow.png",
+      "sha256": "2b0d74977f66ace8c9a449056ff472e8afe2adefee60517365c4c4dcff896413",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/04-red-event-card.png",
+      "path": "assets/screens/04-red-event-card.png",
+      "sha256": "2bdc4aa3f341dca63a793b4506b299f5505dffb569d3e9c8bf3e3065d0eb9718",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/15-admin-calibration.png",
+      "path": "assets/screens/15-admin-calibration.png",
+      "sha256": "27bb398d4274f0eb9883b7bd38ce4bff7efba2525045897af95caf5da19ddc19",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/sheet.jpg",
+      "path": "assets/screens/sheet.jpg",
+      "sha256": "226a61afc7aee9213540f5633cbb4d0390beab8fa5ae4508cc49b91da99ad056",
+      "size": [
+        1990,
+        1564
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/05-master-inbox.png",
+      "path": "assets/screens/05-master-inbox.png",
+      "sha256": "b27fdb37a39a02c37cd8ec657cb90a8a096278b829d5fe03137ba081a957dd92",
+      "size": [
+        780,
+        1688
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/01-dispatcher-calm.png",
+      "path": "assets/screens/01-dispatcher-calm.png",
+      "sha256": "807158834e3373d75d93fb9c20c3a7505c28be16ccd24e6eca47643367d6c02f",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/14-admin-zones.png",
+      "path": "assets/screens/14-admin-zones.png",
+      "sha256": "f4aca1ade36f52822ebca93575a7bfd57432b84f0d898183f66387562ab91205",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "archive": "argus-screens.zip",
+      "member": "argus-screens/06-master-event-measures.png",
+      "path": "assets/screens/06-master-event-measures.png",
+      "sha256": "5c09a4dac4ea39ac1257ab5d7e4f55ed407512dabe59d137c6ba81f1765368f2",
+      "size": [
+        780,
+        1688
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/README.md",
+      "path": "research/TRAILER_KIT_README.md",
+      "sha256": "0502465fdf03e1b36d934a94c638109b27ed963acc72aa2ceaa8e10e9bdc4885"
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/toolshop.png",
+      "path": "assets/stills/toolshop.png",
+      "sha256": "35eb715f4dd0b26d01b786d6708ac331df55dd7d56e2c1683c9fb1ee1199f9f9",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/running.png",
+      "path": "assets/stills/running.png",
+      "sha256": "ebcbc82e044019b40ee0efe9eebaa2413279f1fb0aae3b140a0bfe74982d4482",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/gate.png",
+      "path": "assets/stills/gate.png",
+      "sha256": "12c5552e20b84000c6c90340b6b982b9d5c472787a705ba3c05177e73b854645",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/welding.png",
+      "path": "assets/stills/welding.png",
+      "sha256": "f0b8f24bfcfb500bb0e53d1426a43c154a2ee392216ea2e7880b03bbb24a0ba5",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/conveyor.png",
+      "path": "assets/stills/conveyor.png",
+      "sha256": "43636964dc7e06537a994fd7ba6a118de1ce1262d5a40104cb33488b75612901",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/press.png",
+      "path": "assets/stills/press.png",
+      "sha256": "86cb10ff0eac1ca3028711c06b56f6764319f04307643154c1054e73c40c3e1c",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/fall.png",
+      "path": "assets/stills/fall.png",
+      "sha256": "ead171d03d0c7c963146bdb0ea12d00a808ce234841e2fa3daa4ac161d5f10be",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "archive": "argus-trailer-kit.zip",
+      "member": "argus-kit/stills/forklift.png",
+      "path": "assets/stills/forklift.png",
+      "sha256": "2a46ea39947a68ea63d5910ba5a440b42c1c86e075362694676fe3fc5127a7b3",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

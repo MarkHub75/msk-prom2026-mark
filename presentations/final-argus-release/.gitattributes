@@ -1,0 +1,7 @@
+* -text
+research/** -whitespace
+evidence/** -whitespace
+review/** -whitespace
+review-13/** -whitespace
+review-final/** -whitespace
+assets/fonts/** -whitespace

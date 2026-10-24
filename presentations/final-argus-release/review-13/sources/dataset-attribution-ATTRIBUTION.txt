@@ -1,0 +1,5 @@
+Oğuzhan Önal; Emre Dandıl (2024). Video Dataset for Safe and Unsafe Behaviours. Mendeley Data,V1. DOI:10.17632/xjmtb22pff.1.
+https://data.mendeley.com/datasets/xjmtb22pff/1
+CC BY4.0: https://creativecommons.org/licenses/by/4.0/
+Slide9: source video frame with saved LinQ TPU results and annotations supplied by the team. Proportionally scaled; no crop or annotation changes.
+Other factory stills: synthetic ChatGPT Images assets provided in the team trailer kit.

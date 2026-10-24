@@ -1,0 +1,9 @@
+Final presentation release exports. Human visual acceptance remains pending.
+
+ARGUS_Final.pdf
+bytes: 17132144
+SHA-256: 5c0c4b8c8bf6ac0d1f7ef8ca00ee176ef5ddd0a1082b9c8e3f62bc5db9e83744
+
+ARGUS_Final.pptx
+bytes: 12569588
+SHA-256: 362a90f4dd4accd06408ba256eca6522d3807c721472c468b012be306551bb48

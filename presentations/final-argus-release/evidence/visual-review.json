@@ -1,0 +1,22 @@
+{
+  "reviewer": "Presentation author, current agent",
+  "kind": "Author visual QA; not independent or human acceptance",
+  "status": "NO_VISIBLE_TEXT_OVERLAPS_OR_CROPPING_FOUND_IN_FINAL_RENDERS",
+  "inspected": "All thirteen final scenes in720p/full contact sheet; the new real LinQ source image inspected at original resolution. Typography,source hashes and whole-image preservation checked separately.",
+  "slides": [
+    {"id":"01","finding":"Synthetic factory photo dominates; manual event rectangle matches supplied coordinates; brand and small tagline readable."},
+    {"id":"02","finding":"Factory and six camera perspectives support three business-level failure points; no fabricated injury statistics."},
+    {"id":"03","finding":"Actual monitor and phone screenshots; left copy moved clear of phone after first visual check."},
+    {"id":"04","finding":"Five distinct role screens and functions fit; admin caption wraps without crossing footer."},
+    {"id":"05","finding":"Yellow, red, two master states and journal form a clear image chain; states are labelled demonstration, not one measured ML sequence."},
+    {"id":"06","finding":"Large analytics, complete management screenshot and report fragment; coverage highlighted; demo badge remains visible; lower screenshot/text collisions corrected."},
+    {"id":"07","finding":"Zones screenshot is dominant; calibration and rules remain separate; subtitle moved above laptop to avoid covering UI."},
+    {"id":"08","finding":"Causal diagram and 21FPS result readable; quantization, prototype and integration caveats remain visible."},
+    {"id":"09","finding":"Real supplied LinQ frame intact at full width; all original labels retained without crop,distortion or overlays. User speech verbatim; partial-run scope and primary attribution documented."},
+    {"id":"10","finding":"352/69/45s clearly separated; timeout is configuration,not measurement; actual no-observation details retain1/2counter."},
+    {"id":"11","finding":"Factory-backed pilot plan and hypothetical delivery lane; no price,ROI or deployment promise."},
+    {"id":"12","finding":"Journal and resolved master phone show demo cycle; technical gaps explicit; screenshot with501banner not used as readiness proof."},
+    {"id":"13","finding":"Shared brand lockup plus five confirmed names; no invented roles or portraits."}
+  ],
+  "limits": ["Projection in actual room not observed", "Raster text cannot be read by DOM critic", "Native UI microtext is secondary to slide annotations", "Screenshots are supplied evidence from different demo/fake states", "Human verdicts remain unselected"]
+}

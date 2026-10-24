@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-24T14:18:04.596715+00:00",
+  "slides": 12,
+  "ui_placeholders": 0,
+  "brand_lockups": 2,
+  "brand_policy": "One reusable lockup; cover and ending as requested. Native logos inside authentic screenshots are preserved.",
+  "speaker_sentences_per_slide": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    3,
+    3
+  ],
+  "expert_questions": 12,
+  "source_hashes_verified": 27,
+  "archive_assets_verified": 29,
+  "frontend_passed": 69,
+  "backend_reported_in_main": 352,
+  "timeout_configured_seconds": 45,
+  "unconfirmed_metrics_excluded": [
+    "CPU18FPS",
+    "measured45.2s"
+  ],
+  "limits": [
+    "No new LinQ run",
+    "No industrial accuracy acceptance",
+    "No human visual verdict",
+    "Backend352reported,notrerun"
+  ]
+}

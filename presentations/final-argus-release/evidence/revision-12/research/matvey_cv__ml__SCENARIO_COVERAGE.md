@@ -1,0 +1,36 @@
+# Восемь исполняемых прототипов — текущий технический checkpoint
+
+Приоритет изменён срочной директивой пользователя. Точная транскрипция страницы4 официального кейса и SHA источника: `ml/scenarios/catalog.json`. Helmet — дополнительный прежний модуль, вне восьми групп. Полная история baseline сохранена в EXPERIMENTS/EVAL_REPORT и предыдущих Git-коммитах.
+
+Все восемь модулей `evaluate(context, config)` выполняются в одном opt-in конвейере: один существующий BehaviorEngine/трекер людей, общая ассоциация объектов, original-frame координаты, encoded PTS, текущие sourced facts, общий EventCandidate, temporal/dedup, evidence и атомарный SQLite checkpoint. Внешний EventMutation v1 не изменён; новые кандидаты не отправляются Марку как неподдерживаемые типы.
+
+| ID / официальный смысл | Модуль / конфиг | Статусы | Реальные данные и результат | Нейросетевой LinQ / блокер |
+|---|---|---|---|---|
+|01 Бег по цеху; резкие перемещения в зоне техники | rules/motion.py / 01.json | EXISTING motion helper; PROTOTYPE; RUNNABLE; NOT_EVALUATED current running-action model | CAVIAR run/walk,345saved native frames; новая rule-схема без action-модели возвращает UNKNOWN. Старый motion-proxy TP0/FP0/FN3. ROI E012 running0/46→0/46 — REJECT | Person/Pose раньше status0. Running-action head не квалифицирован; auto-motion требует статичной камеры и политики зоны |
+|02 Опасное сближение с движущимися механизмами/транспортом | rules/machinery.py / 02.json | PROTOTYPE; RUNNABLE; BLOCKED full automatic recognition | В16промышленных видео найдены3контекста для review:3_tr45,7_te4,7_tr15. Опасность/GT не подтверждены | Person/Pose раньше status0; техника/движение/политика расстояния не квалифицированы. Stationary/compensated camera required for image translation; не м/с и не метры |
+|03 Телефон при оборудовании или перемещении | rules/phone.py / 03.json | PROTOTYPE; RUNNABLE; BLOCKED detector/action | Наличие телефона и использование в просмотре не установлены; нужны owned phone, видимые wrist/head, use и activity context | Phone/use/ownership модель отсутствует; присутствие предмета не равно использованию |
+|04 Курение / открытый огонь вне разрешённых мест | rules/fire_smoking.py / 04.json | PROTOTYPE; RUNNABLE; BLOCKED specialist/zone | Раздельные smoking/open_fire. Дымка5_tr19/6_tr15 — UNKNOWN, не огонь/курение. Source-positive не установлен | Нет квалифицированных cigarette/gesture/flame/steam discriminator и permitted-zone policy |
+|05 Ограждения / под конвейером / подвешенным грузом | rules/barriers.py / 05.json | PROTOTYPE; RUNNABLE; BLOCKED action/geometry | Три независимых подправила fence_climb/under_conveyor/under_suspended_load; whole-body passage в реальном screen не установлен. Одного line crossing/overlap недостаточно | Person/Pose раньше status0; нужны собственные geometry/provenance + высота/поза/состояние оборудования и observed action |
+|06 Высота без использования привязи | rules/height.py / 06.json | PROTOTYPE; RUNNABLE; BLOCKED visibility/use | Height/work region + harness_area_visible + absence/usage. Просто harness present→UNKNOWN; in_use→NEGATIVE, not_in_use/absence при наблюдаемости→POSITIVE. Реальный episode не установлен | Нет wearer-linked harness/use/attachment модели; скрытая привязь/отсутствие аннотации не доказывает нарушение |
+|07 Падение / неподвижное лежание на полу / визуальные опасные признаки | rules/fall.py / 07.json | EXISTING; PROTOTYPE; RUNNABLE; EVALUATED source-reference only; quality BLOCKED | UR20same225native observations→1candidate. Fall06: native suspected_fall start1500/confirm2500ms, JPEGframe75 ready; ordinary ADL01→0. Лежание/неподвижность требуют наблюдаемого пола. Не диагноз | Split-Pose раньше status0. Положительный новый candidate — saved-native replay, не TPU на этом эпизоде. Старый hardwareUR01 11calls/0events. GMD4heads export-only, не production |
+|08 Переноска груза с нарушением правила — дополнительный | rules/cargo.py / 08.json | PROTOTYPE; RUNNABLE; BLOCKED cargo/ownership/policy | Owned manual cargo + явная запретная carry-zone или наблюдаемое закрытие лица. Вес не выводится по видео. Forklift stacks не подменяют manual-cargo GT | Нет qualified cargo/carry/ownership модели и policy GT |
+
+Пути правил относительно `ml/scenarios/`, конфигов — `configs/scenarios/`. У каждого есть positive/negative/insufficient синтетический тест; всего24приёмочных случая. Ни один сценарий целиком не получает статус LINQ_VERIFIED по одному лишь backbone. `EVALUATED` у07 означает ограниченный source-development endpoint, не промышленную независимую оценку.
+
+## Выбор трёх направлений после покрытия
+
+**07 → 02 → 01** — выбранные направления доведения, не три принятых по качеству распознавателя.
+
+- 07: единственный реальный положительный native-кандидат с привязанным evidence; есть source-reference оценка и прежний LinQ Pose. Низкий baseline recall и отсутствие независимого test остаются.
+- 02: реальные промышленные контексты с движением погрузчика и объяснимое правило; требует детектора техники и согласованной опасной геометрии. Это расширение за пределы прежней тройки, выбранное после просмотра.
+- 01: доступна actor/time разметка run/walk и проверен backbone. Сейчас детекции бегущих отсутствуют; один заранее ограниченный CPU ROI-эксперимент не улучшил running coverage. Остаётся экспериментальным резервом, не убедительной текущей демонстрацией.
+
+03/04/05/06/08 не выбраны из-за отсутствия подтверждённого действия/наблюдаемости/qualified моделей. Не подбирались «три зелёных» по синтетике. Трёх достоверных автоматических видеосценариев пока нет.
+
+## Проверки и продолжение
+
+480software tests PASS;24synthetic acceptance cases PASS. Реальный data-flow:2промышленных кадра с4сохранёнными correlated LinQ replies, без нового RPC; событие на них не установлено. Видео-screen16/84frames не является GT. Новый ROI1380CPUcalls/173.06s не принят; новых LinQ/GPU/training calls нет. Точность/P-R-F1 по всем восьми не измерена.
+
+Запуск/поля/ручные предпосылки: docs/SCENARIO_RUNBOOK.md и docs/SCENARIO_RUNTIME_CONTRACT.md. Training requests: ml/scenarios/TRAINING_REQUIREMENTS.json + TRAINING_ADDENDUM.json; consumer pointer `/workspace/shared/training-handoff/ML_REQUESTS.json`, REQUEST_ONLY_NO_AUTOSTART. Data/Training worktree не изменены.
+
+Свежий LinQ video-run остаётся заблокирован до own Matvey staging и namespace-aware manifest; старый verified manifest/receipt нельзя переименовать и считать новым размещением. Одна собственная активная задача, уникальные UUID/очереди, без изменений VPN/SSH/captain baseline.

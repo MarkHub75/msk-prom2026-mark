@@ -1,0 +1,188 @@
+{
+  "schema": "matvey-safewatch-delivery-summary-v1",
+  "application_revision": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+  "models": [
+    {
+      "model": {
+        "id": "matvey-pose-yolov8n",
+        "version": "640-v1-acc5f51228b9",
+        "task": "pose",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "person"
+        },
+        "linq_program": "mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu",
+        "linq_tail": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+        "local_onnx": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx"
+      },
+      "statuses": {
+        "local_abi": "PASS",
+        "compile": "EXISTING_PASS",
+        "new_linq_execution": "NOT_RUN",
+        "remote_placement": "NOT_RUN",
+        "scenario_quality": "NOT_EVALUATED",
+        "scenario_support": "EXISTING_PLUGIN_CLASSES_ONLY"
+      },
+      "float_parity": {
+        "status": "PASS",
+        "scope": "one synthetic tensor; CPU float ABI only",
+        "max_abs_error": 0.0,
+        "shape": [
+          1,
+          56,
+          8400
+        ]
+      },
+      "bundle_manifest": {
+        "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/MANIFEST.json",
+        "bytes": 2927,
+        "sha256": "718be3945c0f298a6874f8f8ea856fc38b01b05d77b121b49cb0a40bf1f8e67b"
+      },
+      "files": [
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx",
+          "bytes": 13502371,
+          "sha256": "57add6b3e6288e631e3b85a6ecf730b920422e9d8a0bb4a73a36a2775f7ab150"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_compile-report.json",
+          "bytes": 1300,
+          "sha256": "f108c34cccb87a8a7c4542da854ae5664e6c43586c79687ef41b25dbaaabd3f5"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_head.onnx",
+          "bytes": 13502215,
+          "sha256": "802f7cb032ed525855bd271017d376fedc14bfc5789669013cae01361fa5aa00"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+          "bytes": 608,
+          "sha256": "23cdfe907f058713b6a617cb2230d52148eb46d508d8f809c8bb186e73615699"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-pose-640-v2/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu",
+          "bytes": 2929222,
+          "sha256": "c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b"
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "matvey-helmet-yolov8n",
+        "version": "640-v1-5c3af1f3b855",
+        "task": "detect",
+        "input_size": 640,
+        "conf": 0.1,
+        "iou": 0.45,
+        "classes": {
+          "0": "helmet",
+          "1": "no_helmet"
+        },
+        "linq_program": "mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu",
+        "linq_tail": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+        "local_onnx": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx"
+      },
+      "statuses": {
+        "local_abi": "PASS",
+        "compile": "EXISTING_PASS",
+        "new_linq_execution": "NOT_RUN",
+        "remote_placement": "NOT_RUN",
+        "scenario_quality": "NOT_EVALUATED",
+        "scenario_support": "NO_PPE_PLUGIN"
+      },
+      "float_parity": {
+        "status": "PASS",
+        "scope": "one synthetic tensor; CPU float ABI only",
+        "max_abs_error": 0.0,
+        "shape": [
+          1,
+          6,
+          8400
+        ]
+      },
+      "bundle_manifest": {
+        "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/MANIFEST.json",
+        "bytes": 2971,
+        "sha256": "fd907a116b4bd7a7ee4e0714c64cfd19622e3672cd356219f34474bb304272ce"
+      },
+      "files": [
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx",
+          "bytes": 12239481,
+          "sha256": "75990461c00b7300675abd5714fe7db45352ea1facfbba692e332efe65dcafe8"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_compile-report.json",
+          "bytes": 826,
+          "sha256": "afcfa19735bf674e89cd2176baf009376dccc7ee89e0a801490c1653bf7a25c9"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_head.onnx",
+          "bytes": 12239437,
+          "sha256": "b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+          "bytes": 140,
+          "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+        },
+        {
+          "path": "/workspace/artifacts/safewatch-delivery/matvey-helmet-640-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu",
+          "bytes": 2751596,
+          "sha256": "408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa"
+        }
+      ]
+    }
+  ],
+  "local_check": {
+    "path": "/workspace/artifacts/safewatch-delivery/local-check-v1/local-check.json",
+    "bytes": 3947,
+    "sha256": "d63645246d9baaa6f374d730ff01cd0230a31e889ef017b6dae0a48970ccc5a2"
+  },
+  "local_acceptance": {
+    "module_root": "/tmp/safewatch-matvey-local",
+    "active_classes": [
+      "person",
+      "car",
+      "bus",
+      "train",
+      "truck",
+      "cell phone",
+      "helmet",
+      "no_helmet"
+    ],
+    "scenarios": {
+      "running": "active",
+      "proximity": "active",
+      "phone": "active",
+      "fall": "active",
+      "fence_crossing": "active",
+      "restricted_under": "active",
+      "fire_smoking": "model_missing",
+      "no_harness": "model_missing",
+      "suspended_load": "model_missing",
+      "load_carrying": "skeleton"
+    },
+    "artifacts": {
+      "5e0dd8cfbaa8feda45a86edab8dcd42147db7783c9a88520579b1e4a2b809a24.jsonl": 5,
+      "5a6d311d58e1a94f94a08ceed34a34ab21931025844f8d2d0c12389bd368c9ac.jsonl": 5,
+      "bb902629dc96e7d4677a2cac214bfec74670f7655157efdf193f87fa78177e19.jsonl": 5
+    }
+  },
+  "controls": {
+    "gpu_jobs": 0,
+    "new_tpu_requests": 0,
+    "new_compilations": 0,
+    "training_runs": 0
+  },
+  "quality_claim": false,
+  "new_remote_placement": "NOT_RUN",
+  "archive": {
+    "path": "/workspace/artifacts/safewatch-delivery/matvey_safewatch_delivery_v2.tar.gz",
+    "bytes": 49675479,
+    "sha256": "7cfcf125189f4e0034d1de7a88033d465c0c6be453cee5f145a3ca3755f3892b"
+  },
+  "archive_member_verification": "PASS"
+}

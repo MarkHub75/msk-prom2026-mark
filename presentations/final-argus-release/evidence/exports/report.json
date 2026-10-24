@@ -1,0 +1,184 @@
+{
+  "status": "PASS",
+  "slides": 12,
+  "checks": [
+    {
+      "slide": 1,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "02839b7a578f9594ad38d73f4ee9cb77f97a3bd0fd5472df6f20097c6d1c3fc3",
+      "powerPointRasterMeanAbsoluteChannelError": 0.13723443930041154,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 2,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "e01cb119340a352c2572818a7d554bf3f9f2f6d33a4a7559e378cab8e1512312",
+      "powerPointRasterMeanAbsoluteChannelError": 0.2403853202160494,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 3,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "69e0892e3575d1a4f452e6540de0e0af35b68667de60ecda9674deef925c3549",
+      "powerPointRasterMeanAbsoluteChannelError": 0.14336741255144034,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 4,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "8817933ffcc87e0458929e6373cdc164cbc78d233e368cb23b272f4f045e65f1",
+      "powerPointRasterMeanAbsoluteChannelError": 0.13201501414609051,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 5,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "042c2b77853e10db9363b1f21557244c602533d8dc77ee58a8f86c91b9318617",
+      "powerPointRasterMeanAbsoluteChannelError": 0.1377128343621399,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 6,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "8b1f243c8afe643b9f36c28b6fb59ea257ce4f470d36288923c527b6d15c81aa",
+      "powerPointRasterMeanAbsoluteChannelError": 0.10934783307613168,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 7,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "f57bb5270c3e9449b351bed5df18c3520720a07031933330c4755de6ba9c3981",
+      "powerPointRasterMeanAbsoluteChannelError": 0.12205905992798353,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 8,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "60be301a944a623e5a87e45c63334f4b173bb43aaf636d114695e801dd5df628",
+      "powerPointRasterMeanAbsoluteChannelError": 0.1170140496399177,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 9,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "c80474f140a349e99bd7e554d8ce8408b812bfd816bc200cab13fa433df14c7c",
+      "powerPointRasterMeanAbsoluteChannelError": 0.07429800025720164,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 10,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "b80a7c64c7bed3b462e01b16517624259db4c7fdbbacaa842c80d1a74f643cab",
+      "powerPointRasterMeanAbsoluteChannelError": 0.10606385030864197,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 11,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "9e103db17821230328f1a302ff3ce77acc976ad7882dd89e28c47855c170e410",
+      "powerPointRasterMeanAbsoluteChannelError": 0.15061133616255143,
+      "notesMatchInPowerPoint": true
+    },
+    {
+      "slide": 12,
+      "size": [
+        1920,
+        1080
+      ],
+      "pptxEmbeddedPNGByteIdentical": true,
+      "pptxFullBleedOneImage": true,
+      "notesMatchInXML": true,
+      "additionalNotesMatchInXML": true,
+      "sourceSha256": "c724e122f7569a8dec10619a932020edcaeb9e19141a960cf53e209751c8c3d7",
+      "powerPointRasterMeanAbsoluteChannelError": 0.12212625385802468,
+      "notesMatchInPowerPoint": true
+    }
+  ],
+  "powerPointOpenRenderExport": "PASS",
+  "powerPointVersion": "16.0",
+  "interactiveRepairDialogs": "UNVERIFIED: unattended COM is not a manual dialog observation.",
+  "editableInternalSlideObjects": false,
+  "notesEmbedded": true,
+  "pptx": {
+    "path": "exports/ARGUS_Final.pptx",
+    "bytes": 12569588,
+    "sha256": "362a90f4dd4accd06408ba256eca6522d3807c721472c468b012be306551bb48"
+  }
+}

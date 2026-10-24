@@ -1,0 +1,1083 @@
+{
+  "version": "1.0.0",
+  "id": "argus-final-release-13",
+  "audience": "Технические и бизнес-эксперты жюри Моспром2026",
+  "scope": "13image-slide финальных сцен,включая реальный промышленный кадр и сохранённые выходыLinQ.",
+  "sequenceRationale": "A causal product story followed by scoped hardware proof,real-frame evidence and business proposal.",
+  "rubric": {
+    "status": "unknown",
+    "source": null,
+    "criteria": []
+  },
+  "sources": [
+    {
+      "id": "s01",
+      "path": "research/main__tech.md.excerpt.txt",
+      "sha256": "295804932a72f0bf76ee8d0d8c9222aca7a98f81e9028afb37b147568a5b369d",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:tech.md; lines [[29, 78], [2994, 3058], [3094, 3131]]"
+    },
+    {
+      "id": "s02",
+      "path": "research/main__progress.md.excerpt.txt",
+      "sha256": "38577643b436d23e76a9f095e333d9abfb25131fdd9ca99d9a8771df949252ae",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:progress.md; lines [[1, 32], [173, 184], [210, 219]]"
+    },
+    {
+      "id": "s03",
+      "path": "research/main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "sha256": "a362a9374f1ca70ed7df76fa38c4d8b0d3100628dc6e638cf435e5b9096c46ce",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:docs/linq/LINQ_CONTRACT.md; lines [[73, 109]]"
+    },
+    {
+      "id": "s04",
+      "path": "research/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; lines whole blob"
+    },
+    {
+      "id": "s05",
+      "path": "research/main__config__default.yaml.excerpt.txt",
+      "sha256": "249be06b58b05f7e679b9b6f62460a17e652d8f7aac8c4302016a155c44399c1",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:config/default.yaml; lines [[139, 164]]"
+    },
+    {
+      "id": "s06",
+      "path": "research/main__src__safewatch__services.py.excerpt.txt",
+      "sha256": "232f65fa4ec3e8c87bed0239875668c5fb3dc7d60bd88dc4c3d4e13d79cc0c69",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:src/safewatch/services.py; lines [[1540, 1590], [1730, 1755]]"
+    },
+    {
+      "id": "s07",
+      "path": "research/main__docs__ML_INTEGRATION.md",
+      "sha256": "f26c4351739fd1faccb1a2a47599773414061e100393b8e12dbe80e55732e828",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:docs/ML_INTEGRATION.md; lines whole blob"
+    },
+    {
+      "id": "s08",
+      "path": "research/main__contract__openapi.json",
+      "sha256": "9401a516ab6390ccc1bbd068ba7dd1d16ff40ea3154f9e0a140662314531aec2",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:contract/openapi.json; lines whole blob"
+    },
+    {
+      "id": "s09",
+      "path": "research/main__contract__ws.schema.json",
+      "sha256": "5f3255f76d86fbf4e0dd4d298213075187d8b128fc9daeeb9681dbc2c1e48f6e",
+      "kind": "product",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:contract/ws.schema.json; lines whole blob"
+    },
+    {
+      "id": "s10",
+      "path": "research/front-final__frontend__src__features__Stats.tsx",
+      "sha256": "7b485b60df8b5d53fa931c95dc67ea62b7eb124ccb1f870345a33094be09b0ab",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Stats.tsx; lines whole blob"
+    },
+    {
+      "id": "s11",
+      "path": "research/front-final__frontend__src__features__ManagementStats.tsx",
+      "sha256": "1f67b7b5f4775756b46b501a7351f11eeea3b012609babd615e8ada30ffb6cb2",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/ManagementStats.tsx; lines whole blob"
+    },
+    {
+      "id": "s12",
+      "path": "research/front-final__frontend__src__features__CameraSetup.tsx",
+      "sha256": "c13bd6345c8554869b1c9598fecc5d2a00a472629fefd7ff50753cd7777b0531",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/CameraSetup.tsx; lines whole blob"
+    },
+    {
+      "id": "s13",
+      "path": "research/front-final__frontend__src__features__Rules.tsx",
+      "sha256": "a7d636542a47bea815d486df37cd59ceee90e2a85e6dbbb40d45d9c285119c6b",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Rules.tsx; lines whole blob"
+    },
+    {
+      "id": "s14",
+      "path": "research/front-final__frontend__src__features__Incident.tsx",
+      "sha256": "f0992b1c3a3f5f8d39b26320b9c1925c718dd85452427e159a3935fe1f171214",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Incident.tsx; lines whole blob"
+    },
+    {
+      "id": "s15",
+      "path": "research/front-final__frontend__src__features__Master.tsx",
+      "sha256": "823f730ebeeab7b0a129374dfd28ed2ddf8a7e06f54030f644544a67c8658ea9",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Master.tsx; lines whole blob"
+    },
+    {
+      "id": "s16",
+      "path": "research/front-final__frontend__src__features__Journal.tsx",
+      "sha256": "56b777a26ef87547d9cb362de4b00a1af33851e5270d1b6ef3b3e19ef00be844",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Journal.tsx; lines whole blob"
+    },
+    {
+      "id": "s17",
+      "path": "research/front-final__frontend__src__features__Report.tsx",
+      "sha256": "c76cf977a65452574ab75b18de0b60b0af6aef4f1a0a7addb9402057829e80f0",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Report.tsx; lines whole blob"
+    },
+    {
+      "id": "s18",
+      "path": "research/front-final__frontend__src__styles__ds.css.excerpt.txt",
+      "sha256": "b379f2be662345fb23e3c7056a5251da3bde20069fbd077b316fcf2aff074172",
+      "kind": "product",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/styles/ds.css; lines [[1, 108]]"
+    },
+    {
+      "id": "s19",
+      "path": "research/matvey_cv__ml__EVAL_REPORT.md",
+      "sha256": "76f5456eb3bb969e0b9d751e50628a3076de48db2bbb25941f6678ec870c1f83",
+      "kind": "product",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/EVAL_REPORT.md; lines whole blob"
+    },
+    {
+      "id": "s20",
+      "path": "research/matvey_cv__ml__SCENARIO_COVERAGE.md",
+      "sha256": "b2e31a8a9d9e5b725b2c6a030ce56295c1d763c1753a43bcf09bd8b60e555356",
+      "kind": "product",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/SCENARIO_COVERAGE.md; lines whole blob"
+    },
+    {
+      "id": "s21",
+      "path": "research/matvey_cv__docs__ML_HANDOFF_MATVEY.md",
+      "sha256": "c2a1bb83a37591787f9a5e663d2abc94f443ffb46907dbeb029b4cb6aca68746",
+      "kind": "product",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:docs/ML_HANDOFF_MATVEY.md; lines whole blob"
+    },
+    {
+      "id": "s22",
+      "path": "research/matvey_cv__ml__safewatch.delivery.json",
+      "sha256": "45476baaca48b911c445d9676e8306d54fbc6676071e804b455006557fbbe595",
+      "kind": "product",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/safewatch.delivery.json; lines whole blob"
+    },
+    {
+      "id": "user",
+      "path": "research/USER_DECISIONS.md",
+      "sha256": "91f66ce0393567ef836ba134abd78675a1b1e2faca3787e7779b0825d1a56097",
+      "kind": "human-decision",
+      "locator": "Explicit content/brand/team decisions; not human acceptance of final visuals"
+    },
+    {
+      "id": "assets",
+      "path": "research/source-index.json",
+      "sha256": "497ef08d5fb1e6def3e46d951cbdd4db94f5b8c6cbf6951711d7777305f1b7b9",
+      "kind": "research",
+      "locator": "Nested user archive hashes, screenshot/still source paths and provenance; trailer README synthetic disclosure"
+    },
+    {
+      "id": "front-tests",
+      "path": "evidence/frontend-tests.json",
+      "sha256": "667ae18ab2d24515ef684424e00930931d2f5559d43920c9418b72e1ec364181",
+      "kind": "research",
+      "locator": "Fresh isolated Vitest run of front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03;69/69PASS; app source unmodified"
+    },
+    {
+      "id": "cpu",
+      "path": "research/main__src__safewatch__inference__local.py",
+      "sha256": "09a53520347fa54c7c2cd57bd91d2d83d657ac095ab74fc670127262ab1b7f62",
+      "kind": "product",
+      "locator": "main:f6b5358a LocalBackend ONNX CPU; no18FPS measurement"
+    },
+    {
+      "id": "no-observation",
+      "path": "research/front-final__frontend__src__features__OperatorDepth.test.tsx",
+      "sha256": "2cffa93b194b98a38ac7610936e6eba63c6b3317b09990dbc1bd858bfdcf7303",
+      "kind": "product",
+      "locator": "Current front/final no_observation behavior; exercised by fresh frontend tests"
+    },
+    {
+      "id": "linq-frame",
+      "path": "assets/linq/ARGUS_linq_tpu_frame0.png",
+      "sha256": "37be69e3a8831d4f0727c4f3801a8cdcc4a7795af9c14072d2446b9392f635d8",
+      "kind": "research",
+      "locator": "Exact user-supplied proof image; original annotations preserved"
+    },
+    {
+      "id": "linq-handoff",
+      "path": "research/linq-proof__docs__handoffs__EGOR_LINQ_VIDEO_20261024.md",
+      "sha256": "1d1f8b46ebd52d4863c6ca046a9cd1c273f67bf2e4ff9945e7ceb3901402f864",
+      "kind": "product",
+      "locator": "matvey_cv@53992b3a: preserved historical status0/tensors; selected industrial frames only"
+    },
+    {
+      "id": "linq-proof",
+      "path": "research/linq-proof__ml__reports__video-handoff-20261024.json",
+      "sha256": "a6ecb645c8c6877baff63d01d69f8032bb6398cf94bf0a3a3db1db2e21dca6d9",
+      "kind": "product",
+      "locator": "Machine-readable partial video handoff summary; zero new calls during export"
+    },
+    {
+      "id": "mendeley",
+      "path": "research/linq-proof-index.json",
+      "sha256": "e67d3ff2ab91ca4f00605ae0a50afb84488cc3b43493b9711d07e1b84a88470d",
+      "kind": "research",
+      "locator": "Primary dataset page verified: Önal/Dandıl2024,DOI10.17632/xjmtb22pff.1,CCBY4.0"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "01",
+      "audienceTakeaway": "Видеоконтроль промышленной безопасности",
+      "assertion": "Видеоконтроль промышленной безопасности",
+      "evidence": [
+        "user",
+        "assets"
+      ],
+      "protagonist": "Опасное событие",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Full-bleed synthetic factory frame,manual red event box and reusable monumental brand lockup.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Видеоконтроль промышленной безопасности",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Full-bleed synthetic factory frame,manual red event box and reusable monumental brand lockup.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "АРГУС помогает превратить опасное событие в понятную цепочку реакции. Оператор получает сигнал и доказательство, мастер — поручение, а служба охраны труда — историю принятых мер. Заводской кадр на обложке синтетический: он иллюстрирует продукт, а не доказывает качество распознавания.\n\nЛогоблок задан в одном месте кода (BRAND/TAG и lockup), переиспользован на обложке и финале по запрошенной структуре. Маленькая подпись «под надзором» слева над крупным словом. Родные логотипы в настоящих UI-снимках сохранены. Рамка на cover вручную по координатам README архива.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Это уже работает на заводе?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Промышленный пилот не подтверждён; показываем продуктовый демо-контур и отдельные технические результаты.",
+      "claims": [
+        {
+          "id": "position",
+          "text": "Видеоконтроль с полным циклом реакции.",
+          "kind": "conceptual",
+          "sourceIds": [
+            "user",
+            "s01"
+          ],
+          "qualification": "Демо и отдельные аппаратные результаты, не промышленный пилот."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "02",
+      "audienceTakeaway": "Камеры есть. Реакция не гарантирована.",
+      "assertion": "Камеры есть. Реакция не гарантирована.",
+      "evidence": [
+        "user",
+        "s01",
+        "assets"
+      ],
+      "protagonist": "Реакция предприятия",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Six genuine supplied synthetic camera perspectives opposite three director-level failure modes.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Камеры есть. Реакция не гарантирована.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Six genuine supplied synthetic camera perspectives opposite three director-level failure modes.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Камеры уже показывают происходящее, но человеку трудно одновременно следить за десятками экранов. Если сигнал не стал поручением, у него может не появиться ответственный, а без разбора причин ситуация повторяется. Поэтому решаем задачу реакции на событие, а не просто добавляем ещё один видеопоток.\n\nПроблема сформулирована как продуктовая задача, без внешней статистики травматизма и без утверждения о наблюдённом поведении конкретного завода.40экранов как точную измеренную величину не используем. Все фоновые кадры синтетические по README предоставленного архива.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Почему нельзя просто добавить ещё одного оператора?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Проблема не только в просмотре: сигналу нужны ответственный и подтверждённые меры; экономический эффект проверим на пилоте.",
+      "claims": [
+        {
+          "id": "problem",
+          "text": "Камер недостаточно без внимания, ответственного и журнала мер.",
+          "kind": "conceptual",
+          "sourceIds": [
+            "user",
+            "s01"
+          ],
+          "qualification": "Без внешней статистики или неподтверждённого числа экранов."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "03",
+      "audienceTakeaway": "От опасности — к подтверждённым мерам.",
+      "assertion": "От опасности — к подтверждённым мерам.",
+      "evidence": [
+        "s01",
+        "s14",
+        "s15",
+        "s16",
+        "assets"
+      ],
+      "protagonist": "Полный человеческий цикл",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Large authentic desktop monitor and portrait master phone;three human workflow values.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "От опасности — к подтверждённым мерам.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Large authentic desktop monitor and portrait master phone;three human workflow values.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Наше решение — видеоконтроль с полным циклом реакции на опасность. Сначала показываем событие и доказательство, затем поднимаем нужного человека, после чего фиксируем принятые меры. Оператору не нужно вручную связывать экран камеры, звонок мастеру и запись в отдельном журнале.\n\nПоказаны реальные пользовательские снимки01 и06 из архива; это демонстрационные данные, синтетические кадры и события. Не выдавать показ интерфейса за успешную обработку промышленных видео нейросетью. Автоматическая остановка пресса системой не заявляется: текст о прессе на телефоне — введённое человеком сообщение о мерах.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Чем это отличается от обычной видеоаналитики?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Акцент на полном цикле оператор → мастер → журнал и видимом происхождении события; сравнительное превосходство над конкурентами не измеряли.",
+      "claims": [
+        {
+          "id": "value",
+          "text": "Видим опасность, поднимаем нужного человека, фиксируем реакцию.",
+          "kind": "conceptual",
+          "sourceIds": [
+            "s01",
+            "user"
+          ],
+          "qualification": "Продуктовая ценность; не измеренный эффект."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "04",
+      "audienceTakeaway": "Каждому — свой экран. И своя задача.",
+      "assertion": "Каждому — свой экран. И своя задача.",
+      "evidence": [
+        "s01",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s15",
+        "assets"
+      ],
+      "protagonist": "Ответственный в своей роли",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Five aligned role screens,one portrait phone and four full-screen desktop thumbnails with real detail crops.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Каждому — свой экран. И своя задача.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Five aligned role screens,one portrait phone and four full-screen desktop thumbnails with real detail crops.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "У оператора — диспетчерская и очередь тревог, у мастера — поручения на телефоне. Служба охраны труда разбирает причины, руководство видит общую картину, администратор настраивает камеры, зоны и правила. Один процесс показан через пять разных рабочих мест, а не через один перегруженный экран для всех.\n\nРоли подтверждены tech.md и маршрутизацией/страницами front/final. Имена аккаунтов внутри UI являются содержимым предоставленного demo и не означают реальных клиентов. Скриншоты не доказывают production-ready эксплуатацию пяти ролей.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Мастер должен постоянно смотреть камеры?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Нет, его рабочее место построено вокруг поручений и мер, оператор проверяет видеодоказательство.",
+      "claims": [
+        {
+          "id": "roles",
+          "text": "Пять ролевых рабочих мест.",
+          "kind": "factual",
+          "sourceIds": [
+            "s01",
+            "s10",
+            "s11",
+            "s12",
+            "s15",
+            "assets"
+          ],
+          "qualification": "Код и реальные предоставленные снимки; не промышленная эксплуатация."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "05",
+      "audienceTakeaway": "Тревога заканчивается действием.",
+      "assertion": "Тревога заканчивается действием.",
+      "evidence": [
+        "s01",
+        "s06",
+        "s14",
+        "s15",
+        "s16",
+        "assets"
+      ],
+      "protagonist": "Результат поручения",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Four-step photographic UI storyboard:yellow,red attention takeover,two master phone states,journal.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Тревога заканчивается действием.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Four-step photographic UI storyboard:yellow,red attention takeover,two master phone states,journal.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Жёлтый сигнал оператор проверяет, красный захватывает внимание и открывает доказательство. Дальше мастер принимает поручение с телефона и сообщает о принятых мерах, а журнал сохраняет решение и результат. Подтверждение, передача и устранение — разные действия; на этом слайде демонстрационные состояния, а не измерение точности нейросети.\n\nИспользуются02,03-takeover-red (backend/fake),05,06,08. Они относятся к разным demo/seed состояниям и не выдаются за один непрерывный runtime-прогон. Вариант03-red-mock содержит501 для видео и не выбран;04-red-event-card также с501,backend04 показывает несовпадение рамки/сцены и не используется как подтверждение качества. Никакие надписи в исходных скриншотах не исправлялись. Подтверждение красного в текущем backend создаётconfirmed иsent_to_master; UI показывает также явное действие передачи. Автопередача через45с относится к красному без решения, не жёлтому→красному.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Каждый жёлтый сигнал обязательно становится красным?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Нет, это разные уровни и иногда разные события; повышение зависит от правила, а автопередача красного по таймауту — отдельный механизм.",
+      "claims": [
+        {
+          "id": "event",
+          "text": "Жёлтый/красный,мастер,меры,журнал.",
+          "kind": "factual",
+          "sourceIds": [
+            "s01",
+            "s06",
+            "s14",
+            "s15",
+            "s16",
+            "assets"
+          ],
+          "qualification": "Скриншоты из разныхdemo/seed; не один измеренный ML-run."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "06",
+      "audienceTakeaway": "Больше событий ≠ больше опасности.",
+      "assertion": "Больше событий ≠ больше опасности.",
+      "evidence": [
+        "s10",
+        "s11",
+        "s16",
+        "s17",
+        "assets"
+      ],
+      "protagonist": "Контекст событий",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Dominant real OHS heatmap/line screen plus management screen and PDF report fragment;coverage highlighted.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Больше событий ≠ больше опасности.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Dominant real OHS heatmap/line screen plus management screen and PDF report fragment;coverage highlighted.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "В журнале остаются события, решения и меры, а отчёт можно сохранить в PDF. Аналитика помогает разбирать смены и участки, но рост числа событий сам по себе не доказывает рост опасности: могли подключить камеры или изменить чувствительность. Поэтому рядом показываем охват наблюдения и долю подтверждённых событий; цифры на этих экранах демонстрационные.\n\nИспользованы10 (главный монитор),11 (полный экран руководства),09 (явный фрагмент отчёта). Охват камер и доля подтверждённых — отображаемые UI-показатели; их значения demo, без промышленного вывода. Доля подтверждённых не равна recall. Тренд — линейная экстраполяция с ограничениями; не AI forecast. PDF — печатный путь window.print/сохранитьPDF, не новый ML-результат.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Вы прогнозируете число происшествий?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Линия на экране — явно подписанная линейная экстраполяция, не прогноз нейросети и не доказательство причинности.",
+      "claims": [
+        {
+          "id": "analytics",
+          "text": "Журнал,PDF,аналитика; охват и подтверждённые рядом со счётчиками.",
+          "kind": "factual",
+          "sourceIds": [
+            "s10",
+            "s11",
+            "s16",
+            "s17",
+            "assets"
+          ],
+          "qualification": "Все значения в UI демонстрационные; тренд не нейросетевой прогноз."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "07",
+      "audienceTakeaway": "Настроить участок — прямо на кадре.",
+      "assertion": "Настроить участок — прямо на кадре.",
+      "evidence": [
+        "s12",
+        "s13",
+        "assets"
+      ],
+      "protagonist": "Геометрия участка",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Large laptop with real zone geometry;calibration and rules screenshots flank the camera.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Настроить участок — прямо на кадре.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Large laptop with real zone geometry;calibration and rules screenshots flank the camera.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Условия участка задаются прямо на кадре: администратор размечает зоны, выполняет калибровку и настраивает правила. Это позволяет учитывать геометрию конкретной камеры без правки программы. Для штатных настроек программист не нужен; промышленный запуск всё равно потребует специалиста по камерам и проверенной конфигурации.\n\nОсновной скрин14 — зоны;15 — калибровка;12 — матрица правил.13-camera-live изучен как связанный экран, но не добавлен ради дублирования изображения: вкладка кадра/камеры сохранена на основном14. Рамка-подсветка слайда — графическая выноска, не новая зона в приложении. Корректность метрической калибровки на реальном объекте не подтверждена этим изображением.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Любой сотрудник может настроить всё без подготовки?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Нет, интерфейс снимает необходимость писать код для штатных параметров; геометрию и правила должен проверить ответственный специалист.",
+      "claims": [
+        {
+          "id": "configuration",
+          "text": "Зоны,калибровка и правила на камере доступны через UI.",
+          "kind": "factual",
+          "sourceIds": [
+            "s12",
+            "s13",
+            "assets"
+          ],
+          "qualification": "Штатная настройка без кода; требуется ответственная проверка геометрии."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "08",
+      "audienceTakeaway": "Нейросеть видит. Правило решает.",
+      "assertion": "Нейросеть видит. Правило решает.",
+      "evidence": [
+        "s03",
+        "s04",
+        "s19",
+        "s20",
+        "s21",
+        "s22",
+        "cpu"
+      ],
+      "protagonist": "Измеренный аппаратныйbaseline",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Factory photograph supports a causal technology flow and monumental measured21FPS;quantization caveats explicit.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Нейросеть видит. Правило решает.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Factory photograph supports a causal technology flow and monumental measured21FPS;quantization caveats explicit.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Нейросети находят объекты и позы, а трекинг и правила превращают наблюдения в события для нужных ролей. Детектор YOLOv8n и модель позы исполнены на LinQ TPU; в отдельном тесте детектор обработал запись 1280 на 720 примерно с двадцатью одним кадром в секунду. Recall 0,91 и IoU 0,93 здесь сравнивают результат после квантования с исходной FP32-моделью, а не измеряют распознавание нарушений на заводе. Для восьми сценариев есть правила-прототипы, собственные модели каски и позы имеют аппаратные прогоны, но качество и стабильный общий TPU-контур ещё проверяем.\n\nBaseline YOLOv8n640 иYOLOv8n-pose640: отдельные исполнения TPU подтверждены LINQ_CONTRACT. Detector video:400/400кадров,19.09с,20.95FPS≈21,1280×720,31с с загрузкой,inflight8. Это не совместная det+pose пропускная способность и не event-to-alert/device latency.0.91/0.93 — fidelity кFP32 при квантовании, не industrial accuracy. CPU-модуль существует вmain:src/safewatch/inference/local.py, но18FPS и прогон реального видео не подтверждены; число исключено после уточнения пользователя. Восемь прототипов — отдельный общий ML observation/rule pipeline веткиmatvey_cv, не восемь принятых нейродетекторов приложения. СвоиHelmet/Split-Pose исторически исполнены наTPU поEVAL_REPORT; новая поставка39dcc93d имеетnew_linq_execution/remote_placement NOT_RUN иqualityNOT_EVALUATED. Не смешивать эти статусы. Независимый промышленный final test не подтверждён; отрицательные/слабые development результаты сохранены в источнике.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: 21 кадр/с — это скорость тревоги или точность91%?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Ни то ни другое:21 кадр/с относится к обработке тестовой записи детектором;0,91 — совпадение с FP32 при квантовании, не качество нарушений на заводе.",
+      "claims": [
+        {
+          "id": "linq",
+          "text": "YOLOv8n/pose исполнялисьTPU; detector recording≈21FPS;recall.91/IoU.93кFP32.",
+          "kind": "factual",
+          "sourceIds": [
+            "s03",
+            "s04"
+          ],
+          "qualification": "Раздельные hardware tests; throughput записи,не alert/device latency и не industrialquality."
+        },
+        {
+          "id": "prototypes",
+          "text": "Восемь программных прототипов и исторические своиHelmet/PoseTPU-runs.",
+          "kind": "factual",
+          "sourceIds": [
+            "s19",
+            "s20",
+            "s21",
+            "s22"
+          ],
+          "qualification": "Не восемь обученных/принятых recognizers; новая поставкаhardware/placementNOT_RUN."
+        },
+        {
+          "id": "cpu",
+          "text": "CPU local mode существует.",
+          "kind": "factual",
+          "sourceIds": [
+            "cpu"
+          ],
+          "qualification": "18FPS отсутствует среди подтверждённых результатов и исключено."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "09",
+      "audienceTakeaway": "Модели исполняются на LinQ TPU",
+      "assertion": "Кадр, обработанный на LinQ TPU",
+      "evidence": [
+        "linq-frame",
+        "linq-handoff",
+        "linq-proof",
+        "mendeley"
+      ],
+      "protagonist": "Сохранённый реальный ответLinQ",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Unmodified user proof image displayed at full width with preserved aspect; no added title,callout,footer or crop.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Модели исполняются на LinQ TPU",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Unmodified user proof image displayed at full width with preserved aspect; no added title,callout,footer or crop.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Это реальная промышленная камера, открытый датасет Mendeley, CC BY 4.0. Рамку и 17 точек позы вернул ускоритель LinQ — ответ status 0, мы храним входные и выходные тензоры. Качество распознавания на заводе ещё не измеряли — это следующий этап\n\nТекст докладчика предоставлен пользователем и сохранён дословно. Реальная камера открытого датасета, не камера внедрения нашей команды. Oğuzhan Önal; Emre Dandıl (2024), Video Dataset for Safe and Unsafe Behaviours, Mendeley Data,V1, DOI10.17632/xjmtb22pff.1; https://data.mendeley.com/datasets/xjmtb22pff/1 ; CC BY4.0, https://creativecommons.org/licenses/by/4.0/ . Изображение пользователя ARGUS_linq_tpu_frame0.png сохранено без перерисовки; его пропорции1280×576 удержаны, поэтому на16:9 есть поля сверху/снизу. Git matvey_cv@53992b3a: сохранены исторические status0 ответы и inputs/responseNPZ для отдельных кадров Mendeley4_tr6; это частичный экспорт,не новый запрос и не весь ролик. RawNPZ локально в этой сессии не переаудировали: основание — сохранённый handoff/отчёт в Git и предоставленный кадр. Рамка/17точек на этом слайде — декодированные выходы реального TPU,не ручная рамка демо. Подпись21FPS на картинке относится к другому baseline-тесту записи, а показанная собственная поза имеет исторический сетевой roundtrip порядка10–11с/вызов. Скорость промышленного realtime/SLA не заявляется. Независимая аппаратная аттестация и industrial eventquality не установлены.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Весь ролик обработан на TPU?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Нет, показан сохранённый ответ для отдельного кадра частичного прогона. Это подтверждает исполнение и выходы модели, а не качество событий или обработку всего ролика.",
+      "claims": [
+        {
+          "id": "actual-frame",
+          "text": "Real industrial Mendeley frame with saved LinQ status0 output,bbox and17posepoints.",
+          "kind": "factual",
+          "sourceIds": [
+            "linq-frame",
+            "linq-handoff",
+            "linq-proof",
+            "mendeley"
+          ],
+          "qualification": "Partial historical capture,not full-video inference or industrial event accuracy. No fresh TPU call in this task."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "10",
+      "audienceTakeaway": "Тревога не должна потеряться.",
+      "assertion": "Тревога не должна потеряться.",
+      "evidence": [
+        "s02",
+        "s05",
+        "s06",
+        "s08",
+        "s09",
+        "front-tests",
+        "no-observation"
+      ],
+      "protagonist": "Непотерянная тревога",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Three test/config numbers with actual no-observation screenshot details and a single-event-card principle.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Тревога не должна потеряться.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Three test/config numbers with actual no-observation screenshot details and a single-event-card principle.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "В main зафиксирован результат 352 тестов backend, а на текущем frontend мы заново получили 69 прошедших тестов. Контракт API закреплён; продолжающееся нарушение ведёт одну карточку события, а красная тревога без решения оператора по включённой настройке через 45 секунд передаётся мастеру. Если камера не даёт наблюдения, интерфейс показывает это явно, вместо того чтобы создавать ложное ощущение безопасности.\n\n352backend — сохранённый итогmain progress.md, не новый запуск здесь.69frontend — свежийvitest run текущегоfront/final@a5e43aff в отдельной папке,всеPASS. Первоначально13тестов загрузились,остальныеsuite не стартовали из-за отсутствияlucide-react; npmci по lockfile исправил среду,код не менялся. Конфигmain escalation.enabled=true,timeout_s45,tick_ms500; services.escalation_tick передаёт мастеру красные без решения. Это не замер45.2с: его исключили. Одна карточка эпизода не запрещает сообщения об изменении уровня и передачу по таймауту. Защита от потери наблюдений видна на подлинных фрагментах01. Не обещать устойчивую доставку после рестарта: очередьdeliveries вmain пока в памяти.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: 45 секунд реально измерены?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Подтверждены включённая настройка45с и код автопередачи; натурный замер45,2с не подтверждён и в презентацию не включён.",
+      "claims": [
+        {
+          "id": "checks",
+          "text": "352backend по main;69frontend в новом запуске;45с включены как настройка.",
+          "kind": "factual",
+          "sourceIds": [
+            "s02",
+            "s05",
+            "s06",
+            "front-tests"
+          ],
+          "qualification": "352не rerun здесь;45.2не измерено. Программные тесты не измеряют taskaccuracy."
+        },
+        {
+          "id": "observation",
+          "text": "Нет наблюдения показано явно.",
+          "kind": "factual",
+          "sourceIds": [
+            "no-observation",
+            "assets"
+          ],
+          "qualification": "Наличие статусаUI,не нулевые пропуски."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "11",
+      "audienceTakeaway": "Начинаем с участка. Масштабируем по фактам.",
+      "assertion": "Начинаем с участка. Масштабируем по фактам.",
+      "evidence": [
+        "user",
+        "s08",
+        "s07"
+      ],
+      "protagonist": "Проверяемый пилот",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Factory-backed three-stage pilot diagram and explicitly hypothetical on-prem/API delivery lane.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Начинаем с участка. Масштабируем по фактам.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Factory-backed three-stage pilot diagram and explicitly hypothetical on-prem/API delivery lane.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Предлагаем начинать с пилота на одном участке и заранее согласовать сценарии и критерии приёмки. На реальном размеченном видео измерим качество, ложные тревоги и время реакции, а решение о масштабе примем по результатам. On-prem рядом с LinQ и интеграция по API — гипотеза поставки; цены, окупаемость и снижение травматизма пока не обещаем.\n\nВсё на этом слайде — предлагаемый план/гипотеза, не внедрённый пилот и не приобретённое оборудование. On-prem рядом сLinQ — гипотеза будущего размещения; текущийLinQ доступен удалённо, локальная поставка железа не подтверждена. API-контракт существует; промышленная интеграция по нему ещё требует проверки. Не приводить стоимость, ROI, снижение травматизма или подтверждённые сроки без данных.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Сколько это стоит и когда окупится?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Цен и измеренного эффекта пока нет; сначала согласованный пилот, затем модель поставки и экономика по его результатам.",
+      "claims": [
+        {
+          "id": "business",
+          "text": "Предлагаемый пилот→измерения→масштаб;on-prem/API как гипотеза.",
+          "kind": "hypothesis",
+          "sourceIds": [
+            "user",
+            "s08"
+          ],
+          "qualification": "Без подтверждённых клиентов,цен,ROI,дат и поставленного локальногоTPU."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "12",
+      "audienceTakeaway": "Цикл реакции собран. Качество проверяем.",
+      "assertion": "Цикл реакции собран. Качество проверяем.",
+      "evidence": [
+        "s02",
+        "s07",
+        "s19",
+        "s20",
+        "s21",
+        "assets"
+      ],
+      "protagonist": "Граница готовности",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Large authentic journal monitor with resolved master phone;three honest unfinished acceptance steps.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Цикл реакции собран. Качество проверяем.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Large authentic journal monitor with resolved master phone;three honest unfinished acceptance steps.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Демонстрационный цикл реакции уже собран: оператор, мастер, принятые меры и журнал. Следующие проверки — стабильный общий прогон на TPU, качество на размеченных целевых видео и задержка до уведомления. Дообучение каски, огня и курения планируем после подготовки подходящих данных, без обещания заранее неизвестной точности.\n\nСлово«собран» относится к демонстрационному пользовательскому циклу на UI, не к stableTPU-integration и не к качеству распознавания. На слайде08-journal и07-master-resolved из архива. Наmain по-прежнемуR5timeout; новая поставкаMatvey не является новым аппаратным прогоном ине доказывает установленныйbackend pipeline. Дальнейшее дообучение — план при наличии данных; готовыхfire/smoke/cigarette checkpoint впровереннойMLпоставке не найдено. Независимыйindustrial P/R/F1 и ложные/камера-час ещё не получены.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Какие сценарии уже приняты по качеству?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Восемь групп имеют программные прототипы; независимая промышленная приёмка не проведена, аппаратное исполнение само по себе не означает приемлемое качество.",
+      "claims": [
+        {
+          "id": "remaining",
+          "text": "Стабильный общийTPU,независимое качество и подходящие данные остаются открыты.",
+          "kind": "factual",
+          "sourceIds": [
+            "s02",
+            "s07",
+            "s19",
+            "s20",
+            "s21"
+          ],
+          "qualification": "Демо-цикл собран,промышленная приёмка не завершена."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "13",
+      "audienceTakeaway": "Увидеть — мало. Нужно довести до мер.",
+      "assertion": "Увидеть — мало. Нужно довести до мер.",
+      "evidence": [
+        "user",
+        "assets"
+      ],
+      "protagonist": "Команда",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Same brand lockup over a different factory perspective and five actual team names.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Увидеть — мало. Нужно довести до мер.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Same brand lockup over a different factory perspective and five actual team names.",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible demo/measurement qualifications and detailed native notes with expertQ&A",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One dominant takeaway with actual visual evidence; text only labels the image and its implication.",
+      "motion": {
+        "rationale": "Static full-slide image in native PowerPoint.",
+        "continuity": "Problem→value→people→action→analysis→configuration→technicalproof→realTPUframe→reliability→pilot→honestgaps→team.",
+        "holds": [
+          "Full static scene"
+        ],
+        "reducedMotion": "Identical static pixels."
+      },
+      "speakingNotes": "Мы — Ожигов Егор, Панин Матвей, Закон Марк, Ведерников Федор и Кашин Глеб. Наша цель — чтобы опасное событие завершалось понятным действием и зафиксированными мерами. Готовы показать продуктовый цикл и отдельно обсудить границы технической готовности.\n\nИмена предоставлены пользователем; «Кашин Глеб» отдельно подтверждено. Распределение должностей, заслуг и фотографии участников не выдумывались. Кадр из предоставленногоsynthetic trailer-kit.\n\nВОЗМОЖНЫЙ ВОПРОС ЭКСПЕРТА: Что вам нужно для следующего шага?\nКОРОТКИЙ ЧЕСТНЫЙ ОТВЕТ: Целевой участок, размеченные видео и согласованные критерии пилота; отдельно — стабильный общий LinQ-прогон.",
+      "claims": [
+        {
+          "id": "team",
+          "text": "Пять участников команды указаны пользователем.",
+          "kind": "factual",
+          "sourceIds": [
+            "user"
+          ],
+          "qualification": "Имена подтверждены; роли и портреты не выдуманы."
+        }
+      ],
+      "rubricIds": []
+    }
+  ]
+}

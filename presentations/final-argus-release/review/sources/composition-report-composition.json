@@ -1,0 +1,2478 @@
+{
+  "canvas": [
+    1920,
+    1080
+  ],
+  "brand_constant": "АРГУС",
+  "brand_lockups": 2,
+  "brand_policy": "One reusable lockup; cover and ending as requested. Native logos inside authentic screenshots are preserved.",
+  "slides": [
+    {
+      "slide": 1,
+      "text": [
+        {
+          "text": "ПРОМЫШЛЕННАЯ БЕЗОПАСНОСТЬ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            473,
+            70
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "МОСПРОМ 2026 · ФИНАЛЬНАЯ ЗАЩИТА",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            476,
+            1043
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "01 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "под надзором",
+          "size": 34,
+          "bounds": [
+            93,
+            157,
+            302,
+            181
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "АРГУС",
+          "size": 188,
+          "bounds": [
+            86,
+            213,
+            618,
+            341
+          ],
+          "weight": "bold"
+        },
+        {
+          "text": "Видеоконтроль промышленной безопасности",
+          "size": 40,
+          "bounds": [
+            96,
+            489,
+            911,
+            528
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Нейросети на ускорителях LinQ",
+          "size": 40,
+          "bounds": [
+            96,
+            552,
+            650,
+            589
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Падение и неподвижность",
+          "size": 30,
+          "bounds": [
+            943,
+            777,
+            1303,
+            802
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Увидеть опасность. Довести реакцию до результата.",
+          "size": 35,
+          "bounds": [
+            96,
+            919,
+            922,
+            949
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Синтетический кадр · рамка размечена вручную",
+          "size": 25,
+          "bounds": [
+            96,
+            972,
+            627,
+            996
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/stills/fall.png",
+          "sha256": "ead171d03d0c7c963146bdb0ea12d00a808ce234841e2fa3daa4ac161d5f10be",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        }
+      ],
+      "sha256": "02839b7a578f9594ad38d73f4ee9cb77f97a3bd0fd5472df6f20097c6d1c3fc3"
+    },
+    {
+      "slide": 2,
+      "text": [
+        {
+          "text": "ПРОБЛЕМА",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            214,
+            70
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "МОСПРОМ 2026 · ФИНАЛЬНАЯ ЗАЩИТА",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            476,
+            1043
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "02 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Камеры есть.",
+          "size": 83,
+          "bounds": [
+            88,
+            143,
+            582,
+            214
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Реакция не гарантирована.",
+          "size": 83,
+          "bounds": [
+            88,
+            236,
+            1113,
+            307
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "01",
+          "size": 38,
+          "bounds": [
+            88,
+            415,
+            127,
+            440
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Внимание ограничено",
+          "size": 44,
+          "bounds": [
+            177,
+            415,
+            622,
+            452
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Оператор не видит десятки экранов сразу.",
+          "size": 31,
+          "bounds": [
+            177,
+            477,
+            758,
+            505
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "02",
+          "size": 38,
+          "bounds": [
+            88,
+            599,
+            127,
+            624
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "У тревоги нет хозяина",
+          "size": 44,
+          "bounds": [
+            177,
+            599,
+            614,
+            636
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Без поручения сигнал остаётся на мониторе.",
+          "size": 31,
+          "bounds": [
+            177,
+            661,
+            791,
+            690
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "03",
+          "size": 38,
+          "bounds": [
+            88,
+            783,
+            127,
+            808
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Урок не закреплён",
+          "size": 44,
+          "bounds": [
+            177,
+            783,
+            546,
+            821
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Без разбора причин нарушение повторяется.",
+          "size": 31,
+          "bounds": [
+            177,
+            845,
+            797,
+            876
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Иллюстративные, синтетические кадры",
+          "size": 25,
+          "bounds": [
+            1070,
+            963,
+            1511,
+            985
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/stills/press.png",
+          "sha256": "86cb10ff0eac1ca3028711c06b56f6764319f04307643154c1054e73c40c3e1c",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/press.png",
+          "sha256": "86cb10ff0eac1ca3028711c06b56f6764319f04307643154c1054e73c40c3e1c",
+          "rect": [
+            1070,
+            375,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/forklift.png",
+          "sha256": "2a46ea39947a68ea63d5910ba5a440b42c1c86e075362694676fe3fc5127a7b3",
+          "rect": [
+            1455,
+            375,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/conveyor.png",
+          "sha256": "43636964dc7e06537a994fd7ba6a118de1ce1262d5a40104cb33488b75612901",
+          "rect": [
+            1070,
+            561,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/welding.png",
+          "sha256": "f0b8f24bfcfb500bb0e53d1426a43c154a2ee392216ea2e7880b03bbb24a0ba5",
+          "rect": [
+            1455,
+            561,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/gate.png",
+          "sha256": "12c5552e20b84000c6c90340b6b982b9d5c472787a705ba3c05177e73b854645",
+          "rect": [
+            1070,
+            747,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        },
+        {
+          "path": "assets/stills/toolshop.png",
+          "sha256": "35eb715f4dd0b26d01b786d6708ac331df55dd7d56e2c1683c9fb1ee1199f9f9",
+          "rect": [
+            1455,
+            747,
+            360,
+            165
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        }
+      ],
+      "sha256": "e01cb119340a352c2572818a7d554bf3f9f2f6d33a4a7559e378cab8e1512312"
+    },
+    {
+      "slide": 3,
+      "text": [
+        {
+          "text": "РЕШЕНИЕ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            199,
+            70
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "03 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "От опасности —",
+          "size": 76,
+          "bounds": [
+            88,
+            130,
+            625,
+            181
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "к подтверждённым мерам.",
+          "size": 76,
+          "bounds": [
+            88,
+            215,
+            1008,
+            283
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Видим опасность",
+          "size": 35,
+          "bounds": [
+            88,
+            433,
+            361,
+            462
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Событие и доказательство",
+          "size": 29,
+          "bounds": [
+            88,
+            490,
+            429,
+            518
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Поднимаем человека",
+          "size": 35,
+          "bounds": [
+            88,
+            616,
+            425,
+            645
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Оператор → мастер",
+          "size": 29,
+          "bounds": [
+            88,
+            673,
+            331,
+            699
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Фиксируем реакцию",
+          "size": 35,
+          "bounds": [
+            88,
+            799,
+            412,
+            829
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Меры остаются в журнале",
+          "size": 29,
+          "bounds": [
+            88,
+            856,
+            419,
+            882
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Диспетчерская",
+          "size": 25,
+          "bounds": [
+            1287,
+            295,
+            1459,
+            317
+          ],
+          "weight": "semi"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/01-dispatcher-calm.png",
+          "sha256": "807158834e3373d75d93fb9c20c3a7505c28be16ccd24e6eca47643367d6c02f",
+          "rect": [
+            690,
+            330,
+            1109,
+            624
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/06-master-event-measures.png",
+          "sha256": "5c09a4dac4ea39ac1257ab5d7e4f55ed407512dabe59d137c6ba81f1765368f2",
+          "rect": [
+            460,
+            425,
+            222,
+            480
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "69e0892e3575d1a4f452e6540de0e0af35b68667de60ecda9674deef925c3549"
+    },
+    {
+      "slide": 4,
+      "text": [
+        {
+          "text": "ПЯТЬ РОЛЕЙ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            230,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "04 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Каждому — свой экран. И своя задача.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1397,
+            196
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Оператор",
+          "size": 35,
+          "bounds": [
+            88,
+            302,
+            241,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Проверить и передать",
+          "size": 28,
+          "bounds": [
+            88,
+            913,
+            364,
+            937
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Мастер",
+          "size": 35,
+          "bounds": [
+            442,
+            302,
+            556,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Принять и указать меры",
+          "size": 28,
+          "bounds": [
+            442,
+            913,
+            741,
+            937
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Охрана труда",
+          "size": 35,
+          "bounds": [
+            796,
+            302,
+            1009,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Разобрать причины",
+          "size": 28,
+          "bounds": [
+            796,
+            913,
+            1041,
+            941
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Руководство",
+          "size": 35,
+          "bounds": [
+            1150,
+            302,
+            1351,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Видеть общую картину",
+          "size": 28,
+          "bounds": [
+            1150,
+            913,
+            1434,
+            941
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Администратор",
+          "size": 35,
+          "bounds": [
+            1503,
+            302,
+            1751,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Настроить камеры",
+          "size": 28,
+          "bounds": [
+            1504,
+            913,
+            1734,
+            937
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "и правила",
+          "size": 28,
+          "bounds": [
+            1504,
+            944,
+            1629,
+            964
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/02-dispatcher-yellow.png",
+          "sha256": "2b0d74977f66ace8c9a449056ff472e8afe2adefee60517365c4c4dcff896413",
+          "rect": [
+            88,
+            448,
+            321,
+            181
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/02-dispatcher-yellow.png",
+          "sha256": "2b0d74977f66ace8c9a449056ff472e8afe2adefee60517365c4c4dcff896413",
+          "rect": [
+            88,
+            712,
+            321,
+            143
+          ],
+          "crop": [
+            88,
+            118,
+            1500,
+            790
+          ],
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/06-master-event-measures.png",
+          "sha256": "5c09a4dac4ea39ac1257ab5d7e4f55ed407512dabe59d137c6ba81f1765368f2",
+          "rect": [
+            503,
+            400,
+            201,
+            435
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/10-ohs-analytics.png",
+          "sha256": "1ceb15d98a1c7863c4f6228a69d2977e8211f8af1eda21e608e0431ceab42e26",
+          "rect": [
+            796,
+            448,
+            321,
+            181
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/10-ohs-analytics.png",
+          "sha256": "1ceb15d98a1c7863c4f6228a69d2977e8211f8af1eda21e608e0431ceab42e26",
+          "rect": [
+            796,
+            712,
+            321,
+            143
+          ],
+          "crop": [
+            90,
+            88,
+            1500,
+            570
+          ],
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/11-management.png",
+          "sha256": "2c358bb5b98ea048b47816f51cd286ebbe86574d03bc6348a220b8be5b2e5b17",
+          "rect": [
+            1150,
+            448,
+            321,
+            181
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/11-management.png",
+          "sha256": "2c358bb5b98ea048b47816f51cd286ebbe86574d03bc6348a220b8be5b2e5b17",
+          "rect": [
+            1150,
+            712,
+            321,
+            143
+          ],
+          "crop": [
+            90,
+            88,
+            1500,
+            570
+          ],
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/14-admin-zones.png",
+          "sha256": "f4aca1ade36f52822ebca93575a7bfd57432b84f0d898183f66387562ab91205",
+          "rect": [
+            1504,
+            448,
+            321,
+            181
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/14-admin-zones.png",
+          "sha256": "f4aca1ade36f52822ebca93575a7bfd57432b84f0d898183f66387562ab91205",
+          "rect": [
+            1504,
+            712,
+            321,
+            143
+          ],
+          "crop": [
+            88,
+            118,
+            1500,
+            790
+          ],
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "8817933ffcc87e0458929e6373cdc164cbc78d233e368cb23b272f4f045e65f1"
+    },
+    {
+      "slide": 5,
+      "text": [
+        {
+          "text": "ПУТЬ СОБЫТИЯ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            262,
+            70
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "05 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Тревога заканчивается действием.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1281,
+            195
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Проверить",
+          "size": 35,
+          "bounds": [
+            88,
+            294,
+            260,
+            324
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Среагировать",
+          "size": 35,
+          "bounds": [
+            548,
+            294,
+            767,
+            324
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Принять меры",
+          "size": 35,
+          "bounds": [
+            1015,
+            294,
+            1242,
+            324
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Сохранить",
+          "size": 35,
+          "bounds": [
+            1455,
+            294,
+            1622,
+            324
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Жёлтый сигнал:",
+          "size": 31,
+          "bounds": [
+            88,
+            803,
+            306,
+            827
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "оператор проверяет",
+          "size": 31,
+          "bounds": [
+            88,
+            838,
+            368,
+            861
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Красная тревога:",
+          "size": 31,
+          "bounds": [
+            548,
+            803,
+            782,
+            831
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "захват внимания и кадр",
+          "size": 31,
+          "bounds": [
+            548,
+            838,
+            874,
+            861
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Поручение на телефоне:",
+          "size": 31,
+          "bounds": [
+            1020,
+            803,
+            1356,
+            833
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "мастер фиксирует меры",
+          "size": 31,
+          "bounds": [
+            1020,
+            838,
+            1348,
+            868
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "История события:",
+          "size": 31,
+          "bounds": [
+            1455,
+            803,
+            1700,
+            834
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "решение и результат",
+          "size": 31,
+          "bounds": [
+            1455,
+            838,
+            1740,
+            861
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Подтверждение, передача и устранение — разные действия.",
+          "size": 35,
+          "bounds": [
+            88,
+            943,
+            1047,
+            976
+          ],
+          "weight": "semi"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/02-dispatcher-yellow.png",
+          "sha256": "2b0d74977f66ace8c9a449056ff472e8afe2adefee60517365c4c4dcff896413",
+          "rect": [
+            88,
+            382,
+            410,
+            231
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/03-takeover-red.png",
+          "sha256": "f619639d5579a8fbde1a0c5dc36cfb45e7ebc7ac7e6770ebe4aca9a1fa36ea83",
+          "rect": [
+            548,
+            382,
+            410,
+            231
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/05-master-inbox.png",
+          "sha256": "b27fdb37a39a02c37cd8ec657cb90a8a096278b829d5fe03137ba081a957dd92",
+          "rect": [
+            1036,
+            368,
+            171,
+            370
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/06-master-event-measures.png",
+          "sha256": "5c09a4dac4ea39ac1257ab5d7e4f55ed407512dabe59d137c6ba81f1765368f2",
+          "rect": [
+            1231,
+            368,
+            171,
+            370
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/08-journal-preview.png",
+          "sha256": "89cffe0c569fd4979d0530f92e5a3a49c695d9aae234d382a339fdd5887810f5",
+          "rect": [
+            1455,
+            382,
+            370,
+            208
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "042c2b77853e10db9363b1f21557244c602533d8dc77ee58a8f86c91b9318617"
+    },
+    {
+      "slide": 6,
+      "text": [
+        {
+          "text": "ОХРАНА ТРУДА И РУКОВОДСТВО",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            443,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "06 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Больше событий ≠ больше опасности.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1387,
+            182
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-данные",
+          "size": 25,
+          "bounds": [
+            105,
+            255,
+            258,
+            277
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Охват камер",
+          "size": 34,
+          "bounds": [
+            1320,
+            303,
+            1510,
+            332
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Доля подтверждённых",
+          "size": 34,
+          "bounds": [
+            1320,
+            341,
+            1672,
+            372
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Руководству — контекст",
+          "size": 30,
+          "bounds": [
+            1320,
+            712,
+            1639,
+            738
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Журнал → PDF",
+          "size": 32,
+          "bounds": [
+            1320,
+            775,
+            1520,
+            802
+          ],
+          "weight": "semi"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/10-ohs-analytics.png",
+          "sha256": "1ceb15d98a1c7863c4f6228a69d2977e8211f8af1eda21e608e0431ceab42e26",
+          "rect": [
+            88,
+            320,
+            1120,
+            630
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/11-management.png",
+          "sha256": "2c358bb5b98ea048b47816f51cd286ebbe86574d03bc6348a220b8be5b2e5b17",
+          "rect": [
+            1320,
+            405,
+            505,
+            284
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/09-report.png",
+          "sha256": "8069296bc017b025ac39218b3109d78698b8472d1498078e498803409b924e50",
+          "rect": [
+            1320,
+            825,
+            505,
+            171
+          ],
+          "crop": [
+            415,
+            50,
+            1590,
+            449
+          ],
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "8b1f243c8afe643b9f36c28b6fb59ea257ce4f470d36288923c527b6d15c81aa"
+    },
+    {
+      "slide": 7,
+      "text": [
+        {
+          "text": "НАСТРОЙКА БЕЗ ПРОГРАММИСТА",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            458,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "07 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Настроить участок — прямо на кадре.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1378,
+            190
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Зоны и условия привязаны к конкретной камере.",
+          "size": 31,
+          "bounds": [
+            91,
+            235,
+            765,
+            266
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Калибровка",
+          "size": 34,
+          "bounds": [
+            1365,
+            592,
+            1550,
+            624
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Правила",
+          "size": 34,
+          "bounds": [
+            1365,
+            956,
+            1497,
+            985
+          ],
+          "weight": "semi"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/14-admin-zones.png",
+          "sha256": "f4aca1ade36f52822ebca93575a7bfd57432b84f0d898183f66387562ab91205",
+          "rect": [
+            88,
+            319,
+            1150,
+            647
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/15-admin-calibration.png",
+          "sha256": "27bb398d4274f0eb9883b7bd38ce4bff7efba2525045897af95caf5da19ddc19",
+          "rect": [
+            1365,
+            317,
+            460,
+            259
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/12-rules-matrix.png",
+          "sha256": "d3063c1652f4ba8a2085449252c617ab2541494fc0105dedcb59dffc5cfb6a64",
+          "rect": [
+            1365,
+            681,
+            460,
+            259
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "f57bb5270c3e9449b351bed5df18c3520720a07031933330c4755de6ba9c3981"
+    },
+    {
+      "slide": 8,
+      "text": [
+        {
+          "text": "ТЕХНОЛОГИИ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            241,
+            70
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "МОСПРОМ 2026 · ФИНАЛЬНАЯ ЗАЩИТА",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            476,
+            1043
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "08 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Нейросеть видит. Правило решает.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1294,
+            195
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Камера",
+          "size": 34,
+          "bounds": [
+            108,
+            316,
+            221,
+            345
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Видео участка",
+          "size": 26,
+          "bounds": [
+            108,
+            376,
+            272,
+            398
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Нейросети",
+          "size": 34,
+          "bounds": [
+            409,
+            316,
+            574,
+            348
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "LinQ TPU или CPU",
+          "size": 26,
+          "bounds": [
+            409,
+            376,
+            610,
+            398
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Трекинг и правила",
+          "size": 34,
+          "bounds": [
+            825,
+            316,
+            1112,
+            345
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Движение и контекст",
+          "size": 26,
+          "bounds": [
+            825,
+            376,
+            1069,
+            398
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Эпизоды",
+          "size": 34,
+          "bounds": [
+            1241,
+            316,
+            1377,
+            344
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Риск во времени",
+          "size": 26,
+          "bounds": [
+            1241,
+            376,
+            1432,
+            398
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Роли",
+          "size": 34,
+          "bounds": [
+            1542,
+            316,
+            1618,
+            338
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Оператор → мастер",
+          "size": 26,
+          "bounds": [
+            1542,
+            376,
+            1760,
+            398
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "21",
+          "size": 188,
+          "bounds": [
+            88,
+            502,
+            281,
+            625
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "кадр/с на LinQ TPU",
+          "size": 36,
+          "bounds": [
+            94,
+            708,
+            397,
+            740
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "YOLOv8n · тест записи 1280×720",
+          "size": 30,
+          "bounds": [
+            94,
+            769,
+            506,
+            789
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "0,91 / 0,93",
+          "size": 70,
+          "bounds": [
+            828,
+            510,
+            1134,
+            572
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Recall / IoU к FP32 после квантования",
+          "size": 31,
+          "bounds": [
+            832,
+            606,
+            1339,
+            634
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "8 сценариев — правила-прототипы",
+          "size": 37,
+          "bounds": [
+            832,
+            681,
+            1416,
+            713
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Каска и поза: скомпилированы и исполнены на TPU.",
+          "size": 30,
+          "bounds": [
+            832,
+            755,
+            1538,
+            781
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Качество проверяем; общая интеграция ещё открыта.",
+          "size": 29,
+          "bounds": [
+            832,
+            809,
+            1523,
+            838
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "21 кадр/с — обработка записи, не задержка оповещения. Поза также исполнена на TPU.",
+          "size": 27,
+          "bounds": [
+            88,
+            914,
+            1132,
+            942
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Recall/IoU здесь — сохранность к FP32, не точность на заводе. Фон — синтетическая иллюстрация.",
+          "size": 26,
+          "bounds": [
+            88,
+            956,
+            1212,
+            979
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/stills/welding.png",
+          "sha256": "f0b8f24bfcfb500bb0e53d1426a43c154a2ee392216ea2e7880b03bbb24a0ba5",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        }
+      ],
+      "sha256": "60be301a944a623e5a87e45c63334f4b173bb43aaf636d114695e801dd5df628"
+    },
+    {
+      "slide": 9,
+      "text": [
+        {
+          "text": "НАДЁЖНОСТЬ ПРОДУКТА",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            370,
+            79
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "09 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Тревога не должна потеряться.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1158,
+            190
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "352",
+          "size": 122,
+          "bounds": [
+            88,
+            288,
+            276,
+            369
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "теста backend¹",
+          "size": 34,
+          "bounds": [
+            93,
+            444,
+            313,
+            471
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "69",
+          "size": 122,
+          "bounds": [
+            690,
+            288,
+            815,
+            368
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "тестов frontend",
+          "size": 34,
+          "bounds": [
+            695,
+            444,
+            924,
+            469
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "45 с",
+          "size": 122,
+          "bounds": [
+            1292,
+            288,
+            1498,
+            367
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "автопередача красного²",
+          "size": 34,
+          "bounds": [
+            1297,
+            444,
+            1661,
+            479
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Один эпизод —",
+          "size": 48,
+          "bounds": [
+            88,
+            572,
+            412,
+            612
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "одна карточка тревоги.",
+          "size": 48,
+          "bounds": [
+            88,
+            626,
+            598,
+            659
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Зафиксированный API-контракт",
+          "size": 35,
+          "bounds": [
+            91,
+            741,
+            602,
+            774
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Потеря сигнала не выглядит как безопасность.",
+          "size": 31,
+          "bounds": [
+            91,
+            811,
+            732,
+            842
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "«Нет",
+          "size": 39,
+          "bounds": [
+            1098,
+            772,
+            1180,
+            798
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "наблюдения»",
+          "size": 39,
+          "bounds": [
+            1098,
+            816,
+            1337,
+            853
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "¹ Отчёт main.  ² Включено в конфигурации; натурный замер не подтверждён.",
+          "size": 25,
+          "bounds": [
+            88,
+            927,
+            933,
+            953
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/01-dispatcher-calm.png",
+          "sha256": "807158834e3373d75d93fb9c20c3a7505c28be16ccd24e6eca47643367d6c02f",
+          "rect": [
+            1098,
+            586,
+            727,
+            127
+          ],
+          "crop": [
+            1182,
+            841,
+            1544,
+            904
+          ],
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/01-dispatcher-calm.png",
+          "sha256": "807158834e3373d75d93fb9c20c3a7505c28be16ccd24e6eca47643367d6c02f",
+          "rect": [
+            1460,
+            760,
+            365,
+            217
+          ],
+          "crop": [
+            1360,
+            944,
+            1544,
+            1054
+          ],
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "c80474f140a349e99bd7e554d8ce8408b812bfd816bc200cab13fa433df14c7c"
+    },
+    {
+      "slide": 10,
+      "text": [
+        {
+          "text": "ДЛЯ БИЗНЕСА · ПЛАН И ГИПОТЕЗЫ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            475,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "МОСПРОМ 2026 · ФИНАЛЬНАЯ ЗАЩИТА",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            476,
+            1043
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "10 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Начинаем с участка. Масштабируем по фактам.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1709,
+            197
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Пилот",
+          "size": 51,
+          "bounds": [
+            115,
+            398,
+            257,
+            433
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Один участок",
+          "size": 34,
+          "bounds": [
+            117,
+            492,
+            319,
+            521
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "и согласованные сценарии",
+          "size": 34,
+          "bounds": [
+            117,
+            530,
+            521,
+            554
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Измерения",
+          "size": 51,
+          "bounds": [
+            709,
+            398,
+            966,
+            442
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Качество, ложные тревоги",
+          "size": 34,
+          "bounds": [
+            711,
+            492,
+            1109,
+            521
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "и время реакции",
+          "size": 34,
+          "bounds": [
+            711,
+            530,
+            962,
+            554
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Масштаб",
+          "size": 51,
+          "bounds": [
+            1303,
+            398,
+            1508,
+            438
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Решение по результатам",
+          "size": 34,
+          "bounds": [
+            1305,
+            492,
+            1673,
+            521
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "и рабочему процессу",
+          "size": 34,
+          "bounds": [
+            1305,
+            530,
+            1620,
+            563
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Гипотеза поставки",
+          "size": 28,
+          "bounds": [
+            121,
+            796,
+            357,
+            814
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "On-prem рядом с LinQ",
+          "size": 46,
+          "bounds": [
+            121,
+            851,
+            569,
+            892
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Интеграция по API",
+          "size": 36,
+          "bounds": [
+            1178,
+            823,
+            1470,
+            854
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "в процессы предприятия",
+          "size": 36,
+          "bounds": [
+            1178,
+            863,
+            1576,
+            888
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Синтетическая иллюстрация · цены и эффект не обещаем до пилота",
+          "size": 24,
+          "bounds": [
+            88,
+            976,
+            810,
+            1000
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/stills/conveyor.png",
+          "sha256": "43636964dc7e06537a994fd7ba6a118de1ce1262d5a40104cb33488b75612901",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        }
+      ],
+      "sha256": "b80a7c64c7bed3b462e01b16517624259db4c7fdbbacaa842c80d1a74f643cab"
+    },
+    {
+      "slide": 11,
+      "text": [
+        {
+          "text": "ЧТО ГОТОВО И ЧТО ДАЛЬШЕ",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            402,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Демо-интерфейс · синтетические кадры и события",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            603,
+            1046
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "11 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Цикл реакции собран. Качество проверяем.",
+          "size": 76,
+          "bounds": [
+            88,
+            125,
+            1590,
+            196
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Оператор → мастер → журнал",
+          "size": 27,
+          "bounds": [
+            105,
+            919,
+            455,
+            942
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Замкнуть TPU-контур",
+          "size": 38,
+          "bounds": [
+            1110,
+            315,
+            1480,
+            347
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Стабильный общий прогон,",
+          "size": 31,
+          "bounds": [
+            1110,
+            381,
+            1487,
+            412
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "а не только отдельные исполнения",
+          "size": 31,
+          "bounds": [
+            1110,
+            416,
+            1590,
+            438
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Оценить на размеченных видео",
+          "size": 38,
+          "bounds": [
+            1110,
+            525,
+            1655,
+            557
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Качество событий и ложные тревоги;",
+          "size": 31,
+          "bounds": [
+            1110,
+            591,
+            1621,
+            622
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "отдельно — задержка уведомления",
+          "size": 31,
+          "bounds": [
+            1110,
+            626,
+            1593,
+            649
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Дообучить нужные сценарии",
+          "size": 38,
+          "bounds": [
+            1110,
+            735,
+            1611,
+            771
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Каска, огонь, курение —",
+          "size": 31,
+          "bounds": [
+            1110,
+            801,
+            1437,
+            829
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "после подготовки подходящих данных",
+          "size": 31,
+          "bounds": [
+            1110,
+            836,
+            1636,
+            858
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Промышленный пилот ещё впереди.",
+          "size": 29,
+          "bounds": [
+            1110,
+            936,
+            1578,
+            964
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/screens/08-journal-preview.png",
+          "sha256": "89cffe0c569fd4979d0530f92e5a3a49c695d9aae234d382a339fdd5887810f5",
+          "rect": [
+            88,
+            327,
+            920,
+            518
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        },
+        {
+          "path": "assets/screens/07-master-resolved.png",
+          "sha256": "401f78758624eaaadc5484ca593480a234aca685fb0306105745d8d38f1eb77b",
+          "rect": [
+            809,
+            585,
+            175,
+            379
+          ],
+          "crop": null,
+          "kind": "actual supplied UI screenshot"
+        }
+      ],
+      "sha256": "9e103db17821230328f1a302ff3ce77acc976ad7882dd89e28c47855c170e410"
+    },
+    {
+      "slide": 12,
+      "text": [
+        {
+          "text": "КОМАНДА",
+          "size": 25,
+          "bounds": [
+            88,
+            53,
+            200,
+            75
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "МОСПРОМ 2026 · ФИНАЛЬНАЯ ЗАЩИТА",
+          "size": 23,
+          "bounds": [
+            88,
+            1022,
+            476,
+            1043
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "12 / 12",
+          "size": 24,
+          "bounds": [
+            1748,
+            1020,
+            1814,
+            1041
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "под надзором",
+          "size": 34,
+          "bounds": [
+            93,
+            140,
+            302,
+            164
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "АРГУС",
+          "size": 184,
+          "bounds": [
+            87,
+            196,
+            607,
+            321
+          ],
+          "weight": "bold"
+        },
+        {
+          "text": "Увидеть — мало.",
+          "size": 62,
+          "bounds": [
+            94,
+            457,
+            550,
+            508
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Нужно довести до мер.",
+          "size": 62,
+          "bounds": [
+            94,
+            526,
+            733,
+            579
+          ],
+          "weight": "semi"
+        },
+        {
+          "text": "Ожигов Егор",
+          "size": 39,
+          "bounds": [
+            94,
+            718,
+            309,
+            752
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Панин Матвей",
+          "size": 39,
+          "bounds": [
+            94,
+            793,
+            339,
+            822
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Закон Марк",
+          "size": 39,
+          "bounds": [
+            94,
+            868,
+            294,
+            902
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Ведерников Федор",
+          "size": 39,
+          "bounds": [
+            646,
+            718,
+            973,
+            752
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Кашин Глеб",
+          "size": 39,
+          "bounds": [
+            646,
+            793,
+            845,
+            824
+          ],
+          "weight": "regular"
+        },
+        {
+          "text": "Команда продукта · синтетическая иллюстрация",
+          "size": 25,
+          "bounds": [
+            94,
+            963,
+            630,
+            985
+          ],
+          "weight": "regular"
+        }
+      ],
+      "assets": [
+        {
+          "path": "assets/stills/toolshop.png",
+          "sha256": "35eb715f4dd0b26d01b786d6708ac331df55dd7d56e2c1683c9fb1ee1199f9f9",
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "crop": null,
+          "kind": "supplied synthetic factory still"
+        }
+      ],
+      "sha256": "c724e122f7569a8dec10619a932020edcaeb9e19141a960cf53e209751c8c3d7"
+    }
+  ]
+}

@@ -1,0 +1,5946 @@
+{
+  "version": "1.0.0",
+  "startedAt": "2026-10-24T14:43:34.875Z",
+  "adapterSha256": "0aef84894dde429f9107f4946907b90b527a42c2c861d60aa6e65d2bd4726a1f",
+  "storySha256": "42ba20f3a96421747cb3df8d667d2954bde43e6acd8722085fe6b61adf5bc926",
+  "browser": "156.0.8078.4",
+  "browserPlugin": "No browser connector; compatible installed Playwright1.64.1/Chromium1248. Raster text outside DOM coverage; preserve findings and separate typography/visual evidence.",
+  "sourceInventory": {
+    "scripts/compose.py": "922c587f2f979a68f2e0bbfad1a31d9f7df76b716e5b333f59bcb378b51fc032",
+    "speaker-notes.json": "667c566628800162dcb6dacf2722cedac11dc6897423155e50053ac8aa3d64b8",
+    "evidence/composition.json": "47df6260ddf888a595ac4e8b1f6070055fc00dd60e080a5ff26c911afb214bd7",
+    "craft/capture.html": "dc9dc672749d6e187356175220a3c059f50f1fc4d202ef0325c18e1e0aba485d",
+    "craft/story.json": "42ba20f3a96421747cb3df8d667d2954bde43e6acd8722085fe6b61adf5bc926",
+    "slides/slide-01.png": "33622f16ca441c6c26146d7c121520ce53f0677a885ab39da0993d054757d3b3",
+    "slides/slide-02.png": "b06fb9c04c5f33041cda165a7c2a6ed907e763bc9d93bab296ecd0b322397908",
+    "slides/slide-03.png": "6fcc06de4c9dbd9ee09cc0d2ae26ce550b76d701547b6d22be15a1f7cdf2ee7a",
+    "slides/slide-04.png": "56388740ec610c076ec1e37655180edb5f28fa482e516113e42e7ca159ccca04",
+    "slides/slide-05.png": "b3bd30aef09c80522097ab83776f657981bd9fc5790755217ce6ec7bf5f84e84",
+    "slides/slide-06.png": "2cef7375ca657636f07c7e64c8b22f68170dd0f2e07a8d93b170eb33904b00ee",
+    "slides/slide-07.png": "f882201ed73c7ebd05a84db85ea4392738cb85a05a14ce2619848c473d6582cc",
+    "slides/slide-08.png": "36d58710410fb74b5e15f0b8e6ba851ef35e5bfd46090e188e1c2940c66f245c",
+    "slides/slide-09.png": "14f1e890c22b37af3d6239dd075f9bd1688cb94d825f3f19b6d58d35d13caf2d",
+    "slides/slide-10.png": "07257b977d16fcddf7cae8a1dd36d8d69b9b1ec7a7922a6d6854a9c214cb3a6a",
+    "slides/slide-11.png": "e9444039965408f2626d314b49b4bbdca8813f5cc2415d68ba9766c00c93fa81",
+    "slides/slide-12.png": "c5cb834a60eb07cdc6909b79634027c62204822e229646faeb739e7a8055f350",
+    "slides/slide-13.png": "a8cd286992046c1e20947d4c143eedb2d6f37cd4c1f09d8b7729e445c4c651bb"
+  },
+  "observations": [
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видеоконтроль промышленной безопасности",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "01-1080-normal.png",
+        "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Камеры есть. Реакция не гарантирована.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "02-1080-normal.png",
+        "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От опасности — к подтверждённым мерам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "03-1080-normal.png",
+        "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Каждому — свой экран. И своя задача.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "04-1080-normal.png",
+        "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога заканчивается действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "05-1080-normal.png",
+        "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Больше событий ≠ больше опасности.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "06-1080-normal.png",
+        "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Настроить участок — прямо на кадре.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "07-1080-normal.png",
+        "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Нейросеть видит. Правило решает.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "08-1080-normal.png",
+        "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "09",
+      "state": "09",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-09.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Кадр, обработанный на LinQ TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "09-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "09-1080-normal.png",
+        "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "10",
+      "state": "10",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-10.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога не должна потеряться.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "10-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "10-1080-normal.png",
+        "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "11",
+      "state": "11",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-11.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Начинаем с участка. Масштабируем по фактам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "11-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "11-1080-normal.png",
+        "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "12",
+      "state": "12",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-12.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Цикл реакции собран. Качество проверяем.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "12-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "12-1080-normal.png",
+        "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "13",
+      "state": "13",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-13.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Увидеть — мало. Нужно довести до мер.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "13-1080-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "13-1080-normal.png",
+        "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видеоконтроль промышленной безопасности",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "01-1080-reduced.png",
+        "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Камеры есть. Реакция не гарантирована.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "02-1080-reduced.png",
+        "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От опасности — к подтверждённым мерам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "03-1080-reduced.png",
+        "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Каждому — свой экран. И своя задача.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "04-1080-reduced.png",
+        "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога заканчивается действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "05-1080-reduced.png",
+        "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Больше событий ≠ больше опасности.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "06-1080-reduced.png",
+        "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Настроить участок — прямо на кадре.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "07-1080-reduced.png",
+        "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Нейросеть видит. Правило решает.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "08-1080-reduced.png",
+        "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "09",
+      "state": "09",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-09.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Кадр, обработанный на LinQ TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "09-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "09-1080-reduced.png",
+        "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "10",
+      "state": "10",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-10.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога не должна потеряться.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "10-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "10-1080-reduced.png",
+        "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "11",
+      "state": "11",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-11.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Начинаем с участка. Масштабируем по фактам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "11-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "11-1080-reduced.png",
+        "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "12",
+      "state": "12",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-12.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Цикл реакции собран. Качество проверяем.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "12-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "12-1080-reduced.png",
+        "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "13",
+      "state": "13",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 76.8,
+        "y": 43.2,
+        "width": 1766.4,
+        "height": 993.6
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-13.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Увидеть — мало. Нужно довести до мер.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "13-1080-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "13-1080-reduced.png",
+        "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видеоконтроль промышленной безопасности",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "01-720-normal.png",
+        "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Камеры есть. Реакция не гарантирована.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "02-720-normal.png",
+        "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От опасности — к подтверждённым мерам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "03-720-normal.png",
+        "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Каждому — свой экран. И своя задача.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "04-720-normal.png",
+        "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога заканчивается действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "05-720-normal.png",
+        "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Больше событий ≠ больше опасности.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "06-720-normal.png",
+        "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Настроить участок — прямо на кадре.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "07-720-normal.png",
+        "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Нейросеть видит. Правило решает.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "08-720-normal.png",
+        "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "09",
+      "state": "09",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-09.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Кадр, обработанный на LinQ TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "09-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "09-720-normal.png",
+        "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "10",
+      "state": "10",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-10.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога не должна потеряться.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "10-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "10-720-normal.png",
+        "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "11",
+      "state": "11",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-11.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Начинаем с участка. Масштабируем по фактам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "11-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "11-720-normal.png",
+        "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "12",
+      "state": "12",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-12.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Цикл реакции собран. Качество проверяем.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "12-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "12-720-normal.png",
+        "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "13",
+      "state": "13",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-13.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Увидеть — мало. Нужно довести до мер.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "13-720-normal",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "13-720-normal.png",
+        "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Видеоконтроль промышленной безопасности",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "01-720-reduced.png",
+        "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Камеры есть. Реакция не гарантирована.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "02-720-reduced.png",
+        "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От опасности — к подтверждённым мерам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "03-720-reduced.png",
+        "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Каждому — свой экран. И своя задача.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "04-720-reduced.png",
+        "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога заканчивается действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "05-720-reduced.png",
+        "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Больше событий ≠ больше опасности.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "06-720-reduced.png",
+        "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Настроить участок — прямо на кадре.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "07-720-reduced.png",
+        "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Нейросеть видит. Правило решает.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "08-720-reduced.png",
+        "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "09",
+      "state": "09",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-09.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Кадр, обработанный на LinQ TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "09-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "09-720-reduced.png",
+        "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "10",
+      "state": "10",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-10.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Тревога не должна потеряться.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "10-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "10-720-reduced.png",
+        "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "11",
+      "state": "11",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-11.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Начинаем с участка. Масштабируем по фактам.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "11-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "11-720-reduced.png",
+        "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "12",
+      "state": "12",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-12.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Цикл реакции собран. Качество проверяем.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "12-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "12-720-reduced.png",
+        "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "13",
+      "state": "13",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 51.2,
+        "y": 28.8,
+        "width": 1177.6000000000001,
+        "height": 662.4
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8744/slides/slide-13.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Увидеть — мало. Нужно довести до мер.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "13-720-reduced",
+        "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "13-720-reduced.png",
+        "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+        "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+        "fixture": "argus-final-release-13"
+      },
+      "runtimeErrors": []
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "01-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "01-1080-normal.png",
+      "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-normal-glance.png"
+    },
+    {
+      "id": "02-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "02-1080-normal.png",
+      "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-normal-glance.png"
+    },
+    {
+      "id": "03-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "03-1080-normal.png",
+      "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-normal-glance.png"
+    },
+    {
+      "id": "04-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "04-1080-normal.png",
+      "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-normal-glance.png"
+    },
+    {
+      "id": "05-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "05-1080-normal.png",
+      "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-normal-glance.png"
+    },
+    {
+      "id": "06-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "06-1080-normal.png",
+      "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-normal-glance.png"
+    },
+    {
+      "id": "07-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "07-1080-normal.png",
+      "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-normal-glance.png"
+    },
+    {
+      "id": "08-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "08-1080-normal.png",
+      "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-normal-glance.png"
+    },
+    {
+      "id": "09-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "09-1080-normal.png",
+      "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "09",
+      "state": "09",
+      "width": 1920,
+      "height": 1080,
+      "glance": "09-1080-normal-glance.png"
+    },
+    {
+      "id": "10-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "10-1080-normal.png",
+      "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "10",
+      "state": "10",
+      "width": 1920,
+      "height": 1080,
+      "glance": "10-1080-normal-glance.png"
+    },
+    {
+      "id": "11-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "11-1080-normal.png",
+      "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "11",
+      "state": "11",
+      "width": 1920,
+      "height": 1080,
+      "glance": "11-1080-normal-glance.png"
+    },
+    {
+      "id": "12-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "12-1080-normal.png",
+      "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "12",
+      "state": "12",
+      "width": 1920,
+      "height": 1080,
+      "glance": "12-1080-normal-glance.png"
+    },
+    {
+      "id": "13-1080-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "13-1080-normal.png",
+      "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "13",
+      "state": "13",
+      "width": 1920,
+      "height": 1080,
+      "glance": "13-1080-normal-glance.png"
+    },
+    {
+      "id": "01-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "01-1080-reduced.png",
+      "sha256": "469d61f7c236f48025048b24d45551da2dbb6af32b116d251542a1e57ed51d8d",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-reduced-glance.png"
+    },
+    {
+      "id": "02-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "02-1080-reduced.png",
+      "sha256": "b58f60627b2eb505f649f5bfdd9b1c8a6c2592f9bb5bfa5c70d824addf3ee2b9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-reduced-glance.png"
+    },
+    {
+      "id": "03-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "03-1080-reduced.png",
+      "sha256": "cbcd69213efcb10d036af32c0c3c75ec9043c8c5f4a401003f6c5567af92d374",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-reduced-glance.png"
+    },
+    {
+      "id": "04-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "04-1080-reduced.png",
+      "sha256": "95460962c331569acd57941e07efc507736669747fdf26a6fdaa05b41eb14913",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-reduced-glance.png"
+    },
+    {
+      "id": "05-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "05-1080-reduced.png",
+      "sha256": "f8c39f8d96cd729d76a19f76a3122542a2d27d5dc1e565af136f12d6cc61a445",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-reduced-glance.png"
+    },
+    {
+      "id": "06-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "06-1080-reduced.png",
+      "sha256": "1411e31bac42fd264983904399c8d755a60f9d53b9c204120bc4b350384bf824",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-reduced-glance.png"
+    },
+    {
+      "id": "07-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "07-1080-reduced.png",
+      "sha256": "703f9a8d35a66ad319c967171f898db6cafb8c966065264388296136bb8ae006",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-reduced-glance.png"
+    },
+    {
+      "id": "08-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "08-1080-reduced.png",
+      "sha256": "317e64c40fba7ac865a8ebbd43aa54ac3656c8553715854bbde7a16bbc669e11",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-reduced-glance.png"
+    },
+    {
+      "id": "09-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "09-1080-reduced.png",
+      "sha256": "e74c773182364584d99ead8c59805e5876d7dad739a44d9f2f178936b85bd2dc",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "09",
+      "state": "09",
+      "width": 1920,
+      "height": 1080,
+      "glance": "09-1080-reduced-glance.png"
+    },
+    {
+      "id": "10-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "10-1080-reduced.png",
+      "sha256": "3333073a6e05208aa127631c30580d10fc4a38f289a379c69326dd6d28ce06d5",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "10",
+      "state": "10",
+      "width": 1920,
+      "height": 1080,
+      "glance": "10-1080-reduced-glance.png"
+    },
+    {
+      "id": "11-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "11-1080-reduced.png",
+      "sha256": "2c5984fee6d35d73352452989574e7ed67233b6c3942ae08fe6cff92cbf958bf",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "11",
+      "state": "11",
+      "width": 1920,
+      "height": 1080,
+      "glance": "11-1080-reduced-glance.png"
+    },
+    {
+      "id": "12-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "12-1080-reduced.png",
+      "sha256": "783856c1d4b4337bc6e45a6fea93a76115afe147a0b463894f0d5702dc1a4ba9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "12",
+      "state": "12",
+      "width": 1920,
+      "height": 1080,
+      "glance": "12-1080-reduced-glance.png"
+    },
+    {
+      "id": "13-1080-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "13-1080-reduced.png",
+      "sha256": "b7b9ebf0897e2f78852f40e4d6cb3a76819b89e74cbdf490c6850fc89005bd9a",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "13",
+      "state": "13",
+      "width": 1920,
+      "height": 1080,
+      "glance": "13-1080-reduced-glance.png"
+    },
+    {
+      "id": "01-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "01-720-normal.png",
+      "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-normal-glance.png"
+    },
+    {
+      "id": "02-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "02-720-normal.png",
+      "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-normal-glance.png"
+    },
+    {
+      "id": "03-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "03-720-normal.png",
+      "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-normal-glance.png"
+    },
+    {
+      "id": "04-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "04-720-normal.png",
+      "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-normal-glance.png"
+    },
+    {
+      "id": "05-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "05-720-normal.png",
+      "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-normal-glance.png"
+    },
+    {
+      "id": "06-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "06-720-normal.png",
+      "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-normal-glance.png"
+    },
+    {
+      "id": "07-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "07-720-normal.png",
+      "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-normal-glance.png"
+    },
+    {
+      "id": "08-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "08-720-normal.png",
+      "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-normal-glance.png"
+    },
+    {
+      "id": "09-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "09-720-normal.png",
+      "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "09",
+      "state": "09",
+      "width": 1280,
+      "height": 720,
+      "glance": "09-720-normal-glance.png"
+    },
+    {
+      "id": "10-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "10-720-normal.png",
+      "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "10",
+      "state": "10",
+      "width": 1280,
+      "height": 720,
+      "glance": "10-720-normal-glance.png"
+    },
+    {
+      "id": "11-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "11-720-normal.png",
+      "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "11",
+      "state": "11",
+      "width": 1280,
+      "height": 720,
+      "glance": "11-720-normal-glance.png"
+    },
+    {
+      "id": "12-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "12-720-normal.png",
+      "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "12",
+      "state": "12",
+      "width": 1280,
+      "height": 720,
+      "glance": "12-720-normal-glance.png"
+    },
+    {
+      "id": "13-720-normal",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "13-720-normal.png",
+      "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "13",
+      "state": "13",
+      "width": 1280,
+      "height": 720,
+      "glance": "13-720-normal-glance.png"
+    },
+    {
+      "id": "01-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "01-720-reduced.png",
+      "sha256": "c557ed8e7992600769198f9723eafdf8cb90b03b4af8e373dfadc4c0ab54d06f",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-reduced-glance.png"
+    },
+    {
+      "id": "02-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "02-720-reduced.png",
+      "sha256": "cd52117d2c50eb89a620b4555fb52d81435a172fb3cc68a28b900e53debe156b",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-reduced-glance.png"
+    },
+    {
+      "id": "03-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "03-720-reduced.png",
+      "sha256": "ad5d14e80894f388fa5f1d0e2b66c3b120fb43afbc0864fb7498e38ddd9ea5e9",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-reduced-glance.png"
+    },
+    {
+      "id": "04-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "04-720-reduced.png",
+      "sha256": "ccd36156a441404b032ffa3845757c4b26d43845dbd1ae81d3077bd9d461d222",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-reduced-glance.png"
+    },
+    {
+      "id": "05-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "05-720-reduced.png",
+      "sha256": "cd2c6fbb6f8f65ab21ad28763b28988e9b33bbb933416399255d7b7f5c94e817",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-reduced-glance.png"
+    },
+    {
+      "id": "06-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "06-720-reduced.png",
+      "sha256": "fcdf571e722472c5796e0305a70859e95605a35ce2c741e00951da9ede0f88a5",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-reduced-glance.png"
+    },
+    {
+      "id": "07-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "07-720-reduced.png",
+      "sha256": "5fea48f484f6e9b638ccfc9a869e1cd53f7d0ab5b3a2c85f0edaaac5fe1e204a",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-reduced-glance.png"
+    },
+    {
+      "id": "08-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "08-720-reduced.png",
+      "sha256": "cb2331495bad7dc4363d04381429b03e92f2b8e3fdd15a3a4a391fb66b5d8375",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-reduced-glance.png"
+    },
+    {
+      "id": "09-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=9",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "09-720-reduced.png",
+      "sha256": "3ab466805359ba7049b5599c750e2464c6db3a4a628e865c735ee97ecee4f8c7",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "09",
+      "state": "09",
+      "width": 1280,
+      "height": 720,
+      "glance": "09-720-reduced-glance.png"
+    },
+    {
+      "id": "10-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=10",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "10-720-reduced.png",
+      "sha256": "f04cbf8658cd815381ccf117733535bef413c5121db9c9821e53e6a496a7d4d2",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "10",
+      "state": "10",
+      "width": 1280,
+      "height": 720,
+      "glance": "10-720-reduced-glance.png"
+    },
+    {
+      "id": "11-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=11",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "11-720-reduced.png",
+      "sha256": "c6a618567ee186840131a53e984ac504ea657c9a41bce76838c219719fe9b379",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "11",
+      "state": "11",
+      "width": 1280,
+      "height": 720,
+      "glance": "11-720-reduced-glance.png"
+    },
+    {
+      "id": "12-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=12",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "12-720-reduced.png",
+      "sha256": "d02f40634c5b5cc68a046dc84393f798d4f936fd244209be0e74190b1336b542",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "12",
+      "state": "12",
+      "width": 1280,
+      "height": 720,
+      "glance": "12-720-reduced-glance.png"
+    },
+    {
+      "id": "13-720-reduced",
+      "url": "http://127.0.0.1:8744/craft/capture.html?slide=13",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "13-720-reduced.png",
+      "sha256": "c457024a55a11d96693b9d1584665ce16d4ed4e3469473807f57fa2cc73dde65",
+      "sourceSha256": "ff95d27fc4fa8b6f9f22df496b83c03dd5356bd0508653d85edb645fa37c5d6d",
+      "fixture": "argus-final-release-13",
+      "scene": "13",
+      "state": "13",
+      "width": 1280,
+      "height": 720,
+      "glance": "13-720-reduced-glance.png"
+    }
+  ],
+  "runtimeErrors": [],
+  "sourceInventoryAfter": {
+    "scripts/compose.py": "922c587f2f979a68f2e0bbfad1a31d9f7df76b716e5b333f59bcb378b51fc032",
+    "speaker-notes.json": "667c566628800162dcb6dacf2722cedac11dc6897423155e50053ac8aa3d64b8",
+    "evidence/composition.json": "47df6260ddf888a595ac4e8b1f6070055fc00dd60e080a5ff26c911afb214bd7",
+    "craft/capture.html": "dc9dc672749d6e187356175220a3c059f50f1fc4d202ef0325c18e1e0aba485d",
+    "craft/story.json": "42ba20f3a96421747cb3df8d667d2954bde43e6acd8722085fe6b61adf5bc926",
+    "slides/slide-01.png": "33622f16ca441c6c26146d7c121520ce53f0677a885ab39da0993d054757d3b3",
+    "slides/slide-02.png": "b06fb9c04c5f33041cda165a7c2a6ed907e763bc9d93bab296ecd0b322397908",
+    "slides/slide-03.png": "6fcc06de4c9dbd9ee09cc0d2ae26ce550b76d701547b6d22be15a1f7cdf2ee7a",
+    "slides/slide-04.png": "56388740ec610c076ec1e37655180edb5f28fa482e516113e42e7ca159ccca04",
+    "slides/slide-05.png": "b3bd30aef09c80522097ab83776f657981bd9fc5790755217ce6ec7bf5f84e84",
+    "slides/slide-06.png": "2cef7375ca657636f07c7e64c8b22f68170dd0f2e07a8d93b170eb33904b00ee",
+    "slides/slide-07.png": "f882201ed73c7ebd05a84db85ea4392738cb85a05a14ce2619848c473d6582cc",
+    "slides/slide-08.png": "36d58710410fb74b5e15f0b8e6ba851ef35e5bfd46090e188e1c2940c66f245c",
+    "slides/slide-09.png": "14f1e890c22b37af3d6239dd075f9bd1688cb94d825f3f19b6d58d35d13caf2d",
+    "slides/slide-10.png": "07257b977d16fcddf7cae8a1dd36d8d69b9b1ec7a7922a6d6854a9c214cb3a6a",
+    "slides/slide-11.png": "e9444039965408f2626d314b49b4bbdca8813f5cc2415d68ba9766c00c93fa81",
+    "slides/slide-12.png": "c5cb834a60eb07cdc6909b79634027c62204822e229646faeb739e7a8055f350",
+    "slides/slide-13.png": "a8cd286992046c1e20947d4c143eedb2d6f37cd4c1f09d8b7729e445c4c651bb"
+  },
+  "sourceStable": true,
+  "sources": [
+    {
+      "id": "s01",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:tech.md; lines [[29, 78], [2994, 3058], [3094, 3131]]"
+    },
+    {
+      "id": "s02",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:progress.md; lines [[1, 32], [173, 184], [210, 219]]"
+    },
+    {
+      "id": "s03",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:docs/linq/LINQ_CONTRACT.md; lines [[73, 109]]"
+    },
+    {
+      "id": "s04",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; lines whole blob"
+    },
+    {
+      "id": "s05",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:config/default.yaml; lines [[139, 164]]"
+    },
+    {
+      "id": "s06",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:src/safewatch/services.py; lines [[1540, 1590], [1730, 1755]]"
+    },
+    {
+      "id": "s07",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:docs/ML_INTEGRATION.md; lines whole blob"
+    },
+    {
+      "id": "s08",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:contract/openapi.json; lines whole blob"
+    },
+    {
+      "id": "s09",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@f6b5358afee60d1190f5b5e9decc77292b9087c9:contract/ws.schema.json; lines whole blob"
+    },
+    {
+      "id": "s10",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Stats.tsx; lines whole blob"
+    },
+    {
+      "id": "s11",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/ManagementStats.tsx; lines whole blob"
+    },
+    {
+      "id": "s12",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/CameraSetup.tsx; lines whole blob"
+    },
+    {
+      "id": "s13",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Rules.tsx; lines whole blob"
+    },
+    {
+      "id": "s14",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Incident.tsx; lines whole blob"
+    },
+    {
+      "id": "s15",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Master.tsx; lines whole blob"
+    },
+    {
+      "id": "s16",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Journal.tsx; lines whole blob"
+    },
+    {
+      "id": "s17",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/features/Report.tsx; lines whole blob"
+    },
+    {
+      "id": "s18",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03:frontend/src/styles/ds.css; lines [[1, 108]]"
+    },
+    {
+      "id": "s19",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/EVAL_REPORT.md; lines whole blob"
+    },
+    {
+      "id": "s20",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/SCENARIO_COVERAGE.md; lines whole blob"
+    },
+    {
+      "id": "s21",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:docs/ML_HANDOFF_MATVEY.md; lines whole blob"
+    },
+    {
+      "id": "s22",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@53992b3aaa7b89cf65062f343a1e2d776c7c3d2a:ml/safewatch.delivery.json; lines whole blob"
+    },
+    {
+      "id": "user",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Explicit content/brand/team decisions; not human acceptance of final visuals"
+    },
+    {
+      "id": "assets",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Nested user archive hashes, screenshot/still source paths and provenance; trailer README synthetic disclosure"
+    },
+    {
+      "id": "front-tests",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Fresh isolated Vitest run of front/final@a5e43affea9d87fc9049dcf2b4a1ed670fb85a03;69/69PASS; app source unmodified"
+    },
+    {
+      "id": "cpu",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main:f6b5358a LocalBackend ONNX CPU; no18FPS measurement"
+    },
+    {
+      "id": "no-observation",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Current front/final no_observation behavior; exercised by fresh frontend tests"
+    },
+    {
+      "id": "linq-frame",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Exact user-supplied proof image; original annotations preserved"
+    },
+    {
+      "id": "linq-handoff",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@53992b3a: preserved historical status0/tensors; selected industrial frames only"
+    },
+    {
+      "id": "linq-proof",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Machine-readable partial video handoff summary; zero new calls during export"
+    },
+    {
+      "id": "mendeley",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Primary dataset page verified: Önal/Dandıl2024,DOI10.17632/xjmtb22pff.1,CCBY4.0"
+    }
+  ],
+  "claimChecks": [],
+  "critic": {
+    "version": "1.0.0",
+    "status": "TECHNICAL_FINDINGS",
+    "findings": [
+      {
+        "id": "finding-1",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "01",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Full-bleed synthetic factory frame,manual red event box and reusable monumental brand lockup."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-2",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "02",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Six genuine supplied synthetic camera perspectives opposite three director-level failure modes."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-3",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "03",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Large authentic desktop monitor and portrait master phone;three human workflow values."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-4",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "04",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Five aligned role screens,one portrait phone and four full-screen desktop thumbnails with real detail crops."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-5",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "05",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Four-step photographic UI storyboard:yellow,red attention takeover,two master phone states,journal."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-6",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "06",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Dominant real OHS heatmap/line screen plus management screen and PDF report fragment;coverage highlighted."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-7",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "07",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Large laptop with real zone geometry;calibration and rules screenshots flank the camera."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-8",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "08",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Factory photograph supports a causal technology flow and monumental measured21FPS;quantization caveats explicit."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-9",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "09",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Unmodified user proof image displayed at full width with preserved aspect; no added title,callout,footer or crop."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-10",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "10",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Three test/config numbers with actual no-observation screenshot details and a single-event-card principle."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-11",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "11",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Factory-backed three-stage pilot diagram and explicitly hypothetical on-prem/API delivery lane."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-12",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "12",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Large authentic journal monitor with resolved master phone;three honest unfinished acceptance steps."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-13",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "13",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "Same brand lockup over a different factory perspective and five actual team names."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-14",
+        "classification": "ADVISORY",
+        "code": "rubric-unknown",
+        "scene": null,
+        "state": null,
+        "evidence": "13image-slide финальных сцен,включая реальный промышленный кадр и сохранённые выходыLinQ.",
+        "message": "Actual rubric unavailable; coverage cannot be certified.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-15",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видеоконтроль промышленной безопасности",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-16",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Камеры есть. Реакция не гарантирована.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-17",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От опасности — к подтверждённым мерам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-18",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Каждому — свой экран. И своя задача.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-19",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога заканчивается действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-20",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Больше событий ≠ больше опасности.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-21",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Настроить участок — прямо на кадре.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-22",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Нейросеть видит. Правило решает.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-23",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "09",
+        "state": "09",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Кадр, обработанный на LinQ TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-24",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "10",
+        "state": "10",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога не должна потеряться.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-25",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "11",
+        "state": "11",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Начинаем с участка. Масштабируем по фактам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-26",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "12",
+        "state": "12",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Цикл реакции собран. Качество проверяем.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-27",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "13",
+        "state": "13",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Увидеть — мало. Нужно довести до мер.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-28",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видеоконтроль промышленной безопасности",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-29",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Камеры есть. Реакция не гарантирована.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-30",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От опасности — к подтверждённым мерам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-31",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Каждому — свой экран. И своя задача.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-32",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога заканчивается действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-33",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Больше событий ≠ больше опасности.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-34",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Настроить участок — прямо на кадре.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-35",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Нейросеть видит. Правило решает.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-36",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "09",
+        "state": "09",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Кадр, обработанный на LinQ TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-37",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "10",
+        "state": "10",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога не должна потеряться.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-38",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "11",
+        "state": "11",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Начинаем с участка. Масштабируем по фактам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-39",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "12",
+        "state": "12",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Цикл реакции собран. Качество проверяем.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-40",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "13",
+        "state": "13",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Увидеть — мало. Нужно довести до мер.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-41",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видеоконтроль промышленной безопасности",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-42",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Камеры есть. Реакция не гарантирована.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-43",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От опасности — к подтверждённым мерам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-44",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Каждому — свой экран. И своя задача.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-45",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога заканчивается действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-46",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Больше событий ≠ больше опасности.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-47",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Настроить участок — прямо на кадре.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-48",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Нейросеть видит. Правило решает.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-49",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "09",
+        "state": "09",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Кадр, обработанный на LinQ TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-50",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "10",
+        "state": "10",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога не должна потеряться.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-51",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "11",
+        "state": "11",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Начинаем с участка. Масштабируем по фактам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-52",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "12",
+        "state": "12",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Цикл реакции собран. Качество проверяем.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-53",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "13",
+        "state": "13",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Увидеть — мало. Нужно довести до мер.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-54",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Видеоконтроль промышленной безопасности",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-55",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Камеры есть. Реакция не гарантирована.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-56",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От опасности — к подтверждённым мерам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-57",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Каждому — свой экран. И своя задача.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-58",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога заканчивается действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-59",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Больше событий ≠ больше опасности.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-60",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Настроить участок — прямо на кадре.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-61",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Нейросеть видит. Правило решает.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-62",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "09",
+        "state": "09",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Кадр, обработанный на LinQ TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-63",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "10",
+        "state": "10",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Тревога не должна потеряться.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-64",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "11",
+        "state": "11",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Начинаем с участка. Масштабируем по фактам.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-65",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "12",
+        "state": "12",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Цикл реакции собран. Качество проверяем.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-66",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "13",
+        "state": "13",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Увидеть — мало. Нужно довести до мер.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      }
+    ],
+    "limits": [
+      "DOM probes cannot certify perception, arbitrary factual truth, complex paint, canvas text or physical projector readability.",
+      "Advisories and geometry candidates are not deterministic taste verdicts."
+    ]
+  },
+  "status": "CAPTURED",
+  "finishedAt": "2026-10-24T14:44:06.789Z"
+}

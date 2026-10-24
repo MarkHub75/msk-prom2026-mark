@@ -1,0 +1,26 @@
+139:     title: Работа на высоте
+140:     color: "#FFD60A"
+141:     geometry: polygon
+142:     description: Площадки и лестницы, где нужна страховочная привязь.
+143:   - id: vehicle_path
+144:     title: Пути транспорта
+145:     color: "#98989D"
+146:     geometry: polygon
+147:     description: Проезды погрузчиков и машин.
+148: 
+149: escalation:
+150:   enabled: true
+151:   timeout_s: 45
+152:   tick_ms: 500
+153: 
+154: broadcast:
+155:   tick_ms: 250
+156:   loop_default: true
+157:   autostart: true
+158: 
+159: feed:
+160:   limit: 100
+161:   recent_closed_min: 30
+162: 
+163: observability:
+164:   stale_after_ms: 2000

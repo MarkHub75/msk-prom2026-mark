@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-10-24T14:35:28.198708+00:00",
+  "image": {
+    "path": "assets/linq/ARGUS_linq_tpu_frame0.png",
+    "source": "/mnt/d/templates/msk-promhack/msk-prom2026-mark/ARGUS_linq_tpu_frame0.png",
+    "sha256": "37be69e3a8831d4f0727c4f3801a8cdcc4a7795af9c14072d2446b9392f635d8",
+    "display": "Whole source1280×576 scaled proportionally to1920×864; centred on16:9canvas; no crop,annotations or redrawing"
+  },
+  "git_sources": [
+    {
+      "path": "research/linq-proof__docs__handoffs__EGOR_LINQ_VIDEO_20261024.md",
+      "commit": "53992b3aaa7b89cf65062f343a1e2d776c7c3d2a",
+      "original": "docs/handoffs/EGOR_LINQ_VIDEO_20261024.md",
+      "sha256": "1d1f8b46ebd52d4863c6ca046a9cd1c273f67bf2e4ff9945e7ceb3901402f864"
+    },
+    {
+      "path": "research/linq-proof__ml__reports__video-handoff-20261024.json",
+      "commit": "53992b3aaa7b89cf65062f343a1e2d776c7c3d2a",
+      "original": "ml/reports/video-handoff-20261024.json",
+      "sha256": "a6ecb645c8c6877baff63d01d69f8032bb6398cf94bf0a3a3db1db2e21dca6d9"
+    }
+  ],
+  "primary_dataset": {
+    "title": "Video Dataset for Safe and Unsafe Behaviours",
+    "authors": [
+      "Oğuzhan Önal",
+      "Emre Dandıl"
+    ],
+    "year": 2024,
+    "version": 1,
+    "doi": "10.17632/xjmtb22pff.1",
+    "url": "https://data.mendeley.com/datasets/xjmtb22pff/1",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "verified": "Primary Mendeley page checked using web tool; its description identifies industrial security-camera footage."
+  },
+  "limits": [
+    "Historical saved TPU responses; no fresh LinQ call in this presentation task",
+    "Only selected video frames processed,not whole522-frame recording",
+    "Input/output tensor retention confirmed by Git handoff report; rawNPZ not re-audited locally in this session",
+    "Independent hardware attestation and industrial event accuracy not established"
+  ]
+}

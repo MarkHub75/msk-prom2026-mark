@@ -1,0 +1,263 @@
+{
+  "version": "1.0.0",
+  "root": "..",
+  "story": "story.json",
+  "fixture": "argus-final-release",
+  "runtime": "dom",
+  "baseUrl": "http://127.0.0.1:8744/",
+  "browserPluginReason": "No browser connector in current session; installed compatible Playwright1.64.1/Chromium1248. Raster text outside DOM coverage; preserve all findings and perform deterministic/visual QA.",
+  "sourceFiles": [
+    "scripts/compose.py",
+    "speaker-notes.json",
+    "evidence/composition.json",
+    "craft/capture.html",
+    "craft/story.json",
+    "slides/slide-01.png",
+    "slides/slide-02.png",
+    "slides/slide-03.png",
+    "slides/slide-04.png",
+    "slides/slide-05.png",
+    "slides/slide-06.png",
+    "slides/slide-07.png",
+    "slides/slide-08.png",
+    "slides/slide-09.png",
+    "slides/slide-10.png",
+    "slides/slide-11.png",
+    "slides/slide-12.png"
+  ],
+  "probe": {
+    "stage": "#stage",
+    "safeMargin": 0.04,
+    "minimumTextPx": 24
+  },
+  "holds": [
+    {
+      "id": "01",
+      "scene": "01",
+      "url": "craft/capture.html?slide=1",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Видеоконтроль промышленной безопасности"
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "scene": "02",
+      "url": "craft/capture.html?slide=2",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Камеры есть. Реакция не гарантирована."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "03",
+      "scene": "03",
+      "url": "craft/capture.html?slide=3",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "От опасности — к подтверждённым мерам."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "04",
+      "scene": "04",
+      "url": "craft/capture.html?slide=4",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Каждому — свой экран. И своя задача."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "scene": "05",
+      "url": "craft/capture.html?slide=5",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Тревога заканчивается действием."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "scene": "06",
+      "url": "craft/capture.html?slide=6",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Больше событий ≠ больше опасности."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "07",
+      "scene": "07",
+      "url": "craft/capture.html?slide=7",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Настроить участок — прямо на кадре."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "08",
+      "scene": "08",
+      "url": "craft/capture.html?slide=8",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Нейросеть видит. Правило решает."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "09",
+      "scene": "09",
+      "url": "craft/capture.html?slide=9",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Тревога не должна потеряться."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "scene": "10",
+      "url": "craft/capture.html?slide=10",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Начинаем с участка. Масштабируем по фактам."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "11",
+      "scene": "11",
+      "url": "craft/capture.html?slide=11",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Цикл реакции собран. Качество проверяем."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    },
+    {
+      "id": "12",
+      "scene": "12",
+      "url": "craft/capture.html?slide=12",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Увидеть — мало. Нужно довести до мер."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Intentional full-bleed PNG. Typography glyph/bounds/overlap inventory and manual720p visual evidence supplied separately."
+          }
+        ]
+      }
+    }
+  ]
+}

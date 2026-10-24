@@ -1,0 +1,23 @@
+{
+ "video": "synthetic_coco_40x1s.mp4",
+ "program": "mosprom_det640_cut_ap9999_b1_o1_h1m.tpu",
+ "size": 640,
+ "step": 1,
+ "fps_video": 10.0,
+ "frames_total": 400,
+ "frames_processed": 400,
+ "wall_s": 19.09,
+ "throughput_fps": 20.95,
+ "per_frame_ms": {
+  "preprocess": 4.29,
+  "postprocess": 2.91,
+  "tpu_rtt_median": 328.47,
+  "tpu_rtt_p90": 452.5
+ },
+ "inflight": 8,
+ "end_to_end_s": {
+  "upload": 6.9,
+  "remote_run_incl_poll": 22.2,
+  "total": 31.0
+ }
+}
