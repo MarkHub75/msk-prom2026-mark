@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S12 начат
+- state: S12 закрыт, следующий S13
 - tech.md: v3
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -33,6 +33,12 @@
 - GAP: S11, `analyze`: кадры внутри `dark`/`obstructed` не дают наблюдений (`U` у всех субъектов, 8.10); `stale` отдельно не обрабатывается — менеджер эпизодов сам добавляет разрыв `ts − ts прошлого кадра` в `uncertain_ms` и проверяет `lost_timeout_s`.
 - GAP: S11, `store.camera_state_rows()` добавляет `position_ms`, `analysis_id`, `gaps_json`, `hud_path` играющего эфира (`LEFT JOIN`); `services._freshness(analysis_id, hud_path, pos) -> int | None` (до первого кадра анализа — `None`), синглтон `_frames_ts: dict[int, list[int]]` (сбрасывает фикстура `conn`).
 - GAP: S11, WS `camera.state` уходит только при смене состояния без учёта `freshness_ms` (`_camera_seen` хранит копию с `freshness_ms=None`): свежесть меняется каждый тик, её читают через REST (`system_view`, плитки).
+- GAP: S12, `EventSummary.evidence_url: str | None = None` — `/api/evidence/<id>/image` кадра `confirm` эпизода (демо и событие без кадра — `None`), миниатюра журнала; `store._EVENTS` добавляет `LEFT JOIN evidence ev ... kind = 'confirm'` (`evidence_id`, `evidence_sha256`); поле добавлено в `contract/openapi.json` и `ws.schema.json`.
+- GAP: S12, журнал: период и порядок по `started_at` (`date_from ≤ started_at < date_to`, как статистика 8.13), страница `started_at DESC, id DESC`; курсор — `str(id)` последнего события страницы (не цифры → 422, поле `cursor`); фильтр `status=superseded` не отменяет скрытие (нужен `include_superseded=true`); `date_from`/`date_to` без пояса — UTC; 422 — `ValidationFailed(texts.FILTER_INVALID.format(field=...), field=...)`, поля `limit`, `q`, `date_from`, `cursor`.
+- GAP: S12, `store` вне 6.x: `journal_where(equal, date_from, date_to, q, include_demo, include_superseded) -> (sql, args)`, `journal(where, after_id, limit) -> (rows, total)`, `journal_actions(event_ids)` (один запрос через `json_each`), `all_zones()`; `services`: `_utc(dt)`, `_journal_where(f)` (проверки 9 и экранирование `q`), `_msk(dt)`.
+- GAP: S12, CSV: `events_export_csv` проверяет фильтр целиком, но `limit` и `cursor` не применяет: до `journal.export_max_rows` строк в порядке журнала; заголовки `texts.CSV_COLUMNS`, строки `\r\n`; время в `timezone` как `YYYY-MM-DD HH:MM:SS`; сценарий — `title` события; уровень, статус, вердикт — русские названия (`texts.VERDICT_TITLES`); `texts.YES`/`texts.NO`; длительность с одной цифрой и запятой; sha256 — кадр `confirm`; история `<время> <роль>: <действие>[ (<комментарий>)]` через «; », роль — `texts.ROLE_TITLES` или «система», действие — `texts.ACTION_TITLES: dict[LogAction, str]`.
+- GAP: S12, `journal_facets`: сценарии — `texts.SCENARIO_TITLES`, уровни и статусы — все значения, секторы — `store.sectors()`, камеры — живые, зоны — живые зоны живых камер с названием `<камера> · <зона>`; `FacetItem.id = str(id)`.
+- GAP: S12, фронт: `FiltersBar.tsx` экспортирует тип `JournalFilter` (query `GET /api/events`); дата фильтра — день МСК (полночь +03:00), `date_to` не включается; «Показать ещё» дозагружает по `next_cursor`; «Экспорт CSV» — ссылка с query фильтра; строка открывает `/events/:id` (для `ohs` `allowed_actions` пуст — только чтение).
 
 ## log
 
@@ -147,6 +153,13 @@
 - проверено вживую: нет (S11 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_broadcast.py::hud_file(name, frames_ts)` (HUD-файл ручного анализа); `tests/test_observability.py`: фикстура `luma` (что `sample_luma` вернёт в `analyze`), `_run(mean, std, start, end, duration)`, `_episodes(scene, det_drop, speed_bh_s)`; `tests/test_camera_state.py::_at_position(pos, *setup)` (камера с `GAPS` на позиции эфира).
+
+### S12: journal (2026-10-24, PR #16, tech v3)
+- отклонения: правлены файлы вне списка слайса: `types.py` (`EventSummary.evidence_url`, строка GAP), `texts.py` (тексты журнала и CSV), `contract/*.json` и `schema.d.ts` (пересборка), `tests/test_api_skeleton.py` (примеры 501: только `/api/stats/*`); стили фильтров не добавлены (`theme.css` вне списка, фронт минимальный 8.14); тестов прав ролей нет: в S12 только чтение, роли по 6.2 не проверяются.
+- решения вне контракта: строки `GAP: S12`; мутаций нет (10.1); живых прогонов нет; `test_e2e.py`: сценарий S8 вынесен в `_flow(...) -> (camera_id, event_id)`, его зовут оба теста.
+- проверено вживую: нет (S12 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_journal.py`: `world()` (2 сектора, 2 камеры, зона, 6 событий: бег, красное падение в зоне, ложный телефон, `superseded`, демо, «50% · a_b»), `page(client, **params)`, `found(client, **params)`; `tests/test_export.py::rows(body)` (CSV с BOM → строки); S13 может брать `store.journal_where` для фильтров статистики.
 
 ## night
 
