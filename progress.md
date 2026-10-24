@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v7, второй прогон: R25 закрыт, следующий S26
+- state: tech v7, второй прогон: S26 закрыт, следующий S27
 - tech.md: v7
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -35,6 +35,11 @@
 - владелец: пример калькулятора на допущениях 6.11.8 даёт базовый уровень «не окупается» (экономия 1 200 000 ₽ ≤ поддержка 1 455 000 ₽ в год), расширенный — 377 мес., максимальный — 135 мес.: перед показом на демо поправить допущения в `config/user.yaml` или числа на экране калькулятора.
 - R30: S30 строит `GET /api/master/shift.pdf`: `PDF_FILE` уже в декораторе, искомая строка 6.7 без закрывающей скобки (R25); проверить `application/pdf` в ответе и в `contract/openapi.json`.
 - R30: два одновременных `GET /api/datasets/false-alarms/export.zip` пишут один файл `data_dir/datasets/false_alarms.zip` (второй может переписать его, пока первый отдаётся); оставлено: экспорт — ручная выгрузка ML-части, не чаще раза за показ.
+- GAP: S26, тексты идентификации: `texts.IDENTITY_TOO_LONG = "Поле: до 80 символов"` (`ValidationFailed(..., field=<поле IdentityIn>)`), `texts.IDENTITY_CLEARED = "Идентификация очищена"`, `texts.identity_comment(person_name, person_position, crew) -> str` — «ФИО: …; должность: …; бригада: …», пустое поле — `texts.IDENTITY_EMPTY = "—"`, все три пустые — `IDENTITY_CLEARED`.
+- GAP: S26, журнал: `texts.ACTION_TITLES` + `"identified": "идентификация"` (история CSV падала бы `KeyError`); `texts.CSV_COLUMNS` + «ФИО», «Должность», «Бригада» в конце (значения `EventSummary.person_name`, `person_position`, `crew`).
+- GAP: S26, `services._stats_period(date_from, date_to) -> tuple[datetime, datetime]` — период и проверка `PERIOD_INVALID` `ohs_stats_view` вынесены для `people_stats_view` без изменения поведения.
+- GAP: S26, `PeopleStats.total` — все события периода (как `OhsStats.total`: без `superseded`, демо по `include_demo`); `by_person`/`by_crew` — `CountRow` с `key = title` = значение поля; `X-Actor` по умолчанию — `texts.DEMO_ACTOR[role]`, как у `event_action`; `event.updated` только при изменении.
+- R30: S26, `event_identify` сравнивает поля после обрезки с базой внутри транзакции; одновременные PATCH с разными значениями дают две строки `identified` (последняя побеждает) — как у `event_action`, не проверялось конкурентно.
 
 ## log
 
@@ -273,6 +278,13 @@
 - чек-лист 17: 1–2 ок (`poe contract` 613 элементов, `poe api` чистый, `contract/openapi.json` только добавил типы файлов); 3 ок (SQL только в `store`; `hud` берёт `rules.suspended_load.ID`, как `FLAMES` с S10); 4 ок (звонок только через `CallChannel`); 5 ок, кроме чтений `datasets_flush` на элемент (выше); 7 ок (`_dataset_files`, `export_zip`, `deliver` в `to_thread` в базу не пишут); 8: `vulture` — `backend_close` (S28), ключи конфига будущих слайсов, `request` обработчиков; 11 ок; 12 нет пунктов; 13: 5 заметок `R25:` и 7 пунктов оркестратора закрыты или перенесены; 14: CI PR #28–#32 зелёные в обеих ОС, push-прогоны main зелёные (`2cd66bc0` отменён concurrency, не сбой); 15 ок (`test_openapi_only_grows` проверяет и типы файлов); 16 ок (`test_e2e.py`, `test_demo_flow_reaches_master_and_journal`); 17: живых прогонов в R25 нет, `mosprom_*` и `matvey_cv` не трогались; Docker не запускался (C:).
 - проверено вживую: нет (живых прогонов в R25 нет) | не проверено: LinQ Jupyter, `docker compose up`.
 - следующему: `api.ZIP_FILE`/`PDF_FILE` — образец файлового маршрута без поломки искомой строки; `services.dataset_export` теперь корутина (`await` в API, `asyncio.run` в CLI).
+
+### S26: identity (2026-10-24, PR #34, tech v7)
+- отклонения: `tests/test_api_skeleton.py` — два маршрута S26 убраны из `V5_REQUESTS`; `tests/test_export.py::COLUMNS` получил три колонки идентификации; `tests/test_e2e.py` берёт историю и sha256 из CSV по имени колонки (`COLUMNS.index`), а не с конца строки; `api.py` и `contract/*` не менялись (маршруты, типы и поля положил S16); период `ohs_stats_view` вынесен в `_stats_period` (строка `GAP`).
+- решения вне контракта: строки `GAP: S26` в `## open`; комментарий `identified` всегда с тремя частями, пустая часть — «—» (8.27 не говорит, как писать частично заполненную идентификацию); должность без ФИО и бригады событие идентифицированным не делает (8.27: `person_name` или `crew`). Мутаций нет (10.3); тестов со временем и конкурентностью нет.
+- проверено вживую: нет (S26 без LinQ) | не проверено: —
+- [проверить]: нет
+- следующему: `tests/test_identity.py::identify(client, event_id, headers, **body)` и `history(event_id)` (строки журнала без `published`, с комментарием).
 
 ## night
 

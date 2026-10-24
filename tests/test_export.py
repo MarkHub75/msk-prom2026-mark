@@ -14,7 +14,7 @@ from safewatch.config import Settings
 COLUMNS = [
     "id", "опубликовано (МСК)", "начало", "сектор", "камера", "зона", "сценарий", "уровень",
     "статус", "вердикт", "эскалация по таймауту", "причина", "длительность (с)", "демо",
-    "sha256 кадра", "история",
+    "sha256 кадра", "история", "ФИО", "Должность", "Бригада",
 ]  # fmt: skip
 
 
@@ -63,3 +63,21 @@ async def test_csv_columns_and_history(
     _tune(monkeypatch, core, journal={"export_max_rows": 2})
     r = await client.get("/api/events/export.csv")
     assert len(rows(r.content)) == 1 + 2
+
+
+async def test_csv_has_identity_columns(client: httpx.AsyncClient) -> None:
+    w = world()
+    body = {"person_name": "Сидоров Пётр", "person_position": "стропальщик", "crew": "3"}
+    r = await client.patch(
+        f"/api/events/{w['fall']}/identity", json=body, headers={"X-Role": "ohs"}
+    )
+    assert r.status_code == 200, r.text
+    r = await client.get("/api/events/export.csv", params={"camera_id": w["north"]})
+    table = rows(r.content)
+    assert table[0][-3:] == ["ФИО", "Должность", "Бригада"]
+    found = {row[0]: row for row in table[1:]}
+    assert found[str(w["fall"])][-3:] == ["Сидоров Пётр", "стропальщик", "3"]
+    assert found[str(w["run"])][-3:] == ["", "", ""]
+    assert found[str(w["fall"])][-4].endswith(
+        "идентификация (ФИО: Сидоров Пётр; должность: стропальщик; бригада: 3)"
+    )
