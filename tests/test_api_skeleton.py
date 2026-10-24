@@ -59,7 +59,7 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
 @pytest.mark.parametrize(
     ("method", "path"),
     [("get", "/api/master/inbox"), ("get", "/api/ohs/rules"), ("get", "/api/stats/management"),
-     ("get", "/api/events/export.csv"), ("get", "/api/events/5")],
+     ("get", "/api/events/export.csv"), ("get", "/api/master/shift")],
 )  # fmt: skip
 async def test_unbuilt_route_returns_501(client: httpx.AsyncClient, method: str, path: str) -> None:
     response = await client.request(method, path)
@@ -81,7 +81,7 @@ async def test_request_errors_are_api_errors(client: httpx.AsyncClient) -> None:
     assert (actor.status_code, actor.json()["code"]) == (422, "validation")
     ok_actor = {"X-Role": "operator", "X-Actor": "%D0%AF" * 60}
     actor = await client.post("/api/events/1/actions", json={"action": "view"}, headers=ok_actor)
-    assert actor.status_code == 501
+    assert actor.status_code == 404  # the name passed, the event is missing
 
 
 ERRORS: list[tuple[AppError, int, str]] = [

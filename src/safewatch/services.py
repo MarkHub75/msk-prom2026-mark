@@ -59,6 +59,7 @@ from safewatch.types import (
     Episode,
     EpisodeDraft,
     EvalReport,
+    EventAction,
     EventDetail,
     EventFilter,
     EventPage,
@@ -79,6 +80,7 @@ from safewatch.types import (
     LatencyStats,
     Level,
     LevelMeta,
+    LogAction,
     ManagementStats,
     MasterInbox,
     Meta,
@@ -89,6 +91,7 @@ from safewatch.types import (
     OhsStats,
     OperatorDashboard,
     Percentiles,
+    Provenance,
     Role,
     RoleMeta,
     RulesScreenView,
@@ -102,7 +105,9 @@ from safewatch.types import (
     SystemView,
     TracksWindow,
     UploadResult,
+    Verdict,
     Video,
+    WhyItem,
     WsType,
     Zone,
     ZoneIn,
@@ -912,6 +917,29 @@ def video_tracks(video_id: int, from_ms: int, to_ms: int) -> TracksWindow:
     )
 
 
+def _evidence_item(e: sqlite3.Row) -> Evidence:
+    return Evidence(
+        id=e["id"],
+        kind=e["kind"],
+        frame_idx=e["frame_idx"],
+        ts_ms=e["ts_ms"],
+        url=f"/api/evidence/{e['id']}/image",
+        sha256=e["sha256"],
+        objects=json.loads(e["objects_json"]),
+    )
+
+
+def _episode(ep: sqlite3.Row, evidence: list[Evidence]) -> Episode:
+    return Episode.model_validate(
+        {
+            **dict(ep),
+            "scenario_title": texts.SCENARIO_TITLES[ep["scenario"]],
+            "metrics": json.loads(ep["metrics_json"]),
+            "evidence": evidence,
+        }
+    )
+
+
 def video_analysis(video_id: int) -> Analysis:
     video = _video_row(video_id)
     row = store.analysis(video["active_analysis_id"] or 0)
@@ -919,27 +947,8 @@ def video_analysis(video_id: int) -> Analysis:
         raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
     evidence: dict[int, list[Evidence]] = {}
     for e in store.analysis_evidence(row["id"]):
-        item = Evidence(
-            id=e["id"],
-            kind=e["kind"],
-            frame_idx=e["frame_idx"],
-            ts_ms=e["ts_ms"],
-            url=f"/api/evidence/{e['id']}/image",
-            sha256=e["sha256"],
-            objects=json.loads(e["objects_json"]),
-        )
-        evidence.setdefault(e["episode_id"], []).append(item)
-    episodes = [
-        Episode.model_validate(
-            {
-                **dict(ep),
-                "scenario_title": texts.SCENARIO_TITLES[ep["scenario"]],
-                "metrics": json.loads(ep["metrics_json"]),
-                "evidence": evidence.get(ep["id"], []),
-            }
-        )
-        for ep in store.episodes(row["id"])
-    ]
+        evidence.setdefault(e["episode_id"], []).append(_evidence_item(e))
+    episodes = [_episode(ep, evidence.get(ep["id"], [])) for ep in store.episodes(row["id"])]
     return Analysis(
         id=row["id"],
         video_id=video_id,
@@ -1396,18 +1405,194 @@ async def camera_preview(camera_id: int) -> bytes:
     return data
 
 
+COMMENT_MAX = 500
+
+# A step of a human action: (journal action, status after it); the event ends in the status of
+# the last step, `from_status` of a step is the status after the previous one.
+Step = tuple[LogAction, EventStatus]
+VERDICTS: dict[HumanAction, Verdict] = {
+    "confirm": "confirmed",
+    "false_alarm": "false_alarm",
+    "send_to_master": "confirmed",  # the operator only sends what he takes for real
+}
+
+
+def _steps(action: HumanAction, row: sqlite3.Row) -> list[Step] | None:
+    """Human rows of the table in tech.md 8.6; None: the pair (action, status) is not there."""
+    status, red = row["status"], row["level"] == "red"
+    deciding = status in ("new", "viewed", "confirmed")
+    # A timeout escalation leaves the operator his verdict (rows 4 and 6 of the table).
+    late = (
+        status == "sent_to_master"
+        and bool(row["escalated_by_timeout"])
+        and row["operator_verdict"] == "none"
+    )
+    if action == "view" and status == "new":
+        return [("viewed", "viewed")]
+    if action == "confirm" and red and deciding:
+        return [("confirmed", "confirmed"), ("sent_to_master", "sent_to_master")]
+    if action == "confirm" and not red and status in ("new", "viewed"):
+        return [("confirmed", "confirmed")]
+    if action == "confirm" and red and late:
+        return [("confirmed", "sent_to_master")]
+    if action == "false_alarm" and (deciding or late):
+        return [("false_alarm", "false_alarm")]
+    if action == "send_to_master" and deciding:
+        return [("sent_to_master", "sent_to_master")]
+    if action == "accept" and status == "sent_to_master":
+        return [("master_accepted", "master_accepted")]
+    if action == "resolve" and status == "master_accepted":
+        return [("resolved", "resolved")]
+    return None
+
+
+def _event_row(event_id: int) -> sqlite3.Row:
+    row = store.event(event_id)
+    if row is None:
+        raise NotFound(texts.EVENT_NOT_FOUND, event_id=event_id)
+    return row
+
+
+def _master_alert(summary: EventSummary) -> Notification:
+    """Row 3 of the table in tech.md 8.8: sent to the master, by the operator or by timeout."""
+    return Notification(
+        id=f"e{summary.id}:to_master",
+        event_id=summary.id,
+        level=summary.level,
+        text=summary.notification_text,
+        audience=["master"],
+        sound="chime",
+        takeover=False,
+    )
+
+
+def _provenance(episode: Episode) -> Provenance:
+    analysis = store.analysis(episode.analysis_id)
+    assert analysis is not None  # episodes belong to an analysis
+    det = store.artifact_by_id(analysis["det_artifact_id"])
+    pose = store.artifact_by_id(analysis["pose_artifact_id"] or 0)
+    video = store.video(analysis["video_id"])
+    job = store.analysis_job(analysis["id"])
+    assert det is not None and video is not None
+    # The rule ran with config defaults and the camera overrides of the snapshot (tech.md 8.3).
+    rule = AnalysisConfig.model_validate_json(analysis["config_json"]).rules.get(episode.scenario)
+    params = rules.defaults(episode.scenario) | (rule.params if rule is not None else {})
+    shot = next((e.sha256 for e in episode.evidence if e.kind == "confirm"), None)
+    return Provenance(
+        backend=det["backend"],
+        fake=bool(det["fake"]),
+        det_model=f"{det['model_id']}@{det['model_version']}",
+        pose_model=None if pose is None else f"{pose['model_id']}@{pose['model_version']}",
+        job_id=None if job is None else job["id"],
+        video_sha256=video["sha256"],
+        analysis_version=analysis["version"],
+        rule_params=params,
+        evidence_sha256=shot,
+    )
+
+
 def event_detail(event_id: int, role: Role | None) -> EventDetail:
-    raise NotImplementedError("slice 7")
+    row = _event_row(event_id)
+    episode: Episode | None = None
+    why = [WhyItem(label=texts.WHY_REASON, value=row["reason_text"])]
+    provenance = Provenance(
+        backend=None,
+        fake=False,
+        det_model=None,
+        pose_model=None,
+        job_id=None,
+        video_sha256=None,
+        analysis_version=None,
+        rule_params={},
+        evidence_sha256=None,
+    )
+    if row["episode_id"] is not None:  # demo events have no episode
+        ep = store.episode(row["episode_id"])
+        assert ep is not None
+        episode = _episode(ep, [_evidence_item(e) for e in store.episode_evidence(ep["id"])])
+        provenance = _provenance(episode)
+        frames = {e.kind: e.frame_idx for e in episode.evidence}
+        draft = EpisodeDraft.model_validate(
+            episode.model_dump()
+            | {"confirm_frame_idx": frames["confirm"], "escalate_frame_idx": frames.get("escalate")}
+        )
+        why = rules.PLUGINS[episode.scenario].explain(draft, provenance.rule_params)
+    broadcast = store.camera_broadcast(row["camera_id"])
+    allowed = [] if role is None else ROLE_ACTIONS[role]
+    return EventDetail(
+        event=_summary(row),
+        episode=episode,
+        why=why,
+        actions=[EventAction.model_validate(dict(a)) for a in store.event_actions(event_id)],
+        allowed_actions=[a for a in allowed if _steps(a, row) is not None],
+        provenance=provenance,
+        deliveries=[],  # slice 15
+        video_id=row["video_id"],
+        video_start_ms=row["video_start_ms"],
+        video_end_ms=row["video_end_ms"],
+        broadcast=None if broadcast is None else _broadcast(broadcast),
+    )
 
 
 def event_action(
     event_id: int, data: ActionIn, role: Role | None, actor: str | None
 ) -> EventDetail:
-    raise NotImplementedError("slice 7")
+    _require(role, tuple(r for r, actions in ROLE_ACTIONS.items() if data.action in actions))
+    assert role is not None  # _require raised otherwise
+    if len(data.comment) > COMMENT_MAX:
+        raise ValidationFailed(texts.COMMENT_TOO_LONG, field="comment")
+    comment = data.comment.strip()
+    if data.action == "resolve" and not comment:
+        raise ValidationFailed(texts.COMMENT_REQUIRED, field="comment")
+    name = texts.DEMO_ACTOR[role] if actor is None else actor.strip()
+    if not 1 <= len(name) <= ACTOR_MAX:
+        raise ValidationFailed(texts.ACTOR_INVALID, field="X-Actor")
+    with store.tx():
+        row = _event_row(event_id)
+        steps = _steps(data.action, row)
+        if steps is None:
+            raise Conflict("invalid_transition", texts.INVALID_TRANSITION)
+        status, now = row["status"], clock.iso(clock.now())
+        for n, (logged, after) in enumerate(steps):
+            values = {
+                "event_id": event_id,
+                "at": now,
+                "actor_role": role,
+                "actor_name": name,
+                "action": logged,
+                "from_status": status,
+                "to_status": after,
+                "comment": comment if n == 0 else "",
+            }
+            store.insert("event_actions", values)
+            status = after
+        update: dict[str, object] = {"status": status}
+        if data.action in VERDICTS:
+            update["operator_verdict"] = VERDICTS[data.action]
+        store.event_update(event_id, update)
+    summary = _event_summary(event_id)
+    hub.publish("event.updated", summary)
+    if status == "sent_to_master" and row["status"] != "sent_to_master":
+        hub.publish("notification", _master_alert(summary), ["master"])
+    return event_detail(event_id, role)
 
 
 def escalation_tick() -> int:
-    raise NotImplementedError("slice 7")
+    """Red events the operator left without a decision go to the master (tech.md 8.7)."""
+    settings = config.get_settings().escalation
+    if not settings.enabled:
+        return 0
+    red_before = clock.iso(clock.now() - timedelta(seconds=settings.timeout_s))
+    with store.tx():
+        due = store.escalation_due(red_before)
+        for row in due:
+            store.event_update(row["id"], {"status": "sent_to_master", "escalated_by_timeout": 1})
+            _system_action(row["id"], "timeout_escalated", row["status"], "sent_to_master")
+    for row in due:
+        summary = _event_summary(row["id"])
+        hub.publish("event.updated", summary)
+        hub.publish("notification", _master_alert(summary), ["master"])
+    return len(due)
 
 
 def master_inbox_view() -> MasterInbox:

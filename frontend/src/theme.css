@@ -41,5 +41,11 @@ button, select { min-height: 24px; min-width: 24px; }
 .feed-item { padding: 8px; background: var(--surface); border-radius: 8px; }
 .toasts { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 8px; }
 .toast { padding: 12px; background: var(--surface); border: 1px solid var(--yellow); border-radius: 8px; color: inherit; }
-.takeover { position: fixed; inset: 0; display: grid; place-content: center; gap: 24px; background: var(--red); color: #fff; text-align: center; }
-.takeover-text { font-size: 32px; }
+.event-takeover { position: fixed; inset: 0; overflow: auto; padding: 16px; background: var(--bg); border: 8px solid var(--red); }
+.event-top { display: grid; grid-template-columns: auto 1fr; gap: 16px; }
+.facts div { display: flex; gap: 8px; }
+.facts dt { color: var(--no-observation); }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+.evidence-frame { position: relative; display: inline-block; }
+.evidence-box { position: absolute; border: 2px solid var(--yellow); }
+.evidence-callout { position: absolute; bottom: 100%; left: 0; white-space: nowrap; padding: 0 4px; font-size: 12px; background: var(--surface); }
