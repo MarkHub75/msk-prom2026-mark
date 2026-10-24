@@ -1,0 +1,38 @@
+{
+  "verified_at": "2026-10-24T09:10:24.477085+03:00",
+  "heads": {
+    "main": "b4fb994c63f3ce187d22491080f75ffac37797c3",
+    "front/control-room": "1b8822ef86e7d5540967e73e9e4c606e926d01c1",
+    "demo/checkpoint": "053683dadd65d15b1d2b9df9ee5ba8ef382ad025"
+  },
+  "sources": [
+    {
+      "ref": "main",
+      "commit": "b4fb994c63f3ce187d22491080f75ffac37797c3",
+      "path": "progress.md",
+      "snapshot": "research/revision-r3/progress.md",
+      "sha256": "498b56831caa1c4fe2eb60d3c629e3e3534fb5cfa6efc351a9dfeba62783c10b"
+    },
+    {
+      "ref": "main",
+      "commit": "b4fb994c63f3ce187d22491080f75ffac37797c3",
+      "path": "src/safewatch/services.py",
+      "snapshot": "research/revision-r3/services.py",
+      "sha256": "ca34c03c88b22861ccf62bef6c22e2f645dc8ec9138e832f9ea3f58b46fe4bfb"
+    },
+    {
+      "ref": "front/control-room",
+      "commit": "1b8822ef86e7d5540967e73e9e4c606e926d01c1",
+      "path": "frontend/src/features/Operator.tsx",
+      "snapshot": "research/revision-r3/Operator.tsx",
+      "sha256": "40dc1345e2c5161180d6aac81fa1e41df45b8cb296387b902e4962d20ec2c48a"
+    },
+    {
+      "ref": "front/control-room",
+      "commit": "1b8822ef86e7d5540967e73e9e4c606e926d01c1",
+      "path": "frontend/src/styles/pro-skin.css",
+      "snapshot": "research/revision-r3/pro-skin.css",
+      "sha256": "645b81411ea91fc3d44acacb6991e03b4a1cb2683bde452920c504f8fda8eed9"
+    }
+  ]
+}

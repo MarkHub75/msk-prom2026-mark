@@ -1109,41 +1109,28 @@
           "essential": true
         },
         {
-          "text": "335",
-          "size": 118,
+          "text": "ИСПОЛНЕНО НА TPU",
+          "size": 74,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             104,
-            628,
-            317,
-            714
+            622,
+            887,
+            675
           ],
           "essential": true
         },
         {
-          "text": "программных проверок",
-          "size": 36,
-          "weight": "semi",
-          "color": "#e6ebef",
-          "bounds": [
-            397,
-            647,
-            824,
-            674
-          ],
-          "essential": true
-        },
-        {
-          "text": "PASS по свежему отчёту ветки",
-          "size": 28,
+          "text": "335 программных проверок · PASS по отчёту ветки",
+          "size": 25,
           "weight": "regular",
           "color": "#aab5bf",
           "bounds": [
-            397,
-            704,
-            820,
-            729
+            108,
+            726,
+            736,
+            749
           ],
           "essential": true
         },
@@ -1188,7 +1175,7 @@
         }
       ],
       "assets": [],
-      "sha256": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2"
+      "sha256": "c155bd1ef6beae1abed69e5b617a17406d01740a2c31ded54a31b68c51766352"
     },
     {
       "slide": 5,
@@ -1285,14 +1272,14 @@
           "essential": true
         },
         {
-          "text": "REST/WS, реакции; S0–S10 с долгами",
+          "text": "REST/WS, реакции; основа S0–S11",
           "size": 26,
           "weight": "regular",
           "color": "#aab5bf",
           "bounds": [
             104,
             404,
-            587,
+            546,
             427
           ],
           "essential": true
@@ -1428,15 +1415,15 @@
           "essential": true
         },
         {
-          "text": "Снимок 8161719d · кадры синтетические",
-          "size": 26,
+          "text": "Текущий front/control-room · кадры синтетические",
+          "size": 25,
           "weight": "regular",
           "color": "#aab5bf",
           "bounds": [
             891,
-            897,
-            1410,
-            920
+            883,
+            1520,
+            907
           ],
           "essential": true
         },
@@ -1447,29 +1434,29 @@
           "color": "#e8a33d",
           "bounds": [
             891,
-            934,
+            920,
             1281,
-            959
+            945
           ],
           "essential": true
         },
         {
-          "text": "Огонь / СИЗ: нет моделей в main  ·  Перенос груза: skeleton  ·  Журнал backend (S12) ещё в работе",
+          "text": "Огонь / СИЗ: нет моделей в main  ·  Перенос груза: правило ещё не завершено",
           "size": 22,
           "weight": "regular",
           "color": "#7f8d9a",
           "bounds": [
             104,
             956,
-            1166,
-            977
+            956,
+            976
           ],
           "essential": true
         }
       ],
       "assets": [
         {
-          "path": "assets/screenshots/01-control-room.png",
+          "path": "assets/screenshots/03-yellow-control-room.png",
           "role": "actual frontend capture",
           "original": [
             1920,
@@ -1482,10 +1469,10 @@
             925,
             520
           ],
-          "sha256": "7dff569f608baefcefd515038ba6abe91f630320b4851eb2d83531370f8373e8"
+          "sha256": "c817ecc3307d3fc09f2cf694822ff2cbcbe3841bcec616876d412dbcb312da85"
         }
       ],
-      "sha256": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46"
+      "sha256": "9128024b308a05dbde23a0c893a93bca88b1320a27a046b62ad673ff6fc80afe"
     },
     {
       "slide": 6,
@@ -1695,18 +1682,18 @@
             1080
           ],
           "crop": [
-            1559,
-            145,
-            1904,
-            710
+            1575,
+            176,
+            1915,
+            741
           ],
           "rect": [
-            210,
+            212,
             417,
-            276,
+            272,
             452
           ],
-          "sha256": "6815b756daf24a178df5719f9bfca5dc92cbd1e92610ab07d4c2cd8ca08f4b41"
+          "sha256": "c817ecc3307d3fc09f2cf694822ff2cbcbe3841bcec616876d412dbcb312da85"
         },
         {
           "path": "assets/screenshots/07-red-incident.png",
@@ -1716,18 +1703,18 @@
             1080
           ],
           "crop": [
-            274,
-            239,
-            1005,
-            650
+            268,
+            212,
+            1000,
+            626
           ],
           "rect": [
-            763,
+            765,
             417,
-            496,
+            493,
             279
           ],
-          "sha256": "a517b2944e1eca437f07384ab6a49c93aab09bf4bf2be8e625d02e42aac1bf7b"
+          "sha256": "8812b53e277319f431cb0b8a31e59fab055893a4bd2853acbb811cb0c798df0a"
         },
         {
           "path": "assets/screenshots/07-red-incident.png",
@@ -1737,18 +1724,18 @@
             1080
           ],
           "crop": [
-            1203,
-            586,
-            1903,
-            751
+            1204,
+            558,
+            1917,
+            729
           ],
           "rect": [
-            693,
+            699,
             719,
-            636,
+            625,
             150
           ],
-          "sha256": "a517b2944e1eca437f07384ab6a49c93aab09bf4bf2be8e625d02e42aac1bf7b"
+          "sha256": "8812b53e277319f431cb0b8a31e59fab055893a4bd2853acbb811cb0c798df0a"
         },
         {
           "path": "assets/screenshots/10-master-mobile-task.png",
@@ -1764,10 +1751,10 @@
             222,
             480
           ],
-          "sha256": "8a7fc2d165aebf6b4fd4a1a40b595faf011cae74d1ad4a85e73a5545500cef99"
+          "sha256": "73957615edd47ebb1751f021604a6e8ff3a47c1716249454a705299a2e380e93"
         }
       ],
-      "sha256": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c"
+      "sha256": "d3164644f3171450e2e34bcb704d6e8e218ef666a90b00702d12cec83060756e"
     },
     {
       "slide": 7,
@@ -1844,22 +1831,22 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            394,
+            365,
             134,
-            413
+            384
           ],
           "essential": true
         },
         {
           "text": "Стабильный интегрированный прогон LinQ",
-          "size": 35,
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            388,
-            927,
-            421
+            359,
+            884,
+            391
           ],
           "essential": true
         },
@@ -1870,22 +1857,22 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            475,
+            430,
             136,
-            494
+            449
           ],
           "essential": true
         },
         {
           "text": "Интеграция своих моделей в общий конвейер",
-          "size": 35,
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            469,
-            980,
-            502
+            424,
+            934,
+            456
           ],
           "essential": true
         },
@@ -1896,22 +1883,22 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            556,
+            495,
             137,
-            575
+            514
           ],
           "essential": true
         },
         {
           "text": "Precision/Recall на размеченных видео",
-          "size": 35,
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            550,
-            864,
-            583
+            489,
+            825,
+            520
           ],
           "essential": true
         },
@@ -1922,22 +1909,22 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            637,
+            560,
             137,
-            656
+            579
           ],
           "essential": true
         },
         {
           "text": "Ложные тревоги на камеро-час",
-          "size": 35,
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            631,
-            726,
-            663
+            554,
+            694,
+            584
           ],
           "essential": true
         },
@@ -1948,22 +1935,22 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            718,
+            625,
             136,
-            737
+            644
           ],
           "essential": true
         },
         {
           "text": "Задержка от события до оповещения",
-          "size": 35,
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            712,
-            831,
-            745
+            619,
+            794,
+            650
           ],
           "essential": true
         },
@@ -1974,22 +1961,61 @@
           "color": "#7f8d9a",
           "bounds": [
             104,
-            799,
+            690,
             137,
-            818
+            709
           ],
           "essential": true
         },
         {
-          "text": "Оставшиеся сценарии и журнал backend",
-          "size": 35,
+          "text": "Оставшиеся сценарии и проверка качества",
+          "size": 33,
           "weight": "semi",
           "color": "#e6ebef",
           "bounds": [
             176,
-            793,
-            891,
-            825
+            684,
+            894,
+            714
+          ],
+          "essential": true
+        },
+        {
+          "text": "Отличие: полный цикл тревоги до мастера, сводка смены,",
+          "size": 28,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            795,
+            918,
+            822
+          ],
+          "essential": true
+        },
+        {
+          "text": "видимое «нет наблюдения», происхождение каждого события.",
+          "size": 28,
+          "weight": "semi",
+          "color": "#e6ebef",
+          "bounds": [
+            104,
+            835,
+            986,
+            861
+          ],
+          "essential": true
+        },
+        {
+          "text": "Ближайший конкурент на LinQ — IVA CV",
+          "size": 30,
+          "weight": "regular",
+          "color": "#aab5bf",
+          "bounds": [
+            104,
+            886,
+            690,
+            914
           ],
           "essential": true
         },
@@ -2019,7 +2045,7 @@
           ]
         }
       ],
-      "sha256": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f"
+      "sha256": "f5434209c7c41c6e09eb0a85ddf8a84b71823f6f0a64cf4821ce422e11b81941"
     },
     {
       "slide": 8,

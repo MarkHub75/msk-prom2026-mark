@@ -194,9 +194,8 @@ node(im,(104,359,500,222),'01  ONNX','CPU/CUDA и ONNX\natol = rtol = 1e−3\nН
 node(im,(662,359,500,222),'02  SDK LinQ','2026.9.45 · TPU_H1M\nОба графа скомпилированы\nSplit сохраняет confidence¹',heading_size=37)
 node(im,(1220,359,596,222),'03  Реальный TPU','Helmet + Split-Pose\nСохранены ответы status 0\nс привязкой к запросам',accent=WHITE,heading_size=37)
 arrow(im,(611,469),(655,469));arrow(im,(1169,469),(1213,469))
-txt(im,104,628,'335',118,weight='semi')
-txt(im,397,647,'программных проверок',36,weight='semi',maxw=650)
-txt(im,397,704,'PASS по свежему отчёту ветки',28,MUTED,maxw=650)
+txt(im,104,622,'ИСПОЛНЕНО НА TPU',74,weight='semi',maxw=1712)
+txt(im,108,726,'335 программных проверок · PASS по отчёту ветки',25,MUTED,maxw=1712)
 line(im,[(104,790),(1816,790)])
 txt(im,104,827,'Исполнение ещё не подтверждает качество',42,weight='semi',maxw=1712)
 txt(im,104,893,'URfall-01: ответы TPU получены, но единственное падение пропущено.',30,AMBER,maxw=1712)
@@ -207,7 +206,7 @@ save(im,4)
 im=start(5,'ГОТОВНОСТЬ')
 title(im,'Готовность по слоям','Статус по коду и проверкам после git fetch; сквозной продукт ещё собирается')
 rows=[
-    ('Backend и контракт','Работает¹','REST/WS, реакции; S0–S10 с долгами',WHITE),
+    ('Backend и контракт','Работает¹','REST/WS, реакции; основа S0–S11',WHITE),
     ('Правила детекции','На синтетике','Бег, падение, сближение, телефон,\nограждение, опасная зона',MUTED),
     ('Frontend и действия','На моке','Оператор → мастер → журнал',AMBER),
     ('Демо-контур','30/30','Свежий smoke stateful-мока',WHITE)]
@@ -217,10 +216,10 @@ for k,(head,status,detail,color) in enumerate(rows):
     txt(im,667,y+4,status,26,color,maxw=195)
     txt(im,104,y+54,detail,26,MUTED,maxw=735,leading=1.2)
     line(im,[(104,y+118),(837,y+118)])
-shot(im,'01-control-room.png',(891,350,925,521))
-txt(im,891,897,'Снимок 8161719d · кадры синтетические',26,MUTED,maxw=925)
-txt(im,891,934,'¹ LinQ-интеграция нестабильна.',25,AMBER,maxw=925)
-source(im,'Огонь / СИЗ: нет моделей в main  ·  Перенос груза: skeleton  ·  Журнал backend (S12) ещё в работе')
+shot(im,'03-yellow-control-room.png',(891,350,925,521))
+txt(im,891,883,'Текущий front/control-room · кадры синтетические',25,MUTED,maxw=925)
+txt(im,891,920,'¹ LinQ-интеграция нестабильна.',25,AMBER,maxw=925)
+source(im,'Огонь / СИЗ: нет моделей в main  ·  Перенос груза: правило ещё не завершено')
 save(im,5)
 
 # 06 — real captured steps, not generated UI.
@@ -230,9 +229,9 @@ txt(im,104,347,'01',31,AMBER,weight='semi');txt(im,164,343,'Бег',43,weight='s
 txt(im,693,347,'02',31,RED,weight='semi');txt(im,753,343,'Падение',43,weight='semi')
 txt(im,1446,347,'03',31,MUTED,weight='semi');txt(im,1506,343,'Мастер',43,weight='semi')
 # Current queue: exact crop, no fabricated overlays.
-shot(im,'03-yellow-control-room.png',(104,417,488,452),crop=(1559,145,1904,710))
-shot(im,'07-red-incident.png',(647,417,729,279),crop=(274,239,1005,650))
-shot(im,'07-red-incident.png',(647,719,729,150),crop=(1203,586,1903,751))
+shot(im,'03-yellow-control-room.png',(104,417,488,452),crop=(1575,176,1915,741))
+shot(im,'07-red-incident.png',(647,417,729,279),crop=(268,212,1000,626))
+shot(im,'07-red-incident.png',(647,719,729,150),crop=(1204,558,1917,729))
 shot(im,'10-master-mobile-task.png',(1446,414,370,480))
 txt(im,104,901,'Проверяет событие',29,MUTED,maxw=510)
 txt(im,647,901,'Доказательство → передача',29,MUTED,maxw=740)
@@ -250,11 +249,14 @@ items=[
     ('03','Precision/Recall на размеченных видео'),
     ('04','Ложные тревоги на камеро-час'),
     ('05','Задержка от события до оповещения'),
-    ('06','Оставшиеся сценарии и журнал backend')]
+    ('06','Оставшиеся сценарии и проверка качества')]
 for i,(num,value) in enumerate(items):
-    y=388+i*81
+    y=359+i*65
     txt(im,104,y+6,num,27,DIM)
-    txt(im,176,y,value,35,weight='semi',maxw=1500)
+    txt(im,176,y,value,33,weight='semi',maxw=1500)
+txt(im,104,795,'Отличие: полный цикл тревоги до мастера, сводка смены,',28,weight='semi',maxw=1712)
+txt(im,104,835,'видимое «нет наблюдения», происхождение каждого события.',28,weight='semi',maxw=1712)
+txt(im,104,886,'Ближайший конкурент на LinQ — IVA CV',30,MUTED,maxw=1712)
 source(im,'Без обещаний метрик до измерений  ·  Промышленная камера — сгенерированная иллюстрация')
 save(im,7)
 

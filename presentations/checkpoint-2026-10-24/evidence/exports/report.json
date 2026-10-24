@@ -54,8 +54,8 @@
       "pptxFullBleedOneImage": true,
       "notesMatchInXML": true,
       "additionalNotesMatchInXML": true,
-      "sourceSha256": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2",
-      "powerPointRasterMeanAbsoluteChannelError": 0.08668016975308641,
+      "sourceSha256": "c155bd1ef6beae1abed69e5b617a17406d01740a2c31ded54a31b68c51766352",
+      "powerPointRasterMeanAbsoluteChannelError": 0.08676922582304526,
       "notesMatchInPowerPoint": true
     },
     {
@@ -68,8 +68,8 @@
       "pptxFullBleedOneImage": true,
       "notesMatchInXML": true,
       "additionalNotesMatchInXML": true,
-      "sourceSha256": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46",
-      "powerPointRasterMeanAbsoluteChannelError": 0.13443753215020574,
+      "sourceSha256": "9128024b308a05dbde23a0c893a93bca88b1320a27a046b62ad673ff6fc80afe",
+      "powerPointRasterMeanAbsoluteChannelError": 0.15331918724279836,
       "notesMatchInPowerPoint": true
     },
     {
@@ -82,8 +82,8 @@
       "pptxFullBleedOneImage": true,
       "notesMatchInXML": true,
       "additionalNotesMatchInXML": true,
-      "sourceSha256": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c",
-      "powerPointRasterMeanAbsoluteChannelError": 0.11932838220164609,
+      "sourceSha256": "d3164644f3171450e2e34bcb704d6e8e218ef666a90b00702d12cec83060756e",
+      "powerPointRasterMeanAbsoluteChannelError": 0.11529642489711933,
       "notesMatchInPowerPoint": true
     },
     {
@@ -96,8 +96,8 @@
       "pptxFullBleedOneImage": true,
       "notesMatchInXML": true,
       "additionalNotesMatchInXML": true,
-      "sourceSha256": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f",
-      "powerPointRasterMeanAbsoluteChannelError": 0.1513332690329218,
+      "sourceSha256": "f5434209c7c41c6e09eb0a85ddf8a84b71823f6f0a64cf4821ce422e11b81941",
+      "powerPointRasterMeanAbsoluteChannelError": 0.15748681841563786,
       "notesMatchInPowerPoint": true
     },
     {
@@ -122,7 +122,7 @@
   "notesEmbedded": true,
   "pptx": {
     "path": "exports/SafeWatch_Checkpoint_2026-10-24.pptx",
-    "bytes": 4708635,
-    "sha256": "ffedb32b2fcdf85dad792398c4147800ccad5647378287135dc3fcb27b44fcdb"
+    "bytes": 4776003,
+    "sha256": "244d4d5357533007523847f0c2e110e2ca5363b837e27114a2e8cf50ec2c994d"
   }
 }

@@ -7,8 +7,10 @@ $app = New-Object -ComObject PowerPoint.Application
 $existingCount = $app.Presentations.Count
 $report = [ordered]@{status='RUNNING'; application='Microsoft PowerPoint desktop'; version=$app.Version; existingPresentations=$existingCount; slides=@(); errors=@(); interactiveDialogs='No claim from unattended COM; open/export errors are recorded.'}
 $deck = $null
+$verificationCopy = Join-Path $out ('verify-' + [guid]::NewGuid().ToString() + '.pptx')
 try {
-  $deck = $app.Presentations.Open((Join-Path $PresentationRoot 'exports\SafeWatch_Checkpoint_2026-10-24.pptx'),-1,0,0)
+  Copy-Item (Join-Path $PresentationRoot 'exports\SafeWatch_Checkpoint_2026-10-24.pptx') $verificationCopy
+  $deck = $app.Presentations.Open($verificationCopy,-1,0,0)
   $report.slideCount = $deck.Slides.Count
   $report.widthPoints = $deck.PageSetup.SlideWidth
   $report.heightPoints = $deck.PageSetup.SlideHeight
@@ -31,6 +33,7 @@ try {
   throw
 } finally {
   if ($null -ne $deck) { $deck.Close() }
+  if (Test-Path $verificationCopy) { Remove-Item $verificationCopy }
   if ($existingCount -eq 0) { $app.Quit() }
   $report | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 (Join-Path $out 'report.json')
 }

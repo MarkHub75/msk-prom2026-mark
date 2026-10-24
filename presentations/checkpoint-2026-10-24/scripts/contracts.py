@@ -14,7 +14,8 @@ for i,entry in enumerate(sourceindex['sources'],1):
     sources.append(dict(id=f'src{i:02}',path=p,sha256=sha(p),kind='product',
         locator=f"{entry['commit']}:{entry['path']}; original lines {entry['original_line_ranges'] or 'whole blob'}; snapshot index records Git blob and hashes"))
 extras=[('smoke','research/smoke-mock-fresh.json','fixture','Fresh isolated stateful mock smoke 24.10.2026:30 PASS/0 FAIL/0 SKIP'),
-        ('frontend','research/frontend-evidence.md','research','New front/control-room runtime capture and interactions 08:28–08:29 MSK'),
+        ('frontend','research/frontend-evidence.md','research','Current Premiere control-room runtime captured again for revision r3'),
+        ('revision-r3','research/revision-r3/source-index.json','product','Latest main status and current frontend source snapshots for user-requested revision'),
         ('audit','research/technical-evidence.md','research','Semantic audit, history reconciliation and explicit limitations'),
         ('composition','evidence/composition.json','research','Exact slide text and ink bounds; UI crop provenance'),
         ('sources','SOURCES.md','research','Claim/source index after fetch')]
@@ -29,13 +30,13 @@ assertions=['Промышленная безопасность','Видео → 
     'До финальной защиты','Вопросы экспертам LinQ']
 claims=[
     [('roles','Оператор проверяет событие; мастер реагирует; охрана труда анализирует журнал.',tech,'Целевой процесс; наличие пяти ролей не равно готовности пяти рабочих мест.')],
-    [('architecture','Видео → Jupyter → TPU → JSONL → CPU → эпизоды → эмуляция → WS → оператор → мастер → журнал.',tech,'Целевой конвейер архива/эмуляции; стабильная интеграция TPU и настоящий журнал ещё открыты.')],
+    [('architecture','Видео → Jupyter → TPU → JSONL → CPU → эпизоды → эмуляция → WS → оператор → мастер → журнал.',tech,'Целевой конвейер архива/эмуляции; стабильная интеграция TPU ещё открыта.')],
     [('baseline','400 кадров1280×720;19.09с;20.95FPS;31с с загрузкой.',linq+find('results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json'),'Detector test video-run inflight8; не общий detector+pose pipeline и не alert latency.'),
      ('timeout','Поздний интегрированный backend получил TPU timeout.',progress,'Не отменяет ранний успешный отдельный baseline smoke.')],
     [('own-hardware','Helmet и Split-Pose имеют correlated status0 TPU captures.',ml,'По свежим сохранённым отчётам ветки; raw hardware captures вне Git; здесь не rerun.'),
      ('software','335 software tests PASS.',ml,'Программные проверки по отчёту ветки, не335 измерений качества CV.'),
      ('fall','URfall01: аппаратные ответы получены, одно падение пропущено.',ml,'Один development clip; Fall quality NOT_ACCEPTED; independent final test NOT_RUN.')],
-    [('main-readiness','В main закрыты S0–S10 с долгами; журнал S12 ещё в работе.',progress+['audit'],'Статус документов и кода, не повторный product gate в этой сессии.'),
+    [('main-readiness','Проверенная основа S0–S11; в свежем main журнал уже реализован.',['revision-r3'],'Матрица показывает запрошенную основу; main продвинулся дальше. Backend gate здесь не перезапускался.'),
      ('mock-smoke','Свежая проверка stateful-мока:30/30.', ['smoke'],'Это mock backend, не real backend и не LinQ.'),
      ('ui','Текущая диспетчерская и действия работают на совместимом моке.', ['frontend'],'Синтетические still previews; видео/эфир501; не реальные подключённые камеры.')],
     [('demo','Оператор → красная передача → мастер → меры → журнал пройдены в браузере.', ['frontend'],'Демонстрационные данные. Кадры синтетические. Рамки размечены вручную.')],

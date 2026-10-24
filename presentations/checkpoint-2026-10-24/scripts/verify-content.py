@@ -28,12 +28,16 @@ for slide in comp['slides']:
         assert all(ord(c) in cmap[t['weight']] for c in t['text']),t['text']
         x1,y1,x2,y2=t['bounds']
         assert x1>=96 and x2<=1824 and y1>=54 and y2<=1026,t
+    for i,a in enumerate(slide['text']):
+        for b in slide['text'][i+1:]:
+            x1,y1,x2,y2=a['bounds']; u1,v1,u2,v2=b['bounds']
+            assert min(x2,u2)<=max(x1,u1) or min(y2,v2)<=max(y1,v1), (slide['slide'],a['text'],b['text'])
     if slide['slide']==3:
         visible=' '.join(t['text'] for t in slide['text'])
         assert all(s in visible for s in ['Тест детектора','≈21','19,09','Recall/IoU','не точность'])
     if slide['slide']==6:
         assert 'Демонстрационные данные. Кадры синтетические. Рамки размечены вручную.' in [t['text'] for t in slide['text']]
-    checks.append(dict(slide=slide['slide'],allGlyphsPresent=True,safeTextInk=True,imageHashMatch=True))
+    checks.append(dict(slide=slide['slide'],allGlyphsPresent=True,safeTextInk=True,imageHashMatch=True,textPairsDoNotOverlap=True))
 report=dict(status='PASS',checked_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),slides=8,
     baselinePrimaryJSON='400/400;19.09s;20.95FPS;31.0s;inflight8',freshMock='30PASS/0FAIL/0SKIP',
     ownModels='Latest335 software-tests report and negative one-fall development result cross-checked',checks=checks,

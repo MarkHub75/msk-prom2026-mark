@@ -91,7 +91,9 @@ def main():
                 ('pdf-report', ROOT / 'evidence/pdf-report.json'),
                 ('technical-audit', ROOT / 'research/technical-evidence.md'),
                 ('frontend-audit', ROOT / 'research/frontend-evidence.md'),
-                ('visual-audit', ROOT / 'research/independent-visual-review.md'),
+                ('visual-audit', ROOT / 'research/visual-review-r3.json'),
+                ('frontend-r3', ROOT / 'research/frontend-r3-summary.md'),
+                ('source-index-r3', ROOT / 'research/revision-r3/source-index.json'),
                 ('source-index', ROOT / 'research/source-snapshots/source-index.json'),
                 ('fresh-mock-smoke', ROOT / 'research/smoke-mock-fresh.json')]
     for ident, file in optional:
@@ -101,7 +103,8 @@ def main():
     for directory in [ROOT / 'docs', ROOT / 'sources']:
         if directory.exists():
             documents.extend(p for p in sorted(directory.rglob('*')) if p.is_file() and p.suffix.lower() in ['.md', '.json', '.txt'])
-    documents.extend(p for p in sorted(ROOT.glob('*.md')) if p.is_file())
+    # Final browser/HRE QA is written after sealing; keep its live report outside the immutable package.
+    documents.extend(p for p in sorted(ROOT.glob('*.md')) if p.is_file() and p.name != 'VERIFICATION.md')
     for index, file in enumerate(documents, 1):
         artifact(f'doc-{index:02d}', file)
     for index in range(1, 9):

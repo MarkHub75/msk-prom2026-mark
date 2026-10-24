@@ -1,57 +1,56 @@
 {
   "status": "READY_FOR_HUMAN_REVIEW",
-  "verified_at": "2026-10-24T08:48:47.745582+03:00",
+  "verified_at": "2026-10-24T09:25:11.748285+03:00",
   "slides": 8,
   "human_acceptance": "NOT_ASSERTED",
   "checkpoint": "HUMAN_SAFEWATCH_CHECKPOINT_PRODUCTION_REVIEW",
   "branch": "codex/safewatch-checkpoint-pptx",
-  "source_index_verified_at": "2026-10-24T05:29:55.327586+00:00",
+  "source_index_verified_at": "2026-10-24T09:10:24.477085+03:00",
   "sources": {
-    "origin/main": "353c7f966a67c0797dbe88ec8f8eb99f6465f582",
-    "origin/matvey_cv": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2",
-    "origin/demo/checkpoint": "9f652236589698857ba05eabbcf361b4ab3779b2",
-    "origin/front/control-room": "8161719d687083c7a3578b0f5de8bc2043a95ce1"
+    "main": "b4fb994c63f3ce187d22491080f75ffac37797c3",
+    "front/control-room": "1b8822ef86e7d5540967e73e9e4c606e926d01c1",
+    "demo/checkpoint": "053683dadd65d15b1d2b9df9ee5ba8ef382ad025"
   },
   "files": [
     {
       "path": "exports/SafeWatch_Checkpoint_2026-10-24.pptx",
-      "sha256": "ffedb32b2fcdf85dad792398c4147800ccad5647378287135dc3fcb27b44fcdb",
-      "bytes": 4708635
+      "sha256": "244d4d5357533007523847f0c2e110e2ca5363b837e27114a2e8cf50ec2c994d",
+      "bytes": 4776003
     },
     {
       "path": "exports/SafeWatch_Checkpoint_2026-10-24.pdf",
-      "sha256": "5f688b2550462ba1a8cb80fa1f01e71b0d5c44a714c88334a8b6f8d4649c0583",
-      "bytes": 6108785
+      "sha256": "d0d9d90dbc135a3e19d9aea1236ce6f2f6c1475117420fb2a5dee990a0563b80",
+      "bytes": 6182218
     },
     {
       "path": "preview/SafeWatch_8_slides.png",
-      "sha256": "32ac3fac183b09a97bd441bc16b8dcf6825c920dce79e0b48b332bea122d09af",
-      "bytes": 2100861
+      "sha256": "a67fcd4a68c2c3f90ec6c4f3c8c1be81b9625587fb7508b438df2f258c09ecd1",
+      "bytes": 2139552
     },
     {
       "path": "speaker-notes.json",
-      "sha256": "4765a5fd3460096764985d2dbe7bb3f96ccf56899cfc04e0b4526a9ffc42efb3",
-      "bytes": 17338
+      "sha256": "af4aedaac9028dda26bd71dd0eb1df68688a8cae576bf48733feb3abd8c4469e",
+      "bytes": 17763
     },
     {
       "path": "SPEAKER_SCRIPT.md",
-      "sha256": "4dde652b0810f1a2bf90fdbb0057ff46984f7a38f3aa1923c75a04239be2fdfb",
-      "bytes": 8116
+      "sha256": "7dda855138ce18614ed58deb041e8f6be9385df1900555bddcfa536a0700650d",
+      "bytes": 7986
     },
     {
       "path": "SOURCES.md",
-      "sha256": "585c76bf18cbc55d4a2ee3ed13a64ddc4021cdeb2bd56bda74117667a5f69879",
-      "bytes": 11834
+      "sha256": "6d71cc2a75a9197c5deb602dc265d72d6c165d1034c8a964469e0aaa6cf63719",
+      "bytes": 13373
     },
     {
       "path": "VERIFICATION.md",
-      "sha256": "814743a1c64dcbcc04025b491b6ea8b8c27ded0a4543af9aa5a6929821d1b545",
-      "bytes": 5889
+      "sha256": "ecce643c7316664bb999556dfed26d9712a384bb54839557fcb7bd8877d0fd13",
+      "bytes": 6363
     },
     {
       "path": "craft/story.json",
-      "sha256": "787495aeb879f33baa7ee9668b997a551387e076276d8af021269cbdf5df39f5",
-      "bytes": 47522
+      "sha256": "ff1aabade13eca2468fc058de317861fafd63ccbde895c08c2e8bc03a77a631a",
+      "bytes": 48078
     },
     {
       "path": "craft/adapter.json",
@@ -59,9 +58,9 @@
       "bytes": 5390
     },
     {
-      "path": "review-r2/manifest.json",
-      "sha256": "79f4d874275fab3b876bba763882172dc049e76d0b165000d8fc597834f2f7f9",
-      "bytes": 77874
+      "path": "review-r3/manifest.json",
+      "sha256": "12f35a37393f9942fda620c1f3e4f0a1f41b619ec146cd04cb6a4e7af1de534b",
+      "bytes": 79404
     },
     {
       "path": "slides/slide-01.png",
@@ -80,23 +79,23 @@
     },
     {
       "path": "slides/slide-04.png",
-      "sha256": "1f68915870363bb180ee932a8595e5577803e590d8d897017532f5ced9b313d2",
-      "bytes": 119208
+      "sha256": "c155bd1ef6beae1abed69e5b617a17406d01740a2c31ded54a31b68c51766352",
+      "bytes": 118546
     },
     {
       "path": "slides/slide-05.png",
-      "sha256": "be34e0584bd13402eac7ffbc12228a2485052740ab6c5aa67e47da6f01486f46",
-      "bytes": 621612
+      "sha256": "9128024b308a05dbde23a0c893a93bca88b1320a27a046b62ad673ff6fc80afe",
+      "bytes": 665472
     },
     {
       "path": "slides/slide-06.png",
-      "sha256": "efa445dd0c3a588beb7e4778fb57a867c5b8e4f257f08c7cf2d857c71c84d67c",
-      "bytes": 572465
+      "sha256": "d3164644f3171450e2e34bcb704d6e8e218ef666a90b00702d12cec83060756e",
+      "bytes": 568020
     },
     {
       "path": "slides/slide-07.png",
-      "sha256": "a790b5c26c6c655fc9f6060f220ebc17e3792762d66413058256134a3eb14f3f",
-      "bytes": 1266037
+      "sha256": "f5434209c7c41c6e09eb0a85ddf8a84b71823f6f0a64cf4821ce422e11b81941",
+      "bytes": 1294461
     },
     {
       "path": "slides/slide-08.png",
@@ -107,12 +106,12 @@
   "checks": {
     "powerPointOpenRender": "PASS",
     "projectionCaptures": 32,
-    "sourceRecordsMatched": 32,
+    "sourceRecordsMatched": 33,
     "nativeMaxMeanChannelError": 0.2449757265946502,
     "pdfPixels": "IDENTICAL",
     "humanReviewVerdicts": 0,
     "browserErrors": 0,
-    "sequenceSeconds": 284.992,
+    "sequenceSeconds": 284.975,
     "freshMock": "30/30"
   }
 }

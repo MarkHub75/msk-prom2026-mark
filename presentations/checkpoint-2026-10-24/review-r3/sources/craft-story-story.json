@@ -1,0 +1,781 @@
+{
+  "version": "1.0.0",
+  "id": "safewatch-checkpoint-20261024",
+  "audience": "Технические эксперты Моспром2026 и LinQ",
+  "scope": "Восемь image-based PowerPoint слайдов технического чекпойнта; продуктовый код не меняется.",
+  "sequenceRationale": "Показать продуктовую задачу, архитектуру, подтверждённые hardware результаты, ограничения качества, текущие UI действия и приоритеты.",
+  "rubric": {
+    "status": "unknown",
+    "source": null,
+    "criteria": []
+  },
+  "sources": [
+    {
+      "id": "src01",
+      "path": "research/source-snapshots/main__progress.md",
+      "sha256": "9af0e626ac29b980428ad8d29bb6f790e550dee6685ecb07d992cadf28ecc26e",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:progress.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src02",
+      "path": "research/source-snapshots/main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "sha256": "18b16e4fdcd6f3c48fad66deea1d07f4adbb04e35e349fd3f4641a9a9c0731dd",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:docs/linq/LINQ_CONTRACT.md; original lines [[1, 12], [19, 45], [62, 108], [110, 123], [126, 130], [132, 134]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src03",
+      "path": "research/source-snapshots/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src04",
+      "path": "research/source-snapshots/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_pose640_cut_ap9999_b1_o1_h1m_s2.summary.json",
+      "sha256": "1dcfe949fdd5d19777c3f25bda9f3f8a202e243fe4bc1bea13cd82e527c33efc",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/synthetic_coco_40x1s_mosprom_pose640_cut_ap9999_b1_o1_h1m_s2.summary.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src05",
+      "path": "research/source-snapshots/main__results__linq_smoke__det640_cut_ap9999.json.excerpt.txt",
+      "sha256": "091efe701cc4a83f8cd31d8750d5103465c3224766686c1386da62524ca416f8",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/det640_cut_ap9999.json; original lines [[1760, 1766]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src06",
+      "path": "research/source-snapshots/main__results__linq_smoke__pose640_cut_ap9999.json.excerpt.txt",
+      "sha256": "56fa656923fee3139b2a7957e0deae28fedf3575bd633a5e78cd2131bad668c9",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:results/linq_smoke/pose640_cut_ap9999.json; original lines [[5009, 5015]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src07",
+      "path": "research/source-snapshots/main__tech.md.excerpt.txt",
+      "sha256": "a797acbea2313f83d741a0e80dc4fc4d6f6ab4e12fc202e499c1a753430bc92d",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:tech.md; original lines [[28, 54], [2705, 2734], [2901, 2985], [3056, 3060]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src08",
+      "path": "research/source-snapshots/main__config__default.yaml.excerpt.txt",
+      "sha256": "692176318611fcc37f266e94f8322d8dc0c3747b65561e77226a7fa8983fde64",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:config/default.yaml; original lines [[149, 157]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src09",
+      "path": "research/source-snapshots/main__config__models.yaml",
+      "sha256": "c72d0681e6a16f4067da8cdf092f4f50fff51f1d333f91b96031eae895004c3a",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:config/models.yaml; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src10",
+      "path": "research/source-snapshots/main__contract__openapi.json",
+      "sha256": "f2399435537139a52b1185223bc35ef40b7700e60007083cbe47cf88b3f1300c",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:contract/openapi.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src11",
+      "path": "research/source-snapshots/main__contract__ws.schema.json",
+      "sha256": "ec9e19ce04ce56e911a68593f12e7ef965f6093b4c19c31cca286adc4c495db6",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:contract/ws.schema.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src12",
+      "path": "research/source-snapshots/main__src__safewatch__rules____init__.py",
+      "sha256": "46f165a0bd21ff52d21461b82b47485d55e63efcf3da2d22615b81df85ade71a",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/rules/__init__.py; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src13",
+      "path": "research/source-snapshots/main__src__safewatch__rules__load_carrying.py",
+      "sha256": "ff05a8f44c701d3e81e85aff402586a95d95e56f14e766f448a19007c66f5b8a",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/rules/load_carrying.py; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src14",
+      "path": "research/source-snapshots/main__src__safewatch__services.py.excerpt.txt",
+      "sha256": "01fbc2f1bf66bcaa2fab4b77e88d67414b4693db40bddf5683755443680750a6",
+      "kind": "product",
+      "locator": "353c7f966a67c0797dbe88ec8f8eb99f6465f582:src/safewatch/services.py; original lines [[744, 761], [1638, 1653], [1951, 1982]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src15",
+      "path": "research/source-snapshots/matvey_cv__docs__STATUS.md",
+      "sha256": "2d51324ae89a117a6442de397b2f00ec5783e4e8ce3d8cf8df5db9868a78cf83",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:docs/STATUS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src16",
+      "path": "research/source-snapshots/matvey_cv__docs__validation__jupyter-kit.json",
+      "sha256": "4ca48534b8036d1c3aac075c9b605409e65a3da986c7dabae0710b271cb6ff89",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:docs/validation/jupyter-kit.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src17",
+      "path": "research/source-snapshots/matvey_cv__ml__PROGRESS.md",
+      "sha256": "c5fbb634e4792b206e5c69273731667220ad851ba7fa96ba11c073a1e94bea11",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/PROGRESS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src18",
+      "path": "research/source-snapshots/matvey_cv__ml__EVAL_REPORT.md",
+      "sha256": "88d97e6de94da273271a6f18c36162e17393ac2fbb57c3f75c7309f066e33f31",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/EVAL_REPORT.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src19",
+      "path": "research/source-snapshots/matvey_cv__ml__RELEASE_MANIFEST.json",
+      "sha256": "a849cfc0d82fd444c0b7d6eb6a4b114768089995bf5bb971cb84a19dfc8a251b",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/RELEASE_MANIFEST.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src20",
+      "path": "research/source-snapshots/matvey_cv__RESUME.md.excerpt.txt",
+      "sha256": "3881e1790a6d149526067a8941d68be1c1c26db5712e463320aae128ae790376",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:RESUME.md; original lines [[1, 18]]; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src21",
+      "path": "research/source-snapshots/matvey_cv__ml__SCENARIOS.md",
+      "sha256": "36eb4285f95c7f043c2edfe7ffe77e3a77d94469decd4eeddfbdb65c2b9841c9",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/SCENARIOS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src22",
+      "path": "research/source-snapshots/matvey_cv__ml__reports__pose-linq-ur01-parity.json",
+      "sha256": "bc25f25af7bfa624ec660b50e4f3ee2e2c57d26b6d9fe7a0a3dcfc15eb1d657c",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/reports/pose-linq-ur01-parity.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src23",
+      "path": "research/source-snapshots/matvey_cv__ml__reports__running-zone-readiness.json",
+      "sha256": "30f608df2726d0aeaaa9914c884bbceb7bb5bd671ef98f6fec8ee741bab01c42",
+      "kind": "product",
+      "locator": "1bdeeafcd74a696999cfd4af28c2ea598e3fe8f2:ml/reports/running-zone-readiness.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src24",
+      "path": "research/source-snapshots/demo-checkpoint__tools__checkpoint-demo__README.md",
+      "sha256": "91d0a894d84c5f3607a449a105aa38ee30e975eb59213c295a1c671747e5504a",
+      "kind": "product",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/README.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src25",
+      "path": "research/source-snapshots/demo-checkpoint__tools__checkpoint-demo__WATCH_LOG.md",
+      "sha256": "69e46f72aa7beb4d0e2ff78c206d4712e15507cfcb24d052fee69653e1b0e85e",
+      "kind": "product",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/WATCH_LOG.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src26",
+      "path": "research/source-snapshots/demo-checkpoint__tools__checkpoint-demo__GAPS.md",
+      "sha256": "9b4eff71dcb62d13d03f28de28a1b3d9abb72c7b4d71d87988b439b6b5a1b67c",
+      "kind": "product",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/GAPS.md; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "src27",
+      "path": "research/source-snapshots/demo-checkpoint__tools__checkpoint-demo__watch__last-real.json",
+      "sha256": "f9f09575963543c2751da750b1f5b752f0a28915e0b034f488f7c691732f1b0e",
+      "kind": "product",
+      "locator": "9f652236589698857ba05eabbcf361b4ab3779b2:tools/checkpoint-demo/watch/last-real.json; original lines whole blob; snapshot index records Git blob and hashes"
+    },
+    {
+      "id": "smoke",
+      "path": "research/smoke-mock-fresh.json",
+      "sha256": "5b34ed2c339a83c0d557c7ebebf19171911c4c15de6619a379a5a710a6408507",
+      "kind": "fixture",
+      "locator": "Fresh isolated stateful mock smoke 24.10.2026:30 PASS/0 FAIL/0 SKIP"
+    },
+    {
+      "id": "frontend",
+      "path": "research/frontend-evidence.md",
+      "sha256": "fbc449f2630a643c93ac4a0fa15345ac4c664c0cc06cf6506228890a225aebf3",
+      "kind": "research",
+      "locator": "Current Premiere control-room runtime captured again for revision r3"
+    },
+    {
+      "id": "revision-r3",
+      "path": "research/revision-r3/source-index.json",
+      "sha256": "426eb1daccd4f37da59422280a60d310463eefde1696d01060594f8ef3715876",
+      "kind": "product",
+      "locator": "Latest main status and current frontend source snapshots for user-requested revision"
+    },
+    {
+      "id": "audit",
+      "path": "research/technical-evidence.md",
+      "sha256": "47997e0d21803f08cc57298daf3ab38c67f534993f3aab80253941e40c5909c3",
+      "kind": "research",
+      "locator": "Semantic audit, history reconciliation and explicit limitations"
+    },
+    {
+      "id": "composition",
+      "path": "evidence/composition.json",
+      "sha256": "8e3b486713f7f6863afe80339a3f70fd23e2dacedf4cf10c52f74beed218f50f",
+      "kind": "research",
+      "locator": "Exact slide text and ink bounds; UI crop provenance"
+    },
+    {
+      "id": "sources",
+      "path": "SOURCES.md",
+      "sha256": "6d71cc2a75a9197c5deb602dc265d72d6c165d1034c8a964469e0aaa6cf63719",
+      "kind": "research",
+      "locator": "Claim/source index after fetch"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "01",
+      "audienceTakeaway": "Промышленная безопасность",
+      "assertion": "Промышленная безопасность",
+      "evidence": [
+        "main@353c7f96:tech.md §2, строки 28–42",
+        "front/control-room@1b8822ef:frontend/src/App.tsx; research/frontend-evidence.md"
+      ],
+      "protagonist": "Опасное событие и роли",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Industrial image and role chain",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Промышленная безопасность",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "SafeWatch помогает оператору работать с опасными событиями, а не непрерывно просматривать десятки камер. Оператор проверяет событие и принимает решение. Мастер получает поручение, сообщает о мерах. Охрана труда видит историю реакции. В системе предусмотрены также руководство и администратор. Сегодня показываем технический чекпойнт: что подтверждено испытаниями, что проверяем на моке и где ещё остаются открытые задачи.\n\nРоли — продуктовая модель, а не заявление о готовности всех пяти рабочих мест. В текущем frontend правила, статистика, управленческие и административные экраны представлены заглушками. На первом слайде сгенерированная промышленная иллюстрация, не фотография установки SafeWatch.",
+      "claims": [
+        {
+          "id": "roles",
+          "text": "Оператор проверяет событие; мастер реагирует; охрана труда анализирует журнал.",
+          "kind": "factual",
+          "sourceIds": [
+            "src07"
+          ],
+          "qualification": "Целевой процесс; наличие пяти ролей не равно готовности пяти рабочих мест."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "02",
+      "audienceTakeaway": "Видео → событие → действие",
+      "assertion": "Видео → событие → действие",
+      "evidence": [
+        "main@353c7f96:tech.md §2, §8.5–8.8, §8.15",
+        "main@353c7f96:contract/openapi.json и contract/ws.schema.json",
+        "demo/checkpoint@053683da:tools/checkpoint-demo/"
+      ],
+      "protagonist": "Цепь от видео к реакции",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Three connected processing lanes",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Видео → событие → действие",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "Наша архитектура сейчас рассчитана на видеоархив и эмуляцию потока. Запись загружается в LinQ Jupyter, TPU исполняет модели, детекции сохраняются в JSONL. На CPU работают трекинг, правила и сборка эпизодов. Затем сервер воспроизводит запись по своим часам и публикует события через WebSocket. Продолжающееся нарушение не должно порождать новые оповещения на каждом кадре. Просмотр, подтверждение, передача и устранение имеют разные значения. OpenAPI и WS-схема задают общую границу для заменяемого фронтенда, backend и отдельного stateful-мока.\n\nЭто схема целевого конвейера, не заявление об успешном сквозном LinQ-прогоне. В текущей семантике confirm красного создаёт confirmed и сразу sent_to_master; отдельное действие send_to_master также существует. Устранение выполняет мастер через resolve с обязательными мерами. Показанный журнал работает на моке. В свежем main журнал уже реализован; интеграция текущего frontend проверяется здесь на моке. Автоэскалация не показана числом: main config/default.yaml enabled=true, timeout_s=45, tick_ms=500; в проверенном моке выключена без флага --escalation. Локальный user config не читался. Повтор replay создаёт новые события нового показа записи.",
+      "claims": [
+        {
+          "id": "architecture",
+          "text": "Видео → Jupyter → TPU → JSONL → CPU → эпизоды → эмуляция → WS → оператор → мастер → журнал.",
+          "kind": "factual",
+          "sourceIds": [
+            "src07"
+          ],
+          "qualification": "Целевой конвейер архива/эмуляции; стабильная интеграция TPU ещё открыта."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "03",
+      "audienceTakeaway": "LinQ: реальное исполнение на TPU",
+      "assertion": "LinQ: реальное исполнение на TPU",
+      "evidence": [
+        "main@353c7f96:docs/linq/LINQ_CONTRACT.md, строки75–92",
+        "21b24555:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+        "main@353c7f96:progress.md, R5 и открытые долги"
+      ],
+      "protagonist": "Измеренный baseline video-run",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Monumental throughput with measured times",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "LinQ: реальное исполнение на TPU",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "Главный подтверждённый результат: baseline YOLOv8n 640 и YOLOv8n-pose 640 были скомпилированы и выполнены на TPU. В тесте детектора запись из четырёхсот кадров 1280 на 720 обработана за 19,09 секунды — примерно 21 кадр в секунду. Вместе с загрузкой получилось 31 секунда. Это пропускная способность обработки тестовой записи, а не время доставки тревоги оператору. Recall и IoU из отчёта описывают сохранность при квантовании относительно FP32, а не качество обнаружения нарушений. Позднее интегрированный backend получил таймаут TPU; стабильный сквозной прогон остаётся открытым.\n\nОсновной commit 21b245555e544ad5b92ae6128ae0773adf7478b6. Raw detector summary: frames_total=400, frames_processed=400, wall_s=19.09, throughput_fps=20.95, end_to_end total=31.0 (upload=6.9, remote_run_incl_poll=22.2); inflight=8. 21 FPS относится к detector video-run, не суммарному detector+pose pipeline. Тест synthetic_coco_40x1s, не производственное видео. Дополнительные показатели: detector recall_vs_cpu=0.906836, mean_iou=0.930776; pose recall_vs_cpu=0.9375. В LINQ_CONTRACT записаны Jupyter request 162 мс, pre/post 4/3 мс на кадр, обмен около19 мс/МБ. Это отдельные smoke-замеры и не чистое chip time. В позднем R5: timeout120с,0 кадров; input queue0–1 consumers против16 во время раннего smoke. Причина нестабильности аудитом не установлена. Эти результаты не измерялись заново в презентационной сессии.",
+      "claims": [
+        {
+          "id": "baseline",
+          "text": "400 кадров1280×720;19.09с;20.95FPS;31с с загрузкой.",
+          "kind": "factual",
+          "sourceIds": [
+            "src02",
+            "src03"
+          ],
+          "qualification": "Detector test video-run inflight8; не общий detector+pose pipeline и не alert latency."
+        },
+        {
+          "id": "timeout",
+          "text": "Поздний интегрированный backend получил TPU timeout.",
+          "kind": "factual",
+          "sourceIds": [
+            "src01"
+          ],
+          "qualification": "Не отменяет ранний успешный отдельный baseline smoke."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "04",
+      "audienceTakeaway": "Собственные модели дошли до TPU",
+      "assertion": "Собственные модели дошли до TPU",
+      "evidence": [
+        "matvey_cv@1bdeeafc:ml/EVAL_REPORT.md, строки42–54",
+        "matvey_cv@1bdeeafc:ml/RELEASE_MANIFEST.json, строки73–76,177–188,237–243",
+        "matvey_cv@1bdeeafc:ml/reports/pose-linq-ur01-parity.json",
+        "matvey_cv@1bdeeafc:docs/STATUS.md — только ранние ONNX/SDK результаты"
+      ],
+      "protagonist": "Цепь доказательств собственных моделей",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Model proof ladder plus negative quality result",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Собственные модели дошли до TPU",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "По свежим материалам ветки Матвея собственные модели каски и Split-Pose уже дошли до реального исполнения на LinQ. Это новее старого STATUS, где была только компиляция. ONNX прошёл сравнение с CPU и CUDA на одном кадре; оба графа собраны SDK 2026.9.45 для TPU H1M. Сохранность confidence после разделения выходов позы сначала проверена симуляцией SDK. Итоговый отчёт содержит 335 программных проверок PASS. Но успешное исполнение не означает готовое качество: в аппаратном тесте URfall-01 единственное эталонное падение пропущено. Независимая проверка качества ещё не выполнена.\n\nПаритет ONNX: np.allclose atol=rtol=1e−3, не обещание абсолютной ошибки ≤1e−3 на всех входах. Оба TPU artifact имеют реальные correlated status0 captures по RELEASE_MANIFEST. Raw RPC captures лежат вне Git в /workspace/artifacts/linq-rpc, в этой сессии прочитаны сохранённые отчёты и hashes, нового live rerun нет. Последний URfall01:11 уникальных ответов status0,9 matched people,0 событий,1 пропуск; wall131.018с, processedFPS0.083958,RPCp50=10.630с/p95=18.967с,concurrency1. Это transport-inclusive RPC; сравнивать с baseline21FPS нельзя.335 — программные тесты по итоговому отчёту5.851с, здесь не перезапускались, не число quality measurements. Fall quality NOT_ACCEPTED; independent final test NOT_RUN. Helmet diagnostic P/R на development данных намеренно не вынесены, потому что это object-box diagnostics с overlap/upstream и без независимого human GT. Старые113/NOT_RUN из docs/STATUS.md исторические.",
+      "claims": [
+        {
+          "id": "own-hardware",
+          "text": "Helmet и Split-Pose имеют correlated status0 TPU captures.",
+          "kind": "factual",
+          "sourceIds": [
+            "src18",
+            "src19",
+            "src22"
+          ],
+          "qualification": "По свежим сохранённым отчётам ветки; raw hardware captures вне Git; здесь не rerun."
+        },
+        {
+          "id": "software",
+          "text": "335 software tests PASS.",
+          "kind": "factual",
+          "sourceIds": [
+            "src18",
+            "src19",
+            "src22"
+          ],
+          "qualification": "Программные проверки по отчёту ветки, не335 измерений качества CV."
+        },
+        {
+          "id": "fall",
+          "text": "URfall01: аппаратные ответы получены, одно падение пропущено.",
+          "kind": "factual",
+          "sourceIds": [
+            "src18",
+            "src19",
+            "src22"
+          ],
+          "qualification": "Один development clip; Fall quality NOT_ACCEPTED; independent final test NOT_RUN."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "05",
+      "audienceTakeaway": "Готовность по слоям",
+      "assertion": "Готовность по слоям",
+      "evidence": [
+        "main@b4fb994c63f3ce187d22491080f75ffac37797c3:progress.md",
+        "front/control-room@1b8822ef86e7d5540967e73e9e4c606e926d01c1:frontend/src/features/Operator.tsx",
+        "research/frontend-evidence.md",
+        "research/revision-r3/source-index.json"
+      ],
+      "protagonist": "Матрица готовности и актуальный frontend",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Status ledger beside current screenshot",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Готовность по слоям",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "Проверенная основа backend и контракта включает S0–S11 с записанными долгами. Стабильность LinQ отдельно не доказана. Правила детекции проверялись на синтетике. На экране — новый снимок текущего control-room: тёмный Premiere-скин, быстрые действия прямо в панели, сводка смены и видимое отсутствие наблюдения. Путь оператора до мастера и журнал проверены на совместимом моке. Дополнительные модели и оставшиеся сценарии требуют дальнейшей проверки.\n\nСнимки заново получены с front/control-room@1b8822ef и tools/checkpoint-demo@053683da. Показ: http://localhost:5173, мок REST4010 и WS4011. Последовательность reset → next → next --force. В матрице указана запрошенная проверенная основа S0–S11; свежий main продвинулся дальше. Журнал и статистика backend уже реализованы по текущему коду, но демонстрация остаётся на stateful-моке. Камерные кадры синтетические, рамки ручные. Новых численных результатов CV эта правка не добавляет.",
+      "claims": [
+        {
+          "id": "main-readiness",
+          "text": "Проверенная основа S0–S11; в свежем main журнал уже реализован.",
+          "kind": "factual",
+          "sourceIds": [
+            "revision-r3"
+          ],
+          "qualification": "Матрица показывает запрошенную основу; main продвинулся дальше. Backend gate здесь не перезапускался."
+        },
+        {
+          "id": "mock-smoke",
+          "text": "Свежая проверка stateful-мока:30/30.",
+          "kind": "factual",
+          "sourceIds": [
+            "smoke"
+          ],
+          "qualification": "Это mock backend, не real backend и не LinQ."
+        },
+        {
+          "id": "ui",
+          "text": "Текущая диспетчерская и действия работают на совместимом моке.",
+          "kind": "factual",
+          "sourceIds": [
+            "frontend"
+          ],
+          "qualification": "Синтетические still previews; видео/эфир501; не реальные подключённые камеры."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "06",
+      "audienceTakeaway": "Проверяем путь реакции",
+      "assertion": "Проверяем путь реакции",
+      "evidence": [
+        "research/frontend-evidence.md",
+        "research/frontend-capture-raw.json",
+        "assets/screenshots/03-yellow-control-room.png",
+        "assets/screenshots/07-red-incident.png",
+        "assets/screenshots/10-master-mobile-task.png"
+      ],
+      "protagonist": "Три состояния реального пользовательского пути",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Three captured interaction steps",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Проверяем путь реакции",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "Перехожу в работающий фронтенд. Первый шаг — жёлтое событие бега: оператор открывает его и подтверждает. Второй — красная тревога падения: открываем доказательство, проверяем причину и передаём мастеру. В текущем сценарии подтверждение красного сразу инициирует передачу. Третий шаг — мастер с телефона принимает поручение, указывает меры и отправляет отчёт. Возвращаемся в журнал и видим результат и комментарий. Демонстрационные данные. Кадры синтетические. Рамки размечены вручную. Здесь мы демонстрируем пользовательский путь, а не измеряем качество нейросети.\n\nСлайд — фон для живого показа, не приложение для презентации. Runtime фронта http://localhost:5173; REST4010,WS4011, их запуск в README и research/frontend-evidence.md. Перед демонстрацией сбросить ТОЛЬКО свой mock, не owner backend. Путь: режиссёр scenario yellow_running→queue→Открыть событие→Подтвердить; scenario red_fall→автоматический takeover→Открыть доказательство→Подтвердить(sent_to_master); role Мастер смены→Принять в работу→Принятые меры→Отправить отчёт и завершить; role Охрана труда→Журнал→Открыть историю. Все действия прошли в fresh capture. Видео/эфир в моке не реализованы: доступны still previews и evidence, camera/view501, «Запись не привязана» правдиво видна. Автоэскалация в этом mock run выключена. Если live demo недоступен, открыть исходные screenshots06/07/10/12/14/15; не выдавать их за текущий live run.",
+      "claims": [
+        {
+          "id": "demo",
+          "text": "Оператор → красная передача → мастер → меры → журнал пройдены в браузере.",
+          "kind": "factual",
+          "sourceIds": [
+            "frontend"
+          ],
+          "qualification": "Демонстрационные данные. Кадры синтетические. Рамки размечены вручную."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "07",
+      "audienceTakeaway": "До финальной защиты",
+      "assertion": "До финальной защиты",
+      "evidence": [
+        "main@353c7f96:progress.md, открытые долги и S11–S15",
+        "matvey_cv@1bdeeafc:ml/EVAL_REPORT.md, independent final test NOT_RUN",
+        "research/technical-evidence.md",
+        "https://ivacv.ru/platforma/",
+        "https://ivacv.ru/iva-cv/",
+        "research/revision-r3/source-index.json"
+      ],
+      "protagonist": "Приоритеты до защиты",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Priorities against illustrative industrial camera",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "До финальной защиты",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "До защиты нужно стабилизировать интегрированный прогон LinQ, подключить свои модели в общий конвейер и измерить качество на размеченных видео. Отдельно оценить ложные тревоги на камеро-час и задержку до оповещения. Наше отличие — полный цикл тревоги до мастера, сводка смены, видимое отсутствие наблюдения и происхождение каждого события. Ближайший конкурент на LinQ в позиционировании команды — IVA CV.\n\nПриоритеты сохранены без новых чисел и сроков. Журнал backend уже реализован в свежем main. Формулировка «ближайший конкурент» — позиционирование команды, а не независимый рейтинг или сравнение качества. Официальная страница IVA CV https://ivacv.ru/platforma/ прямо перечисляет поддержку LinQ(TPU); https://ivacv.ru/iva-cv/ описывает видеоаналитику безопасности. Отличия SafeWatch перечисляют проверенный пользовательский путь и наблюдаемость, не утверждают отсутствие таких функций у IVA CV.",
+      "claims": [
+        {
+          "id": "remaining",
+          "text": "Интеграция, независимые метрики и оставшиеся сценарии ещё открыты.",
+          "kind": "factual",
+          "sourceIds": [
+            "src01",
+            "src18",
+            "src19",
+            "src22"
+          ],
+          "qualification": "Без обещаний сроков и чисел."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "08",
+      "audienceTakeaway": "Вопросы экспертам LinQ",
+      "assertion": "Вопросы экспертам LinQ",
+      "evidence": [
+        "main@353c7f96:docs/linq/LINQ_CONTRACT.md, строки92,128",
+        "main@353c7f96:progress.md, R5",
+        "matvey_cv@1bdeeafc:ml/reports/pose-linq-ur01-parity.json"
+      ],
+      "protagonist": "Открытые вопросы экспертам",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "Four expert questions with calm visual hierarchy",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Вопросы экспертам LinQ",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Exact source-backed final PNG including graphic evidence",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible limitations; additional detail in native notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One assertion and a dominant evidence region. Technical diagrams may contain more nodes; reading order is causal.",
+      "motion": {
+        "rationale": "Static image slide; presenter advances manually in PowerPoint.",
+        "continuity": "Order preserves product → architecture → evidence → readiness → demo → gaps → questions.",
+        "holds": [
+          "Entire final slide"
+        ],
+        "reducedMotion": "Identical static pixels, no motion."
+      },
+      "speakingNotes": "Просим экспертов помочь уточнить критерии. Какое подтверждение работы на LinQ примет жюри: артефакты, логи или воспроизводимый прогон? Какие стадии обязательно должны выполняться на TPU? Как обеспечить стабильную обработку общей очереди при ограниченном числе обработчиков? И как получить достоверное время выполнения непосредственно на TPU, отделив его от транспорта и ожидания? Это поможет нам правильно завершить техническую проверку перед защитой.\n\nВопрос очереди сохраняется: поздний main R5 наблюдал0–1 consumers, в раннем smoke около16; причинность аудитом не доказана. В ветке Матвея сохранены status0-ответы; они не подтверждают стабильность общего backend-конвейера. worker.inference_time не считается достоверным chip timing в LINQ_CONTRACT. Формулировки вопросов не предполагают ответа организаторов и не утверждают неизвестные требования жюри.",
+      "claims": [
+        {
+          "id": "questions",
+          "text": "Время непосредственно на TPU и стабильность интегрированной очереди остаются открыты.",
+          "kind": "factual",
+          "sourceIds": [
+            "src02",
+            "src01"
+          ],
+          "qualification": "Вопросы экспертам, без предположения о критериях жюри."
+        }
+      ],
+      "rubricIds": []
+    }
+  ]
+}

@@ -1,37 +1,20 @@
-# SafeWatch — технический чекпойнт 24 октября 2026
+# SafeWatch — текущая ревизия r3
 
-Восемь слайдов 16:9, 1920×1080. Настоящий PowerPoint: по одному полноразмерному PNG на слайд, с текстовыми заметками докладчика. Два оригинальных индустриальных изображения созданы встроенным ChatGPT Images; интерфейс снят с работающего `front/control-room@8161719d`, без генерации или дорисовки UI. Весь русский текст, числа и схемы составлены детерминированно в Golos Text из актуального frontend.
+Восемь растровых слайдов PowerPoint, структура сохранена. Исправлены сноски слайда 5, указана проверенная основа S0–S11, пересняты текущие экраны, усилен акцент на TPU, добавлены отличия и IVA CV, обновлены порты показа. Новых численных результатов CV не добавлено.
 
-- [Открыть PowerPoint](exports/SafeWatch_Checkpoint_2026-10-24.pptx).
-- [Превью всех 8 слайдов](preview/SafeWatch_8_slides.png), [отдельные PNG](slides/).
-- [PDF для просмотра](exports/SafeWatch_Checkpoint_2026-10-24.pdf).
-- [Сценарий на 4:40](SPEAKER_SCRIPT.md); речь, дополнительные пояснения и ссылки встроены в заметки PPTX.
-- [Источники, коммиты, время проверки и исключённые утверждения](SOURCES.md).
-- [Полная техническая сверка](research/technical-evidence.md), [новый браузерный путь frontend](research/frontend-evidence.md).
-- [Проверки и ограничения](VERIFICATION.md).
+- [PowerPoint](exports/SafeWatch_Checkpoint_2026-10-24.pptx)
+- [PDF](exports/SafeWatch_Checkpoint_2026-10-24.pdf)
+- [Превью всех слайдов](preview/SafeWatch_8_slides.png), [8 PNG](slides/)
+- [Сценарий и заметки](SPEAKER_SCRIPT.md)
+- [Источники](SOURCES.md), [текущий source-index](research/revision-r3/source-index.json)
+- [Проверка](VERIFICATION.md), [съёмка UI](research/frontend-r3-summary.md)
 
-Источники заморожены после второго `git fetch origin`: main `353c7f96`, matvey_cv `1bdeeafc`, frontend `8161719d`, demo `9f652236`. Окончательная съёмка 08:28–08:29 МСК; source-index сформирован 08:29:55 МСК. Последующие изменения параллельной разработки в эту версию автоматически не входят.
+Текущие источники: main b4fb994c, front/control-room 1b8822ef, demo/checkpoint 053683da. На слайде оставлена запрошенная основа S0–S11; свежий main продвинулся дальше, журнал backend уже реализован. Предыдущие source snapshots сохраняют происхождение прежних численных испытаний LinQ и ML.
 
-Работа изолирована в ветке `codex/safewatch-checkpoint-pptx`. Изменены только файлы этой директории презентации. Разработка SafeWatch и общий LinQ не затрагивались; новых запросов к TPU при подготовке презентации не было. Результат 335 программных тестов ML взят из проверенного отчёта ветки; здесь они не перезапускались. Stateful-мок проверен заново: 30/30.
+Показ: http://localhost:5173, мок REST4010 и WS4011. Мок tools/checkpoint-demo, последовательность reset → next → next --force. Кадры синтетические, рамки ручные; это пользовательская демонстрация, не измерение качества CV. Код SafeWatch не менялся; runtime изолирован.
 
-## Human Review
+Финальный Human Review — [review-r3/](review-r3/), неизменённый OS renderer v1.1. Решения не выбраны. Старые review/ и review-r2/ — история, не актуальная оценка. Локальный адрес: http://127.0.0.1:8725/msk-promhack/safewatch-checkpoint-pptx/presentations/checkpoint-2026-10-24/review-r3/
 
-Состояние: **HUMAN_SAFEWATCH_CHECKPOINT_PRODUCTION_REVIEW**. Финальный пакет [review-r2/](review-r2/) использует неизменённый Human Review Engine v1.1 из Hackathon OS. Восемь новых слайдов не имеют исторического BEFORE. Решения человека не выбраны и не сымитированы. Папка `review/` сохраняет предыдущую техническую ревизию до уточнения одной фразы в заметках; для оценки используйте `review-r2/`.
+Сервер HRE: python3 -m http.server 8725 --bind 127.0.0.1 --directory /mnt/d/templates
 
-Локальный адрес после запуска общего сервера:
-
-`http://127.0.0.1:8725/msk-promhack/safewatch-checkpoint-pptx/presentations/checkpoint-2026-10-24/review-r2/`
-
-```bash
-python3 -m http.server 8725 --bind 127.0.0.1 --directory /mnt/d/templates
-```
-
-Требование OS: [Presentation Factory README](../../../../frontend-hackathon-os/production/presentation_factory/README.md) — «No automatic engine selection, creative approval or controller transition». Техническая готовность файла не означает человеческое визуальное принятие.
-
-## Использование на чекпойнте
-
-Открыть PPTX в PowerPoint, включить режим докладчика, переключать обычными клавишами. Внутренние объекты слайда растрированы; надписи не зависят от установленных шрифтов. На слайде 6 переключиться на настоящую демонстрацию приложения.
-
-Изолированный demo runtime этой сессии: frontend `http://127.0.0.1:5317`, REST 4310, WS 4311. Он использует stateful-мок, синтетические still-кадры и ручные рамки; видео/эфир в нём не реализованы. Не смешивать эту демонстрацию с измерениями CV. Реальный backend журнал S12 ещё не реализован. Подробный пользовательский путь и резервные скриншоты — в отчёте frontend. Runtime временный; для повторного запуска использовать команды и ревизии из этого отчёта и `tools/checkpoint-demo/README.md` соответствующей ветки.
-
-Воспроизводимый image-slide workflow и команды экспортов/проверок — [craft/WORKFLOW.md](craft/WORKFLOW.md). `craft/capture.html` — служебная поверхность измерения PNG; она не предназначена для выступления.
+Workflow: [craft/WORKFLOW.md](craft/WORKFLOW.md). Для текущей ревизии используются evidence/craft-r3, evidence/browser-r3 и review-r3, revision=3. Presentation Craft не утверждает человеческий вкус автоматически; checkpoint HUMAN_SAFEWATCH_CHECKPOINT_PRODUCTION_REVIEW остаётся открытым.

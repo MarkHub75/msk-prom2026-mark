@@ -202,35 +202,42 @@
     {
       "id": "smoke",
       "path": "research/smoke-mock-fresh.json",
-      "sha256": "07908918c7e609c77a3951122238de7d271473086281ed5beca2822844e190c3",
+      "sha256": "5b34ed2c339a83c0d557c7ebebf19171911c4c15de6619a379a5a710a6408507",
       "kind": "fixture",
       "locator": "Fresh isolated stateful mock smoke 24.10.2026:30 PASS/0 FAIL/0 SKIP"
     },
     {
       "id": "frontend",
       "path": "research/frontend-evidence.md",
-      "sha256": "8aebcdaea685f466eef0e2a193a5de5a3539c27d59a2be1bc7df2227ed0e46ca",
+      "sha256": "fbc449f2630a643c93ac4a0fa15345ac4c664c0cc06cf6506228890a225aebf3",
       "kind": "research",
-      "locator": "New front/control-room runtime capture and interactions 08:28–08:29 MSK"
+      "locator": "Current Premiere control-room runtime captured again for revision r3"
+    },
+    {
+      "id": "revision-r3",
+      "path": "research/revision-r3/source-index.json",
+      "sha256": "426eb1daccd4f37da59422280a60d310463eefde1696d01060594f8ef3715876",
+      "kind": "product",
+      "locator": "Latest main status and current frontend source snapshots for user-requested revision"
     },
     {
       "id": "audit",
       "path": "research/technical-evidence.md",
-      "sha256": "83403098587c1cf33a08865748abe69c0e960f5c51e9936168c07742bfcd5e2f",
+      "sha256": "47997e0d21803f08cc57298daf3ab38c67f534993f3aab80253941e40c5909c3",
       "kind": "research",
       "locator": "Semantic audit, history reconciliation and explicit limitations"
     },
     {
       "id": "composition",
       "path": "evidence/composition.json",
-      "sha256": "be838c56117242572eed0e9c32021f975a1c228ad0ced764dc1650a9b766d878",
+      "sha256": "8e3b486713f7f6863afe80339a3f70fd23e2dacedf4cf10c52f74beed218f50f",
       "kind": "research",
       "locator": "Exact slide text and ink bounds; UI crop provenance"
     },
     {
       "id": "sources",
       "path": "SOURCES.md",
-      "sha256": "585c76bf18cbc55d4a2ee3ed13a64ddc4021cdeb2bd56bda74117667a5f69879",
+      "sha256": "6d71cc2a75a9197c5deb602dc265d72d6c165d1034c8a964469e0aaa6cf63719",
       "kind": "research",
       "locator": "Claim/source index after fetch"
     }
@@ -242,7 +249,7 @@
       "assertion": "Промышленная безопасность",
       "evidence": [
         "main@353c7f96:tech.md §2, строки 28–42",
-        "front/control-room@8161719d:frontend/src/App.tsx; research/frontend-evidence.md"
+        "front/control-room@1b8822ef:frontend/src/App.tsx; research/frontend-evidence.md"
       ],
       "protagonist": "Опасное событие и роли",
       "readingOrder": [
@@ -301,7 +308,7 @@
       "evidence": [
         "main@353c7f96:tech.md §2, §8.5–8.8, §8.15",
         "main@353c7f96:contract/openapi.json и contract/ws.schema.json",
-        "demo/checkpoint@9f652236:tools/checkpoint-demo/"
+        "demo/checkpoint@053683da:tools/checkpoint-demo/"
       ],
       "protagonist": "Цепь от видео к реакции",
       "readingOrder": [
@@ -339,7 +346,7 @@
         ],
         "reducedMotion": "Identical static pixels, no motion."
       },
-      "speakingNotes": "Наша архитектура сейчас рассчитана на видеоархив и эмуляцию потока. Запись загружается в LinQ Jupyter, TPU исполняет модели, детекции сохраняются в JSONL. На CPU работают трекинг, правила и сборка эпизодов. Затем сервер воспроизводит запись по своим часам и публикует события через WebSocket. Продолжающееся нарушение не должно порождать новые оповещения на каждом кадре. Просмотр, подтверждение, передача и устранение имеют разные значения. OpenAPI и WS-схема задают общую границу для заменяемого фронтенда, backend и отдельного stateful-мока.\n\nЭто схема целевого конвейера, не заявление об успешном сквозном LinQ-прогоне. В текущей семантике confirm красного создаёт confirmed и сразу sent_to_master; отдельное действие send_to_master также существует. Устранение выполняет мастер через resolve с обязательными мерами. Показанный журнал работает на моке; real backend S12 ещё не реализован. Автоэскалация не показана числом: main config/default.yaml enabled=true, timeout_s=45, tick_ms=500; в проверенном моке выключена без флага --escalation. Локальный user config не читался. Повтор replay создаёт новые события нового показа записи.",
+      "speakingNotes": "Наша архитектура сейчас рассчитана на видеоархив и эмуляцию потока. Запись загружается в LinQ Jupyter, TPU исполняет модели, детекции сохраняются в JSONL. На CPU работают трекинг, правила и сборка эпизодов. Затем сервер воспроизводит запись по своим часам и публикует события через WebSocket. Продолжающееся нарушение не должно порождать новые оповещения на каждом кадре. Просмотр, подтверждение, передача и устранение имеют разные значения. OpenAPI и WS-схема задают общую границу для заменяемого фронтенда, backend и отдельного stateful-мока.\n\nЭто схема целевого конвейера, не заявление об успешном сквозном LinQ-прогоне. В текущей семантике confirm красного создаёт confirmed и сразу sent_to_master; отдельное действие send_to_master также существует. Устранение выполняет мастер через resolve с обязательными мерами. Показанный журнал работает на моке. В свежем main журнал уже реализован; интеграция текущего frontend проверяется здесь на моке. Автоэскалация не показана числом: main config/default.yaml enabled=true, timeout_s=45, tick_ms=500; в проверенном моке выключена без флага --escalation. Локальный user config не читался. Повтор replay создаёт новые события нового показа записи.",
       "claims": [
         {
           "id": "architecture",
@@ -348,7 +355,7 @@
           "sourceIds": [
             "src07"
           ],
-          "qualification": "Целевой конвейер архива/эмуляции; стабильная интеграция TPU и настоящий журнал ещё открыты."
+          "qualification": "Целевой конвейер архива/эмуляции; стабильная интеграция TPU ещё открыта."
         }
       ],
       "rubricIds": []
@@ -511,10 +518,10 @@
       "audienceTakeaway": "Готовность по слоям",
       "assertion": "Готовность по слоям",
       "evidence": [
-        "main@353c7f96:progress.md, services.py, rules/, config/models.yaml",
-        "research/smoke-mock-fresh.json",
+        "main@b4fb994c63f3ce187d22491080f75ffac37797c3:progress.md",
+        "front/control-room@1b8822ef86e7d5540967e73e9e4c606e926d01c1:frontend/src/features/Operator.tsx",
         "research/frontend-evidence.md",
-        "assets/screenshots/01-control-room.png"
+        "research/revision-r3/source-index.json"
       ],
       "protagonist": "Матрица готовности и актуальный frontend",
       "readingOrder": [
@@ -552,17 +559,16 @@
         ],
         "reducedMotion": "Identical static pixels, no motion."
       },
-      "speakingNotes": "В main закрыты слайсы S0–S10 с записанными долгами. Контракт, события и переходы реакции реализованы; стабильность LinQ отдельно не доказана. Правила бега, падения, сближения, телефона, ограждения и опасной зоны проверялись на синтетике. На экране — новый снимок ветки control-room, уже после прошлой Human Review. Работа оператора, мастера и журнал проверены на совместимом моке. Его свежий smoke дал тридцать из тридцати. Настоящий журнал backend, подключение дополнительных моделей и оставшиеся сценарии ещё требуют работы.\n\nСнимок 01-control-room.png: front/control-room@8161719d, runtime localhost5317, stateful-мок demo/checkpoint@9f652236 на4310/4311,24.10 08:28–08:29МСК. Камерные кадры синтетические, не заводские источники; наблюдение7/8 на UI — mock flags. Правила extra (fire/smoking/no_harness/suspended_load) присутствуют, но нужные классы моделей в main не подключены. Перенос груза load_carrying skeleton. Каска из matvey_cv ещё не интегрирована в main. Журнал/backendS12, statsS13, evalS14,deliveryS15 возвращают501/NotImplementedError. R10 закрыт; следующий шаг progress — S11. Долг extra/recompute исправлен в R10. Fresh mock smoke PASS30 FAIL0 SKIP0,26 REST responses и32 WS messages; не smoke real backend. JS pageerrors0; ожидаемый camera/view501 из-за отсутствия видео в моке.",
+      "speakingNotes": "Проверенная основа backend и контракта включает S0–S11 с записанными долгами. Стабильность LinQ отдельно не доказана. Правила детекции проверялись на синтетике. На экране — новый снимок текущего control-room: тёмный Premiere-скин, быстрые действия прямо в панели, сводка смены и видимое отсутствие наблюдения. Путь оператора до мастера и журнал проверены на совместимом моке. Дополнительные модели и оставшиеся сценарии требуют дальнейшей проверки.\n\nСнимки заново получены с front/control-room@1b8822ef и tools/checkpoint-demo@053683da. Показ: http://localhost:5173, мок REST4010 и WS4011. Последовательность reset → next → next --force. В матрице указана запрошенная проверенная основа S0–S11; свежий main продвинулся дальше. Журнал и статистика backend уже реализованы по текущему коду, но демонстрация остаётся на stateful-моке. Камерные кадры синтетические, рамки ручные. Новых численных результатов CV эта правка не добавляет.",
       "claims": [
         {
           "id": "main-readiness",
-          "text": "В main закрыты S0–S10 с долгами; журнал S12 ещё в работе.",
+          "text": "Проверенная основа S0–S11; в свежем main журнал уже реализован.",
           "kind": "factual",
           "sourceIds": [
-            "src01",
-            "audit"
+            "revision-r3"
           ],
-          "qualification": "Статус документов и кода, не повторный product gate в этой сессии."
+          "qualification": "Матрица показывает запрошенную основу; main продвинулся дальше. Backend gate здесь не перезапускался."
         },
         {
           "id": "mock-smoke",
@@ -632,7 +638,7 @@
         ],
         "reducedMotion": "Identical static pixels, no motion."
       },
-      "speakingNotes": "Перехожу в работающий фронтенд. Первый шаг — жёлтое событие бега: оператор открывает его и подтверждает. Второй — красная тревога падения: открываем доказательство, проверяем причину и передаём мастеру. В текущем сценарии подтверждение красного сразу инициирует передачу. Третий шаг — мастер с телефона принимает поручение, указывает меры и отправляет отчёт. Возвращаемся в журнал и видим результат и комментарий. Демонстрационные данные. Кадры синтетические. Рамки размечены вручную. Здесь мы демонстрируем пользовательский путь, а не измеряем качество нейросети.\n\nСлайд — фон для живого показа, не приложение для презентации. Runtime фронта http://127.0.0.1:5317; REST4310,WS4311, их запуск в README и research/frontend-evidence.md. Перед демонстрацией сбросить ТОЛЬКО свой mock, не owner backend. Путь: режиссёр scenario yellow_running→queue→Открыть событие→Подтвердить; scenario red_fall→автоматический takeover→Открыть доказательство→Подтвердить(sent_to_master); role Мастер смены→Принять в работу→Принятые меры→Отправить отчёт и завершить; role Охрана труда→Журнал→Открыть историю. Все действия прошли в fresh capture. Видео/эфир в моке не реализованы: доступны still previews и evidence, camera/view501, «Запись не привязана» правдиво видна. Автоэскалация в этом mock run выключена. Если live demo недоступен, открыть исходные screenshots06/07/10/12/14/15; не выдавать их за текущий live run.",
+      "speakingNotes": "Перехожу в работающий фронтенд. Первый шаг — жёлтое событие бега: оператор открывает его и подтверждает. Второй — красная тревога падения: открываем доказательство, проверяем причину и передаём мастеру. В текущем сценарии подтверждение красного сразу инициирует передачу. Третий шаг — мастер с телефона принимает поручение, указывает меры и отправляет отчёт. Возвращаемся в журнал и видим результат и комментарий. Демонстрационные данные. Кадры синтетические. Рамки размечены вручную. Здесь мы демонстрируем пользовательский путь, а не измеряем качество нейросети.\n\nСлайд — фон для живого показа, не приложение для презентации. Runtime фронта http://localhost:5173; REST4010,WS4011, их запуск в README и research/frontend-evidence.md. Перед демонстрацией сбросить ТОЛЬКО свой mock, не owner backend. Путь: режиссёр scenario yellow_running→queue→Открыть событие→Подтвердить; scenario red_fall→автоматический takeover→Открыть доказательство→Подтвердить(sent_to_master); role Мастер смены→Принять в работу→Принятые меры→Отправить отчёт и завершить; role Охрана труда→Журнал→Открыть историю. Все действия прошли в fresh capture. Видео/эфир в моке не реализованы: доступны still previews и evidence, camera/view501, «Запись не привязана» правдиво видна. Автоэскалация в этом mock run выключена. Если live demo недоступен, открыть исходные screenshots06/07/10/12/14/15; не выдавать их за текущий live run.",
       "claims": [
         {
           "id": "demo",
@@ -653,7 +659,10 @@
       "evidence": [
         "main@353c7f96:progress.md, открытые долги и S11–S15",
         "matvey_cv@1bdeeafc:ml/EVAL_REPORT.md, independent final test NOT_RUN",
-        "research/technical-evidence.md"
+        "research/technical-evidence.md",
+        "https://ivacv.ru/platforma/",
+        "https://ivacv.ru/iva-cv/",
+        "research/revision-r3/source-index.json"
       ],
       "protagonist": "Приоритеты до защиты",
       "readingOrder": [
@@ -691,7 +700,7 @@
         ],
         "reducedMotion": "Identical static pixels, no motion."
       },
-      "speakingNotes": "До защиты приоритетны шесть направлений. Стабилизировать интегрированный прогон LinQ. Подключить собственные модели в общий конвейер и проверить его целиком. Измерить Precision и Recall на размеченных видео с независимой проверкой. Оценить ложные тревоги на камеро-час и задержку от события до оповещения. Завершить оставшиеся сценарии и настоящий журнал backend. Конкретных значений этих метрик пока не обещаем.\n\nНе повторять устаревшую задачу «впервые запустить собственные модели на TPU»: hardware execution уже подтверждено. Эпизодные метрики нарушений, object-box diagnostics, model fidelity и software tests — разные виды проверки. Сгенерированная камера — иллюстрация, не доказательство установки на предприятии.",
+      "speakingNotes": "До защиты нужно стабилизировать интегрированный прогон LinQ, подключить свои модели в общий конвейер и измерить качество на размеченных видео. Отдельно оценить ложные тревоги на камеро-час и задержку до оповещения. Наше отличие — полный цикл тревоги до мастера, сводка смены, видимое отсутствие наблюдения и происхождение каждого события. Ближайший конкурент на LinQ в позиционировании команды — IVA CV.\n\nПриоритеты сохранены без новых чисел и сроков. Журнал backend уже реализован в свежем main. Формулировка «ближайший конкурент» — позиционирование команды, а не независимый рейтинг или сравнение качества. Официальная страница IVA CV https://ivacv.ru/platforma/ прямо перечисляет поддержку LinQ(TPU); https://ivacv.ru/iva-cv/ описывает видеоаналитику безопасности. Отличия SafeWatch перечисляют проверенный пользовательский путь и наблюдаемость, не утверждают отсутствие таких функций у IVA CV.",
       "claims": [
         {
           "id": "remaining",

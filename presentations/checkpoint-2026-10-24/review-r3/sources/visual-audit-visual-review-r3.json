@@ -1,0 +1,52 @@
+{
+  "revision": 3,
+  "reviewer": "author /root; manual inspection, not human approval",
+  "checked_at": "2026-10-24T09:18:25.901893",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "result": "PASS",
+  "textOverlapCheck": "all text bounding-box pairs checked; no intersections",
+  "observations": [
+    "Slide5 footnote and bottom source now separated vertically",
+    "Slide4 TPU execution is dominant;335 tests in small line",
+    "Slides5/6 contain current Premiere UI captures, quick decisions, shift line",
+    "Slide7 positioning added, no new CV measurements",
+    "All eight slide renders visually inspected; no clipping observed"
+  ],
+  "slides": [
+    {
+      "slide": 1,
+      "sha256": "583f64b36bf8792bbea368c6be034efd2969cb3213a62a84b883d5efef5eb676"
+    },
+    {
+      "slide": 2,
+      "sha256": "5f83d163346cb2a7997d66b240dfcc1ad48a0d724587bf252e524a6509572335"
+    },
+    {
+      "slide": 3,
+      "sha256": "6282b261cacec6b8b04a2f67bb35a7344646ed52c2c236d82b6b19887f99779d"
+    },
+    {
+      "slide": 4,
+      "sha256": "c155bd1ef6beae1abed69e5b617a17406d01740a2c31ded54a31b68c51766352"
+    },
+    {
+      "slide": 5,
+      "sha256": "9128024b308a05dbde23a0c893a93bca88b1320a27a046b62ad673ff6fc80afe"
+    },
+    {
+      "slide": 6,
+      "sha256": "d3164644f3171450e2e34bcb704d6e8e218ef666a90b00702d12cec83060756e"
+    },
+    {
+      "slide": 7,
+      "sha256": "f5434209c7c41c6e09eb0a85ddf8a84b71823f6f0a64cf4821ce422e11b81941"
+    },
+    {
+      "slide": 8,
+      "sha256": "97be6e1c59e34c3dadabcaefe69b3400d09aba104e67edc9cf60aa06da5a4d87"
+    }
+  ]
+}

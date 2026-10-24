@@ -5,6 +5,8 @@
 # Their original whitespace is part of the hash; authoring scripts still check.
 assets/fonts/OFL.txt -whitespace
 research/source-snapshots/** -whitespace
+research/revision-r3/** -whitespace
 evidence/** -whitespace
 review/** -whitespace
 review-r2/** -whitespace
+review-r3/** -whitespace

@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "checked_at": "2026-10-24T05:48:47.583559+00:00",
+  "checked_at": "2026-10-24T06:13:17.255046+00:00",
   "slides": 8,
   "baselinePrimaryJSON": "400/400;19.09s;20.95FPS;31.0s;inflight8",
   "freshMock": "30PASS/0FAIL/0SKIP",
@@ -10,49 +10,57 @@
       "slide": 1,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 2,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 3,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 4,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 5,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 6,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 7,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     },
     {
       "slide": 8,
       "allGlyphsPresent": true,
       "safeTextInk": true,
-      "imageHashMatch": true
+      "imageHashMatch": true,
+      "textPairsDoNotOverlap": true
     }
   ],
   "limits": [

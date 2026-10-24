@@ -1,0 +1,9 @@
+SafeWatch checkpoint exports. Human visual acceptance remains pending.
+
+SafeWatch_Checkpoint_2026-10-24.pdf
+bytes: 6182218
+SHA-256: d0d9d90dbc135a3e19d9aea1236ce6f2f6c1475117420fb2a5dee990a0563b80
+
+SafeWatch_Checkpoint_2026-10-24.pptx
+bytes: 4776003
+SHA-256: 244d4d5357533007523847f0c2e110e2ca5363b837e27114a2e8cf50ec2c994d
