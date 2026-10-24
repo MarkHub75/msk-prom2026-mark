@@ -34,9 +34,10 @@ export function ScenarioIcon({ icon, size = 16 }: { icon: string; size?: number 
   const I = SCENARIO_ICON[icon] ?? CircleHelp;
   return <I size={size} strokeWidth={SW} aria-hidden="true" className={icon === "fall" ? "ops-icon-fall" : undefined} />;
 }
-function LevelMark({ level }: { level: Level }) {
+/** `short`: a matrix column is ~90 px wide, «Жёлтая опасность» does not fit — the first word, the full title on hover. */
+function LevelMark({ level, short = false }: { level: Level; short?: boolean }) {
   const title = useLevelTitle();
-  return <span className={`ops-level ops-level-${level}`}>{level === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{title(level)}</span>;
+  return <span className={`ops-level ops-level-${level}`} title={short ? title(level) : undefined}>{level === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{short ? title(level).split(" ")[0] : title(level)}</span>;
 }
 export function ScenarioState({ status, text }: { status: ScenarioStatus; text?: string }) {
   const I = STATUS_ICON[status];
@@ -138,7 +139,7 @@ export function RulesPage() {
               <th scope="col" className="ops-matrix-corner">Камера</th>
               {scenarios.map(s => <th key={s.id} scope="col" className={`ops-sc-head ${s.id === selected?.id ? "is-picked" : ""} ${s.status !== "active" ? "is-off" : ""}`}>
                 <button className="ops-sc-pick" aria-pressed={s.id === selected?.id} onClick={() => setPicked(s.id)} title={s.description}>
-                  <span className="ops-sc-top"><ScenarioIcon icon={s.icon} size={16} /><LevelMark level={s.default_level} /></span>
+                  <span className="ops-sc-top"><ScenarioIcon icon={s.icon} size={16} /><LevelMark level={s.default_level} short /></span>
                   <span className="ops-sc-title">{s.title}</span>
                   {s.status === "active" ? <span className="ops-sc-count mono">{onCount(column(s.id))}/{rows.length}</span> : <ScenarioState status={s.status} text={s.status_text} />}
                 </button>
