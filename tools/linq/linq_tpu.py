@@ -92,6 +92,7 @@ class TpuClient:
         self.ch.queue_bind(exchange=EXCHANGE, queue=self.reply_queue, routing_key=self.reply_queue)
         self._pending: dict[str, float] = {}
         self._done: dict[str, TpuResult] = {}
+        self.unmatched = 0  # replies without a known message id
         self.ch.basic_consume(self.reply_queue, self._on_reply, auto_ack=True)
 
     # -- low level -------------------------------------------------------
@@ -99,6 +100,7 @@ class TpuClient:
         mid = (props.headers or {}).get(MESSAGE_ID_ATTR_NAME)
         t0 = self._pending.pop(mid, None)
         if t0 is None:
+            self.unmatched += 1
             return
         data, _meta, worker = deserialize(body)
         self._done[mid] = TpuResult(data if isinstance(data, dict) else {}, worker, time.monotonic() - t0)
@@ -122,7 +124,8 @@ class TpuClient:
             left = deadline - time.monotonic()
             if left <= 0:
                 missing = [i for i in ids if i not in self._done]
-                raise TimeoutError(f"no TPU reply for {len(missing)} task(s) in {timeout} s")
+                raise TimeoutError(f"no TPU reply for {len(missing)} task(s) in {timeout} s, "
+                                   f"unmatched replies {self.unmatched}")
             self.conn.process_data_events(time_limit=min(left, 1.0))
         return [self._done.pop(i) for i in ids]
 

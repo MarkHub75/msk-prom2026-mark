@@ -28,7 +28,7 @@ cv2.setNumThreads(1)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yolo_io  # noqa: E402
-from linq_tpu import TpuClient  # noqa: E402
+from linq_tpu import TpuClient, program_uri  # noqa: E402
 
 
 def main() -> None:
@@ -93,6 +93,9 @@ def main() -> None:
                                "elapsed_s": round(time.monotonic() - t_start, 1)}, pf)
 
     with TpuClient() as client, open(a.out, "w") as out_f:
+        # R5: queue state and target URI go to the log tail that LinqBackend reads on failure
+        print(json.dumps({"input_queue": client.input_queue_info(),
+                          "uri": program_uri(a.program)}), file=sys.stderr, flush=True)
         fidx = -1
         while True:
             ok, frame = cap.read()

@@ -4,6 +4,7 @@ Blocking: `services` calls `LinqBackend.run` through `asyncio.to_thread`; nothin
 to the database.
 """
 
+import contextlib
 import importlib.util
 import json
 import math
@@ -77,8 +78,16 @@ class JupyterShell:  # RemoteShell over JupyterRemote from tools/linq/jupyter_re
                 raise InferenceError("timeout", self._clean(str(exc))) from None
             network = (requests.ConnectionError, requests.Timeout, websocket.WebSocketException)
             if isinstance(exc, (*network, OSError, *jupyter)):
+                self._drop()
                 raise InferenceError("linq_unavailable", self._clean(str(exc))) from None
             raise
+
+    def _drop(self) -> None:
+        """Forget a broken session: the next call logs in and starts a fresh kernel (R5)."""
+        remote, self._remote = self._remote, None
+        if remote is not None:
+            with contextlib.suppress(Exception):  # the old kernel may be gone with the tunnel
+                remote.shutdown_kernel()
 
     def upload(self, local: Path, remote: str) -> None:
         self._call(lambda jr: jr.upload(local, remote, progress=False))

@@ -738,9 +738,9 @@ async def run_next_job() -> Job | None:
         start = {"status": "running", "attempts": attempts, "started_at": clock.iso(now)}
         store.job_update(job_id, start | {"next_attempt_at": None, "error_code": None})
         store.video_update(video_id, {"status": "processing"})
-    video = _video_row(video_id)
     pose_text = None
     try:
+        video = _video_row(video_id)
         pose: tuple[ModelSpec, int] | None = None
         if row["kind"] == "recompute":  # the same artifacts, no inference (tech.md 8.12)
             inputs = _analysis_inputs(video)
