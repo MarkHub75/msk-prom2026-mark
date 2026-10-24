@@ -221,6 +221,13 @@ NO_READY_VIDEO = "У камеры нет готового видео"
 PREVIEW_NOT_FOUND = "Нет кадра: у камеры нет готового видео"
 NOT_CONFIRMED_SUFFIX = " · Не подтверждено оператором"
 
+# Event screen and operator decisions (tech.md 8.6, 9; slice 7).
+EVENT_NOT_FOUND = "Событие не найдено"
+INVALID_TRANSITION = "Действие недоступно в текущем статусе события"
+COMMENT_REQUIRED = "Опишите принятые меры"
+COMMENT_TOO_LONG = "Комментарий: до 500 символов"
+WHY_REASON = "Причина"
+
 
 def notification_text(
     level: Level, sector_name: str, reason_text: str, escalated_by_timeout: bool

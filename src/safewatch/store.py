@@ -284,6 +284,19 @@ def evidence(evidence_id: int) -> sqlite3.Row | None:
     return one("SELECT * FROM evidence WHERE id = ?", evidence_id)
 
 
+def episode(episode_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM episodes WHERE id = ?", episode_id)
+
+
+def episode_evidence(episode_id: int) -> list[sqlite3.Row]:
+    return all("SELECT * FROM evidence WHERE episode_id = ? ORDER BY id", episode_id)
+
+
+def analysis_job(analysis_id: int) -> sqlite3.Row | None:
+    """The job that wrote the analysis version."""
+    return one("SELECT * FROM jobs WHERE analysis_id = ? ORDER BY id LIMIT 1", analysis_id)
+
+
 # --- broadcasts ---------------------------------------------------------------------------
 _BROADCASTS = "SELECT b.*, v.duration_ms FROM broadcasts b JOIN videos v ON v.id = b.video_id"
 
@@ -342,6 +355,22 @@ def broadcast_events(broadcast_id: int, cycle: int) -> list[sqlite3.Row]:
 def event_update(event_id: int, values: dict[str, Any]) -> None:
     assignments = ", ".join(f"{column} = ?" for column in values)
     run(f"UPDATE events SET {assignments} WHERE id = ?", *values.values(), event_id)
+
+
+def event_actions(event_id: int) -> list[sqlite3.Row]:
+    return all("SELECT * FROM event_actions WHERE event_id = ? ORDER BY at, id", event_id)
+
+
+def escalation_due(red_before: str) -> list[sqlite3.Row]:
+    """Red events of tech.md 8.7: still with the operator, red since `red_before` or earlier,
+    and no operator decision after `red_at` (a view is not one)."""
+    sql = f"""{_EVENTS}
+WHERE e.level = 'red' AND e.status IN ('new', 'viewed', 'confirmed') AND e.red_at <= ?
+    AND NOT EXISTS (SELECT 1 FROM event_actions a WHERE a.event_id = e.id
+        AND a.actor_role = 'operator' AND a.action IN ('confirmed', 'false_alarm', 'sent_to_master')
+        AND a.at >= e.red_at)
+ORDER BY e.id"""
+    return all(sql, red_before)
 
 
 def feed(closed_after: str, sector_id: int | None = None) -> list[sqlite3.Row]:

@@ -1,7 +1,8 @@
 """Background loops of the server process (tech.md 4): jobs, broadcast tick, escalation tick.
 
 The job loop runs one job at a time and polls the queue while it is empty; the broadcast loop
-calls `broadcast_tick` every `broadcast.tick_ms`. Both stop within one period of `stop`.
+calls `broadcast_tick` every `broadcast.tick_ms`, the escalation loop `escalation_tick` every
+`escalation.tick_ms`. All stop within one period of `stop`.
 """
 
 import asyncio
@@ -32,8 +33,18 @@ async def _broadcasts(stop: asyncio.Event, tick_s: float) -> None:
         await asyncio.sleep(tick_s)
 
 
+async def _escalations(stop: asyncio.Event, tick_s: float) -> None:
+    while not stop.is_set():
+        try:
+            services.escalation_tick()
+        except Exception:  # one bad tick must not stop the escalation for good
+            log.exception("escalation tick")
+        await asyncio.sleep(tick_s)
+
+
 async def run_forever(stop: asyncio.Event) -> None:
     settings = config.get_settings()
     async with asyncio.TaskGroup() as tg:
         tg.create_task(_jobs(stop, settings.jobs.idle_poll_ms / 1000))
         tg.create_task(_broadcasts(stop, settings.broadcast.tick_ms / 1000))
+        tg.create_task(_escalations(stop, settings.escalation.tick_ms / 1000))
