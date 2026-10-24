@@ -145,36 +145,43 @@ describe("false alarm dataset (tech.md 8.26)", () => {
     { event_id: 42, scenario: "running", frames: 24, label: "false_alarm", path: "datasets/false_alarms/42", created_at: "2026-10-24T10:00:00Z" },
   ] };
 
-  it("lists items and downloads the ZIP through the API", async () => {
-    const created = vi.fn(() => "blob:zip");
-    vi.stubGlobal("URL", Object.assign(URL, { createObjectURL: created, revokeObjectURL: vi.fn() }));
-    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
-    serve(r => {
-      if (path(r) === "/api/datasets/false-alarms") return Response.json(VIEW);
-      if (path(r) === "/api/datasets/false-alarms/export.zip") return new Response(new Blob(["PK"]), { headers: { "Content-Type": "application/zip", "Content-Disposition": 'attachment; filename="false-alarms-2026-10-24.zip"' } });
-    });
+  it("lists items; the ZIP is a plain download of the export route (streamed by the browser, checked on slice 25)", async () => {
+    serve(r => path(r) === "/api/datasets/false-alarms" ? Response.json(VIEW) : undefined);
     open("/ohs/dataset", "ohs");
     const table = await screen.findByTestId("dataset-items");
     expect(within(table).getAllByRole("row")).toHaveLength(3);
     expect(within(table).getByRole("link", { name: "#41" }).getAttribute("href")).toBe("/events/41");
-    fireEvent.click(screen.getByTestId("export-zip"));
-    await waitFor(() => expect(click).toHaveBeenCalled());
-    expect(created).toHaveBeenCalled();
-    expect((click.mock.contexts[0] as HTMLAnchorElement).download).toBe("false-alarms-2026-10-24.zip");
+    const zip = screen.getByTestId("export-zip");
+    expect(zip.tagName).toBe("A");
+    expect(new URL(zip.getAttribute("href")!).pathname).toBe("/api/datasets/false-alarms/export.zip");
+    expect(zip.hasAttribute("download")).toBe(true);
   });
 
-  it("a 501 ZIP is a pending notice on screen, not a saved file", async () => {
-    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
-    serve(r => {
-      if (path(r) === "/api/datasets/false-alarms") return Response.json(VIEW);
-      if (path(r) === "/api/datasets/false-alarms/export.zip") return notImplemented(25);
-    });
+  it("an empty dataset has no download; a 501 list is a pending notice without actions", async () => {
+    serve(r => path(r) === "/api/datasets/false-alarms" ? Response.json({ total: 0, frames: 0, items: [] }) : undefined);
+    const first = open("/ohs/dataset", "ohs");
+    expect(await screen.findByText("Ложных срабатываний пока нет")).toBeTruthy();
+    expect((screen.getByTestId("export-zip") as HTMLButtonElement).disabled).toBe(true);
+    first.unmount();
+    serve(r => path(r) === "/api/datasets/false-alarms" ? notImplemented(25) : undefined);
     open("/ohs/dataset", "ohs");
-    fireEvent.click(await screen.findByTestId("export-zip"));
-    expect((await screen.findByTestId("pending")).textContent).toContain("ZIP-архивом");
-    expect(screen.queryByRole("alert")).toBeNull();
-    expect(click).not.toHaveBeenCalled();
+    expect((await screen.findByTestId("pending")).textContent).toContain("датасет для дообучения");
+    expect(screen.queryByTestId("export-zip")).toBeNull();
   });
+
+  it("re-reads the list every 10 s: the worker adds items without a WS message", async () => {
+    vi.useFakeTimers({ toFake: ["setInterval", "clearInterval"] });
+    try {
+      serve(r => path(r) === "/api/datasets/false-alarms" ? Response.json(VIEW) : undefined);
+      open("/ohs/dataset", "ohs");
+      await screen.findByTestId("dataset-items");
+      const reads = () => requests.filter(r => path(r) === "/api/datasets/false-alarms").length;
+      const before = reads();
+      act(() => { vi.advanceTimersByTime(10_000); });
+      await waitFor(() => expect(reads()).toBe(before + 1));
+    } finally { vi.useRealTimers(); }
+  });
+
 });
 
 describe("people stats (tech.md 8.27)", () => {

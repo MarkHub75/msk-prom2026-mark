@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { api, type ApiFailure } from "../api/client";
-import { saveDownload } from "../api/download";
+import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
 import { useMeta } from "../components/AppShell";
-import { Button, Empty, ErrorNotice, IconButton, isPending, Kpi, Loading, PageHeading, Panel } from "../components/ui";
+import { Button, buttonClass, Empty, ErrorNotice, Icon, IconButton, isPending, Kpi, Loading, PageHeading, Panel } from "../components/ui";
 import "../styles/v5.css";
 
 // tech.md 8.26: every event with the «false alarm» verdict lands in the dataset once (worker datasets_flush):
@@ -17,20 +16,18 @@ const FILES = [
   { name: "label.json", text: "метка false_alarm, сценарий, причина, видео, модели, комментарий оператора" },
 ];
 
+// The worker adds an item a couple of seconds after the verdict and sends no WS message for it.
+const POLL_MS = 10_000;
+const EXPORT = "/api/datasets/false-alarms/export.zip";
+
 const stamp = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
 
 export function DatasetPage() {
   const meta = useMeta();
   const view = useApi(() => api.GET("/api/datasets/false-alarms"), []);
-  const [busy, setBusy] = useState(false);
-  const [zipError, setZipError] = useState<ApiFailure>();
+  const reload = useRef(view.reload); reload.current = view.reload;
+  useEffect(() => { const timer = setInterval(() => reload.current(), POLL_MS); return () => clearInterval(timer); }, []);
   const scenario = (id: string) => meta?.scenarios.find(s => s.id === id)?.title ?? id;
-
-  const download = async () => {
-    setBusy(true); setZipError(undefined);
-    setZipError(await saveDownload(() => api.GET("/api/datasets/false-alarms/export.zip", { parseAs: "blob" }), "false-alarms.zip"));
-    setBusy(false);
-  };
 
   const data = view.data;
   const byScenario = new Map<string, number>();
@@ -40,7 +37,10 @@ export function DatasetPage() {
   const heading = <PageHeading title="Датасет ложных срабатываний" meta={<span>Каждое событие с вердиктом «Ложное срабатывание» один раз сохраняется для дообучения моделей</span>}>
     {!isPending(view.error) && <>
     <IconButton icon="refresh" label="Обновить" onClick={view.reload} disabled={view.loading} />
-    <Button variant="primary" icon="download" busy={busy} disabled={busy || !data?.total} onClick={() => void download()} data-testid="export-zip">Скачать ZIP</Button>
+    {/* The list answered, so the export route exists: a plain download lets the browser stream an archive of
+        hundreds of MB (about 13 MB per event at 40 frames) to disk instead of holding it in memory as a blob. */}
+    {data?.total ? <a className={buttonClass("primary")} href={mediaUrl(EXPORT)} download data-testid="export-zip"><Icon name="download" />Скачать ZIP</a>
+      : <Button variant="primary" icon="download" disabled data-testid="export-zip">Скачать ZIP</Button>}
     </>}
   </PageHeading>;
 
@@ -49,7 +49,6 @@ export function DatasetPage() {
 
   return <div className="v5-page" data-testid="dataset">
     {heading}
-    {zipError && <ErrorNotice error={zipError} compact retry={() => void download()} pending="Отдаст все элементы датасета одним ZIP-архивом со списком manifest.json." />}
     <div className="v5-kpis">
       <Kpi label="Событий в датасете" value={data.total} />
       <Kpi label="Кадров" value={data.frames} hint="JPEG, не больше datasets.max_frames на событие" />
