@@ -180,6 +180,7 @@ ERROR_TEXT_MAX = 500  # jobs.error_text, tech.md 5.1
 RETRYABLE: frozenset[JobErrorCode] = frozenset({"linq_unavailable", "timeout", "remote_error"})
 NAME_MAX = 80
 DESCRIPTION_MAX = 300
+IDENTITY_MAX = 80
 
 # Rights table of tech.md 6.2: human actions on events per role.
 ROLE_ACTIONS: dict[Role, list[HumanAction]] = {
@@ -1325,6 +1326,9 @@ def _summary(row: sqlite3.Row) -> EventSummary:
         is_demo=bool(row["is_demo"]),
         evidence_url=f"/api/evidence/{row['evidence_id']}/image" if row["evidence_id"] else None,
         clip=_clip(row),
+        person_name=row["person_name"],
+        person_position=row["person_position"],
+        crew=row["crew"],
     )
 
 
@@ -1805,6 +1809,7 @@ def event_detail(event_id: int, role: Role | None) -> EventDetail:
         video_start_ms=row["video_start_ms"],
         video_end_ms=row["video_end_ms"],
         broadcast=None if broadcast is None else _broadcast(broadcast),
+        can_identify=role in ("ohs", "management"),
     )
 
 
@@ -2262,6 +2267,9 @@ def events_export_csv(f: EventFilter) -> str:
                 texts.YES if e.is_demo else texts.NO,
                 row["evidence_sha256"] or "",
                 "; ".join(history.get(e.id, [])),
+                e.person_name,
+                e.person_position,
+                e.crew,
             ]
         )
     return "﻿" + out.getvalue()
@@ -2363,6 +2371,25 @@ def _share(part: int, whole: int) -> float | None:
     return part / whole if whole else None
 
 
+def _stats_period(
+    date_from: datetime | None, date_to: datetime | None
+) -> tuple[datetime, datetime]:
+    """The period of the statistics (tech.md 8.13): `stats.default_days` up to now by default."""
+
+    def aware(dt: datetime) -> datetime:  # a query datetime without a time zone is UTC
+        return dt if dt.tzinfo else dt.replace(tzinfo=UTC)
+
+    end = aware(date_to) if date_to is not None else clock.now()
+    start = (
+        aware(date_from)
+        if date_from is not None
+        else end - timedelta(days=config.get_settings().stats.default_days)
+    )
+    if start > end:
+        raise ValidationFailed(texts.PERIOD_INVALID, field="date_from")
+    return start, end
+
+
 def ohs_stats_view(
     date_from: datetime | None = None,
     date_to: datetime | None = None,
@@ -2372,18 +2399,7 @@ def ohs_stats_view(
 ) -> OhsStats:
     settings = config.get_settings()
     tz = settings.timezone
-
-    def aware(dt: datetime) -> datetime:  # a query datetime without a time zone is UTC
-        return dt if dt.tzinfo else dt.replace(tzinfo=UTC)
-
-    end = aware(date_to) if date_to is not None else clock.now()
-    start = (
-        aware(date_from)
-        if date_from is not None
-        else end - timedelta(days=settings.stats.default_days)
-    )
-    if start > end:
-        raise ValidationFailed(texts.PERIOD_INVALID, field="date_from")
+    start, end = _stats_period(date_from, date_to)
     equal = {"sector_id": sector_id, "camera_id": camera_id}
     where = store.journal_where(equal, clock.iso(start), clock.iso(end), None, include_demo, False)
     events = [_summary(row) for row in store.events_where(where)]
@@ -3168,13 +3184,56 @@ async def dataset_export(out: Path | None = None) -> Path:
 def event_identify(
     event_id: int, data: IdentityIn, role: Role | None, actor: str | None
 ) -> EventDetail:
-    raise NotImplementedError("slice 26")
+    """Manual identification of the violator (tech.md 8.27): the status stays as it is."""
+    _require(role, ("ohs", "management"))
+    assert role is not None  # _require raised otherwise
+    fields = {key: value.strip() for key, value in data.model_dump().items()}
+    for key, value in fields.items():
+        if len(value) > IDENTITY_MAX:
+            raise ValidationFailed(texts.IDENTITY_TOO_LONG, field=key)
+    name = texts.DEMO_ACTOR[role] if actor is None else actor.strip()
+    if not 1 <= len(name) <= ACTOR_MAX:
+        raise ValidationFailed(texts.ACTOR_INVALID, field="X-Actor")
+    with store.tx():
+        row = _event_row(event_id)
+        changed = any(row[key] != value for key, value in fields.items())
+        if changed:
+            store.event_update(event_id, fields)
+            store.insert(
+                "event_actions",
+                {
+                    "event_id": event_id,
+                    "at": clock.iso(clock.now()),
+                    "actor_role": role,
+                    "actor_name": name,
+                    "action": "identified",
+                    "from_status": row["status"],
+                    "to_status": row["status"],
+                    "comment": texts.identity_comment(**fields),
+                },
+            )
+    if changed:
+        hub.publish("event.updated", _event_summary(event_id))
+    return event_detail(event_id, role)
 
 
 def people_stats_view(
     date_from: datetime | None = None, date_to: datetime | None = None, include_demo: bool = True
 ) -> PeopleStats:
-    raise NotImplementedError("slice 26")
+    start, end = _stats_period(date_from, date_to)
+    where = store.journal_where({}, clock.iso(start), clock.iso(end), None, include_demo, False)
+    events = [_summary(row) for row in store.events_where(where)]
+    named = [e for e in events if e.person_name]
+    crews = [e for e in events if e.crew]
+    return PeopleStats(
+        date_from=start,
+        date_to=end,
+        include_demo=include_demo,
+        total=len(events),
+        identified=sum(bool(e.person_name or e.crew) for e in events),
+        by_person=_count_rows(named, "person_name", {e.person_name: e.person_name for e in named}),
+        by_crew=_count_rows(crews, "crew", {e.crew: e.crew for e in crews}),
+    )
 
 
 def camera_passport(camera_id: int) -> CameraPassport:

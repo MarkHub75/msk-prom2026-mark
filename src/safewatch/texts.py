@@ -340,6 +340,7 @@ ACTION_TITLES: dict[LogAction, str] = {
     "resolved": "решено",
     "auto_finished": "завершилось само",
     "superseded": "пересчитано",
+    "identified": "идентификация",
 }
 VERDICT_TITLES: dict[Verdict, str] = {
     "none": "нет",
@@ -364,6 +365,9 @@ CSV_COLUMNS = [
     "демо",
     "sha256 кадра",
     "история",
+    "ФИО",
+    "Должность",
+    "Бригада",
 ]
 
 
@@ -506,3 +510,17 @@ def job_status_text(job: Job, tz: str) -> str:
     if job.error_code == "timeout":
         return JOB_RETRY_TIMEOUT.format(time=time)
     return JOB_RETRY.format(time=time)
+
+
+# Manual identification of the violator (tech.md 8.27; slice 26).
+IDENTITY_TOO_LONG = "Поле: до 80 символов"
+IDENTITY_CLEARED = "Идентификация очищена"
+IDENTITY_EMPTY = "—"
+
+
+def identity_comment(person_name: str, person_position: str, crew: str) -> str:
+    """The comment of an `identified` row; an empty field shows as a dash."""
+    if not (person_name or person_position or crew):
+        return IDENTITY_CLEARED
+    name, position, team = (v or IDENTITY_EMPTY for v in (person_name, person_position, crew))
+    return f"ФИО: {name}; должность: {position}; бригада: {team}"
