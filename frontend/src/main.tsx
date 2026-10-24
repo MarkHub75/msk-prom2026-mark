@@ -6,6 +6,7 @@ import "./theme.css";
 import "./styles/mobile-timeline.css";
 import "./styles/control-room.css";
 import "./styles/pro-skin.css";
+import "./styles/ops.css";
 import "@fontsource/source-sans-3/cyrillic-400.css";
 import "@fontsource/source-sans-3/cyrillic-500.css";
 import "@fontsource/source-sans-3/cyrillic-600.css";
