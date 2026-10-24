@@ -17,7 +17,7 @@ function serve(routes: Record<string, unknown>) {
   const posts: { path: string; action: HumanAction }[] = [];
   vi.stubGlobal("fetch", async (request: Request) => {
     const path = new URL(request.url).pathname;
-    if (request.method === "POST") { const body = await request.json() as { action: HumanAction }; posts.push({ path, action: body.action }); return Response.json({}); }
+    if (request.method === "POST") { const body = await request.json() as { action: HumanAction }; posts.push({ path, action: body.action }); return Response.json(routes[path.replace(/\/actions$/, "")] ?? {}); }
     if (path === "/api/meta") return Response.json(fixtureMeta);
     if (path in routes) return Response.json(routes[path]);
     return Response.json({ code: "not_found", message: `нет ${path}`, details: {} }, { status: 404 });
