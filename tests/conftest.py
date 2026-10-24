@@ -13,7 +13,7 @@ import httpx
 import numpy as np
 import pytest
 
-from safewatch import clock, config, store, worker
+from safewatch import clock, config, services, store, worker
 from safewatch.config import ENV_KEYS, ENV_NAMES, Settings, get_settings
 from safewatch.db import connect, migrate
 from safewatch.hub import hub
@@ -74,6 +74,7 @@ def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     monkeypatch.setattr(store, "_conn", db)
     monkeypatch.setattr(store, "_depth", 0)
     monkeypatch.setattr(hub, "clients", set())
+    monkeypatch.setattr(services, "_backend", None)
     yield db
     db.close()
 
@@ -173,3 +174,18 @@ def make_video() -> MakeVideo:
         return path
 
     return make
+
+
+@pytest.fixture
+def linq_tails(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    """Tail ONNX files of every registry model, empty, under a fake repo root (CI has none)."""
+    from safewatch import registry
+    from safewatch.inference import linq
+
+    root = tmp_path / "repo"
+    for model in registry.load_models(registry.MODELS_FILE):
+        if model.linq_tail:
+            (root / model.linq_tail).parent.mkdir(parents=True, exist_ok=True)
+            (root / model.linq_tail).write_bytes(b"onnx")
+    monkeypatch.setattr(linq, "ROOT", root)
+    return root

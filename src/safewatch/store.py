@@ -154,3 +154,81 @@ def demo_counts() -> dict[str, int]:
 
 def demo_cameras() -> list[sqlite3.Row]:
     return all("SELECT id FROM cameras WHERE is_demo = 1 AND deleted_at IS NULL ORDER BY id")
+
+
+# --- videos, jobs, artifacts --------------------------------------------------------------
+def video(video_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM videos WHERE id = ?", video_id)
+
+
+def video_by_sha(camera_id: int, sha256: str) -> sqlite3.Row | None:
+    return one("SELECT * FROM videos WHERE camera_id = ? AND sha256 = ?", camera_id, sha256)
+
+
+def video_filename(sha256: str) -> str | None:
+    row = one("SELECT filename FROM videos WHERE sha256 = ? ORDER BY id LIMIT 1", sha256)
+    return None if row is None else str(row["filename"])
+
+
+def videos(camera_id: int) -> list[sqlite3.Row]:
+    return all(
+        "SELECT * FROM videos WHERE camera_id = ? ORDER BY created_at DESC, id DESC", camera_id
+    )
+
+
+def video_update(video_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE videos SET {assignments} WHERE id = ?", *values.values(), video_id)
+
+
+# Metrics of the job's artifacts come in the same row: no per-job round trips.
+_JOBS = """
+SELECT j.*, v.camera_id,
+    d.metrics_json AS det_metrics, d.created_at AS det_created,
+    p.metrics_json AS pose_metrics, p.created_at AS pose_created
+FROM jobs j
+JOIN videos v ON v.id = j.video_id
+LEFT JOIN artifacts d ON d.id = j.det_artifact_id
+LEFT JOIN artifacts p ON p.id = j.pose_artifact_id
+"""
+
+
+def job(job_id: int) -> sqlite3.Row | None:
+    return one(_JOBS + " WHERE j.id = ?", job_id)
+
+
+def jobs(status: str | None, limit: int) -> list[sqlite3.Row]:
+    sql = _JOBS + " WHERE ? IS NULL OR j.status = ? ORDER BY j.created_at DESC, j.id DESC LIMIT ?"
+    return all(sql, status, status, limit)
+
+
+def camera_jobs(camera_id: int) -> list[sqlite3.Row]:
+    return all(_JOBS + " WHERE v.camera_id = ? ORDER BY j.created_at DESC, j.id DESC", camera_id)
+
+
+def video_last_job(video_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM jobs WHERE video_id = ? ORDER BY id DESC LIMIT 1", video_id)
+
+
+def next_job(now: str) -> sqlite3.Row | None:
+    sql = """SELECT * FROM jobs WHERE status = 'queued'
+        OR (status = 'retry_wait' AND next_attempt_at <= ?) ORDER BY created_at, id LIMIT 1"""
+    return one(sql, now)
+
+
+def job_update(job_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE jobs SET {assignments} WHERE id = ?", *values.values(), job_id)
+
+
+def job_progress(job_id: int, progress: float) -> None:
+    run("UPDATE jobs SET progress = max(progress, ?) WHERE id = ?", progress, job_id)
+
+
+def artifact(cache_key: str) -> sqlite3.Row | None:
+    return one("SELECT * FROM artifacts WHERE cache_key = ?", cache_key)
+
+
+def artifact_update(artifact_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE artifacts SET {assignments} WHERE id = ?", *values.values(), artifact_id)

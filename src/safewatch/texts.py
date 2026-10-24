@@ -80,6 +80,15 @@ SECTOR_NAME_TAKEN = "Сектор с таким названием уже ест
 SECTOR_NOT_EMPTY = "В секторе есть камеры: сначала удалите или перенесите их"
 SECTOR_HAS_HISTORY = "Сектор хранит историю удалённых камер и событий: его нельзя удалить"
 
+# Videos and jobs (tech.md 8.1).
+VIDEO_EXTENSION = "Формат не поддерживается, нужен один из: {extensions}"
+VIDEO_UNREADABLE = "Видео не читается"
+VIDEO_TOO_LARGE = "Файл больше {mb} МБ"
+VIDEO_NOT_FOUND = "Видео не найдено"
+FILE_NOT_FOUND = "Файл не найден: {path}"
+JOB_NOT_FOUND = "Задача не найдена"
+LIMIT_INVALID = "limit: от 1 до {max}"
+
 # Demo world (tech.md 8.16).
 DEMO_SECTORS = [
     "Сектор 1 · Прессовый участок",
