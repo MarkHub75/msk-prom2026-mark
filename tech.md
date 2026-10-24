@@ -2,7 +2,7 @@
 
 ## 0. Версия
 
-**Версия: v5** (2026-10-24)
+**Версия: v6** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
@@ -10,6 +10,7 @@ Changelog:
 - v3 (ревью R10): 37 строк `GAP` S6–S10 перенесены в 6.9, 3 строки трассировки 6.7; решения R10: `AnalysisConfig.extra_artifact_ids` (пересчёт с моделями `pipeline.extra` без изменения схемы), параметры правил из `CameraRule.effective` снимка, длина `X-Actor` проверяется только в `services`, ссылка на настройку камеры из списка, autouse-защита `data/app` в `tests/conftest.py`.
 - v4 (ревью R15): 25 строк `GAP` S11–S15 перенесены в 6.10, 5 строк трассировки 6.7 (`observability.Luma`, `media.LUMA_WIDTH`, `store.publish_latencies`, `services.DELIVERED`, `delivery.target`); решения R15: `LatencyStats` экрана IT по событиям эфира, подписи HUD на `pair:`/`zone:`/`fire`, проверка URL webhook при загрузке, `hub.Client` без `dropped`, тест маршрутов без заглушек, права ролей только у пишущих слайсов.
 - v5 (владелец, второй прогон по `UPGRADE_v1.md`): продукт называется Argus, пакет и CLI остаются `safewatch`; контракт фронта 1.1.0 только добавляет (раздел 6.11: миграция `0002_v5.sql`, 24 типа, 10 маршрутов, ключи конфига, поля существующих типов); новые слайсы S16–S32 и ревью R20, R25, R30, R32 (раздел 16): демо-пакет с детекциями LinQ, клип события и H.264, автокалибровка в м/с, каска и респиратор, модели Матвея, Docker, телефон по зонам, проекция груза, звонок мастеру и оператор с телефона, калькулятор окупаемости, датасет ложных срабатываний, ручная идентификация, паспорт камеры, LinQ под медленную очередь, пробелы `docs/ML_INTEGRATION.md`, отчёт смены в PDF, все долги `## open`; учтён `docs/ML_INTEGRATION.md` (коммит `5d940ba2`, дополнен Матвеем в `f6b5358a`: COCO-80 у детектора, extra-классы, программы `mosprom_matvey_*`, новая `version` при любой смене модели, 19 пробелов, решение по каждому — 8.30); второй прогон — раздел 10.3; лимит живых прогонов — S17, S28, R32.
+- v6 (ревью R20): 17 строк `GAP` S17–S20 перенесены в 6.12, 7 строк трассировки 6.7 (`services.Source`, `services._stage`, `services._web_copy`, `services._clip`, `running.AUTOCAL_SAMPLES`, `texts.AUTOCAL_ONE_ROW`, pad нечётного кадра); решения R20: ffmpeg демо-импорта до транзакции (`_stage`), H.264-копия видео до S18 при повторной загрузке, `pad` нечётного кадра в `media.transcode`, СИЗ: при `no_<сиз>` и `<сиз>` на одной голове побеждает больший `score`, текст `AUTOCAL_ONE_ROW`, фейк LinQ не открывает базу вне `uploads/`, `texts.PRODUCT_TITLE` удалён, заголовок страницы и шапки — Argus.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2760,6 +2761,13 @@ models:
 | v5: реестр: каска Матвея | 20 | `registry` | `config/models.yaml` | `linq_program: mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu` | `tests/test_config.py::test_matvey_models_resolve` |
 | v5: реестр: pose Матвея | 20 | `registry` | `config/models.yaml` | `linq_program: mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu` | `tests/test_config.py::test_matvey_models_resolve` |
 | v5: пример включения моделей Матвея | 20 | владелец | `config/user.matvey.example.yaml` | `matvey-helmet-yolov8n@640-v1-5c3af1f3b855` | `tests/test_config.py::test_matvey_models_resolve` |
+| v6: тип `services.Source` | 17 | `_infer`, `_enqueue`, `demo_import` | `src/safewatch/services.py` | `Source = tuple[BackendName, bool]` | `tests/test_demo_pack.py::test_import_creates_world_without_inference` |
+| v6: `services._stage` | 17 | `video_import`, `demo_import` | `src/safewatch/services.py` | `def _stage(` | `tests/test_demo_pack.py::test_import_transcodes_outside_transaction` |
+| v6: `services._web_copy` | 18 | `video_upload`, `_stage` | `src/safewatch/services.py` | `def _web_copy(` | `tests/test_clips.py::test_transcode_makes_browser_codec` |
+| v6: `services._clip` | 18 | `_summary` | `src/safewatch/services.py` | `def _clip(` | `tests/test_clips.py::test_clip_window_bounds` |
+| v6: pad нечётного кадра | 18 | `media.transcode` | `src/safewatch/media.py` | `pad=ceil(iw/2)*2:ceil(ih/2)*2` | `tests/test_clips.py::test_odd_frame_and_late_copy` |
+| v6: константа `running.AUTOCAL_SAMPLES` | 19 | `RunningPlugin.explain` | `src/safewatch/rules/running.py` | `AUTOCAL_SAMPLES = "autocal_samples"` | `tests/test_autocal.py::test_hud_labels_auto_and_calibration` |
+| v6: текст `AUTOCAL_ONE_ROW` | 19 | `autocal.fit` | `src/safewatch/texts.py` | `AUTOCAL_ONE_ROW = ` | `tests/test_autocal.py::test_too_few_samples_not_ok` |
 | v5: compose с демо-пакетом | 21 | владелец, Docker | `docker-compose.yml` | `./data/demo:/app/data/demo:ro` | `tests/test_docker_files.py::test_compose_mounts_demo_and_data` |
 | v5: образ стартует с сидом | 21 | Docker | `Dockerfile` | `"--seed"` | `tests/test_docker_files.py::test_image_starts_with_seed_and_health` |
 | v5: инструкция развёртывания | 21 | владелец | `docs/DEPLOY.md` | `docker compose up -d --build` | `вручную: docker compose up -d --build, GET /api/health` |
@@ -3632,6 +3640,55 @@ def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
 ```
 
 `rules.PLUGINS` v5: в конец списка `HelmetPlugin`, `RespiratorPlugin` (порядок таблицы 8.3 и 8.22). `texts.SCENARIO_TITLES` v5: `no_helmet` «Без каски в зоне обязательной каски», `no_respirator` «Без респиратора в зоне обязательного респиратора».
+
+---
+
+### 6.12 Дополнения v6 (строки `GAP` S16–S20 и решения R20)
+
+Перенесены ревью R20 из `## open` файла `progress.md`. Статус тот же, что у 6.8–6.10: часть контракта наравне с 6.1–6.6 и 6.11; `было → стало` заменяет сказанное выше.
+
+**6.2 Фасад `services`: демо-пакет (8.19)**
+
+- S17, `texts.job_status_text`: `def job_status_text(job: Job, tz: str) -> str` (8.19: `job_status_text(job)`; `tz` = `Settings.timezone`, `texts` не читает конфиг); `failed` для кодов вне 8.19: `timeout` «LinQ не ответил вовремя: попробуйте позже», `remote_error` = `bad_output` «Неожиданный ответ LinQ», `artifacts_missing` = `texts.ARTIFACTS_MISSING`; `retry_wait` с другим кодом — «Повтор в ЧЧ:ММ».
+- S17, `services._infer(job_id, stage, span, model, video, source: Source | None = None)`, `Source = tuple[BackendName, bool]`: сначала ищется ключ задачи (`jobs.backend`, `jobs.fake`), потом ключ текущего бэкенда; прогон пишет артефакт под ключом текущего бэкенда (`backend.name`, `Settings.fake`), не задачи; `_enqueue(video_id, kind, source)`, `_register(camera_id, filename, sha256, size, probe, web_path, source=None)`.
+- R20, `video_import(camera_id, path)` → проверка файла, `camera_get`, `_register(camera_id, path.name, *_stage(path))`; `_stage(path) -> tuple[str, int, VideoProbe, str | None]` (sha256, размер, проба, `web_path`) — проверки 8.1, копия в `uploads/` и H.264-копия 8.20, без базы (было: `_video_import(camera_id, path, source)`).
+- S17, `demo_build`: бэкенд — `services._backend_instance()` (ленивый `make_backend(settings)`, тесты подменяют `_backend`); видео пакета — `out/videos/<имя файла>`, модель считается один раз на sha256 видео (то же видео у второй камеры берёт тот же артефакт); модели по порядку `detector`, `extra`, `pose`; все видео раскладки проверяются (`NotFound`, `UnsupportedVideo`) до создания `out`.
+- S17, `demo_import`: одна транзакция на пакет; сектор и камера — `sector_create`/`camera_create`, калибровка, зоны, правила — `calibration_set`/`zone_create`/`camera_rule_set` с ролью `admin` (зоны пакета — только если у камеры нет ни одной, правило — если нет строки сценария); `DemoPack.backend` — бэкенд первого артефакта (нет артефактов — `Settings.inference_backend`), `fake` — хоть один артефакт фейк; `DemoImportReport.jobs` — новые задачи; `artifact_import`: шаг ключа — `metrics.step`, без `metrics` — `analysis_step(fps)` и нулевые замеры; файл копируется в `artifacts/<cache_key>.jsonl`, строка с тем же ключом обновляется.
+- R20, `demo_import`: `_stage` каждого файла видео пакета (один раз на файл) — до транзакции, внутри неё `_register(..., source)`: ffmpeg не держит блокировку базы (было: перекодирование внутри транзакции). Откат транзакции оставляет в `uploads/` и `artifacts/` файлы без строк: имена по sha256 и ключу кэша, следующий импорт или загрузка того же файла берут их же; удалять их на откате нельзя — их может делить загрузка работающего сервера.
+- S17, CLI: `demo build` печатает `DemoManifest` без `metrics` артефактов; `serve --seed` вызывает `cli.seed_on_serve()`: `seed_demo`, затем `demo_import`, относительный `demo.pack` — от корня репо (`config.ROOT`), битый пакет — строка в stderr, сервер стартует.
+- S17, `store.demo_pack(name)`, `store.demo_packs()` (по `imported_at, id`), `store.sector_by_name(name)`, `store.camera_by_name(sector_id, name)`; `demo.write_manifest` пишет `model_dump_json(indent=2)` + `\n`; тексты `texts.DEMO_*`, `ARTIFACT_INVALID`, `JOB_*`, `JOB_FAILED_TEXTS`.
+- R20, фейк LinQ ищет исходное имя видео (`store.video_filename`) только у файлов `uploads/<sha256><ext>`: `demo build` на фейке не открывает базу `data_dir`.
+
+**6.2 Фасад `services`: клип и H.264 (8.20)**
+
+- S18, `services._web_copy(src, sha256, probe) -> str | None`: копия только при `codec` не из `BROWSER_CODECS` и `transcode.enabled`; готовый `uploads/<sha256>.web.mp4` (от прошлой загрузки того же файла, в том числе на другую камеру) берётся без ffmpeg.
+- R20, `_register`: новая строка видео получает `web_path`; существующая строка с `web_path = NULL` (видео до S18) получает копию при повторной загрузке или импорте того же файла (было: копия только новой строке).
+- S18, `media.transcode`: ffmpeg пишет `<dst>.part` (`-y -v error ... -f mp4`), после проверки `probe_video` файл переименовывается в `dst`; любой отказ удаляет `.part`; лог `transcode: <что>` — логгер `safewatch.media`, уровень WARNING; `RuntimeError` imageio-ffmpeg (нет ffmpeg) = отказ.
+- R20, `media.transcode` добавляет `-vf pad=ceil(iw/2)*2:ceil(ih/2)*2` (8.20: команда без фильтра): libx264 с `yuv420p` не кодирует нечётную сторону; копия получает чёрный столбец или строку справа или снизу, пиксели HUD на месте, кадры и длительность прежние.
+- S18, `store._EVENTS` добавляет `LEFT JOIN episodes ep`, `analyses an`, `videos v` и столбцы `clip_start_ms`, `clip_confirm_ms`, `clip_video_id`, `clip_duration_ms`, `clip_browser_playable`, `clip_web_path`; `services._clip(row)` строит `Clip` (нет эпизода — `None`), `services._video(row)` — `Video.web_playable = browser_playable or web_path`; `ClipPlayer` с `aria-label="Клип события"`, на экране события — под кадром доказательства, у мастера — после кадра.
+
+**Компоненты анализа и правил: автокалибровка (8.21)**
+
+- S19, `FrameContext.auto_calibration: AutoCalibration | None = None`, `AnalysisResult.auto_calibration: AutoCalibration | None = None`; `pipeline.analyze` вызывает `autocal.fit` по кадрам детектора (классы `person` из `ModelSpec.classes`) на каждом анализе и пересчёте, при ручной калибровке тоже; `services._analyze` пишет `analyses.autocal_json` из `result.auto_calibration`.
+- S19, `features.person_states(..., ground=None, autocal: AutoCalibration | None = None)`, `features.vehicle_states(..., ground=None, autocal=None)`: `speed_source = "calibration"` только при метрах по гомографии; иначе при `speed_bh_s`/`speed_vh_s` не `None` и `scale_at` не `None` — `"auto"`; ручная калибровка с точкой вне оболочки → автокалибровка.
+- S19, `autocal.fit`: меньше 2 замеров или нулевой разброс `y2` (все ноги в одной строке) — линии нет, `a_px = b = rmse_px = r2 = 0`; «Мало стоящих людей…» проверяется первым; `r2 = 1` при нулевом разбросе высот; «стоит по рамке» — `w > 0` и `h/w ≥ upright_hw`; отступ — минимум из четырёх краёв.
+- R20, `autocal.fit`: замеров `≥ min_samples`, а линии нет (все ноги в одной строке) → `texts.AUTOCAL_ONE_ROW = "Все люди стоят в одном ряду кадра: перспективу не оценить"`; `AUTOCAL_PERSPECTIVE` — только `ĥ(0) ≤ 0` или `ĥ(height) ≤ 0` (было: «перспектива» и без линии).
+- S19, `Observation.method` = `Episode.method` = `"auto"` у `running` и `proximity` при автокалибровке (`"calibrated"` остаётся за гомографией); `running` пишет в `metrics` наблюдения `autocal_samples` (`running.AUTOCAL_SAMPLES`), `explain` бега берёт N оттуда и убирает её из строк `why_common`; строка `WhyItem("Скорость", ...)` только при `auto` и `calibrated`; `running.near_vehicle_*` при автокалибровке по-прежнему в ростах; `proximity` при `auto` — `distance_m`, `PROXIMITY_M`, `WHY_PROXIMITY_M`.
+- S19, тексты `texts.AUTOCAL_FEW = "Мало стоящих людей в кадре: {n} из {need}"`, `AUTOCAL_PERSPECTIVE = "Рост людей не согласуется с перспективой"`, `WHY_SPEED = "Скорость"`, `WHY_SPEED_AUTO = "автокалибровка по росту людей ({n} замеров, точность около ±20 %)"`, `WHY_SPEED_CALIBRATION = "по калибровке камеры"`, `METHOD_TITLES["auto"] = "автокалибровка"`; причина бега при `auto` — прежний `RUN_M` «Бег {v} м/с» (без «≈»).
+- S19, `CameraSetupView.auto_calibration`: первое видео `status = ready` с `active_analysis_id` в порядке `store.videos` (новые первыми); `services._autocal(analysis_id) -> AutoCalibration | None` — `None` без анализа и при `autocal_json IS NULL`.
+
+**Компоненты анализа и правил: СИЗ (8.22)**
+
+- S20, тексты `texts.NO_HELMET = "Без каски в зоне «{zone}»"`, `NO_RESPIRATOR = "Без респиратора в зоне «{zone}»"` (имя первой зоны под `anchor`), `SCENARIO_DESCRIPTIONS["no_helmet"] = "Человек без каски в зоне, где каска обязательна."`, `["no_respirator"] = "Человек без респиратора в зоне, где респиратор обязателен."`, `PARAM_TITLES["head_frac"] = ("Верхняя доля рамки человека (голова)", "")`; параметры обоих плагинов: `hold_s` 0..60, `head_frac` 0..1, `min_person_px` 0..2000; `reason_code` P — id сценария, U — `too_small`, `head_unseen`, `owner_ambiguous`.
+- S20 и R20, порядок проверок `rules.ppe`: `anchor` вне зоны → `N` (рост не проверяется); рост `< min_person_px` → `U too_small`; к голове привязаны и `no_<сиз>`, и `<сиз>` → побеждает больший `score`, равенство — `no_<сиз>` (было: всегда `P`; модель, колеблющаяся между классами, давала ложный жёлтый); `no_<сиз>` у головы `ambiguous` → `U owner_ambiguous`; `no_<сиз>` привязан → `P`; `<сиз>` `ambiguous` → `U owner_ambiguous`; `<сиз>` привязан → `N`; иначе `U head_unseen`; `explain` — «{reason_text} дольше {hold_s} с» и `why_common`.
+
+**Имя продукта (раздел 2, 6.11.8)**
+
+- R20, `texts.PRODUCT_TITLE` удалён (6.8: не читался с S0; имя продукта — `product_name`); `frontend/index.html` `<title>Argus</title>`, шапка до ответа `meta` — «Argus»; `FastAPI(title="SafeWatch API")` и `info.title` в `contract/openapi.json` не меняются: имя контракта не переименовывается (раздел 2, «Допущения»).
+
+**Тесты (10.3)**
+
+- R20, `tests/test_clips.py::test_odd_frame_and_late_copy` (нечётный mp4v 321×241 пишет сам ffmpeg через `lavfi`: OpenCV пишет только чётные стороны), `tests/test_demo_pack.py::test_import_transcodes_outside_transaction` (`store._depth` в момент `media.transcode`), `tests/test_rule_ppe.py::test_surer_class_wins_on_one_head`.
 
 ---
 
