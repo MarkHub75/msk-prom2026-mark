@@ -24,10 +24,11 @@ async def test_rule_params_override_and_ranges(
     camera_id = camera()
     url = f"/api/cameras/{camera_id}/rules"
     rules = [CameraRule.model_validate(r) for r in (await client.get(url)).json()]
-    assert [(r.scenario, r.enabled, r.params, r.status) for r in rules] == [
-        ("running", True, {}, "active"),
-        ("fall", True, {}, "active"),
-    ]  # no rows in the database: the defaults of the config
+    by_id = {r.scenario: (r.enabled, r.params, r.status) for r in rules}
+    # No rows in the database: the defaults of the config, on while the plugin is active.
+    assert by_id["running"] == by_id["fall"] == (True, {}, "active")
+    assert by_id["fire_smoking"] == (False, {}, "model_missing")
+    assert by_id["load_carrying"] == (False, {}, "skeleton")
     assert rules[0].effective == core.scenarios.running
     assert (await client.get("/api/cameras/999/rules")).status_code == 404
 
@@ -74,9 +75,17 @@ async def test_rules_screen_view(client: httpx.AsyncClient) -> None:
     )
     services.camera_rule_set(second, "fall", CameraRuleIn(enabled=False), "ohs")
     view = RulesScreenView.model_validate((await client.get("/api/ohs/rules")).json())
-    assert [s.id for s in view.scenarios] == ["running", "fall"]
+    assert [s.id for s in view.scenarios] == [
+        "running", "proximity", "phone", "fall", "fence_crossing", "restricted_under",
+        "fire_smoking", "no_harness", "suspended_load", "load_carrying",
+    ]  # fmt: skip
     assert [row.camera.id for row in view.rows] == [first, second]
-    cells = {(row.camera.id, r.scenario): r.enabled for row in view.rows for r in row.rules}
+    cells = {
+        (row.camera.id, r.scenario): r.enabled
+        for row in view.rows
+        for r in row.rules
+        if r.scenario in ("running", "fall")
+    }
     assert cells == {
         (first, "running"): True,
         (first, "fall"): True,

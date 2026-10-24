@@ -1,4 +1,4 @@
-"""Features of tracked people (tech.md 8.2 items 2 and 5): keypoints, posture, H_ref, speed."""
+"""Features of tracked people and vehicles (tech.md 8.2 items 2, 5, 6)."""
 
 import math
 import statistics
@@ -7,7 +7,7 @@ from itertools import pairwise
 
 from safewatch.analysis.geometry import iou
 from safewatch.config import FeaturesConfig
-from safewatch.types import Box, Detection, Keypoint, PersonState, Point, Posture
+from safewatch.types import Box, Detection, Keypoint, PersonState, Point, Posture, VehicleState
 
 SHOULDERS_HIPS = (5, 6, 11, 12)  # COCO keypoints that give the torso angle
 ANKLES = (15, 16)
@@ -15,6 +15,7 @@ FRAME_EDGE_PX = 2  # a bbox bottom this close to the frame edge may hide the fee
 
 # Per track id: (ts_ms, state) of every earlier observation, oldest first.
 History = dict[int, list[tuple[int, PersonState]]]
+VehicleHistory = dict[int, list[tuple[int, VehicleState]]]
 
 
 def attach_keypoints(
@@ -41,7 +42,7 @@ def attach_keypoints(
     return out
 
 
-def _recent(past: list[tuple[int, PersonState]], since_ms: float) -> list[tuple[int, PersonState]]:
+def _recent[S](past: list[tuple[int, S]], since_ms: float) -> list[tuple[int, S]]:
     out = []
     for ts, state in reversed(past):
         if ts < since_ms:
@@ -174,3 +175,52 @@ def person_states(
         past.append((ts_ms, state))
         states.append(state)
     return states
+
+
+def vehicle_states(
+    tracks: list[tuple[int, Detection]],
+    ts_ms: int,
+    history: VehicleHistory,
+    cfg: FeaturesConfig,
+    ground: Callable[[Point], Point | None] | None = None,
+) -> list[VehicleState]:
+    """States of the vehicles tracked in this frame; `history` gets this frame appended.
+
+    `speed_vh_s`: the bbox center over `speed_window_s` in heights of its own bbox per second,
+    under the same sample, gap and coverage rules as a person. With calibration, `footprint` is
+    the bottom edge on the floor and `speed_m_s` follows its middle over the same window.
+    """
+    states = []
+    for track_id, det in tracks:
+        box = det.bbox_xyxy
+        height = box[3] - box[1]
+        past = history.setdefault(track_id, [])
+        recent = _recent(past, ts_ms - cfg.speed_window_s * 1000)
+        centers = [*((ts, _center(v.bbox)) for ts, v in recent), (ts_ms, _center(box))]
+        speed = _speed(centers, height, cfg) if height > 0 else None
+        footprint = None
+        if ground is not None:
+            left, right = ground((box[0], box[3])), ground((box[2], box[3]))
+            footprint = None if left is None or right is None else (left, right)
+        speed_m = None
+        first = recent[0][1].footprint if recent else None
+        if speed is not None and footprint is not None and first is not None:
+            dt_s = (ts_ms - recent[0][0]) / 1000
+            speed_m = math.dist(_middle(footprint), _middle(first)) / dt_s
+        state = VehicleState(
+            track_id=track_id,
+            name=det.name,
+            bbox=box,
+            score=det.score,
+            footprint=footprint,
+            height_px=height,
+            speed_vh_s=speed,
+            speed_m_s=speed_m,
+        )
+        past.append((ts_ms, state))
+        states.append(state)
+    return states
+
+
+def _middle(segment: tuple[Point, Point]) -> Point:
+    return ((segment[0][0] + segment[1][0]) / 2, (segment[0][1] + segment[1][1]) / 2)

@@ -161,7 +161,9 @@ class LinqBackend:  # InferenceBackend
         args += ["--size", str(model.input_size), "--step", str(step), "--task", model.task]
         args += ["--conf", str(model.conf), "--iou", str(model.iou)]
         args += ["--inflight", str(linq.inflight)]
-        if model.task == "detect":
+        if f"{model.id}@{model.version}" in self.settings.pipeline.extra:
+            args += ["--nc", str(len(model.classes))]  # an extra model keeps all its classes
+        elif model.task == "detect":
             args += ["--classes", ",".join(str(c) for c in model.classes)]
         args += ["--tail", f"tails/{tail.name}"]
         worker = " ".join(shlex.quote(a) for a in args)

@@ -606,12 +606,16 @@ def _analysis_files(
     cfg: AnalysisConfig,
     det_model: ModelSpec,
     hud_path: Path,
+    extra: list[tuple[ModelSpec, Path]],
 ) -> AnalysisResult:
     """Worker thread: read the artifacts, analyze, write hud.jsonl; the database stays out."""
     det = artifacts.read_jsonl(det_path, None)
     pose_frames = None if pose is None else artifacts.read_jsonl(pose[1], None)
     pose_model = None if pose is None else pose[0]
-    result = pipeline.analyze(det, pose_frames, video_path, cfg, pose_model, det_model)
+    extra_frames = [(m, artifacts.read_jsonl(path, None)) for m, path in extra]
+    result = pipeline.analyze(
+        det, pose_frames, video_path, cfg, pose_model, det_model, extra_frames
+    )
     hud_path.parent.mkdir(parents=True, exist_ok=True)
     lines = "".join(frame.model_dump_json() + "\n" for frame in result.hud)
     hud_path.write_text(lines, encoding="utf-8", newline="\n")
@@ -623,6 +627,7 @@ async def _analyze(
     video: sqlite3.Row,
     det: tuple[ModelSpec, int],
     pose: tuple[ModelSpec, int] | None,
+    extra: list[tuple[ModelSpec, int]],
 ) -> tuple[list[tuple[int, EpisodeDraft]], list[HudFrame]]:
     """Stage `analysis` of tech.md 8.1: a new `analyses` version, its HUD file and episodes."""
     settings = config.get_settings()
@@ -655,6 +660,7 @@ async def _analyze(
         cfg,
         det[0],
         data / rel,
+        [(m, data / store.artifact_path(artifact_id)) for m, artifact_id in extra],
     )
     values = {
         "video_id": video_id,
@@ -765,6 +771,7 @@ async def run_next_job() -> Job | None:
     try:
         video = _video_row(video_id)
         pose: tuple[ModelSpec, int] | None = None
+        extra: list[tuple[ModelSpec, int]] = []
         if row["kind"] == "recompute":  # the same artifacts, no inference (tech.md 8.12)
             inputs = _analysis_inputs(video)
             if inputs is None:
@@ -776,6 +783,10 @@ async def run_next_job() -> Job | None:
             detector = registry.resolve(settings.pipeline.detector)
             det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
             store.job_update(job_id, {"det_artifact_id": det_id})
+            for ref in settings.pipeline.extra:  # own classes, --nc (tech.md 6.1)
+                model = registry.resolve(ref)
+                span = (0.45, 0.45)
+                extra.append((model, await _infer(job_id, "inference_detect", span, model, video)))
             try:
                 if settings.pipeline.pose is not None:
                     pose_model = registry.resolve(settings.pipeline.pose)
@@ -787,7 +798,7 @@ async def run_next_job() -> Job | None:
                 if exc.code not in ("remote_error", "bad_output"):
                     raise
                 pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
-        episodes, hud_frames = await _analyze(job_id, video, (detector, det_id), pose)
+        episodes, hud_frames = await _analyze(job_id, video, (detector, det_id), pose, extra)
         await _evidence(job_id, video, episodes, hud_frames)
     except InferenceError as exc:
         log.warning("linq: %s %s", exc.code, exc.message)
@@ -1557,7 +1568,7 @@ def event_detail(event_id: int, role: Role | None) -> EventDetail:
             episode.model_dump()
             | {"confirm_frame_idx": frames["confirm"], "escalate_frame_idx": frames.get("escalate")}
         )
-        why = rules.PLUGINS[episode.scenario].explain(draft, provenance.rule_params)
+        why = rules.plugin(episode.scenario).explain(draft, provenance.rule_params)
     broadcast = store.camera_broadcast(row["camera_id"])
     allowed = [] if role is None else ROLE_ACTIONS[role]
     return EventDetail(
@@ -1896,7 +1907,7 @@ def camera_rule_set(
     _require(role, ("admin", "ohs"))
     camera_get(camera_id)
     metas = {meta.id: meta for meta in rules.scenario_metas()}
-    if scenario not in rules.PLUGINS:
+    if scenario not in metas:
         raise NotFound(texts.SCENARIO_NOT_FOUND, scenario=scenario)
     ranges = {p.key: (p.min, p.max) for p in metas[scenario].params}
     for key, value in data.params.items():

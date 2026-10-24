@@ -2,6 +2,7 @@
 
     python video_worker.py --video v.mp4 --program yolov8n_640.tpu --out v.jsonl [--step 5]
            [--size 640] [--conf 0.25] [--inflight 8] [--task detect|pose] [--classes 0,2,5,7,67]
+           [--nc 2]
 
 Each output line: {"frame_idx", "ts_ms", "detections": [{"cls","name","score","bbox_xyxy"[, "kpts"]}]}.
 A summary with timings goes to <out>.summary.json; progress to <out>.progress (polled by run_video.py).
@@ -43,6 +44,7 @@ def main() -> None:
     ap.add_argument("--inflight", type=int, default=8, help="TPU requests in flight")
     ap.add_argument("--task", choices=["detect", "pose"], default="detect")
     ap.add_argument("--classes", default="", help="comma list of COCO ids to keep (detect)")
+    ap.add_argument("--nc", type=int, default=0, help="class count of the model (default: 80 detect, 1 pose)")
     ap.add_argument("--input-name", default="images")
     ap.add_argument("--output-name", default="", help="TPU output tensor name (default: the only one)")
     ap.add_argument("--tail", default="", help="tail ONNX for cut programs (decode on CPU, onnxruntime)")
@@ -57,6 +59,7 @@ def main() -> None:
         tail = ort.InferenceSession(a.tail, so, providers=["CPUExecutionProvider"])
 
     nc, kpt = (1, (17, 3)) if a.task == "pose" else (80, None)
+    nc = a.nc or nc
     classes = [int(c) for c in a.classes.split(",") if c] or None
     cap = cv2.VideoCapture(a.video)
     if not cap.isOpened():

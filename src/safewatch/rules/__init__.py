@@ -2,10 +2,38 @@
 
 from safewatch import config, registry, texts
 from safewatch.rules.fall import FallPlugin
+from safewatch.rules.fence import FencePlugin
+from safewatch.rules.fire import FirePlugin
+from safewatch.rules.harness import HarnessPlugin
+from safewatch.rules.load_carrying import LoadCarryingPlugin
+from safewatch.rules.phone import PhonePlugin
+from safewatch.rules.proximity import ProximityPlugin
 from safewatch.rules.running import RunningPlugin
+from safewatch.rules.suspended_load import SuspendedLoadPlugin
+from safewatch.rules.under import UnderPlugin
 from safewatch.types import ScenarioMeta, ScenarioPlugin
 
-PLUGINS: dict[str, ScenarioPlugin] = {"running": RunningPlugin(), "fall": FallPlugin()}
+PLUGINS: list[ScenarioPlugin] = [
+    RunningPlugin(),
+    ProximityPlugin(),
+    PhonePlugin(),
+    FallPlugin(),
+    FencePlugin(),
+    UnderPlugin(),
+    FirePlugin(),
+    HarnessPlugin(),
+    SuspendedLoadPlugin(),
+    LoadCarryingPlugin(),
+]
+ANY_CLASS = {"fire_smoking"}  # one of `required_classes` is enough (tech.md 8.3)
+
+
+def plugin(scenario: str) -> ScenarioPlugin:
+    """The plugin of a scenario id; `KeyError` when there is none."""
+    for p in PLUGINS:
+        if p.meta.id == scenario:
+            return p
+    raise KeyError(scenario)
 
 
 def defaults(scenario: str) -> dict[str, float]:
@@ -19,17 +47,25 @@ def scenario_metas(active_classes: list[str] | None = None) -> list[ScenarioMeta
     if active_classes is None:
         active_classes = registry.active_classes(config.get_settings())
     out = []
-    for scenario, plugin in PLUGINS.items():
-        meta = plugin.meta
-        missing = [c for c in meta.required_classes if c not in active_classes]
-        values = defaults(scenario)
+    for plug in PLUGINS:
+        meta = plug.meta
+        required = meta.required_classes
+        missing = [c for c in required if c not in active_classes]
+        if meta.id in ANY_CLASS and len(missing) < len(required):
+            missing = []
+        if meta.status == "skeleton":
+            status, text = "skeleton", texts.SCENARIO_SKELETON
+        elif missing:
+            status = "model_missing"
+            text = texts.SCENARIO_MODEL_MISSING.format(classes=", ".join(missing))
+        else:
+            status, text = "active", texts.SCENARIO_ACTIVE
+        values = defaults(meta.id)
         out.append(
             meta.model_copy(
                 update={
-                    "status": "model_missing" if missing else "active",
-                    "status_text": texts.SCENARIO_MODEL_MISSING.format(classes=", ".join(missing))
-                    if missing
-                    else texts.SCENARIO_ACTIVE,
+                    "status": status,
+                    "status_text": text,
                     "params": [
                         p.model_copy(update={"default": values[p.key]}) for p in meta.params
                     ],

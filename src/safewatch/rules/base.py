@@ -1,11 +1,16 @@
 """Helpers shared by the scenario plugins (tech.md 7, 8.3)."""
 
+import math
+from typing import Literal
+
+from safewatch import config as app_config
 from safewatch import texts
 from safewatch.analysis.geometry import point_in_polygon
 from safewatch.types import (
     EpisodeDraft,
     FrameContext,
     Level,
+    ObjectState,
     Observation,
     ObsState,
     PersonState,
@@ -20,6 +25,40 @@ def zones_at(ctx: FrameContext, point: Point, kinds: tuple[str, ...]) -> list[Zo
     """Polygon zones of `kinds` that hold `point` (pixels; zones are in 0..1)."""
     p = (point[0] / ctx.width, point[1] / ctx.height)
     return [z for z in ctx.zones if z.kind in kinds and point_in_polygon(p, z.points)]
+
+
+WRISTS = (9, 10)  # COCO keypoints
+
+
+def attach_objects(
+    ctx: FrameContext, name: str, params: dict[str, float]
+) -> dict[int, ObjectState | Literal["ambiguous"]]:
+    """Objects `name` held by a person (tech.md 8.3), by track id.
+
+    An object fits a person when its center is inside the upper `upper_frac` of the bbox or
+    closer than `wrist_dist_bh` × H_ref to a visible wrist. One fit: attached; two or more:
+    `ambiguous` for each of them.
+    """
+    kpt_conf = app_config.get_settings().pose.kpt_conf
+    out: dict[int, ObjectState | Literal["ambiguous"]] = {}
+    for o in ctx.objects:
+        if o.name != name:
+            continue
+        cx, cy = (o.bbox[0] + o.bbox[2]) / 2, (o.bbox[1] + o.bbox[3]) / 2
+        owners = []
+        for p in ctx.persons:
+            x1, y1, x2, y2 = p.bbox
+            upper = x1 <= cx <= x2 and y1 <= cy <= y1 + params["upper_frac"] * (y2 - y1)
+            reach = params["wrist_dist_bh"] * p.ref_height_px
+            wrists = [p.kpts[i] for i in WRISTS if p.kpts is not None and p.kpts[i][2] >= kpt_conf]
+            if upper or any(math.dist((cx, cy), w[:2]) < reach for w in wrists):
+                owners.append(p.track_id)
+        for track_id in owners:
+            if len(owners) > 1:
+                out[track_id] = "ambiguous"
+            elif out.get(track_id) != "ambiguous":
+                out.setdefault(track_id, o)
+    return out
 
 
 def param(key: str, lo: float, hi: float) -> ScenarioParam:
