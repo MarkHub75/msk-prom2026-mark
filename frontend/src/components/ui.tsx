@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import {
-  Activity, ArrowLeft, ArrowRight, BarChart3, Bell, Check, ChevronDown, ChevronRight, CircleCheck, CircleDashed, Clock, Cpu, Download,
+  Activity, ArrowLeft, ArrowRight, BarChart3, Bell, Calculator, Check, ChevronDown, ChevronRight, CircleCheck, CircleDashed, Clock, Cpu, Database, Download,
   Ellipsis, ExternalLink, Eye, EyeOff, FileText, Filter, Inbox, Info, LayoutGrid, List, LoaderCircle, MapPin, MonitorPlay, OctagonAlert, Pause, Play,
   RefreshCw, ScrollText, Search, Server, Settings2, ShieldCheck, SlidersHorizontal, TriangleAlert, User, Users, Video, VideoOff, Volume2, VolumeX,
   Wifi, WifiOff, X, type LucideIcon,
@@ -17,6 +17,7 @@ const ICONS = {
   pin: MapPin, alert: TriangleAlert, critical: OctagonAlert, info: Info, ok: CircleCheck, "no-observation": CircleDashed, clock: Clock,
   refresh: RefreshCw, search: Search, filter: Filter, download: Download, external: ExternalLink, more: Ellipsis, file: FileText,
   server: Server, cpu: Cpu, wifi: Wifi, "wifi-off": WifiOff, activity: Activity, shield: ShieldCheck, inbox: Inbox, spinner: LoaderCircle,
+  calculator: Calculator, database: Database,
 } satisfies Record<string, LucideIcon>;
 export type IconName = keyof typeof ICONS;
 export function Icon({ name, size = 16, className }: { name: IconName; size?: number; className?: string }) {

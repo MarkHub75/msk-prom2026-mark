@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Bell, BellRing, Check, ChevronDown, ChevronRight, ClipboardCheck, MapPin, ShieldAlert, Timer } from "lucide-react";
+import { Bell, BellRing, Check, ChevronDown, ChevronRight, ClipboardCheck, FileDown, MapPin, ShieldAlert, Timer } from "lucide-react";
 import { api, apiError, mediaUrl, type ApiFailure } from "../api/client";
 import { useApi } from "../api/useApi";
+import { saveDownload } from "../api/download";
 import type { CountRow, EventSummary, HumanAction } from "../api/types";
 import { useRole } from "../roles";
 import { PRODUCT } from "../brand";
@@ -15,6 +16,7 @@ import { groupRepeats, repeatCount, type RepeatGroup } from "./repeats";
 import "../styles/mobile-shell.css";
 import "../styles/mobile-master.css";
 import "../styles/mobile-repeats.css";
+import "../styles/v5.css";
 
 const IC = { size: 16, strokeWidth: 1.75, "aria-hidden": true } as const;
 const PAGE = 20;
@@ -181,11 +183,22 @@ export function ShiftSummary({ eventLink, testId, children }: { eventLink: (id: 
   const open = Math.max(0, (data?.total ?? 0) - confirmed - falseAlarm);
   const pct = (n: number) => `${data?.total ? n / data.total * 100 : 0}%`;
   const previous = () => { if (data) setAt(new Date(Date.parse(data.start) - 60_000).toISOString()); };
+  // tech.md 8.31: the same summary as A4 PDF; ?at= of the shown shift, the name from Content-Disposition.
+  const [pdf, setPdf] = useState<{ busy: boolean; error?: ApiFailure }>({ busy: false });
+  useEffect(() => { setPdf({ busy: false }); }, [at]);
+  const savePdf = async () => {
+    if (!data) return;
+    setPdf({ busy: true });
+    const error = await saveDownload(() => api.GET("/api/master/shift.pdf", { params: { query: at ? { at } : {} }, parseAs: "blob" }), `shift-${data.start.slice(0, 10)}.pdf`);
+    setPdf({ busy: false, error });
+  };
   const day = (iso: string) => new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "short", timeZone: meta?.timezone ?? "Europe/Moscow" }).format(new Date(iso));
   return <div className="mb-screen mm-page mm-shift" data-testid={testId}>
     <header className="mb-hero">
       <div><h1>{data?.title ?? "Смена"}</h1><p>{data ? <><span className="mono">{day(data.start)} {time(data.start, false)} – {time(data.end, false)}</span>{at ? " · прошедшая" : " · текущая"}</> : "Сводка смены"}</p></div>
+      <button type="button" className="v5-pdf" onClick={() => void savePdf()} disabled={!data || pdf.busy} aria-busy={pdf.busy} data-testid="shift-pdf"><FileDown {...IC} />{pdf.busy ? "Готовим…" : "PDF"}</button>
     </header>
+    {pdf.error && <ErrorNotice error={pdf.error} compact retry={() => void savePdf()} />}
     <div className="mm-seg" role="group" aria-label="Какая смена"><button className={!at ? "selected" : ""} aria-pressed={!at} onClick={() => setAt(undefined)}>Текущая</button><button className={at ? "selected" : ""} aria-pressed={Boolean(at)} onClick={previous} disabled={!data}>Предыдущая</button></div>
     {shift.error ? <ErrorNotice error={shift.error} retry={shift.reload} /> : !data ? <div className="mb-skel" /> : <>
       <section className="mb-card mm-total">

@@ -39,6 +39,20 @@ export type Job = Schemas["Job"];
 export type OhsStats = Schemas["OhsStats"];
 export type CountRow = Schemas["CountRow"];
 export type DayRow = Schemas["DayRow"];
+// v5 (contract 1.1.0, tech.md 6.11.2)
+export type CalcAssumption = Schemas["CalcAssumption"];
+export type CalculatorDefaults = Schemas["CalculatorDefaults"];
+export type RolloutIn = Schemas["RolloutIn"];
+export type RolloutResult = Schemas["RolloutResult"];
+export type TierResult = Schemas["TierResult"];
+export type ScaleIn = Schemas["ScaleIn"];
+export type ScaleResult = Schemas["ScaleResult"];
+export type DatasetView = Schemas["DatasetView"];
+export type DatasetItem = Schemas["DatasetItem"];
+export type IdentityIn = Schemas["IdentityIn"];
+export type PeopleStats = Schemas["PeopleStats"];
+export type CameraPassport = Schemas["CameraPassport"];
+export type PassportScenario = Schemas["PassportScenario"];
 
 // These two payloads are present only in contract/ws.schema.json ($defs).
 // Their fields and enums match the real 1.0.0 schema; REST payloads reuse aliases above.
