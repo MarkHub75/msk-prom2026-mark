@@ -21,10 +21,9 @@ import "@fontsource/source-code-pro/latin-400.css";
 import "@fontsource/source-code-pro/latin-500.css";
 import "@fontsource/source-code-pro/cyrillic-500.css";
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <App />
     </BrowserRouter>
   </StrictMode>,

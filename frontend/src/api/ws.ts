@@ -118,7 +118,9 @@ export function useWs(handler: (message: WsMessage) => void): {status: WsStatus}
     return () => {
       closed = true;
       clearTimeout(timer);
-      socket?.close();
+      // Closing a socket that is still connecting logs a browser warning (StrictMode remounts do it on every page): close it once it opens.
+      if (socket?.readyState === 0) { const pending = socket; pending.onopen = () => pending.close(); }
+      else socket?.close();
     };
   }, [role, scenario]);
   return {status};
