@@ -9,6 +9,7 @@ import { JournalPage } from "./features/Journal";
 import { ReportPage } from "./features/Report";
 import { StatsPage } from "./features/Stats";
 import { useRole } from "./roles";
+import { GeometryDev } from "./features/camera-setup/GeometryDev";
 
 export function App() {
   const [role] = useRole();
@@ -28,6 +29,7 @@ export function App() {
         <Route path="/ohs/stats" element={<StatsPage />} />
         <Route path="/management" element={<StatsPage management />} />
         <Route path="/admin/cameras" element={<StubNotice slice={1} title="Управление камерами" />} />
+        <Route path="/admin/cameras/:cameraId/geometry" element={<GeometryDev />} />
         <Route path="/admin/cameras/:cameraId" element={<StubNotice slice={2} title="Настройка камеры" />} />
         <Route path="/admin/system" element={<StubNotice slice={3} title="Состояние системы" />} />
         <Route path="*" element={<Navigate to={menuFor(role)[0]?.path ?? "/operator"} replace />} />
