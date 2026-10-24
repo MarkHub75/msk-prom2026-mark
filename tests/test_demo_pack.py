@@ -104,6 +104,17 @@ def test_build_writes_manifest_and_artifacts(
     bad = _layout(tmp_path, [{"sector": "С", "name": "К", "videos": [{"file": "bad.mp4"}]}])
     with pytest.raises(UnsupportedVideo):
         services.demo_build(bad, tmp_path / "videos", tmp_path / "x", allow_fake=True)
+    (tmp_path / "videos" / "b").mkdir()
+    shutil.copyfile(tmp_path / "videos" / "demo.mp4", tmp_path / "videos" / "b" / "demo.mp4")
+    twins = _layout(
+        tmp_path,
+        [
+            {"sector": "С", "name": "К", "videos": [{"file": "demo.mp4"}]},
+            {"sector": "С", "name": "К2", "videos": [{"file": "b/demo.mp4"}]},
+        ],
+    )
+    with pytest.raises(ValidationFailed, match="file"):  # both would get one videos/demo.mp4
+        services.demo_build(twins, tmp_path / "videos", tmp_path / "x", allow_fake=True)
     (tmp_path / "broken.yaml").write_text("name: x\ncameras: 5\n", encoding="utf-8")
     with pytest.raises(ValidationFailed):
         services.demo_build(tmp_path / "broken.yaml", tmp_path / "videos", tmp_path / "x", True)
