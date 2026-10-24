@@ -18,6 +18,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import get_args
 
+from pydantic import BaseModel
+
 from safewatch import clock, config, media, registry, rules, seed, store, texts
 from safewatch.analysis import pipeline
 from safewatch.errors import (
@@ -52,6 +54,8 @@ from safewatch.types import (
     CamerasAdminView,
     CameraSetupView,
     CameraState,
+    CameraStateKind,
+    CameraTile,
     Episode,
     EpisodeDraft,
     EvalReport,
@@ -80,6 +84,8 @@ from safewatch.types import (
     Meta,
     ModelSpec,
     ModelsView,
+    NoObservationReason,
+    Notification,
     OhsStats,
     OperatorDashboard,
     Percentiles,
@@ -88,6 +94,7 @@ from safewatch.types import (
     RulesScreenView,
     Sector,
     SectorIn,
+    SectorState,
     SectorView,
     SeedReport,
     ShiftSummary,
@@ -96,6 +103,7 @@ from safewatch.types import (
     TracksWindow,
     UploadResult,
     Video,
+    WsType,
     Zone,
     ZoneIn,
     ZoneKindMeta,
@@ -319,7 +327,10 @@ def camera_delete(camera_id: int, role: Role | None) -> None:
     _require(role, ("admin",))
     with store.tx():
         camera_get(camera_id)
+        playing = store.camera_broadcast(camera_id)
         store.camera_delete(camera_id, clock.iso(clock.now()))
+    if playing is not None and playing["status"] == "playing":
+        hub.publish("broadcast.state", _broadcast_by_id(playing["id"]))
 
 
 def _extension(filename: str) -> str:
@@ -774,10 +785,25 @@ async def run_next_job() -> Job | None:
         _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
     else:
         done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
-        store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
-        store.video_update(video_id, {"status": "ready"})
+        with store.tx():
+            store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
+            store.video_update(video_id, {"status": "ready"})
+            started = _autostart(video) if row["kind"] == "process" else None
+        if started is not None:
+            hub.publish("broadcast.state", _broadcast_by_id(started))
     _publish_job(job_id)
     return job_get(job_id)
+
+
+def _autostart(video: sqlite3.Row) -> int | None:
+    """Broadcast of a freshly processed video when the camera has none playing (tech.md 8.5)."""
+    settings = config.get_settings()
+    current = store.camera_broadcast(video["camera_id"])
+    if not settings.broadcast.autostart or (current is not None and current["status"] == "playing"):
+        return None
+    fresh = store.video(video["id"])
+    assert fresh is not None and fresh["active_analysis_id"] is not None  # set by _analyze
+    return _broadcast_insert(fresh, settings.broadcast.loop_default)
 
 
 def camera_setup_view(camera_id: int) -> CameraSetupView:
@@ -788,7 +814,7 @@ def camera_setup_view(camera_id: int) -> CameraSetupView:
         calibration=None,  # slice 9
         zones=[],  # slice 9
         rules=[],  # slice 9
-        broadcast=None,  # slice 6
+        broadcast=broadcast_get(camera_id),
     )
 
 
@@ -860,7 +886,7 @@ def system_view() -> SystemView:
         backend_status=_backend_status or _unchecked(),
         queue=[_job(row) for row in store.queue_jobs()],
         recent_jobs=[_job(row) for row in store.finished_jobs(RECENT_JOBS)],
-        cameras=[],  # slice 6
+        cameras=camera_states(),
         models=registry.active_models(settings),
         latency=LatencyStats(notify_delay_s=empty, publish_lag_ms=empty),
         channels=[],  # slice 15
@@ -947,44 +973,427 @@ def evidence_file(evidence_id: int) -> Path:
     return path
 
 
+def _broadcast(row: sqlite3.Row) -> Broadcast:
+    return Broadcast(
+        id=row["id"],
+        camera_id=row["camera_id"],
+        video_id=row["video_id"],
+        analysis_id=row["analysis_id"],
+        status=row["status"],
+        loop=bool(row["loop"]),
+        cycle=row["cycle"],
+        started_at=clock.parse(row["started_at"]),
+        position_ms=row["position_ms"],
+        duration_ms=row["duration_ms"],
+        server_now=clock.now(),
+    )
+
+
+def _broadcast_by_id(broadcast_id: int) -> Broadcast:
+    row = store.broadcast(broadcast_id)
+    assert row is not None  # the caller just wrote it
+    return _broadcast(row)
+
+
+def _broadcast_insert(video: sqlite3.Row, loop: bool) -> int:
+    values = {
+        "camera_id": video["camera_id"],
+        "video_id": video["id"],
+        "analysis_id": video["active_analysis_id"],
+        "started_at": clock.iso(clock.now()),
+        "loop": int(loop),
+        "status": "playing",
+    }
+    return store.insert("broadcasts", values)
+
+
+def _stop_playing(camera_id: int) -> int | None:
+    """Stop the playing broadcast of the camera; its id, or None when nothing played."""
+    row = store.camera_broadcast(camera_id)
+    if row is None or row["status"] != "playing":
+        return None
+    store.broadcast_update(row["id"], {"status": "stopped", "stopped_at": clock.iso(clock.now())})
+    return int(row["id"])
+
+
 def broadcast_get(camera_id: int) -> Broadcast | None:
-    raise NotImplementedError("slice 6")
+    camera_get(camera_id)
+    row = store.camera_broadcast(camera_id)
+    return None if row is None else _broadcast(row)
 
 
 def broadcast_start(camera_id: int, data: BroadcastIn, role: Role | None) -> Broadcast:
-    raise NotImplementedError("slice 6")
+    _require(role, ("admin",))
+    with store.tx():
+        camera_get(camera_id)
+        if data.video_id is None:
+            video = store.last_ready_video(camera_id)
+            if video is None:
+                raise Conflict("no_ready_video", texts.NO_READY_VIDEO)
+        else:
+            video = store.video(data.video_id)
+            if video is None or video["camera_id"] != camera_id:
+                raise NotFound(texts.VIDEO_NOT_FOUND, video_id=data.video_id)
+            if video["status"] != "ready" or video["active_analysis_id"] is None:
+                raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
+        stopped = _stop_playing(camera_id)
+        loop = config.get_settings().broadcast.loop_default if data.loop is None else data.loop
+        broadcast_id = _broadcast_insert(video, loop)
+    if stopped is not None:
+        hub.publish("broadcast.state", _broadcast_by_id(stopped))
+    started = _broadcast_by_id(broadcast_id)
+    hub.publish("broadcast.state", started)
+    return started
 
 
 def broadcast_stop(camera_id: int, role: Role | None) -> None:
-    raise NotImplementedError("slice 6")
+    _require(role, ("admin",))
+    with store.tx():
+        camera_get(camera_id)
+        stopped = _stop_playing(camera_id)
+    if stopped is not None:
+        hub.publish("broadcast.state", _broadcast_by_id(stopped))
+
+
+# The states published last: camera.state and sector.state go out only on a change.
+_camera_seen: dict[int, CameraState] = {}
+_sector_seen: dict[int, SectorState] = {}
+# Camera id -> (made at, JPEG): preview frames live for preview.cache_s.
+_preview_cache: dict[int, tuple[datetime, bytes]] = {}
+
+Message = tuple[WsType, BaseModel, list[Role] | None]
+
+
+# Event priority of tech.md 8.8: red waiting for the operator, yellow waiting, other open, closed.
+PRIORITY = {"red_pending": 3, "yellow_pending": 2, "open": 1, "terminal": 0}
+
+
+def _priority(level: Level, status: EventStatus) -> int:
+    if status in TERMINAL_STATUSES:
+        return PRIORITY["terminal"]
+    if status in ("new", "viewed"):
+        return PRIORITY[f"{level}_pending"]
+    return PRIORITY["open"]
+
+
+def _summary(row: sqlite3.Row) -> EventSummary:
+    started = clock.parse(row["started_at"])
+    end = clock.parse(row["ended_at"]) if row["ended_at"] else clock.now()
+    level, escalated = row["level"], bool(row["escalated_by_timeout"])
+    return EventSummary(
+        id=row["id"],
+        scenario=row["scenario"],
+        title=row["title"],
+        level=level,
+        status=row["status"],
+        status_title=texts.STATUS_TITLES[row["status"]],
+        operator_verdict=row["operator_verdict"],
+        escalated_by_timeout=escalated,
+        mode="demo" if row["is_demo"] else "replay",
+        camera_id=row["camera_id"],
+        camera_name=row["camera_name"],
+        sector_id=row["sector_id"],
+        sector_name=row["sector_name"],
+        zone_id=row["zone_id"],
+        zone_name=row["zone_name"],
+        reason_text=row["reason_text"],
+        notification_text=texts.notification_text(
+            level, row["sector_name"], row["reason_text"], escalated
+        ),
+        started_at=started,
+        published_at=clock.parse(row["published_at"]),
+        red_at=clock.parse(row["red_at"]) if row["red_at"] else None,
+        ended_at=clock.parse(row["ended_at"]) if row["ended_at"] else None,
+        duration_s=(end - started).total_seconds(),
+        priority=_priority(level, row["status"]),
+        is_demo=bool(row["is_demo"]),
+    )
+
+
+def _event_summary(event_id: int) -> EventSummary:
+    row = store.event(event_id)
+    assert row is not None  # the caller just wrote it
+    return _summary(row)
+
+
+def _system_action(event_id: int, action: str, before: str | None, after: str) -> None:
+    values = {
+        "event_id": event_id,
+        "at": clock.iso(clock.now()),
+        "actor_role": "system",
+        "actor_name": texts.DEMO_ACTOR["system"],
+        "action": action,
+        "from_status": before,
+        "to_status": after,
+    }
+    store.insert("event_actions", values)
+
+
+def _operator_alert(summary: EventSummary, kind: str) -> Notification:
+    """Rows 1 and 2 of the table in tech.md 8.8: yellow chimes, red sirens and takes over."""
+    red = summary.level == "red"
+    return Notification(
+        id=f"e{summary.id}:{kind}",
+        event_id=summary.id,
+        level=summary.level,
+        text=summary.notification_text,
+        audience=["operator"],
+        sound="siren" if red else "chime",
+        takeover=red,
+    )
+
+
+def _ms(delta: timedelta) -> int:
+    return delta // timedelta(milliseconds=1)
+
+
+def _play(b: sqlite3.Row, camera: sqlite3.Row, cycle: int, pos: int, out: list[Message]) -> int:
+    """One cycle of a broadcast up to `pos` (tech.md 8.5); the number of actions written."""
+    now = clock.now()
+    base = clock.parse(b["started_at"]) + timedelta(milliseconds=cycle * b["duration_ms"])
+    events = {row["episode_id"]: row for row in store.broadcast_events(b["id"], cycle)}
+    written = 0
+    for ep in store.episodes(b["analysis_id"]):
+        if ep["confirm_ms"] > pos:
+            continue
+        escalated = ep["escalate_ms"] is not None and ep["escalate_ms"] <= pos
+        ended = ep["end_ms"] <= pos
+        row = events.get(ep["id"])
+        if row is None:
+            red = ep["level_initial"] == "red" or escalated
+            values = {
+                "pub_key": f"b{b['id']}:c{cycle}:e{ep['id']}",
+                "episode_id": ep["id"],
+                "broadcast_id": b["id"],
+                "cycle": cycle,
+                "video_id": b["video_id"],
+                "camera_id": b["camera_id"],
+                "sector_id": camera["sector_id"],
+                "zone_id": ep["zone_id"],
+                "scenario": ep["scenario"],
+                "title": texts.SCENARIO_TITLES[ep["scenario"]],
+                "reason_text": ep["reason_text"],
+                "level": "red" if red else "yellow",
+                "status": "new",
+                "started_at": clock.iso(base + timedelta(milliseconds=ep["start_ms"])),
+                "published_at": clock.iso(now),
+                "red_at": clock.iso(now) if red else None,
+                "ended_at": clock.iso(base + timedelta(milliseconds=ep["end_ms"]))
+                if ended
+                else None,
+                "video_start_ms": ep["start_ms"],
+                "video_end_ms": ep["end_ms"],
+            }
+            event_id = store.insert("events", values)
+            _system_action(event_id, "published", None, "new")
+            summary = _event_summary(event_id)
+            out.append(("event.created", summary, None))
+            out.append(("notification", _operator_alert(summary, "published"), ["operator"]))
+            written += 1
+            continue
+        if row["level"] == "yellow" and escalated:
+            store.event_update(row["id"], {"level": "red", "red_at": clock.iso(now)})
+            _system_action(row["id"], "level_escalated", row["status"], row["status"])
+            summary = _event_summary(row["id"])
+            out.append(("event.escalated", summary, None))
+            out.append(("notification", _operator_alert(summary, "escalated"), ["operator"]))
+            written += 1
+        if ended and row["ended_at"] is None:
+            values = {"ended_at": clock.iso(base + timedelta(milliseconds=ep["end_ms"]))}
+            finish = row["level"] == "yellow" and not escalated
+            if finish and row["status"] in ("new", "viewed"):
+                values["status"] = "auto_finished"
+                _system_action(row["id"], "auto_finished", row["status"], "auto_finished")
+                written += 1
+            store.event_update(row["id"], values)
+            out.append(("event.updated", _event_summary(row["id"]), None))
+    return written
 
 
 def broadcast_tick() -> int:
-    raise NotImplementedError("slice 6")
+    """Advance every playing broadcast to the server clock; the number of actions written."""
+    out: list[Message] = []
+    written = 0
+    now = clock.now()
+    with store.tx():
+        for b in store.playing_broadcasts():
+            camera = store.camera(b["camera_id"])
+            assert camera is not None  # a deleted camera has no playing broadcast
+            duration, t = b["duration_ms"], max(0, _ms(now - clock.parse(b["started_at"])))
+            cycle, pos = divmod(t, duration) if b["loop"] else (0, min(t, duration))
+            if cycle > b["cycle"]:  # finish the previous cycle; cycles missed whole are skipped
+                written += _play(b, camera, b["cycle"], duration, out)
+            written += _play(b, camera, cycle, pos, out)
+            values: dict[str, object] = {"cycle": cycle, "position_ms": pos}
+            ended = not b["loop"] and t >= duration
+            if ended:
+                values["status"] = "ended"
+            store.broadcast_update(b["id"], values)
+            if ended or cycle != b["cycle"]:
+                out.append(("broadcast.state", _broadcast_by_id(b["id"]), None))
+        cameras = camera_states()
+        sectors = _sector_states(cameras)
+    for kind, data, audience in out:
+        hub.publish(kind, data, audience)
+    for camera_state in cameras:
+        if _camera_seen.get(camera_state.camera_id) != camera_state:
+            _camera_seen[camera_state.camera_id] = camera_state
+            hub.publish("camera.state", camera_state)
+    for sector_state in sectors:
+        if _sector_seen.get(sector_state.sector_id) != sector_state:
+            _sector_seen[sector_state.sector_id] = sector_state
+            hub.publish("sector.state", sector_state)
+    return written
+
+
+def _camera_state(row: sqlite3.Row) -> CameraState:
+    """The first rule of tech.md 8.9 that fits; gaps of the analysis (rule 4) come in S11."""
+    reason: NoObservationReason | None = None
+    if row["open_red"]:
+        state: CameraStateKind = "red"
+        text = texts.LEVEL_TITLES["red"]
+    elif row["yellow_live"]:
+        state, text = "yellow", texts.LEVEL_TITLES["yellow"]
+    elif not row["playing"]:
+        state = "no_observation"
+        if row["processing"]:
+            reason = "processing"
+        elif row["last_job"] == "failed":
+            reason = "failed"
+        elif row["last_broadcast"] == "ended":
+            reason = "ended"
+        else:
+            reason = "no_source"
+        text = texts.NO_OBSERVATION_TEXTS[reason]
+    else:
+        state, text = "normal", texts.STATE_NORMAL
+    return CameraState(
+        camera_id=row["camera_id"],
+        sector_id=row["sector_id"],
+        state=state,
+        reason=reason,
+        reason_text=text,
+        freshness_ms=None,  # slice 11
+        open_yellow=row["open_yellow"],
+        open_red=row["open_red"],
+    )
 
 
 def camera_states() -> list[CameraState]:
-    raise NotImplementedError("slice 6")
+    return [_camera_state(row) for row in store.camera_state_rows()]
+
+
+def _sector_state(sector: sqlite3.Row, cameras: list[CameraState]) -> SectorState:
+    kinds = {c.state for c in cameras}
+    blind = sum(c.state == "no_observation" for c in cameras)
+    if "red" in kinds:
+        state: CameraStateKind = "red"
+        text = texts.LEVEL_TITLES["red"]
+    elif "yellow" in kinds:
+        state, text = "yellow", texts.LEVEL_TITLES["yellow"]
+    elif not cameras:
+        state, text = "no_observation", texts.SECTOR_EMPTY
+    elif blind:
+        state = "no_observation"
+        text = texts.SECTOR_NO_OBSERVATION.format(n=blind, total=len(cameras))
+    else:
+        state, text = "normal", texts.STATE_NORMAL
+    return SectorState(
+        sector_id=sector["id"],
+        name=sector["name"],
+        state=state,
+        reason_text=text,
+        cameras_total=len(cameras),
+        cameras_no_observation=blind,
+        open_yellow=sum(c.open_yellow for c in cameras),
+        open_red=sum(c.open_red for c in cameras),
+    )
+
+
+def _sector_states(cameras: list[CameraState]) -> list[SectorState]:
+    return [
+        _sector_state(s, [c for c in cameras if c.sector_id == s["id"]]) for s in store.sectors()
+    ]
+
+
+def _feed(sector_id: int | None = None) -> list[EventSummary]:
+    settings = config.get_settings()
+    closed_after = clock.now() - timedelta(minutes=settings.feed.recent_closed_min)
+    items = [_summary(row) for row in store.feed(clock.iso(closed_after), sector_id)]
+    items.sort(key=lambda e: (e.priority, e.published_at, e.id), reverse=True)
+    return items[: settings.feed.limit]
 
 
 def operator_dashboard_view() -> OperatorDashboard:
-    raise NotImplementedError("slice 6")
+    return OperatorDashboard(
+        sectors=_sector_states(camera_states()), feed=_feed(), server_now=clock.now()
+    )
 
 
 def operator_feed() -> list[EventSummary]:
-    raise NotImplementedError("slice 6")
+    return _feed()
 
 
 def sector_view(sector_id: int) -> SectorView:
-    raise NotImplementedError("slice 6")
+    sector = _sector_row(sector_id)
+    states = [c for c in camera_states() if c.sector_id == sector_id]
+    by_id = {c.camera_id: c for c in states}
+    broadcasts = {row["camera_id"]: row for row in store.latest_broadcasts()}
+    tiles = []
+    for camera in cameras_list(sector_id):
+        row = broadcasts.get(camera.id)
+        preview = f"/api/cameras/{camera.id}/preview" if camera.videos_count else None
+        tiles.append(
+            CameraTile(
+                camera=camera,
+                state=by_id[camera.id],
+                broadcast=None if row is None else _broadcast(row),
+                preview_url=preview,
+            )
+        )
+    return SectorView(sector=_sector_state(sector, states), cameras=tiles, feed=_feed(sector_id))
 
 
 def camera_live_view(camera_id: int) -> CameraLiveView:
-    raise NotImplementedError("slice 6")
+    camera = camera_get(camera_id)
+    broadcast = broadcast_get(camera_id)
+    video_row = store.video(broadcast.video_id) if broadcast else store.last_ready_video(camera_id)
+    video = None if video_row is None else Video.model_validate(dict(video_row))
+    analysis = None if video is None or not video.active_analysis_id else video_analysis(video.id)
+    (state,) = [c for c in camera_states() if c.camera_id == camera_id]
+    return CameraLiveView(
+        camera=camera,
+        state=state,
+        broadcast=broadcast,
+        video=video,
+        analysis=analysis,
+        zones=[],  # slice 9
+        calibration=None,  # slice 9
+    )
 
 
 async def camera_preview(camera_id: int) -> bytes:
-    raise NotImplementedError("slice 6")
+    """Frame at the broadcast position, else the first frame of the last ready video."""
+    settings = config.get_settings()
+    camera_get(camera_id)
+    now = clock.now()
+    cached = _preview_cache.get(camera_id)
+    if cached is not None and now - cached[0] < timedelta(seconds=settings.preview.cache_s):
+        return cached[1]
+    playing = store.camera_broadcast(camera_id)
+    if playing is not None and playing["status"] == "playing":
+        video, pos = store.video(playing["video_id"]), playing["position_ms"]
+    else:
+        video, pos = store.last_ready_video(camera_id), 0
+    if video is None:
+        raise NotFound(texts.PREVIEW_NOT_FOUND, camera_id=camera_id)
+    frame_idx = min(video["frame_count"] - 1, round(pos / 1000 * video["fps"]))
+    path = settings.data_dir / video["path"]
+    q, width = settings.evidence.jpeg_quality, settings.preview.max_width
+    img = await asyncio.to_thread(media.read_frame, path, frame_idx)
+    data = await asyncio.to_thread(media.encode_jpeg, img, q, width)
+    _preview_cache[camera_id] = (now, data)
+    return data
 
 
 def event_detail(event_id: int, role: Role | None) -> EventDetail:

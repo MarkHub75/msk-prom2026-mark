@@ -212,3 +212,19 @@ METRIC_TITLES = {
 }
 EVIDENCE_NOT_FOUND = "Кадр не найден"
 ARTIFACTS_MISSING = "Нет результатов инференса этого видео: загрузите его заново"
+
+# Broadcast, states, notifications (tech.md 8.5, 8.8, 8.9; slice 6).
+STATE_NORMAL = "Норма"
+SECTOR_NO_OBSERVATION = "Нет наблюдения: {n} из {total} камер"
+SECTOR_EMPTY = "В секторе нет камер"
+NO_READY_VIDEO = "У камеры нет готового видео"
+PREVIEW_NOT_FOUND = "Нет кадра: у камеры нет готового видео"
+NOT_CONFIRMED_SUFFIX = " · Не подтверждено оператором"
+
+
+def notification_text(
+    level: Level, sector_name: str, reason_text: str, escalated_by_timeout: bool
+) -> str:
+    """`<level> · <sector> · <reason>`; the sector is its name up to the first « · »."""
+    text = f"{LEVEL_TITLES[level]} · {sector_name.split(' · ')[0]} · {reason_text}"
+    return text + NOT_CONFIRMED_SUFFIX if escalated_by_timeout else text

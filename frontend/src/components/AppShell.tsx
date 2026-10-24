@@ -7,6 +7,9 @@ import { useWs } from "../api/ws";
 import { menuFor } from "../nav";
 import { useRole } from "../roles";
 import { RoleSwitcher } from "./RoleSwitcher";
+import { soundBlocked, unlockSound } from "./sound";
+import { TakeoverOverlay } from "./TakeoverOverlay";
+import { Toasts } from "./Toasts";
 
 type Meta = components["schemas"]["Meta"];
 type BackendStatus = components["schemas"]["BackendStatus"];
@@ -37,6 +40,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [role] = useRole();
   const meta = useApi(() => api.GET("/api/meta"), []).data;
   const [backend, setBackend] = useState<BackendStatus>();
+  const [muted, setMuted] = useState(soundBlocked);
   useWs((message) => {
     if (message.type === "backend.status") setBackend(message.data as BackendStatus);
   });
@@ -61,9 +65,22 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         )}
         <Clock timezone={meta?.timezone ?? "Europe/Moscow"} />
+        {muted && (
+          <button
+            type="button"
+            onClick={() => {
+              unlockSound();
+              setMuted(false);
+            }}
+          >
+            Включить звук
+          </button>
+        )}
         <RoleSwitcher />
       </header>
       <main className="shell-main">{children}</main>
+      <Toasts />
+      {role === "operator" && <TakeoverOverlay />}
     </MetaContext.Provider>
   );
 }

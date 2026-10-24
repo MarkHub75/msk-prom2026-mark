@@ -3,6 +3,9 @@ import type { Role } from "./roles";
 import { CameraSetup } from "./screens/admin/CameraSetup";
 import { CamerasScreen } from "./screens/admin/CamerasScreen";
 import { SystemScreen } from "./screens/admin/SystemScreen";
+import { CameraScreen } from "./screens/operator/CameraScreen";
+import { OperatorDashboard } from "./screens/operator/OperatorDashboard";
+import { SectorScreen } from "./screens/operator/SectorScreen";
 
 export interface NavItem {
   path: string;
@@ -15,9 +18,9 @@ export interface NavItem {
 
 // Routes of tech.md 8.14; a route of an unbuilt slice has no screen and renders StubNotice.
 export const NAV: NavItem[] = [
-  { path: "/operator", title: "Секторы", roles: ["operator"], slice: 6, menu: true },
-  { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false },
-  { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false },
+  { path: "/operator", title: "Секторы", roles: ["operator"], slice: 6, menu: true, screen: OperatorDashboard },
+  { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false, screen: SectorScreen },
+  { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false, screen: CameraScreen },
   { path: "/events/:eventId", title: "Событие", roles: ["operator", "master", "ohs", "management", "admin"], slice: 7, menu: false },
   { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true },
   { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false },

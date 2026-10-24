@@ -1,6 +1,6 @@
 # progress.md
 
-- state: R5 закрыт, следующий S6
+- state: S6 закрыт, следующий S7
 - tech.md: v2
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -14,7 +14,6 @@
 - long-lead: вопросы организаторам из `docs/linq/LINQ_CONTRACT.md` §8 (честное время TPU, вход uint8, число TPU и квоты, изоляция брокера, второй VPN-логин).
 - long-lead: дообученные модели ML-части (огонь, дым, сигарета, погрузчик, привязь); подключаются записью в `config/models.yaml` и `pipeline.extra`, работают с S10.
 - long-lead: фронт Егора по `contract/openapi.json` к 10:00 24.10; заменяет папку `frontend/`.
-- R10: S6 — `camera_delete` останавливает `playing`-эфир только в базе; S6 добавляет WS `broadcast.state` и проверяет это своим тестом.
 - долг: R5, живой прогон (критерий 17 S2, повтор), TPU снова не ответил за 120 с (`TimeoutError: no TPU reply for 1 task(s) in 120 s, unmatched replies 0`, задача `retry_wait`/`remote_error`); `linq_tpu.py ping` очереди `input`: до прогона consumers 1, messages 0; на старте воркера consumers 0, messages 1; после — consumers 1, messages 0 (у TPU-сервиса должно быть около 16). Путь до TPU совпадает со smoke 21b24555, причина в среде; кадр/с (цель около 20), RTT и эпизоды на LinQ не замерены. Повтор — когда ping покажет около 16 консьюмеров.
 - владелец: спросить Матвея или организаторов, почему у очереди `input` брокера 0–1 консьюмер вместо 16 (TPU молчит с ~05:40); в Jupyter открыт `examples/Untitled.ipynb`, он может читать общую очередь.
 - владелец: остановить в Jupyter idle kernels без ноутбука от наших прогонов `e03fcb40…` (05:39, S2) и `475771bb…` (06:36, R5), плюс kernel от `safewatch doctor` R5; удаление на общем аккаунте заблокировала защита Claude Code.
@@ -25,6 +24,18 @@
 - R10: прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid).
 - R10: `backend_check`, Jupyter отдал HTML через `JupyterError`: сейчас `unreachable`, по 6.2 — `bad_answer`; вживую не воспроизвелось (R5: `ok`, 2 из 2 программ).
 - R10: сцена `demo` теряет id трекера в момент падения (падение подтверждается веткой «лежит неподвижно», бег закрывается `track_lost_timeout`); проверить на заводском видео, когда оно появится (в R5 заводских нет).
+- GAP: S6, `services` вне 6.2: `PRIORITY = {"red_pending": 3, "yellow_pending": 2, "open": 1, "terminal": 0}` и `_priority(level, status)`; синглтоны `_camera_seen: dict[int, CameraState]`, `_sector_seen: dict[int, SectorState]`, `_preview_cache: dict[int, tuple[datetime, bytes]]` (сбрасывает фикстура `conn`); помощники `_broadcast`, `_broadcast_by_id`, `_broadcast_insert`, `_stop_playing`, `_autostart`, `_play`, `_summary`, `_event_summary`, `_system_action`, `_operator_alert`, `_camera_state`, `_sector_state`, `_sector_states`, `_feed`; `broadcast_tick` возвращает число записанных действий (`published`, `level_escalated`, `auto_finished`); `Notification.id = "e<event>:published|escalated"`.
+- GAP: S6, `store`: `broadcast(id)`, `camera_broadcast(camera_id)` (играющий эфир, иначе последний), `latest_broadcasts()`, `playing_broadcasts()`, `broadcast_update`, `last_ready_video(camera_id)`, `event(id)` (с `camera_name`, `sector_name`, `zone_name`), `broadcast_events(broadcast_id, cycle)`, `event_update`, `feed(closed_after, sector_id=None)`, `camera_state_rows()` (входы правил 8.9 всех камер одним запросом).
+- GAP: S6, `texts.py`: `STATE_NORMAL = "Норма"`, `SECTOR_NO_OBSERVATION = "Нет наблюдения: {n} из {total} камер"`, `SECTOR_EMPTY = "В секторе нет камер"`, `NO_READY_VIDEO`, `PREVIEW_NOT_FOUND`, `NOT_CONFIRMED_SUFFIX`; `reason_text` камеры и сектора: red/yellow — `LEVEL_TITLES`, normal — «Норма».
+- GAP: S6, эфир: `broadcast_get` и поле `broadcast` у `CameraTile`, `CameraLiveView`, `CameraSetupView` — играющий эфир камеры, иначе последний любого статуса, иначе `null`; `broadcast_start` с чужим или несуществующим `video_id` → 404 `not_found`, `ready` без `active_analysis_id` → 409 `video_not_ready`; остановленный при старте эфир шлёт свой `broadcast.state` (`stopped`); `broadcast_stop` без играющего эфира → 204 без сообщения; `camera_delete` шлёт `broadcast.state` остановленного эфира (закрыта заметка R10 от S1).
+- GAP: S6, лента: «терминальные за последние `recent_closed_min`» — по времени последнего действия события (`max(event_actions.at)`); жёлтое, опубликованное уже закончившимся (догоняющий тик), сразу получает `ended_at` и по 8.5 дословно не получает `auto_finished`.
+- GAP: S6, превью: кадр `round(position_ms / 1000 × fps)` играющего эфира, иначе кадр 0 последнего `ready` видео; JPEG `evidence.jpeg_quality`, ширина `preview.max_width`; `CameraTile.preview_url` есть при `videos_count > 0`; `CameraState.freshness_ms = None` до S11.
+- GAP: S6, `worker`: `_jobs(stop, idle_s)` и `_broadcasts(stop, tick_s)` в `asyncio.TaskGroup`, паузы через `asyncio.sleep` (остановка в пределах одного периода); исключение тика — лог `broadcast tick`, цикл продолжается.
+- GAP: S6, фронт: `WsNotification` в `src/api/ws.ts` (нагрузка `notification`: WS-типов нет в openapi); `playSound(kind)` возвращает функцию остановки, `soundBlocked()` и `unlockSound()` в `components/sound.ts` (кнопка «Включить звук» в шапке); `STATE_ICON` из `components/SectorTile.tsx`; `Toasts` и `TakeoverOverlay` без пропсов, сами слушают `useWs`; `BroadcastPanel` внутри `CameraSetup.tsx`.
+- R10: S8 — уведомление мастеру на эскалацию уровня события в `sent_to_master`/`master_accepted` (8.8, строка 4) `broadcast_tick` не шлёт: в S6 действий оператора нет.
+- R10: `system_view.latency` (`notify_delay_s`, `publish_lag_ms`) всё ещё нули: критерия ни в одном слайсе до S11 нет.
+- R10: лента и состояния камер считают демо-события: жёлтые `confirmed` сида открыты и попадают в ленту оператора с приоритетом 1 (до `feed.limit`).
+- R10: каждый компонент с `useWs` (шапка, `Toasts`, `TakeoverOverlay`, экран) открывает свой WebSocket: у оператора 4 соединения на вкладку.
 
 ## log
 
@@ -89,6 +100,13 @@
 - чек-лист 17: 1–2 ок (`poe contract` 338 элементов, `safewatch contract --check` чистый; `poe api` не запускался); 3 ок, кроме импортов `clock`/`registry`/`worker` в `api.py` (узаконены в 6.8); 5, 7, 11 ок; 8: `vulture` — только `Client.dropped`; 14: CI PR #1 ubuntu красный, починен PR #2; #2–#7 зелёные в обеих ОС.
 - проверено вживую: LinQ Jupyter (`backend_check` через doctor: `ok`, 2 из 2 программ `mosprom_*`), загрузка и старт воркера | не проверено: ответ TPU (очередь `input` без консьюмеров, строка `долг`); итог прогона: 0 кадров, 2 мин 6 с, эпизодов нет, минут TPU 0.
 - следующему: `linq_tpu.py ping` из `~/work/baseline/` — первая проверка перед живым прогоном; тест цикла задач с подменой `services.run_next_job` — `tests/test_jobs.py::test_job_loop_survives_unexpected_error`.
+
+### S6: broadcast (2026-10-24, PR #9, tech v2)
+- отклонения: правлены файлы вне списка слайса: `frontend/src/api/ws.ts` (`WsNotification`), `frontend/src/theme.css` (плитки, лента, всплывашки, оверлей), `tests/conftest.py` (сброс синглтонов), `tests/test_jobs.py` (цикл задач без базы: подмена `broadcast_tick`; `broadcast.state` автостарта в тесте прогресса), `tests/test_system.py` (`cameras` = `camera_states()`), `tests/test_api_skeleton.py` (пример 501: `/api/master/inbox` вместо заработавшего `/api/operator/feed`); вкладка «Эфир» — секция страницы `CameraSetup`, как и «Видео» (вкладок там нет).
+- решения вне контракта: строки `GAP: S6` в `## open`; мутации: сдвиг порога публикации (`confirm_ms > pos` → `>=`) и пропущенная запись действия `published`, обе пойманы (8 и 6 падений `test_broadcast.py`).
+- проверено вживую: нет (S6 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: хелперы `tests/test_broadcast.py`: `ready_video(camera_id, episodes, duration_ms)` (готовое видео с активным анализом, эпизоды поверх `EPISODE`), `camera(sector)`, `playing(episodes, loop, duration_ms)` (id эфира), `drain(hub_client)`, `events()`, `actions(event_id)`, `at(fake_clock, started_at, ms)`, `started(broadcast_id)`; `tests/test_operator_views.py::event(camera_id, **values)` (строка события с одним действием, `last_action_at`); `screens.test.tsx::wsHandlers()` доставляет WS-сообщение всем подписчикам `useWs`; события создаёт только `broadcast_tick`, S7 читает их через `store.event` и `_summary`.
 
 ## night
 
