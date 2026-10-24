@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S9 в работе
+- state: S9 закрыт, следующий S10
 - tech.md: v2
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -19,8 +19,6 @@
 - владелец: остановить в Jupyter idle kernels без ноутбука от наших прогонов `e03fcb40…` (05:39, S2) и `475771bb…` (06:36, R5), плюс kernel от `safewatch doctor` R5; удаление на общем аккаунте заблокировала защита Claude Code.
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
 - R10: `JupyterShell` не закрывает kernel: каждый процесс (сервер, doctor, живой тест) оставляет один idle kernel на общем аккаунте; `_drop` закрывает его только при ошибке. Нужен `close()` из lifespan и doctor (расширение `RemoteShell`, строка `GAP`).
-- R10: S9 — HUD берёт порог бега из `settings.scenarios.running`, правило — `defaults | camera_rules`; с правилами камеры подпись и правило разойдутся: передать действующие параметры `running` (и `speed_m_s`) в `build_hud`.
-- R10: `video_recompute` не проверяет уже поставленную задачу `recompute`: повторные клики ставят N задач.
 - R10: прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid).
 - R10: `backend_check`, Jupyter отдал HTML через `JupyterError`: сейчас `unreachable`, по 6.2 — `bad_answer`; вживую не воспроизвелось (R5: `ok`, 2 из 2 программ).
 - R10: сцена `demo` теряет id трекера в момент падения (падение подтверждается веткой «лежит неподвижно», бег закрывается `track_lost_timeout`); проверить на заводском видео, когда оно появится (в R5 заводских нет).
@@ -49,7 +47,17 @@
 - GAP: S8, `shift_summary_view`: `at` без часового пояса считается UTC; `start`/`end` в UTC; смена с `end <= start` идёт через полночь; `CountRow.key` сектора — `str(sector_id)`, строки по убыванию `count`, затем по `title`; `confirmed`/`false_alarm` — по `operator_verdict`; `events` — события с `operator_verdict = confirmed` по `started_at`; демо-события считаются (флага нет), `superseded` нет.
 - GAP: S8, входящие: «по времени передачи» — новые передачи первыми; `recent_resolved` включает демо-события сида.
 - GAP: S8, фронт: `place(event)` экспортирует `screens/master/MasterInbox.tsx` (сектор · камера · зона, общий для экранов мастера); звук уведомления мастера играет `Toasts` шапки, `MasterInbox` добавляет `navigator.vibrate(300)` и браузерное `Notification` при выданном разрешении (разрешение не запрашивает); `MasterEvent` берёт `/api/events/{event_id}`; на `/master/shift` кнопки «Предыдущая смена» (`at = start − 1 мс`) и «Текущая смена».
-- R10: S9 — `tests/test_api_skeleton.py::test_unbuilt_route_returns_501` держит `/api/ohs/rules` (маршрут S9): заменить на незакрытый маршрут.
+- GAP: S9, `analysis/geometry`: `homography(image_pts, world_pts) -> np.ndarray | None` — нормированный DLT numpy (Хартли, SVD) вместо `cv2.findHomography` метод 0: LM-уточнение OpenCV останавливается на ~1e-7 относительной ошибки (1e-6 м на полу 17 м), а критерий 1 требует < 1e-6; `apply_h(h, p) -> Point`, `hull_contains(points, p) -> bool` (граница внутри), `grid_segments(h, world_pts) -> list[tuple[Point, Point]]` (целые метры в прямоугольнике мировых точек, отсечение `_clip` по [0, 1]), `polygon_area(points) -> float`.
+- GAP: S9, `features.person_states(..., kpt_conf)` → `person_states(..., kpt_conf, ground: Callable[[Point], Point | None] | None = None)` (пиксель → метры внутри оболочки, иначе `None`); `speed_m_s` — то же окно и те же условия, что у `speed_bh_s`, по `ground` первой точки окна и текущей; `pipeline._ground(config)` строит `ground` из снимка калибровки.
+- GAP: S9, `hud.build_hud(ctx, run_bh_s, cfg, observations)` → `build_hud(ctx, running: dict[str, float], cfg, observations)`: действующие параметры `running` камеры (`rules.defaults | params` снимка); при `speed_m_s` подпись `HUD_SPEED_M = "{v} м/с"` / `HUD_RUN_M = "бег {v} м/с"` и порог `speed_m_s` (закрыта заметка R10 от R5).
+- GAP: S9, `services` вне 6.2: `WORLD_MIN_AREA = 0.01`, `_in_frame(points, field)`, `_collinear(points, min_area)`, `_rmse(h, pairs)`, `_calibration(row)`, `_calibration_of(camera_id)` (без проверки камеры: снимок анализа), `_zone(row)`, `_zone_name`, `_zone_points(kind, points) -> str`, `_zone_row(zone_id)`, `_rules(camera_id, rows, metas) -> list[CameraRule]`, `_range(x)`, `_recomputed(video_id) -> (id событий superseded, [остановленный, новый эфир])`; `_system_action(..., comment="")`.
+- GAP: S9, валидация: калибровка — число точек кадра (`image_points`) → число мировых равно (`world_points`, `CAL_POINTS_MISMATCH`) → контрольных до 8 (`CAL_CONTROL_MAX`) → точки кадра и контрольные в [0, 1] → коллинеарность (`image_points`); `fit_rmse_m`, `control_rmse_m` — СКО расстояния в метрах; `PUT` заменяет калибровку целиком, `DELETE` без калибровки — 204. Зона: роль → 404 камеры → тип → точки в кадре → геометрия типа; имя 1..60 после обрезки (`ZONE_NAME_INVALID`); вырожденный полигон `ZONE_DEGENERATE`; `PATCH` тип не меняет, точки проверяются по типу зоны; удалённая зона или зона удалённой камеры → 404 `ZONE_NOT_FOUND`. Правило: роль → 404 камеры → 404 сценария (`SCENARIO_NOT_FOUND`) → 422 параметра (`field="params.<key>"`, `PARAM_UNKNOWN`, `PARAM_RANGE`); `PUT` заменяет `params` целиком; без строки в базе `enabled = status == "active"`, `effective = rules.defaults | params`.
+- GAP: S9, `store`: `supersedable_events(video_id, analysis_id)`, `calibration(camera_id)`, `calibration_put(values)`, `calibration_delete(camera_id)`, `zones(camera_id)`, `zone(zone_id)`, `zone_update(zone_id, values)`, `camera_rules(camera_id=None)` (все камеры одним запросом), `camera_rule_put(values)`.
+- GAP: S9, пересчёт: `superseded` получают события видео в `new`/`auto_finished`, чей эпизод из другой версии анализа; эфир перезапускается, только если камера играет это видео, с прежним `loop`, WS `broadcast.state` остановленного и нового; `video_recompute` при задаче `recompute` этого видео в `queued` возвращает её (после проверок 409; закрыта заметка R10 от R5); `CameraSetupView.rules` — строка на каждый плагин.
+- GAP: S9, `texts.py`: `CAL_POINTS_COUNT`, `CAL_POINTS_MISMATCH`, `CAL_CONTROL_MAX`, `CAL_COLLINEAR`, `POINTS_OUTSIDE`, `ZONE_KIND_UNKNOWN`, `ZONE_NAME_INVALID`, `ZONE_LINE_POINTS`, `ZONE_POLYGON_POINTS`, `ZONE_DEGENERATE`, `ZONE_NOT_FOUND`, `SCENARIO_NOT_FOUND`, `PARAM_UNKNOWN = "Неизвестный параметр {key}"`, `PARAM_RANGE = "Параметр {key}: от {lo} до {hi}"`, `RECOMPUTE_COMMENT = "Пересчёт: версия анализа {n}"`.
+- GAP: S9, фронт: `PolygonEditor({image, mode, value, onChange, maxPoints, grid?})` — необязательная сетка калибровки под точками; кадр редактора — `/api/cameras/{id}/preview`; `CalibrationPanel`, `ZonesPanel`, `RulesPanel` внутри `CameraSetup.tsx` секциями страницы (вкладок нет, как в S6); контрольные точки вводит только API; параметр правила сохраняется по `blur`; «Пересчитать события» в «Правилах» — для видео плеера; на `/ohs/rules` переключатель сценария не `active` выключен.
+- R10: S9 — `pipeline._plugins` и HUD берут `rules.defaults` из текущего конфига, а не `CameraRule.effective` снимка (тест S5 строит правило с `effective={}`); `explain` в `event_detail` тоже читает текущие defaults.
+- R10: тест без фикстуры `core`/`conn` пишет в настоящую `data/app/safewatch.db` (S9 так записал и удалил свои строки); нужна защита в `conftest` (autouse `data_dir` в `tmp_path`); ещё какой-то шаг гейта открывает эту базу (меняется mtime папки `data/app`).
 
 ## log
 
@@ -135,6 +143,13 @@
 - проверено вживую: нет (S8 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_master.py`: `handed(event_id, action, at)` (строка журнала передачи), `stamp(minute)`, `inbox(client)`; `tests/test_shift.py::utc(day, hour, ...)`; сквозной тест `tests/test_e2e.py::test_upload_to_master_flow` (загрузка через API, `run_next_job`, тики эфира на `fake_clock` по 0,5 с до красного) — образец для R10.
+
+### S9: calibration (2026-10-24, PR #12, tech v2)
+- отклонения: правлены файлы вне списка слайса: `analysis/hud.py` (порог по правилу камеры, заметка R10), `texts.py`, `tests/test_hud.py` (новая сигнатура `build_hud`), `tests/test_videos.py` (`rules` в `CameraSetupView`), `tests/test_api_skeleton.py` (пример 501: `/api/events` вместо заработавшего `/api/ohs/rules`), `screens.test.tsx::camera_setup_timeline_renders` (две кнопки «Пересчитать события»); гомография — DLT numpy вместо `cv2.findHomography` (строка GAP); `footprint` и м/с техники не считаются (8.2 п. 6 — S10).
+- решения вне контракта: строки `GAP: S9`; мутаций нет (10.1); закрыты заметки R10: порог HUD, дубли `recompute`, пример 501.
+- проверено вживую: нет (S9 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_calibration.py`: `camera()` (нужен `core` или `client`), `body(image, world, control)`, `SQUARE`, `FLOOR`, `_walk(x0)` (человек 100 px/с), `_config(calibration, rules)`; плагины S10 получают зоны снимка через `ctx.zones`, метры — `PersonState.ground`; тесты пересчёта — `tests/test_recompute.py` (события на эпизодах `_demo_job` через `test_operator_views.event`).
 
 ## night
 
