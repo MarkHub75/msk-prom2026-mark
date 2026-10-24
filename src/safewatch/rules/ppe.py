@@ -2,7 +2,14 @@
 
 from safewatch import texts
 from safewatch.rules.base import head_objects, obs, param, why_common, zones_at
-from safewatch.types import EpisodeDraft, FrameContext, Observation, ScenarioMeta, WhyItem
+from safewatch.types import (
+    EpisodeDraft,
+    FrameContext,
+    ObjectState,
+    Observation,
+    ScenarioMeta,
+    WhyItem,
+)
 
 
 def _meta(scenario: str, icon: str, missing: str, kind: str) -> ScenarioMeta:
@@ -45,6 +52,13 @@ def _observe(
             out.append(obs(scenario, p, "U", reason_code="too_small"))
             continue
         bad, good = missing.get(p.track_id), present.get(p.track_id)
+        # Both classes on one head (the model wavers): the surer one wins, a tie stays P.
+        if (
+            isinstance(bad, ObjectState)
+            and isinstance(good, ObjectState)
+            and good.score > bad.score
+        ):
+            bad = None
         if bad == "ambiguous" or (bad is None and good == "ambiguous"):
             out.append(obs(scenario, p, "U", reason_code="owner_ambiguous"))
         elif bad is not None:

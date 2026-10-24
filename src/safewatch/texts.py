@@ -12,8 +12,6 @@ from safewatch.types import (
     Verdict,
 )
 
-PRODUCT_TITLE = "SafeWatch"
-
 LEVEL_TITLES: dict[Level, str] = {
     "yellow": "Жёлтая опасность",
     "red": "Красная опасность",
@@ -289,6 +287,7 @@ METRIC_TITLES = {
 }
 AUTOCAL_FEW = "Мало стоящих людей в кадре: {n} из {need}"
 AUTOCAL_PERSPECTIVE = "Рост людей не согласуется с перспективой"
+AUTOCAL_ONE_ROW = "Все люди стоят в одном ряду кадра: перспективу не оценить"
 EVIDENCE_NOT_FOUND = "Кадр не найден"
 ARTIFACTS_MISSING = "Нет результатов инференса этого видео: загрузите его заново"
 

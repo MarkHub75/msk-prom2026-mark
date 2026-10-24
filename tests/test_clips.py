@@ -2,6 +2,7 @@
 
 import hashlib
 import logging
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -137,6 +138,35 @@ async def test_transcode_makes_browser_codec(
     # The import of the same file takes the copy already made.
     other = services.video_import(_camera("Камера 2"), source).video
     assert store.video(other.id)["web_path"] == row["web_path"] and other.web_playable
+    assert _no_ffmpeg_running()
+
+
+@FFMPEG
+async def test_odd_frame_and_late_copy(
+    client: httpx.AsyncClient,
+    core: Settings,
+    tmp_path: Path,
+    make_video,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """R20: an odd side gets one padded column or row; a video stored without a copy (before
+    slice 18) gets it on its next upload."""
+    source = tmp_path / "odd.mp4"  # OpenCV writes even sides only: ffmpeg's own mp4v
+    lavfi = ("-f", "lavfi", "-i", "testsrc=s=321x241:d=1:r=25", "-c:v", "mpeg4", str(source))
+    subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-v", "error", *lavfi], check=True)
+    odd = services.video_import(_camera(), source).video
+    assert (odd.codec, odd.width, odd.height) == ("mp4v", 321, 241)
+    copy = media.probe_video(core.data_dir / store.video(odd.id)["web_path"])
+    assert copy is not None and copy.codec in ("avc1", "h264")
+    assert (copy.width, copy.height, copy.frame_count) == (322, 242, 25)
+    camera_id = _camera("Камера 2")
+    data = make_video(tmp_path, 1, 25, name="late.mp4").read_bytes()
+    with monkeypatch.context() as patch:
+        _tune(patch, core, enabled=False)
+        first = UploadResult.model_validate((await _upload(client, camera_id, data)).json())
+    assert first.video.web_playable is False
+    again = UploadResult.model_validate((await _upload(client, camera_id, data)).json())
+    assert (again.reused, again.video.id, again.video.web_playable) == (True, first.video.id, True)
     assert _no_ffmpeg_running()
 
 

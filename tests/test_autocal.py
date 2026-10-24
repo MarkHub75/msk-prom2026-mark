@@ -104,7 +104,8 @@ def test_too_few_samples_not_ok() -> None:
     assert (_fit(falling).ok, _fit(falling).reason) == (False, perspective)
     assert _fit(_people(40, a=400, b=-0.4, rows=(400, 600))).ok  # ĥ(900) = 40 px
     one_row = [_det(20 + 30 * i, 500, 250) for i in range(40)]  # the slope is unknown
-    assert (_fit(one_row).ok, _fit(one_row).reason) == (False, perspective)
+    one_row_text = "Все люди стоят в одном ряду кадра: перспективу не оценить"
+    assert (_fit(one_row).ok, _fit(one_row).reason) == (False, one_row_text)
 
     assert autocal.scale_at(CAL, -A / B) is None  # ĥ = 0 above the frame
     assert autocal.scale_at(CAL, -A / B + 1) == pytest.approx(1.7 / B)

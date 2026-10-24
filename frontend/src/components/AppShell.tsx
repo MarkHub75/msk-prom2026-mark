@@ -47,7 +47,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <MetaContext.Provider value={meta}>
       <header className="shell-header">
-        <strong>{meta?.product_name ?? "SafeWatch"}</strong>
+        <strong>{meta?.product_name ?? "Argus"}</strong>
         <nav aria-label="Навигация">
           {menuFor(role).map((item) => (
             <NavLink key={item.path} to={item.path}>

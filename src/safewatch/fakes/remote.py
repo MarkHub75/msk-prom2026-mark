@@ -114,8 +114,10 @@ class FakeRemoteShell:
         frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         cap.release()
         task: ModelTask = "pose" if opts["--task"] == "pose" else "detect"
-        # uploads/<sha256><ext> lost the original name; the auto scene needs it.
-        original = store.video_filename(video.stem) or video.name
+        # uploads/<sha256><ext> lost the original name; the auto scene needs it. Other files
+        # (a demo pack build) keep it: the database is not opened for them.
+        found = store.video_filename(video.stem) if video.parent.name == "uploads" else None
+        original = found or video.name
         scene = auto_scene(original) if self.scene == "auto" else self.scene
         step = int(opts["--step"])
         frames = scenes.render(scene, width, height, fps, frame_count, step, task)

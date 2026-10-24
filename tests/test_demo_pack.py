@@ -10,7 +10,7 @@ import yaml
 from conftest import FakeClock
 from test_analysis_api import _textured
 
-from safewatch import cli, config, demo, services, store, texts
+from safewatch import cli, config, demo, media, services, store, texts
 from safewatch.config import ROOT, Settings
 from safewatch.errors import InferenceError, NotFound, UnsupportedVideo, ValidationFailed
 from safewatch.fakes.remote import FakeRemoteShell
@@ -209,6 +209,22 @@ def test_import_rejects_broken_pack(
     assert cli.main(["demo", "import", str(foreign)]) == 2
     assert cli.main(["demo", "import", str(tmp_path / "none")]) == 3
     assert _counts() == counts
+
+
+def test_import_transcodes_outside_transaction(
+    fake_core: Settings, tmp_path: Path, linq_tails: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """R20: ffmpeg runs before the import transaction, once per pack video."""
+    out = _build(tmp_path, monkeypatch)
+    depths: list[int] = []
+
+    def transcode(src: Path, dst: Path, cfg: object) -> bool:
+        depths.append(store._depth)
+        return False
+
+    monkeypatch.setattr(media, "transcode", transcode)
+    assert services.demo_import(out).jobs == 2
+    assert depths == [0]  # one video for both cameras, no transaction open
 
 
 def test_serve_autoloads_pack(
