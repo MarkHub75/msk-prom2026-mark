@@ -35,6 +35,9 @@ export type Episode = Schemas["Episode"];
 export type Provenance = Schemas["Provenance"];
 export type BackendStatus = Schemas["BackendStatus"];
 export type Job = Schemas["Job"];
+export type OhsStats = Schemas["OhsStats"];
+export type CountRow = Schemas["CountRow"];
+export type DayRow = Schemas["DayRow"];
 
 // These two payloads are present only in contract/ws.schema.json ($defs).
 // Their fields and enums match the real 1.0.0 schema; REST payloads reuse aliases above.
