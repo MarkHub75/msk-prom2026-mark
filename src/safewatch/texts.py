@@ -148,6 +148,8 @@ def fmt_num(x: float) -> str:
 # HUD tags and object labels (tech.md 8.2 item 8).
 HUD_SPEED_BH = "{v} роста/с"
 HUD_RUN_BH = "бег {v} роста/с"
+HUD_SPEED_M = "{v} м/с"
+HUD_RUN_M = "бег {v} м/с"
 HUD_LYING = "лежит {n} с"
 HUD_STILL = "неподвижен {n} с"
 HUD_FEET_HIDDEN = "ноги не видны"
@@ -227,6 +229,23 @@ INVALID_TRANSITION = "Действие недоступно в текущем с
 COMMENT_REQUIRED = "Опишите принятые меры"
 COMMENT_TOO_LONG = "Комментарий: до 500 символов"
 WHY_REASON = "Причина"
+
+# Calibration, zones, camera rules, recompute (tech.md 8.11, 8.12, 9; slice 9).
+CAL_POINTS_COUNT = "Нужно от 4 до 8 точек"
+CAL_POINTS_MISMATCH = "Число точек кадра и пола должно совпадать"
+CAL_CONTROL_MAX = "Контрольных точек: до 8"
+CAL_COLLINEAR = "Три точки на одной прямой"
+POINTS_OUTSIDE = "Точки вне кадра"
+ZONE_KIND_UNKNOWN = "Неизвестный тип зоны"
+ZONE_NAME_INVALID = "Название зоны: от 1 до 60 символов"
+ZONE_LINE_POINTS = "Линия — ровно 2 точки"
+ZONE_POLYGON_POINTS = "Полигон: от 3 до 32 точек"
+ZONE_DEGENERATE = "Полигон без площади: точки на одной прямой"
+ZONE_NOT_FOUND = "Зона не найдена"
+SCENARIO_NOT_FOUND = "Сценарий не найден"
+PARAM_UNKNOWN = "Неизвестный параметр {key}"
+PARAM_RANGE = "Параметр {key}: от {lo} до {hi}"
+RECOMPUTE_COMMENT = "Пересчёт: версия анализа {n}"
 
 
 def notification_text(

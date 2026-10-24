@@ -41,7 +41,7 @@ def _tags(p: PersonState) -> list[tuple[str, str, str | None]]:
         frame_idx=0, ts_ms=TS, width=W, height=H, persons=[p], vehicles=[], objects=[],
         zones=[], calibrated=False,
     )  # fmt: skip
-    obj = build_hud(ctx, 1.5, get_settings().features, []).objects[0]
+    obj = build_hud(ctx, get_settings().scenarios.running, get_settings().features, []).objects[0]
     return [(t.code, t.text, t.level) for t in obj.tags]
 
 
@@ -68,7 +68,7 @@ def test_tags_texts_russian_format() -> None:
         objects=[ObjectState(name="cell phone", bbox=(10.0, 150.0, 20.0, 170.0), score=0.5)],
         zones=[], calibrated=False,
     )  # fmt: skip
-    frame = build_hud(ctx, 1.5, get_settings().features, [])
+    frame = build_hud(ctx, get_settings().scenarios.running, get_settings().features, [])
     assert [(o.kind, o.label, o.track_id) for o in frame.objects] == [
         ("person", "человек", 1),
         ("vehicle", "грузовик", 2),

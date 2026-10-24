@@ -2,6 +2,7 @@
 
 import math
 import statistics
+from collections.abc import Callable
 from itertools import pairwise
 
 from safewatch.analysis.geometry import iou
@@ -93,8 +94,12 @@ def person_states(
     history: History,
     cfg: FeaturesConfig,
     kpt_conf: float,
+    ground: Callable[[Point], Point | None] | None = None,
 ) -> list[PersonState]:
-    """States of the people tracked in this frame; `history` gets this frame appended."""
+    """States of the people tracked in this frame; `history` gets this frame appended.
+
+    `ground`: pixel point → floor meters inside the calibrated hull, else None (tech.md 8.11).
+    """
     states = []
     for track_id, det in tracks:
         box = det.bbox_xyxy
@@ -122,8 +127,14 @@ def person_states(
             else:
                 ref = height
 
-        feet = [(ts, s.foot) for ts, s in _recent(past, ts_ms - cfg.speed_window_s * 1000)]
-        speed = _speed([*feet, (ts_ms, foot)], ref, cfg)
+        recent = _recent(past, ts_ms - cfg.speed_window_s * 1000)
+        speed = _speed([*((ts, s.foot) for ts, s in recent), (ts_ms, foot)], ref, cfg)
+        on_floor = None if ground is None else ground(foot)
+        speed_m = None
+        # The same window as speed_bh_s, in meters when both of its ends are on the floor.
+        if speed is not None and on_floor is not None and recent[0][1].ground is not None:
+            dt_s = (ts_ms - recent[0][0]) / 1000
+            speed_m = math.dist(on_floor, recent[0][1].ground) / dt_s
 
         center, limit = _center(box), cfg.still_motion_bh * ref
         still_since = ts_ms
@@ -145,11 +156,11 @@ def person_states(
             foot=foot,
             anchor=(anchor[0], anchor[1]),
             feet_visible=feet_visible,
-            ground=None,  # slice 9: calibration
+            ground=on_floor,
             height_px=height,
             ref_height_px=ref,
             speed_bh_s=speed,
-            speed_m_s=None,  # slice 9: calibration
+            speed_m_s=speed_m,
             posture=posture,
             posture_method="pose" if torso_deg is not None else "bbox",
             torso_deg=torso_deg,

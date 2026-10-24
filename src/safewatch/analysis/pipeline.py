@@ -1,11 +1,12 @@
 """analyze() (tech.md 8.2): detections → tracks → features → observations → episodes, HUD."""
 
 import itertools
+from collections.abc import Callable
 from pathlib import Path
 
 from safewatch import config as app_config
 from safewatch import rules
-from safewatch.analysis import features, hud
+from safewatch.analysis import features, geometry, hud
 from safewatch.analysis.episodes import EpisodeManager
 from safewatch.analysis.tracking import Tracker
 from safewatch.types import (
@@ -18,6 +19,7 @@ from safewatch.types import (
     ModelSpec,
     ObjectState,
     Observation,
+    Point,
     ScenarioPlugin,
     VehicleState,
 )
@@ -37,6 +39,21 @@ def _plugins(config: AnalysisConfig) -> list[tuple[ScenarioPlugin, dict[str, flo
     return out
 
 
+def _ground(config: AnalysisConfig) -> Callable[[Point], Point | None] | None:
+    """Pixel point → floor meters, only inside the hull of the calibration points (8.11)."""
+    cal = config.calibration
+    h = None if cal is None else geometry.homography(cal.image_points, cal.world_points)
+    if cal is None or h is None:
+        return None
+    hull = cal.image_points
+
+    def to_floor(p: Point) -> Point | None:
+        q = (p[0] / config.width, p[1] / config.height)
+        return geometry.apply_h(h, q) if geometry.hull_contains(hull, q) else None
+
+    return to_floor
+
+
 def analyze(
     det: list[FrameDetections],
     pose: list[FrameDetections] | None,
@@ -51,7 +68,10 @@ def analyze(
     poses = {f.frame_idx: f.detections for f in pose or []}
     pose_names = pose_model.classes if pose_model is not None else {}
     history: features.History = {}
-    run_bh_s = settings.scenarios.running["speed_bh_s"]
+    # The HUD speed tag follows the camera's running rule, not the config defaults.
+    rule = config.rules.get("running")
+    hud_running = rules.defaults("running") | (rule.params if rule is not None else {})
+    ground = _ground(config)
     plugins = _plugins(config)
     episodes = EpisodeManager(settings.episodes)
     frames: list[HudFrame] = []
@@ -86,7 +106,14 @@ def analyze(
             width=config.width,
             height=config.height,
             persons=features.person_states(
-                tracked, kpts, ts, config.height, history, settings.features, settings.pose.kpt_conf
+                tracked,
+                kpts,
+                ts,
+                config.height,
+                history,
+                settings.features,
+                settings.pose.kpt_conf,
+                ground,
             ),
             vehicles=[
                 VehicleState(
@@ -109,7 +136,7 @@ def analyze(
         for plugin, params in plugins:
             observations += plugin.observe(ctx, params)
         episodes.update(frame.frame_idx, ts, observations)
-        frames.append(hud.build_hud(ctx, run_bh_s, settings.features, observations))
+        frames.append(hud.build_hud(ctx, hud_running, settings.features, observations))
     return AnalysisResult(
         hud=frames,
         episodes=episodes.finish(config.duration_ms),

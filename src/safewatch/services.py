@@ -6,6 +6,7 @@ answers them with 501 `not_implemented`.
 
 import asyncio
 import hashlib
+import itertools
 import json
 import logging
 import math
@@ -18,10 +19,11 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import get_args
 
+import numpy as np
 from pydantic import BaseModel
 
 from safewatch import clock, config, media, registry, rules, seed, store, texts
-from safewatch.analysis import pipeline
+from safewatch.analysis import geometry, pipeline
 from safewatch.errors import (
     Conflict,
     Forbidden,
@@ -92,10 +94,13 @@ from safewatch.types import (
     OhsStats,
     OperatorDashboard,
     Percentiles,
+    Point,
     Provenance,
     Role,
     RoleMeta,
+    RulesScreenRow,
     RulesScreenView,
+    ScenarioMeta,
     Sector,
     SectorIn,
     SectorState,
@@ -623,7 +628,8 @@ async def _analyze(
     settings = config.get_settings()
     store.job_update(job_id, {"stage": "analysis"})
     _progress(job_id, 0.85)
-    video_id = video["id"]
+    video_id, camera_id = video["id"], video["camera_id"]
+    metas = rules.scenario_metas()
     version = store.analysis_next_version(video_id)
     rel = f"analyses/{video_id}-v{version}/hud.jsonl"
     cfg = AnalysisConfig(
@@ -632,9 +638,9 @@ async def _analyze(
         fps=video["fps"],
         step=analysis_step(video["fps"]),
         duration_ms=video["duration_ms"],
-        calibration=None,  # slice 9
-        zones=[],  # slice 9
-        rules={},  # slice 9
+        calibration=_calibration_of(camera_id),
+        zones=[_zone(row) for row in store.zones(camera_id)],
+        rules={r.scenario: r for r in _rules(camera_id, store.camera_rules(camera_id), metas)},
         class_conf=settings.class_conf,
         active_classes=registry.active_classes(settings),
     )
@@ -794,11 +800,36 @@ async def run_next_job() -> Job | None:
         with store.tx():
             store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
             store.video_update(video_id, {"status": "ready"})
-            started = _autostart(video) if row["kind"] == "process" else None
-        if started is not None:
-            hub.publish("broadcast.state", _broadcast_by_id(started))
+            superseded: list[int] = []
+            if row["kind"] == "process":
+                restarted = [b for b in [_autostart(video)] if b is not None]
+            else:
+                superseded, restarted = _recomputed(video_id)
+        for event_id in superseded:
+            hub.publish("event.updated", _event_summary(event_id))
+        for broadcast_id in restarted:
+            hub.publish("broadcast.state", _broadcast_by_id(broadcast_id))
     _publish_job(job_id)
     return job_get(job_id)
+
+
+def _recomputed(video_id: int) -> tuple[list[int], list[int]]:
+    """Steps 1 and 3 of tech.md 8.12: superseded event ids, the stopped and started broadcast."""
+    fresh = store.video(video_id)
+    analysis = None if fresh is None else store.analysis(fresh["active_analysis_id"])
+    assert fresh is not None and analysis is not None  # set by _analyze
+    comment = texts.RECOMPUTE_COMMENT.format(n=analysis["version"])
+    superseded = []
+    for e in store.supersedable_events(video_id, analysis["id"]):
+        store.event_update(e["id"], {"status": "superseded"})
+        _system_action(e["id"], "superseded", e["status"], "superseded", comment)
+        superseded.append(int(e["id"]))
+    current = store.camera_broadcast(fresh["camera_id"])
+    if current is None or current["status"] != "playing" or current["video_id"] != video_id:
+        return superseded, []
+    stopped = _stop_playing(fresh["camera_id"])
+    assert stopped is not None  # it was playing
+    return superseded, [stopped, _broadcast_insert(fresh, bool(current["loop"]))]
 
 
 def _autostart(video: sqlite3.Row) -> int | None:
@@ -817,9 +848,9 @@ def camera_setup_view(camera_id: int) -> CameraSetupView:
         camera=camera_get(camera_id),
         videos=videos_list(camera_id),
         jobs=[_job(row) for row in store.camera_jobs(camera_id)],
-        calibration=None,  # slice 9
-        zones=[],  # slice 9
-        rules=[],  # slice 9
+        calibration=calibration_get(camera_id),
+        zones=zones_list(camera_id),
+        rules=camera_rules(camera_id),
         broadcast=broadcast_get(camera_id),
     )
 
@@ -970,6 +1001,9 @@ def video_recompute(video_id: int, role: Role | None) -> Job:
             raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
         if _analysis_inputs(video) is None:
             raise Conflict("artifacts_missing", texts.ARTIFACTS_MISSING)
+        last = store.video_last_job(video_id)
+        if last is not None and (last["kind"], last["status"]) == ("recompute", "queued"):
+            return job_get(last["id"])  # repeated clicks share the queued job
         job_id = _enqueue(video_id, "recompute")
     _publish_job(job_id)
     return job_get(job_id)
@@ -1126,7 +1160,9 @@ def _event_summary(event_id: int) -> EventSummary:
     return _summary(row)
 
 
-def _system_action(event_id: int, action: str, before: str | None, after: str) -> None:
+def _system_action(
+    event_id: int, action: str, before: str | None, after: str, comment: str = ""
+) -> None:
     values = {
         "event_id": event_id,
         "at": clock.iso(clock.now()),
@@ -1135,6 +1171,7 @@ def _system_action(event_id: int, action: str, before: str | None, after: str) -
         "action": action,
         "from_status": before,
         "to_status": after,
+        "comment": comment,
     }
     store.insert("event_actions", values)
 
@@ -1379,8 +1416,8 @@ def camera_live_view(camera_id: int) -> CameraLiveView:
         broadcast=broadcast,
         video=video,
         analysis=analysis,
-        zones=[],  # slice 9
-        calibration=None,  # slice 9
+        zones=zones_list(camera_id),
+        calibration=calibration_get(camera_id),
     )
 
 
@@ -1656,46 +1693,242 @@ def shift_summary_view(at: datetime | None = None) -> ShiftSummary:
     )
 
 
+ZONE_NAME_MAX = 60
+ZONE_POINTS_MAX = 32
+WORLD_MIN_AREA = 0.01  # m²: three floor points closer to a line than this are collinear (9)
+
+
+def _in_frame(points: list[Point], field: str) -> None:
+    if any(not (0 <= x <= 1 and 0 <= y <= 1) for x, y in points):
+        raise ValidationFailed(texts.POINTS_OUTSIDE, field=field)
+
+
+def _collinear(points: list[Point], min_area: float) -> bool:
+    return any(
+        geometry.polygon_area(list(triple)) < min_area
+        for triple in itertools.combinations(points, 3)
+    )
+
+
+def _rmse(h: np.ndarray, pairs: list[tuple[Point, Point]]) -> float:
+    errors = [math.dist(geometry.apply_h(h, image), world) ** 2 for image, world in pairs]
+    return math.sqrt(sum(errors) / len(errors))
+
+
+def _calibration(row: sqlite3.Row) -> Calibration:
+    world = [(x, y) for x, y in json.loads(row["world_points_json"])]
+    h = np.array(json.loads(row["homography_json"]), np.float64)
+    return Calibration(
+        camera_id=row["camera_id"],
+        image_points=json.loads(row["image_points_json"]),
+        world_points=world,
+        control_points=json.loads(row["control_json"]),
+        fit_rmse_m=row["fit_rmse_m"],
+        control_rmse_m=row["control_rmse_m"],
+        grid=geometry.grid_segments(h, world),
+        updated_at=clock.parse(row["updated_at"]),
+    )
+
+
+def _calibration_of(camera_id: int) -> Calibration | None:
+    row = store.calibration(camera_id)
+    return None if row is None else _calibration(row)
+
+
 def calibration_get(camera_id: int) -> Calibration | None:
-    raise NotImplementedError("slice 9")
+    camera_get(camera_id)
+    return _calibration_of(camera_id)
 
 
 def calibration_set(camera_id: int, data: CalibrationIn, role: Role | None) -> Calibration:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin",))
+    camera_get(camera_id)
+    image, world = data.image_points, data.world_points
+    if not geometry.MIN_CAL_POINTS <= len(image) <= geometry.MAX_CAL_POINTS:
+        raise ValidationFailed(texts.CAL_POINTS_COUNT, field="image_points")
+    if len(world) != len(image):
+        raise ValidationFailed(texts.CAL_POINTS_MISMATCH, field="world_points")
+    if len(data.control_points) > geometry.MAX_CAL_POINTS:
+        raise ValidationFailed(texts.CAL_CONTROL_MAX, field="control_points")
+    _in_frame(image, "image_points")
+    _in_frame([c.image for c in data.control_points], "control_points")
+    h = geometry.homography(image, world)
+    if h is None or _collinear(image, geometry.MIN_AREA) or _collinear(world, WORLD_MIN_AREA):
+        raise ValidationFailed(texts.CAL_COLLINEAR, field="image_points")
+    control = [(c.image, c.world) for c in data.control_points]
+    values = {
+        "camera_id": camera_id,
+        "image_points_json": json.dumps(image),
+        "world_points_json": json.dumps(world),
+        "control_json": json.dumps([c.model_dump() for c in data.control_points]),
+        "homography_json": json.dumps(h.tolist()),
+        "fit_rmse_m": _rmse(h, list(zip(image, world, strict=True))),
+        "control_rmse_m": _rmse(h, control) if control else None,
+        "updated_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        store.calibration_put(values)
+    calibration = _calibration_of(camera_id)
+    assert calibration is not None  # just written
+    return calibration
 
 
 def calibration_delete(camera_id: int, role: Role | None) -> None:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin",))
+    with store.tx():
+        camera_get(camera_id)
+        store.calibration_delete(camera_id)
+
+
+def _zone(row: sqlite3.Row) -> Zone:
+    return Zone(
+        id=row["id"],
+        camera_id=row["camera_id"],
+        kind=row["kind"],
+        name=row["name"],
+        points=json.loads(row["points_json"]),
+    )
+
+
+def _zone_name(value: str) -> str:
+    name = value.strip()
+    if not 1 <= len(name) <= ZONE_NAME_MAX:
+        raise ValidationFailed(texts.ZONE_NAME_INVALID, field="name")
+    return name
+
+
+def _zone_points(kind: str, points: list[Point]) -> str:
+    """Geometry rules of tech.md 9 for the zone kind; the points as JSON."""
+    kinds = {k.id: k.geometry for k in config.get_settings().zone_kinds}
+    if kind not in kinds:
+        raise ValidationFailed(texts.ZONE_KIND_UNKNOWN, field="kind")
+    _in_frame(points, "points")
+    if kinds[kind] == "line":
+        if len(points) != 2 or points[0] == points[1]:
+            raise ValidationFailed(texts.ZONE_LINE_POINTS, field="points")
+    elif not 3 <= len(points) <= ZONE_POINTS_MAX:
+        raise ValidationFailed(texts.ZONE_POLYGON_POINTS, field="points")
+    elif geometry.polygon_area(points) < geometry.MIN_AREA:
+        raise ValidationFailed(texts.ZONE_DEGENERATE, field="points")
+    return json.dumps(points)
+
+
+def _zone_row(zone_id: int) -> sqlite3.Row:
+    row = store.zone(zone_id)
+    if row is None:
+        raise NotFound(texts.ZONE_NOT_FOUND, zone_id=zone_id)
+    return row
 
 
 def zones_list(camera_id: int) -> list[Zone]:
-    raise NotImplementedError("slice 9")
+    camera_get(camera_id)
+    return [_zone(row) for row in store.zones(camera_id)]
 
 
 def zone_create(camera_id: int, data: ZoneIn, role: Role | None) -> Zone:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin", "ohs"))
+    camera_get(camera_id)
+    values = {
+        "camera_id": camera_id,
+        "kind": data.kind,
+        "name": _zone_name(data.name),
+        "points_json": _zone_points(data.kind, data.points),
+        "created_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        zone_id = store.insert("zones", values)
+    return _zone(_zone_row(zone_id))
 
 
 def zone_update(zone_id: int, data: ZonePatch, role: Role | None) -> Zone:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin", "ohs"))
+    row = _zone_row(zone_id)
+    values = {}
+    if data.name is not None:
+        values["name"] = _zone_name(data.name)
+    if data.points is not None:
+        values["points_json"] = _zone_points(row["kind"], data.points)
+    if values:
+        with store.tx():
+            store.zone_update(zone_id, values)
+    return _zone(_zone_row(zone_id))
 
 
 def zone_delete(zone_id: int, role: Role | None) -> None:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin", "ohs"))
+    with store.tx():
+        _zone_row(zone_id)
+        store.zone_update(zone_id, {"deleted_at": clock.iso(clock.now())})
+
+
+def _rules(camera_id: int, rows: list[sqlite3.Row], metas: list[ScenarioMeta]) -> list[CameraRule]:
+    """A rule per plugin (tech.md 8.3): no stored row — on when the scenario is active."""
+    stored = {row["scenario"]: row for row in rows}
+    out = []
+    for meta in metas:
+        row = stored.get(meta.id)
+        params: dict[str, float] = {} if row is None else json.loads(row["params_json"])
+        out.append(
+            CameraRule(
+                camera_id=camera_id,
+                scenario=meta.id,
+                enabled=meta.status == "active" if row is None else bool(row["enabled"]),
+                params=params,
+                effective=rules.defaults(meta.id) | params,
+                status=meta.status,
+            )
+        )
+    return out
+
+
+def _range(x: float) -> str:
+    return f"{x:g}".replace(".", ",")
 
 
 def camera_rules(camera_id: int) -> list[CameraRule]:
-    raise NotImplementedError("slice 9")
+    camera_get(camera_id)
+    return _rules(camera_id, store.camera_rules(camera_id), rules.scenario_metas())
 
 
 def camera_rule_set(
     camera_id: int, scenario: str, data: CameraRuleIn, role: Role | None
 ) -> CameraRule:
-    raise NotImplementedError("slice 9")
+    _require(role, ("admin", "ohs"))
+    camera_get(camera_id)
+    metas = {meta.id: meta for meta in rules.scenario_metas()}
+    if scenario not in rules.PLUGINS:
+        raise NotFound(texts.SCENARIO_NOT_FOUND, scenario=scenario)
+    ranges = {p.key: (p.min, p.max) for p in metas[scenario].params}
+    for key, value in data.params.items():
+        if key not in ranges:
+            raise ValidationFailed(texts.PARAM_UNKNOWN.format(key=key), field=f"params.{key}")
+        lo, hi = ranges[key]
+        if not lo <= value <= hi:
+            text = texts.PARAM_RANGE.format(key=key, lo=_range(lo), hi=_range(hi))
+            raise ValidationFailed(text, field=f"params.{key}")
+    values = {
+        "camera_id": camera_id,
+        "scenario": scenario,
+        "enabled": int(data.enabled),
+        "params_json": json.dumps(data.params),
+        "updated_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        store.camera_rule_put(values)
+    (rule,) = [r for r in camera_rules(camera_id) if r.scenario == scenario]
+    return rule
 
 
 def rules_screen_view() -> RulesScreenView:
-    raise NotImplementedError("slice 9")
+    metas = rules.scenario_metas()
+    stored: dict[int, list[sqlite3.Row]] = {}
+    for row in store.camera_rules():
+        stored.setdefault(row["camera_id"], []).append(row)
+    rows = [
+        RulesScreenRow(camera=camera, rules=_rules(camera.id, stored.get(camera.id, []), metas))
+        for camera in cameras_list()
+    ]
+    return RulesScreenView(scenarios=metas, rows=rows)
 
 
 def events_list(f: EventFilter) -> EventPage:
