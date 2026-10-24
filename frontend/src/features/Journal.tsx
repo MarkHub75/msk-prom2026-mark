@@ -140,7 +140,7 @@ export function JournalPage() {
       <span className="jd-period">{periodTitle(search)} · МСК</span>
       <span className="od-bar-spacer" />
       <span className="jd-count" aria-live="polite">{page.data ? <>Показано <b>{page.data.items.length}</b> из <b>{page.data.total}</b></> : page.loading ? "Получаем данные" : "Данные не получены"}</span>
-      <a className="button button-small" href={exportUrl(search)} download data-testid="export-csv"><Download {...IC} />Экспорт CSV</a>
+      {import.meta.env.VITE_STATIC_DEMO === "1" ? <button className="button button-small" disabled title="Недоступно в статическом демо" data-testid="export-csv"><Download {...IC} />Экспорт CSV · 501</button> : <a className="button button-small" href={exportUrl(search)} download data-testid="export-csv"><Download {...IC} />Экспорт CSV</a>}
       <Link className="button button-small button-primary" to={`/ohs/report${reportQuery ? `?${reportQuery}` : ""}`} data-testid="report-link"><FileText {...IC} />Отчёт PDF за период</Link>
       <button className="button button-small" disabled={page.loading} onClick={() => { page.reload(); facets.reload(); }}>Обновить <Icon name="arrow" size={15} /></button>
     </header>

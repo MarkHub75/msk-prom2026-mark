@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import { App } from "./App";
+import { PRODUCT } from "./brand";
 import "./theme.css";
 import "./styles/mobile-timeline.css";
 import "./styles/control-room.css";
@@ -23,6 +24,7 @@ import "@fontsource/source-code-pro/cyrillic-500.css";
 
 
 async function start() {
+  document.title = PRODUCT;
   const staticDemo = import.meta.env.VITE_STATIC_DEMO === "1";
   const demo = staticDemo ? await import("./static-demo/index.mjs") : undefined;
   demo?.installStaticDemo();

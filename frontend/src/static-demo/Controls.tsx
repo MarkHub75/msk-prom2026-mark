@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PRODUCT } from "../brand";
 import { Button } from "../components/ui";
+import { menuFor } from "../nav";
+import { useRole } from "../roles";
 import { nextStep, resetDemo } from "./index.mjs";
 import "./demo.css";
 
 export function DemoControls() {
+  const navigate = useNavigate();
+  const [role] = useRole();
   const [step, setStep] = useState(0);
   const [message, setMessage] = useState("Шаг 1: жёлтое событие — бег. Шаг 2: красное — падение.");
   const advance = () => {
@@ -16,6 +21,7 @@ export function DemoControls() {
   };
   const reset = () => {
     resetDemo(); setStep(0);
+    navigate(menuFor(role)[0]?.path ?? "/operator");
     setMessage("Мир восстановлен. Следующий шаг опубликует жёлтое событие.");
   };
   return <>

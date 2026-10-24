@@ -89,6 +89,7 @@ export function nextStep() {
 }
 export function resetDemo() {
   mock.reset();
+  window.dispatchEvent(new Event("argus:demo-reset"));
   for (const socket of clients) send(socket, "hello", {server_now: new Date().toISOString(), contract: CONTRACT, role: socket.role});
 }
 

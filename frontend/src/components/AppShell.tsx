@@ -123,6 +123,12 @@ function ShellContent({ children }: { children: ReactNode }) {
   const [alarm, setAlarm] = useState<Alarm>();
   const dismissedAlarms = useRef(new Set<number>());
   const closeAlarm = () => { if (alarm) dismissedAlarms.current.add(alarm.eventId); setAlarm(undefined); };
+  useEffect(() => {
+    if (import.meta.env.VITE_STATIC_DEMO !== "1") return;
+    const reset = () => { setAlarm(undefined); setNotification(undefined); dismissedAlarms.current.clear(); };
+    window.addEventListener("argus:demo-reset", reset);
+    return () => window.removeEventListener("argus:demo-reset", reset);
+  }, []);
   const [serverOffset, setServerOffset] = useState<number>();
   const [backendStatus, setBackendStatus] = useState<BackendStatus>();
   const sound = useAlertSound();

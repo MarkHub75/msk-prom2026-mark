@@ -5,7 +5,7 @@
 Локально устанавливать зависимости и собирать демо не требуется.
 
 `mock/state.mjs`, `mock/world.mjs`, `routes.mjs`, метаданные и кадры перенесены из
-`origin/demo/checkpoint:tools/checkpoint-demo/` (state/world/server, previews и evidence).
+`origin/demo/checkpoint:tools/checkpoint-demo/` (коммит `43465c2361271cd2fc781af7c2653da6eae0f8fb`, state/world/server, previews и evidence).
 Из логики удалены Node.js, файловая система и прокси к бэкенду. SHA-256 кадров сохранены в `mock/evidence.json`.
 Ручная разметка кадров и сценарий синтетические; они не подтверждают работу нейросети.
 Название берётся из `src/brand.ts`.

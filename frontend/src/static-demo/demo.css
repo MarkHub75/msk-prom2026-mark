@@ -8,4 +8,12 @@ body:has(.static-demo-banner) .app.app-cr.ds-app { height: calc(100dvh - var(--d
   body:has(.static-demo-banner) { --demo-top: 58px; --demo-bottom: 180px; }
   .static-demo-banner { min-height: 58px; font-size: 11px; align-items: center; }
   .static-demo-director { bottom: 74px; right: 8px; width: calc(100vw - 16px); }
+  body:has(.static-demo-banner) .app.app-cr.ds-app { height: auto; min-height: calc(100dvh - var(--demo-top)); overflow: visible; }
+  body:has(.static-demo-banner) .ds-app .shell-header.ds-topbar { top: var(--demo-top); }
+  body:has(.static-demo-banner) .ds-app .cr-page { min-height: 0; }
+  body:has(.static-demo-banner) .ds-app .cr-head { flex-wrap: wrap; }
+  body:has(.static-demo-banner) .ds-app .cr-grid { height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "queue" "wall" "shift" "sectors" "strip"; }
+  body:has(.static-demo-banner) .ds-app .cr-wall { grid-template-columns: minmax(0, 1fr); }
+  body:has(.static-demo-banner) .ds-app .cr-queue { max-height: none; overflow: visible; }
+  body:has(.static-demo-banner) .ds-app .cr-side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

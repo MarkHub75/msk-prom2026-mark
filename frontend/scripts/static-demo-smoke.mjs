@@ -38,12 +38,12 @@ try {
   await page.locator(".cr-q-yellow").first().waitFor();
   await page.getByTestId("evidence-image").first().waitFor();
   await page.waitForFunction(() => document.querySelector('[data-testid="evidence-image"]')?.naturalWidth > 0);
-  await page.screenshot({path: `${screenshotDir}/01-yellow.png`});
+  await page.screenshot({path: `${screenshotDir}/01-yellow.png`, animations: "disabled"});
   await page.getByRole("button", {name: "Следующий шаг демо", exact: true}).click();
   await page.getByTestId("incident-focus").waitFor();
   const red = await page.evaluate(async () => (await (await fetch("/api/operator/feed")).json()).find(event => event.level === "red" && ["new", "viewed"].includes(event.status)));
   assert(red, "Second director step must publish a red event");
-  await page.screenshot({path: `${screenshotDir}/02-red.png`});
+  await page.screenshot({path: `${screenshotDir}/02-red.png`, animations: "disabled"});
   await page.getByRole("alertdialog", {name: "Критическое событие"}).locator('[data-action="confirm"]').click();
   await waitStatus(red.id, "sent_to_master");
   await page.getByRole("navigation", {name: "Выбор роли"}).getByRole("button", {name: "Мастер", exact: true}).click();
@@ -52,7 +52,7 @@ try {
   const assignment = page.locator(`.ms-cards a[href$="/master/events/${red.id}"]`);
   await assignment.waitFor();
   assert.match(await assignment.innerText(), /Падение/);
-  await page.screenshot({path: `${screenshotDir}/03-master.png`});
+  await page.screenshot({path: `${screenshotDir}/03-master.png`, animations: "disabled"});
   await assignment.click();
   await page.getByTestId("master-detail").waitFor();
   await page.locator('[data-action="accept"]').click();
@@ -78,9 +78,10 @@ try {
   await page.waitForFunction(async () => (await (await fetch("/api/operator/feed")).json()).length === 0);
   assert(await page.getByRole("button", {name: "Следующий шаг демо", exact: true}).isEnabled());
   await page.setViewportSize({width: 390, height: 844});
-  await page.screenshot({path: `${screenshotDir}/04-mobile.png`});
+  await page.screenshot({path: `${screenshotDir}/04-mobile.png`, animations: "disabled"});
   const director = await page.getByRole("complementary", {name: "Режиссёр демо"}).boundingBox();
   assert(director && director.x >= 0 && director.x + director.width <= 391);
+  assert(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "Mobile layout must not overflow horizontally");
   assert.equal(await page.locator("vite-error-overlay").count(), 0);
   assert.deepEqual(errors, [], "No browser runtime/console errors");
   assert.deepEqual(forbidden, [], "No backend, external requests or network WebSockets");
