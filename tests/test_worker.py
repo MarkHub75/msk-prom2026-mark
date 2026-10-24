@@ -1,4 +1,4 @@
-"""Slices 6 and 7: the periods of the background loops come from the config (tech.md 6.6)."""
+"""Slices 6, 7 and 25: the periods of the background loops come from the config (tech.md 6.6)."""
 
 import asyncio
 
@@ -12,12 +12,12 @@ from safewatch.config import Settings
 async def _periods(monkeypatch: pytest.MonkeyPatch) -> dict[str, set[float]]:
     stop = asyncio.Event()
     sleeps: list[float] = []
-    calls = {"tick": 0, "job": 0, "escalation": 0, "delivery": 0}
+    calls = {"tick": 0, "job": 0, "escalation": 0, "delivery": 0, "dataset": 0}
     real_sleep = asyncio.sleep
 
     async def fake_sleep(delay: float) -> None:
         sleeps.append(delay)
-        if len(sleeps) >= 12:
+        if len(sleeps) >= 15:
             stop.set()
         await real_sleep(0)
 
@@ -36,18 +36,24 @@ async def _periods(monkeypatch: pytest.MonkeyPatch) -> dict[str, set[float]]:
         calls["delivery"] += 1
         return 0
 
+    async def dataset() -> int:
+        calls["dataset"] += 1
+        return 0
+
     monkeypatch.setattr(asyncio, "sleep", fake_sleep)
     monkeypatch.setattr(services, "broadcast_tick", tick)
     monkeypatch.setattr(services, "escalation_tick", escalation)
     monkeypatch.setattr(services, "run_next_job", job)
     monkeypatch.setattr(services, "deliveries_flush", flush)
+    monkeypatch.setattr(services, "datasets_flush", dataset)
     await asyncio.wait_for(worker.run_forever(stop), 5)
     assert min(calls.values()) >= 3
     return {"sleeps": set(sleeps)}
 
 
 async def test_loop_periods_from_config(core: Settings, monkeypatch: pytest.MonkeyPatch) -> None:
-    assert (await _periods(monkeypatch))["sleeps"] == {0.25, 0.5}
+    assert (await _periods(monkeypatch))["sleeps"] == {0.25, 0.5, 2.0}
     tuned = {"broadcast": {"tick_ms": 100}, "jobs": {"idle_poll_ms": 700}}
+    tuned |= {"datasets": {"tick_ms": 900}}
     _tune(monkeypatch, core, escalation={"tick_ms": 300}, **tuned)
-    assert (await _periods(monkeypatch))["sleeps"] == {0.1, 0.7, 0.3}
+    assert (await _periods(monkeypatch))["sleeps"] == {0.1, 0.7, 0.3, 0.9}
