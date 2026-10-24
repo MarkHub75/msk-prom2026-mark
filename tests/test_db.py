@@ -2,11 +2,12 @@ import sqlite3
 
 import pytest
 
-from safewatch.db import migrate
+from safewatch.db import MIGRATIONS, connect, migrate
 
 TABLES = {
     "sectors", "cameras", "videos", "jobs", "artifacts", "analyses", "episodes", "evidence",
     "broadcasts", "zones", "calibrations", "camera_rules", "events", "event_actions", "deliveries",
+    "delivery_queue", "dataset_items", "demo_packs",
 }  # fmt: skip
 AT = "2026-10-24T09:00:00.000Z"
 
@@ -21,7 +22,7 @@ def _world(conn: sqlite3.Connection) -> None:
 def test_migrate_creates_tables(conn: sqlite3.Connection) -> None:
     tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     assert tables == TABLES
-    assert conn.execute("PRAGMA user_version").fetchone()[0] == 1
+    assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
 
 
 def test_second_migrate_changes_nothing(conn: sqlite3.Connection) -> None:
@@ -83,3 +84,33 @@ def test_one_playing_broadcast_per_camera(conn: sqlite3.Connection) -> None:
 def test_connect_registers_casefold(conn: sqlite3.Connection) -> None:
     row = conn.execute("SELECT casefold('ПРЕСС Пресс'), casefold(NULL)").fetchone()
     assert tuple(row) == ("пресс пресс", None)
+
+
+def _columns(conn: sqlite3.Connection, table: str) -> set[str]:
+    return {row["name"] for row in conn.execute(f"PRAGMA table_info({table})")}
+
+
+def test_migrate_v5_tables_and_columns() -> None:
+    # A database of contract 1.0.0 with an event in it, as the first night left it.
+    old = connect(":memory:")
+    sql = (MIGRATIONS / "0001_init.sql").read_text(encoding="utf-8")
+    old.executescript(f"BEGIN;\n{sql}\nPRAGMA user_version = 1;\nCOMMIT;")
+    _world(old)
+    old.execute(
+        "INSERT INTO events (id, pub_key, camera_id, sector_id, scenario, title, reason_text,"
+        " level, status, started_at, published_at) VALUES"
+        " (1, 'demo:1', 1, 1, 'fall', 'T', 'R', 'red', 'new', ?, ?)",
+        (AT, AT),
+    )
+    assert migrate(old) == 1
+    assert old.execute("PRAGMA user_version").fetchone()[0] == 2
+    tables = {row[0] for row in old.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+    assert tables == TABLES
+    assert "web_path" in _columns(old, "videos")
+    assert "autocal_json" in _columns(old, "analyses")
+    assert "delivered_at" in _columns(old, "deliveries")
+    event = old.execute("SELECT title, person_name, person_position, crew FROM events").fetchone()
+    assert tuple(event) == ("T", "", "", "")
+    before = old.execute("SELECT sql FROM sqlite_master ORDER BY name").fetchall()
+    assert migrate(old) == 0
+    assert old.execute("SELECT sql FROM sqlite_master ORDER BY name").fetchall() == before
