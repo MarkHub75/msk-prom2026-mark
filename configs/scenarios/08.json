@@ -1,0 +1,10 @@
+{
+  "scenario_id": "08",
+  "prototype_unvalidated": true,
+  "cargo_policy_declared": false,
+  "policy_source": null,
+  "cargo_class": "cargo",
+  "forbidden_carry_zones": [],
+  "forbid_face_obstruction": false,
+  "min_evidence_score": 0.5
+}

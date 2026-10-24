@@ -1,0 +1,9 @@
+{
+  "scenario_id": "06",
+  "prototype_unvalidated": true,
+  "height_policy_declared": false,
+  "height_zone_source": null,
+  "elevated_work_zones": [],
+  "harness_class": "harness",
+  "min_evidence_score": 0.5
+}

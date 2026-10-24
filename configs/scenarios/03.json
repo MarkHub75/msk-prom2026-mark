@@ -1,0 +1,8 @@
+{
+  "scenario_id": "03",
+  "prototype_unvalidated": true,
+  "phone_class": "phone",
+  "min_evidence_score": 0.5,
+  "max_phone_wrist_body_fraction": 0.15,
+  "max_phone_head_body_fraction": 0.35
+}
