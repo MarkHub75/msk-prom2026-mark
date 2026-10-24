@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S21 в работе
+- state: tech v6, второй прогон: S21 в работе, блокер: диск C: заполнен (строка `владелец`)
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -16,9 +16,9 @@
 - long-lead: фронт Егора (`front/argus-main` и `front/final-*`) по `contract/openapi.json`; с S16 — контракт 1.1.0; заменить папку `frontend/` в `main` — решение владельца.
 - long-lead: ресёрч доп-сценариев `docs/research/EXTRA_SCENARIOS_<дата>.md`, нужен к S31; нет файла — S31 закрывается без кода.
 - long-lead: файлы моделей Матвея (`models/matvey/...`, архив из `docs/ML_HANDOFF_MATVEY.md` ветки `matvey_cv`) — для проверки S20 на `local`; без них записи реестра есть, `doctor` пишет «нет файла».
-- владелец: перед S21 запустить Docker Desktop (иначе `docker build` снова уйдёт в `долг`).
+- владелец: диск C: заполнен до 0 байт (24.10 ~21:27, сборка S21): освободить несколько ГБ на C: (крупное: `%LOCALAPPDATA%\Docker\wsl\disk\docker_data.vhdx` 17,9 ГБ, `%TEMP%` 5,7 ГБ, из них `pytest-of-user` 1,35 ГБ, кэш uv 2,65 ГБ, npm-cache 0,77 ГБ), затем перезапустить Docker Desktop (демон завис: `docker info` не отвечает 30 с). Без места pytest молча падает с кодом 1 (временные файлы и захват вывода в `%TEMP%`), гейт и Docker не работают.
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
-- долг: S15, docker build, демон Docker не запущен (`docker info`: нет `dockerDesktopLinuxEngine`); Dockerfile и compose не собирались ни разу.
+- долг: S21, docker build, сборка `docker compose up -d --build` прошла все шаги (фронт на node, `uv sync --locked --no-dev`) и упала на экспорте образа: `failed to create temp dir ... input/output error`, диск C: заполнен; health и `GET /api/demo/packs` из контейнера не проверены. Повтор после строки `владелец` про диск C:.
 - долг: R5, `JupyterShell` не закрывает kernel: каждый процесс (сервер, doctor, живой тест) оставляет один idle kernel на общем аккаунте, `_drop` закрывает его только при ошибке; нужен `close()` в `RemoteShell` из lifespan и doctor. Перенесено из R15: проверяется только вживую, живых прогонов в R15 нет (3.1); владелец: до правки гасить idle kernels в Jupyter вручную.
 - долг: R5, прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid). Перенесено из R15: проверяется только вживую; владелец: перед повтором живого прогона проверить процессы `video_worker.py` в терминале Jupyter.
 - долг: R5, `backend_check`: Jupyter отдал HTML через `JupyterError` → сейчас `unreachable`, по 6.2 — `bad_answer`. Перенесено из R15: не воспроизводится (R5: `ok`, 2 из 2 программ).
