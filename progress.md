@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S13 в работе
+- state: S13 закрыт, следующий S14
 - tech.md: v3
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -39,6 +39,12 @@
 - GAP: S12, CSV: `events_export_csv` проверяет фильтр целиком, но `limit` и `cursor` не применяет: до `journal.export_max_rows` строк в порядке журнала; заголовки `texts.CSV_COLUMNS`, строки `\r\n`; время в `timezone` как `YYYY-MM-DD HH:MM:SS`; сценарий — `title` события; уровень, статус, вердикт — русские названия (`texts.VERDICT_TITLES`); `texts.YES`/`texts.NO`; длительность с одной цифрой и запятой; sha256 — кадр `confirm`; история `<время> <роль>: <действие>[ (<комментарий>)]` через «; », роль — `texts.ROLE_TITLES` или «система», действие — `texts.ACTION_TITLES: dict[LogAction, str]`.
 - GAP: S12, `journal_facets`: сценарии — `texts.SCENARIO_TITLES`, уровни и статусы — все значения, секторы — `store.sectors()`, камеры — живые, зоны — живые зоны живых камер с названием `<камера> · <зона>`; `FacetItem.id = str(id)`.
 - GAP: S12, фронт: `FiltersBar.tsx` экспортирует тип `JournalFilter` (query `GET /api/events`); дата фильтра — день МСК (полночь +03:00), `date_to` не включается; «Показать ещё» дозагружает по `next_cursor`; «Экспорт CSV» — ссылка с query фильтра; строка открывает `/events/:id` (для `ohs` `allowed_actions` пуст — только чтение).
+- GAP: S13, `ohs_stats_view`: `date_to` по умолчанию `now`, `date_from` — `date_to − stats.default_days` дней, время без пояса — UTC; период `date_from ≤ started_at < date_to`; `date_from > date_to` (после умолчаний) → 422 `ValidationFailed(texts.PERIOD_INVALID, field="date_from")`, `weeks` вне 1..52 → то же с `field="weeks"`; `sector_id`/`camera_id` — через `store.journal_where`; `by_status`/`by_scenario`/`by_sector`/`by_camera` — `_count_rows` (по убыванию `count`); `by_day` — каждый день МСК периода с нулями; `by_hour` — 24 строки `key="00".."23"`, `title="08:00"`; `by_shift` — смены `shifts` по порядку с нулями (окно `_shift_window`).
+- GAP: S13, реакция: первое действие с `actor_role = operator` и `action ∈ OPERATOR_DECISIONS` (`viewed` не считается), `pending` — нетерминальные события без него; `master_accept_s` — от последней передачи до первого `master_accepted`, передача — `HANDOVERS = {sent_to_master, timeout_escalated}` (эскалация по таймауту тоже передаёт мастеру), `pending` — статус `sent_to_master`; `master_resolve_s` — от `master_accepted` до `resolved`, `pending` — статус `master_accepted`; ранг `x[ceil(round(p·n, 9)) − 1]` (округление гасит ошибку `0,95·n` в float).
+- GAP: S13, `management_view`: окно `weeks` — с понедельника МСК `weeks − 1` недель назад по текущую неделю; `top_sectors` — все секторы `store.sectors()` (демо-секторы скрыты при `include_demo=false`), `confirmed` по `operator_verdict` за последние `trend_weeks` недель включая текущую, `cameras` — живые камеры сектора, порядок: `per_camera` по убыванию, `None` в конце, затем `title`; `top_scenarios` — `_count_rows` за окно `weeks`; тренд: в тексте `round(|change_pct|)`, `0` → «без изменений», `previous = 0` → `change_pct = None`, текст `texts.TREND_NO_DATA` без оговорки.
+- GAP: S13, вне 6.x: `store.events_where(where)` (все события фильтра `journal_where`, по `started_at, id`); `services`: `OPERATOR_DECISIONS`, `HANDOVERS`, `_percentiles(values, pending)`, `_reactions(events)`, `_fixed_rows(pairs, keyed)`, `_add_levels(row, e)`, `_share(part, whole)`, `_trend(previous, recent, weeks)`; `texts`: `PERIOD_INVALID`, `TREND_CAVEAT`, `TREND_LESS`, `TREND_MORE`, `TREND_SAME`, `TREND_NO_DATA`, `weeks_span(n)` («4 недели к 4 неделям», «1 неделя к 1 неделе», «5 недель к 5 неделям»).
+- GAP: S13, фронт: `recharts@2.15.4` в `frontend/package.json`; графики фиксированного размера 640×240 без `ResponsiveContainer` (ему нужен `ResizeObserver`, в jsdom его нет); `BarChartCard({title, data: {name, value}[]})`, `StackedDaysCard({title, days})`, `LineChartCard({title, weeks})`, `PercentilesCard({title, value})`; фильтры сектора и камеры экрана статистики — из `/api/journal/facets`; `test_api_skeleton.py::test_unbuilt_route_returns_501` подменяет `services.management_view` заглушкой `NotImplementedError` (с S13 построены все маршруты).
+- R15: S13 — `App.test.tsx::stub_screens_show_slice` стал пустым циклом (заглушек в `nav.ts` больше нет); решить: удалить тест вместе со строками трассировки 6.7 или оставить как защиту от новой заглушки.
 
 ## log
 
@@ -160,6 +166,13 @@
 - проверено вживую: нет (S12 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_journal.py`: `world()` (2 сектора, 2 камеры, зона, 6 событий: бег, красное падение в зоне, ложный телефон, `superseded`, демо, «50% · a_b»), `page(client, **params)`, `found(client, **params)`; `tests/test_export.py::rows(body)` (CSV с BOM → строки); S13 может брать `store.journal_where` для фильтров статистики.
+
+### S13: stats (2026-10-24, PR #17, tech v3)
+- отклонения: правлены файлы вне списка слайса: `texts.py` (период, тексты тренда, `weeks_span`), `frontend/package.json` и `package-lock.json` (`recharts`), `tests/test_api_skeleton.py` (501 проверяется подменой фасада: незаконченных маршрутов не осталось); стили графиков не добавлены (`theme.css` вне списка, 8.14); тестов прав ролей нет: статистика только читает, роли по 6.2 не проверяются; тесты сверх списка: `test_stats_ohs.py::test_period_invalid`, `test_stats_management.py::test_weeks_validation` (критерий 6 и строка 9 «статистика»).
+- решения вне контракта: строки `GAP: S13`; мутаций нет (10.1); живых прогонов нет.
+- проверено вживую: нет (S13 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_stats_ohs.py`: `cameras()` (2 сектора, по камере), `act(event_id, seconds, role, action)` (действие через `seconds` после `AT`), `counts(rows)`, `stats(client, **params)`, `DAY`; `tests/test_stats_management.py::sector(name, cameras)`; `fake_clock` — суббота 2026-10-24, текущая неделя с 2026-10-19 МСК.
 
 ## night
 
