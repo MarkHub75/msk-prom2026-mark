@@ -161,6 +161,11 @@ OBJECT_LABELS = {
     "truck": "грузовик",
     "train": "поезд",
     "cell phone": "телефон",
+    "fire": "огонь",
+    "smoke": "дым",
+    "cigarette": "сигарета",
+    "no_harness": "без привязи",
+    "suspended_load": "подвешенный груз",
 }
 VIDEO_NOT_READY = "Анализ видео ещё не готов"
 TRACKS_WINDOW_INVALID = "Окно: from_ms меньше to_ms, не длиннее {max} мс"

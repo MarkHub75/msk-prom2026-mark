@@ -14,11 +14,13 @@ from test_rule_phone import ctx_with, worker
 from test_rule_running import zone
 
 from safewatch import registry, rules, services
+from safewatch.analysis.pipeline import analyze
 from safewatch.config import Settings
+from safewatch.fakes import scenes
 from safewatch.inference.linq import LinqBackend
 from safewatch.rules.harness import HarnessPlugin
 from safewatch.rules.suspended_load import SuspendedLoadPlugin
-from safewatch.types import ObjectState
+from safewatch.types import AnalysisConfig, Detection, ModelSpec, ObjectState
 
 DEFAULT = ["person", "car", "bus", "train", "truck", "cell phone"]
 ORDER = [
@@ -205,3 +207,27 @@ def test_worker_nc_argument(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, mak
     assert set(_worker_nc(monkeypatch, clip, out)) == {80}
     assert set(_worker_nc(monkeypatch, clip, out, "--task", "pose")) == {1}
     assert len(out.read_text(encoding="utf-8").splitlines()) == 3  # frames 0, 10, 20
+
+
+def test_extra_model_frames_reach_the_plugins(core: Settings) -> None:
+    """analyze(): classes of a pipeline.extra model become objects that fire_smoking sees."""
+    fire_model = ModelSpec.model_validate(FIRE_MODEL)
+    det = scenes.render("empty", 1000, 500, 10, 30, 1, "detect")
+    blaze = Detection(cls=0, name="", score=0.9, bbox_xyxy=(100.0, 100.0, 140.0, 140.0))
+    weak = blaze.model_copy(update={"score": 0.34})  # below class_conf.fire = 0.35
+    extra = [f.model_copy(update={"detections": [blaze]}) for f in det]
+    cfg = AnalysisConfig(
+        width=1000, height=500, fps=10, step=1, duration_ms=3000, calibration=None, zones=[],
+        rules={}, class_conf=core.class_conf, active_classes=[*DEFAULT, "fire", "smoke"],
+    )  # fmt: skip
+    detector = registry.resolve(core.pipeline.detector)
+    result = analyze(det, None, Path("unused.mp4"), cfg, None, detector, [(fire_model, extra)])
+    assert [(e.scenario, e.subject, e.level_initial) for e in result.episodes] == [
+        ("fire_smoking", "fire", "red")
+    ]
+    faint = [f.model_copy(update={"detections": [weak]}) for f in det]
+    quiet = analyze(det, None, Path("unused.mp4"), cfg, None, detector, [(fire_model, faint)])
+    assert quiet.episodes == []
+    missing = cfg.model_copy(update={"active_classes": DEFAULT})  # status model_missing
+    off = analyze(det, None, Path("unused.mp4"), missing, None, detector, [(fire_model, extra)])
+    assert off.episodes == []
