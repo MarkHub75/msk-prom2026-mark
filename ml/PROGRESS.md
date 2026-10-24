@@ -1,5 +1,14 @@
 # ML/CV quality sprint — progress
 
+## Diagnostic follow-up 2026-10-24T01:31:10.691342+00:00 — E006/E007 completed
+
+MEASURED saved-only E006: native→float primary TP/FP assignments unchanged, raw score arrays not bitwise equal (see pinned raw comparison; no inference rerun). Native→baselinePTQ retains19helmetTP and recovers4; bare retains19 and loses4, all4 have same-class savedoverlapIoU>=.5 below existing primary score.25. FP18→14 decomposes9corresponding retained/9sourcewithoutcounterpart/5newtarget. This does not authorize a newthreshold, prove isolatedPTQcausality, or qualify wearer/eventaccuracy. E006audit-v2 authoritative, provisional outputs retained. Agent9c501234 merged.
+
+MEASURED saved-only E007:345sourceIDs/geometry/hashes matched,768nativeXMLactorboxes reproduced,188decodedboxes/KPs in original384x288 bounds. Of46running actorframes30no decodedperson/.25 and16noIoU>=.5, zero lost atconsumer.5, ambiguity/anchor stage. Walking482:262no decoded/203IoUbelow/6scoregate/10usableanchor/1anchor-trackgap. Eleven out-of-image sourceboxes allwalking (6no decoded,5IoUbelow), preserved withoutclipping; cannot explain running failure. No storedpreNMS means subdecoder scores vsNMS/nonresponse UNKNOWN. Agentf5c92776 merged.
+
+OBSERVED no newREADY/weights/rules/thresholds/NN/GPU/LinQ/compile/training. Sharedconsumer ML_REQUIREMENTS.json updatedwithdevelopment-onlyfeedback; producerREADY/Dataworktree untouched. Both candidatebudgets stayclosed. Rootsummary/13graphdata rows/figure in ml/reports/night-followup-20261024.* and /workspace/artifacts/night-20261024/figures-followup. Software417PASS on integratedMLcodeb85d4f84d9c7ae2f7b32ca439bc0af831e9a72a7, log software-tests-followup-001.log; no qualityimprovement claim. Next is finaldocs/manifest checkpoint and stop, not a newcandidate.
+
+
 ## E008 2026-10-24T01:28:28.442597+00:00 — local release-evidence ledger
 
 MEASURED: immutable f99edc8d manifest review /workspace/artifacts/night-20261024/E008-release-evidence/f99edc8d-review.json, byte/component/selected/candidate/correlatedhistoricalcapture integrity PASS, 37checks,0newneural/remote calls. Reused ml.pipeline.capture_review, no alternate codec/client or hardware probe. Independentquality BLOCKED, newMatveyplacementNOT_VERIFIED, offVastbackupNOT_VERIFIED. A softwaretestcount or bareboolean cannot qualify independentquality/newplacement; unknown acceptanceformats require separate reviewed evidence, no automaticpromotion.

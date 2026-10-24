@@ -1,0 +1,112 @@
+{
+  "status": "SAVED_OUTPUT_ERROR_ATTRIBUTION_NOT_NEW_MODEL_QUALITY",
+  "source_artifacts_sha256": {
+    "E006-helmet-drift-audit/audit-v2/summary.json": "13ce588f30709bbb4532ffd3803a70056c29dfa6c475696b46bbee1e1f92ca45",
+    "E006-helmet-drift-audit/audit-v2/raw-comparison.json": "a37008b6e50ad084d6cbc9b2e012b0ba77aad0f2a073096622de3ddf38dd04d1",
+    "E007-caviar-observation-audit/report.json": "882ebaded933fda36e58641c87890e783a704bbccee162047cd4f6691acb0284",
+    "E008-release-evidence/f99edc8d-review.json": "45e2e2a94e7a6d905757bf814b03ca7de1602d44be42652e105175261574bc89"
+  },
+  "new_neural_calls": 0,
+  "new_remote_calls": 0,
+  "candidate_budget_reset": false,
+  "weights_or_thresholds_changed": false,
+  "helmet": {
+    "native_to_baseline_ptq": {
+      "helmet": {
+        "primary_complete_gt_transitions": {
+          "TP->TP": 19,
+          "FN->TP": 4,
+          "FN->FN": 2
+        },
+        "lost_tp_diagnostic_reasons": {}
+      },
+      "bare_head": {
+        "primary_complete_gt_transitions": {
+          "TP->TP": 19,
+          "FN->FN": 9,
+          "TP->FN": 4
+        },
+        "lost_tp_diagnostic_reasons": {
+          "SAVED_SAME_CLASS_OVERLAP_BELOW_PRIMARY_SCORE": 4
+        }
+      }
+    },
+    "fp_correspondence": {
+      "TARGET_FP_WITHOUT_SAME_CLASS_FP_COUNTERPART": 5,
+      "SOURCE_FP_WITHOUT_SAME_CLASS_FP_COUNTERPART": 9,
+      "RETAINED_FP_OVERLAP": 9
+    },
+    "raw": {
+      "images": 52,
+      "binding": "historical numeric filenames indexed by preserved same52 dataset/prediction order; no embedded native NPZ image identity",
+      "native_float_bitwise_equal_images": 0,
+      "native_float_max_abs_diff_by_channel": [
+        0.001190185546875,
+        0.00128173828125,
+        0.003326416015625,
+        0.003082275390625,
+        1.430511474609375e-06,
+        1.9371509552001953e-06
+      ],
+      "note": "Anchor-level numerical differences are not object error counts or causal PTQ attribution."
+    }
+  },
+  "caviar": {
+    "checks": {
+      "native_xml_actor_boxes_verified": 768,
+      "source_boxes_outside_image": 11,
+      "original_source_ids_and_geometry_verified": 345,
+      "decoded_boxes_verified": 188,
+      "decoded_boxes_outside_original_image": 0,
+      "decoded_keypoints_outside_original_image": 0
+    },
+    "totals": {
+      "walking:localization_below_ownership_iou": 203,
+      "walking:no_decoded_person": 262,
+      "walking:consumer_score_gate": 6,
+      "walking:consumer_unique_anchor_observed": 10,
+      "running:no_decoded_person": 30,
+      "running:localization_below_ownership_iou": 16,
+      "walking:pose_anchor_or_track_gap": 1
+    },
+    "limitations": [
+      "no pre-NMS/raw tensors: cannot separate low-score raw anchors, NMS suppression, or complete model non-response below decoded stage",
+      "no new native rerun and no thresholds changed",
+      "numerical integrity is not independent visual GT verification",
+      "nominal25FPS derived time is not native camera PTS",
+      "stage attribution is not new event accuracy or industrial quality"
+    ],
+    "existing_stages": {
+      "decoder_confidence": 0.25,
+      "consumer_person_score": 0.5,
+      "ownership_unique_bidirectional_iou": 0.5,
+      "ankle_confidence": 0.5
+    }
+  },
+  "scoped_outside_source_boxes": {
+    "walking:no_decoded_person": 6,
+    "walking:localization_below_ownership_iou": 5
+  },
+  "release_evidence": {
+    "integrity_status": "PASS",
+    "checks": 37,
+    "gates": {
+      "independent_quality": {
+        "status": "BLOCKED",
+        "reason": "NO_REVIEWED_INDEPENDENT_ACCEPTANCE_IN_CHECKPOINT_FORMAT",
+        "declared_final_test": "NOT_RUN_WAITING_FOR_DATA_ORCHESTRATOR"
+      },
+      "new_matvey_placement": {
+        "status": "NOT_VERIFIED",
+        "reason": "HISTORICAL_CAPTURE_DOES_NOT_ATTEST_NEW_NAMESPACE"
+      },
+      "external_backup": {
+        "status": "NOT_VERIFIED",
+        "scope": "manifest declaration only; no remote storage contacted"
+      }
+    },
+    "quality_release": "NOT_QUALIFIED",
+    "manifest_sha256": "ee22be65f5752a6a83ad1513b9b3211f8887ae8e8edcb642ce05a52634b71db4"
+  },
+  "independent_quality": "NOT_ESTABLISHED"
+}

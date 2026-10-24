@@ -1,0 +1,14 @@
+exp_id,scope,category,count
+E006,helmet,TP->TP,19
+E006,helmet,FN->TP,4
+E006,helmet,FN->FN,2
+E006,bare_head,TP->TP,19
+E006,bare_head,FN->FN,9
+E006,bare_head,TP->FN,4
+E007,walking,localization_below_ownership_iou,203
+E007,walking,no_decoded_person,262
+E007,walking,consumer_score_gate,6
+E007,walking,consumer_unique_anchor_observed,10
+E007,running,no_decoded_person,30
+E007,running,localization_below_ownership_iou,16
+E007,walking,pose_anchor_or_track_gap,1

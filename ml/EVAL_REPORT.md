@@ -1,5 +1,14 @@
 # Evaluation report — quality sprint checkpoint
 
+## Saved-output diagnostic follow-up (E006–E008)
+
+No new model experiments or quality gains. E006: all4native→PTQ lostbareGT have saved same-class overlapIoU>=.5 but scorebelow.25; helmet recovers4GT; totalFP18→14 comprises9retained/9withoutcounterpart/5new. Native/float match primaryGT/FP exactly, rawfloat arrays are not bitwiseequal. Conditioning vsPTQcausality remains UNKNOWN; no threshold advice from these developmental errors.
+
+E007 verifies originalframeIDs/384x288 geometry/nativeXMLconversion. Running46actorframes:30no decodedperson at existing.25stage,16IoU<.5,0consumer.5gate. Raising/loweringconsumerconfidence does not address the measured runningbottleneck on this saved sample. Elevenout-of-imageGTboxes arewalkingonly; they are retained, not silentlyclipped and not the explanation forrunning failure. RawpreNMS unavailable => causes belowdecoder UNKNOWN. No independentindustrialquality or originalPTS claim. Thresholds/weights/rules unchanged.
+
+E008 validates pinned localbytes/components/historicalcorrelatedcaptures, but independentquality remainsBLOCKED and Matveyplacement/offVastbackupNOT_VERIFIED. This ledger cannot turn testcounts/booleans into modelaccuracy or independenthardwareattestation. Software417PASS; details/sourcehashes in ml/reports/night-followup-20261024.json. No candidatebudget reset.
+
+
 ## Night results — 24 October 2026 (supersedes historical readiness below)
 
 No model was promoted. MEASURED native/float and SIMULATED vendor PTQ are separate. All object metrics below use SAME52development images,44complete/class; helmet25GT, bare_head32GT. Confirmed upstream-photo overlap and AI-only review prevent independent accuracy claims. AP is the documented custom101-point evaluator, not an asserted exact COCO implementation.
