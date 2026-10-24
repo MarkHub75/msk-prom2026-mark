@@ -224,3 +224,48 @@ metrics. CPU reference runs took112.63s baseline,110.79s candidate and4.68s floa
 control. No native rerun, GPU, training, new data, remote staging or actual LinQ
 execution occurred. Night Helmet hypothesis1 failed; a separate training
 hypothesis remains blocked without producer-approved READY training data.
+
+### Night E005: final Helmet output-boundary hypothesis
+
+`ml.detection.split_detect.export_split_detect` verifies the parent export hash
+and extracts the two existing tensors before the final channel Concat:
+`/model.22/Mul_2_output_0` boxes[1,4,8400] and
+`/model.22/Sigmoid_output_0` class probabilities[1,2,8400]. The
+`split_detect_v8` host decoder concatenates them and calls the original decoder,
+with no sigmoid or neural decode on CPU and one unchanged class-aware NMS.
+The native adapter can expose the same logical ABI by slicing existing output;
+no new native inference was performed for this experiment.
+
+This is a hypothesis about compiler/output-boundary quantization sensitivity,
+not an established cause. The original Helmet output already has per-channel
+scales separating coordinate and class channels; it does NOT share one global
+coordinate/confidence scale. E005 changes output ABI only versus E001 Mendeley8:
+same trained weights, parent ONNX, input codec, calibration corpus, O1/H1M and
+operating thresholds. Acceptance remains against the best current PTQ baseline,
+not merely versus the previously rejected data8 candidate.
+
+Before compilation, `ml.quality.helmet.split_control.verify` compared all52
+split float outputs restored by host concatenation to the preserved original
+Float ONNX raw tensors: ALL were bitwise identical; the full decoded metrics
+were identical. Split graph SHA is
+`e802cef32d4fc3398128b770ddc29d0ded6888a2e6a58a921e20202d306ee33a`;
+parent SHA remains `b312701494991ff7ecc82cb86cc71a8a145a871f6ff342908bb5137e1e8caa47`.
+Evidence lives under `/workspace/artifacts/night-20261024/E005/`.
+
+E005 result: REJECTED. The one split candidate compiled in59.62s; the52-image
+CPU simulation completed in114.26s. Macro F1 was.327777778, versus best current
+PTQ.741682360 (delta-.413904583) and same-data8 E001.735185185
+(delta-.407407407). Helmet counts were12TP/3FP/13FN (recall.48); bare-head counts
+were1TP/3FP/31FN (recall.03125). No thresholds or scaling were adjusted to recover
+the result. Both new night Helmet hypotheses failed; preserve and freeze the
+existing baseline and all failed candidate artifacts. No further Helmet
+hypothesis or actual LinQ submission was performed.
+
+CPU graph audit confirms the only removed node is `/model.22/Concat_3`; there are
+no added nodes, retained nodes and ALL initializers are byte-identical. Emitted
+scale metadata changed: E001 data8 combined output uses shape[1,6,1], whereas
+split class output uses shape[1,1,8400] (anchor-dependent) and split boxes scale1.
+This is OBSERVED metadata, not proof of a causal mechanism or authority to alter
+the runtime codec. The original input scale remains127. Evidence:
+`E005/summary.json`, `graph-scale-audit.json`, `anchor-audit.json`, float-parity raw
+outputs and complete split simulation outputs. Hardware quality remains UNKNOWN.
