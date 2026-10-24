@@ -227,6 +227,39 @@
       "title": "CameraState",
       "type": "object"
     },
+    "Clip": {
+      "properties": {
+        "end_ms": {
+          "title": "End Ms",
+          "type": "integer"
+        },
+        "playable": {
+          "title": "Playable",
+          "type": "boolean"
+        },
+        "start_ms": {
+          "title": "Start Ms",
+          "type": "integer"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "video_id": {
+          "title": "Video Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "video_id",
+        "url",
+        "start_ms",
+        "end_ms",
+        "playable"
+      ],
+      "title": "Clip",
+      "type": "object"
+    },
     "EventSummary": {
       "properties": {
         "camera_id": {
@@ -235,6 +268,22 @@
         },
         "camera_name": {
           "title": "Camera Name",
+          "type": "string"
+        },
+        "clip": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Clip"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "crew": {
+          "default": "",
+          "title": "Crew",
           "type": "string"
         },
         "duration_s": {
@@ -304,6 +353,16 @@
             "false_alarm"
           ],
           "title": "Operator Verdict",
+          "type": "string"
+        },
+        "person_name": {
+          "default": "",
+          "title": "Person Name",
+          "type": "string"
+        },
+        "person_position": {
+          "default": "",
+          "title": "Person Position",
           "type": "string"
         },
         "priority": {
@@ -636,6 +695,18 @@
           ],
           "title": "Error Text"
         },
+        "eta_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Eta S"
+        },
         "fake": {
           "title": "Fake",
           "type": "boolean"
@@ -687,6 +758,18 @@
           "title": "Progress",
           "type": "number"
         },
+        "rate_fps": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Fps"
+        },
         "stage": {
           "enum": [
             "queued",
@@ -720,6 +803,11 @@
             "failed"
           ],
           "title": "Status",
+          "type": "string"
+        },
+        "status_text": {
+          "default": "",
+          "title": "Status Text",
           "type": "string"
         },
         "video_id": {
