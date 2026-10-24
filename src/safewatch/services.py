@@ -2598,7 +2598,14 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     pose = None
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
-        pose = (pose_model, await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video))
+        try:
+            pose_id = await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video)
+            pose = (pose_model, pose_id)
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output"):
+                raise
+            # Like a job (tech.md 8.1 item 5): the analysis goes on without keypoints.
+            log.warning("eval: %s, pose: %s", path.name, exc.message)
     cfg = _analysis_config(video, camera_id, extra)
     data = settings.data_dir
     det_path = data / store.artifact_path(det_id)
