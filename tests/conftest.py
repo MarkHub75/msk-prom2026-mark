@@ -13,7 +13,7 @@ import httpx
 import numpy as np
 import pytest
 
-from safewatch import clock, config, store, worker
+from safewatch import clock, config, services, store, worker
 from safewatch.config import ENV_KEYS, ENV_NAMES, Settings, get_settings
 from safewatch.db import connect, migrate
 from safewatch.hub import hub
@@ -74,6 +74,7 @@ def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     monkeypatch.setattr(store, "_conn", db)
     monkeypatch.setattr(store, "_depth", 0)
     monkeypatch.setattr(hub, "clients", set())
+    monkeypatch.setattr(services, "_backend", None)
     yield db
     db.close()
 

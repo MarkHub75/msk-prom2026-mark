@@ -13,7 +13,7 @@ from pydantic import TypeAdapter
 
 from safewatch import config, doctor, services
 from safewatch.config import ROOT
-from safewatch.errors import NotFound
+from safewatch.errors import NotFound, TooLarge, UnsupportedVideo
 from safewatch.types import WsMessage
 
 CONTRACT_DIR = ROOT / "contract"
@@ -112,6 +112,19 @@ def seed(videos: Path | None) -> int:
     return 0
 
 
+def import_video(path: Path, camera_id: int) -> int:
+    try:
+        result = services.video_import(camera_id, path)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except (TooLarge, UnsupportedVideo) as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    print(result.model_dump_json())
+    return 0
+
+
 def contract_texts() -> dict[str, str]:
     from safewatch.api import create_app
 
@@ -155,6 +168,9 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("seed", help="create the demo world")
     p.add_argument("--videos", type=Path)
     sub.add_parser("doctor", help="check keys, models, LinQ tools and the database")
+    p = sub.add_parser("import", help="add a video file to a camera and queue its processing")
+    p.add_argument("file", type=Path)
+    p.add_argument("--camera", type=int, required=True)
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -164,6 +180,8 @@ def main(argv: list[str] | None = None) -> int:
         return stop()
     if args.command == "seed":
         return seed(args.videos)
+    if args.command == "import":
+        return import_video(args.file, args.camera)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)

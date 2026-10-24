@@ -4,14 +4,32 @@ Functions of slices that are not built yet raise `NotImplementedError("slice N")
 answers them with 501 `not_implemented`.
 """
 
+import asyncio
+import hashlib
+import json
+import logging
+import math
+import shutil
 import sqlite3
+import uuid
 from collections.abc import AsyncIterator
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import get_args
 
-from safewatch import clock, config, seed, store, texts
-from safewatch.errors import Conflict, Forbidden, NotFound, RoleRequired, ValidationFailed
+from safewatch import clock, config, media, registry, seed, store, texts
+from safewatch.errors import (
+    Conflict,
+    Forbidden,
+    InferenceError,
+    NotFound,
+    RoleRequired,
+    TooLarge,
+    UnsupportedVideo,
+    ValidationFailed,
+)
+from safewatch.hub import hub
+from safewatch.inference import artifacts, make_backend
 from safewatch.texts import VIDEOS_DIR_MISSING
 from safewatch.types import (
     ActionIn,
@@ -38,7 +56,11 @@ from safewatch.types import (
     EventSummary,
     Health,
     HumanAction,
+    InferenceBackend,
+    InferenceMetrics,
     Job,
+    JobErrorCode,
+    JobStage,
     JobStatus,
     JournalFacets,
     Level,
@@ -46,6 +68,7 @@ from safewatch.types import (
     ManagementStats,
     MasterInbox,
     Meta,
+    ModelSpec,
     ModelsView,
     OhsStats,
     OperatorDashboard,
@@ -68,7 +91,11 @@ from safewatch.types import (
     ZonePatch,
 )
 
+log = logging.getLogger(__name__)
+
 ACTOR_MAX = 60
+ERROR_TEXT_MAX = 500  # jobs.error_text, tech.md 5.1
+RETRYABLE: frozenset[JobErrorCode] = frozenset({"linq_unavailable", "timeout", "remote_error"})
 NAME_MAX = 80
 DESCRIPTION_MAX = 300
 
@@ -84,6 +111,9 @@ TERMINAL_STATUSES: frozenset[EventStatus] = frozenset(
     {"false_alarm", "resolved", "auto_finished", "superseded"}
 )  # tech.md 8.6
 LEVEL_COLORS: dict[Level, str] = {"yellow": "#FFC400", "red": "#FF3B30"}  # theme of tech.md 8.14
+
+# Lazy: made from the settings on the first job; the `conn` fixture resets it.
+_backend: InferenceBackend | None = None
 
 
 def health() -> Health:
@@ -278,42 +308,312 @@ def camera_delete(camera_id: int, role: Role | None) -> None:
         store.camera_delete(camera_id, clock.iso(clock.now()))
 
 
+def _extension(filename: str) -> str:
+    extensions = config.get_settings().upload.extensions
+    ext = Path(filename).suffix.lower()
+    if ext not in extensions:
+        raise UnsupportedVideo(texts.VIDEO_EXTENSION.format(extensions=", ".join(extensions)))
+    return ext
+
+
+def _too_large() -> TooLarge:
+    return TooLarge(texts.VIDEO_TOO_LARGE.format(mb=config.get_settings().upload.max_mb))
+
+
+def _enqueue(video_id: int) -> int:
+    settings = config.get_settings()
+    values = {
+        "kind": "process",
+        "video_id": video_id,
+        "backend": settings.inference_backend,
+        "fake": int(settings.fake),
+        "status": "queued",
+        "stage": "queued",
+        "created_at": clock.iso(clock.now()),
+    }
+    return store.insert("jobs", values)
+
+
+def _register(
+    camera_id: int, filename: str, sha256: str, size: int, probe: media.VideoProbe
+) -> UploadResult:
+    """Steps 5 and 6 of tech.md 8.1: the file already sits in `uploads/<sha256><ext>`."""
+    new_job = False
+    with store.tx():
+        row = store.video_by_sha(camera_id, sha256)
+        if row is None:
+            values = {
+                "camera_id": camera_id,
+                "filename": filename,
+                "sha256": sha256,
+                "path": f"uploads/{sha256}{Path(filename).suffix.lower()}",
+                "size_bytes": size,
+                **probe.model_dump(),
+                "browser_playable": int(probe.browser_playable),
+                "status": "uploaded",
+                "created_at": clock.iso(clock.now()),
+            }
+            video_id = store.insert("videos", values)
+            job_id: int | None = _enqueue(video_id)
+            new_job, reused = True, False
+        else:
+            video_id, reused = row["id"], True
+            if row["status"] == "ready":
+                job_id = None
+            elif row["status"] == "failed":
+                job_id = _enqueue(video_id)
+                store.video_update(video_id, {"status": "uploaded"})
+                new_job = True
+            else:
+                last = store.video_last_job(video_id)
+                job_id = None if last is None else last["id"]
+    job = None if job_id is None else job_get(job_id)
+    if new_job and job is not None:
+        hub.publish("job.progress", job)
+    return UploadResult(video=video_get(video_id), job=job, reused=reused)
+
+
 async def video_upload(
     camera_id: int, filename: str, chunks: AsyncIterator[bytes], role: Role | None
 ) -> UploadResult:
-    raise NotImplementedError("slice 2")
+    _require(role, ("admin",))
+    camera_get(camera_id)
+    ext = _extension(filename)
+    settings = config.get_settings()
+    uploads = settings.data_dir / "uploads"
+    uploads.mkdir(parents=True, exist_ok=True)
+    tmp = uploads / f".tmp-{uuid.uuid4().hex}"
+    limit = settings.upload.max_mb * 2**20
+    digest, size = hashlib.sha256(), 0
+    try:
+        with tmp.open("wb") as f:
+            async for chunk in chunks:
+                size += len(chunk)
+                if size > limit:
+                    raise _too_large()
+                digest.update(chunk)
+                f.write(chunk)
+        probe = await asyncio.to_thread(media.probe_video, tmp)
+        if probe is None:
+            raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
+        sha256 = digest.hexdigest()
+        target = uploads / f"{sha256}{ext}"
+        if not target.exists():
+            tmp.replace(target)
+    finally:
+        tmp.unlink(missing_ok=True)
+    return _register(camera_id, filename, sha256, size, probe)
 
 
 def video_import(camera_id: int, path: Path) -> UploadResult:
-    raise NotImplementedError("slice 2")
+    if not path.is_file():
+        raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
+    camera_get(camera_id)
+    ext = _extension(path.name)
+    settings = config.get_settings()
+    size = path.stat().st_size
+    if size > settings.upload.max_mb * 2**20:
+        raise _too_large()
+    probe = media.probe_video(path)
+    if probe is None:
+        raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
+    digest = hashlib.sha256()
+    with path.open("rb") as f:
+        while chunk := f.read(1 << 20):
+            digest.update(chunk)
+    sha256 = digest.hexdigest()
+    target = settings.data_dir / "uploads" / f"{sha256}{ext}"
+    if not target.exists():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, target)
+    return _register(camera_id, path.name, sha256, size, probe)
 
 
 def videos_list(camera_id: int) -> list[Video]:
-    raise NotImplementedError("slice 2")
+    camera_get(camera_id)
+    return [Video.model_validate(dict(row)) for row in store.videos(camera_id)]
+
+
+def _video_row(video_id: int) -> sqlite3.Row:
+    row = store.video(video_id)
+    if row is None:
+        raise NotFound(texts.VIDEO_NOT_FOUND, video_id=video_id)
+    return row
 
 
 def video_get(video_id: int) -> Video:
-    raise NotImplementedError("slice 2")
+    return Video.model_validate(dict(_video_row(video_id)))
 
 
 def video_file(video_id: int) -> Path:
-    raise NotImplementedError("slice 2")
+    path: Path = config.get_settings().data_dir / _video_row(video_id)["path"]
+    if not path.is_file():
+        raise NotFound(texts.VIDEO_NOT_FOUND, video_id=video_id)
+    return path
+
+
+def _job(row: sqlite3.Row) -> Job:
+    metrics = []
+    for prefix in ("det", "pose"):
+        if row[f"{prefix}_metrics"]:
+            # The artifact came from an earlier run: this attempt did not call the backend.
+            cached = row["started_at"] is not None and row[f"{prefix}_created"] < row["started_at"]
+            data = json.loads(row[f"{prefix}_metrics"])
+            metrics.append(InferenceMetrics(**data, cached=cached))
+    return Job.model_validate({**dict(row), "metrics": metrics})
 
 
 def jobs_list(status: JobStatus | None = None, limit: int = 50) -> list[Job]:
-    raise NotImplementedError("slice 2")
+    list_max = config.get_settings().jobs.list_max
+    if not 1 <= limit <= list_max:
+        raise ValidationFailed(texts.LIMIT_INVALID.format(max=list_max), field="limit")
+    return [_job(row) for row in store.jobs(status, limit)]
 
 
 def job_get(job_id: int) -> Job:
-    raise NotImplementedError("slice 2")
+    row = store.job(job_id)
+    if row is None:
+        raise NotFound(texts.JOB_NOT_FOUND, job_id=job_id)
+    return _job(row)
+
+
+def analysis_step(fps: float) -> int:
+    """Every `step`-th frame goes to the models (tech.md 8.1)."""
+    return max(1, math.floor(fps / config.get_settings().pipeline.target_analysis_fps))
+
+
+def _backend_instance() -> InferenceBackend:
+    global _backend
+    if _backend is None:
+        _backend = make_backend(config.get_settings())
+    return _backend
+
+
+def _publish_job(job_id: int) -> None:
+    hub.publish("job.progress", job_get(job_id))
+
+
+def _progress(job_id: int, value: float) -> None:
+    store.job_progress(job_id, value)
+    _publish_job(job_id)
+
+
+async def _infer(
+    job_id: int, stage: JobStage, span: tuple[float, float], model: ModelSpec, video: sqlite3.Row
+) -> int:
+    """Artifact id of `model` on the video: from the cache or from a backend run."""
+    settings = config.get_settings()
+    backend = _backend_instance()
+    store.job_update(job_id, {"stage": stage})
+    _progress(job_id, span[0])
+    step = analysis_step(video["fps"])
+    key = artifacts.cache_key(video["sha256"], model, step, backend.name, settings.fake)
+    rel = f"artifacts/{key}.jsonl"
+    existing = store.artifact(key)
+    if existing is not None and (settings.data_dir / existing["path"]).is_file():
+        return int(existing["id"])
+    out = settings.data_dir / rel
+    out.parent.mkdir(parents=True, exist_ok=True)
+    loop = asyncio.get_running_loop()
+    low, high = span
+
+    def progress(share: float) -> None:  # backend thread: the database belongs to the loop
+        loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share)
+
+    path = settings.data_dir / video["path"]
+    metrics = await asyncio.to_thread(
+        backend.run, path, video["sha256"], model, step, out, progress
+    )
+    values = {
+        "cache_key": key,
+        "video_sha256": video["sha256"],
+        "model_id": model.id,
+        "model_version": model.version,
+        "task": model.task,
+        "input_size": model.input_size,
+        "step": step,
+        "backend": backend.name,
+        "fake": int(settings.fake),
+        "path": rel,
+        "frames": metrics.frames_processed,
+        "metrics_json": metrics.model_dump_json(exclude={"cached"}),
+        "created_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        if existing is not None:  # the row outlived its file: run again, keep the id
+            store.artifact_update(existing["id"], values)
+            return int(existing["id"])
+        return store.insert("artifacts", values)
+
+
+def _job_failed(job_id: int, video_id: int, attempts: int, code: JobErrorCode, text: str) -> None:
+    settings = config.get_settings()
+    now = clock.now()
+    values: dict[str, object] = {"error_code": code, "error_text": text[:ERROR_TEXT_MAX]}
+    if code in RETRYABLE and attempts < settings.jobs.max_attempts:
+        backoff = settings.jobs.retry_backoff_s
+        wait = backoff[min(attempts - 1, len(backoff) - 1)]
+        values |= {
+            "status": "retry_wait",
+            "next_attempt_at": clock.iso(now + timedelta(seconds=wait)),
+        }
+        store.job_update(job_id, values)
+    else:
+        store.job_update(job_id, values | {"status": "failed", "finished_at": clock.iso(now)})
+        store.video_update(video_id, {"status": "failed"})
 
 
 async def run_next_job() -> Job | None:
-    raise NotImplementedError("slice 2")
+    settings = config.get_settings()
+    now = clock.now()
+    with store.tx():
+        row = store.next_job(clock.iso(now))
+        if row is None:
+            return None
+        job_id, video_id, attempts = row["id"], row["video_id"], row["attempts"] + 1
+        start = {"status": "running", "attempts": attempts, "started_at": clock.iso(now)}
+        store.job_update(job_id, start | {"next_attempt_at": None, "error_code": None})
+        store.video_update(video_id, {"status": "processing"})
+    video = _video_row(video_id)
+    pose_text = None
+    try:
+        detector = registry.resolve(settings.pipeline.detector)
+        det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
+        store.job_update(job_id, {"det_artifact_id": det_id})
+        try:
+            if settings.pipeline.pose is not None:
+                pose = registry.resolve(settings.pipeline.pose)
+                pose_id = await _infer(job_id, "inference_pose", (0.45, 0.85), pose, video)
+                store.job_update(job_id, {"pose_artifact_id": pose_id})
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output"):
+                raise
+            pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
+    except InferenceError as exc:
+        log.warning("linq: %s %s", exc.code, exc.message)
+        _job_failed(job_id, video_id, attempts, exc.code, exc.message)
+    except Exception as exc:
+        log.exception("job %s failed", job_id)
+        _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
+    else:
+        # Slice 4 adds the analysis and evidence stages; until then pose ends the job.
+        done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
+        store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
+        store.video_update(video_id, {"status": "ready"})
+    _publish_job(job_id)
+    return job_get(job_id)
 
 
 def camera_setup_view(camera_id: int) -> CameraSetupView:
-    raise NotImplementedError("slice 2")
+    return CameraSetupView(
+        camera=camera_get(camera_id),
+        videos=videos_list(camera_id),
+        jobs=[_job(row) for row in store.camera_jobs(camera_id)],
+        calibration=None,  # slice 9
+        zones=[],  # slice 9
+        rules=[],  # slice 9
+        broadcast=None,  # slice 6
+    )
 
 
 def job_retry(job_id: int, role: Role | None) -> Job:
