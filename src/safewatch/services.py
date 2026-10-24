@@ -1532,7 +1532,9 @@ def _provenance(episode: Episode) -> Provenance:
     assert det is not None and video is not None
     # The rule ran with config defaults and the camera overrides of the snapshot (tech.md 8.3).
     rule = AnalysisConfig.model_validate_json(analysis["config_json"]).rules.get(episode.scenario)
-    params = rules.defaults(episode.scenario) | (rule.effective if rule is not None else {})
+    params = rules.defaults(episode.scenario) | (
+        rule.effective | rule.params if rule is not None else {}
+    )
     shot = next((e.sha256 for e in episode.evidence if e.kind == "confirm"), None)
     return Provenance(
         backend=det["backend"],
