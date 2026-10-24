@@ -1,5 +1,13 @@
 # ML/CV quality sprint — progress
 
+## E012 closed / timebase correction — 2026-10-24T11:42:36.623286+00:00
+
+MEASURED all345/1380CPUforwards complete173.06s(CPU2/CV1, CUDAunavailable, noTrainingGPUused); fixed4cornertile hypothesis FAIL. Running0/46→0/46 gain0<.10; walking11/482→27/482 aggregateguardPASS but perGT10retained/1lost/17new;11out-of-imagewalkingGTremainsunmatched. Unknownsourceactorframes240notnegative, unassignedpersons34UNKNOWNnotFP. No fullprecision/eventgait/industrialqualityclaim. CandidateNOTPROMOTED, nosecondvariant. ArtifactsE012-person-roi-v1(protocol265d81b9...,comparison/closeout/20rawRGBNPZ/allinputSHA/transforms/proposals), agentcd7160b3 merged. Newneuralcalls thiscoveragecycle=1380CPU, newLinQcalls0, training0, noGPU.
+
+OBSERVED exactPTSdefect: Data-approved6_tr15 firstencoded39.028ms vsOpenCVrelative0. Newoptinfileclock usesffprobe encodedbest_effortPTS byoriginalindex, bindsclockbasis insessionfingerprint; VideoEvidenceFrames sameclock andsourceSHA. Oldnonoptinworker behaviorunchanged. Threeclocktests;468softwaretestsPASS BEFOREROImerge/lastsemanticfix, logssoftware-tests-003.log. Finaltestsrepeatjustifiedafterremainingownedchanges.
+
+Reviewcaught06presencevsUSE mismatch: presentharnessalone cannotestablishinuse/attachment; Detectionappliesexplicitcurrent harness_usage orUNKNOWN, absence staysobservablePOS onlywhenvisible. Thisisrequiredcase-semanticsfix, nottuning. SourceJSONoriginalTrainingreqpreserved; rootaddendum/requestsnapshotwillstateusage/attachmentobservability. Nextfinaldoc/matrix/ranking/acceptancecommit, thenstop.
+
 ## Coverage pass2 and provisional ranking — 2026-10-24T11:35:56.387477+00:00
 
 OBSERVED boundedData-approvedscreen:16Mendeleyvideos/84uniqueoriginalframes, no confirmedpositive/negativeepisodeGT.02hasthreeforklift/workarea reviewcontexts(3_tr45,7_te4,7_tr15);04hazeambiguous;03/05/06/08notestablished. Sparseframes/filenames notconvertedtoGT. Artifactvideo-screen-v1/report.json; docs/SCENARIO_VIDEO_SCREEN.md.

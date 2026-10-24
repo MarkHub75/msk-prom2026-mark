@@ -84,6 +84,10 @@ def _run_video(args, pipeline, stack):
     epoch, frame_id, last_sample = str(uuid4()), -1, -float('inf')
     live = args.live
     fps = cap.get(cv2.CAP_PROP_FPS)
+    scenario_clock=None
+    if not live and args.backend!='linq' and getattr(pipeline,'scenario_suite',None) is not None:
+        from ml.pipeline.video_clock import FilePTS
+        scenario_clock=FilePTS(args.source)
     if not live and (not np.isfinite(fps) or fps <= 0):
         raise ValueError('file video has no valid FPS/timebase')
     if args.backend=='linq' and not live:
@@ -106,7 +110,7 @@ def _run_video(args, pipeline, stack):
                 if not ok:
                     break
                 frame_id += 1
-                media_ms = cap.get(cv2.CAP_PROP_POS_MSEC)
+                media_ms = scenario_clock.at(frame_id) if scenario_clock is not None else cap.get(cv2.CAP_PROP_POS_MSEC)
             # File PTS must advance; reject broken timestamps rather than fabricate transition timing.
             if not live and frame_id and media_ms <= previous_pts:
                 raise ValueError('video timestamps do not advance')

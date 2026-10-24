@@ -33,7 +33,9 @@ def _session(args,pipeline,manifests,fps):
           'start_ms':args.start_ms,'end_ms':args.end_ms,
           'rules':pipeline.behavior.config,'manifests':manifests}
     source_kind=getattr(args,'source_kind','real-video')
-    if getattr(pipeline,'scenario_suite',None) is not None:spec['scenario_suite_sha256']=pipeline.scenario_suite.fingerprint
+    if getattr(pipeline,'scenario_suite',None) is not None:
+        spec['scenario_suite_sha256']=pipeline.scenario_suite.fingerprint
+        spec['scenario_timestamp_basis']='encoded_best_effort_presentation_time'
     if source_kind!='real-video':spec['source_kind']=source_kind
     fingerprint=hashlib.sha256(json.dumps(spec,sort_keys=True,allow_nan=False).encode()).hexdigest()
     path=root/'video-session.json'
@@ -96,12 +98,16 @@ def _process(args,pipeline,cap,manifests,backends,session,checkpoint,root):
     last_sample=checkpoint['media_time_ms'] if checkpoint else -math.inf
     frame_id=-1;previous_pts=-math.inf;processed=0;failures=0;last_batch=None;cycles=[]
     complete=False;status='PAUSED';pending=None
+    clock=None
+    if getattr(pipeline,'scenario_suite',None) is not None:
+        from ml.pipeline.video_clock import FilePTS
+        clock=FilePTS(args.source)
     try:
         while not args.max_frames or processed<args.max_frames:
             ok,bgr=cap.read()
             if not ok:
                 complete=True;status='COMPLETED';break
-            frame_id+=1;pts=float(cap.get(cv2.CAP_PROP_POS_MSEC))
+            frame_id+=1;pts=clock.at(frame_id) if clock is not None else float(cap.get(cv2.CAP_PROP_POS_MSEC))
             if not math.isfinite(pts) or pts<0 or pts<=previous_pts:
                 raise ValueError('file PTS is invalid or does not advance')
             previous_pts=pts

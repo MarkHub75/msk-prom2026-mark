@@ -43,7 +43,9 @@ def build_case(scenario_id,variant='positive'):
         if scenario_id=='04':
             obj('flame','fixture-fire',[75,38,86,49]);fact('open_flame_observed',yes,'fixture-fire');fact('flame_not_steam_or_reflection',True,'fixture-fire')
         if scenario_id=='05':fact('fence_climb',{'climbing':yes,'barrier_id':'SYNTHETIC-FENCE','height_or_pose_evidence':True})
-        if scenario_id=='06':fact('working_observed',True);fact('harness_area_visible',True);fact('harness_state','absent' if yes else 'present')
+        if scenario_id=='06':
+            fact('working_observed',True);fact('harness_area_visible',True);fact('harness_state','absent' if yes else 'present')
+            if variant=='negative':fact('harness_usage','in_use')
         if scenario_id=='08':obj('cargo','fixture-load',[90,65,125,120]);fact('carrying_observed',yes);fact('carried_object_key','fixture-load')
         if variant=='unknown':batch['scenario_context']['facts']=[]
         result.append(batch)

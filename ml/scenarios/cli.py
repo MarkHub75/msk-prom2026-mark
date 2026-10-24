@@ -18,13 +18,15 @@ class VideoEvidenceFrames:
     def __init__(self,path):
         import cv2
         from ml.pipeline.file_video import file_hash
+        from ml.pipeline.video_clock import FilePTS
+        self.clock=FilePTS(path)
         self.cv2=cv2;self.sha256=file_hash(path);self.cap=cv2.VideoCapture(str(path))
         if not self.cap.isOpened():raise ValueError('evidence source unavailable')
 
     def __call__(self,batch):
         if batch.get('source_sha256')!=self.sha256:raise ValueError('original video source hash required for evidence')
         cv2=self.cv2;self.cap.set(cv2.CAP_PROP_POS_FRAMES,batch['frame_id']);ok,bgr=self.cap.read()
-        if not ok or abs(self.cap.get(cv2.CAP_PROP_POS_MSEC)-batch['media_time_ms'])>2:
+        if not ok or abs(self.clock.at(batch['frame_id'])-batch['media_time_ms'])>2:
             raise ValueError('evidence frame/PTS differs from analyzed frame')
         if [bgr.shape[1],bgr.shape[0]]!=list(batch['image_size']):raise ValueError('evidence original geometry differs')
         return cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB)
