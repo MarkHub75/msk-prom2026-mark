@@ -1,10 +1,10 @@
 # progress.md
 
-- state: tech v7, второй прогон: S27 закрыт, следующий S28
+- state: tech v7, второй прогон: S28 закрыт, следующий S29
 - tech.md: v7
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
-- updated: 2026-10-24
+- updated: 2026-10-25
 
 ## open
 
@@ -19,9 +19,6 @@
 - владелец: освободить место на C: (Docker Desktop → Troubleshoot → Clean/Purge data или перенести disk image на D:), перезапустить Docker Desktop, затем docker compose up -d --build. На C: ~1,1 ГБ, `docker_data.vhdx` 19,2 ГБ; временные файлы ночи на D: (`TEMP=D:\night-tmp`).
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
 - долг: S21, docker build, сборка дошла до экспорта образа за 82 с и упала: на C: нет места (input/output error)
-- долг: R5, `JupyterShell` не закрывает kernel: каждый процесс (сервер, doctor, живой тест) оставляет один idle kernel на общем аккаунте, `_drop` закрывает его только при ошибке; нужен `close()` в `RemoteShell` из lifespan и doctor. Перенесено из R15: проверяется только вживую, живых прогонов в R15 нет (3.1); владелец: до правки гасить idle kernels в Jupyter вручную.
-- долг: R5, прогон, прерванный остановкой сервера, оставляет удалённый `video_worker.py` живым; повтор с тем же `<out>` запустит второй воркер в тот же файл (`# sw:start` не гасит старый pid). Перенесено из R15: проверяется только вживую; владелец: перед повтором живого прогона проверить процессы `video_worker.py` в терминале Jupyter.
-- долг: R5, `backend_check`: Jupyter отдал HTML через `JupyterError` → сейчас `unreachable`, по 6.2 — `bad_answer`. Перенесено из R15: не воспроизводится (R5: `ok`, 2 из 2 программ).
 - долг: S5, сцена `demo` теряет id трекера в момент падения (падение подтверждается веткой «лежит неподвижно», бег закрывается `track_lost_timeout`). Перенесено из R15: нужна проверка на заводском видео, его нет (строка `владелец` выше).
 - долг: S10, `explain` новых плагинов — одна строка правила и `why_common`; в `explain` зоны proximity нет единицы дистанции (берётся `reason_text`). Перенесено из R15: косметика экрана события, ночью не правится.
 - долг: R5, загрузка большого файла целиком ложится на диск до проверки роли и размера (Starlette `UploadFile`). Перенесено из R15: нужен потоковый приём в `api.py`, вне ночного объёма.
@@ -45,6 +42,15 @@
 - GAP: S27, тексты `texts.PASSPORT_NO_VIDEO`, `PASSPORT_MODEL_MISSING`, `PASSPORT_FEW_FRAMES`, `PASSPORT_DARK`, `PASSPORT_PEOPLE_TINY`, `PASSPORT_NO_PEOPLE`, `PASSPORT_PHONE_POOR`, `PASSPORT_NO_ZONES` — дословно 8.28; правило 7: `PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оценки: {px} px"`, `PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"`, `PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"`, несколько причин — через «; »; `PASSPORT_SUITABLE = "Годна"`; N px — целая часть, N % — `round(доля × 100)`; `skeleton` → `ScenarioMeta.status_text`.
 - GAP: S27, расчёт: «сценарий на людях» — `person` в `required_classes`; правило 7 по росту только для них, тёмная и пустая доли — для всех; медианы px округляются до 0,1 (нормированные рамки дают 79,99999 вместо 80); `dark_share` — сумма интервалов `dark`/`obstructed`, обрезанных по `[0, duration_ms]`, делённая на `duration_ms` (`stale` не считается); телефон без рамок `cell phone` в записи — проверка объекта правила 5 пропускается (рост людей проверяется); статусы плагинов — текущие `rules.scenario_metas()`, а не снимок анализа; без анализа метрики `None`, `frames = 0`.
 - R30: S27, `camera_passport` читает весь `hud.jsonl` анализа в потоке event loop (маршрут `async def`, как `video_tracks`); на длинном видео эфир и WebSocket стоят на время чтения — проверить размер HUD демо-пакета.
+
+- GAP: S28, таймаут: `linq.job_timeout_s(linq: LinqConfig, frames: int) -> float` и `linq.START_S = 120` (формула 8.29); `frames` — `ceil(frame_count / step)`, `frame_count` из `media.probe_video` (видео не читается — 0, остаётся `job_timeout_s`); отсчёт, как и раньше, от начала `run` (с загрузкой).
+- GAP: S28, прогресс: `linq.rate_eta(done, total, elapsed_s) -> (rate_fps, eta_s)` (`None, None` при `done = 0`; rate округлён до 0,01, eta до 0,1 с); `LinqBackend.live: tuple[int, int, float] | None` — (done, total, секунды с `# sw:start`) текущей модели, `total = ceil(n_total / step)` из `.progress`, до первого файла — из пробы видео; колбэк прогресса `services._infer` читает `backend.live` (только `LinqBackend`) и передаёт `_progress(job_id, value, live=None)`; `services._live: dict[int, tuple[int, int, float]]` в памяти (сброс в фикстуре `conn`, `pop` после `run`); `_job` у задачи `running` с записью в `_live` заполняет `rate_fps`, `eta_s`, `status_text`.
+- GAP: S28, тексты: `texts.JOB_WAIT_TPU = "LinQ: ждём первый ответ TPU (очередь площадки)"`, `texts.job_progress_text(done, total, rate_fps, eta_s) -> str`; минуты `max(1, round(eta_s / 60))`, кадр/с — `fmt_num` (одна цифра после запятой).
+- GAP: S28, `LinqBackend._start_command(absdir, remote_out, args) -> str` (staticmethod); гашение в фигурных скобках `{ [ -f <out>.pid ] && kill $(cat <out>.pid) 2>/dev/null; rm -f <out>.pid; } &&`, до `rm -f <out>.progress`; `FakeRemoteShell._start` разбирает команду от `(setsid`.
+- GAP: S28, HTML: `JupyterError`, в тексте которого `<html` без учёта регистра, или `requests.JSONDecodeError` → `InferenceError("bad_output")` и сброс сессии (`_drop`), как у сетевой ошибки; `LinqBackend.check` на `bad_output` → `bad_answer` с `texts.LINQ_BAD_ANSWER`.
+- GAP: S28, `close()`: `JupyterShell.close` = `_drop()` (`shutdown_kernel`, ошибки глушатся, без сессии — ничего); `LocalBackend.close` ничего не делает (сессия onnxruntime живёт один прогон); `services.backend_close()` не обнуляет `_backend`; doctor зовёт его в `finally` вокруг проверок, lifespan — `asyncio.to_thread` после остановки цикла задач.
+- R30: S28, `# sw:start` гасит pid из `<out>.pid` по 8.29: если прежний воркер давно умер, а pid занят чужим процессом общего контейнера, `kill` попадёт в него (вероятность мала, `<out>` уникален по ключу кэша).
+- R30: S28, `rate_fps` считается от `# sw:start` и включает запуск воркера и первую пачку: на коротком ролике первый замер занижен (живой прогон: 3,9 кадр/с на 25 кадрах против 7,8 итоговых), ETA в начале завышена.
 
 ## log
 
@@ -297,6 +303,13 @@
 - проверено вживую: нет (S27 без LinQ) | не проверено: —
 - [проверить]: нет
 - следующему: `tests/test_passport.py`: `build(hud, gaps, kinds, analysis_id, statuses, **passport)` (все плагины активны, зоны всех типов, кадр 1000×1000), `frames(n, objects, empty)`, `person(px)`, `phone(px)`, `verdicts(p)`, `_hud(video_id, frames)` — HUD активного анализа `test_broadcast.ready_video` тем же путём, что пишет анализ; S32 дописывает `shift_px`/`shift_text` в `camera_passport` (сейчас `None` и «»).
+
+### S28: linq slow queue (2026-10-25, PR #39, tech v7)
+- отклонения: правлены файлы вне списка слайса: `tests/test_cli.py` (doctor теперь зовёт `close`, маркер у фейка), `tests/conftest.py` (сброс `services._live`), `tests/test_jobs.py::test_timeout_kills_remote_worker` (`START_S = 0`, `slow_rtt_s = 0`: иначе формула 8.29 даёт 120 с вместо 0,2); тест сверх списка `test_doctor_and_lifespan_close_backend`; `api.py`, `doctor.py` — вызов `backend_close`; `tests/live/test_linq_live.py` — одна задача (`pipeline.pose: null`) и `backend_close`, не запускался (живая проверка сделана скриптом, второй прогон был бы сверх лимита).
+- решения вне контракта: строки `GAP: S28` в `## open`; закрыты долги R5: idle kernel (`close()`, проверено вживую), осиротевший воркер (`# sw:start` гасит pid, живых `video_worker.py` с `baseline_` после прогона 0), HTML → `bad_answer` (тест; вживую не воспроизводится); мутаций нет (10.3); тест со временем `test_eta_and_rate_text` (подменённые часы бэкенда) — 20 из 20.
+- проверено вживую: LinQ, 1 прогон (25.10 00:00 МСК, `--inflight 4`, одна задача baseline, только детектор `det-yolov8n@640-ap9999`): сцена `PPE_industrial4tr6` (20,8 с, 1920×1080), зона danger `[[0.60,0.45],[0.82,0.45],[0.82,0.90],[0.60,0.90]]`, путь `services` (камера, зона, `video_import`, `run_next_job` на `linq`, анализ, эпизоды, эфир на виртуальных часах, тики 0,5 с) во временном data_dir `D:\night-tmp\S28\data_live`, настройки в памяти (`config/user.yaml` не писался). Очередь перед прогоном: `input` 0 сообщений, 16 консьюмеров; doctor ok (2 из 2 программ). Загрузка 42,3 МБ за 11,2 с; кадров отправлено и получено 261 из 261 (step 2); 7,77 кадр/с (воркер 33,6 с); RTT TPU p50 434 мс, p90 572 мс; задача 49,9 с (бэкенд 48,3 с, анализ и улики 1,6 с); TPU ~0,6 мин; `eta_s` в начале 61 с (25 кадров, 3,9 кадр/с), в конце 5,1 с (225 кадров, 7,1 кадр/с); до первого `.progress` — «ждём первый ответ TPU». Эпизод: `proximity` red, зона «Проезд погрузчиков», начало 16,29 с, подтверждение 16,61 с, конец 20,84 с (конец видео), «Человек в зоне «Проезд погрузчиков»»; событие эфира: `proximity` red «Опасное сближение с техникой», начало 16,3 с, публикация 17,0 с видео; ложных событий нет. После прогона: живых `video_worker.py` с `baseline_` 0, kernel процесса закрыт (нет в `api/kernels`). Фейк-прогон того же скрипта до живого: ок (фейковая сцена `demo` даёт `fall` на 18,8 с — сцена фейка, не детекции). Скрипт: `D:\night-tmp\S28\live_s28.py`, лог `D:\night-tmp\S28\live.log` | не проверено: HTML от Jupyter вживую.
+- [проверить]: `requests.JSONDecodeError` есть в установленном requests (тип ответа не JSON): да.
+- следующему: `tests/test_linq_backend.py`: `_worker_timeouts(monkeypatch, clip, out, *extra)` (воркер со стабом TPU, таймауты `collect`), `SlowQueueShell` (фейк с прогрессом 0, затем 120 из 720), подмена часов бэкенда `monkeypatch.setattr(linq, "time", SimpleNamespace(perf_counter=..., sleep=...))`; скрипт живой проверки через `services` с настройками в памяти — `D:\night-tmp\S28\live_s28.py` (не в репо).
 
 ## night
 
