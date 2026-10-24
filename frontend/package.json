@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:mock": "vite --mode mock",
+    "demo": "node scripts/demo.mjs",
+    "demo:mock": "concurrently -k -n mock,front \"npm run mock\" \"npm run dev:mock -- --host 127.0.0.1\"",
     "mock": "concurrently -n api,ws \"prism mock -d ../contract/openapi.json -p 4010\" \"node mock/ws-mock.mjs\"",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",

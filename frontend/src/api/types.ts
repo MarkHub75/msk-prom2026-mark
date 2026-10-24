@@ -28,6 +28,7 @@ export type HudObject = Schemas["HudObject"];
 export type TracksWindow = Schemas["TracksWindow"];
 export type Broadcast = Schemas["Broadcast"];
 export type Video = Schemas["Video"];
+export type DemoPack = Schemas["DemoPack"];
 export type Analysis = Schemas["Analysis"];
 export type Zone = Schemas["Zone"];
 export type Calibration = Schemas["Calibration"];

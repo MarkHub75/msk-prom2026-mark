@@ -24,6 +24,7 @@ export const NAV: NavItem[] = [
   { path: "/admin/cameras", title: "Камеры", roles: ["admin"], slice: 1, menu: true },
   { path: "/admin/cameras/:cameraId", title: "Настройка камеры", roles: ["admin", "ohs"], slice: 2, menu: false },
   { path: "/admin/system", title: "Система", roles: ["admin"], slice: 3, menu: true },
+  { path: "/admin/demo", title: "Демо", roles: ["admin"], slice: 6, menu: true },
 ];
 
 export function menuFor(role: Role): NavItem[] {

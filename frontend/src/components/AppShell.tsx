@@ -8,6 +8,7 @@ import { useWs, type WsStatus } from "../api/ws";
 import { FIXTURE_NOW } from "../fixtures/data";
 import { isReviewMode, getReviewScenario } from "../fixtures/review";
 import { menuFor, NAV } from "../nav";
+import { latestPack, packLabel, packList } from "../demoPacks";
 import { ROLES, useRole, type Role } from "../roles";
 import { duration, Icon, ToastProvider, type IconName } from "./ui";
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
@@ -22,6 +23,7 @@ function navIcon(path: string): IconName {
   if (path.startsWith("/ohs/stats") || path.startsWith("/management")) return "chart";
   if (path.startsWith("/admin/cameras")) return "camera";
   if (path.startsWith("/admin/system")) return "server";
+  if (path.startsWith("/admin/demo")) return "play";
   return "settings";
 }
 const ROLE_ICON: Record<Role, IconName> = { operator: "monitor", master: "user", ohs: "shield", management: "chart", admin: "settings" };
@@ -118,6 +120,9 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (route && !route.roles.includes(role)) setRole(route.roles[0]);
   }, [location.pathname, role, setRole]);
   const meta = useApi(() => api.GET("/api/meta"), [role]).data;
+  // No route (mock, older backend) or no pack: the header simply shows no pack chip.
+  const packs = useApi(() => review ? Promise.resolve({ data: [] }) : api.GET("/api/demo/packs"), [role, review]).data;
+  const pack = latestPack(packs);
   const [updates, setUpdates] = useState(0);
   const [notification, setNotification] = useState<string>();
   const [alarm, setAlarm] = useState<Alarm>();
@@ -170,6 +175,7 @@ function ShellContent({ children }: { children: ReactNode }) {
         <div className="cr-top-right ds-top-right">
           {alarm?.collapsed && role === "operator" && <button className="ds-alarm-pill" onClick={() => setAlarm({ ...alarm, collapsed: false })} title="Показать тревогу"><Icon name="critical" size={14} />Тревога #{alarm.eventId}</button>}
           <span className={`cr-source ds-source ${synthetic ? "is-synthetic" : ""}`} data-testid="backend" title="Источник детекций">{source}</span>
+          {pack && <span className={`cr-source ds-source ds-pack ${pack.fake ? "is-synthetic" : ""}`} data-testid="demo-pack" title={packList(packs).map(packLabel).join(" · ")}>{packLabel(pack)}{packList(packs).length > 1 ? ` +${packList(packs).length - 1}` : ""}</span>}
           <span className="connection cr-live ds-live" data-status={wsStatus} title={WS_TEXT[wsStatus]}><i />{WS_SHORT[wsStatus]}</span>
           <button className={`ds-icon-btn ds-btn-ghost ds-sound ${sound.on ? "is-on" : ""}`} onClick={sound.toggle} aria-pressed={sound.on} aria-label={sound.on ? "Звук тревог включён" : "Звук тревог выключен"} title={sound.on ? "Звук тревог включён" : "Звук тревог выключен"}><Icon name={sound.on ? "sound" : "mute"} size={16} /></button>
           <label className="actor-field cr-actor ds-actor"><Icon name="user" size={14} /><span className="sr-only">Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => setActor(e.target.value)} /></label>
