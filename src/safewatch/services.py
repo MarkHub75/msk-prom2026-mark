@@ -47,14 +47,17 @@ from safewatch.types import (
     Analysis,
     AnalysisConfig,
     AnalysisResult,
+    BackendName,
     BackendStatus,
     Broadcast,
     BroadcastIn,
+    CalculatorDefaults,
     Calibration,
     CalibrationIn,
     Camera,
     CameraIn,
     CameraLiveView,
+    CameraPassport,
     CameraPatch,
     CameraRule,
     CameraRuleIn,
@@ -65,9 +68,13 @@ from safewatch.types import (
     CameraTile,
     Channel,
     CountRow,
+    DatasetView,
     DayRow,
     Delivery,
     DeliveryKind,
+    DemoImportReport,
+    DemoManifest,
+    DemoPack,
     Episode,
     EpisodeDraft,
     EvalLabels,
@@ -84,6 +91,7 @@ from safewatch.types import (
     Health,
     HudFrame,
     HumanAction,
+    IdentityIn,
     InferenceBackend,
     InferenceMetrics,
     Job,
@@ -106,14 +114,19 @@ from safewatch.types import (
     ObservabilityGap,
     OhsStats,
     OperatorDashboard,
+    PeopleStats,
     Percentiles,
     Point,
     Provenance,
     RateRow,
     Role,
     RoleMeta,
+    RolloutIn,
+    RolloutResult,
     RulesScreenRow,
     RulesScreenView,
+    ScaleIn,
+    ScaleResult,
     ScenarioMeta,
     Sector,
     SectorIn,
@@ -2532,3 +2545,75 @@ async def deliveries_flush() -> int:
             done.add(key)
             written += 1
     return written
+
+
+# --- v5 (tech.md 6.11.4): declared in slice 16, built by the slice in each stub -----------
+def demo_build(layout: Path, videos_dir: Path, out: Path, allow_fake: bool = False) -> DemoManifest:
+    raise NotImplementedError("slice 17")
+
+
+def demo_import(path: Path) -> DemoImportReport:
+    raise NotImplementedError("slice 17")
+
+
+def demo_packs() -> list[DemoPack]:
+    raise NotImplementedError("slice 17")
+
+
+def artifact_import(
+    video_id: int,
+    model_ref: str,
+    jsonl: Path,
+    backend: BackendName,
+    fake: bool,
+    metrics: InferenceMetrics | None = None,
+) -> int:
+    raise NotImplementedError("slice 17")
+
+
+def calculator_defaults() -> CalculatorDefaults:
+    raise NotImplementedError("slice 24")
+
+
+def calculator_rollout(data: RolloutIn, role: Role | None) -> RolloutResult:
+    raise NotImplementedError("slice 24")
+
+
+def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult:
+    raise NotImplementedError("slice 24")
+
+
+async def datasets_flush() -> int:
+    raise NotImplementedError("slice 25")
+
+
+def datasets_view() -> DatasetView:
+    raise NotImplementedError("slice 25")
+
+
+def dataset_export(out: Path | None = None) -> Path:
+    raise NotImplementedError("slice 25")
+
+
+def event_identify(
+    event_id: int, data: IdentityIn, role: Role | None, actor: str | None
+) -> EventDetail:
+    raise NotImplementedError("slice 26")
+
+
+def people_stats_view(
+    date_from: datetime | None = None, date_to: datetime | None = None, include_demo: bool = True
+) -> PeopleStats:
+    raise NotImplementedError("slice 26")
+
+
+def camera_passport(camera_id: int) -> CameraPassport:
+    raise NotImplementedError("slice 27")
+
+
+def shift_report_pdf(at: datetime | None = None) -> bytes:
+    raise NotImplementedError("slice 30")
+
+
+def backend_close() -> None:
+    raise NotImplementedError("slice 28")

@@ -59,7 +59,7 @@ def test_serve_starts_and_stops(tmp_path: Path) -> None:
     proc = subprocess.Popen(_boot(tmp_path, "serve", "--port", str(port)))
     try:
         response = _wait_health(port, proc)
-        assert response.json() == {"status": "ok", "contract": "1.0.0"}
+        assert response.json() == {"status": "ok", "contract": "1.1.0"}
         record = json.loads((tmp_path / "server.pid").read_text(encoding="utf-8"))
         # .venv/Scripts/python.exe may be a launcher: the server is it or its child.
         launcher = psutil.Process(proc.pid)

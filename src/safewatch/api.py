@@ -26,21 +26,26 @@ from safewatch.types import (
     BackendStatus,
     Broadcast,
     BroadcastIn,
+    CalculatorDefaults,
     Calibration,
     CalibrationIn,
     Camera,
     CameraIn,
     CameraLiveView,
+    CameraPassport,
     CameraPatch,
     CameraRule,
     CameraRuleIn,
     CamerasAdminView,
     CameraSetupView,
+    DatasetView,
+    DemoPack,
     EventDetail,
     EventFilter,
     EventPage,
     EventSummary,
     Health,
+    IdentityIn,
     Job,
     JobStatus,
     JournalFacets,
@@ -50,8 +55,13 @@ from safewatch.types import (
     ModelsView,
     OhsStats,
     OperatorDashboard,
+    PeopleStats,
     Role,
+    RolloutIn,
+    RolloutResult,
     RulesScreenView,
+    ScaleIn,
+    ScaleResult,
     Sector,
     SectorIn,
     SectorView,
@@ -67,7 +77,7 @@ from safewatch.types import (
     ZonePatch,
 )
 
-CONTRACT_VERSION = "1.0.0"
+CONTRACT_VERSION = "1.1.0"
 UPLOAD_CHUNK = 1 << 20
 WS_UNKNOWN_ROLE = 4400
 WS_TOO_SLOW = 1013
@@ -430,6 +440,64 @@ async def ohs_stats_view(
 @router.get("/api/stats/management")
 async def management_view(weeks: int | None = None, include_demo: bool = True) -> ManagementStats:
     return services.management_view(weeks, include_demo)
+
+
+# --- v5 (tech.md 6.11.6): slices 17-30 -------------------------------------------------
+@router.get("/api/demo/packs")
+async def demo_packs() -> list[DemoPack]:
+    return services.demo_packs()
+
+
+@router.get("/api/calculator/defaults")
+async def calculator_defaults() -> CalculatorDefaults:
+    return services.calculator_defaults()
+
+
+@router.post("/api/calculator/rollout")
+async def calculator_rollout(data: RolloutIn, role: RoleDep) -> RolloutResult:
+    return services.calculator_rollout(data, role)
+
+
+@router.post("/api/calculator/scale")
+async def calculator_scale(data: ScaleIn, role: RoleDep) -> ScaleResult:
+    return services.calculator_scale(data, role)
+
+
+@router.get("/api/datasets/false-alarms")
+async def datasets_view() -> DatasetView:
+    return services.datasets_view()
+
+
+@router.get("/api/datasets/false-alarms/export.zip")
+async def dataset_export() -> FileResponse:
+    path = services.dataset_export()
+    return FileResponse(path, media_type="application/zip", filename=path.name)
+
+
+@router.patch("/api/events/{event_id}/identity")
+async def event_identify(
+    event_id: int, data: IdentityIn, role: RoleDep, actor: ActorDep
+) -> EventDetail:
+    return services.event_identify(event_id, data, role, actor)
+
+
+@router.get("/api/stats/people")
+async def people_stats_view(
+    date_from: datetime | None = None,
+    date_to: datetime | None = None,
+    include_demo: bool = True,
+) -> PeopleStats:
+    return services.people_stats_view(date_from, date_to, include_demo)
+
+
+@router.get("/api/cameras/{camera_id}/passport")
+async def camera_passport(camera_id: int) -> CameraPassport:
+    return services.camera_passport(camera_id)
+
+
+@router.get("/api/master/shift.pdf")
+async def shift_report_pdf(at: datetime | None = None) -> Response:
+    return Response(services.shift_report_pdf(at), media_type="application/pdf")
 
 
 # --- app ---------------------------------------------------------------------------------

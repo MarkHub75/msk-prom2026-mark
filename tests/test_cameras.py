@@ -39,7 +39,7 @@ async def test_meta_lists_roles_statuses_zone_kinds(
     client: httpx.AsyncClient, core: Settings
 ) -> None:
     meta = Meta.model_validate((await client.get("/api/meta")).json())
-    assert (meta.product_name, meta.contract) == ("SafeWatch", "1.0.0")
+    assert (meta.product_name, meta.contract) == ("Argus", "1.1.0")
     assert (meta.inference_backend, meta.fake, meta.timezone) == ("linq", False, core.timezone)
     roles = {r.id: r for r in meta.roles}
     assert list(roles) == ["operator", "master", "ohs", "management", "admin"]
@@ -52,7 +52,7 @@ async def test_meta_lists_roles_statuses_zone_kinds(
     terminal = {s.id for s in meta.statuses if s.terminal}
     assert terminal == {"false_alarm", "resolved", "auto_finished", "superseded"}
     assert next(s.title for s in meta.statuses if s.id == "new") == "Новое"
-    assert len(meta.zone_kinds) == 8
+    assert len(meta.zone_kinds) == 11
     assert meta.zone_kinds[0].id == "danger"
     assert [s.id for s in meta.scenarios] == [
         "running", "proximity", "phone", "fall", "fence_crossing", "restricted_under",

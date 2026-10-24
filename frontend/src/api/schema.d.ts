@@ -38,6 +38,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/calculator/defaults": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Calculator Defaults */
+        get: operations["calculator_defaults_api_calculator_defaults_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calculator/rollout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Calculator Rollout */
+        post: operations["calculator_rollout_api_calculator_rollout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calculator/scale": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Calculator Scale */
+        post: operations["calculator_scale_api_calculator_scale_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/cameras": {
         parameters: {
             query?: never;
@@ -108,6 +159,23 @@ export interface paths {
         post?: never;
         /** Calibration Delete */
         delete: operations["calibration_delete_api_cameras__camera_id__calibration_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/cameras/{camera_id}/passport": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Camera Passport */
+        get: operations["camera_passport_api_cameras__camera_id__passport_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -217,6 +285,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/datasets/false-alarms": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Datasets View */
+        get: operations["datasets_view_api_datasets_false_alarms_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/datasets/false-alarms/export.zip": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Dataset Export */
+        get: operations["dataset_export_api_datasets_false_alarms_export_zip_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/demo/packs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Demo Packs */
+        get: operations["demo_packs_api_demo_packs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/events": {
         parameters: {
             query?: never;
@@ -283,6 +402,23 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/api/events/{event_id}/identity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Event Identify */
+        patch: operations["event_identify_api_events__event_id__identity_patch"];
         trace?: never;
     };
     "/api/evidence/{evidence_id}/image": {
@@ -413,6 +549,23 @@ export interface paths {
         };
         /** Shift Summary View */
         get: operations["shift_summary_view_api_master_shift_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/master/shift.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Shift Report Pdf */
+        get: operations["shift_report_pdf_api_master_shift_pdf_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -593,6 +746,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/stats/people": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** People Stats View */
+        get: operations["people_stats_view_api_stats_people_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/system": {
         parameters: {
             query?: never;
@@ -749,6 +919,7 @@ export interface components {
         };
         /** Analysis */
         Analysis: {
+            auto_calibration?: components["schemas"]["AutoCalibration"] | null;
             /**
              * Created At
              * Format: date-time
@@ -782,6 +953,25 @@ export interface components {
             };
             /** Message */
             message: string;
+        };
+        /** AutoCalibration */
+        AutoCalibration: {
+            /** A Px */
+            a_px: number;
+            /** B */
+            b: number;
+            /** Ok */
+            ok: boolean;
+            /** Person Height M */
+            person_height_m: number;
+            /** R2 */
+            r2: number;
+            /** Reason */
+            reason: string;
+            /** Rmse Px */
+            rmse_px: number;
+            /** Samples */
+            samples: number;
         };
         /** BackendStatus */
         BackendStatus: {
@@ -853,6 +1043,33 @@ export interface components {
             loop?: boolean | null;
             /** Video Id */
             video_id?: number | null;
+        };
+        /** CalcAssumption */
+        CalcAssumption: {
+            /**
+             * Editable
+             * @default true
+             */
+            editable: boolean;
+            /** Key */
+            key: string;
+            /** Source */
+            source: string;
+            /** Title */
+            title: string;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number;
+        };
+        /** CalculatorDefaults */
+        CalculatorDefaults: {
+            /** Assumptions */
+            assumptions: components["schemas"]["CalcAssumption"][];
+            /** Measured */
+            measured: components["schemas"]["CalcAssumption"][];
+            rollout: components["schemas"]["RolloutIn"];
+            scale: components["schemas"]["ScaleIn"];
         };
         /** Calibration */
         Calibration: {
@@ -951,6 +1168,34 @@ export interface components {
             /** Zones */
             zones: components["schemas"]["Zone"][];
         };
+        /** CameraPassport */
+        CameraPassport: {
+            /** Analysis Id */
+            analysis_id: number | null;
+            /** Camera Id */
+            camera_id: number;
+            /** Dark Share */
+            dark_share: number | null;
+            /** Empty Share */
+            empty_share: number | null;
+            /** Frames */
+            frames: number;
+            /** Person Frames Share */
+            person_frames_share: number | null;
+            /** Person Height Px P50 */
+            person_height_px_p50: number | null;
+            /** Scenarios */
+            scenarios: components["schemas"]["PassportScenario"][];
+            /** Shift Px */
+            shift_px?: number | null;
+            /**
+             * Shift Text
+             * @default
+             */
+            shift_text: string;
+            /** Small Object Px P50 */
+            small_object_px_p50: number | null;
+        };
         /** CameraPatch */
         CameraPatch: {
             /** Description */
@@ -996,6 +1241,7 @@ export interface components {
         };
         /** CameraSetupView */
         CameraSetupView: {
+            auto_calibration?: components["schemas"]["AutoCalibration"] | null;
             broadcast: components["schemas"]["Broadcast"] | null;
             calibration: components["schemas"]["Calibration"] | null;
             camera: components["schemas"]["Camera"];
@@ -1051,13 +1297,26 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "ws" | "webhook";
+            kind: "ws" | "webhook" | "call";
             /** Levels */
             levels: ("yellow" | "red")[];
             /** Name */
             name: string;
             /** Target */
             target: string;
+        };
+        /** Clip */
+        Clip: {
+            /** End Ms */
+            end_ms: number;
+            /** Playable */
+            playable: boolean;
+            /** Start Ms */
+            start_ms: number;
+            /** Url */
+            url: string;
+            /** Video Id */
+            video_id: number;
         };
         /** ControlPoint */
         ControlPoint: {
@@ -1085,6 +1344,36 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** DatasetItem */
+        DatasetItem: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Event Id */
+            event_id: number;
+            /** Frames */
+            frames: number;
+            /**
+             * Label
+             * @constant
+             */
+            label: "false_alarm";
+            /** Path */
+            path: string;
+            /** Scenario */
+            scenario: string;
+        };
+        /** DatasetView */
+        DatasetView: {
+            /** Frames */
+            frames: number;
+            /** Items */
+            items: components["schemas"]["DatasetItem"][];
+            /** Total */
+            total: number;
+        };
         /** DayRow */
         DayRow: {
             /** Confirmed */
@@ -1107,6 +1396,8 @@ export interface components {
             at: string;
             /** Channel */
             channel: string;
+            /** Delivered At */
+            delivered_at?: string | null;
             /** Error */
             error: string;
             /** Http Status */
@@ -1121,6 +1412,36 @@ export interface components {
              * @enum {string}
              */
             status: "sent" | "failed";
+            /**
+             * Status Text
+             * @default
+             */
+            status_text: string;
+        };
+        /** DemoPack */
+        DemoPack: {
+            /**
+             * Backend
+             * @enum {string}
+             */
+            backend: "linq" | "local";
+            /** Cameras */
+            cameras: number;
+            /** Fake */
+            fake: boolean;
+            /** Id */
+            id: number;
+            /**
+             * Imported At
+             * Format: date-time
+             */
+            imported_at: string;
+            /** Name */
+            name: string;
+            /** Sha256 */
+            sha256: string;
+            /** Videos */
+            videos: number;
         };
         /** Episode */
         Episode: {
@@ -1182,7 +1503,7 @@ export interface components {
              * Action
              * @enum {string}
              */
-            action: "published" | "viewed" | "confirmed" | "false_alarm" | "sent_to_master" | "level_escalated" | "timeout_escalated" | "master_accepted" | "resolved" | "auto_finished" | "superseded";
+            action: "published" | "viewed" | "confirmed" | "false_alarm" | "sent_to_master" | "level_escalated" | "timeout_escalated" | "master_accepted" | "resolved" | "auto_finished" | "superseded" | "identified";
             /** Actor Name */
             actor_name: string;
             /**
@@ -1211,6 +1532,11 @@ export interface components {
             /** Allowed Actions */
             allowed_actions: ("view" | "confirm" | "false_alarm" | "send_to_master" | "accept" | "resolve")[];
             broadcast: components["schemas"]["Broadcast"] | null;
+            /**
+             * Can Identify
+             * @default false
+             */
+            can_identify: boolean;
             /** Deliveries */
             deliveries: components["schemas"]["Delivery"][];
             episode: components["schemas"]["Episode"] | null;
@@ -1240,6 +1566,12 @@ export interface components {
             camera_id: number;
             /** Camera Name */
             camera_name: string;
+            clip?: components["schemas"]["Clip"] | null;
+            /**
+             * Crew
+             * @default
+             */
+            crew: string;
             /** Duration S */
             duration_s: number;
             /** Ended At */
@@ -1269,6 +1601,16 @@ export interface components {
              * @enum {string}
              */
             operator_verdict: "none" | "confirmed" | "false_alarm";
+            /**
+             * Person Name
+             * @default
+             */
+            person_name: string;
+            /**
+             * Person Position
+             * @default
+             */
+            person_position: string;
             /** Priority */
             priority: number;
             /**
@@ -1373,6 +1715,11 @@ export interface components {
             ][] | null;
             /** Label */
             label: string;
+            /** Projection */
+            projection?: [
+                number,
+                number
+            ][] | null;
             /** Score */
             score: number;
             /** Tags */
@@ -1388,6 +1735,24 @@ export interface components {
             level: ("yellow" | "red") | null;
             /** Text */
             text: string;
+        };
+        /** IdentityIn */
+        IdentityIn: {
+            /**
+             * Crew
+             * @default
+             */
+            crew: string;
+            /**
+             * Person Name
+             * @default
+             */
+            person_name: string;
+            /**
+             * Person Position
+             * @default
+             */
+            person_position: string;
         };
         /** InferenceMetrics */
         InferenceMetrics: {
@@ -1456,6 +1821,8 @@ export interface components {
             error_code: ("linq_unavailable" | "timeout" | "remote_error" | "bad_output" | "model_missing" | "video_unreadable" | "artifacts_missing" | "internal") | null;
             /** Error Text */
             error_text: string | null;
+            /** Eta S */
+            eta_s?: number | null;
             /** Fake */
             fake: boolean;
             /** Finished At */
@@ -1473,6 +1840,8 @@ export interface components {
             next_attempt_at: string | null;
             /** Progress */
             progress: number;
+            /** Rate Fps */
+            rate_fps?: number | null;
             /**
              * Stage
              * @enum {string}
@@ -1485,6 +1854,11 @@ export interface components {
              * @enum {string}
              */
             status: "queued" | "running" | "retry_wait" | "done" | "failed";
+            /**
+             * Status Text
+             * @default
+             */
+            status_text: string;
             /** Video Id */
             video_id: number;
         };
@@ -1578,6 +1952,11 @@ export interface components {
             conf: number;
             /** Id */
             id: string;
+            /**
+             * Input Name
+             * @default images
+             */
+            input_name: string;
             /** Input Size */
             input_size: number;
             /** Iou */
@@ -1588,6 +1967,8 @@ export interface components {
             linq_tail: string | null;
             /** Local Onnx */
             local_onnx: string | null;
+            /** Nc */
+            nc?: number | null;
             /**
              * Task
              * @enum {string}
@@ -1674,6 +2055,43 @@ export interface components {
              */
             server_now: string;
         };
+        /** PassportScenario */
+        PassportScenario: {
+            /** Reason */
+            reason: string;
+            /** Scenario */
+            scenario: string;
+            /** Title */
+            title: string;
+            /**
+             * Verdict
+             * @enum {string}
+             */
+            verdict: "suitable" | "partial" | "unsuitable" | "unknown";
+        };
+        /** PeopleStats */
+        PeopleStats: {
+            /** By Crew */
+            by_crew: components["schemas"]["CountRow"][];
+            /** By Person */
+            by_person: components["schemas"]["CountRow"][];
+            /**
+             * Date From
+             * Format: date-time
+             */
+            date_from: string;
+            /**
+             * Date To
+             * Format: date-time
+             */
+            date_to: string;
+            /** Identified */
+            identified: number;
+            /** Include Demo */
+            include_demo: boolean;
+            /** Total */
+            total: number;
+        };
         /** Percentiles */
         Percentiles: {
             /** N */
@@ -1733,6 +2151,49 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** RolloutIn */
+        RolloutIn: {
+            /** Cameras */
+            cameras: number;
+            /** Downtime Cost Rub */
+            downtime_cost_rub: number;
+            /** Fine Cost Rub */
+            fine_cost_rub: number;
+            /** Incidents Per Year */
+            incidents_per_year: number;
+            /** Lawsuit Cost Rub */
+            lawsuit_cost_rub: number;
+            /** Operators */
+            operators: number;
+            /**
+             * Overrides
+             * @default {}
+             */
+            overrides: {
+                [key: string]: number;
+            };
+            /** Shifts Per Day */
+            shifts_per_day: number;
+            /** Treatment Cost Rub */
+            treatment_cost_rub: number;
+            /** Workers */
+            workers: number;
+            /** Workshops */
+            workshops: number;
+        };
+        /** RolloutResult */
+        RolloutResult: {
+            /** Assumptions */
+            assumptions: components["schemas"]["CalcAssumption"][];
+            /** Events Per Operator Shift */
+            events_per_operator_shift: number | null;
+            /** Incident Cost Rub */
+            incident_cost_rub: number;
+            /** Incidents Per 1000 Workers */
+            incidents_per_1000_workers: number | null;
+            /** Tiers */
+            tiers: components["schemas"]["TierResult"][];
+        };
         /** RulesScreenRow */
         RulesScreenRow: {
             camera: components["schemas"]["Camera"];
@@ -1745,6 +2206,43 @@ export interface components {
             rows: components["schemas"]["RulesScreenRow"][];
             /** Scenarios */
             scenarios: components["schemas"]["ScenarioMeta"][];
+        };
+        /** ScaleIn */
+        ScaleIn: {
+            /** Cameras Now */
+            cameras_now: number;
+            /** New Cameras */
+            new_cameras: number;
+            /**
+             * Overrides
+             * @default {}
+             */
+            overrides: {
+                [key: string]: number;
+            };
+        };
+        /** ScaleResult */
+        ScaleResult: {
+            /** Accelerators Now */
+            accelerators_now: number;
+            /** Accelerators Total */
+            accelerators_total: number;
+            /** Analysis Fps */
+            analysis_fps: number;
+            /** Assumptions */
+            assumptions: components["schemas"]["CalcAssumption"][];
+            /** Cameras Total */
+            cameras_total: number;
+            /** Capacity Fps */
+            capacity_fps: number;
+            /** Capacity Source */
+            capacity_source: string;
+            /** Capex Rub */
+            capex_rub: number;
+            /** Items */
+            items: components["schemas"]["WhyItem"][];
+            /** Servers Total */
+            servers_total: number;
         };
         /** ScenarioMeta */
         ScenarioMeta: {
@@ -1905,6 +2403,30 @@ export interface components {
              */
             server_now: string;
         };
+        /** TierResult */
+        TierResult: {
+            /** Accelerators */
+            accelerators: number;
+            /** Capex Rub */
+            capex_rub: number;
+            /** Items */
+            items: components["schemas"]["WhyItem"][];
+            /** Opex Rub Year */
+            opex_rub_year: number;
+            /** Payback Months */
+            payback_months: number | null;
+            /** Savings Rub Year */
+            savings_rub_year: number;
+            /** Servers */
+            servers: number;
+            /**
+             * Tier
+             * @enum {string}
+             */
+            tier: "base" | "extended" | "max";
+            /** Title */
+            title: string;
+        };
         /** TracksWindow */
         TracksWindow: {
             /** Analysis Id */
@@ -1972,6 +2494,11 @@ export interface components {
              * @enum {string}
              */
             status: "uploaded" | "processing" | "ready" | "failed";
+            /**
+             * Web Playable
+             * @default false
+             */
+            web_playable: boolean;
             /** Width */
             width: number;
         };
@@ -2114,6 +2641,132 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CameraSetupView"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calculator_defaults_api_calculator_defaults_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CalculatorDefaults"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calculator_rollout_api_calculator_rollout_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RolloutIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RolloutResult"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calculator_scale_api_calculator_scale_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScaleIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScaleResult"];
                 };
             };
             /** @description Not Implemented */
@@ -2598,6 +3251,46 @@ export interface operations {
             };
         };
     };
+    camera_passport_api_cameras__camera_id__passport_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                camera_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CameraPassport"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
     camera_preview_api_cameras__camera_id__preview_get: {
         parameters: {
             query?: never;
@@ -2937,6 +3630,120 @@ export interface operations {
             };
         };
     };
+    datasets_view_api_datasets_false_alarms_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DatasetView"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    dataset_export_api_datasets_false_alarms_export_zip_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    demo_packs_api_demo_packs_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DemoPack"][];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
     events_list_api_events_get: {
         parameters: {
             query?: {
@@ -3098,6 +3905,53 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["ActionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventDetail"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    event_identify_api_events__event_id__identity_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Role"?: string | null;
+                "X-Actor"?: string | null;
+            };
+            path: {
+                event_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IdentityIn"];
             };
         };
         responses: {
@@ -3425,6 +4279,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ShiftSummary"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    shift_report_pdf_api_master_shift_pdf_get: {
+        parameters: {
+            query?: {
+                at?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Not Implemented */
@@ -3908,6 +4802,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OhsStats"];
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    people_stats_view_api_stats_people_get: {
+        parameters: {
+            query?: {
+                date_from?: string | null;
+                date_to?: string | null;
+                include_demo?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PeopleStats"];
                 };
             };
             /** @description Not Implemented */
