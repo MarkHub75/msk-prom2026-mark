@@ -16,6 +16,7 @@ import { ShiftSummaryScreen } from "./master/ShiftSummaryScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
 import { SectorScreen } from "./operator/SectorScreen";
+import { RulesScreen } from "./ohs/RulesScreen";
 
 // One smoke test per screen (tech.md 10.1): the screen renders with a stubbed `api`.
 vi.mock("../api/client", () => ({
@@ -232,7 +233,8 @@ describe("screens", () => {
     expect(document.querySelector("img")?.getAttribute("src")).toBe("/api/evidence/4/image");
     fireEvent.click(item);
     expect(document.querySelector("video")?.currentTime).toBe(3.5);
-    fireEvent.click(screen.getByText("Пересчитать события"));
+    const recompute = screen.getAllByText("Пересчитать события"); // tab «Правила» and the episodes
+    fireEvent.click(recompute[recompute.length - 1]!);
     expect(vi.mocked(api.POST)).toHaveBeenCalledWith("/api/videos/{video_id}/recompute", {
       params: { path: { video_id: 3 } },
     });
@@ -503,5 +505,63 @@ describe("screens", () => {
     expect(screen.getByText("Сектор 5 · Склад · Пресс №2")).toBeTruthy();
     fireEvent.click(screen.getByText("Предыдущая смена"));
     expect(vi.mocked(api.GET)).toHaveBeenLastCalledWith("/api/master/shift", { params: { query: { at: "2026-10-24T04:59:59.999Z" } } });
+  });
+  it("camera_setup_zones_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null); // jsdom has no canvas
+    const calibration = {
+      camera_id: 7, image_points: [[0.1, 0.1], [0.9, 0.1], [0.9, 0.9], [0.1, 0.9]],
+      world_points: [[0, 0], [8, 0], [8, 6], [0, 6]], control_points: [], fit_rmse_m: 0, control_rmse_m: null,
+      grid: [[[0.1, 0.1], [0.1, 0.9]]], updated_at: AT,
+    };
+    const zone = { id: 5, camera_id: 7, kind: "danger", name: "Пресс", points: [[0.1, 0.1], [0.5, 0.1], [0.3, 0.5]] };
+    const rule = { camera_id: 7, scenario: "running", enabled: true, params: {}, effective: { hold_s: 1 }, status: "active" };
+    vi.mocked(api.GET).mockResolvedValue({
+      data: { camera: CAMERA, videos: [], jobs: [], calibration, zones: [zone], rules: [rule], broadcast: null },
+    } as never);
+    vi.mocked(api.DELETE).mockResolvedValue({} as never);
+    render(
+      <MemoryRouter initialEntries={["/admin/cameras/7"]}>
+        <Routes>
+          <Route path="/admin/cameras/:cameraId" element={<CameraSetup />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Калибровка")).toBeTruthy();
+    expect(screen.getByText(/нет контрольных точек: точность не проверена/)).toBeTruthy();
+    expect(screen.getByText("Точек: 4 из 8")).toBeTruthy();
+    expect(screen.getByText("Пресс")).toBeTruthy();
+    fireEvent.click(screen.getAllByRole("img", { name: "Кадр камеры" })[1]!);
+    expect(screen.getByText("Точек: 1 из 32")).toBeTruthy();
+    fireEvent.click(screen.getByText("Удалить"));
+    expect(vi.mocked(api.DELETE)).toHaveBeenCalledWith("/api/zones/{zone_id}", { params: { path: { zone_id: 5 } } });
+  });
+
+  it("rules_screen_renders", async () => {
+    const scenario = {
+      id: "running", title: "Бег и резкие перемещения", description: "", icon: "run", default_level: "yellow",
+      status: "active", status_text: "", required_classes: ["person"], zone_kinds: [], params: [],
+    };
+    const fall = { ...scenario, id: "fall", title: "Падение и неподвижность", status: "model_missing", status_text: "Модель не подключена" };
+    const rule = { camera_id: 7, scenario: "running", enabled: true, params: {}, effective: {}, status: "active" };
+    vi.mocked(api.GET).mockResolvedValue({
+      data: {
+        scenarios: [scenario, fall],
+        rows: [{ camera: CAMERA, rules: [rule, { ...rule, scenario: "fall", enabled: false, status: "model_missing" }] }],
+      },
+    } as never);
+    vi.mocked(api.PUT).mockResolvedValue({ data: rule } as never);
+    render(
+      <MemoryRouter>
+        <RulesScreen />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Бег и резкие перемещения")).toBeTruthy();
+    expect(screen.getByText("Модель не подключена")).toBeTruthy();
+    expect(screen.getByText("Пресс №2")).toBeTruthy();
+    fireEvent.click(screen.getAllByRole("checkbox")[0]!);
+    expect(vi.mocked(api.PUT)).toHaveBeenCalledWith("/api/cameras/{camera_id}/rules/{scenario}", {
+      params: { path: { camera_id: 7, scenario: "running" } },
+      body: { enabled: false, params: {} },
+    });
   });
 });
