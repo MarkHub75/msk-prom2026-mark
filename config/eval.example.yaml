@@ -1,0 +1,7 @@
+# Labels for `safewatch eval` (tech.md 8.18). Paths are relative to the repository root.
+deadline_s: 5           # optional: eval.deadline_s of config/default.yaml
+videos:
+  - path: data/videos/fall_01.mp4
+    camera_id: 3          # optional: calibration, zones and rules of this camera
+    expected:
+      - {scenario: fall, start_s: 12.0, end_s: 30.0}

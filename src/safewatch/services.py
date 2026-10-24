@@ -24,9 +24,10 @@ from pathlib import Path
 from typing import Any, get_args
 
 import numpy as np
-from pydantic import BaseModel
+import yaml
+from pydantic import BaseModel, ValidationError
 
-from safewatch import clock, config, media, registry, rules, seed, store, texts
+from safewatch import clock, config, evaluate, media, registry, rules, seed, store, texts
 from safewatch.analysis import geometry, pipeline
 from safewatch.errors import (
     Conflict,
@@ -66,6 +67,8 @@ from safewatch.types import (
     DayRow,
     Episode,
     EpisodeDraft,
+    EvalLabels,
+    EvalMetrics,
     EvalReport,
     EventAction,
     EventDetail,
@@ -451,6 +454,14 @@ async def video_upload(
     return _register(camera_id, filename, sha256, size, probe)
 
 
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as f:
+        while chunk := f.read(1 << 20):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def video_import(camera_id: int, path: Path) -> UploadResult:
     if not path.is_file():
         raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
@@ -463,11 +474,7 @@ def video_import(camera_id: int, path: Path) -> UploadResult:
     probe = media.probe_video(path)
     if probe is None:
         raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
-    digest = hashlib.sha256()
-    with path.open("rb") as f:
-        while chunk := f.read(1 << 20):
-            digest.update(chunk)
-    sha256 = digest.hexdigest()
+    sha256 = _sha256(path)
     target = settings.data_dir / "uploads" / f"{sha256}{ext}"
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -545,13 +552,21 @@ def _progress(job_id: int, value: float) -> None:
 
 
 async def _infer(
-    job_id: int, stage: JobStage, span: tuple[float, float], model: ModelSpec, video: sqlite3.Row
+    job_id: int | None,
+    stage: JobStage,
+    span: tuple[float, float],
+    model: ModelSpec,
+    video: sqlite3.Row | dict[str, Any],
 ) -> int:
-    """Artifact id of `model` on the video: from the cache or from a backend run."""
+    """Artifact id of `model` on the video: from the cache or from a backend run.
+
+    `job_id=None`: `eval_run`, no job to report the stage and progress to.
+    """
     settings = config.get_settings()
     backend = _backend_instance()
-    store.job_update(job_id, {"stage": stage})
-    _progress(job_id, span[0])
+    if job_id is not None:
+        store.job_update(job_id, {"stage": stage})
+        _progress(job_id, span[0])
     step = analysis_step(video["fps"])
     key = artifacts.cache_key(video["sha256"], model, step, backend.name, settings.fake)
     rel = f"artifacts/{key}.jsonl"
@@ -564,7 +579,8 @@ async def _infer(
     low, high = span
 
     def progress(share: float) -> None:  # backend thread: the database belongs to the loop
-        loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share)
+        if job_id is not None:
+            loop.call_soon_threadsafe(_progress, job_id, low + (high - low) * share)
 
     path = settings.data_dir / video["path"]
     metrics = await asyncio.to_thread(
@@ -632,6 +648,28 @@ def _analysis_files(
     return result
 
 
+def _analysis_config(
+    video: sqlite3.Row | dict[str, Any], camera_id: int | None, extra_ids: list[int]
+) -> AnalysisConfig:
+    """Snapshot of tech.md 8.2; no camera (`eval_run`): no calibration and zones, default rules."""
+    settings = config.get_settings()
+    rows = [] if camera_id is None else store.camera_rules(camera_id)
+    snapshot = _rules(camera_id or 0, rows, rules.scenario_metas())
+    return AnalysisConfig(
+        width=video["width"],
+        height=video["height"],
+        fps=video["fps"],
+        step=analysis_step(video["fps"]),
+        duration_ms=video["duration_ms"],
+        calibration=None if camera_id is None else _calibration_of(camera_id),
+        zones=[] if camera_id is None else [_zone(row) for row in store.zones(camera_id)],
+        rules={r.scenario: r for r in snapshot},
+        class_conf=settings.class_conf,
+        active_classes=registry.active_classes(settings),
+        extra_artifact_ids=extra_ids,
+    )
+
+
 async def _analyze(
     job_id: int,
     video: sqlite3.Row,
@@ -643,23 +681,10 @@ async def _analyze(
     settings = config.get_settings()
     store.job_update(job_id, {"stage": "analysis"})
     _progress(job_id, 0.85)
-    video_id, camera_id = video["id"], video["camera_id"]
-    metas = rules.scenario_metas()
+    video_id = video["id"]
     version = store.analysis_next_version(video_id)
     rel = f"analyses/{video_id}-v{version}/hud.jsonl"
-    cfg = AnalysisConfig(
-        width=video["width"],
-        height=video["height"],
-        fps=video["fps"],
-        step=analysis_step(video["fps"]),
-        duration_ms=video["duration_ms"],
-        calibration=_calibration_of(camera_id),
-        zones=[_zone(row) for row in store.zones(camera_id)],
-        rules={r.scenario: r for r in _rules(camera_id, store.camera_rules(camera_id), metas)},
-        class_conf=settings.class_conf,
-        active_classes=registry.active_classes(settings),
-        extra_artifact_ids=[artifact_id for _, artifact_id in extra],
-    )
+    cfg = _analysis_config(video, video["camera_id"], [artifact_id for _, artifact_id in extra])
     data = settings.data_dir
     pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
     started = time.perf_counter()
@@ -2312,8 +2337,130 @@ def management_view(weeks: int | None = None, include_demo: bool = True) -> Mana
     )
 
 
+def _eval_labels(path: Path) -> EvalLabels:
+    """Labels of tech.md 8.18 and the row «разметка оценки» of tech.md 9."""
+    if not path.is_file():
+        raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
+    try:
+        labels = EvalLabels.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")))
+    except yaml.YAMLError:
+        raise ValidationFailed(
+            texts.EVAL_LABELS_INVALID.format(field="yaml"), field="yaml"
+        ) from None
+    except ValidationError as exc:
+        field = ".".join(str(part) for part in exc.errors()[0]["loc"]) or "labels"
+        raise ValidationFailed(texts.EVAL_LABELS_INVALID.format(field=field), field=field) from None
+    for i, video in enumerate(labels.videos):
+        for j, e in enumerate(video.expected):
+            if e.start_s >= e.end_s:
+                field = f"videos.{i}.expected.{j}"
+                raise ValidationFailed(texts.EVAL_INTERVAL_INVALID.format(field=field), field=field)
+    return labels
+
+
+async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[EpisodeDraft], int]:
+    """Inference with the artifact cache and analysis of one labelled video, like a job."""
+    settings = config.get_settings()
+    probe = media.probe_video(path)
+    if probe is None:
+        raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
+    # An absolute path: `data_dir / path` in _infer keeps it.
+    video: dict[str, Any] = probe.model_dump() | {"sha256": _sha256(path), "path": str(path)}
+    detector = registry.resolve(settings.pipeline.detector)
+    det_id = await _infer(None, "inference_detect", (0.0, 0.0), detector, video)
+    extra = []
+    for ref in settings.pipeline.extra:
+        model = registry.resolve(ref)
+        extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+    pose = None
+    if settings.pipeline.pose is not None:
+        pose_model = registry.resolve(settings.pipeline.pose)
+        pose = (pose_model, await _infer(None, "inference_pose", (0.0, 0.0), pose_model, video))
+    cfg = _analysis_config(video, camera_id, [artifact_id for _, artifact_id in extra])
+    data = settings.data_dir
+    det_path = data / store.artifact_path(det_id)
+    pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
+    extra_files = [(m, data / store.artifact_path(artifact_id)) for m, artifact_id in extra]
+
+    def analysis() -> AnalysisResult:  # worker thread: files in, episodes out
+        det = artifacts.read_jsonl(det_path, None)
+        pose_frames = None if pose_files is None else artifacts.read_jsonl(pose_files[1], None)
+        pose_model = None if pose_files is None else pose_files[0]
+        extra_frames = [(m, artifacts.read_jsonl(p, None)) for m, p in extra_files]
+        return pipeline.analyze(det, pose_frames, path, cfg, pose_model, detector, extra_frames)
+
+    result = await asyncio.to_thread(analysis)
+    return result.episodes, probe.duration_ms
+
+
+def _eval_rows(outcomes: list[evaluate.Outcome], hours: float) -> list[EvalMetrics]:
+    """A row per scenario and the total `*` (tech.md 8.18); a zero denominator gives `None`."""
+    rows = []
+    for key in [*sorted({scenario for scenario, _, _ in outcomes}), "*"]:
+        mine = [o for o in outcomes if key in ("*", o[0])]
+        n = Counter(kind for _, kind, _ in mine)
+        tp, fn, fp = n["tp"], n["fn"], n["fp"]
+        precision, recall = _share(tp, tp + fp), _share(tp, tp + fn)
+        f1 = None
+        if precision is not None and recall is not None and precision + recall > 0:
+            f1 = 2 * precision * recall / (precision + recall)
+        delays = [delay for _, kind, delay in mine if kind == "tp" and delay is not None]
+        rows.append(
+            EvalMetrics(
+                scenario=key,
+                expected=tp + fn,
+                episodes=tp + fp + n["duplicate"] + n["late"],
+                tp=tp,
+                fn=fn,
+                fp=fp,
+                duplicates=n["duplicate"],
+                late=n["late"],
+                precision=precision,
+                recall=recall,
+                f1=f1,
+                fp_per_hour=fp / hours if hours else None,
+                delay_s=_percentiles(delays, 0),
+            )
+        )
+    return rows
+
+
 def eval_run(labels: Path, out_dir: Path | None = None) -> EvalReport:
-    raise NotImplementedError("slice 14")
+    """Sync: runs its own event loop, the CLI is its only caller."""
+    settings = config.get_settings()
+    spec = _eval_labels(labels)
+    paths = []
+    for video in spec.videos:
+        path = Path(video.path)
+        path = path if path.is_absolute() else config.ROOT / path
+        if not path.is_file():
+            raise NotFound(texts.FILE_NOT_FOUND.format(path=video.path))
+        if video.camera_id is not None:
+            camera_get(video.camera_id)
+        paths.append(path)
+    deadline_s = settings.eval.deadline_s if spec.deadline_s is None else spec.deadline_s
+    outcomes: list[evaluate.Outcome] = []
+    duration_ms = 0
+    for video, path in zip(spec.videos, paths, strict=True):
+        episodes, ms = asyncio.run(_eval_episodes(path, video.camera_id))
+        outcomes += evaluate.match_episodes(video.expected, episodes, deadline_s)
+        duration_ms += ms
+    now = clock.now()
+    out = out_dir or settings.data_dir / "eval" / now.strftime("%Y%m%d-%H%M%S")
+    hours = duration_ms / 3_600_000
+    report = EvalReport(
+        created_at=now,
+        labels=str(labels),
+        hours=hours,
+        deadline_s=deadline_s,
+        rows=_eval_rows(outcomes, hours),
+        out_dir=str(out),
+    )
+    out.mkdir(parents=True, exist_ok=True)
+    text = report.model_dump_json(indent=2) + "\n"
+    (out / "report.json").write_text(text, encoding="utf-8", newline="\n")
+    (out / "report.md").write_text(evaluate.report_md(report), encoding="utf-8", newline="\n")
+    return report
 
 
 async def deliveries_flush() -> int:
