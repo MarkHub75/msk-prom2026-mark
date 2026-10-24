@@ -1,5 +1,18 @@
 # ML/CV quality sprint — progress
 
+## ACTIVE NIGHT CYCLE — 2026-10-24T00:31:35.783154+00:00
+
+New autonomous cycle authorized for at most6–7hours; do not fill time artificially. No intermediate user questions. Current integration baseline1bdeeafc; working branchmatvey_cv. Historical335tests are the last completed full suite, not an automatic new PASS. Existing runtime/model checkpoints remain immutable; previous rejected hypotheses are not rerun.
+
+OBSERVED E000: exact checkpoint topology establishes Helmet YOLOv8n DetectionModel(3,011,238unfusedparameters,storedUltralytics8.0.23) and Pose YOLOv8n PoseModel(3,295,470parameters,stored8.0.77). Split-Pose shares the same trained weights; exporter8.4.184 is a different version. Full inventory in MODEL_INVENTORY.md; unknown history/runtime versions stay UNKNOWN.
+
+OBSERVED E000 handoff: producer release tools were changing, so ad-hoc external ingestion was blocked. Data Orchestrator then published immutable READY versions SHEL5Kdiagnostic19 and Mendeleyreplay16;65pinnedfiles/hash records verified READ_ONLY, roles not promoted. Native UR/RUN actorGT remains requested through /workspace/shared/dataset-handoff/ML_REQUIREMENTS.json. Existing ML-owned52val/8calib/20URpreview snapshot READY at ml-baseline-night-v1/READY.json, fileSHA5f30081065e69e9316e96b972353267caaae868212194b312ddc8ceae065f74b.
+
+OBSERVED integrity correction: historical Helmet dataset_digest39e13... is canonical semantic SHA, not serialized file SHA346f74... . Source GT/predictions and metrics are unchanged; current docs/manifest fields are being clarified. Eight handoff guard tests cover mutation, scope, split leakage, sealed test and producer metadata.
+
+Shared infrastructure constraints are active: no network/VPN/SSH/firewall/service changes, no captain/baseline/foreign queue operations. New own remote artifacts matvey/ and matvey_ names only, max1ownactiveTPUrequest. Until isolated staging and all client entrypoints are verified, no new remote model task is allowed. CPU/model preparation and ready-data evaluation continue independently.
+
+
 Authority: current user directive, /workspace/ML_24H_PLAYBOOK.md and official case (20 pages visually read; PDF contains scanned slides). Application/backend/frontend work is frozen. Existing contracts and video pipeline are retained.
 
 Current checkpoint: Helmet and Fall are FROZEN runtime baselines after two failed hypothesis families each, improvement=false. Fall quality is NOT_ACCEPTED; independent test is absent. Running/Zone prototype+scorer are BASELINE/NOT_EVALUATED pending real GT.335 tests PASS. All specialized agents completed; no heavy ML process is running. Non-force push failed AUTHENTICATION_UNAVAILABLE/exit128; local commits saved, remote not verified. Model-only local archive is ready; external destination/account pending. The allocation/status paragraphs below are a historical log, superseded by this current checkpoint.

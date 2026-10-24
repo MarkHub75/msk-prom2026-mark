@@ -229,10 +229,11 @@
     "ml/quality/temporal/motion_evaluation.py": "fc4f9da9ec8087e6983d0fc3a1f6710374972f654d809e208be0b6b6ddb6f8ab"
   },
   "data": {
-    "helmet_validation_sha256": "39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a",
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
     "independent_test": "NONE_EVALUATED",
-    "test_tuning": false
+    "test_tuning": false,
+    "helmet_validation_semantic_digest": "39e13db80621e4901f0eb0aa15d27b2f9b1cc8e2da951cb107b279532820de6a",
+    "helmet_validation_manifest_file_sha256": "346f74cab99ddc2cc9c0f18b3efd95027a0b1ea782738469f502bc771dfd27e0"
   },
   "updated_utc": "2026-10-23T23:48:06.996949+00:00",
   "software_tests": {
@@ -262,5 +263,14 @@
     "seconds": 1.2984386160969734,
     "latest_local_commit": "git HEAD of containing manifest",
     "remote_verified": false
+  },
+  "night_cycle": {
+    "status": "ACTIVE",
+    "started_utc": "2026-10-24T00:31:35.783154+00:00",
+    "baseline_commit": "1bdeeafc",
+    "network_mutations": false,
+    "new_remote_tasks": "BLOCKED_UNTIL_MATVEY_ISOLATION_AND_STAGING",
+    "dataset_handoff": "/workspace/shared/dataset-handoff/READY.json",
+    "existing_ml_ready": "/workspace/shared/dataset-handoff/ml-baseline-night-v1/READY.json"
   }
 }

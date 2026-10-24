@@ -1,5 +1,9 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
+## ACTIVE NIGHT CYCLE — 2026-10-24T00:31:35.783154+00:00
+
+Latest user directive resumes work for one bounded autonomous night cycle. No intermediate questions; do not stop at the old frozen-checkpoint instructions below. Rootmatvey_cv; Data Orchestrator owns producer READY and its isolated worktree. MODEL_INVENTORY.md and DATA_HANDOFF_PROTOCOL.md added; exact native checkpoint versions differ from exporter versions. Existing335full-suite PASS is historical. New handoff tests8PASS. Own existing-data READY snapshot5f3008... allows E001HelmetdiversePTQ; producer-nativeUR/runGT awaited. Shared infrastructure rules in AGENTS.md override old rootcache/notebook queue bindings: new files matvey/, matvey_ names, maxoneownactiveTPUrequest, no captain/baseline/foreign queues/network service changes. Remote tasks remain blocked until safe namespace+staging checked. No new inference/training/compile so far. Complete MODEL_INVENTORY, scenario coverage, measured experiments and NIGHT_REPORT.md, then commit and stop.
+
 ## LATEST CHECKPOINT — ML quality sprint
 
 Preservation update: non-force push of matvey_cv at914739090c7d5662261ed3136e2b197f5d3dee44 failed with exit128/AUTHENTICATION_UNAVAILABLE. Raw credential-bearing output was not retained. All code/metadata commits are saved locally; remote SHA is not verified. Current containing commit is git log-1. Final software check335PASS; independent test and off-Vast binary backup still open.
