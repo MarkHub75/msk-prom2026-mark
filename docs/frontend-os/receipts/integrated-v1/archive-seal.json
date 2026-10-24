@@ -1,0 +1,8 @@
+{
+  "archive": "/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/review-delivery/working-v2.zip",
+  "sha256": "7d9388af5ff30ba9f54e38e34ff72905565ec9e9f8f0f1f741a99f0ceb3042a1",
+  "bytes": 52277834,
+  "review": "hre-signal-post-integrated-v1-b1-r0",
+  "manifest_sha256": "66199be6567357e110f96fede5f3b1c73f76384957b17b6dcbd94068e35d00f8",
+  "human_acceptance": "NOT ASSERTED"
+}

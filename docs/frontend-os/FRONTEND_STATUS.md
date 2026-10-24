@@ -1,10 +1,10 @@
 # SafeWatch — статус frontend
 
-Обновлено: **2026-10-24 07:02:42 МСК**. Ветка: **codex/safewatch-frontend-v1**.
-Последний опубликованный коммит на момент обновления: `8a1a83bd` (исправления KEEP и интеграционные регрессии); OS/HRE handoff — `ae499962`.
-HUMAN_PRODUCT_REVIEW **KEEP** зарегистрирован штатным `single-product-completion`. Точечные исправления и повторный внешний mock E2E завершены: **PASS 8/8**. Frozen source готовится к новому штатному HRE.
+Обновлено: **2026-10-24 07:15:20 МСК**. Ветка: **codex/safewatch-frontend-v1**.
+Последний опубликованный коммит на момент обновления: `77dd1c19` (внешний E2E и доказательства); реализация исправлений — `8a1a83bd`.
+Точечные исправления KEEP завершены. Внешний mock E2E **PASS8/8**, gate **PASS19/19**, новый настоящий HRE **COMPLETE / validation PASS**. [Открыть исправленные экраны в HRE](http://127.0.0.1:8197/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-integrated-v1-b1-r0/attempt-1-fa4a4eac/manifest.json).
 
-Frontend Hackathon OS 4.0: **SINGLE_PRODUCT_BUILD**; run `safewatch-20261024-working-r3`, base `signal-post-command`. Рабочая основа утверждена с конкретными исправлениями. Глобальный редизайн запрещён; финальная приёмка исправленного продукта ещё впереди. [Фактическое человеческое решение](receipts/working-v1/human-product-keep.md), [штатный completion packet](receipts/working-v1/human-product-keep.json).
+Frontend Hackathon OS 4.0: **HUMAN_FINAL_PRODUCT_REVIEW**; run `safewatch-20261024-working-r3`, base `signal-post-command`, completed candidate `signal-post-integrated-v1`, review `hre-signal-post-integrated-v1-b1-r0`. Рабочая основа утверждена, targeted fixes проверены; финальная человеческая приёмка не записана. [Фактическое KEEP](receipts/working-v1/human-product-keep.md), [штатный completion packet](receipts/working-v1/human-product-keep.json).
 
 | Функция | Статус | Проверка | Ограничения |
 |---|---|---|---|
@@ -25,6 +25,8 @@ Frontend Hackathon OS 4.0: **SINGLE_PRODUCT_BUILD**; run `safewatch-20261024-wor
 
 Baseline внешнего E2E **FAIL3** сохранён: [исходный summary](receipts/external-mock-v1/summary.json). Все три дефекта подтверждённо исправлены в v2, включая повторную загрузку кадра по тому же URL. [Независимая проверка UI](receipts/external-mock-v2/targeted-ui-receipt.json): normal 0/4; fixture падения без неподходящего кадра/ролика; оба медиа Incident в первом viewport1440; точные HUD bbox; mobile отчёт/история; нет overflow на трёх размерах. Original OFL сохранён побайтно. Предыдущий HRE working-v1 остаётся неизменным; новый пакет включает только исправленные рабочие экраны.
 
+Новый HRE: 12 состояний / 48 screenshots / 4 recordings / 55 artifacts; approved renderer1.1 проверен в браузере,0broken assets,48image decodes,video metadata,0consoleerrors,12UNREVIEWED. [Validation](receipts/integrated-v1/validation.json). [Независимое финальное ревью](receipts/integrated-v1/independent-review.json): PASS20 checks, P0/P1 нет. P2: нижние15px journal-link в раскрытой desktop closed-history обрезаны; обычная навигация работает. Сохраняется ограничение player remount/replayseek при REST-refresh. [Полный отчёт v2](INTEGRATION_REVIEW_v2.md).
+
 ## Интеграция и координация
 
 Подключены настоящие REST DTO и `allowed_actions`, X-Role/X-Actor, относительные URL медиа, `/ws` с проверкой схемы и переподключением. WS слой принимает hello/notification/event.created/event.updated/camera.state/sector.state/broadcast.state/backend.status/job.progress; применимость отдельных экранов проверяется в E2E. Новое hello вызывает повторное получение REST.
@@ -39,8 +41,9 @@ Baseline внешнего E2E **FAIL3** сохранён: [исходный summ
 
 ## Следующие шаги
 
-1. Завершить source-bound preflight и регистрацию нового HRE через `final-product` текущего OS run. Frozen source — 115 файлов, SHA256 `1b93f388841ce64793e175ba639ef6443ba86033fbe3ddf8b55e7a5445d0efb9`.
-2. Передать исправленные рабочие экраны человеку на следующий обязательный checkpoint.
-3. После него — настоящий business E2E, когда будут доступны S6–S8 и подходящий backend runtime; без подмены результатов моковыми.
+1. Человеческая проверка исправленных экранов в новом HRE — обязательная остановка OS. Автоматического ACCEPT нет.
+2. После неё — ограниченная полировка известных P2 и настоящий business E2E при доступности S6–S8/backend runtime; без подмены результатов моковыми.
+
+Frozen source — 115 файлов, SHA256 `1b93f388841ce64793e175ba639ef6443ba86033fbe3ddf8b55e7a5445d0efb9`. Manifest SHA256 `66199be6567357e110f96fede5f3b1c73f76384957b17b6dcbd94068e35d00f8`. Предыдущие концепты/HRE/recovery attempts сохранены; OS не модифицировалась.
 
 Блокеры: проверенного бизнес-E2E против настоящего backend нет; сейчас это не блокирует проверку внешнего stateful-мока. HRE концепты/скриншоты/сырые доказательства сохранены локально в OS run и в versioned archive; тяжёлые review-артефакты не добавляются в Git. [Точки входа, пакет и команды](FIRST-READ.md).

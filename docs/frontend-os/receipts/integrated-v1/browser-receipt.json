@@ -1,0 +1,105 @@
+{
+  "candidate": "signal-post-integrated-v1",
+  "source_sha256": "1b93f388841ce64793e175ba639ef6443ba86033fbe3ddf8b55e7a5445d0efb9",
+  "result": "PASS",
+  "outcome": "PASS",
+  "captures": {
+    "desktop": "evidence/final-browser/signal-post-integrated-v1/desktop.png",
+    "mobile": "evidence/final-browser/signal-post-integrated-v1/mobile.png"
+  },
+  "raw_logs": "evidence/final-browser/signal-post-integrated-v1/raw-observations.json",
+  "script": "evidence/final-browser/signal-post-integrated-v1/browser-proof.cjs",
+  "tested_states": [
+    "dispatch-critical",
+    "dispatch-normal",
+    "incident-compare",
+    "actor-required",
+    "red-takeover",
+    "master-task",
+    "master-report",
+    "evidence-unavailable",
+    "journal-resolved",
+    "camera-hud",
+    "incident-gone",
+    "ws-disconnected"
+  ],
+  "flows": [
+    "Explicit fixture41: unnamed actor dialog -> confirm -> dual history handoff -> same-context master accept -> measures empty/whitespace blocked -> resolve with explicit actor/comment -> reload and inbox persistence",
+    "Explicit fixture camera1 native decoded static replay: custom playback controls, HUD click/H and post-refresh functional video"
+  ],
+  "external_e2e": {
+    "summary": "evidence/external-mock-v2/summary.json",
+    "scope": "Separately executed external stateful REST/WS mock; not inferred from review fixtures",
+    "same_raw_frontend_src_verified": true
+  },
+  "hre_preflight": "evidence/final-browser/signal-post-integrated-v1/hre-preflight.json",
+  "additional_captures": {
+    "incident_compare": "evidence/final-browser/signal-post-integrated-v1/incident-compare1440.png",
+    "camera": "evidence/final-browser/signal-post-integrated-v1/camera1280.png",
+    "master_report": "evidence/final-browser/signal-post-integrated-v1/flow-master-report390.png",
+    "master_resolved": "evidence/final-browser/signal-post-integrated-v1/flow-master-resolved390.png"
+  },
+  "limitations": [
+    "These captures/journeys use explicit synthetic deterministic review fixtures; real external mock and S0 evidence are separate.",
+    "Generated still imagery, manually supplied HUD and static30s replay do not prove CV/LinQ/live CCTV. Fall43 deliberately omits unsuitable evidence/video.",
+    "Chromium only. Native HTMLVideoElement uses custom rendered playback controls.",
+    "REST refresh may remount/seek the player to the fixture broadcast; decoded playback/HUD remain functional."
+  ],
+  "additional_flow_states": [
+    "critical-active3/closed1",
+    "master43-honest-evidence-unavailable",
+    "actor-required",
+    "critical41-handoff",
+    "master-accepted",
+    "measures-required",
+    "resolved-persistence",
+    "camera-hud"
+  ],
+  "hre_preflight_result": {
+    "outcome": "PASS_WITH_RETRY",
+    "effective_passed": 48,
+    "effective_failed": 0,
+    "spec_sha256": "82f06e91a211c09f68b5372b95505f7236989f6506abb843566e5f9b0361494a",
+    "spec_unchanged": true,
+    "retry_reason": "One red-takeover/mobile/normal navigation networkidle20s timeout; exact unchanged fresh-context retry passed, both attempts preserved."
+  },
+  "source_identity": "evidence/signal-post-integrated-v1-source-identity.json",
+  "observations": {
+    "frozen_files_verified_before_after": 115,
+    "served_index_js_css_match": true,
+    "production_bundle": "index-BudDY7eU.js",
+    "external_v2_raw_src_files_matched": 37,
+    "external_v2_frontend_guard": "bdc377285abfc558accc0860f99e897e0cc4757b81efcbd190df59552e628649",
+    "console_errors": 0,
+    "runtime_errors": 0,
+    "missing_http_resources": 0,
+    "request_failures": 0,
+    "viewports": [
+      "1440x900",
+      "1280x800",
+      "390x844"
+    ],
+    "horizontal_overflow": false,
+    "mobile_capture_event": 43,
+    "mobile_capture_honest_missing_fall_evidence": true,
+    "workflow_event": 41
+  },
+  "capture_sha256": {
+    "desktop": "da41dbd0949ba446193fe6c150ddb74678d3381b86b96cf1cb7e4d6530c7b329",
+    "mobile": "0aa883b1c13feb8d583c6ff8c4f7b989fe235c714173785d8385e4d024d58a1c"
+  },
+  "visual_inspection": {
+    "result": "PASS",
+    "captures": [
+      "desktop.png",
+      "mobile.png",
+      "incident-compare1440.png"
+    ],
+    "observed": "Intended six-sector product and active3/closed1; mobile43 displays missing fall evidence and intact accept CTA; incident41 displays fixed evidence and subsequent playback together at1440."
+  },
+  "preserved_attempts": [
+    "evidence/final-browser/signal-post-integrated-v1/capture-harness-key-attempt1/",
+    "evidence/final-browser/signal-post-integrated-v1/hre-preflight-infrastructure-attempt1.json",
+    "evidence/final-browser/signal-post-integrated-v1/hre-preflight-valid-attempt1.json"
+  ]
+}

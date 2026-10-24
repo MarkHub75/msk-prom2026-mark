@@ -1,0 +1,75 @@
+{
+  "verdict": "PASS",
+  "reviewer": "/root/final_anti_slop",
+  "recorded_at": "2026-10-24T04:09:18.966558+00:00",
+  "scope": "Independent read-only targeted correction review of the human-approved Signal Post base. Local deterministic fixtures only; separate external/mock/real proofs read as supporting evidence. No redesign, source edits, controller changes or external mock mutations.",
+  "source_sha256": "1b93f388841ce64793e175ba639ef6443ba86033fbe3ddf8b55e7a5445d0efb9",
+  "files_verified": 115,
+  "source_unchanged": true,
+  "browser_checks": 20,
+  "captures": [
+    "operator-normal-1440.png",
+    "operator-history-1440.png",
+    "incident-compare-1440.png",
+    "incident-identity-cancel-1440.png",
+    "master-task-390.png",
+    "master-identity-390.png",
+    "master-report-390.png",
+    "master-resolved-390.png",
+    "journal-resolved-390.png",
+    "operator-normal-1280.png"
+  ],
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1280,
+      800
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "p0_p1": [],
+  "p2": [
+    {
+      "id": "expanded-history-footer-clipped",
+      "file": "frontend/src/theme.css",
+      "line": 23,
+      "finding": "At1440×900 normal state, expanded recently-closed history has its journal link y754..785 clipped by the attention rail ending at770; bottom15px clipped by overflow:hidden. The inner history feed still scrolls and OHS journal navigation remains available.",
+      "evidence": "history-geometry.json",
+      "suggestion": "On a future scoped polish, reserve the footer height or let the rail contain the expanded history."
+    }
+  ],
+  "observations": [
+    "Active0 / closed4, terminal events remain separate and no red takeover is shown in normal state.",
+    "Evidence and full220px subsequent video frame are both in the1440×900 first viewport; existing object labels are legible and source remains explicitly illustrative.",
+    "Fall43 omits inappropriate evidence/video; why text explains that the standing-person image is not evidence of falling.",
+    "Native identity dialog focuses its named input, Escape cancels without committing. No invented identity was entered by the application.",
+    "Fresh390px master enters an explicit test identity, accepts, blocks whitespace-only measures, resolves with a report and retains actor/comment/history after reload.",
+    "Resolved record43 appears in the journal with a working event-history link.",
+    "No horizontal overflow in the three checked sizes; no observed JavaScript runtime error."
+  ],
+  "deterministic_review": {
+    "tool": "21st review",
+    "files": 36,
+    "summary": {
+      "errors": 0,
+      "warnings": 1,
+      "suggestions": 20
+    },
+    "triage": "Generic autofocus warning is appropriate native-dialog initial focus here; confirmed by actual keyboard focus/Escape check. Design literal suggestions do not establish drift from the approved design. No automatic fix used."
+  },
+  "human_acceptance": "NOT ASSERTED",
+  "raw_evidence": [
+    "browser-observations.json",
+    "21st-review.json",
+    "source-before.json",
+    "source-after.json",
+    "history-geometry.json",
+    "review.cjs"
+  ]
+}

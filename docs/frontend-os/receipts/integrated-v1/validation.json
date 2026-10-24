@@ -1,0 +1,12 @@
+{
+  "artifacts": 55,
+  "contract": "1.0.0",
+  "decision": "not supplied",
+  "human_acceptance": "NOT ASSERTED",
+  "items": 12,
+  "manifest_sha256": "66199be6567357e110f96fede5f3b1c73f76384957b17b6dcbd94068e35d00f8",
+  "renderer": "1.1.0",
+  "review": "hre-signal-post-integrated-v1-b1-r0",
+  "revision": 1,
+  "status": "PASS"
+}

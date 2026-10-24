@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "scope": "Approved HRE renderer and source-bound working-product package; no human approval",
+  "url": "http://127.0.0.1:8197/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-integrated-v1-b1-r0/attempt-1-fa4a4eac/manifest.json",
+  "manifest": {
+    "created_at": "2026-10-24T04:09:50.200751+00:00",
+    "description": "Completed registered change. Exact source/fixture evidence; human acceptance pending.",
+    "id": "hre-signal-post-integrated-v1-b1-r0",
+    "revision": 1,
+    "title": "Human Review / signal-post-integrated-v1"
+  },
+  "source_sha256": "1b93f388841ce64793e175ba639ef6443ba86033fbe3ddf8b55e7a5445d0efb9",
+  "images": 48,
+  "recordings": 4,
+  "states": 12,
+  "renderer": "Renderer 1.1.0",
+  "human_verdicts": "NONE",
+  "console_errors": [],
+  "checks": [
+    "sealed artifact byte checks",
+    "all image dimensions and decodes",
+    "12 unreviewed items",
+    "reduced-motion evidence",
+    "recording metadata decode",
+    "desktop/mobile review UI"
+  ]
+}

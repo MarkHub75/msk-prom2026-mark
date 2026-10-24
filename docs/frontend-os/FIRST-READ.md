@@ -1,75 +1,61 @@
-# SafeWatch: первый рабочий проход через Frontend Hackathon OS 4.0
+# SafeWatch — текущий рабочий frontend
 
-24 октября 2026: рабочий frontend реализован на утверждённом направлении **«Сигнальный пост»**. Штатный контроллер достиг **HUMAN_PRODUCT_REVIEW**. Человек утвердил концепцию; готовый продукт ещё не утверждён.
+Утверждённый «Сигнальный пост» сохранён. Точечные исправления после HUMAN_PRODUCT_REVIEW KEEP выполнены. Внешний stateful mock E2E **PASS 8/8**, frontend gate **PASS 19/19**. OS достигла следующего обязательного checkpoint **HUMAN_FINAL_PRODUCT_REVIEW**; финальной приёмки исправлений ещё нет.
 
 ## Открыть
 
-- [Приложение: критический сценарий](http://127.0.0.1:8000/operator?review=critical&reset=1).
-- [Основной HRE](http://127.0.0.1:8198/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/manifest.json).
-- [Вторая рабочая интерпретация HRE](http://127.0.0.1:8199/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-response-b1-r0/attempt-1-ae837c06/manifest.json).
-- [Результаты проверок и ограничения](VERIFICATION.md).
-- [Версионированный архив working-v1](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/review-delivery/working-v1.zip): неизменённые HRE-пакеты, шесть исходных концепций, frozen builds, код, контракты и доказательства.
+- [Приложение с внешним stateful-моком](http://127.0.0.1:5185/operator?review=real). Мир после проверки сброшен; сценарий публикуется через CLI мока.
+- [Новый настоящий HRE исправленных экранов](http://127.0.0.1:8197/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-integrated-v1-b1-r0/attempt-1-fa4a4eac/manifest.json).
+- [Portable HRE working-v2.zip](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/review-delivery/working-v2.zip): копия канонического пакета, неизменённый approved renderer, исходники и раздельные QA-доказательства.
+- [Текущий FRONTEND_STATUS](FRONTEND_STATUS.md), [проверки и ограничения v2](INTEGRATION_REVIEW_v2.md), [скриншоты внешнего мока](review-v2/README.md).
 
-Прямые реальные captures основного варианта: [пульт](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/assets/dispatch-critical-desktop-normal.png), [красная тревога](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/assets/red-takeover-desktop-normal.png), [Incident Focus](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/assets/incident-focus-desktop-normal.png), [мобильный мастер](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/assets/master-task-mobile-normal.png), [камера с HUD](/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/assets/camera-hud-desktop-normal.png).
+HRE использует renderer 1.1.0, manifest/decision schemas 1.0.0. Новый пакет содержит **12 состояний, 48 PNG на 1440×900 и 390×844 в normal/reduced motion, 4 настоящие записи сценария мастера**, 3 документа происхождения. Никаких новых концепций или самостоятельного редизайна. Проверки 1280×800 и 25 captures внешнего мока приложены отдельно.
 
-Это локальные серверы. HRE запущен настоящим `review-serve`, использует неизменённый renderer 1.1.0 и manifest/decision schemas 1.0.0. В каждом продуктовом пакете 11 состояний, 44 PNG на 1440×900 и 390×844 в normal/reduced motion, четыре WebM сценария мастера и три документа происхождения. Проверки приложения на 1280×800 приложены отдельно. Все продукты UNREVIEWED; отсутствующий baseline не подставляется.
+## Исправленный продукт
 
-## Реализовано
+App Shell и пять ролей; `/operator`, `/operator/sectors/:sectorId`, `/operator/cameras/:cameraId`, `/events/:eventId`, `/master`, `/master/events/:eventId`, `/master/shift`, `/ohs/journal`.
 
-Единый App Shell, пять ролей, actor, локальные кириллические Golos Text / Oswald, тёмные токены, доступные фокусы, reduced motion и адаптивная навигация.
+Активная очередь отделена от завершённой истории по серверным metadata; normal показывает 0 / 4. У синтетического падения удалены неподходящие кадр и видео. Явное имя запрашивается перед первым действием, фиктивного X-Actor нет. Оба блока сравнения Incident видны на первом экране 1440×900. HUD использует точные objects/bbox кадра и контрастную подпись. Журнал работает с реальными filters/facets/cursor API. Исправлены stale actions после reset/404 и повторная загрузка evidence по тому же URL.
 
-- `/operator`: нумерованные участки, состояние наблюдения, видеопанели, компактная очередь тревог и хронология.
-- `/operator/sectors/:sectorId`: состав участка и камеры.
-- `/events/:eventId`: доказательство, объяснение, серверное состояние и действия; последующее воспроизведение с HUD, передача ответственности и история. Красный захват сворачивается. Действия определяет `allowed_actions`.
-- `/master`, `/master/events/:eventId`: отдельный мобильный сценарий поручения, принятия и обязательного отчёта о мерах.
-- `/operator/cameras/:cameraId`: крупная запись, HUD, позиция, шкала времени и связанные события.
-- `/master/shift`: доступная история смены. Остальные профессиональные разделы честно обозначают ограниченный объём первого прохода.
+## Повторить внешний сценарий
 
-Проверен цикл: красное событие → доказательство → подтверждение/передача → поручение мастеру → принятие → обязательные меры → завершение → повторное открытие. Также проверены ложное срабатывание, пустая очередь, ошибки, потеря связи и камера.
+Текущий отдельный mock worktree: `/mnt/d/templates/msk-promhack/safewatch-checkpoint-mock`, detached `f7520320`; новый `93ad427f` меняет только журнал наблюдения и его артефакты, runtime-код тот же. Он получен из `origin/demo/checkpoint`, не скопирован в frontend и не изменён. REST4010, WS4011.
 
-## Контракт и границы интеграции
+Если серверы остановлены, в отдельных терминалах:
 
-В изолированную ветку влит официальный `origin/main` `9e53010c6a6c75cca6ace27ae96f7961f296dd2a` со scaffold S0 и контрактом 1.0.0. Источники истины: `contract/openapi.json`, `contract/ws.schema.json`, `contract/ws-examples.json`. REST-типы генерируются `openapi-typescript`; WS проверяется по настоящей схеме и примерам. Соблюдены `/api/...`, `/ws`, `X-Role`, `X-Actor`.
+```bash
+cd /mnt/d/templates/msk-promhack/safewatch-checkpoint-mock/tools/checkpoint-demo
+npm ci
+npm run mock
+```
 
-Настоящий backend: health 200 и WS hello проверены; бизнес-методы пока возвращают **501**. Полные переходы состояния проверены на явном контрактном fixture-транспорте. Реальный режим `/operator?review=real` показывает настоящую ошибку без подмены данными.
+```bash
+cd /mnt/d/templates/msk-promhack/safewatch-os-first-pass/frontend
+npm ci
+npm run dev:mock -- --host 127.0.0.1 --port 5185
+```
 
-Review включается явно: `?review=critical|normal|empty|error|offline|notimplemented|disconnected`; `reset=1` сбрасывает сценарий. Маркировка видна на экранах. Синтетические изображения созданы настоящим ChatGPT Images; 30-секундные ролики повторяют статичные изображения. Это проверочные материалы UI, не live CCTV и не результаты LinQ. Ручные рамки соответствуют этим кадрам. Реальный режим использует медиа из DTO.
+Из каталога mock: `node bin/demo.mjs reset`, затем `node bin/demo.mjs next` публикует жёлтое. Подтвердить его через UI с явным именем; следующий `next` публикует красное. Дальше takeover → Incident → подтвердить/передать → роль «Мастер» → принять → обязательные меры → завершить → журнал. `node bin/demo.mjs ws-drop` проверяет восстановление канала. Smoke сбрасывает мир, поэтому не запускается одновременно с ручным сценарием.
 
-## Человеческое решение и процесс OS
+`review=real` явно отключает сохранённые локальные fixtures. Мок и его изображения синтетические, видео/эфира у него нет. Против настоящего backend запускать обычный `npm run dev`: Vite proxy `/api` и `/ws` →8000, без cross-origin API base.
 
-OS: `/mnt/d/templates/frontend-hackathon-os`, HEAD `d67a9627e9c9c2ee16a6e51e615c63597672ede0`; архитектура 4.0, Python package 0.1.0. Поддерживаемый режим — `interactive-codex`: агент выполняет работу, контроллер сохраняет receipts/revisions/human gates и запускает HRE. `drive` не выдаётся за автономного разработчика.
+## OS, человеческие решения и повторное открытие HRE
 
-Через настоящий `human-feedback` записаны цитаты пользователя с реальными ID manifest: `signal-post` — основа; `response-route`, `sector-atlas`, `evidence-desk`, `shift-ribbon`, `video-switchboard` — конкретные дополнительные механизмы. Для уже полученного в чате решения отдельный клик HRE не требовался. Concept review v3 сохранён: шесть направлений, 12 изображений, manifest SHA256 `fabd34e7ee30d4802c8aefa4743a63b0266e4635aa84e8f699c29dea79d799f3`.
+Run `/mnt/d/templates/frontend-hackathon-os/production/runs/safewatch-20261024-working-r3`, ID `1b7496bc17f942cb9e483483e329ca2b`. Реальный режим OS4 — interactive Codex + controller; автономный worker не заявляется. `drive` не создаёт продукт сам.
 
-Завершены synthesis, ограниченная component expedition, две независимые полноценные интерпретации, browser journeys, независимый anti-slop, регистрация slice с pinned capture-spec и автоматический HRE lifecycle. Реальная 21st timeline адаптирована как история actor/action/time; shadcn и React Bits изучены выборочно. Нового исследования концепций не проводилось.
+Концепция `signal-post` и механизмы `response-route`, `sector-atlas`, `evidence-desk`, `shift-ribbon`, `video-switchboard` зарегистрированы через настоящий `human-feedback`. Позднейший KEEP рабочих экранов зарегистрирован через `single-product-completion`, base **signal-post-command**; это actual chat feedback, не выдуманный HRE export. Далее штатные `review-spec` → `creative-receipt final-product` автоматически создали новый пакет. Код OS не менялся. Новых исследований и изображений не генерировалось.
 
-Текущий run: `production/runs/safewatch-20261024-working-r3`, ID `1b7496bc17f942cb9e483483e329ca2b`. Предыдущие run и неуспешные captures сохранены. Первый run имел ошибку report writer; r2 упёрся в неизменяемую ошибочную capture recipe. r3 создан документированным fresh-run recovery с повторным импортом тех же изображений, исходного human feedback и готовых source snapshots. Новых человеческих решений не выдумывалось. Происхождение и CLI: `evidence/working-review-recovery.json`, `evidence/recovery-cli/`. Код OS и её существующие чужие изменения не редактировались.
-
-Основной source SHA256: `7294c13b3f04090065e1d964978cf9f63e0a9adbbd2f0f166f70e73a0a6cae9f` (107 файлов). Альтернатива: `37006b1071544ce995e10dc18d85784e202f6e8984f97032cc0d8425cb08717a` (101 файл). HRE привязан к этим исходникам, а не к изменяемому dev server.
-
-## Повторное открытие и следующий checkpoint
-
-Из корня OS, серверы в отдельных терминалах:
+Из корня OS:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=production python3 -B -m hackathon_os.cli --run production/runs/safewatch-20261024-working-r3 next
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=production python3 -u -B -m hackathon_os.cli --run production/runs/safewatch-20261024-working-r3 review-serve --review hre-signal-post-command-b1-r0 --port 8198
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=production python3 -u -B -m hackathon_os.cli --run production/runs/safewatch-20261024-working-r3 review-serve --review hre-signal-post-response-b1-r0 --port 8199
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=production python3 -u -B -m hackathon_os.cli --run production/runs/safewatch-20261024-working-r3 review-serve --review hre-signal-post-integrated-v1-b1-r0 --port 8197
 ```
 
-Человек рассматривает экраны и сценарии, отмечает элементы и экспортирует решение из существующего HRE. Экспорт импортируется через `review-import` с точным review ID; импорт не выполняет автоматический окончательный выбор. Допустима явная обратная связь в чате, которую оператор зарегистрирует. Глобальный редизайн или финальная приёмка самостоятельно не запускаются.
+Новый completion product ID требуется контроллером; прежняя утверждённая база сохранена. Автоматической cross-candidate baseline нет, HRE честно показывает NO BASELINE. [Предыдущее утверждённое рабочее ревью](http://127.0.0.1:8198/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/manifest.json) остаётся доступным. Сохранены шесть прежних концепций, все исходные run/ошибочные attempts и архив working-v1; recovery описан в run/evidence/working-review-recovery.json. Процесс не начинался заново.
 
-Остановка обязательна по [creative-director/SKILL.md](/mnt/d/templates/frontend-hackathon-os/skills/creative-director/SKILL.md:41): «HUMAN_PRODUCT_REVIEW — second mandatory stop», «Present runnable products …; STOP».
+## Git и интеграционные границы
 
-## Изоляция и сборка
+Ветка **codex/safewatch-frontend-v1**, изолированный worktree `/mnt/d/templates/msk-promhack/safewatch-os-first-pass`; вся история предыдущей `codex/safewatch-os-first-pass` сохранена. Проверенные этапы коммитятся и пушатся только в собственную ветку. Main, backend, mock, DTO, CLAUDE.md и progress.md не изменялись.
 
-Ветка реализации `codex/safewatch-frontend-v1` создана от `codex/safewatch-os-first-pass` с сохранением всей истории; worktree `/mnt/d/templates/msk-promhack/safewatch-os-first-pass`. Основное дерево команды `/mnt/d/templates/msk-promhack/msk-prom2026-mark` не редактировалось. Backend и контрактные JSON не изменялись. React 18 / Vite / TypeScript; output `frontend/dist/`.
-
-```bash
-cd frontend
-npm ci
-npm run gate
-npm run dev
-```
-
-Локальные зависимости установлены из точного lockfile в Linux filesystem; `frontend/node_modules` — игнорируемый symlink. Gate включает сверку generated API, lint, TypeScript, тесты и production build. Основной продукт — 14 тестов, независимая интерпретация — 16. Ограничения и доказательства: VERIFICATION.md.
+REST-типы из настоящего OpenAPI1.0.0, WS по настоящим schema/examples; последние upstream contracts не изменились. Текущий S0 backend: health200/WShello, business501. Свежая попытка S5 в доступном runtime остановилась на отсутствующем cv2; последний R5 runtime не проверен. Полная интеграция с настоящим backend **не объявляется завершённой**. Детали, известные P2 и следующие зависимости — в FRONTEND_STATUS и INTEGRATION_REVIEW_v2.
