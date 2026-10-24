@@ -9,7 +9,7 @@ import { useRole } from "../../roles";
 import { ErrorNotice, Loading } from "../../components/ui";
 import { GeometryEditor, type EditTarget } from "./editor";
 import { centroid, fmt, nameProblem, pct, polygonArea, samePoints, svgPoints, zoneProblem, ZONE_NAME_MAX, ZONE_POINTS_MAX, type Pt } from "./geometry";
-import { ConfirmButton, FieldError, FormError, FrameStage, ICON, RecomputeNotice, useSetupMeta } from "./shared";
+import { ConfirmButton, FieldError, FormError, FrameStage, ICON, RecomputeNotice, useLastLoaded, useSetupMeta } from "./shared";
 import "../../styles/geometry.css";
 
 type KindMeta = { id: string; title: string; color: string; geometry: "polygon" | "line"; description: string };
@@ -77,7 +77,8 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
   const [busy, setBusy] = useState(false);
   const [changed, setChanged] = useState<string>();
 
-  const list = zones.data ?? [];
+  const loadedZones = useLastLoaded(zones.data, cameraId);
+  const list = loadedZones ?? [];
   const saved = draft && draft.id !== "new" ? list.find((z) => z.id === draft.id) : undefined;
   const kind = draft ? kindOf(draft.kind) : undefined;
   const dirty = !!draft && (draft.id === "new" || !saved || saved.name !== draft.name || !samePoints(saved.points, draft.points));
@@ -133,7 +134,7 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
 
   if (zones.error) return <ErrorNotice error={zones.error} retry={zones.reload} />;
   if (metaError) return <ErrorNotice error={metaError} />;
-  if (zones.loading && !zones.data) return <Loading text="Загружаем зоны камеры" />;
+  if (!loadedZones) return <Loading text="Загружаем зоны камеры" />;
 
   const edit: EditTarget | null = draft && canEdit ? { points: draft.points, geometry: kind?.geometry ?? "polygon", closed: draft.closed, color: kind?.color ?? "#fff" } : null;
   const drawingNew = draft?.id === "new";

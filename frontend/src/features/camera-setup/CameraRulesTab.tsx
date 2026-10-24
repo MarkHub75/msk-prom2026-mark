@@ -11,7 +11,7 @@ import { useApi } from "../../api/useApi";
 import { useRole } from "../../roles";
 import { ErrorNotice, Loading } from "../../components/ui";
 import { fmt, overrides, parseNumber } from "./geometry";
-import { ICON, RecomputeNotice, useSetupMeta } from "./shared";
+import { ICON, RecomputeNotice, useLastLoaded, useSetupMeta } from "./shared";
 import "../../styles/geometry.css";
 
 type Rule = Schemas["CameraRule"];
@@ -46,17 +46,18 @@ export function CameraRulesTab({ cameraId }: { cameraId: number }) {
   const [busy, setBusy] = useState(false);
   const [changed, setChanged] = useState<string>();
 
-  const base = useMemo(() => Object.fromEntries((rules.data ?? []).map((r) => [r.scenario, draftOf(r)])), [rules.data]);
+  const loaded = useLastLoaded(rules.data, cameraId);
+  const base = useMemo(() => Object.fromEntries((loaded ?? []).map((r) => [r.scenario, draftOf(r)])), [loaded]);
   useEffect(() => setDrafts(base), [base]);
 
   if (rules.error) return <ErrorNotice error={rules.error} retry={rules.reload} />;
   if (metaError) return <ErrorNotice error={metaError} />;
-  if (!rules.data || !meta) return <Loading text="Загружаем сценарии камеры" />;
+  if (!loaded || !meta) return <Loading text="Загружаем сценарии камеры" />;
 
   const scenarios = meta.scenarios;
   const kinds = meta.zone_kinds;
   const zoneKinds = new Set((zones.data ?? []).map((z) => z.kind));
-  const byId = Object.fromEntries(rules.data.map((r) => [r.scenario, r]));
+  const byId = Object.fromEntries(loaded.map((r) => [r.scenario, r]));
   const isDirty = (id: string) => !!drafts[id] && !!base[id] && JSON.stringify(drafts[id]) !== JSON.stringify(base[id]);
   const dirtyIds = scenarios.map((s) => s.id).filter(isDirty);
   const invalid = dirtyIds.some((id) => Object.keys(paramProblems(scenarios.find((s) => s.id === id)!, drafts[id].values)).length > 0);

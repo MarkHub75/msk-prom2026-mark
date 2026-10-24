@@ -9,7 +9,7 @@ import { useRole } from "../../roles";
 import { ErrorNotice, Loading, time } from "../../components/ui";
 import { GeometryEditor } from "./editor";
 import { CAL_POINTS_MAX, CAL_POINTS_MIN, convexHull, fitHomography, fitRmse, fmt, gridPreview, parseNumber, svgPoints, type Pt } from "./geometry";
-import { ConfirmButton, FieldError, FormError, FrameStage, ICON, RecomputeNotice } from "./shared";
+import { ConfirmButton, FieldError, FormError, FrameStage, ICON, RecomputeNotice, useLastLoaded } from "./shared";
 import "../../styles/geometry.css";
 
 interface Row { image: Pt; x: string; y: string }
@@ -39,7 +39,8 @@ export function CalibrationTab({ cameraId }: { cameraId: number }) {
   const [role] = useRole();
   const canEdit = role === "admin";
   const cal = useApi(() => api.GET("/api/cameras/{camera_id}/calibration", { params: { path: { camera_id: cameraId } } }), [cameraId]);
-  const saved = cal.data ?? null;
+  const loaded = useLastLoaded(cal.data, cameraId);
+  const saved = loaded ?? null;
   const base = useMemo(() => fromCalibration(saved), [saved]);
   const [draft, setDraft] = useState<Draft>(base);
   const [active, setActive] = useState<SetId>("fit");
@@ -104,7 +105,7 @@ export function CalibrationTab({ cameraId }: { cameraId: number }) {
   };
 
   if (cal.error) return <ErrorNotice error={cal.error} retry={cal.reload} />;
-  if (cal.loading && cal.data === undefined) return <Loading text="Загружаем калибровку" />;
+  if (loaded === undefined) return <Loading text="Загружаем калибровку" />;
 
   const label = (set: SetId) => (i: number) => {
     const r = draft[set][i];
@@ -191,7 +192,9 @@ export function CalibrationTab({ cameraId }: { cameraId: number }) {
               <dt>Контрольные</dt><dd>{saved.control_rmse_m === null ? "нет контрольных точек: точность не проверена" : `${fmt(saved.control_rmse_m, 3)} м`}</dd>
               <dt>Сохранена</dt><dd>{time(saved.updated_at, false)} МСК</dd>
             </dl>
-          ) : <p className="geo-muted">Калибровки нет: система работает в ростах человека, и это нормальный режим.</p>}
+          ) : null}
+          {saved && saved.image_points.length === CAL_POINTS_MIN && <p className="geo-muted">При {CAL_POINTS_MIN} опорных точках подгонка всегда точная (СКО ≈ 0): реальную точность показывают контрольные точки.</p>}
+          {!saved && <p className="geo-muted">Калибровки нет: система работает в ростах человека, и это нормальный режим.</p>}
           {dirty && preview && (
             <p className="geo-preview-note">Оценка в браузере до сохранения: подгонка {fmt(preview.fit, 3)} м{preview.control !== null ? `, контрольные ${fmt(preview.control, 3)} м` : ""}. Итог считает сервер.</p>
           )}

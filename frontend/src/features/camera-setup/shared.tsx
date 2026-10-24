@@ -17,6 +17,14 @@ export function useSetupMeta(): { meta?: Meta; error?: ApiFailure } {
   return { meta: shell ?? own.data, error: shell ? undefined : own.error };
 }
 
+/** The last loaded value: a reload after a save does not blank the editor. */
+export function useLastLoaded<T>(value: T | undefined, key: unknown): T | undefined {
+  const [kept, setKept] = useState<{ key: unknown; value: T } | undefined>();
+  useEffect(() => { if (value !== undefined) setKept({ key, value }); }, [value, key]);
+  if (value !== undefined) return value;
+  return kept && kept.key === key ? kept.value : undefined;
+}
+
 export interface FrameSize { w: number; h: number }
 
 /** Camera frame (`/preview`) fitted into the well; the overlay gets the rendered size in px. */

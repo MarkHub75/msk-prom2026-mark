@@ -92,6 +92,27 @@ describe("ZonesTab", () => {
   });
 });
 
+describe("GeometryEditor in ZonesTab", () => {
+  it("inserts a vertex on an edge midpoint, drags it and deletes a vertex with Delete", async () => {
+    backend();
+    render(<ZonesTab cameraId={1} />);
+    await screen.findByText("2 зоны");
+    fireEvent.click(screen.getByRole("button", { name: /Пресс/ }));
+    const svg = screen.getByTestId("geometry-editor");
+    svg.getBoundingClientRect = () => ({ left: 0, top: 0, width: 1000, height: 500, right: 1000, bottom: 500, x: 0, y: 0, toJSON: () => ({}) });
+    // Midpoint of the top edge (0.5,0.3)–(0.9,0.3) is (700, 150) px.
+    fireEvent.pointerDown(svg, { clientX: 700, clientY: 150, button: 0 });
+    fireEvent.pointerMove(svg, { clientX: 700, clientY: 100 });
+    fireEvent.pointerUp(svg, { clientX: 700, clientY: 100 });
+    expect(screen.getAllByTestId("vertex")).toHaveLength(5);
+    expect(screen.getByText("не сохранено")).toBeTruthy();
+    fireEvent.keyDown(window, { key: "Delete" });
+    expect(screen.getAllByTestId("vertex")).toHaveLength(4);
+    fireEvent.keyDown(window, { key: "Escape" });
+    expect(screen.queryByText("не сохранено")).toBeNull();
+  });
+});
+
 describe("CalibrationTab", () => {
   it("shows the saved points, grid and accuracy; ohs sees it read-only", async () => {
     backend();
