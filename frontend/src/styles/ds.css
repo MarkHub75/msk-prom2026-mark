@@ -544,7 +544,20 @@ input[type=date] { color-scheme: dark; }
 
 /* Sector and camera pages */
 .ds-app .sector-detail-layout, .ds-app .camera-workspace { gap: var(--s1); }
-.ds-app .camera-tile { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: 0; }
+.ds-app .camera-grid { gap: var(--s1); padding: var(--s1) 0; }
+.ds-app .camera-tile { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-radius: 0; overflow: hidden; transition: box-shadow .15s; }
+.ds-app .camera-tile:hover { box-shadow: 0 0 0 1px var(--ds-accent); }
+.ds-app .camera-tile > a { display: flex; flex-direction: column; height: 100%; }
+.ds-app .camera-tile-title { display: flex; align-items: center; justify-content: space-between; height: var(--ds-panel-head); padding: 0 var(--s3); background: var(--ds-bg-2); border-bottom: 1px solid var(--ds-line-dark); }
+.ds-app .camera-tile-title h2 { font-size: 13px; font-weight: 600; }
+.ds-app .camera-tile img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.ds-app .camera-tile .empty-state { aspect-ratio: 16 / 9; min-height: 0; border: 0; background: repeating-linear-gradient(135deg, #0d0e10 0 8px, #090a0c 8px 16px); }
+.ds-app .camera-tile.sector-red { box-shadow: inset 0 2px 0 var(--ds-red); }
+.ds-app .camera-tile.sector-yellow { box-shadow: inset 0 2px 0 var(--ds-amber); }
+.ds-app .camera-tile-foot { display: flex; justify-content: space-between; gap: var(--s2); padding: 6px var(--s3); font-size: 12px; color: var(--ds-text-2); border-top: 1px solid var(--ds-line); }
+.ds-app .camera-facts { display: flex; gap: var(--s6); padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-top: 0; font-size: 13px; }
+.ds-app .camera-facts span { display: block; font-size: 12px; color: var(--ds-text-3); }
+.ds-app .recording-label { display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border: 1px solid var(--ds-line-strong); border-radius: var(--r2); font-size: 12px; color: var(--ds-text-2); }
 .ds-app .attention-rail { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); }
 
 /* ========================== Takeover (critical alarm) ========================== */
@@ -698,10 +711,11 @@ input[type=date] { color-scheme: dark; }
 
 /* ========================== Event feed cards (master, sector) ========================== */
 .ds-app .event-feed { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s1); }
-.ds-app .feed-event { background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-left: 3px solid var(--ds-amber); animation: ds-row-in .3s var(--ds-ease) both; }
+.ds-app .event-feed > li { margin: 0 !important; }
+.ds-app .feed-event { padding: 0 !important; background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); border-left: 3px solid var(--ds-amber); animation: ds-row-in .3s var(--ds-ease) both; }
 .ds-app .feed-event::before { content: none; }
 .ds-app .feed-event.feed-red { border-left-color: var(--ds-red); }
-.ds-app .feed-event-link { display: grid; gap: 3px; padding: 10px var(--s3); }
+.ds-app .feed-event-link, .ds-app.is-master .feed-event-link { display: grid; gap: 3px; padding: 10px var(--s3) !important; min-height: 0 !important; }
 .ds-app .feed-event-link > * { margin: 0 !important; }
 .ds-app .feed-event-link:hover { background: var(--ds-bg-2); }
 .ds-app .feed-event-link:hover h3 { text-decoration: none; color: #fff; }
@@ -722,7 +736,8 @@ input[type=date] { color-scheme: dark; }
   .ds-app .shell-header.ds-topbar { position: sticky; top: 0; height: 48px; padding: 0 var(--s2) 0 0; }
   .ds-brand.brand { min-width: 0; padding: 0 var(--s3); border-right: 0; }
   .ds-roles.cr-roles, .ds-actor, .ds-live, .ds-clock .ds-clock-date, .ds-clock small { display: none !important; }
-  .ds-source.cr-source { max-width: 150px; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; }
+  .ds-source.cr-source { max-width: 200px; overflow: hidden; text-overflow: ellipsis; font-size: 11px; padding: 0 6px; }
+  .ds-brand.brand { padding: 0 var(--s2) 0 var(--s3); }
   .ds-clock.shell-clock { display: none; }
   .ds-clock .ds-clock-time { font-size: 14px; }
   .ds-rail.cr-rail { position: static; flex-direction: row; align-items: center; height: auto; padding: 4px var(--s2); border-right: 0; border-bottom: 1px solid var(--ds-line-dark); overflow: visible; }
