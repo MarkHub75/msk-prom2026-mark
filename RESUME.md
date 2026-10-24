@@ -1,8 +1,16 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
-## ACTIVE DIAGNOSTIC FOLLOW-UP — 2026-10-24T01:25:33.254599+00:00
+## FOLLOW-UP CLOSED — 2026-10-24T01:32:31.411557+00:00
 
-User explicitly resumed autonomous work after f99edc8de074dda020fe655ec82875f6ba23a008. No questions. Previous E001–E005/candidatebudgets remain CLOSED, noNN/training/compile/LinQ reruns. Producer READY unchanged (last2026-10-24T00:35:39Z); no neweligibletrain/test/geometry. Independent remaining tasks: E006Detection saved52Helmet float/native/PTQ objectretention; E007Behavior saved345CAVIAR observationgate/ownership attribution; root release-evidence/integrity gate. Agents work only in their own clean branches mergedfromf99edc8d; rootsolewriterhere. Do not restart architecture/source search or touch Data/backend/frontend/sharednetwork/captain. Follow-up outputs outsideGit in /workspace/artifacts/night-20261024/E006-helmet-drift-audit/ and E007-caviar-observation-audit/. Finish owned tests/docs, preserve localcommits, update NIGHT_REPORT and stop. Priorclosedcyclebelow is historical.
+**СТОП; продолжать только по новой задаче.** Пользователь возобновил работу послеf99edc8d; E006/E007/E008 завершены без сброса бюджетов E001–E005 и без NN/тренировки/компиляции/LinQ/смены порогов. Code checkpoint6b4493a5777299349579e2f3b81f898b395e21f8; точный последний SHA — gitlog-1 содержащегоRESUME. NIGHT_REPORT.md сверху содержит итог follow-up, предыдущие результаты сохранены ниже.
+
+E006 Detection9c501234: native/float одинаковыеprimaryTP/FP, rawНЕbitwise. BaselinePTQ retains19helmetTP+recovers4, bare retains19+loses4; все4bareпотери: saved sameclassIoU>=.5, score<.25. FP18→14=9retained/9безсоответствия/5new. ИсторическийrawNPZbinding по common52order, не embeddedID; полныйaudit-v2авторитетен.
+
+E007 Behaviorf5c92776: running46=30no decodedperson+16IoU<.5, consumer.5gate=0. Original384x288geometry/345IDs/hashes/768XMLboxes verified;188decodedboxes/KPs inbounds.11outofimageGTboxes walkingonly, preserved. Нет preNMS => причина belowdecoderUNKNOWN. Правила/пороги не менялись.
+
+E008root2cf291d9: ml.quality.release_review сопоставляет артефакты/компоненты/историческиеcapturedUUID, использует capture_review; integrityPASS и qualityNOTQUALIFIED отдельно. Finalreview /workspace/artifacts/night-20261024/E008-release-evidence/followup-final-review.json. Никаких network/NNcalls/automaticpromotion. **417tests PASS**, software-tests-followup-001.log, testedMLcommitb85d4f84. Новые summary/13graphdata rows ml/reports/night-followup-20261024.json/.csv; figures-followup/PNG-SVG-PDF внеGit. Повторять NN/старые эксперименты/сохранённыеаудиты не надо.
+
+READYнеизменился, consumer-onlyML_REQUIREMENTSupdated, Dataworktree/backend/frontendнеизменены. Новых eligibletrain/test/geometry нет. Всё общие LinQограничения сохранены, bootstrap НЕ опубликован/Matveyplacement НЕ выполнен, oldmanifestfreshcallsblocked. Binarymodels/архивыбезизменений, offVastbackup/remoteGitunverified, network/services/foreignqueues/captainbaseline untouched. НикакихактивныхMLheavyjobs. Следующие3посленовогодиректива: независимыйactorGT; upstreamperson/ownership+conditioned-floatisolation; validationwinner→ownLinQ→sealedtest. Не создавать работу для заполнения6часов при исчерпанныхбюджетах/отсутствииREADY.
 
 ## NIGHT CLOSED — 2026-10-24T01:22:34.026603+00:00
 

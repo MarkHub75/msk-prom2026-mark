@@ -1,8 +1,28 @@
 # MOSPROM 2026 — итог ночного ML-цикла 24 октября
 
-## Follow-up resumed 2026-10-24T01:25:33.254599+00:00
+## Дополнительный этап закрыт — 2026-10-24T01:32:31.411557+00:00
 
-A new user directive authorizes bounded diagnostic work after the frozen cycle below. No new candidate budget, model training or neural rerun is allocated. E006 savedHelmet drift attribution / E007 savedCAVIAR observation audit and root release-evidence checks are IN_PROGRESS. Previous cycle results remain unchanged. Final follow-up findings will be added here after saved evidence/tests/commits.
+После новой команды пользователя выполнен только анализ сохранённых результатов E006–E008. Кандидатные бюджеты E001–E005 не сбрасывались, веса/правила/пороги не менялись. Нового инференса, обучения, компиляции и сетевых операций не было. Дальнейшая работа требует новых eligible READY данных или отдельного решения о следующем цикле.
+
+| Анализ | Фактический результат | Следствие |
+|---|---|---|
+| E006 Helmet GT-retention | Native/float сохраняют те же TP/FP; PTQ теряет4bare_head TP и восстанавливает4helmet TP. Все4bare потери имеют saved sameclass overlapIoU≥.5, но score<.25. FP18→14:9сохранившихся/9безсоответствия/5новых | Агрегатное улучшение скрывает classrecall regression. Ни изменения confidence, ни причинной PTQ-локализации не заявлено |
+| E007 CAVIAR observation stages |46running actorframes:30безdecodedperson,16сIoU<.5,0потерь наconsumer.5. 345sourceIDs/геометрия/hash проверены,768GTboxes воспроизведены изXML,188decodedboxes/KPs внутри384×288 | Consumer confidence.5 не объясняет измеренный провал running. Нет rawpreNMS, поэтому более ранние причины UNKNOWN |
+| E008 release ledger | Целостность весов/компонентов/кандидатов и сохранённых correlated captures PASS; independentquality BLOCKED, ownMatveyplacement/внешнийbackup NOTVERIFIED | Status0, hashes и число тестов не превращаются в независимую accuracy или hardwareattestation |
+
+В E007 одиннадцать выходящих за кадр source-GT boxes относятся только к walking (6безdecodedperson/5IoUbelow), сохранены без silentclipping; они не объясняют running-пропуски. В E006 raw native/float не битово равны: первичные метрики одинаковы, но класс-максимальные численные отклонения приведены в JSON. Исторические NPZ привязаны по сохранённому общему порядку52изображений/предсказаний, без embedded imageID; это ограничение явно указано. Полные per-GT/actor списки вне Git.
+
+Итог после дополнительных merges: **417softwaretests PASS**, `/workspace/artifacts/night-20261024/software-tests-followup-001.log`. Code checkpoint для этих проверок b85d4f84; дополнительный renderer только строит графики из сохранённых JSON. Native agents завершили задачи в собственных worktree: Detection9c501234, Behaviorf5c92776; root2cf291d9 release_review. Ни чужие worktree/backend/frontend, ни сеть/очереди/файлы капитана не изменялись.
+
+Новые малые отчёты: [summary](ml/reports/night-followup-20261024.json), [данные графиков](ml/reports/night-followup-20261024.csv). Полные результаты: `/workspace/artifacts/night-20261024/E006-helmet-drift-audit/audit-v2/`, `E007-caviar-observation-audit/`, `E008-release-evidence/`. График PNG/SVG/PDF + SHA: `/workspace/artifacts/night-20261024/figures-followup/`. Воспроизведение только отчёта: `/venv/main/bin/python scripts/summarize_ml_followup.py`. Проверка текущего checkpoint без сети/NN: `/workspace/.venvs/linq-client/bin/python -m ml.quality.release_review --output /workspace/artifacts/night-20261024/E008-release-evidence/NEW-REVIEW.json --integrity-only`; новое имя сохраняет старые review. Без --integrity-only exit2 означает незакрытый quality gate, а не порчу весов.
+
+Producer READY не изменился; диагностическая обратная связь добавлена только в consumer-owned `/workspace/shared/dataset-handoff/ML_REQUIREMENTS.json`. Новых train/independenttest/geometry данных нет. Исходные модели/TPU/архивы сохранены без нового дублирующего бинарного snapshot. OffVast backup и remoteGit остаются непроверенными; учётные данные и сеть не перенастраивались.
+
+Что честно добавилось для жюри: воспроизводимое объяснение конкретных наблюдаемых ошибок, исходные/квантованные class tradeoffs и отдельная проверка сохранности evidence. Промышленная точность/новые модели/сценарии/realtime не подтверждены. Следующие три действия прежние, теперь с локализованным bottleneck: независимая actor-level разметка; улучшение upstream person/ownership и изоляция conditioned-float/PTQ; затем собственный LinQ и sealed-test. Новый цикл не запускается автоматически. Точный закрывающий SHA — gitHEAD содержащего этот отчёт, также в финальном сообщении.
+
+**Остановиться и ждать новой задачи.**
+
+## Предыдущий завершённый этап (E001–E005, f99edc8d)
 
 Цикл завершён. **Новая версия с доказанным улучшением качества не получена; проверенные runtime-baseline сохранены.** По две новые гипотезы на каждое из трёх направлений закрыты, дальнейшего подбора не было. Новых тренировок и запросов LinQ за ночь: **0**. Все ночные commits сохранены локально в `matvey_cv`. Следующий цикл автоматически не начинается.
 

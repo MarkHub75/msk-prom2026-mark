@@ -1,5 +1,9 @@
 # Active ML/CV task register
 
+## Закрыт дополнительный анализ сохранённых выходов
+
+E006: четыре потерянных bare_head TP послеPTQ имеют savedoverlapIoU>=.5, score<.25; Native/float primarymatches одинаковы, raw неbitwise. E007: running30/46безdecodedperson,16/46IoU<.5,0потерь наconsumer.5. E008: localartifact/runtimeevidence integrityPASS, independentquality/newplacement/backup всёещёнеподтверждены.417softwaretestsPASS. НиодногоновогоNN/TPU/GPU/обучения/порогов, budgetsнеобнулены. Отчёты: NIGHT_REPORT.md и ml/reports/night-followup-20261024.json. Переходкследующемуциклу толькопоновойзадаче.
+
 ## Ночной ML-этап 24.10.2026 — завершён
 
 - Инвентаризация: две обученные YOLOv8n модели, точные checkpoint/export версии, SHA256, исходные/отклонённые ONNX/TPU в ml/MODEL_INVENTORY.md.

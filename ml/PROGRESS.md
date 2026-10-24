@@ -1,5 +1,11 @@
 # ML/CV quality sprint — progress
 
+## CLOSED 2026-10-24T01:32:31.411557+00:00 — diagnostic follow-up checkpoint
+
+MEASURED: E006/E007 attributed savederrors, E008 separatedbyte/runtimeevidence fromblockedquality;417softwaretestsPASS, testedMLb85d4f84. Rootsummary+CSV13rows+figure persisted, sourcehashes pinned, code/docs saved. OBSERVED finalproducerREADY unchanged, no eligibleindependenttest/train/geometry. Sharedconsumerfeedback updated withoutDataworktree/producerpointer edits. NoNN/training/compile/GPU/LinQ/networkcalls orcandidatebudgetreset. Originalweights/TPU/archives preserved, no newbinaryduplication. OffVastbackup/remoteauth/ownMatveyplacement stillblocked; noquestions/recoveryattempts.
+
+Finalmanifest updatedwith417tests/newdiagnosticcodehashes, localfinalreview path E008-release-evidence/followup-final-review.json. NIGHT_REPORT/RESUME updated; exactcontainingcommit gitHEAD (pre-closeoutcode6b4493a5777299349579e2f3b81f898b395e21f8). Stopafterfinalreport; do not start anothernightcycle withoutnewtask.
+
 ## Diagnostic follow-up 2026-10-24T01:31:10.691342+00:00 — E006/E007 completed
 
 MEASURED saved-only E006: native→float primary TP/FP assignments unchanged, raw score arrays not bitwise equal (see pinned raw comparison; no inference rerun). Native→baselinePTQ retains19helmetTP and recovers4; bare retains19 and loses4, all4 have same-class savedoverlapIoU>=.5 below existing primary score.25. FP18→14 decomposes9corresponding retained/9sourcewithoutcounterpart/5newtarget. This does not authorize a newthreshold, prove isolatedPTQcausality, or qualify wearer/eventaccuracy. E006audit-v2 authoritative, provisional outputs retained. Agent9c501234 merged.

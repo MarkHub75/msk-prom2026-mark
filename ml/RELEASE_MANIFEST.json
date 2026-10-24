@@ -435,7 +435,11 @@
     "ml/pipeline/stage_program.py": "5629c7e4c6e95e5d34409e9d40021d6c43ba3064eb444176cc6580fa44a351af",
     "ml/pipeline/upload_bootstrap.py": "9ea17252f459c0137e964191a8b7b40b7d5039a0075f8089276a940e50bb0b08",
     "ml/pipeline/remote_deploy.py": "9548100343f03dd7493d3b451f82425949e8231845c9b070fae15d4a1077718e",
-    "scripts/summarize_ml_night.py": "6f300312645eaf1976661f26ee8afdf92f0c076c91b21ee9e521e87f5a04eb1b"
+    "scripts/summarize_ml_night.py": "6f300312645eaf1976661f26ee8afdf92f0c076c91b21ee9e521e87f5a04eb1b",
+    "ml/quality/helmet/drift_audit.py": "323310279dbd5bd93cc8a2a29494eb078a235ab9535dedf6690be0640adbbb83",
+    "ml/quality/temporal/observation_audit.py": "a83f67c8f69f7c9ccb869335a77394ff366f25a8e793ebab2be71376682a9a35",
+    "ml/quality/release_review.py": "20353c193612fbbf67bc70303a7db74a9f10fac662c87d3a0619620b868652ed",
+    "scripts/summarize_ml_followup.py": "64d8ddee53ea8b342e899aa7b32d8bb11fcb5a8f096538faf0dc91a6043f8df3"
   },
   "data": {
     "temporal_gt_sha256": "cba2c1beec14e6f9775833b7eacb5b42d93555444ab3cdfdacb63a8966da2334",
@@ -472,21 +476,15 @@
     "final_test_used": false,
     "clean_approved_training": "NOT_AVAILABLE_NO_TRAINING"
   },
-  "updated_utc": "2026-10-24T01:19:00.035821+00:00",
+  "updated_utc": "2026-10-24T01:32:31.411557+00:00",
   "software_tests": {
-    "last_completed": 397,
+    "last_completed": 417,
     "status": "PASS",
-    "code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
+    "code_commit": "b85d4f84",
     "environment": "/workspace/.venvs/linq-client",
-    "evidence": "/workspace/artifacts/night-20261024/software-tests-002.log",
+    "evidence": "/workspace/artifacts/night-20261024/software-tests-followup-001.log",
     "scope": "software/fault/fixture checks, not model accuracy",
-    "first_attempt": {
-      "tests": 397,
-      "failures": 1,
-      "errors": 1,
-      "evidence": "/workspace/artifacts/night-20261024/software-tests-001.log",
-      "reason": "two upload recovery fixtures still used the old staging directory; fixed test fixture paths only"
-    }
+    "previous_checkpoint_count": 397
   },
   "running_zone": {
     "stage": "FROZEN_PROTOTYPE",
@@ -519,7 +517,8 @@
     "remote_verified": false,
     "night_code_commit": "b1b102bdba6bbfa1177da03a3a426a0510f36d2b",
     "night_status": "LOCAL_COMMITS_SAVED_REMOTE_UNVERIFIED",
-    "night_push_attempted": false
+    "night_push_attempted": false,
+    "night_followup_status": "LOCAL_COMMITS_SAVED; remote auth unchanged/unverified; no repeat authentication loop"
   },
   "night_cycle": {
     "status": "CLOSED_BOUNDED_EXPERIMENTS_COMPLETE",
@@ -569,5 +568,27 @@
     "decision_csv": "ml/reports/night-20261024-decisions.csv",
     "figures": "/workspace/artifacts/night-20261024/figures",
     "source_hashes_verified": true
+  },
+  "night_followup": {
+    "status": "CLOSED_SAVED_OUTPUT_DIAGNOSTICS_ONLY",
+    "baseline_commit": "f99edc8de074dda020fe655ec82875f6ba23a008",
+    "diagnostics": [
+      "E006",
+      "E007",
+      "E008"
+    ],
+    "source_code_commit": "6b4493a5777299349579e2f3b81f898b395e21f8",
+    "candidate_budget_reset": false,
+    "model_or_threshold_changes": false,
+    "new_neural_calls": 0,
+    "new_remote_calls": 0,
+    "new_training_runs": 0,
+    "dataset_ready_changed": false,
+    "summary": "ml/reports/night-followup-20261024.json",
+    "graph_csv": "ml/reports/night-followup-20261024.csv",
+    "figures": "/workspace/artifacts/night-20261024/figures-followup",
+    "consumer_feedback": "/workspace/shared/dataset-handoff/ML_REQUIREMENTS.json",
+    "local_final_review": "/workspace/artifacts/night-20261024/E008-release-evidence/followup-final-review.json",
+    "quality_status": "NOT_QUALIFIED_AS_INDEPENDENT_RELEASE"
   }
 }

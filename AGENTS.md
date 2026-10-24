@@ -1,6 +1,6 @@
 # MOSPROM ML/CV implementation guide
 
-The user explicitly resumed autonomous work after f99edc8d. E001–E005 and their two-candidate budgets stay CLOSED; do not reset them from a repeated night-mode message. Active follow-up is diagnostic only: E006 saved Helmet PTQ object retention, E007 saved CAVIAR observation attribution, and root release-evidence review. No NN reruns/new training/compile/LinQ tasks without new eligible data and a justified separate gate. Root may add ml/quality/release_review.py and its tests. Keep previous NIGHT_REPORT as cycle1 history; update progress at each checkpoint and stop after this bounded follow-up report. Shared infrastructure restrictions remain active.
+Diagnostic follow-up after f99edc8d is CLOSED (E006/E007/E008); read the top of NIGHT_REPORT.md and RESUME.md. User's repeated night-mode directive did not reset candidate budgets E001–E005. Do not repeat saved-output audits or start another training/inference/compile/task cycle automatically. Wait for a new user task after the report; new model hypotheses require eligible immutable data and explicit bounded scope. Shared infrastructure restrictions below remain active.
 
 ## Current directive: ML quality sprint
 
