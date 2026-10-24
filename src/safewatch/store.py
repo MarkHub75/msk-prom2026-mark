@@ -282,3 +282,107 @@ def analysis_evidence(analysis_id: int) -> list[sqlite3.Row]:
 
 def evidence(evidence_id: int) -> sqlite3.Row | None:
     return one("SELECT * FROM evidence WHERE id = ?", evidence_id)
+
+
+# --- broadcasts ---------------------------------------------------------------------------
+_BROADCASTS = "SELECT b.*, v.duration_ms FROM broadcasts b JOIN videos v ON v.id = b.video_id"
+
+
+def broadcast(broadcast_id: int) -> sqlite3.Row | None:
+    return one(_BROADCASTS + " WHERE b.id = ?", broadcast_id)
+
+
+def camera_broadcast(camera_id: int) -> sqlite3.Row | None:
+    """The playing broadcast of the camera, else its latest one."""
+    sql = " WHERE b.camera_id = ? ORDER BY b.status = 'playing' DESC, b.id DESC LIMIT 1"
+    return one(_BROADCASTS + sql, camera_id)
+
+
+def latest_broadcasts() -> list[sqlite3.Row]:
+    """`camera_broadcast` of every camera that ever had one, in one query."""
+    sql = """ WHERE b.id = (SELECT b2.id FROM broadcasts b2 WHERE b2.camera_id = b.camera_id
+        ORDER BY b2.status = 'playing' DESC, b2.id DESC LIMIT 1)"""
+    return all(_BROADCASTS + sql)
+
+
+def playing_broadcasts() -> list[sqlite3.Row]:
+    return all(_BROADCASTS + " WHERE b.status = 'playing' ORDER BY b.id")
+
+
+def broadcast_update(broadcast_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE broadcasts SET {assignments} WHERE id = ?", *values.values(), broadcast_id)
+
+
+def last_ready_video(camera_id: int) -> sqlite3.Row | None:
+    sql = "SELECT * FROM videos WHERE camera_id = ? AND status = 'ready' ORDER BY id DESC LIMIT 1"
+    return one(sql, camera_id)
+
+
+# --- events -------------------------------------------------------------------------------
+_TERMINAL = "('false_alarm', 'resolved', 'auto_finished', 'superseded')"
+
+# PRIORITY of tech.md 8.8 in SQL, so the feed sorts and limits in one query.
+_EVENTS = f"""
+SELECT e.*, c.name AS camera_name, s.name AS sector_name, z.name AS zone_name,
+    CASE
+        WHEN e.status IN {_TERMINAL} THEN 0
+        WHEN e.status IN ('new', 'viewed') AND e.level = 'red' THEN 3
+        WHEN e.status IN ('new', 'viewed') THEN 2
+        ELSE 1
+    END AS priority
+FROM events e
+JOIN cameras c ON c.id = e.camera_id
+JOIN sectors s ON s.id = e.sector_id
+LEFT JOIN zones z ON z.id = e.zone_id
+"""
+
+
+def event(event_id: int) -> sqlite3.Row | None:
+    return one(_EVENTS + " WHERE e.id = ?", event_id)
+
+
+def broadcast_events(broadcast_id: int, cycle: int) -> list[sqlite3.Row]:
+    return all("SELECT * FROM events WHERE broadcast_id = ? AND cycle = ?", broadcast_id, cycle)
+
+
+def event_update(event_id: int, values: dict[str, Any]) -> None:
+    assignments = ", ".join(f"{column} = ?" for column in values)
+    run(f"UPDATE events SET {assignments} WHERE id = ?", *values.values(), event_id)
+
+
+def feed(closed_after: str, limit: int, sector_id: int | None = None) -> list[sqlite3.Row]:
+    """Open events and those closed after `closed_after` (their last action), no superseded."""
+    sql = f"""{_EVENTS}
+WHERE e.status != 'superseded' AND (? IS NULL OR e.sector_id = ?)
+    AND (e.status NOT IN {_TERMINAL}
+        OR (SELECT max(a.at) FROM event_actions a WHERE a.event_id = e.id) >= ?)
+ORDER BY priority DESC, e.published_at DESC, e.id DESC LIMIT ?"""
+    return all(sql, sector_id, sector_id, closed_after, limit)
+
+
+# Inputs of the camera state rules (tech.md 8.9) for every camera in one query.
+_CAMERA_STATES = f"""
+SELECT c.id AS camera_id, c.sector_id,
+    (SELECT count(*) FROM events e WHERE e.camera_id = c.id AND e.level = 'red'
+        AND e.status NOT IN {_TERMINAL}) AS open_red,
+    (SELECT count(*) FROM events e WHERE e.camera_id = c.id AND e.level = 'yellow'
+        AND e.status NOT IN {_TERMINAL}) AS open_yellow,
+    EXISTS (SELECT 1 FROM events e WHERE e.camera_id = c.id AND e.level = 'yellow'
+        AND e.status NOT IN {_TERMINAL} AND e.ended_at IS NULL) AS yellow_live,
+    EXISTS (SELECT 1 FROM broadcasts b WHERE b.camera_id = c.id AND b.status = 'playing')
+        AS playing,
+    EXISTS (SELECT 1 FROM jobs j JOIN videos v ON v.id = j.video_id WHERE v.camera_id = c.id
+        AND j.status IN ('queued', 'running', 'retry_wait')) AS processing,
+    (SELECT j.status FROM jobs j JOIN videos v ON v.id = j.video_id WHERE v.camera_id = c.id
+        ORDER BY j.id DESC LIMIT 1) AS last_job,
+    (SELECT b.status FROM broadcasts b WHERE b.camera_id = c.id ORDER BY b.id DESC LIMIT 1)
+        AS last_broadcast
+FROM cameras c
+WHERE c.deleted_at IS NULL
+ORDER BY c.sector_id, c.name, c.id
+"""
+
+
+def camera_state_rows() -> list[sqlite3.Row]:
+    return all(_CAMERA_STATES)

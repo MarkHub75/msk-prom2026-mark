@@ -1,10 +1,10 @@
 """Background loops of the server process (tech.md 4): jobs, broadcast tick, escalation tick.
 
-Slice 2 brings the job loop: one job at a time, idle polling between jobs.
+The job loop runs one job at a time and polls the queue while it is empty; the broadcast loop
+calls `broadcast_tick` every `broadcast.tick_ms`. Both stop within one period of `stop`.
 """
 
 import asyncio
-import contextlib
 import logging
 
 from safewatch import config, services
@@ -12,8 +12,7 @@ from safewatch import config, services
 log = logging.getLogger(__name__)
 
 
-async def run_forever(stop: asyncio.Event) -> None:
-    idle_s = config.get_settings().jobs.idle_poll_ms / 1000
+async def _jobs(stop: asyncio.Event, idle_s: float) -> None:
     while not stop.is_set():
         try:
             job = await services.run_next_job()
@@ -21,5 +20,20 @@ async def run_forever(stop: asyncio.Event) -> None:
             log.exception("job loop")
             job = None
         if job is None:
-            with contextlib.suppress(TimeoutError):
-                await asyncio.wait_for(stop.wait(), idle_s)
+            await asyncio.sleep(idle_s)
+
+
+async def _broadcasts(stop: asyncio.Event, tick_s: float) -> None:
+    while not stop.is_set():
+        try:
+            services.broadcast_tick()
+        except Exception:  # one bad tick must not stop the broadcasts for good
+            log.exception("broadcast tick")
+        await asyncio.sleep(tick_s)
+
+
+async def run_forever(stop: asyncio.Event) -> None:
+    settings = config.get_settings()
+    async with asyncio.TaskGroup() as tg:
+        tg.create_task(_jobs(stop, settings.jobs.idle_poll_ms / 1000))
+        tg.create_task(_broadcasts(stop, settings.broadcast.tick_ms / 1000))

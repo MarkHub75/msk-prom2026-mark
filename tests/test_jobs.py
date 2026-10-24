@@ -82,6 +82,8 @@ async def test_job_progress_published(
     jobs = []
     while not ws.queue.empty():
         message = WsMessage.model_validate_json(ws.queue.get_nowait() or "")
+        if message.type == "broadcast.state":  # autostart of slice 6
+            continue
         assert message.type == "job.progress" and isinstance(message.data, Job)
         jobs.append(message.data)
     stages = [j.stage for j in jobs]
@@ -264,5 +266,6 @@ async def test_job_loop_survives_unexpected_error(monkeypatch: pytest.MonkeyPatc
         return None
 
     monkeypatch.setattr(services, "run_next_job", flaky)
+    monkeypatch.setattr(services, "broadcast_tick", lambda: 0)  # no database in this test
     await asyncio.wait_for(worker.run_forever(stop), 5)
     assert len(calls) == 2

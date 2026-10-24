@@ -42,7 +42,7 @@ async def test_system_view_metrics(
     )
     assert detect.preprocess_ms == 1.0 and detect.upload_s is not None and detect.total_s > 0
     assert [m.id for m in view.models] == ["det-yolov8n", "pose-yolov8n"]
-    assert view.cameras == [] and view.channels == [] and view.latency.notify_delay_s.n == 0
+    assert view.cameras == services.camera_states() and view.channels == [] and view.latency.notify_delay_s.n == 0
 
     checked = BackendStatus.model_validate((await client.post("/api/system/backend-check")).json())
     assert checked.state == "ok"
