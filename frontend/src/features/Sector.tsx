@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Camera as CameraIcon, Clock, VideoOff } from "lucide-react";
 import { api, mediaUrl } from "../api/client";
@@ -17,11 +17,21 @@ const short = (name: string) => name.replace(/^Сектор\s+\d+\s*[·/–-]\s*
 function Tile({ tile, tick }: { tile: CameraTile; tick: number }) {
   const [failed, setFailed] = useState(false);
   const s = tile.state;
-  const src = tile.preview_url ? `${mediaUrl(tile.preview_url)}${tile.preview_url.includes("?") ? "&" : "?"}t=${tick}` : undefined;
+  const next = tile.preview_url ? `${mediaUrl(tile.preview_url)}${tile.preview_url.includes("?") ? "&" : "?"}t=${tick}` : undefined;
+  // Double buffer: keep the last decoded frame on screen until the next one has loaded, so the tile never blinks.
+  const [src, setSrc] = useState(next);
+  useEffect(() => {
+    if (!next) { setSrc(undefined); return; }
+    const image = new Image(); let live = true;
+    image.onload = () => { if (live) { setSrc(next); setFailed(false); } };
+    image.onerror = () => { if (live) setFailed(true); };
+    image.src = next;
+    return () => { live = false; };
+  }, [next]);
   return <article className={`od-tile od-frame-${s.state}`} data-testid="sector-camera">
     <Link to={`/operator/cameras/${tile.camera.id}`} aria-label={`Открыть ${tile.camera.name}`}>
       <div className="od-tile-media">
-        {src && !failed ? <img src={src} alt={`Кадр камеры ${tile.camera.name}`} onError={() => setFailed(true)} /> : <div className="od-tile-none"><VideoOff size={28} strokeWidth={1.5} aria-hidden /><strong>{s.state === "no_observation" ? "Нет наблюдения" : "Кадр не получен"}</strong><span>{s.reason_text}</span></div>}
+        {src && !failed ? <img src={src} alt={`Кадр камеры ${tile.camera.name}`} /> : <div className="od-tile-none"><VideoOff size={28} strokeWidth={1.5} aria-hidden /><strong>{s.state === "no_observation" ? "Нет наблюдения" : "Кадр не получен"}</strong><span>{s.reason_text}</span></div>}
         <span className="od-tile-name">{tile.camera.name}</span>
         <span className="od-tile-state"><StateBadge state={s.state} text={s.state === "no_observation" ? s.reason_text : undefined} /></span>
         {tile.broadcast?.status === "playing" && <span className="od-tile-live"><i />Эфир</span>}
