@@ -1,14 +1,15 @@
-# tech.md: SafeWatch (msk-prom2026-mark)
+# tech.md: Argus (msk-prom2026-mark, пакет safewatch)
 
 ## 0. Версия
 
-**Версия: v4** (2026-10-24)
+**Версия: v5** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
 - v2 (ревью R5): 44 строки `GAP` S0–S5 перенесены в 6.8 и строки трассировки 6.7; 8.1: `model_missing` только по `not readable`; 8.2: жёлтая скорость при `≥` порога; 7: `registry.resolve(ref, models=None)`, `HudCanvas({ops, size})`; решения R5: `PUT` сектора, `PATCH` камеры, doctor без ключей, импорты `api.py`, устойчивость цикла задач и сессии Jupyter, диагностика очереди TPU.
 - v3 (ревью R10): 37 строк `GAP` S6–S10 перенесены в 6.9, 3 строки трассировки 6.7; решения R10: `AnalysisConfig.extra_artifact_ids` (пересчёт с моделями `pipeline.extra` без изменения схемы), параметры правил из `CameraRule.effective` снимка, длина `X-Actor` проверяется только в `services`, ссылка на настройку камеры из списка, autouse-защита `data/app` в `tests/conftest.py`.
 - v4 (ревью R15): 25 строк `GAP` S11–S15 перенесены в 6.10, 5 строк трассировки 6.7 (`observability.Luma`, `media.LUMA_WIDTH`, `store.publish_latencies`, `services.DELIVERED`, `delivery.target`); решения R15: `LatencyStats` экрана IT по событиям эфира, подписи HUD на `pair:`/`zone:`/`fire`, проверка URL webhook при загрузке, `hub.Client` без `dropped`, тест маршрутов без заглушек, права ролей только у пишущих слайсов.
+- v5 (владелец, второй прогон по `UPGRADE_v1.md`): продукт называется Argus, пакет и CLI остаются `safewatch`; контракт фронта 1.1.0 только добавляет (раздел 6.11: миграция `0002_v5.sql`, 24 типа, 10 маршрутов, ключи конфига, поля существующих типов); новые слайсы S16–S32 и ревью R20, R25, R30, R32 (раздел 16): демо-пакет с детекциями LinQ, клип события и H.264, автокалибровка в м/с, каска и респиратор, модели Матвея, Docker, телефон по зонам, проекция груза, звонок мастеру и оператор с телефона, калькулятор окупаемости, датасет ложных срабатываний, ручная идентификация, паспорт камеры, LinQ под медленную очередь, пробелы `docs/ML_INTEGRATION.md`, отчёт смены в PDF, все долги `## open`; учтён `docs/ML_INTEGRATION.md` (коммит `5d940ba2`, дополнен Матвеем в `f6b5358a`: COCO-80 у детектора, extra-классы, программы `mosprom_matvey_*`, новая `version` при любой смене модели, 19 пробелов, решение по каждому — 8.30); второй прогон — раздел 10.3; лимит живых прогонов — S17, S28, R32.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -23,12 +24,13 @@ Changelog:
 - Файл меняет владелец или ревью, переносящее строки `GAP`. Сессия слайса его не редактирует.
 - Один слайс за заход. Очередь в разделе 16, иди сверху вниз.
 - Пометка **[проверить]**: перед кодом сверься с актуальной документацией сервиса или библиотеки и запиши итог одной строкой в запись слайса в `progress.md`.
+- v5: контракт второго прогона — раздел 6.11, поведение — 8.19–8.33, правила прогона — 10.3. Они наравне с 5–6 и 8; `было → стало` в 6.11 заменяет сказанное выше. Контракт ML ↔ приложение для ML-части — `docs/ML_INTEGRATION.md`: он описывает текущий код, а не задаёт контракт; при расхождении прав этот файл, расхождение — строка `GAP`.
 
 ---
 
 ## 2. Проект
 
-SafeWatch: веб-сервис видеоконтроля промышленной безопасности для кейса «Открой#Моспром 2026» (ООО «ХайТэк», ускорители LinQ). Сервис принимает видео камер, один раз прогоняет нейросети на LinQ TPU, превращает детекции в эпизоды нарушений, оповещает оператора и мастера без дублей, ведёт неизменяемый журнал с доказательными кадрами и считает статистику.
+Argus (до v5 — SafeWatch; пакет, CLI и префикс переменных остаются `safewatch` / `SAFEWATCH_`): веб-сервис видеоконтроля промышленной безопасности для кейса «Открой#Моспром 2026» (ООО «ХайТэк», ускорители LinQ). Сервис принимает видео камер, один раз прогоняет нейросети на LinQ TPU, превращает детекции в эпизоды нарушений, оповещает оператора и мастера без дублей, ведёт неизменяемый журнал с доказательными кадрами и считает статистику.
 
 Пользователи: оператор/диспетчер (главный герой, лента событий), мастер смены (телефон), специалист по охране труда (журнал, правила, статистика), менеджмент (тренды), IT/администратор (камеры, калибровка, зоны, замеры LinQ). Работник у станка интерфейсом не пользуется.
 
@@ -38,9 +40,13 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 - не live RTSP: архитектура это допускает (те же стадии инкрементально), но не делаем;
 - не обучает модели: дообученные веса подключаются записью в `config/models.yaml`;
 - нет логина и паролей: роль выбирается переключателем в шапке, сервер доверяет заголовку `X-Role`;
-- нет звонков, Telegram, SMS, громкоговорителя, ламп и сирен: есть только точка расширения webhook (S15);
-- нет идентификации работников и персональной статистики;
-- не заявляет «первые на LinQ», снижение травматизма и цифры-иллюстрации кейса как факты.
+- нет реальной телефонии, Telegram, SMS, громкоговорителя, ламп и сирен: звонок мастеру — канал доставки с заглушкой-провайдером (v5, S23), лампы и сирены — точка расширения webhook (S15);
+- нет автоматического распознавания людей и справочника работников: ФИО, должность и бригаду у события по желанию проставляет человек (v5, S26), статистика по людям — только по заполненным;
+- не нативное мобильное приложение: мастер и оператор работают в адаптивном вебе;
+- нет VLM «второго мнения», тепловой карты риска, экрана «Качество системы», размытия лиц, раскладки на несколько мониторов, «режима защиты» одной кнопкой (отвергнуто в `UPGRADE_v1.md`, раздел 6);
+- не заявляет «первые на LinQ», снижение травматизма и цифры-иллюстрации кейса как факты; заглушки подписаны, цифры калькулятора — подписанные допущения.
+
+Второй прогон (v5, раздел 16, S16–S32). Мотивы, на которые опираются решения, не описанные здесь: жюри видит почти продовое решение — открыл, и завод уже «живёт» (демо-пакет с реальными видео и детекциями LinQ); демо-путь «событие → оператор → мастер → журнал», контракт фронта и фронт Егора не ломаются; порядок слайсов по ценности, чтобы обрыв прогона оставил главное; заглушки подписаны, цифры настоящие; точность важнее скорости, но красное не приходит через минуту; внедрение на существующих камерах, железо — опциональный уровень. Ответственность: модели, датасеты, пороги и компиляция под LinQ — Матвей (стык — `docs/ML_INTEGRATION.md`, сценарий читает детекции по имени класса); приложение — этот прогон; фронтенд Argus и презентация — Егор по `contract/openapi.json`. Плохое освещение и ночь лечит модель, а не бэкенд: бэкенд честно пишет «Слишком темно».
 
 Обязательные требования кейса (слайд 13) и где они закрыты:
 
@@ -51,7 +57,9 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 | Оперативное уведомление с кадром, камерой, временем, типом | 6, 7, 8 | WebSocket, лента, захват экрана, мастер |
 | Одно нарушение — одно оповещение | 5, 6 | менеджер эпизодов, идемпотентная публикация |
 | Журнал с фильтрами по типу, камере, зоне, времени и кадрами | 12 | `/ohs/journal`, CSV |
-| Инференс на LinQ с замерами скорости | 2, 3 | адаптер `linq`, экран IT |
+| Инференс на LinQ с замерами скорости | 2, 3 | адаптер `linq`, экран IT; вживую 24.10 14:52: детектор ~12,4 кадра/с, pose ~12,7 кадра/с, RTT TPU p50/p90 ~290/~380 мс на 400 кадрах |
+| Предзагруженный «живой» завод (v5) | 17 | демо-пакет: реальные видео и детекции, посчитанные на LinQ |
+| Разработка и внедрение (v5) | 21, 24 | Docker одной командой, калькулятор окупаемости и масштабирования |
 
 ### Допущения
 
@@ -76,6 +84,27 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 - Звук браузера (сирена, сигнал) генерируется WebAudio без файлов; до первого клика браузер звук не пустит, UI показывает кнопку «Включить звук» (нет в брифе).
 - Каталог данных приложения — `data/app/`, чтобы не смешивать с `data/videos/` и `data/coco128/` (нет в брифе).
 
+Допущения v5 (второй прогон, `UPGRADE_v1.md`; владелец принял):
+- Имя продукта Argus меняет только `product_name` и тексты; пакет `safewatch`, CLI, переменные `SAFEWATCH_*`, пути и имена контракта не переименовываются: переименование сломало бы контракт фронта и сверку 6.7.
+- Номера слайсов продолжаются с S16: сверка контракта читает закрытые слайсы по заголовкам `### S<N>` в `## log`, повтор номеров смешал бы старые и новые элементы.
+- Ревью — раз в 5 слайсов, как в первом прогоне (R20, R25, R30), последнее — R32 после двух слайсов «если останется время».
+- Новые типы и маршруты v5 записаны в 6.11, а не в 5.2 и 6.4: тесты `test_types_export_contract_names` и `test_every_contract_route_is_declared` разбирают эти разделы, и `main` покраснел бы до кода. S16 расширяет оба теста на 6.11.
+- Схема меняется только добавлением: новая миграция `0002_v5.sql`, таблицы 5.1 не пересоздаются (CHECK существующих колонок не трогаются).
+- Демо-пакет живёт в `data/demo/<name>/` вне git (видео и детекции весят мегабайты); на другую машину его копирует владелец (раздел 8.32). В git — только `data/demo/README.md` и `config/demo.example.yaml`.
+- Камеры демо-пакета привязываются к секторам и камерам сида по названию; нет такой — создаются. События эфира демо-пакета — настоящие (`is_demo = 0`): детекции посчитаны на LinQ. Синтетическая история сида для статистики остаётся.
+- Клип события — окно `[start − clips.pre_s, confirm + clips.post_s]` исходного видео (не больше `clips.max_s`): «5 с после» отсчитываются от подтверждения, чтобы клип показывал момент, когда сработало правило. Файлов клипов нет: плеер играет `#t=<от>,<до>`.
+- Перекодирование — ffmpeg из пакета `imageio-ffmpeg` (без установки ffmpeg в систему), только если кодек не из `media.BROWSER_CODECS`; инференс и ключ кэша идут по исходному файлу.
+- Автокалибровка — линейная модель «рост в пикселях = a + b · низ рамки по вертикали» по стоящим людям; масштаб «метры на пиксель» = 1,7 м / рост в этой строке кадра. Точность около ±20 %, для порога бега (2,5 м/с при шаге ~1,4 м/с) достаточно.
+- Модели респиратора нет ни у кого: плагин `no_respirator` честно в статусе `model_missing` до модели с классом `no_respirator`. Каска — по модели Матвея `matvey-helmet-yolov8n` (классы `helmet`, `no_helmet`).
+- Телефон в зоне `danger` и `vehicle_path` остаётся красным (как в v4); в разрешённых зонах (`walkway`, `rest`) событий нет; везде остальное — жёлтое после `hold_s`.
+- Проекция груза — упрощённая: столбец кадра под рамкой груза до низа кадра. Это ровно та область, по которой правило `suspended_load` даёт красное (8.3), поэтому HUD объясняет событие честно.
+- Цены калькулятора (ускоритель, сервер, лампы, громкоговорители, камеры) и доля снижения инцидентов — подписанные допущения команды с источником «уточнить у поставщика» или «гипотеза, проверяется пилотом»; пропускная способность ускорителя — наш замер 24.10 или медиана замеров приложения.
+- Датасет ложных срабатываний складывается файлами в `data_dir/datasets/false_alarms/`, формат строк детекций — тот же `FrameDetections`, что у артефактов (`docs/ML_INTEGRATION.md` раздел 4).
+- Идентификацию нарушителя ставят роли `ohs` и `management` («охрана труда или аналитик»).
+- Шрифт PDF с кириллицей — `DejaVuSans.ttf` (свободная лицензия), лежит в пакете: в образе python:3.12-slim системных шрифтов с кириллицей нет.
+- Файлы моделей Матвея (`models/matvey/...`) в git не идут; без них записи реестра есть, но `doctor` честно показывает «нет файла». Ветку `matvey_cv` только читают (`git show origin/matvey_cv:<путь>`).
+- Фронт `frontend/` в `main` остаётся минимальным (8.14): экраны новых функций делает Егор по `contract/openapi.json` 1.1.0; прогон добавляет на фронт только плеер клипа и экраны оператора с телефона. Замена `frontend/` фронтом Егора — решение владельца.
+
 ## 3. Стек
 
 | Слой | Выбор |
@@ -90,9 +119,10 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 | Тесты и проверки | pytest, pytest-asyncio, pytest-timeout, hypothesis, respx, ruff, mypy `--strict`, types-pyyaml, types-requests, types-psutil |
 | Фронтенд | Node 24, React 18, Vite, TypeScript strict, react-router-dom 6, openapi-typescript + openapi-fetch, recharts; vitest + @testing-library/react + jsdom; eslint с typescript-eslint; мок: @stoplight/prism-cli, ws, concurrently **[проверить]** актуальные версии, фиксирует `package-lock.json` |
 | Реалтайм | WebSocket `/ws` |
-| Контейнер | Dockerfile (сборка фронта на node, рантайм python:3.12-slim) и docker-compose.yml (S15) |
+| Контейнер | Dockerfile (сборка фронта на node, рантайм python:3.12-slim) и docker-compose.yml (S15, запуск одной командой — S21) |
+| v5 | `imageio-ffmpeg` (бинарник ffmpeg для перекодирования в H.264, S18) **[проверить]** версию и наличие колёс для Windows и manylinux; `fpdf2` (PDF сводки смены, S30) **[проверить]** версию и `add_font` для TTF; шрифт `DejaVuSans.ttf` в `src/safewatch/assets/fonts/` **[проверить]** лицензию |
 
-Без: ORM и Alembic; Celery, Redis и отдельного процесса воркера (одна фоновая asyncio-задача в процессе сервера); ultralytics, torch и supervision в рантайме; стейт-менеджера и react-query на фронте (свой хук `useApi`); CSS-фреймворка (CSS-переменные темы); авторизации; ffmpeg на ноутбуке (видео читает OpenCV, перекодирования нет).
+Без: ORM и Alembic; Celery, Redis и отдельного процесса воркера (одна фоновая asyncio-задача в процессе сервера); ultralytics, torch и supervision в рантайме; стейт-менеджера и react-query на фронте (свой хук `useApi`); CSS-фреймворка (CSS-переменные темы); авторизации; системного ffmpeg (v5: ffmpeg только из `imageio-ffmpeg` и только для H.264-копии, S18); matplotlib и reportlab (PDF — `fpdf2`); VLM и облачных моделей.
 
 ### 3.1 LinQ: правила работы
 
@@ -104,6 +134,10 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 - Квота CPU контейнера 1,5 общая с Матвеем: воркер ограничивает потоки (`OMP_NUM_THREADS=1`, OpenCV и onnxruntime по 1 потоку — уже в `video_worker.py`), `--inflight 4`, одна задача baseline на TPU одновременно.
 - Перекомпиляция программ TPU и обучение на ноутбуке капитана запрещены: мало памяти, программы уже на LinQ.
 - Секреты только в `.env` (`LINQ_*`): не печатать, не логировать, не коммитить, не писать в `tech.md`, `progress.md`, тексты ошибок.
+- v5, второй прогон: приоритет на LinQ у Матвея (он учит и проверяет модели). Прогон делает на LinQ только короткие живые проверки и сборку демо-пакета, по одной задаче (лимит в `CLAUDE.md`). Очередь бывает медленной: RTT TPU p50 до ~10,6 с на запрос (площадка общая на ~37 команд); таймауты и повторы считаются от этого (8.29).
+- Программы Матвея называются `mosprom_matvey_*` (загрузчик `tools/linq/upload_program.py` сам добавляет `mosprom_`): прогон их не загружает, не перезаписывает и не удаляет, только ссылается на них в `config/models.yaml`.
+- Ветка Матвея `matvey_cv`: только чтение файлов `git show origin/matvey_cv:<путь>` (например `ml/models.matvey.yaml`, `ml/pipeline.matvey.yaml`, `docs/ML_HANDOFF_MATVEY.md`); checkout, merge, cherry-pick и push в неё запрещены.
+- Ноутбук Матвея — VPN-шлюз: с него только туннель.
 
 ### 3.2 Платформа: Windows 11, Git Bash, PowerShell 5.1
 
@@ -127,6 +161,7 @@ SafeWatch: веб-сервис видеоконтроля промышленно
 Процессы
 - Сервер на ProactorEventLoop без `reload`; тест запуска `safewatch serve` подпроцессом в слайсе 0.
 - Ядро не запускает дочерних процессов. Удалённый воркер LinQ живёт в Jupyter и останавливается командой `kill` по своему pid-файлу.
+- v5, было → стало: единственный дочерний процесс ядра — ffmpeg перекодирования (S18): `subprocess.run([...], timeout=transcode.timeout_s, check=False)` без shell, в `asyncio.to_thread`, вывод в `DEVNULL`; таймаут убивает процесс (`subprocess.run` сам вызывает `kill`), внуков у ffmpeg нет. Тест: таймаут не оставляет процесса и не роняет загрузку.
 - `safewatch serve` пишет `data/app/server.pid` с pid и временем старта процесса; `safewatch stop` сверяет оба (`psutil`) и чужой процесс не трогает.
 - Пока работает сервер, CLI проекта вызывается как `.venv/Scripts/safewatch.exe` или `uv run --no-sync safewatch`. `uv sync` только при остановленном сервере.
 
@@ -218,6 +253,34 @@ frontend/
     screens/operator/ screens/events/ screens/master/ screens/ohs/ screens/management/ screens/admin/
     **/*.test.ts(x)
 ```
+
+Добавляет v5 (раздел 6.11, слайсы S16–S32):
+
+```
+src/safewatch/
+  migrations/0002_v5.sql      # S16, раздел 6.11.1
+  demo.py                     # S17: чтение и запись демо-пакета (manifest.json, файлы)
+  calculator.py               # S24: формулы калькулятора, чистые функции
+  dataset.py                  # S25: файлы датасета ложных срабатываний (блокирующий ввод-вывод)
+  report_pdf.py               # S30: PDF сводки смены
+  assets/fonts/DejaVuSans.ttf # S30
+  analysis/autocal.py         # S19: автокалибровка, чистые функции
+  analysis/passport.py        # S27: паспорт пригодности камеры, чистые функции
+  rules/ppe.py                # S20: HelmetPlugin, RespiratorPlugin
+config/
+  demo.example.yaml           # S17: раскладка демо-пакета по секторам и камерам
+  user.matvey.example.yaml    # S20: включение моделей Матвея в config/user.yaml
+data/demo/README.md           # S17: что лежит в data/demo/<name>/, как собрать и перенести
+docs/DEPLOY.md                # S21: развёртывание на другой машине
+frontend/src/components/ClipPlayer.tsx                 # S18
+frontend/src/screens/operator/OperatorMobile.tsx       # S23
+frontend/src/screens/operator/OperatorMobileEvent.tsx  # S23
+tests/test_{demo_pack,clips,autocal,rule_ppe,docker_files,calculator,dataset,identity,passport,ml_gaps,shift_pdf,camera_shift}.py
+```
+
+`.gitignore` v5: `data/demo/*/` (кроме `data/demo/README.md`). `.gitattributes` v5: `*.ttf binary`, `*.zip binary`.
+
+Правила размещения v5: `demo.py`, `dataset.py`, `report_pdf.py`, `media.transcode` — блокирующий ввод-вывод, вызываются из `services` через `asyncio.to_thread` (CLI — напрямую), в базу не пишут; `calculator.py`, `analysis/autocal.py`, `analysis/passport.py` — чистые функции без базы, сети и часов.
 
 Существующее, не трогать: `Deep-Research/`, `secrets/`, `vendor/`, `models/`, `results/`, `data/coco128/`, `data/videos/` (кроме видео, которые кладёт капитан), `INDEX.md`, `SUMMARY.md`. `docs/linq/` и `docs/ENVIRONMENT.md` только дополнять. `tools/linq/` менять точечно и обратно совместимо (слайс 10 добавляет `--nc` в `video_worker.py`; слайс 0 правит путь `.venv` в README).
 
@@ -1462,7 +1525,7 @@ class DeliveryChannel(Protocol):  # delivery.WebhookChannel
 
 ### 5.4 Каких полей нет
 
-Нет пользователей, паролей, сессий и токенов. Нет ссылки на работника в событиях. Нет видеоклипов (доказательство — кадры). Нет сырых тензоров. Нет таблицы настроек: всё в yaml. Нет отдельного поля «принятые меры»: это комментарий действия `resolve`. Нет SLA-полей и сроков. Нет признака «отложено». Понадобилось поле → `CONTRACT GAP`.
+Нет пользователей, паролей, сессий и токенов. Нет ссылки на работника в событиях (v5, было → стало: работник — три текстовых поля события, заполняемых человеком вручную, без справочника работников, S26). Нет видеоклипов (доказательство — кадры) (v5, было → стало: клип — окно исходного видео `Clip`, отдельных файлов клипов нет, S18). Нет сырых тензоров. Нет таблицы настроек: всё в yaml. Нет отдельного поля «принятые меры»: это комментарий действия `resolve`. Нет SLA-полей и сроков. Нет признака «отложено». Понадобилось поле → `CONTRACT GAP`.
 
 ## 6. Интерфейсы (заморожены)
 
@@ -2446,7 +2509,7 @@ models:
 | поле `Settings.fake` | 0 | `make_backend`, `meta` | `src/safewatch/config.py` | `validation_alias="SAFEWATCH_FAKE"` | `tests/test_config.py::test_settings_carry_no_keys_and_no_fakes` |
 | `config.Settings` | 0 | все | `src/safewatch/config.py` | `class Settings(BaseSettings):` | `tests/test_config.py::test_owner_user_yaml_does_not_reach_tests` |
 | `config.get_settings` | 0 | все | `src/safewatch/config.py` | `def get_settings(` | `tests/test_config.py::test_relative_data_dir_resolves_from_the_repo` |
-| ключ `product_name` | 1 | `meta` | `config/default.yaml` | `product_name: SafeWatch` | `tests/test_cameras.py::test_meta_lists_roles_statuses_zone_kinds` |
+| ключ `product_name` (v5: Argus) | 16 | `meta` | `config/default.yaml` | `product_name: Argus` | `tests/test_cameras.py::test_meta_lists_roles_statuses_zone_kinds` |
 | ключ `data_dir` | 0 | `services`, `cli` | `config/default.yaml` | `data_dir: data/app` | `tests/test_config.py::test_relative_data_dir_resolves_from_the_repo` |
 | ключ `timezone` | 8 | смены, статистика | `config/default.yaml` | `timezone: Europe/Moscow` | `tests/test_shift.py::test_shift_window_boundaries` |
 | секция `server` | 0 | `cli serve` | `config/default.yaml` | `port: 8000` | `tests/test_cli.py::test_serve_starts_and_stops` |
@@ -2491,7 +2554,7 @@ models:
 | реестр: pose 640 | 0 | `registry` | `config/models.yaml` | `linq_program: mosprom_pose640_cut_ap9999_b1_o1_h1m.tpu` | `tests/test_config.py::test_models_registry_resolves_active_models` |
 | реестр: детектор 960 | 0 | `registry` | `config/models.yaml` | `linq_program: mosprom_det960_cut_ap9999_b1_o1_h1m.tpu` | `tests/test_config.py::test_models_registry_resolves_active_models` |
 | `registry.load_models` | 0 | `services`, `doctor` | `src/safewatch/registry.py` | `def load_models(` | `tests/test_config.py::test_models_registry_resolves_active_models` |
-| константа `CONTRACT_VERSION` | 0 | `api`, контракт | `src/safewatch/api.py` | `CONTRACT_VERSION = "1.0.0"` | `tests/test_api_skeleton.py::test_health_ok` |
+| константа `CONTRACT_VERSION` (v5: 1.1.0) | 16 | `api`, контракт | `src/safewatch/api.py` | `CONTRACT_VERSION = "1.1.0"` | `tests/test_api_skeleton.py::test_health_ok` |
 | константа `BROWSER_CODECS` | 2 | `probe_video` | `src/safewatch/media.py` | `BROWSER_CODECS = (` | `tests/test_videos.py::test_upload_probes_and_queues_job` |
 | константа `CACHE_SCHEMA` | 2 | `cache_key` | `src/safewatch/inference/artifacts.py` | `CACHE_SCHEMA = "jsonl-v1"` | `tests/test_jobs.py::test_cache_hit_skips_remote` |
 | константа `CLIENT_QUEUE` | 0 | `hub` | `src/safewatch/hub.py` | `CLIENT_QUEUE = 1000` | `tests/test_hub.py::test_queue_overflow_drops_client` |
@@ -2618,6 +2681,143 @@ models:
 | `store.publish_latencies` | 11 | `system_view.latency` | `src/safewatch/store.py` | `def publish_latencies(` | `tests/test_broadcast.py::test_latency_counts_published_events` |
 | `services.DELIVERED` | 15 | `broadcast_tick` | `src/safewatch/services.py` | `DELIVERED: dict[WsType, DeliveryKind] = {` | `tests/test_delivery.py::test_webhook_sent_on_red` |
 | `delivery.target` | 15 | `system_view.channels` | `src/safewatch/delivery.py` | `def target(` | `tests/test_delivery.py::test_channels_in_system_view` |
+| v5: таблица `delivery_queue` | 16 | `deliveries_flush` | `src/safewatch/migrations/0002_v5.sql` | `CREATE TABLE delivery_queue (` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: таблица `dataset_items` | 16 | `datasets_flush` | `src/safewatch/migrations/0002_v5.sql` | `CREATE TABLE dataset_items (` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: таблица `demo_packs` | 16 | `demo_import` | `src/safewatch/migrations/0002_v5.sql` | `CREATE TABLE demo_packs (` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: колонка `videos.web_path` | 16 | `video_file` | `src/safewatch/migrations/0002_v5.sql` | `ALTER TABLE videos ADD COLUMN web_path TEXT;` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: колонка `analyses.autocal_json` | 16 | `video_analysis` | `src/safewatch/migrations/0002_v5.sql` | `ALTER TABLE analyses ADD COLUMN autocal_json TEXT;` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: колонки идентификации `events` | 16 | `event_identify` | `src/safewatch/migrations/0002_v5.sql` | `ALTER TABLE events ADD COLUMN crew TEXT NOT NULL DEFAULT '';` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: колонка `deliveries.delivered_at` | 16 | `deliveries_flush` | `src/safewatch/migrations/0002_v5.sql` | `ALTER TABLE deliveries ADD COLUMN delivered_at TEXT;` | `tests/test_db.py::test_migrate_v5_tables_and_columns` |
+| v5: тип `SpeedSource` | 16 | признаки, HUD | `src/safewatch/types.py` | `SpeedSource = Literal[` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `PassportVerdict` | 16 | паспорт | `src/safewatch/types.py` | `PassportVerdict = Literal[` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `CalcTier` | 16 | калькулятор | `src/safewatch/types.py` | `CalcTier = Literal[` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `AutoCalibration` | 16 | анализ, экран настройки | `src/safewatch/types.py` | `class AutoCalibration(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `Clip` | 16 | события | `src/safewatch/types.py` | `class Clip(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoArtifact` | 16 | демо-пакет | `src/safewatch/types.py` | `class DemoArtifact(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoVideo` | 16 | демо-пакет | `src/safewatch/types.py` | `class DemoVideo(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoCamera` | 16 | демо-пакет | `src/safewatch/types.py` | `class DemoCamera(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoManifest` | 16 | демо-пакет | `src/safewatch/types.py` | `class DemoManifest(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoLayout` | 16 | сборка демо-пакета | `src/safewatch/types.py` | `class DemoLayout(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoPack` | 16 | `GET /api/demo/packs` | `src/safewatch/types.py` | `class DemoPack(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DemoImportReport` | 16 | CLI `demo import` | `src/safewatch/types.py` | `class DemoImportReport(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `CalcAssumption` | 16 | калькулятор | `src/safewatch/types.py` | `class CalcAssumption(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `RolloutIn` | 16 | калькулятор | `src/safewatch/types.py` | `class RolloutIn(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `TierResult` | 16 | калькулятор | `src/safewatch/types.py` | `class TierResult(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `RolloutResult` | 16 | калькулятор | `src/safewatch/types.py` | `class RolloutResult(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `ScaleIn` | 16 | калькулятор | `src/safewatch/types.py` | `class ScaleIn(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `ScaleResult` | 16 | калькулятор | `src/safewatch/types.py` | `class ScaleResult(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `CalculatorDefaults` | 16 | калькулятор | `src/safewatch/types.py` | `class CalculatorDefaults(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DatasetItem` | 16 | датасет | `src/safewatch/types.py` | `class DatasetItem(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `DatasetView` | 16 | датасет | `src/safewatch/types.py` | `class DatasetView(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `IdentityIn` | 16 | идентификация | `src/safewatch/types.py` | `class IdentityIn(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `PeopleStats` | 16 | статистика по людям | `src/safewatch/types.py` | `class PeopleStats(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `PassportScenario` | 16 | паспорт | `src/safewatch/types.py` | `class PassportScenario(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: тип `CameraPassport` | 16 | паспорт | `src/safewatch/types.py` | `class CameraPassport(BaseModel):` | `tests/test_contract_files.py::test_types_export_contract_names` |
+| v5: поле `Video.web_playable` | 16 | плеер | `src/safewatch/types.py` | `web_playable: bool = False` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `Job.status_text` | 16 | очередь, загрузка | `src/safewatch/types.py` | `status_text: str = ""` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `Job.eta_s` | 16 | очередь | `src/safewatch/types.py` | `eta_s: float \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `EventSummary.clip` | 16 | лента, журнал, мастер | `src/safewatch/types.py` | `clip: Clip \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поля идентификации `EventSummary` | 16 | журнал, статистика | `src/safewatch/types.py` | `person_position: str = ""` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `EventDetail.can_identify` | 16 | экран события | `src/safewatch/types.py` | `can_identify: bool = False` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `auto_calibration` (`Analysis`, `CameraSetupView`) | 16 | экран настройки | `src/safewatch/types.py` | `auto_calibration: AutoCalibration \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `speed_source` (`PersonState`, `VehicleState`) | 16 | признаки, HUD | `src/safewatch/types.py` | `speed_source: SpeedSource = "relative"` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `HudObject.projection` | 16 | HUD | `src/safewatch/types.py` | `projection: list[Point] \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `Delivery.delivered_at` | 16 | экран события | `src/safewatch/types.py` | `delivered_at: datetime \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `ModelSpec.nc` | 16 | реестр, бэкенды | `src/safewatch/types.py` | `nc: int \| None = None` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: поле `ModelSpec.input_name` | 16 | бэкенды | `src/safewatch/types.py` | `input_name: str = "images"` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: `LogAction` `identified` | 16 | журнал действий | `src/safewatch/types.py` | `"identified"` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: `Channel.kind` `call` | 16 | экран IT | `src/safewatch/types.py` | `kind: Literal["ws", "webhook", "call"]` | `tests/test_contract_files.py::test_v5_fields_present` |
+| v5: файл `contract/openapi.json` 1.1.0 | 16 | фронт Егора | `contract/openapi.json` | `"version": "1.1.0"` | `tests/test_contract_files.py::test_openapi_matches_app` |
+| v5: конфиг, секции v5 | 16 | `config.py` | `src/safewatch/config.py` | `class AutocalConfig(_Section):` | `tests/test_config.py::test_v5_sections_load` |
+| v5: `services.demo_import` | 17 | CLI `demo import`, `serve --seed` | `src/safewatch/services.py` | `def demo_import(` | `tests/test_demo_pack.py::test_import_creates_world_without_inference` |
+| v5: `services.demo_build` | 17 | CLI `demo build` | `src/safewatch/services.py` | `def demo_build(` | `tests/test_demo_pack.py::test_build_writes_manifest_and_artifacts` |
+| v5: `services.demo_packs` | 17 | `GET /api/demo/packs` | `src/safewatch/services.py` | `def demo_packs(` | `tests/test_demo_pack.py::test_import_is_idempotent` |
+| v5: `services.artifact_import` | 17 | `demo_import`, CLI `import-artifact` | `src/safewatch/services.py` | `def artifact_import(` | `tests/test_demo_pack.py::test_import_creates_world_without_inference` |
+| v5: `demo.read_manifest` | 17 | `demo_import` | `src/safewatch/demo.py` | `def read_manifest(` | `tests/test_demo_pack.py::test_build_writes_manifest_and_artifacts` |
+| v5: `demo.write_manifest` | 17 | `demo_build` | `src/safewatch/demo.py` | `def write_manifest(` | `tests/test_demo_pack.py::test_build_writes_manifest_and_artifacts` |
+| v5: CLI `demo` | 17 | владелец | `src/safewatch/cli.py` | `add_parser("demo"` | `tests/test_demo_pack.py::test_cli_build_and_import` |
+| v5: `GET /api/demo/packs` | 17 | шапка, экран IT | `src/safewatch/api.py` | `@router.get("/api/demo/packs")` | `tests/test_demo_pack.py::test_import_is_idempotent` |
+| v5: секция `demo` | 17 | `serve --seed` | `config/default.yaml` | `pack: data/demo/argus` | `tests/test_demo_pack.py::test_serve_autoloads_pack` |
+| v5: пример раскладки | 17 | `demo build` | `config/demo.example.yaml` | `cameras:` | `tests/test_demo_pack.py::test_example_layout_is_valid` |
+| v5: `texts.job_status_text` | 17 | `Job.status_text` | `src/safewatch/texts.py` | `def job_status_text(` | `tests/test_jobs.py::test_status_text_for_retry_and_failure` |
+| v5: лента без демо-событий сида | 17 | `operator_feed`, состояния камер | `src/safewatch/store.py` | `is_demo = 0` | `tests/test_operator_views.py::test_feed_skips_seed_demo_events` |
+| v5: `media.transcode` | 18 | `video_upload`, `video_import` | `src/safewatch/media.py` | `def transcode(` | `tests/test_clips.py::test_transcode_makes_browser_codec` |
+| v5: константа `media.WEB_SUFFIX` | 18 | `transcode`, `video_file` | `src/safewatch/media.py` | `WEB_SUFFIX = ".web.mp4"` | `tests/test_clips.py::test_video_file_serves_web_copy` |
+| v5: секция `clips` | 18 | `EventSummary.clip` | `config/default.yaml` | `pre_s: 3.0` | `tests/test_clips.py::test_clip_window_bounds` |
+| v5: секция `transcode` | 18 | `media.transcode` | `config/default.yaml` | `preset: veryfast` | `tests/test_clips.py::test_transcode_disabled_key` |
+| v5: фронт `ClipPlayer` | 18 | экран события, мастер | `frontend/src/components/ClipPlayer.tsx` | `export function ClipPlayer(` | `frontend/src/screens/screens.test.tsx::event_screen_plays_clip` |
+| v5: `autocal.fit` | 19 | `analyze` | `src/safewatch/analysis/autocal.py` | `def fit(` | `tests/test_autocal.py::test_fit_recovers_height_line` |
+| v5: `autocal.scale_at` | 19 | признаки | `src/safewatch/analysis/autocal.py` | `def scale_at(` | `tests/test_autocal.py::test_speed_auto_m_s_within_20pct` |
+| v5: секция `autocal` | 19 | `autocal.fit` | `config/default.yaml` | `person_height_m: 1.7` | `tests/test_autocal.py::test_too_few_samples_not_ok` |
+| v5: подписи HUD автокалибровки | 19 | `hud.build_hud` | `src/safewatch/texts.py` | `HUD_SPEED_M_AUTO = ` | `tests/test_autocal.py::test_hud_labels_auto_and_calibration` |
+| v5: плагин `no_helmet` | 20 | `analyze` | `src/safewatch/rules/ppe.py` | `class HelmetPlugin:` | `tests/test_rule_ppe.py::test_no_helmet_in_zone_yellow_after_hold` |
+| v5: плагин `no_respirator` | 20 | `analyze` | `src/safewatch/rules/ppe.py` | `class RespiratorPlugin:` | `tests/test_rule_ppe.py::test_respirator_model_missing_text` |
+| v5: `rules.base.head_objects` | 20 | плагины СИЗ | `src/safewatch/rules/base.py` | `def head_objects(` | `tests/test_rule_ppe.py::test_head_unseen_unknown` |
+| v5: параметры `scenarios.no_helmet` | 20 | `HelmetPlugin` | `config/default.yaml` | `head_frac: 0.35` | `tests/test_rule_ppe.py::test_no_helmet_in_zone_yellow_after_hold` |
+| v5: тип зоны `helmet_required` | 20 | зоны, `HelmetPlugin` | `config/default.yaml` | `- id: helmet_required` | `tests/test_rule_ppe.py::test_outside_zone_no_event` |
+| v5: тип зоны `respirator_required` | 20 | зоны, `RespiratorPlugin` | `config/default.yaml` | `- id: respirator_required` | `tests/test_rule_ppe.py::test_respirator_model_missing_text` |
+| v5: текст `SCENARIO_MODEL_MISSING` | 20 | `scenario_metas` | `src/safewatch/texts.py` | `Модель не подключена: нужны классы {classes}` | `tests/test_rule_ppe.py::test_respirator_model_missing_text` |
+| v5: реестр: каска Матвея | 20 | `registry` | `config/models.yaml` | `linq_program: mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu` | `tests/test_config.py::test_matvey_models_resolve` |
+| v5: реестр: pose Матвея | 20 | `registry` | `config/models.yaml` | `linq_program: mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu` | `tests/test_config.py::test_matvey_models_resolve` |
+| v5: пример включения моделей Матвея | 20 | владелец | `config/user.matvey.example.yaml` | `matvey-helmet-yolov8n@640-v1-5c3af1f3b855` | `tests/test_config.py::test_matvey_models_resolve` |
+| v5: compose с демо-пакетом | 21 | владелец, Docker | `docker-compose.yml` | `./data/demo:/app/data/demo:ro` | `tests/test_docker_files.py::test_compose_mounts_demo_and_data` |
+| v5: образ стартует с сидом | 21 | Docker | `Dockerfile` | `"--seed"` | `tests/test_docker_files.py::test_image_starts_with_seed_and_health` |
+| v5: инструкция развёртывания | 21 | владелец | `docs/DEPLOY.md` | `docker compose up -d --build` | `вручную: docker compose up -d --build, GET /api/health` |
+| v5: телефон разрешён в зонах | 22 | `PhonePlugin` | `src/safewatch/rules/phone.py` | `ALLOWED_KINDS = ("walkway", "rest")` | `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` |
+| v5: тип зоны `walkway` | 22 | зоны, `PhonePlugin` | `config/default.yaml` | `- id: walkway` | `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` |
+| v5: проекция груза в HUD | 22 | фронт | `src/safewatch/analysis/hud.py` | `projection=` | `tests/test_hud.py::test_suspended_load_projection` |
+| v5: канал `CallChannel` | 23 | `deliveries_flush` | `src/safewatch/delivery.py` | `class CallChannel:` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
+| v5: конфиг звонков | 23 | `deliveries_flush` | `config/default.yaml` | `provider: stub` | `tests/test_delivery.py::test_call_stub_on_red_to_master` |
+| v5: очередь доставок в базе | 23 | `deliveries_flush` | `src/safewatch/store.py` | `FROM delivery_queue` | `tests/test_delivery.py::test_queue_survives_restart` |
+| v5: фронт: маршрут `/m/operator` | 23 | навигация оператора | `frontend/src/nav.ts` | `path: "/m/operator"` | `frontend/src/screens/screens.test.tsx::operator_mobile_renders` |
+| v5: фронт: маршрут `/m/operator/events/:eventId` | 23 | навигация оператора | `frontend/src/nav.ts` | `path: "/m/operator/events/:eventId"` | `frontend/src/screens/screens.test.tsx::operator_mobile_event_renders` |
+| v5: фронт: экран `OperatorMobile` | 23 | `/m/operator` | `frontend/src/screens/operator/OperatorMobile.tsx` | `export function OperatorMobile(` | `frontend/src/screens/screens.test.tsx::operator_mobile_renders` |
+| v5: фронт: экран `OperatorMobileEvent` | 23 | `/m/operator/events/:eventId` | `frontend/src/screens/operator/OperatorMobileEvent.tsx` | `export function OperatorMobileEvent(` | `frontend/src/screens/screens.test.tsx::operator_mobile_event_renders` |
+| v5: `calculator.rollout` | 24 | `calculator_rollout` | `src/safewatch/calculator.py` | `def rollout(` | `tests/test_calculator.py::test_rollout_three_tiers_formulas` |
+| v5: `calculator.scale` | 24 | `calculator_scale` | `src/safewatch/calculator.py` | `def scale(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
+| v5: `services.calculator_defaults` | 24 | `GET /api/calculator/defaults` | `src/safewatch/services.py` | `def calculator_defaults(` | `tests/test_calculator.py::test_defaults_list_sources` |
+| v5: `services.calculator_rollout` | 24 | `POST /api/calculator/rollout` | `src/safewatch/services.py` | `def calculator_rollout(` | `tests/test_calculator.py::test_rollout_three_tiers_formulas` |
+| v5: `services.calculator_scale` | 24 | `POST /api/calculator/scale` | `src/safewatch/services.py` | `def calculator_scale(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
+| v5: `GET /api/calculator/defaults` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.get("/api/calculator/defaults")` | `tests/test_calculator.py::test_defaults_list_sources` |
+| v5: `POST /api/calculator/rollout` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/rollout")` | `tests/test_calculator.py::test_roles` |
+| v5: `POST /api/calculator/scale` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/scale")` | `tests/test_calculator.py::test_roles` |
+| v5: секция `calculator` | 24 | `calculator` | `config/default.yaml` | `- key: accelerator.capacity_fps` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
+| v5: `dataset.build_item` | 25 | `datasets_flush` | `src/safewatch/dataset.py` | `def build_item(` | `tests/test_dataset.py::test_item_files_and_label` |
+| v5: `dataset.export_zip` | 25 | `dataset_export` | `src/safewatch/dataset.py` | `def export_zip(` | `tests/test_dataset.py::test_export_zip_manifest` |
+| v5: `services.datasets_flush` | 25 | `worker` | `src/safewatch/services.py` | `def datasets_flush(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
+| v5: `services.datasets_view` | 25 | `GET /api/datasets/false-alarms` | `src/safewatch/services.py` | `def datasets_view(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
+| v5: `services.dataset_export` | 25 | CLI `dataset export`, API | `src/safewatch/services.py` | `def dataset_export(` | `tests/test_dataset.py::test_export_zip_manifest` |
+| v5: `GET /api/datasets/false-alarms` | 25 | экран IT, Егор | `src/safewatch/api.py` | `@router.get("/api/datasets/false-alarms")` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
+| v5: `GET /api/datasets/false-alarms/export.zip` | 25 | ML-часть | `src/safewatch/api.py` | `@router.get("/api/datasets/false-alarms/export.zip")` | `tests/test_dataset.py::test_export_zip_manifest` |
+| v5: CLI `dataset` | 25 | ML-часть | `src/safewatch/cli.py` | `add_parser("dataset"` | `tests/test_dataset.py::test_cli_export` |
+| v5: цикл датасета в `worker` | 25 | `api` lifespan | `src/safewatch/worker.py` | `datasets_flush` | `tests/test_worker.py::test_loop_periods_from_config` |
+| v5: секция `datasets` | 25 | `datasets_flush` | `config/default.yaml` | `max_frames: 40` | `tests/test_dataset.py::test_item_files_and_label` |
+| v5: `services.event_identify` | 26 | `PATCH /api/events/{event_id}/identity` | `src/safewatch/services.py` | `def event_identify(` | `tests/test_identity.py::test_identify_writes_fields_and_history` |
+| v5: `services.people_stats_view` | 26 | `GET /api/stats/people` | `src/safewatch/services.py` | `def people_stats_view(` | `tests/test_identity.py::test_people_stats_only_filled` |
+| v5: константа `IDENTITY_MAX` | 26 | валидация | `src/safewatch/services.py` | `IDENTITY_MAX = 80` | `tests/test_identity.py::test_identify_limits` |
+| v5: `PATCH /api/events/{event_id}/identity` | 26 | экран события Егора | `src/safewatch/api.py` | `@router.patch("/api/events/{event_id}/identity")` | `tests/test_identity.py::test_identify_roles` |
+| v5: `GET /api/stats/people` | 26 | статистика Егора | `src/safewatch/api.py` | `@router.get("/api/stats/people")` | `tests/test_identity.py::test_people_stats_only_filled` |
+| v5: `passport.build_passport` | 27 | `camera_passport` | `src/safewatch/analysis/passport.py` | `def build_passport(` | `tests/test_passport.py::test_verdicts_by_person_height` |
+| v5: `services.camera_passport` | 27 | `GET /api/cameras/{camera_id}/passport` | `src/safewatch/services.py` | `def camera_passport(` | `tests/test_passport.py::test_no_analysis_unknown` |
+| v5: `GET /api/cameras/{camera_id}/passport` | 27 | экран камеры Егора | `src/safewatch/api.py` | `@router.get("/api/cameras/{camera_id}/passport")` | `tests/test_passport.py::test_no_analysis_unknown` |
+| v5: секция `passport` | 27 | `build_passport` | `config/default.yaml` | `person_partial_px: 80` | `tests/test_passport.py::test_dark_share_partial` |
+| v5: `JupyterShell.close` | 28 | lifespan, doctor | `src/safewatch/inference/linq.py` | `def close(` | `tests/test_linq_backend.py::test_close_shuts_kernel` |
+| v5: `services.backend_close` | 28 | lifespan, doctor | `src/safewatch/services.py` | `def backend_close(` | `tests/test_linq_backend.py::test_close_shuts_kernel` |
+| v5: ключи `linq.reply_timeout_s`, `linq.slow_rtt_s` | 28 | `LinqBackend` | `config/default.yaml` | `slow_rtt_s: 12.0` | `tests/test_linq_backend.py::test_job_timeout_scales_with_frames` |
+| v5: воркер LinQ: аргумент `--reply-timeout` | 28 | `LinqBackend` | `tools/linq/remote/video_worker.py` | `"--reply-timeout"` | `tests/test_linq_backend.py::test_reply_timeout_passed` |
+| v5: старт гасит прежний воркер | 28 | `LinqBackend` | `src/safewatch/inference/linq.py` | `def _start_command(` | `tests/test_linq_backend.py::test_start_kills_previous_worker` |
+| v5: текст прогресса задачи | 28 | `Job.status_text` | `src/safewatch/texts.py` | `JOB_PROGRESS = ` | `tests/test_linq_backend.py::test_eta_and_rate_text` |
+| v5: CLI `import-artifact` | 29 | ML-часть | `src/safewatch/cli.py` | `add_parser("import-artifact"` | `tests/test_ml_gaps.py::test_import_artifact_cli_and_cache` |
+| v5: ключ `pipeline.vehicle_classes` | 29 | `analyze`, `proximity` | `config/default.yaml` | `vehicle_classes: [car, bus, truck, train]` | `tests/test_ml_gaps.py::test_vehicle_classes_from_config` |
+| v5: ключ `local.providers` | 29 | `LocalBackend` | `config/default.yaml` | `providers: [CPUExecutionProvider]` | `tests/test_ml_gaps.py::test_local_providers_key` |
+| v5: имя входа модели | 29 | `LinqBackend` | `src/safewatch/inference/linq.py` | `--input-name` | `tests/test_ml_gaps.py::test_input_name_passed` |
+| v5: `report_pdf.shift_pdf` | 30 | `shift_report_pdf` | `src/safewatch/report_pdf.py` | `def shift_pdf(` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
+| v5: `services.shift_report_pdf` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/services.py` | `def shift_report_pdf(` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
+| v5: `GET /api/master/shift.pdf` | 30 | мастер, Егор | `src/safewatch/api.py` | `@router.get("/api/master/shift.pdf")` | `tests/test_shift_pdf.py::test_pdf_route_and_bad_at` |
+| v5: шрифт PDF | 30 | `report_pdf` | `src/safewatch/report_pdf.py` | `FONT = "DejaVuSans.ttf"` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
+| v5: ключ `tracker.reattach_bh` | 30 | `Tracker` | `config/default.yaml` | `reattach_bh: 1.0` | `tests/test_tracking.py::test_fall_keeps_track_id` |
+| v5: `media.frame_shift` | 32 | паспорт камеры | `src/safewatch/media.py` | `def frame_shift(` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
+| v5: секция `shift` | 32 | `camera_passport` | `config/default.yaml` | `max_px: 20` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
 
 ### 6.8 Дополнения v2 (строки `GAP` S0–S5 и решения R5)
 
@@ -2853,6 +3053,588 @@ models:
 
 ---
 
+### 6.11 Контракт v5: второй прогон (Argus)
+
+Записан владельцем (v5) до кода, по `UPGRADE_v1.md`. Часть контракта наравне с 5.1–6.6; `было → стало` заменяет сказанное выше. Слайс S16 объявляет всё из этого раздела: миграцию, типы, поля, маршруты (незакрытые отвечают 501), секции конфига и модели `config.py`; остальные слайсы наполняют поведение. Контракт фронта только расширяется: ни один путь, тип и поле `contract/openapi.json` 1.0.0 не удаляются и не переименовываются.
+
+#### 6.11.1 Схема: `src/safewatch/migrations/0002_v5.sql`
+
+```sql
+-- v5 (tech.md 6.11.1): additive only, rows of 0001 keep working.
+ALTER TABLE videos ADD COLUMN web_path TEXT;           -- пишет: services.video_upload, video_import (S18); uploads/<sha256>.web.mp4, NULL — исходник играет в браузере
+ALTER TABLE analyses ADD COLUMN autocal_json TEXT;     -- пишет: services.run_next_job (S19); AutoCalibration или NULL (анализ до v5)
+ALTER TABLE events ADD COLUMN person_name TEXT NOT NULL DEFAULT '';      -- пишет: services.event_identify (S26)
+ALTER TABLE events ADD COLUMN person_position TEXT NOT NULL DEFAULT '';  -- пишет: services.event_identify (S26)
+ALTER TABLE events ADD COLUMN crew TEXT NOT NULL DEFAULT '';             -- пишет: services.event_identify (S26)
+ALTER TABLE deliveries ADD COLUMN delivered_at TEXT;   -- пишет: services.deliveries_flush (S23), канал call
+
+CREATE TABLE delivery_queue (                          -- пишет: services.broadcast_tick, event_action, escalation_tick; читает и чистит deliveries_flush (S23)
+    id INTEGER PRIMARY KEY,
+    event_id INTEGER NOT NULL REFERENCES events(id),
+    kind TEXT NOT NULL CHECK (kind IN ('published', 'escalated', 'to_master')),
+    level TEXT NOT NULL CHECK (level IN ('yellow', 'red')),  -- уровень на момент постановки
+    created_at TEXT NOT NULL,
+    UNIQUE (event_id, kind)
+);
+
+CREATE TABLE dataset_items (                           -- пишет: services.datasets_flush (S25)
+    id INTEGER PRIMARY KEY,
+    event_id INTEGER NOT NULL UNIQUE REFERENCES events(id),
+    scenario TEXT NOT NULL,
+    label TEXT NOT NULL CHECK (label IN ('false_alarm')),
+    path TEXT NOT NULL,                                -- datasets/false_alarms/<event_id>/ от data_dir
+    frames INTEGER NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE demo_packs (                              -- пишет: services.demo_import (S17)
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    sha256 TEXT NOT NULL,                              -- sha256 файла manifest.json
+    backend TEXT NOT NULL CHECK (backend IN ('linq', 'local')),  -- бэкенд артефактов пакета
+    fake INTEGER NOT NULL,                             -- 1: хоть один артефакт синтетический
+    cameras INTEGER NOT NULL,
+    videos INTEGER NOT NULL,
+    imported_at TEXT NOT NULL
+);
+```
+
+Чего в схеме v5 нет: файлов клипов, справочника работников, таблицы калькулятора (расчёт не хранится), таблицы паспортов (паспорт считается на запрос), ролей `call` в `deliveries.kind` (канал звонка различается по `channel = "call:<name>"`).
+
+#### 6.11.2 Типы: `src/safewatch/types.py`, новые имена
+
+```python
+SpeedSource = Literal["calibration", "auto", "relative"]  # m/s from the homography, m/s from autocal, body heights/s
+PassportVerdict = Literal["suitable", "partial", "unsuitable", "unknown"]
+CalcTier = Literal["base", "extended", "max"]
+
+
+class AutoCalibration(BaseModel):  # analyses.autocal_json (S19, tech.md 8.21)
+    ok: bool
+    reason: str  # Russian; "" when ok
+    samples: int  # standing people kept after outlier rejection
+    a_px: float  # person height in px at foot y = 0
+    b: float  # px of height per px of foot y
+    rmse_px: float
+    r2: float
+    person_height_m: float
+
+
+class Clip(BaseModel):  # window of the source video (S18, tech.md 8.20)
+    video_id: int
+    url: str  # /api/videos/<id>/file#t=<start_s>,<end_s>
+    start_ms: int
+    end_ms: int
+    playable: bool  # the served file plays in a browser
+
+
+class DemoArtifact(BaseModel):  # one model run of one video inside a demo pack (S17)
+    model: str  # id@version
+    task: ModelTask
+    input_size: int
+    step: int
+    backend: BackendName
+    fake: bool
+    file: str  # artifacts/<cache_key>.jsonl, relative to the pack
+    frames: int
+    metrics: InferenceMetrics
+
+
+class DemoVideo(BaseModel):
+    file: str  # videos/<name> in a pack; a path under --videos in a layout
+    sha256: str = ""
+    artifacts: list[DemoArtifact] = []
+
+
+class DemoCamera(BaseModel):
+    sector: str  # matched by name, created when missing
+    name: str  # matched by name inside the sector, created when missing
+    description: str = ""
+    videos: list[DemoVideo]
+    calibration: CalibrationIn | None = None
+    zones: list[ZoneIn] = []
+    rules: dict[str, CameraRuleIn] = {}
+
+
+class DemoManifest(BaseModel):  # data/demo/<name>/manifest.json
+    name: str
+    created_at: datetime
+    contract: str
+    cameras: list[DemoCamera]
+
+
+class DemoLayout(BaseModel):  # config/demo.example.yaml: input of `safewatch demo build`
+    name: str
+    cameras: list[DemoCamera]
+
+
+class DemoPack(BaseModel):  # GET /api/demo/packs
+    id: int
+    name: str
+    sha256: str
+    backend: BackendName
+    fake: bool
+    cameras: int
+    videos: int
+    imported_at: datetime
+
+
+class DemoImportReport(BaseModel):
+    skipped: bool  # the pack with this name is already imported
+    name: str
+    cameras: int
+    videos: int
+    jobs: int
+
+
+class CalcAssumption(BaseModel):  # every number of the calculator is one of these (S24, tech.md 8.25)
+    key: str
+    title: str
+    value: float
+    unit: str
+    source: str  # where the number comes from, Russian
+    editable: bool = True
+
+
+class RolloutIn(BaseModel):
+    workshops: int
+    cameras: int
+    shifts_per_day: int
+    workers: int
+    operators: int
+    incidents_per_year: float
+    downtime_cost_rub: float  # per incident
+    fine_cost_rub: float
+    treatment_cost_rub: float
+    lawsuit_cost_rub: float
+    overrides: dict[str, float] = {}  # CalcAssumption.key -> value
+
+
+class TierResult(BaseModel):
+    tier: CalcTier
+    title: str
+    accelerators: int
+    servers: int
+    capex_rub: float
+    opex_rub_year: float
+    savings_rub_year: float
+    payback_months: float | None  # None: savings do not exceed opex
+    items: list[WhyItem]  # breakdown lines
+
+
+class RolloutResult(BaseModel):
+    incident_cost_rub: float
+    incidents_per_1000_workers: float | None
+    events_per_operator_shift: float | None  # from the journal, None without data
+    tiers: list[TierResult]
+    assumptions: list[CalcAssumption]
+
+
+class ScaleIn(BaseModel):
+    cameras_now: int
+    new_cameras: int
+    overrides: dict[str, float] = {}
+
+
+class ScaleResult(BaseModel):
+    cameras_total: int
+    analysis_fps: float
+    capacity_fps: float  # per accelerator
+    capacity_source: str
+    accelerators_now: int
+    accelerators_total: int
+    servers_total: int
+    capex_rub: float  # for the added part only
+    items: list[WhyItem]
+    assumptions: list[CalcAssumption]
+
+
+class CalculatorDefaults(BaseModel):
+    rollout: RolloutIn
+    scale: ScaleIn
+    assumptions: list[CalcAssumption]
+    measured: list[CalcAssumption]  # numbers from LinQ runs and the journal, editable=False
+
+
+class DatasetItem(BaseModel):  # S25, tech.md 8.26
+    event_id: int
+    scenario: str
+    label: Literal["false_alarm"]
+    frames: int
+    path: str
+    created_at: datetime
+
+
+class DatasetView(BaseModel):
+    items: list[DatasetItem]
+    total: int
+    frames: int
+
+
+class IdentityIn(BaseModel):  # S26, tech.md 8.27; empty string clears the field
+    person_name: str = ""
+    person_position: str = ""
+    crew: str = ""
+
+
+class PeopleStats(BaseModel):
+    date_from: datetime
+    date_to: datetime
+    include_demo: bool
+    total: int
+    identified: int
+    by_person: list[CountRow]
+    by_crew: list[CountRow]
+
+
+class PassportScenario(BaseModel):  # S27, tech.md 8.28
+    scenario: str
+    title: str
+    verdict: PassportVerdict
+    reason: str
+
+
+class CameraPassport(BaseModel):
+    camera_id: int
+    analysis_id: int | None
+    frames: int
+    person_height_px_p50: float | None
+    small_object_px_p50: float | None
+    person_frames_share: float | None
+    dark_share: float | None
+    empty_share: float | None
+    shift_px: float | None = None  # S32
+    shift_text: str = ""  # S32
+    scenarios: list[PassportScenario]
+```
+
+#### 6.11.3 Поля, добавленные к типам 5.2
+
+Каждое поле — со значением по умолчанию: старые ответы и снимки остаются валидными.
+
+| Тип | Поле | Слайс | Значение |
+| --- | --- | --- | --- |
+| `Video` | `web_playable: bool = False` | 18 | `browser_playable` или есть H.264-копия `web_path` |
+| `Job` | `status_text: str = ""` | 17 | понятный текст состояния (8.19), с S28 — прогресс LinQ (8.29) |
+| `Job` | `eta_s: float \| None = None`, `rate_fps: float \| None = None` | 28 | 8.29 |
+| `EventSummary` | `clip: Clip \| None = None` | 18 | 8.20; демо-событие сида — `None` |
+| `EventSummary` | `person_name: str = ""`, `person_position: str = ""`, `crew: str = ""` | 26 | 8.27 |
+| `EventDetail` | `can_identify: bool = False` | 26 | роль запроса из 8.27 |
+| `Analysis` | `auto_calibration: AutoCalibration \| None = None` | 19 | 8.21 |
+| `CameraSetupView` | `auto_calibration: AutoCalibration \| None = None` | 19 | автокалибровка активного анализа последнего готового видео |
+| `PersonState`, `VehicleState` | `speed_source: SpeedSource = "relative"` | 19 | 8.21 |
+| `HudObject` | `projection: list[Point] \| None = None` | 22 | 8.23, нормированный полигон |
+| `Delivery` | `delivered_at: datetime \| None = None`, `status_text: str = ""` | 23 | 8.24 |
+| `Channel` | `kind: Literal["ws", "webhook"]` → `kind: Literal["ws", "webhook", "call"]` | 23 | 8.24 |
+| `LogAction` | + `"identified"` | 26 | 8.27 |
+| `ModelSpec` | `nc: int \| None = None`, `input_name: str = "images"` | 29 | 8.30 |
+| `RemoteShell`, `InferenceBackend` | метод `close(self) -> None` | 28 | 8.29 |
+
+#### 6.11.4 Фасад v5: `src/safewatch/services.py`
+
+```python
+def demo_build(layout: Path, videos_dir: Path, out: Path, allow_fake: bool = False) -> DemoManifest: ...
+def demo_import(path: Path) -> DemoImportReport: ...
+def demo_packs() -> list[DemoPack]: ...
+def artifact_import(
+    video_id: int, model_ref: str, jsonl: Path, backend: BackendName, fake: bool,
+    metrics: InferenceMetrics | None = None,
+) -> int: ...  # artifact id
+def calculator_defaults() -> CalculatorDefaults: ...
+def calculator_rollout(data: RolloutIn, role: Role | None) -> RolloutResult: ...
+def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult: ...
+async def datasets_flush() -> int: ...
+def datasets_view() -> DatasetView: ...
+def dataset_export(out: Path | None = None) -> Path: ...  # zip file
+def event_identify(event_id: int, data: IdentityIn, role: Role | None, actor: str | None) -> EventDetail: ...
+def people_stats_view(
+    date_from: datetime | None = None, date_to: datetime | None = None, include_demo: bool = True,
+) -> PeopleStats: ...
+def camera_passport(camera_id: int) -> CameraPassport: ...
+def shift_report_pdf(at: datetime | None = None) -> bytes: ...
+def backend_close() -> None: ...
+```
+
+| Функция | Пишет в хранилище | Исключения | Код: REST | Код: CLI | Слайс |
+| --- | --- | --- | --- | --- | --- |
+| `demo_build(layout, videos_dir, out, allow_fake)` | файлы пакета в `out` (база не меняется) | `NotFound` (раскладка, видео), `ValidationFailed` (схема раскладки, фейк без `allow_fake`, папка `out` не пуста); бэкенд недоступен → `InferenceError` | — | exit 3, 2, 4 | 17 |
+| `demo_import(path)` | sectors, cameras, zones, calibrations, camera_rules, videos, artifacts, jobs, demo_packs; файлы `uploads/`, `artifacts/` | `NotFound` (папка, `manifest.json`, файл пакета), `ValidationFailed` (схема, модель пакета не в реестре, sha256 видео не совпал) | — | exit 3, 2 | 17 |
+| `demo_packs()` | нет | нет | — | — | 17 |
+| `artifact_import(video_id, model_ref, jsonl, backend, fake, metrics)` | artifacts, файл `artifacts/` | `NotFound` (видео, файл), `ValidationFailed` (ссылка не в реестре, JSONL не проходит `read_jsonl`) | — | exit 3, 2 | 17 |
+| `calculator_defaults()` | нет | нет | — | — | 24 |
+| `calculator_rollout(data, role)` | нет | `RoleRequired`, `Forbidden`, `ValidationFailed` (число < 0, `cameras` или `workshops` 0, неизвестный ключ `overrides`) | 400, 403, 422 | — | 24 |
+| `calculator_scale(data, role)` | нет | те же | 400, 403, 422 | — | 24 |
+| `datasets_flush()` | dataset_items, файлы `datasets/` | нет: ошибка кадра → лог, повтор на следующем тике | — | — | 25 |
+| `datasets_view()` | нет | нет | — | — | 25 |
+| `dataset_export(out)` | файл zip | нет | — | exit 0 | 25 |
+| `event_identify(event_id, data, role, actor)` | events, event_actions (`identified`) | `RoleRequired`, `Forbidden`, `ValidationFailed` (длина поля, actor), `NotFound` | 400, 403, 422, 404 | — | 26 |
+| `people_stats_view(...)` | нет | `ValidationFailed` (`date_from > date_to`) | 422 | — | 26 |
+| `camera_passport(camera_id)` | нет | `NotFound` (нет или удалена) | 404 | — | 27 |
+| `shift_report_pdf(at)` | нет | нет | — | — | 30 |
+| `backend_close()` | нет | нет | — | — | 28 |
+
+Права ролей v5 (дополняют таблицу 6.2; чтение по-прежнему без роли):
+
+| Функция | Роли |
+| --- | --- |
+| `calculator_rollout` | management |
+| `calculator_scale` | management, admin |
+| `event_identify` | ohs, management |
+
+Ситуации на границах v5:
+
+| Ситуация | Фасад | Код: REST | Код: CLI |
+| --- | --- | --- | --- |
+| перекодирование упало или вышло по таймауту | видео принято, `web_path = NULL`, `web_playable = browser_playable`, лог `transcode: <что>` | 201 | 0 |
+| пакет уже импортирован (то же `name`) | `DemoImportReport.skipped = true`, база не меняется | — | 0 |
+| модель пакета не в `config/models.yaml` | `ValidationFailed`, ничего не записано | — | exit 2 |
+| LinQ недоступен при сборке пакета | `InferenceError`, файлы пакета не пишутся | — | exit 4 |
+| звонок: провайдер `stub` | строка deliveries `sent`, `delivered_at = at`, текст «Звонок доставлен (заглушка)» | — | — |
+| ответ Jupyter — HTML вместо API | `InferenceError("bad_output")`; `backend_check` → `bad_answer` (было: `unreachable`, долг R5) | 200 | `doctor` exit 4 |
+| паспорт камеры без готового видео | все сценарии `unknown`, причина «Нет обработанного видео» | 200 | — |
+
+#### 6.11.5 CLI v5: `src/safewatch/cli.py`
+
+| Команда | Фасад | Выход | Коды | Слайс |
+| --- | --- | --- | --- | --- |
+| `safewatch demo build LAYOUT --videos DIR --out DIR [--allow-fake]` | `demo_build` | JSON `DemoManifest` без артефактов (имена, число кадров) | 0; 2 схема или фейк; 3 нет файла; 4 бэкенд недоступен | 17 |
+| `safewatch demo import DIR` | `demo_import` | JSON `DemoImportReport` | 0; 2 схема, модель, sha256; 3 нет папки или файла | 17 |
+| `safewatch serve --seed` | v5: после `seed_demo` — `demo_import(demo.pack)`, если `demo.autoload` и папка есть | лог | как в 6.3 | 17 |
+| `safewatch dataset export [--out DIR]` | `dataset_export` | путь к zip | 0 | 25 |
+| `safewatch import-artifact FILE --video ID --model REF [--backend linq\|local] [--fake]` | `artifact_import` | id артефакта | 0; 2 формат или модель; 3 нет файла или видео | 29 |
+| `safewatch eval LABELS [--out DIR]` | v5: при живом процессе из `server.pid` — отказ | — | v5: 5 сервер запущен (было: запуск вторым процессом, долг S14) | 30 |
+
+#### 6.11.6 REST v5: `src/safewatch/api.py`
+
+Колонки как в 6.4; тест маршрутов S16 считает строки этой таблицы вместе с 6.4: всего 65 маршрутов. Маршрут `/api/master/shift.pdf` и `/api/datasets/false-alarms/export.zip` объявлены рядом с соседями без конфликта путей.
+
+| Искомая строка декоратора | Фасад | Вход | Ответ | Ошибки | Слайс |
+| --- | --- | --- | --- | --- | --- |
+| `@router.get("/api/demo/packs")` | `demo_packs` | — | `list[DemoPack]` | — | 17 |
+| `@router.get("/api/calculator/defaults")` | `calculator_defaults` | — | `CalculatorDefaults` | — | 24 |
+| `@router.post("/api/calculator/rollout")` | `calculator_rollout` | `RolloutIn`, `X-Role` | `RolloutResult` | 400, 403, 422 | 24 |
+| `@router.post("/api/calculator/scale")` | `calculator_scale` | `ScaleIn`, `X-Role` | `ScaleResult` | 400, 403, 422 | 24 |
+| `@router.get("/api/datasets/false-alarms")` | `datasets_view` | — | `DatasetView` | — | 25 |
+| `@router.get("/api/datasets/false-alarms/export.zip")` | `dataset_export` | — | `application/zip` | — | 25 |
+| `@router.patch("/api/events/{event_id}/identity")` | `event_identify` | `IdentityIn`, `X-Role`, `X-Actor` | `EventDetail` | 400, 403, 404, 422 | 26 |
+| `@router.get("/api/stats/people")` | `people_stats_view` | query `date_from`, `date_to`, `include_demo` | `PeopleStats` | 422 | 26 |
+| `@router.get("/api/cameras/{camera_id}/passport")` | `camera_passport` | — | `CameraPassport` | 404 | 27 |
+| `@router.get("/api/master/shift.pdf")` | `shift_report_pdf` | query `at` | `application/pdf` | 422 | 30 |
+
+Было → стало в существующих маршрутах: `GET /api/videos/{video_id}/file` отдаёт H.264-копию `web_path`, если она есть, иначе исходник (S18); `POST /api/cameras/{camera_id}/videos` проверяет `X-Role` и заголовок `Content-Length` (больше `upload.max_mb` → 413) до чтения тела (S30, долг R5).
+
+#### 6.11.7 WebSocket v5
+
+Новых типов `WsType` нет. Новые поля `EventSummary` (клип, идентификация) приходят в `event.created` и `event.updated`. `event_identify` публикует `event.updated`; `deliveries_flush` после строки канала `call` публикует `event.updated` этого события (карточка перечитывает `deliveries`). `contract/ws.schema.json` пересобирается в S16 и S18, S26 (новые поля), `contract/ws-examples.json` получает новые поля в примерах `event.*`.
+
+#### 6.11.8 Конфиг и константы v5
+
+Добавления в `config/default.yaml` (S16 кладёт их целиком, `config.py` описывает каждую секцию моделью с `extra="forbid"`):
+
+```yaml
+product_name: Argus                # было: SafeWatch
+
+pipeline:
+  vehicle_classes: [car, bus, truck, train]   # S29: было константой analysis.pipeline.VEHICLES
+
+class_conf:                        # дополнительно к v4
+  helmet: 0.35
+  no_helmet: 0.35
+  respirator: 0.35
+  no_respirator: 0.35
+
+tracker:
+  reattach_bh: 1.0                 # S30: этап 3 трекера, 8.31
+
+scenarios:
+  no_helmet:
+    hold_s: 3.0
+    head_frac: 0.35
+    min_person_px: 80
+  no_respirator:
+    hold_s: 3.0
+    head_frac: 0.35
+    min_person_px: 80
+
+zone_kinds:                        # дополнительно к v4; описание rest v5: «Места отдыха. Телефон здесь разрешён.»
+  - id: helmet_required
+    title: Обязательна каска
+    color: "#FF9500"
+    geometry: polygon
+    description: Цех или участок, где без каски нельзя. Человек без каски дольше порога — жёлтое событие.
+  - id: respirator_required
+    title: Обязателен респиратор
+    color: "#5E5CE6"
+    geometry: polygon
+    description: Участок с пылью или парами. Человек без респиратора дольше порога — жёлтое событие.
+  - id: walkway
+    title: Проход («зелёная линия»)
+    color: "#34C759"
+    geometry: polygon
+    description: Безопасный проход. Телефон здесь разрешён.
+
+autocal:
+  person_height_m: 1.7
+  min_samples: 30
+  min_person_px: 40
+  edge_px: 2
+  max_residual: 0.15               # доля роста: точка дальше 15 % от линии отбрасывается
+  iterations: 3
+
+clips:
+  pre_s: 3.0
+  post_s: 5.0
+  max_s: 30.0
+
+transcode:
+  enabled: true
+  crf: 23
+  preset: veryfast
+  timeout_s: 600
+
+demo:
+  pack: data/demo/argus
+  autoload: true
+
+delivery:
+  webhooks: []
+  calls:                           # S23: только kind=to_master
+    - {name: master, to: "", levels: [red], provider: stub}
+
+datasets:
+  tick_ms: 2000
+  max_frames: 40
+
+passport:
+  min_frames: 50
+  person_partial_px: 80
+  small_object_px: 12
+  dark_partial: 0.2
+  dark_unsuitable: 0.5
+  empty_partial: 0.8
+
+shift:                             # S32
+  max_px: 20
+  sample_width: 320
+
+linq:                              # дополнительно к v4
+  reply_timeout_s: 120
+  slow_rtt_s: 12.0
+
+local:
+  providers: [CPUExecutionProvider]   # S29; CUDAExecutionProvider — для GPU-машины ML-части
+
+calculator:
+  assumptions:
+    - {key: accelerator.capacity_fps, title: "Пропускная способность одного ускорителя LinQ", value: 12.4, unit: "кадр/с", source: "замер LinQ 24.10 14:52: детектор 640, inflight 4, общая очередь площадки"}
+    - {key: models_per_frame, title: "Запросов к TPU на кадр", value: 2, unit: "шт.", source: "конвейер Argus: детектор и pose"}
+    - {key: accelerators_per_server, title: "Ускорителей в одном сервере", value: 4, unit: "шт.", source: "допущение команды, уточнить у ХайТэк"}
+    - {key: accelerator.price_rub, title: "Цена ускорителя LinQ", value: 500000, unit: "₽", source: "допущение команды: цена не опубликована, заменить ценой поставщика"}
+    - {key: server.price_rub, title: "Цена сервера под ускорители", value: 350000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
+    - {key: integration_rub, title: "Пусконаладка и подключение камер", value: 300000, unit: "₽", source: "допущение команды"}
+    - {key: support_share_year, title: "Поддержка в год, доля от вложений", value: 0.15, unit: "доля", source: "допущение команды"}
+    - {key: light_sound_rub, title: "Световой и звуковой сигнал у зоны", value: 25000, unit: "₽ за зону", source: "допущение команды, уточнить у поставщика"}
+    - {key: zones_per_camera, title: "Сигнальных зон на камеру", value: 1, unit: "шт.", source: "допущение команды"}
+    - {key: speaker_rub, title: "Громкоговоритель в цех", value: 40000, unit: "₽ за цех", source: "допущение команды, уточнить у поставщика"}
+    - {key: new_camera_rub, title: "Новая IP-камера с монтажом", value: 30000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
+    - {key: new_cameras_share, title: "Доля новых камер на максимальном уровне", value: 0.2, unit: "доля", source: "допущение команды"}
+    - {key: reduction.base, title: "Снижение инцидентов: базовый уровень", value: 0.2, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+    - {key: reduction.extended, title: "Снижение инцидентов: расширенный уровень", value: 0.3, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+    - {key: reduction.max, title: "Снижение инцидентов: максимальный уровень", value: 0.4, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+```
+
+Модели `config.py` v5: `AutocalConfig`, `ClipsConfig`, `TranscodeConfig`, `DemoConfig`, `CallConfig` (`name: str`, `to: str`, `levels: list[Level]`, `provider: Literal["stub"]`), `DatasetsConfig`, `PassportConfig`, `ShiftCheckConfig`, `CalcAssumptionConfig`, `CalculatorConfig`; `ScenariosConfig` получает `no_helmet`, `no_respirator`; `PipelineConfig.vehicle_classes`, `TrackerConfig.reattach_bh`, `LinqConfig.reply_timeout_s`, `slow_rtt_s`, `LocalConfig.providers`, `DeliveryConfig.calls`. `DeliveryConfig` проверяет при загрузке, что имена каналов (`webhooks` и `calls` вместе) уникальны, иначе `ValueError` «delivery: channel names must be unique» (S23, долг S15).
+
+`config/models.yaml` v5 (S20) дописывает две записи Матвея из `ml/models.matvey.yaml` ветки `matvey_cv`, ключи `classes` — целые:
+
+```yaml
+  - id: matvey-pose-yolov8n
+    version: 640-v1-acc5f51228b9
+    task: pose
+    input_size: 640
+    conf: 0.1
+    iou: 0.45
+    classes: {0: person}
+    linq_program: mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu
+    linq_tail: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx
+    local_onnx: models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx
+  - id: matvey-helmet-yolov8n
+    version: 640-v1-5c3af1f3b855
+    task: detect
+    input_size: 640
+    conf: 0.1
+    iou: 0.45
+    classes: {0: helmet, 1: no_helmet}
+    linq_program: mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu
+    linq_tail: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx
+    local_onnx: models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx
+```
+
+`pipeline` по умолчанию не меняется: модели Матвея включает `config/user.yaml` по образцу `config/user.matvey.example.yaml` (`pipeline.pose: matvey-pose-yolov8n@640-v1-acc5f51228b9`, `pipeline.extra: [matvey-helmet-yolov8n@640-v1-5c3af1f3b855]`).
+
+Именованные константы v5:
+
+| Константа | Значение | Единица | Читает | Поведение |
+| --- | --- | --- | --- | --- |
+| `api.CONTRACT_VERSION = "1.1.0"` (было `"1.0.0"`) | 1.1.0 | версия | `api`, `openapi.json`, `hello`, `meta` | 6.11 |
+| `media.WEB_SUFFIX = ".web.mp4"` | — | — | `transcode`, `video_file` | 8.20 |
+| `demo.MANIFEST = "manifest.json"` | — | — | `demo_build`, `demo_import` | 8.19 |
+| `rules.phone.ALLOWED_KINDS = ("walkway", "rest")` | — | типы зон | `PhonePlugin` | 8.23 |
+| `services.IDENTITY_MAX = 80` | 80 | символов | валидация | 8.27 |
+| `report_pdf.FONT = "DejaVuSans.ttf"` | — | — | `shift_pdf` | 8.31 |
+| `texts.SCENARIO_MODEL_MISSING = "Модель не подключена: нужны классы {classes}"` (было «Нет модели с классами: {classes}») | — | — | `scenario_metas` | 8.22 |
+
+#### 6.11.9 Компоненты анализа и правил v5
+
+```python
+# src/safewatch/analysis/autocal.py (S19)
+def fit(frames: list[FrameDetections], person_cls: set[int], width: int, height: int,
+        cfg: AutocalConfig, upright_hw: float, high_thresh: float) -> AutoCalibration: ...
+def scale_at(cal: AutoCalibration, foot_y_px: float) -> float | None: ...  # m per px; None if not ok or height <= 0
+
+# src/safewatch/analysis/passport.py (S27)
+def build_passport(camera_id: int, analysis_id: int | None, hud: list[HudFrame], gaps: list[ObservabilityGap],
+                   duration_ms: int, height: int, metas: list[ScenarioMeta], zones: list[Zone],
+                   cfg: PassportConfig, min_person_px: int, phone_min_person_px: float) -> CameraPassport: ...
+
+# src/safewatch/rules/base.py (S20)
+def head_objects(ctx: FrameContext, name: str, head_frac: float) -> dict[int, ObjectState | Literal["ambiguous"]]: ...
+
+# src/safewatch/rules/ppe.py (S20)
+class HelmetPlugin: ...      # ScenarioPlugin, ID = "no_helmet"
+class RespiratorPlugin: ...  # ScenarioPlugin, ID = "no_respirator"
+
+# src/safewatch/calculator.py (S24)
+def rollout(data: RolloutIn, assumptions: dict[str, CalcAssumption], analysis_fps: float,
+            events_per_camera_day: float | None) -> RolloutResult: ...
+def scale(data: ScaleIn, assumptions: dict[str, CalcAssumption], analysis_fps: float,
+          capacity_fps: float, capacity_source: str) -> ScaleResult: ...
+
+# src/safewatch/dataset.py (S25)
+def build_item(root: Path, event: EventSummary, episode: Episode, video: Path, det: Path, pose: Path | None,
+               hud: Path, frame_ms: list[int], label: dict[str, object]) -> int: ...  # frames written
+def export_zip(root: Path, items: list[DatasetItem], out: Path) -> Path: ...
+
+# src/safewatch/demo.py (S17)
+def read_manifest(path: Path) -> DemoManifest: ...
+def write_manifest(path: Path, manifest: DemoManifest) -> str: ...  # sha256 of the file
+
+# src/safewatch/media.py (S18, S32)
+def transcode(src: Path, dst: Path, cfg: TranscodeConfig) -> bool: ...
+def frame_shift(reference: np.ndarray, current: np.ndarray, sample_width: int) -> float: ...  # px of the reference size
+
+# src/safewatch/delivery.py (S23)
+class CallChannel:  # DeliveryChannel: provider "stub" answers delivered at once
+    def __init__(self, name: str, to: str, levels: list[Level], provider: Literal["stub"]) -> None: ...
+
+# src/safewatch/report_pdf.py (S30)
+def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
+```
+
+`rules.PLUGINS` v5: в конец списка `HelmetPlugin`, `RespiratorPlugin` (порядок таблицы 8.3 и 8.22). `texts.SCENARIO_TITLES` v5: `no_helmet` «Без каски в зоне обязательной каски», `no_respirator` «Без респиратора в зоне обязательного респиратора».
+
+---
+
 ## 7. Общие компоненты
 
 Компонент собирается в слайсе из столбца «Слайс» (0 — каркас; иначе первый слайс, которому он нужен) и дальше переиспользуется, а не пишется заново. Компонент, который не использует ни один слайс, не пишется.
@@ -2881,6 +3663,15 @@ models:
 | фронт: редактор точек | `components/PolygonEditor.tsx` | `PolygonEditor({image, mode: "points" \| "polygon" \| "line", value, onChange, maxPoints})` | 9 | калибровка, зоны |
 | фронт: фильтры | `components/FiltersBar.tsx` | `FiltersBar({facets, value, onChange, onReset, shown, total})` | 12 | журнал |
 | фронт: графики | `components/Charts.tsx` | `BarChartCard`, `LineChartCard`, `StackedDaysCard`, `PercentilesCard` (recharts) | 13 | статистика, менеджмент |
+| v5: демо-пакет | `demo.py` | `read_manifest`, `write_manifest`, `MANIFEST` (6.11.9) | 17 | `demo_build`, `demo_import` |
+| v5: перекодирование | `media.py` | `transcode(src, dst, cfg) -> bool`, `WEB_SUFFIX` | 18 | `video_upload`, `video_import`, `demo_import` |
+| v5: автокалибровка | `analysis/autocal.py` | `fit`, `scale_at` | 19 | `analyze`, `features`, паспорт |
+| v5: привязка к голове | `rules/base.py` | `head_objects(ctx, name, head_frac)` | 20 | плагины СИЗ |
+| v5: калькулятор | `calculator.py` | `rollout`, `scale` | 24 | `services` |
+| v5: датасет | `dataset.py` | `build_item`, `export_zip` | 25 | `services` |
+| v5: паспорт | `analysis/passport.py` | `build_passport` | 27 | `services` |
+| v5: PDF | `report_pdf.py` | `shift_pdf(summary, product_name, tz) -> bytes` | 30 | `services` |
+| v5: фронт: клип | `components/ClipPlayer.tsx` | `ClipPlayer({clip})`: `<video>` с `src = apiUrl(clip.url)`, пауза на `end_ms`, подпись «Видео не воспроизводится браузером», если `playable=false` | 18 | экран события, мастер, оператор с телефона |
 
 ## 8. Поведение
 
@@ -2968,6 +3759,8 @@ models:
 Привязка объекта к человеку (`rules/base.attach_objects`, телефон и сигарета): центр объекта внутри верхней доли `upper_frac` рамки человека или ближе `wrist_dist_bh × H_ref` к видимому запястью (точки 9, 10). Подходит одному человеку — привязан; двум и больше — `ambiguous` для каждого. Водитель исключается из `proximity`: доля рамки человека внутри рамки техники `≥ driver_ioa`. Дистанция без калибровки — от `foot` до прямоугольника рамки техники (0 внутри), делённая на H_ref; с калибровкой — от `ground` до отрезка `footprint` в метрах.
 
 `{duration_s}` в тексте причины менеджер эпизодов заменяет целыми секундами `confirm_ms − start_ms` (при эскалации — `escalate_ms − start_ms`).
+
+v5, было → стало в таблице: `running` — жёлтый по `speed_m_s ≥ speed_m_s`, если `speed_m_s` есть (ручная калибровка или автокалибровка, 8.21), иначе по `speed_bh_s`; метод `calibrated`, `auto` или `relative`. `proximity` — дистанция в метрах и при автокалибровке (8.21); статус `active` при `person` и хотя бы одном классе из `pipeline.vehicle_classes` (S29, было: все пять имён). `phone` — в зонах `ALLOWED_KINDS` (`walkway`, `rest`) наблюдение `N` (8.23). Плагины `no_helmet` и `no_respirator` — 8.22.
 
 `explain(episode, params)` возвращает строки «почему» для экрана события: правило с порогом («Бег: скорость выше 1,5 роста/с дольше 1 с»), измеренные значения из `metrics`, метод («поза» или «рамка», «калибровка» или «в ростах человека»), уверенность детекции, зона, `uncertain_ms` («Потеря видимости 2 с»).
 
@@ -3123,6 +3916,10 @@ models:
 | `/admin/cameras` | admin | 1 | секторы и камеры: создать, переименовать, удалить (с подтверждением), привязать камеру к сектору; ошибки валидации у полей |
 | `/admin/cameras/:cameraId` | admin, ohs | 2 | вкладки: «Видео» (S2: загрузка с прогрессом, список видео, задачи с прогрессом и замерами; S4: плеер с HUD; S5: таймлайн эпизодов, «Пересчитать события»), «Эфир» (S6: старт, стоп, повтор), «Калибровка», «Зоны», «Правила» (S9). Вкладка незакрытого слайса — `StubNotice` |
 | `/admin/system` | admin | 3 | бэкенд и его состояние, кнопка «Проверить LinQ»; очередь и последние задачи с замерами (кадров, кадр/с, мс на кадр: пре, пост, RTT p50 и p90; загрузка; всего); модели (id@версия, программа, хвост); задержка уведомлений (p50, p95, n); свежесть анализа по камерам (S11); каналы доставки (S15) |
+| `/m/operator` (v5) | operator | 23 | мобильная лента оператора одной колонкой от 360 px, как `/master`: карточки жёлтых и красных (уровень, сектор, причина, время, статус); уведомление — звук и `navigator.vibrate`; тап → `/m/operator/events/:eventId` |
+| `/m/operator/events/:eventId` (v5) | operator | 23 | кадр доказательства, клип (`ClipPlayer`), место, причина, кнопки `allowed_actions` («Подтверждаю», «Ложное срабатывание», «Передать мастеру»); открытие отправляет `view` |
+
+v5 на существующих экранах (фронт минимальный, остальное делает Егор по 6.11): `EventScreen` и `MasterEvent` показывают `ClipPlayer`, если у события есть `clip` (S18); `MasterInbox` на уведомление `to_master` сам открывает `/master/events/:id` (S23); строка доставки `call:<name>` в карточке события — текст `status_text` (S23). Экраны калькулятора, паспорта камеры, датасета, идентификации и статистики по людям — только API (Егор).
 
 Маршрут незакрытого слайса рендерит `StubNotice` «Экран появится в слайсе N».
 
@@ -3168,6 +3965,202 @@ videos:
 - метрики по сценарию и строка `*`: `precision = tp / (tp + fp)`, `recall = tp / (tp + fn)`, `f1`, `fp_per_hour = fp / часы видео`, задержка подтверждения p50 и p95 с n.
 Отчёт: `eval/<время>/report.json` (`EvalReport`) и `report.md` (таблица и сноска: «recall валиден только при полной разметке видео»).
 
+### 8.19 Демо-пакет и «живой» завод (S17)
+
+Цель: открыл Argus (Docker или публичный адрес) — завод уже работает: секторы, камеры с реальными видео, эфир по кругу с HUD, события в ленте, красный захват, наполненные журнал и статистика. Показ не зависит от VPN и LinQ, но детекции настоящие: они посчитаны на LinQ заранее.
+
+Пакет — папка `data/demo/<name>/`:
+```
+manifest.json          # DemoManifest (6.11.2)
+videos/<file>          # исходные видео, как в раскладке
+artifacts/<cache_key>.jsonl, <cache_key>.summary.json
+```
+
+Сборка `demo_build(layout, videos_dir, out, allow_fake)` (CLI `safewatch demo build`):
+1. Раскладка — YAML `DemoLayout` (пример `config/demo.example.yaml`: камера `synthetic_coco_40x1s.mp4` в «Сектор 1 · Прессовый участок» с зоной danger). Нет файла → `NotFound`; схема → `ValidationFailed`; `out` существует и не пуст → `ValidationFailed`.
+2. Бэкенд — `make_backend(settings)`. `Settings.fake = true` без `allow_fake` → `ValidationFailed` «Демо-пакет на фейке: добавьте --allow-fake» (честность: фейк подписан в пакете и в `DemoPack.fake`).
+3. Для каждого видео: `media.probe_video` (не читается → `UnsupportedVideo`), sha256, шаг 8.1, прогон каждой активной модели (`pipeline.detector`, `pose`, `extra`) через `backend.run` в `out/artifacts/<cache_key>.jsonl` с проверкой `read_jsonl`, одна задача на TPU за раз (3.1). Видео копируется в `out/videos/`.
+4. `manifest.json` пишется последним; любая ошибка бэкенда → `InferenceError`, папка `out` удаляется (не остаётся полупакета).
+
+Импорт `demo_import(path)` (CLI `safewatch demo import`, `serve --seed` при `demo.autoload` и существующей папке `demo.pack`):
+1. Пакет с тем же `name` уже в `demo_packs` → `skipped=true`, ничего не меняется (идемпотентно).
+2. Проверки до записи: схема, каждая `model` пакета есть в реестре, sha256 каждого видео совпадает с файлом, все файлы артефактов есть.
+3. Сектор и камера ищутся по названию (камеры сида «Камера 1.1 · Пресс №2» и т. п.), нет — создаются (`is_demo = 0`). Калибровка, зоны и правила камеры пакета записываются, если у камеры их нет (поверх существующих не пишет).
+4. Видео — `video_import`; артефакты — `artifact_import` с `backend`, `fake` пакета; задача `process` ставится с `backend` и `fake` пакета (было: из `Settings`). Ключ кэша `run_next_job` считает по `jobs.backend` и `jobs.fake` (так было по 8.1 п. 6 — «на момент постановки»), поэтому задача находит артефакты пакета и не вызывает бэкенд (`cached=true`). Модель, активная сейчас, но без артефакта в пакете, считается обычным путём.
+5. Строка `demo_packs`; отчёт `DemoImportReport`. Дальше обычный путь: анализ, эфир по кругу (`broadcast.autostart`), события.
+
+Лента и состояния без демо-событий сида (долг S6, было → стало): `operator_feed`, `sector_view.feed`, `camera_states` и `sector` состояния не учитывают события `is_demo = 1`; журнал и статистика учитывают их по `include_demo`, как раньше. События эфира демо-пакета — настоящие и в ленте есть.
+
+«Загрузить своё видео» — существующая загрузка (8.1) честно идёт на выбранном бэкенде. `Job.status_text` (`texts.job_status_text(job)`): `queued` «В очереди», `running` «Обработка на LinQ» (или «на CPU (local)»), `retry_wait` с `linq_unavailable` «LinQ недоступен, повтор в ЧЧ:ММ», `retry_wait` с `timeout` «LinQ не ответил вовремя, повтор в ЧЧ:ММ», `failed` — текст кода ошибки («LinQ недоступен: попробуйте позже», «Нет программы модели на LinQ», «Неожиданный ответ LinQ», «Видео не читается», «Внутренняя ошибка»), `done` «Готово». Время — `timezone`.
+
+`GET /api/demo/packs` — импортированные пакеты по `imported_at`; шапка и экран IT показывают «Демо-пакет <name>: детекции LinQ» или «… фейк».
+
+### 8.20 Клип события и H.264 (S18)
+
+Клип — окно исходного видео, без перекодирования на событие. Для события эфира с эпизодом: `start_ms = max(0, episode.start_ms − clips.pre_s·1000)`, `end_ms = min(duration_ms, episode.confirm_ms + clips.post_s·1000, start_ms + clips.max_s·1000)`; `url = "/api/videos/<video_id>/file#t=<start_s>,<end_s>"` (секунды с одним знаком, точка), `playable = Video.web_playable`. Демо-событие сида (нет видео) — `clip = None`. Клип есть в `EventSummary` (лента, журнал, мастер) и `EventDetail.event`; стоп-кадр `evidence` остаётся превью.
+
+Перекодирование: `video_upload`, `video_import` после проверки 8.1 п. 3: `codec` не из `BROWSER_CODECS` и `transcode.enabled` → `media.transcode(src, uploads/<sha256>.web.mp4, cfg)` в `asyncio.to_thread` (импорт — напрямую): ffmpeg `imageio_ffmpeg.get_ffmpeg_exe()`, `-c:v libx264 -preset <preset> -crf <crf> -pix_fmt yuv420p -movflags +faststart -an`, кадры и длительность прежние. Успех — `videos.web_path`; итог проверяется `probe_video(dst).codec ∈ BROWSER_CODECS`, иначе файл удаляется и `web_path = NULL`. Ошибка, таймаут `transcode.timeout_s` или выключенный ключ → видео принято без копии (6.11.4). `video_file` отдаёт копию, если она есть. Инференс, sha256 и ключ кэша — по исходнику.
+
+Браузер не открывается (10.1): «играет в браузере» проверяется FourCC отдаваемого файла (`avc1`/`h264`) и `Range` (206).
+
+### 8.21 Автокалибровка и скорость в м/с (S19)
+
+`autocal.fit` по кадрам детектора (до трекинга, чистая функция):
+1. Замеры — люди со `score ≥ tracker.high_thresh`, стоящие по рамке (`h/w ≥ features.upright_hw`), рамка не касается краёв кадра (отступ больше `autocal.edge_px`), высота `≥ autocal.min_person_px`. Замер — пара (низ рамки `y2`, высота `h`) в пикселях.
+2. Подгонка `h = a + b·y2` наименьшими квадратами; `autocal.iterations` раз отбрасываются замеры с `|h − ĥ| > max_residual · ĥ` (присевшие, закрытые, обрезанные), затем повторная подгонка.
+3. `ok = true`, если осталось `≥ min_samples` замеров и `ĥ(y) > 0` на всей высоте кадра; иначе `ok = false` и `reason` («Мало стоящих людей в кадре: N из 30», «Рост людей не согласуется с перспективой»). Пишутся `samples`, `a_px`, `b`, `rmse_px`, `r2`, `person_height_m`.
+4. `scale_at(cal, y) = person_height_m / ĥ(y)` метров на пиксель в строке пола `y`.
+
+Скорость (было → стало 8.2 п. 5, 6): окно и условия прежние. Есть ручная калибровка и обе точки внутри оболочки → `speed_m_s` по гомографии, `speed_source = "calibration"`; иначе автокалибровка `ok` → `speed_m_s = |Δfoot| / dt · scale_at(cal, (y_first + y_last)/2)`, `speed_source = "auto"`; иначе `speed_m_s = None`, `speed_source = "relative"` (запасной режим в ростах в секунду). Техника — так же по середине нижней кромки рамки. Дистанция `proximity` при автокалибровке — пиксели от `foot` до рамки техники × `scale_at(cal, foot.y)`. Ручная калибровка всегда главнее.
+
+HUD (было → стало 8.2 п. 8): «≈2,9 м/с (авто)» и «бег ≈2,9 м/с (авто)» при `auto`, «2,9 м/с (калибровка)» и «бег 2,9 м/с (калибровка)» при `calibration`, «2,4 роста/с» при `relative`. Тексты `texts.HUD_SPEED_M_AUTO`, `HUD_RUN_M_AUTO`, `HUD_SPEED_M` (`"{v} м/с (калибровка)"`, было `"{v} м/с"`), `HUD_RUN_M` (`"бег {v} м/с (калибровка)"`). `explain` бега: строка «Скорость: автокалибровка по росту людей (N замеров, точность около ±20 %)» или «по калибровке камеры». Результат подгонки — `analyses.autocal_json`, `Analysis.auto_calibration`, `CameraSetupView.auto_calibration`; пересчёт (8.12) подгоняет заново.
+
+### 8.22 СИЗ: каска и респиратор; модели Матвея (S20)
+
+| id | Название, иконка | Классы, зоны | P (уровень, удержание) | N | U | Причина |
+| --- | --- | --- | --- | --- | --- | --- |
+| `no_helmet` | «Без каски в зоне обязательной каски», `helmet` | person, no_helmet (обязательны); helmet (необязателен); helmet_required | `anchor` в зоне helmet_required и объект `no_helmet` привязан к голове → жёлтый, `hold_s` | вне зоны; в зоне и к голове привязан `helmet` | человек меньше `min_person_px` (`too_small`); к голове ничего не привязано (`head_unseen`); объект подходит двум людям (`owner_ambiguous`) | «Без каски в зоне «Цех 2»» |
+| `no_respirator` | «Без респиратора в зоне обязательного респиратора», `mask` | person, no_respirator (обязательны); respirator; respirator_required | то же с `no_respirator` и зоной respirator_required | то же с `respirator` | то же | «Без респиратора в зоне «Покрасочная»» |
+
+Привязка к голове (`rules/base.head_objects`): центр объекта в горизонтальных границах рамки человека и в верхней доле `head_frac` её высоты; подходит одному человеку — привязан; двум и больше — `ambiguous` у каждого. Без модели плагин в статусе `model_missing`, текст `texts.SCENARIO_MODEL_MISSING` v5 «Модель не подключена: нужны классы no_respirator» (было «Нет модели с классами: …»; меняется для всех плагинов).
+
+Модели Матвея (`docs/ML_HANDOFF_MATVEY.md`, ветка `matvey_cv`): две записи 6.11.8 дописываются в `config/models.yaml` (существующие записи не меняются); `config/user.matvey.example.yaml` включает pose Матвея и каску как extra. Механизм проверяется без кода: в тестовом реестре каска в `pipeline.extra` делает `no_helmet` `active`, команда воркера для неё — `--nc 2` без `--classes`. Файлов `models/matvey/...` в репо нет: `doctor` с этим `user.yaml` честно пишет «нет файла» по каждому; есть файлы — `INFERENCE_BACKEND=local uv run safewatch doctor` и `eval` (запись слайса: итог).
+
+### 8.23 Телефон по зонам; проекция груза (S22)
+
+Телефон (было → стало строка `phone` 8.3): `anchor` в зоне `walkway` или `rest` (`rules.phone.ALLOWED_KINDS`) → `N` (событий нет, «зелёная линия»: позвонить начальнику, сфотографировать для отчёта); в зоне danger или vehicle_path — красный, `danger_hold_s` (как в v4); вне этих зон («рабочая зона») — жёлтый, `hold_s`. `ScenarioMeta.zone_kinds` телефона: `danger`, `vehicle_path`, `walkway`, `rest`. Сигнал «телефон в руках» по-прежнему привязка `attach_objects`; модель Матвея с классом `cell phone` подключается как extra без кода.
+
+Проекция груза (HUD, упрощённо): объект `suspended_load` получает `HudObject.projection` — нормированный полигон `[(x1, y2), (x2, y2), (x2, 1), (x1, 1)]` (столбец под рамкой груза до низа кадра) и тег `load_projection` «зона под грузом»; это та же область, по которой правило `suspended_load` даёт красное (8.3). Рисует фронт. Без объекта груза полигона нет.
+
+### 8.24 Звонок мастеру, очередь доставок, оператор с телефона (S23)
+
+Когда событие переходит в `sent_to_master` (оператор подтвердил красное или передал, или автоэскалация по таймауту), мастер одновременно получает: WS `notification` (8.8), открытую карточку на телефоне (`/master` сам открывает `/master/events/:id`) и «звонок» — доставку `to_master` по каналам `delivery.calls`.
+
+Очередь доставок в базе (было → стало 6.10 S15: `services._deliveries` в памяти): постановка — `INSERT OR IGNORE INTO delivery_queue (event_id, kind, level, created_at)` в той же транзакции, что и событие или действие (`level` — уровень события на момент постановки). `deliveries_flush`: строки очереди по `id`; для каждой — каналы `webhook:<name>` (все `kind`) и `call:<name>` (только `to_master`), у которых `level` строки входит в `levels`, без строки `deliveries` с тем же `(event_id, channel, kind)`; отправка в `asyncio.to_thread` по одной; строка `deliveries` и удаление строки очереди — в потоке event loop. Перезапуск сервера очередь не теряет. Имена каналов уникальны (6.11.8).
+
+`CallChannel` с провайдером `stub`: реальной телефонии нет, `deliver` сразу отвечает успехом; строка `deliveries` `sent`, `delivered_at = at`; `Delivery.status_text` — «Звонок отправлен» (без `delivered_at`) или «Звонок доставлен (заглушка)». `Channel` для звонка: `kind = "call"`, `target` — номер с маской (`+7 900 ***-**-12`, пустой номер — «заглушка»). Подключение реального провайдера — новый `provider` и класс, без изменения очереди.
+
+Оператор с телефона: экраны `/m/operator` и `/m/operator/events/:eventId` (8.14) поверх существующих `operator_feed`, `event_detail`, `event_action`; новых маршрутов API нет.
+
+### 8.25 Калькулятор окупаемости и масштабирования (S24)
+
+Все числа — `CalcAssumption` из `calculator.assumptions` (6.11.8) с подписью источника; `overrides` запроса заменяют значение по ключу (неизвестный ключ или отрицательное → 422). Ниже `A[key]` — действующее значение, `fps = pipeline.target_analysis_fps`.
+
+Режим «Внедрение» (`calculator_rollout`, роль management):
+- `incident_cost = downtime + fine + treatment + lawsuit`; `incidents_per_1000_workers = incidents_per_year / workers × 1000` (`workers = 0` → `None`);
+- `accelerators = ceil(cameras × fps × A[models_per_frame] / A[accelerator.capacity_fps])`, `servers = ceil(accelerators / A[accelerators_per_server])`;
+- `base`: `capex = accelerators × A[accelerator.price_rub] + servers × A[server.price_rub] + A[integration_rub]` (камеры существующие);
+- `extended`: `base.capex + cameras × A[zones_per_camera] × A[light_sound_rub]`;
+- `max`: `extended.capex + workshops × A[speaker_rub] + ceil(cameras × A[new_cameras_share]) × A[new_camera_rub]`;
+- каждый уровень: `opex_year = capex × A[support_share_year]`, `savings_year = incidents_per_year × incident_cost × A[reduction.<tier>]`, `payback_months = capex / (savings_year − opex_year) × 12` при `savings_year > opex_year`, иначе `None` и строка «Не окупается при этих допущениях»; `items` — строки расчёта («Ускорители LinQ: 3 × 500 000 ₽»);
+- `events_per_operator_shift = events_per_camera_day × cameras / (operators × shifts_per_day)`, где `events_per_camera_day` — события эфира (`is_demo = 0`, без `superseded`) за `stats.default_days` дней на живую камеру в день; данных нет или `operators × shifts_per_day = 0` → `None`.
+
+Режим «Масштабирование» (`calculator_scale`, роли management, admin): `capacity_fps` — медиана `throughput_fps` артефактов `backend = linq`, `fake = 0` (подпись «замер приложения: N задач»), нет таких — `A[accelerator.capacity_fps]` с его источником; `accelerators_now` и `accelerators_total` — формула выше для `cameras_now` и `cameras_now + new_cameras`; `servers_total`; `capex = (accelerators_total − accelerators_now) × price + (servers_total − servers(cameras_now)) × server.price + new_cameras × new_camera_rub`.
+
+`calculator_defaults`: пример завода (`RolloutIn`: 2 цеха, 8 камер, 2 смены, 200 работников, 2 оператора, 4 инцидента в год, простой 500 000 ₽, штраф 200 000 ₽, лечение 300 000 ₽, суды 500 000 ₽ — подпись «пример для демо, замените своими»), `ScaleIn` (8 + 8), допущения и `measured` (замер пропускной способности, RTT p50 последних задач LinQ, события на камеру в день). Экран делает Егор.
+
+### 8.26 Ложное срабатывание → датасет (S25)
+
+`datasets_flush` (пятая задача `TaskGroup` в `worker`, период `datasets.tick_ms`): события со статусом или вердиктом `false_alarm`, с эпизодом и без строки `dataset_items` → `dataset.build_item` в `asyncio.to_thread`, затем строка `dataset_items` (`UNIQUE event_id`: ровно один раз). Демо-событие сида (нет эпизода) пропускается.
+
+Состав `datasets/false_alarms/<event_id>/`:
+- `frames/<frame_idx>.jpg` — проанализированные кадры окна клипа (8.20), равномерно не больше `datasets.max_frames`, JPEG `evidence.jpeg_quality`;
+- `detections.jsonl` — строки `FrameDetections` артефакта детектора для этих кадров, `pose.jsonl` — то же для pose (если был); формат `docs/ML_INTEGRATION.md` раздел 4;
+- `hud.jsonl` — строки `HudFrame` этих кадров;
+- `label.json` — `{event_id, label: "false_alarm", scenario, level, reason_text, video_sha256, video_filename, start_ms, end_ms, models: [id@version], analysis_version, comment}` (комментарий оператора из действия `false_alarm`).
+
+Экспорт: `dataset_export(out)` и `GET /api/datasets/false-alarms/export.zip` — zip всех элементов и `manifest.json` (список `DatasetItem`); CLI `safewatch dataset export --out DIR`. `GET /api/datasets/false-alarms` — `DatasetView`.
+
+### 8.27 Ручная идентификация нарушителя (S26)
+
+`event_identify` (роли ohs, management): поля `IdentityIn` обрезаются по краям, длина каждого до `IDENTITY_MAX` (81 → 422 «Поле: до 80 символов»), пустая строка очищает поле. Порядок проверок как у `event_action` (S7): роль → поля → actor → 404. Есть изменение → `events.person_name`, `person_position`, `crew`, строка `event_actions` `identified` (`from_status = to_status` = текущий статус, комментарий «ФИО: …; должность: …; бригада: …» или «Идентификация очищена»), WS `event.updated`; изменений нет → 200 без строки журнала. Статус события не меняется; терминальные события тоже можно идентифицировать. `EventDetail.can_identify` — роль запроса ohs или management.
+
+`people_stats_view`: период и демо — как `ohs_stats_view` (S13); `identified` — события с непустым `person_name` или `crew`; `by_person` — по `person_name` (ключ — имя), `by_crew` — по `crew`, `_count_rows` по убыванию; пустые значения не попадают в строки. CSV журнала (S12) получает в конце колонки «ФИО», «Должность», «Бригада» (добавление).
+
+### 8.28 Паспорт пригодности камеры (S27)
+
+`camera_passport(camera_id)`: активный анализ последнего `ready` видео камеры; нет → все сценарии `unknown` «Нет обработанного видео». Из HUD анализа (`build_passport`):
+- `person_height_px_p50` — медиана высоты рамок людей в пикселях; `small_object_px_p50` — медиана большей стороны рамок `cell phone`; `person_frames_share` — доля кадров с людьми; `dark_share` — доля длительности в интервалах `dark` и `obstructed`; `empty_share` — доля кадров без объектов; `frames` — число кадров анализа.
+
+Вердикт по каждому плагину (первое подходящее сверху):
+1. статус не `active` → `unknown` «Модель не подключена» (или текст `skeleton`);
+2. `frames < passport.min_frames` → `unknown` «Мало кадров для оценки»;
+3. `dark_share > dark_unsuitable` → `unsuitable` «Слишком темно или камера закрыта N % времени»;
+4. сценарий на людях и `person_height_px_p50 < features.min_person_px` → `unsuitable` «Люди слишком мелкие: N px»; нет людей → `unknown` «В записи нет людей»;
+5. `phone`: `person_height_px_p50 < scenarios.phone.min_person_px` или `small_object_px_p50 < small_object_px` → `partial` «Телефон виден плохо: N px»;
+6. у сценария есть `zone_kinds`, а у камеры нет ни одной зоны нужного типа, где без зоны сценарий не срабатывает (`fence_crossing`, `restricted_under`, `no_harness`, `no_helmet`, `no_respirator`, `fall` не требует) → `partial` «Нет зон: <типы>»;
+7. `person_height_px_p50 < person_partial_px` или `dark_share > dark_partial` или `empty_share > empty_partial` → `partial` с причиной;
+8. иначе `suitable` «Годна».
+
+S32 добавляет `shift_px` и `shift_text` (8.33).
+
+### 8.29 LinQ под медленную очередь (S28)
+
+RTT TPU бывает до ~10,6 с на запрос (3.1). Было → стало:
+- Таймаут прогона: `max(linq.job_timeout_s, 120 + ceil(frames / linq.inflight) × linq.slow_rtt_s)` секунд, где `frames = ceil(frame_count / step)` (для 720 кадров — 2280 с).
+- Воркер получает `--reply-timeout <linq.reply_timeout_s>` (новый аргумент `video_worker.py`, по умолчанию 120 — прежнее поведение; `client.collect(..., timeout=reply_timeout)`).
+- Прогресс честно виден: из `.progress` (`done`) и времени с `# sw:start` считаются `Job.rate_fps` и `Job.eta_s` (`(total − done) / rate`), `Job.status_text` — `texts.JOB_PROGRESS` «LinQ: 120 из 720 кадров · 3,1 кадр/с · осталось ~3 мин»; пока `done = 0` — «LinQ: ждём первый ответ TPU (очередь площадки)».
+- `# sw:start` сначала гасит прежний воркер того же `<out>`: `[ -f <out>.pid ] && kill $(cat <out>.pid) 2>/dev/null; rm -f <out>.pid` (долг R5: осиротевший воркер); команда строится `LinqBackend._start_command(...)`.
+- `RemoteShell.close()` и `InferenceBackend.close()`: `JupyterShell.close` закрывает kernel и сессию Jupyter (`shutdown_kernel`), повторный вызов — без ошибки; `services.backend_close()` зовут lifespan при остановке сервера и `doctor` в конце (долг R5: idle kernel на общем аккаунте). `FakeRemoteShell.close` пишет маркер `close`.
+- `JupyterShell`: `JupyterError` с телом-HTML (`<html` без учёта регистра) или ответ не JSON → `InferenceError("bad_output")`; `backend_check` → `bad_answer` (долг R5).
+- Живая проверка (лимит): ролик до 60 с, одна задача, `--inflight 4`; итог (кадр/с, RTT p50/p90, `eta_s` в начале и конце) — в запись слайса.
+
+### 8.30 Пробелы `docs/ML_INTEGRATION.md` (S29)
+
+Решение по каждому пункту раздела 9 документа (19 пунктов после дополнения Матвея). Слайс S29 закрывает отмеченные «S29», остальные оставлены с причиной; S29 дописывает в раздел 9 документа строку итога у каждого пункта.
+
+| № | Пробел | Решение |
+| --- | --- | --- |
+| 1 | нет импорта внешних артефактов (Vast) | S29: CLI `import-artifact` поверх `artifact_import` (S17); провенанс — `--backend`, `--fake` |
+| 2 | детектор жёстко COCO-80 | S29: `ModelSpec.nc` — у детектора с `nc` воркер получает `--nc <nc>`, `--classes` фильтрует ID внутри `0..nc−1` |
+| 3 | имена техники зашиты, extra-техника не трекается | S29: `pipeline.vehicle_classes`; класс из списка у extra-модели — техника с трекингом |
+| 4 | `proximity` требует все пять имён | S29: `person` и хотя бы один класс из `vehicle_classes` |
+| 5 | нет сценария СИЗ | S20: `no_helmet`, `no_respirator` |
+| 6 | `no_harness` ждёт негативный класс | оставлено осознанно: отсутствие рамки привязи не доказывает её отсутствие; ML-часть обучает `no_harness` |
+| 7 | хвост обязателен | S29: `linq_tail: null` → воркер без `--tail`, проверка хвоста пропускается |
+| 8 | имя входа жёстко `images` | S29: `ModelSpec.input_name` → `--input-name` |
+| 9 | кэш не знает о весах | оставлено: смена `CACHE_SCHEMA` обнулит кэш демо-пакета и истории; правило «переобучил — подними `version`» в силе |
+| 10 | падение extra валит задачу | S29: `remote_error`/`bad_output` extra-модели → анализ без неё, `error_text = "extra <ref>: <текст>"`, её классы не входят в `active_classes` снимка (сценарии — `model_missing` в этом анализе) |
+| 11 | метрики extra не видны | S29: `Job.metrics` включает extra-модели (по `AnalysisConfig.extra_artifact_ids`) |
+| 12 | `upload_program.py` навязывает префикс и staging | оставлено: инструмент ML-части и общая инфраструктура LinQ, прогон его не меняет (3.1) |
+| 13 | fake не умеет extra-классы | оставлено: демо огня и груза — через демо-пакет с настоящими детекциями (8.19) |
+| 14 | `local` только на CPU | S29: `local.providers` |
+| 15 | pose зашит на 17 точек COCO | оставлено: других схем точек нет |
+| 16 | файлы моделей без проверки целостности | оставлено: манифест — у ML-части (`MATVEY_MANIFEST.json`); `doctor` проверяет наличие |
+| 17 | `active` не проверяет роль источника класса | оставлено частично: с S29 техника из extra трекается (п. 3); людей даёт только детектор |
+| 18 | ограничения scorer `eval` | оставлено: метрики ML-части; отчёт сохраняет сноску о полноте разметки |
+| 19 | калибровка compile-helper привязана к COCO128 | оставлено: инструмент компиляции ML-части, на ноутбуке капитана компиляция запрещена (3.1) |
+
+### 8.31 Отчёт смены в PDF и долги приложения (S30)
+
+`shift_report_pdf(at)` → `report_pdf.shift_pdf(shift_summary_view(at), product_name, timezone)`: A4, шрифт `DejaVuSans.ttf` (кириллица), заголовок «<продукт> · Сводка смены», смена и период по МСК, всего, таблицы по секторам и сценариям, список подтверждённых (время, сектор, камера, причина, статус). `GET /api/master/shift.pdf?at=` — `application/pdf`, `Content-Disposition: attachment; filename="shift-<YYYY-MM-DD>-<id>.pdf"`; `at` не разбирается → 422.
+
+Долги `## open` (решение по каждому):
+
+| Долг | Решение |
+| --- | --- |
+| R5: живой прогон, TPU не отвечал | закрыт 24.10 14:52 вживую (раздел 2); S28 и R32 — короткие проверки |
+| S5: сцена `demo` теряет трек при падении | S30: этап 3 трекера — несопоставленный трек и несопоставленная детекция `score ≥ high_thresh`, центр ближе `tracker.reattach_bh × высота трека` → тот же id (смена позы «стоя → лёжа» меняет рамку, IoU падает); падение в сцене `demo` подтверждается веткой перехода «Зафиксировано падение» |
+| S6: демо-события сида в ленте | S17 (8.19) |
+| S10: `explain` новых плагинов, нет единицы дистанции у зоны | S30: строки «почему» каждого плагина S10 — правило с порогом и единицей, измеренное значение, зона |
+| R5: загрузка ложится на диск до проверки роли и размера | S30: `X-Role` и `Content-Length` до чтения тела (6.11.6); поток без `Content-Length` — проверка размера при записи, как в 8.1 |
+| S11: `_freshness` в потоке event loop | оставлено осознанно: чтение разовое, миллисекунды (запись R15) |
+| S14: `eval` вторым процессом, без отката pose | S30: `eval` при живом сервере → exit 5 «Остановите сервер: uv run safewatch stop»; pose `remote_error`/`bad_output` → анализ без точек, как у задачи |
+| S15: очередь доставок в памяти, уровень на момент flush, одинаковые имена | S23 (8.24) |
+| S15: `docker build` не собирался | S21 (8.32) |
+| R5: kernel Jupyter, осиротевший воркер, HTML → `unreachable` | S28 (8.29) |
+| владелец: idle kernels, логи `D:\npm1.log`, `D:\scratch_fe.log` | остаются за владельцем: удаление на общем аккаунте и вне репо блокирует защита Claude Code |
+
+### 8.32 Docker и развёртывание одной командой (S21)
+
+Dockerfile и compose S15 собираются и запускаются: `docker compose up -d --build` поднимает Argus с демо-пакетом. Было → стало: `CMD [..., "serve", "--host", "0.0.0.0", "--port", "8000", "--seed"]`; compose монтирует `./data/demo:/app/data/demo:ro` рядом с `./data/app` и `./models:ro`; `healthcheck` — `GET /api/health` (python из образа, без curl); ffmpeg приходит колесом `imageio-ffmpeg`. Демону Docker нужен запущенный Docker Desktop: `docker info` не отвечает → строка `долг`, слайс закрывается с файлами и статическим тестом.
+
+`docs/DEPLOY.md` — развёртывание на стационарном компьютере (публичный адрес через сервис Феди с выделенным IP): требования (Docker Desktop, свободный порт 8000), что скопировать (репо, `data/demo/<name>/`, при нужде `models/`), `.env` (`INFERENCE_BACKEND`, `SAFEWATCH_FAKE`, `LINQ_*` только для «Загрузить своё видео»; LinQ из контейнера — через туннель на хосте, `LINQ_JUPYTER_URL=http://host.docker.internal:8888`), команды `docker compose up -d --build`, `docker compose logs -f`, `docker compose down`, том данных, сброс базы, замена `frontend/` фронтом Егора перед сборкой.
+
+### 8.33 Сдвиг камеры (S32, если останется время)
+
+При `calibration_set`, `zone_create` и `zone_update` сохраняется эталон — кадр превью камеры `data_dir/reference/<camera_id>.jpg`. `camera_passport` сравнивает эталон с текущим кадром превью (`media.frame_shift`: оба кадра в серый, ширина `shift.sample_width`, фазовая корреляция OpenCV, сдвиг в пикселях эталона): `shift_px`; `shift_px > shift.max_px` → `shift_text` «Камера сдвинута на N px: проверьте зоны и калибровку»; эталона нет → `shift_px = None`, `shift_text = ""`. Новой модели нет.
+
 ## 9. Валидация
 
 Форма запроса проверяется моделями pydantic (FastAPI → 422 `validation`, сообщение «Неверные данные запроса», в `details` поле). Смысл проверяется в `services` (`ValidationFailed` с полем и русским текстом). Коды ошибок английские, тексты русские, без технических деталей и секретов.
@@ -3194,6 +4187,13 @@ videos:
 | статистика | `date_from ≤ date_to`; `weeks` 1..52 | 422 «Неверный период» |
 | `jobs_list` | `limit` 1..`jobs.list_max` | 422 |
 | разметка оценки | схема `EvalLabels`, `start_s < end_s`, файлы видео существуют | CLI exit 2 или 3 с текстом |
+| v5: раскладка демо-пакета | схема `DemoLayout`; файлы видео существуют; `out` пуст; фейк только с `--allow-fake` | CLI exit 2 или 3 с текстом |
+| v5: демо-пакет | схема `DemoManifest`; модели в реестре; sha256 видео совпадает; файлы артефактов есть | CLI exit 2 «Пакет повреждён: <что>» или 3 |
+| v5: калькулятор | числа `≥ 0`; `cameras ≥ 1`, `workshops ≥ 1`; ключи `overrides` из `calculator.assumptions` | 422 «Неверное значение: <поле>» |
+| v5: идентификация | каждое поле после обрезки до `IDENTITY_MAX` | 422 «Поле: до 80 символов» |
+| v5: статистика по людям | `date_from ≤ date_to` | 422 «Неверный период» |
+| v5: `import-artifact` | ссылка в реестре; JSONL проходит `read_jsonl`; видео существует | CLI exit 2 или 3 |
+| v5: загрузка видео | `X-Role` и `Content-Length` до чтения тела | 400, 403, 413 до записи на диск |
 
 Поиск `q`: `casefold(title || ' ' || reason_text || ' ' || camera_name) LIKE casefold('%' || q || '%') ESCAPE '\'` с экранированием `%`, `_`, `\`.
 
@@ -3231,7 +4231,19 @@ videos:
 - Правило 8: две мутации и только в слайсах 2, 5, 6, 7. В остальных слайсах мутаций нет.
 - Ручных проверок в браузере нет. Критерий проверяется автотестом или запросом к API. Тесты времени используют `fake_clock`; реальные `sleep` в тестах запрещены, повтор теста 20 раз не нужен.
 - Фронт: `frontend/src/App.test.tsx` (слайс 0), `frontend/src/components/hud.test.ts` (слайс 4) и по одному дымовому тесту на экран в `frontend/src/screens/screens.test.tsx`: экран рендерится с подменённым `api` и показывает ключевой текст. Других тестов фронта не пишем.
-- Живые прогоны LinQ — только в слайсе 2 и в ревью R5 (раздел 16).
+- Живые прогоны LinQ — только в слайсе 2 и в ревью R5 (раздел 16). Второй прогон — 10.3.
+
+### 10.3 Второй прогон v5 (поправка владельца, главнее 10.1 там, где они расходятся)
+
+Ночь 24.10 → 25.10, около 7 часов, сдача 25.10 10:00 МСК. Капитана нет; Матвей периодически заглядывает в ноутбук. Правила 10.1 действуют, кроме:
+- Ядро для правил 1–3 v5 дополнительно: автокалибровка (8.21), плагины СИЗ (8.22), телефон по зонам (8.23), очередь доставок и звонок (8.24), формулы калькулятора (8.25 — каждая строка формулы и граница «окупается / не окупается»), вердикты паспорта (8.28 — каждая строка порядка), таймаут прогона LinQ (8.29).
+- Правило 8: две мутации только в слайсах 19, 20, 23, 24.
+- Демо-путь «событие → оператор → мастер → журнал» прикрыт регрессией: `tests/test_e2e.py` зелёный в каждом слайсе; S17 добавляет тот же путь от демо-пакета (`tests/test_demo_pack.py::test_demo_flow_reaches_master_and_journal`).
+- Контракт только расширяется: каждый слайс, который пересобирает `contract/openapi.json`, проверяет, что пути и поля 1.0.0 на месте (`tests/test_contract_files.py::test_openapi_only_grows`, S16 кладёт снимок `contract/openapi.1.0.0.json`).
+- Живые прогоны LinQ — только S17 (сборка демо-пакета на `data/videos/`), S28 и R32 (короткая проверка): по одной задаче, ролик до 60 с, `--inflight 4`. Приоритет TPU у Матвея: очередь `input` занята или туннель недоступен → работа на `SAFEWATCH_FAKE=1` и строка `долг`, повтор в следующем разрешённом шаге.
+- Ноутбук капитана слабый (мало RAM, нет GPU): никакого обучения и перекомпиляции программ TPU; `local` в тестах — на маленьких фикстурах.
+- Блокер, который снимает только человек, — строка `владелец: <что сделать>` в `## open` одной фразой: что нажать или запустить и зачем.
+- Фронт: дымовой тест на каждый новый экран и компонент (`event_screen_plays_clip`, `operator_mobile_renders`, `operator_mobile_event_renders`, `master_opens_card_on_notification`).
 
 ### 10.2 Окружение
 
@@ -3308,8 +4320,8 @@ CI: `.github/workflows/gate.yml` на `pull_request` и на `push` в `main`, �
 ## 13. Definition of Done одного слайса
 
 1. Критерии приёмки слайса из раздела 16 выполнены и проверены автотестами или запросами к API. Браузер не открывается.
-2. Живые проверки LinQ — только там, где их требует слайс (S2, R5), в пределах лимита из `CLAUDE.md`. Туннель недоступен — строка `долг` в `## open`, слайс закрывается.
-3. Тесты выведены из критериев по разделам 10 и 10.1, мутации — только в слайсах 2, 5, 6, 7; `uv run poe gate` зелёный локально (вместе со сверкой контракта).
+2. Живые проверки LinQ — только там, где их требует слайс (S2, R5; v5: S17, S28, R32), в пределах лимита из `CLAUDE.md`. Туннель недоступен — строка `долг` в `## open`, слайс закрывается.
+3. Тесты выведены из критериев по разделам 10, 10.1 и 10.3, мутации — только в слайсах 2, 5, 6, 7 (v5: 19, 20, 23, 24); `uv run poe gate` зелёный локально (вместе со сверкой контракта).
 4. PR смёрджен squash без ожидания CI, ветка удалена (или локальный путь из 11, пункт 9).
 5. Новых файлов и абстракций сверх раздела 4 нет.
 6. Мёртвого кода нет: неиспользуемых экспортов, функций, шаблонов, стилей.
@@ -3357,9 +4369,11 @@ CI: `.github/workflows/gate.yml` на `pull_request` и на `push` в `main`, �
 
 Порядок жёсткий, сверху вниз. Один шаг за заход. Слайс вертикальный: от хранения до пользователя. Половина слайса не закрывается. Порядок идёт по демо-пути: загрузили видео → LinQ → эпизоды → эфир и красный захват → решение оператора → мастер → журнал и статистика.
 
-Ревью (раздел 17) в режиме ночи — после стадии из 5 слайсов, называется по последнему слайсу: `R5`, `R10`, `R15`. После слайса 0 ревью нет: его чек-лист «каркас готов» и есть ревью.
+Ревью (раздел 17) в режиме ночи — после стадии из 5 слайсов, называется по последнему слайсу: `R5`, `R10`, `R15`; v5: `R20`, `R25`, `R30`, `R32`. После слайса 0 ревью нет: его чек-лист «каркас готов» и есть ревью.
 
-Очередь: `S0, S1, S2, S3, S4, S5, R5, S6, S7, S8, S9, S10, R10, S11, S12, S13, S14, S15, R15`
+Очередь: `S0, S1, S2, S3, S4, S5, R5, S6, S7, S8, S9, S10, R10, S11, S12, S13, S14, S15, R15, S16, S17, S18, S19, S20, R20, S21, S22, S23, S24, S25, R25, S26, S27, S28, S29, S30, R30, S31, S32, R32`
+
+v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). Второй прогон начинается с S16. Порядок S16–S32 — по ценности (`UPGRADE_v1.md`, раздел 4): обрыв прогона оставляет главное. S31 и S32 — «если останется время».
 
 ---
 
@@ -3788,6 +4802,374 @@ CI: `.github/workflows/gate.yml` на `pull_request` и на `push` в `main`, �
 
 ---
 
+### Слайс 16: контракт 1.1.0 первым шагом
+
+Фронт Егора строит экраны новых функций сразу: всё из 6.11 объявляется и публикуется в `contract/openapi.json` до реализации, незакрытые маршруты отвечают 501, как в первую ночь.
+
+**Файлы:** `src/safewatch/migrations/0002_v5.sql`, `src/safewatch/{types,config,api,services,texts}.py`, `config/default.yaml`, `contract/{openapi.json,ws.schema.json,ws-examples.json,openapi.1.0.0.json}`, `frontend/src/api/schema.d.ts`, `tests/test_{db,contract_files,api_skeleton,config,cameras}.py`.
+
+**Что делает:**
+1. `contract/openapi.1.0.0.json` — копия текущего `contract/openapi.json` до изменений (снимок для проверки «только растёт»).
+2. Миграция `0002_v5.sql` по 6.11.1 целиком.
+3. `types.py`: все имена 6.11.2 и поля 6.11.3 (со значениями по умолчанию; `RemoteShell.close` и `InferenceBackend.close` — в S28, не здесь).
+4. Конфиг: все ключи 6.11.8 в `config/default.yaml`, модели секций в `config.py` (`extra="forbid"`), `product_name: Argus`.
+5. `api.py`: `CONTRACT_VERSION = "1.1.0"`, все маршруты 6.11.6 зовут фасад; `services.py`: все сигнатуры 6.11.4 с `raise NotImplementedError("slice N")`.
+6. `safewatch contract` пересобирает `openapi.json` и `ws.schema.json`; `npm run api:gen --prefix frontend` — `schema.d.ts`; примеры `event.*` в `ws-examples.json` получают новые поля.
+7. Тесты, которые разбирают `tech.md`, читают и 6.11: `test_types_export_contract_names` — ещё первый блок `python` под `#### 6.11.2`; `test_every_contract_route_is_declared` — ещё таблицу `#### 6.11.6`, всего 65 маршрутов.
+8. `progress.md`: в запись слайса и строкой `владелец: передать Егору: контракт 1.1.0 — <маршруты и поля одной строкой>` в `## open`.
+
+**Критерии приёмки:**
+1. `migrate()` на базе версии 1 применяет `0002_v5.sql`: новые таблицы и колонки есть, старые строки читаются, у `events` новые поля пустые; повторный вызов ничего не меняет.
+2. Все имена 6.11.2 есть в `safewatch.types`; поля 6.11.3 есть у своих типов со значениями по умолчанию; старый JSON `EventSummary` 1.0.0 проходит модель.
+3. `GET /api/health` → `{"status":"ok","contract":"1.1.0"}`; `meta.product_name = "Argus"`.
+4. Все 10 маршрутов 6.11.6 объявлены и отвечают 501 `not_implemented`; маршрутов всего 65.
+5. `safewatch contract --check` → 0; каждый путь, метод и поле схем `openapi.1.0.0.json` есть в новом `openapi.json` (ничего не удалено и не переименовано).
+6. Конфиг 6.11.8 загружается; опечатка в новом ключе роняет загрузку.
+7. `uv run poe gate` зелёный, фронт собирается с новым `schema.d.ts`.
+
+**Тесты:** `tests/test_db.py::test_migrate_v5_tables_and_columns`: 1; `tests/test_contract_files.py`: 2 `test_types_export_contract_names`, `test_v5_fields_present`, 5 `test_openapi_matches_app`, `test_openapi_only_grows`; `tests/test_api_skeleton.py`: 3 `test_health_ok`, 4 `test_every_contract_route_is_declared`, `test_unbuilt_route_returns_501`; `tests/test_config.py::test_v5_sections_load`: 6; `tests/test_cameras.py::test_meta_lists_roles_statuses_zone_kinds` (Argus): 3.
+
+**Не делать:** логику S17+; удаление и переименование чего-либо в контракте; правки фронта кроме `schema.d.ts`.
+
+---
+
+### Слайс 17: демо-пакет и «живой» завод
+
+**Файлы:** `src/safewatch/{demo,services,store,cli,api,texts}.py`, `config/demo.example.yaml`, `data/demo/README.md`, `.gitignore`, `tests/test_{demo_pack,operator_views,jobs}.py`.
+
+**Что делает:** `demo_build`, `demo_import`, `demo_packs`, `artifact_import` (8.19), CLI `demo build` и `demo import`, автозагрузка пакета в `serve --seed`, ключ кэша по `jobs.backend`/`jobs.fake`, лента и состояния без демо-событий сида, `Job.status_text`; сборка настоящего пакета `data/demo/argus` на LinQ из `data/videos/`.
+
+**Критерии приёмки:**
+1. `demo build` на фейке без `--allow-fake` → exit 2; с ним — пакет: `manifest.json` проходит `DemoManifest`, видео и артефакты каждой активной модели, `read_jsonl` проходит, `fake=true` в артефактах; непустой `--out` → exit 2; нет видео → 3; фейк `unavailable` → 4, папка `out` не остаётся.
+2. `demo import` на пустой базе с сидом: камера пакета привязана к камере сида по названию, новая создана; зоны и калибровка записаны; задача `process` с `backend`/`fake` пакета проходит без команды `start` у фейка (`cached=true`), затем анализ и автостарт эфира.
+3. Повторный импорт → `skipped=true`, счётчики таблиц не меняются; `GET /api/demo/packs` — одна строка с `fake` пакета.
+4. Пакет с моделью вне реестра или с чужим sha256 видео → exit 2, база не меняется.
+5. `serve --seed` при `demo.autoload=true` и существующей `demo.pack` импортирует пакет; `autoload=false` — нет.
+6. Лента оператора и состояния камер не содержат событий `is_demo = 1`; журнал с `include_demo=true` их показывает.
+7. `Job.status_text` по каждой строке 8.19 (`retry_wait` `linq_unavailable` с временем повтора, `failed` с текстом кода).
+8. Сквозной путь от пакета: импорт → тики эфира до красного → `confirm` → мастер `accept`, `resolve` → событие в журнале с клипом-заглушкой `None` до S18.
+9. Живая сборка (лимит): `INFERENCE_BACKEND=linq`, без фейка, туннель поднят: `uv run safewatch demo build config/demo.example.yaml --videos data/videos --out data/demo/argus` → пакет с `fake=false`; кадр/с и RTT — в запись слайса. Туннель недоступен или очередь занята Матвеем → пакет на фейке с `--allow-fake` и строка `долг: S17, сборка на LinQ, <причина>`; `владелец: пересобрать data/demo/argus на LinQ одной командой выше`.
+
+**Тесты:** `tests/test_demo_pack.py`: 1 `test_build_writes_manifest_and_artifacts`, `test_build_refuses_fake_without_flag`, 2 `test_import_creates_world_without_inference`, 3 `test_import_is_idempotent`, 4 `test_import_rejects_broken_pack`, 5 `test_serve_autoloads_pack`, 8 `test_demo_flow_reaches_master_and_journal`, `test_cli_build_and_import`, `test_example_layout_is_valid`; `tests/test_operator_views.py::test_feed_skips_seed_demo_events`: 6; `tests/test_jobs.py::test_status_text_for_retry_and_failure`: 7; 9 — вживую, итог в записи.
+
+**Не делать:** выбор итоговых видео и числа камер (решит команда после моделей Матвея); синтетическую историю сида (остаётся); импорт пакета через UI; коммит `data/demo/<name>/`.
+
+---
+
+### Слайс 18: клип события и H.264
+
+**Файлы:** `src/safewatch/{media,services,store}.py`, `pyproject.toml` (`imageio-ffmpeg`), `uv.lock`, `frontend/src/components/ClipPlayer.tsx`, `frontend/src/screens/{events/EventScreen,master/MasterEvent}.tsx`, `tests/test_clips.py`, `frontend/src/screens/screens.test.tsx`.
+
+**Что делает:** `Clip` у событий (8.20), `media.transcode`, `web_path`, отдача H.264-копии, плеер клипа на экране события и у мастера.
+
+**Критерии приёмки:**
+1. Окно клипа: эпизод `start 1000`, `confirm 2000` → `[0, 7000]`; `start 10000`, `confirm 11000` → `[7000, 16000]`; конец обрезается длительностью видео и `max_s`; `url` = `/api/videos/<id>/file#t=7.0,16.0`.
+2. Демо-событие сида → `clip = None`; событие с эпизодом в ленте, журнале, у мастера и в `EventDetail` несёт тот же `clip`.
+3. Загрузка mp4v (`make_video`) → `web_path` есть, `probe_video` копии даёт `avc1`/`h264`, `Video.web_playable = true`, `GET /file` с `Range` → 206 из копии; исходник для инференса и sha256 прежний.
+4. `transcode.enabled=false` → копии нет, `web_playable = browser_playable`; ffmpeg падает (подменённый путь) или таймаут → видео принято, `web_path = NULL`, процесса ffmpeg нет.
+5. H.264 на входе не перекодируется.
+6. Экран события и мастер показывают `ClipPlayer`; `playable=false` → подпись.
+
+**Тесты:** `tests/test_clips.py`: 1 `test_clip_window_bounds`, 2 `test_clip_none_for_seed_demo`, `test_clip_in_feed_journal_detail`, 3 `test_transcode_makes_browser_codec`, `test_video_file_serves_web_copy`, 4 `test_transcode_disabled_key`, `test_transcode_failure_keeps_video`, 5 `test_h264_not_transcoded`; `screens.test.tsx::event_screen_plays_clip`: 6. Тест с настоящим ffmpeg пропускается (`skipif`), если `imageio_ffmpeg.get_ffmpeg_exe()` недоступен.
+
+**Не делать:** нарезку файлов клипов, перекодирование на каждое событие, аудио, поток HLS.
+
+---
+
+### Слайс 19: автокалибровка и м/с
+
+**Файлы:** `src/safewatch/analysis/{autocal,features,pipeline,hud}.py`, `src/safewatch/rules/{running,proximity}.py`, `src/safewatch/{services,store,texts}.py`, `tests/test_autocal.py`.
+
+**Что делает:** `autocal.fit`, `scale_at`, скорость и дистанция в метрах при автокалибровке, `speed_source`, подписи HUD и «почему» (8.21), `analyses.autocal_json`, `Analysis.auto_calibration`, `CameraSetupView.auto_calibration`.
+
+**Критерии приёмки:**
+1. Синтетика: 40 стоящих людей на линии `h = 50 + 0,4·y` → `ok`, `a_px` и `b` в пределах 2 %; 30 замеров — `ok`, 29 — `ok=false` с текстом.
+2. 20 % выбросов (присевшие `h × 0,6`, обрезанные краем) отбрасываются, линия в пределах 3 %; рамка в 2 px от края не берётся, в 3 px — берётся.
+3. Человек 1,7 м идёт 2,9 м/с на синтетике с перспективой → `speed_m_s` в пределах ±20 %, `speed_source = "auto"`; при ручной калибровке — `"calibration"`; без обеих — `None`, `"relative"`.
+4. `running` при автокалибровке: 2,5 м/с → `P`, 2,49 → `N`, метод `auto`; без неё — по ростам в секунду, как в v4.
+5. HUD: «≈2,9 м/с (авто)», «бег ≈2,9 м/с (авто)», «2,9 м/с (калибровка)», «2,4 роста/с»; `explain` содержит строку источника скорости.
+6. `proximity` при автокалибровке считает дистанцию в метрах (пороги `yellow_m`, `red_m`).
+7. Анализ пишет `autocal_json`; `GET /analysis` и `camera_setup_view` отдают `auto_calibration`; пересчёт подгоняет заново.
+
+**Тесты:** `tests/test_autocal.py`: 1 `test_fit_recovers_height_line`, `test_too_few_samples_not_ok`, 2 `test_outliers_rejected`, 3 `test_speed_auto_m_s_within_20pct`, `test_manual_calibration_wins`, 4 `test_running_uses_auto_threshold`, 5 `test_hud_labels_auto_and_calibration`, 6 `test_proximity_meters_with_autocal`, 7 `test_analysis_stores_autocal`. Мутации: 2.
+
+**Не делать:** калибровку по технике или разметке пола, 3D-оценку высоты, ручной ввод роста на камеру, правку ручной калибровки по авто.
+
+---
+
+### Слайс 20: каска, респиратор и модели Матвея
+
+**Файлы:** `src/safewatch/rules/{ppe,base,__init__}.py`, `src/safewatch/texts.py`, `config/models.yaml`, `config/user.matvey.example.yaml`, `tests/test_{rule_ppe,config,plugin_status}.py`.
+
+**Что делает:** плагины `no_helmet`, `no_respirator` и `head_objects` (8.22), новый текст `model_missing`, записи моделей Матвея в реестре и пример их включения.
+
+**Критерии приёмки:**
+1. `no_helmet`: человек в зоне helmet_required с `no_helmet` у головы 2,99 с → нет эпизода, 3,0 с → жёлтый «Без каски в зоне «…»»; вне зоны → `N`.
+2. К голове привязан `helmet` → `N`; к голове ничего → `U` (`head_unseen`); объект ниже `head_frac` рамки не привязан; объект между двумя головами → `U` (`owner_ambiguous`); человек 79 px → `U` (`too_small`), 80 — наблюдается.
+3. `no_respirator` — те же строки с `no_respirator`, `respirator` и зоной respirator_required.
+4. Без классов у активных моделей оба плагина `model_missing`, текст «Модель не подключена: нужны классы no_helmet» и «… no_respirator»; у прочих плагинов текст тоже новый.
+5. `config/models.yaml` содержит обе записи Матвея, `registry.resolve` находит их по `id@version`; с `pipeline.extra: [matvey-helmet-yolov8n@640-v1-5c3af1f3b855]` в тестовом конфиге `no_helmet` → `active`, команда воркера — `--nc 2` без `--classes`; `doctor` без файлов `models/matvey/...` пишет «нет файла».
+6. Файлы моделей Матвея есть (`models/matvey/`) → `INFERENCE_BACKEND=local uv run safewatch doctor` и короткий `eval` на `data/videos/synthetic_coco_40x1s.mp4`, итог в запись слайса; нет — «не проверено: файлов нет».
+
+**Тесты:** `tests/test_rule_ppe.py`: 1 `test_no_helmet_in_zone_yellow_after_hold`, `test_outside_zone_no_event`, 2 `test_helmet_seen_is_negative`, `test_head_unseen_unknown`, `test_ambiguous_and_small`, 3 `test_respirator_rows`, 4 `test_respirator_model_missing_text`, 5 `test_helmet_model_activates_plugin`; `tests/test_config.py::test_matvey_models_resolve`: 5; 6 — вручную при наличии файлов. Мутации: 2.
+
+**Не делать:** обучение моделей СИЗ, жилет, позитивный вывод «каски нет» без класса `no_helmet`, переключение `pipeline` в `default.yaml`, загрузку программ на LinQ.
+
+---
+
+### Ревью R20
+
+По разделу 17, охватывает слайсы 16–20. Дополнительно: `gh pr checks` по PR слайсов 16–20; `test_openapi_only_grows` зелёный; Егору в `## open` уже есть строка про контракт 1.1.0.
+
+---
+
+### Слайс 21: Docker одной командой
+
+**Файлы:** `Dockerfile`, `docker-compose.yml`, `.dockerignore`, `docs/DEPLOY.md`, `README.md`, `tests/test_docker_files.py`.
+
+**Что делает:** образ собирается и стартует с сидом и демо-пакетом (8.32), инструкция развёртывания на другой машине.
+
+**Критерии приёмки:**
+1. Статически: compose монтирует `./data/app`, `./data/demo:ro`, `./models:ro`, порт 8000, `healthcheck` на `/api/health`; Dockerfile стартует `serve ... --seed`; `.dockerignore` не исключает `data/demo/README.md`, но исключает `data/`, `.env*`, `models/`.
+2. `docker info` отвечает: `docker compose up -d --build` → `GET http://127.0.0.1:8000/api/health` 200 за 120 с; `GET /api/demo/packs` не пуст, если пакет есть; `docker compose down`. Не отвечает → строка `долг: S21, docker build, Docker Desktop не запущен` и `владелец: запустить Docker Desktop, затем docker compose up -d --build`.
+3. `docs/DEPLOY.md` по 8.32; README ссылается на него.
+
+**Тесты:** `tests/test_docker_files.py`: 1 `test_compose_mounts_demo_and_data`, `test_image_starts_with_seed_and_health`; 2 — вручную, итог в записи; 3 — без теста.
+
+**Не делать:** публикацию образа в реестр, HTTPS, обратный прокси, настройку сервиса Феди.
+
+---
+
+### Слайс 22: телефон по зонам и проекция груза
+
+**Файлы:** `src/safewatch/rules/phone.py`, `src/safewatch/analysis/hud.py`, `src/safewatch/texts.py`, `config/default.yaml` (описание `rest`), `tests/test_{rule_phone,hud}.py`.
+
+**Что делает:** телефон в `walkway`/`rest` разрешён, в рабочей зоне жёлтый, в danger красный (8.23); полигон проекции груза в HUD.
+
+**Критерии приёмки:**
+1. Телефон в руках в зоне walkway 20 с → `N`, эпизода нет; в зоне rest — то же; на границе зоны (`anchor` внутри) — разрешено.
+2. Вне зон 9,99 с → нет, 10,0 с → жёлтый; в danger 3,0 с → красный (v4 сохранён).
+3. `meta.scenarios` телефона перечисляет зоны `danger`, `vehicle_path`, `walkway`, `rest`.
+4. Объект `suspended_load` в HUD несёт `projection` `[(x1, y2), (x2, y2), (x2, 1), (x1, 1)]` в нормированных координатах и тег `load_projection`; человек внутри полигона даёт красный по правилу `suspended_load`.
+
+**Тесты:** `tests/test_rule_phone.py`: 1 `test_phone_allowed_in_walkway_and_rest`, 2 `test_phone_in_work_zone_yellow`, 3 — в том же файле; `tests/test_hud.py::test_suspended_load_projection`: 4.
+
+**Не делать:** классификатор «телефон в руках» по позе, разговор и фото как разные нарушения, 3D-проекцию груза.
+
+---
+
+### Слайс 23: звонок мастеру, очередь доставок, оператор с телефона
+
+**Файлы:** `src/safewatch/{delivery,services,store,config,texts,worker}.py`, `frontend/src/screens/operator/{OperatorMobile,OperatorMobileEvent}.tsx`, `frontend/src/screens/master/MasterInbox.tsx`, `frontend/src/nav.ts`, `tests/test_{delivery,worker}.py`, `frontend/src/screens/screens.test.tsx`.
+
+**Что делает:** `CallChannel` (заглушка), очередь `delivery_queue` вместо памяти, уровень на момент постановки, уникальные имена каналов, `Delivery.delivered_at`/`status_text`, экраны оператора с телефона, мастер открывает карточку на уведомление (8.24).
+
+**Критерии приёмки:**
+1. Оператор `confirm` красного → `to_master` в очереди → канал `call:master` пишет `sent` с `delivered_at`, `status_text` «Звонок доставлен (заглушка)»; то же при автоэскалации; жёлтое `send_to_master` при `levels: [red]` → звонка нет; публикация (`published`) звонок не даёт.
+2. Webhook получает доставки по-прежнему (тесты S15 зелёные без правки смысла).
+3. Перезапуск (новые синглтоны на той же базе) после постановки и до `deliveries_flush` → доставка уходит; повторный flush ничего не шлёт.
+4. Жёлтое, эскалированное до красного между постановкой и flush, уходит `published` с уровнем `yellow` (уровень строки очереди).
+5. Два канала с одним `name` (webhook и call) → конфиг не загружается с текстом.
+6. `system_view.channels` показывает канал звонка `kind="call"`, номер с маской; `event_detail.deliveries` — строку звонка.
+7. Фронт: `/m/operator` — лента одной колонкой, тап открывает карточку с кнопками `allowed_actions`; мастер на уведомление `to_master` открывает `/master/events/:id`.
+
+**Тесты:** `tests/test_delivery.py`: 1 `test_call_stub_on_red_to_master`, `test_yellow_send_no_call`, 2 (существующие), 3 `test_queue_survives_restart`, 4 `test_level_fixed_at_enqueue`, 5 `test_duplicate_channel_names_rejected`, 6 `test_call_channel_in_system_view`; `tests/test_worker.py::test_loop_periods_from_config` (без изменений числа задач, если `datasets` ещё нет); `screens.test.tsx`: 7 `operator_mobile_renders`, `operator_mobile_event_renders`, `master_opens_card_on_notification`. Мутации: 2.
+
+**Не делать:** реальную телефонию, SMS, Telegram, push-сервис, громкоговоритель, повтор неудачной доставки.
+
+---
+
+### Слайс 24: калькулятор окупаемости и масштабирования
+
+**Файлы:** `src/safewatch/{calculator,services,store,texts}.py`, `tests/test_calculator.py`.
+
+**Что делает:** `calculator_defaults`, `calculator_rollout`, `calculator_scale` по 8.25, маршруты 6.11.6. Экран делает Егор.
+
+**Критерии приёмки:**
+1. Пример `calculator_defaults` (8 камер, `fps` 12): `accelerators = ceil(8 × 12 × 2 / 12,4) = ceil(15,48) = 16`, `servers = ceil(16 / 4) = 4`; три уровня с `capex`, `opex_year`, `savings_year`, `payback_months` ровно по формулам 8.25 (каждая строка формулы — свой assert).
+2. `savings_year ≤ opex_year` → `payback_months = None` и строка «Не окупается при этих допущениях»; на шаг выше — число.
+3. `overrides` меняет результат (`accelerator.price_rub` 0 → `capex` меньше на `accelerators × цену`); неизвестный ключ → 422; отрицательное значение или `cameras = 0` → 422.
+4. Масштабирование: без замеров `capacity_fps = 12,4` с источником из конфига; с двумя артефактами `linq`, `fake=0` (`throughput_fps` 10 и 14) — медиана 12 и подпись «замер приложения: 2 задачи»; `capex` только на добавленную часть.
+5. Роли: `rollout` — только management (admin → 403), `scale` — management и admin (ohs → 403), без роли → 400; `defaults` без роли.
+6. `defaults` перечисляет каждое допущение с непустым `source`; `measured` — с `editable=false`; `events_per_operator_shift` считается по событиям эфира и `None` без них.
+
+**Тесты:** `tests/test_calculator.py`: 1 `test_rollout_three_tiers_formulas`, 2 `test_payback_none_when_not_profitable`, 3 `test_overrides_and_unknown_key`, 4 `test_scale_accelerators_from_measured`, 5 `test_roles`, 6 `test_defaults_list_sources`. Мутации: 2.
+
+**Не делать:** экран калькулятора, сохранение расчётов, валюты кроме ₽, «факты» без подписи источника.
+
+---
+
+### Слайс 25: ложное срабатывание → датасет
+
+**Файлы:** `src/safewatch/{dataset,services,store,worker,cli,api}.py`, `tests/test_{dataset,worker}.py`.
+
+**Что делает:** `datasets_flush` в `worker`, `datasets_view`, `dataset_export`, CLI `dataset export`, маршруты 6.11.6 (8.26).
+
+**Критерии приёмки:**
+1. `false_alarm` оператора по событию эфира → после тика один элемент `dataset_items`; повторный тик не создаёт второй; демо-событие сида → нет элемента.
+2. Папка элемента: `frames/` (не больше `max_frames`; `max_frames = 3` в тесте → 3 кадра), `detections.jsonl` (строки проходят `FrameDetections`, `frame_idx` из окна клипа), `hud.jsonl`, `label.json` с полями 8.26 и комментарием оператора.
+3. `GET /api/datasets/false-alarms` → `DatasetView` с `total` и суммой кадров.
+4. Экспорт zip содержит `manifest.json` и файлы каждого элемента; CLI `dataset export --out DIR` → 0 и путь.
+5. Ошибка чтения кадра → лог, элемента нет, следующий тик повторяет.
+6. `worker.run_forever` запускает пятую задачу с периодом `datasets.tick_ms`.
+
+**Тесты:** `tests/test_dataset.py`: 1 `test_false_alarm_creates_item_once`, `test_demo_event_no_item`, 2 `test_item_files_and_label`, 3 — в первом тесте, 4 `test_export_zip_manifest`, `test_cli_export`, 5 `test_frame_error_retries`; `tests/test_worker.py::test_loop_periods_from_config`: 6.
+
+**Не делать:** разметку в UI, автодообучение, отправку датасета куда-либо, позитивные примеры.
+
+---
+
+### Ревью R25
+
+По разделу 17, охватывает слайсы 21–25. Дополнительно: `gh pr checks` по PR слайсов 21–25; сквозной тест демо-пакета зелёный; если Docker Desktop запущен — `docker compose up -d --build` и health.
+
+---
+
+### Слайс 26: ручная идентификация нарушителя
+
+**Файлы:** `src/safewatch/{services,store,texts,api}.py`, `tests/test_{identity,export}.py`.
+
+**Что делает:** `event_identify`, `people_stats_view`, поля идентификации в `EventSummary`, `can_identify`, колонки CSV (8.27).
+
+**Критерии приёмки:**
+1. `PATCH /identity` ролью ohs: поля записаны с обрезкой, строка `identified` с комментарием, статус события прежний, WS `event.updated`; повтор тех же значений → 200 без новой строки; пустые строки очищают с комментарием «Идентификация очищена».
+2. Роли: management — можно, operator → 403, без роли → 400; `can_identify` по роли.
+3. 80 символов — ок, 81 → 422; несуществующее событие → 404.
+4. `GET /api/stats/people`: только заполненные; `identified` и строки по людям и бригадам верны; `date_from > date_to` → 422.
+5. CSV журнала: колонки «ФИО», «Должность», «Бригада» в конце.
+
+**Тесты:** `tests/test_identity.py`: 1 `test_identify_writes_fields_and_history`, 2 `test_identify_roles`, 3 `test_identify_limits`, 4 `test_people_stats_only_filled`; `tests/test_export.py::test_csv_has_identity_columns`: 5.
+
+**Не делать:** автоматическое распознавание, справочник работников, фото лица, экран (делает Егор).
+
+---
+
+### Слайс 27: паспорт пригодности камеры
+
+**Файлы:** `src/safewatch/analysis/passport.py`, `src/safewatch/{services,store,texts,api}.py`, `tests/test_passport.py`.
+
+**Что делает:** `build_passport`, `camera_passport`, маршрут 6.11.6 (8.28).
+
+**Критерии приёмки:**
+1. Каждая строка порядка вердиктов 8.28 (параметризованно): медиана роста 39 px → `unsuitable` для сценариев на людях, 79 → `partial`, 80 → `suitable`.
+2. `dark_share` 0,21 → `partial`, 0,51 → `unsuitable`; 0,2 → нет.
+3. Плагин `model_missing` → `unknown` «Модель не подключена»; камера без готового видео → все `unknown`; `frames < min_frames` → `unknown`.
+4. `fence_crossing` без зоны fence → `partial` «Нет зон: Ограждение»; телефон с медианой объекта 11 px → `partial`.
+5. Неизвестная или удалённая камера → 404.
+
+**Тесты:** `tests/test_passport.py`: 1 `test_verdicts_by_person_height`, 2 `test_dark_share_partial`, 3 `test_model_missing_unknown`, `test_no_analysis_unknown`, 4 `test_zone_missing_partial`, 5 — в `test_no_analysis_unknown`.
+
+**Не делать:** оценку точности моделей по камере, рекомендации по установке камеры, хранение паспортов.
+
+---
+
+### Слайс 28: LinQ под медленную очередь
+
+**Файлы:** `src/safewatch/inference/{linq,local}.py`, `src/safewatch/fakes/remote.py`, `src/safewatch/{types,services,api,doctor,texts}.py`, `tools/linq/remote/video_worker.py` (аргумент `--reply-timeout`), `tests/test_{linq_backend,backend_check,jobs}.py`, `tests/live/test_linq_live.py`.
+
+**Что делает:** таймауты от медленного RTT, `--reply-timeout`, `rate_fps`, `eta_s`, текст прогресса, гашение прежнего воркера, `close()` для kernel, HTML → `bad_answer` (8.29); короткая живая проверка.
+
+**Критерии приёмки:**
+1. Таймаут прогона: 720 кадров, `inflight 4`, `slow_rtt_s 12` → 2280 с; 10 кадров → `job_timeout_s` (1800); другое `slow_rtt_s` меняет итог.
+2. Команда старта содержит `--reply-timeout 120` и гашение прежнего pid до запуска; `video_worker.py --reply-timeout N` передаёт N в `collect`, без аргумента — 120.
+3. Прогресс фейка `done` 120 из 720 за 40 с → `rate_fps = 3,0`, `eta_s = 200`, текст «LinQ: 120 из 720 кадров · 3,0 кадр/с · осталось ~3 мин»; `done = 0` → «ждём первый ответ TPU».
+4. `close()`: `JupyterShell` вызывает `shutdown_kernel` один раз, повтор без ошибки; lifespan и `doctor` зовут `backend_close`; у фейка маркер `close`.
+5. `JupyterError` с HTML → `bad_output`, `backend_check` → `bad_answer`.
+6. Живая проверка (лимит): ролик до 60 с через LinQ, итог в записи; недоступно → `долг`.
+
+**Тесты:** `tests/test_linq_backend.py`: 1 `test_job_timeout_scales_with_frames`, 2 `test_reply_timeout_passed`, `test_start_kills_previous_worker`, 3 `test_eta_and_rate_text`, 4 `test_close_shuts_kernel`, 5 `test_html_answer_is_bad_answer`; `tests/live/test_linq_live.py::test_linq_processes_short_clip`: 6.
+
+**Не делать:** прямые запросы к RabbitMQ, параллельные задачи на TPU, `--inflight` больше 4, загрузку программ, правки `tools/linq/` кроме аргумента воркера.
+
+---
+
+### Слайс 29: пробелы `docs/ML_INTEGRATION.md`
+
+**Файлы:** `src/safewatch/inference/{linq,local}.py`, `src/safewatch/analysis/pipeline.py`, `src/safewatch/rules/{__init__,proximity}.py`, `src/safewatch/{services,cli,registry}.py`, `docs/ML_INTEGRATION.md` (раздел 9: итог у каждого пункта), `tests/test_ml_gaps.py`.
+
+**Что делает:** пункты 1, 2, 3, 4, 7, 8, 10, 11, 14 таблицы 8.30; итог по всем 19 пунктам в документе.
+
+**Критерии приёмки:**
+1. `import-artifact FILE --video ID --model REF --backend local` → строка `artifacts`; следующая задача того же видео на `local` берёт её из кэша; плохой JSONL → exit 2; нет видео → 3.
+2. Детектор с `nc: 2` → `--nc 2`, `--classes` в пределах `0..1`; без `nc` — как в v4.
+3. `input_name: input0` → `--input-name input0`; по умолчанию аргумента нет (воркер берёт `images`).
+4. `linq_tail: null` → команда без `--tail`, `model_missing` не возникает.
+5. `pipeline.vehicle_classes: [truck, forklift]` и extra-модель с классом `forklift` → техника с трекингом, `proximity` видит её; `proximity` `active` при `person` и одном классе техники.
+6. Extra-модель отвечает `remote_error` → задача `done`, `error_text` начинается с `extra `, её сценарий в этом анализе `model_missing`; `bad_output` — так же.
+7. `Job.metrics` содержит метрики extra-модели.
+8. `local.providers: [CUDAExecutionProvider, CPUExecutionProvider]` передаётся в onnxruntime (подменённая сессия).
+9. В `docs/ML_INTEGRATION.md` у каждого из 19 пунктов строка итога из 8.30.
+
+**Тесты:** `tests/test_ml_gaps.py`: 1 `test_import_artifact_cli_and_cache`, 2 `test_detector_nc_passed`, 3 `test_input_name_passed`, 4 `test_tail_optional`, 5 `test_vehicle_classes_from_config`, `test_proximity_any_vehicle`, 6 `test_extra_failure_falls_back`, 7 `test_extra_metrics_in_job`, 8 `test_local_providers_key`; 9 — вручную.
+
+**Не делать:** пункты «оставлено» таблицы 8.30, смену `CACHE_SCHEMA`, правки `upload_program.py` и `compile_yolo.py`.
+
+---
+
+### Слайс 30: отчёт смены в PDF и долги приложения
+
+**Файлы:** `src/safewatch/{report_pdf,services,api,cli}.py`, `src/safewatch/assets/fonts/DejaVuSans.ttf`, `pyproject.toml` (`fpdf2`), `uv.lock`, `.gitattributes`, `src/safewatch/analysis/tracking.py`, `src/safewatch/rules/{proximity,phone,fence,under,fire,harness,suspended_load}.py` (`explain`), `tests/test_{shift_pdf,tracking,videos,eval,rule_proximity}.py`.
+
+**Что делает:** PDF сводки смены и долги таблицы 8.31.
+
+**Критерии приёмки:**
+1. `GET /api/master/shift.pdf` → `application/pdf`, файл начинается с `%PDF`, текст страницы (извлечённый `fpdf2`/`pypdf` в тесте, если есть, иначе поиск подстроки в несжатом потоке) содержит «Сводка смены» и название сектора по-русски; `at=мусор` → 422.
+2. Сцена `demo`: один id трека через падение, эпизод падения подтверждён веткой перехода («Зафиксировано падение»); `reattach_bh = 0` возвращает прежнее поведение.
+3. Загрузка без `X-Role` или с `Content-Length` больше лимита → 400 / 413, во временной папке ничего не появилось.
+4. `eval` при живом процессе `server.pid` → exit 5 с текстом; pose `remote_error` в `eval` → отчёт без точек.
+5. `explain` каждого плагина S10 содержит правило с порогом и единицей.
+
+**Тесты:** `tests/test_shift_pdf.py`: 1 `test_pdf_has_cyrillic_summary`, `test_pdf_route_and_bad_at`; `tests/test_tracking.py::test_fall_keeps_track_id`: 2; `tests/test_videos.py::test_upload_rejected_before_body`: 3; `tests/test_eval.py`: 4 `test_eval_refuses_running_server`, `test_eval_pose_fallback`; `tests/test_rule_proximity.py::test_explain_has_units`: 5.
+
+**Не делать:** PDF журнала и статистики, отправку отчёта мастеру, оформление PDF сверх таблиц.
+
+---
+
+### Ревью R30
+
+По разделу 17, охватывает слайсы 26–30. Дополнительно: `gh pr checks` по PR слайсов 26–30; каждая строка `долг:` из `## open` закрыта или перенесена с причиной по 8.31; есть заводские видео в `data/videos/` → регрессия: импорт, анализ, эпизоды без падений задачи, итог в записи.
+
+---
+
+### Слайс 31: 1–2 новых сценария из ресёрча (если файл готов)
+
+**Файлы:** `src/safewatch/rules/<id>.py`, `src/safewatch/rules/__init__.py`, `src/safewatch/texts.py`, `config/default.yaml` (секция `scenarios.<id>`), `tests/test_rule_<id>.py`.
+
+**Что делает:** нет `docs/research/EXTRA_SCENARIOS_*.md` в `main` → запись слайса «файла нет, сценариев нет», без кода, слайс закрыт. Есть → 1–2 сценария, которые делаются на существующих сигналах (поза, трек, зоны, время): плагин по образцу `rules/fall.py`, строка таблицы 8.3 в записи слайса, имена — строками `GAP` (контракт сценария: `id`, классы, зоны, параметры, тексты). Сценарию нужна новая модель → плагин с понятным классом и статусом `model_missing`.
+
+**Критерии приёмки:**
+1. Каждое число сценария — тест на границе, каждая строка P/N/U — тест (10.1, ядро).
+2. `meta.scenarios` перечисляет сценарий с параметрами из конфига; `explain` даёт «почему».
+3. Строки `GAP` в `## open` для каждого нового имени.
+
+**Тесты:** `tests/test_rule_<id>.py` по критериям.
+
+**Не делать:** сценарии, которым нужна новая модель с логикой (только заглушка `model_missing`), больше двух сценариев.
+
+---
+
+### Слайс 32: сдвиг камеры (если останется время)
+
+**Файлы:** `src/safewatch/{media,services}.py`, `src/safewatch/analysis/passport.py`, `tests/test_camera_shift.py`.
+
+**Что делает:** эталон кадра при калибровке и зонах, `media.frame_shift`, `shift_px` и `shift_text` в паспорте (8.33).
+
+**Критерии приёмки:**
+1. Кадр, сдвинутый на 25 px (`max_px` 20), → `shift_text` «Камера сдвинута на 25 px…»; на 15 px → пусто; без эталона → `shift_px = None`.
+2. `calibration_set` и `zone_create` сохраняют эталон.
+
+**Тесты:** `tests/test_camera_shift.py::test_shift_detected_above_threshold`: 1, `test_reference_saved_on_calibration`: 2.
+
+**Не делать:** автоматический перенос зон, детектор вибрации, новую модель.
+
+---
+
+### Ревью R32
+
+По разделу 17, охватывает слайсы 31–32 и весь второй прогон. Дополнительно: `gh pr checks` по PR слайсов 31–32; финальный `uv run poe gate`; короткая живая проверка LinQ (лимит); `test_openapi_only_grows` зелёный; в `## log` сводка: что готово к демо (по разделу 4 `UPGRADE_v1.md`), что осталось долгом, что владельцу сделать утром (Docker Desktop, пересборка демо-пакета на LinQ, файлы моделей Матвея, фронт Егора).
+
+---
+
 ## 17. Ревью R<K>
 
 Отдельным заходом после последнего слайса стадии и зелёного гейта. Охватывает все слайсы с прошлого ревью. Задача: искать проблемы, а не хвалить написанное. Если установлен skill `engineering:code-review`, следуй ему.
@@ -3807,6 +5189,9 @@ CI: `.github/workflows/gate.yml` на `pull_request` и на `push` в `main`, �
 12. Пункты **[проверить]** сверены и записаны в `progress.md`.
 13. Долги (`долг:`) и заметки `R<K>:` из `## open`: закрыты или перенесены с причиной.
 14. CI шагов стадии проверен `gh pr checks`; красный чинится в этом же заходе.
+15. v5: контракт фронта только растёт: `test_openapi_only_grows` зелёный, ни один путь и поле `contract/openapi.1.0.0.json` не пропали.
+16. v5: демо-путь цел: `tests/test_e2e.py` и `tests/test_demo_pack.py::test_demo_flow_reaches_master_and_journal` зелёные.
+17. v5: правила LinQ второго прогона (3.1, 10.3): живых прогонов не больше лимита, программы `mosprom_*` и `mosprom_matvey_*` не тронуты, ветка `matvey_cv` не менялась.
 
 Находки правятся в том же заходе веткой `review-r<K>`, PR `review: R<K>`, потом гейт заново. Затем все строки `GAP` переносятся в `tech.md` отдельным коммитом `docs(tech): vN` (раздел 14). Запись в `## log`: `### R<K>: ...`, что найдено и исправлено, что оставлено и почему.
 
