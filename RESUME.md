@@ -1,3 +1,12 @@
+## ISSUED VIDEO-FIRST V2
+
+Read docs/handoffs/VIDEO_FIRST_RELEASE_CHECKPOINT_20261025.md first. Code933ffa4a;
+fullZIP356979916bytes SHA07b9a84645b60c70703c7edbee443cbf386d312cec2c63acca042d39c21577d3;
+preview37749226bytes.621payload files verified again after fresh extraction.
+Newfire/smoke ONNX plus7newwhole scenes; current S07 fails kept explicitly.
+528testsOK(4skipped),newactualArgusCPU408calls,event/evidence/API1;newTPU0.
+Final report ml/reports/video-first-release-20261025.json. Golden v1 unchanged.
+
 ## Video-first final integration — 2026-10-24 19:31 UTC
 
 Current package: `/workspace/artifacts/matvey-final-20261025/video-first-v2/`.

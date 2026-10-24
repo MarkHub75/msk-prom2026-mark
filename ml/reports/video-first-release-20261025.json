@@ -1,0 +1,47 @@
+{
+  "schema": "matvey-video-first-final-release-v2",
+  "code_commit": "933ffa4a7acf3a3b1d08fa97c34eb4ae63e427b1",
+  "branch": "matvey_cv",
+  "archives": [
+    {
+      "path": "/workspace/artifacts/matvey-final-20261025/matvey_video_first_v2.zip",
+      "bytes": 356979916,
+      "sha256": "07b9a84645b60c70703c7edbee443cbf386d312cec2c63acca042d39c21577d3",
+      "ZIP_CRC": "PASS",
+      "archived_payload_hash_readback": "PASS"
+    },
+    {
+      "path": "/workspace/artifacts/matvey-final-20261025/matvey_video_first_preview_v2.zip",
+      "bytes": 37749226,
+      "sha256": "cbe5ab5920072975a99d1fe9624b53a35b133e82ba2736dfee816ebc6f20bd71",
+      "ZIP_CRC": "PASS",
+      "archived_payload_hash_readback": "preview CRC only; fullpayload checksums apply to fullZIP"
+    }
+  ],
+  "verification": {
+    "status": "PASS_OFFLINE_ISSUED_BYTES_CENSUSES",
+    "payload_files": 621,
+    "source_frames": 3297,
+    "full_scene_model_calls": 7243,
+    "actual_CPU_event_evidence_API_jobs": 2,
+    "models": 4,
+    "new_neural_calls": 0,
+    "new_TPU_calls": 0
+  },
+  "portable_verification": {
+    "status": "PASS_OFFLINE_ISSUED_BYTES_CENSUSES",
+    "payload_files": 621,
+    "source_frames": 3297,
+    "full_scene_model_calls": 7243,
+    "actual_CPU_event_evidence_API_jobs": 2,
+    "models": 4,
+    "new_neural_calls": 0,
+    "new_TPU_calls": 0,
+    "archive_sha256": "07b9a84645b60c70703c7edbee443cbf386d312cec2c63acca042d39c21577d3",
+    "extracted_to_fresh_directory": true
+  },
+  "source_report": "ml/reports/video-first-final-20261025.json",
+  "new_TPU_calls": 0,
+  "off_host_backup": "NOT_VERIFIED",
+  "recipient_ACK": "NOT_RECEIVED"
+}
