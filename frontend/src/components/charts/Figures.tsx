@@ -14,7 +14,7 @@ export function Sparkline({ values, color, label, partialLast = false }: { value
   if (!solid.length) return null;
   const last = solid[solid.length - 1];
   return <svg className="an-spark" width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
-    <defs><linearGradient id={`${uid}-g`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity={0.45} /><stop offset="100%" stopColor={color} stopOpacity={0} /></linearGradient></defs>
+    <defs><linearGradient id={`${uid}-g`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity={0.12} /><stop offset="100%" stopColor={color} stopOpacity={0} /></linearGradient></defs>
     <path d={`${smoothPath(solid)}L${last.x},${H}L${solid[0].x},${H}Z`} fill={`url(#${uid}-g)`} />
     <path d={smoothPath(solid)} fill="none" stroke={color} strokeWidth={1.75} strokeLinecap="round" />
     <circle cx={last.x} cy={last.y} r={3.5} fill={color} stroke="var(--surface)" strokeWidth={2} />

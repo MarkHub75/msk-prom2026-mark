@@ -1,16 +1,15 @@
-// Chart colours (design reference of 24.10): series cyan / violet, semantic warning / critical / resolved.
-// Levels keep their product meaning (warning = yellow, critical = red); verdicts are cyan / violet / grey.
-// Checked with the dataviz validator on surface #232323: adjacent CVD separation passes (ΔE ≥ 13.8);
-// the hues are lighter than its band by design, every mark also has a legend or a written value.
+// Chart colours (v2): the UI palette, muted. Levels keep their product meaning (warning = amber,
+// critical = red, the same tokens as the interface); verdicts are steel blue / muted violet / grey.
+// Every mark also has a legend or a written value, so colour is never the only key.
 export const C = {
-  yellow: "#FFB65C",
-  red: "#FF5D65",
-  confirmed: "#55D6F5",
-  falseAlarm: "#A38BFF",
-  noVerdict: "#5b616b",
-  trend: "#c9ced6",
-  master: "#43D6A6",
-  neutral: "#78818E",
+  yellow: "#C99A3A",
+  red: "#D64545",
+  confirmed: "#6B96C8",
+  falseAlarm: "#8F88B6",
+  noVerdict: "#4A4E57",
+  trend: "#B9BEC6",
+  master: "#8A909A",
+  neutral: "#747B86",
 } as const;
 
 export interface Counts { count: number; confirmed: number; false_alarm: number }

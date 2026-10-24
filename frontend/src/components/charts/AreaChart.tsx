@@ -79,7 +79,7 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
     <svg width={W} height={H} role="img" aria-label={ariaLabel} className="an-svg">
       <defs>
         {series.map(s => <linearGradient key={s.id} id={`${uid}-${s.id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={s.color} stopOpacity={0.22} />
+          <stop offset="0%" stopColor={s.color} stopOpacity={0.12} />
           <stop offset="100%" stopColor={s.color} stopOpacity={0} />
         </linearGradient>)}
         <pattern id={`${uid}-future`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -113,12 +113,10 @@ export function AreaChart({ labels, tipLabels = labels, futureLabels = [], serie
         const bottom = stacked && k ? pts(cum[k - 1]) : top.map(p => ({ x: p.x, y: y(0) }));
         return <g key={s.id}>
           <path d={bandPath(top, bottom)} fill={`url(#${uid}-${s.id})`} />
-          {hover !== null && <path d={smoothPath(top)} className="an-glow" stroke={s.color} />}
           <path d={smoothPath(top)} className="an-line" stroke={s.color} />
         </g>;
       })}
       {lines.map(s => <g key={s.id}>
-        {hover !== null && <path d={smoothPath(pts(s.values))} className="an-glow" stroke={s.color} />}
         <path d={smoothPath(pts(s.values))} className="an-line an-line-2" stroke={s.color} />
       </g>)}
 
