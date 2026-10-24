@@ -66,8 +66,12 @@ def test_status_follows_active_model_classes(core: Settings) -> None:
         assert statuses([*DEFAULT, one])["fire_smoking"][0] == "active"
     assert statuses([*DEFAULT, "no_harness"])["no_harness"][0] == "active"
     assert statuses([*DEFAULT, "suspended_load"])["suspended_load"][0] == "active"
-    no_truck = statuses([c for c in DEFAULT if c != "truck"])
-    assert no_truck["proximity"] == ("model_missing", "Модель не подключена: нужны классы truck")
+    # S29: person and any one vehicle class of `pipeline.vehicle_classes` (tech.md 8.30 item 4).
+    assert statuses([c for c in DEFAULT if c != "truck"])["proximity"][0] == "active"
+    assert statuses(["person", "cell phone"])["proximity"] == (
+        "model_missing",
+        "Модель не подключена: нужны классы car, bus, truck, train",
+    )
     assert statuses(["person"])["phone"] == (
         "model_missing",
         "Модель не подключена: нужны классы cell phone",
@@ -157,7 +161,7 @@ async def test_extra_model_enables_fire_without_code(
     video_id = _video(tmp_path, make_video, seconds=1)
     job = await services.run_next_job()
     assert job is not None and job.status == "done"
-    assert [m.model_id for m in job.metrics] == ["det-yolov8n", "pose-yolov8n"]  # job columns
+    assert [m.model_id for m in job.metrics] == ["det-yolov8n", "pose-yolov8n", "fire-test"]
     starts = [c for c in shell.commands if c.endswith("# sw:start")]
     assert len(starts) == 3  # detector, extra model, pose
     (fire,) = [c for c in starts if "baseline_fire.tpu" in c]

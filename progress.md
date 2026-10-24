@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v7, второй прогон: S28 закрыт, следующий S29
+- state: tech v7, второй прогон: S29 закрыт, следующий S30
 - tech.md: v7
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -15,7 +15,7 @@
 - long-lead: дообученные модели ML-части (огонь, дым, сигарета, погрузчик, привязь, респиратор: без extra-модели с классами `respirator`/`no_respirator` сценарий `no_respirator` остаётся `model_missing`, R20); подключаются записью в `config/models.yaml` и `pipeline.extra`, работают с S10.
 - long-lead: фронт Егора (`front/argus-main` и `front/final-*`) по `contract/openapi.json`; с S16 — контракт 1.1.0; заменить папку `frontend/` в `main` — решение владельца.
 - long-lead: ресёрч доп-сценариев `docs/research/EXTRA_SCENARIOS_<дата>.md`, нужен к S31; нет файла — S31 закрывается без кода.
-- long-lead: файлы моделей Матвея (`models/matvey/...`, архив из `docs/ML_HANDOFF_MATVEY.md` ветки `matvey_cv`) — для проверки S20 на `local`; без них записи реестра есть, `doctor` пишет «нет файла».
+- long-lead: программы TPU моделей Матвея (pose, каска, огонь) на LinQ: staging не подтверждён (пакет video-first v2, `matvey_registry_additions.local.yaml`: `linq_program: null`), на `linq` их не включать. Файлы для `local` на ноутбуке капитана распакованы S29 в `models/matvey/` (вне git) из `data/incoming/video-first-v2/`; на другой машине — тот же архив, иначе `doctor` пишет «нет файла».
 - владелец: освободить место на C: (Docker Desktop → Troubleshoot → Clean/Purge data или перенести disk image на D:), перезапустить Docker Desktop, затем docker compose up -d --build. На C: ~1,1 ГБ, `docker_data.vhdx` 19,2 ГБ; временные файлы ночи на D: (`TEMP=D:\night-tmp`).
 - владелец: удалить мусорные логи вне репо `D:\npm1.log` и `D:\scratch_fe.log` (удаление заблокировала защита Claude Code).
 - долг: S21, docker build, сборка дошла до экспорта образа за 82 с и упала: на C: нет места (input/output error)
@@ -51,6 +51,15 @@
 - GAP: S28, `close()`: `JupyterShell.close` = `_drop()` (`shutdown_kernel`, ошибки глушатся, без сессии — ничего); `LocalBackend.close` ничего не делает (сессия onnxruntime живёт один прогон); `services.backend_close()` не обнуляет `_backend`; doctor зовёт его в `finally` вокруг проверок, lifespan — `asyncio.to_thread` после остановки цикла задач.
 - R30: S28, `# sw:start` гасит pid из `<out>.pid` по 8.29: если прежний воркер давно умер, а pid занят чужим процессом общего контейнера, `kill` попадёт в него (вероятность мала, `<out>` уникален по ключу кэша).
 - R30: S28, `rate_fps` считается от `# sw:start` и включает запуск воркера и первую пачку: на коротком ролике первый замер занижен (живой прогон: 3,9 кадр/с на 25 кадрах против 7,8 итоговых), ETA в начале завышена.
+- GAP: S29, откат extra-модели и на `model_missing` (нет программы TPU, хвоста или ONNX): 8.30 п. 10 `remote_error`/`bad_output` → `remote_error`/`bad_output`/`model_missing`; модель огня Матвея без `linq_program` на `linq` иначе валила бы задачу. `error_text` готовой задачи — откаты через «; » (extra в порядке `pipeline.extra`, затем `pose: …`), обрезка до `ERROR_TEXT_MAX`.
+- GAP: S29, `services._analysis_config(video, camera_id, extra_ids: list[int])` → `_analysis_config(video, camera_id, extra: list[tuple[ModelSpec, int]])`; `active_classes` — классы `registry.active_models` без моделей `pipeline.extra`, которых нет в `extra` (откат; пересчёт снимка, сделанного до добавления модели в `extra`).
+- GAP: S29, `Job.metrics`: детектор, pose, затем extra в порядке `AnalysisConfig.extra_artifact_ids` анализа задачи (`jobs.analysis_id`; без анализа — без extra), `cached` по правилу `created_at < started_at`.
+- GAP: S29, `rules.ANY_VEHICLE = {"proximity"}`; `scenario_metas` отдаёт у `proximity` `required_classes = ["person", *pipeline.vehicle_classes]`, текст `model_missing` без техники перечисляет все `vehicle_classes`; `analysis.pipeline.VEHICLES` удалён.
+- GAP: S29, команда воркера: `--input-name` только при `input_name != "images"`; детектор с `nc` — `--nc <nc>` и `--classes` из id `classes` меньше `nc`; `LocalBackend`: `nc = model.nc or 80` для detect и тот же фильтр; `FakeRemoteShell` отдаёт пустые кадры только при `--nc` без `--classes`.
+- GAP: S29, CLI `import-artifact`: без `--backend` — `INFERENCE_BACKEND`; вывод — id артефакта одной строкой; `NotFound` → 3, `ValidationFailed` → 2.
+- GAP: S29, `config/models.yaml` + запись `matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4` (пакет video-first v2: detect, 640, conf 0.25, iou 0.45, `{0: smoke, 1: fire}`, `linq_program: null`, хвост и ONNX в `models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/`), в `pipeline` `default.yaml` не входит; `config/user.matvey.example.yaml` — включение комментарием; в реестре 6 моделей.
+- R30: S29, `_job` на каждую задачу читает снимок анализа и строки `artifacts` extra (`jobs_list` до 50 задач — до 50 чтений `analyses` и разборов `config_json`); комментарий `store._JOBS` «no per-job round trips» верен только для детектора и pose.
+- R30: S29, откат extra есть только в задаче (8.30 п. 10); `eval_run` и `demo_build` на ошибке extra по-прежнему падают (exit 4).
 
 ## log
 
@@ -310,6 +319,13 @@
 - проверено вживую: LinQ, 1 прогон (25.10 00:00 МСК, `--inflight 4`, одна задача baseline, только детектор `det-yolov8n@640-ap9999`): сцена `PPE_industrial4tr6` (20,8 с, 1920×1080), зона danger `[[0.60,0.45],[0.82,0.45],[0.82,0.90],[0.60,0.90]]`, путь `services` (камера, зона, `video_import`, `run_next_job` на `linq`, анализ, эпизоды, эфир на виртуальных часах, тики 0,5 с) во временном data_dir `D:\night-tmp\S28\data_live`, настройки в памяти (`config/user.yaml` не писался). Очередь перед прогоном: `input` 0 сообщений, 16 консьюмеров; doctor ok (2 из 2 программ). Загрузка 42,3 МБ за 11,2 с; кадров отправлено и получено 261 из 261 (step 2); 7,77 кадр/с (воркер 33,6 с); RTT TPU p50 434 мс, p90 572 мс; задача 49,9 с (бэкенд 48,3 с, анализ и улики 1,6 с); TPU ~0,6 мин; `eta_s` в начале 61 с (25 кадров, 3,9 кадр/с), в конце 5,1 с (225 кадров, 7,1 кадр/с); до первого `.progress` — «ждём первый ответ TPU». Эпизод: `proximity` red, зона «Проезд погрузчиков», начало 16,29 с, подтверждение 16,61 с, конец 20,84 с (конец видео), «Человек в зоне «Проезд погрузчиков»»; событие эфира: `proximity` red «Опасное сближение с техникой», начало 16,3 с, публикация 17,0 с видео; ложных событий нет. После прогона: живых `video_worker.py` с `baseline_` 0, kernel процесса закрыт (нет в `api/kernels`). Фейк-прогон того же скрипта до живого: ок (фейковая сцена `demo` даёт `fall` на 18,8 с — сцена фейка, не детекции). Скрипт: `D:\night-tmp\S28\live_s28.py`, лог `D:\night-tmp\S28\live.log` | не проверено: HTML от Jupyter вживую.
 - [проверить]: `requests.JSONDecodeError` есть в установленном requests (тип ответа не JSON): да.
 - следующему: `tests/test_linq_backend.py`: `_worker_timeouts(monkeypatch, clip, out, *extra)` (воркер со стабом TPU, таймауты `collect`), `SlowQueueShell` (фейк с прогрессом 0, затем 120 из 720), подмена часов бэкенда `monkeypatch.setattr(linq, "time", SimpleNamespace(perf_counter=..., sleep=...))`; скрипт живой проверки через `services` с настройками в памяти — `D:\night-tmp\S28\live_s28.py` (не в репо).
+
+### S29: ml gaps (2026-10-25, PR #40, tech v7)
+- отклонения: правлены файлы вне списка слайса: `src/safewatch/fakes/remote.py` (детектор с `nc` не считается extra), `config/models.yaml` и `config/user.matvey.example.yaml` (модель огня Матвея, просьба владельца), `tests/test_plugin_status.py` (`proximity` без `truck` теперь `active`; `Job.metrics` с extra), `tests/test_system.py` (6 моделей); `registry.py` не менялся; откат extra и на `model_missing` (строка `GAP`); в `test_ml_gaps.py` `test_extra_failure_falls_back` параметризован тремя кодами.
+- решения вне контракта: строки `GAP: S29` в `## open`; пересчёт снимка без модели, добавленной в `pipeline.extra` позже, теперь даёт её сценариям `model_missing` (раньше `active` без кадров); мутаций нет (10.3); тесты со временем (`cached`) `test_import_artifact_cli_and_cache`, `test_extra_failure_falls_back`, `test_extra_metrics_in_job` — 20 из 20; итог 19 пунктов в `docs/ML_INTEGRATION.md` раздел 9 (критерий 9 сверен вручную), там же известные проблемы качества промежуточных моделей.
+- проверено вживую: `local` без сервера (`LocalBackend.run`, step 1) моделью огня Матвея: `s04-fire-full` 293 кадра, 11,6 кадр/с CPU, `fire` ≥ 0,35 в 232 кадрах с 2,3 с; контроль `s04-headlight-control-full` 155 кадров, ложный `fire` ≥ 0,35 в 26 кадрах с 4,6 с (фары, известная проблема) | не проверено: LinQ (в S29 живых прогонов нет).
+- [проверить]: нет
+- следующему: `tests/test_ml_gaps.py`: `_start(fake_core, tmp_path, make_video, model)` → `RecordingShell` одного прогона LinQ, `_start_command(shell)`; фикстура `extra_registry` берётся из `test_plugin_status` присваиванием (импорт фикстуры ловит ruff F811); веса Матвея лежат в `models/matvey/` — `test_local_backend.py::test_local_matches_jsonl_format` на этой машине больше не пропускается.
 
 ## night
 

@@ -171,14 +171,16 @@ class LinqBackend:  # InferenceBackend
         started = time.perf_counter()
         linq = self.settings.linq
         tail = ROOT / model.linq_tail if model.linq_tail else None
-        if tail is None or not tail.is_file() or not model.linq_program:
+        # `linq_tail: null`: a full-graph program, the worker decodes without a tail (8.30 item 7).
+        if not model.linq_program or (tail is not None and not tail.is_file()):
             raise InferenceError("model_missing", f"{model.id}@{model.version}: no tail or program")
         home = self._exec("echo $HOME  # sw:home").strip()
         rdir = linq.remote_dir
         absdir = f"{home}/work/{rdir}"
         for name in WORKER_FILES:
             self.shell.upload(linq.tools_dir / name, f"{rdir}/{Path(name).name}")
-        self.shell.upload(tail, f"{rdir}/tails/{tail.name}")
+        if tail is not None:
+            self.shell.upload(tail, f"{rdir}/tails/{tail.name}")
         upload_started = time.perf_counter()
         video_name = f"{linq.file_prefix}{video_sha256[:12]}{video.suffix.lower()}"
         remote_video = f"{rdir}/videos/{video_name}"
@@ -196,8 +198,15 @@ class LinqBackend:  # InferenceBackend
         if f"{model.id}@{model.version}" in self.settings.pipeline.extra:
             args += ["--nc", str(len(model.classes))]  # an extra model keeps all its classes
         elif model.task == "detect":
-            args += ["--classes", ",".join(str(c) for c in model.classes)]
-        args += ["--tail", f"tails/{tail.name}"]
+            # A detector with its own `nc` (not COCO-80): `--classes` stays inside 0..nc-1.
+            keep = [c for c in model.classes if model.nc is None or c < model.nc]
+            if model.nc is not None:
+                args += ["--nc", str(model.nc)]
+            args += ["--classes", ",".join(str(c) for c in keep)]
+        if model.input_name != "images":  # the worker's default input name
+            args += ["--input-name", model.input_name]
+        if tail is not None:
+            args += ["--tail", f"tails/{tail.name}"]
         probe = media.probe_video(video)
         frames_total = math.ceil((probe.frame_count if probe else 0) / step)
         self.live = None
@@ -333,8 +342,8 @@ class LinqBackend:  # InferenceBackend
         for model in registry.active_models(settings):
             program = model.linq_program or f"{model.id}@{model.version}"
             (present if program in found else missing).append(program)
-            if not model.linq_tail or not (ROOT / model.linq_tail).is_file():
-                missing.append(model.linq_tail or f"{model.id}@{model.version}: tail")
+            if model.linq_tail and not (ROOT / model.linq_tail).is_file():
+                missing.append(model.linq_tail)  # `linq_tail: null` needs no file (8.30 item 7)
         status = status.model_copy(
             update={"latency_ms": latency_ms, "present": present, "missing": missing}
         )

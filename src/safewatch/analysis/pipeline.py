@@ -23,8 +23,6 @@ from safewatch.types import (
     ScenarioPlugin,
 )
 
-VEHICLES = ("car", "bus", "truck", "train")
-
 
 def _plugins(config: AnalysisConfig) -> list[tuple[ScenarioPlugin, dict[str, float]]]:
     """Active scenarios the camera keeps on, with defaults + camera overrides (tech.md 8.3)."""
@@ -64,8 +62,10 @@ def analyze(
     det_model: ModelSpec,
     extra: list[tuple[ModelSpec, list[FrameDetections]]] | None = None,
 ) -> AnalysisResult:
-    """`extra`: frames of the `pipeline.extra` models, their classes become untracked objects."""
+    """`extra`: frames of the `pipeline.extra` models; their classes become untracked objects,
+    a class of `pipeline.vehicle_classes` becomes tracked machinery (tech.md 8.30 item 3)."""
     settings = app_config.get_settings()
+    vehicle_names = set(settings.pipeline.vehicle_classes)
     ids = itertools.count(1)
     people, machines = Tracker(settings.tracker, ids), Tracker(settings.tracker, ids)
     poses = {f.frame_idx: f.detections for f in pose or []}
@@ -106,14 +106,18 @@ def analyze(
                 if d.score >= settings.tracker.low_thresh:
                     persons.append(d)
             elif d.score >= config.class_conf.get(name, det_model.conf):
-                if name in VEHICLES:
+                if name in vehicle_names:
                     vehicles.append(d.model_copy(update={"name": name}))
                 else:
                     objects.append(ObjectState(name=name, bbox=d.bbox_xyxy, score=d.score))
         for model, by_frame in extras:
             for d in by_frame.get(frame.frame_idx, []):
                 name = model.classes.get(d.cls)
-                if name is not None and d.score >= config.class_conf.get(name, model.conf):
+                if name is None or d.score < config.class_conf.get(name, model.conf):
+                    continue
+                if name in vehicle_names:
+                    vehicles.append(d.model_copy(update={"name": name}))
+                else:
                     objects.append(ObjectState(name=name, bbox=d.bbox_xyxy, score=d.score))
         tracked = people.update(ts, persons)
         frame_poses = [

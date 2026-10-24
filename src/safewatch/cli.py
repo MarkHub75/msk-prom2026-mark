@@ -14,7 +14,7 @@ from pydantic import TypeAdapter
 from safewatch import config, doctor, services
 from safewatch.config import ROOT
 from safewatch.errors import InferenceError, NotFound, TooLarge, UnsupportedVideo, ValidationFailed
-from safewatch.types import WsMessage
+from safewatch.types import BackendName, WsMessage
 
 CONTRACT_DIR = ROOT / "contract"
 STOP_WAIT_S = 10
@@ -192,6 +192,20 @@ def demo_import(path: Path) -> int:
     return 0
 
 
+def import_artifact(path: Path, video_id: int, model: str, backend: BackendName, fake: bool) -> int:
+    """Detections made elsewhere (Vast, a GPU machine): the job cache of that backend finds them."""
+    try:
+        artifact_id = services.artifact_import(video_id, model, path, backend, fake)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except ValidationFailed as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    print(artifact_id)
+    return 0
+
+
 def dataset_export(out: Path | None) -> int:
     print(asyncio.run(services.dataset_export(out)))
     return 0
@@ -259,6 +273,12 @@ def main(argv: list[str] | None = None) -> int:
     dataset = p.add_subparsers(dest="dataset_command", required=True)
     p = dataset.add_parser("export", help="zip every item with manifest.json")
     p.add_argument("--out", type=Path, help="folder of false_alarms.zip")
+    p = sub.add_parser("import-artifact", help="add detections JSONL made elsewhere to the cache")
+    p.add_argument("file", type=Path)
+    p.add_argument("--video", type=int, required=True)
+    p.add_argument("--model", required=True, help="id@version of config/models.yaml")
+    p.add_argument("--backend", choices=["linq", "local"], help="default: INFERENCE_BACKEND")
+    p.add_argument("--fake", action="store_true", help="the detections are fake ones")
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -278,6 +298,9 @@ def main(argv: list[str] | None = None) -> int:
         return demo_import(args.path)
     if args.command == "dataset":
         return dataset_export(args.out)
+    if args.command == "import-artifact":
+        backend = args.backend or config.get_settings().inference_backend
+        return import_artifact(args.file, args.video, args.model, backend, args.fake)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)

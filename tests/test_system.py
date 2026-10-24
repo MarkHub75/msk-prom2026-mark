@@ -63,7 +63,7 @@ async def test_models_view(
         core.pipeline.pose,
     ]
     assert view.available == registry.load_models(registry.MODELS_FILE)
-    assert len(view.available) == 5
+    assert len(view.available) == 6  # S29: the fire model of Matvey
     no_pose = core.model_copy(update={"pipeline": core.pipeline.model_copy(update={"pose": None})})
     monkeypatch.setattr(config, "get_settings", lambda: no_pose)
     assert [m.task for m in services.models_view().active] == ["detect"]
