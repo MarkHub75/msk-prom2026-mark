@@ -1,5 +1,23 @@
 # ML/CV quality sprint — progress
 
+## Night checkpoint 2026-10-24T01:12:56.048453+00:00
+
+MEASURED / SIMULATED: E001–E005 finished, all three directions used their two NEW hypothesis budgets. No training, no new LinQ calls, no network/service changes. Root integrated Detection b26aaf74 and Behavior 0082c8de in isolated branches. Numeric summaries: ml/reports/night-20261024.json; graph-ready CSV and decision table beside it. Source artifacts remain immutable outside Git. Code checkpoint before this record: d9d616899992818d7d9bd5eafe99b338747ff2c3.
+
+| Experiment | Before / hypothesis | After / evidence | Decision |
+|---|---|---|---|
+| E001 control | Native Helmet vs original float ONNX, same52reviewed images | MEASURED same class counts/AP/P/R/F1; macroF1 .716422. Vendor baseline SIMULATED macroF1 .741682 but bare recall .71875→.59375 | Quantization-chain class regression observed; conditioning vs PTQ not causally isolated |
+| E001 | Diverse8calibration, same weights/export | SIMULATED macroF1 .741682→.735185, bare recall unchanged .59375 | REJECT; TPU ecd5a885... retained locally, never deployed |
+| E005 | FinalConcat split, same data8control | Float52raw BITWISE parity. SIMULATED macroF1 .327778, bare recall .03125 | REJECT; baseline output scales already perchannel, no invented global-scale explanation |
+| E002 | EDF original320x240 vs half then restored, same2584frames each | MEASURED torso/frame .641254→.553793; unknown/missing .541796→.597523; positive support1/24→0/24; confirmation0/24both | Keep original RGB; support is not incident recall; P/F1/falsealerts/hour NOT_MEASURABLE |
+| E004 | Allow one side torso pair, replay sameUR20 observations | MEASURED same2FPS TP1FP0FN9/F1 .181818; all3274 TP0FP0FN10both | REJECT, optionalflag OFF; unknown reduction alone is no event improvement |
+| E003 H1/H2 | CAVIAR bodyheight speed / observedbbox anchor | MEASURED baseline=H1=H2 TP0FP0FN3/F1=0;0/46running actorframes associated,11/528knownactorframes associated | Both REJECT; no ROI third hypothesis; Running/Zone remains experimental |
+
+OBSERVED data handoff: four immutable producer READY releases now available; EDF and CAVIAR consumed under exact approved research-development use and hashes. Neither is an independent industrial test; EDF complement UNKNOWN, CAVIAR uses sourceFrame*40ms nominaltime, not originalPTS. No source search/download duplicated; Data worktree untouched. Finetune BLOCKED: no approved complete clean train/heldout release. Expansion BLOCKED: no actor/geometry/policy GT for machinery, barriers, phone, flame, height or loads. Do not invent extra recognizers from clip labels.
+
+OBSERVED shared infrastructure safety: own namespaces and cross-journal active-request fence integrated. Stage/bootstrap now fail closed outside runtime-account matvey/; no stock-file permissions lookup. Prepare-only is default. Durable ambiguous publication and request state prevent blind repeats; these are software/fault-test evidence, not a new shared-service outage test. Historical old-path completed captures remain evidence; new Matvey staging has NOT been performed. No captain baseline touched.
+
+
 ## ACTIVE NIGHT CYCLE — 2026-10-24T00:31:35.783154+00:00
 
 New autonomous cycle authorized for at most6–7hours; do not fill time artificially. No intermediate user questions. Current integration baseline1bdeeafc; working branchmatvey_cv. Historical335tests are the last completed full suite, not an automatic new PASS. Existing runtime/model checkpoints remain immutable; previous rejected hypotheses are not rerun.

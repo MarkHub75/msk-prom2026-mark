@@ -70,15 +70,18 @@ def stage(cache_dir, source=None, model='helmet', *, owner_login=None):
             with target.open('xb') as output,source.open('rb') as incoming:
                 created=True
                 shutil.copyfileobj(incoming,output,1024*1024)
-                output.flush();os.fsync(output.fileno())
                 # Own model bytes contain no credentials; service worker needs read.
                 os.fchmod(output.fileno(),0o644)
+                output.flush();os.fsync(output.fileno())
             if file_hash(target)!=expected:
                 raise ValueError('staged program checksum mismatch')
         except Exception:
             if created:target.unlink(missing_ok=True)
             raise
         state='STAGED'
+    descriptor=os.open(directory,os.O_RDONLY|os.O_DIRECTORY)
+    try:os.fsync(descriptor)
+    finally:os.close(descriptor)
     return {'status':state,'program_name':name,'program_sha256':expected,
             'namespace_owner':'matvey','program_path_namespace_verified':True,
             'worker_visibility':'NOT_VERIFIED_UNTIL_HELMET_REQUEST',

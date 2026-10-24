@@ -1,8 +1,10 @@
 # Resume MOSPROM ML/CV — saved checkpoint
 
-## ACTIVE NIGHT CYCLE — 2026-10-24T00:31:35.783154+00:00
+## ACTIVE NIGHT CHECKPOINT — 2026-10-24T01:12:56.048453+00:00
 
-Latest user directive resumes work for one bounded autonomous night cycle. No intermediate questions; do not stop at the old frozen-checkpoint instructions below. Rootmatvey_cv; Data Orchestrator owns producer READY and its isolated worktree. MODEL_INVENTORY.md and DATA_HANDOFF_PROTOCOL.md added; exact native checkpoint versions differ from exporter versions. Existing335full-suite PASS is historical. New handoff tests8PASS. Own existing-data READY snapshot5f3008... allows E001HelmetdiversePTQ; producer-nativeUR/runGT awaited. Shared infrastructure rules in AGENTS.md override old rootcache/notebook queue bindings: new files matvey/, matvey_ names, maxoneownactiveTPUrequest, no captain/baseline/foreign queues/network service changes. Remote tasks remain blocked until safe namespace+staging checked. No new inference/training/compile so far. Complete MODEL_INVENTORY, scenario coverage, measured experiments and NIGHT_REPORT.md, then commit and stop.
+E001/E005 Helmet, E002/E004 Fall and E003H1/H2 Running COMPLETED; two NEW hypotheses/direction exhausted, no further tuning this night. No weight promotion/training/new LinQ call. See ml/PROGRESS.md and ml/reports/night-20261024.json. Native vs float Helmet counts match; PTQ bare-head recall lower. EDF reduced input loses observed torso coverage; CAVIAR Running misses all3source windows because running actors are never associated. These are developmental/simulated diagnostics, not industrial accuracy. Baselines preserved; candidate flags OFF. Independent finaltest and approved clean training still unavailable.
+
+Root branch matvey_cv, codecheckpoint d9d616899992818d7d9bd5eafe99b338747ff2c3; Detection b26aaf74, Behavior0082c8de, LinQ b2dd3c26 merged. GPU resources released. Shared-infrastructure isolation integrated; fresh own remote operations blocked until separate Matvey Jupyter staging. Root finishing safety-wrapper tests, scenario matrix, final reports/figures/manifest/commits. Do not re-execute completed experiments or historical ResNet checks; no backend/frontend work. External backup and remote Git verification remain open. Continue only unfinished closeout tasks, then stop with NIGHT_REPORT.md.
 
 ## LATEST CHECKPOINT — ML quality sprint
 

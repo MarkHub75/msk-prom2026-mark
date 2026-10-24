@@ -1,0 +1,436 @@
+{
+  "evidence": "NATIVE_AND_SIMULATED_DEVELOPMENT_NOT_INDEPENDENT_TEST",
+  "source_artifacts_sha256": {
+    "E001/summary.json": "53b628ea78b1fb26399966239a78269b220f7ae428074d709ff7640751b43c1f",
+    "E005/summary.json": "8989f7a60434535569e5db08d8382bd02e369780b2eb117954c04e00231778da",
+    "E002/edf-resolution-v1/paired-analysis.json": "c8b0418c3835dad1ee20fab9b361b3bfc6763bf2b05e19b3a8b7ea526edcc5f5",
+    "E004/fall-partial-torso-v1/decision-summary.json": "8609587a4413988ee95a63aec51649d594f914c06b8a0ace5ccd44890fa900c2",
+    "E003/caviar-running-v1/comparison.json": "ae79cc36e9e9c36e63831f681f63f5f7ad95943b9a2b563fae69432510ce149b"
+  },
+  "new_real_linq_requests": 0,
+  "new_training_runs": 0,
+  "helmet": {
+    "dataset": "quality-v3-52;44complete/class;source-photo-overlap",
+    "gt_file_sha256": "346f74cab99ddc2cc9c0f18b3efd95027a0b1ea782738469f502bc771dfd27e0",
+    "models": {
+      "existing_native": {
+        "macro_f1": 0.7164222873900293,
+        "classes": {
+          "helmet": {
+            "gt": 25,
+            "tp": 19,
+            "fp": 11,
+            "fn": 6,
+            "precision": 0.6333333333333333,
+            "recall": 0.76,
+            "f1": 0.6909090909090909,
+            "ap50": 0.666120781095753,
+            "map50_95": 0.2472840418600733
+          },
+          "bare_head": {
+            "gt": 32,
+            "tp": 23,
+            "fp": 7,
+            "fn": 9,
+            "precision": 0.7666666666666667,
+            "recall": 0.71875,
+            "f1": 0.7419354838709677,
+            "ap50": 0.8441247820008806,
+            "map50_95": 0.6317762964592041
+          }
+        }
+      },
+      "float_onnx": {
+        "macro_f1": 0.7164222873900293,
+        "classes": {
+          "helmet": {
+            "gt": 25,
+            "tp": 19,
+            "fp": 11,
+            "fn": 6,
+            "precision": 0.6333333333333333,
+            "recall": 0.76,
+            "f1": 0.6909090909090909,
+            "ap50": 0.666120781095753,
+            "map50_95": 0.2472840418600733
+          },
+          "bare_head": {
+            "gt": 32,
+            "tp": 23,
+            "fp": 7,
+            "fn": 9,
+            "precision": 0.7666666666666667,
+            "recall": 0.71875,
+            "f1": 0.7419354838709677,
+            "ap50": 0.8441247820008806,
+            "map50_95": 0.6317762964592041
+          }
+        }
+      },
+      "baseline_ptq": {
+        "macro_f1": 0.7416823603264282,
+        "classes": {
+          "helmet": {
+            "gt": 25,
+            "tp": 23,
+            "fp": 11,
+            "fn": 2,
+            "precision": 0.6764705882352942,
+            "recall": 0.92,
+            "f1": 0.7796610169491526,
+            "ap50": 0.8849341309651998,
+            "map50_95": 0.32558130982715416
+          },
+          "bare_head": {
+            "gt": 32,
+            "tp": 19,
+            "fp": 3,
+            "fn": 13,
+            "precision": 0.8636363636363636,
+            "recall": 0.59375,
+            "f1": 0.7037037037037037,
+            "ap50": 0.8224263287403856,
+            "map50_95": 0.5304264621899832
+          }
+        }
+      },
+      "mendeley8_ptq": {
+        "macro_f1": 0.7351851851851852,
+        "classes": {
+          "helmet": {
+            "gt": 25,
+            "tp": 23,
+            "fp": 12,
+            "fn": 2,
+            "precision": 0.6571428571428571,
+            "recall": 0.92,
+            "f1": 0.7666666666666667,
+            "ap50": 0.8984432942648004,
+            "map50_95": 0.3244906904406771
+          },
+          "bare_head": {
+            "gt": 32,
+            "tp": 19,
+            "fp": 3,
+            "fn": 13,
+            "precision": 0.8636363636363636,
+            "recall": 0.59375,
+            "f1": 0.7037037037037037,
+            "ap50": 0.8377242324931333,
+            "map50_95": 0.5067636414427982
+          }
+        }
+      },
+      "split_data8": {
+        "macro_f1": 0.3277777777777778,
+        "classes": {
+          "helmet": {
+            "tp": 12,
+            "fp": 3,
+            "fn": 13,
+            "precision": 0.8,
+            "recall": 0.48,
+            "f1": 0.6,
+            "ap50": 0.8323483431934526,
+            "map50_95": 0.33266131898461854
+          },
+          "bare_head": {
+            "tp": 1,
+            "fp": 3,
+            "fn": 31,
+            "precision": 0.25,
+            "recall": 0.03125,
+            "f1": 0.05555555555555555,
+            "ap50": 0.8246759922026957,
+            "map50_95": 0.513230738923395
+          }
+        }
+      }
+    },
+    "selected": "existing hardware-verified baseline",
+    "new_hypotheses": 2,
+    "improved": false,
+    "note": "Vendor quantized CPU simulation is not actual TPU execution."
+  },
+  "fall_edf": {
+    "dataset": "edf-native-fall-source3/v1-20261024",
+    "variants": {
+      "native_rgb": {
+        "scope": "SOURCE_POSITIVE_WINDOW_HIT_COVERAGE_NOT_INDEPENDENT_EVENT_RECALL",
+        "source_unknown_fraction_of_sampled_frames": 0.9047987616099071,
+        "frame_pose_unknown_or_missing_rate": 0.541795665634675,
+        "frames_with_full_torso_fraction": 0.6412538699690402,
+        "sampled_frames": 2584,
+        "frames_with_eligible_person": 2097,
+        "eligible_person_detections": 2104,
+        "full_visible_torso_detections": 1660,
+        "torso_available_fraction_of_eligible_detections": 0.7889733840304183,
+        "posture_unknown_rate_of_eligible_detections": 0.4372623574144487,
+        "no_eligible_person_frame_fraction": 0.18846749226006193,
+        "source_positive_windows": 24,
+        "support_hit_coverage_lower": 0.041666666666666664,
+        "support_hit_coverage_upper": 0.041666666666666664,
+        "confirmation_hit_coverage_lower": 0.0,
+        "confirmation_hit_coverage_upper": 0.0,
+        "possible_duplicate_additional_episodes": 0,
+        "unique_suspected_fall_episodes": 1,
+        "precision": "NOT_MEASURABLE",
+        "f1": "NOT_MEASURABLE",
+        "false_alerts_per_hour": "NOT_MEASURABLE",
+        "prolonged_lying_source_mapping": "NOT_MEASURABLE; source fall-process windows are not lying/immobility GT",
+        "outside_source_windows": "UNKNOWN, never negative",
+        "person_detection_recall": "NOT_MEASURABLE; no person GT",
+        "unique_episode_counts_by_type": {
+          "prolonged_lying": 2,
+          "suspected_fall": 1
+        },
+        "observations_sha256": "c50f3ac4c3cfdf4c4d49a8c7e801dee523de75356cb489953386166f035cc6df",
+        "events_sha256": "86cb6ddc701a40c8ebb494ca72789386bbf02a9ee0648175f826bc956b5d25f5",
+        "per_video_availability": {
+          "jianjun_view1_rgb": {
+            "sampled_frames": 957,
+            "frames_with_person": 824,
+            "frames_with_full_torso": 624,
+            "frames_pose_unknown_or_missing": 493
+          },
+          "jinhui_view1_rgb": {
+            "sampled_frames": 892,
+            "frames_with_person": 732,
+            "frames_with_full_torso": 585,
+            "frames_pose_unknown_or_missing": 477
+          },
+          "songsong_view1_rgb": {
+            "sampled_frames": 735,
+            "frames_with_person": 541,
+            "frames_with_full_torso": 448,
+            "frames_pose_unknown_or_missing": 430
+          }
+        }
+      },
+      "half_bilinear_restored": {
+        "scope": "SOURCE_POSITIVE_WINDOW_HIT_COVERAGE_NOT_INDEPENDENT_EVENT_RECALL",
+        "source_unknown_fraction_of_sampled_frames": 0.9047987616099071,
+        "frame_pose_unknown_or_missing_rate": 0.5975232198142415,
+        "frames_with_full_torso_fraction": 0.5537925696594427,
+        "sampled_frames": 2584,
+        "frames_with_eligible_person": 1808,
+        "eligible_person_detections": 1821,
+        "full_visible_torso_detections": 1433,
+        "torso_available_fraction_of_eligible_detections": 0.7869302580999451,
+        "posture_unknown_rate_of_eligible_detections": 0.42833607907743,
+        "no_eligible_person_frame_fraction": 0.30030959752321984,
+        "source_positive_windows": 24,
+        "support_hit_coverage_lower": 0.0,
+        "support_hit_coverage_upper": 0.0,
+        "confirmation_hit_coverage_lower": 0.0,
+        "confirmation_hit_coverage_upper": 0.0,
+        "possible_duplicate_additional_episodes": 0,
+        "unique_suspected_fall_episodes": 0,
+        "precision": "NOT_MEASURABLE",
+        "f1": "NOT_MEASURABLE",
+        "false_alerts_per_hour": "NOT_MEASURABLE",
+        "prolonged_lying_source_mapping": "NOT_MEASURABLE; source fall-process windows are not lying/immobility GT",
+        "outside_source_windows": "UNKNOWN, never negative",
+        "person_detection_recall": "NOT_MEASURABLE; no person GT",
+        "unique_episode_counts_by_type": {},
+        "observations_sha256": "c4db48742f30159bbcb2d4d56d3ba946f7a032aff8d98830760ce55aa8a43d5f",
+        "events_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_video_availability": {
+          "jianjun_view1_rgb": {
+            "sampled_frames": 957,
+            "frames_with_person": 710,
+            "frames_with_full_torso": 539,
+            "frames_pose_unknown_or_missing": 540
+          },
+          "jinhui_view1_rgb": {
+            "sampled_frames": 892,
+            "frames_with_person": 632,
+            "frames_with_full_torso": 518,
+            "frames_pose_unknown_or_missing": 521
+          },
+          "songsong_view1_rgb": {
+            "sampled_frames": 735,
+            "frames_with_person": 466,
+            "frames_with_full_torso": 374,
+            "frames_pose_unknown_or_missing": 483
+          }
+        }
+      }
+    },
+    "total_gpu_job_seconds": 86.6362316920422,
+    "note": "Source-positive support-window coverage only. Outside UNKNOWN; not incident recall."
+  },
+  "fall_partial_torso": {
+    "status": "MEASURED_NO_EVENT_GAIN",
+    "promotion": "NOT_PROMOTED_DEFAULT_OFF",
+    "root_final_selection_required": true,
+    "primary": {
+      "baseline": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 9,
+        "f1": 0.18181818181818182
+      },
+      "candidate": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 9,
+        "f1": 0.18181818181818182
+      }
+    },
+    "secondary_full_cadence": {
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "f1": 0
+      },
+      "candidate": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "f1": 0
+      }
+    },
+    "source_reference_only": true,
+    "independent_final_test": false,
+    "new_inference": false,
+    "behavior_tests_passed": 49,
+    "hashes": {
+      "protocol.json": "472dd53d854b6a5f367a1ddc1c71c04b1d8307b9c216322dcff2cad87d6e2e6f",
+      "comparison.json": "71cb964b3e46539bea9495cec79d50159647da0b7405c74774fb41b03c732bb6",
+      "observability.json": "29a9a2c77c62f43bdb044357e76ff87cbcf38fe817a3d402c9df8b057c899884"
+    }
+  },
+  "running": {
+    "status": "EVALUATED_NO_GAIN_FREEZE_BASELINE_UNVALIDATED",
+    "independent_test": false,
+    "industrial_quality_claim": false,
+    "time": "NOMINAL25FPS_DERIVED_NOT_CAMERA_PTS",
+    "features_sha256": "b1fd5aea91d24b637898fd9a9b4be8038f5adeffce78a9a909be32b031e7711a",
+    "protocol_sha256": "e84933ffe4e5a695ef07637f91fa9067ed09f2018c91819552ca7c04df89ad17",
+    "H2_protocol_sha256": "db2c4da861f2925d9a6c40c7f231848319f17fc446f2df34ce36b33cd0939b36",
+    "policies": {
+      "baseline": {
+        "episode_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "frame_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 46,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "coverage": {
+          "sampled_frames": 345,
+          "unassigned_observed_persons_unknown": 16,
+          "source_actor_frames_unknown_or_other_state": 240,
+          "walking_source_actor_frames": 482,
+          "unmatched_source_actor_frames": 517,
+          "frame_truth_running": 46,
+          "unknown_no_accepted_person_observation": 316,
+          "unknown_insufficient_ankle_observability": 9,
+          "observed_anchor_actor_frames": 10,
+          "running_source_actor_frames": 46,
+          "matched_but_anchor_unknown_actor_frames": 1
+        },
+        "source_running_censored_episodes": 1,
+        "unknown_prediction_episodes": 0,
+        "duplicate_prediction_episodes": 0,
+        "metrics_sha256": "97abe7f4cf97955b8a15b7a7bf8720977d990c6ec2ab1673848073865cae2e0c",
+        "diagnostics_sha256": "4969a499441697be4ccc24210ff8acb2b35b4bb428e6a84e99d288e69c8040f1",
+        "predictions_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "H1": {
+        "episode_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "frame_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 46,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "coverage": {
+          "sampled_frames": 345,
+          "unassigned_observed_persons_unknown": 16,
+          "source_actor_frames_unknown_or_other_state": 240,
+          "walking_source_actor_frames": 482,
+          "unmatched_source_actor_frames": 517,
+          "frame_truth_running": 46,
+          "unknown_no_accepted_person_observation": 316,
+          "unknown_insufficient_ankle_observability": 9,
+          "observed_anchor_actor_frames": 10,
+          "running_source_actor_frames": 46,
+          "matched_but_anchor_unknown_actor_frames": 1
+        },
+        "source_running_censored_episodes": 1,
+        "unknown_prediction_episodes": 0,
+        "duplicate_prediction_episodes": 0,
+        "metrics_sha256": "a84c0c561700996a0884b227a767870e13d8079ec577a9193ea812989dec7826",
+        "diagnostics_sha256": "c3bc9ddfc4a3c8ec5f44b6fd1e0903f6d7074b5ed361362101141d6b18576fe7",
+        "predictions_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "H2": {
+        "episode_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "frame_metrics": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 46,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "coverage": {
+          "sampled_frames": 345,
+          "unassigned_observed_persons_unknown": 16,
+          "source_actor_frames_unknown_or_other_state": 240,
+          "walking_source_actor_frames": 482,
+          "unmatched_source_actor_frames": 517,
+          "frame_truth_running": 46,
+          "unknown_no_accepted_person_observation": 316,
+          "observed_anchor_actor_frames": 11,
+          "running_source_actor_frames": 46
+        },
+        "source_running_censored_episodes": 1,
+        "unknown_prediction_episodes": 0,
+        "duplicate_prediction_episodes": 0,
+        "metrics_sha256": "58a2d4a3db43447658be616e10f42bebba1dbc4b3db8d9002edc0061c60e75de",
+        "diagnostics_sha256": "31a6683f8d5fcd7ac229c71c6c3d6435810b158de9e149df033665335d09fb5b",
+        "predictions_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    },
+    "native_timing_ms": {
+      "count": 345,
+      "mean": 9.32120869503073,
+      "median": 8.312164805829525,
+      "max": 266.0856689326465,
+      "scope": "local native infer + tensor output transfer only, not end-to-end/TPU latency"
+    },
+    "decision": "Both H1 and H2 fail strict eventF1 gain; no third hypothesis, baseline retained UNVALIDATED. Zero matched source-running actorframes prevents evaluation of intrinsic speed classifier quality; end-to-end source-scoped recall is measured0, not N/A accuracy."
+  },
+  "independent_test": "NOT_AVAILABLE_NOT_USED",
+  "new_hypothesis_budget_per_direction": 2,
+  "baseline_replaced": false
+}

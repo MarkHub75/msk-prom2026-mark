@@ -11,6 +11,8 @@ from pathlib import Path
 from uuid import uuid4, UUID
 import zipfile
 from ml.linq.amqp import _environment_parameters, _connection_parameters
+from ml.pipeline.capture_recovery import save_json
+from ml.pipeline.runtime_lock import deployment_lock
 
 DEFAULT_ARTIFACTS='/workspace/artifacts/linq-rpc/matvey-bootstrap-v1'
 METADATA='matvey_upload_bridge.json'
@@ -46,7 +48,7 @@ def build(project='/workspace/project',artifacts=DEFAULT_ARTIFACTS):
 import os
 for _matvey_key in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
     os.environ[_matvey_key] = "2"
-import copy, functools, hashlib, importlib.util, io, json, sys, tempfile, types, zipfile
+import copy, functools, hashlib, importlib.util, io, json, re, sys, tempfile, types, zipfile
 from pathlib import Path
 from urllib.parse import urlsplit
 import pika
@@ -69,6 +71,8 @@ if (_matvey_header_uri.scheme != "file" or _matvey_header_uri.netloc or
     _matvey_parts[:3] != ["", "auto", "cache"]):
     raise RuntimeError("RUNTIME_ACCOUNT_CONTEXT_REQUIRED")
 _matvey_login = _matvey_parts[3]
+if not re.fullmatch(r"[A-Za-z0-9_@+-][A-Za-z0-9_@.+-]*", _matvey_login) or ".." in _matvey_login:
+    raise RuntimeError("RUNTIME_ACCOUNT_CONTEXT_REQUIRED")
 _matvey_cache = Path("/auto/cache") / _matvey_login / "matvey"
 _matvey_params = copy.deepcopy(channel.connection._impl.params)
 _matvey_params.connection_attempts, _matvey_params.retry_delay = 1, 0
@@ -114,11 +118,24 @@ def restart_matvey_upload_agent():
 restart_matvey_upload_agent()
 '''
     (artifacts/CELL).write_text(code)
-    metadata_path.write_text(json.dumps(info,indent=2)+'\n')
+    save_json(metadata_path,info)
     return info,payload
 
 
 def publish(info,payload,artifacts=DEFAULT_ARTIFACTS):
+    # Separate control-plane lock; never occupies the TPU admission/recovery fence.
+    _validate_publication(info,payload)
+    with deployment_lock(Path(artifacts)/'matvey_bootstrap.lock'):
+        persisted=Path(artifacts,METADATA)
+        if not persisted.is_file():raise ValueError('prepared own metadata required')
+        current=json.loads(persisted.read_text())
+        if current.get('bootstrap_queue')!=info['bootstrap_queue']:
+            raise ValueError('prepared bootstrap association changed')
+        _validate_publication(current,payload)
+        return _publish(current,payload,artifacts)
+
+
+def _validate_publication(info,payload):
     # Validate locally before obtaining credentials or opening ANY connection.
     _own_bootstrap(info.get('bootstrap_queue'))
     from ml.linq.namespace import check_upload_queue
@@ -127,6 +144,11 @@ def publish(info,payload,artifacts=DEFAULT_ARTIFACTS):
         raise ValueError('own bootstrap identity/hash mismatch')
     if info.get('published') or info.get('publication_state') in ('PUBLISHING_UNKNOWN','UNKNOWN_REVIEW_OWN_QUEUE'):
         raise ValueError('bootstrap already or possibly published; do not duplicate')
+    if info.get('publication_state') not in ('PREPARED','NOT_PUBLISHED'):
+        raise ValueError('unknown bootstrap publication state')
+
+
+def _publish(info,payload,artifacts):
     import pika
     connection=None;attempted=False
     try:
@@ -136,10 +158,11 @@ def publish(info,payload,artifacts=DEFAULT_ARTIFACTS):
         channel.confirm_delivery()
         # Control-plane bytes are also not republished after ambiguity.
         info['publication_state']='PUBLISHING_UNKNOWN'
-        Path(artifacts,METADATA).write_text(json.dumps(info,indent=2)+'\n')
+        save_json(Path(artifacts,METADATA),info)
         attempted=True
-        channel.basic_publish(exchange='',routing_key=info['bootstrap_queue'],body=payload,mandatory=True,
-                              properties=pika.BasicProperties(expiration='3600000'))
+        confirmed=channel.basic_publish(exchange='',routing_key=info['bootstrap_queue'],body=payload,mandatory=True,
+                                        properties=pika.BasicProperties(expiration='3600000'))
+        if confirmed is False:raise RuntimeError('own bootstrap publication not confirmed')
         info['published']=True;info['publication_state']='PUBLISHED'
     except Exception as error:
         # Ambiguous own bootstrap publication must not be repeated blindly.
@@ -149,7 +172,7 @@ def publish(info,payload,artifacts=DEFAULT_ARTIFACTS):
         if connection is not None:
             try:connection.close()
             except Exception:pass
-    Path(artifacts,METADATA).write_text(json.dumps(info,indent=2)+'\n')
+    save_json(Path(artifacts,METADATA),info)
     return info
 
 

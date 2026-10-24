@@ -9,7 +9,6 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import re
 from uuid import UUID
 import numpy as np
 from ml.linq.amqp import AmqpError,AmqpRunner,official_binding,_environment_parameters,main as amqp_main
@@ -19,11 +18,12 @@ from ml.detection.compare_capture import compare_captures,load_numeric_npz
 from ml.detection.codec import decode,LetterboxTransform
 from ml.pipeline.capture_recovery import complete_capture,save_json
 from ml.pipeline.runtime_lock import deployment_lock
+from ml.linq.namespace import check_upload_queue, check_login, program_uri
 
 ARTIFACTS=Path('/workspace/artifacts')
 PROFILES={
- 'helmet':('helmet-v1','helmet-v1.tpu','408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa'),
- 'pose-split':('pose-split-v1','pose-split-v1.tpu','c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b'),
+ 'helmet':('helmet-v1','matvey_helmet-v1.tpu','408fa39cebc6d971a28ad41fb0ec4b81eee5ae50c175af699860a221770b32aa'),
+ 'pose-split':('pose-split-v1','matvey_pose-split-v1.tpu','c3ad355488a293203131a541bb366a91b89a5cc17bdec1609a5ba705c1fe247b'),
 }
 
 
@@ -56,7 +56,8 @@ def resume_operation(directory,purpose,output_names,timeout):
     if record['state'] not in ('COMPLETED','SERVICE_FAILED'):
         binding=official_binding(_environment_parameters(),request_exchange='tpu.direct',
             request_routing_key='input',reply_exchange='' if purpose=='model_upload' else 'tpu.direct',
-            output_names=output_names,format_source_manifest=ARTIFACTS/'linq-rpc/format-source.json')
+            output_names=output_names,format_source_manifest=ARTIFACTS/'linq-rpc/format-source.json',
+            owner_login=os.environ.get('LINQ_LOGIN'))
     runner=AmqpRunner(binding,journal_dir=base,purpose=purpose,timeout=timeout)
     try:
         outputs=runner.reconcile(request_id)
@@ -79,13 +80,15 @@ def upload_program(name, bridge, timeout=60):
     program=ARTIFACTS/'linq-sdk'/(name+'-compile')/'model.tpu'
     body=program.read_bytes()
     if hashlib.sha256(body).hexdigest()!=sha:raise ValueError('local reviewed program changed')
-    state=ARTIFACTS/'linq-rpc'/name;state.mkdir(parents=True,exist_ok=True)
+    # Historical root-cache receipts remain read-only proof, never new placement.
+    state=ARTIFACTS/'linq-rpc'/('matvey_'+name+'_staging_v1');state.mkdir(parents=True,exist_ok=True)
     receipt_path=state/'staging-receipt.json'
     if receipt_path.exists():
         receipt=json.loads(receipt_path.read_text())
         if (receipt.get('status')!='STAGED' or receipt.get('model_id')!=model_id or
             receipt.get('program_sha256')!=sha or receipt.get('program_name')!=filename or
-            receipt.get('bytes')!=len(body)):
+            receipt.get('bytes')!=len(body) or receipt.get('namespace_owner')!='matvey' or
+            receipt.get('program_path_namespace_verified') is not True):
             raise ValueError('existing staging receipt differs from reviewed program')
         return receipt
     result=None;response=None
@@ -105,18 +108,19 @@ def upload_program(name, bridge, timeout=60):
     receipt={'status':'STAGED','model_id':model_id,'program_name':filename,'program_sha256':sha,
              'bytes':len(body),'upload_request_id':response['request_id'],
              'remote_completion':response['remote_completion'],
+             'namespace_owner':'matvey','program_path_namespace_verified':True,
              'scope':'remote Jupyter file staging; not neural inference'}
     save_json(receipt_path,receipt)
     return receipt
 
 
 def _submit_upload(name,bridge,body,state,timeout):
-    queue=bridge.get('upload_queue')
-    if not isinstance(queue,str) or not re.fullmatch(r'notebook_upload_[a-f0-9]{32}',queue):raise ValueError('invalid dedicated upload queue')
+    queue=check_upload_queue(bridge.get('upload_queue'))
+    if bridge.get('namespace_owner')!='matvey':raise ValueError('own reviewed bootstrap required')
+    login=check_login(os.environ.get('LINQ_LOGIN'))
     binding=official_binding(_environment_parameters(),request_exchange='',request_routing_key=queue,
         reply_exchange='',output_names=['sha256','byte_count'],
-        format_source_manifest=ARTIFACTS/'linq-rpc/format-source.json',
-        reply_queue_factory=lambda request_id:'notebook_'+request_id[:8])
+        format_source_manifest=ARTIFACTS/'linq-rpc/format-source.json',owner_login=login)
     def check_ready(channel,reply_queue,request_id):
         try:
             declared=channel.queue_declare(queue=queue,passive=True)
@@ -202,12 +206,19 @@ def run(name,bridge_path,timeout=60):
 
 def _run(name,bridge_path,timeout):
     if name not in PROFILES:raise ValueError('unknown reviewed model')
+    output=ARTIFACTS/'linq-rpc'/(name+'-001')
+    if (output/'capture.json').is_file():
+        capture=json.loads((output/'capture.json').read_text())
+        if capture.get('model_id')!=PROFILES[name][0] or capture.get('program',{}).get('sha256')!=PROFILES[name][2]:
+            raise ValueError('existing capture identity differs from reviewed model')
+        if capture.get('status')=='completed' and (output/'response.json').is_file():
+            result=verify_model(name,output);print(json.dumps({'phase':'cached_result',**result}))
+            return 0 if result['status']=='PASS' else 2
     stock=json.loads((ARTIFACTS/'linq-rpc/resnet50-001/resnet-check.json').read_text())
     if stock['status']!='PASS' or stock['status_code']!=0:raise ValueError('successful stock gate required')
     if name=='pose-split':
         helmet=json.loads((ARTIFACTS/'linq-rpc/helmet-001/model-check.json').read_text())
         if helmet['status']!='PASS':raise ValueError('reviewed Helmet gate required before Split-Pose')
-    output=ARTIFACTS/'linq-rpc'/(name+'-001')
     report=json.loads((ARTIFACTS/'linq-sdk'/(name+'-compile')/'compile-report.json').read_text())
     if output.exists():
         capture=json.loads((output/'capture.json').read_text())
@@ -225,8 +236,7 @@ def _run(name,bridge_path,timeout):
         request_id=json.loads((output/'request-pointer.json').read_text())['journal_request_id']
         attempts=ARTIFACTS/'linq-rpc/attempts';attempts.mkdir(parents=True,exist_ok=True)
         output.rename(attempts/(name+'-'+request_id+'-not-submitted'))
-    login=os.environ.get('LINQ_LOGIN')
-    if not isinstance(login,str) or not re.fullmatch(r'[A-Za-z0-9_@.+-]{1,128}',login):raise ValueError('explicit LinQ account required')
+    login=check_login(os.environ.get('LINQ_LOGIN'))
     if os.environ.get('LINQ_AMQP_HOST')!='127.0.0.1' or os.environ.get('LINQ_AMQP_PORT')!='15672':raise ValueError('confirmed tunnel configuration required')
     bridge=json.loads(Path(bridge_path).read_text())
     print(json.dumps({'phase':'prepare','result':prepare(name,root=ARTIFACTS)}))
@@ -235,12 +245,12 @@ def _run(name,bridge_path,timeout):
     model_id,filename,_=PROFILES[name]
     args=['--format-source-manifest',str(ARTIFACTS/'linq-rpc/format-source.json'),
           '--exchange','tpu.direct','--routing-key','input','--reply-exchange','tpu.direct',
-          '--target-uri',f'file:///auto/cache/{login}/{filename}?raw=False',
+          '--target-uri',program_uri(login,filename),
           '--program-file',str(ARTIFACTS/'linq-sdk'/(name+'-compile')/'model.tpu'),
           '--input-npz',str(ARTIFACTS/'linq-rpc'/name/'inputs.npz'),
           '--output-dir',str(output),'--model-id',model_id,'--timeout',str(timeout),
           '--journal-dir',str(ARTIFACTS/'linq-rpc/requests'),
-          '--host','127.0.0.1','--port','15672','--notebook-reply-queue','--save-service-error',
+          '--host','127.0.0.1','--port','15672','--save-service-error',
           '--attest-linq-placement','--attest-program-match']
     for spec in report['outputs']:args.extend(['--output-name',spec['name']])
     code=amqp_main(args)
@@ -252,7 +262,7 @@ def _run(name,bridge_path,timeout):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('model',choices=list(PROFILES))
-    parser.add_argument('--bridge',default='/workspace/artifacts/linq-rpc/upload-bridge.json')
+    parser.add_argument('--bridge',default='/workspace/artifacts/linq-rpc/matvey-bootstrap-v1/matvey_upload_bridge.json')
     parser.add_argument('--timeout',type=float,default=60)
     args=parser.parse_args()
     try:return run(args.model,args.bridge,args.timeout)

@@ -3,6 +3,8 @@ import io
 from pathlib import Path
 import tempfile
 import unittest
+import json
+from types import SimpleNamespace
 from unittest.mock import patch
 from uuid import uuid4
 import zipfile
@@ -46,3 +48,26 @@ class UploadBootstrapTest(unittest.TestCase):
         with patch.object(module,'_environment_parameters') as private:
             with self.assertRaisesRegex(ValueError,'possibly published'):module.publish(info,blob)
         private.assert_not_called()
+
+    def test_confirmed_publication_reloads_state_and_blocks_stale_second_caller(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out,(info,payload)=self.fixture(Path(tmp));calls=[]
+            def send(**kwargs):
+                self.assertEqual(json.loads((out/module.METADATA).read_text())['publication_state'],'PUBLISHING_UNKNOWN')
+                calls.append(kwargs);return None
+            channel=SimpleNamespace(queue_declare=lambda **kw:None,confirm_delivery=lambda:None,basic_publish=send)
+            connection=SimpleNamespace(channel=lambda:channel,close=lambda:None)
+            with patch('pika.BlockingConnection',return_value=connection),patch.object(module,'_environment_parameters',return_value=object()),patch.object(module,'_connection_parameters',return_value=object()):
+                result=module.publish(info,payload,out)
+                self.assertTrue(result['published'])
+                with self.assertRaisesRegex(ValueError,'possibly published'):module.publish(info,payload,out)
+            self.assertEqual(len(calls),1)
+
+    def test_negative_publish_confirmation_remains_ambiguous(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out,(info,payload)=self.fixture(Path(tmp))
+            channel=SimpleNamespace(queue_declare=lambda **kw:None,confirm_delivery=lambda:None,basic_publish=lambda **kw:False)
+            connection=SimpleNamespace(channel=lambda:channel,close=lambda:None)
+            with patch('pika.BlockingConnection',return_value=connection),patch.object(module,'_environment_parameters',return_value=object()),patch.object(module,'_connection_parameters',return_value=object()):
+                result=module.publish(info,payload,out)
+            self.assertFalse(result['published']);self.assertEqual(result['publication_state'],'UNKNOWN_REVIEW_OWN_QUEUE')

@@ -102,7 +102,7 @@ class DeploymentResumeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             blob, sha, _ = self.fixture(root)
-            state = root / "linq-rpc/helmet"
+            state = root / "linq-rpc/matvey_helmet_staging_v1"
             state.mkdir()
             (state / "request-pointer.json").write_text("{}")
             result = {"sha256": np.frombuffer(bytes.fromhex(sha), np.uint8),
@@ -117,7 +117,7 @@ class DeploymentResumeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             _, sha, _ = self.fixture(root)
-            state = root / "linq-rpc/helmet"
+            state = root / "linq-rpc/matvey_helmet_staging_v1"
             state.mkdir()
             (state / "upload-response.json").write_text(json.dumps({"publish_attempted": True}))
             with patch.object(module, "ARTIFACTS", root), patch.dict(module.PROFILES, {"helmet": ("helmet-v1", "helmet-v1.tpu", sha)}), patch.object(module, "_submit_upload") as submit:
