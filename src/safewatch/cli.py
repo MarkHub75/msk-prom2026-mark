@@ -46,6 +46,9 @@ def serve(host: str | None, port: int | None, seed: bool) -> int:
         print(f"port {port} on {host} is busy", file=sys.stderr)
         return 2
     app = create_app(settings)
+    recovered = services.recover_jobs()
+    if recovered:
+        print(f"jobs back in the queue after a stop: {recovered}")
     if seed:
         print(services.seed_demo().model_dump_json())
     pid_file = _pid_file()

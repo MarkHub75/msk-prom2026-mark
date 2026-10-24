@@ -75,6 +75,7 @@ def conn(monkeypatch: pytest.MonkeyPatch) -> Iterator[sqlite3.Connection]:
     monkeypatch.setattr(store, "_depth", 0)
     monkeypatch.setattr(hub, "clients", set())
     monkeypatch.setattr(services, "_backend", None)
+    monkeypatch.setattr(services, "_backend_status", None)
     yield db
     db.close()
 

@@ -17,11 +17,13 @@ from typing import Any
 import requests
 import websocket
 
+from safewatch import clock, registry, texts
 from safewatch.config import ROOT, Settings
 from safewatch.errors import InferenceError
 from safewatch.inference.artifacts import read_jsonl
 from safewatch.types import (
     BackendName,
+    BackendState,
     BackendStatus,
     InferenceMetrics,
     JobErrorCode,
@@ -235,4 +237,53 @@ class LinqBackend:  # InferenceBackend
             time.sleep(linq.poll_interval_s)
 
     def check(self) -> BackendStatus:
-        raise NotImplementedError("slice 3")
+        """Jupyter answers `ok`, the TPU programs and local tails of active models are there."""
+        settings = self.settings
+        status = BackendStatus(
+            backend="linq",
+            fake=settings.fake,
+            state="ok",
+            checked_at=clock.now(),
+            latency_ms=None,
+            present=[],
+            missing=[],
+            message="",
+        )
+        timeout = settings.linq.call_timeout_s
+        started = time.perf_counter()
+        try:
+            _, answer, _ = self.shell.exec("echo ok  # sw:check", timeout=timeout)
+            latency_ms = round((time.perf_counter() - started) * 1000, 1)
+            if answer.strip() != "ok":
+                return _finish(status, "bad_answer", texts.LINQ_BAD_ANSWER)
+            login = settings.linq_jupyter_user.lower()
+            programs_dir = settings.linq.programs_dir.format(login=login)
+            # A missing folder fails `ls`: then every program is missing, which stdout shows.
+            _, listing, _ = self.shell.exec(f"ls -1 {programs_dir}  # sw:ls", timeout=timeout)
+        except InferenceError:
+            return _finish(status, "unreachable", texts.LINQ_UNREACHABLE)
+        found = {line.strip() for line in listing.splitlines()}
+        present: list[str] = []
+        missing: list[str] = []
+        for model in registry.active_models(settings):
+            program = model.linq_program or f"{model.id}@{model.version}"
+            (present if program in found else missing).append(program)
+            if not model.linq_tail or not (ROOT / model.linq_tail).is_file():
+                missing.append(model.linq_tail or f"{model.id}@{model.version}: tail")
+        status = status.model_copy(
+            update={"latency_ms": latency_ms, "present": present, "missing": missing}
+        )
+        if missing:
+            return _finish(status, "models_missing", texts.LINQ_MODELS_MISSING, missing)
+        return _finish(status, "ok", texts.LINQ_OK.format(present=len(present), total=len(present)))
+
+
+def _finish(
+    status: BackendStatus, state: BackendState, text: str, names: list[str] | None = None
+) -> BackendStatus:
+    """The state with its screen text; a fake backend says so first (tech.md 8.14 badge)."""
+    if names is not None:
+        text = text.format(names=", ".join(names))
+    if status.fake:
+        text = texts.BACKEND_FAKE.format(text=text)
+    return status.model_copy(update={"state": state, "message": text})

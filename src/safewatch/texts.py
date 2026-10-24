@@ -88,6 +88,17 @@ VIDEO_NOT_FOUND = "Видео не найдено"
 FILE_NOT_FOUND = "Файл не найден: {path}"
 JOB_NOT_FOUND = "Задача не найдена"
 LIMIT_INVALID = "limit: от 1 до {max}"
+JOB_NOT_FAILED = "Повторить можно только упавшую задачу"
+
+# Backend state (tech.md 6.1, slice 3).
+BACKEND_UNCHECKED = "Не проверено"
+BACKEND_FAKE = "Фейк: детекции синтетические. {text}"
+LINQ_OK = "LinQ доступен, {present} из {total} программ"
+LINQ_UNREACHABLE = "LinQ недоступен: туннель или VPN"
+LINQ_MODELS_MISSING = "Нет программ: {names}"
+LINQ_BAD_ANSWER = "Неожиданный ответ Jupyter"
+LOCAL_OK = "CPU (local), не LinQ: {present} из {total} моделей"
+LOCAL_MODELS_MISSING = "Нет файлов моделей: {names}"
 
 # Demo world (tech.md 8.16).
 DEMO_SECTORS = [

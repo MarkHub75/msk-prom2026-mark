@@ -2,12 +2,13 @@
 
 from safewatch.config import Settings
 from safewatch.inference.linq import JupyterShell, LinqBackend
+from safewatch.inference.local import LocalBackend
 from safewatch.types import InferenceBackend
 
 
 def make_backend(settings: Settings) -> InferenceBackend:
     if settings.inference_backend == "local":
-        raise NotImplementedError("slice 3")
+        return LocalBackend(settings)
     if settings.fake:
         from safewatch.fakes.remote import FakeRemoteShell  # fakes stay out of the real path
 

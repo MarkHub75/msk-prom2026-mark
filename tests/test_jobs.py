@@ -15,6 +15,7 @@ from safewatch.hub import hub
 from safewatch.inference import make_backend
 from safewatch.inference.artifacts import CACHE_SCHEMA, cache_key
 from safewatch.inference.linq import JupyterShell, LinqBackend
+from safewatch.inference.local import LocalBackend
 from safewatch.types import CameraIn, Fault, Job, SectorIn, WsMessage
 
 
@@ -235,8 +236,9 @@ def test_make_backend_by_settings(core: Settings, monkeypatch: pytest.MonkeyPatc
     assert isinstance(real, LinqBackend) and isinstance(real.shell, JupyterShell)
     fake = make_backend(core.model_copy(update={"fake": True}))
     assert isinstance(fake, LinqBackend) and isinstance(fake.shell, FakeRemoteShell)
-    with pytest.raises(NotImplementedError):
-        make_backend(core.model_copy(update={"inference_backend": "local"}))
+    assert isinstance(
+        make_backend(core.model_copy(update={"inference_backend": "local"})), LocalBackend
+    )
     monkeypatch.setenv("INFERENCE_BACKEND", "local")
     get_settings.cache_clear()
     try:
