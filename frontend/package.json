@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:mock": "vite --mode mock",
+    "demo": "node scripts/demo.mjs",
+    "demo:mock": "concurrently -k -n mock,front \"npm run mock\" \"npm run dev:mock -- --host 127.0.0.1\"",
     "mock": "concurrently -n api,ws \"prism mock -d ../contract/openapi.json -p 4010\" \"node mock/ws-mock.mjs\"",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
@@ -16,11 +18,13 @@
     "gate": "npm run api:check && npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
+    "@fontsource/source-code-pro": "^5.3.1",
+    "@fontsource/source-sans-3": "^5.3.1",
+    "lucide-react": "^0.460.0",
     "openapi-fetch": "^0.17.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.6",
-    "recharts": "2.15.4"
+    "react-router-dom": "^6.30.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

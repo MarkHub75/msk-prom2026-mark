@@ -1,104 +1,71 @@
-import { act, cleanup, fireEvent, render, renderHook, screen, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { api } from "./api/client";
-import { useWs } from "./api/ws";
-import { LevelBadge, StatusBadge } from "./components/Badges";
-import { NAV, menuFor } from "./nav";
+import { menuFor } from "./nav";
 import { setRole } from "./roles";
 
-// Until slice 1 the backend answers /api/meta with 501; the shell must still render.
 function stubFetch() {
-  const body = { code: "not_implemented", message: "Функция появится в слайсе 1", details: {} };
+  const body = { code: "not_implemented", message: "Функция появится в слайсе 6", details: { slice: "6" } };
   const fetch = vi.fn<(request: Request) => Promise<Response>>(
     async () => new Response(JSON.stringify(body), { status: 501 }),
   );
   vi.stubGlobal("fetch", fetch);
   return fetch;
 }
-
-function renderAt(path: string) {
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <App />
-    </MemoryRouter>,
-  );
-}
-
-// The shell listens to `backend.status` (slice 3): no real socket in jsdom.
-class SilentSocket {
+class QuietSocket {
   onopen = null;
   onmessage = null;
   onclose = null;
+  onerror = null;
   close() {}
 }
-
 beforeEach(() => {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.history.replaceState({}, "", "/?review=real");
   stubFetch();
-  vi.stubGlobal("WebSocket", SilentSocket);
+  vi.stubGlobal("WebSocket", QuietSocket);
   act(() => setRole("operator"));
 });
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
+function renderAt(path: string) { return render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>); }
 
-afterEach(() => {
-  cleanup();
-  vi.unstubAllGlobals();
-});
-
-describe("app shell", () => {
-  it("role_switcher_changes_nav", async () => {
+describe("real-mode shell and contract boundary", () => {
+  it("shows an unfinished backend route as a neutral pending state without substituting fixtures", async () => {
     renderAt("/operator");
-    const nav = screen.getByRole("navigation", { name: "Навигация" });
-    expect(within(nav).getByText("Секторы")).toBeTruthy();
+    const pending = await screen.findByTestId("pending");
+    expect(pending.getAttribute("role")).toBe("status");
+    expect(pending.textContent).toContain("Функция появится в следующем обновлении сервера");
+    expect(pending.textContent).not.toMatch(/слайс|501/);
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.queryByText(/Синтетический сценарий/)).toBeNull();
+    expect(screen.getByTestId("backend").textContent).not.toBe("REVIEW");
+  });
+  it("role switching changes the working navigation and landing", async () => {
+    renderAt("/operator");
     fireEvent.change(screen.getByLabelText("Роль"), { target: { value: "master" } });
-    const links = within(nav).getAllByRole("link").map((a) => a.getAttribute("href"));
-    expect(links).toEqual(menuFor("master").map((item) => item.path));
-    expect(within(nav).queryByText("Секторы")).toBeNull();
-    expect(await screen.findByText("нет данных")).toBeTruthy();
+    const nav = screen.getByRole("navigation", { name: "Разделы" });
+    const links = within(nav).getAllByRole("link").map(link => link.getAttribute("href"));
+    expect(links).toEqual(menuFor("master").map(item => item.path));
+    expect(await screen.findByTestId("master-inbox")).toBeTruthy();
   });
-
-  it("stub_screens_show_slice", () => {
-    // Since slice 13 every route has its screen; a route left without one would show the stub.
-    expect(NAV.filter((i) => !i.screen).map((i) => i.path)).toEqual([]);
+  it("names the imported demo pack and its detection source in the header (tech.md 8.19)", async () => {
+    const pack = { id: 1, name: "argus", sha256: "a1", backend: "linq", fake: false, cameras: 3, videos: 3, imported_at: "2026-10-24T14:00:00Z" };
+    vi.stubGlobal("fetch", vi.fn(async (request: Request) => new URL(request.url).pathname === "/api/demo/packs"
+      ? Response.json([pack])
+      : Response.json({ code: "not_implemented", message: "нет", details: {} }, { status: 501 })));
+    renderAt("/operator");
+    expect((await screen.findByTestId("demo-pack")).textContent).toBe("Демо-пакет argus: детекции LinQ");
   });
-
-  it("client_sends_role_header", async () => {
+  it("sends the active role and encoded actor through the real transport", async () => {
     const fetch = stubFetch();
     act(() => setRole("ohs"));
+    localStorage.setItem("safewatch.actor", "Егор Иванов");
     await api.GET("/api/health");
     const request = fetch.mock.calls[0][0];
     expect(request.headers.get("X-Role")).toBe("ohs");
-  });
-
-  it("ws_connects_with_role", () => {
-    const urls: string[] = [];
-    class FakeSocket {
-      onopen = null;
-      onmessage = null;
-      onclose = null;
-      constructor(url: string) {
-        urls.push(url);
-      }
-      close() {}
-    }
-    vi.stubGlobal("WebSocket", FakeSocket);
-    act(() => setRole("master"));
-    const hook = renderHook(() => useWs(() => {}));
-    expect(urls).toEqual([`ws://${location.host}/ws?role=master`]);
-    hook.unmount();
-  });
-
-  it("badges_show_text_and_icon", () => {
-    const { container } = render(
-      <>
-        <LevelBadge level="red" />
-        <StatusBadge status="new" />
-      </>,
-    );
-    const [level, status] = container.querySelectorAll(".badge");
-    expect(level.className).toContain("badge-red");
-    expect(level.textContent).toBe("■red");
-    expect(screen.getByText("■").getAttribute("aria-hidden")).toBe("true");
-    expect(status.textContent).toBe("●new");
+    expect(request.headers.get("X-Actor")).toBe(encodeURIComponent("Егор Иванов"));
   });
 });

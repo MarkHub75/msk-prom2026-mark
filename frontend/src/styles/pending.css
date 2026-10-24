@@ -1,0 +1,11 @@
+/* PendingNotice (components/ui.tsx): a 501 not_implemented is a function still to come, not a failure.
+   Grey panel, no red, no accent stripe; the same density as .error-notice so screens keep their layout. */
+.ds-pending { display: flex; align-items: flex-start; gap: var(--s3); padding: var(--s4); border: 1px dashed var(--ds-line-strong); border-radius: var(--r2); background: var(--ds-bg-1); color: var(--ds-text); }
+.ds-pending-icon { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: var(--r3); background: var(--ds-bg-3); color: var(--ds-text-2); }
+.ds-pending > div { flex: 1; min-width: 0; }
+.ds-pending h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--ds-text); }
+.ds-pending p { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--ds-text-2); }
+.ds-pending.is-compact { gap: var(--s2); padding: var(--s2) var(--s3); margin-top: var(--s2); }
+.ds-pending.is-compact .ds-pending-icon { width: 24px; height: 24px; }
+.ds-pending.is-compact h3 { font-size: 13px; }
+.ds-pending.is-compact p { font-size: 12px; }

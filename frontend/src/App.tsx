@@ -1,7 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AppShell } from "./components/AppShell";
-import { StubNotice } from "./components/StubNotice";
-import { NAV, menuFor } from "./nav";
+import { menuFor } from "./nav";
+import { OperatorPage } from "./features/Operator";
+import { SectorPage } from "./features/Sector";
+import { CameraPage } from "./features/Camera";
+import { IncidentPage } from "./features/Incident";
+import { MasterPage, ShiftPage } from "./features/Master";
+import { MobileCameraRoute, MobileEventRoute, MobileSectorRoute, OperatorShiftPage, PhoneAlarms, PhoneCameras } from "./features/OperatorPhone";
+import { JournalPage } from "./features/Journal";
+import { ReportPage } from "./features/Report";
+import { StatsPage } from "./features/Stats";
+import { AdminCamerasPage } from "./features/AdminCameras";
+import { CameraSetupPage } from "./features/CameraSetup";
+import { RulesPage } from "./features/Rules";
+import { SystemPage } from "./features/System";
+import { DemoConsolePage } from "./features/DemoConsole";
+import { CalculatorPage } from "./features/Calculator";
+import { DatasetPage } from "./features/Dataset";
+import { PeoplePage } from "./features/People";
 import { useRole } from "./roles";
 
 export function App() {
@@ -9,13 +25,35 @@ export function App() {
   return (
     <AppShell>
       <Routes>
-        {NAV.map((item) => (
-          <Route
-            key={item.path}
-            path={item.path}
-            element={item.screen ? <item.screen /> : <StubNotice slice={item.slice} title={item.title} />}
-          />
-        ))}
+        <Route path="/operator" element={<OperatorPage />} />
+        <Route path="/operator/sectors/:sectorId" element={<SectorPage />} />
+        <Route path="/operator/cameras" element={<PhoneCameras />} />
+        <Route path="/operator/cameras/:cameraId" element={<CameraPage />} />
+        <Route path="/operator/shift" element={<OperatorShiftPage />} />
+        <Route path="/events/:eventId" element={<IncidentPage />} />
+        {/* start_url of the installed app (manifest): the start screen of the saved role */}
+        <Route path="/m" element={<Navigate to={role === "operator" ? "/m/operator" : menuFor(role)[0]?.path ?? "/m/operator"} replace />} />
+        <Route path="/m/operator" element={<PhoneAlarms />} />
+        <Route path="/m/operator/events/:eventId" element={<MobileEventRoute />} />
+        <Route path="/m/operator/cameras" element={<PhoneCameras />} />
+        <Route path="/m/operator/sectors/:sectorId" element={<MobileSectorRoute />} />
+        <Route path="/m/operator/cameras/:cameraId" element={<MobileCameraRoute />} />
+        <Route path="/m/operator/shift" element={<OperatorShiftPage />} />
+        <Route path="/master" element={<MasterPage />} />
+        <Route path="/master/events/:eventId" element={<IncidentPage master />} />
+        <Route path="/master/shift" element={<ShiftPage />} />
+        <Route path="/ohs/journal" element={<JournalPage />} />
+        <Route path="/ohs/report" element={<ReportPage />} />
+        <Route path="/ohs/rules" element={<RulesPage />} />
+        <Route path="/ohs/stats" element={<StatsPage />} />
+        <Route path="/management" element={<StatsPage management />} />
+        <Route path="/ohs/people" element={<PeoplePage />} />
+        <Route path="/ohs/dataset" element={<DatasetPage />} />
+        <Route path="/calculator" element={<CalculatorPage />} />
+        <Route path="/admin/cameras" element={<AdminCamerasPage />} />
+        <Route path="/admin/cameras/:cameraId" element={<CameraSetupPage />} />
+        <Route path="/admin/system" element={<SystemPage />} />
+        <Route path="/admin/demo" element={<DemoConsolePage />} />
         <Route path="*" element={<Navigate to={menuFor(role)[0]?.path ?? "/operator"} replace />} />
       </Routes>
     </AppShell>
