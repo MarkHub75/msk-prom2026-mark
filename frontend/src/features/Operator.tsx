@@ -142,8 +142,10 @@ export function OperatorPage() {
   const critical = active.find(event => event.level === "red" && event.operator_verdict === "none");
   const sectors = dashboard.data?.sectors ?? [];
   // Backend priority (tech.md 8.8): 3 red and 2 yellow still waiting for the operator, 1 other open (already handled, with the master).
-  const waiting = active.filter(event => event.priority >= 2);
-  const inWork = active.filter(event => event.priority < 2);
+  // A red event the system sent to the master after 45 s without the operator still needs his verdict (tech.md 8.6).
+  const needsVerdict = (event: EventSummary) => event.priority >= 2 || (event.escalated_by_timeout && event.operator_verdict === "none");
+  const waiting = active.filter(needsVerdict);
+  const inWork = active.filter(event => !needsVerdict(event));
   const queue = waiting.filter(event => filter === "all" || event.level === filter);
   const focusSector = sectors.find(s => s.sector_id === pickedSector) ?? sectors.find(s => s.state === "red") ?? sectors.find(s => s.state === "yellow") ?? sectors[0];
   const selectedEvent = feedAll.find(e => e.id === pickedEvent) ?? queue[0];

@@ -874,3 +874,9 @@ input[type=date] { color-scheme: dark; }
 
 /* Camera setup (zones, calibration): the workspace fits the screen under the setup head and tabs */
 .ds-app .geo-workspace { --geo-offset: 236px; height: max(400px, calc(100vh - var(--geo-offset))); }
+
+/* Master card on a desktop: actions sit under the card, in its column (the fixed bar is for phones). */
+@media (min-width: 761px) {
+  .ds-app .ms-actions { position: static !important; max-width: none !important; margin: 16px 0 0 !important; padding: 0 !important; background: transparent !important; border: 0 !important; }
+  .ds-app .ms-detail { padding-bottom: 24px !important; }
+}
