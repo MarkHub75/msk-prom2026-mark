@@ -203,7 +203,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", extra="ignore")
 
     # From .env or the environment: switches and secrets, all with defaults.
-    inference_backend: BackendName = "linq"
+    inference_backend: BackendName = Field(default="linq", validation_alias="INFERENCE_BACKEND")
     fake: bool = Field(default=False, validation_alias="SAFEWATCH_FAKE")
     linq_jupyter_url: str = ""
     linq_jupyter_user: str = ""

@@ -217,6 +217,10 @@ class LinqBackend:  # InferenceBackend
                 try:
                     info = json.loads(lines[0])
                 except ValueError:
+                    # The worker rewrites the file in place: a running one may be caught halfway.
+                    if state != "STOPPED":
+                        time.sleep(linq.poll_interval_s)
+                        continue
                     raise InferenceError("bad_output", f".progress: {lines[0][:100]}") from None
             if info.get("finished"):
                 progress(1.0)

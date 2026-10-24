@@ -6,6 +6,8 @@ import cv2
 from pydantic import BaseModel
 
 BROWSER_CODECS = ("avc1", "h264", "vp09", "av01")
+# OpenCV reports FFmpeg codec names for some streams; the file itself is tagged otherwise.
+CODEC_ALIASES = {"fmp4": "mp4v"}
 
 
 class VideoProbe(BaseModel):
@@ -33,6 +35,7 @@ def probe_video(path: Path) -> VideoProbe | None:
             return None
         fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
         codec = "".join(chr((fourcc >> (8 * i)) & 0xFF) for i in range(4)).strip("\x00 ").lower()
+        codec = CODEC_ALIASES.get(codec, codec)
         return VideoProbe(
             width=int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
             height=int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),

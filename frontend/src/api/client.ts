@@ -39,3 +39,26 @@ export function apiError(e: unknown): { code: string; message: string } {
   }
   return { code: "network", message: "Сервер не отвечает" };
 }
+
+// Multipart upload with progress: fetch has no upload progress, XMLHttpRequest does.
+export function uploadVideo(
+  cameraId: number,
+  file: File,
+  onProgress: (share: number) => void,
+): Promise<{ data?: components["schemas"]["UploadResult"]; error?: ApiError }> {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    const base = import.meta.env.VITE_API_BASE || location.origin;
+    xhr.open("POST", `${base}/api/cameras/${cameraId}/videos`);
+    xhr.setRequestHeader("X-Role", getRole());
+    xhr.upload.onprogress = (e) => e.lengthComputable && onProgress(e.loaded / e.total);
+    xhr.onload = () => {
+      const body: unknown = JSON.parse(xhr.responseText || "null");
+      resolve(xhr.status < 300 ? { data: body as never } : { error: body as ApiError });
+    };
+    xhr.onerror = () => resolve({ error: { code: "network", message: "Сервер не отвечает" } as ApiError });
+    const form = new FormData();
+    form.append("file", file);
+    xhr.send(form);
+  });
+}

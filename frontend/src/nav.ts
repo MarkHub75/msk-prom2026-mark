@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { Role } from "./roles";
+import { CameraSetup } from "./screens/admin/CameraSetup";
 import { CamerasScreen } from "./screens/admin/CamerasScreen";
 
 export interface NavItem {
@@ -25,7 +26,7 @@ export const NAV: NavItem[] = [
   { path: "/ohs/stats", title: "Статистика", roles: ["ohs"], slice: 13, menu: true },
   { path: "/management", title: "Тренды", roles: ["management"], slice: 13, menu: true },
   { path: "/admin/cameras", title: "Камеры", roles: ["admin"], slice: 1, menu: true, screen: CamerasScreen },
-  { path: "/admin/cameras/:cameraId", title: "Настройка камеры", roles: ["admin", "ohs"], slice: 2, menu: false },
+  { path: "/admin/cameras/:cameraId", title: "Настройка камеры", roles: ["admin", "ohs"], slice: 2, menu: false, screen: CameraSetup },
   { path: "/admin/system", title: "Система", roles: ["admin"], slice: 3, menu: true },
 ];
 
