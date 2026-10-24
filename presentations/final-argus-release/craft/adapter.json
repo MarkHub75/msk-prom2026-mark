@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "root": "..",
   "story": "story.json",
-  "fixture": "argus-final-release-13",
+  "fixture": "argus-final-release-15",
   "runtime": "dom",
   "baseUrl": "http://127.0.0.1:8744/",
   "browserPluginReason": "No browser connector; compatible installed Playwright1.64.1/Chromium1248. Raster text outside DOM coverage; preserve findings and separate typography/visual evidence.",
@@ -24,7 +24,9 @@
     "slides/slide-10.png",
     "slides/slide-11.png",
     "slides/slide-12.png",
-    "slides/slide-13.png"
+    "slides/slide-13.png",
+    "slides/slide-14.png",
+    "slides/slide-15.png"
   ],
   "probe": {
     "stage": "#stage",
@@ -46,7 +48,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -65,7 +67,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -84,7 +86,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -103,7 +105,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -122,7 +124,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -141,7 +143,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -160,7 +162,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -179,7 +181,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -191,14 +193,14 @@
       "probe": {
         "assertion": {
           "selector": "#slide",
-          "text": "Кадр, обработанный на LinQ TPU"
+          "text": "Как Argus экономит вычисления"
         },
         "groups": [
           {
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -210,14 +212,14 @@
       "probe": {
         "assertion": {
           "selector": "#slide",
-          "text": "Тревога не должна потеряться."
+          "text": "Модели исполняются на LinQ TPU"
         },
         "groups": [
           {
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -229,14 +231,14 @@
       "probe": {
         "assertion": {
           "selector": "#slide",
-          "text": "Начинаем с участка. Масштабируем по фактам."
+          "text": "Тревога не должна потеряться."
         },
         "groups": [
           {
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -248,14 +250,14 @@
       "probe": {
         "assertion": {
           "selector": "#slide",
-          "text": "Цикл реакции собран. Качество проверяем."
+          "text": "Начинаем с участка. Масштабируем по фактам."
         },
         "groups": [
           {
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }
@@ -267,6 +269,44 @@
       "probe": {
         "assertion": {
           "selector": "#slide",
+          "text": "Экономика"
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
+          }
+        ]
+      }
+    },
+    {
+      "id": "14",
+      "scene": "14",
+      "url": "craft/capture.html?slide=14",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
+          "text": "Цикл реакции собран. Качество проверяем."
+        },
+        "groups": [
+          {
+            "id": "evidence",
+            "selector": "#slide",
+            "essential": true,
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
+          }
+        ]
+      }
+    },
+    {
+      "id": "15",
+      "scene": "15",
+      "url": "craft/capture.html?slide=15",
+      "probe": {
+        "assertion": {
+          "selector": "#slide",
           "text": "Увидеть — мало. Нужно довести до мер."
         },
         "groups": [
@@ -274,7 +314,7 @@
             "id": "evidence",
             "selector": "#slide",
             "essential": true,
-            "safeException": "Full-bleed PNG; slide09 retains the user image/captions at whole width. Separate typography/provenance/720p evidence supplied."
+            "safeException": "Full-slide PNG; typography checked in composition.json; real LinQ proof is slide 10."
           }
         ]
       }

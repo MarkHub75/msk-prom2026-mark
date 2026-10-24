@@ -24,14 +24,14 @@ def main():
     args = parser.parse_args()
     raw_notes = json.loads((ROOT / 'speaker-notes.json').read_text())
     scenes = raw_notes if isinstance(raw_notes, list) else raw_notes['slides']
-    assert len(scenes) == 13
-    deck = ROOT / 'exports/ARGUS_Final.pptx'
-    pp_file = ROOT / 'evidence/powerpoint-13/report.json'
+    assert len(scenes) == 15
+    deck = ROOT / 'exports/ARGUS_Final_15.pptx'
+    pp_file = ROOT / 'evidence/powerpoint-15/report.json'
     pp = json.loads(pp_file.read_text(encoding='utf-8-sig')) if pp_file.exists() else None
     if args.require_powerpoint:
         assert pp is not None, 'Native PowerPoint report required'
     if pp is not None:
-        assert pp['status'] == 'PASS' and pp['slideCount'] == 13
+        assert pp['status'] == 'PASS' and pp['slideCount'] == 15
     checks = []
     with zipfile.ZipFile(deck) as archive:
         assert archive.testzip() is None
@@ -39,7 +39,7 @@ def main():
         size = presentation.find('p:sldSz', NS)
         cx, cy = int(size.attrib['cx']), int(size.attrib['cy'])
         assert abs(cx / cy - 16 / 9) < 1e-6
-        assert len(presentation.findall('p:sldIdLst/p:sldId', NS)) == 13
+        assert len(presentation.findall('p:sldIdLst/p:sldId', NS)) == 15
         for index, scene in enumerate(scenes, 1):
             source = ROOT / f'slides/slide-{index:02d}.png'
             expected = Image.open(source).convert('RGB')
@@ -65,7 +65,7 @@ def main():
                     'additionalNotesMatchInXML': True,
                     'sourceSha256': hashlib.sha256(source.read_bytes()).hexdigest()}
             if pp is not None:
-                native = Image.open(ROOT / f'evidence/powerpoint-13/slide-{index:02d}.png').convert('RGB')
+                native = Image.open(ROOT / f'evidence/powerpoint-15/slide-{index:02d}.png').convert('RGB')
                 assert native.size == expected.size
                 diff = ImageChops.difference(expected, native)
                 mae = sum(ImageStat.Stat(diff).mean) / 3
@@ -75,17 +75,17 @@ def main():
                 assert scene.get('notes', '') in pp['slides'][index - 1]['notes']
                 item.update(powerPointRasterMeanAbsoluteChannelError=mae, notesMatchInPowerPoint=True)
             checks.append(item)
-    report = {'status': 'PASS', 'slides': 13, 'checks': checks,
+    report = {'status': 'PASS', 'slides': 15, 'checks': checks,
               'powerPointOpenRenderExport': 'PASS' if pp else 'NOT_RUN',
               'powerPointVersion': pp.get('version') if pp else None,
               'interactiveRepairDialogs': 'UNVERIFIED: unattended COM is not a manual dialog observation.',
               'editableInternalSlideObjects': False, 'notesEmbedded': True,
               'pptx': {'path': str(deck.relative_to(ROOT)), 'bytes': deck.stat().st_size,
                        'sha256': hashlib.sha256(deck.read_bytes()).hexdigest()}}
-    out = ROOT / 'evidence/exports-13'
+    out = ROOT / 'evidence/exports-15'
     out.mkdir(parents=True, exist_ok=True)
     (out / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps({'status': 'PASS', 'slides': 13, 'powerPointOpenRenderExport': report['powerPointOpenRenderExport']}))
+    print(json.dumps({'status': 'PASS', 'slides': 15, 'powerPointOpenRenderExport': report['powerPointOpenRenderExport']}))
 
 
 if __name__ == '__main__':

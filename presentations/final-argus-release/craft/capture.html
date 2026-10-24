@@ -13,7 +13,7 @@ html,body{margin:0;width:100%;height:100%;background:#111214;overflow:hidden}
 <script>
 // Measurement harness only: not a presentation site or speaker application.
 const n=Number(new URL(location.href).searchParams.get('slide'));
-if(!Number.isInteger(n)||n<1||n>13)throw new Error('Expected slide=1…13');
+if(!Number.isInteger(n)||n<1||n>15)throw new Error('Expected slide=1…15');
 const im=document.querySelector('#slide');
 im.src='../slides/slide-'+String(n).padStart(2,'0')+'.png';
 im.decode().then(()=>{document.querySelector('#stage').dataset.craftSettled='true';});

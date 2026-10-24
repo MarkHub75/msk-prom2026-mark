@@ -25,14 +25,14 @@ const imported = await import(pathToFileURL(path.resolve(modulePath)).href);
 const PptxGenJS = imported.default || imported;
 const input = JSON.parse(await fs.readFile(path.join(root, 'speaker-notes.json'), 'utf8'));
 const scenes = Array.isArray(input) ? input : input.slides;
-if (!Array.isArray(scenes) || scenes.length !== 13) throw new Error('speaker-notes.json must contain exactly thirteen slides.');
+if (!Array.isArray(scenes) || scenes.length !== 15) throw new Error('speaker-notes.json must contain exactly fifteen slides.');
 const pptx = new PptxGenJS();
 pptx.defineLayout({name: 'SAFEWATCH_16_9', width: 13.3333333333, height: 7.5});
 pptx.layout = 'SAFEWATCH_16_9';
 pptx.author = 'Команда продукта';
 pptx.company = 'Команда продукта';
 pptx.title = 'АРГУС — финальная презентация';
-pptx.subject = 'Тринадцать растровых слайдов с заметками докладчика';
+pptx.subject = 'Пятнадцать растровых слайдов с заметками докладчика';
 pptx.lang = 'ru-RU';
 for (let index = 0; index < scenes.length; index++) {
   const scene = scenes[index];
@@ -45,7 +45,7 @@ for (let index = 0; index < scenes.length; index++) {
   const slide = pptx.addSlide();
   slide.addImage({path: imagePath, x: 0, y: 0, w: 13.3333333333, h: 7.5, altText: scene.title});
   const notes = [
-    `СЛАЙД ${index + 1}/13 · ${scene.title}`,
+    `СЛАЙД ${index + 1}/15 · ${scene.title}`,
     scene.duration ? `БЮДЖЕТ ВЫСТУПЛЕНИЯ: ${scene.duration} с (план, не измерение).` : '',
     '', 'ТЕКСТ', scene.speech,
     scene.notes ? '\nПРИМЕЧАНИЯ\n' + scene.notes : '',
@@ -55,6 +55,6 @@ for (let index = 0; index < scenes.length; index++) {
   slide.addNotes(notes);
 }
 await fs.mkdir(path.join(root, 'exports'), {recursive: true});
-const output = path.join(root, 'exports', 'ARGUS_Final.pptx');
+const output = path.join(root, 'exports', 'ARGUS_Final_15.pptx');
 await pptx.writeFile({fileName: output});
-console.log(JSON.stringify({status: 'WRITTEN', slides: 13, output, modulePath}));
+console.log(JSON.stringify({status: 'WRITTEN', slides: 15, output, modulePath}));

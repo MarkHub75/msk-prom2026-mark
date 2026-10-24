@@ -5,9 +5,10 @@ from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont,ImageOps,ImageFilter
 from fontTools.ttLib import TTFont
 import json,hashlib,math
-ROOT=Path(__file__).resolve().parents[1];W,H=1920,1080;N=13
+ROOT=Path(__file__).resolve().parents[1];W,H=1920,1080;N=15
 BG='#161616';PANEL='#202226';RAISED='#26292f';LINE='#41454d';WHITE='#f3f5f7';MUTED='#bcc4cf';DIM='#949eac'
 RED='#ff5d65';AMBER='#ffb65c';CYAN='#55d6f5';VIOLET='#a38bff';GREEN='#64d8b0'
+BLUE='#8ba9cc'
 BRAND='АРГУС';TAG='под надзором'
 F={k:ROOT/'assets/fonts'/f'SourceSans3-{v}.ttf' for k,v in [('regular','Regular'),('semi','Semibold'),('bold','Bold')]}
 CMAP={k:TTFont(p).getBestCmap() for k,p in F.items()};inv=[];current=0
@@ -187,7 +188,7 @@ for y,name,head,body,c in [(317,'15-admin-calibration.png','Калибровка
 save(im)
 
 # 08 — the proof slide: one flow, one large measured result, scoped caveats.
-im=start(8,'Технологии',photo='welding.png');shade(im,left=185,right=165)
+im=start(8,'Архитектура',photo='welding.png');shade(im,left=185,right=165)
 heading(im,'Нейросеть видит. Правило решает.')
 nodes=[(88,255,'Камера','Видео участка'),(389,370,'Нейросети','LinQ TPU или CPU'),(805,370,'Трекинг и правила','Движение и контекст'),(1221,255,'Эпизоды','Риск во времени'),(1522,303,'Роли','Оператор → мастер')]
 for x,w,head,body in nodes:
@@ -206,8 +207,39 @@ txt(im,88,914,'21 кадр/с — обработка записи, не заде
 txt(im,88,956,'Recall/IoU здесь — сохранность к FP32, не точность на заводе. Фон — синтетическая иллюстрация.',26,MUTED)
 save(im)
 
-# 09 — user-supplied genuine LinQ proof, no added captions or cropped labels.
-current=9;inv.append(dict(slide=9,text=[],assets=[]))
+# 09 — progressively narrower work, using only the operating settings supplied by the user.
+im=start(9,'Ресурсы · событийная обработка')
+heading(im,'Как Argus экономит вычисления',size=72)
+txt(im,92,230,'Частота по событию · каскад моделей · трекинг на CPU',32,MUTED)
+steps=[
+    (88,300,980,112,'01','Все камеры, 5 проверок/с','Детектор движения на CPU, <1 мс на кадр'),
+    (118,438,920,112,'02','Есть движение → LinQ','Детектор людей до 10 кадров/с'),
+    (148,576,860,112,'03','Есть человек → каскад','Поза и СИЗ только на вырезке человека'),
+    (178,714,800,112,'04','Между кадрами детектора','Трекер на CPU'),
+]
+for x,y,w,h,num,head,body in steps:
+    rect(im,(x,y,x+w,y+h),PANEL,LINE,r=8)
+    line(im,[(x,y+10),(x,y+h-10)],BLUE,4)
+    txt(im,x+21,y+22,num,26,BLUE,weight='semi',maxw=50)
+    txt(im,x+82,y+18,head,35,weight='semi',maxw=w-102)
+    txt(im,x+82,y+68,body,29,MUTED,maxw=w-102)
+    if num!='04':arrow(im,(578,y+h+5),(578,y+h+22),BLUE,2)
+line(im,[(1110,300),(1110,902)],LINE)
+for y,num,body in [
+    (313,'01','Пустые кадры\nдо нейросети не доходят'),
+    (493,'02','Полная частота и все модели —\nтолько в момент события'),
+    (673,'03','Ускорители считаются по пиковой\nодновременной активности,\nа не по числу камер'),
+]:
+    txt(im,1150,y,num,26,BLUE,weight='semi',maxw=55)
+    txt(im,1213,y,body,39,weight='semi',maxw=625,leading=1.18)
+txt(im,88,851,'Пусто → контрольный кадр раз в 3–5 с.',29,BLUE,maxw=1000)
+txt(im,88,896,'Вне смены — дежурный режим: только движение, тревога охране.',27,MUTED,maxw=1000)
+line(im,[(88,950),(1832,950)],BLUE)
+txt(im,88,973,'Точность там, где что-то происходит. Вычисления не тратим там, где ничего не происходит.',32,weight='semi')
+save(im)
+
+# 10 — user-supplied genuine LinQ proof, no added captions or cropped labels.
+current=10;inv.append(dict(slide=10,text=[],assets=[]))
 im=Image.new('RGB',(W,H),'#0e1013')
 proof_path=ROOT/'assets/linq/ARGUS_linq_tpu_frame0.png'
 proof=Image.open(proof_path).convert('RGB');proof=ImageOps.contain(proof,(W,H),Image.Resampling.LANCZOS)
@@ -219,7 +251,7 @@ save(im)
 report=json.loads((ROOT/'evidence/frontend-tests.json').read_text())
 assert report['success'] and report['numFailedTests']==0,'Frontend proof is incomplete; do not claim passing tests.'
 count=report['numPassedTests']
-im=start(10,'Надёжность продукта',demo=True)
+im=start(11,'Надёжность продукта',demo=True)
 heading(im,'Тревога не должна потеряться.')
 for x,number,label,c in [(88,'352','теста backend¹',CYAN),(690,str(count),'тестов frontend',VIOLET),(1292,'45 с','автопередача красного²',AMBER)]:
     txt(im,x,288,number,122,c,weight='semi',maxw=530);txt(im,x+5,444,label,34,MUTED,maxw=530)
@@ -234,7 +266,7 @@ txt(im,88,927,'¹ Отчёт main.  ² Включено в конфигурац�
 save(im)
 
 # 10 — an explicit proposed deployment, rooted in a photographed factory frame.
-im=start(11,'Для бизнеса · план и гипотезы',photo='conveyor.png');shade(im,left=165,right=130)
+im=start(12,'Для бизнеса · план и гипотезы',photo='conveyor.png');shade(im,left=165,right=130)
 heading(im,'Начинаем с участка. Масштабируем по фактам.')
 for n,(head,body,c) in enumerate([('Пилот','Один участок\nи согласованные сценарии',CYAN),('Измерения','Качество, ложные тревоги\nи время реакции',VIOLET),('Масштаб','Решение по результатам\nи рабочему процессу',AMBER)]):
     x=88+n*594;rect(im,(x,363,x+536,664),'#20262b',LINE,r=9)
@@ -248,7 +280,34 @@ txt(im,88,976,'Синтетическая иллюстрация · цены и 
 save(im)
 
 # 11 — completed product proof and the honest next acceptance step.
-im=start(12,'Что готово и что дальше',demo=True)
+# 13 — external context and pilot-based economics; no promised payback period.
+im=start(13,'Для бизнеса · источники и границы эффекта')
+heading(im,'Экономика')
+txt(im,92,230,'Ценность — в снижении рисков и управляемой реакции.',33,MUTED)
+for x,w in [(88,532),(650,596),(1276,556)]:rect(im,(x,307,x+w,678),PANEL,LINE,r=8)
+txt(im,113,335,'1,17',94,BLUE,weight='semi',maxw=470)
+txt(im,116,452,'на 1000 работников в год',32,weight='semi',maxw=480)
+txt(im,116,509,'Пострадавшие на производстве\nОбрабатывающая промышленность',29,MUTED,maxw=480)
+txt(im,116,607,'Росстат · 2025',28,BLUE,weight='semi',maxw=480)
+txt(im,116,644,'Форма 7-травматизм · опубликовано в 2026',23,DIM,maxw=480)
+txt(im,678,348,'до 150 тыс. ₽',64,BLUE,weight='semi',maxw=540)
+txt(im,678,441,'Штраф юрлицу за необеспечение',30,weight='semi',maxw=540)
+txt(im,678,481,'СИЗ 2-го класса риска',30,weight='semi',maxw=540)
+txt(im,678,535,'При повторном — приостановка\nдеятельности до 90 суток',30,MUTED,maxw=540)
+txt(im,678,627,'КоАП 5.27.1, ч. 4, 5 · ред. 2026',27,BLUE,weight='semi',maxw=540)
+txt(im,1304,335,'−69%',94,BLUE,weight='semi',maxw=500)
+txt(im,1304,452,'зарегистрированных нарушений',31,weight='semi',maxw=500)
+txt(im,1304,509,'Кейс АлЭС, Казахстан\nДанные заказчика, не травматизм',29,MUTED,maxw=500)
+txt(im,1304,607,'Самрук-Энерго · 2026',28,BLUE,weight='semi',maxw=500)
+txt(im,1304,644,'Внешний кейс, не результат пилота Argus',23,DIM,maxw=500)
+txt(im,88,720,'Эффект: снижение рисков и повторных нарушений,',40,weight='semi')
+txt(im,88,774,'ускорение реакции и меньше ручного контроля.',40,weight='semi')
+line(im,[(88,857),(1832,857)],BLUE)
+txt(im,88,892,'Точная окупаемость — после пилота.',43,BLUE,weight='semi')
+txt(im,88,957,'Калькулятор в продукте показывает точку безубыточности при заданных допущениях.',33,MUTED)
+save(im)
+
+im=start(14,'Что готово и что дальше',demo=True)
 heading(im,'Цикл реакции собран. Качество проверяем.')
 monitor(im,'08-journal-preview.png',88,327,920,RED)
 phone(im,'07-master-resolved.png',809,585,175,CYAN)
@@ -259,7 +318,7 @@ txt(im,1110,936,'Промышленный пилот ещё впереди.',29,
 save(im)
 
 # 12 — brand lockup and actual team names, never invented portraits or roles.
-im=start(13,'Команда',photo='toolshop.png');shade(im,left=225,right=25)
+im=start(15,'Команда',photo='toolshop.png');shade(im,left=225,right=25)
 lockup(im,88,140,184)
 txt(im,94,457,'Увидеть — мало.\nНужно довести до мер.',62,weight='semi',maxw=1100)
 line(im,[(94,666),(1040,666)],CYAN,3)
@@ -271,7 +330,7 @@ save(im)
 
 assert len(inv)==N
 (ROOT/'evidence/composition.json').write_text(json.dumps(dict(canvas=[W,H],brand_constant=BRAND,brand_lockups=2,brand_policy='One reusable lockup; cover and ending as requested. Native logos inside authentic screenshots are preserved.',slides=inv),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-sheet=Image.new('RGB',(1968,3964),BG)
+sheet=Image.new('RGB',(1968,16+math.ceil(N/2)*564),BG)
 for n in range(1,N+1):sheet.paste(Image.open(ROOT/f'slides/slide-{n:02}.png').resize((960,540),Image.Resampling.LANCZOS),(16+((n-1)%2)*976,16+((n-1)//2)*564))
-sheet.save(ROOT/'preview/ALL_13_SLIDES.png',optimize=True)
-print('13 image slides composed; user-provided LinQ proof intact; exact glyphs, text bounds and text overlaps checked.')
+sheet.save(ROOT/f'preview/ALL_{N}_SLIDES.png',optimize=True)
+print(f'{N} image slides composed; exact glyphs, text bounds and text overlaps checked.')

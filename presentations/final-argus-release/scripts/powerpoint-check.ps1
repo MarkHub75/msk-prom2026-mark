@@ -1,7 +1,7 @@
 param([string]$PresentationRoot = (Split-Path $PSScriptRoot -Parent))
 # Actual installed PowerPoint, following the OS image-slide COM precedent.
 $ErrorActionPreference = 'Stop'
-$out = Join-Path $PresentationRoot 'evidence\powerpoint-13'
+$out = Join-Path $PresentationRoot 'evidence\powerpoint-15'
 New-Item -ItemType Directory -Force $out | Out-Null
 $app = New-Object -ComObject PowerPoint.Application
 $existingCount = $app.Presentations.Count
@@ -9,12 +9,12 @@ $report = [ordered]@{status='RUNNING'; application='Microsoft PowerPoint desktop
 $deck = $null
 $verificationCopy = Join-Path $out ('verify-' + [guid]::NewGuid().ToString() + '.pptx')
 try {
-  Copy-Item (Join-Path $PresentationRoot 'exports\ARGUS_Final.pptx') $verificationCopy
+  Copy-Item (Join-Path $PresentationRoot 'exports\ARGUS_Final_15.pptx') $verificationCopy
   $deck = $app.Presentations.Open($verificationCopy,-1,0,0)
   $report.slideCount = $deck.Slides.Count
   $report.widthPoints = $deck.PageSetup.SlideWidth
   $report.heightPoints = $deck.PageSetup.SlideHeight
-  if ($deck.Slides.Count -ne 13) { throw 'Expected thirteen slides' }
+  if ($deck.Slides.Count -ne 15) { throw 'Expected fifteen slides' }
   foreach ($slide in $deck.Slides) {
     $id = '{0:D2}' -f $slide.SlideIndex
     $slide.Export((Join-Path $out ('slide-'+$id+'.png')),'PNG',1920,1080)

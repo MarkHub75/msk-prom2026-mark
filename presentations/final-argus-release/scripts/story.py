@@ -145,3 +145,7 @@ for name in ['exports.mjs','powerpoint-check.ps1','verify-exports.py','pdf-previ
 h=(OLD/'craft/capture.html').read_text().replace('n>8','n>13').replace('1…8','1…13')
 (ROOT/'craft/capture.html').write_text(h,encoding='utf-8')
 print('13-scene story,user-exact speech on09,13Q&A,300s budget and native image-slide workflow prepared.')
+
+# Keep user-requested additions when rebuilding the original narrative/exporters.
+import runpy
+runpy.run_path(str(ROOT/'scripts/add-economics-compute.py'), run_name='__main__')
