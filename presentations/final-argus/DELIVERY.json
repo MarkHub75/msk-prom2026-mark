@@ -1,0 +1,122 @@
+{
+  "status": "SKELETON_READY",
+  "checked_at": "2026-10-24T12:46:47.120692+00:00",
+  "branch": "codex/argus-final-presentation",
+  "slides": 8,
+  "ui_placeholders": 7,
+  "visible_product_names": 1,
+  "human_acceptance": "PENDING",
+  "screenshots": "Waiting for actual user-provided images; no invented UI",
+  "heads": {
+    "main": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+    "front/final": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+    "matvey_cv": "8f879606dc7511ef7893d6be57f8f9efb12112e8"
+  },
+  "artifacts": [
+    {
+      "path": "exports/ARGUS_Final_Skeleton.pptx",
+      "bytes": 2478359,
+      "sha256": "0045f63e52b276ad7d022b5f57c97661a0bf4eef4de588c32bfd5b7adf799c13"
+    },
+    {
+      "path": "exports/ARGUS_Final_Skeleton.pdf",
+      "bytes": 3104602,
+      "sha256": "bb2dd8bb64ca8edc897961072389e03bd897644b2a0c38436d455633936f5c9f"
+    },
+    {
+      "path": "preview/8-slides.png",
+      "bytes": 1292974,
+      "sha256": "06fdaea9ab6a808ee4e94518d0e11d5903fce4e78c1c0ee08a968b062f361c5e"
+    },
+    {
+      "path": "SOURCES.md",
+      "bytes": 9386,
+      "sha256": "3a9c9b8b9290e252ee377acd05d39ed22e61a89b37e8946454ee3e4ebcdde53f"
+    },
+    {
+      "path": "SPEAKER_SCRIPT.md",
+      "bytes": 7048,
+      "sha256": "1b57b69f726afdaeca9ee9e19d14f07979589a154e945878ddd3b82a4763bfb9"
+    },
+    {
+      "path": "SCREENSHOT_SLOTS.md",
+      "bytes": 2430,
+      "sha256": "ccb0c19eaaadf7464b753808f8037b6ee63fb649116c6e449bfd6cb883fbef8a"
+    },
+    {
+      "path": "research/source-index.json",
+      "bytes": 5337,
+      "sha256": "6131d204e19e8f1c01fa93e139fd8f489f7fbaa4507f89cc18f6f148fa4b8281"
+    },
+    {
+      "path": "evidence/exports/report.json",
+      "bytes": 3930,
+      "sha256": "3dd6f254f4d525842ab441f7fdead0f63692e747a043f7ff24ca4ab8b3ff73b7"
+    },
+    {
+      "path": "evidence/pdf-report.json",
+      "bytes": 663,
+      "sha256": "e497f3380c50ee4d24a86c95bf244bfcff04dc697579053280138bcbb8b4490d"
+    },
+    {
+      "path": "evidence/craft-r2/report.json",
+      "bytes": 118117,
+      "sha256": "7fcf563e53dc2ccf851868f82f460779ba25050538e7e477303a9564ac77a73d"
+    },
+    {
+      "path": "evidence/browser/report.json",
+      "bytes": 17014,
+      "sha256": "61bce1ac69117d5f47af2de829db46213416e693c068a5ef3368408c5904a633"
+    },
+    {
+      "path": "review/manifest.json",
+      "bytes": 75390,
+      "sha256": "d6e2cd139d554f5adf95edec556725aa4947e34448a5edf265783b84dec779d3"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "bytes": 4022,
+      "sha256": "21bbb49176cbcf05cb8ce877c45e2b5fbaf460139d5c4e7c8c9749ec01395662"
+    },
+    {
+      "path": "slides/slide-01.png",
+      "bytes": 1746802,
+      "sha256": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227"
+    },
+    {
+      "path": "slides/slide-02.png",
+      "bytes": 79152,
+      "sha256": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff"
+    },
+    {
+      "path": "slides/slide-03.png",
+      "bytes": 76688,
+      "sha256": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492"
+    },
+    {
+      "path": "slides/slide-04.png",
+      "bytes": 76643,
+      "sha256": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb"
+    },
+    {
+      "path": "slides/slide-05.png",
+      "bytes": 103228,
+      "sha256": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf"
+    },
+    {
+      "path": "slides/slide-06.png",
+      "bytes": 104776,
+      "sha256": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c"
+    },
+    {
+      "path": "slides/slide-07.png",
+      "bytes": 97981,
+      "sha256": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e"
+    },
+    {
+      "path": "slides/slide-08.png",
+      "bytes": 96115,
+      "sha256": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+    }
+  ]
+}

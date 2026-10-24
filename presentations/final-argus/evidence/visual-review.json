@@ -1,0 +1,17 @@
+{
+  "reviewer": "Presentation author, current agent",
+  "kind": "Author visual QA; not independent or human acceptance",
+  "inspected": "All eight actual 1280×720 renders plus full contact sheet using view_image",
+  "status": "NO_VISIBLE_OVERLAPS_OR_CROPPING_FOUND",
+  "slides": [
+    {"id":"01","finding":"Name once; strong readable problem; industrial image explicitly labelled illustration."},
+    {"id":"02","finding":"Three primary roles and two additional roles fit; one explicit UI frame."},
+    {"id":"03","finding":"Four frame labels, stage captions and arrows clear; lower qualification separate."},
+    {"id":"04","finding":"Analytics frame and three explanatory groups separated; demo caveat readable."},
+    {"id":"05","finding":"Throughput/times visually distinct; own-model and integration qualifiers separated; caveats readable."},
+    {"id":"06","finding":"Causal snake diagram continuous; arrows clear; node text inside boundaries."},
+    {"id":"07","finding":"Three limitations and provenance frame fit; lower pilot qualifier clear."},
+    {"id":"08","finding":"Three-step plan and goal fit; no deadlines or target metrics promised."}
+  ],
+  "limits": ["Room projection not observed", "Raster text outside DOM critic", "UI screenshot slots intentionally empty", "Human acceptance remains pending"]
+}

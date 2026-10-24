@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "startedAt": "2026-10-24T12:38:44.913Z",
+  "adapterSha256": "6bc78ac1125d655b8ec4fd1af330c8e6eadceacd4c695c61dff71681027c24ec",
+  "storySha256": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+  "browser": "156.0.8078.4",
+  "browserPlugin": "No browser connector available in this session; use existing OS Playwright and installed Chromium. Raster text is outside DOM critic coverage; preserve findings and perform deterministic typography/visual QA.",
+  "sourceInventory": {
+    "scripts/compose.py": "5913661d999617104991077aa8e9102bbd476ba78d0ce1f7ceeab50fdb10cea3",
+    "speaker-notes.json": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+    "screenshot-slots.json": "810e3c98ad16fc6ab531fbc87830ac9363667bbbd2b7cf1be5be1d59bd65a12f",
+    "evidence/composition.json": "308b4401e4544755d2f41e589981413d49c51097d10eea6b9d161b539bd7a22e",
+    "craft/capture.html": "54cb205b9ee73bd5d036548298fffeb0773c7753f4425b8c89ac353442c760cb",
+    "craft/story.json": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+    "slides/slide-01.png": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227",
+    "slides/slide-02.png": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff",
+    "slides/slide-03.png": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492",
+    "slides/slide-04.png": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb",
+    "slides/slide-05.png": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf",
+    "slides/slide-06.png": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c",
+    "slides/slide-07.png": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e",
+    "slides/slide-08.png": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+  },
+  "observations": [],
+  "screenshots": [],
+  "runtimeErrors": [],
+  "status": "FAIL",
+  "failure": "browserContext.newPage: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /home/egor/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-I1wEac --remote-debugging-pipe --no-startup-window\n<launched> pid=128731\n[pid=128731] <gracefully close start>\n[pid=128731][err] [128731:128731:1024/153844.909176:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files\n    at capture (/mnt/d/templates/frontend-hackathon-os/production/presentation_factory/craft/v1/capture.mjs:26:143)\n    at async file:///mnt/d/templates/frontend-hackathon-os/production/presentation_factory/craft/v1/capture.mjs:55:224",
+  "finishedAt": "2026-10-24T12:38:45.026Z"
+}

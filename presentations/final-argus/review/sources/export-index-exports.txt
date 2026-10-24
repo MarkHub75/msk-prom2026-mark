@@ -1,0 +1,9 @@
+Final presentation skeleton exports. Human visual acceptance remains pending.
+
+ARGUS_Final_Skeleton.pdf
+bytes: 3104602
+SHA-256: bb2dd8bb64ca8edc897961072389e03bd897644b2a0c38436d455633936f5c9f
+
+ARGUS_Final_Skeleton.pptx
+bytes: 2478359
+SHA-256: 0045f63e52b276ad7d022b5f57c97661a0bf4eef4de588c32bfd5b7adf799c13

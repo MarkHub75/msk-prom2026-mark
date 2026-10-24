@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "pages": 8,
+  "checks": [
+    {
+      "slide": 1,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 2,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 3,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 4,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 5,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 6,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 7,
+      "rasterPixelIdentical": true
+    },
+    {
+      "slide": 8,
+      "rasterPixelIdentical": true
+    }
+  ],
+  "sha256": "bb2dd8bb64ca8edc897961072389e03bd897644b2a0c38436d455633936f5c9f"
+}

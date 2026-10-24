@@ -1,0 +1,3747 @@
+{
+  "version": "1.0.0",
+  "startedAt": "2026-10-24T12:40:31.820Z",
+  "adapterSha256": "6bc78ac1125d655b8ec4fd1af330c8e6eadceacd4c695c61dff71681027c24ec",
+  "storySha256": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+  "browser": "156.0.8078.4",
+  "browserPlugin": "No browser connector available in this session; use existing OS Playwright and installed Chromium. Raster text is outside DOM critic coverage; preserve findings and perform deterministic typography/visual QA.",
+  "sourceInventory": {
+    "scripts/compose.py": "5913661d999617104991077aa8e9102bbd476ba78d0ce1f7ceeab50fdb10cea3",
+    "speaker-notes.json": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+    "screenshot-slots.json": "810e3c98ad16fc6ab531fbc87830ac9363667bbbd2b7cf1be5be1d59bd65a12f",
+    "evidence/composition.json": "308b4401e4544755d2f41e589981413d49c51097d10eea6b9d161b539bd7a22e",
+    "craft/capture.html": "54cb205b9ee73bd5d036548298fffeb0773c7753f4425b8c89ac353442c760cb",
+    "craft/story.json": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+    "slides/slide-01.png": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227",
+    "slides/slide-02.png": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff",
+    "slides/slide-03.png": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492",
+    "slides/slide-04.png": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb",
+    "slides/slide-05.png": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf",
+    "slides/slide-06.png": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c",
+    "slides/slide-07.png": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e",
+    "slides/slide-08.png": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+  },
+  "observations": [
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Опасное событие должно стать действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "01-1080-normal.png",
+        "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "У события есть ответственный",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "02-1080-normal.png",
+        "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От сигнала до принятых мер",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "03-1080-normal.png",
+        "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Журнал становится картиной смены",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "04-1080-normal.png",
+        "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Baseline исполнялся на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "05-1080-normal.png",
+        "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Один конвейер. Разные рабочие места.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "06-1080-normal.png",
+        "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Граница готовности видна",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "07-1080-normal.png",
+        "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Следующий шаг — проверяемый результат",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "normal",
+        "path": "08-1080-normal.png",
+        "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Опасное событие должно стать действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "01-1080-reduced.png",
+        "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "У события есть ответственный",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "02-1080-reduced.png",
+        "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От сигнала до принятых мер",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "03-1080-reduced.png",
+        "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Журнал становится картиной смены",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "04-1080-reduced.png",
+        "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Baseline исполнялся на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "05-1080-reduced.png",
+        "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Один конвейер. Разные рабочие места.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "06-1080-reduced.png",
+        "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Граница готовности видна",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "07-1080-reduced.png",
+        "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "safe": {
+        "x": 96,
+        "y": 54,
+        "width": 1728,
+        "height": 972
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Следующий шаг — проверяемый результат",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-1080-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "motion": "reduced",
+        "path": "08-1080-reduced.png",
+        "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Опасное событие должно стать действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "01-720-normal.png",
+        "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "У события есть ответственный",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "02-720-normal.png",
+        "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От сигнала до принятых мер",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "03-720-normal.png",
+        "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Журнал становится картиной смены",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "04-720-normal.png",
+        "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Baseline исполнялся на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "05-720-normal.png",
+        "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Один конвейер. Разные рабочие места.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "06-720-normal.png",
+        "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Граница готовности видна",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "07-720-normal.png",
+        "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Следующий шаг — проверяемый результат",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-normal",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "normal",
+        "path": "08-720-normal.png",
+        "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "01",
+      "state": "01",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-01.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Опасное событие должно стать действием.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "01-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "01-720-reduced.png",
+        "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "02",
+      "state": "02",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-02.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "У события есть ответственный",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "02-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "02-720-reduced.png",
+        "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "03",
+      "state": "03",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-03.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "От сигнала до принятых мер",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "03-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "03-720-reduced.png",
+        "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "04",
+      "state": "04",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-04.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Журнал становится картиной смены",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "04-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "04-720-reduced.png",
+        "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "05",
+      "state": "05",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-05.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Baseline исполнялся на TPU",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "05-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "05-720-reduced.png",
+        "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "06",
+      "state": "06",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-06.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Один конвейер. Разные рабочие места.",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "06-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "06-720-reduced.png",
+        "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "07",
+      "state": "07",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-07.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Граница готовности видна",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "07-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "07-720-reduced.png",
+        "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    },
+    {
+      "scene": "08",
+      "state": "08",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "safe": {
+        "x": 64,
+        "y": 36,
+        "width": 1152,
+        "height": 648
+      },
+      "text": [],
+      "assets": [
+        {
+          "tag": "IMG",
+          "src": "http://127.0.0.1:8734/slides/slide-08.png",
+          "loaded": true
+        }
+      ],
+      "unsafe": [],
+      "overlaps": [],
+      "missingGroups": [],
+      "minimumTextPx": 24,
+      "assertion": {
+        "visible": false,
+        "text": "",
+        "expected": "Следующий шаг — проверяемый результат",
+        "matches": false
+      },
+      "groups": [
+        {
+          "id": "evidence",
+          "selector": "#slide",
+          "essential": true,
+          "safeException": "Intentional full-bleed raster. Composition inventory checks Cyrillic glyphs, ink bounds and pairwise text overlaps; visual 720p review supplied separately.",
+          "instance": 0,
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 720
+          }
+        }
+      ],
+      "fontsReady": true,
+      "coverage": {
+        "text": "DOM direct text; SVG/canvas excluded",
+        "paint": "Solid inherited CSS background estimate; peer occlusion not inferred",
+        "media": "img/video/audio readiness only; CSS backgrounds/SVG external references require manual review"
+      },
+      "claimDisplays": [],
+      "capture": {
+        "id": "08-720-reduced",
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+        "title": "Image-slide QA capture",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "motion": "reduced",
+        "path": "08-720-reduced.png",
+        "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+        "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+        "fixture": "argus-final-skeleton"
+      },
+      "runtimeErrors": []
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "01-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "01-1080-normal.png",
+      "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-normal-glance.png"
+    },
+    {
+      "id": "02-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "02-1080-normal.png",
+      "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-normal-glance.png"
+    },
+    {
+      "id": "03-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "03-1080-normal.png",
+      "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-normal-glance.png"
+    },
+    {
+      "id": "04-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "04-1080-normal.png",
+      "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-normal-glance.png"
+    },
+    {
+      "id": "05-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "05-1080-normal.png",
+      "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-normal-glance.png"
+    },
+    {
+      "id": "06-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "06-1080-normal.png",
+      "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-normal-glance.png"
+    },
+    {
+      "id": "07-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "07-1080-normal.png",
+      "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-normal-glance.png"
+    },
+    {
+      "id": "08-1080-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "normal",
+      "path": "08-1080-normal.png",
+      "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-normal-glance.png"
+    },
+    {
+      "id": "01-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "01-1080-reduced.png",
+      "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "01",
+      "state": "01",
+      "width": 1920,
+      "height": 1080,
+      "glance": "01-1080-reduced-glance.png"
+    },
+    {
+      "id": "02-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "02-1080-reduced.png",
+      "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "02",
+      "state": "02",
+      "width": 1920,
+      "height": 1080,
+      "glance": "02-1080-reduced-glance.png"
+    },
+    {
+      "id": "03-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "03-1080-reduced.png",
+      "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "03",
+      "state": "03",
+      "width": 1920,
+      "height": 1080,
+      "glance": "03-1080-reduced-glance.png"
+    },
+    {
+      "id": "04-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "04-1080-reduced.png",
+      "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "04",
+      "state": "04",
+      "width": 1920,
+      "height": 1080,
+      "glance": "04-1080-reduced-glance.png"
+    },
+    {
+      "id": "05-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "05-1080-reduced.png",
+      "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "05",
+      "state": "05",
+      "width": 1920,
+      "height": 1080,
+      "glance": "05-1080-reduced-glance.png"
+    },
+    {
+      "id": "06-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "06-1080-reduced.png",
+      "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "06",
+      "state": "06",
+      "width": 1920,
+      "height": 1080,
+      "glance": "06-1080-reduced-glance.png"
+    },
+    {
+      "id": "07-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "07-1080-reduced.png",
+      "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "07",
+      "state": "07",
+      "width": 1920,
+      "height": 1080,
+      "glance": "07-1080-reduced-glance.png"
+    },
+    {
+      "id": "08-1080-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "motion": "reduced",
+      "path": "08-1080-reduced.png",
+      "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "08",
+      "state": "08",
+      "width": 1920,
+      "height": 1080,
+      "glance": "08-1080-reduced-glance.png"
+    },
+    {
+      "id": "01-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "01-720-normal.png",
+      "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-normal-glance.png"
+    },
+    {
+      "id": "02-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "02-720-normal.png",
+      "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-normal-glance.png"
+    },
+    {
+      "id": "03-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "03-720-normal.png",
+      "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-normal-glance.png"
+    },
+    {
+      "id": "04-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "04-720-normal.png",
+      "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-normal-glance.png"
+    },
+    {
+      "id": "05-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "05-720-normal.png",
+      "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-normal-glance.png"
+    },
+    {
+      "id": "06-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "06-720-normal.png",
+      "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-normal-glance.png"
+    },
+    {
+      "id": "07-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "07-720-normal.png",
+      "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-normal-glance.png"
+    },
+    {
+      "id": "08-720-normal",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "normal",
+      "path": "08-720-normal.png",
+      "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-normal-glance.png"
+    },
+    {
+      "id": "01-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "01-720-reduced.png",
+      "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "01",
+      "state": "01",
+      "width": 1280,
+      "height": 720,
+      "glance": "01-720-reduced-glance.png"
+    },
+    {
+      "id": "02-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "02-720-reduced.png",
+      "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "02",
+      "state": "02",
+      "width": 1280,
+      "height": 720,
+      "glance": "02-720-reduced-glance.png"
+    },
+    {
+      "id": "03-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "03-720-reduced.png",
+      "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "03",
+      "state": "03",
+      "width": 1280,
+      "height": 720,
+      "glance": "03-720-reduced-glance.png"
+    },
+    {
+      "id": "04-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "04-720-reduced.png",
+      "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "04",
+      "state": "04",
+      "width": 1280,
+      "height": 720,
+      "glance": "04-720-reduced-glance.png"
+    },
+    {
+      "id": "05-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "05-720-reduced.png",
+      "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "05",
+      "state": "05",
+      "width": 1280,
+      "height": 720,
+      "glance": "05-720-reduced-glance.png"
+    },
+    {
+      "id": "06-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "06-720-reduced.png",
+      "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "06",
+      "state": "06",
+      "width": 1280,
+      "height": 720,
+      "glance": "06-720-reduced-glance.png"
+    },
+    {
+      "id": "07-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "07-720-reduced.png",
+      "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "07",
+      "state": "07",
+      "width": 1280,
+      "height": 720,
+      "glance": "07-720-reduced-glance.png"
+    },
+    {
+      "id": "08-720-reduced",
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "title": "Image-slide QA capture",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "motion": "reduced",
+      "path": "08-720-reduced.png",
+      "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+      "sourceSha256": "8e1e5a60971d5156c272e59600168188d27b7017cb6ddf954c0b4699ac2a5e7c",
+      "fixture": "argus-final-skeleton",
+      "scene": "08",
+      "state": "08",
+      "width": 1280,
+      "height": 720,
+      "glance": "08-720-reduced-glance.png"
+    }
+  ],
+  "runtimeErrors": [],
+  "sourceInventoryAfter": {
+    "scripts/compose.py": "5913661d999617104991077aa8e9102bbd476ba78d0ce1f7ceeab50fdb10cea3",
+    "speaker-notes.json": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+    "screenshot-slots.json": "810e3c98ad16fc6ab531fbc87830ac9363667bbbd2b7cf1be5be1d59bd65a12f",
+    "evidence/composition.json": "308b4401e4544755d2f41e589981413d49c51097d10eea6b9d161b539bd7a22e",
+    "craft/capture.html": "54cb205b9ee73bd5d036548298fffeb0773c7753f4425b8c89ac353442c760cb",
+    "craft/story.json": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+    "slides/slide-01.png": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227",
+    "slides/slide-02.png": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff",
+    "slides/slide-03.png": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492",
+    "slides/slide-04.png": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb",
+    "slides/slide-05.png": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf",
+    "slides/slide-06.png": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c",
+    "slides/slide-07.png": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e",
+    "slides/slide-08.png": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+  },
+  "sourceStable": true,
+  "sources": [
+    {
+      "id": "s02",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:tech.md; lines [[29, 78], [2994, 3058], [3094, 3131]]"
+    },
+    {
+      "id": "s03",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:progress.md; lines [[1, 36]]"
+    },
+    {
+      "id": "s04",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:docs/linq/LINQ_CONTRACT.md; lines [[73, 109]]"
+    },
+    {
+      "id": "s05",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; lines whole blob"
+    },
+    {
+      "id": "s06",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:docs/ML_INTEGRATION.md; lines whole blob"
+    },
+    {
+      "id": "s07",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:contract/openapi.json; lines whole blob"
+    },
+    {
+      "id": "s08",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:contract/ws.schema.json; lines whole blob"
+    },
+    {
+      "id": "s09",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/App.tsx; lines whole blob"
+    },
+    {
+      "id": "s10",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/roles.ts; lines whole blob"
+    },
+    {
+      "id": "s11",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Incident.tsx; lines whole blob"
+    },
+    {
+      "id": "s12",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Stats.tsx; lines whole blob"
+    },
+    {
+      "id": "s13",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Journal.tsx; lines whole blob"
+    },
+    {
+      "id": "s14",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/styles/ds.css; lines [[1, 104]]"
+    },
+    {
+      "id": "s15",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "matvey_cv@8f879606dc7511ef7893d6be57f8f9efb12112e8:ml/EVAL_REPORT.md; lines whole blob"
+    },
+    {
+      "id": "user",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Explicit user instructions; not a slide acceptance verdict"
+    },
+    {
+      "id": "composition",
+      "status": "MATCH",
+      "reason": "Exact source bytes only; semantic support requires human inspection",
+      "locator": "Deterministic visible text and glyph/bounds/pair-overlap inventory"
+    }
+  ],
+  "claimChecks": [],
+  "critic": {
+    "version": "1.0.0",
+    "status": "TECHNICAL_FINDINGS",
+    "findings": [
+      {
+        "id": "finding-1",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "01",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-2",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "02",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-3",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "03",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-4",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "04",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-5",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "05",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-6",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "06",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-7",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "07",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-8",
+        "classification": "ADVISORY",
+        "code": "craft-review",
+        "scene": "08",
+        "state": null,
+        "evidence": {
+          "readingOrder": [
+            "assertion",
+            "evidence",
+            "qualification"
+          ],
+          "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant."
+        },
+        "message": "Inspect full-size and glance: dominant focus, hierarchy, copy, space, evidence relevance. Inspect real motion for decorative movement and continuity. Preserve effective unusual composition.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-9",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "02",
+        "state": null,
+        "evidence": {
+          "previous": "01"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-10",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "03",
+        "state": null,
+        "evidence": {
+          "previous": "02"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-11",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "04",
+        "state": null,
+        "evidence": {
+          "previous": "03"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-12",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "05",
+        "state": null,
+        "evidence": {
+          "previous": "04"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-13",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "06",
+        "state": null,
+        "evidence": {
+          "previous": "05"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-14",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "07",
+        "state": null,
+        "evidence": {
+          "previous": "06"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-15",
+        "classification": "ADVISORY",
+        "code": "composition-repetition",
+        "scene": "08",
+        "state": null,
+        "evidence": {
+          "previous": "07"
+        },
+        "message": "Repeated declared composition may be purposeful; compare rendered emphasis.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-16",
+        "classification": "ADVISORY",
+        "code": "rubric-unknown",
+        "scene": null,
+        "state": null,
+        "evidence": "Каркас финальной image-slide презентации, реальные UI-снимки ожидаются отдельно.",
+        "message": "Actual rubric unavailable; coverage cannot be certified.",
+        "humanReview": true
+      },
+      {
+        "id": "finding-17",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Опасное событие должно стать действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-18",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "У события есть ответственный",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-19",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От сигнала до принятых мер",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-20",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Журнал становится картиной смены",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-21",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Baseline исполнялся на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-22",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Один конвейер. Разные рабочие места.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-23",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Граница готовности видна",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-24",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Следующий шаг — проверяемый результат",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-25",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Опасное событие должно стать действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-26",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "У события есть ответственный",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-27",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От сигнала до принятых мер",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-28",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Журнал становится картиной смены",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-29",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Baseline исполнялся на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-30",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Один конвейер. Разные рабочие места.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-31",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Граница готовности видна",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-32",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Следующий шаг — проверяемый результат",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-33",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Опасное событие должно стать действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-34",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "У события есть ответственный",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-35",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От сигнала до принятых мер",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-36",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Журнал становится картиной смены",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-37",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Baseline исполнялся на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-38",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Один конвейер. Разные рабочие места.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-39",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Граница готовности видна",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-40",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Следующий шаг — проверяемый результат",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-41",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "01",
+        "state": "01",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Опасное событие должно стать действием.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-42",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "02",
+        "state": "02",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "У события есть ответственный",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-43",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "03",
+        "state": "03",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "От сигнала до принятых мер",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-44",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "04",
+        "state": "04",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Журнал становится картиной смены",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-45",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "05",
+        "state": "05",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Baseline исполнялся на TPU",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-46",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "06",
+        "state": "06",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Один конвейер. Разные рабочие места.",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-47",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "07",
+        "state": "07",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Граница готовности видна",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      },
+      {
+        "id": "finding-48",
+        "classification": "OBJECTIVE",
+        "code": "missing-assertion",
+        "scene": "08",
+        "state": "08",
+        "evidence": {
+          "visible": false,
+          "text": "",
+          "expected": "Следующий шаг — проверяемый результат",
+          "matches": false
+        },
+        "message": "Main assertion selector has no visible text.",
+        "humanReview": false
+      }
+    ],
+    "limits": [
+      "DOM probes cannot certify perception, arbitrary factual truth, complex paint, canvas text or physical projector readability.",
+      "Advisories and geometry candidates are not deterministic taste verdicts."
+    ]
+  },
+  "status": "CAPTURED",
+  "finishedAt": "2026-10-24T12:40:54.807Z"
+}

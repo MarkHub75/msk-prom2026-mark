@@ -1,0 +1,2219 @@
+{
+  "schema_version": "1.0.0",
+  "renderer_version": "1.0.0",
+  "review": {
+    "id": "argus-final-skeleton-production",
+    "revision": 1,
+    "title": "Каркас финальной презентации · 8 слайдов",
+    "description": "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Полная image-based презентация; решения человека не заполнены.",
+    "created_at": "2026-10-24T12:41:10.085453+00:00"
+  },
+  "revisions": {
+    "baseline": {
+      "id": "absent",
+      "label": "No historical presentation baseline",
+      "git_commit": null,
+      "snapshot_sha256": null,
+      "provenance": "UNVERIFIED",
+      "notes": "New deck; no historical BEFORE is supplied."
+    },
+    "current": {
+      "id": "final",
+      "label": "Final presentation skeleton image-slide production",
+      "git_commit": null,
+      "snapshot_sha256": "9b52532b6dcb532cbf4fac8eba8eafa983b99503b422ecad65a79823c4d61758",
+      "provenance": "VERIFIED",
+      "notes": "Eight source PNG hashes and stable Craft capture inventory; human approval pending."
+    }
+  },
+  "viewports": [
+    {
+      "id": "1080",
+      "label": "1920 × 1080",
+      "width": 1920,
+      "height": 1080,
+      "device_scale_factor": 1
+    },
+    {
+      "id": "720",
+      "label": "1280 × 720",
+      "width": 1280,
+      "height": 720,
+      "device_scale_factor": 1
+    }
+  ],
+  "states": [
+    {
+      "id": "01",
+      "label": "Опасное событие должно стать действием.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "02",
+      "label": "У события есть ответственный",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "03",
+      "label": "От сигнала до принятых мер",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "04",
+      "label": "Журнал становится картиной смены",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "05",
+      "label": "Baseline исполнялся на TPU",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "06",
+      "label": "Один конвейер. Разные рабочие места.",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "07",
+      "label": "Граница готовности видна",
+      "description": "One manually advanced static image slide."
+    },
+    {
+      "id": "08",
+      "label": "Следующий шаг — проверяемый результат",
+      "description": "One manually advanced static image slide."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "final-01-1080-normal",
+      "kind": "image",
+      "path": "assets/final-01-1080-normal-01-1080-normal.png",
+      "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+      "mime": "image/png",
+      "label": "final-01-1080-normal",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-1080-normal",
+      "kind": "image",
+      "path": "assets/final-02-1080-normal-02-1080-normal.png",
+      "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+      "mime": "image/png",
+      "label": "final-02-1080-normal",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-1080-normal",
+      "kind": "image",
+      "path": "assets/final-03-1080-normal-03-1080-normal.png",
+      "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+      "mime": "image/png",
+      "label": "final-03-1080-normal",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-1080-normal",
+      "kind": "image",
+      "path": "assets/final-04-1080-normal-04-1080-normal.png",
+      "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+      "mime": "image/png",
+      "label": "final-04-1080-normal",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-1080-normal",
+      "kind": "image",
+      "path": "assets/final-05-1080-normal-05-1080-normal.png",
+      "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+      "mime": "image/png",
+      "label": "final-05-1080-normal",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-1080-normal",
+      "kind": "image",
+      "path": "assets/final-06-1080-normal-06-1080-normal.png",
+      "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+      "mime": "image/png",
+      "label": "final-06-1080-normal",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-1080-normal",
+      "kind": "image",
+      "path": "assets/final-07-1080-normal-07-1080-normal.png",
+      "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+      "mime": "image/png",
+      "label": "final-07-1080-normal",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-1080-normal",
+      "kind": "image",
+      "path": "assets/final-08-1080-normal-08-1080-normal.png",
+      "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+      "mime": "image/png",
+      "label": "final-08-1080-normal",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "1080",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-01-1080-reduced-01-1080-reduced.png",
+      "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e",
+      "mime": "image/png",
+      "label": "final-01-1080-reduced",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-02-1080-reduced-02-1080-reduced.png",
+      "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e",
+      "mime": "image/png",
+      "label": "final-02-1080-reduced",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-03-1080-reduced-03-1080-reduced.png",
+      "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869",
+      "mime": "image/png",
+      "label": "final-03-1080-reduced",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-04-1080-reduced-04-1080-reduced.png",
+      "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c",
+      "mime": "image/png",
+      "label": "final-04-1080-reduced",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-05-1080-reduced-05-1080-reduced.png",
+      "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200",
+      "mime": "image/png",
+      "label": "final-05-1080-reduced",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-06-1080-reduced-06-1080-reduced.png",
+      "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92",
+      "mime": "image/png",
+      "label": "final-06-1080-reduced",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-07-1080-reduced-07-1080-reduced.png",
+      "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c",
+      "mime": "image/png",
+      "label": "final-07-1080-reduced",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-1080-reduced",
+      "kind": "image",
+      "path": "assets/final-08-1080-reduced-08-1080-reduced.png",
+      "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a",
+      "mime": "image/png",
+      "label": "final-08-1080-reduced",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "1080",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-720-normal",
+      "kind": "image",
+      "path": "assets/final-01-720-normal-01-720-normal.png",
+      "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+      "mime": "image/png",
+      "label": "final-01-720-normal",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-720-normal",
+      "kind": "image",
+      "path": "assets/final-02-720-normal-02-720-normal.png",
+      "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+      "mime": "image/png",
+      "label": "final-02-720-normal",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-720-normal",
+      "kind": "image",
+      "path": "assets/final-03-720-normal-03-720-normal.png",
+      "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+      "mime": "image/png",
+      "label": "final-03-720-normal",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-720-normal",
+      "kind": "image",
+      "path": "assets/final-04-720-normal-04-720-normal.png",
+      "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+      "mime": "image/png",
+      "label": "final-04-720-normal",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-720-normal",
+      "kind": "image",
+      "path": "assets/final-05-720-normal-05-720-normal.png",
+      "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+      "mime": "image/png",
+      "label": "final-05-720-normal",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-720-normal",
+      "kind": "image",
+      "path": "assets/final-06-720-normal-06-720-normal.png",
+      "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+      "mime": "image/png",
+      "label": "final-06-720-normal",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-720-normal",
+      "kind": "image",
+      "path": "assets/final-07-720-normal-07-720-normal.png",
+      "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+      "mime": "image/png",
+      "label": "final-07-720-normal",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-720-normal",
+      "kind": "image",
+      "path": "assets/final-08-720-normal-08-720-normal.png",
+      "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+      "mime": "image/png",
+      "label": "final-08-720-normal",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "720",
+      "motion": "normal",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-01-720-reduced",
+      "kind": "image",
+      "path": "assets/final-01-720-reduced-01-720-reduced.png",
+      "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd",
+      "mime": "image/png",
+      "label": "final-01-720-reduced",
+      "revision_id": "final",
+      "state_id": "01",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-02-720-reduced",
+      "kind": "image",
+      "path": "assets/final-02-720-reduced-02-720-reduced.png",
+      "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe",
+      "mime": "image/png",
+      "label": "final-02-720-reduced",
+      "revision_id": "final",
+      "state_id": "02",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-03-720-reduced",
+      "kind": "image",
+      "path": "assets/final-03-720-reduced-03-720-reduced.png",
+      "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4",
+      "mime": "image/png",
+      "label": "final-03-720-reduced",
+      "revision_id": "final",
+      "state_id": "03",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-04-720-reduced",
+      "kind": "image",
+      "path": "assets/final-04-720-reduced-04-720-reduced.png",
+      "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed",
+      "mime": "image/png",
+      "label": "final-04-720-reduced",
+      "revision_id": "final",
+      "state_id": "04",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-05-720-reduced",
+      "kind": "image",
+      "path": "assets/final-05-720-reduced-05-720-reduced.png",
+      "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509",
+      "mime": "image/png",
+      "label": "final-05-720-reduced",
+      "revision_id": "final",
+      "state_id": "05",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-06-720-reduced",
+      "kind": "image",
+      "path": "assets/final-06-720-reduced-06-720-reduced.png",
+      "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426",
+      "mime": "image/png",
+      "label": "final-06-720-reduced",
+      "revision_id": "final",
+      "state_id": "06",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-07-720-reduced",
+      "kind": "image",
+      "path": "assets/final-07-720-reduced-07-720-reduced.png",
+      "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd",
+      "mime": "image/png",
+      "label": "final-07-720-reduced",
+      "revision_id": "final",
+      "state_id": "07",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "final-08-720-reduced",
+      "kind": "image",
+      "path": "assets/final-08-720-reduced-08-720-reduced.png",
+      "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5",
+      "mime": "image/png",
+      "label": "final-08-720-reduced",
+      "revision_id": "final",
+      "state_id": "08",
+      "viewport_id": "720",
+      "motion": "reduced",
+      "fixture_id": "argus-final-skeleton",
+      "capture_mode": "viewport",
+      "width": 1280,
+      "height": 720,
+      "provenance": "VERIFIED",
+      "notes": "Actual Chromium capture of the final flattened image. Text inside PNG is outside the DOM critic coverage."
+    },
+    {
+      "id": "craft-report",
+      "kind": "document",
+      "path": "sources/craft-report-report.json",
+      "sha256": "7fcf563e53dc2ccf851868f82f460779ba25050538e7e477303a9564ac77a73d",
+      "mime": "application/json",
+      "label": "craft-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "exports-report",
+      "kind": "document",
+      "path": "sources/exports-report-report.json",
+      "sha256": "3dd6f254f4d525842ab441f7fdead0f63692e747a043f7ff24ca4ab8b3ff73b7",
+      "mime": "application/json",
+      "label": "exports-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "speaker-notes",
+      "kind": "document",
+      "path": "sources/speaker-notes-speaker-notes.json",
+      "sha256": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+      "mime": "application/json",
+      "label": "speaker-notes",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "craft-story",
+      "kind": "document",
+      "path": "sources/craft-story-story.json",
+      "sha256": "0c46ebe3d3e16fd72105bf1411240d793d6f604b7ceee3f657de0466619a3419",
+      "mime": "application/json",
+      "label": "craft-story",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "craft-adapter",
+      "kind": "document",
+      "path": "sources/craft-adapter-adapter.json",
+      "sha256": "6bc78ac1125d655b8ec4fd1af330c8e6eadceacd4c695c61dff71681027c24ec",
+      "mime": "application/json",
+      "label": "craft-adapter",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "source-index-current",
+      "kind": "document",
+      "path": "sources/source-index-current-source-index.json",
+      "sha256": "6131d204e19e8f1c01fa93e139fd8f489f7fbaa4507f89cc18f6f148fa4b8281",
+      "mime": "application/json",
+      "label": "source-index-current",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "visual-review",
+      "kind": "document",
+      "path": "sources/visual-review-visual-review.json",
+      "sha256": "0d99a2af5efc9238396cb078ff1b8686a23976dc51e5610299c97eaab1f160e2",
+      "mime": "application/json",
+      "label": "visual-review",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "powerpoint-report",
+      "kind": "document",
+      "path": "sources/powerpoint-report-report.json",
+      "sha256": "23f0a432cb9d9fd2272a04e5707d410f0703f4ef3373928e00a540f0b8ccf39b",
+      "mime": "application/json",
+      "label": "powerpoint-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "composition-report",
+      "kind": "document",
+      "path": "sources/composition-report-composition.json",
+      "sha256": "308b4401e4544755d2f41e589981413d49c51097d10eea6b9d161b539bd7a22e",
+      "mime": "application/json",
+      "label": "composition-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "content-report",
+      "kind": "document",
+      "path": "sources/content-report-content-report.json",
+      "sha256": "b92b5d8318f1774d744d6c7f5d17948ee0be788b8f8a72beab45bd156c673cb3",
+      "mime": "application/json",
+      "label": "content-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "pdf-report",
+      "kind": "document",
+      "path": "sources/pdf-report-pdf-report.json",
+      "sha256": "e497f3380c50ee4d24a86c95bf244bfcff04dc697579053280138bcbb8b4490d",
+      "mime": "application/json",
+      "label": "pdf-report",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-01",
+      "kind": "document",
+      "path": "sources/doc-01-README.md",
+      "sha256": "cf457a0273dea6f892365f143ad41ac627276820d26062e051ee9f1f642ce64d",
+      "mime": "text/markdown",
+      "label": "doc-01",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-02",
+      "kind": "document",
+      "path": "sources/doc-02-SCREENSHOT_SLOTS.md",
+      "sha256": "ccb0c19eaaadf7464b753808f8037b6ee63fb649116c6e449bfd6cb883fbef8a",
+      "mime": "text/markdown",
+      "label": "doc-02",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-03",
+      "kind": "document",
+      "path": "sources/doc-03-SOURCES.md",
+      "sha256": "3a9c9b8b9290e252ee377acd05d39ed22e61a89b37e8946454ee3e4ebcdde53f",
+      "mime": "text/markdown",
+      "label": "doc-03",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "doc-04",
+      "kind": "document",
+      "path": "sources/doc-04-SPEAKER_SCRIPT.md",
+      "sha256": "1b57b69f726afdaeca9ee9e19d14f07979589a154e945878ddd3b82a4763bfb9",
+      "mime": "text/markdown",
+      "label": "doc-04",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    },
+    {
+      "id": "powerpoint-01",
+      "kind": "image",
+      "path": "assets/powerpoint-01-slide-01.png",
+      "sha256": "b2f71be59af7cf9b70f44e899a1351adfa6591ff3acba08eb59f6f38131f9436",
+      "mime": "image/png",
+      "label": "powerpoint-01",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-02",
+      "kind": "image",
+      "path": "assets/powerpoint-02-slide-02.png",
+      "sha256": "f1b9f5fcd530467a3c57019045ce9fcbd75ab7f6637ae9987c0c0dd79cc2bcec",
+      "mime": "image/png",
+      "label": "powerpoint-02",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-03",
+      "kind": "image",
+      "path": "assets/powerpoint-03-slide-03.png",
+      "sha256": "d1c8724bee21f9c2e87b23eb7e5e149f18d037fda0dbdf92dc80e1c94eb9fc76",
+      "mime": "image/png",
+      "label": "powerpoint-03",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-04",
+      "kind": "image",
+      "path": "assets/powerpoint-04-slide-04.png",
+      "sha256": "b778885343a11a049eb98db86f39d268e3ded0f8ba0905c9462af294bac19153",
+      "mime": "image/png",
+      "label": "powerpoint-04",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-05",
+      "kind": "image",
+      "path": "assets/powerpoint-05-slide-05.png",
+      "sha256": "bc86f25676fe3bd9009c449411b104dd29e4dfb7e9ae9ea42a803d7c2c3f4987",
+      "mime": "image/png",
+      "label": "powerpoint-05",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-06",
+      "kind": "image",
+      "path": "assets/powerpoint-06-slide-06.png",
+      "sha256": "1f4a9a76da2b440a64a1a3fac4f69409d2f10a3d17397bf783f4505be6f98ab1",
+      "mime": "image/png",
+      "label": "powerpoint-06",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-07",
+      "kind": "image",
+      "path": "assets/powerpoint-07-slide-07.png",
+      "sha256": "64584637f5976b240c0ac9356bf437990e814fdbf87d904177906ba356cdc90f",
+      "mime": "image/png",
+      "label": "powerpoint-07",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "powerpoint-08",
+      "kind": "image",
+      "path": "assets/powerpoint-08-slide-08.png",
+      "sha256": "36b0d75e96e5021fd3bacea0fc08b12b6763e29ae3c6b04eb7ee0052d64b4459",
+      "mime": "image/png",
+      "label": "powerpoint-08",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": 1920,
+      "height": 1080,
+      "provenance": "VERIFIED",
+      "notes": "Actual installed PowerPoint raster export; native compatibility evidence."
+    },
+    {
+      "id": "export-index",
+      "kind": "document",
+      "path": "sources/export-index-exports.txt",
+      "sha256": "f27d9c260aaa38c75464b2f21edb090f85a09e9936f1b89b3de534b607ea6e03",
+      "mime": "text/plain",
+      "label": "export-index",
+      "revision_id": null,
+      "state_id": null,
+      "viewport_id": null,
+      "motion": null,
+      "fixture_id": null,
+      "capture_mode": null,
+      "width": null,
+      "height": null,
+      "provenance": "VERIFIED",
+      "notes": "Recorded evidence; human acceptance pending."
+    }
+  ],
+  "items": [
+    {
+      "id": "slide-01",
+      "title": "01 · Опасное событие должно стать действием.",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-01.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-01"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-01-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-01-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-01-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "01",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-01-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-02",
+      "title": "02 · У события есть ответственный",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-02.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-02"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-02-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-02-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-02-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "02",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-02-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-03",
+      "title": "03 · От сигнала до принятых мер",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-03.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-03"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-03-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-03-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-03-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "03",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-03-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-04",
+      "title": "04 · Журнал становится картиной смены",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-04.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-04"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-04-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-04-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-04-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "04",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-04-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-05",
+      "title": "05 · Baseline исполнялся на TPU",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-05.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-05"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-05-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-05-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-05-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "05",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-05-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-06",
+      "title": "06 · Один конвейер. Разные рабочие места.",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-06.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-06"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-06-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-06-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-06-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "06",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-06-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-07",
+      "title": "07 · Граница готовности видна",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-07.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-07"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-07-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-07-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-07-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "07",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-07-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "slide-08",
+      "title": "08 · Следующий шаг — проверяемый результат",
+      "delta": "New source-backed final presentation skeleton; UI remains an explicit placeholder.",
+      "changes": [
+        {
+          "path": "slides/slide-08.png",
+          "description": "Final 1920×1080 image and matching native speaker notes."
+        }
+      ],
+      "notes": [
+        "HUMAN_ARGUS_FINAL_SKELETON_REVIEW. Human acceptance pending.",
+        "This review contains no human decision document."
+      ],
+      "references": [
+        "craft-report",
+        "exports-report",
+        "speaker-notes",
+        "craft-story",
+        "craft-adapter",
+        "source-index-current",
+        "visual-review",
+        "powerpoint-report",
+        "composition-report",
+        "content-report",
+        "pdf-report",
+        "doc-01",
+        "doc-02",
+        "doc-03",
+        "doc-04",
+        "export-index",
+        "powerpoint-08"
+      ],
+      "qa": [
+        {
+          "label": "Projection captures and stable source hashes",
+          "status": "PASS",
+          "artifact_id": "craft-report",
+          "notes": "Both projection sizes and motion preferences were captured. Raster text requires separate visual and typography checks."
+        },
+        {
+          "label": "PPTX pixels, geometry and notes",
+          "status": "PASS",
+          "artifact_id": "exports-report",
+          "notes": "Eight exact embedded images with full-bleed geometry. Consult report for native PowerPoint test status."
+        },
+        {
+          "label": "Craft criticism and human visual acceptance",
+          "status": "UNVERIFIED",
+          "artifact_id": "craft-report",
+          "notes": "DOM text detection does not read the flattened PNG. Critic findings remain preserved; no human verdict is preselected."
+        }
+      ],
+      "variants": [
+        {
+          "viewport_id": "1080",
+          "motion": "normal",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-08-1080-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "1080",
+          "motion": "reduced",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-08-1080-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "normal",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-08-720-normal",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        },
+        {
+          "viewport_id": "720",
+          "motion": "reduced",
+          "state_id": "08",
+          "before": {
+            "image": null,
+            "video": null,
+            "missing_reason": "New presentation: no verified historical slide baseline exists."
+          },
+          "after": {
+            "image": "final-08-720-reduced",
+            "video": null,
+            "missing_reason": "Static image slide. No per-slide motion recording is claimed."
+          },
+          "compatibility": {
+            "status": "INCOMPARABLE",
+            "reasons": [
+              "New slide without a historical BEFORE; no fabricated comparison."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

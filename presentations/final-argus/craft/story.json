@@ -1,0 +1,636 @@
+{
+  "version": "1.0.0",
+  "id": "argus-final-skeleton",
+  "audience": "Эксперты Моспром2026 и LinQ",
+  "scope": "Каркас финальной image-slide презентации, реальные UI-снимки ожидаются отдельно.",
+  "sequenceRationale": "Exact eight-part order explicitly requested by the user.",
+  "rubric": {
+    "status": "unknown",
+    "source": null,
+    "criteria": []
+  },
+  "sources": [
+    {
+      "id": "s02",
+      "path": "research/main__tech.md.excerpt.txt",
+      "sha256": "89f0a0d4676c9ec48e717332a431f3a45e240291c18819c832be5a512d8ee9ac",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:tech.md; lines [[29, 78], [2994, 3058], [3094, 3131]]"
+    },
+    {
+      "id": "s03",
+      "path": "research/main__progress.md.excerpt.txt",
+      "sha256": "7aca1d0f5da7a82287c97cfd075269816399058b15689f7da6da500ee8834cfe",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:progress.md; lines [[1, 36]]"
+    },
+    {
+      "id": "s04",
+      "path": "research/main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "sha256": "235da278fc4aaa19b5c6e6c3e0dc5ffc79e939cb65d7a56ed7f9ae791c148cdd",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:docs/linq/LINQ_CONTRACT.md; lines [[73, 109]]"
+    },
+    {
+      "id": "s05",
+      "path": "research/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json; lines whole blob"
+    },
+    {
+      "id": "s06",
+      "path": "research/main__docs__ML_INTEGRATION.md",
+      "sha256": "4a8dd3510b6a063828960d55262c386659bb7e2fedc9e3051b94a686634a78ea",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:docs/ML_INTEGRATION.md; lines whole blob"
+    },
+    {
+      "id": "s07",
+      "path": "research/main__contract__openapi.json",
+      "sha256": "9401a516ab6390ccc1bbd068ba7dd1d16ff40ea3154f9e0a140662314531aec2",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:contract/openapi.json; lines whole blob"
+    },
+    {
+      "id": "s08",
+      "path": "research/main__contract__ws.schema.json",
+      "sha256": "5f3255f76d86fbf4e0dd4d298213075187d8b128fc9daeeb9681dbc2c1e48f6e",
+      "kind": "product",
+      "locator": "main@5d940ba22ebebb2255ff7b12252268c3d9d393ab:contract/ws.schema.json; lines whole blob"
+    },
+    {
+      "id": "s09",
+      "path": "research/front-final__frontend__src__App.tsx",
+      "sha256": "1180b4d068dc8ae93e13b96077494ae75e6c2d6f0fb9a2c69d43ac4325ca9066",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/App.tsx; lines whole blob"
+    },
+    {
+      "id": "s10",
+      "path": "research/front-final__frontend__src__roles.ts",
+      "sha256": "f75bb2e7cbeb812f282c35d2eed3000276d2835e6cf904896a6bb63e0d4a3da5",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/roles.ts; lines whole blob"
+    },
+    {
+      "id": "s11",
+      "path": "research/front-final__frontend__src__features__Incident.tsx",
+      "sha256": "7ed728d8a386d44af68f50eca3075358ba92df626801a25c77ad7c416bb55d5f",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Incident.tsx; lines whole blob"
+    },
+    {
+      "id": "s12",
+      "path": "research/front-final__frontend__src__features__Stats.tsx",
+      "sha256": "7b485b60df8b5d53fa931c95dc67ea62b7eb124ccb1f870345a33094be09b0ab",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Stats.tsx; lines whole blob"
+    },
+    {
+      "id": "s13",
+      "path": "research/front-final__frontend__src__features__Journal.tsx",
+      "sha256": "56b777a26ef87547d9cb362de4b00a1af33851e5270d1b6ef3b3e19ef00be844",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/features/Journal.tsx; lines whole blob"
+    },
+    {
+      "id": "s14",
+      "path": "research/front-final__frontend__src__styles__ds.css.excerpt.txt",
+      "sha256": "3481cb40b18d18160339899016c6a90efd37ae3014470a874408244033ae0878",
+      "kind": "product",
+      "locator": "front/final@72358bde5a3e8098c09c5132dd2e2cb90751e16f:frontend/src/styles/ds.css; lines [[1, 104]]"
+    },
+    {
+      "id": "s15",
+      "path": "research/matvey_cv__ml__EVAL_REPORT.md",
+      "sha256": "22cc58991c37ee5d9a77a47f8bb85b58f72960072d9f0ee42c55e7c4583db6e4",
+      "kind": "product",
+      "locator": "matvey_cv@8f879606dc7511ef7893d6be57f8f9efb12112e8:ml/EVAL_REPORT.md; lines whole blob"
+    },
+    {
+      "id": "user",
+      "path": "research/USER_BRIEF.md",
+      "sha256": "fabcfc502186da881863a6d30f91ecda2f3883a6a58e851ab2aafc2596f1689b",
+      "kind": "human-decision",
+      "locator": "Explicit user instructions; not a slide acceptance verdict"
+    },
+    {
+      "id": "composition",
+      "path": "evidence/composition.json",
+      "sha256": "308b4401e4544755d2f41e589981413d49c51097d10eea6b9d161b539bd7a22e",
+      "kind": "research",
+      "locator": "Deterministic visible text and glyph/bounds/pair-overlap inventory"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "01",
+      "audienceTakeaway": "Опасное событие должно стать действием.",
+      "assertion": "Опасное событие должно стать действием.",
+      "evidence": [
+        "s02",
+        "s10",
+        "user"
+      ],
+      "protagonist": "Опасное событие должно стать действием.",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Опасное событие должно стать действием.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Оператору важно вовремя заметить опасное событие и довести реакцию до результата. Постоянный просмотр камер сам по себе этого не гарантирует. Мы строим понятный путь от сигнала к решению, ответственному и подтверждённым мерам. На обложке — индустриальная иллюстрация. В этом каркасе места интерфейса пока обозначены рамками: реальные снимки добавим после их получения.\n\nНазвание намеренно присутствует только на обложке. Иллюстрация создана ChatGPT Images ранее для этой команды и переиспользована; это не кадр камеры. Не утверждать работу на заводских камерах, снижение травматизма или экономическую эффективность. Скриншоты ожидаются в 17:00; это версия каркаса.",
+      "claims": [
+        {
+          "id": "problem",
+          "text": "Нужен путь от сигнала к ответственному и подтверждённым мерам.",
+          "kind": "conceptual",
+          "sourceIds": [
+            "s02",
+            "user"
+          ],
+          "qualification": "Продуктовая задача, не измеренное снижение риска."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "02",
+      "audienceTakeaway": "У события есть ответственный",
+      "assertion": "У события есть ответственный",
+      "evidence": [
+        "s02",
+        "s09",
+        "s10"
+      ],
+      "protagonist": "У события есть ответственный",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "У события есть ответственный",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "В центре процесса — три роли. Оператор проверяет событие и выбирает действие. Мастер принимает поручение, реагирует на участке и сообщает о мерах. Охрана труда разбирает журнал, причины и реакцию. Руководство смотрит общую картину, администратор настраивает систему. Разделение ролей и маршруты сверены с текущей веткой frontend; здесь мы ещё не выдаём снимки за доказательство живого прогона.\n\nПять ролей: operator, master, ohs, management, admin. Проверены App.tsx и roles.ts на front/final@72358bde. Это аудит кода, не новый browser smoke frontend. Старый docs/frontend-os/FRONTEND_STATUS.md отстаёт от реальных импортов страниц и не является основанием готовности.",
+      "claims": [
+        {
+          "id": "roles",
+          "text": "Оператор, мастер, охрана труда, руководство, администратор.",
+          "kind": "factual",
+          "sourceIds": [
+            "s02",
+            "s10"
+          ],
+          "qualification": "Роли/маршруты подтверждены кодом; новый runtime не проверялся."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "03",
+      "audienceTakeaway": "От сигнала до принятых мер",
+      "assertion": "От сигнала до принятых мер",
+      "evidence": [
+        "s02",
+        "s07",
+        "s11"
+      ],
+      "protagonist": "От сигнала до принятых мер",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "От сигнала до принятых мер",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Жёлтый сигнал требует проверки. Красный показывает более опасную ситуацию и открывает доказательство. После подтверждения красного события backend фиксирует подтверждение и передачу мастеру; это разные записи истории. Мастер принимает поручение и сообщает о принятых мерах. Журнал сохраняет цепочку действий. Переход жёлтого в красное зависит от правила: это не обещание автоматического повышения каждого события.\n\nКрасное confirm автоматически создаёт confirmed и sent_to_master; не изображать это двумя обязательными отдельными кнопками. Устранение требует мер мастера. Жёлтый бег и красное падение в demo могут быть разными событиями. Не утверждать, что любой жёлтый сигнал обязательно станет красным. Таймаут автоэскалации не выводим: включённость здесь не проверена. Если показываем прежний demo, обязательно сказать: «Демонстрационные данные. Кадры синтетические. Рамки размечены вручную». Порты прежнего показа: frontend http://localhost:5173, stateful-мок 4010/4011; это адреса запуска, не свидетельство совместимости с новым front/final.",
+      "claims": [
+        {
+          "id": "event-path",
+          "text": "Проверка, красное событие, поручение мастеру и журнал действий.",
+          "kind": "factual",
+          "sourceIds": [
+            "s02",
+            "s07",
+            "s11"
+          ],
+          "qualification": "Жёлтый→красный условен; confirm красного автоматически фиксирует передачу."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "04",
+      "audienceTakeaway": "Журнал становится картиной смены",
+      "assertion": "Журнал становится картиной смены",
+      "evidence": [
+        "s12",
+        "s13"
+      ],
+      "protagonist": "Журнал становится картиной смены",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Журнал становится картиной смены",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Журнал позволяет перейти от одной тревоги к картине смены. В текущем frontend есть разрезы по периоду, сектору, камере и сценарию, а также вердикты и время реакции оператора. Это помогает разбирать, где возникают сигналы и как команда на них реагирует. Демонстрационные значения на будущих скриншотах будем явно отделять от производственных измерений. Экономический эффект мы пока не измеряли.\n\nStats.tsx: GET /api/stats/ohs, журнал для heatmap, include_demo, фильтры и reaction time. Время реакции оператора не равно задержке события до доставки оповещения. Journal.tsx содержит CSV и периодический PDF. Демо-значения и реальные эксплуатационные метрики не смешивать. Рамка будет заменена только настоящим снимком.",
+      "claims": [
+        {
+          "id": "analytics",
+          "text": "Период, сектор, камера, сценарий, вердикты и время реакции.",
+          "kind": "factual",
+          "sourceIds": [
+            "s12",
+            "s13"
+          ],
+          "qualification": "Наличие в коде; значения demo не становятся производственными метриками."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "05",
+      "audienceTakeaway": "Baseline исполнялся на TPU",
+      "assertion": "Baseline исполнялся на TPU",
+      "evidence": [
+        "s04",
+        "s05",
+        "s03",
+        "s15"
+      ],
+      "protagonist": "Baseline исполнялся на TPU",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Baseline исполнялся на TPU",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Подтверждено отдельное исполнение baseline-моделей детектора и позы на TPU LinQ. В сохранённом тесте детектор обработал четыреста кадров записи за девятнадцать целых девять сотых секунды: примерно двадцать один кадр в секунду. Весь путь с загрузкой занял тридцать одну секунду. Это пропускная способность обработки записи, а не задержка тревоги и не чистое время чипа. В ветке собственных моделей тоже есть отчёты аппаратного исполнения, но качество и общая интеграция проверяются отдельно. Стабильный сквозной прогон backend на LinQ пока не подтверждён.\n\nИсточники: main docs/linq/LINQ_CONTRACT.md §§4–6 и сохранённый detector summary: 400/400 кадров, wall_s19.09, throughput_fps20.95, inflight8, upload6.9, remote22.2, total31.0. 21FPS относится только к detector video-run, не совместному det+pose. 1280×720 подтверждено контрактом. Recall/IoU — сохранность относительно FP32 при квантовании, не точность производственных нарушений. Чистое chip timing не измерено достоверно. progress.md R5: timeout120s,0–1 consumers; новый успешный общий прогон в проверенном main отсутствует. EVAL_REPORT ветки matvey_cv подтверждает исторические correlated TPU replies собственных Helmet/Split-Pose и URfall01, но независимый final test NOT_RUN, Fall NOT_ACCEPTED; аппаратный запуск не доказывает качество. Новые ночные проверки saved-output/SDK simulation не являются новым hardware run. Счётчики программных тестов на слайде не используем: новые секции отчёта заменяют старые335. Новых чисел качества не добавлено.",
+      "claims": [
+        {
+          "id": "baseline",
+          "text": "Baseline det640/pose640 исполнялись на TPU; detector video400frames:19.09s,20.95FPS,total31s.",
+          "kind": "factual",
+          "sourceIds": [
+            "s04",
+            "s05"
+          ],
+          "qualification": "Пропускная способность detector-записи, не общая det+pose/alert/device latency."
+        },
+        {
+          "id": "own",
+          "text": "Свои Helmet/Split-Pose имеют отчёты реального TPU исполнения.",
+          "kind": "factual",
+          "sourceIds": [
+            "s15"
+          ],
+          "qualification": "Исторические отчёты; task quality NOT_ACCEPTED и независимый final test NOT_RUN."
+        },
+        {
+          "id": "unstable",
+          "text": "Стабильный интегрированный backend-прогон не подтверждён.",
+          "kind": "factual",
+          "sourceIds": [
+            "s03"
+          ],
+          "qualification": "Поздний R5 timeout; не отменяет отдельный успешный baseline smoke."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "06",
+      "audienceTakeaway": "Один конвейер. Разные рабочие места.",
+      "assertion": "Один конвейер. Разные рабочие места.",
+      "evidence": [
+        "s02",
+        "s04",
+        "s06",
+        "s07",
+        "s08"
+      ],
+      "protagonist": "Один конвейер. Разные рабочие места.",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Один конвейер. Разные рабочие места.",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Видео загружается в Jupyter, где выполняется TPU-инференс. Детекции сохраняются в JSONL-кэш. Трекинг и правила на CPU формируют эпизоды, чтобы продолжающееся нарушение не становилось потоком одинаковых оповещений. Эмуляция публикует события по серверным часам, WebSocket доставляет обновления рабочим местам. Дальше работают оператор, мастер, журнал и аналитика. OpenAPI и WS-схема позволяют развивать frontend отдельно и проверять действия на stateful-моке.\n\nСхема — подтверждённая проектная архитектура архива/эмуляции, не заявление о стабильной работе всей цепи на TPU. LinQ/Jupyter→JSONL описано tech.md и LINQ_CONTRACT. Нейросети размещаются на TPU; CPU — tracking/rules/postprocessing. docs/ML_INTEGRATION.md задаёт файлы и контракт регистрации собственных моделей, не является доказательством их законченного подключения. Не заявлять live RTSP или автоматическую остановку станков.",
+      "claims": [
+        {
+          "id": "architecture",
+          "text": "Jupyter/TPU→JSONL→CPU tracking/rules→episodes→server-clock replay→WS→roles→journal.",
+          "kind": "factual",
+          "sourceIds": [
+            "s02",
+            "s04",
+            "s06",
+            "s07",
+            "s08"
+          ],
+          "qualification": "Проектная архитектура; стабильность общего LinQ остаётся открытой."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "07",
+      "audienceTakeaway": "Граница готовности видна",
+      "assertion": "Граница готовности видна",
+      "evidence": [
+        "s03",
+        "s06",
+        "s11",
+        "s15"
+      ],
+      "protagonist": "Граница готовности видна",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Граница готовности видна",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Мы разделяем исполнение модели, качество распознавания и готовность эксплуатации. Открыты стабильность общей очереди LinQ и воспроизводимый сквозной прогон. Независимая приёмка качества на целевых видео ещё не проведена. Задержку от события до оповещения и ложные тревоги нужно измерить отдельно. Текущий frontend показывает режим, источник события и историю действий — это помогает видеть границу между демонстрацией и реальным наблюдением.\n\nmain уже продвинулся до S0–S15/R15, но сохранённые долги не исчезли. Не повторяем устаревшее S0–S10/S0–S11. Реальный интегрированный TPU timeout остаётся в progress.md. Собственные модели выполнялись на TPU по отчёту ветки, поэтому «никогда не запускались» убрано. Независимое industrial-quality и устойчивость эксплуатации не подтверждены. Frontend source/provenance виден в коде Incident.tsx; свежий runtime этого front/final здесь не сертифицирован. Огонь/привязь/подвешенный груз требуют дополнительных моделей/классов по ML_INTEGRATION; не объявлять все сценарии принятыми.",
+      "claims": [
+        {
+          "id": "gaps",
+          "text": "Сквозной LinQ, независимое качество, задержка и ложные тревоги требуют проверки.",
+          "kind": "factual",
+          "sourceIds": [
+            "s03",
+            "s06",
+            "s15"
+          ],
+          "qualification": "Не объявлять собственные модели никогда не исполненными на TPU."
+        }
+      ],
+      "rubricIds": []
+    },
+    {
+      "id": "08",
+      "audienceTakeaway": "Следующий шаг — проверяемый результат",
+      "assertion": "Следующий шаг — проверяемый результат",
+      "evidence": [
+        "s03",
+        "s06",
+        "s15"
+      ],
+      "protagonist": "Следующий шаг — проверяемый результат",
+      "readingOrder": [
+        "assertion",
+        "evidence",
+        "qualification"
+      ],
+      "composition": "One source-backed assertion; large deterministic typography, industrial dark design and explicit UI slots where relevant.",
+      "groups": [
+        {
+          "id": "assertion",
+          "role": "assertion",
+          "description": "Следующий шаг — проверяемый результат",
+          "essential": true
+        },
+        {
+          "id": "evidence",
+          "role": "evidence",
+          "description": "Final raster image with exact Russian text and explicit placeholders",
+          "essential": true
+        },
+        {
+          "id": "qualification",
+          "role": "qualification",
+          "description": "Visible caveats plus detailed native speaker notes",
+          "essential": true
+        }
+      ],
+      "attentionRationale": "One main takeaway per slide; screenshot placeholders preserve composition without fabricated UI.",
+      "motion": {
+        "rationale": "Static PNG on each native PowerPoint slide.",
+        "continuity": "Problem → roles → event → analytics → LinQ → architecture → gaps → plan.",
+        "holds": [
+          "Entire static slide"
+        ],
+        "reducedMotion": "Same static pixels."
+      },
+      "speakingNotes": "Следующий шаг — соединить собственные модели с общим backend и получить воспроизводимый прогон LinQ. Затем провести независимую проверку на размеченных целевых видео, измерить ложные тревоги и задержку. После этого проверить рабочий процесс с оператором и мастером на участке. Критерий результата — полный цикл от события до подтверждённых мер. Численные цели и сроки согласуем по результатам измерений.\n\nЭто порядок работ, а не обещание сроков и метрик. План включает интеграцию собственных моделей, стабильный общий LinQ, независимый dataset, false alerts/camera-hour и event-to-notification latency, затем проверку человеческого цикла. Целевой участок и пилот ещё не подтверждены. Вопросы о требованиях жюри, границах обязательного TPU и честном device timing остаются открытыми; не придумывать критерии организаторов.",
+      "claims": [
+        {
+          "id": "plan",
+          "text": "Собрать общий контур, измерить качество и проверить цикл на участке.",
+          "kind": "conceptual",
+          "sourceIds": [
+            "s03",
+            "s06",
+            "s15",
+            "user"
+          ],
+          "qualification": "План без обещанных дат, KPI и уже проведённого пилота."
+        }
+      ],
+      "rubricIds": []
+    }
+  ]
+}

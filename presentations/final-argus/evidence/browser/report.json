@@ -1,0 +1,594 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-10-24T12:41:28.261Z",
+  "checks": [
+    "Craft receipt: all 32 semantic-state/size/motion captures present, stable, hash-checked, zero runtime errors.",
+    "All eight final images independently decoded and fit without clipping at 1920×1080 and 1280×720.",
+    "HRE 1080/normal: eight AFTER images decoded; no fabricated BEFORE or selected verdict.",
+    "HRE 1080/reduced: eight AFTER images decoded; no fabricated BEFORE or selected verdict.",
+    "HRE 720/normal: eight AFTER images decoded; no fabricated BEFORE or selected verdict.",
+    "HRE 720/reduced: eight AFTER images decoded; no fabricated BEFORE or selected verdict.",
+    "Complete original-speed 280-second silent sequence recorded; every hold met its planned duration."
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "path": "projection-01-1080.png",
+      "sha256": "db0f8f6e3c129b57722d9241913803aeebd078e78fd0260ab33b81a63351d33e"
+    },
+    {
+      "path": "projection-02-1080.png",
+      "sha256": "906978f31878f159663647f580331db43f2f6f3fdd17b37a29802ba95719ad2e"
+    },
+    {
+      "path": "projection-03-1080.png",
+      "sha256": "be40802025a3a4767fa4326094c45b48332986efec94853975a05890565f8869"
+    },
+    {
+      "path": "projection-04-1080.png",
+      "sha256": "ef2b3388bdf101d209df9ff82a3ac6e953fcc413288584c7f05fae515fd61e0c"
+    },
+    {
+      "path": "projection-05-1080.png",
+      "sha256": "4b1386b89646c4271c22dabd37d3e7a93f45442acf7a1c8053c341c6e7679200"
+    },
+    {
+      "path": "projection-06-1080.png",
+      "sha256": "25e417ad4456e80e312c2f562d40569ebd7793d49c69fa24e9abbf0352605e92"
+    },
+    {
+      "path": "projection-07-1080.png",
+      "sha256": "8fbded7b730e990f957d9aebf16fc60b15d8441013b3da65d8ed4c319c9c514c"
+    },
+    {
+      "path": "projection-08-1080.png",
+      "sha256": "b1e2cccb0cc5e2a63e5a34ec5526580b5397bd93d5867d57cd21f5ad59a0a13a"
+    },
+    {
+      "path": "projection-01-720.png",
+      "sha256": "3df6a4ad0992aa82049eb5c21d9b2aa8ec15e0c5d0fa71794cfbdbed6149c7fd"
+    },
+    {
+      "path": "projection-02-720.png",
+      "sha256": "493685b7023d137a17ed116a71905a8fed81249d66d1a118844d8ce97eb9bbfe"
+    },
+    {
+      "path": "projection-03-720.png",
+      "sha256": "704dc78a07e3cee29528db538038066adf348402bfb0f9c565d72d759a363cd4"
+    },
+    {
+      "path": "projection-04-720.png",
+      "sha256": "4bcaf37e504c3b7bc90dd72cea57f29133ca1486c4b0b4784e25cbb456865bed"
+    },
+    {
+      "path": "projection-05-720.png",
+      "sha256": "bb88dd8b22d823d78e15e04f8d39f918d6216109cdb1b564778626def0a88509"
+    },
+    {
+      "path": "projection-06-720.png",
+      "sha256": "b6dd948e22c82cd448978415b1c2aaa3e2c8a08793e1d2f157b50a0bbcb72426"
+    },
+    {
+      "path": "projection-07-720.png",
+      "sha256": "de4a2b01973169c5543a291620dcec1811aa97c7da7e302ab4c52be77f191cdd"
+    },
+    {
+      "path": "projection-08-720.png",
+      "sha256": "2076eb960670aa6cac50b5c495bd8fc92ac61f63223d5b2a20331d06f2c318c5"
+    }
+  ],
+  "sourceInventory": {
+    "speaker-notes.json": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+    "craft/capture.html": "54cb205b9ee73bd5d036548298fffeb0773c7753f4425b8c89ac353442c760cb",
+    "slides/slide-01.png": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227",
+    "slides/slide-02.png": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff",
+    "slides/slide-03.png": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492",
+    "slides/slide-04.png": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb",
+    "slides/slide-05.png": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf",
+    "slides/slide-06.png": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c",
+    "slides/slide-07.png": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e",
+    "slides/slide-08.png": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+  },
+  "projection": [
+    {
+      "slide": 1,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-01.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 2,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-02.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 3,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-03.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 4,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-04.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 5,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-05.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 6,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-06.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 7,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-07.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 8,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-08.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 1,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-01.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 2,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-02.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 3,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-03.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 4,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-04.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 5,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-05.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 6,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-06.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 7,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-07.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    },
+    {
+      "slide": 8,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+      "observation": {
+        "src": "http://127.0.0.1:8734/slides/slide-08.png",
+        "complete": true,
+        "naturalWidth": 1920,
+        "naturalHeight": 1080,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": false
+      }
+    }
+  ],
+  "humanReview": {
+    "status": "PASS",
+    "url": "http://127.0.0.1:8735/frontend-hackathon-os/production/human_review/renderer/v1.1/index.html?manifest=/msk-promhack/argus-final-presentation/presentations/final-argus/review/manifest.json",
+    "items": 8,
+    "assetStatus": "0 broken assets · Evidence byte checks complete",
+    "checkedVerdicts": 0,
+    "inspectorOpenedAndClosed": true,
+    "sameOriginManifest": true
+  },
+  "sequence": {
+    "status": "PASS",
+    "kind": "silent QA image navigation, not narrated rehearsal",
+    "path": "complete-280s-sequence.webm",
+    "plannedHoldSeconds": 280,
+    "elapsedSeconds": 287.075,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "motion": "normal",
+    "timeline": [
+      {
+        "slide": 1,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=1",
+        "plannedDurationSeconds": 25,
+        "settledAtSeconds": 0.275,
+        "actualHoldSeconds": 25.011
+      },
+      {
+        "slide": 2,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=2",
+        "plannedDurationSeconds": 30,
+        "settledAtSeconds": 25.516,
+        "actualHoldSeconds": 30.017
+      },
+      {
+        "slide": 3,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=3",
+        "plannedDurationSeconds": 45,
+        "settledAtSeconds": 55.724,
+        "actualHoldSeconds": 45.02
+      },
+      {
+        "slide": 4,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=4",
+        "plannedDurationSeconds": 35,
+        "settledAtSeconds": 100.976,
+        "actualHoldSeconds": 35.007
+      },
+      {
+        "slide": 5,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=5",
+        "plannedDurationSeconds": 50,
+        "settledAtSeconds": 136.182,
+        "actualHoldSeconds": 50.005
+      },
+      {
+        "slide": 6,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=6",
+        "plannedDurationSeconds": 35,
+        "settledAtSeconds": 186.382,
+        "actualHoldSeconds": 35.005
+      },
+      {
+        "slide": 7,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=7",
+        "plannedDurationSeconds": 35,
+        "settledAtSeconds": 221.605,
+        "actualHoldSeconds": 35.006
+      },
+      {
+        "slide": 8,
+        "url": "http://127.0.0.1:8734/craft/capture.html?slide=8",
+        "plannedDurationSeconds": 25,
+        "settledAtSeconds": 256.783,
+        "actualHoldSeconds": 25.013
+      }
+    ],
+    "sha256": "328e8b623b7d8883bc2467bcafdd607048178ea70fa417dbb76200b4f11e074c"
+  },
+  "limits": [
+    "Silent browser QA sequence, not a spoken rehearsal.",
+    "Human verdicts are never selected, imported, exported, or submitted by this script.",
+    "The harness measures existing images; it is not a presentation website."
+  ],
+  "browser": "156.0.8078.4",
+  "sourceInventoryAfter": {
+    "speaker-notes.json": "b2554d0c929592c7d947d10340da498c174f55822fe3d5f87b0d5a22f6b732e7",
+    "craft/capture.html": "54cb205b9ee73bd5d036548298fffeb0773c7753f4425b8c89ac353442c760cb",
+    "slides/slide-01.png": "3d384e208f75298f55aa515fc591c5a429d6b1af5655b38ec26236b6103c9227",
+    "slides/slide-02.png": "db6a00cd429b203e234c3447ca61190741ef0955f2950c10f51537f57eaab6ff",
+    "slides/slide-03.png": "58e6f662a8b98df08f1c0b02b5ca06c2dde100b0ee8bbe0f0794241be5339492",
+    "slides/slide-04.png": "12d2d39bf0f641ab5af46fd2f0418027176ba4051538ae58a4e0309ed5fabafb",
+    "slides/slide-05.png": "b07670c78ecf8fbb8695c96c141f246fad50fddb475050eee95c6039126d8dcf",
+    "slides/slide-06.png": "da17f5a41e15380eaed62a6f7aed15f3dcbec5b598232f8736434fbf90814f0c",
+    "slides/slide-07.png": "00af32ad781041a498f38509865ed3df4feac39ddb66d6f82554e20fdace429e",
+    "slides/slide-08.png": "5a47449eb14c75a32bfe553a0c5560ecad9e7b65c47385de65954efa68029a72"
+  },
+  "sourceStable": true,
+  "finishedAt": "2026-10-24T12:46:24.470Z"
+}

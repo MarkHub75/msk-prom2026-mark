@@ -1,0 +1,93 @@
+[
+  {
+    "id": "roles",
+    "slide": 2,
+    "label": "скрин: роли и навигация",
+    "rect": [
+      1070,
+      342,
+      746,
+      484
+    ],
+    "file": "assets/screens/roles.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "yellow",
+    "slide": 3,
+    "label": "скрин: жёлтая тревога",
+    "rect": [
+      104,
+      423,
+      383,
+      327
+    ],
+    "file": "assets/screens/yellow.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "red",
+    "slide": 3,
+    "label": "скрин: красная тревога",
+    "rect": [
+      547,
+      423,
+      383,
+      327
+    ],
+    "file": "assets/screens/red.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "master",
+    "slide": 3,
+    "label": "скрин: поручение мастеру",
+    "rect": [
+      990,
+      423,
+      383,
+      327
+    ],
+    "file": "assets/screens/master.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "journal",
+    "slide": 3,
+    "label": "скрин: журнал события",
+    "rect": [
+      1433,
+      423,
+      383,
+      327
+    ],
+    "file": "assets/screens/journal.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "analytics",
+    "slide": 4,
+    "label": "скрин: аналитика",
+    "rect": [
+      104,
+      345,
+      1134,
+      548
+    ],
+    "file": "assets/screens/analytics.png",
+    "state": "placeholder"
+  },
+  {
+    "id": "provenance",
+    "slide": 7,
+    "label": "скрин: происхождение события",
+    "rect": [
+      1070,
+      345,
+      746,
+      470
+    ],
+    "file": "assets/screens/provenance.png",
+    "state": "placeholder"
+  }
+]

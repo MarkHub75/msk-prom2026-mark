@@ -1,0 +1,104 @@
+1: /* ==========================================================================
+2:    Design system (loaded last). Graphite VMS console: Resolve/Premiere density,
+3:    Genetec/XProtect layout. Colour carries state only: red = alarm, amber = attention,
+4:    green = OK, grey = no observation; blue = selection, focus and timecode.
+5:    ========================================================================== */
+6: :root {
+7:   /* surfaces, darkest to lightest */
+8:   --ds-bg-0: #111214;   /* app background, gutters between panels */
+9:   --ds-bg-1: #191b1f;   /* panel body */
+10:   --ds-bg-2: #1f2125;   /* panel header strip, toolbars, bars */
+11:   --ds-bg-3: #26292f;   /* inputs, raised rows, hover */
+12:   --ds-bg-4: #30343b;   /* pressed / neutral selection */
+13:   --ds-well: #060708;   /* video wells */
+14:   /* lines */
+15:   --ds-line-dark: #050506;
+16:   --ds-line: #2c2f36;
+17:   --ds-line-strong: #353941;
+18:   /* text */
+19:   --ds-text: #f2f4f7;
+20:   --ds-text-2: #a3abb7;
+21:   --ds-text-3: #78818e;
+22:   /* accent and semantics */
+23:   --ds-accent: #3d8bfd;
+24:   --ds-accent-hover: #5a9dfd;
+25:   --ds-accent-bg: #142438;
+26:   --ds-timecode: #6cb6ff;
+27:   --ds-red: #ff5d65;
+28:   --ds-red-hover: #ff7178;
+29:   --ds-red-bg: #2c1416;
+30:   --ds-red-line: #6b2427;
+31:   --ds-amber: #ffb65c;
+32:   --ds-amber-bg: #2b2010;
+33:   --ds-amber-line: #644818;
+34:   --ds-green: #43d6a6;
+35:   --ds-green-bg: #10261b;
+36:   --ds-grey: #8a929e;
+37:   --ds-grey-bg: #1d2024;
+38:   /* charts (shared with the analytics stream; semantic ones equal the UI semantics) */
+39:   --chart-1: #55d6f5;
+40:   --chart-2: #a38bff;
+41:   --chart-red: var(--ds-red);
+42:   --chart-amber: var(--ds-amber);
+43:   --chart-green: var(--ds-green);
+44:   --chart-axis: #78818e;
+45:   --chart-grid: #2c2f36;
+46:   /* spacing: 4px scale */
+47:   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
+48:   /* radii, elevation, focus */
+49:   --r1: 2px; --r2: 3px; --r3: 4px;
+50:   --shadow-pop: 0 8px 24px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .04);
+51:   --shadow-modal: 0 24px 64px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06);
+52:   --focus: 0 0 0 2px var(--ds-bg-0), 0 0 0 4px var(--ds-accent);
+53:   /* shell metrics */
+54:   --ds-top-h: 44px;
+55:   --ds-status-h: 26px;
+56:   --ds-rail-w: 86px;
+57:   --ds-panel-head: 30px;
+58:   --ds-ease: cubic-bezier(.2, .7, .2, 1);
+59: 
+60:   /* legacy names used across screens map onto the tokens */
+61:   --bg: var(--ds-bg-0);
+62:   --surface: var(--ds-bg-1);
+63:   --surface-high: var(--ds-bg-3);
+64:   --surface-sunk: var(--ds-well);
+65:   --panel-head: var(--ds-bg-2);
+66:   --line: var(--ds-line);
+67:   --line-soft: var(--ds-line);
+68:   --text: var(--ds-text);
+69:   --muted: var(--ds-text-2);
+70:   --faint: var(--ds-text-3);
+71:   --accent: var(--ds-accent);
+72:   --accent-strong: var(--ds-accent-hover);
+73:   --timecode: var(--ds-timecode);
+74:   --red: var(--ds-red);
+75:   --red-bg: var(--ds-red-bg);
+76:   --amber: var(--ds-amber);
+77:   --amber-bg: var(--ds-amber-bg);
+78:   --ok: var(--ds-green);
+79:   --display: 'Source Sans 3', Arial, sans-serif;
+80:   --mono: 'Source Code Pro', ui-monospace, Consolas, monospace;
+81:   font-family: var(--display);
+82:   font-size: 13px;
+83:   line-height: 1.4;
+84:   color: var(--ds-text);
+85:   background: var(--ds-bg-0);
+86: }
+87: body { background: var(--ds-bg-0); color: var(--ds-text); -webkit-font-smoothing: antialiased; }
+88: body, button, input, select, textarea { font-family: var(--display); }
+89: h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
+90: .mono, time, .media-stamp, .shell-clock, .ds-tc, kbd { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+91: ::selection { background: #2b5aa0; color: #fff; }
+92: button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: none; box-shadow: var(--focus); }
+93: * { scrollbar-width: thin; scrollbar-color: #3a3e45 transparent; }
+94: ::-webkit-scrollbar { width: 10px; height: 10px; }
+95: ::-webkit-scrollbar-thumb { background: #33373e; border: 3px solid transparent; background-clip: padding-box; border-radius: 6px; }
+96: ::-webkit-scrollbar-thumb:hover { background-color: #444952; }
+97: .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+98: 
+99: /* ========================== Shell ========================== */
+100: .app.app-cr.ds-app {
+101:   display: grid; height: 100vh; min-height: 0; overflow: hidden;
+102:   grid-template-columns: var(--ds-rail-w) minmax(0, 1fr);
+103:   grid-template-rows: var(--ds-top-h) minmax(0, 1fr) var(--ds-status-h);
+104:   grid-template-areas: "top top" "rail body" "status status";

@@ -1,0 +1,164 @@
+{
+  "checked_at": "2026-10-24T15:31:15.703095+03:00",
+  "heads": {
+    "main": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+    "front/final": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+    "matvey_cv": "8f879606dc7511ef7893d6be57f8f9efb12112e8"
+  },
+  "sources": [
+    {
+      "id": "s02",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "tech.md",
+      "path": "research/main__tech.md.excerpt.txt",
+      "ranges": [
+        [
+          29,
+          78
+        ],
+        [
+          2994,
+          3058
+        ],
+        [
+          3094,
+          3131
+        ]
+      ],
+      "sha256": "89f0a0d4676c9ec48e717332a431f3a45e240291c18819c832be5a512d8ee9ac"
+    },
+    {
+      "id": "s03",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "progress.md",
+      "path": "research/main__progress.md.excerpt.txt",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "sha256": "7aca1d0f5da7a82287c97cfd075269816399058b15689f7da6da500ee8834cfe"
+    },
+    {
+      "id": "s04",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "docs/linq/LINQ_CONTRACT.md",
+      "path": "research/main__docs__linq__LINQ_CONTRACT.md.excerpt.txt",
+      "ranges": [
+        [
+          73,
+          109
+        ]
+      ],
+      "sha256": "235da278fc4aaa19b5c6e6c3e0dc5ffc79e939cb65d7a56ed7f9ae791c148cdd"
+    },
+    {
+      "id": "s05",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "results/linq_smoke/synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "path": "research/main__results__linq_smoke__synthetic_coco_40x1s_mosprom_det640_cut_ap9999_b1_o1_h1m_s1.summary.json",
+      "ranges": null,
+      "sha256": "3d66bb7882b49eba4506c7e1d3cbb930980cfa554377d11d2aad0aae002bb2d6"
+    },
+    {
+      "id": "s06",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "docs/ML_INTEGRATION.md",
+      "path": "research/main__docs__ML_INTEGRATION.md",
+      "ranges": null,
+      "sha256": "4a8dd3510b6a063828960d55262c386659bb7e2fedc9e3051b94a686634a78ea"
+    },
+    {
+      "id": "s07",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "contract/openapi.json",
+      "path": "research/main__contract__openapi.json",
+      "ranges": null,
+      "sha256": "9401a516ab6390ccc1bbd068ba7dd1d16ff40ea3154f9e0a140662314531aec2"
+    },
+    {
+      "id": "s08",
+      "ref": "main",
+      "commit": "5d940ba22ebebb2255ff7b12252268c3d9d393ab",
+      "original": "contract/ws.schema.json",
+      "path": "research/main__contract__ws.schema.json",
+      "ranges": null,
+      "sha256": "5f3255f76d86fbf4e0dd4d298213075187d8b128fc9daeeb9681dbc2c1e48f6e"
+    },
+    {
+      "id": "s09",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/App.tsx",
+      "path": "research/front-final__frontend__src__App.tsx",
+      "ranges": null,
+      "sha256": "1180b4d068dc8ae93e13b96077494ae75e6c2d6f0fb9a2c69d43ac4325ca9066"
+    },
+    {
+      "id": "s10",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/roles.ts",
+      "path": "research/front-final__frontend__src__roles.ts",
+      "ranges": null,
+      "sha256": "f75bb2e7cbeb812f282c35d2eed3000276d2835e6cf904896a6bb63e0d4a3da5"
+    },
+    {
+      "id": "s11",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/features/Incident.tsx",
+      "path": "research/front-final__frontend__src__features__Incident.tsx",
+      "ranges": null,
+      "sha256": "7ed728d8a386d44af68f50eca3075358ba92df626801a25c77ad7c416bb55d5f"
+    },
+    {
+      "id": "s12",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/features/Stats.tsx",
+      "path": "research/front-final__frontend__src__features__Stats.tsx",
+      "ranges": null,
+      "sha256": "7b485b60df8b5d53fa931c95dc67ea62b7eb124ccb1f870345a33094be09b0ab"
+    },
+    {
+      "id": "s13",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/features/Journal.tsx",
+      "path": "research/front-final__frontend__src__features__Journal.tsx",
+      "ranges": null,
+      "sha256": "56b777a26ef87547d9cb362de4b00a1af33851e5270d1b6ef3b3e19ef00be844"
+    },
+    {
+      "id": "s14",
+      "ref": "front/final",
+      "commit": "72358bde5a3e8098c09c5132dd2e2cb90751e16f",
+      "original": "frontend/src/styles/ds.css",
+      "path": "research/front-final__frontend__src__styles__ds.css.excerpt.txt",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "sha256": "3481cb40b18d18160339899016c6a90efd37ae3014470a874408244033ae0878"
+    },
+    {
+      "id": "s15",
+      "ref": "matvey_cv",
+      "commit": "8f879606dc7511ef7893d6be57f8f9efb12112e8",
+      "original": "ml/EVAL_REPORT.md",
+      "path": "research/matvey_cv__ml__EVAL_REPORT.md",
+      "ranges": null,
+      "sha256": "22cc58991c37ee5d9a77a47f8bb85b58f72960072d9f0ee42c55e7c4583db6e4"
+    }
+  ]
+}

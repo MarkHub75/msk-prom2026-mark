@@ -1,0 +1,6 @@
+* -text
+research/** -whitespace
+evidence/** -whitespace
+review/** -whitespace
+assets/fonts/** -whitespace
+SPEAKER_SCRIPT.md whitespace=-blank-at-eof
