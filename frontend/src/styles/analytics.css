@@ -140,7 +140,7 @@
 .an-heat-margin { height: 34px; display: flex; align-items: flex-end; }
 .an-heat-margin i { display: block; width: 100%; border-radius: 2px 2px 0 0; background: linear-gradient(180deg, var(--c), color-mix(in srgb, var(--c) 25%, transparent)); min-height: 1px; }
 .an-heat-day { font-size: 11.5px; color: var(--muted); align-self: center; }
-.an-heat-cell { display: block; height: 22px; border-radius: 3px; background: color-mix(in oklab, var(--c) calc(var(--k) * 100%), #1c1c1c); transition: transform .08s; }
+.an-heat-cell { display: block; height: 32px; border-radius: 3px; background: color-mix(in oklab, var(--c) calc(var(--k) * 100%), #1c1c1c); transition: transform .08s; }
 .an-heat-cell.is-zero { background: #1b1b1b; box-shadow: inset 0 0 0 1px #262626; }
 .an-heat-cell.is-hover { outline: 2px solid #fff; outline-offset: 1px; position: relative; z-index: 1; }
 .an-heat-total { display: grid; grid-template-columns: 1fr 26px; align-items: center; gap: 5px; align-self: center; }
@@ -203,6 +203,7 @@
 @media (max-width: 1500px) {
   .an-tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .an-tile-main { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .an-tiles-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .an-tiles-2 .an-tile-main { flex-direction: row; align-items: flex-end; }
   .an-tile-value { font-size: 26px; }
   .an-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
