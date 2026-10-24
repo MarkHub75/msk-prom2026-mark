@@ -164,6 +164,14 @@ function ShellContent({ children }: { children: ReactNode }) {
       }
       // tech.md 8.24: the master's inbox opens the card handed over to him by itself.
       if (role === "master" && n.id.endsWith(":to_master") && location.pathname === "/master") { sound.beep(n.sound); navigate(`/master/events/${n.event_id}`); return; }
+      // The operator is already in front of another red takeover: the new red does not yank him away, it waits in the bar (pill on the phone) and the queue.
+      const busy = role === "operator" && new URLSearchParams(location.search).get("takeover") === "1" && /\/events\/\d+$/.test(location.pathname) && !location.pathname.endsWith(`/events/${n.event_id}`);
+      if (busy && n.takeover && n.level === "red") {
+        if (alarm?.eventId === n.event_id || dismissedAlarms.current.has(n.event_id)) return;
+        sound.beep(n.sound);
+        setAlarm({ eventId: n.event_id, text: n.text, received: Date.now(), collapsed: phoneApp });
+        return;
+      }
       if (role === "operator" && n.takeover && n.level === "red" && location.pathname.startsWith("/m/operator")) { sound.beep(n.sound); navigate(`/m/operator/events/${n.event_id}?takeover=1`); return; }
       if (role === "operator" && n.takeover && n.level === "red") {
         // tech.md 8.8: a red notification takes over the dispatcher and an open event card; sector and camera views get the bar.
