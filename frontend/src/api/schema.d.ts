@@ -3684,6 +3684,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                    "application/zip": unknown;
                 };
             };
             /** @description Not Implemented */
@@ -4319,6 +4320,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                    "application/pdf": unknown;
                 };
             };
             /** @description Not Implemented */

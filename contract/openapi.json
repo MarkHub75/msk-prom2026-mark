@@ -6373,7 +6373,8 @@
             "content": {
               "application/json": {
                 "schema": {}
-              }
+              },
+              "application/zip": {}
             },
             "description": "Successful Response"
           },
@@ -7618,7 +7619,8 @@
             "content": {
               "application/json": {
                 "schema": {}
-              }
+              },
+              "application/pdf": {}
             },
             "description": "Successful Response"
           },

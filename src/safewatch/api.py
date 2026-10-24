@@ -84,6 +84,9 @@ WS_TOO_SLOW = 1013
 
 # Every error body is ApiError (tech.md 6.2); 4XX also covers the 422 of a malformed request.
 router = APIRouter(responses={"4XX": {"model": ApiError}, 501: {"model": ApiError}})
+# A file route names its media type next to the default one: the contract only grows (6.11.6).
+ZIP_FILE: dict[int | str, dict[str, object]] = {200: {"content": {"application/zip": {}}}}
+PDF_FILE: dict[int | str, dict[str, object]] = {200: {"content": {"application/pdf": {}}}}
 
 
 def _role(x_role: Annotated[str | None, Header(alias="X-Role")] = None) -> Role | None:
@@ -468,9 +471,9 @@ async def datasets_view() -> DatasetView:
     return services.datasets_view()
 
 
-@router.get("/api/datasets/false-alarms/export.zip")
+@router.get("/api/datasets/false-alarms/export.zip", responses=ZIP_FILE)
 async def dataset_export() -> FileResponse:
-    path = services.dataset_export()
+    path = await services.dataset_export()
     return FileResponse(path, media_type="application/zip", filename=path.name)
 
 
@@ -495,7 +498,7 @@ async def camera_passport(camera_id: int) -> CameraPassport:
     return services.camera_passport(camera_id)
 
 
-@router.get("/api/master/shift.pdf")
+@router.get("/api/master/shift.pdf", responses=PDF_FILE)
 async def shift_report_pdf(at: datetime | None = None) -> Response:
     return Response(services.shift_report_pdf(at), media_type="application/pdf")
 
