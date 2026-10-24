@@ -39,6 +39,8 @@ models/*
 *.tpu
 data/videos/*
 !data/videos/README.md
+data/demo/*
+!data/demo/README.md
 results/**/raw/
 data/coco128/
 

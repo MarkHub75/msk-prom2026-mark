@@ -27,7 +27,19 @@ import numpy as np
 import yaml
 from pydantic import BaseModel, ValidationError
 
-from safewatch import clock, config, delivery, evaluate, media, registry, rules, seed, store, texts
+from safewatch import (
+    clock,
+    config,
+    delivery,
+    demo,
+    evaluate,
+    media,
+    registry,
+    rules,
+    seed,
+    store,
+    texts,
+)
 from safewatch.analysis import geometry, pipeline
 from safewatch.errors import (
     Conflict,
@@ -72,9 +84,13 @@ from safewatch.types import (
     DayRow,
     Delivery,
     DeliveryKind,
+    DemoArtifact,
+    DemoCamera,
     DemoImportReport,
+    DemoLayout,
     DemoManifest,
     DemoPack,
+    DemoVideo,
     Episode,
     EpisodeDraft,
     EvalLabels,
@@ -172,6 +188,8 @@ TERMINAL_STATUSES: frozenset[EventStatus] = frozenset(
 LEVEL_COLORS: dict[Level, str] = {"yellow": "#FFC400", "red": "#FF3B30"}  # theme of tech.md 8.14
 
 RECENT_JOBS = 20  # finished jobs on the IT screen (slice 3)
+
+Source = tuple[BackendName, bool]  # backend and fake of a job or an artifact (tech.md 8.19)
 
 # Lazy: made from the settings on the first job; the `conn` fixture resets it.
 _backend: InferenceBackend | None = None
@@ -385,13 +403,15 @@ def _too_large() -> TooLarge:
     return TooLarge(texts.VIDEO_TOO_LARGE.format(mb=config.get_settings().upload.max_mb))
 
 
-def _enqueue(video_id: int, kind: JobKind = "process") -> int:
+def _enqueue(video_id: int, kind: JobKind = "process", source: Source | None = None) -> int:
+    """`source`: backend and fake of a demo pack (tech.md 8.19); none — the settings."""
     settings = config.get_settings()
+    backend, fake = source or (settings.inference_backend, settings.fake)
     values = {
         "kind": kind,
         "video_id": video_id,
-        "backend": settings.inference_backend,
-        "fake": int(settings.fake),
+        "backend": backend,
+        "fake": int(fake),
         "status": "queued",
         "stage": "queued",
         "created_at": clock.iso(clock.now()),
@@ -400,7 +420,12 @@ def _enqueue(video_id: int, kind: JobKind = "process") -> int:
 
 
 def _register(
-    camera_id: int, filename: str, sha256: str, size: int, probe: media.VideoProbe
+    camera_id: int,
+    filename: str,
+    sha256: str,
+    size: int,
+    probe: media.VideoProbe,
+    source: Source | None = None,
 ) -> UploadResult:
     """Steps 5 and 6 of tech.md 8.1: the file already sits in `uploads/<sha256><ext>`."""
     new_job = False
@@ -419,14 +444,14 @@ def _register(
                 "created_at": clock.iso(clock.now()),
             }
             video_id = store.insert("videos", values)
-            job_id: int | None = _enqueue(video_id)
+            job_id: int | None = _enqueue(video_id, source=source)
             new_job, reused = True, False
         else:
             video_id, reused = row["id"], True
             if row["status"] == "ready":
                 job_id = None
             elif row["status"] == "failed":
-                job_id = _enqueue(video_id)
+                job_id = _enqueue(video_id, source=source)
                 store.video_update(video_id, {"status": "uploaded"})
                 new_job = True
             else:
@@ -479,6 +504,10 @@ def _sha256(path: Path) -> str:
 
 
 def video_import(camera_id: int, path: Path) -> UploadResult:
+    return _video_import(camera_id, path, None)
+
+
+def _video_import(camera_id: int, path: Path, source: Source | None) -> UploadResult:
     if not path.is_file():
         raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
     camera_get(camera_id)
@@ -495,7 +524,7 @@ def video_import(camera_id: int, path: Path) -> UploadResult:
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
-    return _register(camera_id, path.name, sha256, size, probe)
+    return _register(camera_id, path.name, sha256, size, probe, source)
 
 
 def videos_list(camera_id: int) -> list[Video]:
@@ -529,7 +558,10 @@ def _job(row: sqlite3.Row) -> Job:
             cached = row["started_at"] is not None and row[f"{prefix}_created"] < row["started_at"]
             data = json.loads(row[f"{prefix}_metrics"])
             metrics.append(InferenceMetrics(**data, cached=cached))
-    return Job.model_validate({**dict(row), "metrics": metrics})
+    job = Job.model_validate({**dict(row), "metrics": metrics})
+    return job.model_copy(
+        update={"status_text": texts.job_status_text(job, config.get_settings().timezone)}
+    )
 
 
 def jobs_list(status: JobStatus | None = None, limit: int = 50) -> list[Job]:
@@ -573,10 +605,12 @@ async def _infer(
     span: tuple[float, float],
     model: ModelSpec,
     video: sqlite3.Row | dict[str, Any],
+    source: Source | None = None,
 ) -> int:
     """Artifact id of `model` on the video: from the cache or from a backend run.
 
-    `job_id=None`: `eval_run`, no job to report the stage and progress to.
+    `job_id=None`: `eval_run`, no job to report the stage and progress to. `source`: backend
+    and fake of the job (tech.md 8.19): its key is looked up first, a run uses the backend.
     """
     settings = config.get_settings()
     backend = _backend_instance()
@@ -584,6 +618,10 @@ async def _infer(
         store.job_update(job_id, {"stage": stage})
         _progress(job_id, span[0])
     step = analysis_step(video["fps"])
+    if source is not None:
+        found = store.artifact(artifacts.cache_key(video["sha256"], model, step, *source))
+        if found is not None and (settings.data_dir / found["path"]).is_file():
+            return int(found["id"])
     key = artifacts.cache_key(video["sha256"], model, step, backend.name, settings.fake)
     rel = f"artifacts/{key}.jsonl"
     existing = store.artifact(key)
@@ -835,18 +873,22 @@ async def run_next_job() -> Job | None:
             pose_id = None if pose is None else pose[1]
             store.job_update(job_id, {"det_artifact_id": det_id, "pose_artifact_id": pose_id})
         else:
+            src: Source = (row["backend"], bool(row["fake"]))
             detector = registry.resolve(settings.pipeline.detector)
-            det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
+            span = (0.0, 0.45)
+            det_id = await _infer(job_id, "inference_detect", span, detector, video, src)
             store.job_update(job_id, {"det_artifact_id": det_id})
             for ref in settings.pipeline.extra:  # own classes, --nc (tech.md 6.1)
                 model = registry.resolve(ref)
                 span = (0.45, 0.45)
-                extra.append((model, await _infer(job_id, "inference_detect", span, model, video)))
+                artifact_id = await _infer(job_id, "inference_detect", span, model, video, src)
+                extra.append((model, artifact_id))
             try:
                 if settings.pipeline.pose is not None:
                     pose_model = registry.resolve(settings.pipeline.pose)
                     span = (0.45, 0.85)
-                    pose_id = await _infer(job_id, "inference_pose", span, pose_model, video)
+                    stage: JobStage = "inference_pose"
+                    pose_id = await _infer(job_id, stage, span, pose_model, video, src)
                     store.job_update(job_id, {"pose_artifact_id": pose_id})
                     pose = (pose_model, pose_id)
             except InferenceError as exc:
@@ -2548,16 +2590,198 @@ async def deliveries_flush() -> int:
 
 
 # --- v5 (tech.md 6.11.4): declared in slice 16, built by the slice in each stub -----------
+def _field(exc: ValidationError) -> str:
+    return ".".join(str(part) for part in exc.errors()[0]["loc"]) or "root"
+
+
+def _demo_layout(path: Path) -> DemoLayout:
+    if not path.is_file():
+        raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
+    try:
+        return DemoLayout.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")))
+    except yaml.YAMLError:
+        raise ValidationFailed(
+            texts.DEMO_LAYOUT_INVALID.format(field="yaml"), field="yaml"
+        ) from None
+    except ValidationError as exc:
+        field = _field(exc)
+        raise ValidationFailed(texts.DEMO_LAYOUT_INVALID.format(field=field), field=field) from None
+
+
+def _demo_videos(cameras: list[DemoCamera], videos_dir: Path) -> dict[str, Path]:
+    """Every layout video by its file name: present and readable, before anything is written."""
+    found: dict[str, Path] = {}
+    for camera in cameras:
+        for video in camera.videos:
+            path = videos_dir / video.file
+            if not path.is_file():
+                raise NotFound(texts.FILE_NOT_FOUND.format(path=path))
+            if media.probe_video(path) is None:
+                raise UnsupportedVideo(texts.VIDEO_UNREADABLE)
+            found[video.file] = path
+    return found
+
+
+def _demo_run(
+    backend: InferenceBackend, video: Path, out: Path, done: dict[str, DemoArtifact]
+) -> DemoVideo:
+    """Step 3 of tech.md 8.19 for one video: every active model, one backend run at a time."""
+    settings = config.get_settings()
+    probe = media.probe_video(video)
+    assert probe is not None  # checked by _demo_videos
+    sha256 = _sha256(video)
+    step = analysis_step(probe.fps)
+    refs = [settings.pipeline.detector, *settings.pipeline.extra]
+    refs += [] if settings.pipeline.pose is None else [settings.pipeline.pose]
+    items = []
+    for ref in refs:
+        model = registry.resolve(ref)
+        key = artifacts.cache_key(sha256, model, step, backend.name, settings.fake)
+        if key not in done:
+            jsonl = out / "artifacts" / f"{key}.jsonl"
+            metrics = backend.run(video, sha256, model, step, jsonl, lambda share: None)
+            frames = len(artifacts.read_jsonl(jsonl, metrics.frames_processed))
+            done[key] = DemoArtifact(
+                model=ref,
+                task=model.task,
+                input_size=model.input_size,
+                step=step,
+                backend=backend.name,
+                fake=settings.fake,
+                file=f"artifacts/{key}.jsonl",
+                frames=frames,
+                metrics=metrics,
+            )
+        items.append(done[key])
+    return DemoVideo(file=f"videos/{video.name}", sha256=sha256, artifacts=items)
+
+
 def demo_build(layout: Path, videos_dir: Path, out: Path, allow_fake: bool = False) -> DemoManifest:
-    raise NotImplementedError("slice 17")
+    """Pack files only (tech.md 8.19), the database stays as is; a failure leaves no `out`."""
+    from safewatch.api import CONTRACT_VERSION  # api imports this module at the top
+
+    spec = _demo_layout(layout)
+    if out.exists() and (not out.is_dir() or any(out.iterdir())):
+        raise ValidationFailed(texts.DEMO_OUT_NOT_EMPTY.format(path=out), field="out")
+    if config.get_settings().fake and not allow_fake:
+        raise ValidationFailed(texts.DEMO_FAKE_REFUSED, field="allow_fake")
+    sources = _demo_videos(spec.cameras, videos_dir)
+    backend = _backend_instance()
+    done: dict[str, DemoArtifact] = {}
+    try:
+        (out / "videos").mkdir(parents=True, exist_ok=True)
+        (out / "artifacts").mkdir(exist_ok=True)
+        cameras = []
+        for camera in spec.cameras:
+            videos = []
+            for video in camera.videos:
+                copy = out / "videos" / sources[video.file].name
+                if not copy.exists():
+                    shutil.copyfile(sources[video.file], copy)
+                videos.append(_demo_run(backend, copy, out, done))
+            cameras.append(camera.model_copy(update={"videos": videos}))
+        manifest = DemoManifest(
+            name=spec.name, created_at=clock.now(), contract=CONTRACT_VERSION, cameras=cameras
+        )
+        demo.write_manifest(out / demo.MANIFEST, manifest)
+    except BaseException:
+        shutil.rmtree(out, ignore_errors=True)
+        raise
+    return manifest
+
+
+def _demo_manifest(path: Path) -> tuple[DemoManifest, str]:
+    """The manifest and the sha256 of its file; schema, models and pack files checked."""
+    file = path / demo.MANIFEST
+    if not path.is_dir() or not file.is_file():
+        raise NotFound(texts.FILE_NOT_FOUND.format(path=file))
+    try:
+        manifest = demo.read_manifest(file)
+    except ValidationError as exc:
+        field = _field(exc)
+        raise ValidationFailed(
+            texts.DEMO_MANIFEST_INVALID.format(field=field), field=field
+        ) from None
+    for camera in manifest.cameras:
+        for video in camera.videos:
+            for a in video.artifacts:
+                try:
+                    registry.resolve(a.model)
+                except ValueError:
+                    raise ValidationFailed(
+                        texts.DEMO_MODEL_UNKNOWN.format(model=a.model), field="model"
+                    ) from None
+                if not (path / a.file).is_file():
+                    raise NotFound(texts.FILE_NOT_FOUND.format(path=path / a.file))
+            if not (path / video.file).is_file():
+                raise NotFound(texts.FILE_NOT_FOUND.format(path=path / video.file))
+            if _sha256(path / video.file) != video.sha256:
+                raise ValidationFailed(
+                    texts.DEMO_SHA_MISMATCH.format(file=video.file), field="sha256"
+                )
+    return manifest, _sha256(file)
+
+
+def _demo_camera(camera: DemoCamera) -> int:
+    """Step 3 of tech.md 8.19: the camera by sector and name; its setup only where it has none."""
+    sector = store.sector_by_name(camera.sector.strip())
+    if sector is None:
+        sector_id = sector_create(SectorIn(name=camera.sector), "admin").id
+    else:
+        sector_id = sector["id"]
+    row = store.camera_by_name(sector_id, camera.name.strip())
+    if row is None:
+        data = CameraIn(sector_id=sector_id, name=camera.name, description=camera.description)
+        camera_id = camera_create(data, "admin").id
+    else:
+        camera_id = row["id"]
+    if camera.calibration is not None and store.calibration(camera_id) is None:
+        calibration_set(camera_id, camera.calibration, "admin")
+    if not store.zones(camera_id):
+        for zone in camera.zones:
+            zone_create(camera_id, zone, "admin")
+    stored = {row["scenario"] for row in store.camera_rules(camera_id)}
+    for scenario, rule in camera.rules.items():
+        if scenario not in stored:
+            camera_rule_set(camera_id, scenario, rule, "admin")
+    return int(camera_id)
 
 
 def demo_import(path: Path) -> DemoImportReport:
-    raise NotImplementedError("slice 17")
+    manifest, sha256 = _demo_manifest(path)
+    pack = [a for c in manifest.cameras for v in c.videos for a in v.artifacts]
+    videos = sum(len(c.videos) for c in manifest.cameras)
+    counts = {"name": manifest.name, "cameras": len(manifest.cameras), "videos": videos}
+    if store.demo_pack(manifest.name) is not None:
+        return DemoImportReport(skipped=True, jobs=0, **counts)
+    backend = pack[0].backend if pack else config.get_settings().inference_backend
+    source: Source = (backend, any(a.fake for a in pack))
+    jobs = 0
+    with store.tx():
+        for camera in manifest.cameras:
+            camera_id = _demo_camera(camera)
+            for video in camera.videos:
+                result = _video_import(camera_id, path / video.file, source)
+                for a in video.artifacts:
+                    artifact_import(
+                        result.video.id, a.model, path / a.file, a.backend, a.fake, a.metrics
+                    )
+                jobs += int(result.job is not None and not result.reused)
+        values = {
+            "name": manifest.name,
+            "sha256": sha256,
+            "backend": source[0],
+            "fake": int(source[1]),
+            "cameras": counts["cameras"],
+            "videos": videos,
+            "imported_at": clock.iso(clock.now()),
+        }
+        store.insert("demo_packs", values)
+    return DemoImportReport(skipped=False, jobs=jobs, **counts)
 
 
 def demo_packs() -> list[DemoPack]:
-    raise NotImplementedError("slice 17")
+    return [DemoPack.model_validate(dict(row)) for row in store.demo_packs()]
 
 
 def artifact_import(
@@ -2568,7 +2792,69 @@ def artifact_import(
     fake: bool,
     metrics: InferenceMetrics | None = None,
 ) -> int:
-    raise NotImplementedError("slice 17")
+    """An artifact made elsewhere (a demo pack, later Vast): the job cache finds it by its key."""
+    settings = config.get_settings()
+    video = _video_row(video_id)
+    if not jsonl.is_file():
+        raise NotFound(texts.FILE_NOT_FOUND.format(path=jsonl))
+    try:
+        model = registry.resolve(model_ref)
+    except ValueError:
+        raise ValidationFailed(
+            texts.DEMO_MODEL_UNKNOWN.format(model=model_ref), field="model"
+        ) from None
+    try:
+        frames = len(artifacts.read_jsonl(jsonl, None))
+    except InferenceError as exc:
+        text = texts.ARTIFACT_INVALID.format(file=jsonl.name, error=exc.message)
+        raise ValidationFailed(text, field="jsonl") from None
+    step = analysis_step(video["fps"]) if metrics is None else metrics.step
+    if metrics is None:
+        metrics = InferenceMetrics(
+            backend=backend,
+            fake=fake,
+            model_id=model.id,
+            model_version=model.version,
+            task=model.task,
+            input_size=model.input_size,
+            step=step,
+            frames_processed=frames,
+            wall_s=0.0,
+            throughput_fps=0.0,
+            preprocess_ms=None,
+            postprocess_ms=None,
+            tpu_rtt_p50_ms=None,
+            tpu_rtt_p90_ms=None,
+            upload_s=None,
+            total_s=0.0,
+            cached=False,
+        )
+    key = artifacts.cache_key(video["sha256"], model, step, backend, fake)
+    rel = f"artifacts/{key}.jsonl"
+    target = settings.data_dir / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(jsonl, target)
+    values = {
+        "cache_key": key,
+        "video_sha256": video["sha256"],
+        "model_id": model.id,
+        "model_version": model.version,
+        "task": model.task,
+        "input_size": model.input_size,
+        "step": step,
+        "backend": backend,
+        "fake": int(fake),
+        "path": rel,
+        "frames": frames,
+        "metrics_json": metrics.model_dump_json(exclude={"cached"}),
+        "created_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        existing = store.artifact(key)
+        if existing is not None:
+            store.artifact_update(existing["id"], values)
+            return int(existing["id"])
+        return store.insert("artifacts", values)
 
 
 def calculator_defaults() -> CalculatorDefaults:

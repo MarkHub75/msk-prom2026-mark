@@ -17,6 +17,7 @@ from safewatch.types import (
     BroadcastIn,
     CameraIn,
     CameraLiveView,
+    EventFilter,
     OperatorDashboard,
     SectorIn,
     SectorView,
@@ -275,3 +276,22 @@ async def test_preview_jpeg(
     fake_clock.advance(core.preview.cache_s)
     await client.get(url)
     assert reads[-1] == 10  # 1.0 s at 10 fps
+
+
+def test_feed_skips_seed_demo_events(core: Settings, fake_clock: FakeClock) -> None:
+    services.seed_demo()
+    open_seed = store.one("SELECT count(*) FROM events WHERE is_demo = 1 AND status = 'confirmed'")[
+        0
+    ]  # type: ignore[index]
+    assert open_seed > 0  # the seed history has open yellow events
+    seed_camera = services.cameras_list()[0].id
+    live = event(seed_camera, status="new", level="red", last_action_at=clock.iso(fake_clock.now()))
+    assert [e.id for e in services.operator_feed()] == [live]
+    states = {s.camera_id: s for s in services.camera_states()}
+    assert (states[seed_camera].open_red, states[seed_camera].open_yellow) == (1, 0)
+    assert sum(s.open_yellow for s in states.values()) == 0
+    view = services.sector_view(services.camera_get(seed_camera).sector_id)
+    assert [e.id for e in view.feed] == [live]
+    journal = services.events_list(EventFilter(include_demo=True, limit=1))
+    assert journal.total == store.one("SELECT count(*) FROM events")[0]  # type: ignore[index]
+    assert services.events_list(EventFilter(include_demo=False)).total == 1

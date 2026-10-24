@@ -50,7 +50,7 @@ def serve(host: str | None, port: int | None, seed: bool) -> int:
     if recovered:
         print(f"jobs back in the queue after a stop: {recovered}")
     if seed:
-        print(services.seed_demo().model_dump_json())
+        seed_on_serve()
     pid_file = _pid_file()
     pid_file.parent.mkdir(parents=True, exist_ok=True)
     me = psutil.Process()
@@ -63,6 +63,20 @@ def serve(host: str | None, port: int | None, seed: bool) -> int:
     finally:
         pid_file.unlink(missing_ok=True)
     return 0
+
+
+def seed_on_serve() -> None:
+    """`serve --seed`: the demo world, then the demo pack of `demo.pack` (tech.md 8.19)."""
+    print(services.seed_demo().model_dump_json())
+    settings = config.get_settings()
+    pack = settings.demo.pack if settings.demo.pack.is_absolute() else ROOT / settings.demo.pack
+    if not settings.demo.autoload or not pack.is_dir():
+        return
+    try:
+        print(services.demo_import(pack).model_dump_json())
+    except (NotFound, ValidationFailed, UnsupportedVideo) as exc:
+        # A broken pack must not stop the server: the world of the seed still opens.
+        print(f"demo pack {pack}: {exc.message}", file=sys.stderr)
 
 
 def _exited(proc: psutil.Process) -> bool:
@@ -145,6 +159,39 @@ def evaluate(labels: Path, out: Path | None) -> int:
     return 0
 
 
+def demo_build(layout: Path, videos: Path, out: Path, allow_fake: bool) -> int:
+    try:
+        manifest = services.demo_build(layout, videos, out, allow_fake)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except (ValidationFailed, UnsupportedVideo) as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    except InferenceError as exc:
+        print(f"{exc.code}: {exc.message}", file=sys.stderr)
+        return 4
+    # The artifacts by name and frame count; their metrics stay in manifest.json.
+    skip = {
+        "cameras": {"__all__": {"videos": {"__all__": {"artifacts": {"__all__": {"metrics"}}}}}}
+    }
+    print(manifest.model_dump_json(exclude=skip))
+    return 0
+
+
+def demo_import(path: Path) -> int:
+    try:
+        report = services.demo_import(path)
+    except NotFound as exc:
+        print(exc.message, file=sys.stderr)
+        return 3
+    except (ValidationFailed, UnsupportedVideo) as exc:
+        print(exc.message, file=sys.stderr)
+        return 2
+    print(report.model_dump_json())
+    return 0
+
+
 def contract_texts() -> dict[str, str]:
     from safewatch.api import create_app
 
@@ -194,6 +241,15 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("eval", help="score episodes against labels, write eval/<time>/report.*")
     p.add_argument("labels", type=Path)
     p.add_argument("--out", type=Path)
+    p = sub.add_parser("demo", help="build or import a demo pack (data/demo/<name>/)")
+    demo = p.add_subparsers(dest="demo_command", required=True)
+    p = demo.add_parser("build", help="run every active model over the layout videos")
+    p.add_argument("layout", type=Path)
+    p.add_argument("--videos", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--allow-fake", action="store_true", help="sign the pack as fake detections")
+    p = demo.add_parser("import", help="create the pack world and queue its cached jobs")
+    p.add_argument("path", type=Path)
     p = sub.add_parser("contract", help="write or check contract/*.json")
     p.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
@@ -207,6 +263,10 @@ def main(argv: list[str] | None = None) -> int:
         return import_video(args.file, args.camera)
     if args.command == "eval":
         return evaluate(args.labels, args.out)
+    if args.command == "demo" and args.demo_command == "build":
+        return demo_build(args.layout, args.videos, args.out, args.allow_fake)
+    if args.command == "demo":
+        return demo_import(args.path)
     if args.command == "doctor":
         return doctor.run(config.get_settings())
     return contract(args.check)

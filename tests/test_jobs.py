@@ -270,3 +270,41 @@ async def test_job_loop_survives_unexpected_error(
     monkeypatch.setattr(services, "run_next_job", flaky)
     await asyncio.wait_for(worker.run_forever(stop), 5)
     assert len(calls) == 2
+
+
+async def test_status_text_for_retry_and_failure(
+    fake_core: Settings,
+    tmp_path: Path,
+    make_video,
+    linq_tails: Path,
+    fake_clock,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _shell(monkeypatch, ["unavailable"])
+    _video(tmp_path, make_video)
+    assert services.jobs_list()[0].status_text == "В очереди"
+    job = await services.run_next_job()  # 09:00 UTC + 30 s backoff, Moscow time
+    assert job is not None and job.status_text == "LinQ недоступен, повтор в 12:00"
+    job = services.job_get(job.id)
+    rows = [
+        ({"status": "running"}, "Обработка на LinQ"),
+        ({"status": "running", "backend": "local"}, "Обработка на CPU (local)"),
+        (
+            {"status": "retry_wait", "error_code": "timeout"},
+            "LinQ не ответил вовремя, повтор в 12:00",
+        ),
+        ({"status": "done"}, "Готово"),
+        (
+            {"status": "failed", "error_code": "linq_unavailable"},
+            "LinQ недоступен: попробуйте позже",
+        ),
+        ({"status": "failed", "error_code": "model_missing"}, "Нет программы модели на LinQ"),
+        ({"status": "failed", "error_code": "bad_output"}, "Неожиданный ответ LinQ"),
+        ({"status": "failed", "error_code": "video_unreadable"}, "Видео не читается"),
+        ({"status": "failed", "error_code": "internal"}, "Внутренняя ошибка"),
+    ]
+    for update, text in rows:
+        store.run("UPDATE jobs SET backend = 'linq'")
+        assignments = ", ".join(f"{key} = ?" for key in update)
+        store.run(f"UPDATE jobs SET {assignments} WHERE id = ?", *update.values(), job.id)
+        assert services.job_get(job.id).status_text == text, update

@@ -1,6 +1,16 @@
 """Every Russian text of the product (tech.md 4). The frontend gets them through the API."""
 
-from safewatch.types import ActorRole, Level, LogAction, NoObservationReason, Role, Verdict
+from safewatch import clock
+from safewatch.types import (
+    ActorRole,
+    Job,
+    JobErrorCode,
+    Level,
+    LogAction,
+    NoObservationReason,
+    Role,
+    Verdict,
+)
 
 PRODUCT_TITLE = "SafeWatch"
 
@@ -394,3 +404,49 @@ def notification_text(
     """`<level> · <sector> · <reason>`; the sector is its name up to the first « · »."""
     text = f"{LEVEL_TITLES[level]} · {sector_name.split(' · ')[0]} · {reason_text}"
     return text + NOT_CONFIRMED_SUFFIX if escalated_by_timeout else text
+
+
+# Demo pack and job texts (tech.md 8.19; slice 17).
+DEMO_FAKE_REFUSED = "Демо-пакет на фейке: добавьте --allow-fake"
+DEMO_OUT_NOT_EMPTY = "Папка пакета не пуста: {path}"
+DEMO_LAYOUT_INVALID = "Раскладка демо-пакета: неверное поле {field}"
+DEMO_MANIFEST_INVALID = "manifest.json: неверное поле {field}"
+DEMO_MODEL_UNKNOWN = "Модели {model} нет в config/models.yaml"
+DEMO_SHA_MISMATCH = "sha256 видео {file} не совпадает с manifest.json"
+ARTIFACT_INVALID = "Артефакт {file} не читается: {error}"
+JOB_QUEUED = "В очереди"
+JOB_RUNNING_LINQ = "Обработка на LinQ"
+JOB_RUNNING_LOCAL = "Обработка на CPU (local)"
+JOB_RETRY_UNAVAILABLE = "LinQ недоступен, повтор в {time}"
+JOB_RETRY_TIMEOUT = "LinQ не ответил вовремя, повтор в {time}"
+JOB_RETRY = "Повтор в {time}"
+JOB_DONE = "Готово"
+JOB_FAILED_TEXTS: dict[JobErrorCode, str] = {
+    "linq_unavailable": "LinQ недоступен: попробуйте позже",
+    "timeout": "LinQ не ответил вовремя: попробуйте позже",
+    "remote_error": "Неожиданный ответ LinQ",
+    "bad_output": "Неожиданный ответ LinQ",
+    "model_missing": "Нет программы модели на LinQ",
+    "video_unreadable": "Видео не читается",
+    "artifacts_missing": ARTIFACTS_MISSING,
+    "internal": "Внутренняя ошибка",
+}
+
+
+def job_status_text(job: Job, tz: str) -> str:
+    """`Job.status_text` (tech.md 8.19); times in the product time zone `tz`."""
+    if job.status == "queued":
+        return JOB_QUEUED
+    if job.status == "running":
+        return JOB_RUNNING_LINQ if job.backend == "linq" else JOB_RUNNING_LOCAL
+    if job.status == "done":
+        return JOB_DONE
+    if job.status == "failed":
+        return JOB_FAILED_TEXTS[job.error_code or "internal"]
+    at = job.next_attempt_at
+    time = "" if at is None else clock.local(at, tz).strftime("%H:%M")
+    if job.error_code == "linq_unavailable":
+        return JOB_RETRY_UNAVAILABLE.format(time=time)
+    if job.error_code == "timeout":
+        return JOB_RETRY_TIMEOUT.format(time=time)
+    return JOB_RETRY.format(time=time)

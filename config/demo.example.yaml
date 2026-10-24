@@ -1,0 +1,12 @@
+# Layout of `safewatch demo build` (tech.md 8.19, DemoLayout). Video paths are under --videos.
+name: argus
+cameras:
+  - sector: Сектор 1 · Прессовый участок
+    name: Камера 1.1 · Пресс №2       # a camera of the seed: matched by name on import
+    description: Обзор пресса и рабочего места
+    videos:
+      - file: synthetic_coco_40x1s.mp4
+    zones:                             # written only when the camera has no zones yet
+      - kind: danger
+        name: Пресс
+        points: [[0.55, 0.35], [0.9, 0.35], [0.9, 0.85], [0.55, 0.85]]
