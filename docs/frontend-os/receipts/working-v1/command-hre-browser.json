@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "scope": "Approved HRE renderer and source-bound working-product package; no human approval",
+  "url": "http://127.0.0.1:8198/human_review/renderer/v1.1/index.html?manifest=../../../runs/safewatch-20261024-working-r3/human-review/hre-signal-post-command-b1-r0/attempt-2-eeb37be0/manifest.json",
+  "manifest": {
+    "created_at": "2026-10-24T03:17:39.041986+00:00",
+    "description": "Completed registered change. Exact source/fixture evidence; human acceptance pending.",
+    "id": "hre-signal-post-command-b1-r0",
+    "revision": 1,
+    "title": "Human Review / signal-post-command"
+  },
+  "source_sha256": "7294c13b3f04090065e1d964978cf9f63e0a9adbbd2f0f166f70e73a0a6cae9f",
+  "images": 44,
+  "recordings": 4,
+  "states": 11,
+  "renderer": "Renderer 1.1.0",
+  "human_verdicts": "NONE",
+  "console_errors": [],
+  "checks": [
+    "sealed artifact byte checks",
+    "all image dimensions and decodes",
+    "eleven unreviewed items",
+    "reduced-motion evidence",
+    "recording metadata decode",
+    "desktop/mobile review UI"
+  ]
+}

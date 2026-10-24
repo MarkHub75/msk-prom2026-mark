@@ -1,0 +1,103 @@
+{
+  "feedback_artifact": "objects/67632e0e7208a3d93ba5f0cdf50bed7ddb1681a2963817c6ce15f279f38eaaa2",
+  "coherent_thesis": "Сигнальный пост: единая тёмная промышленная диспетчерская. Графит, спокойный читаемый гротеск, выразительные компактные номера секторов и заголовки. Матрица секторов/видеопанелей и плотная лента внимания. Красный только для критических событий. Incident Focus: закреплённое доказательство слева, объяснение/состояние/серверные действия справа, последующее наблюдение ниже. Один event ID и хронология связывают оператора с отдельным мобильным сценарием мастера accept→report. Камера имеет крупный recorded player, привязанный к кадру HUD и timeline. Визуальный DNA утверждён человеком, готовые экраны ещё не приняты.",
+  "evidence": "evidence/creative-synthesis-approved-signal.json",
+  "base_candidate": null,
+  "element_decisions": [
+    {
+      "feedback_element_id": "element-1",
+      "action": "KEEP",
+      "candidates": [
+        "signal-post"
+      ],
+      "element": "Основное визуальное направление: тёмный индустриальный характер, типографика, видеопанели, лента тревог и критические красные акценты",
+      "disposition": "preserve",
+      "treatment": "Сохранить тёмный graphite фон, прямую сетку и промышленную композицию; использовать красный по семантике backend уровня, не заливать обычные панели."
+    },
+    {
+      "feedback_element_id": "element-2",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post"
+      ],
+      "element": "Читабельность, плотность, размеры заголовков и поведение",
+      "disposition": "reinterpret",
+      "treatment": "Уменьшить дисплейные заголовки; использовать выразительный кириллический display только в ключевых местах, body не менее 13–14px, мобильные действия 44px+, видимый focus и reduced motion."
+    },
+    {
+      "feedback_element_id": "element-3",
+      "action": "COMBINE",
+      "candidates": [
+        "signal-post",
+        "response-route"
+      ],
+      "element": "История передачи инцидента между оператором и мастером",
+      "disposition": "combine",
+      "treatment": "Показывать историю из event_actions, разделяя серверный статус, вердикт и фактические действия/ответственного; не создавать новую машину состояний."
+    },
+    {
+      "feedback_element_id": "element-4",
+      "action": "COMBINE",
+      "candidates": [
+        "signal-post",
+        "sector-atlas"
+      ],
+      "element": "Номера и иерархия секторов",
+      "disposition": "combine",
+      "treatment": "Выразительные табличные номера секторов, понятный sector→camera breadcrumb и counters из API; никаких вымышленных планов площадки."
+    },
+    {
+      "feedback_element_id": "element-5",
+      "action": "COMBINE",
+      "candidates": [
+        "signal-post",
+        "evidence-desk"
+      ],
+      "element": "Incident Focus: доказательство, объяснение, последующее наблюдение и решение",
+      "disposition": "combine",
+      "treatment": "Сохранить согласованную верхнюю split-композицию, отдельные evidence timestamp/frame и recorded broadcast timestamp; why и provenance рядом с действиями."
+    },
+    {
+      "feedback_element_id": "element-6",
+      "action": "COMBINE",
+      "candidates": [
+        "signal-post",
+        "shift-ribbon"
+      ],
+      "element": "Хронология событий и действий",
+      "disposition": "combine",
+      "treatment": "История сортируется по серверным timestamps; включить действия и эскалацию без искусственной ретроспективы и придуманных значений."
+    },
+    {
+      "feedback_element_id": "element-7",
+      "action": "COMBINE",
+      "candidates": [
+        "signal-post",
+        "video-switchboard"
+      ],
+      "element": "Экран камеры: крупный плеер, HUD, таймлайн",
+      "disposition": "combine",
+      "treatment": "Полноценный camera route с большим плеером, HUD toggle H, выбранным кадром и эпизодным timeline; не выдавать recording за live."
+    },
+    {
+      "feedback_element_id": "element-8",
+      "action": "KEEP",
+      "candidates": [
+        "signal-post"
+      ],
+      "element": "Единая тёмная дизайн-система",
+      "disposition": "preserve",
+      "treatment": "Общие tokens, shell, status/action primitives и motion grammar для всех маршрутов; заимствовать механизмы, не цвета/шаблоны других миров."
+    },
+    {
+      "feedback_element_id": "element-9",
+      "action": "REINTERPRET",
+      "candidates": [
+        "signal-post"
+      ],
+      "element": "Граница утверждения: концепция, не готовые рабочие экраны",
+      "disposition": "reinterpret",
+      "treatment": "Продолжить до рабочих пользовательских сценариев и HUMAN_PRODUCT_REVIEW; текущий отзыв не записывать как готовность, final acceptance или engineering qualification."
+    }
+  ]
+}
