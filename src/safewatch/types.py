@@ -35,6 +35,7 @@ LogAction = Literal[
     "resolved",
     "auto_finished",
     "superseded",
+    "identified",
 ]
 EventMode = Literal["replay", "demo"]
 CameraStateKind = Literal["normal", "yellow", "red", "no_observation"]
@@ -68,6 +69,10 @@ ObjectKind = Literal["person", "vehicle", "phone", "other"]
 Posture = Literal["upright", "lying", "unknown"]
 Sound = Literal["siren", "chime", "none"]
 DeliveryKind = Literal["published", "escalated", "to_master"]
+# m/s from the homography, m/s from autocal, body heights/s
+SpeedSource = Literal["calibration", "auto", "relative"]
+PassportVerdict = Literal["suitable", "partial", "unsuitable", "unknown"]
+CalcTier = Literal["base", "extended", "max"]
 WsType = Literal[
     "hello",
     "event.created",
@@ -209,6 +214,26 @@ class CamerasAdminView(BaseModel):
     cameras: list[Camera]
 
 
+# --- v5: used by the types below (tech.md 6.11.2) ---------------------------------------
+class AutoCalibration(BaseModel):  # analyses.autocal_json (S19, tech.md 8.21)
+    ok: bool
+    reason: str  # Russian; "" when ok
+    samples: int  # standing people kept after outlier rejection
+    a_px: float  # person height in px at foot y = 0
+    b: float  # px of height per px of foot y
+    rmse_px: float
+    r2: float
+    person_height_m: float
+
+
+class Clip(BaseModel):  # window of the source video (S18, tech.md 8.20)
+    video_id: int
+    url: str  # /api/videos/<id>/file#t=<start_s>,<end_s>
+    start_ms: int
+    end_ms: int
+    playable: bool  # the served file plays in a browser
+
+
 # --- videos, jobs, models ----------------------------------------------------------------
 class Video(BaseModel):
     id: int
@@ -226,6 +251,7 @@ class Video(BaseModel):
     status: VideoStatus
     active_analysis_id: int | None
     created_at: datetime
+    web_playable: bool = False
 
 
 class InferenceMetrics(BaseModel):
@@ -268,6 +294,9 @@ class Job(BaseModel):
     created_at: datetime
     started_at: datetime | None
     finished_at: datetime | None
+    status_text: str = ""
+    eta_s: float | None = None
+    rate_fps: float | None = None
 
 
 class UploadResult(BaseModel):
@@ -287,6 +316,8 @@ class ModelSpec(BaseModel):
     linq_program: str | None
     linq_tail: str | None  # local path of the tail ONNX, uploaded next to the worker
     local_onnx: str | None
+    nc: int | None = None
+    input_name: str = "images"
 
 
 class ModelsView(BaseModel):
@@ -324,6 +355,7 @@ class HudObject(BaseModel):
     bbox: Box  # normalized 0..1
     kpts: list[Keypoint] | None  # normalized x, y and conf, 17 COCO points
     tags: list[HudTag]
+    projection: list[Point] | None = None
 
 
 class HudFrame(BaseModel):
@@ -388,6 +420,7 @@ class Analysis(BaseModel):
     pose_used: bool
     episodes: list[Episode]
     gaps: list[ObservabilityGap]
+    auto_calibration: AutoCalibration | None = None
 
 
 # --- calibration, zones, rules -----------------------------------------------------------
@@ -506,6 +539,7 @@ class CameraSetupView(BaseModel):
     zones: list[Zone]
     rules: list[CameraRule]
     broadcast: Broadcast | None
+    auto_calibration: AutoCalibration | None = None
 
 
 # --- events ------------------------------------------------------------------------------
@@ -535,6 +569,10 @@ class EventSummary(BaseModel):
     priority: int
     is_demo: bool
     evidence_url: str | None = None  # confirm frame of the episode (GAP S12), None for demo
+    clip: Clip | None = None
+    person_name: str = ""
+    person_position: str = ""
+    crew: str = ""
 
 
 class OperatorDashboard(BaseModel):
@@ -601,6 +639,8 @@ class Delivery(BaseModel):
     http_status: int | None
     error: str
     at: datetime
+    delivered_at: datetime | None = None
+    status_text: str = ""
 
 
 class EventDetail(BaseModel):
@@ -615,6 +655,7 @@ class EventDetail(BaseModel):
     video_start_ms: int | None
     video_end_ms: int | None
     broadcast: Broadcast | None  # current broadcast of the camera, for the live half
+    can_identify: bool = False
 
 
 class ActionIn(BaseModel):
@@ -756,7 +797,7 @@ class LatencyStats(BaseModel):
 
 class Channel(BaseModel):
     name: str
-    kind: Literal["ws", "webhook"]
+    kind: Literal["ws", "webhook", "call"]
     target: str  # host only, never a full URL with secrets
     levels: list[Level]
 
@@ -806,6 +847,188 @@ class WsMessage(BaseModel):
     )
 
 
+# --- v5 (tech.md 6.11.2) -----------------------------------------------------------------
+class DemoArtifact(BaseModel):  # one model run of one video inside a demo pack (S17)
+    model: str  # id@version
+    task: ModelTask
+    input_size: int
+    step: int
+    backend: BackendName
+    fake: bool
+    file: str  # artifacts/<cache_key>.jsonl, relative to the pack
+    frames: int
+    metrics: InferenceMetrics
+
+
+class DemoVideo(BaseModel):
+    file: str  # videos/<name> in a pack; a path under --videos in a layout
+    sha256: str = ""
+    artifacts: list[DemoArtifact] = []
+
+
+class DemoCamera(BaseModel):
+    sector: str  # matched by name, created when missing
+    name: str  # matched by name inside the sector, created when missing
+    description: str = ""
+    videos: list[DemoVideo]
+    calibration: CalibrationIn | None = None
+    zones: list[ZoneIn] = []
+    rules: dict[str, CameraRuleIn] = {}
+
+
+class DemoManifest(BaseModel):  # data/demo/<name>/manifest.json
+    name: str
+    created_at: datetime
+    contract: str
+    cameras: list[DemoCamera]
+
+
+class DemoLayout(BaseModel):  # config/demo.example.yaml: input of `safewatch demo build`
+    name: str
+    cameras: list[DemoCamera]
+
+
+class DemoPack(BaseModel):  # GET /api/demo/packs
+    id: int
+    name: str
+    sha256: str
+    backend: BackendName
+    fake: bool
+    cameras: int
+    videos: int
+    imported_at: datetime
+
+
+class DemoImportReport(BaseModel):
+    skipped: bool  # the pack with this name is already imported
+    name: str
+    cameras: int
+    videos: int
+    jobs: int
+
+
+# Every number of the calculator is one of these (S24, tech.md 8.25).
+class CalcAssumption(BaseModel):
+    key: str
+    title: str
+    value: float
+    unit: str
+    source: str  # where the number comes from, Russian
+    editable: bool = True
+
+
+class RolloutIn(BaseModel):
+    workshops: int
+    cameras: int
+    shifts_per_day: int
+    workers: int
+    operators: int
+    incidents_per_year: float
+    downtime_cost_rub: float  # per incident
+    fine_cost_rub: float
+    treatment_cost_rub: float
+    lawsuit_cost_rub: float
+    overrides: dict[str, float] = {}  # CalcAssumption.key -> value
+
+
+class TierResult(BaseModel):
+    tier: CalcTier
+    title: str
+    accelerators: int
+    servers: int
+    capex_rub: float
+    opex_rub_year: float
+    savings_rub_year: float
+    payback_months: float | None  # None: savings do not exceed opex
+    items: list[WhyItem]  # breakdown lines
+
+
+class RolloutResult(BaseModel):
+    incident_cost_rub: float
+    incidents_per_1000_workers: float | None
+    events_per_operator_shift: float | None  # from the journal, None without data
+    tiers: list[TierResult]
+    assumptions: list[CalcAssumption]
+
+
+class ScaleIn(BaseModel):
+    cameras_now: int
+    new_cameras: int
+    overrides: dict[str, float] = {}
+
+
+class ScaleResult(BaseModel):
+    cameras_total: int
+    analysis_fps: float
+    capacity_fps: float  # per accelerator
+    capacity_source: str
+    accelerators_now: int
+    accelerators_total: int
+    servers_total: int
+    capex_rub: float  # for the added part only
+    items: list[WhyItem]
+    assumptions: list[CalcAssumption]
+
+
+class CalculatorDefaults(BaseModel):
+    rollout: RolloutIn
+    scale: ScaleIn
+    assumptions: list[CalcAssumption]
+    measured: list[CalcAssumption]  # numbers from LinQ runs and the journal, editable=False
+
+
+class DatasetItem(BaseModel):  # S25, tech.md 8.26
+    event_id: int
+    scenario: str
+    label: Literal["false_alarm"]
+    frames: int
+    path: str
+    created_at: datetime
+
+
+class DatasetView(BaseModel):
+    items: list[DatasetItem]
+    total: int
+    frames: int
+
+
+class IdentityIn(BaseModel):  # S26, tech.md 8.27; empty string clears the field
+    person_name: str = ""
+    person_position: str = ""
+    crew: str = ""
+
+
+class PeopleStats(BaseModel):
+    date_from: datetime
+    date_to: datetime
+    include_demo: bool
+    total: int
+    identified: int
+    by_person: list[CountRow]
+    by_crew: list[CountRow]
+
+
+class PassportScenario(BaseModel):  # S27, tech.md 8.28
+    scenario: str
+    title: str
+    verdict: PassportVerdict
+    reason: str
+
+
+class CameraPassport(BaseModel):
+    camera_id: int
+    analysis_id: int | None
+    frames: int
+    person_height_px_p50: float | None
+    small_object_px_p50: float | None
+    person_frames_share: float | None
+    dark_share: float | None
+    empty_share: float | None
+    shift_px: float | None = None  # S32
+    shift_text: str = ""  # S32
+    scenarios: list[PassportScenario]
+
+
 # --- pipeline (internal) -----------------------------------------------------------------
 class Detection(BaseModel):  # one item of an artifact JSONL line, pixels of the source frame
     cls: int
@@ -842,6 +1065,7 @@ class PersonState(BaseModel):
     prev_anchor: Point | None  # anchor at the previous observation of this track
     prev_ts_ms: int | None
     kpts: list[Keypoint] | None  # pixels
+    speed_source: SpeedSource = "relative"
 
 
 class VehicleState(BaseModel):
@@ -853,6 +1077,7 @@ class VehicleState(BaseModel):
     height_px: float
     speed_vh_s: float | None  # own bbox heights per second
     speed_m_s: float | None
+    speed_source: SpeedSource = "relative"
 
 
 class ObjectState(BaseModel):  # untracked objects: phones and extra-model classes
