@@ -392,9 +392,9 @@ ORDER BY e.id"""
 
 
 def feed(closed_after: str, sector_id: int | None = None) -> list[sqlite3.Row]:
-    """Open events and those closed after `closed_after` (their last action), no superseded."""
+    """Open events and those closed after `closed_after`, no superseded, no seed history (8.19)."""
     sql = f"""{_EVENTS}
-WHERE e.status != 'superseded' AND (? IS NULL OR e.sector_id = ?)
+WHERE e.status != 'superseded' AND e.is_demo = 0 AND (? IS NULL OR e.sector_id = ?)
     AND (e.status NOT IN {_TERMINAL}
         OR (SELECT max(a.at) FROM event_actions a WHERE a.event_id = e.id) >= ?)
 ORDER BY e.published_at DESC, e.id DESC"""
@@ -512,11 +512,11 @@ WHERE z.deleted_at IS NULL AND c.deleted_at IS NULL ORDER BY c.name, z.name, z.i
 _CAMERA_STATES = f"""
 SELECT c.id AS camera_id, c.sector_id,
     (SELECT count(*) FROM events e WHERE e.camera_id = c.id AND e.level = 'red'
-        AND e.status NOT IN {_TERMINAL}) AS open_red,
+        AND e.is_demo = 0 AND e.status NOT IN {_TERMINAL}) AS open_red,
     (SELECT count(*) FROM events e WHERE e.camera_id = c.id AND e.level = 'yellow'
-        AND e.status NOT IN {_TERMINAL}) AS open_yellow,
+        AND e.is_demo = 0 AND e.status NOT IN {_TERMINAL}) AS open_yellow,
     EXISTS (SELECT 1 FROM events e WHERE e.camera_id = c.id AND e.level = 'yellow'
-        AND e.status NOT IN {_TERMINAL} AND e.ended_at IS NULL) AS yellow_live,
+        AND e.is_demo = 0 AND e.status NOT IN {_TERMINAL} AND e.ended_at IS NULL) AS yellow_live,
     EXISTS (SELECT 1 FROM broadcasts b WHERE b.camera_id = c.id AND b.status = 'playing')
         AS playing,
     EXISTS (SELECT 1 FROM jobs j JOIN videos v ON v.id = j.video_id WHERE v.camera_id = c.id
@@ -590,3 +590,22 @@ VALUES (?, ?, ?, ?, ?) ON CONFLICT (camera_id, scenario) DO UPDATE SET
     updated_at = excluded.updated_at"""
     run(sql, values["camera_id"], values["scenario"], values["enabled"],
         values["params_json"], values["updated_at"])  # fmt: skip
+
+
+# --- demo packs (slice 17) ----------------------------------------------------------------
+def demo_pack(name: str) -> sqlite3.Row | None:
+    return one("SELECT * FROM demo_packs WHERE name = ?", name)
+
+
+def demo_packs() -> list[sqlite3.Row]:
+    return all("SELECT * FROM demo_packs ORDER BY imported_at, id")
+
+
+def sector_by_name(name: str) -> sqlite3.Row | None:
+    return one("SELECT * FROM sectors WHERE name = ? ORDER BY id LIMIT 1", name)
+
+
+def camera_by_name(sector_id: int, name: str) -> sqlite3.Row | None:
+    sql = """SELECT * FROM cameras WHERE sector_id = ? AND name = ? AND deleted_at IS NULL
+ORDER BY id LIMIT 1"""
+    return one(sql, sector_id, name)

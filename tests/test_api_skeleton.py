@@ -63,7 +63,6 @@ ROLLOUT = {
     "treatment_cost_rub": 1, "lawsuit_cost_rub": 1,
 }  # fmt: skip
 V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
-    ("get", "/api/demo/packs", None, "17"),
     ("get", "/api/calculator/defaults", None, "24"),
     ("post", "/api/calculator/rollout", ROLLOUT, "24"),
     ("post", "/api/calculator/scale", {"cameras_now": 4, "new_cameras": 2}, "24"),
