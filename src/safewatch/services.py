@@ -3323,10 +3323,13 @@ def camera_passport(camera_id: int) -> CameraPassport:
     )
 
 
-def shift_report_pdf(at: datetime | None = None) -> bytes:
+async def shift_report_pdf(at: datetime | None = None) -> bytes:
+    """The summary is read here, the PDF is built in a worker thread (300 events take ~0.9 s)."""
     settings = config.get_settings()
     summary = shift_summary_view(at)
-    return report_pdf.shift_pdf(summary, settings.product_name, settings.timezone)
+    return await asyncio.to_thread(
+        report_pdf.shift_pdf, summary, settings.product_name, settings.timezone
+    )
 
 
 def shift_report_name(at: datetime) -> str:
