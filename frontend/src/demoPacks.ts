@@ -10,7 +10,12 @@ export function packLabel(pack: Pick<DemoPack, "name" | "backend" | "fake">): st
   return `Демо-пакет ${pack.name}: ${packSource(pack)}`;
 }
 
+// A route that answers something else than a list (mock, older backend) counts as no packs.
+export function packList(packs: unknown): DemoPack[] {
+  return Array.isArray(packs) ? [...packs as DemoPack[]].sort((a, b) => b.imported_at.localeCompare(a.imported_at)) : [];
+}
+
 // The newest import first (the API lists them by imported_at).
-export function latestPack(packs: DemoPack[] | undefined): DemoPack | undefined {
-  return [...(packs ?? [])].sort((a, b) => b.imported_at.localeCompare(a.imported_at))[0];
+export function latestPack(packs: unknown): DemoPack | undefined {
+  return packList(packs)[0];
 }

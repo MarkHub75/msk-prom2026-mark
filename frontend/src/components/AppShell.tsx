@@ -8,7 +8,7 @@ import { useWs, type WsStatus } from "../api/ws";
 import { FIXTURE_NOW } from "../fixtures/data";
 import { isReviewMode, getReviewScenario } from "../fixtures/review";
 import { menuFor, NAV } from "../nav";
-import { latestPack, packLabel } from "../demoPacks";
+import { latestPack, packLabel, packList } from "../demoPacks";
 import { ROLES, useRole, type Role } from "../roles";
 import { duration, Icon, ToastProvider, type IconName } from "./ui";
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
@@ -175,7 +175,7 @@ function ShellContent({ children }: { children: ReactNode }) {
         <div className="cr-top-right ds-top-right">
           {alarm?.collapsed && role === "operator" && <button className="ds-alarm-pill" onClick={() => setAlarm({ ...alarm, collapsed: false })} title="Показать тревогу"><Icon name="critical" size={14} />Тревога #{alarm.eventId}</button>}
           <span className={`cr-source ds-source ${synthetic ? "is-synthetic" : ""}`} data-testid="backend" title="Источник детекций">{source}</span>
-          {pack && <span className={`cr-source ds-source ds-pack ${pack.fake ? "is-synthetic" : ""}`} data-testid="demo-pack" title={packs!.map(packLabel).join(" · ")}>{packLabel(pack)}{packs!.length > 1 ? ` +${packs!.length - 1}` : ""}</span>}
+          {pack && <span className={`cr-source ds-source ds-pack ${pack.fake ? "is-synthetic" : ""}`} data-testid="demo-pack" title={packList(packs).map(packLabel).join(" · ")}>{packLabel(pack)}{packList(packs).length > 1 ? ` +${packList(packs).length - 1}` : ""}</span>}
           <span className="connection cr-live ds-live" data-status={wsStatus} title={WS_TEXT[wsStatus]}><i />{WS_SHORT[wsStatus]}</span>
           <button className={`ds-icon-btn ds-btn-ghost ds-sound ${sound.on ? "is-on" : ""}`} onClick={sound.toggle} aria-pressed={sound.on} aria-label={sound.on ? "Звук тревог включён" : "Звук тревог выключен"} title={sound.on ? "Звук тревог включён" : "Звук тревог выключен"}><Icon name={sound.on ? "sound" : "mute"} size={16} /></button>
           <label className="actor-field cr-actor ds-actor"><Icon name="user" size={14} /><span className="sr-only">Сотрудник</span><input aria-label="Имя сотрудника" value={actor} maxLength={60} placeholder="Указать имя" onChange={e => setActor(e.target.value)} /></label>

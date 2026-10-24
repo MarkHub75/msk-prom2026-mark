@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CircleStop, Play, Radio, RotateCcw, SkipForward, Square } from "lucide-react";
 import { api, apiError, type ApiFailure } from "../api/client";
-import type { Broadcast, Camera, DemoPack, Video } from "../api/types";
+import type { Broadcast, Camera, Video } from "../api/types";
 import { useApi } from "../api/useApi";
 import { useWs } from "../api/ws";
 import { duration, Empty, ErrorNotice, Loading, PageHeading } from "../components/ui";
-import { packLabel } from "../demoPacks";
+import { packLabel, packList } from "../demoPacks";
 import "../styles/admin.css";
 import "../styles/demo-console.css";
 
@@ -59,7 +59,7 @@ function AirState({ broadcast, fetchedAt, now }: { broadcast: Broadcast | null; 
 
 function PacksPanel() {
   const packs = useApi(() => api.GET("/api/demo/packs"), []);
-  const list = [...(packs.data ?? [])].sort((a: DemoPack, b: DemoPack) => b.imported_at.localeCompare(a.imported_at));
+  const list = packList(packs.data);
   return <section className="adm-panel" data-panel={`Демо-пакеты${packs.data ? ` · ${list.length}` : ""}`}>
     {packs.error ? <p className="dc-packs-note adm-muted">Список пакетов недоступен ({packs.error.status ?? packs.error.code}): бэкенд без <code>GET /api/demo/packs</code> или мок.</p>
       : !packs.data ? <p className="dc-packs-note adm-muted">Получаем пакеты…</p>
