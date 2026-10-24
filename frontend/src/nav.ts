@@ -4,6 +4,9 @@ import { CameraSetup } from "./screens/admin/CameraSetup";
 import { CamerasScreen } from "./screens/admin/CamerasScreen";
 import { SystemScreen } from "./screens/admin/SystemScreen";
 import { EventScreen } from "./screens/events/EventScreen";
+import { MasterEvent } from "./screens/master/MasterEvent";
+import { MasterInbox } from "./screens/master/MasterInbox";
+import { ShiftSummaryScreen } from "./screens/master/ShiftSummaryScreen";
 import { CameraScreen } from "./screens/operator/CameraScreen";
 import { OperatorDashboard } from "./screens/operator/OperatorDashboard";
 import { SectorScreen } from "./screens/operator/SectorScreen";
@@ -23,9 +26,9 @@ export const NAV: NavItem[] = [
   { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false, screen: SectorScreen },
   { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false, screen: CameraScreen },
   { path: "/events/:eventId", title: "Событие", roles: ["operator", "master", "ohs", "management", "admin"], slice: 7, menu: false, screen: EventScreen },
-  { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true },
-  { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false },
-  { path: "/master/shift", title: "Смена", roles: ["master"], slice: 8, menu: true },
+  { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true, screen: MasterInbox },
+  { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false, screen: MasterEvent },
+  { path: "/master/shift", title: "Смена", roles: ["master"], slice: 8, menu: true, screen: ShiftSummaryScreen },
   { path: "/ohs/journal", title: "Журнал", roles: ["ohs"], slice: 12, menu: true },
   { path: "/ohs/rules", title: "Правила", roles: ["ohs"], slice: 9, menu: true },
   { path: "/ohs/stats", title: "Статистика", roles: ["ohs"], slice: 13, menu: true },

@@ -34,9 +34,7 @@ def test_shift_window_boundaries(
     assert found.title == {"day": "Дневная смена", "night": "Ночная смена"}[shift]
 
 
-def test_other_timezone_moves_the_window(
-    core: Settings, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_other_timezone_moves_the_window(core: Settings, monkeypatch: pytest.MonkeyPatch) -> None:
     utc_zone = core.model_copy(update={"timezone": "UTC"})
     monkeypatch.setattr(config, "get_settings", lambda: utc_zone)
     found = services.shift_summary_view(utc(24, 5))  # 05:00 UTC is still the night there

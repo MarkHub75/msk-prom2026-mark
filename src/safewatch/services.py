@@ -1630,7 +1630,9 @@ def _count_rows(events: list[EventSummary], key: str, titles: dict[str, str]) ->
     rows: dict[str, CountRow] = {}
     for e in events:
         k = str(getattr(e, key))
-        r = rows.setdefault(k, CountRow(key=k, title=titles[k], count=0, confirmed=0, false_alarm=0))
+        r = rows.setdefault(
+            k, CountRow(key=k, title=titles[k], count=0, confirmed=0, false_alarm=0)
+        )
         r.count += 1
         r.confirmed += e.operator_verdict == "confirmed"
         r.false_alarm += e.operator_verdict == "false_alarm"
