@@ -1,6 +1,6 @@
 # Открой#Моспром 2026 · LinQ
 
-> **Эта ветка — `front/final`, финальный фронт АРГУС.** Бэкенд в ней — заглушки (`NotImplementedError`): команды ниже из раздела «Приложение SafeWatch» здесь не запускают сервис. Бэкенд берётся из `main`, фронт — отсюда: **[`frontend/README.md`](frontend/README.md) → «Запуск»** (`npm run demo`), или три способа запуска в [`docs/SUBMISSION_README.md`](docs/SUBMISSION_README.md). Клон `main` без `-b` до слияния PR #21 открывает старый baseline-фронт.
+> **Эта ветка — `front/final`, финальный фронт АРГУС.** Бэкенд в ней — заглушки (`NotImplementedError`): команды ниже из раздела «Приложение SafeWatch» здесь не запускают сервис. Бэкенд берётся из `main`, фронт — отсюда: **[`frontend/README.md`](frontend/README.md) → «Запуск»** (`npm run demo`), или три способа запуска в [`docs/SUBMISSION_README.md`](docs/SUBMISSION_README.md). Клон `main` без `-b` до слияния PR #36 открывает старый baseline-фронт.
 
 ## Приложение SafeWatch
 
