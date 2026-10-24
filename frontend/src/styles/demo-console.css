@@ -1,4 +1,6 @@
-/* Demo console (/admin/demo): presenter controls over recorded broadcasts */
+/* Demo console (/admin/demo): presenter controls over recorded broadcasts.
+   ds.css tokens: on air is a light stripe and plain text (no green), the play buttons are
+   secondary (no main action among equal rows), file hashes are muted mono. */
 .dc-page { gap: 6px; }
 .dc-page .heading-meta { max-width: 640px; }
 .dc-scenario-body { display: grid; gap: 10px; padding: 10px; }
@@ -6,27 +8,31 @@
 .dc-scenario-state { font-size: 12.5px; }
 .dc-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
 .dc-row .dc-buttons { justify-content: flex-end; }
-.dc-message { margin: 0; font-size: 12px; color: var(--text); }
-.dc-note { margin: 2px 0 0; font-size: 11.5px; }
+.dc-message { margin: 0; font-size: 12px; color: var(--ds-text); }
+.dc-note { margin: 2px 0 0; padding: 0 var(--s1); font-size: 12px; color: var(--ds-text-3); }
 .dc-list { list-style: none; margin: 0; padding: 0; }
-.dc-row { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(160px, 1fr) 250px 300px; gap: 8px 14px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); font-size: 12.5px; }
-.dc-row-on { box-shadow: inset 2px 0 0 #2d7a50; }
+.dc-row { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(160px, 1fr) 250px 300px; gap: 8px 14px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--ds-line); font-size: 12.5px; }
+.dc-row-on { box-shadow: inset 3px 0 0 var(--ds-timecode); }
 .dc-cam, .dc-video { display: grid; gap: 2px; min-width: 0; }
-.dc-cam a { color: var(--text); text-decoration: none; }
+.dc-cam a { color: var(--ds-text); font-weight: 600; text-decoration: none; }
 .dc-cam a:hover { text-decoration: underline; }
 .dc-cam small, .dc-video small { font-size: 11.5px; }
-.dc-air { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--muted); }
-.dc-air em { font-style: normal; color: var(--muted); }
-.dc-air-on, .dc-air-on b { color: #6fcf97; }
+.dc-video .adm-ellipsis { font-family: var(--mono); font-size: 11.5px; color: var(--ds-text-2); }
+.dc-air { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--ds-text-2); }
+.dc-air svg { color: var(--ds-text-3); }
+.dc-air em { font-style: normal; color: var(--ds-text-2); }
+.dc-air-on b { color: var(--ds-text); font-weight: 600; }
+.dc-air-on svg { color: var(--ds-timecode); }
 .dc-error { grid-column: 1 / -1; }
 @media (max-width: 900px) {
   .dc-row { grid-template-columns: minmax(0, 1fr); }
   .dc-buttons .button { flex: 1 1 auto; justify-content: center; }
 }
 .dc-packs { list-style: none; margin: 0; padding: 0; }
-.dc-pack { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); font-size: 12.5px; }
-.dc-pack b { font-weight: 600; }
-.dc-pack-fake b { color: var(--amber); }
+.dc-pack { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 8px 10px; border-bottom: 1px solid var(--ds-line); font-size: 12.5px; }
+.dc-pack b { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ds-text); }
+/* fake pack: the amber dot of the header chip, the name stays plain text */
+.dc-pack-fake b::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ds-amber); }
 .dc-packs-note { margin: 0; padding: 8px 10px; font-size: 12px; }
 /* Narrow header: the detection source chip stays, the pack chip lives on the demo console */
 @media (max-width: 860px) { .ds-source.ds-pack { display: none; } }

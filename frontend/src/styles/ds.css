@@ -750,7 +750,15 @@ input[type=date] { color-scheme: dark; }
   .ds-app .shell-header.ds-topbar { position: sticky; top: 0; height: 48px; padding: 0 var(--s2) 0 0; }
   .ds-brand.brand { min-width: 0; padding: 0 var(--s3); border-right: 0; }
   .ds-roles.cr-roles, .ds-actor, .ds-live, .ds-clock .ds-clock-date, .ds-clock small { display: none !important; }
-  .ds-source.cr-source { max-width: 200px; overflow: hidden; text-overflow: ellipsis; font-size: 11px; padding: 0 6px; }
+  .ds-source.cr-source { max-width: 200px; min-width: 0; flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; padding: 0 6px; }
+  /* 390 px: the chips give way (ellipsis) instead of pushing the page sideways; the menu scrolls in its row */
+  .ds-app .ds-top-right.cr-top-right { flex: 1; min-width: 0; justify-content: flex-end; overflow: hidden; }
+  .ds-rail.cr-rail { flex-wrap: wrap; row-gap: 2px; }
+  .ds-nav.cr-nav.workspace-nav { flex: 1 1 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .ds-nav.cr-nav.workspace-nav::-webkit-scrollbar { display: none; }
+  .ds-nav.cr-nav.workspace-nav a { flex: none; }
+  .ds-app .adm-tabs { overflow-x: auto; scrollbar-width: none; }
+  .ds-app .adm-tabs button { flex: none; }
   .ds-brand.brand { padding: 0 var(--s2) 0 var(--s3); }
   .ds-clock.shell-clock { display: none; }
   .ds-clock .ds-clock-time { font-size: 14px; }

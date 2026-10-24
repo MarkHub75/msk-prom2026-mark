@@ -43,7 +43,7 @@
 .v5-tier header .ds-badge { margin-left: auto; }
 .v5-tier-capex, .v5-tier-payback { display: grid; gap: 2px; }
 .v5-tier-capex span, .v5-tier-payback span { color: var(--ds-text-2); font-size: 12px; font-weight: 600; }
-.v5-tier-capex b { font-size: 24px; font-weight: 500; line-height: 1.1; color: #fff; }
+.v5-tier-capex b { font-size: 24px; font-weight: 500; line-height: 1.1; color: var(--ds-text); }
 .v5-tier-payback b { font-size: 17px; font-weight: 600; color: var(--ds-text); }
 .v5-tier-payback.is-none b { font-size: 14px; color: var(--ds-amber-text); }
 .v5-tier-facts { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--ds-line); }
@@ -77,16 +77,19 @@
 .v5-files { display: grid; gap: var(--s2); margin: 0; padding: 0; list-style: none; }
 .v5-files li { display: grid; gap: 2px; padding-bottom: var(--s2); border-bottom: 1px solid var(--ds-line); }
 .v5-files li span { color: var(--ds-text-3); font-size: 12px; }
+/* A sentence with inline code, not an icon row */
+.v5-page .ds-panel-body > .v5-files + .v5-hint { display: block; margin: var(--s3) 0 0; padding: 0; }
+.v5-files + .v5-hint code { white-space: nowrap; }
 
 /* ---------- people (analytics kit) ---------- */
 .an-tiles.v5-tiles-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 /* ---------- camera passport ---------- */
-.v5-passport { display: grid; gap: var(--s3); }
-.v5-passport-head { display: flex; align-items: flex-start; gap: var(--s4); }
-.v5-passport-head > div:first-child { flex: 1; min-width: 0; }
-.v5-passport-head h2 { margin: 0; font-size: 15px; font-weight: 600; }
-.v5-passport-head p { margin: 4px 0 0; color: var(--ds-text-2); font-size: 12.5px; max-width: 70ch; }
+.v5-passport { display: grid; gap: var(--s1); }
+.v5-passport > .ds-panel > .ds-panel-body:not(.is-flush) { display: grid; gap: var(--s3); padding: var(--s3); }
+.v5-passport .ds-panel-body.is-flush > .v5-hint { margin: 0; padding: var(--s2) var(--s3) var(--s3); }
+.v5-passport-head { display: flex; align-items: center; gap: var(--s4); }
+.v5-passport-head p { flex: 1; min-width: 0; margin: 0; color: var(--ds-text-2); font-size: 12.5px; max-width: 70ch; }
 .v5-verdicts { display: flex; gap: 0; margin: 0; padding: 0; list-style: none; border: 1px solid var(--ds-line-strong); border-radius: var(--r2); }
 .v5-verdicts li { display: grid; justify-items: center; gap: 1px; min-width: 78px; padding: 6px var(--s3); border-left: 1px solid var(--ds-line); }
 .v5-verdicts li:first-child { border-left: 0; }
@@ -141,6 +144,8 @@
   .v5-verdicts li { flex: 1; min-width: 0; }
   .v5-path { max-width: 140px; }
   .v5-page .ds-table { font-size: 12px; }
+  /* Wide tables scroll inside their panel, the page itself never scrolls sideways */
+  .v5-page .ds-panel-body.is-flush, .v5-passport .ds-panel-body.is-flush { overflow-x: auto; }
   .v5-assume-input input { width: 84px; }
 }
 

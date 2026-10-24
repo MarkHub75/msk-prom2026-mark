@@ -1,17 +1,18 @@
 /* Repeats of one situation (same camera + same scenario) shown as one card: phone cards, the desktop
    operator queue and the journal. The stack under the card says "there are more of these". */
 .rp-stack { margin-bottom: 10px; box-shadow: 0 6px 0 -2px var(--ds-bg-2), 0 6px 0 -1px var(--ds-line-dark), 0 12px 0 -5px var(--ds-bg-2), 0 12px 0 -4px var(--ds-line-dark); }
-.rp-count { font-family: var(--mono); font-weight: 700; letter-spacing: -.01em; background: var(--ds-text) !important; color: var(--ds-bg-0) !important; }
+/* The count of repeats is data: mono figures on the dark plate of the frame labels */
+.rp-count { font-family: var(--mono); font-weight: 500; color: var(--ds-text); }
 .rp-expand { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 46px; padding: 0 14px; border: 0; border-top: 1px solid var(--ds-line); border-radius: 0 0 var(--mb-radius, 4px) var(--mb-radius, 4px); background: transparent; color: var(--ds-accent-hover); font-size: 14.5px; font-weight: 600; }
-.rp-expand svg { transition: transform .25s var(--ds-ease); }
+.rp-expand svg { transition: transform .2s var(--ds-ease); }
 .rp-expand[aria-expanded="true"] svg { transform: rotate(180deg); }
-.rp-list { list-style: none; margin: 0; padding: 0 0 6px; border-top: 1px solid var(--ds-line); animation: mb-fade .22s var(--ds-ease) both; }
+.rp-list { list-style: none; margin: 0; padding: 0 0 6px; border-top: 1px solid var(--ds-line); }
 .rp-list a { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto auto; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; color: var(--ds-text); font-size: 13.5px; }
 .rp-list a:active, .rp-list a:hover { background: var(--ds-bg-2); }
 .rp-list time { color: var(--ds-timecode); }
 .rp-id { color: var(--ds-text-3); }
 .rp-status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ds-text-2); }
-.rp-list b { color: var(--ds-amber); font-weight: 600; }
+.rp-list b { color: var(--ds-text-2); font-weight: 500; }
 .rp-list svg { color: var(--ds-text-3); }
 /* Narrow phones: the whole row is the link, the status gets the chevron's room */
 @media (max-width: 420px) { .rp-list a { grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 8px; } .rp-list a svg { display: none; } }
@@ -21,11 +22,13 @@
 .cr-q.rp-row > button > * { grid-column: 2; }
 .cr-q.rp-row .rp-thumb { grid-column: 1; grid-row: 1 / span 4; position: relative; width: 72px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; background: var(--ds-well); }
 .cr-q.rp-row .rp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.cr-q.rp-row .rp-thumb b { position: absolute; right: 3px; bottom: 3px; padding: 0 4px; border-radius: 2px; background: var(--ds-text); color: var(--ds-bg-0); font-family: var(--mono); font-size: 10.5px; line-height: 15px; }
-.rp-tag { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 9px; background: var(--ds-text); color: var(--ds-bg-0); font-family: var(--mono); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.cr-q.rp-row .rp-thumb b { position: absolute; right: 3px; bottom: 3px; padding: 0 4px; border-radius: var(--r1); background: rgba(10, 10, 11, .84); color: var(--ds-text); font-family: var(--mono); font-size: 10.5px; font-weight: 500; line-height: 15px; }
+.rp-tag { display: inline-flex; align-items: center; height: 18px; padding: 0 5px; border: 1px solid var(--ds-line-strong); border-radius: var(--r2); background: var(--ds-bg-3); color: var(--ds-text); font-family: var(--mono); font-size: 11px; font-weight: 500; white-space: nowrap; }
 .cr-q.rp-row { position: relative; }
 .cr-q-stack { margin-bottom: 6px; box-shadow: 0 4px 0 -2px var(--ds-bg-3), 0 8px 0 -4px var(--ds-bg-2); border-radius: 4px; }
-.cr-q .rp-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; margin-top: 2px; padding: 0 10px 0 12px; border: 0; background: transparent; color: var(--ds-accent-hover); font-size: 12px; font-weight: 600; }
+/* The toggle is a direct button of the row: undo the queue-row grid (72 px thumb column) and its fill */
+.cr-q .rp-toggle, .cr-q.rp-row > .rp-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; margin-top: 2px; padding: 0 10px 0 12px; border: 0; border-left: 3px solid transparent; border-radius: 0 0 4px 4px; background: transparent; color: var(--ds-accent-hover); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.cr-q .rp-toggle:hover { background: var(--ds-bg-3); }
 .cr-q .rp-toggle svg { transition: transform .2s var(--ds-ease); }
 .cr-q .rp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .cr-q-sub { list-style: none; margin: 2px 0 4px 14px; padding: 0 0 0 8px; border-left: 2px solid var(--ds-line-strong); display: flex; flex-direction: column; gap: 3px; }

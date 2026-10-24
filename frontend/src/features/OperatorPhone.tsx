@@ -187,7 +187,7 @@ function PhoneEvent({ detail, state }: { detail: EventDetail; state: EventDetail
     <details className="mb-more"><summary>История эпизода<ChevronRight {...IC} /></summary><div className="mb-more-body"><EpisodeHistory detail={detail} /></div></details>
     <details className="mb-more"><summary><span>Действия людей <b className="mono">{detail.actions.length}</b></span><ChevronRight {...IC} /></summary><div className="mb-more-body"><History actions={detail.actions} /></div></details>
     {actions.length > 0 && <div className="mb-actionbar mo-actionbar">
-      {actions.includes("confirm") && <button data-action="confirm" className={`mb-btn ${event.level === "red" ? "mb-btn-red" : "mb-btn-accent"}`} disabled={busy} onClick={() => void act("confirm")}>{state.busy === "confirm" ? "Сохраняем…" : withRepeats && repeats.length ? `${TITLE.confirm} · ×${repeats.length + 1}` : TITLE.confirm}</button>}
+      {actions.includes("confirm") && <button data-action="confirm" className="mb-btn mb-btn-accent" disabled={busy} onClick={() => void act("confirm")}>{state.busy === "confirm" ? "Сохраняем…" : withRepeats && repeats.length ? `${TITLE.confirm} · ×${repeats.length + 1}` : TITLE.confirm}</button>}
       <div className="mb-actionbar-row">
         {actions.filter(a => a !== "confirm").map(a => <button key={a} data-action={a} className="mb-btn mb-btn-s mb-btn-line" disabled={busy} onClick={() => void act(a)}>{state.busy === a ? "Сохраняем…" : TITLE[a]}</button>)}
       </div>

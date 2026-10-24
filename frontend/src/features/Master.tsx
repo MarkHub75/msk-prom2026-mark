@@ -103,9 +103,9 @@ function TaskCard({ group, now, fresh, bulk }: { group: RepeatGroup; now: number
     </Link>
     <div className="mm-card-actions">
       {accepted
-        ? <Link className="mb-btn mb-btn-s mb-btn-green" to={`/master/events/${event.id}`}><Check size={19} strokeWidth={2.2} aria-hidden />Решено · отчитаться</Link>
+        ? <Link className="mb-btn mb-btn-s mb-btn-accent" to={`/master/events/${event.id}`}><Check size={19} strokeWidth={2.2} aria-hidden />Решено · отчитаться</Link>
         : <>
-          <button className="mb-btn mb-btn-s mb-btn-red" data-quick="accept" disabled={Boolean(bulk.busy)} onClick={() => void bulk.run(group.key, waiting, "accept")}>{bulk.busy === group.key ? "Сохраняем…" : waiting.length > 1 ? `Принял, иду · ×${waiting.length}` : "Принял, иду"}</button>
+          <button className="mb-btn mb-btn-s mb-btn-accent" data-quick="accept" disabled={Boolean(bulk.busy)} onClick={() => void bulk.run(group.key, waiting, "accept")}>{bulk.busy === group.key ? "Сохраняем…" : waiting.length > 1 ? `Принял, иду · ×${waiting.length}` : "Принял, иду"}</button>
           <Link className="mb-btn mb-btn-s mb-btn-line mm-open" to={`/master/events/${event.id}`}>Открыть и принять</Link>
         </>}
     </div>
@@ -164,7 +164,7 @@ export function MasterPage() {
 
 function Bars({ rows }: { rows: CountRow[] }) {
   const max = Math.max(1, ...rows.map(r => r.count));
-  if (!rows.length) return <p className="mb-muted">Событий нет.</p>;
+  if (!rows.length) return <p className="mb-muted">За смену событий нет.</p>;
   return <ul className="mm-bars">{[...rows].sort((a, b) => b.count - a.count).map(row => <li key={row.key}>
     <div className="mm-bar-top"><span>{row.title}</span><b className="mono">{row.count}</b></div>
     <div className="mm-bar" role="img" aria-label={`${row.title}: ${row.count}, подтверждено ${row.confirmed}, ложных ${row.false_alarm}`}><i style={{ width: `${row.count / max * 100}%` }} /><em style={{ width: `${row.confirmed / max * 100}%` }} /></div>
@@ -202,7 +202,7 @@ export function ShiftSummary({ eventLink, testId, children }: { eventLink: (id: 
     <div className="mm-seg" role="group" aria-label="Какая смена"><button className={!at ? "selected" : ""} aria-pressed={!at} onClick={() => setAt(undefined)}>Текущая</button><button className={at ? "selected" : ""} aria-pressed={Boolean(at)} onClick={previous} disabled={!data}>Предыдущая</button></div>
     {shift.error ? <ErrorNotice error={shift.error} retry={shift.reload} /> : !data ? <div className="mb-skel" /> : <>
       <section className="mb-card mm-total">
-        <div className="mm-total-top"><span>Всего событий</span><b className="mm-total-n">{data.total}</b></div>
+        <div className="mm-total-top"><span>Событий за смену</span><b className="mm-total-n">{data.total}</b></div>
         <div className="mm-split" aria-hidden><i className="is-confirmed" style={{ width: pct(confirmed) }} /><i className="is-false" style={{ width: pct(falseAlarm) }} /><i className="is-open" style={{ width: pct(open) }} /></div>
         <ul className="mm-legend">
           <li className="is-confirmed"><i /><span>Подтверждено</span><b>{confirmed}</b></li>
@@ -222,7 +222,6 @@ export function ShiftSummary({ eventLink, testId, children }: { eventLink: (id: 
           : <p className="mb-muted mm-pad">Подтверждённых событий в эту смену нет. Это не значит, что нарушений не было: часть событий может ждать вердикта.</p>}
       </section>
       {children}
-      <p className="mb-asof">Счётчики — с сервера, без пересчёта на устройстве.</p>
     </>}
   </div>;
 }
