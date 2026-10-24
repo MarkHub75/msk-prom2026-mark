@@ -43,7 +43,7 @@ from safewatch import (
     store,
     texts,
 )
-from safewatch.analysis import geometry, pipeline
+from safewatch.analysis import geometry, passport, pipeline
 from safewatch.errors import (
     Conflict,
     Forbidden,
@@ -3237,7 +3237,32 @@ def people_stats_view(
 
 
 def camera_passport(camera_id: int) -> CameraPassport:
-    raise NotImplementedError("slice 27")
+    settings = config.get_settings()
+    camera_get(camera_id)
+    # The active analysis of the newest ready video (videos come newest first).
+    videos = store.videos(camera_id)
+    video = next((v for v in videos if v["status"] == "ready" and v["active_analysis_id"]), None)
+    row = None if video is None else store.analysis(video["active_analysis_id"])
+    hud: list[HudFrame] = []
+    gaps: list[ObservabilityGap] = []
+    if row is not None:
+        with (settings.data_dir / row["hud_path"]).open(encoding="utf-8") as f:
+            hud = [HudFrame.model_validate_json(line) for line in f]
+        gaps = [ObservabilityGap.model_validate(g) for g in json.loads(row["gaps_json"])]
+    return passport.build_passport(
+        camera_id,
+        None if row is None else row["id"],
+        hud,
+        gaps,
+        0 if row is None else row["duration_ms"],
+        0 if video is None else video["width"],
+        0 if video is None else video["height"],
+        rules.scenario_metas(),
+        [_zone(z) for z in store.zones(camera_id)],
+        settings.passport,
+        int(settings.features.min_person_px),
+        rules.defaults("phone")["min_person_px"],
+    )
 
 
 def shift_report_pdf(at: datetime | None = None) -> bytes:

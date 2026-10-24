@@ -58,7 +58,6 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
 
 
 V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
-    ("get", "/api/cameras/1/passport", None, "27"),
     ("get", "/api/master/shift.pdf", None, "30"),
 ]
 
