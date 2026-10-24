@@ -62,7 +62,9 @@ def fit(
     reason = ""
     if len(samples) < cfg.min_samples:
         reason = texts.AUTOCAL_FEW.format(n=len(samples), need=cfg.min_samples)
-    elif line is None or min(a, a + b * height) <= 0:
+    elif line is None:  # every foot on one row: the slope is unknown
+        reason = texts.AUTOCAL_ONE_ROW
+    elif min(a, a + b * height) <= 0:
         reason = texts.AUTOCAL_PERSPECTIVE
     return AutoCalibration(
         ok=reason == "",
