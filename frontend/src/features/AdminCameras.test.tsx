@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fixtureMeta } from "../fixtures/data";
 import { AdminCamerasPage } from "./AdminCameras";
 import { CameraSetupPage } from "./CameraSetup";
+import { setRole } from "../roles";
 
 vi.mock("../components/AppShell", () => ({ useMeta: () => fixtureMeta, useUpdates: () => 0 }));
 vi.mock("../api/ws", () => ({ useWs: () => ({ status: "connected" }) }));
@@ -19,7 +20,7 @@ const video = { id: 3, camera_id: 7, filename: "press.mp4", sha256: "x", size_by
 const metric = { backend: "linq", fake: true, model_id: "det-yolov8n", model_version: "640", task: "detect", input_size: 640, step: 2, frames_processed: 100, wall_s: 1, throughput_fps: 42.5, preprocess_ms: 1.2, postprocess_ms: 0.8, tpu_rtt_p50_ms: 10, tpu_rtt_p90_ms: 14, upload_s: 0.01, total_s: 2.4, cached: false };
 const job = (over: object) => ({ id: 11, kind: "process", video_id: 3, camera_id: 7, backend: "linq", fake: true, status: "failed", stage: "inference_detect", progress: 0.2, attempts: 1, next_attempt_at: null, error_code: "model_missing", error_text: "нет хвоста модели", metrics: [], analysis_id: null, analysis_ms: null, created_at: "2026-10-24T11:00:00Z", started_at: null, finished_at: null, ...over });
 
-afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); setRole("admin"); });
 beforeEach(() => { window.history.replaceState({}, "", "/"); });
 
 describe("admin cameras", () => {
@@ -69,5 +70,22 @@ describe("admin cameras", () => {
     expect(retried).toBe(true);
     fireEvent.click(screen.getByRole("tab", { name: /Калибровка/ }));
     expect(screen.getByText("Вкладка подключается.")).toBeTruthy();
+  });
+  it("opens the camera setup for the ohs role with its own breadcrumb and X-Role", async () => {
+    setRole("ohs");
+    const roles: (string | null)[] = [];
+    vi.stubGlobal("fetch", vi.fn(async (request: Request) => {
+      roles.push(request.headers.get("X-Role"));
+      const url = new URL(request.url);
+      if (url.pathname === "/api/admin/cameras/7") return Response.json({ camera, videos: [], jobs: [], calibration: null, zones: [], rules: [], broadcast: null });
+      if (url.pathname === "/api/cameras/7/view") return Response.json({ camera, state, broadcast: null, video: null, analysis: null, zones: [], calibration: null });
+      if (url.pathname === "/api/sectors") return Response.json(sectors);
+      return Response.json({ code: "not_found", message: "нет", details: {} }, { status: 404 });
+    }));
+    render(<MemoryRouter initialEntries={["/admin/cameras/7"]}><Routes><Route path="/admin/cameras/:cameraId" element={<CameraSetupPage />} /></Routes></MemoryRouter>);
+    expect(await screen.findByRole("heading", { name: "Камера 1.1 · Пресс" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Правила наблюдения" }).getAttribute("href")).toBe("/ohs/rules");
+    expect(screen.getByText("Записей ещё нет")).toBeTruthy();
+    expect(new Set(roles)).toEqual(new Set(["ohs"]));
   });
 });

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowDown, ArrowUp, Camera as CameraIcon, FolderTree, ImageOff, Layers, Pencil, Plus, Radio, Settings2, Trash2 } from "lucide-react";
 import { api, apiError, mediaUrl, type ApiFailure } from "../api/client";
@@ -10,6 +10,7 @@ import { Field, Modal, StateBadge } from "../components/admin/AdminUi";
 import "../styles/admin.css";
 
 const I = { size: 15, strokeWidth: 1.75 } as const;
+const LIVE_THROTTLE_MS = 1500;
 
 type Dialog =
   | { kind: "sector"; sector?: Sector }
@@ -127,7 +128,15 @@ export function AdminCamerasPage() {
   const [orderError, setOrderError] = useState<ApiFailure>();
   const reloadView = view.reload;
   const reloadLive = live.reload;
-  useWs(useCallback((m) => { if (m.type === "camera.state" || m.type === "broadcast.state") reloadLive(); }, [reloadLive]));
+  // State messages come in bursts (every camera of a looping broadcast): one batched reload at most every 1.5 s.
+  const pending = useRef<ReturnType<typeof setTimeout>>();
+  const latestReload = useRef(reloadLive);
+  latestReload.current = reloadLive;
+  useEffect(() => () => clearTimeout(pending.current), []);
+  useWs(useCallback((m) => {
+    if ((m.type !== "camera.state" && m.type !== "broadcast.state") || pending.current) return;
+    pending.current = setTimeout(() => { pending.current = undefined; latestReload.current(); }, LIVE_THROTTLE_MS);
+  }, []));
 
   const close = useCallback(() => setDialog(undefined), []);
   const done: Done = (result) => {
