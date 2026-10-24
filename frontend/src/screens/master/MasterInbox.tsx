@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/client";
 import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
@@ -36,8 +36,14 @@ function alertPhone(note: WsNotification): void {
 // /master: one column for the phone, active events in big cards, resolved ones below.
 export function MasterInbox() {
   const view = useApi(() => api.GET("/api/master/inbox"), []);
+  const navigate = useNavigate();
   useWs((message) => {
-    if (message.type === "notification") alertPhone(message.data as WsNotification);
+    if (message.type === "notification") {
+      const note = message.data as WsNotification;
+      alertPhone(note);
+      // An event handed to the master opens its card at once (tech.md 8.24).
+      if (note.id.endsWith(":to_master")) navigate(`/master/events/${note.event_id}`);
+    }
     if (message.type === "notification" || message.type.startsWith("event.")) view.reload();
   });
   if (view.error) return <p role="alert">{view.error.message}</p>;

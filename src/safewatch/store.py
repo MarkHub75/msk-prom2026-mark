@@ -385,6 +385,21 @@ WHERE event_id IN (SELECT value FROM json_each(?))"""
     return {(r["event_id"], r["channel"], r["kind"]) for r in all(sql, json.dumps(event_ids))}
 
 
+def delivery_enqueue(event_id: int, kind: str, level: str, at: str) -> None:
+    """Queue a delivery in the caller's transaction; `(event_id, kind)` is queued once."""
+    sql = """INSERT OR IGNORE INTO delivery_queue (event_id, kind, level, created_at)
+VALUES (?, ?, ?, ?)"""
+    run(sql, event_id, kind, level, at)
+
+
+def delivery_queue() -> list[sqlite3.Row]:
+    return all("SELECT * FROM delivery_queue ORDER BY id")
+
+
+def delivery_dequeue(queue_id: int) -> None:
+    run("DELETE FROM delivery_queue WHERE id = ?", queue_id)
+
+
 def escalation_due(red_before: str) -> list[sqlite3.Row]:
     """Red events of tech.md 8.7: still with the operator, red since `red_before` or earlier,
     and no operator decision after `red_at` (a view is not one)."""

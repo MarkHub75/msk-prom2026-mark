@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v6, второй прогон: S22 закрыт, следующий S23
+- state: tech v6, второй прогон: S23 закрыт, следующий S24
 - tech.md: v6
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -27,7 +27,6 @@
 - долг: R5, загрузка большого файла целиком ложится на диск до проверки роли и размера (Starlette `UploadFile`). Перенесено из R15: нужен потоковый приём в `api.py`, вне ночного объёма.
 - долг: S11, `services._freshness` читает `hud.jsonl` анализа один раз в потоке event loop (потом кэш `_frames_ts`). Перенесено из R15: чтение разовое (10 мин при 10 кадр/с — 6000 строк, миллисекунды), `to_thread` требует асинхронных `camera_states` во всех экранах.
 - долг: S14, CLI `eval` при запущенном сервере пишет `artifacts` в ту же базу вторым процессом (WAL, `busy_timeout = 1000`; `database is locked` при долгой записи сервера не проверен); `eval_run` синхронный (`asyncio.run`) и из API не вызывается; любая `InferenceError`, в том числе pose, → exit 4 без отката на анализ без pose (6.10). Перенесено из R15: владелец запускает `safewatch eval` при остановленном сервере.
-- долг: S15, очередь доставок `_deliveries` живёт в памяти: доставки, поставленные перед остановкой сервера, теряются; уровень канала берётся на момент `deliveries_flush` (жёлтое, эскалированное в окне одного `broadcast.tick_ms`, уходит `published` уже красным); две записи `delivery.webhooks` с одним `name` делят ключ `webhook:<name>`, вторая не получает ничего. Перенесено из R15: очередь в базе — новая схема; владельцу — уникальные имена webhook в `config/user.yaml`.
 - владелец: передать Егору: контракт 1.1.0 — маршруты `GET /api/demo/packs`, `GET /api/calculator/defaults`, `POST /api/calculator/rollout`, `POST /api/calculator/scale`, `GET /api/datasets/false-alarms`, `GET /api/datasets/false-alarms/export.zip`, `PATCH /api/events/{event_id}/identity`, `GET /api/stats/people`, `GET /api/cameras/{camera_id}/passport`, `GET /api/master/shift.pdf` (до своего слайса отвечают 501); поля `Video.web_playable`, `Job.status_text`/`eta_s`/`rate_fps`, `EventSummary.clip`/`person_name`/`person_position`/`crew`, `EventDetail.can_identify`, `Analysis.auto_calibration`, `CameraSetupView.auto_calibration`, `HudObject.projection`, `Delivery.delivered_at`/`status_text`, `ModelSpec.nc`/`input_name`, `Channel.kind` + `call`, `LogAction` + `identified`; `meta.product_name = Argus`, 3 новых типа зон (`helmet_required`, `respirator_required`, `walkway`); файл `contract/openapi.json`, снимок 1.0.0 — `contract/openapi.1.0.0.json`.
 - владелец: при заводских видео пересобрать демо-пакет (сейчас `data/demo/argus` собран на LinQ из `synthetic_coco_40x1s.mp4`, сцена COCO): удалить папку `data/demo/argus`, затем `uv run safewatch demo build config/demo.example.yaml --videos data/videos --out data/demo/argus`.
 - владелец: видео в `data/app`, принятые до S18 (в том числе импортированный пакет `argus`), без H.264-копии и в браузере не играют: перед показом удалить `data/app` (сид и пакет импортируются заново) или загрузить те же файлы повторно — копия появится (R20).
@@ -38,6 +37,12 @@
 - GAP: S22, текст тега проекции груза, `texts.HUD_LOAD_PROJECTION = "зона под грузом"`; тег `HudTag(code="load_projection", text=HUD_LOAD_PROJECTION, level=None)` у каждого объекта `suspended_load` HUD, `projection` у остальных объектов `None`.
 - GAP: S22, `PhonePlugin`: при телефоне и `anchor` одновременно в зоне `walkway`/`rest` и в danger/vehicle_path побеждает разрешённая зона (`N`, порядок 8.23 дословно); `N` в разрешённой зоне без `zone_id` и `reason_code`.
 - R25: S22 — перекрытие разрешённой зоны телефона с danger даёт `N` (8.23 дословно); проверить, не должна ли danger побеждать (проход через пути транспорта).
+- GAP: S23, `delivery.phone_mask(to: str) -> str` для `Channel.target` звонка: цифры номера; от 11 цифр — `+<код> <3 цифры> ***-**-<2 последние>` («+7 (900) 123-45-12» → `+7 900 ***-**-12`), меньше 11 — `***-**-<2 последние>`, без цифр — `texts.CALL_NO_NUMBER = "заглушка"`; `texts.CALL_SENT = "Звонок отправлен"`, `texts.CALL_DELIVERED_STUB = "Звонок доставлен (заглушка)"`.
+- GAP: S23, `store.delivery_enqueue(event_id, kind, level, at)` (`INSERT OR IGNORE`, в транзакции вызывающего), `store.delivery_queue()` (по `id`), `store.delivery_dequeue(queue_id)`; `services._delivery(row) -> Delivery` (`status_text` только у `call:<name>`, у webhook `""`); `services._deliveries` удалён (было 6.10 S15), сброс в `tests/conftest.py` убран.
+- GAP: S23, постановка: `broadcast_tick` — `level` из `EventSummary` сообщения `event.created`/`event.escalated` внутри транзакции тика; `event_action` и `escalation_tick` — `level` строки события, `created_at` — `clock.now()`.
+- GAP: S23, `deliveries_flush`: каналы `webhook:<name>` по порядку `delivery.webhooks`, затем `call:<name>` по `delivery.calls`; тело webhook — `EventSummary` с `level` строки очереди (`notification_text` — текущий текст события); строка очереди удаляется после всех каналов, в том числе когда каналов нет или ни один не подошёл; `event.updated` — после каждой строки канала `call`; `CallChannel.deliver` → `(True, None, "")`, `delivered_at = at` только у успешного звонка.
+- GAP: S23, `system_view.channels`: webhook-каналы, затем каналы звонка (`kind="call"`); фронт: пункт меню оператора «С телефона» (`/m/operator`), `EventScreen` показывает `status_text` непустых доставок под историей, `ACTION_TITLES` экспортирован из `EventScreen` (кнопки `OperatorMobileEvent`); `MasterInbox` открывает карточку только на уведомление с `id`, оканчивающимся на `:to_master`.
+- R25: S23 — тело webhook жёлтой публикации, эскалированной до flush, несёт `level: yellow`, но `text` — текущий `notification_text` события («Красная опасность …»); решить, нужен ли текст на момент постановки (8.24 о тексте молчит).
 
 ## log
 
@@ -247,6 +252,13 @@
 - проверено вживую: нет (S22 без LinQ) | не проверено: —
 - [проверить]: нет
 - следующему: `tests/test_rule_phone.py::held(until_ms, zones)` — эпизод с удержанием; `tests/test_hud.py::test_suspended_load_projection` — образец кадра с объектом и наблюдениями плагина.
+
+### S23: call-master (2026-10-24, PR #30, tech v6)
+- отклонения: `worker.py` не менялся (цикл доставок S15 тот же, `datasets` ещё нет, `tests/test_worker.py` без изменений); `tests/test_system.py::test_system_view_metrics` ждёт канал звонка `master` из `config/default.yaml` вместо пустого списка; хелпер `tests/test_delivery.py::hooks` теперь выключает звонки (`calls: []`): тесты S15 проверяют только webhook, смысл тот же; `EventScreen` (вне списка файлов слайса) показывает `status_text` звонка по 8.14.
+- решения вне контракта: строки `GAP: S23` в `## open`; закрыт долг S15 (очередь в памяти, уровень на момент flush, одинаковые имена webhook): очередь в `delivery_queue`, уровень строки, проверка уникальных имён в `DeliveryConfig`; мутации (2, 10.3): уровень канала по событию вместо строки очереди — ловит `test_level_fixed_at_enqueue`; звонок на любой `kind` — ловит `test_call_stub_on_red_to_master`; обе откачены. Тесты `restart`, `call_stub`, `level_fixed` — 20 прогонов подряд зелёные.
+- проверено вживую: нет (S23 без LinQ и без телефонии) | не проверено: реальный провайдер звонков (его нет, 8.24).
+- [проверить]: нет
+- следующему: `tests/test_delivery.py::calls(monkeypatch, core, to, levels, webhooks)` — конфиг с каналом звонка `master`; `queue(event_id, kind, level)` — строка очереди тем же путём, что ядро; `test_queue_survives_restart` — образец теста на файловой базе в `tmp_path` (`store._conn = None`, закрыть соединение в `finally`).
 
 ## night
 

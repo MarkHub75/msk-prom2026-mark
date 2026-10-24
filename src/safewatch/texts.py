@@ -405,6 +405,12 @@ DELIVERY_TIMEOUT = "таймаут"
 DELIVERY_HTTP = "ответ HTTP {status}"
 DELIVERY_UNREACHABLE = "нет связи ({error})"
 
+# Call to the master (slice 23, tech.md 8.24): `Delivery.status_text` of a `call:<name>` row and
+# `Channel.target` of a call channel without a number.
+CALL_SENT = "Звонок отправлен"
+CALL_DELIVERED_STUB = "Звонок доставлен (заглушка)"
+CALL_NO_NUMBER = "заглушка"
+
 
 def weeks_span(n: int) -> str:
     """«4 недели к 4 неделям»: the Russian plural after a number, then the dative."""

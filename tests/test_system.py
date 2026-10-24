@@ -44,7 +44,7 @@ async def test_system_view_metrics(
     assert [m.id for m in view.models] == ["det-yolov8n", "pose-yolov8n"]
     assert (
         view.cameras == services.camera_states()
-        and view.channels == []
+        and [c.kind for c in view.channels] == ["call"]  # the default call `master` (S23)
         and view.latency.notify_delay_s.n == 0
     )
 

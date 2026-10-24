@@ -1075,6 +1075,10 @@ def system_view() -> SystemView:
         channels=[
             Channel(name=w.name, kind="webhook", target=delivery.target(w.url), levels=w.levels)
             for w in settings.delivery.webhooks
+        ]
+        + [
+            Channel(name=c.name, kind="call", target=delivery.phone_mask(c.to), levels=c.levels)
+            for c in settings.delivery.calls
         ],
         server_now=clock.now(),
     )
@@ -1267,8 +1271,6 @@ _sector_seen: dict[int, SectorState] = {}
 _preview_cache: dict[int, tuple[datetime, bytes]] = {}
 # Frame times of an analysis for `freshness_ms`; an analysis never changes once written.
 _frames_ts: dict[int, list[int]] = {}
-# (event id, kind) waiting for `deliveries_flush`: the broadcast tick and actions add to it.
-_deliveries: list[tuple[int, DeliveryKind]] = []
 
 Message = tuple[WsType, BaseModel, list[Role] | None]
 
@@ -1475,13 +1477,14 @@ def broadcast_tick() -> int:
             store.broadcast_update(b["id"], values)
             if ended or cycle != b["cycle"]:
                 out.append(("broadcast.state", _broadcast_by_id(b["id"]), None))
+        for kind, data, _ in out:
+            if kind in DELIVERED:  # in the tick transaction: a rolled back tick queues nothing
+                assert isinstance(data, EventSummary)
+                store.delivery_enqueue(data.id, DELIVERED[kind], data.level, clock.iso(now))
         cameras = camera_states()
         sectors = _sector_states(cameras)
     for kind, data, audience in out:
         hub.publish(kind, data, audience)
-        if kind in DELIVERED:  # queued after the commit: a rolled back tick sends nothing
-            assert isinstance(data, EventSummary)
-            _deliveries.append((data.id, DELIVERED[kind]))
     for camera_state in cameras:
         # Freshness moves on every tick; a message goes out only when the state itself changes.
         seen = camera_state.model_copy(update={"freshness_ms": None})
@@ -1792,12 +1795,20 @@ def event_detail(event_id: int, role: Role | None) -> EventDetail:
         actions=[EventAction.model_validate(dict(a)) for a in store.event_actions(event_id)],
         allowed_actions=[a for a in allowed if _steps(a, row) is not None],
         provenance=provenance,
-        deliveries=[Delivery.model_validate(dict(d)) for d in store.event_deliveries(event_id)],
+        deliveries=[_delivery(d) for d in store.event_deliveries(event_id)],
         video_id=row["video_id"],
         video_start_ms=row["video_start_ms"],
         video_end_ms=row["video_end_ms"],
         broadcast=None if broadcast is None else _broadcast(broadcast),
     )
+
+
+def _delivery(row: sqlite3.Row) -> Delivery:
+    """A `deliveries` row; a call row gets its `status_text` (tech.md 8.24)."""
+    text = ""
+    if row["channel"].startswith("call:"):
+        text = texts.CALL_DELIVERED_STUB if row["delivered_at"] else texts.CALL_SENT
+    return Delivery.model_validate(dict(row) | {"status_text": text})
 
 
 def event_action(
@@ -1836,11 +1847,13 @@ def event_action(
         if data.action in VERDICTS:
             update["operator_verdict"] = VERDICTS[data.action]
         store.event_update(event_id, update)
+        handed = status == "sent_to_master" and row["status"] != "sent_to_master"
+        if handed:
+            store.delivery_enqueue(event_id, "to_master", row["level"], now)
     summary = _event_summary(event_id)
     hub.publish("event.updated", summary)
-    if status == "sent_to_master" and row["status"] != "sent_to_master":
+    if handed:
         hub.publish("notification", _master_alert(summary), ["master"])
-        _deliveries.append((event_id, "to_master"))
     return event_detail(event_id, role)
 
 
@@ -1849,17 +1862,18 @@ def escalation_tick() -> int:
     settings = config.get_settings().escalation
     if not settings.enabled:
         return 0
-    red_before = clock.iso(clock.now() - timedelta(seconds=settings.timeout_s))
+    now = clock.now()
+    red_before = clock.iso(now - timedelta(seconds=settings.timeout_s))
     with store.tx():
         due = store.escalation_due(red_before)
         for row in due:
             store.event_update(row["id"], {"status": "sent_to_master", "escalated_by_timeout": 1})
             _system_action(row["id"], "timeout_escalated", row["status"], "sent_to_master")
+            store.delivery_enqueue(row["id"], "to_master", row["level"], clock.iso(now))
     for row in due:
         summary = _event_summary(row["id"])
         hub.publish("event.updated", summary)
         hub.publish("notification", _master_alert(summary), ["master"])
-        _deliveries.append((row["id"], "to_master"))
     return len(due)
 
 
@@ -2613,41 +2627,54 @@ def eval_run(labels: Path, out_dir: Path | None = None) -> EvalReport:
 
 
 async def deliveries_flush() -> int:
-    """Send the queued deliveries to every channel with the event level; the rows written.
+    """Send the queue rows by `id` to every channel with the row level; the rows written.
 
+    The level is the event level at enqueue (tech.md 8.24); a call goes only with `to_master`.
     One attempt per `(event, channel, kind)`: a key already in `deliveries` is not sent again,
-    a failure stays `failed` and never touches the event.
+    a failure stays `failed` and never touches the event. A row leaves the queue once handled.
     """
-    queued = list(dict.fromkeys(_deliveries))
-    _deliveries.clear()
-    channels = [
-        delivery.WebhookChannel(w.name, w.url, w.levels, w.timeout_s)
-        for w in config.get_settings().delivery.webhooks
-    ]
-    if not queued or not channels:
+    queue = store.delivery_queue()
+    if not queue:
         return 0
-    events = {row["id"]: _summary(row) for row in store.events_by_ids([e for e, _ in queued])}
-    done = store.delivery_keys(list(events))
+    settings = config.get_settings().delivery
+    channels: list[tuple[str, delivery.WebhookChannel | delivery.CallChannel]] = [
+        (f"webhook:{w.name}", delivery.WebhookChannel(w.name, w.url, w.levels, w.timeout_s))
+        for w in settings.webhooks
+    ]
+    channels += [
+        (f"call:{c.name}", delivery.CallChannel(c.name, c.to, c.levels, c.provider))
+        for c in settings.calls
+    ]
+    ids = list({item["event_id"] for item in queue})
+    events = {row["id"]: _summary(row) for row in store.events_by_ids(ids)}
+    done = store.delivery_keys(ids)
     written = 0
-    for event_id, kind in queued:
-        summary = events[event_id]
-        for channel in channels:
-            key = (event_id, f"webhook:{channel.name}", kind)
-            if summary.level not in channel.levels or key in done:
+    for item in queue:
+        event_id, kind, level = item["event_id"], item["kind"], item["level"]
+        summary = events[event_id].model_copy(update={"level": level})
+        for name, channel in channels:
+            call = isinstance(channel, delivery.CallChannel)
+            key = (event_id, name, kind)
+            if level not in channel.levels or key in done or (call and kind != "to_master"):
                 continue
             ok, http_status, error = await asyncio.to_thread(channel.deliver, summary, kind)
+            at = clock.iso(clock.now())
             values = {
                 "event_id": event_id,
-                "channel": key[1],
+                "channel": name,
                 "kind": kind,
                 "status": "sent" if ok else "failed",
                 "http_status": http_status,
                 "error": error,
-                "at": clock.iso(clock.now()),
+                "at": at,
+                "delivered_at": at if ok and call else None,
             }
             store.insert("deliveries", values)
             done.add(key)
             written += 1
+            if call:  # the card reads its deliveries again (tech.md 6.11.7)
+                hub.publish("event.updated", _event_summary(event_id))
+        store.delivery_dequeue(item["id"])
     return written
 
 

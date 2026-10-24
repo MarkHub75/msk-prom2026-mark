@@ -15,6 +15,8 @@ import { MasterInbox } from "./master/MasterInbox";
 import { ShiftSummaryScreen } from "./master/ShiftSummaryScreen";
 import { CameraScreen } from "./operator/CameraScreen";
 import { OperatorDashboard } from "./operator/OperatorDashboard";
+import { OperatorMobile } from "./operator/OperatorMobile";
+import { OperatorMobileEvent } from "./operator/OperatorMobileEvent";
 import { SectorScreen } from "./operator/SectorScreen";
 import { ManagementDashboard } from "./management/ManagementDashboard";
 import { Journal } from "./ohs/Journal";
@@ -675,5 +677,79 @@ describe("screens", () => {
     expect(screen.getByText("По неделям")).toBeTruthy();
     expect(screen.getByText(/Сектор Б: 2\.00 на камеру/)).toBeTruthy();
     expect(screen.getByText("Сценарии")).toBeTruthy();
+  });
+
+  it("operator_mobile_renders", async () => {
+    const push = wsHandlers();
+    const vibrate = vi.fn();
+    Object.defineProperty(navigator, "vibrate", { value: vibrate, configurable: true });
+    const red = { ...EVENT, id: 11, level: "red", title: "Падение и неподвижность" };
+    vi.mocked(api.GET).mockResolvedValue({ data: [red, EVENT] } as never);
+    render(
+      <MemoryRouter>
+        <OperatorMobile />
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Падение и неподвижность")).toBeTruthy();
+    expect(vi.mocked(api.GET)).toHaveBeenCalledWith("/api/operator/feed");
+    expect(screen.getByText("Бег и резкие перемещения").closest("a")?.getAttribute("href")).toBe("/m/operator/events/9");
+    push({
+      type: "notification", at: AT,
+      data: { id: "e11:published", event_id: 11, level: "red", text: "Красная опасность", audience: ["operator"], sound: "siren", takeover: true },
+    });
+    expect(vibrate).toHaveBeenCalled();
+    expect(vi.mocked(api.GET)).toHaveBeenCalledTimes(2); // reloaded on the notification
+  });
+
+  it("operator_mobile_event_renders", async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+    const detail = {
+      event: EVENT, episode: null, why: [], actions: [], allowed_actions: ["view", "confirm", "false_alarm", "send_to_master"],
+      provenance: { backend: null, fake: false, det_model: null, pose_model: null, job_id: null, video_sha256: null, analysis_version: null, rule_params: {}, evidence_sha256: null },
+      deliveries: [], video_id: null, video_start_ms: null, video_end_ms: null, broadcast: null,
+    };
+    vi.mocked(api.GET).mockImplementation(((path: string) =>
+      Promise.resolve({ data: path === "/api/operator/feed" ? [EVENT] : detail })) as never);
+    vi.mocked(api.POST).mockResolvedValue({ data: detail } as never);
+    render(
+      <MemoryRouter initialEntries={["/m/operator"]}>
+        <Routes>
+          <Route path="/m/operator" element={<OperatorMobile />} />
+          <Route path="/m/operator/events/:eventId" element={<OperatorMobileEvent />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    fireEvent.click(await screen.findByText("Бег и резкие перемещения")); // the tap opens the card
+    expect(await screen.findByText("Подтверждаю")).toBeTruthy();
+    expect(screen.getByText("Ложное срабатывание")).toBeTruthy();
+    expect(screen.getByText("Сектор 5 · Склад · Пресс №2")).toBeTruthy();
+    const post = vi.mocked(api.POST);
+    const sent = (action: string) => ["/api/events/{event_id}/actions", { params: { path: { event_id: 9 } }, body: { action, comment: "" } }];
+    expect(post).toHaveBeenCalledWith(...sent("view"));
+    fireEvent.click(screen.getByText("Передать мастеру"));
+    expect(post).toHaveBeenCalledWith(...sent("send_to_master"));
+  });
+
+  it("master_opens_card_on_notification", async () => {
+    const push = wsHandlers();
+    Object.defineProperty(navigator, "vibrate", { value: vi.fn(), configurable: true });
+    vi.mocked(api.GET).mockResolvedValue({ data: { active: [], recent_resolved: [], server_now: AT } } as never);
+    function Probe() {
+      return <p>{`Карточка ${useLocation().pathname}`}</p>;
+    }
+    render(
+      <MemoryRouter initialEntries={["/master"]}>
+        <Routes>
+          <Route path="/master" element={<MasterInbox />} />
+          <Route path="/master/events/:eventId" element={<Probe />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText("Активных событий нет")).toBeTruthy();
+    const note = { event_id: 11, level: "red", text: "Красная опасность", audience: ["master"], sound: "chime", takeover: false };
+    push({ type: "notification", at: AT, data: { ...note, id: "e11:level_escalated" } });
+    expect(screen.queryByText(/Карточка/)).toBeNull(); // only a handover opens the card
+    push({ type: "notification", at: AT, data: { ...note, id: "e11:to_master" } });
+    expect(await screen.findByText("Карточка /master/events/11")).toBeTruthy();
   });
 });
