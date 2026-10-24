@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { CameraTile, EventSummary, HumanAction, SectorState } from "../api/types";
@@ -7,9 +7,8 @@ import { useRole } from "../roles";
 import { ACTIONS, useEventActions } from "./eventActions";
 import { EventAlarm } from "../components/AlarmTakeover";
 import { useMeta, useUpdates } from "../components/AppShell";
-import { EventFeed } from "../components/EventFeed";
 import { EvidenceFrame, VideoWithHud } from "../components/Media";
-import { Breadcrumb, duration, Empty, ErrorNotice, Icon, Loading, number, PageHeading, PanelHeading, time } from "../components/ui";
+import { duration, Empty, ErrorNotice, Icon, Loading, number, time } from "../components/ui";
 import "../styles/targeted-visual.css";
 
 // "Сектор 1 · Прессовый участок" -> "Прессовый участок"
@@ -187,15 +186,4 @@ export function OperatorPage() {
     </div>
     <EventAlarm event={critical} />
   </div>;
-}
-export function SectorPage() {
-  const { sectorId } = useParams(); const id = Number(sectorId); const updates = useUpdates();
-  const view = useApi(() => api.GET("/api/sectors/{sector_id}/view", {params:{path:{sector_id:id}}}), [id, updates]);
-  return <><Breadcrumb>Сектор {number(id)}</Breadcrumb><PageHeading title={view.data ? `${number(id)} / ${view.data.sector.name}` : `Сектор ${number(id)}`} meta={view.data?.sector.reason_text}><button className="button button-small" onClick={view.reload}>Обновить</button></PageHeading>{view.error ? <ErrorNotice error={view.error} retry={view.reload} /> : !view.data ? <Loading /> : <div className="sector-detail-layout"><section><PanelHeading aside={`${view.data.cameras.length} камер`}>Наблюдение сектора</PanelHeading><div className="camera-grid">{view.data.cameras.map(tile => <article className={`camera-tile sector-${tile.state.state}`} key={tile.camera.id}><Link to={`/operator/cameras/${tile.camera.id}`}><div className="camera-tile-title"><h2>{tile.camera.name}</h2><Icon name="arrow" /></div>{tile.preview_url ? <img src={mediaUrl(tile.preview_url)} alt={`Кадр камеры ${tile.camera.name}`} /> : <Empty title="Нет наблюдения" text={tile.state.reason_text} />}<div className="camera-tile-foot"><span>{tile.state.reason_text}</span><span>Архивная запись</span></div></Link></article>)}</div>{!view.data.cameras.length && <Empty title="Камер нет" text="В этом секторе пока нет доступных камер." />}</section><aside className="attention-rail"><PanelHeading>События сектора</PanelHeading><EventFeed events={view.data.feed} compact /></aside></div>}</>;
-}
-export function CameraPage() {
-  const { cameraId } = useParams(); const id = Number(cameraId); const updates = useUpdates();
-  const view = useApi(() => api.GET("/api/cameras/{camera_id}/view", {params:{path:{camera_id:id}}}), [id, updates]);
-  const feed = useApi(() => api.GET("/api/operator/feed"), [updates]);
-  return <div data-testid="camera-view"><Breadcrumb>{view.data && <><Link to={`/operator/sectors/${view.data.camera.sector_id}`}>Сектор {number(view.data.camera.sector_id)}</Link> / </> }Камера {number(id)}</Breadcrumb><PageHeading title={view.data?.camera.name ?? `Камера ${number(id)}`} meta={view.data?.state.reason_text}><span className="recording-label">Архивная запись</span><button className="button button-small" onClick={view.reload}>Обновить</button></PageHeading>{view.error ? <ErrorNotice error={view.error} retry={view.reload} /> : !view.data ? <Loading /> : <div className="camera-workspace"><section className="camera-stage"><PanelHeading aside={view.data.broadcast ? `Повтор · цикл ${view.data.broadcast.cycle}` : "Запись не запущена"}>Просмотр записи</PanelHeading>{view.data.video ? <VideoWithHud video={view.data.video} camera={view.data.camera.name} initialMs={view.data.broadcast?.position_ms ?? 0} broadcast={view.data.broadcast} episodes={view.data.analysis?.episodes} /> : <Empty title="Запись отсутствует" text={view.data.state.reason_text} />}<div className="camera-facts"><div><span>Сектор</span><Link to={`/operator/sectors/${view.data.camera.sector_id}`}>{number(view.data.camera.sector_id)}</Link></div><div><span>Наблюдение</span><strong>{view.data.state.reason_text}</strong></div><div><span>Описание</span><strong>{view.data.camera.description || "Не указано"}</strong></div></div></section><aside className="attention-rail"><PanelHeading>События камеры</PanelHeading>{feed.error ? <ErrorNotice error={feed.error} compact retry={feed.reload} /> : feed.loading ? <Loading /> : <EventFeed events={feed.data?.filter(event => event.camera_id===id) ?? []} compact />}</aside></div>}</div>;
 }
