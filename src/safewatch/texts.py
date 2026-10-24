@@ -1,6 +1,6 @@
 """Every Russian text of the product (tech.md 4). The frontend gets them through the API."""
 
-from safewatch.types import ActorRole, EventStatus, Level, NoObservationReason, Role
+from safewatch.types import ActorRole, Level, NoObservationReason, Role
 
 PRODUCT_TITLE = "SafeWatch"
 
@@ -9,7 +9,7 @@ LEVEL_TITLES: dict[Level, str] = {
     "red": "Красная опасность",
 }
 
-STATUS_TITLES: dict[EventStatus, str] = {
+STATUS_TITLES = {  # EventStatus -> title; the trace of tech.md 6.7 needs this line as is
     "new": "Новое",
     "viewed": "Просмотрено",
     "confirmed": "Подтверждено",
