@@ -1,0 +1,120 @@
+{
+  "note": "ScenarioMeta of running and fall as GET /api/meta of main f0d0828b (S9) returns them; the mock serves these as is",
+  "scenarios": [
+    {
+      "id": "running",
+      "title": "Бег и резкие перемещения",
+      "description": "Человек бежит; рядом с техникой или в опасной зоне — красное событие.",
+      "icon": "run",
+      "default_level": "yellow",
+      "status": "active",
+      "status_text": "Сценарий работает",
+      "required_classes": [
+        "person"
+      ],
+      "zone_kinds": [
+        "danger",
+        "vehicle_path"
+      ],
+      "params": [
+        {
+          "key": "speed_bh_s",
+          "title": "Порог скорости без калибровки",
+          "unit": "роста/с",
+          "default": 1.5,
+          "min": 0.5,
+          "max": 5
+        },
+        {
+          "key": "speed_m_s",
+          "title": "Порог скорости с калибровкой",
+          "unit": "м/с",
+          "default": 2.5,
+          "min": 0.5,
+          "max": 10
+        },
+        {
+          "key": "hold_s",
+          "title": "Удержание жёлтого",
+          "unit": "с",
+          "default": 1,
+          "min": 0,
+          "max": 60
+        },
+        {
+          "key": "red_hold_s",
+          "title": "Удержание красного",
+          "unit": "с",
+          "default": 0.5,
+          "min": 0,
+          "max": 60
+        },
+        {
+          "key": "near_vehicle_bh",
+          "title": "Рядом с техникой без калибровки",
+          "unit": "роста",
+          "default": 3,
+          "min": 0,
+          "max": 20
+        },
+        {
+          "key": "near_vehicle_m",
+          "title": "Рядом с техникой с калибровкой",
+          "unit": "м",
+          "default": 3,
+          "min": 0,
+          "max": 30
+        }
+      ]
+    },
+    {
+      "id": "fall",
+      "title": "Падение и неподвижность",
+      "description": "Падение человека или долгая неподвижность лёжа.",
+      "icon": "fall",
+      "default_level": "red",
+      "status": "active",
+      "status_text": "Сценарий работает",
+      "required_classes": [
+        "person"
+      ],
+      "zone_kinds": [
+        "lying_allowed"
+      ],
+      "params": [
+        {
+          "key": "transition_s",
+          "title": "Переход стоя → лёжа не дольше",
+          "unit": "с",
+          "default": 2,
+          "min": 0,
+          "max": 10
+        },
+        {
+          "key": "confirm_s",
+          "title": "Удержание падения",
+          "unit": "с",
+          "default": 2,
+          "min": 0,
+          "max": 60
+        },
+        {
+          "key": "still_s",
+          "title": "Неподвижность лёжа",
+          "unit": "с",
+          "default": 10,
+          "min": 0,
+          "max": 600
+        },
+        {
+          "key": "allowed_still_s",
+          "title": "Неподвижность в зоне «лежать допустимо»",
+          "unit": "с",
+          "default": 60,
+          "min": 0,
+          "max": 3600
+        }
+      ]
+    }
+  ]
+}

@@ -115,9 +115,10 @@ class WsClient {
     this.closed = new Promise((resolve) => this.socket.on("close", (code) => resolve((this.closeCode = code))));
     this.socket.on("error", () => {});
   }
-  // Resolves with the first message (already received or future) matching `pred`, or null.
-  waitFor(pred, ms = WAIT_MS) {
-    const seen = this.messages.find(pred);
+  // Resolves with the first message matching `pred`, or null; `fresh` ignores the ones already
+  // received (on the backend the loop publishes the scene again every cycle).
+  waitFor(pred, ms = WAIT_MS, fresh = false) {
+    const seen = fresh ? null : this.messages.find(pred);
     if (seen) return Promise.resolve(seen);
     return new Promise((resolve) => {
       const timer = setTimeout(() => resolve(null), ms);
@@ -332,8 +333,10 @@ async function main() {
 
   // ---- red ----
   await step("красное событие", async () => {
+    // A fresh red one: an older one may be timeout-escalated already (8.7, 45 s) while we waited.
+    const fresh = op.waitFor(isCreated("red"), WAIT_MS, true);
     if (MOCK) await mockNext();
-    const created = await op.waitFor(isCreated("red"));
+    const created = await fresh;
     must(created, `нет event.created красного за ${WAIT_MS / 1000} с`);
     story.red = created.data;
     story.redStatus = created.data.status;

@@ -48,59 +48,59 @@
       "detail": "зависит от «event.created + notification у operator»"
     },
     {
-      "result": "SKIP",
+      "result": "PASS",
       "step": "красное событие",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "#241 Красная опасность · Сектор 1 · Человек лежит неподвижно 10 с"
     },
     {
-      "result": "SKIP",
+      "result": "FAIL",
       "step": "takeover-notification у operator, не у master",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "master получил уведомление до подтверждения"
     },
     {
       "result": "SKIP",
       "step": "master: нет confirm в allowed_actions",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "operator «Подтверждаю» → sent_to_master",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "master получает notification (chime)",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "событие во входящих мастера",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "master accept → master_accepted",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "НЕГАТИВ resolve без комментария → 422",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "master resolve с комментарием → resolved",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "полная история actions в карточке",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "SKIP",
       "step": "событие в журнале /api/events",
-      "detail": "зависит от «event.created + notification у operator»"
+      "detail": "зависит от «takeover-notification у operator, не у master»"
     },
     {
       "result": "PASS",
@@ -128,19 +128,19 @@
       "detail": ""
     },
     {
-      "result": "SKIP",
+      "result": "PASS",
       "step": "evidence: кадр image/jpeg, затем 404 при fault",
-      "detail": "у события нет episode.evidence"
+      "detail": "fault evidence-404: только в моке"
     },
     {
-      "result": "PASS",
+      "result": "FAIL",
       "step": "WS-разрыв → переподключение, hello, REST совпадает",
-      "detail": "client drop"
+      "detail": "статус после разрыва sent_to_master, ожидался new"
     },
     {
       "result": "PASS",
       "step": "контракт: ответы и WS-сообщения по схемам",
-      "detail": "ответов 14, WS-сообщений 77: расхождений нет"
+      "detail": "ответов 16, WS-сообщений 77: расхождений нет"
     }
   ],
   "contract_errors": []

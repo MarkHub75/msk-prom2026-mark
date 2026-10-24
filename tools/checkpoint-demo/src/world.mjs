@@ -137,6 +137,9 @@ export const ZONE_KINDS = [
   ["vehicle_path", "Пути транспорта", "#98989D", "polygon", "Проезды погрузчиков и машин."],
 ].map(([id, title, color, geometry, description]) => ({ id, title, color, geometry, description }));
 
+// running and fall are taken as is from GET /api/meta of main (src/meta-main.json); the others are
+// the mock's until slice 10 brings them (GAPS A2).
+const FROM_MAIN = JSON.parse(readFileSync(new URL("./meta-main.json", import.meta.url), "utf8")).scenarios;
 // Scenario params: defaults of config/default.yaml; titles, units and ranges are the mock's (GAPS.md).
 const P = (key, title, unit, def, min, max) => ({ key, title, unit, default: def, min, max });
 const MODEL_MISSING = "Модель не подключена";
@@ -159,7 +162,7 @@ export const SCENARIOS = [
   ["load_carrying", "Переноска груза с нарушением.", "box", "yellow", "skeleton", "Сценарий уточняется: правила переноски не определены", [], [], []],
 ].map(([id, description, icon, default_level, status, status_text, required_classes, zone_kinds, params]) => ({
   id, title: SCENARIO_TITLES[id], description, icon, default_level, status, status_text, required_classes, zone_kinds, params,
-}));
+})).map((s) => FROM_MAIN.find((m) => m.id === s.id) ?? s);
 export const RULE_PARAMS = Object.fromEntries(
   SCENARIOS.map((s) => [s.id, Object.fromEntries(s.params.map((p) => [p.key, p.default]))]),
 );
