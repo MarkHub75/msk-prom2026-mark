@@ -44,20 +44,27 @@ class RunningZonePrototype:
     """
     def __init__(self, config):
         self.config=deepcopy(config)
-        for k in ('camera_id','geometry_revision','polygon_provenance'):
+        self.running_only=config.get('running_only',False)
+        if type(self.running_only) is not bool:raise ValueError('running_only must be boolean')
+        for k in (('camera_id',) if self.running_only else ('camera_id','geometry_revision','polygon_provenance')):
             if not isinstance(config.get(k),str) or not config[k]:raise ValueError('explicit '+k+' required')
         size=config.get('image_size')
         if not isinstance(size,list) or len(size)!=2 or any(type(v) is not int or v<=0 for v in size):raise ValueError('fixed original image_size required')
-        poly=config.get('polygon_xy')
-        if not isinstance(poly,list) or len(poly)<3 or any(not isinstance(p,list) or len(p)!=2 or not all(_finite(v) for v in p) or not 0<=p[0]<=size[0] or not 0<=p[1]<=size[1] for p in poly):raise ValueError('valid original-image polygon required')
-        if len({tuple(p) for p in poly})!=len(poly):raise ValueError('duplicate polygon vertex')
-        if abs(sum(poly[i-1][0]*p[1]-p[0]*poly[i-1][1] for i,p in enumerate(poly)))<1e-6:raise ValueError('degenerate polygon')
-        for i in range(len(poly)):
-            for j in range(i+1,len(poly)):
-                if j in (i,(i+1)%len(poly)) or i==(j+1)%len(poly):continue
-                if _cross(poly[i],poly[(i+1)%len(poly)],poly[j],poly[(j+1)%len(poly)]):raise ValueError('self-intersecting polygon')
+        if not self.running_only:
+            poly=config.get('polygon_xy')
+            if not isinstance(poly,list) or len(poly)<3 or any(not isinstance(p,list) or len(p)!=2 or not all(_finite(v) for v in p) or not 0<=p[0]<=size[0] or not 0<=p[1]<=size[1] for p in poly):raise ValueError('valid original-image polygon required')
+            if len({tuple(p) for p in poly})!=len(poly):raise ValueError('duplicate polygon vertex')
+            if abs(sum(poly[i-1][0]*p[1]-p[0]*poly[i-1][1] for i,p in enumerate(poly)))<1e-6:raise ValueError('degenerate polygon')
+            for i in range(len(poly)):
+                for j in range(i+1,len(poly)):
+                    if j in (i,(i+1)%len(poly)) or i==(j+1)%len(poly):continue
+                    if _cross(poly[i],poly[(i+1)%len(poly)],poly[j],poly[(j+1)%len(poly)]):raise ValueError('self-intersecting polygon')
         self.units=config.get('speed_units')
-        if self.units not in ('pixels_per_second','image_diagonals_per_second'):raise ValueError('explicit image-plane speed_units required')
+        if self.units not in ('pixels_per_second','image_diagonals_per_second','body_heights_per_second'):raise ValueError('explicit image-plane speed_units required')
+        if self.units=='body_heights_per_second' and not self.running_only:raise ValueError('body-height proxy is running-only')
+        self.anchor_mode=config.get('motion_anchor','observed_ankles')
+        if self.anchor_mode not in ('observed_ankles','observed_bbox_center'):raise ValueError('unknown motion anchor')
+        if self.anchor_mode=='observed_bbox_center' and not self.running_only:raise ValueError('bbox motion anchor is running-only')
         self.threshold=config.get('speed_threshold')
         if not _finite(self.threshold) or self.threshold<=0:raise ValueError('explicit positive camera-specific speed_threshold required')
         self.max_gap=config.get('max_gap_ms',750)
@@ -73,12 +80,17 @@ class RunningZonePrototype:
         if direction is not None:
             if not isinstance(direction,list) or len(direction)!=2 or not all(_finite(v) for v in direction) or math.hypot(*direction)==0:raise ValueError('nonzero image-plane direction required')
             length=math.hypot(*direction);direction=[v/length for v in direction]
+        if self.running_only and direction is not None:raise ValueError('running-only mode has no zone direction policy')
         self.direction=direction
         self.tracker=BehaviorEngine({'min_score':self.min_score,'max_gap_ms':self.max_gap})
         self.previous={};self.epoch=None;self.last_time=None;self.last_frame=None;self.retired=set()
 
     def _anchor(self,person):
         if person.get('visibility') in ('occluded','unknown'):return None
+        if self.anchor_mode=='observed_bbox_center':
+            box=person['bbox_xyxy'];w,h=self.config['image_size']
+            if not 0<box[0]<box[2]<w or not 0<box[1]<box[3]<h or person.get('truncated') is True:return None
+            return [(box[0]+box[2])/2,(box[1]+box[3])/2]
         points=person.get('keypoints')
         if points is None or len(points)!=17:return None
         feet=[points[i] for i in (15,16)];w,h=self.config['image_size']
@@ -93,8 +105,8 @@ class RunningZonePrototype:
                 'not_an_external_event':True,'camera_id':batch['camera_id'],'stream_epoch':batch['stream_epoch'],
                 'frame_id':batch['frame_id'],'media_time_ms':batch['media_time_ms'],
                 'input_backend':batch.get('backend','unknown'),'speed_units':self.units,
-                'geometry_revision':self.config['geometry_revision'],
-                'polygon_provenance':self.config['polygon_provenance'],
+                'geometry_revision':self.config.get('geometry_revision'),
+                'polygon_provenance':self.config.get('polygon_provenance'),
                 'physical_calibration':'NONE','diagnostics':[],'unknowns':[]}
         epoch,t,fid=batch['stream_epoch'],batch['media_time_ms'],batch['frame_id']
         if epoch in self.retired or epoch==self.epoch and self.last_time is not None and (t<=self.last_time or fid<=self.last_frame):
@@ -121,12 +133,12 @@ class RunningZonePrototype:
                 result['unknowns'].append({'track_key':key,'reason':'ambiguous_current_detection'});continue
             anchor=self._anchor(matches[0])
             if anchor is None:
-                result['unknowns'].append({'track_key':key,'reason':'insufficient_ankle_observability'});continue
-            relation=_relation(anchor,self.config['polygon_xy'],self.margin)
+                result['unknowns'].append({'track_key':key,'reason':('insufficient_ankle_observability' if self.anchor_mode=='observed_ankles' else 'bbox_anchor_unobservable_or_truncated')});continue
+            relation='running_only' if self.running_only else _relation(anchor,self.config['polygon_xy'],self.margin)
             if relation=='unknown':
                 result['unknowns'].append({'track_key':key,'reason':'polygon_boundary_uncertain'});continue
             old=self.previous.get(key)
-            state={'point':anchor,'time':t,'relation':relation,'fast_since':None,'fast_emitted':False,'against_emitted':False}
+            state={'point':anchor,'time':t,'relation':relation,'fast_since':None,'fast_emitted':False,'against_emitted':False,'body_height':matches[0]['bbox_xyxy'][3]-matches[0]['bbox_xyxy'][1]}
             emit=lambda kind,**fields:result['diagnostics'].append({'kind':kind,'track_key':key,'anchor_xy':anchor,**fields})
             if old is None:
                 if relation=='inside':result['unknowns'].append({'track_key':key,'reason':'inside_at_first_observation_entry_unknown'})
@@ -136,6 +148,7 @@ class RunningZonePrototype:
                 distance=math.hypot(dx,dy)
                 speed=distance/elapsed
                 if self.units=='image_diagonals_per_second':speed/=math.hypot(*batch['image_size'])
+                if self.units=='body_heights_per_second':speed/=max(1,state['body_height'],old['body_height'])
                 if speed>=self.threshold:
                     state['fast_since']=t if old['fast_since'] is None else old['fast_since']
                     state['fast_emitted']=old['fast_emitted']
