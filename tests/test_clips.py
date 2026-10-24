@@ -48,7 +48,17 @@ def _row(start_ms: int, confirm_ms: int, duration_ms: int = 60_000) -> dict[str,
 
 
 def _no_ffmpeg_running() -> bool:
-    return not [p for p in psutil.Process().children(recursive=True) if "ffmpeg" in p.name()]
+    """`subprocess.run` kills and waits for ffmpeg, yet Windows may still list the dead process
+    for a moment: wait for it with a short deadline instead of looking once."""
+    procs = []
+    for p in psutil.Process().children(recursive=True):
+        try:
+            if "ffmpeg" in p.name():
+                procs.append(p)
+        except psutil.NoSuchProcess:  # exited between the listing and the name
+            pass
+    _, alive = psutil.wait_procs(procs, timeout=5)
+    return not alive
 
 
 def _web_files(core: Settings) -> list[str]:
