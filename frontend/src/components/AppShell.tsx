@@ -1,13 +1,13 @@
 import { PRODUCT } from "../brand";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, matchPath, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import type { BackendStatus, Meta } from "../api/types";
 import { useApi } from "../api/useApi";
 import { useWs, type WsStatus } from "../api/ws";
 import { FIXTURE_NOW } from "../fixtures/data";
 import { isReviewMode, getReviewScenario } from "../fixtures/review";
-import { menuFor } from "../nav";
+import { menuFor, NAV } from "../nav";
 import { ROLES, useRole, type Role } from "../roles";
 import { duration, Icon, ToastProvider, type IconName } from "./ui";
 import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
@@ -112,7 +112,11 @@ function ShellContent({ children }: { children: ReactNode }) {
   const location = useLocation();
   const navigate = useNavigate();
   const review = isReviewMode();
-  useEffect(() => { const routeRole = location.pathname.split("/")[1]; if (ROLES.includes(routeRole as Role) && role !== routeRole) setRole(routeRole as Role); }, [location.pathname, role, setRole]);
+  // A deep link switches the role only when the current role cannot open that route (NAV roles), e.g. ohs stays ohs on /admin/cameras/:id.
+  useEffect(() => {
+    const route = NAV.find(item => matchPath({ path: item.path, end: true }, location.pathname));
+    if (route && !route.roles.includes(role)) setRole(route.roles[0]);
+  }, [location.pathname, role, setRole]);
   const meta = useApi(() => api.GET("/api/meta"), [role]).data;
   const [updates, setUpdates] = useState(0);
   const [notification, setNotification] = useState<string>();
