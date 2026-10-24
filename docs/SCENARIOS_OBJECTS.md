@@ -40,3 +40,40 @@ stale facts, conflicting harness facts, object presence alone, low confidence,
 original geometry, exact Finding keys and purity. Passing them establishes rule
 execution only; neural/video quality, deployment readiness and acceptance of
 all eight industrial scenarios are not established by these tests.
+
+## E012: one upstream person-observation diagnostic after all-eight coverage
+
+The independently allocated `ml.scenarios.experiments.person_roi` experiment
+compared saved E003 whole-frame observations to one fixed four-tile SplitPose CPU
+pass on the same345 CAVIAR source JPEGs. Each tile is60% of original dimensions,
+rounded floor(dim*.6+.5), with corner starts0 or dimension-minus-tile. There is no
+GT-dependent ROI, whole-frame rerun, threshold/weight variant or per-crop NMS.
+Decoded split outputs receive only inverse letterbox and original-grid offsets;
+one class-aware global NMS uses.45, decoder confidence.25, consumer.5.
+
+Before forward, READY's exact approved sourceXML development scope, the immutable
+source/annotation hashes, baseline execution and model identities were verified.
+The catalog pointer can advance; the original immutable CAVIAR release must still
+match E003. The frozen protocol required running unique-match recall gain>=.10,
+walking recall drop<=.02 AND walking matched count>=saved baseline11. Source
+unknown/other/unboxed actors remain excluded, not false positives; out-of-bounds
+GT is preserved and stratified. Source time is nominal25FPS-derived frameID*40ms,
+not original camera PTS. Baseline is saved CUDA, candidate CPU: precision/runtime
+differences are a further limitation, with no extra control rerun authorized.
+
+**REJECTED:** all345 images/1380 CPU calls completed in173.06s (600s cap,
+Torch2threads/CV1, GPU hidden). Running matching remained0/46, entirely in-bounds,
+so required gain failed. Walking matching increased11/482->27/482; in-bounds
+27/471, out-of-bounds0/11. Aggregate walking guard passed, but one previously
+matched walking actor-frame was lost and17 were newly matched. These are partial
+source-actor observation results, not running event recall/precision, industrial
+quality, independent test or model promotion. No second tiled variant followed.
+
+Evidence outside Git:
+`/workspace/artifacts/matvey-scenarios/E012-person-roi-v1/` contains frozen
+protocol, complete observations, comparison/per-actor strata and closeout. All
+1380 crop calls preserve source/cropRGB/modeltensor hashes, transforms and
+translated pre-NMS proposals; lossless raw RGB NPZ is capped to the first20
+predeclared crop calls. Full640 float inputs are not archived; original READY
+JPEG+fixed crop geometry and codec reproduce them. CPU process exited and
+resources were released; no GPU/training/LinQ/compile/network operation occurred.
