@@ -7,6 +7,8 @@ def _movement(ctx,obj,config):
     state=fact(ctx,obj['object_key'],'moving_state')
     if state and state.get('score',0)>=config.get('min_fact_score',.5) and type(state.get('value')) is bool:
         return state['value'],'sourced_moving_state',state['score']
+    camera_source=config.get('camera_policy_source')
+    if config.get('stationary_camera_declared') is not True or not isinstance(camera_source,str) or not camera_source.strip():return None,'stationary_camera_policy_unavailable',None
     previous=obj.get('previous');dt=obj.get('dt_ms')
     if not previous or previous.get('score',0)<config.get('min_score',.5) or type(dt) not in (int,float) or not isfinite(dt) or not 0<dt<=config.get('max_gap_ms',750):return None,'moving_state_unobservable',None
     threshold=config.get('moving_min_image_diagonals_per_second')
@@ -32,7 +34,7 @@ def evaluate(ctx,config):
         pairs=[]
         for obj in objects:
             moving,reason,score=_movement(ctx,obj,config)
-            attrs={'object_key':obj['object_key'],'movement_basis':reason,'policy_source':policy['policy_source'],'distance_units':policy['units'],'physical_distance':False}
+            attrs={'object_key':obj['object_key'],'movement_basis':reason,'policy_source':policy['policy_source'],'distance_units':policy['units'],'physical_distance':False,'translation_inference_used':reason=='observed_object_translation','stationary_camera_declared':config.get('stationary_camera_declared') is True,'camera_policy_source':config.get('camera_policy_source')}
             if moving is None:
                 pairs.append(finding('02','moving_machine_proximity',key,'UNKNOWN',reason,attributes=attrs));continue
             if not moving:

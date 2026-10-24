@@ -13,5 +13,7 @@
     "units": "body_heights",
     "threshold": 1.0,
     "policy_source": null
-  }
+  },
+  "stationary_camera_declared": false,
+  "camera_policy_source": null
 }
