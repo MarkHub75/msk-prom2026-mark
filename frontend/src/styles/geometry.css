@@ -94,7 +94,6 @@
 .geo-layer-list li { display: flex; align-items: center; border-left: 2px solid transparent; }
 .geo-layer-list li:hover { background: var(--surface-high); }
 .geo-layer-list li.is-selected { background: #1f2a36; border-left-color: var(--accent); }
-.geo-layer-list li > span { padding: 6px 8px; display: flex; align-items: center; gap: 8px; }
 .geo-layer-list li.is-off .geo-layer-main { opacity: .45; }
 .geo-layer-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 6px 4px 6px 8px; background: transparent; border: 0; color: var(--text); text-align: left; cursor: pointer; }
 .geo-layer-main svg { color: var(--muted); flex: none; }

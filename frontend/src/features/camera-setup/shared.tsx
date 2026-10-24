@@ -154,7 +154,7 @@ export function RecomputeNotice({ cameraId, what }: { cameraId: number; what: st
         <strong>{what}</strong>
         {!job && <span>Новый анализ видео учтёт изменения. Уже опубликованные события пересчитываются по кнопке: необработанные получат статус «Пересчитано», события, с которыми работали люди, не меняются.</span>}
         {job && running && <span><Loader2 {...ICON} size={13} className="geo-spin" /> Пересчёт видео №{video?.id ?? job.video_id}: {STAGE_TITLES[job.stage]}, {fmt(job.progress * 100, 0)} %</span>}
-        {job?.status === "done" && <span className="geo-ok"><Check {...ICON} size={13} /> Пересчёт готов: анализ №{job.analysis_id ?? "—"}. Прежние необработанные события помечены «Пересчитано», эфир перезапущен с новым анализом.</span>}
+        {job?.status === "done" && <span className="geo-ok"><Check {...ICON} size={13} /> Пересчёт готов: анализ №{job.analysis_id ?? "—"}. Прежние необработанные события помечены «Пересчитано»; если эфир играл это видео, он перезапущен с новым анализом.</span>}
         {job?.status === "failed" && <span className="geo-bad"><TriangleAlert {...ICON} size={13} /> Пересчёт не удался: {job.error_text ?? job.error_code}</span>}
         {error && <span className="geo-bad"><TriangleAlert {...ICON} size={13} /> {error.message}</span>}
       </div>

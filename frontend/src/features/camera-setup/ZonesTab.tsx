@@ -62,6 +62,8 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
   const [role] = useRole();
   const { meta, error: metaError } = useSetupMeta();
   const zones = useApi(() => api.GET("/api/cameras/{camera_id}/zones", { params: { path: { camera_id: cameraId } } }), [cameraId]);
+  const calibration = useApi(() => api.GET("/api/cameras/{camera_id}/calibration", { params: { path: { camera_id: cameraId } } }), [cameraId]);
+  const [grid, setGrid] = useState(false);
   const kinds = useMemo(() => (meta?.zone_kinds ?? []) as KindMeta[], [meta]);
   const kindOf = (id: string) => kinds.find((k) => k.id === id);
   const canEdit = role === "admin" || role === "ohs";
@@ -84,16 +86,19 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
   // The selected zone disappeared (deleted elsewhere): drop the draft.
   useEffect(() => { if (draft && draft.id !== "new" && zones.data && !saved) setDraft(null); }, [draft, saved, zones.data]);
 
-  const select = (z: Zone | null) => { setDraft(z ? fromZone(z) : null); setVertex(null); setError(undefined); };
+  const select = (z: Zone | null) => {
+    if (dirty && draft?.id !== z?.id && !window.confirm("Есть несохранённые изменения зоны. Отбросить их?")) return;
+    setDraft(z ? fromZone(z) : null); setVertex(null); setError(undefined);
+  };
   const startNew = (kindId?: string) => {
     const k = kindOf(kindId ?? "") ?? kinds.find((x) => x.geometry === "polygon") ?? kinds[0];
-    if (!k) return;
+    if (!k || (dirty && !window.confirm("Есть несохранённые изменения зоны. Отбросить их?"))) return;
     setDraft({ id: "new", kind: k.id, name: "", points: [], closed: false });
     setVertex(null); setError(undefined);
   };
   const cancel = () => {
     if (!draft) return;
-    if (draft.id === "new") setDraft(null);
+    if (draft.id === "new" || !dirty) setDraft(null);
     else if (saved) setDraft(fromZone(saved));
     setVertex(null); setError(undefined);
   };
@@ -150,7 +155,7 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
         {list.length === 0 && !drawingNew && <p className="geo-empty">Без зон работают только сценарии, которым зоны не нужны: бег, сближение с техникой, телефон, падение.</p>}
         <ul className="geo-layer-list">
           {drawingNew && draft && (
-            <li className="is-selected"><span className="geo-swatch" style={{ background: kind?.color }} /><span className="geo-layer-name"><b>Новая зона</b><small>{kind?.title} · рисуется</small></span></li>
+            <li className="is-selected"><div className="geo-layer-main"><span className="geo-swatch" style={{ background: kind?.color }} />{kind?.geometry === "line" ? <Spline {...ICON} size={14} /> : <Hexagon {...ICON} size={14} />}<span className="geo-layer-name"><b>{draft.name.trim() || "Новая зона"}</b><small>{kind?.title} · {draft.closed ? "не сохранена" : "рисуется"}</small></span></div></li>
           )}
           {list.map((z) => {
             const k = kindOf(z.kind);
@@ -188,6 +193,7 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
           <span className={`geo-tool ${drawingNew ? "is-active" : ""}`}>{kind?.geometry === "line" ? <Spline {...ICON} size={14} /> : <Hexagon {...ICON} size={14} />} {drawingNew ? `Рисуем: ${kind?.title}` : "Рисование"}</span>
           <span className="geo-toolbar-sep" />
           <label className="geo-check"><input type="checkbox" checked={labels} onChange={(e) => setLabels(e.target.checked)} /> Подписи</label>
+          {calibration.data && <label className="geo-check"><input type="checkbox" checked={grid} onChange={(e) => setGrid(e.target.checked)} /> Сетка калибровки 1 м</label>}
           {!canEdit && <span className="geo-readonly"><Lock {...ICON} size={13} /> Только просмотр</span>}
         </>}
         statusbar={<>
@@ -205,6 +211,9 @@ export function ZonesTab({ cameraId }: { cameraId: number }) {
             maxPoints={kind?.geometry === "line" ? 2 : ZONE_POINTS_MAX}
             onBackground={() => { if (draft && draft.id !== "new" && !dirty) select(null); }}
           >
+            {grid && calibration.data && (
+              <g className="geo-grid">{calibration.data.grid.map(([a, b], i) => <line key={i} x1={a[0] * w} y1={a[1] * h} x2={b[0] * w} y2={b[1] * h} />)}</g>
+            )}
             {list.filter((z) => !hidden.has(z.id)).map((z) => draft?.id === z.id && canEdit
               ? labels && <ZoneLabelFor key={z.id} draft={draft} kind={kind} w={w} h={h} />
               : <ZoneShape key={z.id} zone={z} kind={kindOf(z.kind)} w={w} h={h} dim={!!draft} showLabel={labels} onPick={dirty ? undefined : () => select(z)} />)}
