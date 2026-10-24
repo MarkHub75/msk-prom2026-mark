@@ -29,6 +29,16 @@
       },
       "Analysis": {
         "properties": {
+          "auto_calibration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AutoCalibration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "created_at": {
             "format": "date-time",
             "title": "Created At",
@@ -119,6 +129,54 @@
           "message"
         ],
         "title": "ApiError",
+        "type": "object"
+      },
+      "AutoCalibration": {
+        "properties": {
+          "a_px": {
+            "title": "A Px",
+            "type": "number"
+          },
+          "b": {
+            "title": "B",
+            "type": "number"
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "person_height_m": {
+            "title": "Person Height M",
+            "type": "number"
+          },
+          "r2": {
+            "title": "R2",
+            "type": "number"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "rmse_px": {
+            "title": "Rmse Px",
+            "type": "number"
+          },
+          "samples": {
+            "title": "Samples",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ok",
+          "reason",
+          "samples",
+          "a_px",
+          "b",
+          "rmse_px",
+          "r2",
+          "person_height_m"
+        ],
+        "title": "AutoCalibration",
         "type": "object"
       },
       "BackendStatus": {
@@ -311,6 +369,76 @@
           }
         },
         "title": "BroadcastIn",
+        "type": "object"
+      },
+      "CalcAssumption": {
+        "properties": {
+          "editable": {
+            "default": true,
+            "title": "Editable",
+            "type": "boolean"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "value",
+          "unit",
+          "source"
+        ],
+        "title": "CalcAssumption",
+        "type": "object"
+      },
+      "CalculatorDefaults": {
+        "properties": {
+          "assumptions": {
+            "items": {
+              "$ref": "#/components/schemas/CalcAssumption"
+            },
+            "title": "Assumptions",
+            "type": "array"
+          },
+          "measured": {
+            "items": {
+              "$ref": "#/components/schemas/CalcAssumption"
+            },
+            "title": "Measured",
+            "type": "array"
+          },
+          "rollout": {
+            "$ref": "#/components/schemas/RolloutIn"
+          },
+          "scale": {
+            "$ref": "#/components/schemas/ScaleIn"
+          }
+        },
+        "required": [
+          "rollout",
+          "scale",
+          "assumptions",
+          "measured"
+        ],
+        "title": "CalculatorDefaults",
         "type": "object"
       },
       "Calibration": {
@@ -622,6 +750,120 @@
         "title": "CameraLiveView",
         "type": "object"
       },
+      "CameraPassport": {
+        "properties": {
+          "analysis_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Id"
+          },
+          "camera_id": {
+            "title": "Camera Id",
+            "type": "integer"
+          },
+          "dark_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dark Share"
+          },
+          "empty_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Empty Share"
+          },
+          "frames": {
+            "title": "Frames",
+            "type": "integer"
+          },
+          "person_frames_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Person Frames Share"
+          },
+          "person_height_px_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Person Height Px P50"
+          },
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/PassportScenario"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          },
+          "shift_px": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shift Px"
+          },
+          "shift_text": {
+            "default": "",
+            "title": "Shift Text",
+            "type": "string"
+          },
+          "small_object_px_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Small Object Px P50"
+          }
+        },
+        "required": [
+          "camera_id",
+          "analysis_id",
+          "frames",
+          "person_height_px_p50",
+          "small_object_px_p50",
+          "person_frames_share",
+          "dark_share",
+          "empty_share",
+          "scenarios"
+        ],
+        "title": "CameraPassport",
+        "type": "object"
+      },
       "CameraPatch": {
         "properties": {
           "description": {
@@ -733,6 +975,16 @@
       },
       "CameraSetupView": {
         "properties": {
+          "auto_calibration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AutoCalibration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "broadcast": {
             "anyOf": [
               {
@@ -942,7 +1194,8 @@
           "kind": {
             "enum": [
               "ws",
-              "webhook"
+              "webhook",
+              "call"
             ],
             "title": "Kind",
             "type": "string"
@@ -974,6 +1227,39 @@
           "levels"
         ],
         "title": "Channel",
+        "type": "object"
+      },
+      "Clip": {
+        "properties": {
+          "end_ms": {
+            "title": "End Ms",
+            "type": "integer"
+          },
+          "playable": {
+            "title": "Playable",
+            "type": "boolean"
+          },
+          "start_ms": {
+            "title": "Start Ms",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "video_id": {
+            "title": "Video Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "video_id",
+          "url",
+          "start_ms",
+          "end_ms",
+          "playable"
+        ],
+        "title": "Clip",
         "type": "object"
       },
       "ControlPoint": {
@@ -1047,6 +1333,72 @@
         "title": "CountRow",
         "type": "object"
       },
+      "DatasetItem": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "integer"
+          },
+          "frames": {
+            "title": "Frames",
+            "type": "integer"
+          },
+          "label": {
+            "const": "false_alarm",
+            "title": "Label",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "scenario": {
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "scenario",
+          "label",
+          "frames",
+          "path",
+          "created_at"
+        ],
+        "title": "DatasetItem",
+        "type": "object"
+      },
+      "DatasetView": {
+        "properties": {
+          "frames": {
+            "title": "Frames",
+            "type": "integer"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/DatasetItem"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "frames"
+        ],
+        "title": "DatasetView",
+        "type": "object"
+      },
       "DayRow": {
         "properties": {
           "confirmed": {
@@ -1091,6 +1443,18 @@
             "title": "Channel",
             "type": "string"
           },
+          "delivered_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivered At"
+          },
           "error": {
             "title": "Error",
             "type": "string"
@@ -1122,6 +1486,11 @@
             ],
             "title": "Status",
             "type": "string"
+          },
+          "status_text": {
+            "default": "",
+            "title": "Status Text",
+            "type": "string"
           }
         },
         "required": [
@@ -1133,6 +1502,59 @@
           "at"
         ],
         "title": "Delivery",
+        "type": "object"
+      },
+      "DemoPack": {
+        "properties": {
+          "backend": {
+            "enum": [
+              "linq",
+              "local"
+            ],
+            "title": "Backend",
+            "type": "string"
+          },
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "fake": {
+            "title": "Fake",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "imported_at": {
+            "format": "date-time",
+            "title": "Imported At",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "videos": {
+            "title": "Videos",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sha256",
+          "backend",
+          "fake",
+          "cameras",
+          "videos",
+          "imported_at"
+        ],
+        "title": "DemoPack",
         "type": "object"
       },
       "Episode": {
@@ -1290,7 +1712,8 @@
               "master_accepted",
               "resolved",
               "auto_finished",
-              "superseded"
+              "superseded",
+              "identified"
             ],
             "title": "Action",
             "type": "string"
@@ -1416,6 +1839,11 @@
               }
             ]
           },
+          "can_identify": {
+            "default": false,
+            "title": "Can Identify",
+            "type": "boolean"
+          },
           "deliveries": {
             "items": {
               "$ref": "#/components/schemas/Delivery"
@@ -1539,6 +1967,21 @@
             "title": "Camera Name",
             "type": "string"
           },
+          "clip": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Clip"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "crew": {
+            "default": "",
+            "title": "Crew",
+            "type": "string"
+          },
           "duration_s": {
             "title": "Duration S",
             "type": "number"
@@ -1605,6 +2048,16 @@
               "false_alarm"
             ],
             "title": "Operator Verdict",
+            "type": "string"
+          },
+          "person_name": {
+            "default": "",
+            "title": "Person Name",
+            "type": "string"
+          },
+          "person_position": {
+            "default": "",
+            "title": "Person Position",
             "type": "string"
           },
           "priority": {
@@ -1900,6 +2353,30 @@
             "title": "Label",
             "type": "string"
           },
+          "projection": {
+            "anyOf": [
+              {
+                "items": {
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Projection"
+          },
           "score": {
             "title": "Score",
             "type": "number"
@@ -1967,6 +2444,27 @@
           "level"
         ],
         "title": "HudTag",
+        "type": "object"
+      },
+      "IdentityIn": {
+        "properties": {
+          "crew": {
+            "default": "",
+            "title": "Crew",
+            "type": "string"
+          },
+          "person_name": {
+            "default": "",
+            "title": "Person Name",
+            "type": "string"
+          },
+          "person_position": {
+            "default": "",
+            "title": "Person Position",
+            "type": "string"
+          }
+        },
+        "title": "IdentityIn",
         "type": "object"
       },
       "InferenceMetrics": {
@@ -2182,6 +2680,17 @@
             ],
             "title": "Error Text"
           },
+          "eta_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eta S"
+          },
           "fake": {
             "title": "Fake",
             "type": "boolean"
@@ -2233,6 +2742,17 @@
             "title": "Progress",
             "type": "number"
           },
+          "rate_fps": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate Fps"
+          },
           "stage": {
             "enum": [
               "queued",
@@ -2266,6 +2786,11 @@
               "failed"
             ],
             "title": "Status",
+            "type": "string"
+          },
+          "status_text": {
+            "default": "",
+            "title": "Status Text",
             "type": "string"
           },
           "video_id": {
@@ -2556,6 +3081,11 @@
             "title": "Id",
             "type": "string"
           },
+          "input_name": {
+            "default": "images",
+            "title": "Input Name",
+            "type": "string"
+          },
           "input_size": {
             "title": "Input Size",
             "type": "integer"
@@ -2596,6 +3126,17 @@
               }
             ],
             "title": "Local Onnx"
+          },
+          "nc": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nc"
           },
           "task": {
             "enum": [
@@ -2852,6 +3393,91 @@
         "title": "OperatorDashboard",
         "type": "object"
       },
+      "PassportScenario": {
+        "properties": {
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "scenario": {
+            "title": "Scenario",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "suitable",
+              "partial",
+              "unsuitable",
+              "unknown"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenario",
+          "title",
+          "verdict",
+          "reason"
+        ],
+        "title": "PassportScenario",
+        "type": "object"
+      },
+      "PeopleStats": {
+        "properties": {
+          "by_crew": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Crew",
+            "type": "array"
+          },
+          "by_person": {
+            "items": {
+              "$ref": "#/components/schemas/CountRow"
+            },
+            "title": "By Person",
+            "type": "array"
+          },
+          "date_from": {
+            "format": "date-time",
+            "title": "Date From",
+            "type": "string"
+          },
+          "date_to": {
+            "format": "date-time",
+            "title": "Date To",
+            "type": "string"
+          },
+          "identified": {
+            "title": "Identified",
+            "type": "integer"
+          },
+          "include_demo": {
+            "title": "Include Demo",
+            "type": "boolean"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date_from",
+          "date_to",
+          "include_demo",
+          "total",
+          "identified",
+          "by_person",
+          "by_crew"
+        ],
+        "title": "PeopleStats",
+        "type": "object"
+      },
       "Percentiles": {
         "properties": {
           "n": {
@@ -3084,6 +3710,125 @@
         "title": "RoleMeta",
         "type": "object"
       },
+      "RolloutIn": {
+        "properties": {
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "downtime_cost_rub": {
+            "title": "Downtime Cost Rub",
+            "type": "number"
+          },
+          "fine_cost_rub": {
+            "title": "Fine Cost Rub",
+            "type": "number"
+          },
+          "incidents_per_year": {
+            "title": "Incidents Per Year",
+            "type": "number"
+          },
+          "lawsuit_cost_rub": {
+            "title": "Lawsuit Cost Rub",
+            "type": "number"
+          },
+          "operators": {
+            "title": "Operators",
+            "type": "integer"
+          },
+          "overrides": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "default": {},
+            "title": "Overrides",
+            "type": "object"
+          },
+          "shifts_per_day": {
+            "title": "Shifts Per Day",
+            "type": "integer"
+          },
+          "treatment_cost_rub": {
+            "title": "Treatment Cost Rub",
+            "type": "number"
+          },
+          "workers": {
+            "title": "Workers",
+            "type": "integer"
+          },
+          "workshops": {
+            "title": "Workshops",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "workshops",
+          "cameras",
+          "shifts_per_day",
+          "workers",
+          "operators",
+          "incidents_per_year",
+          "downtime_cost_rub",
+          "fine_cost_rub",
+          "treatment_cost_rub",
+          "lawsuit_cost_rub"
+        ],
+        "title": "RolloutIn",
+        "type": "object"
+      },
+      "RolloutResult": {
+        "properties": {
+          "assumptions": {
+            "items": {
+              "$ref": "#/components/schemas/CalcAssumption"
+            },
+            "title": "Assumptions",
+            "type": "array"
+          },
+          "events_per_operator_shift": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Events Per Operator Shift"
+          },
+          "incident_cost_rub": {
+            "title": "Incident Cost Rub",
+            "type": "number"
+          },
+          "incidents_per_1000_workers": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incidents Per 1000 Workers"
+          },
+          "tiers": {
+            "items": {
+              "$ref": "#/components/schemas/TierResult"
+            },
+            "title": "Tiers",
+            "type": "array"
+          }
+        },
+        "required": [
+          "incident_cost_rub",
+          "incidents_per_1000_workers",
+          "events_per_operator_shift",
+          "tiers",
+          "assumptions"
+        ],
+        "title": "RolloutResult",
+        "type": "object"
+      },
       "RulesScreenRow": {
         "properties": {
           "camera": {
@@ -3126,6 +3871,96 @@
           "rows"
         ],
         "title": "RulesScreenView",
+        "type": "object"
+      },
+      "ScaleIn": {
+        "properties": {
+          "cameras_now": {
+            "title": "Cameras Now",
+            "type": "integer"
+          },
+          "new_cameras": {
+            "title": "New Cameras",
+            "type": "integer"
+          },
+          "overrides": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "default": {},
+            "title": "Overrides",
+            "type": "object"
+          }
+        },
+        "required": [
+          "cameras_now",
+          "new_cameras"
+        ],
+        "title": "ScaleIn",
+        "type": "object"
+      },
+      "ScaleResult": {
+        "properties": {
+          "accelerators_now": {
+            "title": "Accelerators Now",
+            "type": "integer"
+          },
+          "accelerators_total": {
+            "title": "Accelerators Total",
+            "type": "integer"
+          },
+          "analysis_fps": {
+            "title": "Analysis Fps",
+            "type": "number"
+          },
+          "assumptions": {
+            "items": {
+              "$ref": "#/components/schemas/CalcAssumption"
+            },
+            "title": "Assumptions",
+            "type": "array"
+          },
+          "cameras_total": {
+            "title": "Cameras Total",
+            "type": "integer"
+          },
+          "capacity_fps": {
+            "title": "Capacity Fps",
+            "type": "number"
+          },
+          "capacity_source": {
+            "title": "Capacity Source",
+            "type": "string"
+          },
+          "capex_rub": {
+            "title": "Capex Rub",
+            "type": "number"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/WhyItem"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "servers_total": {
+            "title": "Servers Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cameras_total",
+          "analysis_fps",
+          "capacity_fps",
+          "capacity_source",
+          "accelerators_now",
+          "accelerators_total",
+          "servers_total",
+          "capex_rub",
+          "items",
+          "assumptions"
+        ],
+        "title": "ScaleResult",
         "type": "object"
       },
       "ScenarioMeta": {
@@ -3539,6 +4374,74 @@
         "title": "SystemView",
         "type": "object"
       },
+      "TierResult": {
+        "properties": {
+          "accelerators": {
+            "title": "Accelerators",
+            "type": "integer"
+          },
+          "capex_rub": {
+            "title": "Capex Rub",
+            "type": "number"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/WhyItem"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "opex_rub_year": {
+            "title": "Opex Rub Year",
+            "type": "number"
+          },
+          "payback_months": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payback Months"
+          },
+          "savings_rub_year": {
+            "title": "Savings Rub Year",
+            "type": "number"
+          },
+          "servers": {
+            "title": "Servers",
+            "type": "integer"
+          },
+          "tier": {
+            "enum": [
+              "base",
+              "extended",
+              "max"
+            ],
+            "title": "Tier",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tier",
+          "title",
+          "accelerators",
+          "servers",
+          "capex_rub",
+          "opex_rub_year",
+          "savings_rub_year",
+          "payback_months",
+          "items"
+        ],
+        "title": "TierResult",
+        "type": "object"
+      },
       "TracksWindow": {
         "properties": {
           "analysis_id": {
@@ -3709,6 +4612,11 @@
             ],
             "title": "Status",
             "type": "string"
+          },
+          "web_playable": {
+            "default": false,
+            "title": "Web Playable",
+            "type": "boolean"
           },
           "width": {
             "title": "Width",
@@ -3950,7 +4858,7 @@
   },
   "info": {
     "title": "SafeWatch API",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "openapi": "3.1.0",
   "paths": {
@@ -4039,6 +4947,176 @@
           }
         },
         "summary": "Camera Setup View"
+      }
+    },
+    "/api/calculator/defaults": {
+      "get": {
+        "operationId": "calculator_defaults_api_calculator_defaults_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculatorDefaults"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calculator Defaults"
+      }
+    },
+    "/api/calculator/rollout": {
+      "post": {
+        "operationId": "calculator_rollout_api_calculator_rollout_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolloutIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolloutResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calculator Rollout"
+      }
+    },
+    "/api/calculator/scale": {
+      "post": {
+        "operationId": "calculator_scale_api_calculator_scale_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScaleIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScaleResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calculator Scale"
       }
     },
     "/api/cameras": {
@@ -4715,6 +5793,55 @@
         "summary": "Calibration Set"
       }
     },
+    "/api/cameras/{camera_id}/passport": {
+      "get": {
+        "operationId": "camera_passport_api_cameras__camera_id__passport_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_id",
+            "required": true,
+            "schema": {
+              "title": "Camera Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CameraPassport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Camera Passport"
+      }
+    },
     "/api/cameras/{camera_id}/preview": {
       "get": {
         "operationId": "camera_preview_api_cameras__camera_id__preview_get",
@@ -5198,6 +6325,122 @@
           }
         },
         "summary": "Zone Create"
+      }
+    },
+    "/api/datasets/false-alarms": {
+      "get": {
+        "operationId": "datasets_view_api_datasets_false_alarms_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Datasets View"
+      }
+    },
+    "/api/datasets/false-alarms/export.zip": {
+      "get": {
+        "operationId": "dataset_export_api_datasets_false_alarms_export_zip_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Dataset Export"
+      }
+    },
+    "/api/demo/packs": {
+      "get": {
+        "operationId": "demo_packs_api_demo_packs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DemoPack"
+                  },
+                  "title": "Response Demo Packs Api Demo Packs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Demo Packs"
       }
     },
     "/api/events": {
@@ -5848,6 +7091,97 @@
         "summary": "Event Action"
       }
     },
+    "/api/events/{event_id}/identity": {
+      "patch": {
+        "operationId": "event_identify_api_events__event_id__identity_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Actor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Actor"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Event Identify"
+      }
+    },
     "/api/evidence/{evidence_id}/image": {
       "get": {
         "operationId": "evidence_image_api_evidence__evidence_id__image_get",
@@ -6255,6 +7589,61 @@
           }
         },
         "summary": "Shift Summary View"
+      }
+    },
+    "/api/master/shift.pdf": {
+      "get": {
+        "operationId": "shift_report_pdf_api_master_shift_pdf_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "at",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "At"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Shift Report Pdf"
       }
     },
     "/api/meta": {
@@ -6917,6 +8306,90 @@
           }
         },
         "summary": "Ohs Stats View"
+      }
+    },
+    "/api/stats/people": {
+      "get": {
+        "operationId": "people_stats_view_api_stats_people_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_demo",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Demo",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PeopleStats"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "People Stats View"
       }
     },
     "/api/system": {
