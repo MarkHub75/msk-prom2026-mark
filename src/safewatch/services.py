@@ -32,6 +32,7 @@ from safewatch import (
     calculator,
     clock,
     config,
+    dataset,
     delivery,
     demo,
     evaluate,
@@ -85,6 +86,7 @@ from safewatch.types import (
     Channel,
     Clip,
     CountRow,
+    DatasetItem,
     DatasetView,
     DayRow,
     Delivery,
@@ -3071,16 +3073,90 @@ def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult:
     return calculator.scale(data, found, fps, capacity.value, capacity.source)
 
 
+def _dataset_files(
+    event: EventSummary,
+    episode: Episode,
+    files: tuple[Path, Path, Path | None, Path],
+    label: dict[str, object],
+) -> int:
+    """Worker thread: the analyzed frames of the clip window, evenly, into the item folder."""
+    video, det, pose, hud = files
+    clip, most = event.clip, config.get_settings().datasets.max_frames
+    assert clip is not None  # an event with an episode has its clip
+    with hud.open(encoding="utf-8") as f:
+        times = [json.loads(line)["ts_ms"] for line in f]
+    window = [t for t in times if clip.start_ms <= t <= clip.end_ms]
+    if len(window) > most:
+        window = [window[i * len(window) // most] for i in range(most)]
+    root = config.get_settings().data_dir
+    return dataset.build_item(root, event, episode, video, det, pose, hud, window, label)
+
+
 async def datasets_flush() -> int:
-    raise NotImplementedError("slice 25")
+    """Tick of tech.md 8.26: a false alarm of the broadcast becomes one dataset item."""
+    data = config.get_settings().data_dir
+    made = 0
+    for row in store.dataset_pending():
+        event = _summary(row)
+        ep = store.episode(row["episode_id"])
+        assert ep is not None  # the query joins the episode
+        episode = _episode(ep, [])
+        analysis = store.analysis(ep["analysis_id"])
+        video = store.video(row["clip_video_id"])
+        assert analysis is not None and video is not None
+        det = store.artifact_by_id(analysis["det_artifact_id"])
+        assert det is not None  # an analysis keeps its detector artifact
+        pose = store.artifact_by_id(analysis["pose_artifact_id"] or 0)
+        extra = AnalysisConfig.model_validate_json(analysis["config_json"]).extra_artifact_ids
+        arts = [a for a in (det, pose, *map(store.artifact_by_id, extra)) if a is not None]
+        actions = store.event_actions(event.id)
+        comment = next(
+            (a["comment"] for a in reversed(actions) if a["action"] == "false_alarm"), ""
+        )
+        label: dict[str, object] = {
+            "video_sha256": video["sha256"],
+            "video_filename": video["filename"],
+            "models": [f"{a['model_id']}@{a['model_version']}" for a in arts],
+            "analysis_version": analysis["version"],
+            "comment": comment,
+        }
+        files = (
+            data / video["path"],
+            data / det["path"],
+            None if pose is None else data / pose["path"],
+            data / analysis["hud_path"],
+        )
+        try:
+            frames = await asyncio.to_thread(_dataset_files, event, episode, files, label)
+        except (OSError, ValueError) as exc:  # the next tick tries again
+            log.warning("dataset: event %s: %s", event.id, exc)
+            continue
+        values = {
+            "event_id": event.id,
+            "scenario": event.scenario,
+            "label": "false_alarm",
+            "path": dataset.item_path(event.id),
+            "frames": frames,
+            "created_at": clock.iso(clock.now()),
+        }
+        store.insert("dataset_items", values)
+        made += 1
+    return made
+
+
+def _dataset_items() -> list[DatasetItem]:
+    return [DatasetItem.model_validate(dict(row)) for row in store.dataset_items()]
 
 
 def datasets_view() -> DatasetView:
-    raise NotImplementedError("slice 25")
+    items = _dataset_items()
+    return DatasetView(items=items, total=len(items), frames=sum(i.frames for i in items))
 
 
 def dataset_export(out: Path | None = None) -> Path:
-    raise NotImplementedError("slice 25")
+    root = config.get_settings().data_dir
+    folder = out or root / "datasets"
+    return dataset.export_zip(root, _dataset_items(), folder / "false_alarms.zip")
 
 
 def event_identify(

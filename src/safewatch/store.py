@@ -646,3 +646,15 @@ def camera_by_name(sector_id: int, name: str) -> sqlite3.Row | None:
     sql = """SELECT * FROM cameras WHERE sector_id = ? AND name = ? AND deleted_at IS NULL
 ORDER BY id LIMIT 1"""
     return one(sql, sector_id, name)
+
+
+# --- false alarm dataset (slice 25) -------------------------------------------------------
+def dataset_pending() -> list[sqlite3.Row]:
+    """False alarms with an episode and no dataset item yet (tech.md 8.26)."""
+    sql = """ WHERE (e.status = 'false_alarm' OR e.operator_verdict = 'false_alarm')
+AND e.episode_id IS NOT NULL AND e.id NOT IN (SELECT event_id FROM dataset_items) ORDER BY e.id"""
+    return all(_EVENTS + sql)
+
+
+def dataset_items() -> list[sqlite3.Row]:
+    return all("SELECT * FROM dataset_items ORDER BY id")
