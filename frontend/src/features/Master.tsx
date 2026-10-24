@@ -7,7 +7,7 @@ import { saveDownload } from "../api/download";
 import type { CountRow, EventSummary, HumanAction } from "../api/types";
 import { useRole } from "../roles";
 import { PRODUCT } from "../brand";
-import { askNotifications, systemNotify } from "../pwa";
+import { askNotifications, systemNotify, vibrate } from "../pwa";
 import { useMeta, useUpdates } from "../components/AppShell";
 import { useActorIdentity } from "../components/ActorIdentity";
 import { since, StateIcon, useNow } from "../components/operator/kit";
@@ -37,7 +37,7 @@ function useAlerts() {
     if (ctx && ctx.state === "running") {
       [0, .22].forEach(offset => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.frequency.value = 880; gain.gain.setValueAtTime(.08, ctx.currentTime + offset); gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + offset + .18); osc.start(ctx.currentTime + offset); osc.stop(ctx.currentTime + offset + .2); });
     }
-    navigator.vibrate?.([200, 100, 200]);
+    vibrate([200, 100, 200]);
     // Same tag as the shell's hand-over notification: one notification per event, not two.
     const first = events[0];
     void systemNotify(`${PRODUCT}: новое поручение`, first.notification_text || `${first.title} · ${first.sector_name}`, { tag: `event-${first.id}`, url: `/master/events/${first.id}`, urgent: first.level === "red" });

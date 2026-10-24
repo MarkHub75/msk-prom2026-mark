@@ -15,7 +15,7 @@ import { ActorIdentityProvider, useActorIdentity } from "./ActorIdentity";
 import { hasPhoneApp, PhoneTabs, PhoneTop, ProfileSheet } from "./PhoneChrome";
 import { usePhone } from "./usePhone";
 import { OfflineScreen } from "./OfflineScreen";
-import { askNotifications, systemNotify } from "../pwa";
+import { askNotifications, systemNotify, vibrate } from "../pwa";
 
 function navIcon(path: string): IconName {
   if (path === "/operator") return "monitor";
@@ -156,7 +156,7 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (message.type === "hello" || message.type.startsWith("event.") || message.type === "sector.state" || message.type === "camera.state" || message.type === "broadcast.state") setUpdates(n => n + 1);
     if (message.type === "notification" && message.data.audience.includes(role)) {
       const n = message.data;
-      if (phoneApp) navigator.vibrate?.(n.level === "red" ? [300, 120, 300] : 150);
+      if (phoneApp) vibrate(n.level === "red" ? [300, 120, 300] : 150);
       // System notification (sound and vibration of the phone even with the app in the background): a new red for the operator, a hand-over for the master.
       if (phoneApp || document.hidden) {
         if (role === "operator" && n.level === "red") void systemNotify(`${PRODUCT}: красная тревога`, n.text, { tag: `event-${n.event_id}`, url: phoneApp ? `/m/operator/events/${n.event_id}` : `/events/${n.event_id}`, urgent: true });

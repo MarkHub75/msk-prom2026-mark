@@ -40,6 +40,14 @@ export function useInstall() {
   return { state, install };
 }
 
+/** Vibration only after the first tap: before it Chrome blocks the call and logs an error on every alarm. */
+export function vibrate(pattern: number | number[]) {
+  if (typeof navigator === "undefined" || typeof navigator.vibrate !== "function") return;
+  const activation = (navigator as Navigator & { userActivation?: { hasBeenActive: boolean } }).userActivation;
+  if (activation && !activation.hasBeenActive) return;
+  navigator.vibrate(pattern);
+}
+
 export type NotifyPermission = NotificationPermission | "unsupported";
 const permission = (): NotifyPermission => typeof Notification === "undefined" ? "unsupported" : Notification.permission;
 /** Asks once from a tap (sound toggle, profile sheet); a later answer is the browser's setting. */
