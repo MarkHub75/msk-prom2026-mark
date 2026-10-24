@@ -21,6 +21,7 @@ dependencies = [
     "httpx",
     "psutil",
     "tzdata",
+    "imageio-ffmpeg>=0.6.0",
 ]
 
 [project.scripts]
@@ -78,7 +79,7 @@ python_version = "3.12"
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
-module = ["cv2", "cv2.*", "onnxruntime", "scipy.*", "jupyter_remote", "yolo_io"]
+module = ["cv2", "cv2.*", "imageio_ffmpeg", "onnxruntime", "scipy.*", "jupyter_remote", "yolo_io"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

@@ -1,14 +1,22 @@
 """Video files through OpenCV (tech.md 7): blocking, called from `services` via `to_thread`."""
 
+import logging
+import subprocess
 from pathlib import Path
 
 import cv2
+import imageio_ffmpeg
 import numpy as np
 from pydantic import BaseModel
+
+from safewatch.config import TranscodeConfig
+
+log = logging.getLogger(__name__)
 
 BROWSER_CODECS = ("avc1", "h264", "vp09", "av01")
 # OpenCV reports FFmpeg codec names for some streams; the file itself is tagged otherwise.
 CODEC_ALIASES = {"fmp4": "mp4v"}
+WEB_SUFFIX = ".web.mp4"
 
 
 class VideoProbe(BaseModel):
@@ -48,6 +56,44 @@ def probe_video(path: Path) -> VideoProbe | None:
         )
     finally:
         cap.release()
+
+
+def transcode(src: Path, dst: Path, cfg: TranscodeConfig) -> bool:
+    """H.264 copy of `src` for the browser (tech.md 8.20); `False` and no `dst` on any failure."""
+    # ffmpeg writes beside `dst`: a killed run never leaves a half file under the final name.
+    part = dst.with_name(dst.name + ".part")
+    try:
+        cmd = [
+            imageio_ffmpeg.get_ffmpeg_exe(),
+            *("-y", "-v", "error", "-i", str(src)),
+            *("-c:v", "libx264", "-preset", cfg.preset, "-crf", str(cfg.crf)),
+            *("-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", "-f", "mp4", str(part)),
+        ]
+        done = subprocess.run(
+            cmd,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=cfg.timeout_s,
+            check=False,
+        )
+        if done.returncode != 0:
+            log.warning("transcode: ffmpeg exit %s on %s", done.returncode, src.name)
+            return False
+        probe = probe_video(part)
+        if probe is None or probe.codec not in BROWSER_CODECS:
+            log.warning("transcode: the copy of %s does not play in a browser", src.name)
+            return False
+        part.replace(dst)
+        return True
+    except subprocess.TimeoutExpired:
+        log.warning("transcode: timeout %s s on %s", cfg.timeout_s, src.name)
+        return False
+    except (OSError, RuntimeError) as exc:  # RuntimeError: imageio-ffmpeg found no ffmpeg
+        log.warning("transcode: %s", exc)
+        return False
+    finally:
+        part.unlink(missing_ok=True)
 
 
 def read_frame(path: Path, frame_idx: int) -> np.ndarray:
