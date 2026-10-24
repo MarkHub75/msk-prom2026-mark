@@ -2,6 +2,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../App";
+import { subjectTitle } from "./Incident";
 import { createFixtureEvents, fixtureMeta } from "../fixtures/data";
 import { setRole } from "../roles";
 import type { EventDetail, HumanAction } from "../api/types";
@@ -76,5 +77,14 @@ describe("incident identity and authoritative refresh", () => {
     await screen.findByText("Событие не найдено");
     expect(view.container.querySelectorAll("button[data-action]")).toHaveLength(0);
     expect(screen.queryByText("Просмотрено")).toBeNull();
+  });
+});
+
+describe("episode codes in words", () => {
+  it("names the subject like the HUD does, never a raw code", () => {
+    expect(subjectTitle("track:3")).toBe("человек #3");
+    expect(subjectTitle("pair:3-7")).toBe("человек #3 и техника #7");
+    expect(subjectTitle("zone:3-2")).toBe("человек #3 в зоне #2");
+    expect(subjectTitle("fire")).toBe("огонь");
   });
 });
