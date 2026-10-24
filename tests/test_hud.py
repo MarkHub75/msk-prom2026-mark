@@ -4,7 +4,7 @@ from typing import Any
 
 from safewatch.analysis.hud import build_hud
 from safewatch.config import get_settings
-from safewatch.types import FrameContext, ObjectState, PersonState, VehicleState
+from safewatch.types import FrameContext, ObjectState, Observation, PersonState, VehicleState
 
 W, H = 640, 480
 TS = 20_000
@@ -78,3 +78,48 @@ def test_tags_texts_russian_format() -> None:
         assert all(0.0 <= v <= 1.0 for v in obj.bbox)
         assert all(0.0 <= v <= 1.0 for x, y, _ in obj.kpts or [] for v in (x, y))
     assert frame.objects[0].bbox == (0.0, 100 / H, 60 / W, 1.0)
+
+
+def test_label_on_every_positive_subject() -> None:
+    truck = VehicleState(
+        track_id=2, name="truck", bbox=(300.0, 0.0, 700.0, 480.0), score=0.8,
+        footprint=None, height_px=480.0, speed_vh_s=None, speed_m_s=None,
+    )  # fmt: skip
+    ctx = FrameContext(
+        frame_idx=0, ts_ms=TS, width=W, height=H, persons=[_person()], vehicles=[truck],
+        objects=[ObjectState(name="fire", bbox=(10.0, 10.0, 50.0, 50.0), score=0.7)],
+        zones=[], calibrated=False,
+    )  # fmt: skip
+    base = dict(state="P", hold_s=0.0, method="", confidence=0.9, metrics={}, zone_id=None,
+                anchor=None, ref_height_px=None)  # fmt: skip
+    obs = [
+        Observation(
+            scenario="proximity",
+            subject="pair:1-2",
+            level="yellow",
+            reason_code="p",
+            reason_text="рядом с техникой",
+            **base,
+        ),  # fmt: skip
+        Observation(
+            scenario="proximity",
+            subject="zone:1-7",
+            level="red",
+            reason_code="z",
+            reason_text="в опасной зоне",
+            **base,
+        ),  # fmt: skip
+        Observation(
+            scenario="fire_smoking",
+            subject="fire",
+            level="red",
+            reason_code="fire",
+            reason_text="огонь",
+            **base,
+        ),  # fmt: skip
+    ]
+    person, vehicle, fire = build_hud(ctx, get_settings().scenarios.running,
+                                      get_settings().features, obs).objects  # fmt: skip
+    assert [t.text for t in person.tags] == ["рядом с техникой", "в опасной зоне"]
+    assert [t.text for t in vehicle.tags] == ["рядом с техникой"]
+    assert [(t.code, t.level) for t in fire.tags] == [("fire_smoking", "red")]

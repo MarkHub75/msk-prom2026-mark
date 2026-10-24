@@ -3,6 +3,7 @@
 from functools import cache
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -189,6 +190,19 @@ class WebhookConfig(_Section):
     url: str
     levels: list[Level]
     timeout_s: float
+
+    @model_validator(mode="after")
+    def _http_url(self) -> "WebhookConfig":
+        # A bad URL fails at load, not in every delivery flush and system_view (R15).
+        try:
+            parts = urlsplit(self.url)
+            ok = parts.scheme in ("http", "https") and bool(parts.hostname)
+            _ = parts.port  # ValueError on a port out of range
+        except ValueError:
+            ok = False
+        if not ok:
+            raise ValueError(f"delivery.webhooks: {self.name}: url must be http(s)://host")
+        return self
 
 
 class DeliveryConfig(_Section):

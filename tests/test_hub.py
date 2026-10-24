@@ -23,7 +23,7 @@ async def test_queue_overflow_drops_client() -> None:
     slow = hub.connect("operator")
     for _ in range(CLIENT_QUEUE):
         hub.publish("camera.state", STATE)
-    assert slow in hub.clients and not slow.dropped
+    assert slow in hub.clients
     hub.publish("camera.state", STATE)
-    assert slow not in hub.clients and slow.dropped
+    assert slow not in hub.clients
     assert slow.queue.qsize() == CLIENT_QUEUE + 1  # the last item is the stop marker

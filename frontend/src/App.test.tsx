@@ -58,12 +58,8 @@ describe("app shell", () => {
   });
 
   it("stub_screens_show_slice", () => {
-    for (const item of NAV.filter((i) => !i.screen)) {
-      const path = item.path.replace(/:\w+/g, "1");
-      const view = renderAt(path);
-      expect(view.getByText(`Экран появится в слайсе ${item.slice}`)).toBeTruthy();
-      view.unmount();
-    }
+    // Since slice 13 every route has its screen; a route left without one would show the stub.
+    expect(NAV.filter((i) => !i.screen).map((i) => i.path)).toEqual([]);
   });
 
   it("client_sends_role_header", async () => {

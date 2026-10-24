@@ -2,12 +2,13 @@
 
 ## 0. Версия
 
-**Версия: v3** (2026-10-24)
+**Версия: v4** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
 - v2 (ревью R5): 44 строки `GAP` S0–S5 перенесены в 6.8 и строки трассировки 6.7; 8.1: `model_missing` только по `not readable`; 8.2: жёлтая скорость при `≥` порога; 7: `registry.resolve(ref, models=None)`, `HudCanvas({ops, size})`; решения R5: `PUT` сектора, `PATCH` камеры, doctor без ключей, импорты `api.py`, устойчивость цикла задач и сессии Jupyter, диагностика очереди TPU.
 - v3 (ревью R10): 37 строк `GAP` S6–S10 перенесены в 6.9, 3 строки трассировки 6.7; решения R10: `AnalysisConfig.extra_artifact_ids` (пересчёт с моделями `pipeline.extra` без изменения схемы), параметры правил из `CameraRule.effective` снимка, длина `X-Actor` проверяется только в `services`, ссылка на настройку камеры из списка, autouse-защита `data/app` в `tests/conftest.py`.
+- v4 (ревью R15): 25 строк `GAP` S11–S15 перенесены в 6.10, 5 строк трассировки 6.7 (`observability.Luma`, `media.LUMA_WIDTH`, `store.publish_latencies`, `services.DELIVERED`, `delivery.target`); решения R15: `LatencyStats` экрана IT по событиям эфира, подписи HUD на `pair:`/`zone:`/`fire`, проверка URL webhook при загрузке, `hub.Client` без `dropped`, тест маршрутов без заглушек, права ролей только у пишущих слайсов.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2612,6 +2613,11 @@ models:
 | `geometry.point_rect_distance` | 5 | `running` | `src/safewatch/analysis/geometry.py` | `def point_rect_distance(` | `tests/test_rule_running.py::test_running_red_in_danger_zone` |
 | `JupyterShell._drop` | 2 | `LinqBackend` | `src/safewatch/inference/linq.py` | `def _drop(` | `tests/test_linq_backend.py::test_jupyter_shell_starts_fresh_session_after_network_error` |
 | цикл задач переживает ошибку шага | 2 | `api` lifespan | `src/safewatch/worker.py` | `log.exception("job loop")` | `tests/test_jobs.py::test_job_loop_survives_unexpected_error` |
+| `observability.Luma` | 11 | `analyze` | `src/safewatch/analysis/observability.py` | `Luma = tuple[int, float, float]` | `tests/test_observability.py::test_uncertain_time_in_why` |
+| `media.LUMA_WIDTH` | 11 | `sample_luma` | `src/safewatch/media.py` | `LUMA_WIDTH = 160` | `tests/test_observability.py::test_dark_and_obstructed_gaps` |
+| `store.publish_latencies` | 11 | `system_view.latency` | `src/safewatch/store.py` | `def publish_latencies(` | `tests/test_broadcast.py::test_latency_counts_published_events` |
+| `services.DELIVERED` | 15 | `broadcast_tick` | `src/safewatch/services.py` | `DELIVERED: dict[WsType, DeliveryKind] = {` | `tests/test_delivery.py::test_webhook_sent_on_red` |
+| `delivery.target` | 15 | `system_view.channels` | `src/safewatch/delivery.py` | `def target(` | `tests/test_delivery.py::test_channels_in_system_view` |
 
 ### 6.8 Дополнения v2 (строки `GAP` S0–S5 и решения R5)
 
@@ -2777,6 +2783,73 @@ models:
 **Тесты (раздел 10.2)**
 
 - R10, `tests/conftest.py`: autouse-фикстура `no_real_data` — создание `data/app` или открытие базы в ней (`Path.mkdir`, `store.connect`, `doctor.connect`) валит тест: тесту с `services`/`store` нужна фикстура `core` или `conn`.
+
+### 6.10 Дополнения v4 (строки `GAP` S11–S15 и решения R15)
+
+Перенесены ревью R15 из `## open` файла `progress.md`. Статус тот же, что у 6.8 и 6.9: часть контракта наравне с 6.1–6.6; `было → стало` заменяет сказанное выше.
+
+**5.2 Типы**
+
+- S12, `EventSummary.evidence_url: str | None = None` — `/api/evidence/<id>/image` кадра `confirm` эпизода (демо и событие без кадра — `None`), миниатюра журнала; `store._EVENTS` добавляет `LEFT JOIN evidence ev ... kind = 'confirm'` (`evidence_id`, `evidence_sha256`); поле добавлено в `contract/openapi.json` и `ws.schema.json`.
+- R15, `LatencyStats` экрана IT считается по всем событиям эфира (`is_demo = 0`, с эпизодом): `notify_delay_s` — `published_at − started_at` в секундах, `publish_lag_ms` — `published_at` минус плановое время подтверждения `started_at + (confirm_ms − video_start_ms)` в мс; `pending = 0`, ранги `_percentiles` (8.13); `store.publish_latencies()`, `services._latency()` (было: нули до S6).
+
+**6.1 Внешние клиенты и каналы доставки**
+
+- S15, `WebhookChannel`: атрибуты `name`, `url`, `levels`, `timeout_s`; тело: `sector`/`camera`/`zone` — названия (`zone` может быть `null`), `text` — `notification_text`, `at` — `clock.now()` в момент отправки; успех — 2xx; таймаут (`httpx.TimeoutException`) → `texts.DELIVERY_TIMEOUT` «таймаут», `http_status = None`; не 2xx → `texts.DELIVERY_HTTP` «ответ HTTP <код>» с `http_status`; прочая `httpx.HTTPError` → `texts.DELIVERY_UNREACHABLE` «нет связи (<тип исключения>)»: текст исключения может нести URL с учётными данными.
+
+**6.2 Фасад `services`**
+
+- S11, `store.camera_state_rows()` добавляет `position_ms`, `analysis_id`, `gaps_json`, `hud_path` играющего эфира (`LEFT JOIN`); `services._freshness(analysis_id, hud_path, pos) -> int | None` (до первого кадра анализа — `None`), синглтон `_frames_ts: dict[int, list[int]]` (сбрасывает фикстура `conn`).
+- S12, журнал: период и порядок по `started_at` (`date_from ≤ started_at < date_to`, как статистика 8.13), страница `started_at DESC, id DESC`; курсор — `str(id)` последнего события страницы (не цифры → 422, поле `cursor`); фильтр `status=superseded` не отменяет скрытие (нужен `include_superseded=true`); `date_from`/`date_to` без пояса — UTC; 422 — `ValidationFailed(texts.FILTER_INVALID.format(field=...), field=...)`, поля `limit`, `q`, `date_from`, `cursor`.
+- S12, CSV: `events_export_csv` проверяет фильтр целиком, но `limit` и `cursor` не применяет: до `journal.export_max_rows` строк в порядке журнала; заголовки `texts.CSV_COLUMNS`, строки `\r\n`; время в `timezone` как `YYYY-MM-DD HH:MM:SS`; сценарий — `title` события; уровень, статус, вердикт — русские названия (`texts.VERDICT_TITLES`); `texts.YES`/`texts.NO`; длительность с одной цифрой и запятой; sha256 — кадр `confirm`; история `<время> <роль>: <действие>[ (<комментарий>)]` через «; », роль — `texts.ROLE_TITLES` или «система», действие — `texts.ACTION_TITLES: dict[LogAction, str]`.
+- S12, `journal_facets`: сценарии — `texts.SCENARIO_TITLES`, уровни и статусы — все значения, секторы — `store.sectors()`, камеры — живые, зоны — живые зоны живых камер с названием `<камера> · <зона>`; `FacetItem.id = str(id)`.
+- S13, `ohs_stats_view`: `date_to` по умолчанию `now`, `date_from` — `date_to − stats.default_days` дней, время без пояса — UTC; период `date_from ≤ started_at < date_to`; `date_from > date_to` (после умолчаний) → 422 `ValidationFailed(texts.PERIOD_INVALID, field="date_from")`, `weeks` вне 1..52 → то же с `field="weeks"`; `sector_id`/`camera_id` — через `store.journal_where`; `by_status`/`by_scenario`/`by_sector`/`by_camera` — `_count_rows` (по убыванию `count`); `by_day` — каждый день МСК периода с нулями; `by_hour` — 24 строки `key="00".."23"`, `title="08:00"`; `by_shift` — смены `shifts` по порядку с нулями (окно `_shift_window`).
+- S13, реакция: первое действие с `actor_role = operator` и `action ∈ OPERATOR_DECISIONS` (`viewed` не считается), `pending` — нетерминальные события без него; `master_accept_s` — от последней передачи до первого `master_accepted`, передача — `HANDOVERS = {sent_to_master, timeout_escalated}` (эскалация по таймауту тоже передаёт мастеру), `pending` — статус `sent_to_master`; `master_resolve_s` — от `master_accepted` до `resolved`, `pending` — статус `master_accepted`; ранг `x[ceil(round(p·n, 9)) − 1]` (округление гасит ошибку `0,95·n` в float).
+- S13, `management_view`: окно `weeks` — с понедельника МСК `weeks − 1` недель назад по текущую неделю; `top_sectors` — все секторы `store.sectors()` (демо-секторы скрыты при `include_demo=false`), `confirmed` по `operator_verdict` за последние `trend_weeks` недель включая текущую, `cameras` — живые камеры сектора, порядок: `per_camera` по убыванию, `None` в конце, затем `title`; `top_scenarios` — `_count_rows` за окно `weeks`; тренд: в тексте `round(|change_pct|)`, `0` → «без изменений», `previous = 0` → `change_pct = None`, текст `texts.TREND_NO_DATA` без оговорки.
+- S14, `eval_run`: синхронный, `asyncio.run` на каждое видео; порядок: файл разметки (`NotFound`) → YAML и схема `EvalLabels` (`ValidationFailed`, `field` — путь pydantic через точку, `yaml` при ошибке разбора, `labels` у пустого файла) → `start_s < end_s` (`field="videos.<i>.expected.<j>"`) → все файлы видео (относительный путь — от корня репо `config.ROOT`) и `camera_id` (`NotFound`) до инференса; видео в `videos` не пишется, только строки `artifacts`; нечитаемое видео → `UnsupportedVideo` (CLI exit 2); любая `InferenceError`, в том числе pose, → exit 4 (отката на анализ без pose, как у задачи, нет); `--out DIR` — отчёт прямо в `DIR`, без него `data_dir/eval/<YYYYMMDD-HHMMSS>` по `clock.now()` в UTC; CLI печатает путь и `report.md`, ошибки — в stderr (`InferenceError` как `<code>: <message>`).
+- S15, очередь доставок `services._deliveries: list[tuple[int, DeliveryKind]]` (event id, kind; сбрасывает фикстура `conn`): `published` и `escalated` ставит `broadcast_tick` после коммита по `services.DELIVERED: dict[WsType, DeliveryKind] = {"event.created": "published", "event.escalated": "escalated"}`; `to_master` — `event_action` (переход в `sent_to_master`) и `escalation_tick` (эскалация по таймауту тоже передача мастеру); в очередь идёт публикация любого уровня, фильтр — `level` события на момент `deliveries_flush` среди `levels` канала.
+- S15, `deliveries_flush`: одна попытка на `(event_id, channel, kind)`, `failed` не повторяется; `channel = "webhook:<name>"`; каналы строятся из `delivery.webhooks` на каждый вызов; отправка — `asyncio.to_thread(channel.deliver, summary, kind)` по одной, строку `deliveries` пишет поток event loop; результат — число записанных строк; `worker._delivery(stop, tick_s)` — четвёртая задача `TaskGroup`, период `broadcast.tick_ms` (своего ключа нет), исключение — лог `delivery flush`, цикл продолжается.
+- R15, `_journal_where`: курсор — только цифры ASCII (`isascii() and isdigit()`; `"²"` → 422 `cursor`, а не 500); `_freshness`: нет файла `hud.jsonl` → `None` (очищенная папка данных не валит состояния всех камер).
+
+**6.2 Хранилище `store` и помощники слоёв**
+
+- S12, `store` вне 6.x: `journal_where(equal, date_from, date_to, q, include_demo, include_superseded) -> (sql, args)`, `journal(where, after_id, limit) -> (rows, total)`, `journal_actions(event_ids)` (один запрос через `json_each`), `all_zones()`; `services`: `_utc(dt)`, `_journal_where(f)` (проверки 9 и экранирование `q`), `_msk(dt)`.
+- S13, вне 6.x: `store.events_where(where)` (все события фильтра `journal_where`, по `started_at, id`); `services`: `OPERATOR_DECISIONS`, `HANDOVERS`, `_percentiles(values, pending)`, `_reactions(events)`, `_fixed_rows(pairs, keyed)`, `_add_levels(row, e)`, `_share(part, whole)`, `_trend(previous, recent, weeks)`; `texts`: `PERIOD_INVALID`, `TREND_CAVEAT`, `TREND_LESS`, `TREND_MORE`, `TREND_SAME`, `TREND_NO_DATA`, `weeks_span(n)` («4 недели к 4 неделям», «1 неделя к 1 неделе», «5 недель к 5 неделям»).
+- S14, вне 6.x: `services._infer(job_id: int | None, ..., video: sqlite3.Row | dict[str, Any])` (`None` — без стадии и прогресса задачи), `_analysis_config(video, camera_id: int | None, extra_ids) -> AnalysisConfig` (общий для `_analyze` и оценки; без камеры: без калибровки и зон, правила `_rules(0, [], metas)`), `_sha256(path)` (и `video_import`), `_eval_labels(path) -> EvalLabels`, `_eval_episodes(path, camera_id) -> (episodes, duration_ms)`, `_eval_rows(outcomes, hours) -> list[EvalMetrics]`; `cli.evaluate(labels, out) -> int`; `texts`: `EVAL_LABELS_INVALID`, `EVAL_INTERVAL_INVALID`, `EVAL_TITLE`, `EVAL_COLUMNS`, `EVAL_FOOTNOTE`.
+- S15, вне 6.x: `delivery.target(url) -> str` (`host[:port]` для `Channel.target`, без схемы, пути, query и учётных данных); `store.events_by_ids(ids)`, `store.event_deliveries(event_id)` (по `at, id`), `store.delivery_keys(ids) -> set[tuple[int, str, str]]`; `system_view.channels` — только webhook-каналы конфига (`kind="ws"` не показывается).
+
+**6.5 WebSocket**
+
+- S11, WS `camera.state` уходит только при смене состояния без учёта `freshness_ms` (`_camera_seen` хранит копию с `freshness_ms=None`): свежесть меняется каждый тик, её читают через REST (`system_view`, плитки).
+- R15, `hub.Client` (`role`, `queue`, `dropped`) → `hub.Client` (`role`, `queue`): поле `dropped` никто не читал; отключение медленного клиента — маркер `None` в очереди (закрытие 1013).
+
+**6.6 Конфиг**
+
+- R15, `WebhookConfig`: `url` проверяется при загрузке конфига (`model_validator`): схема `http`/`https`, есть хост, порт в диапазоне, иначе `ValueError` «url must be http(s)://host»: плохой адрес не роняет каждый `deliveries_flush` и `system_view`.
+
+**Компоненты анализа и оценки (разделы 7, 8.10, 8.18)**
+
+- S11, `ObservabilityGap` — полуинтервал `[start_ms, end_ms)`; `stale` — между соседними кадрами анализа (`start_ms` кадр до разрыва, `end_ms` кадр после; начало и хвост видео не проверяются, `min_duration_s` к `stale` не применяется: иначе 2001 мс не считался бы); серия `dark`/`obstructed` длится до первого хорошего сэмпла или до `duration_ms`; список по `(start_ms, stale < dark < obstructed)`, интервалы `dark` и `obstructed` могут перекрываться, камера берёт первый содержащий позицию.
+- S11, `observability.Luma = tuple[int, float, float]` (`ts_ms, mean, std`), помощник `_runs`; `media.LUMA_WIDTH = 160`, уменьшение `INTER_NEAREST` (усреднение `INTER_AREA` гасит разброс шума и текстуры: тестовое видео с шумом становилось `obstructed`); `sample_luma` нечитаемого файла → `[]`.
+- S11, `analyze`: кадры внутри `dark`/`obstructed` не дают наблюдений (`U` у всех субъектов, 8.10); `stale` отдельно не обрабатывается — менеджер эпизодов сам добавляет разрыв `ts − ts прошлого кадра` в `uncertain_ms` и проверяет `lost_timeout_s`.
+- S14, `evaluate`: `OutcomeKind = Literal["tp", "fn", "fp", "duplicate", "late"]`, `Outcome = tuple[str, OutcomeKind, float | None]` (сценарий, исход, задержка tp в с), `match_episodes(expected: list[ExpectedEvent], episodes: list[EpisodeDraft], deadline_s: float) -> list[Outcome]` (одно видео: tp на пару, fn на эталон без пары, исход на каждый несопоставленный эпизод), `report_md(report: EvalReport) -> str`; границы сравниваются в целых мс (`round(s × 1000)` против `confirm_ms`): ровно `deadline_s` — tp без ошибки float.
+- S14, сопоставление: несопоставленный эпизод внутри эталона, у которого уже есть пара, — `duplicates` (даже позже дедлайна); внутри только эталонов без пары — `late`; `episodes = tp + fp + duplicates + late`, `expected = tp + fn`; строки — сценарии эталонов и эпизодов по алфавиту, затем `*`; `f1 = None`, если precision или recall `None` или их сумма 0; `fp_per_hour` — на сумму длительностей всех видео разметки (одна для всех строк), 0 часов → `None`; `delay_s = _percentiles(задержки tp, 0)`.
+- R15, `hud.build_hud`: подпись на каждое `P` (8.2 п. 8) через `hud._keys(subject)`: `pair:<p>-<v>` — человек `p` и техника `v`, `zone:<p>-<z>` — человек `p`, `fire` — каждый объект `rules.fire.FLAMES` кадра, `track:<id>` — сам человек (было: только `track:<id>`).
+
+**Фронт (разделы 7, 8.14)**
+
+- S12, фронт: `FiltersBar.tsx` экспортирует тип `JournalFilter` (query `GET /api/events`); дата фильтра — день МСК (полночь +03:00), `date_to` не включается; «Показать ещё» дозагружает по `next_cursor`; «Экспорт CSV» — ссылка с query фильтра; строка открывает `/events/:id` (для `ohs` `allowed_actions` пуст — только чтение).
+- S13, фронт: `recharts@2.15.4` в `frontend/package.json`; графики фиксированного размера 640×240 без `ResponsiveContainer` (ему нужен `ResizeObserver`, в jsdom его нет); `BarChartCard({title, data: {name, value}[]})`, `StackedDaysCard({title, days})`, `LineChartCard({title, weeks})`, `PercentilesCard({title, value})`; фильтры сектора и камеры экрана статистики — из `/api/journal/facets`; `test_api_skeleton.py::test_unbuilt_route_returns_501` подменяет `services.management_view` заглушкой `NotImplementedError` (с S13 построены все маршруты).
+
+**Docker (разделы 4, 16 слайс 15)**
+
+- S15, Docker: `node:24-slim` (сборка фронта), `python:3.12-slim` + `ghcr.io/astral-sh/uv:0.13.0`, `uv sync --locked --no-dev` (проект editable, `config.ROOT = /app`), команда `uv run --no-sync safewatch serve --host 0.0.0.0 --port 8000`; compose: `extra_hosts: host.docker.internal:host-gateway` (для Linux-хоста), тома `./data/app:/app/data/app`, `./models:/app/models:ro`; `.dockerignore` исключает `.env*`, `secrets/`, `data/`, `models/`, `vendor/`, `results/`, `Deep-Research/`, `.git/`, `.venv*`.
+
+**Тесты (раздел 10.2, 10.1)**
+
+- S13, `tests/test_api_skeleton.py::test_unbuilt_route_returns_501` подменяет `services.management_view` заглушкой `NotImplementedError`: с S13 построены все маршруты, 501 проверяется подменой фасада.
+- R15, `frontend/src/App.test.tsx::stub_screens_show_slice` проверяет, что у каждого маршрута `nav.ts` есть экран (заглушек с S13 нет; новый маршрут без экрана валит тест); строки 6.7 маршрутов остаются на этом тесте.
+- R15, права ролей (10.1 «один тест без роли и один с чужой ролью на слайс») относятся к слайсам с пишущими функциями: журнал, статистика и оценка (S12–S14) только читают, `role` в их сигнатурах 6.2 нет, тестов прав нет.
 
 ---
 

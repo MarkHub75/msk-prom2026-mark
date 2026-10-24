@@ -147,3 +147,9 @@ async def test_channels_in_system_view(
         "published",
         "sent",
     )
+
+
+@pytest.mark.parametrize("url", ["http://[::1", "ftp://host/x", "lamp.local/x", "http://h:99999/"])
+def test_bad_webhook_url_fails_at_load(url: str) -> None:
+    with pytest.raises(ValueError, match="url must be"):
+        WebhookConfig(name="lamp", url=url, levels=["red"], timeout_s=1.0)

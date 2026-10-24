@@ -115,6 +115,7 @@ async def test_filter_validation(client: httpx.AsyncClient) -> None:
         {"q": "я" * 101},
         {"date_from": "2026-10-24T10:00:00Z", "date_to": "2026-10-24T09:00:00Z"},
         {"cursor": "abc"},
+        {"cursor": "²"},  # isdigit, but int() fails
     ]
     for params in bad:
         r = await client.get("/api/events", params=params)

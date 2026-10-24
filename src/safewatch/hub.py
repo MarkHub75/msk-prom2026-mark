@@ -17,7 +17,6 @@ class Client:
         self.role = role
         # Unbounded: the limit is checked in publish, so the stop marker always fits.
         self.queue: asyncio.Queue[str | None] = asyncio.Queue()
-        self.dropped = False
 
 
 class Hub:
@@ -39,7 +38,6 @@ class Hub:
             if audience and client.role not in audience:
                 continue
             if client.queue.qsize() >= CLIENT_QUEUE:
-                client.dropped = True
                 self.disconnect(client)
                 client.queue.put_nowait(None)
                 continue
