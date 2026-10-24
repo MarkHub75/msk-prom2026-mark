@@ -1,0 +1,13 @@
+models:
+- id: matvey-fire-smoke-yolov8n
+  version: 640-s04-v1-4c9f5d05c4d4
+  task: detect
+  input_size: 640
+  conf: 0.25
+  iou: 0.45
+  classes:
+    0: smoke
+    1: fire
+  linq_program: null
+  linq_tail: models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx
+  local_onnx: models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx

@@ -119,3 +119,13 @@ Checkpoint saved at user request: see ../RESUME.md. All three coding agents comp
 - INFRA: Arch user manages autossh/systemd/VPN; Vast must not change this configuration.
 - Next: connect the verified remote model bindings to the existing video worker/backend, then measure target-video quality and full-chain latency. Historical packaged manifests are not automatically promoted to production bindings.
 - ITERATION CLOSED: user explicitly requested a final checkpoint and stop. No active agent tasks or further automatic development; wait for the user's next instruction. Artifacts retained, server left running.
+
+## Video-first final — 2026-10-24
+
+- VF-01 COMPLETE: consumed pinned Data/Training handoffs; real smoke0/fire1 ONNX registry; local-only new version.
+- VF-02 COMPLETE:4full S04GPU scenes,3full S07CPU scenes, all PTS/input/raw/decoder checks, complete visualizations and negative controls.
+- VF-03 COMPLETE: actual unchanged Argus normal CPU job on smoke, event/evidence/API; no cache injection.
+- VF-04 COMPLETE source-only: DFire30 real box metrics recomputed; source overlap and independent event quality UNKNOWN.
+- VF-05 BLOCKED: new LinQ compile/runtime admission requires approved calibration and own staging; historical captures preserved only.
+- VF-06 COMPLETE local release:video-first-v2 with manifests/hashes/commands; exact archives and commits are in the final release checkpoint. Off-host binary backup remains NOT_VERIFIED.
+- VF-07 BLOCKED quality: S07 misses source fall and alerts on bed; no rule edits. Latest Data forklift/person and cigarette candidates require a verified Training handoff and consumer agreement.

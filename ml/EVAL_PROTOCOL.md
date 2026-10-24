@@ -1,3 +1,17 @@
+## Video-first source diagnostic scope — 2026-10-24
+
+DFire30 was fixed by Data before model inference:30 provided test files,
+6smoke/14fire source boxes,16explicit empty source labels. No model/threshold
+selection after opening this source test. Evaluation:conf.25,NMS.45,matchIoU.5;
+AP separate score floor.001,101-point interpolation. Metrics are reproducible
+source-file diagnostics, not human exhaustiveness or industrial independence.
+Original test membership/model training overlap UNKNOWN. Eight declared-train
+RGB candidates are explicitly NOT calibration approved and were unused.
+Full FIRESENSE clip labels do not establish frame/bbox/event/onset GT. UR source
+posture/weak categories do not establish target actor/floor/onset/event GT.
+No safewatch eval with an empty expected-event list. No event latency/FPperhour
+claim. Root metric recomputation makes no new neural call.
+
 # Evaluation protocol quality-v1
 
 This protocol is frozen before E00 predictions. Dataset selection/annotation decisions must not use model outputs. Any amendment gets a new data/protocol version and is logged; baseline and candidate are rerun on identical amended validation GT. Final test is not used for tuning, calibration, error-driven sample selection or early stopping.

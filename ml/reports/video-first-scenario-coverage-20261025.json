@@ -1,0 +1,551 @@
+{
+  "schema": "matvey-final-scenario-coverage-v2",
+  "checked_utc": "2026-10-24T19:26:50.973371+00:00",
+  "argus_revision": "f6b5358afee60d1190f5b5e9decc77292b9087c9",
+  "contract_new_revision": false,
+  "status_semantics": {
+    "RUNNABLE": "actual supplied model observations consumed by unmodified Argus code, no accuracy claim",
+    "PROTOTYPE": "important real-world quality/visibility/policy remains unqualified",
+    "EVALUATED": "only with explicit GT/task/consumer/scope; historical development reports separate",
+    "BLOCKED": "required model/config/rule missing"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "S01",
+      "title": "Бег / резкие перемещения",
+      "status": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "argus_plugins": [
+        {
+          "id": "running",
+          "status": "active",
+          "required_classes": [
+            "person"
+          ],
+          "zone_kinds": [
+            "danger",
+            "vehicle_path"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "COCO80 primary:person0; temporal tracks/visible anchors; optional COCO17; static camera; danger/vehicle_path policy for dangerous running"
+      ],
+      "chain": {
+        "video": [
+          "S01_caviar_run",
+          "S01_caviar_walk",
+          "S01_3_tr45"
+        ],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "running"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "Current Argus running0 on both complete CAVIAR scenes",
+        "Source gait boxes only, industrial hazard policy unknown",
+        "Running actor localization recall:COCO2/168,Pose0/168 on full lossy playback; no proven gait classifier"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    },
+    {
+      "scenario_id": "S02",
+      "title": "Опасное сближение с техникой",
+      "status": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "argus_plugins": [
+        {
+          "id": "proximity",
+          "status": "active",
+          "required_classes": [
+            "person",
+            "car",
+            "bus",
+            "truck",
+            "train"
+          ],
+          "zone_kinds": [
+            "danger"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "person0 and car2/bus5/train6/truck7 from primary COCO80; visible tracked vehicle motion; distance proxy or calibrated floor"
+      ],
+      "chain": {
+        "video": [
+          "S01_3_tr45",
+          "S02_7_te4",
+          "S02_7_tr15"
+        ],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "proximity"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "Generic forklift-as-truck errors; no distance/policy GT",
+        "No primary detector actual TPU capture",
+        "One predicted proximity is not GT-confirmed violation"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    },
+    {
+      "scenario_id": "S03",
+      "title": "Использование телефона",
+      "status": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "argus_plugins": [
+        {
+          "id": "phone",
+          "status": "active",
+          "required_classes": [
+            "person",
+            "cell phone"
+          ],
+          "zone_kinds": [
+            "danger",
+            "vehicle_path"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "person0, cell phone67; hand/upper-body ownership, COCO17 wrists9/10; sufficient person pixels and sustained association"
+      ],
+      "chain": {
+        "video": [
+          "PPE_industrial4tr6"
+        ],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "phone"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "No appropriate source-aligned phone event/negative GT",
+        "Small phone visibility/ownership unqualified",
+        "COCO cellphone has no recorded Matvey TPU execution"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    },
+    {
+      "scenario_id": "S04",
+      "title": "Курение / открытый огонь",
+      "status": [
+        "RUNNABLE",
+        "PROTOTYPE",
+        "EVALUATED"
+      ],
+      "argus_plugins": [
+        {
+          "id": "fire_smoking",
+          "status": "active_with_real_fire_smoke_model_cigarette_absent",
+          "required_classes": [
+            "fire",
+            "smoke",
+            "cigarette"
+          ],
+          "zone_kinds": [
+            "fire_allowed",
+            "danger"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "extra exact fire/smoke/cigarette names; smoking requires person association; fire_allowed zones/site policy"
+      ],
+      "chain": {
+        "video": [
+          "s04-fire-full",
+          "s04-headlight-control-full",
+          "s04-smoke-full",
+          "s04-smoke-control-full"
+        ],
+        "preprocessing": "OpenCV INTER_LINEAR RGB640 letterbox114 /255 exact current Argus",
+        "linq_outputs": "Local full ONNX[1,6,8400] smoke0/fire1 verified; no new TPU outputs",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "fire_smoking"
+        ],
+        "event": "Frozen Argus replay3episodes across4clips; new actual isolated CPU job smoke event1/evidence1/API200",
+        "evidence": "All source AVI + unchanged full playback MP4; actual persisted JPEG and per-frame annotated videos"
+      },
+      "blockers": [
+        "Headlight source negative yields actual fire detections and predicted event",
+        "No cigarette or worker-smoking/ownership model",
+        "No independent event GT or fire-allowed site policy",
+        "No own staging or approved train calibration; new TPU NOT_RUN"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      },
+      "evaluation_scope": "DFire30 source-file box annotations only; original member overlap UNKNOWN; event quality NOT_MEASURED",
+      "source_detection_metrics": {
+        "images": 30,
+        "GT_boxes": 20,
+        "smoke": {
+          "gt": 6,
+          "tp": 5,
+          "fp": 1,
+          "fn": 1,
+          "f1": 0.8333333333333334
+        },
+        "fire": {
+          "gt": 14,
+          "tp": 13,
+          "fp": 2,
+          "fn": 1,
+          "f1": 0.896551724137931
+        },
+        "macro_ap50": 0.8636202081746637,
+        "independent_industrial": false
+      }
+    },
+    {
+      "scenario_id": "S05",
+      "title": "Перелезание / под оборудованием / грузом",
+      "status": [
+        "PROTOTYPE",
+        "BLOCKED"
+      ],
+      "argus_plugins": [
+        {
+          "id": "fence_crossing",
+          "status": "active",
+          "required_classes": [
+            "person"
+          ],
+          "zone_kinds": [
+            "fence"
+          ]
+        },
+        {
+          "id": "restricted_under",
+          "status": "active",
+          "required_classes": [
+            "person"
+          ],
+          "zone_kinds": [
+            "under_load"
+          ]
+        },
+        {
+          "id": "suspended_load",
+          "status": "model_missing",
+          "required_classes": [
+            "person",
+            "suspended_load"
+          ],
+          "zone_kinds": []
+        }
+      ],
+      "required_neural_signals": [
+        "person/COCO17/track and camera-specific fence/under_load geometry; qualified suspended_load for under raised load; action visibility for actual climbing"
+      ],
+      "chain": {
+        "video": [],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "fence_crossing",
+          "restricted_under",
+          "suspended_load"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "No approved site fence/under_load zones in supplied scenes",
+        "Line crossing is not proof of climbing",
+        "suspended_load model absent; ordinary zones cannot prove all three subcases"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    },
+    {
+      "scenario_id": "S06",
+      "title": "Высота без привязи",
+      "status": [
+        "BLOCKED"
+      ],
+      "argus_plugins": [
+        {
+          "id": "no_harness",
+          "status": "model_missing",
+          "required_classes": [
+            "person",
+            "no_harness"
+          ],
+          "zone_kinds": [
+            "height"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "person from primary and visible extra no_harness negative class; configured height zone; absence of harness detection is UNKNOWN"
+      ],
+      "chain": {
+        "video": [],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "no_harness"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "No qualified no_harness model; no approved height zones/visible-use GT",
+        "Positive harness-only class cannot establish correct use or absence"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    },
+    {
+      "scenario_id": "S07",
+      "title": "Падение / длительное неподвижное лежание",
+      "status": [
+        "RUNNABLE",
+        "PROTOTYPE"
+      ],
+      "argus_plugins": [
+        {
+          "id": "fall",
+          "status": "active",
+          "required_classes": [
+            "person"
+          ],
+          "zone_kinds": [
+            "lying_allowed"
+          ]
+        }
+      ],
+      "required_neural_signals": [
+        "person tracks plus COCO17 or bbox posture; observed upright-to-lying sequence; continuous visible immobility/floor context; no clinical diagnosis"
+      ],
+      "chain": {
+        "video": [
+          "ur-fall-03-cam0",
+          "ur-adl-01-cam0",
+          "ur-adl-10-cam0"
+        ],
+        "preprocessing": "New full scenes: current Argus OpenCV preprocessing, actual CPU COCO80+COCO17 Pose. Prior saved captures keep their original PIL preprocessing.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "fall"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "Current unmodified Argus produces0 on source Fall03,0 on ordinary ADL01,1 on bed ADL10 confuser",
+        "Saved whole-clip GMD classifier separates these3source categories but is noncausal, historical and not an Argus YOLO model",
+        "No independent actor/floor/onset/event GT; no medical state claim",
+        "Own TPU staging absent; historical capture not new inference"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      },
+      "demonstration_acceptance": "NOT_ACCEPTED; retain failed full scenes for Mark, not a quality-qualified fall demo",
+      "supplemental_signals": "Existing actual COCO80 bed59/couch57 proposals on257/300bed frames; current product filter excludes them; consumer agreement pending, rules unchanged"
+    },
+    {
+      "scenario_id": "S08",
+      "title": "Небезопасная переноска груза",
+      "status": [
+        "BLOCKED"
+      ],
+      "argus_plugins": [
+        {
+          "id": "load_carrying",
+          "status": "skeleton",
+          "required_classes": [],
+          "zone_kinds": []
+        }
+      ],
+      "required_neural_signals": [
+        "person-owned manual load, visible carrying/posture and site load policy/mass/occlusion; classifier/objects adapted to agreed ABI"
+      ],
+      "chain": {
+        "video": [
+          "S02_7_te4"
+        ],
+        "preprocessing": "RGB PIL bilinear640 for saved local/historical captures; actual Argus local validation uses OpenCV linear640. Exact transforms retained.",
+        "linq_outputs": "Split-Pose four tensors and Helmet[1,6,8400] have historical actual capture only. Primary COCO80 has no Matvey TPU capture.",
+        "decoding": "explicit model manifests; actual saved TPU tails + frozen Argus postprocess tested; no second NMS",
+        "detections_pose_tracks": "FrameDetections JSONL -> unchanged Argus trackers/features; missing frames not filled",
+        "argus_rules": [
+          "load_carrying"
+        ],
+        "event": "actual Argus EpisodeDraft; app event persisted only in separate local validation",
+        "evidence": "source-bound annotated videos; app JPEG evidence for actual local S02"
+      },
+      "blockers": [
+        "Argus load_carrying is skeleton, Mark owns implementation",
+        "No qualified cargo model/weight/policy/target GT",
+        "7_te4 contains a forklift; source SafeCarrying label does not establish manual-cargo semantics"
+      ],
+      "independent_detector_quality": "NOT_MEASURED",
+      "independent_event_quality": "NOT_MEASURED",
+      "event_metrics": {
+        "gt_events": null,
+        "tp": null,
+        "fp": null,
+        "fn": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "false_alerts_per_hour": null,
+        "detection_delay_ms": null
+      }
+    }
+  ],
+  "historical_evaluations": [
+    {
+      "scope": "source-scoped detector localization, current full CAVIAR derivatives",
+      "status": "EVALUATED",
+      "file": "SOURCE_SCOPED_DETECTOR_METRICS.json",
+      "event_quality": false
+    },
+    {
+      "scope": "historical development only, previous consumer not current Argus",
+      "status": "EVALUATED",
+      "file": "metrics/historical_development_metrics.json",
+      "independent_test": false
+    }
+  ],
+  "helmet_additional": {
+    "classes": {
+      "0": "helmet",
+      "1": "no_helmet"
+    },
+    "status": [
+      "RUNNABLE",
+      "PROTOTYPE",
+      "EVALUATED"
+    ],
+    "evaluation_scope": "historical development object boxes only, not video wearer/event correctness",
+    "argus_ppe_plugin": "ABSENT",
+    "actual_tpu": "2 historical frames of4_tr6 only"
+  },
+  "contract_sha256": "f26c4351739fd1faccb1a2a47599773414061e100393b8e12dbe80e55732e828",
+  "helmet_additional_module": {
+    "status": [
+      "RUNNABLE",
+      "PROTOTYPE"
+    ],
+    "video": "PPE_industrial4tr6",
+    "event_quality": "NOT_MEASURED",
+    "rule_in_current_Argus": "NONE",
+    "source_development_box_metrics": "metrics/historical/helmet_boxes.json",
+    "new_TPU": false
+  },
+  "prototype_vs_current_argus": "All8 historical ML observation prototypes remain executable; current Mark Argus model/rule readiness is represented by each row, not by synthetic tests."
+}

@@ -16,7 +16,7 @@ from ml.argus_replay import digest, write_json
 from ml.pipeline.video_clock import FilePTS
 
 
-async def run(root, output_name):
+async def run(root, output_name, source_override=None, source_sha256=None, broadcast_seconds=None):
     import yaml
     root = Path(root).resolve()
     if not root.is_relative_to(Path('/workspace/artifacts')):
@@ -58,6 +58,22 @@ async def run(root, output_name):
             target = app / source.relative_to(root / 'models/coco_reference')
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, target)
+    metadata = json.loads((root / 'models/MODEL_REGISTRY.json').read_text())
+    for record in metadata['models']:
+        model = record['model']
+        for field in ['local_onnx', 'linq_tail']:
+            rel = model.get(field)
+            if not rel or (app / rel).exists():
+                continue
+            item = next(f for f in record['files'] if Path(f['path']).name == Path(rel).name)
+            model_source = Path(item['path'])
+            if not model_source.is_file() and item.get('bundle_relative_path'):
+                model_source = root / item['bundle_relative_path']
+            if digest(model_source) != item['sha256']:
+                raise ValueError('registered model bytes differ')
+            target = app / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(model_source, target)
     # The kit also contains registry templates; restore the deliberately local-only config.
     (app / 'config/models.yaml').write_text(yaml.safe_dump(registry, sort_keys=False))
     (app / 'config/user.yaml').write_text(yaml.safe_dump(override, sort_keys=False))
@@ -71,9 +87,9 @@ async def run(root, output_name):
     if settings.inference_backend != 'local' or settings.fake or settings.data_dir != app / 'app_data' or settings.delivery.webhooks:
         raise ValueError('local job isolation failed')
     sector = services.sector_create(SectorIn(name='Matvey isolated ML validation'), 'admin')
-    camera = services.camera_create(CameraIn(sector_id=sector.id, name='3_tr45 source replay'), 'admin')
-    source = root / 'scenes/S01_3_tr45/original.mp4'
-    expected_source = '2020127242e62532028e5f2a4947d0611c97dd0b7f68b5c52e8fe813b07e0dbf'
+    source = Path(source_override) if source_override else root / 'scenes/S01_3_tr45/original.mp4'
+    expected_source = source_sha256 if source_override else '2020127242e62532028e5f2a4947d0611c97dd0b7f68b5c52e8fe813b07e0dbf'
+    camera = services.camera_create(CameraIn(sector_id=sector.id, name=source.stem[:70] + ' replay'), 'admin')
     if digest(source) != expected_source:
         raise ValueError('source identity mismatch')
     started = time.perf_counter()
@@ -106,7 +122,10 @@ async def run(root, output_name):
     # A regular finite broadcast advances on the real clock; no clock mock.
     services.broadcast_start(camera.id, BroadcastIn(video_id=imported.video.id, loop=False), 'admin')
     start_broadcast = time.perf_counter()
-    while time.perf_counter() - start_broadcast < 3.2:
+    playback_seconds = broadcast_seconds if broadcast_seconds is not None else len(source_clock.times) * .001 * (source_clock.times[1] - source_clock.times[0]) + .2
+    if not 0 < playback_seconds <= 60:
+        raise ValueError('bounded local broadcast must be at most60seconds')
+    while time.perf_counter() - start_broadcast < playback_seconds:
         services.broadcast_tick()
         await asyncio.sleep(.05)
     services.broadcast_tick()
@@ -136,7 +155,7 @@ async def run(root, output_name):
     if any(digest(app / rel) != expected for rel, expected in unchanged.items()):
         raise ValueError('frozen code/default rule file changed')
     report = {'status': 'PASS_REAL_LOCAL_ARGUS_JOB', 'argus_revision': receipt['source_commit'],
-        'source_sha256': expected_source, 'source_frames': 75, 'model_calls': model_calls,
+        'source_sha256': expected_source, 'source_frames': len(source_clock.times), 'model_calls': model_calls,
         'backend': 'ONNXRUNTIME_CPU', 'fake': False, 'gpu_calls': 0, 'tpu_calls': 0,
         'original_pts_verified': True, 'app_job_wall_seconds': wall,
         'neural_frame_census_by_model': summaries, 'episodes': len(episodes), 'events': len(events),
@@ -156,8 +175,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default='/workspace/artifacts/matvey-final-20261025')
     parser.add_argument('--output-name', default='local_app_validation_v1')
+    parser.add_argument('--source', type=Path)
+    parser.add_argument('--source-sha256')
+    parser.add_argument('--broadcast-seconds', type=float)
     args = parser.parse_args()
-    asyncio.run(run(args.root, args.output_name))
+    if bool(args.source) != bool(args.source_sha256):
+        parser.error('explicit source requires its pinned SHA256')
+    asyncio.run(run(args.root, args.output_name, args.source, args.source_sha256, args.broadcast_seconds))
 
 
 if __name__ == '__main__':

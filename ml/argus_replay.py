@@ -36,7 +36,7 @@ def fingerprint(spec, backend, preprocessing):
                                     separators=(',', ':')).encode()).hexdigest()
 
 
-def frame_record(row, model):
+def frame_record(row, model, *, allow_outside_keypoints=False):
     """Lossless numeric mapping; never invent a detection for a missing frame."""
     idx, pts = row['frame_index'], row['original_pts_ms']
     if type(idx) is not int or idx < 0 or type(pts) not in (int, float) or not math.isfinite(pts) or pts < 0:
@@ -51,7 +51,7 @@ def frame_record(row, model):
         width, height = row['image_size']
         if not 0 <= box[0] <= box[2] <= width or not 0 <= box[1] <= box[3] <= height:
             raise ValueError('bbox outside original image')
-        if pose is not None and (len(pose) != 17 or any(len(p) != 3 or any(type(x) not in (int, float) or not math.isfinite(x) for x in p) or not 0 <= p[2] <= 1 or not 0 <= p[0] <= width or not 0 <= p[1] <= height for p in pose)):
+        if pose is not None and (len(pose) != 17 or any(len(p) != 3 or any(type(x) not in (int, float) or not math.isfinite(x) for x in p) or not 0 <= p[2] <= 1 or (not allow_outside_keypoints and (not 0 <= p[0] <= width or not 0 <= p[1] <= height)) for p in pose)):
             raise ValueError('invalid COCO17')
         out.append({'cls': cls, 'name': d['class_name'], 'score': score,
                     'bbox_xyxy': box, 'kpts': pose})
@@ -172,7 +172,8 @@ def replay(scene, output, snapshot, historical=None, decode_tpu=False):
                              for r in history['frames']} if history else {}
         use_tpu = bool(historical_models) and all(historical_models.values())
         backend = 'LINQ_HISTORICAL_REAL_SERVICE_OUTPUTS' if use_tpu else selected[0]['backend']
-        pre = 'PIL_BILINEAR_RGB_LETTERBOX_PAD114_FLOAT32_MULTIPLY_1_OVER_255'
+        pre = spec.get('preprocessing', meta.get('preprocessing',
+            'PIL_BILINEAR_RGB_LETTERBOX_PAD114_FLOAT32_MULTIPLY_1_OVER_255'))
         fp_spec = dict(spec)
         if use_tpu:
             fp_spec['historical_program_sha256'] = next(iter(historical_models.values()))['program_sha256']
@@ -195,7 +196,8 @@ def replay(scene, output, snapshot, historical=None, decode_tpu=False):
                     old_row = next(r for r in history['frames'] if r['frame_index'] == row['frame_index'])
                     if old_row['original_pts_ms'] != row['original_pts_ms'] or old_row['source_rgb_sha256'] != row['rgb_sha256']:
                         raise ValueError('TPU source frame identity differs')
-                converted = actual_decoder(historical, row, item) if use_tpu and actual_decoder else frame_record(row, item)
+                converted = actual_decoder(historical, row, item) if use_tpu and actual_decoder else frame_record(
+                    row, item, allow_outside_keypoints=spec.get('keypoint_coordinate_policy') == 'ARGUS_UNCLAMPED_PREDICTIONS')
                 for d in converted['detections']:
                     if use_tpu and actual_decoder:
                         # App resolves names from ModelSpec; worker emits numeric strings.
@@ -208,6 +210,7 @@ def replay(scene, output, snapshot, historical=None, decode_tpu=False):
                     'model_id': mid, 'argus_ref': model.id + '@' + model.version, 'backend': backend,
                     'neural_observation': True, 'tracker_propagation': False,
                     'source_rgb_sha256': row['rgb_sha256'], 'identity_fingerprint': fp,
+                    'preprocessing': pre,
                     'program_sha256': item.get('program_sha256') if use_tpu else None})
         frames = read_jsonl(path, len(selected))
         if [f.frame_idx for f in frames] != [r['frame_index'] for r in selected]:
@@ -234,10 +237,10 @@ def replay(scene, output, snapshot, historical=None, decode_tpu=False):
         class_conf=app_config.get_settings().class_conf,
         active_classes=sorted({name for m in specs.values() for name in m.classes.values()}))
     primary = next(s['model_id'] for s in meta['model_specs'] if s['role'] == 'detector')
-    pose_id = next(s['model_id'] for s in meta['model_specs'] if s['role'] == 'pose')
+    pose_id = next((s['model_id'] for s in meta['model_specs'] if s['role'] == 'pose'), None)
     extras = [(specs[s['model_id']], records[s['model_id']]) for s in meta['model_specs'] if s['role'] == 'extra']
-    result = analyze(records[primary], records[pose_id], source, config,
-                     specs[pose_id], specs[primary], extras)
+    result = analyze(records[primary], records[pose_id] if pose_id else None, source, config,
+                     specs[pose_id] if pose_id else None, specs[primary], extras)
     write_json(output / 'events.json', [e.model_dump(mode='json') for e in result.episodes])
     write_json(output / 'analysis.json', result.model_dump(mode='json'))
     write_json(output / 'analysis_config.json', config.model_dump(mode='json'))
@@ -248,7 +251,9 @@ def replay(scene, output, snapshot, historical=None, decode_tpu=False):
         'application_database_write': False, 'live_end_to_end': False,
         'origin': 'MIXED_SAVED_TPU_AND_LOCAL_REPLAY' if history else 'SAVED_LOCAL_REPLAY',
         'neural_missing_indices': [i for i in range(len(rows)) if i not in {r['frame_index'] for r in selected}],
-        'no_interpolation': True, 'preprocessing_equals_current_argus': False,
+        'no_interpolation': True, 'preprocessing_equals_current_argus': all(
+            p['preprocessing'] == 'OPENCV_INTER_LINEAR_RGB_LETTERBOX_PAD114_FLOAT32_DIVIDE_255'
+            for p in provenance),
         'events_are_predictions_not_gt': True})
     report = {'status': 'PASS_ISOLATED_ARGUS_REPLAY', 'source_scene': str(scene),
         'source_sha256': meta['source_sha256'], 'frames': len(selected), 'original_frames': len(rows),

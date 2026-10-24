@@ -128,7 +128,8 @@ def render(scene, output, replay=None, historical=None, local_app=None):
             label = 'HISTORICAL LinQ | sampled actual frames only | new TPU calls: 0' if captured is not None else row['backend'] + ' | full-scene saved neural outputs | not a TPU run'
             title = meta['scene_id'] + ' | ' + ('TPU INFERENCE CAPTURE' if captured is not None and current else 'NO TPU INFERENCE ON THIS FRAME' if captured is not None else 'MODEL OUTPUTS')
             if local_frames is not None:
-                label = 'ONNXRUNTIME CPU | real Argus job | 38/75 source frames | not a TPU run'
+                label = ('ONNXRUNTIME CPU | real Argus job | ' + str(len(local_frames)) + '/' +
+                         str(len(rows)) + ' source frames | not a TPU run')
                 title = meta['scene_id'] + ' | ' + ('ACTUAL ARGUS NEURAL OUTPUT' if current else 'NO NEURAL INFERENCE ON THIS FRAME')
             for y, text, color in [(25, title, (255, 255, 255)), (51, label, (125, 220, 255)),
                 (78, 'Original frame: ' + str(i) + ' | original PTS: ' + format(row['original_pts_ms'], '.3f') + ' ms', (210, 210, 210))]:

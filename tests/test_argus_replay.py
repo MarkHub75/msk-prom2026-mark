@@ -52,6 +52,16 @@ class ArgusReplayTests(unittest.TestCase):
         self.assertNotEqual(base, fingerprint(spec, 'LINQ_HISTORICAL_REAL_SERVICE_OUTPUTS', 'PIL'))
         self.assertNotEqual(base, fingerprint(spec, 'PYTORCH_CUDA', 'OPENCV'))
 
+    def test_argus_unclamped_keypoints_kept_only_with_explicit_consumer_policy(self):
+        self.model['detections'][0]['pose_coco17'][0] = [-2.5, 241.0, .1]
+        with self.assertRaises(ValueError):
+            frame_record(self.row, self.model)
+        result = frame_record(self.row, self.model, allow_outside_keypoints=True)
+        self.assertEqual(result['detections'][0]['kpts'][0], [-2.5, 241.0, .1])
+        self.model['detections'][0]['pose_coco17'][0][2] = 1.01
+        with self.assertRaises(ValueError):
+            frame_record(self.row, self.model, allow_outside_keypoints=True)
+
 
 if __name__ == '__main__':
     unittest.main()

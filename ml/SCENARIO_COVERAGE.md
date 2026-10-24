@@ -1,3 +1,19 @@
+## Video-first final integration — 2026-10-24 19:31 UTC
+
+Current package: `/workspace/artifacts/matvey-final-20261025/video-first-v2/`.
+See `docs/handoffs/VIDEO_FIRST_FINAL_20261025.md` and
+`ml/reports/video-first-final-20261025.json`. Main f6b5358a and its ML contract
+remain unchanged. New real pretrained smoke0/fire1 model is integrated locally;
+no training or new TPU execution. Seven new full scenes:2648frames/5296calls
+(3966GPU,1330CPU). Selected package includes three prior scenes:10/3297/7243.
+New actual Argus CPU smoke job:408calls,204/407frames/model, event1/evidence1,
+API200,48.434s. No app/rule/backend changes. Source DFire30 detector F1 smoke.8333,
+fire.8966; overlap/exhaustiveness UNKNOWN, not independent industrial/event GT.
+Fire headlight false alert retained. Current S07 Fall03 missed/bedADL10 alert;
+not accepted as a successful fall demo.528testsPASS(4skipped). Latest Data
+research forklift/person and cigarette ABI candidates are recorded, not promoted.
+All assigned agents completed; no own compute jobs. No new automatic experiment.
+
 ## Final current-Argus matrix — 2026-10-24
 
 See ml/reports/final-scenario-coverage-20261025.json and final evidence handoff.
