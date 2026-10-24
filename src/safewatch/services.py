@@ -11,6 +11,7 @@ import logging
 import math
 import shutil
 import sqlite3
+import time
 import uuid
 from collections.abc import AsyncIterator
 from datetime import datetime, timedelta
@@ -18,6 +19,7 @@ from pathlib import Path
 from typing import get_args
 
 from safewatch import clock, config, media, registry, seed, store, texts
+from safewatch.analysis import pipeline
 from safewatch.errors import (
     Conflict,
     Forbidden,
@@ -34,6 +36,8 @@ from safewatch.texts import VIDEOS_DIR_MISSING
 from safewatch.types import (
     ActionIn,
     Analysis,
+    AnalysisConfig,
+    AnalysisResult,
     BackendStatus,
     Broadcast,
     BroadcastIn,
@@ -55,6 +59,7 @@ from safewatch.types import (
     EventStatus,
     EventSummary,
     Health,
+    HudFrame,
     HumanAction,
     InferenceBackend,
     InferenceMetrics,
@@ -569,6 +574,80 @@ def _job_failed(job_id: int, video_id: int, attempts: int, code: JobErrorCode, t
         store.video_update(video_id, {"status": "failed"})
 
 
+def _analysis_files(
+    det_path: Path,
+    pose: tuple[ModelSpec, Path] | None,
+    video_path: Path,
+    cfg: AnalysisConfig,
+    det_model: ModelSpec,
+    hud_path: Path,
+) -> AnalysisResult:
+    """Worker thread: read the artifacts, analyze, write hud.jsonl; the database stays out."""
+    det = artifacts.read_jsonl(det_path, None)
+    pose_frames = None if pose is None else artifacts.read_jsonl(pose[1], None)
+    pose_model = None if pose is None else pose[0]
+    result = pipeline.analyze(det, pose_frames, video_path, cfg, pose_model, det_model)
+    hud_path.parent.mkdir(parents=True, exist_ok=True)
+    lines = "".join(frame.model_dump_json() + "\n" for frame in result.hud)
+    hud_path.write_text(lines, encoding="utf-8", newline="\n")
+    return result
+
+
+async def _analyze(
+    job_id: int,
+    video: sqlite3.Row,
+    det: tuple[ModelSpec, int],
+    pose: tuple[ModelSpec, int] | None,
+) -> None:
+    """Stage `analysis` of tech.md 8.1: a new `analyses` version and its HUD file."""
+    settings = config.get_settings()
+    store.job_update(job_id, {"stage": "analysis"})
+    _progress(job_id, 0.85)
+    video_id = video["id"]
+    version = store.analysis_next_version(video_id)
+    rel = f"analyses/{video_id}-v{version}/hud.jsonl"
+    cfg = AnalysisConfig(
+        width=video["width"],
+        height=video["height"],
+        fps=video["fps"],
+        step=analysis_step(video["fps"]),
+        calibration=None,  # slice 9
+        zones=[],  # slice 9
+        rules={},  # slice 9
+        class_conf=settings.class_conf,
+        active_classes=registry.active_classes(settings),
+    )
+    data = settings.data_dir
+    pose_files = None if pose is None else (pose[0], data / store.artifact_path(pose[1]))
+    started = time.perf_counter()
+    result = await asyncio.to_thread(
+        _analysis_files,
+        data / store.artifact_path(det[1]),
+        pose_files,
+        data / video["path"],
+        cfg,
+        det[0],
+        data / rel,
+    )
+    values = {
+        "video_id": video_id,
+        "version": version,
+        "det_artifact_id": det[1],
+        "pose_artifact_id": None if pose is None else pose[1],
+        "config_json": cfg.model_dump_json(),
+        "hud_path": rel,
+        "gaps_json": json.dumps([gap.model_dump() for gap in result.gaps]),
+        "duration_ms": video["duration_ms"],
+        "created_at": clock.iso(clock.now()),
+    }
+    with store.tx():
+        analysis_id = store.insert("analyses", values)
+        elapsed = round((time.perf_counter() - started) * 1000)
+        store.job_update(job_id, {"analysis_id": analysis_id, "analysis_ms": elapsed})
+        store.video_update(video_id, {"active_analysis_id": analysis_id})
+    _progress(job_id, 0.95)
+
+
 async def run_next_job() -> Job | None:
     settings = config.get_settings()
     now = clock.now()
@@ -586,15 +665,18 @@ async def run_next_job() -> Job | None:
         detector = registry.resolve(settings.pipeline.detector)
         det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
         store.job_update(job_id, {"det_artifact_id": det_id})
+        pose: tuple[ModelSpec, int] | None = None
         try:
             if settings.pipeline.pose is not None:
-                pose = registry.resolve(settings.pipeline.pose)
-                pose_id = await _infer(job_id, "inference_pose", (0.45, 0.85), pose, video)
+                pose_model = registry.resolve(settings.pipeline.pose)
+                pose_id = await _infer(job_id, "inference_pose", (0.45, 0.85), pose_model, video)
                 store.job_update(job_id, {"pose_artifact_id": pose_id})
+                pose = (pose_model, pose_id)
         except InferenceError as exc:
             if exc.code not in ("remote_error", "bad_output"):
                 raise
             pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
+        await _analyze(job_id, video, (detector, det_id), pose)
     except InferenceError as exc:
         log.warning("linq: %s %s", exc.code, exc.message)
         _job_failed(job_id, video_id, attempts, exc.code, exc.message)
@@ -602,7 +684,7 @@ async def run_next_job() -> Job | None:
         log.exception("job %s failed", job_id)
         _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
     else:
-        # Slice 4 adds the analysis and evidence stages; until then pose ends the job.
+        # Slice 5 adds the evidence stage; until then the analysis ends the job.
         done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
         store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
         store.video_update(video_id, {"status": "ready"})
@@ -699,7 +781,21 @@ def system_view() -> SystemView:
 
 
 def video_tracks(video_id: int, from_ms: int, to_ms: int) -> TracksWindow:
-    raise NotImplementedError("slice 4")
+    video = _video_row(video_id)
+    window_max = config.get_settings().hud.window_max_ms
+    if from_ms >= to_ms or to_ms - from_ms > window_max:
+        raise ValidationFailed(texts.TRACKS_WINDOW_INVALID.format(max=window_max), field="to_ms")
+    analysis_id = video["active_analysis_id"]
+    row = None if analysis_id is None else store.analysis(analysis_id)
+    if row is None:
+        raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
+    path = config.get_settings().data_dir / row["hud_path"]
+    with path.open(encoding="utf-8") as f:
+        frames = [HudFrame.model_validate_json(line) for line in f]
+    window = [frame for frame in frames if from_ms <= frame.ts_ms < to_ms]
+    return TracksWindow(
+        video_id=video_id, analysis_id=analysis_id, from_ms=from_ms, to_ms=to_ms, frames=window
+    )
 
 
 def video_analysis(video_id: int) -> Analysis:
