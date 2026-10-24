@@ -17,7 +17,7 @@ const HISTORY: Record<EventAction["action"], string> = {published:"Событи�
 function useEventDetail(id: number) {
   const [role] = useRole(); const updates = useUpdates();
   const { actor } = useActorIdentity();
-  const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role,updates]);
+  const request = useApi(() => api.GET("/api/events/{event_id}", {params:{path:{event_id:id}}}), [id,role], {refresh: [updates]});
   const [result, setResult] = useState<{ detail: EventDetail; rest: EventDetail | undefined; identity: string }>();
   const viewed = useRef(new Set<string>());
   const identity = `${role}:${id}`;
