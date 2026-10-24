@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S1 закрыт, следующий S2
+- state: S2 в работе
 - tech.md: v1
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
