@@ -114,11 +114,10 @@
 .an-bars-label { display: grid; min-width: 0; font-size: 12.5px; line-height: 1.25; }
 .an-bars-label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .an-bars-label small { font-size: 11px; color: var(--faint); font-family: var(--mono); }
-.an-bars-track { height: 12px; position: relative; display: block; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), #2e2e2e calc(25% - 1px) 25%); }
-.an-bars-fill { display: block; height: 100%; border-radius: 0 4px 4px 0; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 30%, transparent), var(--c)); box-shadow: 0 0 12px color-mix(in srgb, var(--c) 25%, transparent); min-width: 2px; }
-.an-bars-stack { display: flex; gap: 2px; height: 100%; min-width: 2px; }
+.an-bars-track { height: 14px; position: relative; display: block; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), #2e2e2e calc(25% - 1px) 25%); }
+.an-bars-fill { display: block; height: 100%; border-radius: 0 5px 5px 0; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 30%, transparent), var(--c)); box-shadow: 0 0 12px color-mix(in srgb, var(--c) 25%, transparent); min-width: 2px; }
+.an-bars-stack { display: flex; gap: 2px; height: 100%; min-width: 2px; border-radius: 0 5px 5px 0; overflow: hidden; }
 .an-bars-stack i { display: block; height: 100%; min-width: 2px; background: linear-gradient(180deg, color-mix(in srgb, var(--c) 80%, #fff 20%), var(--c)); }
-.an-bars-stack i:last-child { border-radius: 0 4px 4px 0; }
 .an-bars-row > b { font-family: var(--mono); font-weight: 500; font-size: 13px; text-align: right; color: #f0f0f0; font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 34px; }
 .an-bars-row > b small { font-size: 10.5px; color: var(--faint); font-weight: 400; }
 
