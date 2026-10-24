@@ -53,6 +53,8 @@ def summarize(observations,mutations,windows):
     count=len(records);persons=sum(o['eligible_persons'] for o in observations);unknown=sum(o['unknown_postures'] for o in observations)
     return {'scope':'SOURCE_POSITIVE_WINDOW_HIT_COVERAGE_NOT_INDEPENDENT_EVENT_RECALL',
         'source_unknown_fraction_of_sampled_frames':sum(o.get('source_membership','UNKNOWN')=='UNKNOWN' for o in observations)/len(observations) if observations else None,
+        'frame_pose_unknown_or_missing_rate':sum(o['eligible_persons']==0 or o['unknown_postures']==o['eligible_persons'] for o in observations)/len(observations) if observations else None,
+        'frames_with_full_torso_fraction':sum(o['full_torsos']>0 for o in observations)/len(observations) if observations else None,
         'sampled_frames':len(observations),'frames_with_eligible_person':sum(o['eligible_persons']>0 for o in observations),
         'eligible_person_detections':persons,'full_visible_torso_detections':sum(o['full_torsos'] for o in observations),
         'torso_available_fraction_of_eligible_detections':sum(o['full_torsos'] for o in observations)/persons if persons else None,

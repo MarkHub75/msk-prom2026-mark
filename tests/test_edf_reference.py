@@ -1,8 +1,13 @@
 import unittest
+from unittest.mock import patch
 import numpy as np
-from ml.quality.edf_reference import degrade,project,hit_bounds,summarize
+from ml.quality.edf_reference import degrade,project,hit_bounds,summarize,prepare
 
 class EdfReferenceTests(unittest.TestCase):
+    def test_unready_producer_blocks_before_probe_or_pixel_decode(self):
+        with patch('ml.quality.edf_reference.load_producer_ready',side_effect=ValueError('not READY')),patch('ml.quality.edf_reference.subprocess.check_output') as probe:
+            with self.assertRaises(ValueError):prepare('pointer','unused-output')
+            probe.assert_not_called()
     def test_grid_restored_but_information_removed(self):
         rgb=np.zeros((9,11,3),np.uint8);rgb[::2,::2]=255
         out=degrade(rgb)
