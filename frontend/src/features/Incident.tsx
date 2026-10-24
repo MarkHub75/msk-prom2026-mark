@@ -141,13 +141,14 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
   const actions: HumanAction[] = detail.allowed_actions.filter(a => a === "confirm" || a === "false_alarm" || a === "send_to_master");
   const act = useCallback(async (action: HumanAction) => { if (await state.send(action, comment)) { setComment(""); setNotice("Действие сохранено сервером."); } }, [state, comment]);
   useEffect(() => {
-    const handler = (key: KeyboardEvent) => { if (key.altKey || key.ctrlKey || key.metaKey || (key.target as HTMLElement)?.closest?.("input,textarea,select,[contenteditable=true],button,a")) return; const action = BY_KEY[key.key]; if (action && actions.includes(action) && !state.busy) { key.preventDefault(); void act(action); } };
+    const handler = (key: KeyboardEvent) => { if (key.altKey || key.ctrlKey || key.metaKey || (key.target as HTMLElement)?.closest?.("input,textarea,select,[contenteditable=true]")) return; const action = BY_KEY[key.key]; if (action && actions.includes(action) && !state.busy) { key.preventDefault(); void act(action); } };
     window.addEventListener("keydown", handler); return () => window.removeEventListener("keydown", handler);
   }, [actions, state.busy, act]);
   const order: HumanAction[] = ["confirm", "false_alarm", "send_to_master"];
   const terminal = meta?.statuses.find(s => s.id === event.status)?.terminal;
   const verdict = event.operator_verdict === "none" ? "Не зафиксирован" : meta?.statuses.find(s => s.id === event.operator_verdict)?.title ?? event.operator_verdict;
   return <div className={`ic-op event-${event.level}`}>
+    <EventAlarm event={event} actions={order.filter(a => actions.includes(a)).map(a => ({ id: a, title: ACTIONS[a], key: KEYS[a], danger: a === "confirm" }))} busy={state.busy} onAct={id => void act(id as HumanAction)} />
     <div className="ic-left">
       <section className="ic-stage" data-panel="Доказательный кадр">
         <Evidence detail={detail} />
@@ -238,6 +239,5 @@ export function IncidentPage({ master = false }: { master?: boolean }) {
     {back}
     {state.error && <ErrorNotice error={state.error} retry={state.reload} />}
     {isMaster ? <MasterIncident detail={detail} state={state} /> : <OperatorIncident detail={detail} state={state} />}
-    {!isMaster && <EventAlarm event={event} />}
   </div>;
 }
