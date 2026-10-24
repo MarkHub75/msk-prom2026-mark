@@ -2,8 +2,11 @@
 
 from typing import Any
 
+from safewatch import rules
+from safewatch.analysis.geometry import point_in_polygon
 from safewatch.analysis.hud import build_hud
 from safewatch.config import get_settings
+from safewatch.rules.suspended_load import SuspendedLoadPlugin
 from safewatch.types import FrameContext, ObjectState, Observation, PersonState, VehicleState
 
 W, H = 640, 480
@@ -123,3 +126,25 @@ def test_label_on_every_positive_subject() -> None:
     assert [t.text for t in person.tags] == ["рядом с техникой", "в опасной зоне"]
     assert [t.text for t in vehicle.tags] == ["рядом с техникой"]
     assert [(t.code, t.level) for t in fire.tags] == [("fire_smoking", "red")]
+
+
+def test_suspended_load_projection() -> None:
+    load = ObjectState(name="suspended_load", bbox=(160.0, 48.0, 320.0, 144.0), score=0.8)
+    inside = _person(bbox=(200.0, 200.0, 260.0, 400.0), anchor=(230.0, 400.0))
+    ctx = FrameContext(
+        frame_idx=0, ts_ms=TS, width=W, height=H, persons=[inside], vehicles=[],
+        objects=[load], zones=[], calibrated=False,
+    )  # fmt: skip
+    obs = SuspendedLoadPlugin().observe(ctx, rules.defaults("suspended_load"))
+    hud = build_hud(ctx, get_settings().scenarios.running, get_settings().features, obs)
+    person, obj = hud.objects
+    assert obj.projection == [(0.25, 0.3), (0.5, 0.3), (0.5, 1.0), (0.25, 1.0)]
+    assert [(t.code, t.text) for t in obj.tags] == [("load_projection", "зона под грузом")]
+    # The person's anchor (0.36, 0.83) lies inside the polygon: the rule gives red.
+    assert point_in_polygon((230 / W, 400 / H), obj.projection)
+    assert [(o.state, o.level) for o in obs] == [("P", "red")]
+    assert ("suspended_load", "red") in [(t.code, t.level) for t in person.tags]
+    # Without a load there is no polygon.
+    bare = build_hud(ctx.model_copy(update={"objects": []}), get_settings().scenarios.running,
+                     get_settings().features, [])  # fmt: skip
+    assert [o.projection for o in bare.objects] == [None]

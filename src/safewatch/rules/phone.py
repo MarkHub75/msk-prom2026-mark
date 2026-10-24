@@ -1,4 +1,5 @@
-"""Scenario `phone` (tech.md 8.3): a phone held by a person; red in a danger zone."""
+"""Scenario `phone` (tech.md 8.3): a phone held by a person; red in a danger zone,
+allowed in a walkway or rest zone (8.23)."""
 
 from safewatch import texts
 from safewatch.rules.base import attach_objects, obs, param, why_common, zones_at
@@ -6,6 +7,7 @@ from safewatch.types import EpisodeDraft, FrameContext, Observation, ScenarioMet
 
 ID = "phone"
 DANGER_KINDS = ("danger", "vehicle_path")
+ALLOWED_KINDS = ("walkway", "rest")
 
 
 class PhonePlugin:
@@ -18,7 +20,7 @@ class PhonePlugin:
         status="active",
         status_text="",
         required_classes=["person", "cell phone"],
-        zone_kinds=list(DANGER_KINDS),
+        zone_kinds=[*DANGER_KINDS, *ALLOWED_KINDS],
         params=[
             param("hold_s", 0.0, 60.0),
             param("danger_hold_s", 0.0, 60.0),
@@ -39,7 +41,8 @@ class PhonePlugin:
             if phone == "ambiguous":
                 out.append(obs(ID, p, "U", reason_code="owner_ambiguous"))
                 continue
-            if phone is None:
+            # A call to the foreman or a photo for the report from a walkway: no event (8.23).
+            if phone is None or zones_at(ctx, p.anchor, ALLOWED_KINDS):
                 out.append(obs(ID, p, "N"))
                 continue
             zones = zones_at(ctx, p.anchor, DANGER_KINDS)

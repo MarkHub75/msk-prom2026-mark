@@ -3,6 +3,7 @@
 from safewatch import texts
 from safewatch.config import FeaturesConfig
 from safewatch.rules.fire import FLAMES
+from safewatch.rules.suspended_load import ID as LOAD
 from safewatch.types import (
     Box,
     FrameContext,
@@ -10,8 +11,10 @@ from safewatch.types import (
     HudObject,
     HudTag,
     Keypoint,
+    ObjectState,
     Observation,
     PersonState,
+    Point,
 )
 
 
@@ -27,6 +30,22 @@ def _kpts(points: list[Keypoint] | None, w: int, h: int) -> list[Keypoint] | Non
     if points is None:
         return None
     return [(_unit(x, w), _unit(y, h), conf) for x, y, conf in points]
+
+
+def _projection(o: ObjectState, w: int, h: int) -> list[Point] | None:
+    """Column under a suspended load down to the frame bottom (8.23): the `suspended_load` area."""
+    if o.name != LOAD:
+        return None
+    x1, _, x2, y2 = _box(o.bbox, w, h)
+    return [(x1, y2), (x2, y2), (x2, 1.0), (x1, 1.0)]
+
+
+def _object_tags(o: ObjectState, violations: dict[str, list[HudTag]]) -> list[HudTag]:
+    if o.name in FLAMES:
+        return violations.get("fire", [])
+    if o.name == LOAD:
+        return [HudTag(code="load_projection", text=texts.HUD_LOAD_PROJECTION, level=None)]
+    return []
 
 
 def _person_tags(
@@ -125,7 +144,8 @@ def build_hud(
             score=o.score,
             bbox=_box(o.bbox, w, h),
             kpts=None,
-            tags=violations.get("fire", []) if o.name in FLAMES else [],
+            tags=_object_tags(o, violations),
+            projection=_projection(o, w, h),
         )
         for o in ctx.objects
     ]
