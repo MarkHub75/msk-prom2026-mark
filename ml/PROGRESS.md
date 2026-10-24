@@ -1,5 +1,11 @@
 # ML/CV quality sprint — progress
 
+## E008 2026-10-24T01:28:28.442597+00:00 — local release-evidence ledger
+
+MEASURED: immutable f99edc8d manifest review /workspace/artifacts/night-20261024/E008-release-evidence/f99edc8d-review.json, byte/component/selected/candidate/correlatedhistoricalcapture integrity PASS, 37checks,0newneural/remote calls. Reused ml.pipeline.capture_review, no alternate codec/client or hardware probe. Independentquality BLOCKED, newMatveyplacementNOT_VERIFIED, offVastbackupNOT_VERIFIED. A softwaretestcount or bareboolean cannot qualify independentquality/newplacement; unknown acceptanceformats require separate reviewed evidence, no automaticpromotion.
+
+Root helper ml/quality/release_review.py +7meaningful tests: modeltamper/symlinkescape/codechecksumchange/mismatchedUUID/boolstatus/falsequalityfromtestcount/uncheckedplacement-backupdeclaration/retainedcandidatecorruption. TestsPASS in existingclientenv, noinstalls. Reportoutput restrictedoutsideGit and nooverwritingexisting evidence; failures exporttypesonly. ReviewerfileSHA pinned in report. E006/E007 savedoutputdiagnostics finishing; candidatebudgetsremainclosed.
+
 ## RESUMED 2026-10-24T01:25:33.254599+00:00 — bounded diagnostic follow-up
 
 OBSERVED: user renewed autonomous mode immediately after f99edc8d; branchmatvey_cv clean, existing READY has no newversions. Do not reset six exhausted candidate slots. Blockers unchanged: independenttest/cleantrain/geometry/ownMatveyplacement/offVastdestination/remoteauth. No intermediate questions or network/service changes.
