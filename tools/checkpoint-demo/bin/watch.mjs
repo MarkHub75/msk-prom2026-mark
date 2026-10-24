@@ -136,6 +136,7 @@ const line = [
   `PASS ${count("PASS")} / FAIL ${count("FAIL")} / SKIP ${count("SKIP")}`,
   changed.length ? `контракт ИЗМЕНИЛСЯ: ${changed.join(", ")}` : "контракт без изменений",
   !prev ? "первый прогон" : `заработало: ${fixed.join("; ") || "—"}; сломалось: ${broken.join("; ") || "—"}`,
+  ...result.rows.filter((r) => r.result === "FAIL").map((r) => `FAIL: ${r.step} — ${r.detail}`),
   ...(stubs ? [`хвосты ONNX: заглушки (${stubs}), фейк их не читает`] : []),
   ...notes,
 ].join(" · ");
