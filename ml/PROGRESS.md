@@ -1,5 +1,18 @@
 # ML/CV quality sprint — progress
 
+## Coverage pass2 and provisional ranking — 2026-10-24T11:35:56.387477+00:00
+
+OBSERVED boundedData-approvedscreen:16Mendeleyvideos/84uniqueoriginalframes, no confirmedpositive/negativeepisodeGT.02hasthreeforklift/workarea reviewcontexts(3_tr45,7_te4,7_tr15);04hazeambiguous;03/05/06/08notestablished. Sparseframes/filenames notconvertedtoGT. Artifactvideo-screen-v1/report.json; docs/SCENARIO_VIDEO_SCREEN.md.
+
+MEASURED E010commonpipeline dataflow:2realindustrialframes consume4historicalcorrelatedLinQreplies (zero NEW),0confirmedepisode, sourceSHA/index/PTS originaldiagnosticJPEG checksPASS; real-replay-v1/real-replay-check.json. CAVIAR345savednativeframes all8rulesrun,0candidates; no sourcedrunningaction/specialists/policies invented. UR20same225savednative2FPSframes produces1scenario07candidate. Verifiedfall06sourcevideo7observations→suspected_fall[start1500,confirmed2500], realJPEGframe75/2500ms/statusready; ordinaryADL01tenobservations0candidates. ur07-video-evidence-v1/check.json. These are source-developmentreplays, not new NN/TPU or independentaccuracy.
+
+Decision E011 BEFORE nextforward: provisionalpriority07→02→01.07hasrealnativepositive/evidence +existinghardwarepose;02hasindustrialvideo contexts +explainablerulebutmissingmachinedetector/policy;01hasactor-labelledrun/walkdata +posehardwarebutknownR0/upstreammisses andnewrunning_actionunavailable. Others lackaffirmativevideo/GT/qualifiedmodel. This selectsDEVELOPMENTdirections, not3accepteddefense-readyrecognizers; noHelmetautomaticchoice.
+
+OnlyONE E012 fixedupstreamROIablation authorized after8coverage/ranking: fourcamera-fixed60%cornertiles, samefrozen345CAVIARinputs/weights/conf.25/person.5/NMS.45, noGTguidedROI. Predeclaredgate knownrunningunique-matchrecallgain>=.10 ANDwalkingmatchedcount>=baseline11/no recalldrop>.02. PartialGTmeansFPprecision/end-to-endgaitqualitynotqualified. CPU2/CV1/max600s, noGPU/Traininginterference/newweights/compile/LinQ, nosecondvariant. Detectionownsnewexperimentonly. No generaloldbudgetreset.
+
+Qualityengineeringforselected01/02: autoimage-motion nowrequiresdeclaredstaticcamera+provenance; sourcedaction/movingstatefacts separate. Unknowncamera PAN/zoom cannotcreateautomaticmotionPOS.27spatialtestsPASS; no measuredFPgain claimed. SharedTrainingrequests8specs publishedconsumerpointer /workspace/shared/training-handoff/ML_REQUESTS.json REQUEST_ONLY_NO_AUTOSTART; Trainingworktreenotmodified, GMDexportonlynotselected. Allsharednetwork/captainrestrictionspreserved.
+
+
 ## E009 coverage pass1 complete — 2026-10-24T11:19:15.188246+00:00
 
 MEASURED engineering: all8officialgroups puremodules/configs merged; sharedScenarioSuite context uses existingBehaviorEngineONCE, sharedobjectassociation, originalPTS/sourcecamera, sourcedsameframefacts, common observed-duration/UNKNOWN/gap handling, candidateUUID/revision, evidence and SQLiteatomicextension. AdditiveINTERNAL EventCandidate schema; externaleventv1/API unchanged. Newcandidates separate scenario_candidates table, never MarkHTTPsink. Optional --scenario-config enablesexistingvideo pipeline; configfingerprint bindsvideo session, noautomaticenable/weightswap.

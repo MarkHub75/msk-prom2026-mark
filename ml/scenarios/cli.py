@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 import json
+import hashlib
 from pathlib import Path
 import sys
 from ml.behavior import BehaviorEngine
@@ -48,7 +49,8 @@ def replay(source,state_dir,config,*,frame_provider=None):
                 'candidate_revisions':len(candidates),'candidate_episodes':len({e['candidate_id'] for e in candidates}),
                 'scenario_candidate_counts':dict(Counter(e['scenario_id'] for e in candidates if e['revision']==1)),
                 'verdict_counts':dict(Counter(f['scenario_id']+':'+f['verdict'] for f in findings)),
-                'external_event_v1_changed':False}
+                'external_event_v1_changed':False,'suite_sha256':suite.fingerprint,
+                'rule_components_sha256':{key:hashlib.sha256(Path(sys.modules[fn.__module__].__file__).read_bytes()).hexdigest() for key,fn in suite.modules.items()}}
         save_json(root/'scenario-summary.json',result)
         return result
     finally:outbox.close()
@@ -60,10 +62,31 @@ def main():
     parser.add_argument('--config',help='Explicit site suite; default configs have no invented site policies')
     parser.add_argument('--input',help='Existing direct or wrapped ObservationBatch JSONL, not video inference')
     parser.add_argument('--synthetic-scenario',choices=[f'{i:02d}' for i in range(1,9)])
+    parser.add_argument('--synthetic-all',action='store_true',help='One command: all24 labelled positive/negative/unknown rule fixtures, no inference')
     parser.add_argument('--variant',choices=['positive','negative','unknown'],default='positive')
     parser.add_argument('--synthetic-evidence',action='store_true',help='Labelled black test image only; never real-video evidence')
     parser.add_argument('--source-video',help='Optional original video for hash/index/PTS-bound evidence, never triggers inference')
     args=parser.parse_args()
+    if args.synthetic_all:
+        if args.input or args.synthetic_scenario or args.source_video or args.config:parser.error('all-fixture mode cannot accept real inputs or site config')
+        from .fixtures import build_case
+        results=[]
+        def fixture_frame(batch):
+            import numpy as np
+            from PIL import Image,ImageDraw
+            w,h=batch['image_size'];im=Image.new('RGB',(w,h));ImageDraw.Draw(im).text((10,10),'SYNTHETIC RULE TEST - NO VIDEO OR MODEL',fill='white')
+            return np.asarray(im)
+        for identity in (f'{i:02d}' for i in range(1,9)):
+            for variant in ('positive','negative','unknown'):
+                config,source=build_case(identity,variant)
+                result=replay(source,Path(args.state_dir)/(identity+'-'+variant),config,
+                              frame_provider=fixture_frame if args.synthetic_evidence and variant=='positive' else None)
+                own=result['scenario_candidate_counts'].get(identity,0)
+                if bool(own)!=(variant=='positive'):raise ValueError('synthetic acceptance failed')
+                results.append({'scenario_id':identity,'variant':variant,**result})
+        report={'status':'PASS_SYNTHETIC_ONLY','cases':len(results),'new_neural_calls':0,'new_remote_calls':0,'industrial_accuracy':'NOT_EVALUATED','results':results}
+        save_json(Path(args.state_dir)/'coverage-acceptance.json',report)
+        print(json.dumps({k:v for k,v in report.items() if k!='results'}));return
     if bool(args.input)==bool(args.synthetic_scenario):parser.error('choose existing observations OR explicit synthetic scenario')
     provider=None
     if args.synthetic_scenario:

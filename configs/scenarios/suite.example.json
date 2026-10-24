@@ -16,7 +16,9 @@
         "speed_units": "image_diagonals_per_second",
         "speed_threshold": 0.2,
         "max_gap_ms": 750
-      }
+      },
+      "stationary_camera_declared": false,
+      "camera_policy_source": null
     },
     "02": {
       "scenario_id": "02",
@@ -33,7 +35,9 @@
         "units": "body_heights",
         "threshold": 1.0,
         "policy_source": null
-      }
+      },
+      "stationary_camera_declared": false,
+      "camera_policy_source": null
     },
     "03": {
       "scenario_id": "03",
