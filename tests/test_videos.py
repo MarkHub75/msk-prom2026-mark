@@ -194,5 +194,5 @@ async def test_camera_setup_view_shape(
     assert [j.video_id for j in view.jobs] == [ids[1].video.id, ids[0].video.id]
     assert (view.calibration, view.zones, view.broadcast) == (None, [], None)
     rows = {r.scenario: (r.enabled, r.params) for r in view.rules}  # no rows: the defaults
-    assert len(rows) == 10 and rows["running"] == rows["fall"] == (True, {})
+    assert len(rows) == 12 and rows["running"] == rows["fall"] == (True, {})
     assert (await client.get("/api/admin/cameras/999")).status_code == 404

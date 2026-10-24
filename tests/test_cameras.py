@@ -56,7 +56,8 @@ async def test_meta_lists_roles_statuses_zone_kinds(
     assert meta.zone_kinds[0].id == "danger"
     assert [s.id for s in meta.scenarios] == [
         "running", "proximity", "phone", "fall", "fence_crossing", "restricted_under",
-        "fire_smoking", "no_harness", "suspended_load", "load_carrying",
+        "fire_smoking", "no_harness", "suspended_load", "load_carrying", "no_helmet",
+        "no_respirator",
     ]  # fmt: skip
 
 

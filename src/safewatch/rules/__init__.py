@@ -7,6 +7,7 @@ from safewatch.rules.fire import FirePlugin
 from safewatch.rules.harness import HarnessPlugin
 from safewatch.rules.load_carrying import LoadCarryingPlugin
 from safewatch.rules.phone import PhonePlugin
+from safewatch.rules.ppe import HelmetPlugin, RespiratorPlugin
 from safewatch.rules.proximity import ProximityPlugin
 from safewatch.rules.running import RunningPlugin
 from safewatch.rules.suspended_load import SuspendedLoadPlugin
@@ -24,6 +25,8 @@ PLUGINS: list[ScenarioPlugin] = [
     HarnessPlugin(),
     SuspendedLoadPlugin(),
     LoadCarryingPlugin(),
+    HelmetPlugin(),
+    RespiratorPlugin(),
 ]
 ANY_CLASS = {"fire_smoking"}  # one of `required_classes` is enough (tech.md 8.3)
 

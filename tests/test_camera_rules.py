@@ -77,7 +77,8 @@ async def test_rules_screen_view(client: httpx.AsyncClient) -> None:
     view = RulesScreenView.model_validate((await client.get("/api/ohs/rules")).json())
     assert [s.id for s in view.scenarios] == [
         "running", "proximity", "phone", "fall", "fence_crossing", "restricted_under",
-        "fire_smoking", "no_harness", "suspended_load", "load_carrying",
+        "fire_smoking", "no_harness", "suspended_load", "load_carrying", "no_helmet",
+        "no_respirator",
     ]  # fmt: skip
     assert [row.camera.id for row in view.rows] == [first, second]
     cells = {

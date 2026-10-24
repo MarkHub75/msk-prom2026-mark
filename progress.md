@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v5, второй прогон: S19 закрыт, следующий S20
+- state: tech v5, второй прогон: S20 закрыт, следующий R20
 - tech.md: v5
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -48,6 +48,10 @@
 - GAP: S19, тексты `texts.AUTOCAL_FEW = "Мало стоящих людей в кадре: {n} из {need}"`, `AUTOCAL_PERSPECTIVE = "Рост людей не согласуется с перспективой"`, `WHY_SPEED = "Скорость"`, `WHY_SPEED_AUTO = "автокалибровка по росту людей ({n} замеров, точность около ±20 %)"`, `WHY_SPEED_CALIBRATION = "по калибровке камеры"`, `METHOD_TITLES["auto"] = "автокалибровка"`; причина бега при `auto` — прежний `RUN_M` «Бег {v} м/с» (без «≈»).
 - GAP: S19, `CameraSetupView.auto_calibration`: первое видео `status = ready` с `active_analysis_id` в порядке `store.videos` (новые первыми); `services._autocal(analysis_id) -> AutoCalibration | None` — `None` без анализа и при `autocal_json IS NULL`.
 - R20: автокалибровка считает замером каждую детекцию каждого кадра: `min_samples = 30` — это 3 с одного человека при 10 кадр/с, а не 30 людей; камера без перспективы (все в одной строке) получает «не согласуется с перспективой», хотя рост постоянен.
+- GAP: S20, тексты `texts.NO_HELMET = "Без каски в зоне «{zone}»"`, `NO_RESPIRATOR = "Без респиратора в зоне «{zone}»"` (имя первой зоны под `anchor`), `SCENARIO_DESCRIPTIONS["no_helmet"] = "Человек без каски в зоне, где каска обязательна."`, `["no_respirator"] = "Человек без респиратора в зоне, где респиратор обязателен."`, `PARAM_TITLES["head_frac"] = ("Верхняя доля рамки человека (голова)", "")`; параметры обоих плагинов: `hold_s` 0..60, `head_frac` 0..1, `min_person_px` 0..2000; `reason_code` P — id сценария, U — `too_small`, `head_unseen`, `owner_ambiguous`.
+- GAP: S20, порядок проверок `rules.ppe`: `anchor` вне зоны → `N` (рост не проверяется); рост `< min_person_px` → `U too_small`; `no_<сиз>` у головы `ambiguous` → `U owner_ambiguous`; `no_<сиз>` привязан → `P` (даже если к той же голове привязан и `<сиз>`); `<сиз>` `ambiguous` → `U owner_ambiguous`; `<сиз>` привязан → `N`; иначе `U head_unseen`; `explain` — «{reason_text} дольше {hold_s} с» и `why_common`.
+- R20: `no_helmet` даёт `P`, когда к одной голове привязаны и `helmet`, и `no_helmet` (модель колеблется между классами): возможен ложный жёлтый; голова — верхняя доля рамки без позы, у наклонённого или сидящего человека объект может уйти ниже `head_frac` (`head_unseen`).
+- R20: модели с классами `respirator`/`no_respirator` нет ни у Матвея, ни в реестре: `no_respirator` всегда `model_missing`, пока не появится extra-модель.
 
 ## log
 
@@ -228,6 +232,13 @@
 - проверено вживую: нет (S19 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_autocal.py`: `CAL` (готовая `AutoCalibration`, `h = 50 + 0,4·y`), `_people(n, a, b, rows, jitter)`, `_fit(dets, **autocal)`, `_walk(calibrators)` (кадр 1600×900, идущий 2,9 м/с + 8 стоящих), `_draft(method, metrics)`; тесты сцен с людьми на разных строках теперь могут уйти в `auto` (м/с, порог `speed_m_s`).
+
+### S20: ppe (2026-10-24, PR #26, tech v5)
+- отклонения: правлены файлы вне списка слайса: `tests/test_cameras.py`, `tests/test_camera_rules.py` (в списке сценариев два новых), `tests/test_videos.py` (12 правил камеры), `tests/test_system.py` (в реестре 5 моделей); `config/default.yaml` не менялся (секции `scenarios.no_helmet`, `no_respirator`, `class_conf` и типы зон положил S16).
+- решения вне контракта: строки `GAP: S20` в `## open`; записи Матвея перенесены из 6.11.8 дословно (ключи `classes` целые, в `ml/models.matvey.yaml` ветки `matvey_cv` — строки); `config/user.matvey.example.yaml` не читается `get_settings()` (только `default`, `user.example`, `user`); мутации (10.3, 2 шт.): верхняя граница головы `cy <=` → `cy <` в `head_objects` — ловят `test_head_unseen_unknown`, `test_respirator_rows`; `too_small` `<` → `<=` — ловят `test_head_unseen_unknown`, `test_ambiguous_and_small`, `test_respirator_rows`; обе откачены.
+- проверено вживую: нет (S20 без LinQ) | не проверено: LinQ Jupyter; критерий 6 — не проверено: файлов `models/matvey/` на диске нет (`doctor` и `eval` на `local` не запускались).
+- [проверить]: нет
+- следующему: `tests/test_rule_ppe.py`: `item(name, cx, cy)` (объект 16×16), `observe(scenario, people, objects, zones, **params)`, `held(scenario, worn, kind, until_ms)` (эпизод с удержанием), `check_rows(...)` (все строки 8.22 одного плагина), `HELMET`/`POSE` — ссылки моделей Матвея; `test_helmet_model_activates_plugin` прогоняет `analyze` с кадрами каски как extra.
 
 ## night
 

@@ -4,6 +4,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
+import yaml
 from pydantic import ValidationError
 
 from safewatch import config, registry
@@ -100,3 +101,41 @@ def test_v5_sections_load(config_dir: Path) -> None:
     get_settings.cache_clear()
     with pytest.raises(ValidationError, match="crff"):
         get_settings()
+
+
+def test_matvey_models_resolve(settings: Settings, monkeypatch: pytest.MonkeyPatch) -> None:
+    from safewatch import doctor
+
+    models = registry.load_models(registry.MODELS_FILE)
+    assert [f"{m.id}@{m.version}" for m in models[:3]] == [
+        "det-yolov8n@640-ap9999",
+        "det-yolov8n@960-ap9999",
+        "pose-yolov8n@640-ap9999",
+    ]  # the existing entries stay first and unchanged
+    example = yaml.safe_load((config.CONFIG_DIR / "user.matvey.example.yaml").read_text("utf-8"))
+    pose = registry.resolve(example["pipeline"]["pose"])
+    (helmet,) = [registry.resolve(ref) for ref in example["pipeline"]["extra"]]
+    assert (pose.task, pose.classes, pose.linq_program) == (
+        "pose",
+        {0: "person"},
+        "mosprom_matvey_pose_yolov8n_640-v1-acc5f51228b9.tpu",
+    )
+    assert (helmet.task, helmet.classes, helmet.linq_program) == (
+        "detect",
+        {0: "helmet", 1: "no_helmet"},
+        "mosprom_matvey_helmet_yolov8n_640-v1-5c3af1f3b855.tpu",
+    )
+    assert settings.pipeline.pose == "pose-yolov8n@640-ap9999"  # default.yaml is not switched
+    matvey = settings.model_copy(
+        update={
+            "inference_backend": "local",
+            "pipeline": settings.pipeline.model_copy(update=example["pipeline"]),
+        }
+    )
+    assert "no_helmet" in registry.active_classes(matvey)
+    monkeypatch.setattr(doctor, "ROOT", settings.data_dir)  # no models/matvey files there
+    checks = {c.what: c for c in doctor._checks(matvey)}
+    for ref in (example["pipeline"]["pose"], *example["pipeline"]["extra"]):
+        check = checks[f"модель {ref}"]
+        assert (check.result, check.ok) == ("нет файла", False)
+        assert check.hint.startswith("models/matvey/")
