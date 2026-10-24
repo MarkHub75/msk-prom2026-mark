@@ -5,6 +5,7 @@ from pathlib import Path
 
 import psutil
 import pytest
+import test_plugin_status
 import yaml
 from test_analysis_api import _camera, _textured
 from test_jobs import _tune
@@ -17,6 +18,7 @@ from safewatch.inference.linq import LinqBackend
 from safewatch.types import CameraRuleIn, EpisodeDraft, EvalMetrics, EvalReport, ExpectedEvent
 
 FALL = ExpectedEvent(scenario="fall", start_s=12.0, end_s=30.0)
+extra_registry = test_plugin_status.extra_registry  # the fixture: a registry with fire-test@1
 
 
 def episode(confirm_s: float, scenario: str = "fall") -> EpisodeDraft:
@@ -274,3 +276,19 @@ def test_eval_pose_fallback(
     assert tasks == ["detect"]  # no keypoints were stored
     assert row(report.rows, "running").episodes > 0
     assert (tmp_path / "out" / "report.md").is_file()
+
+
+def test_eval_extra_fallback(
+    core: Settings, tmp_path: Path, extra_registry: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """R30: an extra model failing in eval → the analysis without it, like a job (8.30 item 10)."""
+    _tune(monkeypatch, core, pipeline={"extra": ["fire-test@1"]})
+    video = _textured(tmp_path / "demo.mp4")
+    expected = [{"scenario": "fall", "start_s": 0.0, "end_s": 20.0}]
+    labels = labels_file(tmp_path, {"videos": [{"path": str(video), "expected": expected}]})
+    fake = shell(monkeypatch, [None, "remote_error", None])  # only the extra model stops
+    report = services.eval_run(labels, tmp_path / "out")
+    assert fake.calls.count("start") == 3  # detector, extra, pose
+    models = [r["model_id"] for r in store.all("SELECT model_id FROM artifacts ORDER BY id")]
+    assert models == ["det-yolov8n", "pose-yolov8n"]
+    assert row(report.rows, "running").episodes > 0

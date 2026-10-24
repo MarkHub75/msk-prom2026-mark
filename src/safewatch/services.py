@@ -2604,7 +2604,13 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     extra = []
     for ref in settings.pipeline.extra:
         model = registry.resolve(ref)
-        extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        try:
+            extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output", "model_missing"):
+                raise
+            # Like a job (tech.md 8.30 item 10): its scenarios are model_missing in this analysis.
+            log.warning("eval: %s, extra %s: %s", path.name, ref, exc.message)
     pose = None
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
