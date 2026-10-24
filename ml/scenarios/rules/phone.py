@@ -9,6 +9,7 @@ def evaluate(context,config):
         key=person['track_key']
         def emit(verdict,reason,score=None,attributes=None):
             out.append(finding('03','phone_use_during_activity',key,verdict,reason,score,attributes))
+        if person['score']<minimum:emit('UNKNOWN','person_detection_below_evidence_score');continue
         if not covered(context,config.get('phone_class','phone')):
             emit('BLOCKED','phone_detector_coverage_unavailable');continue
         def observed(name):

@@ -22,6 +22,7 @@ def evaluate(context,config):
             smoking=subrule.startswith('smoking')
             if not smoking and target.get('class_name') in ('steam','smoke'):emit('UNKNOWN','steam_or_smoke_is_not_open_flame');continue
             if not smoking and target.get('object_key')=='scene':emit('NEGATIVE','complete_flame_coverage_no_flame');continue
+            if target.get('score',0)<minimum:emit('UNKNOWN','activity_detection_below_evidence_score');continue
             evidence=observed(key,'smoking_observed' if smoking else 'open_flame_observed')
             if evidence and evidence['value'] is False:emit('NEGATIVE','sourced_activity_negative');continue
             if not evidence or evidence['value'] is not True:emit('UNKNOWN','positive_viewable_activity_evidence_required');continue
@@ -36,5 +37,7 @@ def evaluate(context,config):
                 location=center(target['bbox_xyxy'])
             if location is None:emit('UNKNOWN','activity_location_not_viewable');continue
             allowed=any(inside(location,p) for p in config[zones_key])
-            emit('NEGATIVE' if allowed else 'POSITIVE','inside_explicit_allowed_zone' if allowed else 'observed_activity_outside_explicit_allowed_zones',float(min(evidence['score'],target.get('score',1))),{'location':list(location),'policy_source':config['policy_source'],'prototype_policy':True})
+            evidence_scores=[evidence['score'],target.get('score',1)]
+            evidence_scores += [own['score'],gesture['score'],cigarettes[0]['score']] if smoking else [clarity['score']]
+            emit('NEGATIVE' if allowed else 'POSITIVE','inside_explicit_allowed_zone' if allowed else 'observed_activity_outside_explicit_allowed_zones',float(min(evidence_scores)),{'location':list(location),'policy_source':config['policy_source'],'prototype_policy':True})
     return out

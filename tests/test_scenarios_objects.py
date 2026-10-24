@@ -38,7 +38,7 @@ class ObjectScenarioTests(unittest.TestCase):
     def test_phone_explicit_negative_activity(self):
         c=context(values=[('p','moving_observed',False),('p','operating_equipment',False)])
         self.assertEqual(phone.evaluate(c,config('03'))[0]['verdict'],'NEGATIVE')
-    def fire_config(self):return dict(config('04'),policy_declared=True,policy_source='synthetic_site_policy',allowed_fire_zones=OUTSIDE and [OUTSIDE],allowed_smoking_zones=[OUTSIDE])
+    def fire_config(self):return dict(config('04'),policy_declared=True,policy_source='synthetic_site_policy',allowed_fire_zones=[OUTSIDE],allowed_smoking_zones=[OUTSIDE])
     def test_fire_distinct_positive_allowed_negative_steam_unknown(self):
         values=[('flame1','open_flame_observed',True),('flame1','flame_not_steam_or_reflection',True)]
         c=context([obj('flame','flame1')],values);cfg=self.fire_config()
@@ -78,6 +78,16 @@ class ObjectScenarioTests(unittest.TestCase):
         self.assertEqual(cargo.evaluate(c,cfg)[0]['verdict'],'POSITIVE')
         c['batch']['scenario_context']['facts'][-1]['value']=False;self.assertEqual(cargo.evaluate(c,cfg)[0]['verdict'],'NEGATIVE')
         self.assertEqual(cargo.evaluate(self.cargo_context(),cfg)[0]['verdict'],'UNKNOWN')
+    def test_low_score_and_unviewable_phone_cannot_confirm(self):
+        c=context([obj('phone','phone1')],[('p','moving_observed',True),('p','phone_use_observed',True),('p','phone_object_key','phone1')])
+        c['people'][0]['keypoints']=None;self.assertEqual(phone.evaluate(c,config('03'))[0]['verdict'],'UNKNOWN')
+        c=context([obj('flame','fire')],[('fire','open_flame_observed',True),('fire','flame_not_steam_or_reflection',True)])
+        c['objects'][0]['score']=.1;self.assertEqual(fire_smoking.evaluate(c,self.fire_config())[0]['verdict'],'UNKNOWN')
+    def test_rules_are_pure_and_outputs_do_not_depend_on_legacy_event_mutations(self):
+        c=context();before=copy.deepcopy(c)
+        for module,n in [(phone,'03'),(fire_smoking,'04'),(height,'06'),(cargo,'08')]:
+            cfg=config(n);cfg_before=copy.deepcopy(cfg);first=module.evaluate(c,cfg)
+            self.assertEqual(c,before);self.assertEqual(cfg,cfg_before);self.assertEqual(first,module.evaluate(c,cfg))
     def test_all_findings_exact_contract(self):
         for module,n in [(phone,'03'),(fire_smoking,'04'),(height,'06'),(cargo,'08')]:
             for finding in module.evaluate(context(),config(n)):

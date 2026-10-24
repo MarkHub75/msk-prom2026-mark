@@ -7,6 +7,7 @@ def evaluate(context,config):
     for person in context['people']:
         key=person['track_key']
         def emit(v,r,s=None,a=None):out.append(finding('06','work_at_height_without_harness',key,v,r,s,a))
+        if person['score']<minimum:emit('UNKNOWN','person_detection_below_evidence_score');continue
         if config.get('height_policy_declared') is not True or not config.get('height_zone_source') or not config.get('elevated_work_zones'):
             emit('BLOCKED','elevated_work_area_not_declared');continue
         location=foot(person,min_score=minimum)
@@ -22,6 +23,8 @@ def evaluate(context,config):
         if not state and not absent:
             emit('UNKNOWN' if covered(context,config.get('harness_class','harness')) else 'BLOCKED','harness_absence_is_not_a_detection');continue
         if not visibility or visibility['value'] is not True:emit('UNKNOWN','harness_area_not_observable');continue
+        if state and state['value']=='absent' and absent and absent['value'] is False:
+            emit('UNKNOWN','conflicting_harness_facts');continue
         present=state and state['value']=='present';missing=state and state['value']=='absent' or absent and absent['value'] is True
         if present and missing:emit('UNKNOWN','conflicting_harness_facts');continue
         if present:emit('NEGATIVE','positively_observed_harness_present',float(state['score']));continue

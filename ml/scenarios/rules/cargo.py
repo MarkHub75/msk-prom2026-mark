@@ -8,6 +8,7 @@ def evaluate(context,config):
     for person in context['people']:
         key=person['track_key']
         def emit(v,r,s=None,a=None):out.append(finding('08','unsafe_cargo_carrying',key,v,r,s,a))
+        if person['score']<minimum:emit('UNKNOWN','person_detection_below_evidence_score');continue
         if config.get('cargo_policy_declared') is not True or not config.get('policy_source') or not (zones or face_rule):
             emit('BLOCKED','explicit_observable_carrying_policy_required');continue
         if not covered(context,config.get('cargo_class','cargo')):emit('BLOCKED','cargo_detector_coverage_unavailable');continue
