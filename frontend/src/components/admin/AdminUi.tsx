@@ -1,4 +1,5 @@
 import { useEffect, useRef, type FormEvent, type ReactNode } from "react";
+import { useLevelTitle } from "../ops/levels";
 import { CircleAlert, CircleCheck, CircleSlash, Octagon, TriangleAlert, X } from "lucide-react";
 import type { ApiFailure } from "../../api/client";
 import type { CameraState } from "../../api/types";
@@ -51,8 +52,9 @@ const STATE: Record<CameraState["state"], { title: string; icon: ReactNode }> = 
   no_observation: { title: "Нет наблюдения", icon: <CircleSlash size={14} strokeWidth={1.75} /> },
 };
 export function StateBadge({ state, reason }: { state: CameraState["state"]; reason?: string }) {
-  const s = STATE[state];
-  return <span className={`adm-state adm-state-${state}`} title={reason || s.title}>{s.icon}<b>{s.title}</b>{reason && state !== "normal" && <em>{reason}</em>}</span>;
+  const s = STATE[state]; const levelTitle = useLevelTitle();
+  const title = state === "red" || state === "yellow" ? levelTitle(state) : s.title;
+  return <span className={`adm-state adm-state-${state}`} title={reason || title}>{s.icon}<b>{title}</b>{reason && state !== "normal" && <em>{reason}</em>}</span>;
 }
 
 export function Bar({ value, tone = "accent", label }: { value: number; tone?: "accent" | "red" | "ok"; label: string }) {

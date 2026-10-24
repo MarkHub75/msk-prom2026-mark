@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useLevelTitle } from "../components/ops/levels";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Check, Clock, Copy, Cpu, Footprints, MapPin, MessageSquareText, ShieldAlert, Timer } from "lucide-react";
 import { api } from "../api/client";
@@ -231,9 +232,9 @@ function MasterIncident({ detail, state }: { detail: EventDetail; state: ReturnT
 export function IncidentPage({ master = false }: { master?: boolean }) {
   const { eventId } = useParams(); const id = Number(eventId); const [role] = useRole();
   const state = useEventDetail(id); const detail = state.detail; const event = detail?.event;
-  const isMaster = master || role === "master";
+  const isMaster = master || role === "master"; const levelTitle = useLevelTitle();
   const back = isMaster ? <Link className="mobile-back ms-back" to="/master"><ArrowLeft {...IC} />К поручениям{event && <span className="mono">#{event.id}</span>}</Link>
-    : <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${event.level === "red" ? "Красная" : "Жёлтая"} · ${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
+    : <header className="od-bar"><Link className="od-back" to="/operator"><ArrowLeft {...IC} />Диспетчерская</Link>{event ? <><Link className="ic-crumb" to={`/operator/sectors/${event.sector_id}`}>{number(event.sector_id)} · {event.sector_name.replace(/^Сектор\s+\d+\s*·\s*/, "")}</Link><span className="ic-sep">/</span><Link className="ic-crumb" to={`/operator/cameras/${event.camera_id}`}>{event.camera_name}</Link><h1><span className="od-num">#{event.id}</span>{event.title}</h1><StateBadge state={event.level} text={`${levelTitle(event.level)} · ${time(event.started_at)}`} /></> : <h1>Событие #{id}</h1>}<span className="od-bar-spacer" /><button className="button button-small" onClick={state.reload} disabled={state.loading}>Обновить</button></header>;
   if (!event || !detail) return <div className={isMaster ? "ms-page" : "od-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>{back}{state.error ? <ErrorNotice error={state.error} retry={state.reload} /> : <Loading text="Загружаем событие и доступные действия" />}</div>;
   return <div className={isMaster ? "ms-page master-detail" : "od-page ic-page"} data-testid={isMaster ? "master-detail" : "incident-focus"}>
     {back}

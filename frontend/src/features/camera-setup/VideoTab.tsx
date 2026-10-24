@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type DragEvent } from "react";
+import { useLevelTitle } from "../../components/ops/levels";
 import { CircleCheck, CircleX, Clock, Film, LoaderCircle, Octagon, RefreshCw, RotateCw, TriangleAlert, Upload, X } from "lucide-react";
 import { api, apiError, type ApiFailure } from "../../api/client";
 import type { Analysis, Camera, Episode, Job, Video } from "../../api/types";
@@ -123,6 +124,7 @@ function EpisodeTimeline({ episodes, durationMs, onSeek }: { episodes: Episode[]
 }
 
 function Episodes({ video, analysis, onSeek, onJob, onChange }: { video: Video; analysis: ApiState<Analysis>; onSeek: (ms: number) => void; onJob: (job: Job) => void; onChange: () => void }) {
+  const levelTitle = useLevelTitle();
   const [error, setError] = useState<ApiFailure>();
   const [busy, setBusy] = useState(false);
   const recompute = async () => {
@@ -145,7 +147,7 @@ function Episodes({ video, analysis, onSeek, onJob, onChange }: { video: Video; 
       : <>
         <EpisodeTimeline episodes={data.episodes} durationMs={data.duration_ms} onSeek={onSeek} />
         <ol className="adm-ep-list">{data.episodes.map((e) => <li key={e.id}><button type="button" onClick={() => onSeek(e.confirm_ms)}>
-          <span className={`adm-lvl adm-lvl-${e.level_max}`}>{e.level_max === "red" ? <Octagon size={13} strokeWidth={1.75} /> : <TriangleAlert size={13} strokeWidth={1.75} />}{e.level_max === "red" ? "Красный" : "Жёлтый"}</span>
+          <span className={`adm-lvl adm-lvl-${e.level_max}`}>{e.level_max === "red" ? <Octagon size={13} strokeWidth={1.75} /> : <TriangleAlert size={13} strokeWidth={1.75} />}{levelTitle(e.level_max)}</span>
           <b>{e.scenario_title}</b>
           <span className="adm-tc">{duration(e.start_ms)}–{duration(e.end_ms)}</span>
           <span className="adm-muted adm-ellipsis">{e.reason_text}</span>

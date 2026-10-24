@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useLevelTitle } from "../components/ops/levels";
 import { Link } from "react-router-dom";
 import {
   AlertTriangle, Ban, Bell, Check, CircleCheck, CircleDashed, CircleHelp, CircleX, Cpu, Eye, EyeOff, Hourglass,
@@ -349,13 +350,14 @@ const CAM_STATE: Record<CameraState["state"], { label: string; tone: Tone; icon:
   no_observation: { label: "Нет наблюдения", tone: "idle", icon: EyeOff },
 };
 function FreshnessPanel({ cameras, names }: { cameras: CameraState[]; names: Names }) {
+  const level = useLevelTitle();
   return <section className="ops-panel" data-panel="Свежесть анализа по камерам">
     {cameras.length ? <table className="ops-table">
       <thead><tr><th>Камера</th><th>Сектор</th><th>Состояние</th><th className="num">Свежесть</th><th className="num">Открыто ▲ / ■</th></tr></thead>
       <tbody>{cameras.map(c => { const s = CAM_STATE[c.state]; return <tr key={c.camera_id}>
         <td><Link to={`/operator/cameras/${c.camera_id}`}>{names.camera.get(c.camera_id) ?? `Камера ${c.camera_id}`}</Link></td>
         <td className="ops-muted">{names.sector.get(c.sector_id) ?? `Сектор ${c.sector_id}`}</td>
-        <td><Chip tone={s.tone} icon={s.icon}>{c.state === "no_observation" ? c.reason_text : s.label}</Chip></td>
+        <td><Chip tone={s.tone} icon={s.icon}>{c.state === "no_observation" ? c.reason_text : c.state === "red" || c.state === "yellow" ? level(c.state) : s.label}</Chip></td>
         <td className="num mono">{c.freshness_ms === null ? "—" : c.freshness_ms < 1000 ? `${num(c.freshness_ms, 0)} мс` : `${num(c.freshness_ms / 1000, 1)} с`}</td>
         <td className="num mono"><span className="ops-text-warn">{c.open_yellow}</span> / <span className="ops-text-bad">{c.open_red}</span></td>
       </tr>; })}</tbody>
@@ -365,11 +367,12 @@ function FreshnessPanel({ cameras, names }: { cameras: CameraState[]; names: Nam
 }
 
 function ChannelsPanel({ channels }: { channels: Schemas["Channel"][] }) {
+  const level = useLevelTitle();
   return <section className="ops-panel" data-panel="Каналы доставки">
     {channels.length ? <ul className="ops-channels">{channels.map(c => <li key={`${c.kind}:${c.name}`}>
       {c.kind === "ws" ? <Wifi size={16} strokeWidth={SW} aria-hidden="true" /> : <Webhook size={16} strokeWidth={SW} aria-hidden="true" />}
       <div><strong>{c.name}</strong><span className="mono">{c.kind === "ws" ? "WebSocket" : "Webhook"} · {c.target}</span></div>
-      <span className="ops-ch-levels">{c.levels.map(l => <span key={l} className={`ops-level ops-level-${l}`}>{l === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{l === "red" ? "Красный" : "Жёлтый"}</span>)}</span>
+      <span className="ops-ch-levels">{c.levels.map(l => <span key={l} className={`ops-level ops-level-${l}`}>{l === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{level(l)}</span>)}</span>
     </li>)}</ul> : <div className="ops-empty-block"><CircleDashed size={22} strokeWidth={1.5} aria-hidden="true" /><p><b>Внешние каналы не настроены.</b> Уведомления получают только открытые экраны по WebSocket.</p></div>}
     <p className="ops-small ops-muted ops-pad"><Ban size={12} strokeWidth={SW} aria-hidden="true" /> Адреса показаны без секретов: только хост.</p>
   </section>;

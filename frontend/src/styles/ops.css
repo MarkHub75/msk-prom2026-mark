@@ -70,12 +70,12 @@
 .ops-matrix th, .ops-matrix td { border-bottom: 1px solid var(--line-soft); border-right: 1px solid var(--line-soft); padding: 0; }
 .ops-matrix thead th, .ops-matrix thead td { position: sticky; background: var(--panel-head, #2a2a2a); z-index: 2; }
 .ops-matrix thead tr:first-child th { top: 0; }
-.ops-matrix thead tr.ops-col-bulk > * { top: 92px; background: #262626; }
+.ops-matrix thead tr.ops-col-bulk > * { top: 112px; background: #262626; }
 .ops-matrix-corner { width: 240px; text-align: left; vertical-align: bottom; padding: 8px 10px !important; font-weight: 500; color: var(--muted); left: 0; z-index: 3 !important; }
 .ops-matrix-tail { width: 92px; color: var(--muted); font-weight: 500; vertical-align: bottom; padding: 8px 6px !important; font-size: 11.5px; }
-.ops-sc-head { height: 92px; vertical-align: top; }
+.ops-sc-head { height: 112px; vertical-align: top; }
 .ops-sc-pick {
-  all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 4px; width: 100%; height: 92px;
+  all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 4px; width: 100%; height: 112px;
   padding: 7px 7px 6px; color: var(--text);
 }
 .ops-sc-pick:hover { background: #313131; }

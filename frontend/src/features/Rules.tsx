@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from "react";
+import { useLevelTitle } from "../components/ops/levels";
 import { Link } from "react-router-dom";
 import {
   AlertTriangle, ArrowDownToLine, Ban, CircleCheck, CircleDashed, CircleHelp, Construction, Fence, Flame, Footprints,
@@ -28,14 +29,14 @@ export const STATUS_LABEL: Record<ScenarioStatus, string> = {
   active: "Работает", model_missing: "Модель не подключена", skeleton: "Сценарий уточняется",
 };
 const STATUS_ICON: Record<ScenarioStatus, LucideIcon> = { active: CircleCheck, model_missing: Ban, skeleton: Construction };
-const LEVEL_SHORT: Record<Level, string> = { yellow: "Жёлтый", red: "Красный" };
 
 export function ScenarioIcon({ icon, size = 16 }: { icon: string; size?: number }) {
   const I = SCENARIO_ICON[icon] ?? CircleHelp;
   return <I size={size} strokeWidth={SW} aria-hidden="true" className={icon === "fall" ? "ops-icon-fall" : undefined} />;
 }
 function LevelMark({ level }: { level: Level }) {
-  return <span className={`ops-level ops-level-${level}`}>{level === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{LEVEL_SHORT[level]}</span>;
+  const title = useLevelTitle();
+  return <span className={`ops-level ops-level-${level}`}>{level === "red" ? <Square size={9} strokeWidth={0} fill="currentColor" aria-hidden="true" /> : <AlertTriangle size={10} strokeWidth={2.2} aria-hidden="true" />}{title(level)}</span>;
 }
 export function ScenarioState({ status, text }: { status: ScenarioStatus; text?: string }) {
   const I = STATUS_ICON[status];

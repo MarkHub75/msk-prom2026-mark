@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useState, type ReactNode, type RefObject } from "react";
+import { useLevelTitle } from "../ops/levels";
 import { createPortal } from "react-dom";
 import { CircleCheck, EyeOff, OctagonAlert, TriangleAlert } from "lucide-react";
 import type { Calibration, CameraState, Episode, Meta, Zone } from "../../api/types";
@@ -13,10 +14,12 @@ export function StateIcon({ state, size = 15 }: { state: State; size?: number })
   return state === "red" ? <OctagonAlert {...props} /> : state === "yellow" ? <TriangleAlert {...props} /> : state === "normal" ? <CircleCheck {...props} /> : <EyeOff {...props} />;
 }
 export function StateBadge({ state, text }: { state: State; text?: string }) {
-  return <span className={`od-state od-state-${state}`}><StateIcon state={state} />{text ?? STATE_TITLE[state]}</span>;
+  const levelTitle = useLevelTitle();
+  return <span className={`od-state od-state-${state}`}><StateIcon state={state} />{text ?? (state === "red" || state === "yellow" ? levelTitle(state) : STATE_TITLE[state])}</span>;
 }
 export function LevelTag({ level, title }: { level: "red" | "yellow"; title?: string }) {
-  return <span className={`od-level od-level-${level}`}><StateIcon state={level} size={14} />{title ?? (level === "red" ? "Красная" : "Жёлтая")}</span>;
+  const levelTitle = useLevelTitle();
+  return <span className={`od-level od-level-${level}`}><StateIcon state={level} size={14} />{title ?? levelTitle(level)}</span>;
 }
 
 export const END_REASON: Record<Episode["end_reason"], string> = { observed_exit: "Человек вышел из ситуации", track_lost_timeout: "Трек потерян, ожидание истекло", video_end: "Запись закончилась" };

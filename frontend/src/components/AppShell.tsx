@@ -133,8 +133,8 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (message.type === "notification" && message.data.audience.includes(role)) {
       const n = message.data;
       if (role === "operator" && n.takeover && n.level === "red") {
-        // Full takeover only from the dispatcher; elsewhere a pinned alarm bar, one per event.
-        if (location.pathname === "/operator") { sound.beep(n.sound); navigate(`/events/${n.event_id}?takeover=1`); return; }
+        // tech.md 8.8: a red notification takes over the dispatcher and an open event card; sector and camera views get the bar.
+        if (location.pathname === "/operator" || location.pathname.startsWith("/events/")) { sound.beep(n.sound); navigate(`/events/${n.event_id}?takeover=1`); return; }
         if (location.pathname === `/events/${n.event_id}` || alarm?.eventId === n.event_id || dismissedAlarms.current.has(n.event_id)) return;
         sound.beep(n.sound);
         setAlarm({ eventId: n.event_id, text: n.text, received: Date.now(), collapsed: false });

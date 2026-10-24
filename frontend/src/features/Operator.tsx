@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLevelTitle } from "../components/ops/levels";
 import { Link } from "react-router-dom";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
@@ -17,7 +18,8 @@ export function shortCamera(name: string) { return name.replace(/^Камера\s
 const STATE_TITLE: Record<SectorState["state"], string> = { red: "Тревога", yellow: "Внимание", normal: "Норма", no_observation: "Нет наблюдения" };
 
 function StateChip({ state, text }: { state: SectorState["state"]; text?: string }) {
-  return <span className={`cr-chip cr-chip-${state}`}><i />{text ?? STATE_TITLE[state]}</span>;
+  const levelTitle = useLevelTitle();
+  return <span className={`cr-chip cr-chip-${state}`}><i />{text ?? (state === "red" || state === "yellow" ? levelTitle(state) : STATE_TITLE[state])}</span>;
 }
 
 /** Main camera of the wall: live replay with HUD when the backend has it, otherwise the latest still. */

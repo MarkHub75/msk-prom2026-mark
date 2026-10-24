@@ -1,4 +1,5 @@
 import { PRODUCT } from "../brand";
+import { useLevelTitle } from "../components/ops/levels";
 import { Link, useSearchParams } from "react-router-dom";
 import { api } from "../api/client";
 import type { EventSummary } from "../api/types";
@@ -47,6 +48,7 @@ function Breakdown({ title, rows }: { title: string; rows: ReturnType<typeof cou
 }
 
 export function ReportPage() {
+  const levelTitle = useLevelTitle();
   const [search] = useSearchParams();
   const meta = useMeta();
   const report = useApi(() => loadAll(search), [search.toString()]);
@@ -100,7 +102,7 @@ export function ReportPage() {
     </div>
     <section className="rp-block"><h2>События</h2>
       <table className="rp-table"><thead><tr><th>№</th><th>Дата и время</th><th>Событие</th><th>Причина</th><th>Место</th><th>Уровень</th><th>Состояние</th></tr></thead>
-        <tbody>{items.map(e => <tr key={e.id}><td>{e.id}</td><td>{dateTime.format(new Date(e.started_at))}</td><td>{e.title}</td><td>{e.reason_text}</td><td>{e.sector_name}<br /><small>{e.camera_name}{e.zone_name ? ` · ${e.zone_name}` : ""}</small></td><td>{e.level === "red" ? "Красный" : "Жёлтый"}</td><td>{statusTitle(e)}</td></tr>)}</tbody></table>
+        <tbody>{items.map(e => <tr key={e.id}><td>{e.id}</td><td>{dateTime.format(new Date(e.started_at))}</td><td>{e.title}</td><td>{e.reason_text}</td><td>{e.sector_name}<br /><small>{e.camera_name}{e.zone_name ? ` · ${e.zone_name}` : ""}</small></td><td>{levelTitle(e.level)}</td><td>{statusTitle(e)}</td></tr>)}</tbody></table>
     </section>
     <footer className="rp-foot">Источник: журнал событий {PRODUCT}, фильтр как в журнале на момент формирования. Время начала события — по Москве. Последнее обновление данных: {time(new Date().toISOString())}.</footer>
   </article>;
