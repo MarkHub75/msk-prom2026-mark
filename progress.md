@@ -1,6 +1,6 @@
 # progress.md
 
-- state: tech v5, второй прогон: очередь раздела 16 с S16
+- state: tech v5, второй прогон: S16 закрыт, следующий S17
 - tech.md: v5
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -29,6 +29,7 @@
 - долг: S11, `services._freshness` читает `hud.jsonl` анализа один раз в потоке event loop (потом кэш `_frames_ts`). Перенесено из R15: чтение разовое (10 мин при 10 кадр/с — 6000 строк, миллисекунды), `to_thread` требует асинхронных `camera_states` во всех экранах.
 - долг: S14, CLI `eval` при запущенном сервере пишет `artifacts` в ту же базу вторым процессом (WAL, `busy_timeout = 1000`; `database is locked` при долгой записи сервера не проверен); `eval_run` синхронный (`asyncio.run`) и из API не вызывается; любая `InferenceError`, в том числе pose, → exit 4 без отката на анализ без pose (6.10). Перенесено из R15: владелец запускает `safewatch eval` при остановленном сервере.
 - долг: S15, очередь доставок `_deliveries` живёт в памяти: доставки, поставленные перед остановкой сервера, теряются; уровень канала берётся на момент `deliveries_flush` (жёлтое, эскалированное в окне одного `broadcast.tick_ms`, уходит `published` уже красным); две записи `delivery.webhooks` с одним `name` делят ключ `webhook:<name>`, вторая не получает ничего. Перенесено из R15: очередь в базе — новая схема; владельцу — уникальные имена webhook в `config/user.yaml`.
+- владелец: передать Егору: контракт 1.1.0 — маршруты `GET /api/demo/packs`, `GET /api/calculator/defaults`, `POST /api/calculator/rollout`, `POST /api/calculator/scale`, `GET /api/datasets/false-alarms`, `GET /api/datasets/false-alarms/export.zip`, `PATCH /api/events/{event_id}/identity`, `GET /api/stats/people`, `GET /api/cameras/{camera_id}/passport`, `GET /api/master/shift.pdf` (до своего слайса отвечают 501); поля `Video.web_playable`, `Job.status_text`/`eta_s`/`rate_fps`, `EventSummary.clip`/`person_name`/`person_position`/`crew`, `EventDetail.can_identify`, `Analysis.auto_calibration`, `CameraSetupView.auto_calibration`, `HudObject.projection`, `Delivery.delivered_at`/`status_text`, `ModelSpec.nc`/`input_name`, `Channel.kind` + `call`, `LogAction` + `identified`; `meta.product_name = Argus`, 3 новых типа зон (`helmet_required`, `respirator_required`, `walkway`); файл `contract/openapi.json`, снимок 1.0.0 — `contract/openapi.1.0.0.json`.
 
 ## log
 
@@ -181,6 +182,13 @@
 - готово к демо (`SAFEWATCH_FAKE=1` или `local`): камеры и секторы, загрузка и обработка видео, трекинг и HUD, сценарии на классах COCO (бег, падение, зоны, техника, телефон; огонь и курение, привязь, груз ждут дообученных моделей из long-lead), эфир с лентой, захватом экрана и сиреной, решения оператора и автоэскалация, мастер смены, калибровка и зоны с пересчётом, наблюдаемость и свежесть, журнал с CSV, статистика ОТ и менеджмента, `safewatch eval`, webhook-доставка, экран IT с задержкой уведомлений; контракт фронта Егора `contract/openapi.json`.
 - долги на конец: живой прогон на TPU (очередь `input` без консьюмеров, кадр/с и RTT не замерены); `docker build` не собирался (владелец: запустить Docker Desktop, `docker compose build`); 10 строк `долг:` из R15 в `## open`; заводских видео нет.
 - следующему: `tests/test_hud.py::test_label_on_every_positive_subject` (наблюдения `pair:`/`zone:`/`fire`); `tests/test_broadcast.py::test_latency_counts_published_events` (задержка публикации на `fake_clock`).
+
+### S16: contract v5 (2026-10-24, PR #22, tech v5)
+- отклонения: правлен файл вне списка слайса `tests/test_cli.py` (версия контракта в `/api/health`); `texts.py` не менялся: новых текстов в S16 нет (`SCENARIO_MODEL_MISSING` и `SCENARIO_TITLES` v5 — S20); проверка уникальности имён каналов в `DeliveryConfig` не написана (по 6.11.8 это S23); `demo.pack` хранится как есть, без разрешения от корня репо (решает S17, первый читатель); маршруты zip и pdf описаны в `openapi.json` как CSV и картинка улики первой ночи (`application/json` с пустой схемой; тип ответа — в таблице 6.11.6).
+- решения вне контракта: заглушки фасада v5 бросают `NotImplementedError("slice N")` по столбцу «Слайс» 6.11.4 (`backend_close` — 28); заголовок `FastAPI(title="SafeWatch API")` не менялся (не путь и не поле контракта); в `ws-examples.json` у всех `event.*` есть `clip`, у `event.updated` заполнена идентификация, `hello.contract` = 1.1.0; мутаций нет (10.3); живых прогонов нет.
+- проверено вживую: нет (S16 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `contract/openapi.1.0.0.json` — снимок для `test_openapi_only_grows`, не пересобирать; `tests/test_api_skeleton.py::V5_REQUESTS` — запрос на каждый маршрут 6.11.6: слайс, который строит маршрут, убирает его строку (когда список опустеет, тест 501 переходит на подмену фасада, как в S13); `tests/test_contract_files.py::V5_FIELDS` — поля 6.11.3; база версии 1 в тесте — `executescript` файла `0001_init.sql` (`tests/test_db.py::test_migrate_v5_tables_and_columns`).
 
 ## night
 

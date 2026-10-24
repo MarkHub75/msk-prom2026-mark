@@ -1,5 +1,5 @@
 # Defaults (tech.md 6.6). config/user.yaml overrides any key; tests never read it.
-product_name: SafeWatch
+product_name: Argus
 data_dir: data/app
 timezone: Europe/Moscow
 
@@ -18,6 +18,7 @@ pipeline:
   detector: det-yolov8n@640-ap9999
   pose: pose-yolov8n@640-ap9999
   extra: []
+  vehicle_classes: [car, bus, truck, train]
 
 class_conf:
   car: 0.35
@@ -30,6 +31,10 @@ class_conf:
   cigarette: 0.25
   no_harness: 0.35
   suspended_load: 0.35
+  helmet: 0.35
+  no_helmet: 0.35
+  respirator: 0.35
+  no_respirator: 0.35
 
 tracker:
   high_thresh: 0.5
@@ -38,6 +43,7 @@ tracker:
   min_iou: 0.2
   max_lost_s: 1.0
   min_hits: 2
+  reattach_bh: 1.0
 
 pose:
   match_iou: 0.5
@@ -103,6 +109,14 @@ scenarios:
   suspended_load:
     load_hold_s: 0.5
   load_carrying: {}
+  no_helmet:
+    hold_s: 3.0
+    head_frac: 0.35
+    min_person_px: 80
+  no_respirator:
+    hold_s: 3.0
+    head_frac: 0.35
+    min_person_px: 80
 
 zone_kinds:
   - id: danger
@@ -134,7 +148,7 @@ zone_kinds:
     title: Зона отдыха
     color: "#64D2FF"
     geometry: polygon
-    description: Места отдыха. В baseline правила её не используют.
+    description: Места отдыха. Телефон здесь разрешён.
   - id: height
     title: Работа на высоте
     color: "#FFD60A"
@@ -145,6 +159,21 @@ zone_kinds:
     color: "#98989D"
     geometry: polygon
     description: Проезды погрузчиков и машин.
+  - id: helmet_required
+    title: Обязательна каска
+    color: "#FF9500"
+    geometry: polygon
+    description: Цех или участок, где без каски нельзя. Человек без каски дольше порога — жёлтое событие.
+  - id: respirator_required
+    title: Обязателен респиратор
+    color: "#5E5CE6"
+    geometry: polygon
+    description: Участок с пылью или парами. Человек без респиратора дольше порога — жёлтое событие.
+  - id: walkway
+    title: Проход («зелёная линия»)
+    color: "#34C759"
+    geometry: polygon
+    description: Безопасный проход. Телефон здесь разрешён.
 
 escalation:
   enabled: true
@@ -194,9 +223,12 @@ linq:
   job_timeout_s: 1800
   call_timeout_s: 60
   check_cache_s: 30
+  reply_timeout_s: 120
+  slow_rtt_s: 12.0
 
 local:
   threads: 2
+  providers: [CPUExecutionProvider]   # S29; CUDAExecutionProvider — для GPU-машины ML-части
 
 shifts:
   - id: day
@@ -222,6 +254,65 @@ master:
 
 delivery:
   webhooks: []   # [{name: lamp-1, url: "http://10.0.0.5/alarm", levels: [red], timeout_s: 3}]
+  calls:                           # S23: только kind=to_master
+    - {name: master, to: "", levels: [red], provider: stub}
 
 eval:
   deadline_s: 5.0
+
+autocal:
+  person_height_m: 1.7
+  min_samples: 30
+  min_person_px: 40
+  edge_px: 2
+  max_residual: 0.15               # доля роста: точка дальше 15 % от линии отбрасывается
+  iterations: 3
+
+clips:
+  pre_s: 3.0
+  post_s: 5.0
+  max_s: 30.0
+
+transcode:
+  enabled: true
+  crf: 23
+  preset: veryfast
+  timeout_s: 600
+
+demo:
+  pack: data/demo/argus
+  autoload: true
+
+datasets:
+  tick_ms: 2000
+  max_frames: 40
+
+passport:
+  min_frames: 50
+  person_partial_px: 80
+  small_object_px: 12
+  dark_partial: 0.2
+  dark_unsuitable: 0.5
+  empty_partial: 0.8
+
+shift:                             # S32
+  max_px: 20
+  sample_width: 320
+
+calculator:
+  assumptions:
+    - {key: accelerator.capacity_fps, title: "Пропускная способность одного ускорителя LinQ", value: 12.4, unit: "кадр/с", source: "замер LinQ 24.10 14:52: детектор 640, inflight 4, общая очередь площадки"}
+    - {key: models_per_frame, title: "Запросов к TPU на кадр", value: 2, unit: "шт.", source: "конвейер Argus: детектор и pose"}
+    - {key: accelerators_per_server, title: "Ускорителей в одном сервере", value: 4, unit: "шт.", source: "допущение команды, уточнить у ХайТэк"}
+    - {key: accelerator.price_rub, title: "Цена ускорителя LinQ", value: 500000, unit: "₽", source: "допущение команды: цена не опубликована, заменить ценой поставщика"}
+    - {key: server.price_rub, title: "Цена сервера под ускорители", value: 350000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
+    - {key: integration_rub, title: "Пусконаладка и подключение камер", value: 300000, unit: "₽", source: "допущение команды"}
+    - {key: support_share_year, title: "Поддержка в год, доля от вложений", value: 0.15, unit: "доля", source: "допущение команды"}
+    - {key: light_sound_rub, title: "Световой и звуковой сигнал у зоны", value: 25000, unit: "₽ за зону", source: "допущение команды, уточнить у поставщика"}
+    - {key: zones_per_camera, title: "Сигнальных зон на камеру", value: 1, unit: "шт.", source: "допущение команды"}
+    - {key: speaker_rub, title: "Громкоговоритель в цех", value: 40000, unit: "₽ за цех", source: "допущение команды, уточнить у поставщика"}
+    - {key: new_camera_rub, title: "Новая IP-камера с монтажом", value: 30000, unit: "₽", source: "допущение команды, уточнить у поставщика"}
+    - {key: new_cameras_share, title: "Доля новых камер на максимальном уровне", value: 0.2, unit: "доля", source: "допущение команды"}
+    - {key: reduction.base, title: "Снижение инцидентов: базовый уровень", value: 0.2, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+    - {key: reduction.extended, title: "Снижение инцидентов: расширенный уровень", value: 0.3, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}
+    - {key: reduction.max, title: "Снижение инцидентов: максимальный уровень", value: 0.4, unit: "доля", source: "гипотеза команды, проверяется пилотом; доказанного эффекта нет"}

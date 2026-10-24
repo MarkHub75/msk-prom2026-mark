@@ -7,7 +7,7 @@ from fastapi import APIRouter
 from starlette.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from safewatch import api, services
+from safewatch import api
 from safewatch.api import create_app
 from safewatch.config import Settings
 from safewatch.errors import (
@@ -32,19 +32,20 @@ ROUTE_ROW = re.compile(
 
 def _contract_routes() -> list[tuple[str, str, int]]:
     tech = (ROOT / "tech.md").read_text(encoding="utf-8")
-    section = tech.split("### 6.4", 1)[1].split("### 6.5", 1)[0]
-    return [(m.group(1), m.group(2), int(m.group(3))) for m in ROUTE_ROW.finditer(section)]
+    v4 = tech.split("### 6.4", 1)[1].split("### 6.5", 1)[0]
+    v5 = tech.split("#### 6.11.6", 1)[1].split("#### 6.11.7", 1)[0]
+    return [(m.group(1), m.group(2), int(m.group(3))) for m in ROUTE_ROW.finditer(v4 + v5)]
 
 
 async def test_health_ok(client: httpx.AsyncClient) -> None:
     response = await client.get("/api/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "contract": "1.0.0"}
+    assert response.json() == {"status": "ok", "contract": "1.1.0"}
 
 
 def test_every_contract_route_is_declared(settings: Settings) -> None:
     routes = _contract_routes()
-    assert len(routes) == 55
+    assert len(routes) == 65
     openapi = create_app(settings).openapi()["paths"]
     declared = {
         (method.lower(), route.path)
@@ -56,19 +57,35 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
     assert missing == []
 
 
-async def test_unbuilt_route_returns_501(
-    client: httpx.AsyncClient, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    # Every route is built since slice 13: an unfinished slice is a facade raising the stub.
-    def unbuilt(*_: object) -> None:
-        raise NotImplementedError("slice 13")
+ROLLOUT = {
+    "workshops": 1, "cameras": 4, "shifts_per_day": 2, "workers": 100, "operators": 1,
+    "incidents_per_year": 2, "downtime_cost_rub": 1, "fine_cost_rub": 1,
+    "treatment_cost_rub": 1, "lawsuit_cost_rub": 1,
+}  # fmt: skip
+V5_REQUESTS: list[tuple[str, str, dict[str, object] | None, str]] = [
+    ("get", "/api/demo/packs", None, "17"),
+    ("get", "/api/calculator/defaults", None, "24"),
+    ("post", "/api/calculator/rollout", ROLLOUT, "24"),
+    ("post", "/api/calculator/scale", {"cameras_now": 4, "new_cameras": 2}, "24"),
+    ("get", "/api/datasets/false-alarms", None, "25"),
+    ("get", "/api/datasets/false-alarms/export.zip", None, "25"),
+    ("patch", "/api/events/1/identity", {"person_name": "Иванов"}, "26"),
+    ("get", "/api/stats/people", None, "26"),
+    ("get", "/api/cameras/1/passport", None, "27"),
+    ("get", "/api/master/shift.pdf", None, "30"),
+]
 
-    monkeypatch.setattr(services, "management_view", unbuilt)
-    response = await client.get("/api/stats/management")
-    assert response.status_code == 501
-    body = ApiError.model_validate(response.json())
-    assert body.code == "not_implemented"
-    assert body.message.startswith("Функция появится в слайсе")
+
+async def test_unbuilt_route_returns_501(client: httpx.AsyncClient) -> None:
+    # The v5 routes are declared in slice 16, their facade raises the stub of its slice.
+    headers = {"X-Role": "management", "X-Actor": "ivan"}
+    for method, path, body, slice_no in V5_REQUESTS:
+        response = await client.request(method, path, json=body, headers=headers)
+        assert response.status_code == 501, path
+        error = ApiError.model_validate(response.json())
+        assert error.code == "not_implemented"
+        assert error.message.startswith("Функция появится в слайсе")
+        assert error.details == {"slice": slice_no}
 
 
 async def test_request_errors_are_api_errors(client: httpx.AsyncClient) -> None:

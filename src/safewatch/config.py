@@ -2,7 +2,7 @@
 
 from functools import cache
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 from urllib.parse import urlsplit
 
 import yaml
@@ -37,6 +37,7 @@ class PipelineConfig(_Section):
     detector: str
     pose: str | None
     extra: list[str]
+    vehicle_classes: list[str]
 
     @model_validator(mode="after")
     def _fps_floor(self) -> "PipelineConfig":
@@ -52,6 +53,7 @@ class TrackerConfig(_Section):
     min_iou: float
     max_lost_s: float
     min_hits: int
+    reattach_bh: float
 
 
 class PoseConfig(_Section):
@@ -91,6 +93,8 @@ class ScenariosConfig(_Section):
     no_harness: dict[str, float]
     suspended_load: dict[str, float]
     load_carrying: dict[str, float]
+    no_helmet: dict[str, float]
+    no_respirator: dict[str, float]
 
 
 class ZoneKindConfig(_Section):
@@ -157,10 +161,13 @@ class LinqConfig(_Section):
     job_timeout_s: float
     call_timeout_s: float
     check_cache_s: float
+    reply_timeout_s: float
+    slow_rtt_s: float
 
 
 class LocalConfig(_Section):
     threads: int
+    providers: list[str]
 
 
 class ShiftConfig(_Section):
@@ -205,12 +212,79 @@ class WebhookConfig(_Section):
         return self
 
 
+class CallConfig(_Section):
+    name: str
+    to: str
+    levels: list[Level]
+    provider: Literal["stub"]
+
+
 class DeliveryConfig(_Section):
     webhooks: list[WebhookConfig]
+    calls: list[CallConfig]
 
 
 class EvalConfig(_Section):
     deadline_s: float
+
+
+# --- v5 (tech.md 6.11.8) -----------------------------------------------------------------
+class AutocalConfig(_Section):
+    person_height_m: float
+    min_samples: int
+    min_person_px: float
+    edge_px: float
+    max_residual: float
+    iterations: int
+
+
+class ClipsConfig(_Section):
+    pre_s: float
+    post_s: float
+    max_s: float
+
+
+class TranscodeConfig(_Section):
+    enabled: bool
+    crf: int
+    preset: str
+    timeout_s: float
+
+
+class DemoConfig(_Section):
+    pack: Path
+    autoload: bool
+
+
+class DatasetsConfig(_Section):
+    tick_ms: int
+    max_frames: int
+
+
+class PassportConfig(_Section):
+    min_frames: int
+    person_partial_px: float
+    small_object_px: float
+    dark_partial: float
+    dark_unsuitable: float
+    empty_partial: float
+
+
+class ShiftCheckConfig(_Section):
+    max_px: float
+    sample_width: int
+
+
+class CalcAssumptionConfig(_Section):
+    key: str
+    title: str
+    value: float
+    unit: str
+    source: str
+
+
+class CalculatorConfig(_Section):
+    assumptions: list[CalcAssumptionConfig]
 
 
 class Settings(BaseSettings):
@@ -254,6 +328,14 @@ class Settings(BaseSettings):
     master: MasterConfig
     delivery: DeliveryConfig
     eval: EvalConfig
+    autocal: AutocalConfig
+    clips: ClipsConfig
+    transcode: TranscodeConfig
+    demo: DemoConfig
+    datasets: DatasetsConfig
+    passport: PassportConfig
+    shift: ShiftCheckConfig
+    calculator: CalculatorConfig
 
     @model_validator(mode="after")
     def _resolve_paths(self) -> "Settings":

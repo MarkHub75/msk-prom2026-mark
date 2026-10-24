@@ -81,3 +81,22 @@ def test_models_registry_resolves_active_models(settings: Settings) -> None:
     broken.pipeline.detector = "det-yolov8n@1280-x"
     with pytest.raises(ValueError, match="det-yolov8n@1280-x is not in config/models.yaml"):
         registry.active_models(broken)
+
+
+def test_v5_sections_load(config_dir: Path) -> None:
+    settings = get_settings()
+    assert settings.product_name == "Argus"
+    assert settings.autocal.person_height_m == 1.7
+    assert settings.pipeline.vehicle_classes == ["car", "bus", "truck", "train"]
+    assert settings.scenarios.no_helmet["head_frac"] == 0.35
+    assert settings.delivery.calls[0].provider == "stub"
+    assert settings.demo.pack == Path("data/demo/argus")
+    assert len(settings.calculator.assumptions) == 15
+    assert {k.id for k in settings.zone_kinds} >= {"helmet_required", "respirator_required"}
+    text = (config_dir / "default.yaml").read_text(encoding="utf-8")
+    (config_dir / "default.yaml").write_text(
+        text.replace("  crf: 23", "  crff: 23"), encoding="utf-8"
+    )
+    get_settings.cache_clear()
+    with pytest.raises(ValidationError, match="crff"):
+        get_settings()
