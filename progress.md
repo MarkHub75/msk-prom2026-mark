@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S7 в работе
+- state: S7 закрыт, следующий S8
 - tech.md: v2
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -36,6 +36,15 @@
 - R10: `system_view.latency` (`notify_delay_s`, `publish_lag_ms`) всё ещё нули: критерия ни в одном слайсе до S11 нет.
 - R10: лента и состояния камер считают демо-события: жёлтые `confirmed` сида открыты и попадают в ленту оператора с приоритетом 1 (до `feed.limit`).
 - R10: каждый компонент с `useWs` (шапка, `Toasts`, `TakeoverOverlay`, экран) открывает свой WebSocket: у оператора 4 соединения на вкладку.
+- GAP: S7, `services` вне 6.2: `VERDICTS: dict[HumanAction, Verdict]`, `Step = tuple[LogAction, EventStatus]`, `_steps(action, row) -> list[Step] | None` (человеческие строки 8.6; `None` — пары нет), `_event_row(id)`, `_master_alert(summary)` (`Notification.id = "e<event>:to_master"`, аудитория `master`, `chime`, без захвата), `_provenance(episode)`, `_evidence_item(row)` и `_episode(row, evidence)` (общие с `video_analysis`).
+- GAP: S7, журнал действий: `confirm` красного пишет две строки цепочкой — `confirmed` (`<статус> → confirmed`), затем `sent_to_master` (`confirmed → sent_to_master`); `confirm` после таймаута — `confirmed` (`sent_to_master → sent_to_master`); комментарий — в первой строке действия, хранится обрезанным, длина `COMMENT_MAX` считается до обрезки; `actor_name` — обрезанный `X-Actor` или `texts.DEMO_ACTOR[role]`, `services` сам проверяет длину (`ValidationFailed`, поле `X-Actor`).
+- GAP: S7, порядок проверок `event_action`: роль (400, 403 по `ROLE_ACTIONS`) → комментарий (422) → имя (422) → 404 → 409; `event.updated` на любое действие, включая `view`; уведомление мастеру (8.8, строка 3) — при переходе в `sent_to_master` (оператором и в `escalation_tick`); `confirm`/`false_alarm` после таймаута — только `event.updated`.
+- GAP: S7, `store`: `episode(id)`, `episode_evidence(episode_id)`, `analysis_job(analysis_id)` (задача с этим `analysis_id`), `event_actions(event_id)` (по `at`, `id`), `escalation_due(red_before)` (условия 8.7; «после `red_at`» — `at >= red_at`, считаются только строки `actor_role = operator`).
+- GAP: S7, `event_detail`: `provenance.backend`/`fake` — из артефакта детектора анализа; `rule_params` = `rules.defaults(scenario) | params` правила камеры из снимка `AnalysisConfig.rules`; `why` = `explain` плагина над `EpisodeDraft` эпизода (`confirm_frame_idx`/`escalate_frame_idx` из кадров доказательств); демо-событие: `why = [WhyItem("Причина", reason_text)]`, `provenance` пустой (`fake=false`, `rule_params={}`); `broadcast` — `store.camera_broadcast` камеры события (у удалённой камеры не 404); без роли `allowed_actions = []`; `deliveries = []` до S15.
+- GAP: S7, `texts.py`: `EVENT_NOT_FOUND`, `INVALID_TRANSITION`, `COMMENT_REQUIRED = "Опишите принятые меры"`, `COMMENT_TOO_LONG = "Комментарий: до 500 символов"`, `WHY_REASON = "Причина"`.
+- GAP: S7, `worker._escalations(stop, tick_s)` — третья задача `TaskGroup`, период `escalation.tick_ms`, исключение тика — лог `escalation tick`, цикл продолжается.
+- GAP: S7, фронт: `TakeoverOverlay` без своего оверлея (заменяет оверлей S6): красное уведомление сразу открывает `/events/:id?takeover=1`, сирену играет `EventScreen` до действия (кроме `view`) или «Свернуть»; `CameraScreen({cameraId?})` — живая половина экрана события; `EvidenceImage` рисует рамки объектов кадра с выноской (подпись и теги); `view` отправляется сам, если он в `allowed_actions`; кнопки — `allowed_actions` без `view`, клавиши 1–3 по порядку; поле «Принятые меры» при `resolve`.
+- R10: S7 — `X-Actor` проверяется дважды: `api._actor` (с S0) и `services.event_action` (контракт 6.2); оставить одно место.
 
 ## log
 
@@ -107,6 +116,13 @@
 - проверено вживую: нет (S6 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: хелперы `tests/test_broadcast.py`: `ready_video(camera_id, episodes, duration_ms)` (готовое видео с активным анализом, эпизоды поверх `EPISODE`), `camera(sector)`, `playing(episodes, loop, duration_ms)` (id эфира), `drain(hub_client)`, `events()`, `actions(event_id)`, `at(fake_clock, started_at, ms)`, `started(broadcast_id)`; `tests/test_operator_views.py::event(camera_id, **values)` (строка события с одним действием, `last_action_at`); `screens.test.tsx::wsHandlers()` доставляет WS-сообщение всем подписчикам `useWs`; события создаёт только `broadcast_tick`, S7 читает их через `store.event` и `_summary`.
+
+### S7: event actions (2026-10-24, PR #10, tech v2)
+- отклонения: правлены файлы вне списка слайса: `frontend/src/components/EvidenceImage.tsx` (рамка и выноска, отложенные из S5 по 6.8), `frontend/src/screens/operator/CameraScreen.tsx` (проп `cameraId`), `frontend/src/theme.css`, `tests/test_worker.py` (третий цикл `escalation_tick`), `tests/test_api_skeleton.py` (пример 501: `/api/master/shift` вместо заработавшего `/api/events/5`; действие с допустимым `X-Actor` теперь 404); тест сверх списка `test_escalation.py::test_decision_counts_only_after_red_at` (ветка «нет решения оператора после `red_at`»).
+- решения вне контракта: строки `GAP: S7` в `## open`; мутации: сдвиг порога таймаута (`red_at <= ?` → `<`) и пропущенная запись действия человека в `event_actions`, обе пойманы (8 и 26 падений).
+- проверено вживую: нет (S7 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_event_actions.py`: `ROWS` (человеческие строки 8.6), `journal(event_id)` (действия после `published`: роль, действие, из, в), `row(event_id)`; `tests/test_escalation.py::red(fake_clock, **values)` (красное событие с `red_at = now`); уведомление мастеру на `sent_to_master` уже шлют `event_action` и `escalation_tick` (S8 проверяет критерий 2); `event_detail` на эпизоде требует валидный `config_json` анализа (хелпер `ready_video` пишет `{}` — для карточки бери `_demo_job`).
 
 ## night
 
