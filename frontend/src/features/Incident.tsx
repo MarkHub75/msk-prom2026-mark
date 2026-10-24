@@ -62,7 +62,7 @@ function Panel({ title, aside, children, className = "" }: { title: string; asid
   return <section className={`ic-panel ${className}`}><h2>{title}{aside !== undefined && <span>{aside}</span>}</h2>{children}</section>;
 }
 
-/** Who did what: people and the system, oldest first. */
+/** Who did what: people and the system, oldest first. «→ status» only when the status changed (identified keeps it). */
 export function History({ actions }: { actions: EventAction[] }) {
   const meta = useMeta();
   if (!actions.length) return <p className="ic-muted">Действий пока нет.</p>;
@@ -70,7 +70,7 @@ export function History({ actions }: { actions: EventAction[] }) {
     const who = action.actor_role === "system" ? "Система" : action.actor_name || roleTitles[action.actor_role];
     return <li key={action.id} className={`ic-rail-${action.actor_role}`}>
       <time className="mono">{time(action.at)}</time><i />
-      <div><strong>{HISTORY[action.action]}</strong><span>{who}{action.actor_role !== "system" && <> · {roleTitles[action.actor_role]}</>}{action.to_status && <> → {meta?.statuses.find(s=>s.id===action.to_status)?.title ?? action.to_status}</>}</span>{action.comment && <blockquote>{action.comment}</blockquote>}</div>
+      <div><strong>{HISTORY[action.action]}</strong><span>{who}{action.actor_role !== "system" && <> · {roleTitles[action.actor_role]}</>}{action.to_status && action.to_status !== action.from_status && <> → {meta?.statuses.find(s=>s.id===action.to_status)?.title ?? action.to_status}</>}</span>{action.comment && <blockquote>{action.comment}</blockquote>}</div>
     </li>;
   })}</ol>;
 }
