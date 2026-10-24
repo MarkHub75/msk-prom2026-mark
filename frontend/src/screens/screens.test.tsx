@@ -501,5 +501,7 @@ describe("screens", () => {
     expect(screen.getByText("Всего событий: 3")).toBeTruthy();
     expect(screen.getAllByText("3 (подтверждено 1, ложных 1)")).toHaveLength(2);
     expect(screen.getByText("Сектор 5 · Склад · Пресс №2")).toBeTruthy();
+    fireEvent.click(screen.getByText("Предыдущая смена"));
+    expect(vi.mocked(api.GET)).toHaveBeenLastCalledWith("/api/master/shift", { params: { query: { at: "2026-10-24T04:59:59.999Z" } } });
   });
 });

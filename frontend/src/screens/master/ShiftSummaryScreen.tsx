@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api/client";
 import type { components } from "../../api/schema";
@@ -28,9 +29,10 @@ function Counts({ title, rows }: { title: string; rows: CountRow[] }) {
   );
 }
 
-// /master/shift: the current shift: totals by sector and scenario, the confirmed events.
+// /master/shift: the current or an earlier shift: totals by sector and scenario, confirmed events.
 export function ShiftSummaryScreen() {
-  const view = useApi(() => api.GET("/api/master/shift"), []);
+  const [at, setAt] = useState<string>(); // empty: the current shift
+  const view = useApi(() => api.GET("/api/master/shift", { params: { query: { at } } }), [at]);
   if (view.error) return <p role="alert">{view.error.message}</p>;
   if (!view.data) return <p>Загрузка…</p>;
   const s = view.data;
@@ -41,6 +43,16 @@ export function ShiftSummaryScreen() {
         {TIME.format(new Date(s.start))} – {TIME.format(new Date(s.end))}
       </p>
       <p>Всего событий: {s.total}</p>
+      <div className="form-buttons">
+        <button type="button" onClick={() => setAt(new Date(Date.parse(s.start) - 1).toISOString())}>
+          Предыдущая смена
+        </button>
+        {at && (
+          <button type="button" onClick={() => setAt(undefined)}>
+            Текущая смена
+          </button>
+        )}
+      </div>
       <Counts title="По секторам" rows={s.by_sector} />
       <Counts title="По сценариям" rows={s.by_scenario} />
       <h2>Подтверждённые</h2>
