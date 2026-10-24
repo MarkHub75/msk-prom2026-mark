@@ -85,14 +85,10 @@ def analyze(
     obs = settings.observability
     luma = media.sample_luma(video_path, obs.sample_s)
     gaps = observability.find_gaps([round(f.ts_ms) for f in det], luma, config.duration_ms, obs)
+    # A stale gap has no frames: the episode manager counts its time as unseen by itself.
     blind = [g for g in gaps if g.reason != "stale"]
-    prev_ts: int | None = None
     for frame in det:
         ts = round(frame.ts_ms)
-        if prev_ts is not None and ts - prev_ts > obs.stale_after_ms:
-            # The frames of a stale gap are missing: the gap itself is a step without data (8.10).
-            episodes.update(frame.frame_idx, ts, [])
-        prev_ts = ts
         persons: list[Detection] = []
         vehicles: list[Detection] = []
         objects: list[ObjectState] = []

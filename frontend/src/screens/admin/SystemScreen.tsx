@@ -4,6 +4,7 @@ import type { components } from "../../api/schema";
 import { useApi } from "../../api/useApi";
 import { useWs } from "../../api/ws";
 import { DataTable } from "../../components/DataTable";
+import { STATE_ICON } from "../../components/SectorTile";
 
 type BackendStatus = components["schemas"]["BackendStatus"];
 type Job = components["schemas"]["Job"];
@@ -13,7 +14,8 @@ function num(x: number | null | undefined, digits = 1): string {
   return x === null || x === undefined ? "—" : x.toFixed(digits).replace(".", ",");
 }
 
-// /admin/system (tech.md 8.14): backend state, queue, measurements of recent jobs, models.
+// /admin/system (tech.md 8.14): backend state, queue, measurements of recent jobs, models,
+// freshness of the analysis per camera.
 export function SystemScreen() {
   const view = useApi(() => api.GET("/api/system"), []);
   const [status, setStatus] = useState<BackendStatus>();
@@ -127,6 +129,17 @@ export function SystemScreen() {
         ]}
         rows={data.models.map((spec, n) => ({ id: n, spec }))}
         empty="Активных моделей нет"
+      />
+
+      <h2>Свежесть анализа по камерам</h2>
+      <DataTable
+        columns={[
+          { title: "Камера", cell: (c) => c.camera_id },
+          { title: "Состояние", cell: (c) => `${STATE_ICON[c.state]} ${c.reason_text}` },
+          { title: "Свежесть, с", cell: (c) => num(c.freshness_ms === null ? null : c.freshness_ms / 1000) },
+        ]}
+        rows={data.cameras.map((c) => ({ ...c, id: c.camera_id }))}
+        empty="Камер нет"
       />
 
       <h2>Задержка уведомлений</h2>

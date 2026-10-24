@@ -265,7 +265,8 @@ describe("screens", () => {
     vi.mocked(api.GET).mockResolvedValue({
       data: {
         backend: "linq", fake: false, backend_status: status, queue: [], recent_jobs: [job, failed],
-        cameras: [], channels: [], server_now: "2026-10-24T09:00:00.000Z",
+        cameras: [{ ...CAMERA_STATE, state: "no_observation", reason: "dark", reason_text: "Слишком темно", freshness_ms: 2400 }],
+        channels: [], server_now: "2026-10-24T09:00:00.000Z",
         latency: { notify_delay_s: pct, publish_lag_ms: pct },
         models: [
           {
@@ -283,6 +284,8 @@ describe("screens", () => {
     expect(screen.getByText("160 / 180")).toBeTruthy();
     expect(screen.getByText("mosprom_det640.tpu")).toBeTruthy();
     expect(screen.getByText("Повторить")).toBeTruthy();
+    expect(screen.getByText("○ Слишком темно")).toBeTruthy();
+    expect(screen.getByText("2,4")).toBeTruthy();
     fireEvent.click(screen.getByText("Проверить LinQ"));
     expect(await screen.findByText(/LinQ недоступен: туннель или VPN/)).toBeTruthy();
   });
