@@ -86,7 +86,7 @@ function Preview({ id, onClose }: { id: number; onClose: () => void }) {
       {d.why.length > 0 && <section className="ic-panel"><h2>Почему</h2><dl className="od-facts">{d.why.map((w, i) => <div key={i}><dt>{w.label}</dt><dd>{w.value}</dd></div>)}</dl></section>}
       <section className="ic-panel"><h2>История эпизода</h2><EpisodeHistory detail={d} /></section>
       <section className="ic-panel"><h2>Действия людей<span>{d.actions.length}</span></h2><History actions={d.actions} /></section>
-      <Link className="button button-primary jd-open" to={`/events/${id}`}>Открыть карточку события<ArrowRight {...IC} /></Link>
+      <Link className="button jd-open" to={`/events/${id}`}>Открыть карточку события<ArrowRight {...IC} /></Link>
     </div>}
   </aside>;
 }
@@ -141,8 +141,8 @@ export function JournalPage() {
       <span className="od-bar-spacer" />
       <span className="jd-count" aria-live="polite">{page.data ? <>Показано <b>{page.data.items.length}</b> из <b>{page.data.total}</b></> : page.loading ? "Получаем данные" : "Данные не получены"}</span>
       <a className="button button-small" href={exportUrl(search)} download data-testid="export-csv"><Download {...IC} />Экспорт CSV</a>
-      <Link className="button button-small button-primary" to={`/ohs/report${reportQuery ? `?${reportQuery}` : ""}`} data-testid="report-link"><FileText {...IC} />Отчёт PDF за период</Link>
-      <button className="button button-small" disabled={page.loading} onClick={() => { page.reload(); facets.reload(); }}>Обновить <Icon name="arrow" size={15} /></button>
+      <Link className="button button-small" to={`/ohs/report${reportQuery ? `?${reportQuery}` : ""}`} data-testid="report-link"><FileText {...IC} />Отчёт PDF за период</Link>
+      <button className="button button-small" disabled={page.loading} onClick={() => { page.reload(); facets.reload(); }}><Icon name="refresh" size={14} />Обновить</button>
     </header>
     <div className={`jd-layout ${selected !== undefined ? "has-preview" : ""}`}>
       <form className="jd-filters" data-panel="Фильтры" key={queryKey} onSubmit={applyFilters} aria-label="Фильтры журнала">
@@ -164,9 +164,9 @@ export function JournalPage() {
       </form>
       <section className="jd-results" data-panel="События">
         {CHIP_KEYS.some(k => search.get(k)) && <div className="jd-chips" aria-label="Активные фильтры">{CHIP_KEYS.filter(k => search.get(k)).map(k => <button key={k} onClick={() => update(next => next.delete(k))} aria-label={`Убрать фильтр ${chipTitle(k, search.get(k)!)}`}>{chipTitle(k, search.get(k)!)}<X {...IC} size={13} /></button>)}{search.get("demo") === "0" && <span>без демо</span>}{search.get("superseded") === "1" && <span>с пересчитанными</span>}</div>}
-        {page.error ? <ErrorNotice error={page.error} retry={page.reload} /> : !page.data ? <Loading text="Загружаем журнал событий" /> : !items.length ? <Empty title="События не найдены" text={filtersApplied ? "Измените или сбросьте фильтры." : "Событий нет — это не значит, что всё безопасно, если камеры без наблюдения."} /> : <div className="jd-table-wrap"><table className="jd-table">
+        {page.error ? <ErrorNotice error={page.error} retry={page.reload} /> : !page.data ? <Loading text="Загружаем журнал событий" /> : !items.length ? <Empty title="События не найдены" text={filtersApplied ? "По этим фильтрам событий нет. Измените или сбросьте фильтры." : "За период событий нет. Камеры без наблюдения событий не дают: тишина не означает безопасность."} /> : <div className="jd-table-wrap"><table className="jd-table">
           <caption className="sr-only">Журнал событий. Дата и время указаны по Москве.</caption>
-          <thead><tr><th scope="col"><span className="sr-only">Кадр</span></th><th scope="col">Время</th><th scope="col">Событие</th><th scope="col">Место</th><th scope="col">Уровень</th><th scope="col">Состояние</th><th scope="col">Длит.</th><th scope="col">Реакция</th><th scope="col"><span className="sr-only">История события</span></th></tr></thead>
+          <thead><tr><th scope="col"><span className="sr-only">Кадр</span></th><th scope="col">Время</th><th scope="col">Событие</th><th scope="col">Место</th><th scope="col">Уровень</th><th scope="col">Состояние</th><th scope="col">Длит.</th><th scope="col">Вердикт оператора</th><th scope="col"><span className="sr-only">История события</span></th></tr></thead>
           <tbody>{items.map(event => <tr key={event.id} data-event-id={event.id} className={`jd-row-${event.level} ${selected === event.id ? "is-selected" : ""}`} onClick={() => setPicked(event.id)}>
             <td className="jd-thumb">{event.evidence_url ? <img src={mediaUrl(event.evidence_url)} alt="" loading="lazy" /> : <span>нет кадра</span>}</td>
             <td className="jd-time"><time dateTime={event.published_at}><span>{day.format(new Date(event.published_at))}</span><strong className="mono">{time(event.published_at)}</strong></time></td>

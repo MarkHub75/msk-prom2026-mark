@@ -176,7 +176,7 @@ function OhsPage() {
     {heading}{filters}
     <section className={`an-tiles${stale}`} aria-label="Итоги периода">
       <StatTile testId="tile-total" label="Событий" icon={<AlertTriangle size={15} strokeWidth={1.75} />} value={fmt.format(stats.total)}
-        spark={<Sparkline values={totals} color={C.yellow} label="События по дням" partialLast />}
+        spark={<Sparkline values={totals} color={C.trend} label="События по дням" partialLast />}
         delta={hasWeeks ? <Delta now={week(totals, 0)} prev={week(totals, 1)} direction="up_bad" vs="7 дн. к пред. 7" /> : undefined}
         foot={!hasWeeks ? "сравнение неделя к неделе — на периоде 30 или 90 дней" : undefined} />
       <StatTile testId="tile-red" label="Красных" icon={<Siren size={15} strokeWidth={1.75} />} value={fmt.format(redSum)}

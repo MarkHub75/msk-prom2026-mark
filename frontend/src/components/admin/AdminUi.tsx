@@ -54,7 +54,7 @@ const STATE: Record<CameraState["state"], { title: string; icon: ReactNode }> = 
 export function StateBadge({ state, reason }: { state: CameraState["state"]; reason?: string }) {
   const s = STATE[state]; const levelTitle = useLevelTitle();
   const title = state === "red" || state === "yellow" ? levelTitle(state) : s.title;
-  return <span className={`adm-state adm-state-${state}`} title={reason || title}>{s.icon}<b>{title}</b>{reason && state !== "normal" && <em>{reason}</em>}</span>;
+  return <span className={`adm-state adm-state-${state}`} title={reason || title}>{s.icon}<b>{title}</b>{reason && state !== "normal" && reason !== title && <em>{reason}</em>}</span>;
 }
 
 export function Bar({ value, tone = "accent", label }: { value: number; tone?: "accent" | "red" | "ok"; label: string }) {

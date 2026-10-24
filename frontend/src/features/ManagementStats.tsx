@@ -96,7 +96,7 @@ export function ManagementPage() {
         {KPI.map(k => {
           const v = series(k.id);
           const now = lastFull >= 0 ? v[lastFull] : 0, prev = lastFull >= 1 ? v[lastFull - 1] : 0;
-          return <StatTile key={k.id} testId={`kpi-${k.id}`} label={k.title} icon={k.icon} value={fmt.format(now)}
+          return <StatTile key={k.id} testId={`kpi-${k.id}`} label={`${k.title} за неделю`} icon={k.icon} value={fmt.format(now)}
             spark={<Sparkline values={v} color={k.color} label={`${k.title} по неделям`} partialLast={partial} />}
             delta={lastFull >= 1 ? <Delta now={now} prev={prev} direction={k.direction} vs="к прошлой неделе" /> : undefined}
             foot={<>неделя {lastFull >= 0 ? weekTitle(rows[lastFull].week_start) : "—"}{partial && <> · текущая идёт: <b>{v[n - 1]}</b></>}</>} />;

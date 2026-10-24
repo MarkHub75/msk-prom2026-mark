@@ -140,7 +140,7 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
   const [comment, setComment] = useState(""); const [notice, setNotice] = useState("");
   useEffect(() => { setComment(""); setNotice(""); }, [event.id]);
   const actions: HumanAction[] = detail.allowed_actions.filter(a => a === "confirm" || a === "false_alarm" || a === "send_to_master");
-  const act = useCallback(async (action: HumanAction) => { if (await state.send(action, comment)) { setComment(""); setNotice("Действие сохранено сервером."); } }, [state, comment]);
+  const act = useCallback(async (action: HumanAction) => { if (await state.send(action, comment)) { setComment(""); setNotice("Сохранено."); } }, [state, comment]);
   useEffect(() => {
     const handler = (key: KeyboardEvent) => { if (key.altKey || key.ctrlKey || key.metaKey || (key.target as HTMLElement)?.closest?.("input,textarea,select,[contenteditable=true]")) return; const action = BY_KEY[key.key]; if (action && actions.includes(action) && !state.busy) { key.preventDefault(); void act(action); } };
     window.addEventListener("keydown", handler); return () => window.removeEventListener("keydown", handler);
@@ -171,11 +171,11 @@ function OperatorIncident({ detail, state }: { detail: EventDetail; state: Retur
         <div><dt>Начало</dt><dd className="mono">{time(event.started_at)}</dd></div>
         <div><dt>Длительность</dt><dd className="mono">{duration(event.duration_s * 1000)}{!event.ended_at && " · идёт"}</dd></div>
         <div><dt>Вердикт оператора</dt><dd>{verdict}</dd></div>
-        {!terminal && <div><dt>Открыто</dt><dd className="mono">{since(event.published_at, now)}</dd></div>}
+        {!terminal && <div><dt>Открыто</dt><dd className="ds-num">{since(event.published_at, now)}</dd></div>}
       </dl>
       <div className="ic-actions">
         {actions.length ? <>
-          <div className="ic-action-row">{order.filter(a => actions.includes(a)).map(action => <button key={action} data-action={action} disabled={Boolean(state.busy)} onClick={() => void act(action)} className={`button ic-act ic-act-${action} ${action === "confirm" ? (event.level === "red" ? "button-danger" : "button-primary") : ""}`}><span>{state.busy === action ? "Сохраняем…" : ACTIONS[action]}</span><kbd>{KEYS[action]}</kbd></button>)}</div>
+          <div className="ic-action-row">{order.filter(a => actions.includes(a)).map(action => <button key={action} data-action={action} disabled={Boolean(state.busy)} onClick={() => void act(action)} className={`button ic-act ic-act-${action} ${action === "confirm" ? "button-primary" : ""}`}><span>{state.busy === action ? "Сохраняем…" : ACTIONS[action]}</span><kbd>{KEYS[action]}</kbd></button>)}</div>
           <label className="ic-comment"><MessageSquareText {...IC} /><input aria-label="Комментарий к действию" value={comment} onChange={e => setComment(e.target.value)} placeholder="Комментарий к действию (необязательно)" maxLength={500} /></label>
         </> : <p className="ic-muted"><Check {...IC} /> {terminal ? `Событие закрыто: ${event.status_title.toLowerCase()}.` : event.status === "sent_to_master" || event.status === "master_accepted" ? `Решение принято, событие у мастера: ${event.status_title.toLowerCase()}.` : "Для вашей роли действий по событию нет."}</p>}
         {state.actionError && <ErrorNotice error={state.actionError} compact retry={state.reload} />}
@@ -206,7 +206,7 @@ function MasterIncident({ detail, state }: { detail: EventDetail; state: ReturnT
       <div className="ms-row"><LevelTag level={event.level} title={meta?.levels.find(l => l.id === event.level)?.title} /><Status event={event} /></div>
       <h1>{event.title}</h1>
       {unconfirmed(event) && <p className="ms-unconfirmed"><ShieldAlert size={17} strokeWidth={1.75} aria-hidden />Не подтверждено оператором</p>}
-      {!terminal && <p className="ms-wait"><Timer {...IC} />{event.status === "master_accepted" ? "В работе" : "Ждёт"} <b className="mono">{since(event.published_at, now)}</b><span>с публикации</span></p>}
+      {!terminal && <p className="ms-wait"><Timer {...IC} />{event.status === "master_accepted" ? "В работе" : "Ждёт"} <b className="ds-num">{since(event.published_at, now)}</b><span>с публикации</span></p>}
     </div>
     {canResolve && <label className="ms-report">Принятые меры <span>обязательно</span><textarea data-testid="measures" value={report} onChange={e => setReport(e.target.value)} rows={4} placeholder="Например: остановил пресс, сотрудник осмотрен, ограждение восстановлено" maxLength={500} required /></label>}
     <Evidence detail={detail} compact />

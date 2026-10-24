@@ -143,7 +143,7 @@ export function RulesPage() {
                   {s.status === "active" ? <span className="ops-sc-count mono">{onCount(column(s.id))}/{rows.length}</span> : <ScenarioState status={s.status} text={s.status_text} />}
                 </button>
               </th>)}
-              <th scope="col" className="ops-matrix-tail">Строка</th>
+              <th scope="col" className="ops-matrix-tail">Вся строка</th>
             </tr>
             <tr className="ops-col-bulk">
               <th scope="row">Все камеры</th>

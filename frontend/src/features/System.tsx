@@ -154,7 +154,7 @@ export function SystemPage() {
       <Tile label="Бэкенд инференса" tone={data.fake ? "warn" : "info"} icon={data.backend === "linq" ? Server : Cpu} value={backendTitle(data.backend)}
         sub={data.fake ? "Фейк: детекции синтетические" : data.backend === "linq" ? "Инференс на ускорителе" : "Не LinQ: инференс на процессоре"} />
       <Tile label={data.backend === "linq" ? "Связь с LinQ" : "Проверка моделей"} tone={st.tone} icon={st.icon} value={st.label} testId="backend-state"
-        sub={backend.message} foot={backend.checked_at ? `проверено ${time(backend.checked_at)} · ${ago(backend.checked_at, now)}` : "Ещё не проверялся с запуска сервера"} />
+        sub={backend.message !== st.label ? backend.message : undefined} foot={backend.checked_at ? `проверено ${time(backend.checked_at)} · ${ago(backend.checked_at, now)}` : "Ещё не проверялся с запуска сервера"} />
       <Tile label="Отклик проверки" tone={backend.latency_ms === null ? "idle" : "info"} icon={Radio} value={backend.latency_ms === null ? "—" : <>{num(backend.latency_ms, 0)}<small> мс</small></>}
         sub={data.backend === "linq" ? "Jupyter, последняя проверка" : "последняя проверка"} spark={latencies.length >= 2 ? <Spark series={[{ values: latencies, tone: "info" }]} label="Отклик проверок за сеанс" /> : undefined}
         foot={latencies.length >= 2 ? `${latencies.length} проверок за сеанс` : undefined} />
@@ -281,7 +281,7 @@ function CheckPanel({ backend, fake, kind, checks, now, checking, check }: { bac
   return <section className={`ops-panel ops-check ops-tone-${st.tone}`} data-panel={kind === "linq" ? "Проверка LinQ" : "Проверка бэкенда"} aria-live="polite">
     <div className="ops-check-state" data-testid="check-result">
       <st.icon size={28} strokeWidth={1.5} aria-hidden="true" />
-      <div><strong>{st.label}</strong><p>{backend.message}</p></div>
+      <div><strong>{st.label}</strong>{backend.message !== st.label && <p>{backend.message}</p>}</div>
     </div>
     <dl className="ops-kv">
       <div><dt>Бэкенд</dt><dd>{backendTitle(backend.backend)}{backend.fake ? " · фейк" : ""}</dd></div>
@@ -293,7 +293,7 @@ function CheckPanel({ backend, fake, kind, checks, now, checking, check }: { bac
       {backend.missing.map(p => <li key={p} className="ops-text-bad"><X size={13} strokeWidth={2} aria-hidden="true" /><span className="mono">{p}</span><em>нет</em></li>)}
     </ul>}
     {fake && <p className="ops-small ops-muted">В фейк-режиме проверка идёт через фейковую оболочку Jupyter: «отвечает» здесь не значит, что настоящий LinQ доступен.</p>}
-    <button className="button button-primary ops-check-btn" onClick={check} disabled={checking}>{checking ? <LoaderCircle size={14} strokeWidth={SW} className="ops-spin" aria-hidden="true" /> : <Radio size={14} strokeWidth={SW} aria-hidden="true" />} {checking ? "Проверяем…" : "Проверить ещё раз"}</button>
+    <button className="button ops-check-btn" onClick={check} disabled={checking}>{checking ? <LoaderCircle size={14} strokeWidth={SW} className="ops-spin" aria-hidden="true" /> : <Radio size={14} strokeWidth={SW} aria-hidden="true" />} {checking ? "Проверяем…" : "Проверить ещё раз"}</button>
     <div className="ops-subhead"><h3>Проверки за этот сеанс</h3><span className="mono">{checks.length}</span></div>
     {checks.length ? <ol className="ops-checks">{[...checks].reverse().slice(0, 8).map(c => { const s = BACKEND_STATE[c.state]; return <li key={c.at}>
       <time className="mono">{time(c.at)}</time><Chip tone={s.tone} icon={s.icon}>{s.label}</Chip><span className="mono num">{c.latency_ms === null ? "—" : `${num(c.latency_ms, 0)} мс`}</span><em>{c.source}</em>

@@ -54,7 +54,8 @@ function SectorCell({ sector, selected, onSelect }: { sector: SectorState; selec
   const observed = sector.cameras_total - sector.cameras_no_observation;
   return <button className={`cr-sector cr-sector-${sector.state} ${selected ? "is-selected" : ""}`} onClick={onSelect} aria-pressed={selected}>
     <span className="cr-sector-top"><b>{number(sector.sector_id)}</b><span>{shortSector(sector.name)}</span></span>
-    <span className="cr-sector-bottom"><StateChip state={sector.state} /><span className="cr-counts">{sector.open_red > 0 && <em className="cr-n-red">{sector.open_red}</em>}{sector.open_yellow > 0 && <em className="cr-n-yellow">{sector.open_yellow}</em>}<span className="mono">{observed}/{sector.cameras_total}</span></span></span>
+    <span className="cr-sector-bottom"><StateChip state={sector.state} /><span className="cr-counts" title="Камер под наблюдением из всех камер сектора">камер <span className="mono">{observed}/{sector.cameras_total}</span></span></span>
+    <span className="cr-sector-open">{sector.open_red || sector.open_yellow ? <>Открыто{sector.open_red > 0 && <> <b className="mono cr-n-red">{sector.open_red}</b> красн.</>}{sector.open_red > 0 && sector.open_yellow > 0 && " ·"}{sector.open_yellow > 0 && <> <b className="mono cr-n-yellow">{sector.open_yellow}</b> жёлт.</>}</> : "Открытых событий нет"}</span>
   </button>;
 }
 
@@ -90,9 +91,9 @@ function SelectedEvent({ event, onDone }: { event: EventSummary; onDone: () => v
       <dt>Место</dt><dd>{shortSector(event.sector_name)} · {event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</dd>
       <dt>Статус</dt><dd><span className={`cr-status cr-status-${event.level}`}>{event.status_title}</span></dd>
     </dl>
-    {actions.length > 0 && <div className="cr-quick" aria-label="Быстрые действия">{actions.map(action => <button key={action} data-action={action} disabled={Boolean(busy)} onClick={() => void act(action)} className={`button button-small ${action === "confirm" ? event.level === "red" ? "button-danger" : "button-primary" : "button-light"}`}>{busy === action ? "Сохраняем…" : ACTIONS[action]}</button>)}</div>}
+    {actions.length > 0 && <div className="cr-quick" aria-label="Быстрые действия">{actions.map(action => <button key={action} data-action={action} disabled={Boolean(busy)} onClick={() => void act(action)} className={`button button-small ${action === "confirm" ? "button-primary" : "button-light"}`}>{busy === action ? "Сохраняем…" : ACTIONS[action]}</button>)}</div>}
     {actionError && <ErrorNotice error={actionError} compact retry={detail.reload} />}
-    <Link className={`button cr-open ${event.level === "red" ? "button-danger" : "button-primary"}`} to={`/events/${event.id}`}>Открыть событие <Icon name="arrow" size={16} /></Link>
+    <Link className="button cr-open" to={`/events/${event.id}`}>Открыть событие <Icon name="arrow" size={16} /></Link>
   </section>;
 }
 
@@ -105,7 +106,7 @@ function ShiftLine() {
   if (!shift.data) return null;
   const confirmed = shift.data.by_sector.reduce((sum, row) => sum + row.confirmed, 0);
   const falseAlarm = shift.data.by_sector.reduce((sum, row) => sum + row.false_alarm, 0);
-  return <p className="cr-shift" data-testid="shift-line" title={shift.data.title}><span>Смена: <b>{shift.data.total} {eventsWord(shift.data.total)}</b></span><span>· подтверждено <b>{confirmed}</b></span><span>· ложных <b>{falseAlarm}</b></span></p>;
+  return <p className="cr-shift" data-testid="shift-line" title={shift.data.title}><span>За смену: <b>{shift.data.total} {eventsWord(shift.data.total)}</b></span><span>· подтверждено <b>{confirmed}</b></span><span>· ложных <b>{falseAlarm}</b></span></p>;
 }
 
 /** All plant cameras in one row, alarming first: the operator sees the whole plant, not only the focused sector. */
@@ -177,7 +178,7 @@ export function OperatorPage() {
       <aside className="cr-queue" data-panel="Очередь тревог" aria-label="Очередь тревог">
         <div className="cr-queue-head"><h2>Очередь тревог</h2><span className="cr-count" data-testid="active-event-count">{waiting.length}</span></div>
         <div className="feed-filter cr-filter" aria-label="Уровень активных событий">{([["all", "Все"], ["red", "Тревога"], ["yellow", "Внимание"]] as const).map(([id, label]) => <button key={id} className={filter === id ? "selected" : ""} onClick={() => setFilter(id)} aria-pressed={filter === id}>{label}</button>)}</div>
-        {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Камеры без наблюдения показаны в полосе секторов: отсутствие тревог там не означает безопасность.</span></div>}
+        {queue.length ? <ol className="cr-q-list">{queue.map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol> : <div className="cr-quiet"><strong>Активных тревог нет</strong><span>Новая тревога появится здесь со звуком. Камеры без наблюдения отмечены в секторах серой штриховкой: тишина там не означает безопасность.</span></div>}
         {selectedEvent && !isTerminal(selectedEvent) && <SelectedEvent event={selectedEvent} onDone={dashboard.reload} />}
         {inWork.length > 0 && <details className="cr-history cr-inwork"><summary><span>В работе: решение принято, ждём закрытия</span><span className="mono">{inWork.length}</span></summary><ol className="cr-q-list">{inWork.slice(0, 30).map(event => <QueueRow key={event.id} event={event} selected={event.id === selectedEvent?.id} onSelect={() => selectEvent(event)} />)}</ol>{inWork.length > 30 && <Link className="text-link" to="/ohs/journal">Ещё {inWork.length - 30} — в журнале <Icon name="arrow" size={14} /></Link>}</details>}
         <details className="cr-history"><summary><span>Недавно завершено</span><span className="mono" data-testid="closed-event-count">{history.length}</span></summary>{history.length ? <ol className="cr-q-list">{history.map(event => <QueueRow key={event.id} event={event} closed selected={false} onSelect={() => selectEvent(event)} />)}</ol> : <p>Завершённых событий за последние минуты нет.</p>}<Link className="text-link" to="/ohs/journal">Открыть журнал <Icon name="arrow" size={14} /></Link></details>

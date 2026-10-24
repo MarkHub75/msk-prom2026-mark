@@ -48,7 +48,7 @@ function Card({ event, now, fresh }: { event: EventSummary; now: number; fresh: 
         {fresh && <span className="ms-card-new">Новое</span>}
       </div>
       <div className="ms-card-body">
-        <div className="ms-card-top"><span className={`ms-status ${accepted ? "is-accepted" : ""}`}>{accepted ? "Вы приняли" : "Ждёт принятия"}</span><span className="ms-timer"><Timer {...IC} size={15} /><b className="mono">{since(event.published_at, now)}</b></span></div>
+        <div className="ms-card-top"><span className={`ms-status ${accepted ? "is-accepted" : ""}`}>{accepted ? "Вы приняли" : "Ждёт принятия"}</span><span className="ms-timer" title="Сколько прошло с публикации события"><Timer {...IC} size={15} />{accepted ? "в работе" : "ждёт"} <b className="ds-num">{since(event.published_at, now)}</b></span></div>
         <h2>{event.title}</h2>
         <p className="ms-place">{event.sector_name}<span>{event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""}</span></p>
         <p className="ms-reason">{event.reason_text}</p>
@@ -81,7 +81,7 @@ export function MasterPage() {
     </header>
     {inbox.error ? <ErrorNotice error={inbox.error} retry={inbox.reload} /> : !inbox.data ? <Loading text="Получаем поручения" /> : <>
       {active.length ? <ol className="ms-cards">{active.slice(0, limit).map(e => <Card key={e.id} event={e} now={now} fresh={fresh.has(e.id)} />)}</ol>
-        : <div className="ms-empty"><ClipboardCheck size={34} strokeWidth={1.5} aria-hidden /><strong>Активных поручений нет</strong><span>Новое придёт со звуком и вибрацией, если они включены.</span></div>}
+        : <div className="ms-empty"><ClipboardCheck size={34} strokeWidth={1.5} aria-hidden /><strong>Активных поручений нет</strong><span>Новое поручение появится здесь. Включите звук, чтобы не пропустить его.</span></div>}
       {active.length > limit && <button className="ms-more-btn" onClick={() => setLimit(l => l + PAGE)}>Показать ещё {Math.min(PAGE, active.length - limit)} из {active.length - limit}</button>}
       <section className="ms-resolved">
         <h2>Недавно решено <span className="mono">{inbox.data.recent_resolved.length}</span></h2>
@@ -95,7 +95,7 @@ export function MasterPage() {
 
 function Bars({ rows }: { rows: CountRow[] }) {
   const max = Math.max(1, ...rows.map(r => r.count));
-  if (!rows.length) return <p className="ms-muted">Событий нет.</p>;
+  if (!rows.length) return <p className="ms-muted">За смену событий нет.</p>;
   return <ul className="ms-bars">{[...rows].sort((a, b) => b.count - a.count).map(row => <li key={row.key}>
     <div className="ms-bar-top"><span>{row.title}</span><b className="mono">{row.count}</b></div>
     <div className="ms-bar"><i style={{ width: `${row.count / max * 100}%` }} /><em style={{ width: `${row.confirmed / max * 100}%` }} /></div>
@@ -119,7 +119,7 @@ export function ShiftPage() {
     <div className="ms-seg" role="group" aria-label="Какая смена"><button className={!at ? "selected" : ""} aria-pressed={!at} onClick={() => setAt(undefined)}>Текущая</button><button className={at ? "selected" : ""} aria-pressed={Boolean(at)} onClick={previous} disabled={!data}>Предыдущая</button></div>
     {shift.error ? <ErrorNotice error={shift.error} retry={shift.reload} /> : !data ? <Loading text="Считаем смену" /> : <>
       <div className="ms-kpis">
-        <div className="ms-kpi-main"><span>Всего событий</span><b>{data.total}</b></div>
+        <div className="ms-kpi-main"><span>Событий за смену</span><b>{data.total}</b></div>
         <div><span>Подтверждено</span><b>{confirmed}</b></div>
         <div><span>Ложных</span><b>{falseAlarm}</b></div>
         <div><span>Без вердикта</span><b>{Math.max(0, data.total - confirmed - falseAlarm)}</b></div>
@@ -130,7 +130,6 @@ export function ShiftPage() {
         {data.events.length ? <ol className="ms-confirmed">{data.events.map(e => <li key={e.id}><Link to={`/master/events/${e.id}`}><time className="mono">{time(e.started_at, false)}</time><span><b>{e.title}</b><small>{e.sector_name} · {e.reason_text}</small></span><span className="ms-res-status">{e.status_title}<small className="mono">{duration(e.duration_s * 1000)}</small></span></Link></li>)}</ol>
           : <p className="ms-muted">Подтверждённых событий в эту смену нет. Это не значит, что нарушений не было: часть событий может ждать вердикта.</p>}
       </section>
-      <p className="ms-asof">Счётчики — с сервера, без пересчёта на устройстве.</p>
     </>}
   </div>;
 }

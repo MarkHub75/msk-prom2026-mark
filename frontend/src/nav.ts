@@ -14,7 +14,7 @@ export const NAV: NavItem[] = [
   { path: "/operator/sectors/:sectorId", title: "Сектор", roles: ["operator"], slice: 6, menu: false },
   { path: "/operator/cameras/:cameraId", title: "Камера", roles: ["operator"], slice: 6, menu: false },
   { path: "/events/:eventId", title: "Событие", roles: ["operator", "master", "ohs", "management", "admin"], slice: 7, menu: false },
-  { path: "/master", title: "Мои события", roles: ["master"], slice: 8, menu: true },
+  { path: "/master", title: "Поручения", roles: ["master"], slice: 8, menu: true },
   { path: "/master/events/:eventId", title: "Событие", roles: ["master"], slice: 8, menu: false },
   { path: "/master/shift", title: "Смена", roles: ["master"], slice: 8, menu: true },
   { path: "/ohs/journal", title: "Журнал", roles: ["ohs"], slice: 12, menu: true },

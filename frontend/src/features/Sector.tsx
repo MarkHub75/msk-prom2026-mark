@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Camera as CameraIcon, Clock, VideoOff } from "lucide-react";
+import { ArrowLeft, ArrowRight, Camera as CameraIcon, VideoOff } from "lucide-react";
 import { api, mediaUrl } from "../api/client";
 import { useApi } from "../api/useApi";
 import type { CameraTile, EventSummary } from "../api/types";
@@ -37,8 +37,8 @@ function Tile({ tile, tick }: { tile: CameraTile; tick: number }) {
         {tile.broadcast?.status === "playing" && <span className="od-tile-live"><i />Эфир</span>}
       </div>
       <div className="od-tile-foot">
-        <span className="od-counts"><b className="od-n-red">{s.open_red}</b> красн. · <b className="od-n-yellow">{s.open_yellow}</b> жёлт.</span>
-        <span className="mono">{s.freshness_ms === null ? "анализ: нет эфира" : `анализ: ${s.freshness_ms} мс`}</span>
+        <span className="od-counts">{s.open_red || s.open_yellow ? <>Открыто: <b className={s.open_red ? "od-n-red" : undefined}>{s.open_red}</b> красн. · <b className={s.open_yellow ? "od-n-yellow" : undefined}>{s.open_yellow}</b> жёлт.</> : "Открытых событий нет"}</span>
+        <span title="Сколько прошло от кадра до результата анализа">{s.freshness_ms === null ? "Эфира нет" : <>Задержка анализа <span className="mono">{s.freshness_ms} мс</span></>}</span>
         <span className="od-tile-go">Камера<ArrowRight {...IC} /></span>
       </div>
     </Link>
@@ -49,8 +49,13 @@ function FeedRow({ event, now, terminal }: { event: EventSummary; now: number; t
   return <li><Link to={`/events/${event.id}`} className={`od-feed-row od-feed-${terminal ? "closed" : event.level}`}>
     <time className="mono">{time(event.published_at)}</time>
     <span className="od-feed-main"><strong>{event.title}</strong><small>{event.camera_name}{event.zone_name ? ` · ${event.zone_name}` : ""} · {event.reason_text}</small></span>
-    <span className="od-feed-side"><LevelTag level={event.level} /><small>{event.status_title} · <span className="mono">{terminal ? duration(event.duration_s * 1000) : since(event.published_at, now)}</span></small></span>
+    <span className="od-feed-side"><LevelTag level={event.level} /><small>{event.status_title} · {terminal ? <>длилось <span className="mono">{duration(event.duration_s * 1000)}</span></> : <>{ago(event.published_at, now)} назад</>}</small></span>
   </Link></li>;
+}
+/** Coarse age for the feed: minutes, then hours, then days. */
+function ago(iso: string, now: number) {
+  const s = Math.max(0, Math.floor((now - Date.parse(iso)) / 1000));
+  return s < 3600 ? `${Math.max(1, Math.floor(s / 60))} мин` : s < 172_800 ? `${Math.floor(s / 3600)} ч` : `${Math.floor(s / 86_400)} дн`;
 }
 /** Latest evidence frames of the sector: one per event, newest first, straight from EventSummary.evidence_url. */
 function EvidenceStrip({ events }: { events: EventSummary[] }) {
@@ -60,7 +65,6 @@ function EvidenceStrip({ events }: { events: EventSummary[] }) {
       : <Empty title="Кадров нет" text="У событий сектора пока нет доказательных кадров." />}
   </section>;
 }
-function since(iso: string, now: number) { return duration(now - Date.parse(iso)); }
 
 export function SectorPage() {
   const { sectorId } = useParams(); const id = Number(sectorId); const updates = useUpdates(); const meta = useMeta();
@@ -84,10 +88,9 @@ export function SectorPage() {
     </header>
     {view.error ? <ErrorNotice error={view.error} retry={view.reload} /> : !data ? <Loading text="Получаем камеры сектора" /> : <>
       <div className="od-kpis">
-        <div className={data.sector.open_red ? "is-red" : ""}><span>Красных открыто</span><b>{data.sector.open_red}</b></div>
-        <div className={data.sector.open_yellow ? "is-yellow" : ""}><span>Жёлтых открыто</span><b>{data.sector.open_yellow}</b></div>
-        <div className={data.sector.cameras_no_observation ? "is-muted" : ""}><span>Наблюдаются</span><b>{observed}<small>/{data.sector.cameras_total}</small></b>{data.sector.cameras_no_observation > 0 && <em>Нет наблюдения: {data.sector.cameras_no_observation} из {data.sector.cameras_total}</em>}</div>
-        <div><span>Превью</span><b className="od-kpi-small"><Clock {...IC} />каждые {PREVIEW_MS / 1000} с</b></div>
+        <div className={data.sector.open_red ? "is-red" : ""}><span>Красные события, открыто</span><b>{data.sector.open_red}</b></div>
+        <div className={data.sector.open_yellow ? "is-yellow" : ""}><span>Жёлтые события, открыто</span><b>{data.sector.open_yellow}</b></div>
+        <div className={data.sector.cameras_no_observation ? "is-muted" : ""}><span>Камеры под наблюдением</span><b>{observed}<small> из {data.sector.cameras_total}</small></b>{data.sector.cameras_no_observation > 0 && <em>Нет наблюдения: {data.sector.cameras_no_observation} из {data.sector.cameras_total}</em>}</div>
       </div>
       <div className="od-sector-grid">
         <div className="od-sector-main">
@@ -102,7 +105,7 @@ export function SectorPage() {
             <button className={filter === "all" ? "selected" : ""} aria-pressed={filter === "all"} onClick={() => setFilter("all")}>Все <span className="mono">{data.feed.length}</span></button>
           </div>
           {feed.length ? <ol className="od-feed">{feed.map(e => <FeedRow key={e.id} event={e} now={now} terminal={terminal(e)} />)}</ol>
-            : <Empty title="Событий нет" text={data.sector.cameras_no_observation ? "Событий нет — это не значит, что всё безопасно: часть камер без наблюдения." : "Открытых событий в секторе нет."} />}
+            : <Empty title={filter === "open" ? "Открытых событий нет" : "Событий нет"} text={data.sector.cameras_no_observation ? "Часть камер без наблюдения: тишина там не означает безопасность." : "Новые события сектора появятся здесь."} />}
           <Link className="od-foot-link" to="/ohs/journal"><CameraIcon {...IC} />Журнал событий<ArrowRight {...IC} /></Link>
         </aside>
       </div>

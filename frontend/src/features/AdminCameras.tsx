@@ -208,8 +208,8 @@ export function AdminCamerasPage() {
       </aside>
       <section className="adm-cams" data-panel={selected ? `Камеры · ${selected.name}` : "Камеры · все секторы"} aria-label="Камеры">
         <div className="adm-cams-bar">
-          <span>{selected ? <>Сектор <b>{selected.name}</b>, порядок {selected.sort_order}</> : <>Все секторы</>}</span>
-          <span className="adm-muted">{shown.length} камер · превью и состояние из сервера{live.loading ? " · обновляем…" : ""}</span>
+          <span>{selected ? <><b>{selected.name}</b> · место в списке {selected.sort_order}</> : <>Все секторы</>}</span>
+          <span className="adm-muted">{shown.length} {shown.length % 10 === 1 && shown.length % 100 !== 11 ? "камера" : [2, 3, 4].includes(shown.length % 10) && ![12, 13, 14].includes(shown.length % 100) ? "камеры" : "камер"}{live.loading ? " · обновляем…" : ""}</span>
         </div>
         {live.error && <div className="adm-pad"><ErrorNotice error={live.error} compact retry={live.reload} /></div>}
         {!shown.length ? <div className="adm-empty">

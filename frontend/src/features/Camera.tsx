@@ -127,7 +127,7 @@ export function CameraPage() {
             <Fact k="Сектор"><Link to={`/operator/sectors/${camera.sector_id}`}>{number(camera.sector_id)} · {sector?.name.replace(/^Сектор\s+\d+\s*·\s*/, "") ?? "—"}</Link></Fact>
             <Fact k="Состояние"><StateBadge state={state.state} text={state.reason_text} /></Fact>
             <Fact k="Бэкенд анализа">{backendTitle(meta)}</Fact>
-            <Fact k="Свежесть анализа"><span className="mono">{state.freshness_ms === null ? "нет эфира" : `${state.freshness_ms} мс`}</span></Fact>
+            <Fact k="Задержка анализа">{state.freshness_ms === null ? "эфира нет" : <span className="mono">{state.freshness_ms} мс</span>}</Fact>
             <Fact k="Запись">{video ? <span className="mono">{video.width}×{video.height} · {video.fps} к/с · {video.codec}</span> : "нет"}</Fact>
             <Fact k="Длительность">{video ? <span className="mono">{duration(video.duration_ms)} · {video.frame_count} кадров</span> : "—"}</Fact>
             <Fact k="Анализ">{analysis ? <>версия {analysis.version}{analysis.pose_used ? " · с позой" : " · без позы"}</> : "нет"}</Fact>
@@ -143,7 +143,7 @@ export function CameraPage() {
           {data.zones.length > 0 && <ul className="od-legend">{data.zones.map(z => { const kind = meta?.zone_kinds.find(k => k.id === z.kind); return <li key={z.id}><i style={{ background: kind?.color }} />{z.name}<span>{kind?.title ?? z.kind}</span></li>; })}</ul>}
         </section>
         <section data-panel="События камеры" className="od-cam-events">
-          {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !events.data ? <Loading /> : list.length ? <ol className="od-feed">{list.slice(0, 40).map(e => <li key={e.id}><Link to={`/events/${e.id}`} className={`od-feed-row od-feed-${e.level}`}><time className="mono">{time(e.published_at)}</time><span className="od-feed-main"><strong>{e.title}</strong><small>{e.reason_text}</small></span><span className="od-feed-side"><LevelTag level={e.level} /><small>{e.status_title}</small></span></Link></li>)}</ol> : <Empty title="Событий нет" text="Событий нет — это не значит, что всё безопасно, если камера без наблюдения." />}
+          {events.error ? <ErrorNotice error={events.error} compact retry={events.reload} /> : !events.data ? <Loading /> : list.length ? <ol className="od-feed">{list.slice(0, 40).map(e => <li key={e.id}><Link to={`/events/${e.id}`} className={`od-feed-row od-feed-${e.level}`}><time className="mono">{time(e.published_at)}</time><span className="od-feed-main"><strong>{e.title}</strong><small>{e.reason_text}</small></span><span className="od-feed-side"><LevelTag level={e.level} /><small>{e.status_title}</small></span></Link></li>)}</ol> : <Empty title="Событий по камере нет" text={state.state === "no_observation" ? "Камера без наблюдения: тишина не означает безопасность." : "Новые события камеры появятся здесь."} />}
           {list.length > 0 && <p className="od-foot-note">Открыто {open.length} из {events.data?.total ?? list.length}</p>}
         </section>
       </aside>
