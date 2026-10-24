@@ -111,7 +111,8 @@ function Tier({ tier, best }: { tier: TierResult; best: boolean }) {
       <div><dt>Чистый эффект в год</dt><dd className={`mono${net < 0 ? " is-neg" : ""}`}>{net < 0 ? "−" : ""}{rub(Math.abs(net))}</dd></div>
       <div><dt>Ускорители · серверы</dt><dd className="mono">{tier.accelerators} · {tier.servers}</dd></div>
     </dl>
-    <details className="v5-tier-items"><summary>Из чего сложилась сумма</summary><Items items={tier.items} /></details>
+    {/* the server repeats the payback as the last item; it is already shown above */}
+    <details className="v5-tier-items"><summary>Из чего сложилась сумма</summary><Items items={tier.items.filter(item => item.label !== "Окупаемость")} /></details>
   </article>;
 }
 
@@ -148,17 +149,17 @@ function ScaleView({ result }: { result: ScaleResult }) {
   </>;
 }
 
-function Assumptions({ list, overrides, onChange }: { list: CalcAssumption[]; overrides: Record<string, string>; onChange: (key: string, value: string | null) => void }) {
+function Assumptions({ list, overrides, onChange, errors = {} }: { list: CalcAssumption[]; overrides: Record<string, string>; onChange: (key: string, value: string | null) => void; errors?: Record<string, string> }) {
   return <table className="ds-table v5-assume" data-testid="assumptions">
     <thead><tr><th>Допущение</th><th className="num">Значение</th><th>Источник</th></tr></thead>
     <tbody>{list.map(a => {
       const draft = overrides[a.key];
       const changed = draft !== undefined;
-      return <tr key={a.key} className={changed ? "is-changed" : undefined}>
+      return <tr key={a.key} className={changed ? "is-changed" : undefined} aria-invalid={errors[a.key] ? true : undefined}>
         <td><b>{a.title}</b><small className="mono">{a.key}</small><small className="v5-source-inline">{changed ? "своё значение" : a.source}</small></td>
         <td className="num">{a.editable
           ? <span className="v5-num-input v5-assume-input"><TextInput inputMode="decimal" aria-label={a.title} value={draft ?? String(a.value)} onChange={e => onChange(a.key, e.target.value)} /><small>{a.unit}</small>{changed && <button type="button" className="v5-reset" onClick={() => onChange(a.key, null)} aria-label={`Вернуть «${a.title}»`} title="Вернуть исходное"><Icon name="refresh" size={13} /></button>}</span>
-          : <span className="mono">{numFmt.format(a.value)} <small>{a.unit}</small></span>}</td>
+          : <span className="mono">{numFmt.format(a.value)} <small>{a.unit}</small></span>}{errors[a.key] && <span className="v5-cell-error" role="alert">{errors[a.key]}</span>}</td>
         <td className="v5-source">{changed ? <Badge tone="accent">своё значение</Badge> : a.source}</td>
       </tr>;
     })}</tbody>
@@ -216,6 +217,13 @@ export function CalculatorPage() {
   const rolloutCalc = useCalc(() => api.POST("/api/calculator/rollout", { body: rolloutBody }), JSON.stringify(rolloutBody), okR && shown === "rollout");
   const scaleCalc = useCalc(() => api.POST("/api/calculator/scale", { body: scaleBody }), JSON.stringify(scaleBody), okS && shown === "scale");
   const calc = shown === "rollout" ? rolloutCalc : scaleCalc;
+  // 422 names the field it rejected (e.g. overrides.accelerator.capacity_fps = 0): the message goes under that
+  // input or assumption, the last result stays on screen; only an error without a known field is a notice.
+  const rejected = calc.error?.code === "validation" && typeof calc.error.details?.field === "string" ? calc.error.details.field : undefined;
+  const REJECTED = "Сервер не принял это значение";
+  const rejectedInput = rejected && !rejected.startsWith("overrides.") ? rejected : undefined;
+  const rejectedAssumption = rejected?.startsWith("overrides.") ? rejected.slice("overrides.".length) : undefined;
+  const inputError = (errors: Record<string, string>, key: string) => errors[key] ?? (rejectedInput === key ? REJECTED : undefined);
 
   const heading = <PageHeading title="Калькулятор окупаемости" meta={<span>Все цены и доли — подписанные допущения команды: замените своими. Расчёт не сохраняется.</span>}>
     {canRollout && <Segmented label="Режим" value={shown} onChange={setMode} options={[{ id: "rollout", label: "Внедрение" }, { id: "scale", label: "Масштабирование" }]} />}
@@ -237,22 +245,23 @@ export function CalculatorPage() {
       <Panel title={shown === "rollout" ? "Ваш завод" : "Камеры"} tools={<Button size="sm" variant="ghost" icon="refresh" onClick={reset}>Пример для демо</Button>}>
         <form className="v5-form" onSubmit={e => e.preventDefault()}>
           {shown === "rollout" ? <>
-            <div className="v5-form-grid">{PLANT.map(f => <NumberField key={f.key} label={f.label} value={rollout[f.key] ?? ""} error={r.errors[f.key]} hint={f.key === "incidents_per_year" ? industryHint(r.values.workers) : undefined} onChange={setR(f.key)} />)}</div>
+            <div className="v5-form-grid">{PLANT.map(f => <NumberField key={f.key} label={f.label} value={rollout[f.key] ?? ""} error={inputError(r.errors, f.key)} hint={f.key === "incidents_per_year" ? industryHint(r.values.workers) : undefined} onChange={setR(f.key)} />)}</div>
             <h3 className="v5-form-h">Цена одного инцидента</h3>
-            <div className="v5-form-grid">{COST.map(f => <NumberField key={f.key} label={f.label} unit="₽" value={rollout[f.key] ?? ""} error={r.errors[f.key]} onChange={setR(f.key)} />)}</div>
-          </> : <div className="v5-form-grid">{SCALE.map(f => <NumberField key={f.key} label={f.label} value={scale[f.key] ?? ""} error={s.errors[f.key]} onChange={setS(f.key)} />)}</div>}
+            <div className="v5-form-grid">{COST.map(f => <NumberField key={f.key} label={f.label} unit="₽" value={rollout[f.key] ?? ""} error={inputError(r.errors, f.key)} onChange={setR(f.key)} />)}</div>
+          </> : <div className="v5-form-grid">{SCALE.map(f => <NumberField key={f.key} label={f.label} value={scale[f.key] ?? ""} error={inputError(s.errors, f.key)} onChange={setS(f.key)} />)}</div>}
           <p className="v5-hint"><Icon name="info" size={14} />Пример завода: «пример для демо, замените своими». Пересчёт идёт сразу при вводе.</p>
         </form>
       </Panel>
       <section className="v5-calc-result" aria-label="Результат расчёта" aria-busy={calc.busy}>
-        {calc.error && <ErrorNotice error={calc.error} compact />}
+        {calc.error && !rejected && <ErrorNotice error={calc.error} compact />}
+        {rejected && <p className="v5-hint is-error" role="alert">Сервер не принял одно значение: исправьте отмеченное поле. Показан последний расчёт.</p>}
         {result ? <div className={calc.busy ? "is-stale" : undefined}>{shown === "rollout" ? <RolloutView result={result as RolloutResult} plant={{ incidents: r.values.incidents_per_year, workers: r.values.workers }} /> : <ScaleView result={result as ScaleResult} />}</div>
           : (shown === "rollout" ? okR : okS) ? !calc.error && <Loading text="Считаем" /> : <p className="v5-hint is-error" role="alert">Исправьте отмеченные поля: расчёт ждёт чисел.</p>}
       </section>
     </div>
     <div className="v5-calc-grid v5-calc-grid-even">
       <Panel title="Допущения" tools={changed ? <Badge tone="accent">изменено {changed}</Badge> : undefined} flush>
-        <Assumptions list={base.assumptions} overrides={overrides} onChange={setOverride} />
+        <Assumptions list={base.assumptions} overrides={overrides} onChange={setOverride} errors={{ ...o.errors, ...(rejectedAssumption ? { [rejectedAssumption]: REJECTED } : {}) }} />
         {Object.keys(o.errors).length > 0 && <p className="v5-hint is-error" role="alert">В допущениях есть не число или отрицательное значение: расчёт ждёт исправления.</p>}
       </Panel>
       <div className="v5-stack">

@@ -169,3 +169,5 @@
   .v5-market th:last-child, .v5-market td:last-child { display: none; }
   .v5-market .v5-source-inline { display: block; }
 }
+.v5-cell-error { display: block; margin-top: 3px; color: var(--ds-red-text); font-family: var(--display); font-size: 11.5px; text-align: right; white-space: normal; }
+.v5-assume tr[aria-invalid=true] input { border-color: var(--ds-red-line); }
