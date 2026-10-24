@@ -2,10 +2,11 @@
 
 ## 0. Версия
 
-**Версия: v1** (2026-10-24)
+**Версия: v2** (2026-10-24)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
+- v2 (ревью R5): 44 строки `GAP` S0–S5 перенесены в 6.8 и строки трассировки 6.7; 8.1: `model_missing` только по `not readable`; 8.2: жёлтая скорость при `≥` порога; 7: `registry.resolve(ref, models=None)`, `HudCanvas({ops, size})`; решения R5: `PUT` сектора, `PATCH` камеры, doctor без ключей, импорты `api.py`, устойчивость цикла задач и сессии Jupyter, диагностика очереди TPU.
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2596,6 +2597,106 @@ models:
 | фронт: графики | 13 | статистика | `frontend/src/components/Charts.tsx` | `export function BarChartCard(` | `frontend/src/screens/screens.test.tsx::ohs_stats_renders` |
 | фронт: экран `OhsStats` | 13 | `/ohs/stats` | `frontend/src/screens/ohs/OhsStats.tsx` | `export function OhsStats(` | `frontend/src/screens/screens.test.tsx::ohs_stats_renders` |
 | фронт: экран `ManagementDashboard` | 13 | `/management` | `frontend/src/screens/management/ManagementDashboard.tsx` | `export function ManagementDashboard(` | `frontend/src/screens/screens.test.tsx::management_renders` |
+| тип `media.VideoProbe` | 2 | `probe_video` | `src/safewatch/media.py` | `class VideoProbe(BaseModel):` | `tests/test_videos.py::test_upload_probes_and_queues_job` |
+| константа `media.CODEC_ALIASES` | 2 | `probe_video` | `src/safewatch/media.py` | `CODEC_ALIASES = {"fmp4": "mp4v"}` | `tests/test_videos.py::test_upload_probes_and_queues_job` |
+| `media.encode_jpeg` | 5 | доказательства | `src/safewatch/media.py` | `def encode_jpeg(` | `tests/test_analysis_api.py::test_job_creates_episodes_and_evidence` |
+| `registry.MODELS_FILE` | 0 | `registry`, `doctor` | `src/safewatch/registry.py` | `MODELS_FILE = ` | `tests/test_config.py::test_models_registry_resolves_active_models` |
+| `registry.resolve` со списком моделей | 0 | `services`, `rules` | `src/safewatch/registry.py` | `def resolve(ref: str, models: list[ModelSpec] \| None = None) -> ModelSpec:` | `tests/test_config.py::test_models_registry_resolves_active_models` |
+| `config.ENV_NAMES` | 0 | `doctor` | `src/safewatch/config.py` | `ENV_NAMES = {` | `tests/test_config.py::test_settings_carry_no_keys_and_no_fakes` |
+| `texts.SCENARIO_TITLES` | 5 | `meta`, плагины | `src/safewatch/texts.py` | `SCENARIO_TITLES: dict[str, str] = {` | `tests/test_analysis_api.py::test_meta_lists_running_and_fall` |
+| `rules.defaults` | 5 | `analyze`, правила | `src/safewatch/rules/__init__.py` | `def defaults(` | `tests/test_rule_running.py::test_running_threshold_boundary` |
+| `geometry.point_rect_distance` | 5 | `running` | `src/safewatch/analysis/geometry.py` | `def point_rect_distance(` | `tests/test_rule_running.py::test_running_red_in_danger_zone` |
+| `JupyterShell._drop` | 2 | `LinqBackend` | `src/safewatch/inference/linq.py` | `def _drop(` | `tests/test_linq_backend.py::test_jupyter_shell_starts_fresh_session_after_network_error` |
+| цикл задач переживает ошибку шага | 2 | `api` lifespan | `src/safewatch/worker.py` | `log.exception("job loop")` | `tests/test_jobs.py::test_job_loop_survives_unexpected_error` |
+
+### 6.8 Дополнения v2 (строки `GAP` S0–S5 и решения R5)
+
+Перенесены ревью R5 из `## open` файла `progress.md`. Эти имена и формы — часть контракта наравне с 6.1–6.6. Строка: `<слайс>, <что>, <точная форма>`; `было → стало` заменяет сказанное выше.
+
+**5.2 Типы**
+
+- S5, `AnalysisConfig.duration_ms: int` (= `videos.duration_ms`, конец эпизода `video_end`; тип внутренний, в openapi его нет).
+
+**6.1 Бэкенды инференса и фейк**
+
+- S2, `LinqBackend` (8.1): «хвост лога содержит `status -3` или `not readable` → `model_missing`» → «только `not readable` → `model_missing`»: лог фейка `remote_error` по 6.1 содержит `status -3` и обязан давать `remote_error`.
+- S2, `LinqBackend`: `.progress` не JSON, пока воркер `RUNNING`, — повтор опроса (воркер переписывает файл на месте), `bad_output` только при `STOPPED`; `--classes` ставится по `model.task == "detect"` (S10 отличит `pipeline.extra`); `upload_s` — проверка размера и загрузка видео; `remote_out` с раскрытым `$HOME` из `# sw:home`; `LinqBackend.check()` → `NotImplementedError("slice 3")`; `WORKER_FILES`, `_load_module(path)`.
+- S2, `inference.make_backend` с `local` → `NotImplementedError("slice 3")`; `config.Settings.inference_backend = Field(default="linq", validation_alias="INFERENCE_BACKEND")` (искомая строка 6.7).
+- S2, `FakeRemoteShell`: сцена `auto` берёт исходное имя через `store.video_filename(<стем uploads/<sha256><ext>>)`, иначе имя локального файла (закрывает заметку R5 от S0).
+- S3, `LinqBackend.check`: `present` — найденные программы активных моделей, `missing` — недостающие программы и пути хвостов; любая `InferenceError` → `unreachable`; код возврата `ls` не проверяется (нет папки — все программы в `missing`); `latency_ms` — время `# sw:check`; помощник `_finish(status, state, text, names=None)`.
+- S3, `LocalBackend`: `PROGRESS_EVERY = 25`, `_yolo_io(tools_dir)` (импорт по пути), `fake=False` в метриках и статусе, нет видео → `video_unreadable`, `check()`: `ok`/`models_missing` по файлам `local_onnx` активных моделей, текст `LOCAL_*`.
+
+**6.2 Фасад `services`**
+
+- S1, константы `services` вне 6.6: `ROLE_ACTIONS: dict[Role, list[HumanAction]]` (таблица прав 6.2), `TERMINAL_STATUSES: frozenset[EventStatus]` (8.6), `LEVEL_COLORS: dict[Level, str] = {"yellow": "#FFC400", "red": "#FF3B30"}` (цвета темы 8.14 для `LevelMeta.color`).
+- S1, `sector_delete` сектора, на который ссылаются только удалённые камеры или события (FK, у секторов нет `deleted_at`): 409 `sector_not_empty` с текстом `texts.SECTOR_HAS_HISTORY` вместо 204.
+- S2, `services` вне 6.2: `analysis_step(fps) -> int` (шаг 8.1), `ERROR_TEXT_MAX = 500`, `RETRYABLE: frozenset[JobErrorCode]`, ленивый `_backend` (сбрасывает фикстура `conn`); `Job.metrics` строится из `artifacts.metrics_json` задачи, `cached = artifacts.created_at < jobs.started_at`; повторная загрузка `failed`-видео ставит видео в `uploaded`; без `pipeline.pose` стадия pose пропускается.
+- S3, `services`: `RECENT_JOBS = 20`; синглтон `_backend_status: BackendStatus | None` (последняя реальная проверка, сбрасывает фикстура `conn`), `_unchecked()`; кэш живёт, пока `now - checked_at < linq.check_cache_s` (ровно на границе — новая проверка); `job_retry` ставит `stage=queued`, `progress=0`, `attempts=0`, чистит `error_*`, `next_attempt_at`, `finished_at`, видео → `uploaded`, шлёт `job.progress`; `recover_jobs` меняет только `status`.
+- S5, `services`: `_enqueue(video_id, kind: JobKind = "process")`, `_evidence`, `_evidence_files`, `_stored_artifact`, `_analysis_inputs(video)` (артефакты активного анализа; нет строки или файла → `None`: `video_recompute` 409 `artifacts_missing`, задача `recompute` → `failed`, `artifacts_missing`); задача `recompute` берёт модели из строк `artifacts` (`model_id@model_version`), не из `pipeline`; `_analyze` возвращает `(эпизоды с id, hud)`; `video_recompute`: роль (admin, ohs) → 404 → 409 `video_not_ready` (статус не `ready` или нет активного анализа) → 409 `artifacts_missing`; `evidence_file`: нет строки или файла → 404.
+
+**6.2 Хранилище `store` и помощники слоёв**
+
+- S0, помощники вне 6.x: `store.conn()` (ленивое соединение живёт в `store._conn`, а не в `services`), `store.insert(table, values) -> int`, `store.demo_world_exists()`, `store.demo_counts()`, `store.demo_cameras()`; `seed.seed_demo() -> SeedReport` и `seed.demo_camera_ids()` (фасад `services.seed_demo` зовёт их); `config.ENV_NAMES: dict[str, str]` (имя ключа `.env` для doctor); `cli.contract_texts() -> dict[str, str]`; `fakes.remote.auto_scene(filename) -> str`; `hub.Client` (`role`, `queue`, `dropped`); `services.ACTOR_MAX` объявлена в S0 (её читает `api`).
+- S1, `store`: `sectors()`, `sector(id)`, `sector_name_taken(name, except_id=None) -> bool`, `sector_update(id, name, sort_order)`, `sector_has_cameras(id) -> bool`, `sector_delete(id)`, `cameras(sector_id=None)` и `camera(id)` (строки без удалённых, с `has_calibration`, `zones_count`, `videos_count` одним запросом), `camera_update(id, values: dict)`, `camera_delete(id, at)` (`deleted_at` и `playing`-эфир → `stopped`); в `services` приватные `_require(role, allowed)`, `_name`, `_description`.
+- S2, `store`: `video`, `video_by_sha`, `video_filename(sha256)`, `videos`, `video_update`, `job`, `jobs(status, limit)`, `camera_jobs`, `video_last_job`, `next_job(now)`, `job_update`, `job_progress` (прогресс не убывает), `artifact`, `artifact_update`; `cli.import_video(path, camera_id) -> int`.
+- S3, `store`: `queue_jobs()` (`queued`, `running`, `retry_wait` по `created_at`), `finished_jobs(limit)` (`done`, `failed` по `finished_at` убыв.), `jobs_recover() -> int`.
+- S4, `store`: `artifact_path(artifact_id) -> str`, `analysis_next_version(video_id) -> int`, `analysis(analysis_id)`; `services._analyze(job_id, video, det, pose)` и `_analysis_files(...)` (поток: чтение артефактов, `analyze`, запись `hud.jsonl`); `video_tracks`: сначала 404, потом 422 (`field="to_ms"`), потом 409; `analyses.duration_ms` = длительность видео.
+- S5, `store`: `artifact_by_id`, `episodes(analysis_id)`, `analysis_evidence(analysis_id)`, `evidence(evidence_id)`.
+
+**6.3 CLI и doctor**
+
+- S3, `doctor._linq_check(settings)`: без `LINQ_JUPYTER_URL` или `LINQ_JUPYTER_USER` — FAIL «нет ключей» без `backend_check` (с пустым URL `JupyterShell` падает не сетевой ошибкой); строка `связь с LinQ: <state>` с `BackendStatus.message`; `serve` печатает число возвращённых в очередь задач.
+
+**6.4 REST**
+
+- S0, тело ошибок в OpenAPI, `router = APIRouter(responses={"4XX": {"model": ApiError}, 501: {"model": ApiError}})`: схема `ApiError` попала в `contract/openapi.json` и `schema.d.ts` (иначе фронт не знает тела ошибки; 4XX заменяет `HTTPValidationError` у 422).
+
+**6.6 Константы и тексты `texts.py`**
+
+- S0, `texts.py` сверх 7: `SCENARIO_TITLES: dict[str, str]` (названия 8.3, плагины S5/S10 берут отсюда), `PRODUCT_TITLE`, `REQUEST_INVALID`, `ROLE_REQUIRED`, `ACTOR_INVALID`, `NOT_IMPLEMENTED = "Функция появится в слайсе {slice}"`, `VIDEOS_DIR_MISSING`, `DEMO_SECTORS`, `DEMO_CAMERAS`, `DEMO_ZONE_NAMES`, `DEMO_REASONS`, `DEMO_RESOLVE_COMMENTS`.
+- S1, `texts.py`: `FORBIDDEN_ROLE`, `NAME_INVALID`, `DESCRIPTION_INVALID`, `SECTOR_NOT_FOUND`, `CAMERA_NOT_FOUND`, `SECTOR_NAME_TAKEN`, `SECTOR_NOT_EMPTY`, `SECTOR_HAS_HISTORY`.
+- S2, `texts.py`: `VIDEO_EXTENSION`, `VIDEO_UNREADABLE`, `VIDEO_TOO_LARGE`, `VIDEO_NOT_FOUND`, `FILE_NOT_FOUND`, `JOB_NOT_FOUND`, `LIMIT_INVALID`.
+- S3, `texts.py`: `JOB_NOT_FAILED`, `BACKEND_UNCHECKED`, `BACKEND_FAKE = "Фейк: детекции синтетические. {text}"` (префикс сообщения фейка), `LINQ_OK`, `LINQ_UNREACHABLE`, `LINQ_MODELS_MISSING`, `LINQ_BAD_ANSWER`, `LOCAL_OK`, `LOCAL_MODELS_MISSING`.
+- S4, `texts.py`: `HUD_SPEED_BH`, `HUD_RUN_BH`, `HUD_LYING`, `HUD_STILL`, `HUD_FEET_HIDDEN`, `HUD_TOO_SMALL`, `OBJECT_LABELS: dict[str, str]` (класс → подпись, нет ключа → имя класса), `VIDEO_NOT_READY`, `TRACKS_WINDOW_INVALID`.
+- S5, `texts.py`: `SCENARIO_DESCRIPTIONS`, `SCENARIO_ACTIVE`, `SCENARIO_MODEL_MISSING`, `PARAM_TITLES: dict[str, tuple[str, str]]` (ключ → подпись, единица), `RUN_BH`, `RUN_M`, `IN_ZONE`, `NEAR_VEHICLE`, `FALL_SEEN`, `LYING_STILL`, `IN_REPAIR_ZONE`, `WHY_RULE`, `WHY_RUN_BH`, `WHY_RUN_M`, `WHY_FALL`, `WHY_LYING`, `WHY_METHOD`, `WHY_CONFIDENCE`, `WHY_UNCERTAIN`, `WHY_SECONDS`, `METHOD_TITLES`, `METRIC_TITLES`, `EVIDENCE_NOT_FOUND`, `ARTIFACTS_MISSING`.
+
+**Компоненты анализа, реестра и правил (разделы 7, 8.2–8.4)**
+
+- S0, `registry.resolve(ref: str, models: list[ModelSpec] | None = None) -> ModelSpec` (необязательный список, чтобы не читать yaml на каждую ссылку); `registry.MODELS_FILE`.
+- S2, `media.VideoProbe` (pydantic: `width`, `height`, `fps`, `frame_count`, `duration_ms`, `codec`, `browser_playable`) и `media.probe_video(path) -> VideoProbe | None` (`None` — видео не читается); `media.CODEC_ALIASES = {"fmp4": "mp4v"}`: OpenCV отдаёт для mp4v имя FFmpeg `FMP4`, без замены критерий `codec = "mp4v"` не выполним.
+- S4, `analysis.pipeline.analyze` берёт секции `tracker`, `pose`, `features` и порог `scenarios.running.speed_bh_s` (жёлтая подпись скорости) из `config.get_settings()`: в `AnalysisConfig` их нет; параметр `config` сохранён по 8.2, модуль импортирован как `app_config`; `VEHICLES = ("car", "bus", "truck", "train")`; `pose_used = pose is not None`.
+- S4, `Tracker(cfg: TrackerConfig, ids: itertools.count[int])`, `Tracker.update(ts_ms, dets) -> list[tuple[int, Detection]]` (подтверждённые и сопоставленные в кадре); id выдаётся при подтверждении (предварительный трек без id), открывающая детекция — первое попадание; трек живёт, пока `ts − last_seen ≤ max_lost_s` (ровно 1,0 с — прежний id).
+- S4, `features.History = dict[int, list[tuple[int, PersonState]]]`, `features.attach_keypoints(boxes, poses, match_iou) -> dict[int, list[Keypoint]]` (индекс рамки → точки), `features.person_states(tracks, kpts, ts_ms, frame_height, history, cfg, kpt_conf) -> list[PersonState]` (дописывает кадр в `history`); `ANKLES`, `SHOULDERS_HIPS`, `FRAME_EDGE_PX = 2`; H_ref до первой вертикальной позы — текущая высота, в позе `lying` — прежний, нет вертикальных точек в окне — прежний.
+- S4, `hud.build_hud(ctx: FrameContext, run_bh_s: float, cfg: FeaturesConfig) -> HudFrame`; скорость `speed_bh_s ≥ run_bh_s` → «бег <v> роста/с», `yellow` (как у правила `running`), иначе «<v> роста/с» без уровня; «неподвижен» при `ts − still_since > still_after_s`; координаты обрезаются в [0, 1]; подписи наблюдений `P` придут с плагинами S5.
+- S5, `hud.build_hud(ctx, run_bh_s, cfg)` → `build_hud(ctx, run_bh_s, cfg, observations: list[Observation])` (тег `code=<scenario>`, текст причины и уровень на каждое `P` у человека `track:<id>`).
+- S5, `EpisodeManager(cfg: EpisodesConfig)`, `update(frame_idx, ts_ms, observations)`, `finish(duration_ms) -> list[EpisodeDraft]` (по `start_ms`); `U` = нет наблюдения; слияние смены id — только с подтверждённым эпизодом, по `anchor` и `ref_height_px` его последнего `P`; удержание красного для эскалации сбрасывает любой кадр без красного `P`; `uncertain_ms` копится покадрово (ts − ts прошлого кадра); `{duration_s}` подставляется при выдаче черновика.
+- S5, `rules`: `defaults(scenario) -> dict[str, float]`, `scenario_metas(active_classes: list[str] | None = None)` (снимок анализа; `None` → `registry.active_classes`); статус `skeleton` и «любой класс» для `fire_smoking` — в S10; `rules/base.py`: `param(key, lo, hi) -> ScenarioParam` (`default` ставит `scenario_metas`), `obs(scenario, person, state, *, level, hold_s, reason_code, reason_text, method, metrics, zone_id) -> Observation` (субъект `track:<id>`, `confidence` = score), `why_common(episode) -> list[WhyItem]`; `RunningPlugin`, `FallPlugin` с `ID`, `running.DANGER_KINDS`; `reason_code`: `running`, `running_zone`, `running_vehicle`, `fall`, `lying_still`, `lying_still_allowed`; `method`: running `relative`/`calibrated`, fall — `posture_method`.
+- S5, `fall`: «человек меньше `features.min_person_px`» → `ref_height_px < min_person_px` (рамка лежащего низкая по природе), порог из `config.get_settings()`.
+- S5, `geometry.point_rect_distance(p, box) -> float`, `point_segment_distance(p, a, b) -> float`; `ioa` не написан (потребитель — S10).
+- S5, `media.read_frame(path, frame_idx) -> np.ndarray` (кадр не читается → `ValueError` → задача `internal`), `media.encode_jpeg(img, quality, max_width) -> bytes`.
+
+**Фронт (разделы 7, 8.14)**
+
+- S0, фронт: `WsMessage` в `src/api/ws.ts` — свой тип `{type, at, data: unknown}` (WS-схемы нет в openapi); `useMeta()` и контекст `/api/meta` в `components/AppShell.tsx` (бейджи и переключатель роли берут названия из meta); `roles.ts` ещё экспортирует `ROLES`, `getRole`, `setRole`.
+- S1, фронт: `Modal({title, onClose, children})`, `FormField({label, children})`, `FormModal({title, error, submitText, onSubmit, onClose, children})` (форма в модалке с текстом ошибки API), `ConfirmDialog({text, error, onConfirm, onClose})`; `NavItem.screen?: ComponentType` в `nav.ts`, `App.tsx` рендерит `screen` вместо `StubNotice`; `DataTable` — generic-перегрузка над негенерик-реализацией.
+- S2, фронт: `uploadVideo(cameraId, file, onProgress)` в `src/api/client.ts` (XMLHttpRequest: у fetch нет прогресса загрузки).
+- S3, фронт: бейдж `data-testid="backend-state"` в `AppShell` (по WS `backend.status`, текст `message`, иконка ●/▲), `SystemScreen` подключён в `nav.ts`; `App.test.tsx` подменяет `WebSocket` в `beforeEach`.
+- S4, фронт: `DrawOp` (`rect`, `label`, `path`), `Size`, `CHAR_W`, `LINE_H`, `PAD` в `components/hud.ts`; `HudCanvas({ops, size})` (размер холста нужен, ops в пикселях); `videoUrl(videoId)` в `src/api/client.ts`; `VideoWithHud` берёт окна `/tracks` по 5000 мс; клавиша H (и Р в русской раскладке).
+- S5, фронт: `apiUrl(path)` в `src/api/client.ts` (URL сервера для `Evidence.url`); блок `Episodes` внутри `CameraSetup.tsx`; `EvidenceImage` в S5 — миниатюра с подписью (время, число объектов), рамка и выноска — S7.
+
+**Решения R5**
+
+- `PUT /api/sectors/{id}` заменяет сектор целиком по `SectorIn` (`sort_order` по умолчанию 0): так требуют 6.4 и 5.2, фронт шлёт `sort_order` всегда.
+- `PATCH /api/cameras/{id}` пропускает поля со значением `null`: поля `CameraPatch` в 5.1 `NOT NULL`, очистка описания — пустая строка `""`.
+- 8.1, `model_missing`: только хвост лога с `not readable` (ошибка LinQ `-3 … TPU program file is not readable`, `docs/linq/LINQ_CONTRACT.md`); голый `status -3` (лог фейка `remote_error` в 6.1) → `remote_error`. Текст 8.1 исправлен.
+- 8.2, HUD: жёлтая подпись скорости при `speed_bh_s ≥` порога `scenarios.running.speed_bh_s`, как у правила `running` (8.3). Текст 8.2 исправлен.
+- doctor без `LINQ_JUPYTER_URL` или `LINQ_JUPYTER_USER`: FAIL «нет ключей», `backend_check` не вызывается (с пустым URL `JupyterShell` падает не сетевой ошибкой). Принято.
+- `api.py` кроме `services` и `hub` импортирует `worker` (lifespan, слайс 0), `clock` (время `hello` в `/ws`) и `registry` (`active_models` при старте `create_app`). Допустимо.
+- `worker.run_forever`: исключение шага пишется в лог (`job loop`), цикл ждёт `jobs.idle_poll_ms` и продолжает; `_video_row` в `run_next_job` внутри `try` (задача не остаётся `running`).
+- `JupyterShell._drop()`: сетевая ошибка или `JupyterError` сбрасывают сессию (`shutdown_kernel` без гарантий), следующий вызов входит заново и открывает новый kernel.
+- `tools/linq/remote/video_worker.py` перед первым кадром пишет в stderr (`<out>.log`) строку `{"input_queue": {"messages", "consumers"}, "uri": <program_uri>}`; `TimeoutError` из `TpuClient.collect` оканчивается `unmatched replies <n>` (`TpuClient.unmatched` — ответы без известного id).
+
+---
 
 ## 7. Общие компоненты
 
@@ -2608,7 +2709,7 @@ models:
 | хранилище | `store.py` | `tx()` (контекст транзакции), `one(sql, *args)`, `all(sql, *args)`, `run(sql, *args) -> int`; функции запросов по сущностям | 0 (функции — по слайсам) | `services`, `seed` |
 | тексты | `texts.py` | словари `STATUS_TITLES`, `LEVEL_TITLES`, `ROLE_TITLES`, `DEMO_ACTOR`, `NO_OBSERVATION_TEXTS`; `fmt_num(x) -> "3,1"`; `notification_text(...)` (S6) | 0 | `services`, `analysis/hud`, `rules` |
 | WS-хаб | `hub.py` | `Hub.connect(role) -> Client`, `Hub.disconnect(client)`, `Hub.publish(type: WsType, data: BaseModel, audience: list[Role] \| None = None)`; очередь клиента `CLIENT_QUEUE` | 0 | `api`, `services` |
-| реестр моделей | `registry.py` | `load_models(path) -> list[ModelSpec]`, `resolve(ref: str) -> ModelSpec`, `active_models(settings) -> list[ModelSpec]`, `active_classes(settings) -> list[str]` | 0 | `services`, `doctor`, `rules` |
+| реестр моделей | `registry.py` | `load_models(path) -> list[ModelSpec]`, `resolve(ref: str, models: list[ModelSpec] \| None = None) -> ModelSpec`, `active_models(settings) -> list[ModelSpec]`, `active_classes(settings) -> list[str]` | 0 | `services`, `doctor`, `rules` |
 | фейки | `fakes/remote.py`, `fakes/scenes.py` | 6.1 | 0 | тесты, режим `SAFEWATCH_FAKE=1` |
 | фикстуры тестов | `tests/conftest.py` | `conn`, `settings`, `core`, `fake_core`, `client` (FastAPI с lifespan, README шаблона), `fake_clock` (подменяет `clock.now`, `advance(s)`), `make_video(tmp_path, seconds, fps, size) -> Path` (OpenCV пишет mp4v), `side_effects` | 0 | все тесты |
 | медиа | `media.py` | `probe_video(path) -> VideoProbe` (S2), `read_frame(path, frame_idx) -> ndarray` и `encode_jpeg(img, quality, max_width) -> bytes` (S5), `sample_luma(path, every_s) -> list[tuple[int, float, float]]` (S11) | 2 | `services`, `analysis` |
@@ -2619,7 +2720,7 @@ models:
 | фронт: роль | `frontend/src/roles.ts` | `useRole() -> [role, setRole]`, хранение в `localStorage` в try/catch | 0 | шапка, клиент |
 | фронт: каркас | `components/AppShell.tsx`, `RoleSwitcher.tsx`, `StubNotice.tsx`, `Badges.tsx` | `AppShell` (шапка: продукт, роль, бейдж бэкенда и «фейк», часы МСК), `RoleSwitcher`, `StubNotice({slice, title})`, `LevelBadge({level})`, `StatusBadge({status})` | 0 | все экраны |
 | фронт: формы и таблицы | `components/Form.tsx`, `DataTable.tsx` | `Modal`, `FormField`, `ConfirmDialog`, `DataTable<T>({columns, rows, empty})` | 1 | админка, журнал |
-| фронт: HUD | `components/hud.ts`, `HudCanvas.tsx`, `VideoWithHud.tsx` | `layoutHud(frame, zones, grid, size, visible) -> DrawOp[]` (чистая функция), `HudCanvas({ops})`, `VideoWithHud({videoId, src, positionMs?, zones, grid})`; клавиша `H` и кнопка скрывают HUD | 4 | камера, событие, мастер, настройка |
+| фронт: HUD | `components/hud.ts`, `HudCanvas.tsx`, `VideoWithHud.tsx` | `layoutHud(frame, zones, grid, size, visible) -> DrawOp[]` (чистая функция), `HudCanvas({ops, size})`, `VideoWithHud({videoId, src, positionMs?, zones, grid})`; клавиша `H` и кнопка скрывают HUD | 4 | камера, событие, мастер, настройка |
 | фронт: эпизоды | `components/Timeline.tsx`, `EvidenceImage.tsx` | `Timeline({episodes, durationMs, onSeek})`, `EvidenceImage({evidence, hudVisible})` | 5 | настройка камеры, камера, событие, мастер |
 | фронт: оповещения | `components/sound.ts`, `Toasts.tsx`, `TakeoverOverlay.tsx`, `EventFeed.tsx`, `SectorTile.tsx` | `playSound(kind: Sound)` (WebAudio), `Toasts`, `TakeoverOverlay`, `EventFeed({items})`, `SectorTile({state})` | 6 | оператор, мастер |
 | фронт: редактор точек | `components/PolygonEditor.tsx` | `PolygonEditor({image, mode: "points" \| "polygon" \| "line", value, onChange, maxPoints})` | 9 | калибровка, зоны |
@@ -2652,7 +2753,7 @@ models:
 6. С слайса 4: стадия `analysis` (`await asyncio.to_thread(analysis.pipeline.analyze, ...)`), новая строка `analyses` (версия = последняя + 1), файл HUD, `videos.active_analysis_id`; с слайса 5 эпизоды и стадия `evidence`; с слайса 6 автостарт эфира (8.5); с слайса 9 `superseded` для задачи `recompute` (8.12).
 7. Конец: `done`, `progress=1`, `finished_at`, видео `ready`; при `failed` видео `failed`.
 
-`LinqBackend.run`: команды и опрос по 6.1. Тихих ретраев внутри нет: повтор делает очередь. Перед стартом проверяет локальный файл хвоста: нет → `InferenceError("model_missing")`. Хвост лога содержит `status -3` или `not readable` → `model_missing`. `.progress` → доля `done / ceil(n_total / step)`; `finished` → 1. Остановка без `finished` → `remote_error` с последней строкой лога. Таймаут прогона → `# sw:kill`, затем `timeout`. Скачанный JSONL проверяет `read_jsonl(path, expected_frames=summary.frames_processed)`: строка не JSON, нет поля, `frame_idx` не растёт, число строк не равно ожидаемому → `bad_output`. Метрики берутся из summary воркера и `end_to_end_s`.
+`LinqBackend.run`: команды и опрос по 6.1. Тихих ретраев внутри нет: повтор делает очередь. Перед стартом проверяет локальный файл хвоста: нет → `InferenceError("model_missing")`. Хвост лога содержит `not readable` (ошибка LinQ `-3 … TPU program file is not readable`) → `model_missing`; `status -3` без этих слов → `remote_error` (v2). `.progress` → доля `done / ceil(n_total / step)`; `finished` → 1. Остановка без `finished` → `remote_error` с последней строкой лога. Таймаут прогона → `# sw:kill`, затем `timeout`. Скачанный JSONL проверяет `read_jsonl(path, expected_frames=summary.frames_processed)`: строка не JSON, нет поля, `frame_idx` не растёт, число строк не равно ожидаемому → `bad_output`. Метрики берутся из summary воркера и `end_to_end_s`.
 
 `LocalBackend.run`: тот же цикл, что `video_worker.py`, но в процессе: OpenCV читает каждый `step`-й кадр, `yolo_io.preprocess` → onnxruntime (`model.local_onnx`, `intra_op_num_threads = local.threads`) → `yolo_io.postprocess` с `conf`, `iou`, `classes` из реестра → та же строка JSONL; summary с `throughput_fps`, `preprocess_ms`, `postprocess_ms`, без RTT и upload. Нет файла ONNX → `model_missing`. Прогон на `local` в UI подписан «CPU, не LinQ».
 
@@ -2681,7 +2782,7 @@ models:
 6. Признаки техники (`features.vehicle_states`, S10): `speed_vh_s` — смещение центра рамки за `speed_window_s` в высотах её рамки в секунду; при калибровке `footprint` (нижняя кромка на полу) и `speed_m_s`.
 7. Плагины включённых сценариев со статусом `active` получают `FrameContext` и эффективные параметры камеры (8.3), возвращают `Observation`. Менеджер эпизодов (8.4) собирает эпизоды.
 8. HUD (`hud.build_hud`): на каждый кадр `HudFrame`. Координаты нормированы делением на ширину и высоту кадра. Подписи людей:
-   - скорость `"<v> роста/с"` или `"<v> м/с"`, уровень `yellow`, если скорость выше порога бега;
+   - скорость `"<v> роста/с"` или `"<v> м/с"`, уровень `yellow`, если скорость не ниже порога бега (`≥`, как у `running` в 8.3);
    - `"лежит <N> с"` в позе `lying`; `"неподвижен <N> с"` при неподвижности дольше `still_after_s`;
    - `"ноги не видны"` (`feet_hidden`), `"слишком мелко"` (`too_small`, высота меньше `min_person_px`);
    - на каждое наблюдение `P` подпись с кодом сценария, текстом причины и уровнем.
