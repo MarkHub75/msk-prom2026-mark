@@ -25,4 +25,13 @@ describe("API query ownership", () => {
     await act(async () => { finishOld!({data: "event-one"}); await old; });
     expect(hook.result.current.data).toBe("event-two");
   });
+
+  it("keeps the last data while the same query is refetched by a refresh trigger", async () => {
+    let n = 0;
+    const hook = renderHook(({u}) => useApi(() => Promise.resolve({data: `v${++n}`}), [], {refresh: [u]}), {initialProps: {u: 0}});
+    await waitFor(() => expect(hook.result.current.data).toBe("v1"));
+    hook.rerender({u: 1});
+    expect(hook.result.current.data).toBe("v1");
+    await waitFor(() => expect(hook.result.current.data).toBe("v2"));
+  });
 });
