@@ -20,14 +20,14 @@ def _text(data: bytes) -> str:
     return " ".join(" ".join(page.extract_text() for page in pages).split())
 
 
-def test_pdf_has_cyrillic_summary(core: Settings) -> None:
+async def test_pdf_has_cyrillic_summary(core: Settings) -> None:
     fifth = camera()
     event(
         fifth, started_at=INSIDE, operator_verdict="confirmed", status="confirmed",
         reason_text="Человек в зоне «Проезд погрузчиков»",
     )  # fmt: skip
     event(fifth, started_at=INSIDE, operator_verdict="false_alarm", status="false_alarm")
-    data = services.shift_report_pdf(utc(24, 9))
+    data = await services.shift_report_pdf(utc(24, 9))
     assert data.startswith(b"%PDF")
     text = _text(data)
     for line in (

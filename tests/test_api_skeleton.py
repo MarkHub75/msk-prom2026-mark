@@ -61,7 +61,7 @@ async def test_unbuilt_route_returns_501(
     client: httpx.AsyncClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     # Every route is built since slice 30: an unbuilt facade is a stub of its slice (as in S13).
-    def stub(at: object = None) -> bytes:
+    async def stub(at: object = None) -> bytes:
         raise NotImplementedError("slice 30")
 
     monkeypatch.setattr(services, "shift_report_pdf", stub)

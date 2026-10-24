@@ -602,11 +602,9 @@ def video_file(video_id: int) -> Path:
 
 def _job(row: sqlite3.Row) -> Job:
     sources = [(row[f"{prefix}_metrics"], row[f"{prefix}_created"]) for prefix in ("det", "pose")]
-    analysis = store.analysis(row["analysis_id"] or 0)
-    if analysis is not None:  # the extra models of its snapshot (tech.md 8.30 item 11)
-        snapshot = AnalysisConfig.model_validate_json(analysis["config_json"])
-        found = [store.artifact_by_id(artifact_id) for artifact_id in snapshot.extra_artifact_ids]
-        sources += [(a["metrics_json"], a["created_at"]) for a in found if a is not None]
+    # The extra models of the analysis snapshot, in its order (tech.md 8.30 item 11).
+    extra = sorted(json.loads(row["extra_metrics"] or "[]"))
+    sources += [(text, created) for _, text, created in extra]
     metrics = []
     for text, created in sources:
         if text:
@@ -2606,7 +2604,13 @@ async def _eval_episodes(path: Path, camera_id: int | None) -> tuple[list[Episod
     extra = []
     for ref in settings.pipeline.extra:
         model = registry.resolve(ref)
-        extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        try:
+            extra.append((model, await _infer(None, "inference_detect", (0.0, 0.0), model, video)))
+        except InferenceError as exc:
+            if exc.code not in ("remote_error", "bad_output", "model_missing"):
+                raise
+            # Like a job (tech.md 8.30 item 10): its scenarios are model_missing in this analysis.
+            log.warning("eval: %s, extra %s: %s", path.name, ref, exc.message)
     pose = None
     if settings.pipeline.pose is not None:
         pose_model = registry.resolve(settings.pipeline.pose)
@@ -3323,10 +3327,13 @@ def camera_passport(camera_id: int) -> CameraPassport:
     )
 
 
-def shift_report_pdf(at: datetime | None = None) -> bytes:
+async def shift_report_pdf(at: datetime | None = None) -> bytes:
+    """The summary is read here, the PDF is built in a worker thread (300 events take ~0.9 s)."""
     settings = config.get_settings()
     summary = shift_summary_view(at)
-    return report_pdf.shift_pdf(summary, settings.product_name, settings.timezone)
+    return await asyncio.to_thread(
+        report_pdf.shift_pdf, summary, settings.product_name, settings.timezone
+    )
 
 
 def shift_report_name(at: datetime) -> str:

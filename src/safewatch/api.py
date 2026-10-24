@@ -504,7 +504,8 @@ async def shift_report_pdf(at: datetime | None = None) -> Response:
     when = clock.now() if at is None else at  # one instant for the file and its name
     name = services.shift_report_name(when)
     headers = {"Content-Disposition": f'attachment; filename="{name}"'}
-    return Response(services.shift_report_pdf(when), media_type="application/pdf", headers=headers)
+    pdf = await services.shift_report_pdf(when)
+    return Response(pdf, media_type="application/pdf", headers=headers)
 
 
 # --- app ---------------------------------------------------------------------------------

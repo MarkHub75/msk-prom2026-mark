@@ -2,7 +2,7 @@
 
 ## 0. Версия
 
-**Версия: v7** (2026-10-24)
+**Версия: v8** (2026-10-25)
 
 Changelog:
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
@@ -12,6 +12,7 @@ Changelog:
 - v5 (владелец, второй прогон по `UPGRADE_v1.md`): продукт называется Argus, пакет и CLI остаются `safewatch`; контракт фронта 1.1.0 только добавляет (раздел 6.11: миграция `0002_v5.sql`, 24 типа, 10 маршрутов, ключи конфига, поля существующих типов); новые слайсы S16–S32 и ревью R20, R25, R30, R32 (раздел 16): демо-пакет с детекциями LinQ, клип события и H.264, автокалибровка в м/с, каска и респиратор, модели Матвея, Docker, телефон по зонам, проекция груза, звонок мастеру и оператор с телефона, калькулятор окупаемости, датасет ложных срабатываний, ручная идентификация, паспорт камеры, LinQ под медленную очередь, пробелы `docs/ML_INTEGRATION.md`, отчёт смены в PDF, все долги `## open`; учтён `docs/ML_INTEGRATION.md` (коммит `5d940ba2`, дополнен Матвеем в `f6b5358a`: COCO-80 у детектора, extra-классы, программы `mosprom_matvey_*`, новая `version` при любой смене модели, 19 пробелов, решение по каждому — 8.30); второй прогон — раздел 10.3; лимит живых прогонов — S17, S28, R32.
 - v6 (ревью R20): 17 строк `GAP` S17–S20 перенесены в 6.12, 7 строк трассировки 6.7 (`services.Source`, `services._stage`, `services._web_copy`, `services._clip`, `running.AUTOCAL_SAMPLES`, `texts.AUTOCAL_ONE_ROW`, pad нечётного кадра); решения R20: ffmpeg демо-импорта до транзакции (`_stage`), H.264-копия видео до S18 при повторной загрузке, `pad` нечётного кадра в `media.transcode`, СИЗ: при `no_<сиз>` и `<сиз>` на одной голове побеждает больший `score`, текст `AUTOCAL_ONE_ROW`, фейк LinQ не открывает базу вне `uploads/`, `texts.PRODUCT_TITLE` удалён, заголовок страницы и шапки — Argus.
 - v7 (ревью R25): 16 строк `GAP` S22–S25 перенесены в 6.13, 16 строк трассировки 6.7 (`texts.HUD_LOAD_PROJECTION`, `delivery.phone_mask`, `store.delivery_enqueue`, `delivery_dequeue`, `services._delivery`, `texts.CALL_DELIVERED_STUB`, `services.CALC_EXAMPLE`, `CALC_DIVISORS`, `texts.CALC_OVERRIDDEN`, `store.linq_metrics`, `broadcast_event_counts`, `dataset.item_path`, `dataset.MANIFEST`, `store.dataset_pending`, `api.ZIP_FILE`, `api.PDF_FILE`); решения R25: тело webhook с текстом по уровню строки очереди, телефон: danger и vehicle_path побеждают `walkway`/`rest`, `async def dataset_export` (zip в `to_thread`), `application/zip` и `application/pdf` в `contract/openapi.json` (искомая строка маршрута без закрывающей скобки), необязательный `.env` в compose (Compose 2.24+), «живая камера» калькулятора — камера с событиями.
+- v8 (ревью R30): 28 строк `GAP` S26–S30 перенесены в 6.14, 20 строк трассировки 6.7 (`texts.IDENTITY_TOO_LONG`, `identity_comment`, `services._stats_period`, `passport.ZONE_REQUIRED`, `texts.PASSPORT_SUITABLE`, `linq.job_timeout_s`, `rate_eta`, `services._live`, `texts.JOB_WAIT_TPU`, `rules.ANY_VEHICLE`, `store._JOBS` с метриками extra, откат extra в `eval_run`, `services.video_upload_check`, `api._UploadGuard`, `cli._server_running`, `texts.EVAL_SERVER_RUNNING`, `services.shift_report_name`, `texts.WHY_FENCE`, `Tracker._reattach`, `async def shift_report_pdf`); решения R30: PDF смены строится в `asyncio.to_thread` (300 событий — 0,9 с в потоке event loop), метрики extra-моделей задачи — в одном запросе `store._JOBS` (без чтений на задачу), `eval_run` идёт без упавшей extra-модели, `demo_build` падает целиком (8.19 п. 4), приняты риски `# sw:start` по pid, ETA в начале прогона, `UPLOAD_PATH`, этап 3 трекера, чтение HUD паспорта в потоке event loop; разобрана сцена ur-fall-03 (код верен); раздел 16: S31 и S32 сняты владельцем (25.10), после R30 идёт только R32 — финальная проверка (короткий живой прогон, готовность к демо).
 
 Правило версий: любое изменение контракта (разделы 5–6), состава слайсов (16) или правил (10–18) поднимает версию и добавляет строку в changelog. Правку коммитит в `main` владелец или ревью, которое переносит строки `GAP` (раздел 14), коммитом `docs(tech): vN <что>`. Сессия сверяет версию в шапке `progress.md` с этой; расхождение: прочитай changelog от своей версии и обнови шапку.
 
@@ -2841,6 +2842,26 @@ models:
 | v5: шрифт PDF | 30 | `report_pdf` | `src/safewatch/report_pdf.py` | `FONT = "DejaVuSans.ttf"` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
 | v5: ключ `tracker.reattach_bh` | 30 | `Tracker` | `config/default.yaml` | `reattach_bh: 1.0` | `tests/test_tracking.py::test_fall_keeps_track_id` |
 | v7: `api.PDF_FILE` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/api.py` | `PDF_FILE: dict[` | `tests/test_contract_files.py::test_openapi_only_grows` |
+| v8: текст `IDENTITY_TOO_LONG` | 26 | `event_identify` | `src/safewatch/texts.py` | `IDENTITY_TOO_LONG = ` | `tests/test_identity.py::test_identify_limits` |
+| v8: `texts.identity_comment` | 26 | `event_identify` | `src/safewatch/texts.py` | `def identity_comment(` | `tests/test_identity.py::test_identify_writes_fields_and_history` |
+| v8: `services._stats_period` | 26 | `ohs_stats_view`, `people_stats_view` | `src/safewatch/services.py` | `def _stats_period(` | `tests/test_identity.py::test_people_stats_only_filled` |
+| v8: `passport.ZONE_REQUIRED` | 27 | `build_passport` | `src/safewatch/analysis/passport.py` | `ZONE_REQUIRED = (` | `tests/test_passport.py::test_zone_missing_partial` |
+| v8: текст `PASSPORT_SUITABLE` | 27 | `build_passport` | `src/safewatch/texts.py` | `PASSPORT_SUITABLE = ` | `tests/test_passport.py::test_verdicts_by_person_height` |
+| v8: `linq.job_timeout_s` | 28 | `LinqBackend` | `src/safewatch/inference/linq.py` | `def job_timeout_s(` | `tests/test_linq_backend.py::test_job_timeout_scales_with_frames` |
+| v8: `linq.rate_eta` | 28 | `services._job` | `src/safewatch/inference/linq.py` | `def rate_eta(` | `tests/test_linq_backend.py::test_eta_and_rate_text` |
+| v8: `services._live` | 28 | `services._job` | `src/safewatch/services.py` | `_live: dict[int, tuple[int, int, float]] = {}` | `tests/test_linq_backend.py::test_eta_and_rate_text` |
+| v8: текст `JOB_WAIT_TPU` | 28 | `Job.status_text` | `src/safewatch/texts.py` | `JOB_WAIT_TPU = ` | `tests/test_linq_backend.py::test_eta_and_rate_text` |
+| v8: `rules.ANY_VEHICLE` | 29 | `scenario_metas` | `src/safewatch/rules/__init__.py` | `ANY_VEHICLE = {"proximity"}` | `tests/test_ml_gaps.py::test_proximity_any_vehicle` |
+| v8: метрики extra в `store._JOBS` | 29 | `services._job` | `src/safewatch/store.py` | `AS extra_metrics` | `tests/test_ml_gaps.py::test_extra_metrics_in_job` |
+| v8: откат extra в `eval_run` | 29 | `safewatch eval` | `src/safewatch/services.py` | `"eval: %s, extra %s: %s"` | `tests/test_eval.py::test_eval_extra_fallback` |
+| v8: `services.video_upload_check` | 30 | `api._UploadGuard` | `src/safewatch/services.py` | `def video_upload_check(` | `tests/test_videos.py::test_upload_rejected_before_body` |
+| v8: `api._UploadGuard` | 30 | `create_app` | `src/safewatch/api.py` | `class _UploadGuard:` | `tests/test_videos.py::test_upload_rejected_before_body` |
+| v8: `cli._server_running` | 30 | `cli.evaluate` | `src/safewatch/cli.py` | `def _server_running(` | `tests/test_eval.py::test_eval_refuses_running_server` |
+| v8: текст `EVAL_SERVER_RUNNING` | 30 | `cli.evaluate` | `src/safewatch/texts.py` | `EVAL_SERVER_RUNNING = ` | `tests/test_eval.py::test_eval_refuses_running_server` |
+| v8: `services.shift_report_name` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/services.py` | `def shift_report_name(` | `tests/test_shift_pdf.py::test_pdf_route_and_bad_at` |
+| v8: текст `WHY_FENCE` | 30 | `FencePlugin.explain` | `src/safewatch/texts.py` | `WHY_FENCE = ` | `tests/test_rule_proximity.py::test_explain_has_units` |
+| v8: `Tracker._reattach` | 30 | `Tracker.update` | `src/safewatch/analysis/tracking.py` | `def _reattach(` | `tests/test_tracking.py::test_fall_keeps_track_id` |
+| v8: PDF смены в `asyncio.to_thread` | 30 | `GET /api/master/shift.pdf` | `src/safewatch/services.py` | `async def shift_report_pdf(` | `tests/test_shift_pdf.py::test_pdf_has_cyrillic_summary` |
 | v5: `media.frame_shift` | 32 | паспорт камеры | `src/safewatch/media.py` | `def frame_shift(` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
 | v5: секция `shift` | 32 | `camera_passport` | `config/default.yaml` | `max_px: 20` | `tests/test_camera_shift.py::test_shift_detected_above_threshold` |
 
@@ -3753,6 +3774,72 @@ def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
 
 - R25, `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` (проход поверх danger и vehicle_path — красный), `tests/test_delivery.py::test_level_fixed_at_enqueue` (текст тела по уровню строки), `tests/test_contract_files.py::test_openapi_only_grows` (`application/zip`, `application/pdf` у файловых маршрутов).
 
+### 6.14 Дополнения v8 (строки `GAP` S26–S30 и решения R30)
+
+Перенесены ревью R30 из `## open` файла `progress.md`. Статус тот же, что у 6.8–6.13: часть контракта наравне с 6.1–6.6 и 6.11; `было → стало` заменяет сказанное выше.
+
+**6.2 Фасад `services`: идентификация нарушителя (8.27)**
+
+- S26, тексты идентификации: `texts.IDENTITY_TOO_LONG = "Поле: до 80 символов"` (`ValidationFailed(..., field=<поле IdentityIn>)`), `texts.IDENTITY_CLEARED = "Идентификация очищена"`, `texts.identity_comment(person_name, person_position, crew) -> str` — «ФИО: …; должность: …; бригада: …», пустое поле — `texts.IDENTITY_EMPTY = "—"`, все три пустые — `IDENTITY_CLEARED`.
+- S26, журнал: `texts.ACTION_TITLES` + `"identified": "идентификация"` (история CSV падала бы `KeyError`); `texts.CSV_COLUMNS` + «ФИО», «Должность», «Бригада» в конце (значения `EventSummary.person_name`, `person_position`, `crew`).
+- S26, `services._stats_period(date_from, date_to) -> tuple[datetime, datetime]` — период и проверка `PERIOD_INVALID` `ohs_stats_view` вынесены для `people_stats_view` без изменения поведения.
+- S26, `PeopleStats.total` — все события периода (как `OhsStats.total`: без `superseded`, демо по `include_demo`); `by_person`/`by_crew` — `CountRow` с `key = title` = значение поля; `X-Actor` по умолчанию — `texts.DEMO_ACTOR[role]`, как у `event_action`; `event.updated` только при изменении.
+- R30, одновременные `PATCH /identity`: `event_identify` синхронна и идёт в потоке event loop целиком (без `await`), второй запрос сравнивает поля с уже записанными первым; разные значения дают две строки `identified`, последняя побеждает, как у `event_action`.
+
+**Компоненты анализа: паспорт камеры (8.28)**
+
+- S27, `build_passport` получает ширину кадра (большая сторона рамки `cell phone` в px, рамки HUD нормированы по ширине и высоте): `..., duration_ms: int, height: int, metas, ...` → `..., duration_ms: int, width: int, height: int, metas, ...`; `services.camera_passport` передаёт `width`/`height` строки видео и `int(features.min_person_px)` (в конфиге float, в сигнатуре int).
+- S27, `passport.ZONE_REQUIRED = ("fence_crossing", "restricted_under", "no_harness", "no_helmet", "no_respirator")`, `passport.PHONE = "phone"`; правило 6 — у камеры нет ни одной живой зоны из `ScenarioMeta.zone_kinds`; типы в «Нет зон: …» — `title` из `config.get_settings().zone_kinds` через «, » в порядке `zone_kinds`.
+- S27, тексты `texts.PASSPORT_NO_VIDEO`, `PASSPORT_MODEL_MISSING`, `PASSPORT_FEW_FRAMES`, `PASSPORT_DARK`, `PASSPORT_PEOPLE_TINY`, `PASSPORT_NO_PEOPLE`, `PASSPORT_PHONE_POOR`, `PASSPORT_NO_ZONES` — дословно 8.28; правило 7: `PASSPORT_PEOPLE_SMALL = "Люди мелкие для уверенной оценки: {px} px"`, `PASSPORT_DARK_PARTIAL = "Темно или камера закрыта {pct} % времени"`, `PASSPORT_EMPTY = "Пустые кадры: {pct} % записи"`, несколько причин — через «; »; `PASSPORT_SUITABLE = "Годна"`; N px — целая часть, N % — `round(доля × 100)`; `skeleton` → `ScenarioMeta.status_text`.
+- S27, расчёт: «сценарий на людях» — `person` в `required_classes`; правило 7 по росту только для них, тёмная и пустая доли — для всех; медианы px округляются до 0,1 (нормированные рамки дают 79,99999 вместо 80); `dark_share` — сумма интервалов `dark`/`obstructed`, обрезанных по `[0, duration_ms]`, делённая на `duration_ms` (`stale` не считается); телефон без рамок `cell phone` в записи — проверка объекта правила 5 пропускается (рост людей проверяется); статусы плагинов — текущие `rules.scenario_metas()`, а не снимок анализа; без анализа метрики `None`, `frames = 0`.
+- R30, `camera_passport` читает `hud.jsonl` анализа в потоке event loop (маршрут `async def`), оставлено: ~28 мкс на кадр (сцена PPE, 261 кадр — 7 мс; 10 минут при 12 кадр/с — около 0,2 с), ролики демо до 60 с.
+- R30, S32 снят владельцем (раздел 16): `CameraPassport.shift_px = None`, `shift_text = ""` всегда; поля, ключи `shift.*` и `media.frame_shift` остаются в контракте 1.1.0 (контракт только растёт), строки трассировки S32 сверка не проверяет (слайс не закрыт).
+
+**6.1 Бэкенд LinQ под медленную очередь (8.29)**
+
+- S28, таймаут: `linq.job_timeout_s(linq: LinqConfig, frames: int) -> float` и `linq.START_S = 120` (формула 8.29); `frames` — `ceil(frame_count / step)`, `frame_count` из `media.probe_video` (видео не читается — 0, остаётся `job_timeout_s`); отсчёт, как и раньше, от начала `run` (с загрузкой).
+- S28, прогресс: `linq.rate_eta(done, total, elapsed_s) -> (rate_fps, eta_s)` (`None, None` при `done = 0`; rate округлён до 0,01, eta до 0,1 с); `LinqBackend.live: tuple[int, int, float] | None` — (done, total, секунды с `# sw:start`) текущей модели, `total = ceil(n_total / step)` из `.progress`, до первого файла — из пробы видео; колбэк прогресса `services._infer` читает `backend.live` (только `LinqBackend`) и передаёт `_progress(job_id, value, live=None)`; `services._live: dict[int, tuple[int, int, float]]` в памяти (сброс в фикстуре `conn`, `pop` после `run`); `_job` у задачи `running` с записью в `_live` заполняет `rate_fps`, `eta_s`, `status_text`.
+- S28, тексты: `texts.JOB_WAIT_TPU = "LinQ: ждём первый ответ TPU (очередь площадки)"`, `texts.job_progress_text(done, total, rate_fps, eta_s) -> str`; минуты `max(1, round(eta_s / 60))`, кадр/с — `fmt_num` (одна цифра после запятой).
+- S28, `LinqBackend._start_command(absdir, remote_out, args) -> str` (staticmethod); гашение в фигурных скобках `{ [ -f <out>.pid ] && kill $(cat <out>.pid) 2>/dev/null; rm -f <out>.pid; } &&`, до `rm -f <out>.progress`; `FakeRemoteShell._start` разбирает команду от `(setsid`.
+- S28, HTML: `JupyterError`, в тексте которого `<html` без учёта регистра, или `requests.JSONDecodeError` → `InferenceError("bad_output")` и сброс сессии (`_drop`), как у сетевой ошибки; `LinqBackend.check` на `bad_output` → `bad_answer` с `texts.LINQ_BAD_ANSWER`.
+- S28, `close()`: `JupyterShell.close` = `_drop()` (`shutdown_kernel`, ошибки глушатся, без сессии — ничего); `LocalBackend.close` ничего не делает (сессия onnxruntime живёт один прогон); `services.backend_close()` не обнуляет `_backend`; doctor зовёт его в `finally` вокруг проверок, lifespan — `asyncio.to_thread` после остановки цикла задач.
+- R30, `# sw:start` гасит pid из `<out>.pid`, не проверяя, что это воркер: риск попасть в чужой процесс с тем же pid принят (`<out>` уникален по ключу кэша, файл pid живёт один прогон, живой прогон R32 проверяет команду как есть).
+- R30, `rate_fps` и `eta_s` считаются от `# sw:start` и включают запуск воркера и первую пачку: в начале ETA завышена (S28: 61 с на 25 кадрах при 34 с факта), это сторона запаса, оставлено.
+
+**6.2 Фасад и анализ: пробелы `docs/ML_INTEGRATION.md` (8.30)**
+
+- S29, откат extra-модели и на `model_missing` (нет программы TPU, хвоста или ONNX): 8.30 п. 10 `remote_error`/`bad_output` → `remote_error`/`bad_output`/`model_missing`; модель огня Матвея без `linq_program` на `linq` иначе валила бы задачу. `error_text` готовой задачи — откаты через «; » (extra в порядке `pipeline.extra`, затем `pose: …`), обрезка до `ERROR_TEXT_MAX`.
+- S29, `services._analysis_config(video, camera_id, extra_ids: list[int])` → `_analysis_config(video, camera_id, extra: list[tuple[ModelSpec, int]])`; `active_classes` — классы `registry.active_models` без моделей `pipeline.extra`, которых нет в `extra` (откат; пересчёт снимка, сделанного до добавления модели в `extra`).
+- S29, `Job.metrics`: детектор, pose, затем extra в порядке `AnalysisConfig.extra_artifact_ids` анализа задачи (`jobs.analysis_id`; без анализа — без extra), `cached` по правилу `created_at < started_at`.
+- S29, `rules.ANY_VEHICLE = {"proximity"}`; `scenario_metas` отдаёт у `proximity` `required_classes = ["person", *pipeline.vehicle_classes]`, текст `model_missing` без техники перечисляет все `vehicle_classes`; `analysis.pipeline.VEHICLES` удалён.
+- S29, команда воркера: `--input-name` только при `input_name != "images"`; детектор с `nc` — `--nc <nc>` и `--classes` из id `classes` меньше `nc`; `LocalBackend`: `nc = model.nc or 80` для detect и тот же фильтр; `FakeRemoteShell` отдаёт пустые кадры только при `--nc` без `--classes`.
+- S29, CLI `import-artifact`: без `--backend` — `INFERENCE_BACKEND`; вывод — id артефакта одной строкой; `NotFound` → 3, `ValidationFailed` → 2.
+- S29, `config/models.yaml` + запись `matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4` (пакет video-first v2: detect, 640, conf 0.25, iou 0.45, `{0: smoke, 1: fire}`, `linq_program: null`, хвост и ONNX в `models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/`), в `pipeline` `default.yaml` не входит; `config/user.matvey.example.yaml` — включение комментарием; в реестре 6 моделей.
+- R30, `store._JOBS` получает столбец `extra_metrics` — `json_group_array(json_array(e.key, x.metrics_json, x.created_at))` по `json_each(analyses.config_json, '$.extra_artifact_ids')` анализа задачи; `services._job` сортирует по индексу снимка (было, S29: чтение `analyses` и `artifacts` на каждую задачу, `jobs_list` до 50 × (1 + число extra) запросов).
+- R30, `eval_run`: extra-модель с `remote_error`/`bad_output`/`model_missing` → анализ без неё, `log.warning("eval: <файл>, extra <ref>: <текст>")`, её сценарии — `model_missing` в этом анализе (было: exit 4). `demo_build` на ошибке extra по-прежнему падает целиком и удаляет `out` (8.19 п. 4: полупакета нет; текст ошибки называет модель).
+
+**Отчёт смены и долги приложения (8.31)**
+
+- S30, трекер: этап 3 `Tracker._reattach(tracks, dets, ts_ms)` после двух этапов IoU: треки без пары (подтверждённые и предварительные) и детекции `score ≥ high_thresh` без пары; расстояние центров прогноза трека и детекции `< reattach_bh × высота рамки трека`, назначение венгерским алгоритмом по расстоянию; `reattach_bh = 0` — этап ничего не сопоставляет (прежнее поведение).
+- S30, `explain`: `proximity_zone` → `texts.WHY_HOLD` с `red_hold_s` («Человек в зоне «X» дольше N с»); `fence_crossing` → `texts.WHY_FENCE = "{rule}; момент виден при разрыве наблюдения до {s} с"` (`max_gap_s`); `phone`, `restricted_under`, `fire_smoking`, `no_harness`, `suspended_load` уже давали правило с порогом в секундах (`WHY_HOLD`), измеренное значение — строки `why_common` (`METRIC_TITLES` с единицей), зона — в тексте причины.
+- S30, загрузка: `services.UPLOAD_SLACK = 64 × 2^10` (рамка multipart сверх файла), `services.video_upload_check(role: Role | None, content_length: int | None) -> None`: роль как у `video_upload`, `Content-Length > upload.max_mb × 2^20 + UPLOAD_SLACK` → `TooLarge`; точная проверка размера файла при записи (8.1) прежняя, граница `test_upload_limit_boundary` не изменилась. `api._UploadGuard` — ASGI-middleware на `POST` пути `api.UPLOAD_PATH = re.compile(r"/api/cameras/[^/]+/videos")`: FastAPI разбирает multipart во временные файлы до зависимостей. Порядок ошибок загрузки: роль (400/403) → `Content-Length` (413) → камера (404) → расширение (415).
+- S30, `cli._server_running() -> bool` (процесс `server.pid` жив и `create_time` совпадает); `cli.evaluate` проверяет его первым: exit 5, stderr `texts.EVAL_SERVER_RUNNING = "Остановите сервер: uv run safewatch stop"`.
+- S30, `eval_run`: pose `remote_error`/`bad_output` → анализ без точек и `log.warning` (в отчёте не отражается); остальные коды pose и любая ошибка детектора → `InferenceError`, exit 4, как раньше.
+- S30, PDF: `services.shift_report_name(at: datetime) -> str` — `shift-<YYYY-MM-DD>-<shift_id>.pdf`, дата — локальная (`timezone`) дата начала смены; маршрут берёт один момент `at or clock.now()` для файла и имени. `report_pdf`: шрифт одним начертанием (заголовки таблиц не жирные), ширины колонок 85/35/35/35 и 25/35/35/65/30 мм; тексты `texts.PDF_TITLE = "{product} · Сводка смены"`, `PDF_SHIFT = "Смена: {title}"`, `PDF_PERIOD = "Период: с {start} до {end} (МСК)"` (`ДД.ММ.ГГГГ ЧЧ:ММ`), `PDF_TOTAL = "Всего событий: {n}"`, `PDF_BY_SECTOR = "По секторам"`, `PDF_BY_SCENARIO = "По сценариям"`, `PDF_SECTOR = "Сектор"`, `PDF_SCENARIO = "Сценарий"`, `PDF_COUNT_HEAD = ("Всего", "Подтверждено", "Ложные")`, `PDF_CONFIRMED = "Подтверждённые события"`, `PDF_EVENTS_HEAD = ("Время", "Сектор", "Камера", "Причина", "Статус")`; время события `ДД.ММ ЧЧ:ММ` по `timezone`.
+- S30, зависимости: `fpdf2>=2.8.9` (тянет `pillow`, `fonttools`, `defusedxml`), dev `pypdf` (текст PDF в тесте); `.gitattributes` + `*.ttf binary`; `tests/test_api_skeleton.py::test_unbuilt_route_returns_501` подменяет `services.shift_report_pdf` заглушкой `NotImplementedError("slice 30")` (все маршруты построены, как в S13), `V5_REQUESTS` удалён.
+- R30, `async def shift_report_pdf(at: datetime | None = None) -> bytes` (было, 6.11.4: `def`): сводка читается в потоке event loop, `report_pdf.shift_pdf` — в `asyncio.to_thread`; маршрут ждёт `await`. Замер: 2 события — 50–80 мс, 100 — 0,3 с, 300 — 0,9 с, 1000 — 2,9 с; в потоке event loop это останавливало эфир и WebSocket.
+- R30, `api.UPLOAD_PATH` сверяет путь отдельно от маршрута FastAPI, оставлено: переименование маршрута загрузки ловит `tests/test_videos.py::test_upload_rejected_before_body` (тест идёт по пути маршрута).
+- R30, этап 3 трекера: риск, что детекция соседа ближе `reattach_bh` роста перенимает id трека, потерявшего пару по IoU, принят; `tracker.reattach_bh: 0` выключает этап.
+- R30, сцена ur-fall-03-cam0 (UR Fall, 320×240, рост человека ~230 px, `local`, COCO pose и pose Матвея): эпизода падения нет, код верен по 8.2–8.4. Человек падает на 6,05 с, ролик кончается на 7,17 с, а `confirm_s = 2,0` с; угол торса после падения скачет между `lying`, `unknown` и `upright` (6,40–6,47 с: торс < 30° при рамке шире высоты в 1,8 раза), `N` сбрасывает кандидата. При `confirm_s = 0,2` эпизод есть (6,10–6,30 с). Демо падения требует ролика, где человек лежит после падения не меньше `confirm_s`.
+
+**Очередь (16)**
+
+- Владелец, 25.10: S31 и S32 сняты из очереди; после R30 идёт только R32 — финальная проверка (короткий живой прогон LinQ, готовность к демо). Строка long-lead про ресёрч доп-сценариев снята вместе с S31.
+
+**Тесты (10.3)**
+
+- R30, `tests/test_eval.py::test_eval_extra_fallback` (extra-модель `remote_error` в `eval`: отчёт без неё, детектор и pose на месте).
+
 ---
 
 ## 7. Общие компоненты
@@ -4212,7 +4299,7 @@ HUD (было → стало 8.2 п. 8): «≈2,9 м/с (авто)» и «бег
 7. `person_height_px_p50 < person_partial_px` или `dark_share > dark_partial` или `empty_share > empty_partial` → `partial` с причиной;
 8. иначе `suitable` «Годна».
 
-S32 добавляет `shift_px` и `shift_text` (8.33).
+S32 добавляет `shift_px` и `shift_text` (8.33). v8: S32 снят владельцем, `shift_px = None`, `shift_text = ""` (6.14).
 
 ### 8.29 LinQ под медленную очередь (S28)
 
@@ -4277,7 +4364,7 @@ Dockerfile и compose S15 собираются и запускаются: `docke
 
 `docs/DEPLOY.md` — развёртывание на стационарном компьютере (публичный адрес через сервис Феди с выделенным IP): требования (Docker Desktop, свободный порт 8000), что скопировать (репо, `data/demo/<name>/`, при нужде `models/`), `.env` (`INFERENCE_BACKEND`, `SAFEWATCH_FAKE`, `LINQ_*` только для «Загрузить своё видео»; LinQ из контейнера — через туннель на хосте, `LINQ_JUPYTER_URL=http://host.docker.internal:8888`), команды `docker compose up -d --build`, `docker compose logs -f`, `docker compose down`, том данных, сброс базы, замена `frontend/` фронтом Егора перед сборкой.
 
-### 8.33 Сдвиг камеры (S32, если останется время)
+### 8.33 Сдвиг камеры (S32, снят владельцем, v8)
 
 При `calibration_set`, `zone_create` и `zone_update` сохраняется эталон — кадр превью камеры `data_dir/reference/<camera_id>.jpg`. `camera_passport` сравнивает эталон с текущим кадром превью (`media.frame_shift`: оба кадра в серый, ширина `shift.sample_width`, фазовая корреляция OpenCV, сдвиг в пикселях эталона): `shift_px`; `shift_px > shift.max_px` → `shift_text` «Камера сдвинута на N px: проверьте зоны и калибровку»; эталона нет → `shift_px = None`, `shift_text = ""`. Новой модели нет.
 
@@ -4491,9 +4578,9 @@ CI: `.github/workflows/gate.yml` на `pull_request` и на `push` в `main`, �
 
 Ревью (раздел 17) в режиме ночи — после стадии из 5 слайсов, называется по последнему слайсу: `R5`, `R10`, `R15`; v5: `R20`, `R25`, `R30`, `R32`. После слайса 0 ревью нет: его чек-лист «каркас готов» и есть ревью.
 
-Очередь: `S0, S1, S2, S3, S4, S5, R5, S6, S7, S8, S9, S10, R10, S11, S12, S13, S14, S15, R15, S16, S17, S18, S19, S20, R20, S21, S22, S23, S24, S25, R25, S26, S27, S28, S29, S30, R30, S31, S32, R32`
+Очередь: `S0, S1, S2, S3, S4, S5, R5, S6, S7, S8, S9, S10, R10, S11, S12, S13, S14, S15, R15, S16, S17, S18, S19, S20, R20, S21, S22, S23, S24, S25, R25, S26, S27, S28, S29, S30, R30, R32`
 
-v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). Второй прогон начинается с S16. Порядок S16–S32 — по ценности (`UPGRADE_v1.md`, раздел 4): обрыв прогона оставляет главное. S31 и S32 — «если останется время».
+v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). Второй прогон начинается с S16. Порядок S16–S32 — по ценности (`UPGRADE_v1.md`, раздел 4): обрыв прогона оставляет главное. S31 и S32 — «если останется время». v8: владелец снял S31 и S32 (25.10); после R30 идёт только R32 — финальная проверка.
 
 ---
 
@@ -5251,7 +5338,7 @@ v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). В
 
 ---
 
-### Слайс 31: 1–2 новых сценария из ресёрча (если файл готов)
+### Слайс 31: 1–2 новых сценария из ресёрча (снят владельцем, v8)
 
 **Файлы:** `src/safewatch/rules/<id>.py`, `src/safewatch/rules/__init__.py`, `src/safewatch/texts.py`, `config/default.yaml` (секция `scenarios.<id>`), `tests/test_rule_<id>.py`.
 
@@ -5268,7 +5355,7 @@ v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). В
 
 ---
 
-### Слайс 32: сдвиг камеры (если останется время)
+### Слайс 32: сдвиг камеры (снят владельцем, v8)
 
 **Файлы:** `src/safewatch/{media,services}.py`, `src/safewatch/analysis/passport.py`, `tests/test_camera_shift.py`.
 
@@ -5286,7 +5373,7 @@ v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). В
 
 ### Ревью R32
 
-По разделу 17, охватывает слайсы 31–32 и весь второй прогон. Дополнительно: `gh pr checks` по PR слайсов 31–32; финальный `uv run poe gate`; короткая живая проверка LinQ (лимит); `test_openapi_only_grows` зелёный; в `## log` сводка: что готово к демо (по разделу 4 `UPGRADE_v1.md`), что осталось долгом, что владельцу сделать утром (Docker Desktop, пересборка демо-пакета на LinQ, файлы моделей Матвея, фронт Егора).
+По разделу 17, охватывает весь второй прогон (v8: S31 и S32 сняты, нового кода после R30 нет). Дополнительно: `gh pr checks` по PR после R30; финальный `uv run poe gate`; короткая живая проверка LinQ (лимит); `test_openapi_only_grows` зелёный; в `## log` сводка: что готово к демо (по разделу 4 `UPGRADE_v1.md`), что осталось долгом, что владельцу сделать утром (Docker Desktop, пересборка демо-пакета на LinQ, файлы моделей Матвея, фронт Егора).
 
 ---
 
