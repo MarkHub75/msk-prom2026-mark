@@ -1,4 +1,4 @@
-﻿# Local Git metadata and generated caches
+# Local Git metadata and generated caches
 **/.git/
 # Empty research clone containing only local Git metadata.
 Deep-Research/prompt_behavioral_models_video_datasets_16_agents/_WORK/D09/enigma_repo/
@@ -44,3 +44,13 @@ data/coco128/
 
 # Local archive of machine reports (personal, not for git)
 /report_machine_all.zip
+
+# SafeWatch app
+config/user.yaml
+.hypothesis/
+dist/
+data/app/
+.venv-linq/
+frontend/node_modules/
+frontend/dist/
+!frontend/.env.mock

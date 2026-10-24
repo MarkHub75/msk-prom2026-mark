@@ -30,9 +30,9 @@
 
 ```powershell
 uv venv .venv --python 3.11
-uv pip install --python .venv\Scripts\python.exe requests websocket-client python-dotenv "numpy<2" "protobuf>=4.21,<5" pika==1.4.4 pillow onnx onnxruntime vendor\linq\tpu_pycloud_format-0.0.1-py3-none-any.whl
+uv pip install --python .venv-linq\Scripts\python.exe requests websocket-client python-dotenv "numpy<2" "protobuf>=4.21,<5" pika==1.4.4 pillow onnx onnxruntime vendor\linq\tpu_pycloud_format-0.0.1-py3-none-any.whl
 # экспорт моделей (CPU):
-uv pip install --python .venv\Scripts\python.exe --index-strategy unsafe-best-match --extra-index-url https://download.pytorch.org/whl/cpu "torch==2.5.1+cpu" "torchvision==0.20.1+cpu" "ultralytics==8.3.230" onnxslim opencv-python-headless
+uv pip install --python .venv-linq\Scripts\python.exe --index-strategy unsafe-best-match --extra-index-url https://download.pytorch.org/whl/cpu "torch==2.5.1+cpu" "torchvision==0.20.1+cpu" "ultralytics==8.3.230" onnxslim opencv-python-headless
 ```
 
 `tpu_pycloud_format` берётся из Jupyter: `packages/tpu_pycloud_format-0.0.1-py3-none-any.whl`

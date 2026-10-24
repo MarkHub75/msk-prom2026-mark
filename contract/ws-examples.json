@@ -1,0 +1,202 @@
+[
+  {
+    "type": "hello",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "server_now": "2026-10-24T07:30:00.000Z",
+      "contract": "1.0.0",
+      "role": "operator"
+    }
+  },
+  {
+    "type": "event.created",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": 41,
+      "scenario": "running",
+      "title": "Бег и резкие перемещения",
+      "level": "yellow",
+      "status": "new",
+      "status_title": "Новое",
+      "operator_verdict": "none",
+      "escalated_by_timeout": false,
+      "mode": "replay",
+      "camera_id": 3,
+      "camera_name": "Камера 2.1 · Погрузочная рампа",
+      "sector_id": 2,
+      "sector_name": "Сектор 2 · Склад и погрузка",
+      "zone_id": null,
+      "zone_name": null,
+      "reason_text": "Бег 2,4 роста/с",
+      "notification_text": "Жёлтая опасность · Сектор 2 · Бег 2,4 роста/с",
+      "started_at": "2026-10-24T07:29:57.500Z",
+      "published_at": "2026-10-24T07:30:00.000Z",
+      "red_at": null,
+      "ended_at": null,
+      "duration_s": 2.5,
+      "priority": 2,
+      "is_demo": false
+    }
+  },
+  {
+    "type": "event.updated",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": 41,
+      "scenario": "running",
+      "title": "Бег и резкие перемещения",
+      "level": "yellow",
+      "status": "viewed",
+      "status_title": "Просмотрено",
+      "operator_verdict": "none",
+      "escalated_by_timeout": false,
+      "mode": "replay",
+      "camera_id": 3,
+      "camera_name": "Камера 2.1 · Погрузочная рампа",
+      "sector_id": 2,
+      "sector_name": "Сектор 2 · Склад и погрузка",
+      "zone_id": null,
+      "zone_name": null,
+      "reason_text": "Бег 2,4 роста/с",
+      "notification_text": "Жёлтая опасность · Сектор 2 · Бег 2,4 роста/с",
+      "started_at": "2026-10-24T07:29:57.500Z",
+      "published_at": "2026-10-24T07:30:00.000Z",
+      "red_at": null,
+      "ended_at": null,
+      "duration_s": 2.5,
+      "priority": 2,
+      "is_demo": false
+    }
+  },
+  {
+    "type": "event.escalated",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": 41,
+      "scenario": "running",
+      "title": "Бег и резкие перемещения",
+      "level": "red",
+      "status": "new",
+      "status_title": "Новое",
+      "operator_verdict": "none",
+      "escalated_by_timeout": false,
+      "mode": "replay",
+      "camera_id": 3,
+      "camera_name": "Камера 2.1 · Погрузочная рампа",
+      "sector_id": 2,
+      "sector_name": "Сектор 2 · Склад и погрузка",
+      "zone_id": 4,
+      "zone_name": "Проезд погрузчика",
+      "reason_text": "Бег 2,4 роста/с в зоне «Проезд погрузчика»",
+      "notification_text": "Красная опасность · Сектор 2 · Бег 2,4 роста/с в зоне «Проезд погрузчика»",
+      "started_at": "2026-10-24T07:29:57.500Z",
+      "published_at": "2026-10-24T07:30:00.000Z",
+      "red_at": "2026-10-24T07:30:00.000Z",
+      "ended_at": null,
+      "duration_s": 2.5,
+      "priority": 3,
+      "is_demo": false
+    }
+  },
+  {
+    "type": "notification",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": "41-red",
+      "event_id": 41,
+      "level": "red",
+      "text": "Красная опасность · Сектор 2 · Бег 2,4 роста/с в зоне «Проезд погрузчика»",
+      "audience": [
+        "operator"
+      ],
+      "sound": "siren",
+      "takeover": true
+    }
+  },
+  {
+    "type": "camera.state",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "camera_id": 3,
+      "sector_id": 2,
+      "state": "red",
+      "reason": null,
+      "reason_text": "",
+      "freshness_ms": 80,
+      "open_yellow": 0,
+      "open_red": 1
+    }
+  },
+  {
+    "type": "sector.state",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "sector_id": 2,
+      "name": "Сектор 2 · Склад и погрузка",
+      "state": "red",
+      "reason_text": "",
+      "cameras_total": 2,
+      "cameras_no_observation": 1,
+      "open_yellow": 0,
+      "open_red": 1
+    }
+  },
+  {
+    "type": "job.progress",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": 7,
+      "kind": "process",
+      "video_id": 5,
+      "camera_id": 3,
+      "backend": "linq",
+      "fake": true,
+      "status": "running",
+      "stage": "inference_detect",
+      "progress": 0.3,
+      "attempts": 1,
+      "next_attempt_at": null,
+      "error_code": null,
+      "error_text": null,
+      "metrics": [],
+      "analysis_id": null,
+      "analysis_ms": null,
+      "created_at": "2026-10-24T07:28:00.000Z",
+      "started_at": "2026-10-24T07:28:01.000Z",
+      "finished_at": null
+    }
+  },
+  {
+    "type": "broadcast.state",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "id": 2,
+      "camera_id": 3,
+      "video_id": 5,
+      "analysis_id": 4,
+      "status": "playing",
+      "loop": true,
+      "cycle": 1,
+      "started_at": "2026-10-24T07:20:00.000Z",
+      "position_ms": 12000,
+      "duration_ms": 30000,
+      "server_now": "2026-10-24T07:30:00.000Z"
+    }
+  },
+  {
+    "type": "backend.status",
+    "at": "2026-10-24T07:30:00.000Z",
+    "data": {
+      "backend": "linq",
+      "fake": false,
+      "state": "ok",
+      "checked_at": "2026-10-24T07:30:00.000Z",
+      "latency_ms": 42.0,
+      "present": [
+        "mosprom_det640_cut_ap9999_b1_o1_h1m.tpu"
+      ],
+      "missing": [],
+      "message": "LinQ отвечает"
+    }
+  }
+]

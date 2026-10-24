@@ -1,0 +1,227 @@
+# Defaults (tech.md 6.6). config/user.yaml overrides any key; tests never read it.
+product_name: SafeWatch
+data_dir: data/app
+timezone: Europe/Moscow
+
+server:
+  host: 127.0.0.1
+  port: 8000
+  static_dir: frontend/dist
+
+upload:
+  max_mb: 2048
+  extensions: [".mp4", ".avi", ".mov", ".mkv"]
+
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: det-yolov8n@640-ap9999
+  pose: pose-yolov8n@640-ap9999
+  extra: []
+
+class_conf:
+  car: 0.35
+  bus: 0.35
+  truck: 0.35
+  train: 0.35
+  cell phone: 0.3
+  fire: 0.35
+  smoke: 0.3
+  cigarette: 0.25
+  no_harness: 0.35
+  suspended_load: 0.35
+
+tracker:
+  high_thresh: 0.5
+  low_thresh: 0.1
+  new_track_thresh: 0.6
+  min_iou: 0.2
+  max_lost_s: 1.0
+  min_hits: 2
+
+pose:
+  match_iou: 0.5
+  kpt_conf: 0.3
+
+features:
+  ref_window_s: 2.0
+  upright_hw: 1.2
+  lying_wh: 1.3
+  upright_torso_deg: 30
+  lying_torso_deg: 60
+  speed_window_s: 1.0
+  speed_min_samples: 4
+  speed_max_gap_s: 0.5
+  still_motion_bh: 0.15
+  still_after_s: 3.0
+  min_person_px: 40
+
+episodes:
+  candidate_gap_s: 0.5
+  end_after_s: 2.0
+  lost_timeout_s: 5.0
+  merge_dist_bh: 1.0
+
+scenarios:
+  running:
+    speed_bh_s: 1.5
+    speed_m_s: 2.5
+    hold_s: 1.0
+    red_hold_s: 0.5
+    near_vehicle_bh: 3.0
+    near_vehicle_m: 3.0
+  proximity:
+    yellow_bh: 2.0
+    red_bh: 0.5
+    yellow_m: 3.0
+    red_m: 1.0
+    moving_vh_s: 0.2
+    moving_m_s: 0.5
+    hold_s: 0.5
+    red_hold_s: 0.3
+    driver_ioa: 0.6
+  phone:
+    hold_s: 10.0
+    danger_hold_s: 3.0
+    min_person_px: 120
+    upper_frac: 0.6
+    wrist_dist_bh: 0.25
+  fall:
+    transition_s: 2.0
+    confirm_s: 2.0
+    still_s: 10.0
+    allowed_still_s: 60.0
+  fence_crossing:
+    max_gap_s: 1.0
+  restricted_under:
+    under_hold_s: 0.5
+  fire_smoking:
+    fire_hold_s: 1.0
+    smoking_hold_s: 3.0
+  no_harness:
+    harness_hold_s: 3.0
+  suspended_load:
+    load_hold_s: 0.5
+  load_carrying: {}
+
+zone_kinds:
+  - id: danger
+    title: Опасная зона / механизм
+    color: "#FF453A"
+    geometry: polygon
+    description: Станок, пресс, конвейер, зона работы техники. Вход человека — красное событие.
+  - id: fence
+    title: Ограждение
+    color: "#FF9F0A"
+    geometry: line
+    description: Линия, которую нельзя пересекать.
+  - id: under_load
+    title: Под конвейером / грузом
+    color: "#BF5AF2"
+    geometry: polygon
+    description: Проход под конвейером или зона подъёма груза.
+  - id: fire_allowed
+    title: Огонь разрешён
+    color: "#FF6B00"
+    geometry: polygon
+    description: Печь, сварочный пост. Огонь здесь не нарушение.
+  - id: lying_allowed
+    title: Лежать допустимо
+    color: "#30D158"
+    geometry: polygon
+    description: Ремонт под станком или вагоном. Тревога только при долгой неподвижности.
+  - id: rest
+    title: Зона отдыха
+    color: "#64D2FF"
+    geometry: polygon
+    description: Места отдыха. В baseline правила её не используют.
+  - id: height
+    title: Работа на высоте
+    color: "#FFD60A"
+    geometry: polygon
+    description: Площадки и лестницы, где нужна страховочная привязь.
+  - id: vehicle_path
+    title: Пути транспорта
+    color: "#98989D"
+    geometry: polygon
+    description: Проезды погрузчиков и машин.
+
+escalation:
+  enabled: true
+  timeout_s: 45
+  tick_ms: 500
+
+broadcast:
+  tick_ms: 250
+  loop_default: true
+  autostart: true
+
+feed:
+  limit: 100
+  recent_closed_min: 30
+
+observability:
+  stale_after_ms: 2000
+  sample_s: 1.0
+  dark_mean: 35
+  obstructed_std: 12
+  min_duration_s: 3.0
+
+evidence:
+  jpeg_quality: 85
+  max_width: 1280
+
+preview:
+  cache_s: 2.0
+  max_width: 640
+
+hud:
+  window_max_ms: 10000
+
+jobs:
+  max_attempts: 3
+  retry_backoff_s: [30, 120]
+  idle_poll_ms: 500
+  list_max: 200
+
+linq:
+  tools_dir: tools/linq
+  remote_dir: baseline
+  file_prefix: baseline_
+  programs_dir: /auto/cache/{login}
+  inflight: 4
+  poll_interval_s: 3.0
+  job_timeout_s: 1800
+  call_timeout_s: 60
+  check_cache_s: 30
+
+local:
+  threads: 2
+
+shifts:
+  - id: day
+    title: Дневная смена
+    start: "08:00"
+    end: "20:00"
+  - id: night
+    title: Ночная смена
+    start: "20:00"
+    end: "08:00"
+
+stats:
+  default_days: 30
+  weeks_default: 8
+  trend_weeks: 4
+
+journal:
+  page_max: 200
+  export_max_rows: 10000
+
+master:
+  recent_resolved: 20
+
+delivery:
+  webhooks: []   # [{name: lamp-1, url: "http://10.0.0.5/alarm", levels: [red], timeout_s: 3}]
+
+eval:
+  deadline_s: 5.0

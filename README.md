@@ -1,5 +1,26 @@
 # Открой#Моспром 2026 · LinQ
 
+## Приложение SafeWatch
+
+Веб-сервис baseline: загрузка видео камер, детекции на LinQ TPU, эпизоды нарушений, оповещения оператора и мастера, журнал. Источник истины — `tech.md`.
+
+Запуск на Windows (Python 3.12 через uv, Node 24):
+
+```
+uv sync
+npm ci --prefix frontend
+npm run build --prefix frontend
+uv run safewatch serve --seed
+```
+
+Открыть `http://127.0.0.1:8000`. Остановить: `uv run --no-sync safewatch stop`. Проверить ключи, модели и базу: `uv run safewatch doctor`. Гейт: `uv run poe gate`.
+
+Бэкенд инференса — переменные `.env` (шаблон `.env.example`): `INFERENCE_BACKEND=linq` (LinQ TPU через Jupyter, по умолчанию) или `local` (onnxruntime на CPU); `SAFEWATCH_FAKE=1` подменяет LinQ фейком с синтетическими детекциями, ключи `LINQ_*` тогда не нужны. Настройки — `config/default.yaml`, свои значения — в `config/user.yaml` (пример `config/user.example.yaml`).
+
+Видео: положить в `data/videos/` (mp4 H.264, иначе браузер не сыграет эфир) и импортировать `uv run safewatch import FILE --camera ID` или загрузить в UI на экране камеры.
+
+Контракт для фронтенда: `contract/openapi.json` (REST), `contract/ws.schema.json` и `contract/ws-examples.json` (WebSocket `/ws?role=<роль>`). Мок без бэкенда: `npm run mock --prefix frontend` (Prism на 4010 и WS на 4011), затем `npm run dev:mock --prefix frontend`. Обычная разработка фронта: `npm run dev --prefix frontend` проксирует `/api` и `/ws` на `127.0.0.1:8000`.
+
 **ML и Computer Vision для промышленной безопасности.**
 
 Хакатонный проект команды из пяти участников: интеллектуальный сервис, который анализирует людей и их действия на видео с производственных камер, выявляет опасные ситуации и помогает ответственным сотрудникам вовремя реагировать.

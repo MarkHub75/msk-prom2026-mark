@@ -1,0 +1,31 @@
+models:
+  - id: det-yolov8n
+    version: 640-ap9999
+    task: detect
+    input_size: 640
+    conf: 0.1
+    iou: 0.45
+    classes: {0: person, 2: car, 5: bus, 6: train, 7: truck, 67: cell phone}
+    linq_program: mosprom_det640_cut_ap9999_b1_o1_h1m.tpu
+    linq_tail: models/linq/det640_cut_ap9999/det640_cut_ap9999_tail.onnx
+    local_onnx: models/yolov8n_640_op13.onnx
+  - id: det-yolov8n
+    version: 960-ap9999
+    task: detect
+    input_size: 960
+    conf: 0.1
+    iou: 0.45
+    classes: {0: person, 2: car, 5: bus, 6: train, 7: truck, 67: cell phone}
+    linq_program: mosprom_det960_cut_ap9999_b1_o1_h1m.tpu
+    linq_tail: models/linq/det960_cut_ap9999/det960_cut_ap9999_tail.onnx
+    local_onnx: models/yolov8n_960_op13.onnx
+  - id: pose-yolov8n
+    version: 640-ap9999
+    task: pose
+    input_size: 640
+    conf: 0.1
+    iou: 0.45
+    classes: {0: person}
+    linq_program: mosprom_pose640_cut_ap9999_b1_o1_h1m.tpu
+    linq_tail: models/linq/pose640_cut_ap9999/pose640_cut_ap9999_tail.onnx
+    local_onnx: models/yolov8n-pose_640_op13.onnx

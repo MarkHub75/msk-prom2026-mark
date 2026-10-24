@@ -1,0 +1,6 @@
+# Copy to config/user.yaml and change what you need: it overrides default.yaml.
+# Tests never read config/user.yaml (see tests/conftest.py).
+# Example: run on CPU models instead of LinQ is INFERENCE_BACKEND=local in .env;
+# a fine-tuned detector is a new entry in config/models.yaml plus:
+# pipeline:
+#   extra: [fire-yolov8n@640-v1]
