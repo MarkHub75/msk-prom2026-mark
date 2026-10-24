@@ -1,9 +1,10 @@
 // Smoke of the SafeWatch critical path against the demo mock or the real backend.
 //   node bin/smoke.mjs --target mock|real [--rest URL] [--ws URL] [--timeout-s N]
-// Prints a PASS/FAIL/SKIP table; exit 0 = no FAIL, 1 = some FAIL, 2 = bad arguments.
+//   [--contract DIR] [--json FILE]
+// Prints a PASS/FAIL/SKIP table; exit 0 = ready, 1 = some FAIL, 3 = SKIPs only, 2 = bad arguments.
 // Every REST answer and WS message is validated by contract/*.json when the files exist.
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,7 +32,8 @@ const WAIT_MS = Number(opt("--timeout-s", TARGET === "real" ? 90 : 5)) * 1000;
 const MOCK = TARGET === "mock";
 
 // --- contract validation -----------------------------------------------------------------
-const CONTRACT_DIR = fileURLToPath(new URL("../../../contract/", import.meta.url));
+// --contract DIR: validate by another copy of contract/ (the watch loop passes the one of main).
+const CONTRACT_DIR = opt("--contract", fileURLToPath(new URL("../../../contract/", import.meta.url)));
 const OPENAPI_FILE = join(CONTRACT_DIR, "openapi.json");
 const WS_SCHEMA_FILE = join(CONTRACT_DIR, "ws.schema.json");
 const ajv = new Ajv2020({ strict: false, allErrors: false });
@@ -516,4 +518,6 @@ console.log(
     : verdict === 1 ? "НЕ ГОТОВ: есть FAIL"
       : "НЕ ГОТОВ: часть шагов SKIP (слайсы не закрыты), FAIL нет",
 );
+const jsonOut = opt("--json", null);
+if (jsonOut) writeFileSync(jsonOut, JSON.stringify({ target: TARGET, verdict, rows, contract_errors: contractErrors }, null, 2));
 process.exit(verdict);
