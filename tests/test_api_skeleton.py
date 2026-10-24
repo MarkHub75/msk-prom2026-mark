@@ -58,7 +58,7 @@ def test_every_contract_route_is_declared(settings: Settings) -> None:
 
 @pytest.mark.parametrize(
     ("method", "path"),
-    [("get", "/api/videos/1/analysis"), ("get", "/api/ohs/rules"), ("get", "/api/stats/management"),
+    [("get", "/api/operator/feed"), ("get", "/api/ohs/rules"), ("get", "/api/stats/management"),
      ("get", "/api/events/export.csv"), ("get", "/api/events/5")],
 )  # fmt: skip
 async def test_unbuilt_route_returns_501(client: httpx.AsyncClient, method: str, path: str) -> None:

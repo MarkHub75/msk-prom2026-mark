@@ -18,7 +18,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import get_args
 
-from safewatch import clock, config, media, registry, seed, store, texts
+from safewatch import clock, config, media, registry, rules, seed, store, texts
 from safewatch.analysis import pipeline
 from safewatch.errors import (
     Conflict,
@@ -52,12 +52,15 @@ from safewatch.types import (
     CamerasAdminView,
     CameraSetupView,
     CameraState,
+    Episode,
+    EpisodeDraft,
     EvalReport,
     EventDetail,
     EventFilter,
     EventPage,
     EventStatus,
     EventSummary,
+    Evidence,
     Health,
     HudFrame,
     HumanAction,
@@ -65,6 +68,7 @@ from safewatch.types import (
     InferenceMetrics,
     Job,
     JobErrorCode,
+    JobKind,
     JobStage,
     JobStatus,
     JournalFacets,
@@ -176,8 +180,7 @@ def meta() -> Meta:
             for s in get_args(EventStatus)
         ],
         zone_kinds=[ZoneKindMeta.model_validate(k.model_dump()) for k in settings.zone_kinds],
-        # rules.scenario_metas() arrives with the first plugins in slice 5.
-        scenarios=[],
+        scenarios=rules.scenario_metas(),
     )
 
 
@@ -331,10 +334,10 @@ def _too_large() -> TooLarge:
     return TooLarge(texts.VIDEO_TOO_LARGE.format(mb=config.get_settings().upload.max_mb))
 
 
-def _enqueue(video_id: int) -> int:
+def _enqueue(video_id: int, kind: JobKind = "process") -> int:
     settings = config.get_settings()
     values = {
-        "kind": "process",
+        "kind": kind,
         "video_id": video_id,
         "backend": settings.inference_backend,
         "fake": int(settings.fake),
@@ -598,8 +601,8 @@ async def _analyze(
     video: sqlite3.Row,
     det: tuple[ModelSpec, int],
     pose: tuple[ModelSpec, int] | None,
-) -> None:
-    """Stage `analysis` of tech.md 8.1: a new `analyses` version and its HUD file."""
+) -> tuple[list[tuple[int, EpisodeDraft]], list[HudFrame]]:
+    """Stage `analysis` of tech.md 8.1: a new `analyses` version, its HUD file and episodes."""
     settings = config.get_settings()
     store.job_update(job_id, {"stage": "analysis"})
     _progress(job_id, 0.85)
@@ -611,6 +614,7 @@ async def _analyze(
         height=video["height"],
         fps=video["fps"],
         step=analysis_step(video["fps"]),
+        duration_ms=video["duration_ms"],
         calibration=None,  # slice 9
         zones=[],  # slice 9
         rules={},  # slice 9
@@ -642,10 +646,85 @@ async def _analyze(
     }
     with store.tx():
         analysis_id = store.insert("analyses", values)
+        episodes = []
+        for draft in result.episodes:
+            row = draft.model_dump(exclude={"metrics", "confirm_frame_idx", "escalate_frame_idx"})
+            row |= {"analysis_id": analysis_id, "metrics_json": json.dumps(draft.metrics)}
+            episodes.append((store.insert("episodes", row), draft))
         elapsed = round((time.perf_counter() - started) * 1000)
         store.job_update(job_id, {"analysis_id": analysis_id, "analysis_ms": elapsed})
         store.video_update(video_id, {"active_analysis_id": analysis_id})
+    return episodes, result.hud
+
+
+def _evidence_files(
+    video_path: Path, shots: list[tuple[int, Path]], quality: int, width: int
+) -> list[str]:
+    """Worker thread: JPEG of each (frame_idx, file); sha256 of every file written."""
+    digests = []
+    for frame_idx, path in shots:
+        data = media.encode_jpeg(media.read_frame(video_path, frame_idx), quality, width)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+        digests.append(hashlib.sha256(data).hexdigest())
+    return digests
+
+
+async def _evidence(
+    job_id: int,
+    video: sqlite3.Row,
+    episodes: list[tuple[int, EpisodeDraft]],
+    hud: list[HudFrame],
+) -> None:
+    """Stage `evidence` (tech.md 8.2 item 9): the confirm and escalate frames of each episode."""
+    settings = config.get_settings()
+    store.job_update(job_id, {"stage": "evidence"})
     _progress(job_id, 0.95)
+    shots: list[tuple[int, str, int]] = []
+    for episode_id, draft in episodes:
+        shots.append((episode_id, "confirm", draft.confirm_frame_idx))
+        if draft.escalate_frame_idx is not None:
+            shots.append((episode_id, "escalate", draft.escalate_frame_idx))
+    data = settings.data_dir
+    files = [(idx, data / f"evidence/{eid}-{kind}.jpg") for eid, kind, idx in shots]
+    q, width = settings.evidence.jpeg_quality, settings.evidence.max_width
+    digests = await asyncio.to_thread(_evidence_files, data / video["path"], files, q, width)
+    frames = {f.frame_idx: f for f in hud}
+    with store.tx():
+        for (episode_id, kind, frame_idx), sha256 in zip(shots, digests, strict=True):
+            objects = [o.model_dump(mode="json") for o in frames[frame_idx].objects]
+            values = {
+                "episode_id": episode_id,
+                "kind": kind,
+                "frame_idx": frame_idx,
+                "ts_ms": frames[frame_idx].ts_ms,
+                "path": f"evidence/{episode_id}-{kind}.jpg",
+                "sha256": sha256,
+                "objects_json": json.dumps(objects),
+            }
+            store.insert("evidence", values)
+
+
+def _stored_artifact(artifact_id: int) -> tuple[ModelSpec, int] | None:
+    row = store.artifact_by_id(artifact_id)
+    if row is None or not (config.get_settings().data_dir / row["path"]).is_file():
+        return None
+    return registry.resolve(f"{row['model_id']}@{row['model_version']}"), artifact_id
+
+
+def _analysis_inputs(
+    video: sqlite3.Row,
+) -> tuple[tuple[ModelSpec, int], tuple[ModelSpec, int] | None] | None:
+    """Artifacts of the active analysis for a recompute; `None` when a file is gone."""
+    analysis = store.analysis(video["active_analysis_id"] or 0)
+    if analysis is None:
+        return None
+    det = _stored_artifact(analysis["det_artifact_id"])
+    pose_id = analysis["pose_artifact_id"]
+    pose = None if pose_id is None else _stored_artifact(pose_id)
+    if det is None or (pose_id is not None and pose is None):
+        return None
+    return det, pose
 
 
 async def run_next_job() -> Job | None:
@@ -662,21 +741,31 @@ async def run_next_job() -> Job | None:
     video = _video_row(video_id)
     pose_text = None
     try:
-        detector = registry.resolve(settings.pipeline.detector)
-        det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
-        store.job_update(job_id, {"det_artifact_id": det_id})
         pose: tuple[ModelSpec, int] | None = None
-        try:
-            if settings.pipeline.pose is not None:
-                pose_model = registry.resolve(settings.pipeline.pose)
-                pose_id = await _infer(job_id, "inference_pose", (0.45, 0.85), pose_model, video)
-                store.job_update(job_id, {"pose_artifact_id": pose_id})
-                pose = (pose_model, pose_id)
-        except InferenceError as exc:
-            if exc.code not in ("remote_error", "bad_output"):
-                raise
-            pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
-        await _analyze(job_id, video, (detector, det_id), pose)
+        if row["kind"] == "recompute":  # the same artifacts, no inference (tech.md 8.12)
+            inputs = _analysis_inputs(video)
+            if inputs is None:
+                raise InferenceError("artifacts_missing", texts.ARTIFACTS_MISSING)
+            (detector, det_id), pose = inputs
+            pose_id = None if pose is None else pose[1]
+            store.job_update(job_id, {"det_artifact_id": det_id, "pose_artifact_id": pose_id})
+        else:
+            detector = registry.resolve(settings.pipeline.detector)
+            det_id = await _infer(job_id, "inference_detect", (0.0, 0.45), detector, video)
+            store.job_update(job_id, {"det_artifact_id": det_id})
+            try:
+                if settings.pipeline.pose is not None:
+                    pose_model = registry.resolve(settings.pipeline.pose)
+                    span = (0.45, 0.85)
+                    pose_id = await _infer(job_id, "inference_pose", span, pose_model, video)
+                    store.job_update(job_id, {"pose_artifact_id": pose_id})
+                    pose = (pose_model, pose_id)
+            except InferenceError as exc:
+                if exc.code not in ("remote_error", "bad_output"):
+                    raise
+                pose_text = f"pose: {exc.message}"  # the analysis goes on without keypoints
+        episodes, hud_frames = await _analyze(job_id, video, (detector, det_id), pose)
+        await _evidence(job_id, video, episodes, hud_frames)
     except InferenceError as exc:
         log.warning("linq: %s %s", exc.code, exc.message)
         _job_failed(job_id, video_id, attempts, exc.code, exc.message)
@@ -684,7 +773,6 @@ async def run_next_job() -> Job | None:
         log.exception("job %s failed", job_id)
         _job_failed(job_id, video_id, attempts, "internal", (str(exc).splitlines() or ["error"])[0])
     else:
-        # Slice 5 adds the evidence stage; until then the analysis ends the job.
         done = {"status": "done", "stage": "done", "progress": 1.0, "error_text": pose_text}
         store.job_update(job_id, done | {"finished_at": clock.iso(clock.now())})
         store.video_update(video_id, {"status": "ready"})
@@ -799,15 +887,64 @@ def video_tracks(video_id: int, from_ms: int, to_ms: int) -> TracksWindow:
 
 
 def video_analysis(video_id: int) -> Analysis:
-    raise NotImplementedError("slice 5")
+    video = _video_row(video_id)
+    row = store.analysis(video["active_analysis_id"] or 0)
+    if row is None:
+        raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
+    evidence: dict[int, list[Evidence]] = {}
+    for e in store.analysis_evidence(row["id"]):
+        item = Evidence(
+            id=e["id"],
+            kind=e["kind"],
+            frame_idx=e["frame_idx"],
+            ts_ms=e["ts_ms"],
+            url=f"/api/evidence/{e['id']}/image",
+            sha256=e["sha256"],
+            objects=json.loads(e["objects_json"]),
+        )
+        evidence.setdefault(e["episode_id"], []).append(item)
+    episodes = [
+        Episode.model_validate(
+            {
+                **dict(ep),
+                "scenario_title": texts.SCENARIO_TITLES[ep["scenario"]],
+                "metrics": json.loads(ep["metrics_json"]),
+                "evidence": evidence.get(ep["id"], []),
+            }
+        )
+        for ep in store.episodes(row["id"])
+    ]
+    return Analysis(
+        id=row["id"],
+        video_id=video_id,
+        version=row["version"],
+        created_at=clock.parse(row["created_at"]),
+        duration_ms=row["duration_ms"],
+        pose_used=row["pose_artifact_id"] is not None,
+        episodes=episodes,
+        gaps=json.loads(row["gaps_json"]),
+    )
 
 
 def video_recompute(video_id: int, role: Role | None) -> Job:
-    raise NotImplementedError("slice 5")
+    _require(role, ("admin", "ohs"))
+    with store.tx():
+        video = _video_row(video_id)
+        if video["status"] != "ready" or video["active_analysis_id"] is None:
+            raise Conflict("video_not_ready", texts.VIDEO_NOT_READY)
+        if _analysis_inputs(video) is None:
+            raise Conflict("artifacts_missing", texts.ARTIFACTS_MISSING)
+        job_id = _enqueue(video_id, "recompute")
+    _publish_job(job_id)
+    return job_get(job_id)
 
 
 def evidence_file(evidence_id: int) -> Path:
-    raise NotImplementedError("slice 5")
+    row = store.evidence(evidence_id)
+    path: Path | None = None if row is None else config.get_settings().data_dir / row["path"]
+    if path is None or not path.is_file():
+        raise NotFound(texts.EVIDENCE_NOT_FOUND, evidence_id=evidence_id)
+    return path
 
 
 def broadcast_get(camera_id: int) -> Broadcast | None:

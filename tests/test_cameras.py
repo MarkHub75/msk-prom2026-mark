@@ -53,7 +53,7 @@ async def test_meta_lists_roles_statuses_zone_kinds(
     assert next(s.title for s in meta.statuses if s.id == "new") == "Новое"
     assert len(meta.zone_kinds) == 8
     assert meta.zone_kinds[0].id == "danger"
-    assert meta.scenarios == []
+    assert [s.id for s in meta.scenarios] == ["running", "fall"]  # slice 5 plugins
 
 
 async def test_meta_follows_settings(

@@ -162,3 +162,53 @@ OBJECT_LABELS = {
 }
 VIDEO_NOT_READY = "Анализ видео ещё не готов"
 TRACKS_WINDOW_INVALID = "Окно: from_ms меньше to_ms, не длиннее {max} мс"
+
+# Scenarios, reasons and "why" lines (tech.md 8.3), evidence and recompute (slice 5).
+SCENARIO_DESCRIPTIONS = {
+    "running": "Человек бежит; рядом с техникой или в опасной зоне — красное событие.",
+    "fall": "Падение человека или долгая неподвижность лёжа.",
+}
+SCENARIO_ACTIVE = "Сценарий работает"
+SCENARIO_MODEL_MISSING = "Нет модели с классами: {classes}"
+PARAM_TITLES = {  # key of scenarios.<id> → (title, unit)
+    "speed_bh_s": ("Порог скорости без калибровки", "роста/с"),
+    "speed_m_s": ("Порог скорости с калибровкой", "м/с"),
+    "hold_s": ("Удержание жёлтого", "с"),
+    "red_hold_s": ("Удержание красного", "с"),
+    "near_vehicle_bh": ("Рядом с техникой без калибровки", "роста"),
+    "near_vehicle_m": ("Рядом с техникой с калибровкой", "м"),
+    "transition_s": ("Переход стоя → лёжа не дольше", "с"),
+    "confirm_s": ("Удержание падения", "с"),
+    "still_s": ("Неподвижность лёжа", "с"),
+    "allowed_still_s": ("Неподвижность в зоне «лежать допустимо»", "с"),
+}
+RUN_BH = "Бег {v} роста/с"
+RUN_M = "Бег {v} м/с"
+IN_ZONE = " в зоне «{zone}»"
+NEAR_VEHICLE = " рядом с техникой"
+FALL_SEEN = "Зафиксировано падение"
+LYING_STILL = "Человек лежит неподвижно {n} с"
+IN_REPAIR_ZONE = " в зоне ремонта"
+WHY_RULE = "Правило"
+WHY_RUN_BH = "Бег: скорость выше {v} роста/с дольше {s} с"
+WHY_RUN_M = "Бег: скорость выше {v} м/с дольше {s} с"
+WHY_FALL = "Падение: переход стоя → лёжа не дольше {t} с, лежит дольше {s} с"
+WHY_LYING = "Неподвижность: лежит без движения дольше {s} с"
+WHY_METHOD = "Метод"
+WHY_CONFIDENCE = "Уверенность детекции"
+WHY_UNCERTAIN = "Потеря видимости"
+WHY_SECONDS = "{n} с"
+METHOD_TITLES = {
+    "pose": "поза",
+    "bbox": "рамка",
+    "calibrated": "калибровка",
+    "relative": "в ростах человека",
+}
+METRIC_TITLES = {
+    "speed_bh_s": "Скорость, роста/с",
+    "speed_m_s": "Скорость, м/с",
+    "transition_s": "Переход стоя → лёжа, с",
+    "still_s": "Неподвижность, с",
+}
+EVIDENCE_NOT_FOUND = "Кадр не найден"
+ARTIFACTS_MISSING = "Нет результатов инференса этого видео: загрузите его заново"

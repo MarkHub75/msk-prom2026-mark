@@ -893,6 +893,7 @@ class AnalysisConfig(BaseModel):  # snapshot stored in analyses.config_json
     height: int
     fps: float
     step: int
+    duration_ms: int  # videos.duration_ms: an episode active at the end closes here
     calibration: Calibration | None
     zones: list[Zone]
     rules: dict[str, CameraRule]  # by scenario

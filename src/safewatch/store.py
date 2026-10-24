@@ -263,3 +263,22 @@ def analysis_next_version(video_id: int) -> int:
 
 def analysis(analysis_id: int) -> sqlite3.Row | None:
     return one("SELECT * FROM analyses WHERE id = ?", analysis_id)
+
+
+def artifact_by_id(artifact_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM artifacts WHERE id = ?", artifact_id)
+
+
+# --- episodes, evidence -------------------------------------------------------------------
+def episodes(analysis_id: int) -> list[sqlite3.Row]:
+    return all("SELECT * FROM episodes WHERE analysis_id = ? ORDER BY start_ms, id", analysis_id)
+
+
+def analysis_evidence(analysis_id: int) -> list[sqlite3.Row]:
+    sql = """SELECT ev.* FROM evidence ev JOIN episodes ep ON ep.id = ev.episode_id
+        WHERE ep.analysis_id = ? ORDER BY ev.id"""
+    return all(sql, analysis_id)
+
+
+def evidence(evidence_id: int) -> sqlite3.Row | None:
+    return one("SELECT * FROM evidence WHERE id = ?", evidence_id)
