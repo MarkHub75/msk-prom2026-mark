@@ -1,3 +1,4 @@
+import { PRODUCT } from "../brand";
 import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, TierResult } from "../api/types";
 
 // Shown only while the server answers 501: the demo plant of calculator_defaults and the assumptions of
@@ -5,8 +6,8 @@ import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, Ti
 // The screen labels it «пример, сервер ещё не подключён»; once the server answers, its numbers replace these.
 const A = (key: string, title: string, value: number, unit: string, source: string): CalcAssumption => ({ key, title, value, unit, source, editable: false });
 export const EXAMPLE_ASSUMPTIONS: CalcAssumption[] = [
-  A("accelerator.capacity_fps", "Пропускная способность одного ускорителя LinQ", 12.4, "кадр/с", "замер LinQ 24.10 14:52: детектор 640, inflight 4, общая очередь площадки"),
-  A("models_per_frame", "Запросов к TPU на кадр", 2, "шт.", "конвейер Argus: детектор и pose"),
+  A("accelerator.capacity_fps", "Пропускная способность одного ускорителя LinQ", 12.4, "кадр/с", "замер LinQ 24.10 14:52: детектор 640, 4 запроса одновременно, общая очередь площадки"),
+  A("models_per_frame", "Запросов к TPU на кадр", 2, "шт.", `конвейер ${PRODUCT}: детектор людей и поза`),
   A("accelerators_per_server", "Ускорителей в одном сервере", 4, "шт.", "допущение команды, уточнить у ХайТэк"),
   A("accelerator.price_rub", "Цена ускорителя LinQ", 500000, "₽", "допущение команды: цена не опубликована, заменить ценой поставщика"),
   A("server.price_rub", "Цена сервера под ускорители", 350000, "₽", "допущение команды, уточнить у поставщика"),
