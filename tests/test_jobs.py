@@ -14,7 +14,7 @@ from safewatch import config, services, store
 from safewatch.config import PipelineConfig, Settings, get_settings
 from safewatch.fakes.remote import FakeRemoteShell
 from safewatch.hub import hub
-from safewatch.inference import make_backend
+from safewatch.inference import linq, make_backend
 from safewatch.inference.artifacts import CACHE_SCHEMA, cache_key
 from safewatch.inference.linq import JupyterShell, LinqBackend
 from safewatch.inference.local import LocalBackend
@@ -227,7 +227,9 @@ async def test_timeout_kills_remote_worker(
     linq_tails: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    _tune(monkeypatch, fake_core, linq={"job_timeout_s": 0.2, "poll_interval_s": 0.01})
+    linq_cfg = {"job_timeout_s": 0.2, "poll_interval_s": 0.01, "slow_rtt_s": 0.0}
+    _tune(monkeypatch, fake_core, linq=linq_cfg)
+    monkeypatch.setattr(linq, "START_S", 0)  # the slow-queue floor of tech.md 8.29 is off
     shell = _shell(monkeypatch, ["timeout"])
     _video(tmp_path, make_video)
     job = await services.run_next_job()

@@ -39,6 +39,9 @@ class LocalBackend:  # InferenceBackend: onnxruntime on CPU, same JSONL as the w
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
 
+    def close(self) -> None:
+        """Nothing to release: a session lives for one run (tech.md 8.29)."""
+
     def _session(self, model: ModelSpec) -> Any:
         onnx = ROOT / model.local_onnx if model.local_onnx else None
         if onnx is None or not onnx.is_file():
