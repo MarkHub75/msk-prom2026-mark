@@ -1,6 +1,6 @@
 # progress.md
 
-- state: S8 в работе
+- state: S8 закрыт, следующий S9
 - tech.md: v2
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
@@ -32,7 +32,6 @@
 - GAP: S6, превью: кадр `round(position_ms / 1000 × fps)` играющего эфира, иначе кадр 0 последнего `ready` видео; JPEG `evidence.jpeg_quality`, ширина `preview.max_width`; `CameraTile.preview_url` есть при `videos_count > 0`; `CameraState.freshness_ms = None` до S11.
 - GAP: S6, `worker`: `_jobs(stop, idle_s)` и `_broadcasts(stop, tick_s)` в `asyncio.TaskGroup`, паузы через `asyncio.sleep` (остановка в пределах одного периода); исключение тика — лог `broadcast tick`, цикл продолжается.
 - GAP: S6, фронт: `WsNotification` в `src/api/ws.ts` (нагрузка `notification`: WS-типов нет в openapi); `playSound(kind)` возвращает функцию остановки, `soundBlocked()` и `unlockSound()` в `components/sound.ts` (кнопка «Включить звук» в шапке); `STATE_ICON` из `components/SectorTile.tsx`; `Toasts` и `TakeoverOverlay` без пропсов, сами слушают `useWs`; `BroadcastPanel` внутри `CameraSetup.tsx`.
-- R10: S8 — уведомление мастеру на эскалацию уровня события в `sent_to_master`/`master_accepted` (8.8, строка 4) `broadcast_tick` не шлёт: в S6 действий оператора нет.
 - R10: `system_view.latency` (`notify_delay_s`, `publish_lag_ms`) всё ещё нули: критерия ни в одном слайсе до S11 нет.
 - R10: лента и состояния камер считают демо-события: жёлтые `confirmed` сида открыты и попадают в ленту оператора с приоритетом 1 (до `feed.limit`).
 - R10: каждый компонент с `useWs` (шапка, `Toasts`, `TakeoverOverlay`, экран) открывает свой WebSocket: у оператора 4 соединения на вкладку.
@@ -45,6 +44,12 @@
 - GAP: S7, `worker._escalations(stop, tick_s)` — третья задача `TaskGroup`, период `escalation.tick_ms`, исключение тика — лог `escalation tick`, цикл продолжается.
 - GAP: S7, фронт: `TakeoverOverlay` без своего оверлея (заменяет оверлей S6): красное уведомление сразу открывает `/events/:id?takeover=1`, сирену играет `EventScreen` до действия (кроме `view`) или «Свернуть»; `CameraScreen({cameraId?})` — живая половина экрана события; `EvidenceImage` рисует рамки объектов кадра с выноской (подпись и теги); `view` отправляется сам, если он в `allowed_actions`; кнопки — `allowed_actions` без `view`, клавиши 1–3 по порядку; поле «Принятые меры» при `resolve`.
 - R10: S7 — `X-Actor` проверяется дважды: `api._actor` (с S0) и `services.event_action` (контракт 6.2); оставить одно место.
+- GAP: S8, `store`: `master_active()` (`sent_to_master`, `master_accepted`; красные первыми, затем по последнему действию `sent_to_master`/`timeout_escalated` от нового к старому), `master_resolved(limit)` (по последнему действию `resolved`, новые первыми), `shift_events(start, end)` (`started_at` в `[start, end)`, без `superseded`, по `started_at`).
+- GAP: S8, `services` вне 6.2: `_master_alert(summary)` → `_master_alert(summary, kind="to_master")`; строка 4 таблицы 8.8: `level_escalated` в `broadcast_tick` у события в `sent_to_master`/`master_accepted` шлёт мастеру `Notification.id = "e<event>:master_escalated"`, `chime`, без захвата (сирена оператору остаётся); `_shift_window(at) -> (id, title, start, end)`, `_count_rows(events, key, titles) -> list[CountRow]`.
+- GAP: S8, `shift_summary_view`: `at` без часового пояса считается UTC; `start`/`end` в UTC; смена с `end <= start` идёт через полночь; `CountRow.key` сектора — `str(sector_id)`, строки по убыванию `count`, затем по `title`; `confirmed`/`false_alarm` — по `operator_verdict`; `events` — события с `operator_verdict = confirmed` по `started_at`; демо-события считаются (флага нет), `superseded` нет.
+- GAP: S8, входящие: «по времени передачи» — новые передачи первыми; `recent_resolved` включает демо-события сида.
+- GAP: S8, фронт: `place(event)` экспортирует `screens/master/MasterInbox.tsx` (сектор · камера · зона, общий для экранов мастера); звук уведомления мастера играет `Toasts` шапки, `MasterInbox` добавляет `navigator.vibrate(300)` и браузерное `Notification` при выданном разрешении (разрешение не запрашивает); `MasterEvent` берёт `/api/events/{event_id}`; на `/master/shift` кнопки «Предыдущая смена» (`at = start − 1 мс`) и «Текущая смена».
+- R10: S9 — `tests/test_api_skeleton.py::test_unbuilt_route_returns_501` держит `/api/ohs/rules` (маршрут S9): заменить на незакрытый маршрут.
 
 ## log
 
@@ -123,6 +128,13 @@
 - проверено вживую: нет (S7 без LinQ) | не проверено: LinQ Jupyter
 - [проверить]: нет
 - следующему: `tests/test_event_actions.py`: `ROWS` (человеческие строки 8.6), `journal(event_id)` (действия после `published`: роль, действие, из, в), `row(event_id)`; `tests/test_escalation.py::red(fake_clock, **values)` (красное событие с `red_at = now`); уведомление мастеру на `sent_to_master` уже шлют `event_action` и `escalation_tick` (S8 проверяет критерий 2); `event_detail` на эпизоде требует валидный `config_json` анализа (хелпер `ready_video` пишет `{}` — для карточки бери `_demo_job`).
+
+### S8: master (2026-10-24, PR #11, tech v2)
+- отклонения: правлены файлы вне списка слайса: `frontend/src/theme.css` (карточки мастера в одну колонку), `tests/test_api_skeleton.py` (примеры 501: `/api/journal/facets`, `/api/stats/ohs` вместо заработавших `/api/master/inbox`, `/api/master/shift`); тесты сверх списка: `test_master.py::test_master_notified_when_his_event_turns_red` (строка 4 таблицы 8.8, закрыта заметка R10 от S6), `test_shift.py::test_other_timezone_moves_the_window`; пишущих функций в S8 нет — права ролей `accept`/`resolve` уже покрыты `test_event_actions.py::test_roles_enforced` (S7).
+- решения вне контракта: строки `GAP: S8` в `## open`; мутаций нет (10.1).
+- проверено вживую: нет (S8 без LinQ) | не проверено: LinQ Jupyter
+- [проверить]: нет
+- следующему: `tests/test_master.py`: `handed(event_id, action, at)` (строка журнала передачи), `stamp(minute)`, `inbox(client)`; `tests/test_shift.py::utc(day, hour, ...)`; сквозной тест `tests/test_e2e.py::test_upload_to_master_flow` (загрузка через API, `run_next_job`, тики эфира на `fake_clock` по 0,5 с до красного) — образец для R10.
 
 ## night
 
