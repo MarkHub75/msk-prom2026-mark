@@ -74,7 +74,7 @@ function ShellContent({ children }: { children: ReactNode }) {
       <div className="cr-body">
         <header className="shell-header cr-top">
           <Link className="brand" to={menuFor(role)[0]?.path ?? "/operator"}>SafeWatch</Link>
-          <span className="cr-plant">{roleTitles[role]}</span>
+          <nav className="cr-roles" aria-label="Выбор роли">{ROLES.map(id => <button key={id} onClick={() => changeRole(id)} className={role === id ? "active" : ""} aria-current={role === id ? "page" : undefined}>{roleTitles[id]}</button>)}</nav>
           <div className="cr-top-right">
             <span className={`cr-source ${meta?.fake || review ? "is-synthetic" : ""}`} data-testid="backend">{source}</span>
             <span className="connection cr-live" data-status={wsStatus} title="Канал событий"><i />{live}</span>
