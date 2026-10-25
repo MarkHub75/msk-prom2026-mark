@@ -1,7 +1,7 @@
 # progress.md
 
-- state: tech v11, UPGRADE v3 этап 2 (сокращённый): эфир один раз по умолчанию, мерцание захвата и залипший `?takeover=1` исправлены, ложное красное 1.3 — тип зоны (`vehicle_path`), стенд обновлён; Tuna этапа 1 по-прежнему не найден; этап 3 не начат
-- tech.md: v11
+- state: tech v12, этап 3: калькулятор v2 (API 1.2.0, `docs/handoff/upgrade-v3-stage-3.md`); UPGRADE v3 этап 2 (сокращённый): эфир один раз по умолчанию, мерцание захвата и залипший `?takeover=1` исправлены, ложное красное 1.3 — тип зоны (`vehicle_path`), стенд обновлён; Tuna этапа 1 по-прежнему не найден; этап 3 не начат
+- tech.md: v12
 - base branch: main
 - remote: github.com/MarkHub75/msk-prom2026-mark
 - updated: 2026-10-25
