@@ -349,15 +349,15 @@ async def test_start_stop_conflicts_and_messages(
     r = await client.post(url, json={}, headers=ADMIN)
     assert r.status_code == 201
     first = Broadcast.model_validate(r.json())
-    assert (first.video_id, first.status, first.loop) == (pending, "playing", True)
+    assert (first.video_id, first.status, first.loop) == (pending, "playing", False)
     assert Broadcast.model_validate((await client.get(url)).json()).id == first.id
     assert [(k, d["id"], d["status"]) for k, d in drain(ws)] == [
         ("broadcast.state", first.id, "playing")
     ]
-    # loop follows broadcast.loop_default when the request leaves it out.
-    _tune(monkeypatch, core, broadcast={"loop_default": False})
+    # loop follows broadcast.loop_default when the request leaves it out (an explicit opt-in).
+    _tune(monkeypatch, core, broadcast={"loop_default": True})
     second = Broadcast.model_validate((await client.post(url, json={}, headers=ADMIN)).json())
-    assert (second.status, second.loop) == ("playing", False)
+    assert (second.status, second.loop) == ("playing", True)
     assert store.broadcast(first.id)["status"] == "stopped"  # type: ignore[index]
     assert [(k, d["id"], d["status"]) for k, d in drain(ws)] == [
         ("broadcast.state", first.id, "stopped"),

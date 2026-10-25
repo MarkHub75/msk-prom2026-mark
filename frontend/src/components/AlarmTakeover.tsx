@@ -26,9 +26,13 @@ function Takeover({ event, close, actions = [], busy, onAct, media }: { event: E
 }
 // The siren screen stays until the operator acts on the event (status leaves new/viewed) or presses «Свернуть».
 export function EventAlarm({event, ...act}:{event?:EventSummary} & ActProps) {
-  const [query] = useSearchParams(); const [collapsed,setCollapsed]=useState(false);
+  const [query, setQuery] = useSearchParams(); const [collapsed,setCollapsed]=useState(false);
   const close=useCallback(()=>setCollapsed(true),[]);
   useEffect(()=>setCollapsed(false),[event?.id]);
-  if(query.get("takeover")!=="1" || event?.level!=="red" || (event.status!=="new" && event.status!=="viewed"))return null;
+  const open = query.get("takeover")==="1";
+  const live = event?.level==="red" && (event.status==="new" || event.status==="viewed");
+  // Acted on (or no longer an open red): drop ?takeover=1, else the shell keeps the operator "busy" and the next red only queues.
+  useEffect(()=>{ if(open && event && !live) setQuery(q=>{ q.delete("takeover"); return q; },{replace:true}); },[open,event,live,setQuery]);
+  if(!open || !live)return null;
   return collapsed ? <button className="collapsed-alarm" onClick={()=>setCollapsed(false)}>Критическое событие #{event.id}<Icon name="arrow" /></button> : <Takeover event={event} close={close} {...act} />;
 }

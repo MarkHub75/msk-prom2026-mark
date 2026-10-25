@@ -143,6 +143,8 @@ function ShellContent({ children }: { children: ReactNode }) {
   const [notification, setNotification] = useState<string>();
   const [alarm, setAlarm] = useState<Alarm>();
   const dismissedAlarms = useRef(new Set<number>());
+  // A notification id names one logical alert (`e<id>:published`, `e<id>:escalated`): a repeat of it never sirens or navigates again.
+  const seenNotifications = useRef(new Set<string>());
   const closeAlarm = () => { if (alarm) dismissedAlarms.current.add(alarm.eventId); setAlarm(undefined); };
   const [serverOffset, setServerOffset] = useState<number>();
   const [backendStatus, setBackendStatus] = useState<BackendStatus>();
@@ -156,6 +158,8 @@ function ShellContent({ children }: { children: ReactNode }) {
     if (message.type === "hello" || message.type.startsWith("event.") || message.type === "sector.state" || message.type === "camera.state" || message.type === "broadcast.state") setUpdates(n => n + 1);
     if (message.type === "notification" && message.data.audience.includes(role)) {
       const n = message.data;
+      if (seenNotifications.current.has(n.id)) return;
+      seenNotifications.current.add(n.id);
       if (phoneApp) vibrate(n.level === "red" ? [300, 120, 300] : 150);
       // System notification (sound and vibration of the phone even with the app in the background): a new red for the operator, a hand-over for the master.
       if (phoneApp || document.hidden) {
