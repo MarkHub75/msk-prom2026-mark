@@ -7,10 +7,10 @@
 | Пункт | Факт |
 |---|---|
 | Старт / граница | 07:01:41 / 08:31:41 (start + 90 мин) |
-| Окончание | __END__ (длительность __DUR__) |
+| Окончание | 07:29 по часам ноутбука (28 минут от старта по `date`; граница 90 минут не превышена) |
 | Исходный main | `d77911f4` (передача этапа 1; реализация `f0bf5cdb`, tech v10) |
-| Ветка / PR | `upgrade-v3-stage-2` / __PR__ |
-| Итоговый commit | __SHA__ |
+| Ветка / PR | `upgrade-v3-stage-2` / [PR #46](https://github.com/MarkHub75/msk-prom2026-mark/pull/46), squash-merge в main |
+| Итоговый commit | head ветки на момент CI `a97b3ddc` (код) плюс этот докоммит; итоговый SHA main — squash-merge PR #46 (`git log -1 main`) |
 | Чужая работа | untracked `config/demo.argus-real-v2.yaml`, `data/demo/argus-real-v2`, `D:\to-egor\` не изменялись и не коммитились; `matvey_cv` не трогали |
 | Стенд | контейнер пересобран на том же named volume, healthy; зона 1.3 исправлена через API; Tuna не найден (этап 1) |
 
@@ -103,7 +103,7 @@
 | Полный gate №2 (после 4-го коммита) | `gate2.log` | PASS, те же числа |
 | Трассировка/EOL после правки документации | `uv run poe contract`, `uv run poe eol` | PASS: contract ok, 603 элемента; eol ok |
 | Тест на настоящем пакете | `test_real_pack_one_alarm_per_episode` | выполнялся локально (пакет распакован); в CI пропускается — **там не доказывается** |
-| CI | GitHub Actions по PR | __CI__ |
+| CI | GitHub Actions по PR | PASS ubuntu 2м34с и windows 4м7с, [run 40161807881](https://github.com/MarkHub75/msk-prom2026-mark/actions/runs/40161807881), head `a97b3ddc` |
 | Живое приложение (контейнер, не тестовый сервер) | `D:\night-tmp\argus-upgrade-v3-stage-2\live_check.cjs`, headless Chromium 1243, роль оператора, `localhost:8000`; лог `live-check.json`, снимки `cam*-takeover.png`, `cam*-after.png` | см. ниже |
 
 **Живая проверка, 07:20–07:21, окно 76 с.** Запуски без `loop` через API: камеры 9, 11, затем 10 дважды (второй запуск — осознанный новый показ).
