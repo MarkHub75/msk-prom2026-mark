@@ -1,0 +1,22 @@
+{
+  "within_horizon": {
+    "status": "within_horizon",
+    "months": 33.333333,
+    "within_horizon": true,
+    "reason": "Математический пример: C=1000000, r=.1, F=40000, B=500000; net=360000 в год."
+  },
+  "after_horizon": {
+    "status": "after_horizon",
+    "months": 120,
+    "within_horizon": false,
+    "reason": "Тот же C/r/F, B=240000: net=100000 в год, срок 120 месяцев."
+  },
+  "unknown_current_price": {
+    "status": "at_or_below",
+    "board_id": "HP",
+    "boards_to_buy": 1,
+    "max_unit_price_rub": 561538.46,
+    "current_unit_price_rub": null,
+    "reason": "Независимый вектор: C_other=500000, q=1, B=500000, r=.1, F=40000. Текущая цена HP неизвестна, но цена для окупаемости за 3 года не должна превышать 561538,46 ₽."
+  }
+}

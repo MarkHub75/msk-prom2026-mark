@@ -1,0 +1,586 @@
+{
+  "mode": "scale",
+  "status": "estimated",
+  "cost_scope": "incremental",
+  "load": {
+    "cameras": 16,
+    "active_p95": 11,
+    "priority_cameras_effective": 1,
+    "peak_units_s": 265.25,
+    "surge_units_s": 174,
+    "required_units_s": 265.25,
+    "effective_chip_units_s": 52.4,
+    "required_chips": 6,
+    "required_cpu_cores": 20.42425,
+    "naive_chips": 31,
+    "basis": "independent_p95"
+  },
+  "hardware": {
+    "selection": "priced_optimum",
+    "before": {
+      "boards": [
+        {
+          "board_id": "HP",
+          "count": 4
+        }
+      ],
+      "chips": 4,
+      "servers": 1,
+      "used_slots": 4,
+      "power_w": 390
+    },
+    "purchase": {
+      "boards": [
+        {
+          "board_id": "HP",
+          "count": 2
+        }
+      ],
+      "chips": 2,
+      "servers": 1,
+      "used_slots": 2,
+      "power_w": 320
+    },
+    "after": {
+      "boards": [
+        {
+          "board_id": "HP",
+          "count": 6
+        }
+      ],
+      "chips": 6,
+      "servers": 2,
+      "used_slots": 6,
+      "power_w": 710
+    },
+    "board_capex_rub": 1000000,
+    "server_capex_rub": 350000,
+    "required_after_chips": 6,
+    "spare_chips_after": 0,
+    "note": "Эталонный пример использует HP: остальные цены неизвестны; новый глобальный solver здесь не имитируется.",
+    "inventory_basis": "provided",
+    "required_before_chips": 3
+  },
+  "tiers": [
+    {
+      "tier": "base",
+      "title": "Базовый",
+      "capex_rub": 1890000,
+      "opex_rub_year": 305925.6,
+      "gross_benefit_rub_year": 46800,
+      "net_benefit_rub_year": -259125.6,
+      "tco_3_year_rub": 2807776.8,
+      "net_balance_3_year_rub": -2667376.8,
+      "rub_per_camera_month": 9749.23,
+      "camera_denominator": 8,
+      "labor_hours_year": 0,
+      "capex_lines": [
+        {
+          "id": "boards",
+          "title": "Новые платы LinQ",
+          "amount_rub": 1000000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.capex.boards"
+          ]
+        },
+        {
+          "id": "servers",
+          "title": "Новые серверы",
+          "amount_rub": 350000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.capex.servers"
+          ]
+        },
+        {
+          "id": "integration_fixed",
+          "title": "Пусконаладка: фиксированная часть",
+          "amount_rub": 300000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.capex.integration_fixed"
+          ]
+        },
+        {
+          "id": "integration_cameras",
+          "title": "Пусконаладка камер",
+          "amount_rub": 0,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.capex.integration_cameras"
+          ]
+        },
+        {
+          "id": "physical_cameras",
+          "title": "Покупка физических камер",
+          "amount_rub": 240000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.capex.physical_cameras"
+          ]
+        }
+      ],
+      "opex_lines": [
+        {
+          "id": "support",
+          "title": "Поддержка",
+          "amount_rub": 283500,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.opex.support"
+          ]
+        },
+        {
+          "id": "electricity",
+          "title": "Электроэнергия вычислительного оборудования",
+          "amount_rub": 22425.6,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "cost.electricity_rub_year"
+          ]
+        }
+      ],
+      "benefit_lines": [
+        {
+          "id": "injuries",
+          "title": "Предотвращённые прямые потери предприятия от травм",
+          "amount_rub": 46800,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.base.benefit.injuries"
+          ]
+        },
+        {
+          "id": "downtime",
+          "title": "Простой",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.base.benefit.downtime"
+          ]
+        },
+        {
+          "id": "fines",
+          "title": "Штрафы",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.base.benefit.fines"
+          ]
+        },
+        {
+          "id": "sfr_discount",
+          "title": "Дополнительная скидка СФР",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.base.benefit.sfr_discount"
+          ]
+        },
+        {
+          "id": "labor",
+          "title": "Время работников в деньгах",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.base.benefit.labor"
+          ]
+        }
+      ],
+      "payback": {
+        "status": "no_positive_effect",
+        "months": null,
+        "within_horizon": false,
+        "reason": "Расчётная годовая выгода не превышает годовые расходы; измените фактические входы."
+      },
+      "severe_threshold": {
+        "status": "needs_input",
+        "expected_prevented_cases": null,
+        "whole_prevented_cases": null,
+        "uncovered_cost_rub": 2807776.8,
+        "reason": "Задайте прямую стоимость тяжёлого случая для предприятия."
+      },
+      "board_price_threshold": {
+        "status": "free_still_insufficient",
+        "board_id": "HP",
+        "boards_to_buy": 2,
+        "max_unit_price_rub": null,
+        "current_unit_price_rub": 500000,
+        "reason": "Даже бесплатная плата не покрывает остальные расходы при этих входах; знание текущей цены платы для этого вывода не требуется."
+      }
+    },
+    {
+      "tier": "extended",
+      "title": "Расширенный",
+      "capex_rub": 2090000,
+      "opex_rub_year": 335925.6,
+      "gross_benefit_rub_year": 70200,
+      "net_benefit_rub_year": -265725.6,
+      "tco_3_year_rub": 3097776.8,
+      "net_balance_3_year_rub": -2887176.8,
+      "rub_per_camera_month": 10756.17,
+      "camera_denominator": 8,
+      "labor_hours_year": 0,
+      "capex_lines": [
+        {
+          "id": "boards",
+          "title": "Новые платы LinQ",
+          "amount_rub": 1000000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.boards"
+          ]
+        },
+        {
+          "id": "servers",
+          "title": "Новые серверы",
+          "amount_rub": 350000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.servers"
+          ]
+        },
+        {
+          "id": "integration_fixed",
+          "title": "Пусконаладка: фиксированная часть",
+          "amount_rub": 300000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.integration_fixed"
+          ]
+        },
+        {
+          "id": "integration_cameras",
+          "title": "Пусконаладка камер",
+          "amount_rub": 0,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.integration_cameras"
+          ]
+        },
+        {
+          "id": "physical_cameras",
+          "title": "Покупка физических камер",
+          "amount_rub": 240000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.physical_cameras"
+          ]
+        },
+        {
+          "id": "signals",
+          "title": "Световые и звуковые сигналы зон",
+          "amount_rub": 200000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.capex.signals"
+          ]
+        }
+      ],
+      "opex_lines": [
+        {
+          "id": "support",
+          "title": "Поддержка",
+          "amount_rub": 313500,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.opex.support"
+          ]
+        },
+        {
+          "id": "electricity",
+          "title": "Электроэнергия вычислительного оборудования",
+          "amount_rub": 22425.6,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "cost.electricity_rub_year"
+          ]
+        }
+      ],
+      "benefit_lines": [
+        {
+          "id": "injuries",
+          "title": "Предотвращённые прямые потери предприятия от травм",
+          "amount_rub": 70200,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.extended.benefit.injuries"
+          ]
+        },
+        {
+          "id": "downtime",
+          "title": "Простой",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.extended.benefit.downtime"
+          ]
+        },
+        {
+          "id": "fines",
+          "title": "Штрафы",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.extended.benefit.fines"
+          ]
+        },
+        {
+          "id": "sfr_discount",
+          "title": "Дополнительная скидка СФР",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.extended.benefit.sfr_discount"
+          ]
+        },
+        {
+          "id": "labor",
+          "title": "Время работников в деньгах",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.extended.benefit.labor"
+          ]
+        }
+      ],
+      "payback": {
+        "status": "no_positive_effect",
+        "months": null,
+        "within_horizon": false,
+        "reason": "Расчётная годовая выгода не превышает годовые расходы; измените фактические входы."
+      },
+      "severe_threshold": {
+        "status": "needs_input",
+        "expected_prevented_cases": null,
+        "whole_prevented_cases": null,
+        "uncovered_cost_rub": 3097776.8,
+        "reason": "Задайте прямую стоимость тяжёлого случая для предприятия."
+      },
+      "board_price_threshold": {
+        "status": "free_still_insufficient",
+        "board_id": "HP",
+        "boards_to_buy": 2,
+        "max_unit_price_rub": null,
+        "current_unit_price_rub": 500000,
+        "reason": "Даже бесплатная плата не покрывает остальные расходы при этих входах; знание текущей цены платы для этого вывода не требуется."
+      }
+    },
+    {
+      "tier": "max",
+      "title": "Максимальный",
+      "capex_rub": 2170000,
+      "opex_rub_year": 347925.6,
+      "gross_benefit_rub_year": 93600,
+      "net_benefit_rub_year": -254325.6,
+      "tco_3_year_rub": 3213776.8,
+      "net_balance_3_year_rub": -2932976.8,
+      "rub_per_camera_month": 11158.95,
+      "camera_denominator": 8,
+      "labor_hours_year": 0,
+      "capex_lines": [
+        {
+          "id": "boards",
+          "title": "Новые платы LinQ",
+          "amount_rub": 1000000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.boards"
+          ]
+        },
+        {
+          "id": "servers",
+          "title": "Новые серверы",
+          "amount_rub": 350000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.servers"
+          ]
+        },
+        {
+          "id": "integration_fixed",
+          "title": "Пусконаладка: фиксированная часть",
+          "amount_rub": 300000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.integration_fixed"
+          ]
+        },
+        {
+          "id": "integration_cameras",
+          "title": "Пусконаладка камер",
+          "amount_rub": 0,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.integration_cameras"
+          ]
+        },
+        {
+          "id": "physical_cameras",
+          "title": "Покупка физических камер",
+          "amount_rub": 240000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.physical_cameras"
+          ]
+        },
+        {
+          "id": "signals",
+          "title": "Световые и звуковые сигналы зон",
+          "amount_rub": 200000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.signals"
+          ]
+        },
+        {
+          "id": "speakers",
+          "title": "Громкоговорители в цехах",
+          "amount_rub": 80000,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.speakers"
+          ]
+        },
+        {
+          "id": "max_cameras",
+          "title": "Дополнительное оснащение каналов камерами",
+          "amount_rub": 0,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.capex.max_cameras"
+          ]
+        }
+      ],
+      "opex_lines": [
+        {
+          "id": "support",
+          "title": "Поддержка",
+          "amount_rub": 325500,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.opex.support"
+          ]
+        },
+        {
+          "id": "electricity",
+          "title": "Электроэнергия вычислительного оборудования",
+          "amount_rub": 22425.6,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "cost.electricity_rub_year"
+          ]
+        }
+      ],
+      "benefit_lines": [
+        {
+          "id": "injuries",
+          "title": "Предотвращённые прямые потери предприятия от травм",
+          "amount_rub": 93600,
+          "included": true,
+          "status": "derived",
+          "evidence_keys": [
+            "tier.max.benefit.injuries"
+          ]
+        },
+        {
+          "id": "downtime",
+          "title": "Простой",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.max.benefit.downtime"
+          ]
+        },
+        {
+          "id": "fines",
+          "title": "Штрафы",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.max.benefit.fines"
+          ]
+        },
+        {
+          "id": "sfr_discount",
+          "title": "Дополнительная скидка СФР",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.max.benefit.sfr_discount"
+          ]
+        },
+        {
+          "id": "labor",
+          "title": "Время работников в деньгах",
+          "amount_rub": 0,
+          "included": false,
+          "status": "not_applicable",
+          "evidence_keys": [
+            "tier.max.benefit.labor"
+          ]
+        }
+      ],
+      "payback": {
+        "status": "no_positive_effect",
+        "months": null,
+        "within_horizon": false,
+        "reason": "Расчётная годовая выгода не превышает годовые расходы; измените фактические входы."
+      },
+      "severe_threshold": {
+        "status": "needs_input",
+        "expected_prevented_cases": null,
+        "whole_prevented_cases": null,
+        "uncovered_cost_rub": 3213776.8,
+        "reason": "Задайте прямую стоимость тяжёлого случая для предприятия."
+      },
+      "board_price_threshold": {
+        "status": "free_still_insufficient",
+        "board_id": "HP",
+        "boards_to_buy": 2,
+        "max_unit_price_rub": null,
+        "current_unit_price_rub": 500000,
+        "reason": "Даже бесплатная плата не покрывает остальные расходы при этих входах; знание текущей цены платы для этого вывода не требуется."
+      }
+    }
+  ]
+}

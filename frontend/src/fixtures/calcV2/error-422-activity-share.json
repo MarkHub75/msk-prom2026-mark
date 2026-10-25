@@ -1,0 +1,8 @@
+{
+  "code": "validation",
+  "message": "Неверное значение: load.activity_share",
+  "details": {
+    "field": "load.activity_share",
+    "reason": "OUT_OF_RANGE"
+  }
+}

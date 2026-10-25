@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, apiError, type ApiFailure } from "../api/client";
-import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, TierResult } from "../api/types";
-import { useApi } from "../api/useApi";
+import type { CalcAssumption, CalculatorDefaults, RolloutIn, RolloutResult, ScaleIn, ScaleResult, TierResult } from "../api/types";
+import { useApi, type ApiState } from "../api/useApi";
+import { CalculatorV2 } from "./calculator-v2/CalculatorV2";
+import { defaultsV2 } from "./calculator-v2/useCalcV2";
 import { Badge, Button, ErrorNotice, Field, Icon, isPending, Kpi, Loading, PageHeading, Panel, PendingNotice, Segmented, TextInput } from "../components/ui";
 import { EXAMPLE_ASSUMPTIONS, EXAMPLE_ROLLOUT, EXAMPLE_SCALE, exampleRollout, exampleScale } from "./calculatorExample";
 import { BreakEvenPanel, industryHint, MarketPanel } from "./calculatorEconomics";
@@ -191,12 +193,18 @@ function Example({ mode }: { mode: Mode }) {
   </>;
 }
 
+/** /calculator: defaults with the v2 block (contract 2.0.0) open calculator v2, otherwise this screen as it was. */
 export function CalculatorPage() {
+  const defaults = useApi(() => api.GET("/api/calculator/defaults"), []);
+  const v2 = defaultsV2(defaults.data);
+  return v2 ? <CalculatorV2 defaults={v2} /> : <LegacyCalculator defaults={defaults} />;
+}
+
+function LegacyCalculator({ defaults }: { defaults: ApiState<CalculatorDefaults> }) {
   const [role] = useRole();
   const canRollout = role === "management";
   const [mode, setMode] = useState<Mode>(canRollout ? "rollout" : "scale");
   const shown: Mode = canRollout ? mode : "scale";
-  const defaults = useApi(() => api.GET("/api/calculator/defaults"), []);
   const [rollout, setRollout] = useState<Draft>();
   const [scale, setScale] = useState<Draft>();
   const [overrides, setOverrides] = useState<Record<string, string>>({});
