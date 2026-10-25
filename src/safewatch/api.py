@@ -5,13 +5,14 @@ import re
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from datetime import datetime
-from typing import Annotated, cast, get_args
+from typing import Annotated, Any, cast, get_args
 from urllib.parse import unquote
 
 from fastapi import APIRouter, Depends, FastAPI, Header, Query, Request, UploadFile, WebSocket
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, TypeAdapter
 from starlette.exceptions import HTTPException
 from starlette.types import ASGIApp, Receive, Scope, Send
 from starlette.websockets import WebSocketDisconnect
@@ -57,11 +58,12 @@ from safewatch.types import (
     OhsStats,
     OperatorDashboard,
     PeopleStats,
+    ResultV2,
     Role,
-    RolloutIn,
+    RolloutExportV2,
     RolloutResult,
     RulesScreenView,
-    ScaleIn,
+    ScaleExportV2,
     ScaleResult,
     Sector,
     SectorIn,
@@ -454,17 +456,59 @@ async def demo_packs() -> list[DemoPack]:
 
 @router.get("/api/calculator/defaults")
 async def calculator_defaults() -> CalculatorDefaults:
-    return services.calculator_defaults()
+    return await services.calculator_defaults()
 
 
-@router.post("/api/calculator/rollout")
-async def calculator_rollout(data: RolloutIn, role: RoleDep) -> RolloutResult:
-    return services.calculator_rollout(data, role)
+def _calc_body(*names: str) -> dict[str, object]:
+    """OpenAPI of a calculator body chosen by `?format=` (contract 2.0.0 К2): the schema
+    cannot tie the variant to the query, the runtime checks it."""
+    refs = [{"$ref": f"#/components/schemas/{name}"} for name in names]
+    schema = {"anyOf": refs} if len(refs) > 1 else refs[0]
+    return {"requestBody": {"required": True, "content": {"application/json": {"schema": schema}}}}
 
 
-@router.post("/api/calculator/scale")
-async def calculator_scale(data: ScaleIn, role: RoleDep) -> ScaleResult:
-    return services.calculator_scale(data, role)
+# `format`: legacy (1.1.0 body and answer, the default) or v2 (contract 2.0.0).
+FormatQuery = Annotated[str, Query(alias="format", json_schema_extra={"enum": ["legacy", "v2"]})]
+
+
+def _calc_answer(result: BaseModel) -> JSONResponse:
+    # By its own model: a v2 answer is never filtered through the legacy one (К2).
+    return JSONResponse(result.model_dump(mode="json"))
+
+
+@router.post(
+    "/api/calculator/rollout",
+    response_model=None,
+    responses={200: {"model": RolloutResult | ResultV2}},
+    openapi_extra=_calc_body("RolloutIn", "RolloutRequestV2"),
+)
+async def calculator_rollout(
+    request: Request, role: RoleDep, fmt: FormatQuery = "legacy"
+) -> JSONResponse:
+    return _calc_answer(await services.calculator_rollout(fmt, await request.body(), role))
+
+
+@router.post(
+    "/api/calculator/scale",
+    response_model=None,
+    responses={200: {"model": ScaleResult | ResultV2}},
+    openapi_extra=_calc_body("ScaleIn", "ScaleRequestV2"),
+)
+async def calculator_scale(
+    request: Request, role: RoleDep, fmt: FormatQuery = "legacy"
+) -> JSONResponse:
+    return _calc_answer(await services.calculator_scale(fmt, await request.body(), role))
+
+
+@router.post(
+    "/api/calculator/export.pdf",
+    response_model=None,
+    responses=PDF_FILE,
+    openapi_extra=_calc_body("RolloutExportV2", "ScaleExportV2"),
+)
+async def calculator_export_pdf(request: Request, role: RoleDep) -> Response:
+    pdf = await services.calculator_export_pdf(await request.body(), role)
+    return Response(pdf, media_type="application/pdf")
 
 
 @router.get("/api/datasets/false-alarms")
@@ -577,6 +621,25 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     await asyncio.to_thread(services.backend_close)  # no idle kernel left on LinQ (8.29)
 
 
+def _declare_export_schemas(app: FastAPI) -> None:
+    """The PDF body is read raw like the other calculator bodies (К10 errors): its schemas are
+    added to the components the generated OpenAPI references."""
+    default = app.openapi
+
+    def openapi() -> dict[str, Any]:
+        first = app.openapi_schema is None
+        schema = default()
+        if first:
+            found = schema["components"]["schemas"]
+            for model in (RolloutExportV2, ScaleExportV2):
+                defs = TypeAdapter(model).json_schema(ref_template="#/components/schemas/{model}")
+                for name, item in {**defs.pop("$defs", {}), model.__name__: defs}.items():
+                    found.setdefault(name, item)
+        return schema
+
+    app.openapi = openapi  # type: ignore[method-assign]
+
+
 def create_app(settings: Settings) -> FastAPI:
     registry.active_models(settings)  # an unknown model reference stops the start
     # The title is fixed: contract/openapi.json must not depend on the owner's config.
@@ -586,6 +649,7 @@ def create_app(settings: Settings) -> FastAPI:
     app.add_exception_handler(RequestValidationError, _invalid_request)
     app.add_middleware(_UploadGuard)
     app.include_router(router)
+    _declare_export_schemas(app)
     if settings.server.static_dir.is_dir():
         app.mount("/", _Frontend(directory=settings.server.static_dir, html=True), name="frontend")
     return app

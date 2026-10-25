@@ -269,6 +269,21 @@ ORDER BY created_at DESC, id DESC"""
     return all(sql)
 
 
+def detector_artifacts(model_id: str, model_version: str) -> list[sqlite3.Row]:
+    """Real LinQ detector artifacts of live cameras: the newest per camera and video
+    (calculator v2 activity, docs/contracts/calculator_v2.md К9)."""
+    sql = """SELECT camera_id, cache_key, path, frames, created_at FROM (
+    SELECT v.camera_id, a.cache_key, a.path, a.frames, a.created_at, ROW_NUMBER() OVER (
+        PARTITION BY v.camera_id, a.video_sha256 ORDER BY a.created_at DESC, a.id DESC) AS n
+    FROM artifacts a
+    JOIN videos v ON v.sha256 = a.video_sha256
+    JOIN cameras c ON c.id = v.camera_id
+    WHERE a.backend = 'linq' AND a.fake = 0 AND a.task = 'detect'
+      AND a.model_id = ? AND a.model_version = ? AND c.deleted_at IS NULL)
+WHERE n = 1 ORDER BY camera_id, cache_key"""
+    return all(sql, model_id, model_version)
+
+
 def broadcast_event_counts(start: str, end: str) -> sqlite3.Row:
     """Broadcast events started in [start, end) and the cameras they came from (tech.md 8.25)."""
     sql = """SELECT count(*) AS events, count(DISTINCT camera_id) AS cameras FROM events

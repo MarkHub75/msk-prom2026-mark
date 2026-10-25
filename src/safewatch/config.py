@@ -9,7 +9,19 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from safewatch.types import BackendName, Level, ZoneGeometry
+from safewatch.types import (
+    BackendName,
+    BenefitInput,
+    BoardOffer,
+    CostInput,
+    HardwareInput,
+    Level,
+    LoadInput,
+    MarketReference,
+    SiteInput,
+    SourceRecord,
+    ZoneGeometry,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_DIR = ROOT / "config"
@@ -295,6 +307,59 @@ class CalculatorConfig(_Section):
     assumptions: list[CalcAssumptionConfig]
 
 
+class CalcModelConfig(_Section):  # calculator v2: a model of config/models.yaml, by `id@version`
+    title: str
+    work_units: float | None
+    execution_status: Literal["verified_linq", "local_only", "unverified", "missing"]
+    source_ids: list[str]
+
+
+class CalcInputConfig(_Section):  # title, unit and sources of a request number (К5 evidence)
+    title: str
+    unit: str
+    source_ids: list[str]
+
+
+class CalcPresetConfig(_Section):
+    id: Literal["workshop", "shop", "plant"]
+    title: str
+    area_m2: float | None
+    machines: int | None
+    note: str
+    site: SiteInput
+    cameras: int
+
+
+class CalcTrackerConfig(_Section):
+    available: bool
+    report_ref: str | None
+
+
+class CalculatorV2Config(_Section):
+    """Defaults, catalog and sources of the calculator v2 (docs/contracts/calculator_v2.md К9)."""
+
+    site: SiteInput
+    load: LoadInput
+    hardware: HardwareInput
+    costs: CostInput
+    benefits: BenefitInput
+    group_models: list[str]  # one manual group of the default bodies and presets
+    rollout_cameras: int
+    scale_current_cameras: int
+    scale_added_cameras: int
+    scale_new_camera_count: int
+    presets: list[CalcPresetConfig]
+    platform_capacity_fps: float  # naive step denominator without a measurement
+    pose_scenarios: list[str]  # rules that make a system camera run the pose model
+    models: dict[str, CalcModelConfig]
+    boards: list[BoardOffer]
+    inputs: dict[str, CalcInputConfig]  # `*` stands for a list index
+    sources: list[SourceRecord]
+    market: list[MarketReference]
+    tracker: CalcTrackerConfig
+    pdf_available: bool
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", extra="ignore")
 
@@ -344,6 +409,7 @@ class Settings(BaseSettings):
     passport: PassportConfig
     shift: ShiftCheckConfig
     calculator: CalculatorConfig
+    calculator_v2: CalculatorV2Config
 
     @model_validator(mode="after")
     def _resolve_paths(self) -> "Settings":

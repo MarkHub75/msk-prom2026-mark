@@ -3,9 +3,9 @@
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import Literal, Protocol
+from typing import Annotated, Literal, Protocol
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 Level = Literal["yellow", "red"]
 Role = Literal["operator", "master", "ohs", "management", "admin"]
@@ -970,11 +970,503 @@ class ScaleResult(BaseModel):
     assumptions: list[CalcAssumption]
 
 
+# --- calculator v2 (docs/contracts/calculator_v2.md К4–К5, contract 2.0.0) ---------------
+CalcContractVersion = Literal["2.0.0"]
+CalcMode = Literal["rollout", "scale"]
+NumberStatus = Literal["known", "assumed", "derived", "missing", "not_applicable"]
+ResultStatus = Literal["ready", "estimated", "partial", "empty"]
+SourceKind = Literal[
+    "argus_measurement", "vendor_claim", "official", "team_assumption", "user_input"
+]
+Verification = Literal["verified_primary", "cached_primary", "pending_primary", "not_applicable"]
+
+
+class _CalcIn(BaseModel):
+    # К3: a closed request, finite numbers, no "8" for 8 and no 8.0 for an integer count.
+    model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
+
+
+class TierShares(_CalcIn):
+    base: float
+    extended: float
+    max: float
+
+
+class SiteInput(_CalcIn):
+    workshops: int
+    workers: int
+    shifts_per_day: int
+    working_days_year: int
+    operators: int
+
+
+class ManualGroup(_CalcIn):
+    id: str
+    share: float
+    model_ids: list[str]
+
+
+class ManualCameraProfile(_CalcIn):
+    source: Literal["manual"]
+    cameras: int
+    groups: list[ManualGroup]
+
+
+class SystemCameraProfile(_CalcIn):
+    source: Literal["system"]
+    camera_ids: list[int] | None
+    include_seed: bool
+
+
+CameraProfile = Annotated[ManualCameraProfile | SystemCameraProfile, Field(discriminator="source")]
+
+
+class LoadInput(_CalcIn):
+    activity_share: float
+    activity_measurement_id: str | None
+    target_fps: float
+    surge_fps: float
+    idle_check_s: float
+    peak_mode: Literal["independent_p95", "all_active"]
+    priority_cameras_reserve: int
+    detector_stride: Literal[1, 2]
+    reference_chip_fps: float
+    capacity_derate: float
+    platform_capacity_override_fps: float | None
+    model_cost_overrides: dict[str, float]
+    cpu_basis: Literal["inclusive", "split"]
+    cpu_ms_per_unit: float
+    decode_cores_per_camera: float
+
+
+class ServerInput(_CalcIn):
+    slots: int
+    usable_cpu_cores: float
+    price_rub: float | None
+    power_w: float | None
+
+
+class HardwareInput(_CalcIn):
+    allowed_board_ids: list[str]
+    board_price_overrides: dict[str, float | None]
+    server: ServerInput
+
+
+class BoardCount(_CalcIn):
+    board_id: str
+    count: int
+
+
+class InstalledInventory(_CalcIn):
+    boards: list[BoardCount]
+    servers: int
+
+
+class CostInput(_CalcIn):
+    integration_fixed_rub: float | None
+    integration_per_camera_rub: float | None
+    support_share_year: float
+    electricity_rub_kwh: float | None
+    operating_hours_year: float
+    signal_zones_per_camera: float
+    signal_unit_rub: float | None
+    speaker_per_workshop_rub: float | None
+    new_camera_unit_rub: float | None
+    new_camera_count: int
+    max_additional_camera_share: float
+
+
+class InjuryBenefit(_CalcIn):
+    enabled: bool
+    annual_injured_workers: float | None
+    rate_per_1000: float | None
+    cost_per_injured_worker_rub: float | None
+    cost_scope: Literal["direct_only", "all_in"]
+    reduction: TierShares
+
+
+class DowntimeBenefit(_CalcIn):
+    enabled: bool
+    events_year: float | None
+    days_per_event: float | None
+    day_cost_rub: float | None
+    reduction: TierShares
+
+
+class FineItem(_CalcIn):
+    id: str
+    title: str
+    inspection_probability_year: float
+    amount_rub: float | None
+    reduction: TierShares
+
+
+class FinesBenefit(_CalcIn):
+    enabled: bool
+    items: list[FineItem]
+
+
+class SfrDiscountBenefit(_CalcIn):
+    enabled: bool
+    payroll_rub_year: float | None
+    tariff_share: float | None
+    additional_discount_share: float | None
+
+
+class LaborRow(_CalcIn):
+    id: str
+    title: str
+    hours_saved_year: float
+    hour_cost_rub: float | None
+
+
+class LaborBenefit(_CalcIn):
+    monetize: bool
+    rows: list[LaborRow]
+
+
+class BenefitInput(_CalcIn):
+    injuries: InjuryBenefit
+    downtime: DowntimeBenefit
+    fines: FinesBenefit
+    sfr_discount: SfrDiscountBenefit
+    labor: LaborBenefit
+    severe_injury_cost_rub: float | None
+
+
+class CommonRequestV2(_CalcIn):
+    contract_version: CalcContractVersion
+    preset_id: str | None
+    site: SiteInput
+    load: LoadInput
+    hardware: HardwareInput
+    costs: CostInput
+    benefits: BenefitInput
+
+
+class RolloutRequestV2(CommonRequestV2):
+    cameras: CameraProfile
+
+
+class ScaleRequestV2(CommonRequestV2):
+    current: CameraProfile
+    added: CameraProfile
+    installed: InstalledInventory | None
+
+
+class RolloutExportV2(_CalcIn):
+    mode: Literal["rollout"]
+    input: RolloutRequestV2
+
+
+class ScaleExportV2(_CalcIn):
+    mode: Literal["scale"]
+    input: ScaleRequestV2
+
+
+ExportRequestV2 = Annotated[RolloutExportV2 | ScaleExportV2, Field(discriminator="mode")]
+
+
+class SourceRecord(BaseModel):
+    id: str
+    title: str
+    kind: SourceKind
+    verification: Verification
+    url: str | None
+    data_year: int | None
+    published_at: str | None
+    checked_at: str | None
+    note: str
+
+
+class NumericEvidence(BaseModel):
+    key: str
+    title: str
+    value: float | None
+    unit: str
+    status: NumberStatus
+    source_ids: list[str]
+    formula: str | None
+    depends_on: list[str]
+    reason: str | None
+
+
+class Notice(BaseModel):
+    code: str
+    field: str | None
+    message: str
+
+
+class ResolvedGroup(BaseModel):
+    id: str
+    cameras: int
+    camera_ids: list[int]
+    model_ids: list[str]
+
+
+class ResolvedProfile(BaseModel):
+    cameras: int
+    groups: list[ResolvedGroup]
+
+
+class ModelLoad(BaseModel):
+    id: str
+    title: str
+    kind: Literal["detector", "pose", "extra"]
+    work_units: float | None
+    execution_status: Literal["verified_linq", "local_only", "unverified", "missing"]
+    source_ids: list[str]
+
+
+class BoardOffer(BaseModel):
+    id: str
+    title: str
+    chips: int
+    slots: int
+    power_w: float | None
+    price_rub: float | None
+    source_ids: list[str]
+
+
+class TrackerFeature(BaseModel):
+    available: bool
+    max_stride: Literal[1, 2]
+    report_ref: str | None
+
+
+class OfflineEconomy(BaseModel):
+    report_ref: str
+    full_calls: int
+    policy_calls: int
+    reduction_share: float
+    matched_events: int
+    lost_events: int
+    new_events: int
+    confirm_shift_p90_ms: float | None
+    note: str
+
+
+class FeaturesV2(BaseModel):
+    tracker: TrackerFeature
+    pdf_available: bool
+    offline_economy: OfflineEconomy | None
+
+
+class Measurement(BaseModel):
+    id: str
+    key: Literal[
+        "activity_share", "platform_fps", "rtt_p50_ms", "inflight",
+        "inference_p50_ms", "inference_p90_ms", "events_per_camera_day",
+    ]  # fmt: skip
+    title: str
+    value: float | None
+    unit: str
+    status: Literal["measured", "not_measured"]
+    period_start: str | None
+    period_end: str | None
+    sample_count: int
+    source_ids: list[str]
+    note: str
+
+
+class MarketReference(BaseModel):
+    id: str
+    title: str
+    billing: Literal["monthly_per_camera", "one_off_per_camera", "project"]
+    amount_rub: float | None
+    scope: str
+    source_ids: list[str]
+
+
+class PresetV2(BaseModel):
+    id: Literal["workshop", "shop", "plant"]
+    title: str
+    area_m2: float | None
+    machines: int | None
+    note: str
+    rollout: RolloutRequestV2
+
+
+class FieldLimit(BaseModel):
+    field: str
+    min: float | None
+    max: float | None
+    integer: bool
+
+
+class DefaultsV2(BaseModel):
+    format: Literal["v2"]
+    contract_version: CalcContractVersion
+    formula_version: Literal["argus-calc-2.0"]
+    rollout: RolloutRequestV2
+    scale: ScaleRequestV2
+    presets: list[PresetV2]
+    system_profile: ResolvedProfile
+    models: list[ModelLoad]
+    boards: list[BoardOffer]
+    assumptions: list[NumericEvidence]
+    measurements: list[Measurement]
+    market: list[MarketReference]
+    features: FeaturesV2
+    limits: list[FieldLimit]
+    sources: list[SourceRecord]
+    notices: list[Notice]
+
+
+class LoadResult(BaseModel):
+    cameras: int
+    active_p95: int
+    priority_cameras_effective: int
+    peak_units_s: float | None
+    surge_units_s: float | None
+    required_units_s: float | None
+    effective_chip_units_s: float
+    required_chips: int | None
+    required_cpu_cores: float | None
+    naive_chips: int | None
+    basis: Literal["independent_p95", "all_active"]
+
+
+class EquipmentState(BaseModel):
+    boards: list[BoardCount]
+    chips: int
+    servers: int
+    used_slots: int
+    power_w: float | None
+
+
+class HardwareResult(BaseModel):
+    selection: Literal["priced_optimum", "technical_only", "unresolved"]
+    inventory_basis: Literal["none", "provided", "estimated"]
+    before: EquipmentState | None
+    purchase: EquipmentState | None
+    after: EquipmentState | None
+    required_before_chips: int | None
+    required_after_chips: int | None
+    spare_chips_after: int | None
+    board_capex_rub: float | None
+    server_capex_rub: float | None
+    note: str
+
+
+class MoneyLine(BaseModel):
+    id: str
+    title: str
+    amount_rub: float | None
+    included: bool
+    status: NumberStatus
+    evidence_keys: list[str]
+
+
+class PaybackResult(BaseModel):
+    status: Literal[
+        "within_horizon", "after_horizon", "no_positive_effect",
+        "no_initial_investment", "insufficient_data", "not_applicable",
+    ]  # fmt: skip
+    months: float | None
+    within_horizon: bool | None
+    reason: str
+
+
+class SevereThreshold(BaseModel):
+    status: Literal["required", "already_covered", "needs_input", "not_applicable"]
+    expected_prevented_cases: float | None
+    whole_prevented_cases: int | None
+    uncovered_cost_rub: float | None
+    reason: str
+
+
+class PriceThreshold(BaseModel):
+    status: Literal[
+        "at_or_below", "already_within", "free_still_insufficient",
+        "not_applicable", "insufficient_data",
+    ]  # fmt: skip
+    board_id: str | None
+    boards_to_buy: int
+    max_unit_price_rub: float | None
+    current_unit_price_rub: float | None
+    reason: str
+
+
+class TierResultV2(BaseModel):
+    tier: CalcTier
+    title: str
+    capex_rub: float | None
+    opex_rub_year: float | None
+    gross_benefit_rub_year: float | None
+    net_benefit_rub_year: float | None
+    tco_3_year_rub: float | None
+    net_balance_3_year_rub: float | None
+    rub_per_camera_month: float | None
+    camera_denominator: int
+    labor_hours_year: float
+    capex_lines: list[MoneyLine]
+    opex_lines: list[MoneyLine]
+    benefit_lines: list[MoneyLine]
+    payback: PaybackResult
+    severe_threshold: SevereThreshold
+    board_price_threshold: PriceThreshold
+
+
+class StepV2(BaseModel):
+    id: Literal["naive", "dedicated_capacity", "scenario_models", "activity_pool", "tracker"]
+    title: str
+    available: bool
+    chips: int | None
+    servers: int | None
+    equipment_capex_rub: float | None
+    reason: str
+
+
+class CurvePoint(BaseModel):
+    cameras: int
+    chips: int | None
+    servers: int | None
+    tco_3_year_rub: float | None
+    rub_per_camera_month: float | None
+
+
+class ScaleCurve(BaseModel):
+    scope: Literal["greenfield_reference"]
+    tier: Literal["base"]
+    points: list[CurvePoint]
+    note: str
+
+
+class ResolvedV2(BaseModel):
+    current: ResolvedProfile
+    added: ResolvedProfile
+    total: ResolvedProfile
+    input: RolloutRequestV2 | ScaleRequestV2
+
+
+class ResultV2(BaseModel):
+    format: Literal["v2"]
+    contract_version: CalcContractVersion
+    formula_version: Literal["argus-calc-2.0"]
+    mode: CalcMode
+    status: ResultStatus
+    cost_scope: Literal["whole_project", "incremental"]
+    horizon_years: Literal[3]
+    resolved: ResolvedV2
+    load: LoadResult
+    hardware: HardwareResult
+    tiers: list[TierResultV2]
+    steps: list[StepV2]
+    scale_curve: ScaleCurve
+    operator_events_per_shift: float | None
+    evidence: list[NumericEvidence]
+    sources: list[SourceRecord]
+    warnings: list[Notice]
+    missing: list[Notice]
+
+
 class CalculatorDefaults(BaseModel):
     rollout: RolloutIn
     scale: ScaleIn
     assumptions: list[CalcAssumption]
     measured: list[CalcAssumption]  # numbers from LinQ runs and the journal, editable=False
+    v2: DefaultsV2  # calculator v2 (contract 2.0.0): full request bodies, catalog, sources
 
 
 class DatasetItem(BaseModel):  # S25, tech.md 8.26
