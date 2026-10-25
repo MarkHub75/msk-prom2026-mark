@@ -1,7 +1,7 @@
 name: gate
 
-# Sessions merge right after a green local gate and do not wait for CI. Whoever started the
-# session checks it with `gh pr checks <PR>`, which works after the merge too.
+# UPGRADE v3: inspect this workflow on the current commit before merging.
+# A local gate and actual Docker/browser acceptance complement CI.
 on:
   pull_request:
     branches: [main]

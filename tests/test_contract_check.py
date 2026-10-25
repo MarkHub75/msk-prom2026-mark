@@ -109,6 +109,23 @@ def test_frontend_rows_are_skipped_when_the_front_end_has_its_own_owner(tmp_path
     assert cc.problems(root)[:2] == ([], 0)
 
 
+@pytest.mark.parametrize("path", ["src/app/svc.py", "contract/openapi.json", "frontend-other/x"])
+def test_front_owner_does_not_hide_other_contract_drift(tmp_path: Path, path: str) -> None:
+    tech = TECH.replace("src/app/svc.py", path)
+    files = {"frontend/FRONT_OWNER": "Egor\n", "tests/test_n.py": GOOD["tests/test_n.py"]}
+    root = make(tmp_path, LOG_S1, files, tech)
+    found, checked, _ = cc.problems(root)
+    assert checked == 1
+    assert found == [f"tech.md:7 S1 «note_create»: no file {path}"]
+    target = root / path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(GOOD["src/app/svc.py"], encoding="utf-8")
+    (root / "tests/test_n.py").write_text("", encoding="utf-8")
+    assert cc.problems(root)[0] == [
+        "tech.md:7 S1 «note_create»: no test test_create in tests/test_n.py"
+    ]
+
+
 def test_row_without_slice_is_a_generation_error(tmp_path: Path) -> None:
     tech = TECH.replace("| `later` | 3 |", "| `later` | — |")
     with pytest.raises(cc.TraceError, match="has no slice"):

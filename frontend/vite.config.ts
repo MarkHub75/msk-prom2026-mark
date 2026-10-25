@@ -58,5 +58,7 @@ export default defineConfig({
       "/ws": { target: backend, ws: true },
     },
   },
-  test: { environment: "jsdom", testTimeout: 60000 },
+  // Bound jsdom memory/CPU alongside Docker: many workers can starve real debounce timers.
+  // Keep every test and its existing assertions/timeouts; only limit concurrent files.
+  test: { environment: "jsdom", testTimeout: 60000, maxWorkers: 2 },
 });
