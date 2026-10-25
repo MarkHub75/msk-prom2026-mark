@@ -76,7 +76,9 @@ def test_k13_load_vectors(
 
 
 def test_cpu_can_need_more_servers_than_slots() -> None:
-    found = calc.load_of([group("g", 200)], calc.policy(load_in(priority_cameras_reserve=0, **SPLIT)), 1)
+    found = calc.load_of(
+        [group("g", 200)], calc.policy(load_in(priority_cameras_reserve=0, **SPLIT)), 1
+    )
     assert math.ceil(52 / 4) == 13 < 15 == calc.servers_required(52, 52, found.cpu, SERVER)  # type: ignore[arg-type]
 
 
@@ -84,10 +86,19 @@ def test_tracker_shortens_detector_only() -> None:
     pol = calc.policy(load_in())
     same = [group("g", 8)]
     assert calc.load_of(same, pol, 1).peak == Fraction("144.5")
-    assert (calc.load_of(same, pol, 2).peak, calc.load_of(same, pol, 2).chips) == (Fraction("108.5"), 3)
+    assert (calc.load_of(same, pol, 2).peak, calc.load_of(same, pol, 2).chips) == (
+        Fraction("108.5"),
+        3,
+    )
     mix = [group("pose", 4), group("det", 4, x=0)]
-    assert (calc.load_of(mix, pol, 1).peak, calc.load_of(mix, pol, 1).chips) == (Fraction("120.5"), 3)
-    assert (calc.load_of(mix, pol, 2).peak, calc.load_of(mix, pol, 2).chips) == (Fraction("84.5"), 2)
+    assert (calc.load_of(mix, pol, 1).peak, calc.load_of(mix, pol, 1).chips) == (
+        Fraction("120.5"),
+        3,
+    )
+    assert (calc.load_of(mix, pol, 2).peak, calc.load_of(mix, pol, 2).chips) == (
+        Fraction("84.5"),
+        2,
+    )
 
 
 def test_active_p95_boundaries() -> None:
@@ -111,9 +122,13 @@ def test_reserve_clamped_and_unknown_weight() -> None:
 
 
 def test_exact_capacity_and_just_above() -> None:
-    exact = calc.load_of([group("g", 1, x=0)], calc.policy(load_in(activity_share=1, target_fps=52.4)), 1)
+    exact = calc.load_of(
+        [group("g", 1, x=0)], calc.policy(load_in(activity_share=1, target_fps=52.4)), 1
+    )
     assert (exact.units, exact.chips) == (Fraction("52.4"), 1)
-    above = calc.load_of([group("g", 1, x=0)], calc.policy(load_in(activity_share=1, target_fps=52.40001)), 1)
+    above = calc.load_of(
+        [group("g", 1, x=0)], calc.policy(load_in(activity_share=1, target_fps=52.40001)), 1
+    )
     assert above.chips == 2
 
 
@@ -136,7 +151,9 @@ def test_board_choice_price_zero_unknown_and_ties() -> None:
     tech = calc.select(3, Fraction(1), EMPTY_KIT, [hpd], unpriced, SERVER)
     assert tech.selection == "technical_only" and tech.board_capex is None
     assert tech.purchase is not None and tech.purchase.boards == (("HPD", 2),)
-    unknown_server = calc.select(3, Fraction(1), EMPTY_KIT, [HP], BOARDS, ServerSpec(4, Fraction(16), None, None))
+    unknown_server = calc.select(
+        3, Fraction(1), EMPTY_KIT, [HP], BOARDS, ServerSpec(4, Fraction(16), None, None)
+    )
     assert unknown_server.server_capex is None and unknown_server.board_capex == 1_500_000
 
 
@@ -205,7 +222,9 @@ def test_severe_threshold_states() -> None:
     assert calc.severe_threshold(f(400), f(100), f(10), True).status == "not_applicable"
 
 
-def _tier(boards_amount: Fraction | None, other: Fraction, elec: Fraction, benefit: Fraction) -> calc.TierCalc:
+def _tier(
+    boards_amount: Fraction | None, other: Fraction, elec: Fraction, benefit: Fraction
+) -> calc.TierCalc:
     return calc.TierCalc(
         "base",
         [calc.Line("boards", boards_amount), calc.Line("servers", other)],
@@ -220,19 +239,37 @@ def test_price_threshold_states() -> None:
     hp = {"HP": Board("HP", 1, 1, Fraction(35), Fraction(100))}
     r = Fraction(0)
     none = calc.Plan("priced_optimum", calc.kit({}, 1), Fraction(0), Fraction(0))
-    assert calc.price_threshold(_tier(Fraction(0), Fraction(10), Fraction(0), Fraction(0)), none, hp, r, False, ev).status == "not_applicable"
+    assert (
+        calc.price_threshold(
+            _tier(Fraction(0), Fraction(10), Fraction(0), Fraction(0)), none, hp, r, False, ev
+        ).status
+        == "not_applicable"
+    )
     one = calc.Plan("priced_optimum", calc.kit({"HP": 1}, 0), Fraction(100), Fraction(0))
-    neg = calc.price_threshold(_tier(Fraction(100), Fraction(1000), Fraction(0), Fraction(1)), one, hp, r, False, ev)
+    neg = calc.price_threshold(
+        _tier(Fraction(100), Fraction(1000), Fraction(0), Fraction(1)), one, hp, r, False, ev
+    )
     assert (neg.status, neg.max_unit_price_rub) == ("free_still_insufficient", None)
     # 3 × (B − F) / 1 − C_other = 3 × 100 − 300 = 0: zero is a valid limit.
-    zero = calc.price_threshold(_tier(Fraction(100), Fraction(300), Fraction(0), Fraction(100)), one, hp, r, False, ev)
+    zero = calc.price_threshold(
+        _tier(Fraction(100), Fraction(300), Fraction(0), Fraction(100)), one, hp, r, False, ev
+    )
     assert (zero.status, zero.max_unit_price_rub) == ("at_or_below", 0)
-    within = calc.price_threshold(_tier(Fraction(100), Fraction(0), Fraction(0), Fraction(100)), one, hp, r, False, ev)
+    within = calc.price_threshold(
+        _tier(Fraction(100), Fraction(0), Fraction(0), Fraction(100)), one, hp, r, False, ev
+    )
     assert (within.status, within.max_unit_price_rub) == ("already_within", 300)
     two = {"HP": Board("HP", 1, 1, None, None), "HPD": Board("HPD", 2, 1, None, None)}
     both = calc.Plan("technical_only", calc.kit({"HP": 1, "HPD": 1}, 0), None, Fraction(0))
-    assert calc.price_threshold(_tier(None, Fraction(0), Fraction(0), Fraction(1)), both, two, r, False, ev).status == "insufficient_data"
-    third = calc.price_threshold(_tier(Fraction(100), Fraction(0), Fraction(0), Fraction(1, 9)), one, hp, r, False, ev)
+    assert (
+        calc.price_threshold(
+            _tier(None, Fraction(0), Fraction(0), Fraction(1)), both, two, r, False, ev
+        ).status
+        == "insufficient_data"
+    )
+    third = calc.price_threshold(
+        _tier(Fraction(100), Fraction(0), Fraction(0), Fraction(1, 9)), one, hp, r, False, ev
+    )
     assert third.max_unit_price_rub == 0.33  # 1/3 ₽ rounded down to the kopeck
 
 
@@ -247,7 +284,9 @@ def test_largest_remainder() -> None:
 
 
 # --- API --------------------------------------------------------------------------------------
-async def post(client: httpx.AsyncClient, url: str, body: Any, role: dict[str, str] = MANAGEMENT) -> httpx.Response:
+async def post(
+    client: httpx.AsyncClient, url: str, body: Any, role: dict[str, str] = MANAGEMENT
+) -> httpx.Response:
     return await client.post(url, json=body, headers=role)
 
 
@@ -262,7 +301,11 @@ def numbers(got: Any, want: Any, path: str = "") -> list[str]:
     if isinstance(want, list):
         if not isinstance(got, list) or len(got) != len(want):
             return [f"{path}: {got!r} != {want!r}"]
-        return [line for i, (g, w) in enumerate(zip(got, want, strict=True)) for line in numbers(g, w, f"{path}[{i}]")]
+        return [
+            line
+            for i, (g, w) in enumerate(zip(got, want, strict=True))
+            for line in numbers(g, w, f"{path}[{i}]")
+        ]
     return [] if got == want else [f"{path}: {got!r} != {want!r}"]
 
 
@@ -286,15 +329,28 @@ async def test_defaults_v2_bodies_match_contract(client: httpx.AsyncClient) -> N
     r = await client.get("/api/calculator/defaults")
     assert r.status_code == 200, r.text
     got, want = r.json()["v2"], fixture("defaults_v2")
-    for key in ("format", "contract_version", "formula_version", "rollout", "scale", "presets", "boards", "features", "market"):
+    for key in (
+        "format",
+        "contract_version",
+        "formula_version",
+        "rollout",
+        "scale",
+        "presets",
+        "boards",
+        "features",
+        "market",
+    ):
         assert got[key] == want[key], key
     assert {m["id"]: m for m in got["models"]}[DET] == want["models"][0]
     assert {m["id"]: m for m in got["models"]}[POSE] == want["models"][1]
     codes = [n["code"] for n in got["notices"]]
     assert "SFR_PREVENTION_INFO" in codes and "SFR_DISCOUNT_CONDITIONS" in codes
     ids = {s["id"] for s in got["sources"]}
-    referenced = {s for e in got["assumptions"] for s in e["source_ids"]} | {
-        s for b in got["boards"] for s in b["source_ids"]} | {s for m in got["models"] for s in m["source_ids"]}
+    referenced = (
+        {s for e in got["assumptions"] for s in e["source_ids"]}
+        | {s for b in got["boards"] for s in b["source_ids"]}
+        | {s for m in got["models"] for s in m["source_ids"]}
+    )
     assert referenced <= ids and {"sfr_prevention", "sfr_discount"} <= ids
     assert got["system_profile"] == {"cameras": 0, "groups": []}
     assert [m["status"] for m in got["measurements"]] == ["not_measured", "not_measured"]
@@ -303,7 +359,7 @@ async def test_defaults_v2_bodies_match_contract(client: httpx.AsyncClient) -> N
 @pytest.mark.parametrize(
     ("preset", "chips", "servers", "base_capex"),
     [
-        # 5 cameras: A95 = 4, peak = 1.25 + 4 × 23.75 = 96.25 → 2 chips; 2 × 500000 + 350000 + 300000
+        # 5 cameras: A95 = 4, peak 1.25 + 4 × 23.75 = 96.25 → 2 chips; 1 000 000 + 350 000 + 300 000
         ("workshop", 2, 1, 1_650_000),
         # 20 cameras: A95 = 14, peak = 5 + 14 × 23.75 = 337.5 → 7 chips, 2 servers
         ("shop", 7, 2, 7 * 500_000 + 2 * 350_000 + 300_000),
@@ -318,7 +374,10 @@ async def test_presets_control_numbers(
     body = next(p["rollout"] for p in defaults["presets"] if p["id"] == preset)
     found = (await post(client, ROLLOUT, body)).json()
     assert found["status"] == "estimated"
-    assert (found["load"]["required_chips"], found["hardware"]["purchase"]["servers"]) == (chips, servers)
+    assert (found["load"]["required_chips"], found["hardware"]["purchase"]["servers"]) == (
+        chips,
+        servers,
+    )
     assert found["tiers"][0]["capex_rub"] == base_capex
     request_ev = {e["key"]: e for e in found["evidence"]}
     assert request_ev["request.site.workers"]["status"] == "assumed"  # the preset's own number
@@ -327,26 +386,45 @@ async def test_presets_control_numbers(
 async def test_line_sums_and_serialization(client: httpx.AsyncClient) -> None:
     body = fixture("rollout_request")
     body["benefits"]["fines"]["enabled"] = True
-    body["benefits"]["sfr_discount"] = {"enabled": True, "payroll_rub_year": 10_000_000, "tariff_share": 0.002, "additional_discount_share": 0.4}
+    body["benefits"]["sfr_discount"] = {
+        "enabled": True,
+        "payroll_rub_year": 10_000_000,
+        "tariff_share": 0.002,
+        "additional_discount_share": 0.4,
+    }
     r = await post(client, ROLLOUT, body)
     text = r.text
     assert "NaN" not in text and "Infinity" not in text
     found = r.json()
     for tier in found["tiers"]:
-        assert sum(x["amount_rub"] for x in tier["capex_lines"]) == pytest.approx(tier["capex_rub"], abs=0.005)
-        assert sum(x["amount_rub"] for x in tier["opex_lines"]) == pytest.approx(tier["opex_rub_year"], abs=0.005)
+        assert sum(x["amount_rub"] for x in tier["capex_lines"]) == pytest.approx(
+            tier["capex_rub"], abs=0.005
+        )
+        assert sum(x["amount_rub"] for x in tier["opex_lines"]) == pytest.approx(
+            tier["opex_rub_year"], abs=0.005
+        )
         included = [x["amount_rub"] for x in tier["benefit_lines"] if x["included"]]
         assert sum(included) == pytest.approx(tier["gross_benefit_rub_year"], abs=0.005)
-        assert tier["tco_3_year_rub"] == pytest.approx(tier["capex_rub"] + 3 * tier["opex_rub_year"], abs=0.01)
+        assert tier["tco_3_year_rub"] == pytest.approx(
+            tier["capex_rub"] + 3 * tier["opex_rub_year"], abs=0.01
+        )
     base = {x["id"]: x["amount_rub"] for x in found["tiers"][0]["benefit_lines"]}
     # fines: 0.1 × 65000 × 0.2 + 0.1 × 140000 × 0.2; SFR: 10 000 000 × 0.002 × 0.4
     assert (base["fines"], base["sfr_discount"]) == (1300 + 2800, 8000)
     assert set(found) == set(ResultV2.model_fields)
     assert [t["tier"] for t in found["tiers"]] == ["base", "extended", "max"]
-    assert [s["id"] for s in found["steps"]] == ["naive", "dedicated_capacity", "scenario_models", "activity_pool", "tracker"]
+    assert [s["id"] for s in found["steps"]] == [
+        "naive",
+        "dedicated_capacity",
+        "scenario_models",
+        "activity_pool",
+        "tracker",
+    ]
     assert [p["cameras"] for p in found["scale_curve"]["points"]] == [5, 10, 25, 50, 100, 200, 500]
     used = {s for e in found["evidence"] for s in e["source_ids"]}
-    assert used - {s["id"] for s in found["sources"]} <= {s["id"] for s in (await client.get("/api/calculator/defaults")).json()["v2"]["sources"]}
+    assert used - {s["id"] for s in found["sources"]} <= {
+        s["id"] for s in (await client.get("/api/calculator/defaults")).json()["v2"]["sources"]
+    }
 
 
 async def test_partial_disabled_and_independent_threshold(client: httpx.AsyncClient) -> None:
@@ -354,11 +432,19 @@ async def test_partial_disabled_and_independent_threshold(client: httpx.AsyncCli
     body["benefits"]["downtime"]["enabled"] = True  # nulls of an enabled line: partial, not 422
     found = (await post(client, ROLLOUT, body)).json()
     assert found["status"] == "partial"
-    assert {(m["code"], m["field"]) for m in found["missing"]} >= {("BENEFIT_INPUT_MISSING", "benefits.downtime.events_year")}
+    assert {(m["code"], m["field"]) for m in found["missing"]} >= {
+        ("BENEFIT_INPUT_MISSING", "benefits.downtime.events_year")
+    }
     base = found["tiers"][0]
     downtime = next(x for x in base["benefit_lines"] if x["id"] == "downtime")
-    assert (downtime["amount_rub"], downtime["included"], downtime["status"]) == (None, True, "missing")
-    assert base["gross_benefit_rub_year"] is None and base["payback"]["status"] == "insufficient_data"
+    assert (downtime["amount_rub"], downtime["included"], downtime["status"]) == (
+        None,
+        True,
+        "missing",
+    )
+    assert (
+        base["gross_benefit_rub_year"] is None and base["payback"]["status"] == "insufficient_data"
+    )
     assert base["capex_rub"] == 2_150_000  # the known parts stay
     # An unknown injury line does not block the severe threshold of the other lines.
     body = fixture("rollout_request")
@@ -369,7 +455,9 @@ async def test_partial_disabled_and_independent_threshold(client: httpx.AsyncCli
     severe = found["tiers"][0]["severe_threshold"]
     tco = found["tiers"][0]["tco_3_year_rub"]
     assert severe["status"] == "required"
-    assert severe["expected_prevented_cases"] == pytest.approx((tco - 3 * 4100) / 2_000_000, abs=1e-6)
+    assert severe["expected_prevented_cases"] == pytest.approx(
+        (tco - 3 * 4100) / 2_000_000, abs=1e-6
+    )
     off = next(x for x in found["tiers"][0]["benefit_lines"] if x["id"] == "labor")
     assert (off["amount_rub"], off["included"], off["status"]) == (0, False, "not_applicable")
 
@@ -418,7 +506,10 @@ async def test_scale_inventory_vectors(client: httpx.AsyncClient) -> None:
     enough["installed"] = {"boards": [{"board_id": "HP", "count": 3}], "servers": 1}
     enough["costs"]["new_camera_count"] = 0
     found = (await post(client, SCALE, enough, ADMIN)).json()
-    assert found["tiers"][0]["capex_rub"] == 0 and found["tiers"][0]["payback"]["status"] == "not_applicable"
+    assert (
+        found["tiers"][0]["capex_rub"] == 0
+        and found["tiers"][0]["payback"]["status"] == "not_applicable"
+    )
 
 
 ERRORS: list[tuple[str, Any, str, str]] = [
@@ -433,10 +524,25 @@ ERRORS: list[tuple[str, Any, str, str]] = [
     ("cameras.groups.0.model_ids", [POSE], "cameras.groups.0.model_ids", "SCHEMA_MISMATCH"),
     ("cameras.groups.0.model_ids", [DET, "nope@1"], "cameras.groups.0.model_ids", "UNKNOWN_MODEL"),
     ("hardware.allowed_board_ids", ["HP", "HP"], "hardware.allowed_board_ids", "SCHEMA_MISMATCH"),
-    ("hardware.board_price_overrides", {"XX": 1}, "hardware.board_price_overrides.XX", "UNKNOWN_BOARD"),
+    (
+        "hardware.board_price_overrides",
+        {"XX": 1},
+        "hardware.board_price_overrides.XX",
+        "UNKNOWN_BOARD",
+    ),
     ("costs.new_camera_count", 9, "costs.new_camera_count", "OUT_OF_RANGE"),
-    ("benefits.sfr_discount.additional_discount_share", 0.5, "benefits.sfr_discount.additional_discount_share", "OUT_OF_RANGE"),
-    ("load.activity_measurement_id", "activity_share-nope", "load.activity_measurement_id", "MEASUREMENT_MISMATCH"),
+    (
+        "benefits.sfr_discount.additional_discount_share",
+        0.5,
+        "benefits.sfr_discount.additional_discount_share",
+        "OUT_OF_RANGE",
+    ),
+    (
+        "load.activity_measurement_id",
+        "activity_share-nope",
+        "load.activity_measurement_id",
+        "MEASUREMENT_MISMATCH",
+    ),
 ]
 
 
@@ -449,7 +555,9 @@ def _set(body: dict[str, Any], path: str, value: Any) -> None:
 
 
 @pytest.mark.parametrize(("path", "value", "field", "reason"), ERRORS)
-async def test_validation_errors(client: httpx.AsyncClient, path: str, value: Any, field: str, reason: str) -> None:
+async def test_validation_errors(
+    client: httpx.AsyncClient, path: str, value: Any, field: str, reason: str
+) -> None:
     body = fixture("rollout_request")
     _set(body, path, value)
     r = await post(client, ROLLOUT, body)
@@ -465,14 +573,20 @@ async def test_exact_error_bodies_and_format(client: httpx.AsyncClient) -> None:
     fmt = fixture("error_format")
     good = fixture("rollout_request")
     assert (await post(client, "/api/calculator/rollout?format=v3", good)).json() == fmt
-    assert (await post(client, "/api/calculator/rollout", good)).json() == fmt  # v2 body, legacy format
+    assert (
+        await post(client, "/api/calculator/rollout", good)
+    ).json() == fmt  # v2 body, legacy format
     legacy = (await client.get("/api/calculator/defaults")).json()["rollout"]
     assert (await post(client, ROLLOUT, legacy)).json() == fmt  # legacy body, v2 format
-    r = await client.post(ROLLOUT, content=b'{"contract_version": "2.0.0", "x": NaN}', headers=MANAGEMENT)
+    r = await client.post(
+        ROLLOUT, content=b'{"contract_version": "2.0.0", "x": NaN}', headers=MANAGEMENT
+    )
     assert r.status_code == 422
     nan = fixture("rollout_request")
     text = json.dumps(nan).replace('"activity_share": 0.5', '"activity_share": NaN')
-    r = await client.post(ROLLOUT, content=text.encode(), headers=MANAGEMENT | {"content-type": "application/json"})
+    r = await client.post(
+        ROLLOUT, content=text.encode(), headers=MANAGEMENT | {"content-type": "application/json"}
+    )
     assert r.json()["details"] == {"field": "load.activity_share", "reason": "OUT_OF_RANGE"}
     double = fixture("rollout_request")
     double["benefits"]["injuries"]["cost_scope"] = "all_in"
@@ -506,7 +620,9 @@ async def test_roles_and_pdf(client: httpx.AsyncClient) -> None:
     pdf = "/api/calculator/export.pdf"
     r = await post(client, pdf, {"mode": "rollout", "input": rollout})
     assert (r.status_code, r.json()) == (501, fixture("error_pdf"))
-    assert (await post(client, pdf, {"mode": "scale", "input": scale}, {"X-Role": "ohs"})).status_code == 403
+    assert (
+        await post(client, pdf, {"mode": "scale", "input": scale}, {"X-Role": "ohs"})
+    ).status_code == 403
     features = (await client.get("/api/calculator/defaults")).json()["v2"]["features"]
     assert (features["pdf_available"], features["tracker"]["available"]) == (False, False)
 
@@ -528,16 +644,25 @@ async def test_system_profile_from_rules(client: httpx.AsyncClient, core: Settin
     found = (await post(client, ROLLOUT, body)).json()
     assert found["status"] == "partial" and found["load"]["required_chips"] is None
     assert "SCENARIO_MODEL_MISSING" in [m["code"] for m in found["missing"]]
-    body["cameras"] = {"source": "system", "camera_ids": [c["north"], c["north"]], "include_seed": False}
+    body["cameras"] = {
+        "source": "system",
+        "camera_ids": [c["north"], c["north"]],
+        "include_seed": False,
+    }
     assert (await post(client, ROLLOUT, body)).json()["details"]["reason"] == "DUPLICATE_CAMERA"
     body["cameras"] = {"source": "system", "camera_ids": [999], "include_seed": False}
-    assert (await post(client, ROLLOUT, body)).json()["details"] == {"field": "cameras.camera_ids", "reason": "OUT_OF_RANGE"}
+    assert (await post(client, ROLLOUT, body)).json()["details"] == {
+        "field": "cameras.camera_ids",
+        "reason": "OUT_OF_RANGE",
+    }
     store.run("UPDATE cameras SET deleted_at = ? WHERE id = ?", clock.iso(clock.now()), c["south"])
     defaults = (await client.get("/api/calculator/defaults")).json()["v2"]
     assert defaults["system_profile"]["cameras"] == 1
 
 
-def _artifact(settings: Settings, camera: int, frames_with_person: int, frames: int, sha: str) -> None:
+def _artifact(
+    settings: Settings, camera: int, frames_with_person: int, frames: int, sha: str
+) -> None:
     lines = [
         json.dumps({"frame_idx": i, "ts_ms": i * 83.3, "detections": [
             {"cls": 0, "name": "person", "score": 0.9 if i < frames_with_person else 0.3,
@@ -562,7 +687,9 @@ def _artifact(settings: Settings, camera: int, frames_with_person: int, frames: 
     })  # fmt: skip
 
 
-async def test_activity_measurement_applies_only_by_id(client: httpx.AsyncClient, core: Settings) -> None:
+async def test_activity_measurement_applies_only_by_id(
+    client: httpx.AsyncClient, core: Settings
+) -> None:
     c = cameras()
     _artifact(core, c["north"], 3, 4, "a1")  # 0.75
     _artifact(core, c["south"], 1, 4, "b1")  # 0.25
@@ -587,10 +714,29 @@ async def test_legacy_runs_on_the_new_engine(client: httpx.AsyncClient) -> None:
         r = await post(client, url, legacy)
         assert r.status_code == 200, r.text
         assert "format" not in r.json() and r.json()["tiers"][0]["accelerators"] == 3
-    for overrides in ({"models_per_frame": 0}, {"models_per_frame": 0.5}, {"accelerators_per_server": 2.5}):
+    for overrides in (
+        {"models_per_frame": 0},
+        {"models_per_frame": 0.5},
+        {"accelerators_per_server": 2.5},
+    ):
         r = await post(client, "/api/calculator/rollout", legacy | {"overrides": overrides})
         assert r.status_code == 200, (overrides, r.text)
-    zero = (await post(client, "/api/calculator/rollout", legacy | {"overrides": {"models_per_frame": 0}})).json()
+    zero = (
+        await post(
+            client, "/api/calculator/rollout", legacy | {"overrides": {"models_per_frame": 0}}
+        )
+    ).json()
     assert zero["tiers"][0]["accelerators"] == 0 and zero["tiers"][0]["servers"] == 0
     r = await post(client, "/api/calculator/scale", {"cameras_now": 8, "new_cameras": 8}, ADMIN)
     assert (r.json()["accelerators_now"], r.json()["accelerators_total"]) == (3, 6)
+
+
+async def test_system_any_class_needs_one_model(client: httpx.AsyncClient, core: Settings) -> None:
+    c = cameras()
+    services.camera_rule_set(c["north"], "fire_smoking", CameraRuleIn(enabled=True), "admin")
+    body = fixture("rollout_request")
+    body["cameras"] = {"source": "system", "camera_ids": [c["north"]], "include_seed": False}
+    found = (await post(client, ROLLOUT, body)).json()
+    models = found["resolved"]["added"]["groups"][0]["model_ids"]
+    assert models == [DET, POSE, "matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4"]  # no cigarette
+    assert [m["code"] for m in found["missing"]] == ["MODEL_COST_UNKNOWN"]  # its weight is unsigned

@@ -3403,10 +3403,15 @@ def _system_groups(
                 continue
             if rule.scenario in pose_rules and pose and pose not in need:
                 need.append(pose)
-            classes = [c for c in meta.required_classes if c not in det_classes]
-            if rule.scenario in rules.ANY_CLASS or rule.scenario in rules.ANY_VEHICLE:
-                if len(classes) < len(meta.required_classes) - (rule.scenario in rules.ANY_VEHICLE):
-                    classes = []
+            vehicles = rule.scenario in rules.ANY_VEHICLE  # person and one of the vehicles
+            required = [c for c in meta.required_classes if not (vehicles and c == "person")]
+            classes = [c for c in required if c not in det_classes]
+            any_of = vehicles or rule.scenario in rules.ANY_CLASS
+            if any_of and len(classes) < len(required):
+                classes = []  # the detector already gives one of them
+            elif any_of and classes:  # one class is enough: the first one a model gives
+                given = [c for c in classes if any(c in specs[r].classes.values() for r in extras)]
+                classes = given[:1] or classes[:1]
             for name in classes:
                 ref = next((r for r in extras if name in specs[r].classes.values()), None)
                 if ref is None:

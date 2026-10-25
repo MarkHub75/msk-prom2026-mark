@@ -39,7 +39,7 @@ async def test_meta_lists_roles_statuses_zone_kinds(
     client: httpx.AsyncClient, core: Settings
 ) -> None:
     meta = Meta.model_validate((await client.get("/api/meta")).json())
-    assert (meta.product_name, meta.contract) == ("Argus", "1.1.0")
+    assert (meta.product_name, meta.contract) == ("Argus", "1.2.0")
     assert (meta.inference_backend, meta.fake, meta.timezone) == ("linq", False, core.timezone)
     roles = {r.id: r for r in meta.roles}
     assert list(roles) == ["operator", "master", "ohs", "management", "admin"]

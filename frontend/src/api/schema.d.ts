@@ -55,6 +55,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/calculator/export.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Calculator Export Pdf */
+        post: operations["calculator_export_pdf_api_calculator_export_pdf_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/calculator/rollout": {
         parameters: {
             query?: never;
@@ -998,6 +1015,40 @@ export interface components {
              */
             state: "ok" | "models_missing" | "unreachable" | "bad_answer" | "unchecked";
         };
+        /** BenefitInput */
+        BenefitInput: {
+            downtime: components["schemas"]["DowntimeBenefit"];
+            fines: components["schemas"]["FinesBenefit"];
+            injuries: components["schemas"]["InjuryBenefit"];
+            labor: components["schemas"]["LaborBenefit"];
+            /** Severe Injury Cost Rub */
+            severe_injury_cost_rub: number | null;
+            sfr_discount: components["schemas"]["SfrDiscountBenefit"];
+        };
+        /** BoardCount */
+        BoardCount: {
+            /** Board Id */
+            board_id: string;
+            /** Count */
+            count: number;
+        };
+        /** BoardOffer */
+        BoardOffer: {
+            /** Chips */
+            chips: number;
+            /** Id */
+            id: string;
+            /** Power W */
+            power_w: number | null;
+            /** Price Rub */
+            price_rub: number | null;
+            /** Slots */
+            slots: number;
+            /** Source Ids */
+            source_ids: string[];
+            /** Title */
+            title: string;
+        };
         /** Body_video_upload_api_cameras__camera_id__videos_post */
         Body_video_upload_api_cameras__camera_id__videos_post: {
             /** File */
@@ -1070,6 +1121,7 @@ export interface components {
             measured: components["schemas"]["CalcAssumption"][];
             rollout: components["schemas"]["RolloutIn"];
             scale: components["schemas"]["ScaleIn"];
+            v2: components["schemas"]["DefaultsV2"];
         };
         /** Calibration */
         Calibration: {
@@ -1331,6 +1383,31 @@ export interface components {
                 number
             ];
         };
+        /** CostInput */
+        CostInput: {
+            /** Electricity Rub Kwh */
+            electricity_rub_kwh: number | null;
+            /** Integration Fixed Rub */
+            integration_fixed_rub: number | null;
+            /** Integration Per Camera Rub */
+            integration_per_camera_rub: number | null;
+            /** Max Additional Camera Share */
+            max_additional_camera_share: number;
+            /** New Camera Count */
+            new_camera_count: number;
+            /** New Camera Unit Rub */
+            new_camera_unit_rub: number | null;
+            /** Operating Hours Year */
+            operating_hours_year: number;
+            /** Signal Unit Rub */
+            signal_unit_rub: number | null;
+            /** Signal Zones Per Camera */
+            signal_zones_per_camera: number;
+            /** Speaker Per Workshop Rub */
+            speaker_per_workshop_rub: number | null;
+            /** Support Share Year */
+            support_share_year: number;
+        };
         /** CountRow */
         CountRow: {
             /** Confirmed */
@@ -1343,6 +1420,19 @@ export interface components {
             key: string;
             /** Title */
             title: string;
+        };
+        /** CurvePoint */
+        CurvePoint: {
+            /** Cameras */
+            cameras: number;
+            /** Chips */
+            chips: number | null;
+            /** Rub Per Camera Month */
+            rub_per_camera_month: number | null;
+            /** Servers */
+            servers: number | null;
+            /** Tco 3 Year Rub */
+            tco_3_year_rub: number | null;
         };
         /** DatasetItem */
         DatasetItem: {
@@ -1386,6 +1476,46 @@ export interface components {
             red: number;
             /** Yellow */
             yellow: number;
+        };
+        /** DefaultsV2 */
+        DefaultsV2: {
+            /** Assumptions */
+            assumptions: components["schemas"]["NumericEvidence"][];
+            /** Boards */
+            boards: components["schemas"]["BoardOffer"][];
+            /**
+             * Contract Version
+             * @constant
+             */
+            contract_version: "2.0.0";
+            features: components["schemas"]["FeaturesV2"];
+            /**
+             * Format
+             * @constant
+             */
+            format: "v2";
+            /**
+             * Formula Version
+             * @constant
+             */
+            formula_version: "argus-calc-2.0";
+            /** Limits */
+            limits: components["schemas"]["FieldLimit"][];
+            /** Market */
+            market: components["schemas"]["MarketReference"][];
+            /** Measurements */
+            measurements: components["schemas"]["Measurement"][];
+            /** Models */
+            models: components["schemas"]["ModelLoad"][];
+            /** Notices */
+            notices: components["schemas"]["Notice"][];
+            /** Presets */
+            presets: components["schemas"]["PresetV2"][];
+            rollout: components["schemas"]["RolloutRequestV2"];
+            scale: components["schemas"]["ScaleRequestV2"];
+            /** Sources */
+            sources: components["schemas"]["SourceRecord"][];
+            system_profile: components["schemas"]["ResolvedProfile"];
         };
         /** Delivery */
         Delivery: {
@@ -1443,6 +1573,18 @@ export interface components {
             /** Videos */
             videos: number;
         };
+        /** DowntimeBenefit */
+        DowntimeBenefit: {
+            /** Day Cost Rub */
+            day_cost_rub: number | null;
+            /** Days Per Event */
+            days_per_event: number | null;
+            /** Enabled */
+            enabled: boolean;
+            /** Events Year */
+            events_year: number | null;
+            reduction: components["schemas"]["TierShares"];
+        };
         /** Episode */
         Episode: {
             /** Analysis Id */
@@ -1496,6 +1638,19 @@ export interface components {
             uncertain_ms: number;
             /** Zone Id */
             zone_id: number | null;
+        };
+        /** EquipmentState */
+        EquipmentState: {
+            /** Boards */
+            boards: components["schemas"]["BoardCount"][];
+            /** Chips */
+            chips: number;
+            /** Power W */
+            power_w: number | null;
+            /** Servers */
+            servers: number;
+            /** Used Slots */
+            used_slots: number;
         };
         /** EventAction */
         EventAction: {
@@ -1674,6 +1829,81 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** FeaturesV2 */
+        FeaturesV2: {
+            offline_economy: components["schemas"]["OfflineEconomy"] | null;
+            /** Pdf Available */
+            pdf_available: boolean;
+            tracker: components["schemas"]["TrackerFeature"];
+        };
+        /** FieldLimit */
+        FieldLimit: {
+            /** Field */
+            field: string;
+            /** Integer */
+            integer: boolean;
+            /** Max */
+            max: number | null;
+            /** Min */
+            min: number | null;
+        };
+        /** FineItem */
+        FineItem: {
+            /** Amount Rub */
+            amount_rub: number | null;
+            /** Id */
+            id: string;
+            /** Inspection Probability Year */
+            inspection_probability_year: number;
+            reduction: components["schemas"]["TierShares"];
+            /** Title */
+            title: string;
+        };
+        /** FinesBenefit */
+        FinesBenefit: {
+            /** Enabled */
+            enabled: boolean;
+            /** Items */
+            items: components["schemas"]["FineItem"][];
+        };
+        /** HardwareInput */
+        HardwareInput: {
+            /** Allowed Board Ids */
+            allowed_board_ids: string[];
+            /** Board Price Overrides */
+            board_price_overrides: {
+                [key: string]: number | null;
+            };
+            server: components["schemas"]["ServerInput"];
+        };
+        /** HardwareResult */
+        HardwareResult: {
+            after: components["schemas"]["EquipmentState"] | null;
+            before: components["schemas"]["EquipmentState"] | null;
+            /** Board Capex Rub */
+            board_capex_rub: number | null;
+            /**
+             * Inventory Basis
+             * @enum {string}
+             */
+            inventory_basis: "none" | "provided" | "estimated";
+            /** Note */
+            note: string;
+            purchase: components["schemas"]["EquipmentState"] | null;
+            /** Required After Chips */
+            required_after_chips: number | null;
+            /** Required Before Chips */
+            required_before_chips: number | null;
+            /**
+             * Selection
+             * @enum {string}
+             */
+            selection: "priced_optimum" | "technical_only" | "unresolved";
+            /** Server Capex Rub */
+            server_capex_rub: number | null;
+            /** Spare Chips After */
+            spare_chips_after: number | null;
+        };
         /** Health */
         Health: {
             /** Contract */
@@ -1797,6 +2027,30 @@ export interface components {
             /** Wall S */
             wall_s: number;
         };
+        /** InjuryBenefit */
+        InjuryBenefit: {
+            /** Annual Injured Workers */
+            annual_injured_workers: number | null;
+            /** Cost Per Injured Worker Rub */
+            cost_per_injured_worker_rub: number | null;
+            /**
+             * Cost Scope
+             * @enum {string}
+             */
+            cost_scope: "direct_only" | "all_in";
+            /** Enabled */
+            enabled: boolean;
+            /** Rate Per 1000 */
+            rate_per_1000: number | null;
+            reduction: components["schemas"]["TierShares"];
+        };
+        /** InstalledInventory */
+        InstalledInventory: {
+            /** Boards */
+            boards: components["schemas"]["BoardCount"][];
+            /** Servers */
+            servers: number;
+        };
         /** Job */
         Job: {
             /** Analysis Id */
@@ -1877,6 +2131,24 @@ export interface components {
             /** Zones */
             zones: components["schemas"]["FacetItem"][];
         };
+        /** LaborBenefit */
+        LaborBenefit: {
+            /** Monetize */
+            monetize: boolean;
+            /** Rows */
+            rows: components["schemas"]["LaborRow"][];
+        };
+        /** LaborRow */
+        LaborRow: {
+            /** Hour Cost Rub */
+            hour_cost_rub: number | null;
+            /** Hours Saved Year */
+            hours_saved_year: number;
+            /** Id */
+            id: string;
+            /** Title */
+            title: string;
+        };
         /** LatencyStats */
         LatencyStats: {
             notify_delay_s: components["schemas"]["Percentiles"];
@@ -1894,6 +2166,78 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** LoadInput */
+        LoadInput: {
+            /** Activity Measurement Id */
+            activity_measurement_id: string | null;
+            /** Activity Share */
+            activity_share: number;
+            /** Capacity Derate */
+            capacity_derate: number;
+            /**
+             * Cpu Basis
+             * @enum {string}
+             */
+            cpu_basis: "inclusive" | "split";
+            /** Cpu Ms Per Unit */
+            cpu_ms_per_unit: number;
+            /** Decode Cores Per Camera */
+            decode_cores_per_camera: number;
+            /**
+             * Detector Stride
+             * @enum {integer}
+             */
+            detector_stride: 1 | 2;
+            /** Idle Check S */
+            idle_check_s: number;
+            /** Model Cost Overrides */
+            model_cost_overrides: {
+                [key: string]: number;
+            };
+            /**
+             * Peak Mode
+             * @enum {string}
+             */
+            peak_mode: "independent_p95" | "all_active";
+            /** Platform Capacity Override Fps */
+            platform_capacity_override_fps: number | null;
+            /** Priority Cameras Reserve */
+            priority_cameras_reserve: number;
+            /** Reference Chip Fps */
+            reference_chip_fps: number;
+            /** Surge Fps */
+            surge_fps: number;
+            /** Target Fps */
+            target_fps: number;
+        };
+        /** LoadResult */
+        LoadResult: {
+            /** Active P95 */
+            active_p95: number;
+            /**
+             * Basis
+             * @enum {string}
+             */
+            basis: "independent_p95" | "all_active";
+            /** Cameras */
+            cameras: number;
+            /** Effective Chip Units S */
+            effective_chip_units_s: number;
+            /** Naive Chips */
+            naive_chips: number | null;
+            /** Peak Units S */
+            peak_units_s: number | null;
+            /** Priority Cameras Effective */
+            priority_cameras_effective: number;
+            /** Required Chips */
+            required_chips: number | null;
+            /** Required Cpu Cores */
+            required_cpu_cores: number | null;
+            /** Required Units S */
+            required_units_s: number | null;
+            /** Surge Units S */
+            surge_units_s: number | null;
+        };
         /** ManagementStats */
         ManagementStats: {
             /** Top Scenarios */
@@ -1903,6 +2247,45 @@ export interface components {
             /** Weeks */
             weeks: components["schemas"]["WeekRow"][];
             yellow_trend: components["schemas"]["TrendSummary"];
+        };
+        /** ManualCameraProfile */
+        ManualCameraProfile: {
+            /** Cameras */
+            cameras: number;
+            /** Groups */
+            groups: components["schemas"]["ManualGroup"][];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            source: "manual";
+        };
+        /** ManualGroup */
+        ManualGroup: {
+            /** Id */
+            id: string;
+            /** Model Ids */
+            model_ids: string[];
+            /** Share */
+            share: number;
+        };
+        /** MarketReference */
+        MarketReference: {
+            /** Amount Rub */
+            amount_rub: number | null;
+            /**
+             * Billing
+             * @enum {string}
+             */
+            billing: "monthly_per_camera" | "one_off_per_camera" | "project";
+            /** Id */
+            id: string;
+            /** Scope */
+            scope: string;
+            /** Source Ids */
+            source_ids: string[];
+            /** Title */
+            title: string;
         };
         /** MasterInbox */
         MasterInbox: {
@@ -1915,6 +2298,37 @@ export interface components {
              * Format: date-time
              */
             server_now: string;
+        };
+        /** Measurement */
+        Measurement: {
+            /** Id */
+            id: string;
+            /**
+             * Key
+             * @enum {string}
+             */
+            key: "activity_share" | "platform_fps" | "rtt_p50_ms" | "inflight" | "inference_p50_ms" | "inference_p90_ms" | "events_per_camera_day";
+            /** Note */
+            note: string;
+            /** Period End */
+            period_end: string | null;
+            /** Period Start */
+            period_start: string | null;
+            /** Sample Count */
+            sample_count: number;
+            /** Source Ids */
+            source_ids: string[];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "measured" | "not_measured";
+            /** Title */
+            title: string;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number | null;
         };
         /** Meta */
         Meta: {
@@ -1941,6 +2355,27 @@ export interface components {
             timezone: string;
             /** Zone Kinds */
             zone_kinds: components["schemas"]["ZoneKindMeta"][];
+        };
+        /** ModelLoad */
+        ModelLoad: {
+            /**
+             * Execution Status
+             * @enum {string}
+             */
+            execution_status: "verified_linq" | "local_only" | "unverified" | "missing";
+            /** Id */
+            id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "detector" | "pose" | "extra";
+            /** Source Ids */
+            source_ids: string[];
+            /** Title */
+            title: string;
+            /** Work Units */
+            work_units: number | null;
         };
         /** ModelSpec */
         ModelSpec: {
@@ -1991,6 +2426,57 @@ export interface components {
             /** Fake */
             fake: boolean;
         };
+        /** MoneyLine */
+        MoneyLine: {
+            /** Amount Rub */
+            amount_rub: number | null;
+            /** Evidence Keys */
+            evidence_keys: string[];
+            /** Id */
+            id: string;
+            /** Included */
+            included: boolean;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "known" | "assumed" | "derived" | "missing" | "not_applicable";
+            /** Title */
+            title: string;
+        };
+        /** Notice */
+        Notice: {
+            /** Code */
+            code: string;
+            /** Field */
+            field: string | null;
+            /** Message */
+            message: string;
+        };
+        /** NumericEvidence */
+        NumericEvidence: {
+            /** Depends On */
+            depends_on: string[];
+            /** Formula */
+            formula: string | null;
+            /** Key */
+            key: string;
+            /** Reason */
+            reason: string | null;
+            /** Source Ids */
+            source_ids: string[];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "known" | "assumed" | "derived" | "missing" | "not_applicable";
+            /** Title */
+            title: string;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number | null;
+        };
         /** ObservabilityGap */
         ObservabilityGap: {
             /** End Ms */
@@ -2002,6 +2488,27 @@ export interface components {
             reason: "no_source" | "processing" | "failed" | "ended" | "stale" | "dark" | "obstructed";
             /** Start Ms */
             start_ms: number;
+        };
+        /** OfflineEconomy */
+        OfflineEconomy: {
+            /** Confirm Shift P90 Ms */
+            confirm_shift_p90_ms: number | null;
+            /** Full Calls */
+            full_calls: number;
+            /** Lost Events */
+            lost_events: number;
+            /** Matched Events */
+            matched_events: number;
+            /** New Events */
+            new_events: number;
+            /** Note */
+            note: string;
+            /** Policy Calls */
+            policy_calls: number;
+            /** Reduction Share */
+            reduction_share: number;
+            /** Report Ref */
+            report_ref: string;
         };
         /** OhsStats */
         OhsStats: {
@@ -2069,6 +2576,20 @@ export interface components {
              */
             verdict: "suitable" | "partial" | "unsuitable" | "unknown";
         };
+        /** PaybackResult */
+        PaybackResult: {
+            /** Months */
+            months: number | null;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "within_horizon" | "after_horizon" | "no_positive_effect" | "no_initial_investment" | "insufficient_data" | "not_applicable";
+            /** Within Horizon */
+            within_horizon: boolean | null;
+        };
         /** PeopleStats */
         PeopleStats: {
             /** By Crew */
@@ -2102,6 +2623,41 @@ export interface components {
             p95: number | null;
             /** Pending */
             pending: number;
+        };
+        /** PresetV2 */
+        PresetV2: {
+            /** Area M2 */
+            area_m2: number | null;
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "workshop" | "shop" | "plant";
+            /** Machines */
+            machines: number | null;
+            /** Note */
+            note: string;
+            rollout: components["schemas"]["RolloutRequestV2"];
+            /** Title */
+            title: string;
+        };
+        /** PriceThreshold */
+        PriceThreshold: {
+            /** Board Id */
+            board_id: string | null;
+            /** Boards To Buy */
+            boards_to_buy: number;
+            /** Current Unit Price Rub */
+            current_unit_price_rub: number | null;
+            /** Max Unit Price Rub */
+            max_unit_price_rub: number | null;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "at_or_below" | "already_within" | "free_still_insufficient" | "not_applicable" | "insufficient_data";
         };
         /** Provenance */
         Provenance: {
@@ -2139,6 +2695,88 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** ResolvedGroup */
+        ResolvedGroup: {
+            /** Camera Ids */
+            camera_ids: number[];
+            /** Cameras */
+            cameras: number;
+            /** Id */
+            id: string;
+            /** Model Ids */
+            model_ids: string[];
+        };
+        /** ResolvedProfile */
+        ResolvedProfile: {
+            /** Cameras */
+            cameras: number;
+            /** Groups */
+            groups: components["schemas"]["ResolvedGroup"][];
+        };
+        /** ResolvedV2 */
+        ResolvedV2: {
+            added: components["schemas"]["ResolvedProfile"];
+            current: components["schemas"]["ResolvedProfile"];
+            /** Input */
+            input: components["schemas"]["RolloutRequestV2"] | components["schemas"]["ScaleRequestV2"];
+            total: components["schemas"]["ResolvedProfile"];
+        };
+        /** ResultV2 */
+        ResultV2: {
+            /**
+             * Contract Version
+             * @constant
+             */
+            contract_version: "2.0.0";
+            /**
+             * Cost Scope
+             * @enum {string}
+             */
+            cost_scope: "whole_project" | "incremental";
+            /** Evidence */
+            evidence: components["schemas"]["NumericEvidence"][];
+            /**
+             * Format
+             * @constant
+             */
+            format: "v2";
+            /**
+             * Formula Version
+             * @constant
+             */
+            formula_version: "argus-calc-2.0";
+            hardware: components["schemas"]["HardwareResult"];
+            /**
+             * Horizon Years
+             * @constant
+             */
+            horizon_years: 3;
+            load: components["schemas"]["LoadResult"];
+            /** Missing */
+            missing: components["schemas"]["Notice"][];
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "rollout" | "scale";
+            /** Operator Events Per Shift */
+            operator_events_per_shift: number | null;
+            resolved: components["schemas"]["ResolvedV2"];
+            scale_curve: components["schemas"]["ScaleCurve"];
+            /** Sources */
+            sources: components["schemas"]["SourceRecord"][];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ready" | "estimated" | "partial" | "empty";
+            /** Steps */
+            steps: components["schemas"]["StepV2"][];
+            /** Tiers */
+            tiers: components["schemas"]["TierResultV2"][];
+            /** Warnings */
+            warnings: components["schemas"]["Notice"][];
+        };
         /** RoleMeta */
         RoleMeta: {
             /** Actions */
@@ -2150,6 +2788,15 @@ export interface components {
             id: "operator" | "master" | "ohs" | "management" | "admin";
             /** Title */
             title: string;
+        };
+        /** RolloutExportV2 */
+        RolloutExportV2: {
+            input: components["schemas"]["RolloutRequestV2"];
+            /**
+             * Mode
+             * @constant
+             */
+            mode: "rollout";
         };
         /** RolloutIn */
         RolloutIn: {
@@ -2181,6 +2828,23 @@ export interface components {
             /** Workshops */
             workshops: number;
         };
+        /** RolloutRequestV2 */
+        RolloutRequestV2: {
+            benefits: components["schemas"]["BenefitInput"];
+            /** Cameras */
+            cameras: components["schemas"]["ManualCameraProfile"] | components["schemas"]["SystemCameraProfile"];
+            /**
+             * Contract Version
+             * @constant
+             */
+            contract_version: "2.0.0";
+            costs: components["schemas"]["CostInput"];
+            hardware: components["schemas"]["HardwareInput"];
+            load: components["schemas"]["LoadInput"];
+            /** Preset Id */
+            preset_id: string | null;
+            site: components["schemas"]["SiteInput"];
+        };
         /** RolloutResult */
         RolloutResult: {
             /** Assumptions */
@@ -2207,6 +2871,32 @@ export interface components {
             /** Scenarios */
             scenarios: components["schemas"]["ScenarioMeta"][];
         };
+        /** ScaleCurve */
+        ScaleCurve: {
+            /** Note */
+            note: string;
+            /** Points */
+            points: components["schemas"]["CurvePoint"][];
+            /**
+             * Scope
+             * @constant
+             */
+            scope: "greenfield_reference";
+            /**
+             * Tier
+             * @constant
+             */
+            tier: "base";
+        };
+        /** ScaleExportV2 */
+        ScaleExportV2: {
+            input: components["schemas"]["ScaleRequestV2"];
+            /**
+             * Mode
+             * @constant
+             */
+            mode: "scale";
+        };
         /** ScaleIn */
         ScaleIn: {
             /** Cameras Now */
@@ -2220,6 +2910,26 @@ export interface components {
             overrides: {
                 [key: string]: number;
             };
+        };
+        /** ScaleRequestV2 */
+        ScaleRequestV2: {
+            /** Added */
+            added: components["schemas"]["ManualCameraProfile"] | components["schemas"]["SystemCameraProfile"];
+            benefits: components["schemas"]["BenefitInput"];
+            /**
+             * Contract Version
+             * @constant
+             */
+            contract_version: "2.0.0";
+            costs: components["schemas"]["CostInput"];
+            /** Current */
+            current: components["schemas"]["ManualCameraProfile"] | components["schemas"]["SystemCameraProfile"];
+            hardware: components["schemas"]["HardwareInput"];
+            installed: components["schemas"]["InstalledInventory"] | null;
+            load: components["schemas"]["LoadInput"];
+            /** Preset Id */
+            preset_id: string | null;
+            site: components["schemas"]["SiteInput"];
         };
         /** ScaleResult */
         ScaleResult: {
@@ -2339,6 +3049,44 @@ export interface components {
             feed: components["schemas"]["EventSummary"][];
             sector: components["schemas"]["SectorState"];
         };
+        /** ServerInput */
+        ServerInput: {
+            /** Power W */
+            power_w: number | null;
+            /** Price Rub */
+            price_rub: number | null;
+            /** Slots */
+            slots: number;
+            /** Usable Cpu Cores */
+            usable_cpu_cores: number;
+        };
+        /** SevereThreshold */
+        SevereThreshold: {
+            /** Expected Prevented Cases */
+            expected_prevented_cases: number | null;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "required" | "already_covered" | "needs_input" | "not_applicable";
+            /** Uncovered Cost Rub */
+            uncovered_cost_rub: number | null;
+            /** Whole Prevented Cases */
+            whole_prevented_cases: number | null;
+        };
+        /** SfrDiscountBenefit */
+        SfrDiscountBenefit: {
+            /** Additional Discount Share */
+            additional_discount_share: number | null;
+            /** Enabled */
+            enabled: boolean;
+            /** Payroll Rub Year */
+            payroll_rub_year: number | null;
+            /** Tariff Share */
+            tariff_share: number | null;
+        };
         /** ShiftSummary */
         ShiftSummary: {
             /** By Scenario */
@@ -2364,6 +3112,46 @@ export interface components {
             /** Total */
             total: number;
         };
+        /** SiteInput */
+        SiteInput: {
+            /** Operators */
+            operators: number;
+            /** Shifts Per Day */
+            shifts_per_day: number;
+            /** Workers */
+            workers: number;
+            /** Working Days Year */
+            working_days_year: number;
+            /** Workshops */
+            workshops: number;
+        };
+        /** SourceRecord */
+        SourceRecord: {
+            /** Checked At */
+            checked_at: string | null;
+            /** Data Year */
+            data_year: number | null;
+            /** Id */
+            id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "argus_measurement" | "vendor_claim" | "official" | "team_assumption" | "user_input";
+            /** Note */
+            note: string;
+            /** Published At */
+            published_at: string | null;
+            /** Title */
+            title: string;
+            /** Url */
+            url: string | null;
+            /**
+             * Verification
+             * @enum {string}
+             */
+            verification: "verified_primary" | "cached_primary" | "pending_primary" | "not_applicable";
+        };
         /** StatusMeta */
         StatusMeta: {
             /**
@@ -2375,6 +3163,38 @@ export interface components {
             terminal: boolean;
             /** Title */
             title: string;
+        };
+        /** StepV2 */
+        StepV2: {
+            /** Available */
+            available: boolean;
+            /** Chips */
+            chips: number | null;
+            /** Equipment Capex Rub */
+            equipment_capex_rub: number | null;
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "naive" | "dedicated_capacity" | "scenario_models" | "activity_pool" | "tracker";
+            /** Reason */
+            reason: string;
+            /** Servers */
+            servers: number | null;
+            /** Title */
+            title: string;
+        };
+        /** SystemCameraProfile */
+        SystemCameraProfile: {
+            /** Camera Ids */
+            camera_ids: number[] | null;
+            /** Include Seed */
+            include_seed: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            source: "system";
         };
         /** SystemView */
         SystemView: {
@@ -2426,6 +3246,64 @@ export interface components {
             tier: "base" | "extended" | "max";
             /** Title */
             title: string;
+        };
+        /** TierResultV2 */
+        TierResultV2: {
+            /** Benefit Lines */
+            benefit_lines: components["schemas"]["MoneyLine"][];
+            board_price_threshold: components["schemas"]["PriceThreshold"];
+            /** Camera Denominator */
+            camera_denominator: number;
+            /** Capex Lines */
+            capex_lines: components["schemas"]["MoneyLine"][];
+            /** Capex Rub */
+            capex_rub: number | null;
+            /** Gross Benefit Rub Year */
+            gross_benefit_rub_year: number | null;
+            /** Labor Hours Year */
+            labor_hours_year: number;
+            /** Net Balance 3 Year Rub */
+            net_balance_3_year_rub: number | null;
+            /** Net Benefit Rub Year */
+            net_benefit_rub_year: number | null;
+            /** Opex Lines */
+            opex_lines: components["schemas"]["MoneyLine"][];
+            /** Opex Rub Year */
+            opex_rub_year: number | null;
+            payback: components["schemas"]["PaybackResult"];
+            /** Rub Per Camera Month */
+            rub_per_camera_month: number | null;
+            severe_threshold: components["schemas"]["SevereThreshold"];
+            /** Tco 3 Year Rub */
+            tco_3_year_rub: number | null;
+            /**
+             * Tier
+             * @enum {string}
+             */
+            tier: "base" | "extended" | "max";
+            /** Title */
+            title: string;
+        };
+        /** TierShares */
+        TierShares: {
+            /** Base */
+            base: number;
+            /** Extended */
+            extended: number;
+            /** Max */
+            max: number;
+        };
+        /** TrackerFeature */
+        TrackerFeature: {
+            /** Available */
+            available: boolean;
+            /**
+             * Max Stride
+             * @enum {integer}
+             */
+            max_stride: 1 | 2;
+            /** Report Ref */
+            report_ref: string | null;
         };
         /** TracksWindow */
         TracksWindow: {
@@ -2701,7 +3579,7 @@ export interface operations {
             };
         };
     };
-    calculator_rollout_api_calculator_rollout_post: {
+    calculator_export_pdf_api_calculator_export_pdf_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2712,7 +3590,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RolloutIn"];
+                "application/json": components["schemas"]["RolloutExportV2"] | components["schemas"]["ScaleExportV2"];
             };
         };
         responses: {
@@ -2722,7 +3600,54 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RolloutResult"];
+                    "application/json": unknown;
+                    "application/pdf": unknown;
+                };
+            };
+            /** @description Not Implemented */
+            501: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Client Error */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    calculator_rollout_api_calculator_rollout_post: {
+        parameters: {
+            query?: {
+                format?: "legacy" | "v2";
+            };
+            header?: {
+                "X-Role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RolloutIn"] | components["schemas"]["RolloutRequestV2"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RolloutResult"] | components["schemas"]["ResultV2"];
                 };
             };
             /** @description Not Implemented */
@@ -2747,7 +3672,9 @@ export interface operations {
     };
     calculator_scale_api_calculator_scale_post: {
         parameters: {
-            query?: never;
+            query?: {
+                format?: "legacy" | "v2";
+            };
             header?: {
                 "X-Role"?: string | null;
             };
@@ -2756,7 +3683,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ScaleIn"];
+                "application/json": components["schemas"]["ScaleIn"] | components["schemas"]["ScaleRequestV2"];
             };
         };
         responses: {
@@ -2766,7 +3693,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScaleResult"];
+                    "application/json": components["schemas"]["ScaleResult"] | components["schemas"]["ResultV2"];
                 };
             };
             /** @description Not Implemented */

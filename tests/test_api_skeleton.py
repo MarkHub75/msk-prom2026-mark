@@ -40,12 +40,12 @@ def _contract_routes() -> list[tuple[str, str, int]]:
 async def test_health_ok(client: httpx.AsyncClient) -> None:
     response = await client.get("/api/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "contract": "1.1.0"}
+    assert response.json() == {"status": "ok", "contract": "1.2.0"}
 
 
 def test_every_contract_route_is_declared(settings: Settings) -> None:
     routes = _contract_routes()
-    assert len(routes) == 65
+    assert len(routes) == 66  # v12: POST /api/calculator/export.pdf
     openapi = create_app(settings).openapi()["paths"]
     declared = {
         (method.lower(), route.path)

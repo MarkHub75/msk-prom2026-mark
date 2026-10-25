@@ -80,7 +80,7 @@ from safewatch.types import (
     ZonePatch,
 )
 
-CONTRACT_VERSION = "1.1.0"
+CONTRACT_VERSION = "1.2.0"
 UPLOAD_CHUNK = 1 << 20
 WS_UNKNOWN_ROLE = 4400
 WS_TOO_SLOW = 1013
@@ -476,36 +476,42 @@ def _calc_answer(result: BaseModel) -> JSONResponse:
     return JSONResponse(result.model_dump(mode="json"))
 
 
-@router.post(
-    "/api/calculator/rollout",
-    response_model=None,
-    responses={200: {"model": RolloutResult | ResultV2}},
-    openapi_extra=_calc_body("RolloutIn", "RolloutRequestV2"),
-)
+CALC_ROLLOUT: dict[str, Any] = {
+    "response_model": None,
+    "responses": {200: {"model": RolloutResult | ResultV2}},
+    "openapi_extra": _calc_body("RolloutIn", "RolloutRequestV2"),
+}
+
+
+@router.post("/api/calculator/rollout", **CALC_ROLLOUT)
 async def calculator_rollout(
     request: Request, role: RoleDep, fmt: FormatQuery = "legacy"
 ) -> JSONResponse:
     return _calc_answer(await services.calculator_rollout(fmt, await request.body(), role))
 
 
-@router.post(
-    "/api/calculator/scale",
-    response_model=None,
-    responses={200: {"model": ScaleResult | ResultV2}},
-    openapi_extra=_calc_body("ScaleIn", "ScaleRequestV2"),
-)
+CALC_SCALE: dict[str, Any] = {
+    "response_model": None,
+    "responses": {200: {"model": ScaleResult | ResultV2}},
+    "openapi_extra": _calc_body("ScaleIn", "ScaleRequestV2"),
+}
+
+
+@router.post("/api/calculator/scale", **CALC_SCALE)
 async def calculator_scale(
     request: Request, role: RoleDep, fmt: FormatQuery = "legacy"
 ) -> JSONResponse:
     return _calc_answer(await services.calculator_scale(fmt, await request.body(), role))
 
 
-@router.post(
-    "/api/calculator/export.pdf",
-    response_model=None,
-    responses=PDF_FILE,
-    openapi_extra=_calc_body("RolloutExportV2", "ScaleExportV2"),
-)
+CALC_PDF: dict[str, Any] = {
+    "response_model": None,
+    "responses": PDF_FILE,
+    "openapi_extra": _calc_body("RolloutExportV2", "ScaleExportV2"),
+}
+
+
+@router.post("/api/calculator/export.pdf", **CALC_PDF)
 async def calculator_export_pdf(request: Request, role: RoleDep) -> Response:
     pdf = await services.calculator_export_pdf(await request.body(), role)
     return Response(pdf, media_type="application/pdf")
