@@ -20,6 +20,23 @@ from ml.pipeline.video_clock import FilePTS
 PREPROCESS = 'OPENCV_INTER_LINEAR_RGB_LETTERBOX_PAD114_FLOAT32_DIVIDE_255'
 
 
+def scene_scenario(entry):
+    """Keep the producer's official scenario; never default an unknown scene to fire."""
+    known = {f'S{i:02d}' for i in range(1, 9)}
+    explicit = [entry[k] for k in ('scenario_id', 'official_scenario')
+                if entry.get(k) is not None]
+    if explicit:
+        if any(not isinstance(v, str) or v not in known for v in explicit) or len(set(explicit)) != 1:
+            raise ValueError('invalid or conflicting official scenario metadata')
+        return explicit[0]
+    name = entry['scene_id'].upper()
+    if name.startswith('UR-'):
+        return 'S07'
+    if len(name) > 3 and name[:3] in known and name[3] in '-_':
+        return name[:3]
+    raise ValueError('official scenario metadata required for unrecognized scene ID')
+
+
 def pinned(item):
     path = Path(item['path'])
     if digest(path) != item['sha256'] or ('bytes' in item and path.stat().st_size != item['bytes']):
@@ -32,6 +49,7 @@ def consume(entry, output, snapshot):
     cv2.setNumThreads(1)
     if entry['status'] != 'COMPLETE_BOTH_MODELS':
         raise ValueError('completed model census required')
+    scenario = scene_scenario(entry)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     source = pinned(entry['source_mp4'])
@@ -128,7 +146,7 @@ def consume(entry, output, snapshot):
             raise ValueError('unreported source frames remain')
     finally:
         cap.release()
-    meta = {'scene_id': entry['scene_id'], 'scenario_id': 'S07' if entry['scene_id'].startswith(('ur-', 'S07')) else 'S04',
+    meta = {'scene_id': entry['scene_id'], 'scenario_id': scenario,
         'source': str(source), 'source_sha256': entry['source_mp4']['sha256'], 'source_file': 'matvey_source_original.mp4',
         'source_kind': entry['source_kind'], 'rights': entry['rights'], 'source_original': entry['source_original'],
         'original_frames': len(rows), 'processed_frames': len(rows), 'model_specs': [m[2] for m in models],

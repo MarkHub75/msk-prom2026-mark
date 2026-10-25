@@ -1,3 +1,18 @@
+## FINAL MODEL INTAKE — 25 October
+
+Read docs/handoffs/FINAL_MODEL_INTAKE_20261025.md and
+ml/reports/final-model-intake-20261025.json. Five pretrained weights/DataCPUABI
+received via WEIGHTS_FIRST_READY.v3; new accepted models0 pending Training
+actualONNXparity/video/quality. Fireb916 exact duplicate; retain existingversion.
+NewHelmet/KagglePPE await verification;Forklift n/s have rights hold. Latest
+DataNEEDS_FIX overrides olderREADY forhelmet-evxi3/factory-ms6xz/factory-u8ib6.
+Targeted9f8536d5 now issued and REJECTED,not an unissued model or baseline swap.
+MLimporter preserves officialscenario;S02/lowercaseS07 no longer defaultS04.
+531testsPASS(4skipped). Old expanded handoff accidentally changed via hardlink;
+restored issuedbytes from originalZIP;13working files detached.348old+93private
+payloadSHA pass. No rootNN/GPU/TPU/newstand. Stableconfig/modelversions unchanged.
+08:00MSK=05:00UTC:no newarchitecture;regression/packaging/handoffonly.
+
 ## P0 FINAL ML HANDOFF TO MARK — 25 October
 
 Read docs/handoffs/LINQ_FINAL_LIVE_HANDOFF_20261025.md and FINAL_MODEL_STATUS.md.

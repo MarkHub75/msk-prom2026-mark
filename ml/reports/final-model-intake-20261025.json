@@ -1,0 +1,35 @@
+{
+  "schema": "matvey-final-model-intake-summary-v1",
+  "observed_utc": "2026-10-25T02:10:48.260142+00:00",
+  "main": "94213c5f8177b0fa4a402ebf948a892198d9a4e7",
+  "new_accepted_models": [],
+  "first_pretrained_received": 5,
+  "expected_pretrained": 5,
+  "fire_duplicate_existing_version": "640-s04-v1-4c9f5d05c4d4",
+  "targeted_forklift": "REJECT_9f8536d5",
+  "new_qualified_ModelSpec_or_pipeline_additions": 0,
+  "stable_profile_unchanged": true,
+  "source_COCO_parity": "PASS9realframes0changeddecisions",
+  "ML_adapter_fix": "Preserve actualscenario;S02/lowercaseS07mustnotdefaultS04",
+  "software_tests": {
+    "run": 531,
+    "skipped": 4,
+    "status": "PASS"
+  },
+  "stable_integrity": {
+    "old_payload_files": 348,
+    "private_payload_files": 93,
+    "status": "PASS_AFTER_DOCUMENT_RESTORATION"
+  },
+  "intake_report": "/workspace/artifacts/matvey-release-final/model-intake-v1/INTAKE_STATUS.v3.json",
+  "handoff": "/workspace/artifacts/matvey-release-final/model-intake-v1/MODEL_INTAKE_HANDOFF.v2.md",
+  "root_new_NN_GPU_TPU_calls": 0,
+  "freeze_architecture_UTC": "2026-10-25T05:00:00+00:00",
+  "task_status": "INTAKE_OPEN_WAITING_QUALIFIED_TRAINING_HANDOFF",
+  "provider_snapshot": "/workspace/shared/dataset-handoff/pretrained-five-20261025/WEIGHTS_FIRST_READY.v3.json",
+  "new_data_NEEDS_FIX": [
+    "helmet-evxi3",
+    "factory-ms6xz",
+    "factory-u8ib6"
+  ]
+}
