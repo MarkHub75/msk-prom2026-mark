@@ -1,0 +1,44 @@
+{
+  "families": [
+    "Golos Text",
+    "Oswald"
+  ],
+  "source": "Google Fonts CSS API",
+  "assets": [
+    {
+      "file": "safewatch-0.woff2",
+      "source": "https://fonts.gstatic.com/s/golostext/v7/q5uXsoe9Lv5t7Meb31EcOR9UdVTNs822plVRRQ5c.ttf",
+      "bytes": 64240
+    },
+    {
+      "file": "safewatch-1.woff2",
+      "source": "https://fonts.gstatic.com/s/golostext/v7/q5uXsoe9Lv5t7Meb31EcOR9UdVTNs822plVjRQ5c.ttf",
+      "bytes": 64232
+    },
+    {
+      "file": "safewatch-2.woff2",
+      "source": "https://fonts.gstatic.com/s/golostext/v7/q5uXsoe9Lv5t7Meb31EcOR9UdVTNs822plWPQg5c.ttf",
+      "bytes": 64308
+    },
+    {
+      "file": "safewatch-3.woff2",
+      "source": "https://fonts.gstatic.com/s/golostext/v7/q5uXsoe9Lv5t7Meb31EcOR9UdVTNs822plW2Qg5c.ttf",
+      "bytes": 64160
+    },
+    {
+      "file": "safewatch-4.woff2",
+      "source": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvgUE.ttf",
+      "bytes": 86428
+    },
+    {
+      "file": "safewatch-5.woff2",
+      "source": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUE.ttf",
+      "bytes": 86444
+    },
+    {
+      "file": "safewatch-6.woff2",
+      "source": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUE.ttf",
+      "bytes": 86416
+    }
+  ]
+}

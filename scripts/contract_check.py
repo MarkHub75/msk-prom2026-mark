@@ -108,13 +108,21 @@ def closed_slices(progress: str) -> set[int]:
     return closed
 
 
+FRONT_OWNER = "frontend/FRONT_OWNER"
+
+
 def problems(root: Path) -> tuple[list[str], int, set[int]]:
     rows = trace_rows((root / "tech.md").read_text(encoding="utf-8"))
     closed = closed_slices((root / "progress.md").read_text(encoding="utf-8"))
+    # Egor's front end replaces the minimal one of the trace table: its own layout and tests
+    # (npm run gate) own frontend/, so the table's frontend files are not looked for there.
+    own_front = (root / FRONT_OWNER).is_file()
     found: list[str] = []
     checked = 0
     for row in rows:
         if row.slice not in closed:
+            continue
+        if own_front and row.file.startswith("frontend/"):
             continue
         checked += 1
         where = f"tech.md:{row.line} S{row.slice} «{row.element}»"

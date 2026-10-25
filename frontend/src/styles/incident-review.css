@@ -1,0 +1,21 @@
+.incident-workspace{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(360px,1fr);grid-template-areas:"evidence decision" "observation decision" "history history";gap:20px 22px;align-items:start}
+.incident-workspace>.evidence-panel{grid-area:evidence}
+.incident-workspace>.decision-panel{grid-area:decision}
+.incident-workspace>.observation-panel{grid-area:observation}
+.incident-workspace>.history-panel{grid-area:history}
+.incident-workspace>.decision-panel{border-left:1px solid var(--line-soft);padding-left:20px}
+.incident-workspace>.evidence-panel .evidence-frame{width:min(100%,calc(250px * var(--media-ratio,1.7777778)));margin:0 auto}
+.incident-workspace>.observation-panel .video-frame{width:min(100%,calc(220px * var(--media-ratio)));margin:0 auto}
+.incident-workspace>.evidence-panel .empty-state{min-height:180px}
+.incident-workspace>.history-panel{border-top:1px solid var(--line);padding-top:16px}
+.incident-workspace>.observation-panel .panel-heading{margin-bottom:8px}
+.incident-page:not(.master-detail) .incident-workspace .panel-heading{padding-top:9px;padding-bottom:9px}
+.incident-page:not(.master-detail) .incident-workspace .server-state{padding-top:12px;padding-bottom:14px}
+.incident-page:not(.master-detail) .incident-workspace .why-section{padding-top:14px;padding-bottom:14px}
+.incident-page:not(.master-detail) .incident-workspace .decision-actions{padding-top:14px}
+.incident-workspace .server-authority,.incident-workspace .evidence-caption,.incident-workspace .observation-note{font-size:12px}
+.incident-workspace .history-rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px}
+.master-detail .report-label{scroll-margin-bottom:160px}
+@media(min-width:1200px) and (min-height:850px){.incident-page:not(.master-detail)>.page-heading{margin-bottom:16px}.incident-page:not(.master-detail) .incident-workspace{gap:14px 22px}}
+@media(max-width:1050px){.incident-workspace{grid-template-columns:minmax(0,1.2fr) minmax(310px,1fr)}.incident-workspace>.decision-panel{padding-left:16px}.incident-workspace>.evidence-panel .evidence-frame,.incident-workspace>.observation-panel .video-frame{width:100%}}
+@media(max-width:760px){.incident-workspace{display:flex;flex-direction:column;gap:22px}.incident-workspace>*{width:100%;min-width:0}.incident-workspace>.decision-panel{border-left:0;padding-left:0}.incident-workspace>.evidence-panel .evidence-frame,.incident-workspace>.observation-panel .video-frame{width:100%}.incident-workspace .history-rail{display:block}.master-detail .incident-workspace{padding-bottom:65px}.master-detail .report-label textarea{min-height:130px}.master-detail .decision-actions:has(.report-label) h3::after{content:"Заполните меры ниже, затем отправьте отчёт";display:block;color:var(--muted);font:400 12px/1.6 'Golos Text',sans-serif;margin-top:9px}}

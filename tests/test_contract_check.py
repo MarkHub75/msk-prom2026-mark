@@ -100,6 +100,15 @@ def test_escaped_pipe_and_s_prefix_are_read(tmp_path: Path) -> None:
     assert (found, checked) == ([], 1)
 
 
+def test_frontend_rows_are_skipped_when_the_front_end_has_its_own_owner(tmp_path: Path) -> None:
+    tech = TECH.replace("`src/app/svc.py`", "`frontend/src/svc.tsx`")
+    root = make(tmp_path, LOG_S1, {"tests/test_n.py": GOOD["tests/test_n.py"]}, tech)
+    assert cc.problems(root)[0] == ["tech.md:7 S1 «note_create»: no file frontend/src/svc.tsx"]
+    (root / "frontend").mkdir()
+    (root / "frontend" / "FRONT_OWNER").write_text("Egor\n", encoding="utf-8")
+    assert cc.problems(root)[:2] == ([], 0)
+
+
 def test_row_without_slice_is_a_generation_error(tmp_path: Path) -> None:
     tech = TECH.replace("| `later` | 3 |", "| `later` | — |")
     with pytest.raises(cc.TraceError, match="has no slice"):
