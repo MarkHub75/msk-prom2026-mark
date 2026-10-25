@@ -48,7 +48,57 @@ def test_eol_check_flags_crlf(tmp_path: Path) -> None:
 def test_openapi_matches_app(settings: Settings) -> None:
     on_disk = json.loads((CONTRACT / "openapi.json").read_text(encoding="utf-8"))
     assert on_disk == create_app(settings).openapi()
-    assert on_disk["info"]["version"] == CONTRACT_VERSION == "1.1.0"
+    assert on_disk["info"]["version"] == CONTRACT_VERSION == "1.2.0"
+
+
+def test_openapi_keeps_1_1_0() -> None:
+    """Calculator v2 (contract 2.0.0 К12): every 1.1.0 operation, schema, property, required
+    field and enum stays as it was; the calculator bodies and answers only gain a v2 variant."""
+    old = json.loads((CONTRACT / "openapi.1.1.0.json").read_text(encoding="utf-8"))
+    new = json.loads((CONTRACT / "openapi.json").read_text(encoding="utf-8"))
+    changed = []
+    for path, methods in old["paths"].items():
+        for method, op in methods.items():
+            got = new["paths"].get(path, {}).get(method)
+            if got is None or got["operationId"] != op["operationId"]:
+                changed.append(f"{method} {path}")
+    schemas = new["components"]["schemas"]
+    for name, schema in old["components"]["schemas"].items():
+        props = schemas.get(name, {}).get("properties", {})
+        changed += [
+            f"{name}.{f}" for f, s in schema.get("properties", {}).items() if props.get(f) != s
+        ]
+        if not set(schema.get("required", [])) <= set(schemas.get(name, {}).get("required", [])):
+            changed.append(f"{name}.required")
+        if "enum" in schema and schemas.get(name, {}).get("enum") != schema["enum"]:
+            changed.append(f"{name}.enum")
+    assert changed == []
+    for path, legacy, v2 in (
+        (
+            "/api/calculator/rollout",
+            ("RolloutIn", "RolloutResult"),
+            ("RolloutRequestV2", "ResultV2"),
+        ),
+        ("/api/calculator/scale", ("ScaleIn", "ScaleResult"), ("ScaleRequestV2", "ResultV2")),
+    ):
+        op = new["paths"][path]["post"]
+        body = op["requestBody"]["content"]["application/json"]["schema"]["anyOf"]
+        answer = op["responses"]["200"]["content"]["application/json"]["schema"]["anyOf"]
+        assert [r["$ref"].rsplit("/", 1)[1] for r in body] == [legacy[0], v2[0]]
+        assert [r["$ref"].rsplit("/", 1)[1] for r in answer] == [legacy[1], v2[1]]
+        fmt = next(p for p in op["parameters"] if p["name"] == "format")["schema"]
+        assert (fmt["enum"], fmt["default"]) == (["legacy", "v2"], "legacy")
+    assert "CalcAssumption" in schemas and schemas["CalcAssumption"]["properties"]["value"] == {
+        "title": "Value", "type": "number",
+    }  # fmt: skip
+    assert schemas["ResultV2"]["properties"]["format"]["const"] == "v2"
+    assert (
+        "application/pdf"
+        in new["paths"]["/api/calculator/export.pdf"]["post"]["responses"]["200"]["content"]
+    )
+    for name in ("RolloutExportV2", "ScaleExportV2"):
+        refs = json.dumps(schemas[name])
+        assert all(r.split('"')[0] in schemas for r in refs.split("#/components/schemas/")[1:])
 
 
 def test_openapi_only_grows() -> None:

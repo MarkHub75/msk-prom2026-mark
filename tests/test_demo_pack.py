@@ -77,7 +77,7 @@ def test_build_writes_manifest_and_artifacts(
     before = _counts()
     out = _build(tmp_path, monkeypatch)
     manifest = demo.read_manifest(out / demo.MANIFEST)
-    assert manifest.name == "argus" and manifest.contract == "1.1.0"
+    assert manifest.name == "argus" and manifest.contract == "1.2.0"
     assert [c.name for c in manifest.cameras] == [SEED_CAMERA, NEW_CAMERA]
     video = manifest.cameras[0].videos[0]
     assert video.file == "videos/demo.mp4" and (out / video.file).is_file()

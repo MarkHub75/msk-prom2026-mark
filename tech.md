@@ -2,9 +2,10 @@
 
 ## 0. Версия
 
-**Версия: v11** (2026-10-25)
+**Версия: v12** (2026-10-25)
 
 Changelog:
+- v12 (UPGRADE v3, этап 3, 25.10): калькулятор v2 по договору `docs/contracts/calculator_v2.md` 2.0.0 (копия файла Егора), API 1.2.0 — только добавления. `POST /api/calculator/rollout` и `/scale` выбирают формат по `?format=legacy|v2` (по умолчанию legacy 1.1.0), тело и ответ в OpenAPI — `anyOf`; `GET /api/calculator/defaults` получает обязательное `v2: DefaultsV2`; `POST /api/calculator/export.pdf` объявлен и отвечает 501, пока `calculator_v2.pdf_available` выключен. Одно ядро `calculator.py` (нагрузка К6, подбор плат и серверов К7, деньги и пороги К8, ступени и кривая) считает оба формата: legacy — адаптер К12, оборудование 8 камер теперь 3 платы и 1 сервер, а не 16 и 4. Новая секция конфига `calculator_v2` (8.25.1). Снимок `contract/openapi.1.1.0.json` защищает прежние операции, поля, required и enum. Передача — `docs/handoff/upgrade-v3-stage-3.md`.
 - v11 (UPGRADE v3, этап 2, 25.10): «одно происшествие — одна тревога». `broadcast.loop_default: false`: эфир без явного `loop` (автостарт, демо, вкладка «Эфир» камеры) проигрывается один раз; круг — только явным `loop: true`, ручной перезапуск — новый показ с новыми событиями. Фронт: карточка события не прячется на время обновления по WS (захват и кнопки больше не размонтируются), повтор уведомления с тем же `id` не включает сирену и навигацию снова. Зона «Проезд погрузчиков» камеры 1.3 пакета `argus-real-v2` по смыслу `vehicle_path`, не `danger` (ложное красное на идущем человеке). Регрессии `tests/test_one_alarm.py`. API и WS без изменений, контракт 1.1.0.
 - v10 (UPGRADE v3, этап 1, 25.10): фронт Егора из PR #36 становится основным; Docker хранит SQLite в отдельном именованном томе, монтирует пользовательский конфиг read-only и не переопределяет URL LinQ. Проверка реального пакета, production-медиа/WS и пользовательского пути обязательна; результат и внешние ограничения — `docs/handoff/upgrade-v3-stage-1.md`. Этапы 2 (дедупликация, аудит, сценарии) и 3 (калькулятор v2) ещё не реализованы, API остаётся 1.1.0.
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
@@ -2562,7 +2563,7 @@ models:
 | реестр: pose 640 | 0 | `registry` | `config/models.yaml` | `linq_program: mosprom_pose640_cut_ap9999_b1_o1_h1m.tpu` | `tests/test_config.py::test_models_registry_resolves_active_models` |
 | реестр: детектор 960 | 0 | `registry` | `config/models.yaml` | `linq_program: mosprom_det960_cut_ap9999_b1_o1_h1m.tpu` | `tests/test_config.py::test_models_registry_resolves_active_models` |
 | `registry.load_models` | 0 | `services`, `doctor` | `src/safewatch/registry.py` | `def load_models(` | `tests/test_config.py::test_models_registry_resolves_active_models` |
-| константа `CONTRACT_VERSION` (v5: 1.1.0) | 16 | `api`, контракт | `src/safewatch/api.py` | `CONTRACT_VERSION = "1.1.0"` | `tests/test_api_skeleton.py::test_health_ok` |
+| константа `CONTRACT_VERSION` (v5: 1.1.0, v12: 1.2.0) | 16 | `api`, контракт | `src/safewatch/api.py` | `CONTRACT_VERSION = "1.2.0"` | `tests/test_api_skeleton.py::test_health_ok` |
 | константа `BROWSER_CODECS` | 2 | `probe_video` | `src/safewatch/media.py` | `BROWSER_CODECS = (` | `tests/test_videos.py::test_upload_probes_and_queues_job` |
 | константа `CACHE_SCHEMA` | 2 | `cache_key` | `src/safewatch/inference/artifacts.py` | `CACHE_SCHEMA = "jsonl-v1"` | `tests/test_jobs.py::test_cache_hit_skips_remote` |
 | константа `CLIENT_QUEUE` | 0 | `hub` | `src/safewatch/hub.py` | `CLIENT_QUEUE = 1000` | `tests/test_hub.py::test_queue_overflow_drops_client` |
@@ -2735,7 +2736,7 @@ models:
 | v5: поле `ModelSpec.input_name` | 16 | бэкенды | `src/safewatch/types.py` | `input_name: str = "images"` | `tests/test_contract_files.py::test_v5_fields_present` |
 | v5: `LogAction` `identified` | 16 | журнал действий | `src/safewatch/types.py` | `"identified"` | `tests/test_contract_files.py::test_v5_fields_present` |
 | v5: `Channel.kind` `call` | 16 | экран IT | `src/safewatch/types.py` | `kind: Literal["ws", "webhook", "call"]` | `tests/test_contract_files.py::test_v5_fields_present` |
-| v5: файл `contract/openapi.json` 1.1.0 | 16 | фронт Егора | `contract/openapi.json` | `"version": "1.1.0"` | `tests/test_contract_files.py::test_openapi_matches_app` |
+| v5: файл `contract/openapi.json` 1.1.0, v12: 1.2.0 | 16 | фронт Егора | `contract/openapi.json` | `"version": "1.2.0"` | `tests/test_contract_files.py::test_openapi_matches_app` |
 | v5: конфиг, секции v5 | 16 | `config.py` | `src/safewatch/config.py` | `class AutocalConfig(_Section):` | `tests/test_config.py::test_v5_sections_load` |
 | v5: `services.demo_import` | 17 | CLI `demo import`, `serve --seed` | `src/safewatch/services.py` | `def demo_import(` | `tests/test_demo_pack.py::test_import_creates_world_without_inference` |
 | v5: `services.demo_build` | 17 | CLI `demo build` | `src/safewatch/services.py` | `def demo_build(` | `tests/test_demo_pack.py::test_build_writes_manifest_and_artifacts` |
@@ -2802,14 +2803,23 @@ models:
 | v5: `services.calculator_rollout` | 24 | `POST /api/calculator/rollout` | `src/safewatch/services.py` | `def calculator_rollout(` | `tests/test_calculator.py::test_rollout_three_tiers_formulas` |
 | v5: `services.calculator_scale` | 24 | `POST /api/calculator/scale` | `src/safewatch/services.py` | `def calculator_scale(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
 | v5: `GET /api/calculator/defaults` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.get("/api/calculator/defaults")` | `tests/test_calculator.py::test_defaults_list_sources` |
-| v5: `POST /api/calculator/rollout` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/rollout")` | `tests/test_calculator.py::test_roles` |
-| v5: `POST /api/calculator/scale` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/scale")` | `tests/test_calculator.py::test_roles` |
+| v5: `POST /api/calculator/rollout` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/rollout"` | `tests/test_calculator.py::test_roles` |
+| v5: `POST /api/calculator/scale` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/scale"` | `tests/test_calculator.py::test_roles` |
 | v5: секция `calculator` | 24 | `calculator` | `config/default.yaml` | `- key: accelerator.capacity_fps` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
 | v7: пример `services.CALC_EXAMPLE` | 24 | `calculator_defaults` | `src/safewatch/services.py` | `CALC_EXAMPLE = RolloutIn(` | `tests/test_calculator.py::test_defaults_list_sources` |
 | v7: `services.CALC_DIVISORS` | 24 | `_calc_assumptions` | `src/safewatch/services.py` | `CALC_DIVISORS = frozenset(` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
 | v7: текст `CALC_OVERRIDDEN` | 24 | `_calc_assumptions` | `src/safewatch/texts.py` | `CALC_OVERRIDDEN = ` | `tests/test_calculator.py::test_overrides_and_unknown_key` |
 | v7: `store.linq_metrics` | 24 | `calculator_defaults`, `calculator_scale` | `src/safewatch/store.py` | `def linq_metrics(` | `tests/test_calculator.py::test_scale_accelerators_from_measured` |
 | v7: `store.broadcast_event_counts` | 24 | `calculator_defaults`, `calculator_rollout` | `src/safewatch/store.py` | `def broadcast_event_counts(` | `tests/test_calculator.py::test_defaults_list_sources` |
+| v12: ядро v2 `calculator.calculate` | 24 | `services._v2_result` | `src/safewatch/calculator.py` | `def calculate(` | `tests/test_calculator_v2.py::test_k14_rollout_scale_partial_examples` |
+| v12: нагрузка К6 `calculator.load_of` | 24 | `calculate`, legacy | `src/safewatch/calculator.py` | `def load_of(` | `tests/test_calculator_v2.py::test_k13_load_vectors` |
+| v12: подбор К7 `calculator.select` | 24 | `calculate`, legacy | `src/safewatch/calculator.py` | `def select(` | `tests/test_calculator_v2.py::test_board_choice_price_zero_unknown_and_ties` |
+| v12: пороги К8 `calculator.price_threshold` | 24 | `tier_result` | `src/safewatch/calculator.py` | `def price_threshold(` | `tests/test_calculator_v2.py::test_price_threshold_states` |
+| v12: валидация v2 `calculator.validate` | 24 | `services._v2_result` | `src/safewatch/calculator.py` | `def validate(` | `tests/test_calculator_v2.py::test_validation_errors` |
+| v12: `POST /api/calculator/export.pdf` | 24 | экран калькулятора Егора | `src/safewatch/api.py` | `@router.post("/api/calculator/export.pdf"` | `tests/test_calculator_v2.py::test_roles_and_pdf` |
+| v12: секция `calculator_v2` | 24 | `services._v2_bodies` | `config/default.yaml` | `calculator_v2:` | `tests/test_calculator_v2.py::test_defaults_v2_bodies_match_contract` |
+| v12: `store.detector_artifacts` | 24 | замер активности | `src/safewatch/store.py` | `def detector_artifacts(` | `tests/test_calculator_v2.py::test_activity_measurement_applies_only_by_id` |
+| v12: снимок `openapi.1.1.0.json` | 24 | совместимость фронта | `tests/test_contract_files.py` | `def test_openapi_keeps_1_1_0(` | `tests/test_contract_files.py::test_openapi_keeps_1_1_0` |
 | v5: `dataset.build_item` | 25 | `datasets_flush` | `src/safewatch/dataset.py` | `def build_item(` | `tests/test_dataset.py::test_item_files_and_label` |
 | v5: `dataset.export_zip` | 25 | `dataset_export` | `src/safewatch/dataset.py` | `def export_zip(` | `tests/test_dataset.py::test_export_zip_manifest` |
 | v5: `services.datasets_flush` | 25 | `worker` | `src/safewatch/services.py` | `def datasets_flush(` | `tests/test_dataset.py::test_false_alarm_creates_item_once` |
@@ -3393,9 +3403,10 @@ def artifact_import(
     video_id: int, model_ref: str, jsonl: Path, backend: BackendName, fake: bool,
     metrics: InferenceMetrics | None = None,
 ) -> int: ...  # artifact id
-def calculator_defaults() -> CalculatorDefaults: ...
-def calculator_rollout(data: RolloutIn, role: Role | None) -> RolloutResult: ...
-def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult: ...
+async def calculator_defaults() -> CalculatorDefaults: ...  # v12: + v2: DefaultsV2
+async def calculator_rollout(fmt: str, raw: bytes, role: Role | None) -> RolloutResult | ResultV2: ...
+async def calculator_scale(fmt: str, raw: bytes, role: Role | None) -> ScaleResult | ResultV2: ...
+async def calculator_export_pdf(raw: bytes, role: Role | None) -> bytes: ...  # v12: 501
 async def datasets_flush() -> int: ...
 def datasets_view() -> DatasetView: ...
 def dataset_export(out: Path | None = None) -> Path: ...  # zip file
@@ -3415,8 +3426,9 @@ def backend_close() -> None: ...
 | `demo_packs()` | нет | нет | — | — | 17 |
 | `artifact_import(video_id, model_ref, jsonl, backend, fake, metrics)` | artifacts, файл `artifacts/` | `NotFound` (видео, файл), `ValidationFailed` (ссылка не в реестре, JSONL не проходит `read_jsonl`) | — | exit 3, 2 | 17 |
 | `calculator_defaults()` | нет | нет | — | — | 24 |
-| `calculator_rollout(data, role)` | нет | `RoleRequired`, `Forbidden`, `ValidationFailed` (число < 0, `cameras` или `workshops` 0, неизвестный ключ `overrides`) | 400, 403, 422 | — | 24 |
-| `calculator_scale(data, role)` | нет | те же | 400, 403, 422 | — | 24 |
+| `calculator_rollout(fmt, raw, role)` | нет | `RoleRequired`, `Forbidden`, `ValidationFailed` (legacy: число < 0, `cameras` или `workshops` 0, неизвестный ключ `overrides`, `body.<поле>`; v2: `details.field` и `details.reason` по К10; неверный `format` или схема другого формата — `format`/`SCHEMA_MISMATCH`), `Conflict` `calculation_limit` | 400, 403, 422, 409 | — | 24 |
+| `calculator_scale(fmt, raw, role)` | нет | те же | 400, 403, 422, 409 | — | 24 |
+| `calculator_export_pdf(raw, role)` | нет | `RoleRequired`, `Forbidden` по `mode`, `FeatureDisabled` (`PDF_DISABLED`) | 400, 403, 501 | — | 24 |
 | `datasets_flush()` | dataset_items, файлы `datasets/` | нет: ошибка кадра → лог, повтор на следующем тике | — | — | 25 |
 | `datasets_view()` | нет | нет | — | — | 25 |
 | `dataset_export(out)` | файл zip | нет | — | exit 0 | 25 |
@@ -3465,8 +3477,9 @@ def backend_close() -> None: ...
 | --- | --- | --- | --- | --- | --- |
 | `@router.get("/api/demo/packs")` | `demo_packs` | — | `list[DemoPack]` | — | 17 |
 | `@router.get("/api/calculator/defaults")` | `calculator_defaults` | — | `CalculatorDefaults` | — | 24 |
-| `@router.post("/api/calculator/rollout")` | `calculator_rollout` | `RolloutIn`, `X-Role` | `RolloutResult` | 400, 403, 422 | 24 |
-| `@router.post("/api/calculator/scale")` | `calculator_scale` | `ScaleIn`, `X-Role` | `ScaleResult` | 400, 403, 422 | 24 |
+| `@router.post("/api/calculator/rollout")` | `calculator_rollout` | `?format` legacy или v2; `RolloutIn` или `RolloutRequestV2`, `X-Role` | `RolloutResult` или `ResultV2` | 400, 403, 409, 422 | 24 |
+| `@router.post("/api/calculator/scale")` | `calculator_scale` | `?format` legacy или v2; `ScaleIn` или `ScaleRequestV2`, `X-Role` | `ScaleResult` или `ResultV2` | 400, 403, 409, 422 | 24 |
+| `@router.post("/api/calculator/export.pdf")` | `calculator_export_pdf` | `RolloutExportV2` или `ScaleExportV2`, `X-Role` | `application/pdf` | 400, 403, 501 | 24 |
 | `@router.get("/api/datasets/false-alarms")` | `datasets_view` | — | `DatasetView` | — | 25 |
 | `@router.get("/api/datasets/false-alarms/export.zip")` | `dataset_export` | — | `application/zip` | — | 25 |
 | `@router.patch("/api/events/{event_id}/identity")` | `event_identify` | `IdentityIn`, `X-Role`, `X-Actor` | `EventDetail` | 400, 403, 404, 422 | 26 |
@@ -3761,7 +3774,7 @@ def shift_pdf(summary: ShiftSummary, product_name: str, tz: str) -> bytes: ...
 
 - S24, `overrides` заменяет у `CalcAssumption` и `value`, и `source`: `texts.CALC_OVERRIDDEN = "задано в расчёте"` (иначе число пользователя шло бы с подписью конфига).
 - S24, проверка чисел: `ValidationFailed(texts.CALC_INVALID = "Неверное значение: {field}", field=<поле>)`, у `overrides` поле `overrides.<ключ>`; 0 у делителей `accelerator.capacity_fps`, `accelerators_per_server` (`services.CALC_DIVISORS`) тоже 422; `ScaleIn.cameras_now` и `new_cameras` — от 0 (0 текущих — новое внедрение); роль проверяется до чисел.
-- S24, строки расчёта: последний `WhyItem` каждого `TierResult.items` — `("Окупаемость", "<fmt_num> мес.")` или `("Окупаемость", "Не окупается при этих допущениях")`; строки вложений по уровню нарастают (`texts.CALC_ACCELERATORS`, `CALC_SERVERS`, `CALC_INTEGRATION`, `CALC_LIGHT_SOUND`, `CALC_SPEAKERS`, `CALC_NEW_CAMERAS`), `texts.fmt_rub(x)` («500 000 ₽»), количество — целое или `fmt_num`; `texts.CALC_TIER_TITLES` «Базовый», «Расширенный», «Максимальный»; `ScaleResult.items` — добавленные ускорители, серверы, новые камеры; `calculator._ceil` округляет до 9 знаков перед `ceil` (шум float).
+- S24, строки расчёта: последний `WhyItem` каждого `TierResult.items` — `("Окупаемость", "<fmt_num> мес.")` или `("Окупаемость", "Не окупается при этих допущениях")`; строки вложений по уровню нарастают (`texts.CALC_ACCELERATORS`, `CALC_SERVERS`, `CALC_INTEGRATION`, `CALC_LIGHT_SOUND`, `CALC_SPEAKERS`, `CALC_NEW_CAMERAS`), `texts.fmt_rub(x)` («500 000 ₽»), количество — целое или `fmt_num`; `texts.CALC_TIER_TITLES` «Базовый», «Расширенный», «Максимальный»; `ScaleResult.items` — добавленные ускорители, серверы, новые камеры; v12: ядро считает точными дробями (`Fraction`), `ceil` без шума float; legacy-формат без изменений полей.
 - S24, замеры: `store.linq_metrics()` (`metrics_json` артефактов `backend = linq`, `fake = 0`, новые первыми), учитываются только `throughput_fps > 0` (артефакт, импортированный без `metrics`, даёт 0 и делил бы на ноль); `CalculatorDefaults.measured` — ключи `measured.capacity_fps` (медиана, источник `texts.measured_jobs(n)` «замер приложения: N задач»), `measured.tpu_rtt_p50_ms` (медиана `tpu_rtt_p50_ms` последних `RECENT_JOBS` = 20 артефактов), `measured.events_per_camera_day` (`texts.CALC_EVENTS_SOURCE`); нет данных — строки нет; `calculator_scale` берёт `measured.capacity_fps` целиком (значение и подпись).
 - S24 и R25, «живая камера» 8.25 — камера, у которой есть событие эфира в окне: `events_per_camera_day = события / камеры с событиями / stats.default_days`, окно `[now − default_days, now)` по `started_at`, `store.broadcast_event_counts(start, end) -> Row(events, cameras)`; подпись `CALC_EVENTS_SOURCE` так и говорит («на камеру с событиями»). R25 оставил это чтение: камеру «в эфире» в окне точно не посчитать — у строки `broadcasts` со статусом `ended` нет времени конца; тихие камеры в эфире завышают нагрузку на оператора, это сторона запаса.
 - S24, подпись примера «пример для демо, замените своими» показывает экран Егора: у `CalculatorDefaults` поля под неё нет, текст в `texts` не заведён (был бы мёртвым кодом); пример завода — `services.CALC_EXAMPLE`, `ScaleIn` — 8 + 8. На допущениях 6.11.8 пример даёт базовый уровень «не окупается» (экономия 1 200 000 ₽ ≤ поддержка 1 455 000 ₽ в год), расширенный — 377,1 мес., максимальный — 134,8 мес.: это расчёт по контракту, числа для показа меняет владелец (`config/user.yaml` или `overrides`).
@@ -4280,6 +4293,18 @@ HUD (было → стало 8.2 п. 8): «≈2,9 м/с (авто)» и «бег
 Режим «Масштабирование» (`calculator_scale`, роли management, admin): `capacity_fps` — медиана `throughput_fps` артефактов `backend = linq`, `fake = 0` (подпись «замер приложения: N задач»), нет таких — `A[accelerator.capacity_fps]` с его источником; `accelerators_now` и `accelerators_total` — формула выше для `cameras_now` и `cameras_now + new_cameras`; `servers_total`; `capex = (accelerators_total − accelerators_now) × price + (servers_total − servers(cameras_now)) × server.price + new_cameras × new_camera_rub`.
 
 `calculator_defaults`: пример завода (`RolloutIn`: 2 цеха, 8 камер, 2 смены, 200 работников, 2 оператора, 4 инцидента в год, простой 500 000 ₽, штраф 200 000 ₽, лечение 300 000 ₽, суды 500 000 ₽ — подпись «пример для демо, замените своими»), `ScaleIn` (8 + 8), допущения и `measured` (замер пропускной способности, RTT p50 последних задач LinQ, события на камеру в день). Экран делает Егор.
+
+v12: оборудование обоих режимов legacy считает ядро v2 (8.25.1, договор К12): нагрузка по пику активности, а не `cameras × fps × models / capacity`; `models_per_frame = M` — одна группа с весами `d = min(1, M)`, `x = max(0, M − 1)`; `accelerator.capacity_fps` — справка для «как раньше», явный override — эффективная ёмкость чипа этого расчёта; `accelerators_per_server` — нижняя граница серверов `ceil(chips / A)`, затем максимум с CPU; `opex_year` = поддержка + электроэнергия купленного оборудования; legacy scale: нынешний инвентарь — оптимальный план нынешних камер, `capacity_fps` — эффективная ёмкость `C`. Формулы выше — история S24.
+
+### 8.25.1 Калькулятор v2 (UPGRADE v3, этап 3)
+
+Договор — `docs/contracts/calculator_v2.md` 2.0.0, дословная копия файла Егора `calculator_contract_egor.md` (блок `calculator-contract:begin … end` совпадает побайтово с промптом этапа 3). Имена, формулы, статусы и ошибки — оттуда, здесь только размещение.
+
+- `calculator.py` — чистые функции: `validate`/`validate_profile`/`validate_scope` (К3, К4, К10), `load_of` (К6), `select` (К7: ограниченный точный перебор `combos`, бюджет `SEARCH_BUDGET` → 409), `calculate` → `ResultV2` (уровни `tier_calc`/`tier_result`, `payback_of`, `severe_threshold`, `price_threshold`, `scale_curve`, ступени `greenfield`), `Evidence` (К5), адаптер legacy `rollout`/`scale` (К12).
+- `services`: `calculator_defaults` (async) собирает `DefaultsV2`: тела по умолчанию и пресеты из `calculator_v2`, каталог моделей из `config/models.yaml` (`kind` по `task` и классу `person`, вес только из `calculator_v2.models`), платы, источники конфига и собственные (`argus_linq_artifacts`, `argus_linq_jobs`, `argus_journal`), замеры (`activity_share` — медиана по камерам доли кадров детектора LinQ `fake = 0` с человеком `score ≥ tracker.high_thresh`, один артефакт на камеру и видео, `store.detector_artifacts`; файлы читаются в `asyncio.to_thread` с кэшем по артефакту; id замера — хэш содержимого), `system_profile`. Профиль `system` — неудалённые камеры (без `is_demo`, если не `include_seed`), модели по включённым правилам: детектор всегда, поза для `calculator_v2.pose_scenarios`, extra по классам; нет модели — модель `missing:<класс>` с неизвестным весом и `SCENARIO_MODEL_MISSING`.
+- Разбор тела: v2 — строгая закрытая модель (`extra=forbid`, `strict`, без NaN), ошибка → `details.field` без `body.` и `details.reason`; legacy — прежний разбор с `body.<поле>`; тело с `contract_version` в legacy и без него в v2 → 422 `format`/`SCHEMA_MISMATCH`. Роль проверяется до тела. Расчёт — в `asyncio.to_thread`.
+- Конфиг `calculator_v2` (`config.CalculatorV2Config`): `site`, `load`, `hardware`, `costs`, `benefits` (типы запроса), `group_models`, `rollout_cameras`, `scale_current_cameras`, `scale_added_cameras`, `scale_new_camera_count`, `presets`, `platform_capacity_fps`, `pose_scenarios`, `models`, `boards`, `inputs` (подписи и источники полей запроса, `*` — индекс списка), `sources`, `market`, `tracker`, `pdf_available`. Владелец меняет значения в `config/user.yaml`.
+- Не реализовано и выключено честно: трекер (`tracker.available = false`, `detector_stride = 2` → 422 `TRACKER_NOT_VALIDATED`), офлайн-проверка экономии (`offline_economy = null`), PDF (501).
 
 ### 8.26 Ложное срабатывание → датасет (S25)
 

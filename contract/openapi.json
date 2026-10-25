@@ -259,6 +259,126 @@
         "title": "BackendStatus",
         "type": "object"
       },
+      "BenefitInput": {
+        "additionalProperties": false,
+        "properties": {
+          "downtime": {
+            "$ref": "#/components/schemas/DowntimeBenefit"
+          },
+          "fines": {
+            "$ref": "#/components/schemas/FinesBenefit"
+          },
+          "injuries": {
+            "$ref": "#/components/schemas/InjuryBenefit"
+          },
+          "labor": {
+            "$ref": "#/components/schemas/LaborBenefit"
+          },
+          "severe_injury_cost_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Severe Injury Cost Rub"
+          },
+          "sfr_discount": {
+            "$ref": "#/components/schemas/SfrDiscountBenefit"
+          }
+        },
+        "required": [
+          "injuries",
+          "downtime",
+          "fines",
+          "sfr_discount",
+          "labor",
+          "severe_injury_cost_rub"
+        ],
+        "title": "BenefitInput",
+        "type": "object"
+      },
+      "BoardCount": {
+        "additionalProperties": false,
+        "properties": {
+          "board_id": {
+            "title": "Board Id",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "board_id",
+          "count"
+        ],
+        "title": "BoardCount",
+        "type": "object"
+      },
+      "BoardOffer": {
+        "properties": {
+          "chips": {
+            "title": "Chips",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "power_w": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Power W"
+          },
+          "price_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Rub"
+          },
+          "slots": {
+            "title": "Slots",
+            "type": "integer"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "chips",
+          "slots",
+          "power_w",
+          "price_rub",
+          "source_ids"
+        ],
+        "title": "BoardOffer",
+        "type": "object"
+      },
       "Body_video_upload_api_cameras__camera_id__videos_post": {
         "properties": {
           "file": {
@@ -430,13 +550,17 @@
           },
           "scale": {
             "$ref": "#/components/schemas/ScaleIn"
+          },
+          "v2": {
+            "$ref": "#/components/schemas/DefaultsV2"
           }
         },
         "required": [
           "rollout",
           "scale",
           "assumptions",
-          "measured"
+          "measured",
+          "v2"
         ],
         "title": "CalculatorDefaults",
         "type": "object"
@@ -1300,6 +1424,112 @@
         "title": "ControlPoint",
         "type": "object"
       },
+      "CostInput": {
+        "additionalProperties": false,
+        "properties": {
+          "electricity_rub_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Electricity Rub Kwh"
+          },
+          "integration_fixed_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Integration Fixed Rub"
+          },
+          "integration_per_camera_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Integration Per Camera Rub"
+          },
+          "max_additional_camera_share": {
+            "title": "Max Additional Camera Share",
+            "type": "number"
+          },
+          "new_camera_count": {
+            "title": "New Camera Count",
+            "type": "integer"
+          },
+          "new_camera_unit_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Camera Unit Rub"
+          },
+          "operating_hours_year": {
+            "title": "Operating Hours Year",
+            "type": "number"
+          },
+          "signal_unit_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signal Unit Rub"
+          },
+          "signal_zones_per_camera": {
+            "title": "Signal Zones Per Camera",
+            "type": "number"
+          },
+          "speaker_per_workshop_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speaker Per Workshop Rub"
+          },
+          "support_share_year": {
+            "title": "Support Share Year",
+            "type": "number"
+          }
+        },
+        "required": [
+          "integration_fixed_rub",
+          "integration_per_camera_rub",
+          "support_share_year",
+          "electricity_rub_kwh",
+          "operating_hours_year",
+          "signal_zones_per_camera",
+          "signal_unit_rub",
+          "speaker_per_workshop_rub",
+          "new_camera_unit_rub",
+          "new_camera_count",
+          "max_additional_camera_share"
+        ],
+        "title": "CostInput",
+        "type": "object"
+      },
       "CountRow": {
         "properties": {
           "confirmed": {
@@ -1331,6 +1561,67 @@
           "false_alarm"
         ],
         "title": "CountRow",
+        "type": "object"
+      },
+      "CurvePoint": {
+        "properties": {
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chips"
+          },
+          "rub_per_camera_month": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rub Per Camera Month"
+          },
+          "servers": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Servers"
+          },
+          "tco_3_year_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tco 3 Year Rub"
+          }
+        },
+        "required": [
+          "cameras",
+          "chips",
+          "servers",
+          "tco_3_year_rub",
+          "rub_per_camera_month"
+        ],
+        "title": "CurvePoint",
         "type": "object"
       },
       "DatasetItem": {
@@ -1430,6 +1721,120 @@
           "false_alarm"
         ],
         "title": "DayRow",
+        "type": "object"
+      },
+      "DefaultsV2": {
+        "properties": {
+          "assumptions": {
+            "items": {
+              "$ref": "#/components/schemas/NumericEvidence"
+            },
+            "title": "Assumptions",
+            "type": "array"
+          },
+          "boards": {
+            "items": {
+              "$ref": "#/components/schemas/BoardOffer"
+            },
+            "title": "Boards",
+            "type": "array"
+          },
+          "contract_version": {
+            "const": "2.0.0",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "features": {
+            "$ref": "#/components/schemas/FeaturesV2"
+          },
+          "format": {
+            "const": "v2",
+            "title": "Format",
+            "type": "string"
+          },
+          "formula_version": {
+            "const": "argus-calc-2.0",
+            "title": "Formula Version",
+            "type": "string"
+          },
+          "limits": {
+            "items": {
+              "$ref": "#/components/schemas/FieldLimit"
+            },
+            "title": "Limits",
+            "type": "array"
+          },
+          "market": {
+            "items": {
+              "$ref": "#/components/schemas/MarketReference"
+            },
+            "title": "Market",
+            "type": "array"
+          },
+          "measurements": {
+            "items": {
+              "$ref": "#/components/schemas/Measurement"
+            },
+            "title": "Measurements",
+            "type": "array"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelLoad"
+            },
+            "title": "Models",
+            "type": "array"
+          },
+          "notices": {
+            "items": {
+              "$ref": "#/components/schemas/Notice"
+            },
+            "title": "Notices",
+            "type": "array"
+          },
+          "presets": {
+            "items": {
+              "$ref": "#/components/schemas/PresetV2"
+            },
+            "title": "Presets",
+            "type": "array"
+          },
+          "rollout": {
+            "$ref": "#/components/schemas/RolloutRequestV2"
+          },
+          "scale": {
+            "$ref": "#/components/schemas/ScaleRequestV2"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceRecord"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "system_profile": {
+            "$ref": "#/components/schemas/ResolvedProfile"
+          }
+        },
+        "required": [
+          "format",
+          "contract_version",
+          "formula_version",
+          "rollout",
+          "scale",
+          "presets",
+          "system_profile",
+          "models",
+          "boards",
+          "assumptions",
+          "measurements",
+          "market",
+          "features",
+          "limits",
+          "sources",
+          "notices"
+        ],
+        "title": "DefaultsV2",
         "type": "object"
       },
       "Delivery": {
@@ -1555,6 +1960,60 @@
           "imported_at"
         ],
         "title": "DemoPack",
+        "type": "object"
+      },
+      "DowntimeBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "day_cost_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Day Cost Rub"
+          },
+          "days_per_event": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days Per Event"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "events_year": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Events Year"
+          },
+          "reduction": {
+            "$ref": "#/components/schemas/TierShares"
+          }
+        },
+        "required": [
+          "enabled",
+          "events_year",
+          "days_per_event",
+          "day_cost_rub",
+          "reduction"
+        ],
+        "title": "DowntimeBenefit",
         "type": "object"
       },
       "Episode": {
@@ -1696,6 +2155,49 @@
           "evidence"
         ],
         "title": "Episode",
+        "type": "object"
+      },
+      "EquipmentState": {
+        "properties": {
+          "boards": {
+            "items": {
+              "$ref": "#/components/schemas/BoardCount"
+            },
+            "title": "Boards",
+            "type": "array"
+          },
+          "chips": {
+            "title": "Chips",
+            "type": "integer"
+          },
+          "power_w": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Power W"
+          },
+          "servers": {
+            "title": "Servers",
+            "type": "integer"
+          },
+          "used_slots": {
+            "title": "Used Slots",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "boards",
+          "chips",
+          "servers",
+          "used_slots",
+          "power_w"
+        ],
+        "title": "EquipmentState",
         "type": "object"
       },
       "EventAction": {
@@ -2245,6 +2747,300 @@
         "title": "FacetItem",
         "type": "object"
       },
+      "FeaturesV2": {
+        "properties": {
+          "offline_economy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OfflineEconomy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pdf_available": {
+            "title": "Pdf Available",
+            "type": "boolean"
+          },
+          "tracker": {
+            "$ref": "#/components/schemas/TrackerFeature"
+          }
+        },
+        "required": [
+          "tracker",
+          "pdf_available",
+          "offline_economy"
+        ],
+        "title": "FeaturesV2",
+        "type": "object"
+      },
+      "FieldLimit": {
+        "properties": {
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "integer": {
+            "title": "Integer",
+            "type": "boolean"
+          },
+          "max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max"
+          },
+          "min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min"
+          }
+        },
+        "required": [
+          "field",
+          "min",
+          "max",
+          "integer"
+        ],
+        "title": "FieldLimit",
+        "type": "object"
+      },
+      "FineItem": {
+        "additionalProperties": false,
+        "properties": {
+          "amount_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount Rub"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "inspection_probability_year": {
+            "title": "Inspection Probability Year",
+            "type": "number"
+          },
+          "reduction": {
+            "$ref": "#/components/schemas/TierShares"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "inspection_probability_year",
+          "amount_rub",
+          "reduction"
+        ],
+        "title": "FineItem",
+        "type": "object"
+      },
+      "FinesBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FineItem"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "enabled",
+          "items"
+        ],
+        "title": "FinesBenefit",
+        "type": "object"
+      },
+      "HardwareInput": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_board_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Allowed Board Ids",
+            "type": "array"
+          },
+          "board_price_overrides": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Board Price Overrides",
+            "type": "object"
+          },
+          "server": {
+            "$ref": "#/components/schemas/ServerInput"
+          }
+        },
+        "required": [
+          "allowed_board_ids",
+          "board_price_overrides",
+          "server"
+        ],
+        "title": "HardwareInput",
+        "type": "object"
+      },
+      "HardwareResult": {
+        "properties": {
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "board_capex_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Board Capex Rub"
+          },
+          "inventory_basis": {
+            "enum": [
+              "none",
+              "provided",
+              "estimated"
+            ],
+            "title": "Inventory Basis",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "purchase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "required_after_chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required After Chips"
+          },
+          "required_before_chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Before Chips"
+          },
+          "selection": {
+            "enum": [
+              "priced_optimum",
+              "technical_only",
+              "unresolved"
+            ],
+            "title": "Selection",
+            "type": "string"
+          },
+          "server_capex_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Capex Rub"
+          },
+          "spare_chips_after": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spare Chips After"
+          }
+        },
+        "required": [
+          "selection",
+          "inventory_basis",
+          "before",
+          "purchase",
+          "after",
+          "required_before_chips",
+          "required_after_chips",
+          "spare_chips_after",
+          "board_capex_rub",
+          "server_capex_rub",
+          "note"
+        ],
+        "title": "HardwareResult",
+        "type": "object"
+      },
       "Health": {
         "properties": {
           "contract": {
@@ -2603,6 +3399,91 @@
         "title": "InferenceMetrics",
         "type": "object"
       },
+      "InjuryBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "annual_injured_workers": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Annual Injured Workers"
+          },
+          "cost_per_injured_worker_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Per Injured Worker Rub"
+          },
+          "cost_scope": {
+            "enum": [
+              "direct_only",
+              "all_in"
+            ],
+            "title": "Cost Scope",
+            "type": "string"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "rate_per_1000": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate Per 1000"
+          },
+          "reduction": {
+            "$ref": "#/components/schemas/TierShares"
+          }
+        },
+        "required": [
+          "enabled",
+          "annual_injured_workers",
+          "rate_per_1000",
+          "cost_per_injured_worker_rub",
+          "cost_scope",
+          "reduction"
+        ],
+        "title": "InjuryBenefit",
+        "type": "object"
+      },
+      "InstalledInventory": {
+        "additionalProperties": false,
+        "properties": {
+          "boards": {
+            "items": {
+              "$ref": "#/components/schemas/BoardCount"
+            },
+            "title": "Boards",
+            "type": "array"
+          },
+          "servers": {
+            "title": "Servers",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "boards",
+          "servers"
+        ],
+        "title": "InstalledInventory",
+        "type": "object"
+      },
       "Job": {
         "properties": {
           "analysis_id": {
@@ -2878,6 +3759,64 @@
         "title": "JournalFacets",
         "type": "object"
       },
+      "LaborBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "monetize": {
+            "title": "Monetize",
+            "type": "boolean"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/LaborRow"
+            },
+            "title": "Rows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "monetize",
+          "rows"
+        ],
+        "title": "LaborBenefit",
+        "type": "object"
+      },
+      "LaborRow": {
+        "additionalProperties": false,
+        "properties": {
+          "hour_cost_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hour Cost Rub"
+          },
+          "hours_saved_year": {
+            "title": "Hours Saved Year",
+            "type": "number"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "hours_saved_year",
+          "hour_cost_rub"
+        ],
+        "title": "LaborRow",
+        "type": "object"
+      },
       "LatencyStats": {
         "properties": {
           "notify_delay_s": {
@@ -2921,6 +3860,228 @@
         "title": "LevelMeta",
         "type": "object"
       },
+      "LoadInput": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_measurement_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Activity Measurement Id"
+          },
+          "activity_share": {
+            "title": "Activity Share",
+            "type": "number"
+          },
+          "capacity_derate": {
+            "title": "Capacity Derate",
+            "type": "number"
+          },
+          "cpu_basis": {
+            "enum": [
+              "inclusive",
+              "split"
+            ],
+            "title": "Cpu Basis",
+            "type": "string"
+          },
+          "cpu_ms_per_unit": {
+            "title": "Cpu Ms Per Unit",
+            "type": "number"
+          },
+          "decode_cores_per_camera": {
+            "title": "Decode Cores Per Camera",
+            "type": "number"
+          },
+          "detector_stride": {
+            "enum": [
+              1,
+              2
+            ],
+            "title": "Detector Stride",
+            "type": "integer"
+          },
+          "idle_check_s": {
+            "title": "Idle Check S",
+            "type": "number"
+          },
+          "model_cost_overrides": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Model Cost Overrides",
+            "type": "object"
+          },
+          "peak_mode": {
+            "enum": [
+              "independent_p95",
+              "all_active"
+            ],
+            "title": "Peak Mode",
+            "type": "string"
+          },
+          "platform_capacity_override_fps": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform Capacity Override Fps"
+          },
+          "priority_cameras_reserve": {
+            "title": "Priority Cameras Reserve",
+            "type": "integer"
+          },
+          "reference_chip_fps": {
+            "title": "Reference Chip Fps",
+            "type": "number"
+          },
+          "surge_fps": {
+            "title": "Surge Fps",
+            "type": "number"
+          },
+          "target_fps": {
+            "title": "Target Fps",
+            "type": "number"
+          }
+        },
+        "required": [
+          "activity_share",
+          "activity_measurement_id",
+          "target_fps",
+          "surge_fps",
+          "idle_check_s",
+          "peak_mode",
+          "priority_cameras_reserve",
+          "detector_stride",
+          "reference_chip_fps",
+          "capacity_derate",
+          "platform_capacity_override_fps",
+          "model_cost_overrides",
+          "cpu_basis",
+          "cpu_ms_per_unit",
+          "decode_cores_per_camera"
+        ],
+        "title": "LoadInput",
+        "type": "object"
+      },
+      "LoadResult": {
+        "properties": {
+          "active_p95": {
+            "title": "Active P95",
+            "type": "integer"
+          },
+          "basis": {
+            "enum": [
+              "independent_p95",
+              "all_active"
+            ],
+            "title": "Basis",
+            "type": "string"
+          },
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "effective_chip_units_s": {
+            "title": "Effective Chip Units S",
+            "type": "number"
+          },
+          "naive_chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Naive Chips"
+          },
+          "peak_units_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Peak Units S"
+          },
+          "priority_cameras_effective": {
+            "title": "Priority Cameras Effective",
+            "type": "integer"
+          },
+          "required_chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Chips"
+          },
+          "required_cpu_cores": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Cpu Cores"
+          },
+          "required_units_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Units S"
+          },
+          "surge_units_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Surge Units S"
+          }
+        },
+        "required": [
+          "cameras",
+          "active_p95",
+          "priority_cameras_effective",
+          "peak_units_s",
+          "surge_units_s",
+          "required_units_s",
+          "effective_chip_units_s",
+          "required_chips",
+          "required_cpu_cores",
+          "naive_chips",
+          "basis"
+        ],
+        "title": "LoadResult",
+        "type": "object"
+      },
       "ManagementStats": {
         "properties": {
           "top_scenarios": {
@@ -2957,6 +4118,114 @@
         "title": "ManagementStats",
         "type": "object"
       },
+      "ManualCameraProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/ManualGroup"
+            },
+            "title": "Groups",
+            "type": "array"
+          },
+          "source": {
+            "const": "manual",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "cameras",
+          "groups"
+        ],
+        "title": "ManualCameraProfile",
+        "type": "object"
+      },
+      "ManualGroup": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "model_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Model Ids",
+            "type": "array"
+          },
+          "share": {
+            "title": "Share",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "share",
+          "model_ids"
+        ],
+        "title": "ManualGroup",
+        "type": "object"
+      },
+      "MarketReference": {
+        "properties": {
+          "amount_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount Rub"
+          },
+          "billing": {
+            "enum": [
+              "monthly_per_camera",
+              "one_off_per_camera",
+              "project"
+            ],
+            "title": "Billing",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "billing",
+          "amount_rub",
+          "scope",
+          "source_ids"
+        ],
+        "title": "MarketReference",
+        "type": "object"
+      },
       "MasterInbox": {
         "properties": {
           "active": {
@@ -2985,6 +4254,106 @@
           "server_now"
         ],
         "title": "MasterInbox",
+        "type": "object"
+      },
+      "Measurement": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "key": {
+            "enum": [
+              "activity_share",
+              "platform_fps",
+              "rtt_p50_ms",
+              "inflight",
+              "inference_p50_ms",
+              "inference_p90_ms",
+              "events_per_camera_day"
+            ],
+            "title": "Key",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "period_end": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period End"
+          },
+          "period_start": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period Start"
+          },
+          "sample_count": {
+            "title": "Sample Count",
+            "type": "integer"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "measured",
+              "not_measured"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "title",
+          "value",
+          "unit",
+          "status",
+          "period_start",
+          "period_end",
+          "sample_count",
+          "source_ids",
+          "note"
+        ],
+        "title": "Measurement",
         "type": "object"
       },
       "Meta": {
@@ -3062,6 +4431,65 @@
           "scenarios"
         ],
         "title": "Meta",
+        "type": "object"
+      },
+      "ModelLoad": {
+        "properties": {
+          "execution_status": {
+            "enum": [
+              "verified_linq",
+              "local_only",
+              "unverified",
+              "missing"
+            ],
+            "title": "Execution Status",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "detector",
+              "pose",
+              "extra"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "work_units": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Work Units"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "kind",
+          "work_units",
+          "execution_status",
+          "source_ids"
+        ],
+        "title": "ModelLoad",
         "type": "object"
       },
       "ModelSpec": {
@@ -3204,6 +4632,178 @@
         "title": "ModelsView",
         "type": "object"
       },
+      "MoneyLine": {
+        "properties": {
+          "amount_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount Rub"
+          },
+          "evidence_keys": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Evidence Keys",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "included": {
+            "title": "Included",
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "known",
+              "assumed",
+              "derived",
+              "missing",
+              "not_applicable"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "amount_rub",
+          "included",
+          "status",
+          "evidence_keys"
+        ],
+        "title": "MoneyLine",
+        "type": "object"
+      },
+      "Notice": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "field",
+          "message"
+        ],
+        "title": "Notice",
+        "type": "object"
+      },
+      "NumericEvidence": {
+        "properties": {
+          "depends_on": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Depends On",
+            "type": "array"
+          },
+          "formula": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formula"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "known",
+              "assumed",
+              "derived",
+              "missing",
+              "not_applicable"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "value",
+          "unit",
+          "status",
+          "source_ids",
+          "formula",
+          "depends_on",
+          "reason"
+        ],
+        "title": "NumericEvidence",
+        "type": "object"
+      },
       "ObservabilityGap": {
         "properties": {
           "end_ms": {
@@ -3234,6 +4834,66 @@
           "reason"
         ],
         "title": "ObservabilityGap",
+        "type": "object"
+      },
+      "OfflineEconomy": {
+        "properties": {
+          "confirm_shift_p90_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirm Shift P90 Ms"
+          },
+          "full_calls": {
+            "title": "Full Calls",
+            "type": "integer"
+          },
+          "lost_events": {
+            "title": "Lost Events",
+            "type": "integer"
+          },
+          "matched_events": {
+            "title": "Matched Events",
+            "type": "integer"
+          },
+          "new_events": {
+            "title": "New Events",
+            "type": "integer"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "policy_calls": {
+            "title": "Policy Calls",
+            "type": "integer"
+          },
+          "reduction_share": {
+            "title": "Reduction Share",
+            "type": "number"
+          },
+          "report_ref": {
+            "title": "Report Ref",
+            "type": "string"
+          }
+        },
+        "required": [
+          "report_ref",
+          "full_calls",
+          "policy_calls",
+          "reduction_share",
+          "matched_events",
+          "lost_events",
+          "new_events",
+          "confirm_shift_p90_ms",
+          "note"
+        ],
+        "title": "OfflineEconomy",
         "type": "object"
       },
       "OhsStats": {
@@ -3427,6 +5087,56 @@
         "title": "PassportScenario",
         "type": "object"
       },
+      "PaybackResult": {
+        "properties": {
+          "months": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Months"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "within_horizon",
+              "after_horizon",
+              "no_positive_effect",
+              "no_initial_investment",
+              "insufficient_data",
+              "not_applicable"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "within_horizon": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Within Horizon"
+          }
+        },
+        "required": [
+          "status",
+          "months",
+          "within_horizon",
+          "reason"
+        ],
+        "title": "PaybackResult",
+        "type": "object"
+      },
       "PeopleStats": {
         "properties": {
           "by_crew": {
@@ -3518,6 +5228,128 @@
           "p95"
         ],
         "title": "Percentiles",
+        "type": "object"
+      },
+      "PresetV2": {
+        "properties": {
+          "area_m2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area M2"
+          },
+          "id": {
+            "enum": [
+              "workshop",
+              "shop",
+              "plant"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "machines": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Machines"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "rollout": {
+            "$ref": "#/components/schemas/RolloutRequestV2"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "area_m2",
+          "machines",
+          "note",
+          "rollout"
+        ],
+        "title": "PresetV2",
+        "type": "object"
+      },
+      "PriceThreshold": {
+        "properties": {
+          "board_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Board Id"
+          },
+          "boards_to_buy": {
+            "title": "Boards To Buy",
+            "type": "integer"
+          },
+          "current_unit_price_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Unit Price Rub"
+          },
+          "max_unit_price_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Unit Price Rub"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "at_or_below",
+              "already_within",
+              "free_still_insufficient",
+              "not_applicable",
+              "insufficient_data"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "board_id",
+          "boards_to_buy",
+          "max_unit_price_rub",
+          "current_unit_price_rub",
+          "reason"
+        ],
+        "title": "PriceThreshold",
         "type": "object"
       },
       "Provenance": {
@@ -3669,6 +5501,230 @@
         "title": "RateRow",
         "type": "object"
       },
+      "ResolvedGroup": {
+        "properties": {
+          "camera_ids": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Camera Ids",
+            "type": "array"
+          },
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "model_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Model Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "cameras",
+          "camera_ids",
+          "model_ids"
+        ],
+        "title": "ResolvedGroup",
+        "type": "object"
+      },
+      "ResolvedProfile": {
+        "properties": {
+          "cameras": {
+            "title": "Cameras",
+            "type": "integer"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/ResolvedGroup"
+            },
+            "title": "Groups",
+            "type": "array"
+          }
+        },
+        "required": [
+          "cameras",
+          "groups"
+        ],
+        "title": "ResolvedProfile",
+        "type": "object"
+      },
+      "ResolvedV2": {
+        "properties": {
+          "added": {
+            "$ref": "#/components/schemas/ResolvedProfile"
+          },
+          "current": {
+            "$ref": "#/components/schemas/ResolvedProfile"
+          },
+          "input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RolloutRequestV2"
+              },
+              {
+                "$ref": "#/components/schemas/ScaleRequestV2"
+              }
+            ],
+            "title": "Input"
+          },
+          "total": {
+            "$ref": "#/components/schemas/ResolvedProfile"
+          }
+        },
+        "required": [
+          "current",
+          "added",
+          "total",
+          "input"
+        ],
+        "title": "ResolvedV2",
+        "type": "object"
+      },
+      "ResultV2": {
+        "properties": {
+          "contract_version": {
+            "const": "2.0.0",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "cost_scope": {
+            "enum": [
+              "whole_project",
+              "incremental"
+            ],
+            "title": "Cost Scope",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/NumericEvidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "format": {
+            "const": "v2",
+            "title": "Format",
+            "type": "string"
+          },
+          "formula_version": {
+            "const": "argus-calc-2.0",
+            "title": "Formula Version",
+            "type": "string"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareResult"
+          },
+          "horizon_years": {
+            "const": 3,
+            "title": "Horizon Years",
+            "type": "integer"
+          },
+          "load": {
+            "$ref": "#/components/schemas/LoadResult"
+          },
+          "missing": {
+            "items": {
+              "$ref": "#/components/schemas/Notice"
+            },
+            "title": "Missing",
+            "type": "array"
+          },
+          "mode": {
+            "enum": [
+              "rollout",
+              "scale"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "operator_events_per_shift": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operator Events Per Shift"
+          },
+          "resolved": {
+            "$ref": "#/components/schemas/ResolvedV2"
+          },
+          "scale_curve": {
+            "$ref": "#/components/schemas/ScaleCurve"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceRecord"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "estimated",
+              "partial",
+              "empty"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/StepV2"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "tiers": {
+            "items": {
+              "$ref": "#/components/schemas/TierResultV2"
+            },
+            "title": "Tiers",
+            "type": "array"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/Notice"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "format",
+          "contract_version",
+          "formula_version",
+          "mode",
+          "status",
+          "cost_scope",
+          "horizon_years",
+          "resolved",
+          "load",
+          "hardware",
+          "tiers",
+          "steps",
+          "scale_curve",
+          "operator_events_per_shift",
+          "evidence",
+          "sources",
+          "warnings",
+          "missing"
+        ],
+        "title": "ResultV2",
+        "type": "object"
+      },
       "RoleMeta": {
         "properties": {
           "actions": {
@@ -3708,6 +5764,25 @@
           "actions"
         ],
         "title": "RoleMeta",
+        "type": "object"
+      },
+      "RolloutExportV2": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/RolloutRequestV2"
+          },
+          "mode": {
+            "const": "rollout",
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "input"
+        ],
+        "title": "RolloutExportV2",
         "type": "object"
       },
       "RolloutIn": {
@@ -3774,6 +5849,72 @@
           "lawsuit_cost_rub"
         ],
         "title": "RolloutIn",
+        "type": "object"
+      },
+      "RolloutRequestV2": {
+        "additionalProperties": false,
+        "properties": {
+          "benefits": {
+            "$ref": "#/components/schemas/BenefitInput"
+          },
+          "cameras": {
+            "discriminator": {
+              "mapping": {
+                "manual": "#/components/schemas/ManualCameraProfile",
+                "system": "#/components/schemas/SystemCameraProfile"
+              },
+              "propertyName": "source"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ManualCameraProfile"
+              },
+              {
+                "$ref": "#/components/schemas/SystemCameraProfile"
+              }
+            ],
+            "title": "Cameras"
+          },
+          "contract_version": {
+            "const": "2.0.0",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "costs": {
+            "$ref": "#/components/schemas/CostInput"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareInput"
+          },
+          "load": {
+            "$ref": "#/components/schemas/LoadInput"
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id"
+          },
+          "site": {
+            "$ref": "#/components/schemas/SiteInput"
+          }
+        },
+        "required": [
+          "contract_version",
+          "preset_id",
+          "site",
+          "load",
+          "hardware",
+          "costs",
+          "benefits",
+          "cameras"
+        ],
+        "title": "RolloutRequestV2",
         "type": "object"
       },
       "RolloutResult": {
@@ -3873,6 +6014,58 @@
         "title": "RulesScreenView",
         "type": "object"
       },
+      "ScaleCurve": {
+        "properties": {
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/CurvePoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "scope": {
+            "const": "greenfield_reference",
+            "title": "Scope",
+            "type": "string"
+          },
+          "tier": {
+            "const": "base",
+            "title": "Tier",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope",
+          "tier",
+          "points",
+          "note"
+        ],
+        "title": "ScaleCurve",
+        "type": "object"
+      },
+      "ScaleExportV2": {
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/ScaleRequestV2"
+          },
+          "mode": {
+            "const": "scale",
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "input"
+        ],
+        "title": "ScaleExportV2",
+        "type": "object"
+      },
       "ScaleIn": {
         "properties": {
           "cameras_now": {
@@ -3897,6 +6090,102 @@
           "new_cameras"
         ],
         "title": "ScaleIn",
+        "type": "object"
+      },
+      "ScaleRequestV2": {
+        "additionalProperties": false,
+        "properties": {
+          "added": {
+            "discriminator": {
+              "mapping": {
+                "manual": "#/components/schemas/ManualCameraProfile",
+                "system": "#/components/schemas/SystemCameraProfile"
+              },
+              "propertyName": "source"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ManualCameraProfile"
+              },
+              {
+                "$ref": "#/components/schemas/SystemCameraProfile"
+              }
+            ],
+            "title": "Added"
+          },
+          "benefits": {
+            "$ref": "#/components/schemas/BenefitInput"
+          },
+          "contract_version": {
+            "const": "2.0.0",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "costs": {
+            "$ref": "#/components/schemas/CostInput"
+          },
+          "current": {
+            "discriminator": {
+              "mapping": {
+                "manual": "#/components/schemas/ManualCameraProfile",
+                "system": "#/components/schemas/SystemCameraProfile"
+              },
+              "propertyName": "source"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ManualCameraProfile"
+              },
+              {
+                "$ref": "#/components/schemas/SystemCameraProfile"
+              }
+            ],
+            "title": "Current"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareInput"
+          },
+          "installed": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InstalledInventory"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "load": {
+            "$ref": "#/components/schemas/LoadInput"
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id"
+          },
+          "site": {
+            "$ref": "#/components/schemas/SiteInput"
+          }
+        },
+        "required": [
+          "contract_version",
+          "preset_id",
+          "site",
+          "load",
+          "hardware",
+          "costs",
+          "benefits",
+          "current",
+          "added",
+          "installed"
+        ],
+        "title": "ScaleRequestV2",
         "type": "object"
       },
       "ScaleResult": {
@@ -4205,6 +6494,159 @@
         "title": "SectorView",
         "type": "object"
       },
+      "ServerInput": {
+        "additionalProperties": false,
+        "properties": {
+          "power_w": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Power W"
+          },
+          "price_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Rub"
+          },
+          "slots": {
+            "title": "Slots",
+            "type": "integer"
+          },
+          "usable_cpu_cores": {
+            "title": "Usable Cpu Cores",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slots",
+          "usable_cpu_cores",
+          "price_rub",
+          "power_w"
+        ],
+        "title": "ServerInput",
+        "type": "object"
+      },
+      "SevereThreshold": {
+        "properties": {
+          "expected_prevented_cases": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Prevented Cases"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "required",
+              "already_covered",
+              "needs_input",
+              "not_applicable"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "uncovered_cost_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncovered Cost Rub"
+          },
+          "whole_prevented_cases": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Whole Prevented Cases"
+          }
+        },
+        "required": [
+          "status",
+          "expected_prevented_cases",
+          "whole_prevented_cases",
+          "uncovered_cost_rub",
+          "reason"
+        ],
+        "title": "SevereThreshold",
+        "type": "object"
+      },
+      "SfrDiscountBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "additional_discount_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Additional Discount Share"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "payroll_rub_year": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payroll Rub Year"
+          },
+          "tariff_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tariff Share"
+          }
+        },
+        "required": [
+          "enabled",
+          "payroll_rub_year",
+          "tariff_share",
+          "additional_discount_share"
+        ],
+        "title": "SfrDiscountBenefit",
+        "type": "object"
+      },
       "ShiftSummary": {
         "properties": {
           "by_scenario": {
@@ -4264,6 +6706,134 @@
         "title": "ShiftSummary",
         "type": "object"
       },
+      "SiteInput": {
+        "additionalProperties": false,
+        "properties": {
+          "operators": {
+            "title": "Operators",
+            "type": "integer"
+          },
+          "shifts_per_day": {
+            "title": "Shifts Per Day",
+            "type": "integer"
+          },
+          "workers": {
+            "title": "Workers",
+            "type": "integer"
+          },
+          "working_days_year": {
+            "title": "Working Days Year",
+            "type": "integer"
+          },
+          "workshops": {
+            "title": "Workshops",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "workshops",
+          "workers",
+          "shifts_per_day",
+          "working_days_year",
+          "operators"
+        ],
+        "title": "SiteInput",
+        "type": "object"
+      },
+      "SourceRecord": {
+        "properties": {
+          "checked_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checked At"
+          },
+          "data_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Year"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "argus_measurement",
+              "vendor_claim",
+              "official",
+              "team_assumption",
+              "user_input"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "verification": {
+            "enum": [
+              "verified_primary",
+              "cached_primary",
+              "pending_primary",
+              "not_applicable"
+            ],
+            "title": "Verification",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "kind",
+          "verification",
+          "url",
+          "data_year",
+          "published_at",
+          "checked_at",
+          "note"
+        ],
+        "title": "SourceRecord",
+        "type": "object"
+      },
       "StatusMeta": {
         "properties": {
           "id": {
@@ -4296,6 +6866,112 @@
           "terminal"
         ],
         "title": "StatusMeta",
+        "type": "object"
+      },
+      "StepV2": {
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "chips": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chips"
+          },
+          "equipment_capex_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Equipment Capex Rub"
+          },
+          "id": {
+            "enum": [
+              "naive",
+              "dedicated_capacity",
+              "scenario_models",
+              "activity_pool",
+              "tracker"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "servers": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Servers"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "available",
+          "chips",
+          "servers",
+          "equipment_capex_rub",
+          "reason"
+        ],
+        "title": "StepV2",
+        "type": "object"
+      },
+      "SystemCameraProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "camera_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Camera Ids"
+          },
+          "include_seed": {
+            "title": "Include Seed",
+            "type": "boolean"
+          },
+          "source": {
+            "const": "system",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "camera_ids",
+          "include_seed"
+        ],
+        "title": "SystemCameraProfile",
         "type": "object"
       },
       "SystemView": {
@@ -4440,6 +7116,217 @@
           "items"
         ],
         "title": "TierResult",
+        "type": "object"
+      },
+      "TierResultV2": {
+        "properties": {
+          "benefit_lines": {
+            "items": {
+              "$ref": "#/components/schemas/MoneyLine"
+            },
+            "title": "Benefit Lines",
+            "type": "array"
+          },
+          "board_price_threshold": {
+            "$ref": "#/components/schemas/PriceThreshold"
+          },
+          "camera_denominator": {
+            "title": "Camera Denominator",
+            "type": "integer"
+          },
+          "capex_lines": {
+            "items": {
+              "$ref": "#/components/schemas/MoneyLine"
+            },
+            "title": "Capex Lines",
+            "type": "array"
+          },
+          "capex_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capex Rub"
+          },
+          "gross_benefit_rub_year": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gross Benefit Rub Year"
+          },
+          "labor_hours_year": {
+            "title": "Labor Hours Year",
+            "type": "number"
+          },
+          "net_balance_3_year_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Net Balance 3 Year Rub"
+          },
+          "net_benefit_rub_year": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Net Benefit Rub Year"
+          },
+          "opex_lines": {
+            "items": {
+              "$ref": "#/components/schemas/MoneyLine"
+            },
+            "title": "Opex Lines",
+            "type": "array"
+          },
+          "opex_rub_year": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Opex Rub Year"
+          },
+          "payback": {
+            "$ref": "#/components/schemas/PaybackResult"
+          },
+          "rub_per_camera_month": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rub Per Camera Month"
+          },
+          "severe_threshold": {
+            "$ref": "#/components/schemas/SevereThreshold"
+          },
+          "tco_3_year_rub": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tco 3 Year Rub"
+          },
+          "tier": {
+            "enum": [
+              "base",
+              "extended",
+              "max"
+            ],
+            "title": "Tier",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tier",
+          "title",
+          "capex_rub",
+          "opex_rub_year",
+          "gross_benefit_rub_year",
+          "net_benefit_rub_year",
+          "tco_3_year_rub",
+          "net_balance_3_year_rub",
+          "rub_per_camera_month",
+          "camera_denominator",
+          "labor_hours_year",
+          "capex_lines",
+          "opex_lines",
+          "benefit_lines",
+          "payback",
+          "severe_threshold",
+          "board_price_threshold"
+        ],
+        "title": "TierResultV2",
+        "type": "object"
+      },
+      "TierShares": {
+        "additionalProperties": false,
+        "properties": {
+          "base": {
+            "title": "Base",
+            "type": "number"
+          },
+          "extended": {
+            "title": "Extended",
+            "type": "number"
+          },
+          "max": {
+            "title": "Max",
+            "type": "number"
+          }
+        },
+        "required": [
+          "base",
+          "extended",
+          "max"
+        ],
+        "title": "TierShares",
+        "type": "object"
+      },
+      "TrackerFeature": {
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "max_stride": {
+            "enum": [
+              1,
+              2
+            ],
+            "title": "Max Stride",
+            "type": "integer"
+          },
+          "report_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Ref"
+          }
+        },
+        "required": [
+          "available",
+          "max_stride",
+          "report_ref"
+        ],
+        "title": "TrackerFeature",
         "type": "object"
       },
       "TracksWindow": {
@@ -4858,7 +7745,7 @@
   },
   "info": {
     "title": "SafeWatch API",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "openapi": "3.1.0",
   "paths": {
@@ -4987,9 +7874,9 @@
         "summary": "Calculator Defaults"
       }
     },
-    "/api/calculator/rollout": {
+    "/api/calculator/export.pdf": {
       "post": {
-        "operationId": "calculator_rollout_api_calculator_rollout_post",
+        "operationId": "calculator_export_pdf_api_calculator_export_pdf_post",
         "parameters": [
           {
             "in": "header",
@@ -5012,7 +7899,100 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RolloutIn"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/RolloutExportV2"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ScaleExportV2"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/pdf": {}
+            },
+            "description": "Successful Response"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Client Error"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Calculator Export Pdf"
+      }
+    },
+    "/api/calculator/rollout": {
+      "post": {
+        "operationId": "calculator_rollout_api_calculator_rollout_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "default": "legacy",
+              "enum": [
+                "legacy",
+                "v2"
+              ],
+              "title": "Format",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/RolloutIn"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RolloutRequestV2"
+                  }
+                ]
               }
             }
           },
@@ -5023,7 +8003,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RolloutResult"
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RolloutResult"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResultV2"
+                    }
+                  ],
+                  "title": "Response 200 Calculator Rollout Api Calculator Rollout Post"
                 }
               }
             },
@@ -5058,6 +8046,20 @@
         "operationId": "calculator_scale_api_calculator_scale_post",
         "parameters": [
           {
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "default": "legacy",
+              "enum": [
+                "legacy",
+                "v2"
+              ],
+              "title": "Format",
+              "type": "string"
+            }
+          },
+          {
             "in": "header",
             "name": "X-Role",
             "required": false,
@@ -5078,7 +8080,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ScaleIn"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ScaleIn"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ScaleRequestV2"
+                  }
+                ]
               }
             }
           },
@@ -5089,7 +8098,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ScaleResult"
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ScaleResult"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResultV2"
+                    }
+                  ],
+                  "title": "Response 200 Calculator Scale Api Calculator Scale Post"
                 }
               }
             },

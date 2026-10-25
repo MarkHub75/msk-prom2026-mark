@@ -7,6 +7,7 @@ import { setActor } from "../api/client";
 import { fileName } from "../api/download";
 import { createFixtureEvents, fixtureMeta } from "../fixtures/data";
 import { setRole, type Role } from "../roles";
+import { DEFAULTS_V2_EXAMPLE } from "../fixtures/calculatorV2";
 import type { CalculatorDefaults, CameraPassport, DatasetView, EventDetail, PeopleStats, RolloutResult, ScaleResult, TierResult } from "../api/types";
 
 class QuietSocket { onopen = null; onmessage = null; onclose = null; onerror = null; close() {} }
@@ -42,6 +43,7 @@ const DEFAULTS: CalculatorDefaults = {
   scale: { cameras_now: 8, new_cameras: 8, overrides: {} },
   assumptions: [assumption("accelerator.price_rub", "Цена ускорителя LinQ", 500000, "₽"), assumption("reduction.base", "Снижение инцидентов: базовый уровень", 0.2, "доля")],
   measured: [{ key: "throughput", title: "Пропускная способность", value: 12.4, unit: "кадр/с", source: "замер приложения: 3 задачи", editable: false }],
+  v2: DEFAULTS_V2_EXAMPLE,
 };
 const tier = (t: TierResult["tier"], payback: number | null): TierResult => ({ tier: t, title: { base: "Базовый", extended: "Расширенный", max: "Максимальный" }[t], capex_rub: 1_150_000, opex_rub_year: 172_500, savings_rub_year: 1_200_000, payback_months: payback, accelerators: 2, servers: 1, items: [{ label: "Ускорители LinQ", value: "2 × 500 000 ₽" }] });
 const ROLLOUT: RolloutResult = { incident_cost_rub: 1_500_000, incidents_per_1000_workers: 20, events_per_operator_shift: 3.5, assumptions: DEFAULTS.assumptions, tiers: [tier("base", 13.4), tier("extended", 9), tier("max", null)] };

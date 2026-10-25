@@ -47,6 +47,7 @@ from safewatch import (
 from safewatch.analysis import geometry, passport, pipeline
 from safewatch.errors import (
     Conflict,
+    FeatureDisabled,
     Forbidden,
     InferenceError,
     NotFound,
@@ -91,6 +92,7 @@ from safewatch.types import (
     DatasetItem,
     DatasetView,
     DayRow,
+    DefaultsV2,
     Delivery,
     DeliveryKind,
     DemoArtifact,
@@ -113,6 +115,8 @@ from safewatch.types import (
     EventSummary,
     Evidence,
     FacetItem,
+    FeaturesV2,
+    FieldLimit,
     Health,
     HudFrame,
     HumanAction,
@@ -130,11 +134,15 @@ from safewatch.types import (
     LevelMeta,
     LogAction,
     ManagementStats,
+    ManualCameraProfile,
     MasterInbox,
+    Measurement,
     Meta,
+    ModelLoad,
     ModelSpec,
     ModelsView,
     NoObservationReason,
+    Notice,
     Notification,
     ObservabilityGap,
     OhsStats,
@@ -142,15 +150,20 @@ from safewatch.types import (
     PeopleStats,
     Percentiles,
     Point,
+    PresetV2,
     Provenance,
     RateRow,
+    ResolvedGroup,
+    ResultV2,
     Role,
     RoleMeta,
     RolloutIn,
+    RolloutRequestV2,
     RolloutResult,
     RulesScreenRow,
     RulesScreenView,
     ScaleIn,
+    ScaleRequestV2,
     ScaleResult,
     ScenarioMeta,
     Sector,
@@ -159,8 +172,11 @@ from safewatch.types import (
     SectorView,
     SeedReport,
     ShiftSummary,
+    SourceRecord,
     StatusMeta,
+    SystemCameraProfile,
     SystemView,
+    TrackerFeature,
     TracksWindow,
     TrendSummary,
     UploadResult,
@@ -3105,8 +3121,7 @@ def _events_per_camera_day() -> float | None:
     return float(row["events"] / row["cameras"] / days) if row["events"] else None
 
 
-def calculator_defaults() -> CalculatorDefaults:
-    runs = _linq_runs()
+def _legacy_measured(runs: list[dict[str, Any]]) -> list[CalcAssumption]:
     measured = [m for m in [_measured_capacity(runs)] if m is not None]
     rtt = [m["tpu_rtt_p50_ms"] for m in runs[:RECENT_JOBS] if m["tpu_rtt_p50_ms"] is not None]
     if rtt:
@@ -3133,29 +3148,519 @@ def calculator_defaults() -> CalculatorDefaults:
                 editable=False,
             )
         )
+    return measured
+
+
+# --- calculator v2 (docs/contracts/calculator_v2.md): defaults, catalog, measurements -------
+CALC_ROLES: dict[str, tuple[Role, ...]] = {
+    "rollout": ("management",),
+    "scale": ("management", "admin"),
+}
+CALC_TAGS = frozenset({"manual", "system", "rollout", "scale"})  # union tags in error locations
+_activity_cache: dict[tuple[str, int], tuple[int, int]] = {}  # artifact → (frames, with person)
+
+
+def _legacy_basis() -> calculator.LegacyBasis:
+    c = config.get_settings().calculator_v2
+    hp = next((b for b in c.boards if b.id == "HP"), None)
+    return calculator.LegacyBasis(
+        load=c.load,
+        server_cores=calculator.fr(c.hardware.server.usable_cpu_cores),
+        server_power=calculator.opt(c.hardware.server.power_w),
+        hp_power=None if hp is None else calculator.opt(hp.power_w),
+        tariff=calculator.opt(c.costs.electricity_rub_kwh),
+        hours=calculator.fr(c.costs.operating_hours_year),
+    )
+
+
+def _calc_models() -> dict[str, ModelLoad]:
+    """Every model of config/models.yaml by `id@version`; work units only where signed (К6)."""
+    own = config.get_settings().calculator_v2.models
+    out = {}
+    for m in registry.load_models(registry.MODELS_FILE):
+        ref = f"{m.id}@{m.version}"
+        kind = (
+            "pose"
+            if m.task == "pose"
+            else "detector"
+            if "person" in m.classes.values()
+            else "extra"
+        )
+        spec = own.get(ref)
+        status = "local_only" if m.linq_program is None else "unverified"
+        out[ref] = ModelLoad(
+            id=ref,
+            title=spec.title if spec else ref,
+            kind=kind,
+            work_units=spec.work_units if spec else None,
+            execution_status=spec.execution_status if spec else status,
+            source_ids=spec.source_ids if spec else [],
+        )
+    return out
+
+
+def _measurement_id(key: str, *parts: object) -> str:
+    """One id per content (К9): a new value, period or sample gives a new id."""
+    digest = hashlib.sha256(json.dumps([key, *parts], default=str).encode()).hexdigest()
+    return f"{key}-{digest[:12]}"
+
+
+def _person_frames(path: Path, high: float) -> tuple[int, int]:
+    """Frames of a detector artifact and those with a person of score ≥ high_thresh."""
+    frames = with_person = 0
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            if not line.strip():
+                continue
+            frames += 1
+            detections = json.loads(line)["detections"]
+            if any(d["name"] == "person" and d["score"] >= high for d in detections):
+                with_person += 1
+    return frames, with_person
+
+
+def _activity_shares(rows: list[sqlite3.Row]) -> dict[int, float]:
+    """Per camera: frames with a person / processed frames of its distinct videos (thread)."""
+    settings = config.get_settings()
+    per_camera: dict[int, list[int]] = {}
+    for row in rows:
+        key = (row["cache_key"], row["frames"])
+        if key not in _activity_cache:
+            path = settings.data_dir / row["path"]
+            if not path.is_file():
+                continue
+            _activity_cache[key] = _person_frames(path, settings.tracker.high_thresh)
+        frames, people = _activity_cache[key]
+        acc = per_camera.setdefault(row["camera_id"], [0, 0])
+        acc[0] += frames
+        acc[1] += people
+    return {cam: people / frames for cam, (frames, people) in per_camera.items() if frames}
+
+
+def _calc_measurements(
+    activity_rows: list[sqlite3.Row], shares: dict[int, float]
+) -> list[Measurement]:
+    runs = _linq_runs()
+    days = config.get_settings().stats.default_days
+    out = []
+    if shares:
+        value = statistics.median(shares.values())
+        start = min(r["created_at"] for r in activity_rows)
+        end = max(r["created_at"] for r in activity_rows)
+        keys = sorted(r["cache_key"] for r in activity_rows)
+        out.append(Measurement(
+            id=_measurement_id("activity_share", value, start, end, len(shares), keys),
+            key="activity_share", title=texts.CALC2_ACTIVITY_TITLE, value=value, unit="доля",
+            status="measured", period_start=start, period_end=end, sample_count=len(shares),
+            source_ids=["argus_linq_artifacts"], note=texts.CALC2_ACTIVITY_NOTE,
+        ))  # fmt: skip
+    else:
+        out.append(Measurement(
+            id="activity_share-not-measured", key="activity_share",
+            title=texts.CALC2_ACTIVITY_TITLE, value=None, unit="доля", status="not_measured",
+            period_start=None, period_end=None, sample_count=0, source_ids=[],
+            note=texts.CALC2_ACTIVITY_NONE,
+        ))  # fmt: skip
+    if runs:
+        value = statistics.median(m["throughput_fps"] for m in runs)
+        out.append(Measurement(
+            id=_measurement_id("platform_fps", value, len(runs)), key="platform_fps",
+            title=texts.CALC2_PLATFORM_TITLE, value=value, unit="кадр/с", status="measured",
+            period_start=None, period_end=None, sample_count=len(runs),
+            source_ids=["argus_linq_jobs"], note=texts.CALC2_PLATFORM_NOTE,
+        ))  # fmt: skip
+    else:
+        out.append(Measurement(
+            id="platform_fps-not-measured", key="platform_fps", title=texts.CALC2_PLATFORM_TITLE,
+            value=None, unit="кадр/с", status="not_measured", period_start=None,
+            period_end=None, sample_count=0, source_ids=[], note=texts.CALC2_PLATFORM_NONE,
+        ))  # fmt: skip
+    rtt = [m["tpu_rtt_p50_ms"] for m in runs[:RECENT_JOBS] if m["tpu_rtt_p50_ms"] is not None]
+    if rtt:
+        value = statistics.median(rtt)
+        out.append(Measurement(
+            id=_measurement_id("rtt_p50_ms", value, len(rtt)), key="rtt_p50_ms",
+            title=texts.CALC_RTT, value=value, unit="мс", status="measured", period_start=None,
+            period_end=None, sample_count=len(rtt), source_ids=["argus_linq_jobs"],
+            note=texts.CALC2_RTT_NOTE,
+        ))  # fmt: skip
+    events = _events_per_camera_day()
+    if events is not None:
+        end_at = clock.now()
+        start = clock.iso(end_at - timedelta(days=days))
+        out.append(Measurement(
+            id=_measurement_id("events_per_camera_day", events, start), key="events_per_camera_day",
+            title=texts.CALC_EVENTS, value=events, unit="шт.", status="measured",
+            period_start=start, period_end=clock.iso(end_at), sample_count=days,
+            source_ids=["argus_journal"], note=texts.CALC2_EVENTS_NOTE.format(days=days),
+        ))  # fmt: skip
+    return out
+
+
+def _calc_sources() -> dict[str, SourceRecord]:
+    """Config sources and the app's own measurements (К9)."""
+    out = {s.id: s for s in config.get_settings().calculator_v2.sources}
+    for sid, title, note in (
+        ("argus_linq_artifacts", "Артефакты LinQ в базе Argus", texts.CALC2_ACTIVITY_NOTE),
+        ("argus_linq_jobs", "Задачи LinQ в базе Argus", texts.CALC2_PLATFORM_NOTE),
+        ("argus_journal", "Журнал событий Argus", texts.CALC2_EVENTS_NOTE.format(
+            days=config.get_settings().stats.default_days)),
+    ):  # fmt: skip
+        out[sid] = SourceRecord(
+            id=sid, title=title, kind="argus_measurement", verification="verified_primary",
+            url=None, data_year=None, published_at=None, checked_at=None, note=note,
+        )  # fmt: skip
+    return out
+
+
+def _calc_catalog(
+    models: dict[str, ModelLoad], measurements: list[Measurement]
+) -> calculator.Catalog:
+    c = config.get_settings().calculator_v2
+    platform = next(m for m in measurements if m.key == "platform_fps")
+    measured = platform.value is not None
+    return calculator.Catalog(
+        models=models,
+        boards={b.id: b for b in c.boards},
+        sources=_calc_sources(),
+        inputs=c.inputs,
+        platform_fps=calculator.fr(platform.value if measured else c.platform_capacity_fps),  # type: ignore[arg-type]
+        platform_source_ids=tuple(platform.source_ids if measured else ["linq_platform_queue"]),
+        tracker_available=c.tracker.available,
+    )
+
+
+def _manual_profile(cameras: int) -> dict[str, Any]:
+    models = config.get_settings().calculator_v2.group_models
+    groups = [{"id": "standard", "share": 1, "model_ids": models}] if cameras else []
+    return {"source": "manual", "cameras": cameras, "groups": groups}
+
+
+def _v2_bodies() -> tuple[RolloutRequestV2, ScaleRequestV2, list[PresetV2]]:
+    """Full request bodies of defaults and presets from config `calculator_v2` (К9)."""
+    c = config.get_settings().calculator_v2
+    common: dict[str, Any] = {
+        "contract_version": "2.0.0",
+        "preset_id": None,
+        **c.model_dump(include={"site", "load", "hardware", "costs", "benefits"}),
+    }
+    rollout = RolloutRequestV2.model_validate(
+        common | {"cameras": _manual_profile(c.rollout_cameras)}
+    )
+    costs = common["costs"] | {"new_camera_count": c.scale_new_camera_count}
+    scale = ScaleRequestV2.model_validate(common | {
+        "costs": costs, "current": _manual_profile(c.scale_current_cameras),
+        "added": _manual_profile(c.scale_added_cameras), "installed": None,
+    })  # fmt: skip
+    presets = [
+        PresetV2(
+            id=p.id, title=p.title, area_m2=p.area_m2, machines=p.machines, note=p.note,
+            rollout=RolloutRequestV2.model_validate(common | {
+                "preset_id": p.id, "site": p.site.model_dump(),
+                "cameras": _manual_profile(p.cameras),
+            }),
+        )
+        for p in c.presets
+    ]  # fmt: skip
+    return rollout, scale, presets
+
+
+def _system_groups(
+    prof: SystemCameraProfile, field: str, models: dict[str, ModelLoad]
+) -> tuple[list[ResolvedGroup], list[Notice]]:
+    """Cameras of the system grouped by the models their enabled rules need (К4).
+
+    The detector always; pose where a rule reads keypoints; an extra model per required
+    class the detector lacks. No model for a class: a `missing:<class>` model of unknown
+    weight, so the load stays incomplete instead of losing the scenario."""
+    settings = config.get_settings()
+    rows = {row["id"]: row for row in store.cameras()}
+    if prof.camera_ids is None:
+        ids = [cid for cid, row in rows.items() if prof.include_seed or not row["is_demo"]]
+    else:
+        if len(set(prof.camera_ids)) != len(prof.camera_ids):
+            raise calculator.invalid(f"{field}.camera_ids", "DUPLICATE_CAMERA")
+        for cid in prof.camera_ids:
+            if cid not in rows:
+                raise calculator.invalid(f"{field}.camera_ids", "OUT_OF_RANGE")
+        ids = list(prof.camera_ids)
+    detector, pose = settings.pipeline.detector, settings.pipeline.pose
+    specs = {f"{m.id}@{m.version}": m for m in registry.load_models(registry.MODELS_FILE)}
+    det_classes = set(specs[detector].classes.values())
+    extras = [
+        *settings.pipeline.extra,
+        *(ref for ref in specs if ref not in settings.pipeline.extra),
+    ]
+    metas = rules.scenario_metas()
+    pose_rules = set(settings.calculator_v2.pose_scenarios)
+    notices: list[Notice] = []
+    by_set: dict[tuple[str, ...], list[int]] = {}
+    for cid in sorted(ids):
+        need = [detector]
+        for rule in _rules(cid, store.camera_rules(cid), metas):
+            meta = next(m for m in metas if m.id == rule.scenario)
+            if not rule.enabled or meta.status == "skeleton":
+                continue
+            if rule.scenario in pose_rules and pose and pose not in need:
+                need.append(pose)
+            vehicles = rule.scenario in rules.ANY_VEHICLE  # person and one of the vehicles
+            required = [c for c in meta.required_classes if not (vehicles and c == "person")]
+            classes = [c for c in required if c not in det_classes]
+            any_of = vehicles or rule.scenario in rules.ANY_CLASS
+            if any_of and len(classes) < len(required):
+                classes = []  # the detector already gives one of them
+            elif any_of and classes:  # one class is enough: the first one a model gives
+                given = [c for c in classes if any(c in specs[r].classes.values() for r in extras)]
+                classes = given[:1] or classes[:1]
+            for name in classes:
+                ref = next((r for r in extras if name in specs[r].classes.values()), None)
+                if ref is None:
+                    ref = f"missing:{name}"
+                    message = texts.CALC2_MISSING["SCENARIO_MODEL_MISSING"].format(
+                        what=f"{meta.title}: {name}"
+                    )
+                    if not any(n.message == message for n in notices):
+                        notices.append(Notice(code="SCENARIO_MODEL_MISSING", field=field,
+                                              message=message))  # fmt: skip
+                if ref not in need:
+                    need.append(ref)
+        by_set.setdefault(tuple(need), []).append(cid)
+    groups = [
+        ResolvedGroup(
+            id=f"system-{k + 1}", cameras=len(cams), camera_ids=cams, model_ids=list(need)
+        )
+        for k, (need, cams) in enumerate(by_set.items())
+    ]
+    for g in groups:
+        for ref in g.model_ids:
+            if ref.startswith("missing:"):
+                models[ref] = ModelLoad(id=ref, title=texts.CALC2_MISSING["SCENARIO_MODEL_MISSING"]
+                                        .format(what=ref.removeprefix("missing:")),
+                                        kind="extra", work_units=None,
+                                        execution_status="missing", source_ids=[])  # fmt: skip
+    return groups, notices
+
+
+def _v2_limits() -> list[FieldLimit]:
+    rows: list[tuple[str, float | None, float | None, bool]] = [
+        ("cameras.cameras", 0, calculator.MAX_CAMERAS, True),
+        ("site.shifts_per_day", 0, 3, True),
+        ("site.working_days_year", 1, 366, True),
+        ("load.activity_share", 0, 1, False),
+        ("load.target_fps", 0, 120, False),
+        ("load.surge_fps", 0, 120, False),
+        ("load.priority_cameras_reserve", 0, calculator.MAX_CAMERAS, True),
+        ("load.capacity_derate", 0, 1, False),
+        ("hardware.server.slots", 1, None, True),
+        ("costs.support_share_year", 0, 1, False),
+        ("costs.operating_hours_year", 0, 8784, False),
+        ("costs.max_additional_camera_share", 0, 1, False),
+        ("benefits.sfr_discount.additional_discount_share", 0, 0.4, False),
+    ]
+    return [FieldLimit(field=f, min=lo, max=hi, integer=i) for f, lo, hi, i in rows]
+
+
+async def _v2_state() -> tuple[dict[str, ModelLoad], list[Measurement], calculator.Catalog]:
+    """Catalog and measurements; DB rows are read here, artifact files in a worker thread."""
+    settings = config.get_settings()
+    det_id, _, det_version = settings.pipeline.detector.partition("@")
+    rows = store.detector_artifacts(det_id, det_version)
+    shares = await asyncio.to_thread(_activity_shares, rows)
+    measurements = _calc_measurements(rows, shares)
+    models = _calc_models()
+    return models, measurements, _calc_catalog(models, measurements)
+
+
+async def calculator_defaults() -> CalculatorDefaults:
+    models, measurements, catalog = await _v2_state()
+    rollout, scale, presets = _v2_bodies()
+    system, notices = _system_groups(
+        SystemCameraProfile(source="system", camera_ids=None, include_seed=False), "cameras", models
+    )
+    ev = calculator.Evidence(catalog)
+    ev.request(rollout, rollout.model_dump())
+    for model_id in config.get_settings().calculator_v2.group_models:
+        model = models[model_id]
+        ev.add(f"catalog.models.{model_id}.work_units", model.work_units, "экв.ед.", "assumed",
+               model.source_ids, title=model.title)  # fmt: skip
+    market = config.get_settings().calculator_v2.market
+    for item in market:
+        unit = "₽/камера/месяц" if item.billing == "monthly_per_camera" else "₽"
+        ev.add(f"market.{item.id}.amount_rub", item.amount_rub, unit, "assumed", item.source_ids,
+               title=item.title)  # fmt: skip
+    c = config.get_settings().calculator_v2
+    v2 = DefaultsV2(
+        format="v2", contract_version="2.0.0", formula_version="argus-calc-2.0",
+        rollout=rollout, scale=scale, presets=presets,
+        system_profile=calculator.profile(system), models=list(models.values()),
+        boards=c.boards, assumptions=list(ev.items.values()), measurements=measurements,
+        market=market,
+        features=FeaturesV2(
+            tracker=TrackerFeature(available=c.tracker.available,
+                                   max_stride=2 if c.tracker.available else 1,
+                                   report_ref=c.tracker.report_ref),
+            pdf_available=c.pdf_available, offline_economy=None,
+        ),
+        limits=_v2_limits(), sources=list(catalog.sources.values()),
+        notices=[
+            *notices,
+            Notice(code="SFR_PREVENTION_INFO", field=None,
+                   message=texts.CALC2_NOTICES["SFR_PREVENTION_INFO"]),
+            Notice(code="SFR_DISCOUNT_CONDITIONS", field="benefits.sfr_discount",
+                   message=texts.CALC2_NOTICES["SFR_DISCOUNT_CONDITIONS"]),
+        ],
+    )  # fmt: skip
     return CalculatorDefaults(
         rollout=CALC_EXAMPLE,
         scale=ScaleIn(cameras_now=8, new_cameras=8),
         assumptions=list(_calc_assumptions({}).values()),
-        measured=measured,
+        measured=_legacy_measured(_linq_runs()),
+        v2=v2,
     )
 
 
-def calculator_rollout(data: RolloutIn, role: Role | None) -> RolloutResult:
-    _require(role, ("management",))
+def _format_error() -> ValidationFailed:
+    return ValidationFailed(texts.CALC2_FORMAT_INVALID, field="format", reason="SCHEMA_MISMATCH")
+
+
+def _parse_v2[M: BaseModel](model: type[M], raw: bytes) -> M:
+    """A closed v2 body; the first error names its exact field, without a `body.` prefix."""
+    try:
+        data = json.loads(raw)
+    except ValueError:
+        raise ValidationFailed(
+            texts.REQUEST_INVALID, field=None, reason="SCHEMA_MISMATCH"
+        ) from None
+    if not isinstance(data, dict) or "contract_version" not in data:
+        raise _format_error()
+    try:
+        return model.model_validate_json(raw)
+    except ValidationError as exc:
+        err = exc.errors()[0]
+        loc = [str(p) for p in err["loc"] if not (isinstance(p, str) and p in CALC_TAGS)]
+        field = ".".join(loc) or None
+        reason = {
+            "extra_forbidden": "UNKNOWN_FIELD",
+            "finite_number": "OUT_OF_RANGE",
+            "greater_than_equal": "OUT_OF_RANGE",
+            "less_than_equal": "OUT_OF_RANGE",
+        }.get(err["type"], "SCHEMA_MISMATCH")
+        if loc == ["contract_version"]:
+            reason = "UNSUPPORTED_VERSION"
+        message = texts.CALC2_FIELD_INVALID.format(field=field) if field else texts.REQUEST_INVALID
+        raise ValidationFailed(message, field=field, reason=reason) from None
+
+
+def _parse_legacy[M: BaseModel](model: type[M], raw: bytes) -> M:
+    """The 1.1.0 body as FastAPI parsed it; a v2 body is never read as legacy (К2)."""
+    try:
+        data = json.loads(raw)
+    except ValueError:
+        raise ValidationFailed(texts.REQUEST_INVALID, field="body") from None
+    if isinstance(data, dict) and "contract_version" in data:
+        raise _format_error()
+    try:
+        return model.model_validate(data)
+    except ValidationError as exc:
+        loc = ["body", *(str(p) for p in exc.errors()[0]["loc"])]
+        raise ValidationFailed(texts.REQUEST_INVALID, field=".".join(loc)) from None
+
+
+async def _v2_result(req: RolloutRequestV2 | ScaleRequestV2) -> ResultV2:
+    models, measurements, catalog = await _v2_state()
+    calculator.validate(req, catalog)
+    mid = req.load.activity_measurement_id
+    if mid is not None:
+        match = next((m for m in measurements if m.id == mid and m.key == "activity_share"), None)
+        if (
+            match is None
+            or match.value is None
+            or abs(match.value - req.load.activity_share) > 1e-9
+        ):
+            raise calculator.invalid("load.activity_measurement_id", "MEASUREMENT_MISMATCH")
+    missing: list[Notice] = []
+    warnings: list[Notice] = []
+
+    def resolve(prof: ManualCameraProfile | SystemCameraProfile, field: str) -> list[ResolvedGroup]:
+        if isinstance(prof, ManualCameraProfile):
+            return calculator.manual_groups(prof)
+        groups, notices = _system_groups(prof, field, models)
+        missing.extend(notices)
+        if not groups:
+            message = texts.CALC2_WARNINGS["SYSTEM_PROFILE_EMPTY"]
+            warnings.append(Notice(code="SYSTEM_PROFILE_EMPTY", field=field, message=message))
+        return groups
+
+    default_rollout, default_scale, presets = _v2_bodies()
+    installed = None
+    reference: BaseModel
+    if isinstance(req, RolloutRequestV2):
+        current: list[ResolvedGroup] = []
+        added = calculator.prefixed(resolve(req.cameras, "cameras"), "added")
+        preset = next((p.rollout for p in presets if p.id == req.preset_id), None)
+        reference = preset or default_rollout  # an unchanged preset number keeps its source
+    else:
+        current = calculator.prefixed(resolve(req.current, "current"), "current")
+        added = calculator.prefixed(resolve(req.added, "added"), "added")
+        shared = {c for g in current for c in g.camera_ids} & {
+            c for g in added for c in g.camera_ids
+        }
+        if shared:
+            raise calculator.invalid("added.camera_ids", "DUPLICATE_CAMERA")
+        reference = default_scale
+        if req.installed is not None:
+            counts = {b.board_id: b.count for b in req.installed.boards}
+            installed = calculator.kit(counts, req.installed.servers)
+    n_added = sum(g.cameras for g in added)
+    calculator.validate_scope(req, n_added, n_added + sum(g.cameras for g in current))
+    scope = calculator.Scope(
+        mode="rollout" if isinstance(req, RolloutRequestV2) else "scale",
+        current=current, added=added, installed=installed,
+        missing=tuple(missing), warnings=tuple(warnings),
+    )  # fmt: skip
+    events = _events_per_camera_day()
+    return await asyncio.to_thread(
+        calculator.calculate, req, scope, catalog, reference.model_dump(), events
+    )
+
+
+async def calculator_rollout(fmt: str, raw: bytes, role: Role | None) -> RolloutResult | ResultV2:
+    _require(role, CALC_ROLES["rollout"])
+    if fmt == "v2":
+        return await _v2_result(_parse_v2(RolloutRequestV2, raw))
+    if fmt != "legacy":
+        raise _format_error()
+    data = _parse_legacy(RolloutIn, raw)
     _calc_numbers(data, ("workshops", "cameras"))
     found = _calc_assumptions(data.overrides)
     fps = config.get_settings().pipeline.target_analysis_fps
-    return calculator.rollout(data, found, fps, _events_per_camera_day())
+    events = _events_per_camera_day()
+    return await asyncio.to_thread(calculator.rollout, data, found, fps, events, _legacy_basis())
 
 
-def calculator_scale(data: ScaleIn, role: Role | None) -> ScaleResult:
-    _require(role, ("management", "admin"))
+async def calculator_scale(fmt: str, raw: bytes, role: Role | None) -> ScaleResult | ResultV2:
+    _require(role, CALC_ROLES["scale"])
+    if fmt == "v2":
+        return await _v2_result(_parse_v2(ScaleRequestV2, raw))
+    if fmt != "legacy":
+        raise _format_error()
+    data = _parse_legacy(ScaleIn, raw)
     _calc_numbers(data, ())
     found = _calc_assumptions(data.overrides)
-    capacity = _measured_capacity(_linq_runs()) or found["accelerator.capacity_fps"]
     fps = config.get_settings().pipeline.target_analysis_fps
-    return calculator.scale(data, found, fps, capacity.value, capacity.source)
+    return await asyncio.to_thread(calculator.scale, data, found, fps, _legacy_basis())
+
+
+async def calculator_export_pdf(raw: bytes, role: Role | None) -> bytes:
+    """Declared in contract 2.0.0 (К2); 501 while `calculator_v2.pdf_available` is false."""
+    try:
+        mode = json.loads(raw).get("mode")
+    except (ValueError, AttributeError):
+        mode = None
+    _require(role, CALC_ROLES.get(mode, CALC_ROLES["rollout"]))
+    raise FeatureDisabled(
+        texts.CALC2_PDF_DISABLED, field="features.pdf_available", reason="PDF_DISABLED"
+    )
 
 
 def _dataset_files(

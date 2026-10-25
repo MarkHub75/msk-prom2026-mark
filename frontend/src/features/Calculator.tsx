@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, apiError, type ApiFailure } from "../api/client";
 import type { CalcAssumption, RolloutIn, RolloutResult, ScaleIn, ScaleResult, TierResult } from "../api/types";
+import { rolloutLegacy, scaleLegacy } from "../api/calculator";
 import { useApi } from "../api/useApi";
 import { Badge, Button, ErrorNotice, Field, Icon, isPending, Kpi, Loading, PageHeading, Panel, PendingNotice, Segmented, TextInput } from "../components/ui";
 import { EXAMPLE_ASSUMPTIONS, EXAMPLE_ROLLOUT, EXAMPLE_SCALE, exampleRollout, exampleScale } from "./calculatorExample";
@@ -214,8 +215,8 @@ export function CalculatorPage() {
   const okS = Boolean(scale) && !Object.keys(s.errors).length && !Object.keys(o.errors).length;
   const rolloutBody = { ...(r.values as Omit<RolloutIn, "overrides">), overrides: o.values };
   const scaleBody = { ...(s.values as Omit<ScaleIn, "overrides">), overrides: o.values };
-  const rolloutCalc = useCalc(() => api.POST("/api/calculator/rollout", { body: rolloutBody }), JSON.stringify(rolloutBody), okR && shown === "rollout");
-  const scaleCalc = useCalc(() => api.POST("/api/calculator/scale", { body: scaleBody }), JSON.stringify(scaleBody), okS && shown === "scale");
+  const rolloutCalc = useCalc(() => rolloutLegacy(rolloutBody), JSON.stringify(rolloutBody), okR && shown === "rollout");
+  const scaleCalc = useCalc(() => scaleLegacy(scaleBody), JSON.stringify(scaleBody), okS && shown === "scale");
   const calc = shown === "rollout" ? rolloutCalc : scaleCalc;
   // 422 names the field it rejected (e.g. overrides.accelerator.capacity_fps = 0): the message goes under that
   // input or assumption, the last result stays on screen; only an error without a known field is a notice.

@@ -53,6 +53,13 @@ class UnsupportedVideo(AppError):
     status = 415
 
 
+class FeatureDisabled(AppError):
+    """A declared optional feature that is switched off (calculator PDF, contract 2.0.0 К10)."""
+
+    code = "not_implemented"
+    status = 501
+
+
 class InferenceError(Exception):
     """Raised by backends and `RemoteShell`; `run_next_job` turns it into a job status."""
 

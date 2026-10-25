@@ -1,0 +1,145 @@
+{
+  "contract_version": "2.0.0",
+  "preset_id": null,
+  "site": {
+    "workshops": 2,
+    "workers": 200,
+    "shifts_per_day": 2,
+    "working_days_year": 250,
+    "operators": 2
+  },
+  "load": {
+    "activity_share": 0.5,
+    "activity_measurement_id": null,
+    "target_fps": 12,
+    "surge_fps": 5,
+    "idle_check_s": 4,
+    "peak_mode": "independent_p95",
+    "priority_cameras_reserve": 1,
+    "detector_stride": 1,
+    "reference_chip_fps": 104.8,
+    "capacity_derate": 0.5,
+    "platform_capacity_override_fps": null,
+    "model_cost_overrides": {},
+    "cpu_basis": "inclusive",
+    "cpu_ms_per_unit": 77,
+    "decode_cores_per_camera": 0
+  },
+  "hardware": {
+    "allowed_board_ids": [
+      "HP",
+      "HPD",
+      "HPQ"
+    ],
+    "board_price_overrides": {},
+    "server": {
+      "slots": 4,
+      "usable_cpu_cores": 16,
+      "price_rub": 350000,
+      "power_w": 250
+    }
+  },
+  "costs": {
+    "integration_fixed_rub": 300000,
+    "integration_per_camera_rub": 0,
+    "support_share_year": 0.15,
+    "electricity_rub_kwh": 8,
+    "operating_hours_year": 8760,
+    "signal_zones_per_camera": 1,
+    "signal_unit_rub": 25000,
+    "speaker_per_workshop_rub": 40000,
+    "new_camera_unit_rub": 30000,
+    "new_camera_count": 0,
+    "max_additional_camera_share": 0.2
+  },
+  "benefits": {
+    "injuries": {
+      "enabled": true,
+      "annual_injured_workers": null,
+      "rate_per_1000": 1.17,
+      "cost_per_injured_worker_rub": 1000000,
+      "cost_scope": "direct_only",
+      "reduction": {
+        "base": 0.2,
+        "extended": 0.3,
+        "max": 0.4
+      }
+    },
+    "downtime": {
+      "enabled": false,
+      "events_year": null,
+      "days_per_event": null,
+      "day_cost_rub": null,
+      "reduction": {
+        "base": 0.2,
+        "extended": 0.3,
+        "max": 0.4
+      }
+    },
+    "fines": {
+      "enabled": false,
+      "items": [
+        {
+          "id": "general_ohs",
+          "title": "Общие требования охраны труда",
+          "inspection_probability_year": 0.1,
+          "amount_rub": 65000,
+          "reduction": {
+            "base": 0.2,
+            "extended": 0.3,
+            "max": 0.4
+          }
+        },
+        {
+          "id": "ppe",
+          "title": "Обеспечение СИЗ",
+          "inspection_probability_year": 0.1,
+          "amount_rub": 140000,
+          "reduction": {
+            "base": 0.2,
+            "extended": 0.3,
+            "max": 0.4
+          }
+        }
+      ]
+    },
+    "sfr_discount": {
+      "enabled": false,
+      "payroll_rub_year": null,
+      "tariff_share": null,
+      "additional_discount_share": null
+    },
+    "labor": {
+      "monetize": false,
+      "rows": [
+        {
+          "id": "ohs",
+          "title": "Инженер охраны труда",
+          "hours_saved_year": 0,
+          "hour_cost_rub": null
+        },
+        {
+          "id": "operator",
+          "title": "Оператор",
+          "hours_saved_year": 0,
+          "hour_cost_rub": null
+        }
+      ]
+    },
+    "severe_injury_cost_rub": null
+  },
+  "cameras": {
+    "source": "manual",
+    "cameras": 8,
+    "groups": [
+      {
+        "id": "standard",
+        "share": 1,
+        "model_ids": [
+          "det-yolov8n@640-ap9999",
+          "pose-yolov8n@640-ap9999"
+        ]
+      }
+    ]
+  }
+}
