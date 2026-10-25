@@ -1,5 +1,20 @@
 # ML handoff for Mark — final contract and Phone candidate
 
+## Final integration configuration — 25 October
+
+Use [FINAL_INTEGRATION_READINESS_20261025.md](handoffs/FINAL_INTEGRATION_READINESS_20261025.md)
+for the current model connection instructions and verified RC. Four existing
+ModelSpecs are provided by `ml/models.matvey.release.yaml`; six ML profiles live
+under `ml/profiles/matvey/`. Stable default retains COCO80, Matvey Pose and Helmet;
+Fire is optional local demo only. No new experimental checkpoint was promoted.
+
+Current main94213c5f:6doctor checks/6model API200,8ONNX checks,531software tests
+PASS(4skipped). Three real CPU jobs:800calls,2persisted events/evidence/API200;
+S07 reference still missed, not quality accepted. No new GPU/TPU calls or writes
+to captain/backend/main/LinQ staging. The next immutable Training progress
+handoff was reviewed once; no accepted replacement. Exact SHA, absolute/portable
+paths, versions, frame gaps and original PTS are in the single RC and its ZIP.
+
 ## P0 final delivery — 25 October
 
 Current handoff: [LINQ_FINAL_LIVE_HANDOFF_20261025.md](handoffs/LINQ_FINAL_LIVE_HANDOFF_20261025.md)

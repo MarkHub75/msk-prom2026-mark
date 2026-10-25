@@ -1,0 +1,17 @@
+# S02 person/equipment context. No custom forklift or new threshold.
+# INFERENCE_BACKEND=local SAFEWATCH_FAKE=0. Merge ML fields only; camera rules/zones/delivery remain with Mark.
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: coco-reference-yolov8n@640-v1-a6a8c37f7e45
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra: []
+  vehicle_classes:
+  - car
+  - bus
+  - truck
+  - train
+local:
+  threads: 1
+  providers:
+  - CPUExecutionProvider

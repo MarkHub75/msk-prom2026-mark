@@ -1,3 +1,19 @@
+## FINAL INTEGRATION READINESS — 25 October, before07:30MSK
+
+Read docs/handoffs/FINAL_INTEGRATION_READINESS_20261025.md and
+ml/reports/final-integration-readiness-20261025.json. One finalRC:
+/workspace/artifacts/matvey-release-final/integration-rc-v1/RELEASE_CANDIDATE.json.
+PortableZIP matvey_ml_integration_rc1_20261025.zip,53681022bytes,
+SHA52e5cffaff83662cd6f204d2a8c01e1cc819c7448b19e50b94cc7820e8a127ef.
+Registry ml/models.matvey.release.yaml;6profiles underml/profiles/matvey/.
+Main94213c5f unchanged.6doctorPASS/6modelAPI200/8ONNXstaticPASS/531testsPASS4skip.
+3actualCPUArgusjobs:800calls/381sampledof468frames;proximity1+fire_smoking1,
+event/evidence/APIpersisted. S07URfall06stillmissed,qualityNOTaccepted.
+ExistingstableCOCO80/Pose/Helmet retained;Fire optionalLOCALdemo withknownFPs.
+NextTrainingprogressversion checkedonce/21SHArefs:newaccepted0;fitApressconfusers,
+fitBgatefail,newPPElosesno_helmetrecall. No candidateNNrepeat/GPU/TPU/stagingedit.
+Mark/LinQ ownSIBINTEKdemo;do not duplicate. After07:30MSK packaging/criticalfixonly.
+
 ## FINAL MODEL INTAKE — 25 October
 
 Read docs/handoffs/FINAL_MODEL_INTAKE_20261025.md and

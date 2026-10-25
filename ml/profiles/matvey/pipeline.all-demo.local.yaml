@@ -1,0 +1,19 @@
+# Combined S02/S04/S07 plus additional Helmet; LOCAL DEMO ONLY, known fire false alerts.
+# Merge ML sections into existing user config; preserve Mark camera/rule/delivery settings.
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: coco-reference-yolov8n@640-v1-a6a8c37f7e45
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra:
+  - matvey-helmet-yolov8n@640-v1-5c3af1f3b855
+  - matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4
+  vehicle_classes:
+  - car
+  - bus
+  - truck
+  - train
+local:
+  threads: 1
+  providers:
+  - CPUExecutionProvider

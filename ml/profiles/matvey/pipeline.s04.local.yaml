@@ -1,0 +1,18 @@
+# S04 LOCAL optional demo only; known headlight/equipment false alerts. Not a TPU profile.
+# INFERENCE_BACKEND=local SAFEWATCH_FAKE=0. Merge ML fields only; camera rules/zones/delivery remain with Mark.
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: coco-reference-yolov8n@640-v1-a6a8c37f7e45
+  pose: null
+  extra:
+  - matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4
+  vehicle_classes:
+  - car
+  - bus
+  - truck
+  - train
+local:
+  threads: 1
+  providers:
+  - CPUExecutionProvider

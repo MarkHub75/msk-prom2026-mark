@@ -1,0 +1,248 @@
+{
+  "schema": "matvey-final-integration-readiness-summary-v1",
+  "verified_utc": "2026-10-25T02:47:11.262508+00:00",
+  "ready_before_0730MSK": true,
+  "status": "LOCAL_INTEGRATION_READY_WITH_EXPLICIT_QUALITY_LIMITATIONS",
+  "main": "94213c5f8177b0fa4a402ebf948a892198d9a4e7",
+  "branch": "matvey_cv",
+  "registry": "ml/models.matvey.release.yaml",
+  "config_directory": "ml/profiles/matvey",
+  "default_profile": "ml/profiles/matvey/pipeline.stable.local.yaml",
+  "optional_all_local_demo_profile": "ml/profiles/matvey/pipeline.all-demo.local.yaml",
+  "release_candidate": "/workspace/artifacts/matvey-release-final/integration-rc-v1/RELEASE_CANDIDATE.json",
+  "portable_handoff": "/workspace/artifacts/matvey-release-final/integration-rc-v1/handoff",
+  "archive": {
+    "path": "/workspace/artifacts/matvey-release-final/matvey_ml_integration_rc1_20261025.zip",
+    "bytes": 53681022,
+    "sha256": "52e5cffaff83662cd6f204d2a8c01e1cc819c7448b19e50b94cc7820e8a127ef"
+  },
+  "archive_integrity": {
+    "members": 110,
+    "CRC_SHA": "PASS"
+  },
+  "models": [
+    {
+      "id": "coco-reference-yolov8n",
+      "version": "640-v1-a6a8c37f7e45",
+      "classes": {
+        "0": "person",
+        "2": "car",
+        "5": "bus",
+        "6": "train",
+        "7": "truck",
+        "67": "cell phone"
+      },
+      "checkpoint_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+      "files": [
+        {
+          "field": "local_onnx",
+          "original": {
+            "path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+            "bytes": 12824064,
+            "sha256": "9c97d577051d16dec85d21f4d2c4ff6d811f0c5d137fe6f28689187dde0ecde1"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx",
+            "bytes": 12824064,
+            "sha256": "9c97d577051d16dec85d21f4d2c4ff6d811f0c5d137fe6f28689187dde0ecde1"
+          },
+          "relative_path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45.onnx"
+        },
+        {
+          "field": "linq_tail",
+          "original": {
+            "path": "/workspace/project/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+            "bytes": 140,
+            "sha256": "d814b78545cb2f1753860ec6ec036fd563550f091787efedcfd0cb4421f9ca0a"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx",
+            "bytes": 140,
+            "sha256": "d814b78545cb2f1753860ec6ec036fd563550f091787efedcfd0cb4421f9ca0a"
+          },
+          "relative_path": "models/matvey/coco-reference-yolov8n/640-v1-a6a8c37f7e45/matvey_coco_reference_yolov8n_640-v1-a6a8c37f7e45_tail.onnx"
+        }
+      ],
+      "status": "STABLE_LOCAL_BASELINE",
+      "fingerprint": "4c6b08a8fa16e53a1bd4d2b6a6d8b2aebd2a7378bac9facc05e3061b20b313dd"
+    },
+    {
+      "id": "matvey-pose-yolov8n",
+      "version": "640-v1-acc5f51228b9",
+      "classes": {
+        "0": "person"
+      },
+      "checkpoint_sha256": "c6fa93dd1ee4a2c18c900a45c1d864a1c6f7aba75d84f91648a30b7fb641d212",
+      "files": [
+        {
+          "field": "local_onnx",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx",
+            "bytes": 13502371,
+            "sha256": "57add6b3e6288e631e3b85a6ecf730b920422e9d8a0bb4a73a36a2775f7ab150"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx",
+            "bytes": 13502371,
+            "sha256": "57add6b3e6288e631e3b85a6ecf730b920422e9d8a0bb4a73a36a2775f7ab150"
+          },
+          "relative_path": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9.onnx"
+        },
+        {
+          "field": "linq_tail",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+            "bytes": 608,
+            "sha256": "23cdfe907f058713b6a617cb2230d52148eb46d508d8f809c8bb186e73615699"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx",
+            "bytes": 608,
+            "sha256": "23cdfe907f058713b6a617cb2230d52148eb46d508d8f809c8bb186e73615699"
+          },
+          "relative_path": "models/matvey/matvey-pose-yolov8n/640-v1-acc5f51228b9/matvey_pose_yolov8n_640-v1-acc5f51228b9_tail.onnx"
+        }
+      ],
+      "status": "STABLE_LOCAL_BASELINE",
+      "fingerprint": "08d81a7333b05b7a299ca8cf87c49074612c3a722e6bf7ad4b5ef12ab7daf856"
+    },
+    {
+      "id": "matvey-helmet-yolov8n",
+      "version": "640-v1-5c3af1f3b855",
+      "classes": {
+        "0": "helmet",
+        "1": "no_helmet"
+      },
+      "checkpoint_sha256": "05ed3a517485292d42d6eb6c9be3987ea51cd162e04807d2741eadcac8a19e6c",
+      "files": [
+        {
+          "field": "local_onnx",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx",
+            "bytes": 12239481,
+            "sha256": "75990461c00b7300675abd5714fe7db45352ea1facfbba692e332efe65dcafe8"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx",
+            "bytes": 12239481,
+            "sha256": "75990461c00b7300675abd5714fe7db45352ea1facfbba692e332efe65dcafe8"
+          },
+          "relative_path": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855.onnx"
+        },
+        {
+          "field": "linq_tail",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+            "bytes": 140,
+            "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx",
+            "bytes": 140,
+            "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+          },
+          "relative_path": "models/matvey/matvey-helmet-yolov8n/640-v1-5c3af1f3b855/matvey_helmet_yolov8n_640-v1-5c3af1f3b855_tail.onnx"
+        }
+      ],
+      "status": "STABLE_LOCAL_BASELINE",
+      "fingerprint": "8b3c814169ef0a54160116d590008bd04fd70d77807c9093bad348e53f0f297c"
+    },
+    {
+      "id": "matvey-fire-smoke-yolov8n",
+      "version": "640-s04-v1-4c9f5d05c4d4",
+      "classes": {
+        "0": "smoke",
+        "1": "fire"
+      },
+      "checkpoint_sha256": "b91633799ceb052c814b4f8b77a37efc9a40f002d528df97d74463585fa4f28f",
+      "files": [
+        {
+          "field": "local_onnx",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx",
+            "bytes": 12239266,
+            "sha256": "065595a20f876c049ff8dfc1bc475a6ef6a4b65e517e969a57a215bd465a4dfe"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx",
+            "bytes": 12239266,
+            "sha256": "065595a20f876c049ff8dfc1bc475a6ef6a4b65e517e969a57a215bd465a4dfe"
+          },
+          "relative_path": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4.onnx"
+        },
+        {
+          "field": "linq_tail",
+          "original": {
+            "path": "/workspace/project/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx",
+            "bytes": 140,
+            "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+          },
+          "release": {
+            "path": "/workspace/artifacts/matvey-release-final/integration-rc-v1/models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx",
+            "bytes": 140,
+            "sha256": "f650f48355b322f957fe15338caaef8cbd92566902db696a66ad094eed55950b"
+          },
+          "relative_path": "models/matvey/matvey-fire-smoke-yolov8n/640-s04-v1-4c9f5d05c4d4/matvey_fire_smoke_yolov8n_640-s04-v1-4c9f5d05c4d4_tail.onnx"
+        }
+      ],
+      "status": "OPTIONAL_LOCAL_DEMO_SOURCE_EVALUATED_WITH_FALSE_ALERTS",
+      "fingerprint": "5ddf018802b6b9940f78c3eb8afc38115a9beba8a7a07863094de64871dde6ff"
+    }
+  ],
+  "verification": {
+    "doctor_profiles": 6,
+    "doctor_exit_codes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "ModelAPI_profiles": 6,
+    "ModelAPI_status_codes": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "software_tests": {
+      "run": 531,
+      "skipped": 4,
+      "seconds": 7.567,
+      "status": "PASS"
+    },
+    "scenario_routing_regression": {
+      "tests": 3,
+      "status": "PASS"
+    },
+    "ONNX_graphs_static": 8,
+    "actual_CPU_jobs": 3,
+    "actual_CPU_model_calls": 800,
+    "source_frames": 468,
+    "unique_neural_frames": 381,
+    "event_count": 2,
+    "evidence_count": 2,
+    "event_API": "PASS",
+    "GT_event_metrics": "NOT_MEASURED"
+  },
+  "headlines": {
+    "stable_factory_proximity": "CPU114calls;event/evidence1/API200",
+    "S04_positive": "CPU586calls;fire_smokingevent/evidence1/API200",
+    "S07_reference": "CPU100calls;0events;knownfallmiss preserved,not qualityaccepted",
+    "Helmet": "Active model executes in stablejob; no inventedhelmet_requiredzone"
+  },
+  "new_actual_GPU_calls": 0,
+  "new_actual_TPU_calls": 0,
+  "candidate_handoff_reviewed": "matvey_final_five_progress_20261025_v1",
+  "new_training_models_accepted": [],
+  "stability_decision": "KeepCOCO80/MatveyPose/Helmet;FireoptionalLocalDemo;no experimentalcheckpoint swap",
+  "production_industrial_quality": "NOT_INDEPENDENTLY_QUALIFIED",
+  "Mark_LinQ_staging_modified": false,
+  "source_backend_or_main_changes": false,
+  "after_0730MSK": "PACKAGING_AND_CRITICAL_FIXES_ONLY",
+  "after_0800MSK": "NO_NEW_ARCHITECTURE",
+  "hand_off_instructions": "docs/handoffs/FINAL_INTEGRATION_READINESS_20261025.md"
+}
