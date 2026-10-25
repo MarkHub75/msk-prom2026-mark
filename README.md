@@ -196,6 +196,33 @@ Pathfinder, Mendeley, GMD, URFall, CAVIAR, PREWID, FIRESENSE, Roboflow, NVIDIA �
 
 **PPE — критична цена FN.** Рост усреднённой метрики не компенсирует потерю recall класса no_helmet. При PTQ отдельно проверяли эту регрессию. Stable Helmet/Pose/COCO сохранены, а экспериментальные Phone, Fire и Forklift не получили общий статус production-ready. [Реестр решений][model-status].
 
+### Сравнение 10 YOLO-моделей и выбор baseline
+
+Мы проверили **10 настоящих pretrained-моделей** на одном зафиксированном наборе из **152 DEV-изображений**: CAVIAR — 32, FPI — 32, NVIDIA Warehouse **SYNTHETIC** — 20, Mendeley — 24, SIBINTEK — 32, Roboflow controls — 12. Все модели выполнили реальный GPU-инференс. Нового обучения и новых TPU-запросов в этом исследовании не было.
+
+**Протокол:** RTX 4090, PyTorch 2.14.1+cu126, Ultralytics 8.4.184, FP32, batch 1, вход 640×640. После прогрева проведены три timing trials по 30 измеряемых итераций; FPS рассчитан по объединённой медиане CUDA-event времени. Это **model-only FPS**: без передачи данных, CPU preprocessing/NMS, чтения видео, сети и правил Argus. Confidence строго > 0,25; совпадение с известным bbox — тот же класс и IoU ≥ 0,50. Dense-профили используют host NMS 0,45; E2E — native TopK без дополнительного NMS.
+
+| Модель / измеренный профиль | RTX model-only FPS | Совпадения person / 93 известных bbox | Совпадения phone / 32 известных bbox | Локальная LinQ SDK-компиляция |
+|---|---:|---:|---:|---|
+| YOLOv5nu · dense | 217,1 | 26/93 | 10/32 | Не проверялась |
+| **YOLOv8n · dense** | **237,9** | **25/93** | **12/32** | PASS нового dense-графа; live не проверен |
+| YOLOv8s · dense | 252,8 | 24/93 | 12/32 | Не проверялась |
+| YOLOv8m · dense | 195,0 | 30/93 | 17/32 | Не проверялась |
+| YOLOv9t · dense | 84,9 | 22/93 | 11/32 | Не проверялась |
+| YOLOv10n · E2E | 192,3 | 24/93 | 7/32 | Не проверялась |
+| YOLO11n · dense | 188,5 | 21/93 | 12/32 | PASS; live не проверен |
+| YOLO11s · dense | 174,6 | 30/93 | 14/32 | Не проверялась |
+| YOLO12n · dense | 112,1 | 26/93 | 7/32 | Не проверялась |
+| YOLO26n · E2E | 150,1 | 24/93 | 7/32 | PASS **отдельного dense-профиля**, не E2E; live не проверен |
+
+По наблюдавшейся GPU-скорости лидирует **v8s**, по совпадениям известных phone-boxes — **v8m**; по person он делит лучший результат с YOLO11s. Диапазоны trial FPS у v8n и v8s почти пересекаются, поэтому универсального преимущества по скорости мы не заявляем. Известная разметка неполна, часть кадров положительно отобрана и коррелирована: числа совпадений **не являются полным recall, precision, F1 или mAP**. Неразмеченные предложения остаются UNKNOWN; независимая промышленная точность и event-FPS этим benchmark не измерены.
+
+Все десять архитектур прошли ONNX checker и same-head decision parity на восьми реальных изображениях при confidence 0,25 и 0,35. Для YOLOv10/26 отдельно согласовали dense/E2E-головы; исходное ошибочное сравнение разных голов сохранено в отчёте. В локальном SDK скомпилированы v8n, YOLO11n и YOLO26n dense. Однако CPU fake-quant проверка на четырёх DEV-кадрах выявила потерю float person-сигнала у всех трёх; новые программы не прошли этот ограниченный quality gate. Успешный compile не доказывает ни качество, ни выполнение на TPU.
+
+**Вывод: оставляем v8n baseline.** Для финального Argus сохраняем уже зарегистрированную пару **`det-yolov8n@640-ap9999` + её matching captain host-tail**, с исторически подтверждённым live-маршрутом S28/R32. Это выбор готовой интеграции, а не заявление, что v8n быстрее или точнее всех. Новый экспорт v8n также не подменяет действующую программу: побайтная идентичность исторического комплекта новым файлам не установлена. v8s/v8m/YOLO11s остаются кандидатами следующей проверки, YOLO11n/YOLO26n dense — дальнейшей TPU-квалификации.
+
+Полный протокол, исходная числовая таблица и SHA сохранены в **E-YOLO** [реестра доказательств](#evidence-ledger). Результаты относятся к конкретным pretrained-весам и режимам, а не изолированному сравнению архитектур после одинакового обучения.
+
 ## 13. Как читать метрики
 
 **Detection precision** — доля корректно сопоставленных bbox среди предсказаний при заданных confidence/IoU. **Event precision** — доля правильно найденных временных эпизодов. Для event-оценки нужны интервал, участники, правило matching, временной допуск и дедупликация. Эти метрики имеют разные единицы наблюдения.
@@ -471,6 +498,7 @@ uv run --no-sync safewatch eval config/eval.example.yaml --out data/eval-report
 | E-GMD | `/workspace/artifacts/training/matvey_yolo_pilot_20261024/matvey_rgb_mil_gpu_fp32_v1/matvey_result_final.json` | `bdeeb1bdf47e1f07aa11b157f517ce197458e6a4693650f267ed0fcb21e89556`; source DEV, не independent test |
 | E-PHONE | `/workspace/artifacts/matvey-release-final/mark-private-v1/metrics/FPI127_PAIRED_SUMMARY.json` | `d2603dd73a3b2f13e2899d509f64f2e976b80c693042548fe515ab78a90209a2`; парное bbox-сравнение, не event-GT |
 | E-FORK | `/workspace/artifacts/training/final-model-nvidia-evaluation/REUSED_PAIRED_SOURCE_METRICS.csv` | `33625749ababc047ca2dca5dfb0869238dd977a8bce546ea49811a3ccdcd3770`; matched source before/after, не промышленный test |
+| E-YOLO | `/workspace/artifacts/training/yolo-architecture-study-20261025/YOLO_LINQ_MODEL_COMPARISON_20261025.md`; рядом `YOLO_BENCHMARK.csv` | Report SHA `8755afd430e082b8f1d97535e16ffc4403f8798e708f3b66f47714d8a750c0ca`; CSV SHA `abb89c40e562a18bc9a96bc9738eafc98e1507ec36a3c5dcc845b20b26de9b18`; 10 моделей, частичный DEV-GT, новых live TPU нет |
 | E-SIB | `/workspace/artifacts/sibintek-final-linq-demo_20261025_v1.zip` | `7df1823a67105c7d5daf4afcc5b57e510e0a9dc83e72c509f4cfd9bdeb2414fc`; 87 658 865 байт; LOCAL CPU, TPU NOT RUN; публичное видео не разрешено |
 | E-SIB-SOURCE | `/workspace/datasets/research/sibinteck/sibintek_cv_bundle.zip` | `8598ce0c638cd62ffc2d9fedd9226dfe8d943b5a7a311a8e53fc6edf296081e3`; 653 958 262 байта; оригиналы сохранены |
 | E-DATA | `/workspace/shared/dataset-handoff/sibintek-final-20261025/VIDEO_MANIFEST.json` | `b4b5527337a84ae3bf1c900e08f60dec65acf73ce71c6ee2cdf1ed70c67dd914`; PTS, source mapping и ограничения |
