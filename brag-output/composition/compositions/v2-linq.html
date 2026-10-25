@@ -1,0 +1,36 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Source Sans Pro", sans-serif; color: #eceef1;
+      background: radial-gradient(ellipse 1200px 700px at 960px 560px, #18263a 0%, #111214 62%); }
+    #lq2-chip { position: absolute; left: 50%; top: 170px; width: 330px; height: 109px; margin-left: -165px; }
+    #lq2-row { position: absolute; left: 0; right: 0; top: 330px; display: flex; justify-content: center; align-items: flex-start; gap: 120px; }
+    .lq2-fig { text-align: left; }
+    .lq2-num { font-weight: 900; font-size: 260px; line-height: .86; white-space: nowrap; }
+    .lq2-num small { font-weight: 700; font-size: 84px; margin-left: 22px; color: #c8ccd2; }
+    .lq2-lab { margin-top: 26px; font-weight: 600; font-size: 40px; color: #a1a7b0; white-space: nowrap; }
+    #lq2-rule { width: 3px; height: 300px; margin-top: 20px; background: #2b4a75; }
+  </style>
+  <div id="root" data-composition-id="v2-linq" data-width="1920" data-height="1080">
+    <img id="lq2-chip" src="assets/media/chip-linq.png" alt="" />
+    <div id="lq2-row">
+      <div class="lq2-fig" id="lq2-f1"><div class="lq2-num">10,6<small>кадр/с</small></div><div class="lq2-lab">детектор на ускорителе</div></div>
+      <div id="lq2-rule"></div>
+      <div class="lq2-fig" id="lq2-f2"><div class="lq2-num">308<small>мс</small></div><div class="lq2-lab">задержка, медиана</div></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // measured values only (argus-real on LinQ TPU); no count-up through numbers nobody measured
+      tl.fromTo("#lq2-chip", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.25, ease: "expo.out" }, 0.0);
+      tl.fromTo("#lq2-f1", { opacity: 0, scale: 1.25, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.05);
+      tl.fromTo("#lq2-rule", { scaleY: 0 }, { scaleY: 1, duration: 0.3, ease: "power3.out" }, 0.15);
+      tl.fromTo("#lq2-f2", { opacity: 0, scale: 1.25, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.22);
+      tl.to("#root > *", { opacity: 0, duration: 0.1 }, 1.4);
+      window.__timelines["v2-linq"] = tl;
+    })();
+  </script>
+</template>

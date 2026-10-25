@@ -1,0 +1,57 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0a0b; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #hr-shake { position: absolute; inset: 0; }
+    #hr-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #hr-video { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: fill; }
+    #hr-hud { position: absolute; inset: 0; }
+    #hr-vig { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 45%, rgba(10,10,11,0) 55%, rgba(10,10,11,.6) 100%); }
+    #hr-flash { position: absolute; inset: 0; box-shadow: inset 0 0 0 0 rgba(214,69,69,0); }
+    #hr-kick { position: absolute; left: 96px; top: 70px; padding: 12px 20px 12px 16px; background: rgba(10,10,11,.86); border-left: 4px solid #3d84f0; font-weight: 700; font-size: 34px; white-space: nowrap; }
+    #hr-reason { position: absolute; left: 96px; top: 806px; padding: 20px 30px 22px 26px; background: #d64545; color: #fff; opacity: 0; transform-origin: 0 50%; }
+    #hr-reason b { display: block; font-weight: 700; font-size: 60px; line-height: 1.05; white-space: nowrap; }
+    #hr-reason small { display: block; margin-top: 8px; font-weight: 600; font-size: 32px; opacity: .92; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="v2-hero" data-width="1920" data-height="1080">
+    <div id="hr-shake">
+      <div id="hr-stage">
+        <video id="hr-video" class="clip" data-start="0" data-duration="4.4" data-media-start="12.31" data-track-index="0" muted playsinline src="assets/private/d-dark.mp4"></video>
+        <div id="hr-hud"></div>
+      </div>
+    </div>
+    <div id="hr-vig"></div>
+    <div id="hr-flash"></div>
+    <div id="hr-kick">Депо · человек рядом с движущимся поездом</div>
+    <div id="hr-reason"><b>Опасное сближение с техникой</b><small>человек у края пути, поезд движется</small></div>
+  </div>
+  <script src="assets/private/d-dark.hud.js"></script>
+  <script src="assets/js/hud2.js"></script>
+  <script>
+    (function () {
+      const MEDIA = 12.31, DUR = 4.4;
+      const HIT = 2.61;   // 7.61 of the film, strong beat of the track
+      const tl = gsap.timeline({ paused: true });
+      const draw = window.ArgusHud2.create(document.getElementById("hr-hud"), "d-dark", { stroke: 1.5, font: 11, pose: true });
+      const p = { t: 0 };
+      tl.fromTo(p, { t: 0 }, { t: DUR, duration: DUR, ease: "none", onUpdate: () => draw(MEDIA + p.t) }, 0);
+      draw(MEDIA);
+      const at = (cx, cy, s) => ({ scale: s, x: 960 - cx * s, y: 540 - cy * s });
+      // continues the dive out of the camera wall, then closes in on the worker beside the locomotive
+      tl.fromTo("#hr-stage", at(960, 540, 1.13), { ...at(990, 400, 1.7), duration: 1.3, ease: "power2.out" }, 0);
+      tl.to("#hr-stage", { ...at(960, 330, 2.5), duration: HIT - 1.3, ease: "power2.inOut" }, 1.3);
+      tl.to("#hr-stage", { ...at(940, 315, 2.9), duration: 0.22, ease: "expo.out" }, HIT);
+      tl.to("#hr-stage", { ...at(930, 320, 3.05), duration: DUR - HIT - 0.22, ease: "none" }, HIT + 0.22);
+      tl.fromTo("#hr-kick", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.25);
+      tl.to("#hr-kick", { opacity: 0, duration: 0.2 }, HIT - 0.1);
+      // the hit: red edge, a short shake, the reason plate
+      tl.fromTo("#hr-flash", { boxShadow: "inset 0 0 0 0px rgba(214,69,69,0)" }, { boxShadow: "inset 0 0 0 34px rgba(214,69,69,.85)", duration: 0.08, ease: "power2.out" }, HIT);
+      tl.to("#hr-flash", { boxShadow: "inset 0 0 0 12px rgba(214,69,69,.75)", duration: 0.4, ease: "power2.out" }, HIT + 0.08);
+      [[12, -7], [-10, 6], [6, -3], [-3, 2], [0, 0]].forEach(([x, y], i) => tl.to("#hr-shake", { x, y, duration: 0.033, ease: "none" }, HIT + i * 0.033));
+      tl.fromTo("#hr-reason", { opacity: 0, scaleX: 0.7 }, { opacity: 1, scaleX: 1, duration: 0.25, ease: "expo.out" }, HIT + 0.06);
+      tl.to("#hr-reason, #hr-flash", { opacity: 0, duration: 0.18 }, DUR - 0.2);
+      window.__timelines["v2-hero"] = tl;
+    })();
+  </script>
+</template>

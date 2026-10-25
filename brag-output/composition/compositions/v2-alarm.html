@@ -1,0 +1,52 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Source Sans Pro", sans-serif; color: #eceef1;
+      background: radial-gradient(ellipse 1100px 900px at 1450px 540px, #221718 0%, #111214 65%); }
+    #al2-persp { position: absolute; inset: 0; perspective: 1800px; }
+    /* the takeover window of the site, 1920 space x 1160..1880, y 30..1047, shown at 0.944 */
+    #al2-card { position: absolute; left: 1140px; top: 60px; width: 680px; height: 960px; overflow: hidden; border-radius: 6px;
+      box-shadow: 0 0 0 2px #d64545, 0 40px 100px rgba(0,0,0,.65); transform-origin: 30% 50%; }
+    #al2-card img { position: absolute; left: -1095px; top: -28.3px; width: 1812.5px; height: 1019.5px; }
+    #al2-press { position: absolute; left: 314px; top: 726px; width: 340px; height: 38px; border-radius: 3px; background: rgba(0,0,0,.26); opacity: 0; }
+    #al2-cursor { position: absolute; left: 0; top: 0; width: 30px; height: 42px; transform-origin: 2px 2px; }
+    #al2-done { position: absolute; left: 20px; right: 20px; top: 560px; padding: 16px 20px; background: rgba(16,22,20,.96); border: 2px solid #3d84f0; border-radius: 4px;
+      font-weight: 700; font-size: 30px; line-height: 1.2; opacity: 0; }
+    #al2-done small { display: block; font-weight: 600; font-size: 22px; color: #a1a7b0; margin-top: 4px; }
+    #al2-red { position: absolute; inset: 0; background: #d64545; opacity: 0; }
+    #al2-copy { position: absolute; left: 110px; top: 360px; width: 940px; }
+    #al2-copy b { display: block; font-weight: 700; font-size: 84px; line-height: 1.02; }
+    #al2-copy span { display: block; margin-top: 20px; font-weight: 600; font-size: 36px; color: #a1a7b0; }
+  </style>
+  <div id="root" data-composition-id="v2-alarm" data-width="1920" data-height="1080">
+    <div id="al2-copy"><b>Тревога — на пульт оператора</b><span>кадр-доказательство, причина, решение в одно касание</span></div>
+    <div id="al2-persp">
+      <div id="al2-card">
+        <img src="assets/media/takeover.jpg" alt="" />
+        <div id="al2-press"></div>
+        <div id="al2-done">Подтверждено — передано мастеру</div>
+        <svg id="al2-cursor" viewBox="0 0 24 34"><path d="M2 2 L2 27 L8.2 21.2 L12.4 31.4 L16.6 29.6 L12.5 19.7 L21 19.7 Z" fill="#fff" stroke="#111214" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div id="al2-red"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#al2-red", { opacity: 0.6 }, { opacity: 0, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#al2-card", { rotationY: -24, rotationX: 6, scale: 1.18, x: 120, opacity: 0.4 }, { rotationY: -6, rotationX: 2, scale: 1, x: 0, opacity: 1, duration: 0.45, ease: "expo.out" }, 0);
+      tl.to("#al2-card", { rotationY: -2, rotationX: 0, duration: 1.0, ease: "none" }, 0.45);
+      tl.fromTo("#al2-copy b", { opacity: 0, filter: "blur(10px)", x: -30 }, { opacity: 1, filter: "blur(0px)", x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+      tl.fromTo("#al2-copy span", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.3);
+      // cursor to «Подтвердить» and click (0.95 = 12.85 of the film)
+      tl.fromTo("#al2-cursor", { x: 300, y: 930, opacity: 0 }, { x: 492, y: 748, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.45);
+      tl.fromTo("#al2-press", { opacity: 0 }, { opacity: 1, duration: 0.04 }, 0.95);
+      tl.to("#al2-press", { opacity: 0, duration: 0.12 }, 1.06);
+      tl.fromTo("#al2-cursor", { scale: 1 }, { scale: 0.85, duration: 0.05, yoyo: true, repeat: 1, ease: "power2.out" }, 0.95);
+      tl.fromTo("#al2-done", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.2, ease: "expo.out" }, 1.05);
+      tl.to("#al2-card, #al2-copy", { x: -260, opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power3.in" }, 1.36);
+      window.__timelines["v2-alarm"] = tl;
+    })();
+  </script>
+</template>

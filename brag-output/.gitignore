@@ -1,0 +1,4 @@
+# v2: frames of real depot workers (private source) never go to the public repo; renders stay on disk
+renders/*v2*
+keyframes-v2/
+review/v2-exact*

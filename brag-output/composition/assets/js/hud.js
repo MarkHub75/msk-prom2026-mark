@@ -5,8 +5,8 @@
 (function () {
   const RED = "#d64545";
 
-  function frameAt(t) {
-    const F = window.HUD_CAM13;
+  function frameAt(t, data) {
+    const F = data || window.HUD_CAM13;
     let lo = 0, hi = F.length - 1;
     if (t <= F[0][0]) return { a: F[0], b: null, k: 0 };
     if (t >= F[hi][0]) return { a: F[hi], b: null, k: 0 };
@@ -15,8 +15,8 @@
   }
 
   // Objects at media time t, boxes interpolated between two analysed frames of the same track.
-  function objectsAt(t) {
-    const { a, b, k } = frameAt(t);
+  function objectsAt(t, data) {
+    const { a, b, k } = frameAt(t, data);
     return a[1].map((o) => {
       const n = b && b[1].find((p) => p[0] === o[0]);
       const box = n ? [2, 3, 4, 5].map((i) => o[i] + (n[i] - o[i]) * k) : o.slice(2, 6);
@@ -26,7 +26,8 @@
 
   // host: a positioned element covering the video exactly. opts.stroke / opts.font in host px.
   function create(host, opts) {
-    const o = Object.assign({ stroke: 2.5, font: 11, ids: null, hideLabelsOf: [] }, opts || {});
+    // opts.data: another analysis in the HUD_CAM13 format (Камера 2.3)
+    const o = Object.assign({ stroke: 2.5, font: 11, ids: null, hideLabelsOf: [], data: null }, opts || {});
     const pool = new Map();
     function el(id) {
       if (pool.has(id)) return pool.get(id);
@@ -46,7 +47,7 @@
     }
     return function draw(t) {
       const seen = new Set();
-      for (const ob of objectsAt(t)) {
+      for (const ob of objectsAt(t, o.data)) {
         if (o.ids && !o.ids.includes(ob.id)) continue;
         seen.add(ob.id);
         const r = el(ob.id);

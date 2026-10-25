@@ -1,0 +1,57 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0a0b; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #h2-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #h2-video { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: fill; }
+    #h2-hud { position: absolute; inset: 0; }
+    #h2-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,11,.94) 0%, rgba(10,10,11,.86) 42%, rgba(10,10,11,.25) 72%, rgba(10,10,11,.1) 100%); }
+    #h2-copy { position: absolute; left: 140px; top: 250px; width: 1000px; }
+    #h2-num { font-weight: 900; font-size: 290px; line-height: .86; font-variant-numeric: tabular-nums; }
+    #h2-line { margin-top: 24px; font-weight: 600; font-size: 52px; line-height: 1.12; color: #c8ccd2; }
+    #h2-line span, #h2-punch span { display: inline-block; margin-right: .25em; }
+    #h2-punch { margin-top: 62px; font-weight: 700; font-size: 76px; line-height: 1.05; }
+    #h2-punch .red { color: #d64545; }
+    #h2-src { position: absolute; left: 140px; top: 950px; font-weight: 600; font-size: 28px; color: #8a909a; }
+  </style>
+  <div id="root" data-composition-id="v2-hook" data-width="1920" data-height="1080">
+    <div id="h2-stage">
+      <video id="h2-video" class="clip" data-start="0" data-duration="3.1" data-media-start="2.6" data-track-index="0" muted playsinline src="assets/private/d-loco.mp4"></video>
+      <div id="h2-hud"></div>
+    </div>
+    <div id="h2-scrim"></div>
+    <div id="h2-copy">
+      <div id="h2-num">1,17</div>
+      <div id="h2-line"><span>пострадавших</span><span>на</span><span>1000</span><span>работников</span><span>в</span><span>год</span></div>
+      <div id="h2-punch"><span>Мастер</span><span>не</span><span>может</span><span>видеть</span><span class="red">всё.</span></div>
+    </div>
+    <div id="h2-src">Росстат, 2025</div>
+  </div>
+  <script src="assets/private/d-loco.hud.js"></script>
+  <script src="assets/js/hud2.js"></script>
+  <script>
+    (function () {
+      const MEDIA = 2.6, DUR = 3.1;
+      const tl = gsap.timeline({ paused: true });
+      const draw = window.ArgusHud2.create(document.getElementById("h2-hud"), "d-loco", { stroke: 2, font: 15 });
+      const p = { t: 0 };
+      tl.fromTo(p, { t: 0 }, { t: DUR, duration: DUR, ease: "none", onUpdate: () => draw(MEDIA + p.t) }, 0);
+      draw(MEDIA);
+      // a dolly down the dark depot towards the arriving locomotive (OSD bands stay outside the frame)
+      const at = (cx, cy, s) => ({ scale: s, x: 960 - cx * s, y: 540 - cy * s });
+      tl.fromTo("#h2-stage", at(1020, 520, 1.2), { ...at(1080, 470, 1.42), duration: DUR, ease: "power1.inOut" }, 0);
+      const num = document.getElementById("h2-num"), c = { v: 0 };
+      tl.fromTo("#h2-num", { opacity: 0, filter: "blur(14px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "expo.out" }, 0.06);
+      tl.fromTo(c, { v: 0 }, { v: 1.17, duration: 0.5, ease: "power3.out", onUpdate: () => { num.textContent = c.v.toFixed(2).replace(".", ","); } }, 0.06);
+      tl.fromTo("#h2-line span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, stagger: 0.05, ease: "power2.out" }, 0.34);
+      tl.fromTo("#h2-src", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.5);
+      tl.fromTo("#h2-punch span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.06, ease: "power2.out" }, 1.0);
+      // out: the copy rushes forward and blurs as the camera wall arrives
+      tl.to("#h2-copy, #h2-src", { scale: 1.12, opacity: 0, filter: "blur(16px)", transformOrigin: "20% 50%", duration: 0.22, ease: "power3.in" }, 2.78);
+      tl.to("#h2-stage", { opacity: 0.2, duration: 0.2, ease: "power2.in" }, 2.8);
+      window.__timelines["v2-hook"] = tl;
+    })();
+  </script>
+</template>

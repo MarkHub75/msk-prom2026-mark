@@ -1,0 +1,37 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #phr { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .phr-line { font-weight: 700; font-size: 108px; line-height: 1.12; white-space: nowrap; }
+    .phr-line span { display: inline-block; margin-right: .22em; }
+    .phr-line span:last-child { margin-right: 0; }
+    #phr-l1 { color: #a1a7b0; }
+    #phr-l2 { margin-top: 64px; }
+    #phr-l2 > span:first-child { margin-right: .5em; }
+    #phr-target { position: relative; display: inline-block; }
+    #phr-box { position: absolute; left: -26px; top: 4px; right: -26px; bottom: -6px; border: 5px solid #d64545;
+      box-shadow: 0 0 0 3px rgba(16,22,20,.9), inset 0 0 0 3px rgba(16,22,20,.6); }
+    #phr-lab { position: absolute; left: -26px; top: 6px; transform: translateY(-100%); padding: 6px 12px; background: rgba(16,22,20,.96);
+      border: 2px solid #d64545; font-weight: 600; font-size: 28px; line-height: 1.2; color: #fff; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="v2-phrase" data-width="1920" data-height="1080">
+    <div id="phr">
+      <div class="phr-line" id="phr-l1"><span>Точность</span><span>там,</span></div>
+      <div class="phr-line" id="phr-l2"><span>где</span><span id="phr-target"><span>что-то</span><span>происходит.</span><i id="phr-box"></i><b id="phr-lab">событие</b></span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#phr-l1 span, #phr-l2 > span:first-child, #phr-target > span", { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.14, stagger: 0.07, ease: "power2.out" }, 0.06);
+      // lock-on: the detection box closes onto «что-то происходит.»
+      tl.fromTo("#phr-box", { opacity: 0, scaleX: 1.12, scaleY: 1.5 }, { opacity: 1, scaleX: 1, scaleY: 1, duration: 0.24, ease: "expo.out" }, 0.5);
+      tl.fromTo("#phr-lab", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 0.6);
+      tl.to("#phr", { opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 1.82);
+      window.__timelines["v2-phrase"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,76 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0a0b; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    /* 3×3 wall: tiles 600×338, gap 14; the centre tile sits exactly in the middle of the frame */
+    #g-wall { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 540px; }
+    .g-tile { position: absolute; width: 600px; height: 338px; overflow: hidden; background: #0a0a0b; box-shadow: 0 0 0 1px #2a2c31; }
+    .g-crop { position: absolute; left: 0; top: 0; width: 600px; height: 338px; transform: scale(1.13); transform-origin: 50% 50%; }
+    .g-crop video { position: absolute; left: 0; top: 0; width: 600px; height: 338px; object-fit: fill; }
+    .g-hud { position: absolute; inset: 0; }
+    .g-lab { position: absolute; left: 10px; bottom: 10px; padding: 3px 8px; background: rgba(10,10,11,.78); border-radius: 3px; font-weight: 600; font-size: 15px; color: #c8ccd2; white-space: nowrap; }
+    .g-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #8a909a; margin-right: 7px; vertical-align: 1px; }
+    #g-alarm { position: absolute; left: 660px; top: 371px; width: 600px; height: 338px; box-shadow: inset 0 0 0 4px #d64545; opacity: 0; }
+    #g-alarm-chip { position: absolute; left: 0; top: 0; padding: 4px 10px; background: #d64545; color: #fff; font-weight: 700; font-size: 17px; }
+    #g-credit { position: absolute; right: 30px; bottom: 26px; padding: 4px 10px; border-radius: 3px; background: rgba(10,10,11,.8); color: #a1a7b0; font-weight: 600; font-size: 20px; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="v2-grid" data-width="1920" data-height="1080">
+    <div id="g-wall">
+      <div class="g-tile" id="g-t0" style="left:46px;top:19px"><div class="g-crop"><video id="g-v0" class="clip" data-start="0" data-duration="2" data-media-start="4" data-track-index="0" muted playsinline src="assets/private/d-walk.mp4"></video><div class="g-hud" id="g-h0"></div></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 21.03 16:17</div></div>
+      <div class="g-tile" id="g-t1" style="left:660px;top:19px"><div class="g-crop"><video id="g-v1" class="clip" data-start="0" data-duration="2" data-media-start="5" data-track-index="0" muted playsinline src="assets/media/cam13.mp4"></video><div class="g-hud" id="g-h1"></div></div><div class="g-lab"><i class="g-dot"></i>Цех · Камера 1.3</div></div>
+      <div class="g-tile" id="g-t2" style="left:1274px;top:19px"><div class="g-crop"><video id="g-v2" class="clip" data-start="0" data-duration="2" data-media-start="4" data-track-index="0" muted playsinline src="assets/private/d-walk2.mp4"></video><div class="g-hud" id="g-h2"></div></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 20.03 18:25</div></div>
+      <div class="g-tile" id="g-t3" style="left:46px;top:371px"><div class="g-crop"><video id="g-v3" class="clip" data-start="0" data-duration="2" data-media-start="26" data-track-index="0" muted playsinline src="assets/private/d-hero.mp4"></video><div class="g-hud" id="g-h3"></div></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 20.03 23:10</div></div>
+      <div class="g-tile" id="g-t4" style="left:660px;top:371px"><div class="g-crop"><video id="g-v4" class="clip" data-start="0" data-duration="2" data-media-start="10.31" data-track-index="0" muted playsinline src="assets/private/d-dark.mp4"></video><div class="g-hud" id="g-h4"></div></div><div class="g-lab" id="g-l4"><i class="g-dot"></i>Депо · запись 22.03 04:50</div></div>
+      <div class="g-tile" id="g-t5" style="left:1274px;top:371px"><div class="g-crop"><video id="g-v5" class="clip" data-start="0" data-duration="2" data-media-start="0.5" data-track-index="0" muted playsinline src="assets/media/cam23.mp4"></video><div class="g-hud" id="g-h5"></div></div><div class="g-lab"><i class="g-dot"></i>Склад · Камера 2.3</div></div>
+      <div class="g-tile" id="g-t6" style="left:46px;top:723px"><div class="g-crop"><video id="g-v6" class="clip" data-start="0" data-duration="2" data-media-start="12" data-track-index="0" muted playsinline src="assets/private/d-loco.mp4"></video><div class="g-hud" id="g-h6"></div></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 20.03 04:36</div></div>
+      <div class="g-tile" id="g-t7" style="left:660px;top:723px"><div class="g-crop"><video id="g-v7" class="clip" data-start="0" data-duration="2" data-media-start="0" data-track-index="0" muted playsinline src="assets/private/d-g400.mp4"></video></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 21.03 16:06</div></div>
+      <div class="g-tile" id="g-t8" style="left:1274px;top:723px"><div class="g-crop"><video id="g-v8" class="clip" data-start="0" data-duration="2" data-media-start="0" data-track-index="0" muted playsinline src="assets/private/d-g300.mp4"></video></div><div class="g-lab"><i class="g-dot"></i>Депо · запись 20.03 18:26</div></div>
+      <div id="g-alarm"><div id="g-alarm-chip">Опасное сближение с техникой</div></div>
+    </div>
+    <div id="g-credit" data-layout-ignore>Камеры 1.3 и 2.3 — видео: Onal, Dandil, Mendeley Data, CC BY 4.0</div>
+  </div>
+  <script src="assets/private/d-walk.hud.js"></script>
+  <script src="assets/private/d-walk2.hud.js"></script>
+  <script src="assets/private/d-hero.hud.js"></script>
+  <script src="assets/private/d-dark.hud.js"></script>
+  <script src="assets/private/d-loco.hud.js"></script>
+  <script src="assets/js/hud-cam13.js"></script>
+  <script src="assets/js/hud-cam23.js"></script>
+  <script src="assets/js/hud.js"></script>
+  <script src="assets/js/hud2.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const H2 = window.ArgusHud2, H1 = window.ArgusHud;
+      const small = { stroke: 1.2, font: 8, labels: false };
+      // [draw function, media start] per tile; the press box of Камера 1.3 and the forklift of 2.3 carry no class label
+      const tiles = [
+        [H2.create(document.getElementById("g-h0"), "d-walk", small), 4],
+        [H1.create(document.getElementById("g-h1"), { stroke: 1.2, font: 7, hideLabelsOf: [1, 2, 3, 4, 5, 6] }), 5],
+        [H2.create(document.getElementById("g-h2"), "d-walk2", small), 4],
+        [H2.create(document.getElementById("g-h3"), "d-hero", { stroke: 1.2, font: 8, labels: false, zone: true }), 26],
+        [H2.create(document.getElementById("g-h4"), "d-dark", { stroke: 1.4, font: 9, labels: true }), 10.31],
+        [H1.create(document.getElementById("g-h5"), { stroke: 1.2, font: 7, hideLabelsOf: [1, 2], data: window.HUD_CAM23 }), 0.5],
+        [H2.create(document.getElementById("g-h6"), "d-loco", small), 12],
+      ];
+      const p = { t: 0 };
+      const render = (t) => tiles.forEach(([draw, m]) => draw(m + t));
+      tl.fromTo(p, { t: 0 }, { t: 2, duration: 2, ease: "none", onUpdate: () => render(p.t) }, 0);
+      render(0);
+      // tiles land from the centre outwards on the downbeat
+      const order = [4, 1, 3, 5, 7, 0, 2, 6, 8];
+      order.forEach((k, j) => tl.fromTo(`#g-t${k}`, { opacity: 0, scale: 0.8, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "expo.out" }, 0.02 + j * 0.035));
+      tl.fromTo("#g-wall", { scale: 1.06 }, { scale: 1.0, duration: 1.4, ease: "power2.out" }, 0);
+      // 0.79 s = 3.79 of the film: the depot camera turns red exactly when its rule fires in the data (22.03, 11.1 s)
+      tl.fromTo("#g-alarm", { opacity: 0 }, { opacity: 1, duration: 0.06 }, 0.79);
+      tl.fromTo("#g-alarm", { boxShadow: "inset 0 0 0 4px #d64545, 0 0 0 0 rgba(214,69,69,0)" }, { boxShadow: "inset 0 0 0 4px #d64545, 0 0 0 10px rgba(214,69,69,.55)", duration: 0.12, ease: "power2.out" }, 0.79);
+      tl.to("#g-alarm", { boxShadow: "inset 0 0 0 4px #d64545, 0 0 0 3px rgba(214,69,69,.6)", duration: 0.4, ease: "power2.out" }, 0.91);
+      tl.to(".g-tile:not(#g-t4)", { opacity: 0.45, duration: 0.3 }, 0.95);
+      // dive into the red camera: the centre tile becomes the frame (600 → 1920 = ×3.2)
+      tl.to("#g-wall", { scale: 3.2, duration: 0.45, ease: "power3.in" }, 1.55);
+      tl.to("#g-l4, #g-alarm-chip, #g-credit", { opacity: 0, duration: 0.15 }, 1.6);
+      window.__timelines["v2-grid"] = tl;
+    })();
+  </script>
+</template>

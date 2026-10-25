@@ -1,0 +1,1182 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 5,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"md-smoke\"> has data-start=\"0.95\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#md-smoke",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\compositions\\v2-models.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"0.95\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      },
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"mt-v1\"> has data-start=\"0.6\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#mt-v1",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\compositions\\v2-montage.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"0.6\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      },
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"mt-v2\"> has data-start=\"1.12\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#mt-v2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\compositions\\v2-montage.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"1.12\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      },
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"mt-v4\"> has data-start=\"2.16\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#mt-v4",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\compositions\\v2-montage.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"2.16\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      },
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"mt-v5\"> has data-start=\"2.68\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#mt-v5",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\compositions\\v2-montage.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"2.68\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      }
+    ],
+    "filesScanned": 35
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 12,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 25,
+        "selector": "#fin-glow",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 560,
+          "top": 90,
+          "right": 1960,
+          "bottom": 990,
+          "width": 1400,
+          "height": 900
+        },
+        "containerSelector": "#v2-finale > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 40
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-finale.html",
+        "bbox": {
+          "x": 560,
+          "y": 90,
+          "width": 1400,
+          "height": 900
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 1.667,
+        "selector": "#h2-hud > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 820.24,
+          "top": -65.05,
+          "right": 971.56,
+          "bottom": -39.86,
+          "width": 151.32,
+          "height": 25.19
+        },
+        "containerSelector": "#root",
+        "text": "поезд · движется",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 65.05
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hook.html",
+        "bbox": {
+          "x": 820.24,
+          "y": -65.05,
+          "width": 151.32,
+          "height": 25.19
+        },
+        "firstSeen": 1.667,
+        "lastSeen": 1.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 1.667,
+        "selector": "#h2-stage",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -441.23,
+          "top": -108.84,
+          "right": 2104.5,
+          "bottom": 1323.13,
+          "width": 2545.73,
+          "height": 1431.97
+        },
+        "containerSelector": "#v2-hook > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 441.23,
+          "right": 184.5,
+          "top": 108.84,
+          "bottom": 243.13
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hook.html",
+        "bbox": {
+          "x": -441.23,
+          "y": -108.84,
+          "width": 2545.73,
+          "height": 1431.97
+        },
+        "firstSeen": 1.667,
+        "lastSeen": 1.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.667
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 1.667,
+        "selector": "#h2-hud > div:nth-of-type(1)",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 808.97,
+          "top": -28.52,
+          "right": 1277.64,
+          "bottom": 475.53,
+          "width": 468.66,
+          "height": 504.05
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 28.52
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hook.html",
+        "bbox": {
+          "x": 808.97,
+          "y": -28.52,
+          "width": 468.66,
+          "height": 504.05
+        },
+        "firstSeen": 1.667,
+        "lastSeen": 1.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.667
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 5,
+        "selector": "#hr-hud > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 935.02,
+          "top": -92.31,
+          "right": 1029.6,
+          "bottom": -76.49,
+          "width": 94.58,
+          "height": 15.82
+        },
+        "containerSelector": "#root",
+        "text": "поезд · движется",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 92.31
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": 935.02,
+          "y": -92.31,
+          "width": 94.58,
+          "height": 15.82
+        },
+        "firstSeen": 5,
+        "lastSeen": 8.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          5,
+          8.333
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 5,
+        "selector": "#hr-hud > div:nth-of-type(1)",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 927.67,
+          "top": -68.86,
+          "right": 1608.92,
+          "bottom": 642.27,
+          "width": 681.25,
+          "height": 711.12
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 68.86
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": 927.67,
+          "y": -68.86,
+          "width": 681.25,
+          "height": 711.12
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#hr-stage",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -1799.08,
+          "top": -392.21,
+          "right": 3855.13,
+          "bottom": 2788.28,
+          "width": 5654.21,
+          "height": 3180.49
+        },
+        "containerSelector": "#hr-shake",
+        "text": "поезд · движется вплотную к поезду",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": -1799.08,
+          "y": -392.21,
+          "width": 5654.21,
+          "height": 3180.49
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#hr-hud > div:nth-of-type(2)",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 981.64,
+          "top": -444.02,
+          "right": 1266.42,
+          "bottom": -376.93,
+          "width": 284.78,
+          "height": 67.09
+        },
+        "containerSelector": "#hr-hud",
+        "text": "поезд · движется",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": -1799.08,
+          "top": -392.21,
+          "right": 3855.13,
+          "bottom": 2788.28,
+          "width": 5654.21,
+          "height": 3180.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": 981.64,
+          "y": -444.02,
+          "width": 284.78,
+          "height": 67.09
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 13.575,
+        "selector": "#ph3-card > small:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 683.21,
+          "top": 170.44,
+          "right": 1043.09,
+          "bottom": 214.27,
+          "width": 359.88,
+          "height": 43.83
+        },
+        "containerSelector": "#ph3-card > b:nth-of-type(1)",
+        "text": "Поручение мастеру · ждёт принятия",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-phone.html",
+        "bbox": {
+          "x": 683.21,
+          "y": 170.44,
+          "width": 359.88,
+          "height": 43.83
+        },
+        "firstSeen": 13.575,
+        "lastSeen": 13.575,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          13.575
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#mt-h5 > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 652.09,
+          "top": -329.39,
+          "right": 789.03,
+          "bottom": -306.89,
+          "width": 136.94,
+          "height": 22.5
+        },
+        "containerSelector": "#root",
+        "text": "поезд · движется",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 329.39
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 652.09,
+          "y": -329.39,
+          "width": 136.94,
+          "height": 22.5
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#mt-g5",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -764.99,
+          "top": -299.99,
+          "right": 2115.01,
+          "bottom": 1320.01,
+          "width": 2880,
+          "height": 1620
+        },
+        "containerSelector": "#mt-s5",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 764.99,
+          "right": 195.01,
+          "top": 299.99,
+          "bottom": 240.01
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": -764.99,
+          "y": -299.99,
+          "width": 2880,
+          "height": 1620
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#mt-h5 > div:nth-of-type(2)",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 641.59,
+          "top": -336.63,
+          "right": 799.53,
+          "bottom": -299.64,
+          "width": 157.95,
+          "height": 36.98
+        },
+        "containerSelector": "#mt-h5",
+        "text": "поезд · движется",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": -764.99,
+          "top": -299.99,
+          "right": 2115.01,
+          "bottom": 1320.01,
+          "width": 2880,
+          "height": 1620
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 641.59,
+          "y": -336.63,
+          "width": 157.95,
+          "height": 36.98
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 21.667,
+        "selector": "#mt-h5 > div:nth-of-type(1)",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 641.59,
+          "top": -297.25,
+          "right": 1583.64,
+          "bottom": 685.76,
+          "width": 942.05,
+          "height": 983.02
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 297.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 641.59,
+          "y": -297.25,
+          "width": 942.05,
+          "height": 983.02
+        },
+        "firstSeen": 21.667,
+        "lastSeen": 21.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          21.667
+        ]
+      }
+    ],
+    "duration": 30,
+    "samples": [
+      1.667,
+      5,
+      8.333,
+      11.667,
+      15,
+      18.333,
+      21.667,
+      25,
+      28.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 13,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.667,
+      8.333,
+      15,
+      21.667,
+      28.333
+    ],
+    "checked": 34,
+    "passed": 34
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 15,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 11 text elements stay under it for 0.5 s or more, the smallest \"вплотную к поезду\" at 10 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "вплотную к поезду",
+        "selector": "#g-h4 > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-grid.html",
+        "bbox": {
+          "x": 938.03,
+          "y": 416.16,
+          "width": 88.71,
+          "height": 12.73
+        },
+        "time": 3.375,
+        "times": [
+          3.125,
+          3.125,
+          3.25,
+          3.25,
+          3.25,
+          3.25,
+          3.375,
+          3.375,
+          3.375,
+          3.375,
+          3.875
+        ],
+        "fontPx": 10.17,
+        "floorPx": 28,
+        "seconds": 1.625,
+        "elements": [
+          {
+            "selector": "#g-h4 > div:nth-of-type(4)",
+            "text": "вплотную к поезду",
+            "fontPx": 10.17,
+            "time": 3.375,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#g-t0 > div:nth-of-type(2)",
+            "text": "Депо · запись 21.03 16:17",
+            "fontPx": 14.16,
+            "time": 3.25,
+            "seconds": 1
+          },
+          {
+            "selector": "#g-t1 > div:nth-of-type(2)",
+            "text": "Цех · Камера 1.3",
+            "fontPx": 14.52,
+            "time": 3.125,
+            "seconds": 1.125
+          },
+          {
+            "selector": "#g-t8 > div:nth-of-type(2)",
+            "text": "Депо · запись 20.03 18:26",
+            "fontPx": 14.63,
+            "time": 3.375,
+            "seconds": 0.875
+          },
+          {
+            "selector": "#g-t7 > div:nth-of-type(2)",
+            "text": "Депо · запись 21.03 16:06",
+            "fontPx": 14.88,
+            "time": 3.25,
+            "seconds": 1
+          },
+          {
+            "selector": "#g-l4",
+            "text": "Депо · запись 22.03 04:50",
+            "fontPx": 15,
+            "time": 3.125,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#g-t3 > div:nth-of-type(2)",
+            "text": "Депо · запись 20.03 23:10",
+            "fontPx": 15.01,
+            "time": 3.25,
+            "seconds": 1
+          },
+          {
+            "selector": "#g-t5 > div:nth-of-type(2)",
+            "text": "Склад · Камера 2.3",
+            "fontPx": 15.01,
+            "time": 3.25,
+            "seconds": 1
+          },
+          {
+            "selector": "#g-t2 > div:nth-of-type(2)",
+            "text": "Депо · запись 20.03 18:25",
+            "fontPx": 15.01,
+            "time": 3.375,
+            "seconds": 0.875
+          },
+          {
+            "selector": "#g-t6 > div:nth-of-type(2)",
+            "text": "Депо · запись 20.03 04:36",
+            "fontPx": 15.01,
+            "time": 3.375,
+            "seconds": 0.875
+          },
+          {
+            "selector": "#g-alarm-chip",
+            "text": "Опасное сближение с техникой",
+            "fontPx": 17,
+            "time": 3.875,
+            "seconds": 0.875
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"вплотную к поезду\" renders at 12 px for 2.63 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "вплотную к поезду",
+        "selector": "#hr-hud > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": 882.93,
+          "y": 194.71,
+          "width": 105.87,
+          "height": 15.82
+        },
+        "time": 5,
+        "times": [
+          5
+        ],
+        "fontPx": 12.43,
+        "floorPx": 28,
+        "seconds": 2.625,
+        "elements": [
+          {
+            "selector": "#hr-hud > div:nth-of-type(4)",
+            "text": "вплотную к поезду",
+            "fontPx": 12.43,
+            "time": 5,
+            "seconds": 2.625
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"человек у края пути, поезд движется\" (6 words) is on screen 1.57 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "человек у края пути, поезд движется",
+        "selector": "#hr-reason > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-hero.html",
+        "bbox": {
+          "x": 120.65,
+          "y": 897,
+          "width": 504.18000000000006,
+          "height": 40
+        },
+        "time": 7.703,
+        "words": 6,
+        "seconds": 1.57,
+        "floorSeconds": 1.725
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"кадр-доказательство, причина, решение в одно касание\" (7 words) is on screen 1.10 s (±0.01 s), under its 1.95 s floor: hold it about 0.5 s + 0.3 s a word (2.60 s here) before it leaves or changes; see references/motion.md.",
+        "text": "кадр-доказательство, причина, решение в одно касание",
+        "selector": "#al2-copy > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-alarm.html",
+        "bbox": {
+          "x": 110,
+          "y": 551.34,
+          "width": 915.5900000000001,
+          "height": 45
+        },
+        "time": 12.305,
+        "words": 7,
+        "seconds": 1.102,
+        "floorSeconds": 1.95
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Подтверждено — передано мастеру\" (3 words) is on screen 0.41 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Подтверждено — передано мастеру",
+        "selector": "#al2-done",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-alarm.html",
+        "bbox": {
+          "x": 1181.18,
+          "y": 640.07,
+          "width": 503.43000000000006,
+          "height": 40.129999999999995
+        },
+        "time": 13,
+        "words": 3,
+        "seconds": 0.406,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"оператор: Иванов А.\" renders at 22 px for 0.50 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "оператор: Иванов А.",
+        "selector": "#al2-done > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-alarm.html",
+        "bbox": {
+          "x": 1181.21,
+          "y": 679.92,
+          "width": 201.64,
+          "height": 29.01
+        },
+        "time": 13,
+        "times": [
+          13
+        ],
+        "fontPx": 21.98,
+        "floorPx": 28,
+        "seconds": 0.5,
+        "elements": [
+          {
+            "selector": "#al2-done > small:nth-of-type(1)",
+            "text": "оператор: Иванов А.",
+            "fontPx": 21.98,
+            "time": 13,
+            "seconds": 0.5
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Поручение мастеру · ждёт принятия\" (4 words) is on screen 0.83 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Поручение мастеру · ждёт принятия",
+        "selector": "#ph3-card > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-phone.html",
+        "bbox": {
+          "x": 700.72,
+          "y": 167.65,
+          "width": 359.8399999999999,
+          "height": 42.47
+        },
+        "time": 13.539,
+        "words": 4,
+        "seconds": 0.828,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Опасное сближение с техникой\" (4 words) is on screen 0.83 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Опасное сближение с техникой",
+        "selector": "#ph3-card > b:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-phone.html",
+        "bbox": {
+          "x": 701.89,
+          "y": 192.54,
+          "width": 461.43999999999994,
+          "height": 58.54999999999998
+        },
+        "time": 13.539,
+        "words": 4,
+        "seconds": 0.828,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Поручение мастеру · ждёт принятия\" renders at 22 px for 0.75 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Поручение мастеру · ждёт принятия",
+        "selector": "#ph3-card > small:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-phone.html",
+        "bbox": {
+          "x": 700.72,
+          "y": 167.65,
+          "width": 359.84,
+          "height": 42.47
+        },
+        "time": 13.625,
+        "times": [
+          13.625
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 0.75,
+        "elements": [
+          {
+            "selector": "#ph3-card > small:nth-of-type(1)",
+            "text": "Поручение мастеру · ждёт принятия",
+            "fontPx": 22,
+            "time": 13.625,
+            "seconds": 0.75
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"поручение — на телефон мастера\" (4 words) is on screen 1.20 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "поручение — на телефон мастера",
+        "selector": "#ph3-copy > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-phone.html",
+        "bbox": {
+          "x": 110,
+          "y": 701.19,
+          "width": 543.58,
+          "height": 45
+        },
+        "time": 13.805,
+        "words": 4,
+        "seconds": 1.195,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Цех · Камера 1.3\" (4 words) is on screen 0.54 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Цех · Камера 1.3",
+        "selector": "#mt-s1 > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 116,
+          "y": 84,
+          "width": 250.69,
+          "height": 42
+        },
+        "time": 19.5,
+        "words": 4,
+        "seconds": 0.539,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"человек\" at 20 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "человек",
+        "selector": "#mt-h1 > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 1052.09,
+          "y": 144.45,
+          "width": 81.13,
+          "height": 28.6
+        },
+        "time": 19.5,
+        "times": [
+          19,
+          19.5,
+          21.125
+        ],
+        "fontPx": 20,
+        "floorPx": 28,
+        "seconds": 0.625,
+        "elements": [
+          {
+            "selector": "#mt-h1 > div:nth-of-type(2)",
+            "text": "человек",
+            "fontPx": 20,
+            "time": 19.5,
+            "seconds": 0.625
+          },
+          {
+            "selector": "#mt-h0 > div:nth-of-type(6)",
+            "text": "человек · идёт",
+            "fontPx": 20.02,
+            "time": 19,
+            "seconds": 0.5
+          },
+          {
+            "selector": "#mt-h4 > div:nth-of-type(4)",
+            "text": "человек · стоит",
+            "fontPx": 22.01,
+            "time": 21.125,
+            "seconds": 0.5
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Опасная зона: путь перед локомотивом\" (5 words) is on screen 0.53 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Опасная зона: путь перед локомотивом",
+        "selector": "#mt-s2 > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 116,
+          "y": 84,
+          "width": 619.66,
+          "height": 42
+        },
+        "time": 20.039,
+        "words": 5,
+        "seconds": 0.531,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Журнал охраны труда\" (3 words) is on screen 0.50 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Журнал охраны труда",
+        "selector": "#mt-s3 > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 116,
+          "y": 84,
+          "width": 345.17,
+          "height": 42
+        },
+        "time": 20.57,
+        "words": 3,
+        "seconds": 0.5,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"человек · стоит\" (2 words) is on screen 0.10 s (±0.01 s), under its 0.40 s floor: hold it about 0.5 s + 0.3 s a word (1.10 s here) before it leaves or changes; see references/motion.md.",
+        "text": "человек · стоит",
+        "selector": "#mt-h4 > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/v2-montage.html",
+        "bbox": {
+          "x": 843.2,
+          "y": 200.88,
+          "width": 162.02999999999997,
+          "height": 30.639999999999986
+        },
+        "time": 21.07,
+        "words": 2,
+        "seconds": 0.102,
+        "floorSeconds": 0.4
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 240
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "31b7d4e6-f3d8-4fe9-8bfd-aeff0b0593a9",
+    "revision": "97b529fd-dbf4-4781-82e4-6a0e65fe9d58",
+    "report": "C:\\Users\\User\\Documents\\argus-promo\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\31b7d4e6-f3d8-4fe9-8bfd-aeff0b0593a9.json",
+    "attribution": "recorded-revision"
+  },
+  "_meta": {
+    "version": "0.8.195",
+    "latestVersion": "0.8.193",
+    "updateAvailable": false
+  }
+}
