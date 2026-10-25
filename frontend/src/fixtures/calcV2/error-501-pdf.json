@@ -1,0 +1,8 @@
+{
+  "code": "not_implemented",
+  "message": "Экспорт PDF отключён",
+  "details": {
+    "field": "features.pdf_available",
+    "reason": "PDF_DISABLED"
+  }
+}

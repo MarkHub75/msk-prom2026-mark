@@ -1,0 +1,92 @@
+/* Calculator v2 (docs/CALCULATOR_CONTRACT_V2.md): the same screen as v5.css, new sections only.
+   ds.css tokens; amber only for «неполный расчёт», blue only for the best step and selection. */
+.cv2 { gap: var(--s1); }
+.cv2-presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s1); }
+.cv2-presets button { display: grid; gap: 2px; justify-items: start; padding: var(--s2) var(--s3); border: 1px solid var(--ds-line-dark); border-radius: var(--r2); background: var(--ds-bg-1); color: var(--ds-text); text-align: left; cursor: pointer; }
+.cv2-presets button:hover:not(:disabled) { background: var(--ds-bg-2); }
+.cv2-presets button.is-on { box-shadow: inset 0 2px 0 var(--ds-accent); background: var(--ds-bg-2); }
+.cv2-presets button:disabled { opacity: .5; cursor: default; }
+.cv2-presets b { font-size: 14px; font-weight: 600; }
+.cv2-presets small { color: var(--ds-text-3); font-size: 12px; }
+.cv2-check { display: flex; align-items: center; gap: var(--s2); color: var(--ds-text-2); font-size: 12.5px; }
+.cv2-advanced { border-top: 1px solid var(--ds-line); padding-top: var(--s2); }
+.cv2-advanced > summary { cursor: pointer; color: var(--ds-text-2); font-size: 13px; font-weight: 600; }
+.cv2-advanced > summary:hover { color: var(--ds-text); }
+.cv2-section { display: grid; gap: var(--s2); margin: var(--s3) 0 0; padding: 0; border: 0; min-width: 0; }
+.cv2-section legend { margin-bottom: var(--s2); color: var(--ds-text-3); font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.cv2-boards { display: grid; gap: var(--s2); }
+.cv2-board { display: grid; gap: 6px; padding: var(--s2); border: 1px solid var(--ds-line); border-radius: var(--r2); }
+.cv2-result, .cv2-result-body, .cv2-below { display: grid; gap: var(--s1); min-width: 0; }
+.cv2-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); color: var(--ds-text-2); font-size: 12.5px; }
+.cv2-status.is-partial { box-shadow: inset 3px 0 0 var(--ds-amber); }
+.cv2-missing { display: grid; gap: 4px; margin: 0; padding: var(--s2) var(--s3); list-style: none; background: var(--ds-amber-bg); border: 1px solid var(--ds-amber-line); }
+.cv2-missing li { display: flex; gap: 6px; align-items: flex-start; color: var(--ds-text); font-size: 12.5px; }
+.cv2-missing svg { flex: none; margin-top: 2px; color: var(--ds-amber); }
+.cv2-warnings { padding: var(--s2) var(--s3); background: var(--ds-bg-1); border: 1px solid var(--ds-line-dark); font-size: 12.5px; }
+.cv2-warnings summary { cursor: pointer; color: var(--ds-text-2); }
+.cv2-warnings ul { display: grid; gap: 4px; margin: var(--s2) 0 0; padding-left: 18px; color: var(--ds-text-2); }
+.cv2-note { margin: 0 0 var(--s2); color: var(--ds-text-2); font-size: 12.5px; }
+.cv2-reason { display: block; margin-top: 2px; color: var(--ds-text-3); font-size: 11.5px; font-weight: 400; }
+.cv2-notices { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; color: var(--ds-text-3); font-size: 12px; }
+.cv2-notices li { display: flex; gap: 6px; }
+.v5-tier-facts dd small, .v5-market td small { color: var(--ds-text-3); font-size: 11px; }
+.v5-market td b { display: block; }
+.cv2-lines { margin-top: var(--s2); }
+.cv2-lines > b { font-size: 12px; color: var(--ds-text-2); }
+.cv2-lines .is-off dt { color: var(--ds-text-3); }
+
+/* steps: «16 → 3 платы» */
+.cv2-steps-head { display: grid; gap: 4px; margin-bottom: var(--s3); }
+.cv2-steps-headline { display: flex; align-items: baseline; gap: var(--s3); margin: 0; font-size: 34px; font-weight: 500; line-height: 1.05; color: #fff; }
+.cv2-steps-headline .cv2-arrow { color: var(--ds-text-3); font-size: 26px; }
+.cv2-steps-headline.is-none { font-size: 16px; color: var(--ds-text-2); }
+.cv2-steps-sub { margin: 0; color: var(--ds-text-3); font-size: 12.5px; max-width: 80ch; }
+.cv2-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s2); margin: 0; padding: 0; list-style: none; }
+.cv2-step { display: grid; grid-template-rows: 150px auto; gap: var(--s2); min-width: 0; }
+.cv2-step-bar { position: relative; display: flex; align-items: flex-end; height: 150px; background: var(--ds-well); border-bottom: 1px solid var(--ds-line-strong); }
+.cv2-step-bar i { display: block; width: 100%; height: calc(var(--share) * 100%); min-height: 2px; background: var(--chart-1); opacity: .55; }
+.cv2-step.is-best .cv2-step-bar i { opacity: 1; background: var(--ds-accent); }
+.cv2-step.is-off .cv2-step-bar { background: repeating-linear-gradient(135deg, var(--ds-well) 0 6px, var(--ds-grey-bg) 6px 12px); }
+.cv2-step.is-off .cv2-step-bar i { display: none; }
+.cv2-step-body { display: grid; gap: 2px; min-width: 0; }
+.cv2-step-n { font-size: 28px; font-weight: 500; line-height: 1.1; color: var(--ds-text); }
+.cv2-step.is-best .cv2-step-n { color: #fff; }
+.cv2-step.is-off .cv2-step-n { color: var(--ds-text-3); }
+.cv2-step-title { font-size: 13px; font-weight: 600; color: var(--ds-text); }
+.cv2-step-body small { color: var(--ds-text-2); font-size: 12px; }
+.cv2-step-delta { color: var(--ds-text-3) !important; }
+.cv2-step-reason { color: var(--ds-text-3) !important; font-size: 11.5px !important; line-height: 1.4; }
+.cv2-captions { display: grid; gap: 4px; margin: var(--s3) 0 0; padding: var(--s3) 0 0; border-top: 1px solid var(--ds-line); list-style: none; color: var(--ds-text-3); font-size: 12px; line-height: 1.45; }
+.cv2-captions b { color: var(--ds-text-2); font-weight: 600; }
+.cv2-equipment dd { text-align: right; }
+
+/* thresholds and curve */
+.cv2-thresholds td small { display: block; margin-top: 2px; color: var(--ds-text-3); font-size: 11.5px; }
+.cv2-thresholds td[data-status=free_still_insufficient], .cv2-thresholds td[data-status=needs_input] { color: var(--ds-amber-text); }
+.cv2-curve { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.cv2-curve li { display: grid; grid-template-columns: 48px minmax(0, 1fr) 170px 140px; align-items: center; gap: var(--s3); font-size: 12.5px; }
+.cv2-curve-n { color: var(--ds-text-2); text-align: right; }
+.cv2-curve-bar { height: 10px; background: var(--ds-well); }
+.cv2-curve-bar i { display: block; height: 100%; width: calc(var(--share) * 100%); background: var(--chart-1); opacity: .7; }
+.cv2-curve-hw { color: var(--ds-text-3); }
+
+@media (max-width: 1250px) {
+  .cv2-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .cv2-steps { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+  .cv2-step { grid-template-rows: none; grid-template-columns: 64px minmax(0, 1fr); align-items: start; }
+  .cv2-step-bar { height: 64px; }
+  .cv2-steps-headline { font-size: 28px; }
+  .cv2-curve { gap: var(--s2); }
+  .cv2-curve li { grid-template-columns: 36px minmax(0, 1fr) auto; row-gap: 2px; }
+  .cv2-curve-bar { grid-column: 2 / 4; }
+  .cv2-curve li > :nth-child(3) { grid-column: 2; }
+  .cv2-curve li > :nth-child(4) { grid-column: 3; text-align: right; }
+  /* phone: each tier is a card, the column titles move into the cells */
+  .cv2-thresholds thead { display: none; }
+  .cv2-thresholds, .cv2-thresholds tbody, .cv2-thresholds tr, .cv2-thresholds td { display: block; width: 100%; }
+  .cv2-thresholds tr { padding: var(--s2) 0; border-bottom: 1px solid var(--ds-line); }
+  .cv2-thresholds tbody td { border: 0; padding: 4px var(--s3); }
+  .cv2-thresholds td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; color: var(--ds-text-3); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+}

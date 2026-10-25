@@ -1,0 +1,2145 @@
+{
+  "format": "v2",
+  "contract_version": "2.0.0",
+  "formula_version": "argus-calc-2.0",
+  "rollout": {
+    "contract_version": "2.0.0",
+    "preset_id": null,
+    "site": {
+      "workshops": 2,
+      "workers": 200,
+      "shifts_per_day": 2,
+      "working_days_year": 250,
+      "operators": 2
+    },
+    "load": {
+      "activity_share": 0.5,
+      "activity_measurement_id": null,
+      "target_fps": 12,
+      "surge_fps": 5,
+      "idle_check_s": 4,
+      "peak_mode": "independent_p95",
+      "priority_cameras_reserve": 1,
+      "detector_stride": 1,
+      "reference_chip_fps": 104.8,
+      "capacity_derate": 0.5,
+      "platform_capacity_override_fps": null,
+      "model_cost_overrides": {},
+      "cpu_basis": "inclusive",
+      "cpu_ms_per_unit": 77,
+      "decode_cores_per_camera": 0
+    },
+    "hardware": {
+      "allowed_board_ids": [
+        "HP",
+        "HPD",
+        "HPQ"
+      ],
+      "board_price_overrides": {},
+      "server": {
+        "slots": 4,
+        "usable_cpu_cores": 16,
+        "price_rub": 350000,
+        "power_w": 250
+      }
+    },
+    "costs": {
+      "integration_fixed_rub": 300000,
+      "integration_per_camera_rub": 0,
+      "support_share_year": 0.15,
+      "electricity_rub_kwh": 8,
+      "operating_hours_year": 8760,
+      "signal_zones_per_camera": 1,
+      "signal_unit_rub": 25000,
+      "speaker_per_workshop_rub": 40000,
+      "new_camera_unit_rub": 30000,
+      "new_camera_count": 0,
+      "max_additional_camera_share": 0.2
+    },
+    "benefits": {
+      "injuries": {
+        "enabled": true,
+        "annual_injured_workers": null,
+        "rate_per_1000": 1.17,
+        "cost_per_injured_worker_rub": 1000000,
+        "cost_scope": "direct_only",
+        "reduction": {
+          "base": 0.2,
+          "extended": 0.3,
+          "max": 0.4
+        }
+      },
+      "downtime": {
+        "enabled": false,
+        "events_year": null,
+        "days_per_event": null,
+        "day_cost_rub": null,
+        "reduction": {
+          "base": 0.2,
+          "extended": 0.3,
+          "max": 0.4
+        }
+      },
+      "fines": {
+        "enabled": false,
+        "items": [
+          {
+            "id": "general_ohs",
+            "title": "Общие требования охраны труда",
+            "inspection_probability_year": 0.1,
+            "amount_rub": 65000,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          {
+            "id": "ppe",
+            "title": "Обеспечение СИЗ",
+            "inspection_probability_year": 0.1,
+            "amount_rub": 140000,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          }
+        ]
+      },
+      "sfr_discount": {
+        "enabled": false,
+        "payroll_rub_year": null,
+        "tariff_share": null,
+        "additional_discount_share": null
+      },
+      "labor": {
+        "monetize": false,
+        "rows": [
+          {
+            "id": "ohs",
+            "title": "Инженер охраны труда",
+            "hours_saved_year": 0,
+            "hour_cost_rub": null
+          },
+          {
+            "id": "operator",
+            "title": "Оператор",
+            "hours_saved_year": 0,
+            "hour_cost_rub": null
+          }
+        ]
+      },
+      "severe_injury_cost_rub": null
+    },
+    "cameras": {
+      "source": "manual",
+      "cameras": 8,
+      "groups": [
+        {
+          "id": "standard",
+          "share": 1,
+          "model_ids": [
+            "det-yolov8n@640-ap9999",
+            "pose-yolov8n@640-ap9999"
+          ]
+        }
+      ]
+    }
+  },
+  "scale": {
+    "contract_version": "2.0.0",
+    "preset_id": null,
+    "site": {
+      "workshops": 2,
+      "workers": 200,
+      "shifts_per_day": 2,
+      "working_days_year": 250,
+      "operators": 2
+    },
+    "load": {
+      "activity_share": 0.5,
+      "activity_measurement_id": null,
+      "target_fps": 12,
+      "surge_fps": 5,
+      "idle_check_s": 4,
+      "peak_mode": "independent_p95",
+      "priority_cameras_reserve": 1,
+      "detector_stride": 1,
+      "reference_chip_fps": 104.8,
+      "capacity_derate": 0.5,
+      "platform_capacity_override_fps": null,
+      "model_cost_overrides": {},
+      "cpu_basis": "inclusive",
+      "cpu_ms_per_unit": 77,
+      "decode_cores_per_camera": 0
+    },
+    "hardware": {
+      "allowed_board_ids": [
+        "HP",
+        "HPD",
+        "HPQ"
+      ],
+      "board_price_overrides": {},
+      "server": {
+        "slots": 4,
+        "usable_cpu_cores": 16,
+        "price_rub": 350000,
+        "power_w": 250
+      }
+    },
+    "costs": {
+      "integration_fixed_rub": 300000,
+      "integration_per_camera_rub": 0,
+      "support_share_year": 0.15,
+      "electricity_rub_kwh": 8,
+      "operating_hours_year": 8760,
+      "signal_zones_per_camera": 1,
+      "signal_unit_rub": 25000,
+      "speaker_per_workshop_rub": 40000,
+      "new_camera_unit_rub": 30000,
+      "new_camera_count": 8,
+      "max_additional_camera_share": 0.2
+    },
+    "benefits": {
+      "injuries": {
+        "enabled": true,
+        "annual_injured_workers": null,
+        "rate_per_1000": 1.17,
+        "cost_per_injured_worker_rub": 1000000,
+        "cost_scope": "direct_only",
+        "reduction": {
+          "base": 0.2,
+          "extended": 0.3,
+          "max": 0.4
+        }
+      },
+      "downtime": {
+        "enabled": false,
+        "events_year": null,
+        "days_per_event": null,
+        "day_cost_rub": null,
+        "reduction": {
+          "base": 0.2,
+          "extended": 0.3,
+          "max": 0.4
+        }
+      },
+      "fines": {
+        "enabled": false,
+        "items": [
+          {
+            "id": "general_ohs",
+            "title": "Общие требования охраны труда",
+            "inspection_probability_year": 0.1,
+            "amount_rub": 65000,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          {
+            "id": "ppe",
+            "title": "Обеспечение СИЗ",
+            "inspection_probability_year": 0.1,
+            "amount_rub": 140000,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          }
+        ]
+      },
+      "sfr_discount": {
+        "enabled": false,
+        "payroll_rub_year": null,
+        "tariff_share": null,
+        "additional_discount_share": null
+      },
+      "labor": {
+        "monetize": false,
+        "rows": [
+          {
+            "id": "ohs",
+            "title": "Инженер охраны труда",
+            "hours_saved_year": 0,
+            "hour_cost_rub": null
+          },
+          {
+            "id": "operator",
+            "title": "Оператор",
+            "hours_saved_year": 0,
+            "hour_cost_rub": null
+          }
+        ]
+      },
+      "severe_injury_cost_rub": null
+    },
+    "current": {
+      "source": "manual",
+      "cameras": 8,
+      "groups": [
+        {
+          "id": "standard",
+          "share": 1,
+          "model_ids": [
+            "det-yolov8n@640-ap9999",
+            "pose-yolov8n@640-ap9999"
+          ]
+        }
+      ]
+    },
+    "added": {
+      "source": "manual",
+      "cameras": 8,
+      "groups": [
+        {
+          "id": "standard",
+          "share": 1,
+          "model_ids": [
+            "det-yolov8n@640-ap9999",
+            "pose-yolov8n@640-ap9999"
+          ]
+        }
+      ]
+    },
+    "installed": null
+  },
+  "presets": [
+    {
+      "id": "workshop",
+      "title": "Мастерская",
+      "area_m2": 100,
+      "machines": 5,
+      "note": "Работники, смены, плотность и смесь моделей — редактируемые допущения.",
+      "rollout": {
+        "contract_version": "2.0.0",
+        "preset_id": "workshop",
+        "site": {
+          "workshops": 1,
+          "workers": 50,
+          "shifts_per_day": 1,
+          "working_days_year": 250,
+          "operators": 1
+        },
+        "load": {
+          "activity_share": 0.5,
+          "activity_measurement_id": null,
+          "target_fps": 12,
+          "surge_fps": 5,
+          "idle_check_s": 4,
+          "peak_mode": "independent_p95",
+          "priority_cameras_reserve": 1,
+          "detector_stride": 1,
+          "reference_chip_fps": 104.8,
+          "capacity_derate": 0.5,
+          "platform_capacity_override_fps": null,
+          "model_cost_overrides": {},
+          "cpu_basis": "inclusive",
+          "cpu_ms_per_unit": 77,
+          "decode_cores_per_camera": 0
+        },
+        "hardware": {
+          "allowed_board_ids": [
+            "HP",
+            "HPD",
+            "HPQ"
+          ],
+          "board_price_overrides": {},
+          "server": {
+            "slots": 4,
+            "usable_cpu_cores": 16,
+            "price_rub": 350000,
+            "power_w": 250
+          }
+        },
+        "costs": {
+          "integration_fixed_rub": 300000,
+          "integration_per_camera_rub": 0,
+          "support_share_year": 0.15,
+          "electricity_rub_kwh": 8,
+          "operating_hours_year": 8760,
+          "signal_zones_per_camera": 1,
+          "signal_unit_rub": 25000,
+          "speaker_per_workshop_rub": 40000,
+          "new_camera_unit_rub": 30000,
+          "new_camera_count": 0,
+          "max_additional_camera_share": 0.2
+        },
+        "benefits": {
+          "injuries": {
+            "enabled": true,
+            "annual_injured_workers": null,
+            "rate_per_1000": 1.17,
+            "cost_per_injured_worker_rub": 1000000,
+            "cost_scope": "direct_only",
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "downtime": {
+            "enabled": false,
+            "events_year": null,
+            "days_per_event": null,
+            "day_cost_rub": null,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "fines": {
+            "enabled": false,
+            "items": [
+              {
+                "id": "general_ohs",
+                "title": "Общие требования охраны труда",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 65000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              },
+              {
+                "id": "ppe",
+                "title": "Обеспечение СИЗ",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 140000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              }
+            ]
+          },
+          "sfr_discount": {
+            "enabled": false,
+            "payroll_rub_year": null,
+            "tariff_share": null,
+            "additional_discount_share": null
+          },
+          "labor": {
+            "monetize": false,
+            "rows": [
+              {
+                "id": "ohs",
+                "title": "Инженер охраны труда",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              },
+              {
+                "id": "operator",
+                "title": "Оператор",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              }
+            ]
+          },
+          "severe_injury_cost_rub": null
+        },
+        "cameras": {
+          "source": "manual",
+          "cameras": 5,
+          "groups": [
+            {
+              "id": "standard",
+              "share": 1,
+              "model_ids": [
+                "det-yolov8n@640-ap9999",
+                "pose-yolov8n@640-ap9999"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "shop",
+      "title": "Цех",
+      "area_m2": 10000,
+      "machines": null,
+      "note": "Работники, смены, плотность и смесь моделей — редактируемые допущения.",
+      "rollout": {
+        "contract_version": "2.0.0",
+        "preset_id": "shop",
+        "site": {
+          "workshops": 1,
+          "workers": 200,
+          "shifts_per_day": 2,
+          "working_days_year": 250,
+          "operators": 2
+        },
+        "load": {
+          "activity_share": 0.5,
+          "activity_measurement_id": null,
+          "target_fps": 12,
+          "surge_fps": 5,
+          "idle_check_s": 4,
+          "peak_mode": "independent_p95",
+          "priority_cameras_reserve": 1,
+          "detector_stride": 1,
+          "reference_chip_fps": 104.8,
+          "capacity_derate": 0.5,
+          "platform_capacity_override_fps": null,
+          "model_cost_overrides": {},
+          "cpu_basis": "inclusive",
+          "cpu_ms_per_unit": 77,
+          "decode_cores_per_camera": 0
+        },
+        "hardware": {
+          "allowed_board_ids": [
+            "HP",
+            "HPD",
+            "HPQ"
+          ],
+          "board_price_overrides": {},
+          "server": {
+            "slots": 4,
+            "usable_cpu_cores": 16,
+            "price_rub": 350000,
+            "power_w": 250
+          }
+        },
+        "costs": {
+          "integration_fixed_rub": 300000,
+          "integration_per_camera_rub": 0,
+          "support_share_year": 0.15,
+          "electricity_rub_kwh": 8,
+          "operating_hours_year": 8760,
+          "signal_zones_per_camera": 1,
+          "signal_unit_rub": 25000,
+          "speaker_per_workshop_rub": 40000,
+          "new_camera_unit_rub": 30000,
+          "new_camera_count": 0,
+          "max_additional_camera_share": 0.2
+        },
+        "benefits": {
+          "injuries": {
+            "enabled": true,
+            "annual_injured_workers": null,
+            "rate_per_1000": 1.17,
+            "cost_per_injured_worker_rub": 1000000,
+            "cost_scope": "direct_only",
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "downtime": {
+            "enabled": false,
+            "events_year": null,
+            "days_per_event": null,
+            "day_cost_rub": null,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "fines": {
+            "enabled": false,
+            "items": [
+              {
+                "id": "general_ohs",
+                "title": "Общие требования охраны труда",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 65000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              },
+              {
+                "id": "ppe",
+                "title": "Обеспечение СИЗ",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 140000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              }
+            ]
+          },
+          "sfr_discount": {
+            "enabled": false,
+            "payroll_rub_year": null,
+            "tariff_share": null,
+            "additional_discount_share": null
+          },
+          "labor": {
+            "monetize": false,
+            "rows": [
+              {
+                "id": "ohs",
+                "title": "Инженер охраны труда",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              },
+              {
+                "id": "operator",
+                "title": "Оператор",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              }
+            ]
+          },
+          "severe_injury_cost_rub": null
+        },
+        "cameras": {
+          "source": "manual",
+          "cameras": 20,
+          "groups": [
+            {
+              "id": "standard",
+              "share": 1,
+              "model_ids": [
+                "det-yolov8n@640-ap9999",
+                "pose-yolov8n@640-ap9999"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "plant",
+      "title": "Завод",
+      "area_m2": null,
+      "machines": null,
+      "note": "Работники, смены, плотность и смесь моделей — редактируемые допущения.",
+      "rollout": {
+        "contract_version": "2.0.0",
+        "preset_id": "plant",
+        "site": {
+          "workshops": 4,
+          "workers": 2000,
+          "shifts_per_day": 3,
+          "working_days_year": 250,
+          "operators": 4
+        },
+        "load": {
+          "activity_share": 0.5,
+          "activity_measurement_id": null,
+          "target_fps": 12,
+          "surge_fps": 5,
+          "idle_check_s": 4,
+          "peak_mode": "independent_p95",
+          "priority_cameras_reserve": 1,
+          "detector_stride": 1,
+          "reference_chip_fps": 104.8,
+          "capacity_derate": 0.5,
+          "platform_capacity_override_fps": null,
+          "model_cost_overrides": {},
+          "cpu_basis": "inclusive",
+          "cpu_ms_per_unit": 77,
+          "decode_cores_per_camera": 0
+        },
+        "hardware": {
+          "allowed_board_ids": [
+            "HP",
+            "HPD",
+            "HPQ"
+          ],
+          "board_price_overrides": {},
+          "server": {
+            "slots": 4,
+            "usable_cpu_cores": 16,
+            "price_rub": 350000,
+            "power_w": 250
+          }
+        },
+        "costs": {
+          "integration_fixed_rub": 300000,
+          "integration_per_camera_rub": 0,
+          "support_share_year": 0.15,
+          "electricity_rub_kwh": 8,
+          "operating_hours_year": 8760,
+          "signal_zones_per_camera": 1,
+          "signal_unit_rub": 25000,
+          "speaker_per_workshop_rub": 40000,
+          "new_camera_unit_rub": 30000,
+          "new_camera_count": 0,
+          "max_additional_camera_share": 0.2
+        },
+        "benefits": {
+          "injuries": {
+            "enabled": true,
+            "annual_injured_workers": null,
+            "rate_per_1000": 1.17,
+            "cost_per_injured_worker_rub": 1000000,
+            "cost_scope": "direct_only",
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "downtime": {
+            "enabled": false,
+            "events_year": null,
+            "days_per_event": null,
+            "day_cost_rub": null,
+            "reduction": {
+              "base": 0.2,
+              "extended": 0.3,
+              "max": 0.4
+            }
+          },
+          "fines": {
+            "enabled": false,
+            "items": [
+              {
+                "id": "general_ohs",
+                "title": "Общие требования охраны труда",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 65000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              },
+              {
+                "id": "ppe",
+                "title": "Обеспечение СИЗ",
+                "inspection_probability_year": 0.1,
+                "amount_rub": 140000,
+                "reduction": {
+                  "base": 0.2,
+                  "extended": 0.3,
+                  "max": 0.4
+                }
+              }
+            ]
+          },
+          "sfr_discount": {
+            "enabled": false,
+            "payroll_rub_year": null,
+            "tariff_share": null,
+            "additional_discount_share": null
+          },
+          "labor": {
+            "monetize": false,
+            "rows": [
+              {
+                "id": "ohs",
+                "title": "Инженер охраны труда",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              },
+              {
+                "id": "operator",
+                "title": "Оператор",
+                "hours_saved_year": 0,
+                "hour_cost_rub": null
+              }
+            ]
+          },
+          "severe_injury_cost_rub": null
+        },
+        "cameras": {
+          "source": "manual",
+          "cameras": 200,
+          "groups": [
+            {
+              "id": "standard",
+              "share": 1,
+              "model_ids": [
+                "det-yolov8n@640-ap9999",
+                "pose-yolov8n@640-ap9999"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "system_profile": {
+    "cameras": 0,
+    "groups": []
+  },
+  "models": [
+    {
+      "id": "det-yolov8n@640-ap9999",
+      "title": "Детектор YOLOv8n",
+      "kind": "detector",
+      "work_units": 1,
+      "execution_status": "verified_linq",
+      "source_ids": [
+        "team_defaults",
+        "linq_historical_report"
+      ]
+    },
+    {
+      "id": "pose-yolov8n@640-ap9999",
+      "title": "Поза YOLOv8n-pose",
+      "kind": "pose",
+      "work_units": 1,
+      "execution_status": "verified_linq",
+      "source_ids": [
+        "vendor_pose_benchmark",
+        "linq_historical_report"
+      ]
+    }
+  ],
+  "boards": [
+    {
+      "id": "HP",
+      "title": "LinQ HP",
+      "chips": 1,
+      "slots": 1,
+      "power_w": 35,
+      "price_rub": 500000,
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hp",
+        "team_defaults"
+      ]
+    },
+    {
+      "id": "HPD",
+      "title": "LinQ HPD",
+      "chips": 2,
+      "slots": 1,
+      "power_w": 100,
+      "price_rub": null,
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpd",
+        "team_defaults"
+      ]
+    },
+    {
+      "id": "HPQ",
+      "title": "LinQ HPQ",
+      "chips": 4,
+      "slots": 1,
+      "power_w": 150,
+      "price_rub": null,
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpq",
+        "team_defaults"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "key": "request.site.workshops",
+      "title": "request.site.workshops",
+      "value": 2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.site.workers",
+      "title": "request.site.workers",
+      "value": 200,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.site.shifts_per_day",
+      "title": "request.site.shifts_per_day",
+      "value": 2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.site.working_days_year",
+      "title": "request.site.working_days_year",
+      "value": 250,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.site.operators",
+      "title": "request.site.operators",
+      "value": 2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.activity_share",
+      "title": "request.load.activity_share",
+      "value": 0.5,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.target_fps",
+      "title": "request.load.target_fps",
+      "value": 12,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.surge_fps",
+      "title": "request.load.surge_fps",
+      "value": 5,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.idle_check_s",
+      "title": "request.load.idle_check_s",
+      "value": 4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.priority_cameras_reserve",
+      "title": "request.load.priority_cameras_reserve",
+      "value": 1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.detector_stride",
+      "title": "request.load.detector_stride",
+      "value": 1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.reference_chip_fps",
+      "title": "request.load.reference_chip_fps",
+      "value": 104.8,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_pose_benchmark"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.capacity_derate",
+      "title": "request.load.capacity_derate",
+      "value": 0.5,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.platform_capacity_override_fps",
+      "title": "request.load.platform_capacity_override_fps",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.load.cpu_ms_per_unit",
+      "title": "request.load.cpu_ms_per_unit",
+      "value": 77,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.load.decode_cores_per_camera",
+      "title": "request.load.decode_cores_per_camera",
+      "value": 0,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.hardware.server.slots",
+      "title": "request.hardware.server.slots",
+      "value": 4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.hardware.server.usable_cpu_cores",
+      "title": "request.hardware.server.usable_cpu_cores",
+      "value": 16,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.hardware.server.price_rub",
+      "title": "request.hardware.server.price_rub",
+      "value": 350000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.hardware.server.power_w",
+      "title": "request.hardware.server.power_w",
+      "value": 250,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.integration_fixed_rub",
+      "title": "request.costs.integration_fixed_rub",
+      "value": 300000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.integration_per_camera_rub",
+      "title": "request.costs.integration_per_camera_rub",
+      "value": 0,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.support_share_year",
+      "title": "request.costs.support_share_year",
+      "value": 0.15,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.electricity_rub_kwh",
+      "title": "request.costs.electricity_rub_kwh",
+      "value": 8,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.operating_hours_year",
+      "title": "request.costs.operating_hours_year",
+      "value": 8760,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.signal_zones_per_camera",
+      "title": "request.costs.signal_zones_per_camera",
+      "value": 1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.signal_unit_rub",
+      "title": "request.costs.signal_unit_rub",
+      "value": 25000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.speaker_per_workshop_rub",
+      "title": "request.costs.speaker_per_workshop_rub",
+      "value": 40000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.new_camera_unit_rub",
+      "title": "request.costs.new_camera_unit_rub",
+      "value": 30000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.new_camera_count",
+      "title": "request.costs.new_camera_count",
+      "value": 0,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.costs.max_additional_camera_share",
+      "title": "request.costs.max_additional_camera_share",
+      "value": 0.2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.injuries.annual_injured_workers",
+      "title": "request.benefits.injuries.annual_injured_workers",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.injuries.rate_per_1000",
+      "title": "request.benefits.injuries.rate_per_1000",
+      "value": 1.17,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "rosstat_injury_rate"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.injuries.cost_per_injured_worker_rub",
+      "title": "request.benefits.injuries.cost_per_injured_worker_rub",
+      "value": 1000000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.injuries.reduction.base",
+      "title": "request.benefits.injuries.reduction.base",
+      "value": 0.2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.injuries.reduction.extended",
+      "title": "request.benefits.injuries.reduction.extended",
+      "value": 0.3,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.injuries.reduction.max",
+      "title": "request.benefits.injuries.reduction.max",
+      "value": 0.4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.downtime.events_year",
+      "title": "request.benefits.downtime.events_year",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.downtime.days_per_event",
+      "title": "request.benefits.downtime.days_per_event",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.downtime.day_cost_rub",
+      "title": "request.benefits.downtime.day_cost_rub",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.downtime.reduction.base",
+      "title": "request.benefits.downtime.reduction.base",
+      "value": 0.2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.downtime.reduction.extended",
+      "title": "request.benefits.downtime.reduction.extended",
+      "value": 0.3,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.downtime.reduction.max",
+      "title": "request.benefits.downtime.reduction.max",
+      "value": 0.4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.0.inspection_probability_year",
+      "title": "request.benefits.fines.items.0.inspection_probability_year",
+      "value": 0.1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.0.amount_rub",
+      "title": "request.benefits.fines.items.0.amount_rub",
+      "value": 65000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.0.reduction.base",
+      "title": "request.benefits.fines.items.0.reduction.base",
+      "value": 0.2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.0.reduction.extended",
+      "title": "request.benefits.fines.items.0.reduction.extended",
+      "value": 0.3,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.0.reduction.max",
+      "title": "request.benefits.fines.items.0.reduction.max",
+      "value": 0.4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.1.inspection_probability_year",
+      "title": "request.benefits.fines.items.1.inspection_probability_year",
+      "value": 0.1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.1.amount_rub",
+      "title": "request.benefits.fines.items.1.amount_rub",
+      "value": 140000,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.1.reduction.base",
+      "title": "request.benefits.fines.items.1.reduction.base",
+      "value": 0.2,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.1.reduction.extended",
+      "title": "request.benefits.fines.items.1.reduction.extended",
+      "value": 0.3,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.fines.items.1.reduction.max",
+      "title": "request.benefits.fines.items.1.reduction.max",
+      "value": 0.4,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.sfr_discount.payroll_rub_year",
+      "title": "request.benefits.sfr_discount.payroll_rub_year",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.sfr_discount.tariff_share",
+      "title": "request.benefits.sfr_discount.tariff_share",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.sfr_discount.additional_discount_share",
+      "title": "request.benefits.sfr_discount.additional_discount_share",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.labor.rows.0.hours_saved_year",
+      "title": "request.benefits.labor.rows.0.hours_saved_year",
+      "value": 0,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.labor.rows.0.hour_cost_rub",
+      "title": "request.benefits.labor.rows.0.hour_cost_rub",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.labor.rows.1.hours_saved_year",
+      "title": "request.benefits.labor.rows.1.hours_saved_year",
+      "value": 0,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.benefits.labor.rows.1.hour_cost_rub",
+      "title": "request.benefits.labor.rows.1.hour_cost_rub",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.benefits.severe_injury_cost_rub",
+      "title": "request.benefits.severe_injury_cost_rub",
+      "value": null,
+      "unit": "значение",
+      "status": "missing",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "request.cameras.cameras",
+      "title": "request.cameras.cameras",
+      "value": 8,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "request.cameras.groups.0.share",
+      "title": "request.cameras.groups.0.share",
+      "value": 1,
+      "unit": "значение",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HP.chips",
+      "title": "catalog.boards.HP.chips",
+      "value": 1,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hp",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HP.slots",
+      "title": "catalog.boards.HP.slots",
+      "value": 1,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hp",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HP.power_w",
+      "title": "catalog.boards.HP.power_w",
+      "value": 35,
+      "unit": "Вт",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hp",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HP.price_rub",
+      "title": "catalog.boards.HP.price_rub",
+      "value": 500000,
+      "unit": "₽",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hp",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPD.chips",
+      "title": "catalog.boards.HPD.chips",
+      "value": 2,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpd",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPD.slots",
+      "title": "catalog.boards.HPD.slots",
+      "value": 1,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpd",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPD.power_w",
+      "title": "catalog.boards.HPD.power_w",
+      "value": 100,
+      "unit": "Вт",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpd",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPD.price_rub",
+      "title": "catalog.boards.HPD.price_rub",
+      "value": null,
+      "unit": "₽",
+      "status": "missing",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpd",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "catalog.boards.HPQ.chips",
+      "title": "catalog.boards.HPQ.chips",
+      "value": 4,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpq",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPQ.slots",
+      "title": "catalog.boards.HPQ.slots",
+      "value": 1,
+      "unit": "шт.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpq",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPQ.power_w",
+      "title": "catalog.boards.HPQ.power_w",
+      "value": 150,
+      "unit": "Вт",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpq",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.boards.HPQ.price_rub",
+      "title": "catalog.boards.HPQ.price_rub",
+      "value": null,
+      "unit": "₽",
+      "status": "missing",
+      "source_ids": [
+        "vendor_modules",
+        "vendor_board_power_hpq",
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": "Значение не задано; включение зависит от выбранной строки расчёта."
+    },
+    {
+      "key": "catalog.models.detector.work_units",
+      "title": "catalog.models.detector.work_units",
+      "value": 1,
+      "unit": "экв.ед.",
+      "status": "assumed",
+      "source_ids": [
+        "team_defaults"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "catalog.models.pose.work_units",
+      "title": "catalog.models.pose.work_units",
+      "value": 1,
+      "unit": "экв.ед.",
+      "status": "assumed",
+      "source_ids": [
+        "vendor_pose_benchmark"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "market.normacheck_cloud.amount_rub",
+      "title": "NormaCheck: непроверенный месячный ориентир",
+      "value": 3900,
+      "unit": "₽/камера/месяц",
+      "status": "assumed",
+      "source_ids": [
+        "market_normacheck_unverified"
+      ],
+      "formula": null,
+      "depends_on": [],
+      "reason": null
+    },
+    {
+      "key": "market.trassir_ppe.amount_rub",
+      "title": "TRASSIR: условная точка диапазона",
+      "value": 6500,
+      "unit": "₽/канал, разово",
+      "status": "assumed",
+      "source_ids": [
+        "market_trassir_unverified",
+        "team_defaults"
+      ],
+      "formula": "(6000+7000)/2 — условная точка локальной выписки",
+      "depends_on": [],
+      "reason": null
+    }
+  ],
+  "measurements": [
+    {
+      "id": "fixture_not_measured_activity",
+      "key": "activity_share",
+      "title": "Измеренная активность камер",
+      "value": null,
+      "unit": "доля",
+      "status": "not_measured",
+      "period_start": null,
+      "period_end": null,
+      "sample_count": 0,
+      "source_ids": [],
+      "note": "Изолированный пример не содержит измерений; рабочий ответ возвращает доступные факты."
+    },
+    {
+      "id": "fixture_not_measured_platform",
+      "key": "platform_fps",
+      "title": "Измеренная пропускная способность площадки",
+      "value": null,
+      "unit": "кадр/с",
+      "status": "not_measured",
+      "period_start": null,
+      "period_end": null,
+      "sample_count": 0,
+      "source_ids": [],
+      "note": "Новых замеров нет; для сравнения явно используется командное допущение 12,4."
+    }
+  ],
+  "market": [
+    {
+      "id": "normacheck_cloud",
+      "title": "NormaCheck: облачная видеоаналитика",
+      "billing": "monthly_per_camera",
+      "amount_rub": 3900,
+      "scope": "Непроверенный ориентир по локальной выписке: цена за камеру в месяц. Состав облачной услуги и сопоставимость с Argus уточняются; в выгоды B не входит.",
+      "source_ids": [
+        "market_normacheck_unverified"
+      ]
+    },
+    {
+      "id": "trassir_ppe",
+      "title": "TRASSIR: модуль контроля спецодежды",
+      "billing": "one_off_per_camera",
+      "amount_rub": 6500,
+      "scope": "Условная точка диапазона 6000–7000 ₽ за модуль на канал; не подтверждённый сегодня прайс. Разовая лицензия не равна полной стоимости внедрения; в выгоды B не входит.",
+      "source_ids": [
+        "market_trassir_unverified",
+        "team_defaults"
+      ]
+    }
+  ],
+  "features": {
+    "tracker": {
+      "available": false,
+      "max_stride": 1,
+      "report_ref": null
+    },
+    "pdf_available": false,
+    "offline_economy": null
+  },
+  "limits": [
+    {
+      "field": "cameras.cameras",
+      "min": 0,
+      "max": 10000,
+      "integer": true
+    },
+    {
+      "field": "load.activity_share",
+      "min": 0,
+      "max": 1,
+      "integer": false
+    },
+    {
+      "field": "load.target_fps",
+      "min": 0,
+      "max": 120,
+      "integer": false
+    },
+    {
+      "field": "load.priority_cameras_reserve",
+      "min": 0,
+      "max": 10000,
+      "integer": true
+    },
+    {
+      "field": "costs.support_share_year",
+      "min": 0,
+      "max": 1,
+      "integer": false
+    }
+  ],
+  "sources": [
+    {
+      "id": "team_defaults",
+      "title": "Расчётные допущения команды Argus",
+      "kind": "team_assumption",
+      "verification": "not_applicable",
+      "url": null,
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "Цены, CPU, запас, сервер и эффект — редактируемые допущения, не замеры."
+    },
+    {
+      "id": "user_input",
+      "title": "Данные, введённые в этот расчётный пример",
+      "kind": "user_input",
+      "verification": "not_applicable",
+      "url": null,
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "Эталонный пользовательский ввод; не данные реально обследованного завода."
+    },
+    {
+      "id": "vendor_pose_benchmark",
+      "title": "Бенчмарк LinQ: yolov8n-pose, batch 1",
+      "kind": "vendor_claim",
+      "verification": "cached_primary",
+      "url": "https://files.lin-q.ru/tpu/pr/2026_linq_presentation.pdf",
+      "data_year": 2026,
+      "published_at": null,
+      "checked_at": null,
+      "note": "104,8 FPS: заявление вендора; сохранённая первичная выписка, не замер Argus."
+    },
+    {
+      "id": "vendor_modules",
+      "title": "Модули LinQ HP, HPD, HPQ",
+      "kind": "vendor_claim",
+      "verification": "verified_primary",
+      "url": "https://lin-q.ru/sol",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "HP=1, HPD=2, HPQ=4 чипа."
+    },
+    {
+      "id": "vendor_board_power_hp",
+      "title": "Паспортная мощность конкретного исполнения HP",
+      "kind": "vendor_claim",
+      "verification": "cached_primary",
+      "url": "https://files.lin-q.ru/tpu/docs/_HPact_manual_LINQ_HP1M_02.pdf",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "35 Вт — верхняя паспортная граница, не измеренное потребление."
+    },
+    {
+      "id": "vendor_board_power_hpd",
+      "title": "Паспортная мощность конкретного исполнения HPD",
+      "kind": "vendor_claim",
+      "verification": "cached_primary",
+      "url": "https://files.lin-q.ru/tpu/docs/_HPDpass_manual_LINQ_HPD1M_01.pdf",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "100 Вт — верхняя паспортная граница."
+    },
+    {
+      "id": "vendor_board_power_hpq",
+      "title": "Паспортная мощность конкретного исполнения HPQ",
+      "kind": "vendor_claim",
+      "verification": "cached_primary",
+      "url": "https://files.lin-q.ru/tpu/docs/_HPQpass_manual_LINQ_HPD1M_10.pdf",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "150 Вт — верхняя паспортная граница."
+    },
+    {
+      "id": "rosstat_injury_rate",
+      "title": "Отраслевая подсказка частоты пострадавших",
+      "kind": "official",
+      "verification": "pending_primary",
+      "url": "https://rosstat.gov.ru/working_conditions",
+      "data_year": 2025,
+      "published_at": null,
+      "checked_at": null,
+      "note": "1,17 на 1000 за 2025 из локальной выписки; первичный массив требует проверки."
+    },
+    {
+      "id": "linq_historical_report",
+      "title": "Историческое подтверждение исполнения detector и pose на LinQ",
+      "kind": "argus_measurement",
+      "verification": "cached_primary",
+      "url": null,
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "Существовавший до этого контракта отчёт; новых замеров эти JSON не изображают."
+    },
+    {
+      "id": "market_normacheck_unverified",
+      "title": "NormaCheck: облачная видеоаналитика, непроверенный ориентир",
+      "kind": "vendor_claim",
+      "verification": "pending_primary",
+      "url": null,
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "docs/ECONOMICS_SOURCES.md: 3900 ₽/камера/месяц. Это локальная выписка, не подтверждённый сегодня прайс; дата публикации неизвестна."
+    },
+    {
+      "id": "market_trassir_unverified",
+      "title": "TRASSIR: модуль СИЗ на канал, непроверенный ориентир",
+      "kind": "vendor_claim",
+      "verification": "pending_primary",
+      "url": null,
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "docs/ECONOMICS_SOURCES.md: диапазон 6000–7000 ₽/канал. 6500 ₽ — условная точка внутри диапазона, не подтверждённая цена предложения; дата публикации неизвестна."
+    },
+    {
+      "id": "sfr_prevention",
+      "title": "СФР: финансовое обеспечение предупредительных мер",
+      "kind": "official",
+      "verification": "verified_primary",
+      "url": "https://sfr.gov.ru/employers/lk_insurer/baza_znanij/finansovoe_obespechenie_predupreditelnih_mer",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "Первичная база К11: согласуемое возмещение по действующим правилам. Допустимость покупки Argus не установлена; из CAPEX/TCO ничего автоматически не вычитается."
+    },
+    {
+      "id": "sfr_discount",
+      "title": "СФР: условия скидки к страховому тарифу",
+      "kind": "official",
+      "verification": "verified_primary",
+      "url": "https://sfr.gov.ru/branches/novgorod/news~2026/10/21/285762",
+      "data_year": null,
+      "published_at": null,
+      "checked_at": null,
+      "note": "Первичная база К11: до 40% при соблюдении условий и подаче заявления; приобретение Argus само по себе скидку не даёт."
+    }
+  ],
+  "notices": [
+    {
+      "code": "EXAMPLE_CONTEXT",
+      "field": null,
+      "message": "Полный пример блока GET.v2 для изолированного контекста без камер и новых измерений; не снимок действующего завода."
+    },
+    {
+      "code": "SFR_PREVENTION_INFO",
+      "field": null,
+      "message": "Часть затрат потенциально согласуется с СФР как предупредительные меры; это возмещение при выполнении условий, не автоматическое финансирование Argus и не вычет из CAPEX/TCO."
+    },
+    {
+      "code": "SFR_DISCOUNT_CONDITIONS",
+      "field": "benefits.sfr_discount",
+      "message": "Скидка к тарифу может составлять до 40% при выполнении условий; покупка Argus её автоматически не даёт. В расчёт она включается отдельно и по умолчанию выключена."
+    }
+  ]
+}
