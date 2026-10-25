@@ -1,0 +1,13 @@
+# Copy to config/user.yaml before `docker compose up -d --build`.
+# Only paths inside the Linux container. This profile matches the real LinQ cache.
+data_dir: data/app
+server:
+  static_dir: frontend/dist
+demo:
+  pack: data/demo/argus-real-v2
+  autoload: true
+pipeline:
+  target_analysis_fps: 12
+  detector: det-yolov8n@640-ap9999
+  pose: pose-yolov8n@640-ap9999
+  extra: []

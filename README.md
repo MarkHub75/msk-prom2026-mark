@@ -1,33 +1,66 @@
 # Открой#Моспром 2026 · LinQ
 
-## Приложение SafeWatch
+## Приложение Argus (пакет и CLI `safewatch`)
 
-Веб-сервис baseline: загрузка видео камер, детекции на LinQ TPU, эпизоды нарушений, оповещения оператора и мастера, журнал. Источник истины — `tech.md`.
+Argus связывает видео камер, детекции LinQ, доказательство нарушения, оператора, мастера и журнал. Основной фронт Егора и бэкенд находятся вместе в `main` после PR #36. Контракт — `contract/openapi.json` 1.1.0; предметная спецификация — `tech.md`.
 
-Запуск на Windows (Python 3.12 через uv, Node 24):
+**Быстрый запуск для проверки решения:**
 
-```
-uv sync
+1. Установите и запустите Docker Desktop с Linux containers (либо Docker Engine на Linux), Compose **2.24+**. Освободите порт 8000 и оставьте запас места на диске Docker; Python и Node на хосте не нужны.
+2. Клонируйте `https://github.com/MarkHub75/msk-prom2026-mark.git`, перейдите в корень. Поместите готовый пакет команды `argus-real-v2` в `data/demo/`: должен существовать `data/demo/argus-real-v2/manifest.json`, рядом `videos/` и `artifacts/`. Запасной пакет — [release `demo-argus-real`](https://github.com/MarkHub75/msk-prom2026-mark/releases/tag/demo-argus-real), ZIP распаковывается в `data/demo/`.
+3. Скопируйте `config/docker.example.yaml` в `config/user.yaml` (UTF-8 без BOM), не перезаписывая свой существующий конфиг. Профиль:
+
+   ```yaml
+   data_dir: data/app
+   server:
+     static_dir: frontend/dist
+   demo:
+     pack: data/demo/argus-real-v2
+     autoload: true
+   pipeline:
+     target_analysis_fps: 12
+     detector: det-yolov8n@640-ap9999
+     pose: pose-yolov8n@640-ap9999
+     extra: []
+   ```
+
+   Для fallback укажите `data/demo/argus-real`. Все пути относятся к `/app` внутри контейнера; `D:\...` туда не переносится. Файл монтируется read-only и не попадает в образ. Настройки сливаются `default.yaml → user.example.yaml → user.yaml`.
+
+4. Из корня подготовленного репозитория:
+
+   ```text
+   docker compose up -d --build
+   docker compose ps
+   docker compose logs --tail 100 safewatch
+   ```
+
+Откройте `http://127.0.0.1:8000/?review=real`. Docker собирает production-фронт сам: Vite, ручная сборка `frontend/dist`, Prism и mock-WS для стенда не нужны. Проверьте `/api/health` и **отдельно** `/api/demo/packs`: выбранный пакет, `backend: "linq"`, `fake: false`, четыре камеры/видео для v2 или два для fallback. В «Системе» задачи пакета должны быть `done`, метрики — `cached: true`. Затем проверьте движение видео, клип, WS-событие и путь «оператор подтвердил → мастер принял и решил → журнал». Один health-ответ этого не доказывает.
+
+Реальные пакеты содержат детекции, заранее посчитанные на LinQ; показ идёт по кэшу и не требует подключения к Jupyter. `.env` необязателен, `SAFEWATCH_FAKE=1` для такого показа не нужен. Если `.env` уже есть, проверьте `INFERENCE_BACKEND=linq` и `SAFEWATCH_FAKE=0`. Ключи `LINQ_*` нужны для новой обработки видео, не для воспроизведения кэша; Compose сохраняет явно заданный `LINQ_JUPYTER_URL`.
+
+База и файлы приложения — в именованном томе `argus-upgrade-v3-stage1-data`, `/app/data/app`. Старый Windows-каталог `data/app` не используется и не удаляется. `docker compose restart safewatch` и `docker compose down` сохраняют том; повторный старт не размножает сид и импортированный пакет. Демо и модели монтируются read-only. Переключение пакета или осознанный новый показ на свежей БД — через отдельный именованный том, по [инструкции развёртывания](docs/DEPLOY.md), без удаления прежних данных.
+
+Видео пакетов: Önal, Dandıl, Mendeley Data, DOI **10.17632/xjmtb22pff.1**, **CC BY 4.0**; сохраняйте `ATTRIBUTION.txt`. V2 содержит четыре ролика и два вида правил, не подтверждение всех восьми сценариев. Известны повторы тревог на циклах, спорная зона у пресса и неточный заголовок пересечения линии; полный разбор — этап 2.
+
+Для публичного стенда используется существующий хост Tuna команды; его локальная цель должна вести на порт 8000 Docker. Настроенный адрес получают у Марка; он не публикуется в репозитории. Для готовности через HTTPS должны работать и медиа, и WebSocket. Подготовка с нуля, безопасная остановка, fallback, диагностика и ограничения: [docs/DEPLOY.md](docs/DEPLOY.md). Фактический статус внешнего доступа и доказательства конкретной сборки: [отчёт этапа 1](docs/handoff/upgrade-v3-stage-1.md).
+
+**Разработка без Docker** (Python 3.12, uv, Node 24):
+
+```text
+uv sync --locked
 npm ci --prefix frontend
 npm run build --prefix frontend
-uv run safewatch serve --seed
+uv run --no-sync safewatch serve --seed
 ```
 
-Открыть `http://127.0.0.1:8000`. Остановить: `uv run --no-sync safewatch stop`. Проверить ключи, модели и базу: `uv run safewatch doctor`. Гейт: `uv run poe gate`.
+Не запускайте host-сервер одновременно с Docker на порту 8000 и не вызывайте `uv sync` при работающем host-сервере. Его штатная остановка: `uv run --no-sync safewatch stop`. Гейт: `uv run poe gate`. Фронтовые команды и режимы разработки: [frontend/README.md](frontend/README.md).
 
-Бэкенд инференса — переменные `.env` (шаблон `.env.example`): `INFERENCE_BACKEND=linq` (LinQ TPU через Jupyter, по умолчанию) или `local` (onnxruntime на CPU); `SAFEWATCH_FAKE=1` подменяет LinQ фейком с синтетическими детекциями, ключи `LINQ_*` тогда не нужны. Настройки — `config/default.yaml`, свои значения — в `config/user.yaml` (пример `config/user.example.yaml`).
+REST получает роль через `X-Role`, WS — `/ws?role=<роль>`; авторизации нет. `contract/ws.schema.json` и `contract/ws-examples.json` описывают сообщения. Production API и WS используют текущий origin. Для явно синтетической разработки есть mock-режим и `SAFEWATCH_FAKE=1`; их результаты нельзя выдавать за LinQ.
 
-Видео: положить в `data/videos/` (mp4 H.264, иначе браузер не сыграет эфир) и импортировать `uv run safewatch import FILE --camera ID` или загрузить в UI на экране камеры.
+Оценка качества: `uv run safewatch eval config/eval.example.yaml [--out DIR]`, разметка — по `config/eval.example.yaml`; отчёт содержит precision, recall, F1, ложные срабатывания в час и задержку, если для них есть данные. Перед eval остановите host-сервер. Новая модель подключается записью с новой версией в `config/models.yaml` и ссылкой `id@version` в `pipeline`; это требует проверенных артефактов и не подтверждается одним наличием записи.
 
-Контракт для фронтенда: `contract/openapi.json` (REST), `contract/ws.schema.json` и `contract/ws-examples.json` (WebSocket `/ws?role=<роль>`). Мок без бэкенда: `npm run mock --prefix frontend` (Prism на 4010 и WS на 4011), затем `npm run dev:mock --prefix frontend`. Обычная разработка фронта: `npm run dev --prefix frontend` проксирует `/api` и `/ws` на `127.0.0.1:8000`.
+Внешние сигналы настраиваются в `delivery.webhooks` файла `config/user.yaml`; реальные адреса и ключи не коммитятся. Состояние попыток доставки видно в карточке события. Звонок мастеру пока использует явно подписанную заглушку.
 
-Docker (нужен запущенный Docker Desktop): `docker compose up -d --build`, затем `http://127.0.0.1:8000`; контейнер стартует с сидом и демо-пакетом из `data/demo/` (только чтение). Развёртывание на другой машине: [docs/DEPLOY.md](docs/DEPLOY.md). Образ собирает фронт на node и запускает сервер на `python:3.12-slim` с uv; `.env` в образ не попадает, compose передаёт его через `env_file`. База и файлы лежат в томе `data/app`, модели монтируются из `models/` только для чтения. LinQ Jupyter контейнер видит как `http://host.docker.internal:8888`: туннель `tools\linq\tunnel\Connect-LinQ.cmd` запускается на хосте. Без ключей LinQ: `SAFEWATCH_FAKE=1` в `.env`.
-
-Оценка качества: разметка по образцу `config/eval.example.yaml` (видео, сценарии, интервалы `start_s`–`end_s`, необязательный `camera_id`), запуск `uv run safewatch eval config/eval.example.yaml [--out DIR]`. Отчёт `report.json` и `report.md` (precision, recall, F1, ложные срабатывания в час, задержка p50/p95 по сценариям) ложится в `data/app/eval/<время>/` или в `DIR`. Коды выхода: 2 — ошибка разметки, 3 — нет файла, 4 — бэкенд недоступен.
-
-Новая модель: запись в `config/models.yaml` (`id`, `version`, `task`, `input_size`, `classes`, программа `linq_program` и хвост `linq_tail` для LinQ, `local_onnx` для `local`) и ссылка `id@version` в `pipeline.detector`, `pipeline.pose` или `pipeline.extra` в `config/user.yaml`. Код не меняется: модель из `pipeline.extra` с классами огня, сигареты или привязи включает сценарии, которые их ждут.
-
-Внешние системы (лампы, сирены, громкоговорители): webhook-каналы в `config/user.yaml`, секция `delivery.webhooks`, например `{name: lamp-1, url: "http://10.0.0.5/alarm", levels: [red], timeout_s: 3}`. На публикацию события, эскалацию до красного и передачу мастеру канал с подходящим уровнем получает POST JSON `{event_id, kind, level, scenario, title, sector, camera, zone, text, at}`; каждая попытка видна в карточке события, каналы — на экране IT.
 
 **ML и Computer Vision для промышленной безопасности.**
 

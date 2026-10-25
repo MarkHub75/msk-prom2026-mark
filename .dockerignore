@@ -1,6 +1,10 @@
 # Secrets, data and research never go into the image.
 .env
 .env.*
+**/.env
+**/.env.*
+config/user.yaml
+config/demo.argus-real-v2.yaml
 secrets/
 data/
 !data/demo/README.md

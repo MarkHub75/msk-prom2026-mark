@@ -2,9 +2,10 @@
 
 ## 0. Версия
 
-**Версия: v9** (2026-10-25)
+**Версия: v10** (2026-10-25)
 
 Changelog:
+- v10 (UPGRADE v3, этап 1, 25.10): фронт Егора из PR #36 становится основным; Docker хранит SQLite в отдельном именованном томе, монтирует пользовательский конфиг read-only и не переопределяет URL LinQ. Проверка реального пакета, production-медиа/WS и пользовательского пути обязательна; результат и внешние ограничения — `docs/handoff/upgrade-v3-stage-1.md`. Этапы 2 (дедупликация, аудит, сценарии) и 3 (калькулятор v2) ещё не реализованы, API остаётся 1.1.0.
 - v1: первая версия. Заморожены: разделы 5 и 6 (схема БД, типы, фасад, CLI, REST, WebSocket, конфиг, трассировка) и контракт фронтенда `contract/openapi.json` версии 1.0.0.
 - v2 (ревью R5): 44 строки `GAP` S0–S5 перенесены в 6.8 и строки трассировки 6.7; 8.1: `model_missing` только по `not readable`; 8.2: жёлтая скорость при `≥` порога; 7: `registry.resolve(ref, models=None)`, `HudCanvas({ops, size})`; решения R5: `PUT` сектора, `PATCH` камеры, doctor без ключей, импорты `api.py`, устойчивость цикла задач и сессии Jupyter, диагностика очереди TPU.
 - v3 (ревью R10): 37 строк `GAP` S6–S10 перенесены в 6.9, 3 строки трассировки 6.7; решения R10: `AnalysisConfig.extra_artifact_ids` (пересчёт с моделями `pipeline.extra` без изменения схемы), параметры правил из `CameraRule.effective` снимка, длина `X-Actor` проверяется только в `services`, ссылка на настройку камеры из списка, autouse-защита `data/app` в `tests/conftest.py`.
@@ -20,6 +21,8 @@ Changelog:
 ---
 
 ## 1. Как читать этот файл
+
+**Актуальный процесс UPGRADE v3 (решение владельца, 25.10).** Работа ведётся по трём самостоятельным этапам, сейчас только этап 1. Историческая очередь S/R, Night Shift, запрет агенту править спецификацию, ритуал GAP, запрет браузера, «CI не ждать» и закрытие невыполненного критерия долгом не применяются. Предметные контракты, тестовая изоляция и машинно читаемые якоря ниже сохраняются. Исправления идут через рабочую ветку и PR, актуальный CI проверяется, развёртывание принимается фактическим запуском и браузером. Общий ориентир владельца — 25.10 08:30 МСК; прежние 10:00 ниже — история.
 
 - Это источник истины проекта. Читай его перед каждой задачей и подчиняйся дословно.
 - `docs/brief.md` объясняет, зачем строится проект. При расхождении прав этот файл. Факты о LinQ берутся из `docs/linq/LINQ_CONTRACT.md`: он главнее и брифа, и этого файла; расхождение с ним оформляй строкой `GAP`.
@@ -107,7 +110,7 @@ Argus (до v5 — SafeWatch; пакет, CLI и префикс переменн
 - Идентификацию нарушителя ставят роли `ohs` и `management` («охрана труда или аналитик»).
 - Шрифт PDF с кириллицей — `DejaVuSans.ttf` (свободная лицензия), лежит в пакете: в образе python:3.12-slim системных шрифтов с кириллицей нет.
 - Файлы моделей Матвея (`models/matvey/...`) в git не идут; без них записи реестра есть, но `doctor` честно показывает «нет файла». Ветку `matvey_cv` только читают (`git show origin/matvey_cv:<путь>`).
-- Фронт `frontend/` в `main` остаётся минимальным (8.14): экраны новых функций делает Егор по `contract/openapi.json` 1.1.0; прогон добавляет на фронт только плеер клипа и экраны оператора с телефона. Замена `frontend/` фронтом Егора — решение владельца.
+- v10: основной `frontend/` — фронт Егора (PR #36, squash `e80a550436ad0452f2c2ca829dcc6e6a253ab639`). Функциональные исправления разрешены без смены дизайна; API 1.1.0 сохранён. Исторические описания минимального фронта ниже не требуют возвращать его структуру.
 
 ## 3. Стек
 
@@ -2772,6 +2775,8 @@ models:
 | v6: константа `running.AUTOCAL_SAMPLES` | 19 | `RunningPlugin.explain` | `src/safewatch/rules/running.py` | `AUTOCAL_SAMPLES = "autocal_samples"` | `tests/test_autocal.py::test_hud_labels_auto_and_calibration` |
 | v6: текст `AUTOCAL_ONE_ROW` | 19 | `autocal.fit` | `src/safewatch/texts.py` | `AUTOCAL_ONE_ROW = ` | `tests/test_autocal.py::test_too_few_samples_not_ok` |
 | v5: compose с демо-пакетом | 21 | владелец, Docker | `docker-compose.yml` | `./data/demo:/app/data/demo:ro` | `tests/test_docker_files.py::test_compose_mounts_demo_and_data` |
+| v10: SQLite в именованном томе | 21 | Docker | `docker-compose.yml` | `argus_data:/app/data/app` | `tests/test_docker_files.py::test_compose_mounts_demo_and_data` |
+| v10: конфиг только при запуске | 21 | Docker | `docker-compose.yml` | `create_host_path: false` | `tests/test_docker_files.py::test_user_config_is_mounted_not_baked_and_env_keeps_priority` |
 | v5: образ стартует с сидом | 21 | Docker | `Dockerfile` | `"--seed"` | `tests/test_docker_files.py::test_image_starts_with_seed_and_health` |
 | v5: инструкция развёртывания | 21 | владелец | `docs/DEPLOY.md` | `docker compose up -d --build` | `вручную: docker compose up -d --build, GET /api/health` |
 | v5: телефон разрешён в зонах | 22 | `PhonePlugin` | `src/safewatch/rules/phone.py` | `ALLOWED_KINDS = ("walkway", "rest")` | `tests/test_rule_phone.py::test_phone_allowed_in_walkway_and_rest` |
@@ -4110,7 +4115,7 @@ v5, было → стало в таблице: `running` — жёлтый по `
 
 ### 8.14 Экраны
 
-Фронт baseline простой и рабочий: днём папку `frontend/` заменит фронт Егора, который пишется по тому же `contract/openapi.json`. Время слайса уходит на бэкенд и контракт. На фронте только функциональность из таблицы ниже: без анимаций, без визуальной полировки, без адаптивной вёрстки, кроме одной колонки у экранов мастера. Готовые компоненты библиотек не подбирать, стили — CSS-переменные темы и простая сетка.
+Основной фронт — фронт Егора из PR #36, собирается из `frontend/` внутри Docker. Дизайн сохраняется; функциональные ошибки исправляются. Таблица ниже сохраняет предметное поведение экранов и историческую трассировку. Старые ограничения минимального фронта и запрет браузерной проверки отменены владельцем.
 
 Тёмная тема по умолчанию (CSS-переменные в `theme.css`: фон `#0B0F14`, поверхность `#121821`, текст `#E6EDF3`, жёлтый `#FFC400`, красный `#FF3B30`, норма `#2BB673`, нет наблюдения `#7A8794`, акцент `#3BA7FF`). Уровень и состояние всегда текстом и иконкой, не только цветом. Цели нажатия не меньше 24×24 px. Интерфейс на русском. Каждый экран имеет состояния загрузки, пустоты («Событий нет — это не значит, что всё безопасно, если камера без наблюдения») и ошибки (текст `ApiError.message`). Работает на одном мониторе от 1280 px; экраны мастера — от 360 px.
 
@@ -4217,7 +4222,7 @@ artifacts/<cache_key>.jsonl, <cache_key>.summary.json
 
 Перекодирование: `video_upload`, `video_import` после проверки 8.1 п. 3: `codec` не из `BROWSER_CODECS` и `transcode.enabled` → `media.transcode(src, uploads/<sha256>.web.mp4, cfg)` в `asyncio.to_thread` (импорт — напрямую): ffmpeg `imageio_ffmpeg.get_ffmpeg_exe()`, `-c:v libx264 -preset <preset> -crf <crf> -pix_fmt yuv420p -movflags +faststart -an`, кадры и длительность прежние. Успех — `videos.web_path`; итог проверяется `probe_video(dst).codec ∈ BROWSER_CODECS`, иначе файл удаляется и `web_path = NULL`. Ошибка, таймаут `transcode.timeout_s` или выключенный ключ → видео принято без копии (6.11.4). `video_file` отдаёт копию, если она есть. Инференс, sha256 и ключ кэша — по исходнику.
 
-Браузер не открывается (10.1): «играет в браузере» проверяется FourCC отдаваемого файла (`avc1`/`h264`) и `Range` (206).
+v10: FourCC и `Range` (206) дополняют обязательную браузерную проверку: кадры видео действительно меняются, клип играет и перематывается локально и через публичный HTTPS. HTTP 200 и сборка сами по себе этого не доказывают.
 
 ### 8.21 Автокалибровка и скорость в м/с (S19)
 
@@ -4367,11 +4372,20 @@ RTT TPU бывает до ~10,6 с на запрос (3.1). Было → ста�
 | R5: kernel Jupyter, осиротевший воркер, HTML → `unreachable` | S28 (8.29) |
 | владелец: idle kernels, логи `D:\npm1.log`, `D:\scratch_fe.log` | остаются за владельцем: удаление на общем аккаунте и вне репо блокирует защита Claude Code |
 
-### 8.32 Docker и развёртывание одной командой (S21)
+### 8.32 Docker и развёртывание одной командой (S21; v10 — этап 1)
 
-Dockerfile и compose S15 собираются и запускаются: `docker compose up -d --build` поднимает Argus с демо-пакетом. Было → стало: `CMD [..., "serve", "--host", "0.0.0.0", "--port", "8000", "--seed"]`; compose монтирует `./data/demo:/app/data/demo:ro` рядом с `./data/app` и `./models:ro`; `healthcheck` — `GET /api/health` (python из образа, без curl); ffmpeg приходит колесом `imageio-ffmpeg`. Демону Docker нужен запущенный Docker Desktop: `docker info` не отвечает → строка `долг`, слайс закрывается с файлами и статическим тестом.
+Подготовленный checkout запускается `docker compose up -d --build`. Подготовка: Docker Desktop/Engine и Compose 2.24+, свободный порт 8000, настоящий пакет в `data/demo/<name>/`, локальный `config/user.yaml` по `config/docker.example.yaml`. Сервис `safewatch`, рабочий каталог `/app`, Python 3.12 slim, frontend на Node 24 с lock-файлами; runtime включает исходники, config, contract, tools/linq, шрифт и собранный `frontend/dist`. Host dist не используется.
 
-`docs/DEPLOY.md` — развёртывание на стационарном компьютере (публичный адрес через сервис Феди с выделенным IP): требования (Docker Desktop, свободный порт 8000), что скопировать (репо, `data/demo/<name>/`, при нужде `models/`), `.env` (`INFERENCE_BACKEND`, `SAFEWATCH_FAKE`, `LINQ_*` только для «Загрузить своё видео»; LinQ из контейнера — через туннель на хосте, `LINQ_JUPYTER_URL=http://host.docker.internal:8888`), команды `docker compose up -d --build`, `docker compose logs -f`, `docker compose down`, том данных, сброс базы, замена `frontend/` фронтом Егора перед сборкой.
+- SQLite и медиа приложения — именованный том `argus_data` в `/app/data/app`, имя `${ARGUS_DATA_VOLUME:-argus-upgrade-v3-stage1-data}`. `./data/app` хоста не монтируется и не удаляется. Старые тома не уничтожаются; новый показ с чистой БД получает отдельно выбранное имя тома.
+- `./data/demo:/app/data/demo:ro` и `./models:/app/models:ro` сохраняются. Пользовательский `./config/user.yaml` монтируется в `/app/config/user.yaml` read-only, bind `create_host_path: false`: отсутствующий файл — ошибка подготовки, а не созданный каталог. Он исключён из build context вместе с `.env*`, данными, моделями и исследованиями. Изменение конфига применяется после пересоздания контейнера (`up -d --force-recreate`); пересборка образа из-за него не нужна.
+- Пути конфига — Linux-пути внутри контейнера. Порядок YAML: default → user.example → user; неизвестные ключи запрещены. Демо-профиль: `data_dir: data/app`, `server.static_dir: frontend/dist`, `demo.pack: data/demo/argus-real-v2`, detector/pose `640-ap9999`, `pipeline.extra: []`, target 12 FPS. Запасной пакет — `data/demo/argus-real`; проверяется в отдельном томе, не поверх рабочего.
+- `.env` необязателен (`required: false`). Compose не задаёт `LINQ_JUPYTER_URL` через environment: значение владельца из env_file сохраняется. Настоящий кэш не требует Jupyter и не требует `SAFEWATCH_FAKE=1`. Происхождение каждой задачи и пакета проверяется как `linq`, `fake=false`, `cached=true` для обеих моделей. `extra` без артефакта может вызвать живой инференс, поэтому демопрофиль указан явно.
+- `serve --seed` идемпотентно создаёт мир и импортирует пакет; synthetic история `is_demo=1` не является доказательством LinQ. Проверяется `/api/demo/packs`, четыре готовых видео v2, реальные зоны/правила/калибровки относительно manifest. Импорт одноимённого пакета не обновляет его содержимое; существующие настройки камер не перезаписываются.
+- Healthcheck использует Python urllib без curl. Приёмка дополнительно проверяет runtime-импорты, OpenCV-декод, ffmpeg/H.264/yuv420p/faststart и нечётные размеры, миграции/WAL/целостность, WS hello и доставку события, UI оператора → мастера → журнал. Неуспешная внешняя проверка остаётся невыполненной.
+- `restart`, обычный `down` и `up` сохраняют БД, решения и настройки; повторный seed/import не размножает сущности. `down -v`, Purge и удаление host data не являются штатным запуском.
+- Публичный адрес — существующий Tuna-хост на локальный порт 8000, не сервис Феди. Новый хост не создаётся. URL и токены не публикуются в репозитории; локальная передача отдельно. Готовность HTTPS требует REST, медиа и WebSocket на текущем origin, без mock/localhost/mixed content. Нет доступа к существующему Tuna — точный блокер, а не PASS.
+
+Инструкция с нуля — `docs/DEPLOY.md`, фактические результаты — `docs/handoff/upgrade-v3-stage-1.md`. Исправление повторов эфира, полный аудит и калькулятор v2 относятся к следующим этапам; в этапе 1 они не заявляются готовыми.
 
 ### 8.33 Сдвиг камеры (S32, снят владельцем, v8)
 
@@ -4497,6 +4511,8 @@ live     = "pytest -m live"
 Запуск: `uv run poe gate`. ruff исключает `*.md` и требует LF. `pytest-timeout` валит зависший тест через 60 с. mypy: `ignore_missing_imports` для `cv2`, `onnxruntime`, `scipy.*`, `jupyter_remote`, `yolo_io`. **[проверить]** задачу `shell` у poe на Windows (Git Bash). Не работает — выбери самую простую рабочую форму вызова `npm` и запиши строку `GAP`.
 
 Фронт, `frontend/package.json`: `gate = "npm run api:check && npm run lint && npm run typecheck && npm run test && npm run build"`; `api:gen = "openapi-typescript ../contract/openapi.json -o src/api/schema.d.ts"`; `api:check` — `scripts/api-check.mjs` генерирует типы во временный файл и сравнивает с `schema.d.ts`.
+
+v10: при наличии файла `frontend/FRONT_OWNER` пропускаются только строки трассировки с путями `frontend/`: их заменяет gate Егора (`api:check`, lint, typecheck, vitest, build). Без маркера прежняя трассировка действует. Backend, REST/WS, тесты и другие пути не исключаются. Vitest ограничен двумя параллельными workers для воспроизводимости рядом с Docker: все тесты и прежние таймауты сохранены.
 
 Сверка контракта (`scripts/contract_check.py`): читает таблицу 6.7 «Трассировка» и закрытые слайсы из `## log` файла `progress.md` (заголовки `### S<N>: ...`). Для каждой строки закрытого слайса ищет «искомую строку» в «файле», тест вида `путь::имя` проверяет по файлу и имени. Не нашёл: гейт красный с перечнем. Строки незакрытых слайсов пропускаются.
 
@@ -5003,7 +5019,7 @@ v5: S0–S15 и R5, R10, R15 закрыты в первую ночь (24.10). В
 2. Ответ 200 → строка `sent`; 500 → `failed` с `http_status`; таймаут → `failed` с текстом «таймаут»; событие от этого не меняется.
 3. Повторный `deliveries_flush` не шлёт уже отправленное (`UNIQUE`).
 4. `system_view.channels` показывает имя, тип, хост без пути и учётных данных, уровни; `event_detail.deliveries` — попытки.
-5. `Dockerfile` (сборка фронта на node, рантайм python:3.12-slim с `uv`, копирует `src`, `config`, `contract`, `tools/linq`, `frontend/dist`) и `docker-compose.yml` (порт 8000, том `data/app`, том `models` только чтение, `env_file: .env`, `LINQ_JUPYTER_URL=http://host.docker.internal:8888`); `docker build` проходит, если демон Docker запущен, иначе строка `долг`.
+5. Исторический критерий S15: `Dockerfile` (сборка фронта на node, рантайм python:3.12-slim с `uv`, копирует `src`, `config`, `contract`, `tools/linq`, `frontend/dist`) и `docker-compose.yml` (порт 8000, том `data/app`, том `models` только чтение, `env_file: .env`, `LINQ_JUPYTER_URL=http://host.docker.internal:8888`); `docker build` проходит, если демон Docker запущен, иначе строка `долг`. В v10 требования хранения, приоритета URL и обязательной фактической приёмки заменены разделом 8.32; прежняя запись не является инструкцией запуска.
 6. README: запуск на Windows и в Docker, мок-режим, переключение бэкенда, куда класть видео, оценка качества (`safewatch eval`), подключение новой модели через `config/models.yaml`.
 
 **Тесты:** `tests/test_delivery.py`: 1 `test_webhook_sent_on_red`, 2 `test_webhook_failure_recorded_event_unaffected`, 3 `test_delivery_idempotent`, 4 `test_channels_in_system_view`; 5 — `docker build` вручную по возможности; 6 — без теста.

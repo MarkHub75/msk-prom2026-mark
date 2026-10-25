@@ -7,15 +7,20 @@ services:
     env_file:
       - path: .env
         required: false
-    environment:
-      # Jupyter of LinQ is reached through the SSH tunnel on the host (tech.md 3.1).
-      LINQ_JUPYTER_URL: http://host.docker.internal:8888
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./data/app:/app/data/app
+      - argus_data:/app/data/app
       - ./data/demo:/app/data/demo:ro
       - ./models:/app/models:ro
+      # Create this file from config/docker.example.yaml before the first start.
+      # Fail if missing instead of silently creating a directory or using synthetic defaults.
+      - type: bind
+        source: ./config/user.yaml
+        target: /app/config/user.yaml
+        read_only: true
+        bind:
+          create_host_path: false
     healthcheck:
       # The slim image has no curl: python of the image asks the API itself.
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
@@ -23,3 +28,8 @@ services:
       timeout: 5s
       retries: 3
       start_period: 60s
+
+volumes:
+  argus_data:
+    # A new volume for UPGRADE v3; existing host data and older volumes stay untouched.
+    name: ${ARGUS_DATA_VOLUME:-argus-upgrade-v3-stage1-data}
