@@ -78,7 +78,15 @@
   .cv2-step { grid-template-rows: none; grid-template-columns: 64px minmax(0, 1fr); align-items: start; }
   .cv2-step-bar { height: 64px; }
   .cv2-steps-headline { font-size: 28px; }
-  .cv2-curve li { grid-template-columns: 36px minmax(0, 1fr); }
-  .cv2-curve li > :nth-child(3), .cv2-curve li > :nth-child(4) { grid-column: 2; }
-  .cv2-thresholds { display: block; overflow-x: auto; }
+  .cv2-curve { gap: var(--s2); }
+  .cv2-curve li { grid-template-columns: 36px minmax(0, 1fr) auto; row-gap: 2px; }
+  .cv2-curve-bar { grid-column: 2 / 4; }
+  .cv2-curve li > :nth-child(3) { grid-column: 2; }
+  .cv2-curve li > :nth-child(4) { grid-column: 3; text-align: right; }
+  /* phone: each tier is a card, the column titles move into the cells */
+  .cv2-thresholds thead { display: none; }
+  .cv2-thresholds, .cv2-thresholds tbody, .cv2-thresholds tr, .cv2-thresholds td { display: block; width: 100%; }
+  .cv2-thresholds tr { padding: var(--s2) 0; border-bottom: 1px solid var(--ds-line); }
+  .cv2-thresholds tbody td { border: 0; padding: 4px var(--s3); }
+  .cv2-thresholds td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; color: var(--ds-text-3); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 }

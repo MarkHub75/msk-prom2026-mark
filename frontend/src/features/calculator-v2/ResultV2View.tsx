@@ -132,8 +132,8 @@ export function ThresholdsPanel({ result }: { result: ResultV2 }) {
       <thead><tr><th>Уровень</th><th>Предотвращённые тяжёлые случаи</th><th>Цена платы</th></tr></thead>
       <tbody>{result.tiers.map(t => <tr key={t.tier} data-tier={t.tier}>
         <td><b>{t.title}</b></td>
-        <td data-status={t.severe_threshold.status}>{severeText(t.severe_threshold)}<small>{t.severe_threshold.reason}</small></td>
-        <td data-status={t.board_price_threshold.status}>{priceText(t.board_price_threshold)}<small>{t.board_price_threshold.reason}</small></td>
+        <td data-label="Предотвращённые тяжёлые случаи" data-status={t.severe_threshold.status}>{severeText(t.severe_threshold)}<small>{t.severe_threshold.reason}</small></td>
+        <td data-label="Цена платы" data-status={t.board_price_threshold.status}>{priceText(t.board_price_threshold)}<small>{t.board_price_threshold.reason}</small></td>
       </tr>)}</tbody>
     </table>
     <p className="v5-hint">Порог случаев — общее необходимое число за 3 года вместо прямой выгоды от травм, а не добавка к ней. Порог цены — для выбранной комплектации, без нового подбора.</p>
