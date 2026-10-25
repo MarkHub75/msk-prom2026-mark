@@ -1,5 +1,0 @@
-﻿import requests,pathlib,json,hashlib
-p=pathlib.Path('_WORK/W2_07_EVIDENCE'); c='08f9393ab192a65a6be05793e2db5885963bc6d6'; logs=[]
-for path in ['official/vision/beta/projects/movinet/modeling/movinet.py','official/vision/beta/projects/movinet/modeling/movinet_layers.py','official/vision/beta/projects/movinet/README.md']:
- u='https://raw.githubusercontent.com/tensorflow/models/'+c+'/'+path; r=requests.get(u,timeout=30); (p/('july2021_'+path.split('/')[-1])).write_bytes(r.content); logs.append(dict(url=u,status=r.status_code,bytes=len(r.content),sha256=hashlib.sha256(r.content).hexdigest()))
-u='https://raw.githubusercontent.com/tensorflow/models/e0ed507504b4efa6780e244677ded563b36b0ee7/official/projects/movinet/files/kinetics_600_labels.txt'; r=requests.get(u,timeout=30); (p/'blog_pinned_labels.txt').write_bytes(r.content); logs.append(dict(url=u,status=r.status_code,bytes=len(r.content),sha256=hashlib.sha256(r.content).hexdigest())); print(logs); print('label same',r.content==(p/'files_kinetics_600_labels.txt').read_bytes()); (p/'historical_fetch_log.json').write_text(json.dumps(logs,indent=2))

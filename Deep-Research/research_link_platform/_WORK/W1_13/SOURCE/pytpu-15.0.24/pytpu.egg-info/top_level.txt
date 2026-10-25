@@ -1,2 +1,0 @@
-pytpu
-pytpu_tests

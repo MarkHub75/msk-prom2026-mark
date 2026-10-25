@@ -1,7 +1,0 @@
-{
-  "access_utc": "2026-10-23T03:53:55.274004+00:00",
-  "url": "https://files.lin-q.ru/tpu/docs/Framework_manual_H1.pdf",
-  "method": "Python requests GET with ordinary certificate verification",
-  "result": "failed; no PDF bytes saved",
-  "error": "SSLError(MaxRetryError(\"HTTPSConnectionPool(host='files.lin-q.ru', port=443): Max retries exceeded with url: /tpu/docs/Framework_manual_H1.pdf (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))\"))"
-}

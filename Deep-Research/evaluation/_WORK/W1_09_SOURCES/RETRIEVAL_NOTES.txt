@@ -1,7 +1,0 @@
-Access: 2026-10-23 03:16-03:22 UTC / 06:16-06:22 Europe/Moscow UTC+03:00
-GitHub commits API HTTP 403 rate limit exceeded; git ls-remote and shallow clone succeeded.
-Commit: 12c8791b303e0a0b50f753af204249e622d0281a, committer 2022-11-29T22:30:54Z.
-Raw download loop stopped at README.md HTTP404: native name Readme.md. Clone authoritative.
-Arxiv versioned HTML and HOTA PDF downloads succeeded.
-MOTChallenge-paper.html is a Client Challenge response, not article. Article read via web browsing successfully.
-small_examples.py is own narrow diagnostic; no model benchmark.

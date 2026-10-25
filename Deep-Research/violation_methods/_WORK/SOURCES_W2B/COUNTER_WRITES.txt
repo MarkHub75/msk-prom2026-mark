@@ -1,7 +1,0 @@
-﻿_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:65:        self.zone_presence: dict[str, int] = {}
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:66:        self.zone_loitering: dict[str, int] = {}
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:202:            zone_score = self.zone_presence.get(name, 0) + 1
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:276:                        loitering_score = self.zone_loitering.get(name, 0) + 1
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:289:                            self.zone_loitering[name] = loitering_score
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:295:                        self.zone_presence[name] = zone_score
-_WORK/SOURCES_W2B/frigate/frigate-cfa08c56b23d23280c3d0a218e5a43182c97445b/frigate\track\tracked_object.py:299:                    self.zone_presence[name] = zone_score - 1

@@ -1,7 +1,0 @@
-[
- [
-  "WARN",
-  "DOWNLOAD_KEY",
-  "data.yaml has `download:` -> Ultralytics exec()s it as Python if the val path is missing. Remove it for untrusted yamls"
- ]
-]

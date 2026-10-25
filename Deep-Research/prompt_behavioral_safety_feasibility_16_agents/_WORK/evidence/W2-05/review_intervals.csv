@@ -1,3 +1,0 @@
-file,actor_tag,start_index_inclusive,end_index_inclusive,start_pts_s,end_boundary_s,label,evidence,censoring,limitations
-daria_walk.avi,source filename daria; no tracker ID,5,75,0.2,3.04,walking negative for gait run,author action filename + human contact sheet review every 5 frames,motion begins before observed interval; onset unknown,not fast-walk; no floor scale; 25fps container differs page 50fps
-daria_run.avi,source filename daria; no tracker ID,5,35,0.2,1.44,running candidate for gait channel,author action filename + human contact sheet review every 5 frames,motion begins before observed interval; onset unknown,no walk-to-run transition; no floor scale; no validated gait model

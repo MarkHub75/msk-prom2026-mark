@@ -1,6 +1,0 @@
-{
-  "frame_correlated_confirmed_precision": 0.9,
-  "precision_prevalence_1pct": 0.4761904761904762,
-  "precision_prevalence_0_1pct": 0.08264462809917356,
-  "constant_1pct_brier": 0.0099
-}

@@ -1,6 +1,0 @@
-[train] images=1132 label_missing(bg)=0 label_empty(bg)=0 corrupt=0 boxes=9098 tiny(<4px@640)=1 box_out_of_image=0 exact_dup_rows=1
-[val] images=143 label_missing(bg)=0 label_empty(bg)=0 corrupt=0 boxes=1172 tiny(<4px@640)=0 box_out_of_image=0 exact_dup_rows=0
-[test] images=141 label_missing(bg)=0 label_empty(bg)=0 corrupt=0 boxes=1251 tiny(<4px@640)=1 box_out_of_image=0 exact_dup_rows=0
-train class histogram: {'helmet': 1341, 'gloves': 1146, 'vest': 1269, 'boots': 1235, 'goggles': 419, 'none': 651, 'Person': 1770, 'no_helmet': 400, 'no_goggle': 337, 'no_gloves': 442, 'no_boots': 88}
-WARN  DOWNLOAD_KEY: data.yaml has `download:` -> Ultralytics exec()s it as Python if the val path is missing. Remove it for untrusted yamls
-SUMMARY: 0 errors, 1 warnings
