@@ -137,6 +137,16 @@ def test_danger_zone_entry_red() -> None:
     assert slow.hold_s == 1.0
 
 
+def test_vehicle_path_walk_alone_quiet_truck_still_red() -> None:
+    """Stage 2, camera 1.3: walking along a forklift lane is no alarm; a moving truck near is."""
+    lane = zone("vehicle_path")
+    assert observe(context(person(), zones=[lane])) == []
+    (o,) = observe(context(person(), vehicles=[truck(0.4)], zones=[lane]))
+    assert (o.subject, o.state, o.level, o.reason_code) == ("pair:1-9", "P", "red", "proximity_red")
+    stopped = truck(0.4, vh_s=0.0)
+    assert [x.state for x in observe(context(person(), vehicles=[stopped], zones=[lane]))] == ["N"]
+
+
 def test_two_people_two_episodes() -> None:
     first = person()
     second = person(track_id=2, foot=(500.0, 290.0), anchor=(500.0, 290.0))
