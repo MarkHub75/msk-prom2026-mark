@@ -738,5 +738,9 @@ async def test_system_any_class_needs_one_model(client: httpx.AsyncClient, core:
     body["cameras"] = {"source": "system", "camera_ids": [c["north"]], "include_seed": False}
     found = (await post(client, ROLLOUT, body)).json()
     models = found["resolved"]["added"]["groups"][0]["model_ids"]
-    assert models == [DET, POSE, "matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4"]  # no cigarette
+    assert models == [
+        DET,
+        POSE,
+        "matvey-fire-smoke-yolov8n@640-s04-v1-4c9f5d05c4d4",
+    ]  # no cigarette
     assert [m["code"] for m in found["missing"]] == ["MODEL_COST_UNKNOWN"]  # its weight is unsigned
