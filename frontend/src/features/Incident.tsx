@@ -38,7 +38,8 @@ export function useEventDetail(id: number) {
   const identity = `${role}:${id}`;
   const rest = useRef(request.data); rest.current = request.data;
   const current = result?.identity === identity && result.rest === request.data ? result.detail : request.data;
-  const detail = !request.error && !request.loading && current?.event.id === id ? current : undefined;
+  // A WS-driven refetch of the same card keeps the shown detail: hiding it unmounted the takeover and its buttons every update.
+  const detail = !request.error && current?.event.id === id ? current : undefined;
   const { busy, actionError, send: post } = useEventActions(id, detail, identity);
   useEffect(() => { setResult(undefined); }, [id,role]);
   const send = useCallback(async (action: HumanAction, comment = "") => {
