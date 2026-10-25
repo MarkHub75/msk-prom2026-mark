@@ -1,0 +1,27 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vk-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #vk-stage img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #vk-mask { position: absolute; left: 0; top: 0; width: 1446px; height: 1080px; background: #111214; }
+    #vk-ring { position: absolute; left: 1449px; top: 401px; width: 466px; height: 40px; border: 2px solid #3d84f0; border-radius: 3px; opacity: 0; }
+    #vk-kick { position: absolute; left: 96px; top: 1640px; padding: 14px 22px 14px 18px; background: rgba(17,18,20,.92); border-left: 4px solid #3d84f0; font-weight: 700; font-size: 46px; }
+  </style>
+  <div id="root" data-composition-id="v-card" data-width="1080" data-height="1920">
+    <div id="vk-stage"><img src="assets/media/confirmed.jpg" alt="" /><div id="vk-mask"></div><div id="vk-ring"></div></div>
+
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const at = (cx, cy, s) => ({ scale: s, x: -cx * s, y: -cy * s });
+      tl.fromTo("#vk-stage", { ...at(1440, 80, 2.25), opacity: 0, filter: "blur(8px)" }, { ...at(1440, 90, 2.25), opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 0);
+      tl.to("#vk-stage", { ...at(1440, 190, 2.25), duration: 1.85, ease: "power1.inOut" }, 0.35);
+      tl.fromTo("#vk-ring", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.5);
+      window.__timelines["v-card"] = tl;
+    })();
+  </script>
+</template>

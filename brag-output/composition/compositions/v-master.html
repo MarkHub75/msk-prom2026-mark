@@ -1,0 +1,42 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vm-screen { position: absolute; left: 120px; top: 51px; width: 840px; height: 1818px; border-radius: 64px; overflow: hidden; box-shadow: 0 0 0 3px #2f3238, 0 40px 90px rgba(0,0,0,.6); }
+    #vm-screen img { position: absolute; left: 0; top: 0; width: 840px; height: 1818px; }
+    #vm-measures, #vm-resolved { opacity: 0; }
+    .vm-press { position: absolute; border-radius: 8px; background: rgba(0,0,0,.28); opacity: 0; }
+    #vm-p1 { left: 67px; top: 1120px; width: 396px; height: 102px; }
+    #vm-p2 { left: 37px; top: 1686px; width: 768px; height: 108px; }
+    .vm-dot { position: absolute; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: rgba(236,238,241,.42); border: 3px solid rgba(236,238,241,.75); opacity: 0; }
+    #vm-d1 { left: 265px; top: 1170px; }
+    #vm-d2 { left: 420px; top: 1740px; }
+  </style>
+  <div id="root" data-composition-id="v-master" data-width="1080" data-height="1920">
+    <div id="vm-screen">
+      <img id="vm-inbox" src="assets/media/ph-inbox.jpg" alt="" />
+      <img id="vm-measures" src="assets/media/ph-measures.jpg" alt="" />
+      <img id="vm-resolved" src="assets/media/ph-resolved.jpg" alt="" />
+      <div class="vm-press" id="vm-p1"></div><div class="vm-press" id="vm-p2"></div>
+      <div class="vm-dot" id="vm-d1"></div><div class="vm-dot" id="vm-d2"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#vm-screen", { y: 120, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+      tl.fromTo("#vm-d1", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.1, ease: "power2.out" }, 0.86);
+      tl.fromTo("#vm-p1", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.92);
+      tl.to("#vm-d1, #vm-p1", { opacity: 0, duration: 0.14 }, 1.06);
+      tl.fromTo("#vm-inbox", { x: 0 }, { x: -270, duration: 0.32, ease: "power3.inOut" }, 1.12);
+      tl.fromTo("#vm-measures", { x: 840, opacity: 1 }, { x: 0, opacity: 1, duration: 0.32, ease: "power3.inOut" }, 1.12);
+      tl.fromTo("#vm-d2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.1, ease: "power2.out" }, 2.02);
+      tl.fromTo("#vm-p2", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 2.08);
+      tl.to("#vm-d2, #vm-p2", { opacity: 0, duration: 0.14 }, 2.22);
+      tl.fromTo("#vm-resolved", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.24, ease: "power3.out" }, 2.28);
+      window.__timelines["v-master"] = tl;
+    })();
+  </script>
+</template>

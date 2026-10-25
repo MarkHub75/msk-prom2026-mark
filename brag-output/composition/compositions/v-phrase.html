@@ -1,0 +1,34 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vp { position: absolute; left: 96px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; }
+    .vp-line { font-weight: 700; font-size: 92px; line-height: 1.1; white-space: nowrap; }
+    .vp-line span { display: inline-block; margin-right: .22em; }
+    .vp-line span:last-child { margin-right: 0; }
+    #vp-l1 { color: #a1a7b0; }
+    #vp-l3 { margin-top: 70px; margin-left: 22px; }
+    #vp-target { position: relative; display: inline-block; }
+    #vp-box { position: absolute; left: -22px; top: 6px; right: -22px; bottom: -6px; border: 6px solid #d64545; box-shadow: 0 0 0 3px rgba(16,22,20,.9), inset 0 0 0 3px rgba(16,22,20,.6); }
+    #vp-lab { position: absolute; left: -22px; top: 8px; transform: translateY(-100%); padding: 6px 12px; background: rgba(16,22,20,.96); border: 2px solid #d64545; font-weight: 600; font-size: 32px; color: #fff; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="v-phrase" data-width="1080" data-height="1920">
+    <div id="vp">
+      <div class="vp-line" id="vp-l1"><span>Точность</span><span>там,</span></div>
+      <div class="vp-line" id="vp-l2"><span>где</span></div>
+      <div class="vp-line" id="vp-l3"><span id="vp-target"><span>что-то</span><span>происходит.</span><i id="vp-box"></i><b id="vp-lab">событие</b></span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#vp-l1 span, #vp-l2 span, #vp-target > span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.09, ease: "power2.out" }, 0.15);
+      tl.fromTo("#vp-box", { opacity: 0, scaleX: 1.12, scaleY: 1.5 }, { opacity: 1, scaleX: 1, scaleY: 1, duration: 0.26, ease: "expo.out" }, 0.86);
+      tl.fromTo("#vp-lab", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 1.0);
+      tl.to("#vp", { opacity: 0, filter: "blur(10px)", duration: 0.22, ease: "power2.in" }, 3.95);
+      window.__timelines["v-phrase"] = tl;
+    })();
+  </script>
+</template>

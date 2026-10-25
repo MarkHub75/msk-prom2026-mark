@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru" data-composition-variables='[
+  {"id":"color-ground","type":"color","label":"Фон","default":"#111214"},
+  {"id":"color-ink","type":"color","label":"Текст","default":"#eceef1"},
+  {"id":"color-red","type":"color","label":"Тревога","default":"#d64545"}
+]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>АРГУС — промо 30 с (вертикаль)</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #111214; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; }
+      #credit, #credit2 { position: absolute; left: 0; width: 1080px; top: 1876px; z-index: 50; text-align: center; color: #8a909a;
+        font: 600 26px/1.2 "Source Sans Pro", sans-serif; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+      <div id="v-hook" data-composition-id="v-hook" data-composition-src="compositions/v-hook.html" data-start="0" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-cam" data-composition-id="v-cam" data-composition-src="compositions/v-cam.html" data-start="4" data-duration="6.2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-oper" data-composition-id="v-oper" data-composition-src="compositions/v-oper.html" data-start="10.2" data-duration="2.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-card" data-composition-id="v-card" data-composition-src="compositions/v-card.html" data-start="12.6" data-duration="1.8" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-master" data-composition-id="v-master" data-composition-src="compositions/v-master.html" data-start="14.4" data-duration="3.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-linq" data-composition-id="v-linq" data-composition-src="compositions/v-linq.html" data-start="17.8" data-duration="2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-phrase" data-composition-id="v-phrase" data-composition-src="compositions/v-phrase.html" data-start="19.8" data-duration="4.2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="v-finale" data-composition-id="v-finale" data-composition-src="compositions/v-finale.html" data-start="24" data-duration="6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+
+      <div id="credit" class="clip" data-start="0.4" data-duration="12.2" data-track-index="2" data-track-kind="graphics" data-layout-ignore>Видео: Onal, Dandil, Mendeley Data, CC BY 4.0</div>
+      <div id="credit2" class="clip" data-start="14.4" data-duration="3.4" data-track-index="2" data-track-kind="graphics" data-layout-ignore>Видео: Onal, Dandil, Mendeley Data, CC BY 4.0</div>
+
+      <!-- Music: Sascha Ende, ende.app (CC BY 4.0). Strong beat 13.11 of the track → 9.29 (red), as in the landscape cuts. -->
+      <audio id="music" data-start="0" data-duration="30" data-media-start="3.82" data-track-index="10" data-volume="1"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.7,"v":0.34},{"t":23.9,"v":0.34},{"t":24.6,"v":0.18},{"t":27.8,"v":0}]}]}'
+        src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"></audio>
+      <audio id="sfx-whip" data-start="3.96" data-duration="0.6" data-track-index="11" data-volume="0.35" src="assets/sfx/card-slide-1.ogg"></audio>
+      <audio id="sfx-red" data-start="9.27" data-duration="1.5" data-track-index="12" data-volume="0.9" src="assets/sfx/alarm-hit.wav"></audio>
+      <audio id="sfx-take" data-start="10.2" data-duration="0.18" data-track-index="13" data-volume="0.45" src="assets/sfx/impactSoft_medium_001.ogg"></audio>
+      <audio id="sfx-card" data-start="11.0" data-duration="0.06" data-track-index="17" data-volume="0.6" src="assets/sfx/click2.ogg"></audio>
+      <audio id="sfx-confirm" data-start="12.1" data-duration="0.06" data-track-index="14" data-volume="0.75" src="assets/sfx/click2.ogg"></audio>
+      <audio id="sfx-tap1" data-start="15.32" data-duration="0.06" data-track-index="15" data-volume="0.7" src="assets/sfx/click2.ogg"></audio>
+      <audio id="sfx-tap2" data-start="16.48" data-duration="0.06" data-track-index="16" data-volume="0.7" src="assets/sfx/click2.ogg"></audio>
+      <audio id="sfx-argus" data-start="24.5" data-duration="4.6" data-track-index="18" data-volume="1" src="assets/sfx/argus-hit.wav"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#credit", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.4);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

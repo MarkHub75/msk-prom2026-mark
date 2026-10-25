@@ -1,0 +1,74 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; }
+    #fin-glow { position: absolute; left: -200px; top: 440px; width: 1400px; height: 900px; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,206,214,.20) 0%, rgba(201,206,214,.07) 45%, rgba(17,18,20,0) 75%); }
+    /* audio-reactive: the light behind the word decays with the tail of the impact */
+    #fin-glow-audio { position: absolute; left: -10px; top: 610px; width: 1100px; height: 580px; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,206,214,.16) 0%, rgba(17,18,20,0) 70%); }
+    #fin-burst { position: absolute; left: -110px; top: 600px; width: 1300px; height: 600px; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,.55) 0%, rgba(236,238,241,.18) 35%, rgba(17,18,20,0) 70%); }
+    #fin-shake { position: absolute; inset: 0; }
+    #fin-row { position: absolute; left: 96px; right: 90px; top: 740px; }
+    #fin-inner { width: 100%; display: flex; flex-direction: column-reverse; align-items: stretch; gap: 64px; }
+    #fin-sub { align-self: flex-start; font-weight: 600; font-size: 40px; letter-spacing: .34em; color: #a1a7b0; white-space: nowrap; }
+    #fin-sub span { display: inline-block; }
+    #fin-word .fl { display: inline-block; }
+    #fin-word { position: relative; align-self: flex-end; font-weight: 900; font-size: 280px; line-height: 1; letter-spacing: .03em; color: #eceef1; white-space: nowrap; transform-origin: 70% 55%; }
+    #fin-glint { position: absolute; left: 0; top: 0; font: inherit; letter-spacing: inherit; line-height: inherit; color: transparent; white-space: nowrap; pointer-events: none;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,255,255,.95) 50%, rgba(255,255,255,0) 62%) no-repeat;
+      background-size: 60% 100%; background-position: -80% 0; -webkit-background-clip: text; background-clip: text; }
+    #fin-line { position: absolute; left: 60px; top: 1010px; width: 960px; height: 3px; transform-origin: 70% 50%; opacity: 0;
+      background: linear-gradient(90deg, rgba(236,238,241,0), rgba(236,238,241,.9) 50%, rgba(236,238,241,0)); }
+  </style>
+  <div id="root" data-composition-id="v-finale" data-width="1080" data-height="1920">
+    <div id="fin-glow"></div>
+    <div id="fin-glow-audio"></div>
+    <div id="fin-burst"></div>
+    <div id="fin-shake">
+      <div id="fin-line"></div>
+      <div id="fin-row">
+        <div id="fin-inner">
+          <div id="fin-sub"><span>п</span><span>о</span><span>д</span><span>&nbsp;</span><span>н</span><span>а</span><span>д</span><span>з</span><span>о</span><span>р</span><span>о</span><span>м</span></div>
+          <div id="fin-word" data-layout-allow-occlusion><span class="fl" data-layout-allow-occlusion>А</span><span class="fl" data-layout-allow-occlusion>Р</span><span class="fl" data-layout-allow-occlusion>Г</span><span class="fl" data-layout-allow-occlusion>У</span><span class="fl" data-layout-allow-occlusion>С</span><span id="fin-glint" aria-hidden="true" data-layout-ignore>АРГУС</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/rms-finale.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const HIT = 0.56;
+      // per-frame mix envelope of this window (30 fps), extracted from the render; only after the impact
+      const glowA = document.getElementById("fin-glow-audio"), env = { t: 0 };
+      tl.fromTo(env, { t: 0 }, { t: 6, duration: 6, ease: "none", onUpdate: () => {
+        const i = Math.min(window.RMS_FINALE.length - 1, Math.floor(env.t * 30));
+        glowA.style.opacity = env.t < HIT ? 0 : (window.RMS_FINALE[i] * 0.9).toFixed(3);
+      } }, 0);
+      // anticipation: light gathers where the word will land
+      tl.fromTo("#fin-glow", { opacity: 0 }, { opacity: 0.7, duration: HIT, ease: "power2.in" }, 0);
+      // slam: from huge, wide and blurred into place, accelerating into the impact
+      tl.fromTo("#fin-word", { opacity: 0, scale: 2.3, filter: "blur(30px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: HIT - 0.2, ease: "power4.in" }, 0.2);
+      // the letters close in from a wide spread as the word lands
+      tl.fromTo("#fin-word .fl", { x: (i) => (i - 2) * 70 }, { x: 0, duration: HIT - 0.2, ease: "power4.in" }, 0.2);
+      // impact: flash of light, a streak along the base line, a short decaying shake
+      tl.fromTo("#fin-burst", { opacity: 0 }, { opacity: 1, duration: 0.04 }, HIT);
+      tl.to("#fin-burst", { opacity: 0, duration: 0.9, ease: "expo.out" }, HIT + 0.04);
+      tl.to("#fin-glow", { opacity: 0.45, duration: 1.2, ease: "power2.out" }, HIT);
+      tl.fromTo("#fin-line", { opacity: 0, scaleX: 0.1 }, { opacity: 1, scaleX: 1, duration: 0.28, ease: "expo.out" }, HIT);
+      tl.to("#fin-line", { opacity: 0, duration: 0.9, ease: "power2.out" }, HIT + 0.3);
+      tl.to("#fin-word", { scale: 0.985, duration: 0.05, yoyo: true, repeat: 1, ease: "power2.out" }, HIT);
+      const shake = [[16, -9], [-13, 8], [10, -5], [-7, 4], [5, -2], [-3, 1], [1, 0], [0, 0]];
+      shake.forEach(([x, y], i) => tl.to("#fin-shake", { x, y, duration: 0.04, ease: "none" }, HIT + i * 0.04));
+      // light runs across the letters once
+      tl.fromTo("#fin-glint", { backgroundPosition: "-80% 0" }, { backgroundPosition: "180% 0", duration: 0.8, ease: "power2.inOut" }, HIT + 0.35);
+      // then, on the left, small: «под надзором», letter by letter
+      tl.fromTo("#fin-sub span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.055, ease: "power2.out" }, 1.45);
+      window.__timelines["v-finale"] = tl;
+    })();
+  </script>
+</template>

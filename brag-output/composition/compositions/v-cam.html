@@ -1,0 +1,57 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vc-move { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #vc-video { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: fill; }
+    #vc-hud { position: absolute; inset: 0; }
+    #vc-zone { position: absolute; left: 1152px; top: 486px; width: 422.4px; height: 486px; border: 2px dashed rgba(214,69,69,.8); background: rgba(214,69,69,.08); }
+    #vc-zone-fill { position: absolute; inset: 0; background: rgba(214,69,69,.16); opacity: 0; }
+    #vc-zone-lab { position: absolute; left: -2px; top: -2px; transform: translateY(-100%); padding: 3px 7px; background: rgba(16,22,20,.92); border: 1px solid rgba(214,69,69,.9); color: #f0d0d0; font-weight: 600; font-size: 12px; white-space: nowrap; }
+    #vc-stamp { position: absolute; right: 96px; top: 200px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding: 10px 16px; border-radius: 4px; background: rgba(0,0,0,.62); color: rgba(255,255,255,.82); font-weight: 600; font-size: 30px; line-height: 1.3; }
+    #vc-stamp b { font: 500 36px/1.25 "Source Code Pro", monospace; color: #fff; letter-spacing: .02em; }
+    #vc-reason { position: absolute; left: 96px; right: 96px; top: 1460px; padding: 22px 28px; background: #d64545; color: #fff; font-weight: 700; font-size: 52px; line-height: 1.15; opacity: 0; }
+    #vc-reason small { display: block; font-weight: 600; font-size: 34px; opacity: .9; margin-bottom: 6px; }
+    #vc-kick { position: absolute; left: 96px; top: 200px; padding: 14px 22px 14px 18px; background: rgba(17,18,20,.9); border-left: 4px solid #3d84f0; font-weight: 700; font-size: 44px; }
+    #vc-flash { position: absolute; inset: 0; box-shadow: inset 0 0 0 0 rgba(214,69,69,0); }
+  </style>
+  <div id="root" data-composition-id="v-cam" data-width="1080" data-height="1920">
+    <div id="vc-move">
+      <video id="vc-video" class="clip" data-start="0" data-duration="6.2" data-media-start="11.397" data-track-index="0" muted playsinline src="assets/media/cam13.mp4"></video>
+      <div id="vc-zone"><div id="vc-zone-fill"></div><div id="vc-zone-lab">Проезд погрузчиков</div></div>
+      <div id="vc-hud"></div>
+    </div>
+    <div id="vc-kick">Диспетчерская · Камера 1.3</div>
+    <div id="vc-stamp">Камера 1.3 · Проход у пресса<b id="vc-tc">00:11 · кадр 285</b></div>
+    <div id="vc-reason"><small>Опасное сближение с техникой</small>Человек в зоне «Проезд погрузчиков»</div>
+    <div id="vc-flash"></div>
+  </div>
+  <script src="assets/js/hud-cam13.js"></script>
+  <script src="assets/js/hud.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const MEDIA = 11.397, DUR = 6.2, FPS = 25.05, RED_AT = 16.687 - MEDIA;
+      const draw = window.ArgusHud.create(document.getElementById("vc-hud"), { stroke: 1.6, font: 9, hideLabelsOf: [1, 2, 3, 4, 6] });
+      const tc = document.getElementById("vc-tc");
+      const render = (t) => { const m = MEDIA + t; draw(m); tc.textContent = window.ArgusHud.mmss(m) + " · кадр " + Math.floor(m * FPS); };
+      const p = { t: 0 };
+      tl.fromTo(p, { t: 0 }, { t: DUR, duration: DUR, ease: "none", onUpdate: () => render(p.t) }, 0);
+      render(0);
+      const at = (cx, cy, s) => ({ scale: s, x: 540 - cx * s, y: 960 - cy * s });
+      tl.fromTo("#vc-move", { ...at(1300, 540, 1.7778), filter: "blur(10px)" }, { ...at(1300, 540, 1.7778), filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0);
+      tl.to("#vc-move", { ...at(1350, 400, 2.4), duration: RED_AT - 0.3, ease: "power1.inOut" }, 0.3);
+      tl.to("#vc-move", { ...at(1352, 405, 2.48), duration: 0.18, ease: "expo.out" }, RED_AT);
+      tl.fromTo("#vc-kick", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.2);
+      tl.to("#vc-kick", { opacity: 0, duration: 0.25 }, 2.2);
+      tl.fromTo("#vc-stamp", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.3);
+      tl.fromTo("#vc-zone-fill", { opacity: 0 }, { opacity: 1, duration: 0.12 }, RED_AT);
+      tl.fromTo("#vc-reason", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "expo.out" }, RED_AT + 0.04);
+      tl.fromTo("#vc-flash", { boxShadow: "inset 0 0 0 0px rgba(214,69,69,0)" }, { boxShadow: "inset 0 0 0 30px rgba(214,69,69,.85)", duration: 0.1, ease: "power2.out" }, RED_AT);
+      tl.to("#vc-flash", { boxShadow: "inset 0 0 0 12px rgba(214,69,69,.7)", duration: 0.35, ease: "power2.out" }, RED_AT + 0.1);
+      window.__timelines["v-cam"] = tl;
+    })();
+  </script>
+</template>

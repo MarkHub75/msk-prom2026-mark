@@ -1,0 +1,43 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vh-move { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #vh-video { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: fill; }
+    #vh-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,18,20,.55) 0%, rgba(17,18,20,.9) 30%, rgba(17,18,20,.94) 62%, rgba(17,18,20,.75) 100%); }
+    #vh-copy { position: absolute; left: 96px; top: 560px; width: 900px; }
+    #vh-num { font-weight: 900; font-size: 290px; line-height: .86; font-variant-numeric: tabular-nums; }
+    #vh-line { margin-top: 30px; font-weight: 600; font-size: 60px; line-height: 1.15; color: #c8ccd2; }
+    #vh-line span, #vh-punch span { display: inline-block; margin-right: .25em; }
+    #vh-punch { margin-top: 90px; font-weight: 700; font-size: 88px; line-height: 1.08; }
+    #vh-punch .red { color: #d64545; }
+    #vh-src { position: absolute; left: 96px; top: 1640px; font-weight: 600; font-size: 32px; color: #8a909a; }
+  </style>
+  <div id="root" data-composition-id="v-hook" data-width="1080" data-height="1920">
+    <div id="vh-move"><video id="vh-video" class="clip" data-start="0" data-duration="4.2" data-media-start="0.6" data-track-index="0" muted playsinline src="assets/media/cam13.mp4"></video></div>
+    <div id="vh-scrim"></div>
+    <div id="vh-copy">
+      <div id="vh-num">1,17</div>
+      <div id="vh-line"><span>пострадавших</span><span>на</span><span>1000</span><span>работников</span><span>в</span><span>год</span></div>
+      <div id="vh-punch"><span>Мастер</span><span>не</span><span>может</span><span>видеть</span><span class="red">всё.</span></div>
+    </div>
+    <div id="vh-src">Росстат, 2025</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const at = (cx, cy, s) => ({ scale: s, x: 540 - cx * s, y: 960 - cy * s });
+      tl.fromTo("#vh-move", at(1380, 540, 1.78), { ...at(1360, 520, 1.9), duration: 4.2, ease: "none" }, 0);
+      const num = document.getElementById("vh-num"), c = { v: 0 };
+      tl.fromTo("#vh-num", { opacity: 0, filter: "blur(14px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.45, ease: "expo.out" }, 0.15);
+      tl.fromTo(c, { v: 0 }, { v: 1.17, duration: 0.75, ease: "power3.out", onUpdate: () => { num.textContent = c.v.toFixed(2).replace(".", ","); } }, 0.15);
+      tl.fromTo("#vh-line span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075, ease: "power2.out" }, 0.62);
+      tl.fromTo("#vh-src", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.9);
+      tl.fromTo("#vh-punch span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, stagger: 0.08, ease: "power2.out" }, 1.85);
+      tl.to("#vh-copy, #vh-src", { y: -120, opacity: 0, filter: "blur(16px)", duration: 0.24, ease: "power3.in" }, 3.78);
+      window.__timelines["v-hook"] = tl;
+    })();
+  </script>
+</template>

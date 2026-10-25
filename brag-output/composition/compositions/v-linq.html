@@ -1,0 +1,31 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; color: #eceef1; }
+    #vl-chip { position: absolute; left: 96px; top: 470px; width: 330px; height: 109px; }
+    #vl-head { position: absolute; left: 96px; top: 620px; font-weight: 700; font-size: 92px; line-height: 1.05; }
+    .vl-fig { position: absolute; left: 96px; }
+    #vl-f1 { top: 900px; }
+    #vl-f2 { top: 1240px; }
+    .vl-num { font-weight: 900; font-size: 220px; line-height: .9; }
+    .vl-num small { font-weight: 700; font-size: 72px; margin-left: 20px; color: #c8ccd2; }
+    .vl-lab { margin-top: 18px; font-weight: 600; font-size: 44px; color: #a1a7b0; }
+  </style>
+  <div id="root" data-composition-id="v-linq" data-width="1080" data-height="1920">
+    <img id="vl-chip" src="assets/media/chip-linq.png" alt="" />
+    <div id="vl-head">Детекции —<br />на LinQ TPU</div>
+    <div class="vl-fig" id="vl-f1"><div class="vl-num">10,6<small>кадр/с</small></div><div class="vl-lab">детектор на ускорителе</div></div>
+    <div class="vl-fig" id="vl-f2"><div class="vl-num">308<small>мс</small></div><div class="vl-lab">задержка, медиана</div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#vl-chip", { opacity: 0, scale: 0.86, transformOrigin: "0 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 0.02);
+      tl.fromTo("#vl-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 0.1);
+      tl.fromTo(".vl-fig", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.35, stagger: 0.12, ease: "expo.out" }, 0.3);
+      window.__timelines["v-linq"] = tl;
+    })();
+  </script>
+</template>
