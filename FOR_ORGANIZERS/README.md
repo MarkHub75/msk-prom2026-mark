@@ -7,6 +7,7 @@
 | Тема | Документ | О чём |
 |---|---|---|
 | ML | [ML_README.md](ML_README.md) | История ML-части от Матвея: модели, эксперименты, доказательства и ограничения |
+| ML: сравнение YOLO | [ML_README.md → Сравнение 10 YOLO-моделей](ML_README.md#сравнение-10-yolo-моделей-и-выбор-baseline) | 10 pretrained YOLO на 152 DEV-кадрах: FPS на RTX 4090, совпадения person/phone, компиляция LinQ SDK; почему оставлен v8n. Полный отчёт и CSV (E-YOLO) — в архиве ML-части, не в репозитории |
 | LinQ: интеграция | [docs/linq/LINQ_CONTRACT.md](../docs/linq/LINQ_CONTRACT.md) | Проверенный контракт LinQ TPU: конвейер ONNX → программа TPU, API инференса, точность после квантования |
 | LinQ: замеры | [results/linq_smoke/](../results/linq_smoke/) | Сохранённые замеры smoke-прогонов моделей на LinQ и отчёты компиляции |
 | Запуск и развёртывание | [docs/DEPLOY.md](../docs/DEPLOY.md) | Машина, настоящий демо-пакет, конфиг контейнера, запуск и проверка |
