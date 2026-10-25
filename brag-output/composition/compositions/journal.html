@@ -1,0 +1,35 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; }
+    #jr-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #jr-stage img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    /* row #241 of the journal: 345..1905 × 152..217; everything below goes into shadow */
+    #jr-dim { position: absolute; left: 0; top: 219px; width: 1920px; height: 861px; background: linear-gradient(180deg, rgba(17,18,20,.80) 0px, rgba(17,18,20,.94) 260px); opacity: 0; }
+    #jr-ring { position: absolute; left: 347px; top: 151px; width: 1556px; height: 67px; border: 2px solid #3d84f0; border-radius: 3px; opacity: 0; }
+    #jr-kick { position: absolute; left: 96px; top: 930px; padding: 14px 24px 14px 20px; background: rgba(17,18,20,.92); border-left: 4px solid #3d84f0;
+      color: #eceef1; font-weight: 700; font-size: 40px; }
+  </style>
+  <div id="root" data-composition-id="journal" data-width="1920" data-height="1080">
+    <div id="jr-stage">
+      <img src="assets/media/journal.jpg" alt="" />
+      <div id="jr-dim"></div>
+      <div id="jr-ring"></div>
+    </div>
+    <div id="jr-kick">Журнал охраны труда</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const at = (cx, cy, s) => ({ scale: s, x: -cx * s, y: -cy * s });
+      tl.fromTo("#jr-stage", { ...at(300, 20, 1.16), filter: "blur(8px)" }, { ...at(330, 40, 1.24), filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 0);
+      tl.to("#jr-stage", { ...at(345, 50, 1.28), duration: 0.45, ease: "none" }, 0.4);
+      tl.to("#jr-stage", { ...at(555, 96, 2.0), duration: 0.6, ease: "power2.inOut" }, 0.85);
+      tl.to("#jr-stage", { ...at(575, 104, 2.05), duration: 0.35, ease: "none" }, 1.45);
+      tl.fromTo("#jr-dim", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.22);
+      tl.fromTo("#jr-ring", { opacity: 0 }, { opacity: 1, duration: 0.16 }, 0.3);
+      tl.fromTo("#jr-kick", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.1);
+      window.__timelines["journal"] = tl;
+    })();
+  </script>
+</template>

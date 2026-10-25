@@ -1,0 +1,36 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 900; src: url("assets/fonts/SourceSansPro-Black.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Source Sans Pro", sans-serif; color: #eceef1;
+      background: radial-gradient(ellipse 1100px 650px at 960px 560px, #18191c 0%, #111214 100%); }
+    #lq-chip { position: absolute; left: 150px; top: 250px; width: 300px; height: 99px; }
+    #lq-head { position: absolute; left: 150px; top: 378px; font-weight: 700; font-size: 72px; line-height: 1.05; }
+    .lq-fig { position: absolute; top: 560px; }
+    #lq-f1 { left: 150px; } #lq-f2 { left: 900px; }
+    .lq-num { font-weight: 900; font-size: 190px; line-height: .9; font-variant-numeric: tabular-nums; }
+    .lq-num small { font-weight: 700; font-size: 64px; margin-left: 18px; color: #c8ccd2; }
+    .lq-lab { margin-top: 20px; font-weight: 600; font-size: 36px; color: #a1a7b0; }
+    #lq-rule { position: absolute; left: 820px; top: 575px; width: 2px; height: 250px; background: #2f3238; }
+  </style>
+  <div id="root" data-composition-id="linq" data-width="1920" data-height="1080">
+    <img id="lq-chip" src="assets/media/chip-linq.png" alt="" />
+    <div id="lq-head">Детекции — на LinQ TPU</div>
+    <div id="lq-rule"></div>
+    <div class="lq-fig" id="lq-f1"><div class="lq-num"><span id="lq-n1">10,6</span><small>кадр/с</small></div><div class="lq-lab">детектор на ускорителе</div></div>
+    <div class="lq-fig" id="lq-f2"><div class="lq-num"><span id="lq-n2">308</span><small>мс</small></div><div class="lq-lab">задержка, медиана</div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#lq-chip", { opacity: 0, scale: 0.86, transformOrigin: "0 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 0.02);
+      tl.fromTo("#lq-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 0.1);
+      tl.fromTo("#lq-rule", { scaleY: 0, transformOrigin: "50% 0" }, { scaleY: 1, duration: 0.4, ease: "power3.out" }, 0.3);
+      tl.fromTo(".lq-fig", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, ease: "expo.out" }, 0.28);
+      // measured values only: no count-up through numbers nobody measured
+      tl.fromTo(".lq-num", { filter: "blur(10px)" }, { filter: "blur(0px)", duration: 0.3, stagger: 0.1, ease: "power2.out" }, 0.28);
+      window.__timelines["linq"] = tl;
+    })();
+  </script>
+</template>

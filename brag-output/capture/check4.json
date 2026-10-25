@@ -1,0 +1,1145 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 10
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 5,
+    "warningCount": 1,
+    "infoCount": 15,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 25,
+        "selector": "#fin-word > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 750.45,
+          "top": 326,
+          "right": 959.22,
+          "bottom": 754,
+          "width": 208.77,
+          "height": 428
+        },
+        "containerSelector": "#fin-glint",
+        "text": "А",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 750.45,
+          "y": 326,
+          "width": 208.77,
+          "height": 428
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 25,
+        "selector": "#fin-word > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 959.22,
+          "top": 326,
+          "right": 1176.14,
+          "bottom": 754,
+          "width": 216.92,
+          "height": 428
+        },
+        "containerSelector": "#fin-glint",
+        "text": "Р",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 959.22,
+          "y": 326,
+          "width": 216.92,
+          "height": 428
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 25,
+        "selector": "#fin-word > span:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1176.14,
+          "top": 326,
+          "right": 1366.55,
+          "bottom": 754,
+          "width": 190.41,
+          "height": 428
+        },
+        "containerSelector": "#fin-glint",
+        "text": "Г",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 1176.14,
+          "y": 326,
+          "width": 190.41,
+          "height": 428
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 25,
+        "selector": "#fin-word > span:nth-of-type(4)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1366.55,
+          "top": 326,
+          "right": 1570.55,
+          "bottom": 754,
+          "width": 204,
+          "height": 428
+        },
+        "containerSelector": "#fin-glint",
+        "text": "У",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 1366.55,
+          "y": 326,
+          "width": 204,
+          "height": 428
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "error",
+        "time": 25,
+        "selector": "#fin-word > span:nth-of-type(5)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1570.55,
+          "top": 326,
+          "right": 1780,
+          "bottom": 754,
+          "width": 209.45,
+          "height": 428
+        },
+        "containerSelector": "#fin-glint",
+        "text": "С",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 1570.55,
+          "y": 326,
+          "width": 209.45,
+          "height": 428
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 25,
+        "selector": "#fin-glow",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 560,
+          "top": 90,
+          "right": 1960,
+          "bottom": 990,
+          "width": 1400,
+          "height": 900
+        },
+        "containerSelector": "#finale > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 40
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/finale.html",
+        "bbox": {
+          "x": 560,
+          "y": 90,
+          "width": 1400,
+          "height": 900
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5,
+        "selector": "#dash-hud > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1424.37,
+          "top": 50.83,
+          "right": 1458.87,
+          "bottom": 62.74,
+          "width": 34.5,
+          "height": 11.91
+        },
+        "containerSelector": "#dash-shot",
+        "text": "человек",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 1424.37,
+          "y": 50.83,
+          "width": 34.5,
+          "height": 11.91
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5,
+        "selector": "#dash-hud > div:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1463.55,
+          "top": 50.83,
+          "right": 1473.17,
+          "bottom": 62.74,
+          "width": 9.62,
+          "height": 11.91
+        },
+        "containerSelector": "#dash-shot",
+        "text": "#4",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 1463.55,
+          "y": 50.83,
+          "width": 9.62,
+          "height": 11.91
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 5,
+        "selector": "#dash-stage",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -79.38,
+          "top": -86.09,
+          "right": 2890.09,
+          "bottom": 1584.24,
+          "width": 2969.47,
+          "height": 1670.33
+        },
+        "containerSelector": "#dash > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 79.38,
+          "right": 970.09,
+          "top": 86.09,
+          "bottom": 504.24
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": -79.38,
+          "y": -86.09,
+          "width": 2969.47,
+          "height": 1670.33
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 5,
+        "selector": "#dash-crop",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 34.76,
+          "top": 5.01,
+          "right": 1807.47,
+          "bottom": 1001.94,
+          "width": 1772.71,
+          "height": 996.94
+        },
+        "containerSelector": "#dash-well",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 195.91,
+          "top": 95.64,
+          "right": 1807.47,
+          "bottom": 1001.94,
+          "width": 1611.56,
+          "height": 906.31
+        },
+        "overflow": {
+          "left": 161.15,
+          "top": 90.63
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 34.76,
+          "y": 5.01,
+          "width": 1772.71,
+          "height": 996.94
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-hud > div:nth-of-type(4)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1204.22,
+          "top": -316.25,
+          "right": 1282.87,
+          "bottom": -288.53,
+          "width": 78.65,
+          "height": 27.72
+        },
+        "containerSelector": "#root",
+        "text": "человек",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 316.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": 1204.22,
+          "y": -316.25,
+          "width": 78.65,
+          "height": 27.72
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-hud > div:nth-of-type(4) > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1293.53,
+          "top": -316.25,
+          "right": 1315.42,
+          "bottom": -288.53,
+          "width": 21.89,
+          "height": 27.72
+        },
+        "containerSelector": "#root",
+        "text": "#4",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 316.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": 1293.53,
+          "y": -316.25,
+          "width": 21.89,
+          "height": 27.72
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-hud > div:nth-of-type(8)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -493.46,
+          "top": 1104.91,
+          "right": -414.81,
+          "bottom": 1132.64,
+          "width": 78.65,
+          "height": 27.73
+        },
+        "containerSelector": "#root",
+        "text": "человек",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 493.46,
+          "bottom": 52.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": -493.46,
+          "y": 1104.91,
+          "width": 78.65,
+          "height": 27.73
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-hud > div:nth-of-type(8) > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -404.15,
+          "top": 1104.91,
+          "right": -382.26,
+          "bottom": 1132.64,
+          "width": 21.89,
+          "height": 27.73
+        },
+        "containerSelector": "#root",
+        "text": "#6",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 404.15,
+          "bottom": 52.64
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": -404.15,
+          "y": 1104.91,
+          "width": 21.89,
+          "height": 27.73
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-move",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -1554.67,
+          "top": -91.23,
+          "right": 2167.83,
+          "bottom": 2002.67,
+          "width": 3722.5,
+          "height": 2093.9
+        },
+        "containerSelector": "#cam > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 1554.67,
+          "right": 247.83,
+          "top": 91.23,
+          "bottom": 922.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": -1554.67,
+          "y": -91.23,
+          "width": 3722.5,
+          "height": 2093.9
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-move",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -1554.67,
+          "top": -91.23,
+          "right": 2167.83,
+          "bottom": 2002.67,
+          "width": 3722.5,
+          "height": 2093.9
+        },
+        "containerSelector": "#cam > div:nth-of-type(1)",
+        "text": "Проезд погрузчиков человек#5 человек#4 человек#6 Человек в зоне «Проезд погрузчиков»",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": -1554.67,
+          "y": -91.23,
+          "width": 3722.5,
+          "height": 2093.9
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#cam-zone",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 529.93,
+          "top": 735.86,
+          "right": 1430.75,
+          "bottom": 1772.34,
+          "width": 900.82,
+          "height": 1036.48
+        },
+        "containerSelector": "#root",
+        "text": "Проезд погрузчиков",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 692.34
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": 529.93,
+          "y": 735.86,
+          "width": 900.82,
+          "height": 1036.48
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 8.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.333
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 11.667,
+        "selector": "#al-stage",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -2077.44,
+          "top": -715.3,
+          "right": 2005.06,
+          "bottom": 1581.1,
+          "width": 4082.5,
+          "height": 2296.4
+        },
+        "containerSelector": "#al-shake",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/alarm.html",
+        "bbox": {
+          "x": -2077.44,
+          "y": -715.3,
+          "width": 4082.5,
+          "height": 2296.4
+        },
+        "firstSeen": 11.667,
+        "lastSeen": 11.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 15,
+        "selector": "#ph-measures",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1509,
+          "top": 68,
+          "right": 1946,
+          "bottom": 1013,
+          "width": 437,
+          "height": 945
+        },
+        "containerSelector": "#ph-screen",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1072,
+          "top": 68,
+          "right": 1509,
+          "bottom": 1013,
+          "width": 437,
+          "height": 945
+        },
+        "overflow": {
+          "right": 437
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "ph-measures",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/phone.html",
+        "bbox": {
+          "x": 1509,
+          "y": 68,
+          "width": 437,
+          "height": 945
+        },
+        "firstSeen": 15,
+        "lastSeen": 15,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 18.333,
+        "selector": "#jr-stage",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -443.15,
+          "top": -64.3,
+          "right": 2017.72,
+          "bottom": 1319.94,
+          "width": 2460.86,
+          "height": 1384.24
+        },
+        "containerSelector": "#journal > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 443.15,
+          "right": 97.72,
+          "top": 64.3,
+          "bottom": 239.94
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/journal.html",
+        "bbox": {
+          "x": -443.15,
+          "y": -64.3,
+          "width": 2460.86,
+          "height": 1384.24
+        },
+        "firstSeen": 18.333,
+        "lastSeen": 18.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          18.333
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 18.333,
+        "selector": "#jr-ring",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 1.6,
+          "top": 129.24,
+          "right": 1995.93,
+          "bottom": 215.11,
+          "width": 1994.33,
+          "height": 85.87
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 75.93
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/journal.html",
+        "bbox": {
+          "x": 1.6,
+          "y": 129.24,
+          "width": 1994.33,
+          "height": 85.87
+        },
+        "firstSeen": 18.333,
+        "lastSeen": 18.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          18.333
+        ]
+      }
+    ],
+    "duration": 30,
+    "samples": [
+      1.667,
+      5,
+      8.333,
+      11.667,
+      15,
+      18.333,
+      21.667,
+      25,
+      28.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 21,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.667,
+      8.333,
+      15,
+      21.667,
+      28.333
+    ],
+    "checked": 42,
+    "passed": 42
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 5,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 2 text elements stay under it for 0.5 s or more, the smallest \"человек\" at 9 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "человек",
+        "selector": "#dash-hud > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 1212.22,
+          "y": 108.13,
+          "width": 33.88,
+          "height": 3.96
+        },
+        "time": 4.625,
+        "times": [
+          4,
+          4.625
+        ],
+        "fontPx": 9.19,
+        "floorPx": 28,
+        "seconds": 1.875,
+        "elements": [
+          {
+            "selector": "#dash-hud > div:nth-of-type(4)",
+            "text": "человек",
+            "fontPx": 9.19,
+            "time": 4.625,
+            "seconds": 1.875
+          },
+          {
+            "selector": "#dash-stamp",
+            "text": "03:56:17 · 00:11 / 00:20",
+            "fontPx": 21,
+            "time": 4,
+            "seconds": 2.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"03:56:19 · 00:13 / 00:20\" (7 words) is on screen 0.33 s (±0.01 s), under its 1.95 s floor: hold it about 0.5 s + 0.3 s a word (2.60 s here) before it leaves or changes; see references/motion.md.",
+        "text": "03:56:19 · 00:13 / 00:20",
+        "selector": "#dash-stamp",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 1391.82,
+          "y": 50.85,
+          "width": 415.53,
+          "height": 31.910000000000004
+        },
+        "time": 6.039,
+        "words": 7,
+        "seconds": 0.328,
+        "floorSeconds": 1.95
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 4 text elements stay under it for 0.5 s or more, the smallest \"человек\" at 20 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "человек",
+        "selector": "#cam-hud > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": 888.53,
+          "y": 0,
+          "width": 74.99,
+          "height": 4.92
+        },
+        "time": 7.25,
+        "times": [
+          6.75,
+          6.75,
+          6.875,
+          7.25
+        ],
+        "fontPx": 20.34,
+        "floorPx": 28,
+        "seconds": 2.625,
+        "elements": [
+          {
+            "selector": "#cam-hud > div:nth-of-type(2)",
+            "text": "человек",
+            "fontPx": 20.34,
+            "time": 7.25,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#cam-stamp",
+            "text": "Камера 1.3 · Проход у пресса",
+            "fontPx": 22,
+            "time": 6.75,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#cam-zone-lab",
+            "text": "Проезд погрузчиков",
+            "fontPx": 23.56,
+            "time": 6.875,
+            "seconds": 3
+          },
+          {
+            "selector": "#cam-tc",
+            "text": "00:14 · кадр 354",
+            "fontPx": 27,
+            "time": 6.75,
+            "seconds": 3.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Человек в зоне «Проезд погрузчиков»\" (5 words) is on screen 0.44 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Человек в зоне «Проезд погрузчиков»",
+        "selector": "#cam-reason",
+        "dataAttributes": {},
+        "sourceFile": "compositions/cam.html",
+        "bbox": {
+          "x": 1113.28,
+          "y": 341.62,
+          "width": 480.3700000000001,
+          "height": 39.94
+        },
+        "time": 9.367,
+        "words": 5,
+        "seconds": 0.438,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"1\" at 26 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "1",
+        "selector": "#ph-s1 > i:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/phone.html",
+        "bbox": {
+          "x": 168.51,
+          "y": 501.89,
+          "width": 15.61,
+          "height": 30
+        },
+        "time": 14.875,
+        "times": [
+          14.875,
+          14.875,
+          15
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 2.625,
+        "elements": [
+          {
+            "selector": "#ph-s1 > i:nth-of-type(1)",
+            "text": "1",
+            "fontPx": 26,
+            "time": 14.875,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#ph-s2 > i:nth-of-type(1)",
+            "text": "2",
+            "fontPx": 26,
+            "time": 14.875,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#ph-s3 > i:nth-of-type(1)",
+            "text": "3",
+            "fontPx": 26,
+            "time": 15,
+            "seconds": 2.5
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 240
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "f0337940-ea75-4dab-be1d-9542bb215b3c",
+    "revision": "a1183323-050b-4d0f-83a8-11a612f6fd61",
+    "report": "C:\\Users\\User\\Documents\\mosprom2026-hack\\brag-output-2026-10-25-034949\\composition\\.hyperframes\\artifacts\\checks\\f0337940-ea75-4dab-be1d-9542bb215b3c.json",
+    "attribution": "recorded-revision"
+  },
+  "_meta": {
+    "version": "0.8.193",
+    "latestVersion": "0.8.193",
+    "updateAvailable": false
+  }
+}

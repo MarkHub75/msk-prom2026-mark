@@ -1,0 +1,64 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; }
+    #al-shake { position: absolute; inset: 0; }
+    .al-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    .al-stage img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #al-hover, #al-press { opacity: 0; }
+    /* «Подтвердить» of the takeover: 1493,799 360×40 in 1920 space */
+    #al-press { left: 1493px; top: 799px; width: 360px; height: 40px; position: absolute; background: rgba(0,0,0,.24); border-radius: 3px; }
+    #al-cursor { position: absolute; left: 0; top: 0; width: 24px; height: 34px; transform-origin: 2px 2px; }
+    #al-conf-stage { opacity: 0; }
+    /* «Решение принято, событие у мастера…» banner of the confirmed card: 1447..1918 × 403..438 */
+    #al-ring { position: absolute; left: 1449px; top: 401px; width: 466px; height: 40px; border: 2px solid #3d84f0; border-radius: 3px; opacity: 0; }
+    #al-mask { position: absolute; left: 0; top: 0; width: 1442px; height: 1080px; background: linear-gradient(90deg, #111214 0, #111214 1380px, rgba(17,18,20,.0) 1442px); }
+    #al-red { position: absolute; inset: 0; background: #d64545; opacity: 0; }
+    #al-dip { position: absolute; inset: 0; background: #0a0a0b; opacity: 0; }
+    #al-kick { position: absolute; left: 96px; top: 930px; padding: 14px 24px 14px 20px; background: rgba(17,18,20,.92); border-left: 4px solid #3d84f0;
+      color: #eceef1; font-weight: 700; font-size: 40px; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="alarm-k" data-width="1920" data-height="1080">
+    <div id="al-shake">
+      <div id="al-stage" class="al-stage">
+        <img id="al-take" src="assets/media/takeover.jpg" alt="" />
+        <img id="al-hover" src="assets/media/confirm-hover.jpg" alt="" />
+        <div id="al-press"></div>
+        <svg id="al-cursor" viewBox="0 0 24 34"><path d="M2 2 L2 27 L8.2 21.2 L12.4 31.4 L16.6 29.6 L12.5 19.7 L21 19.7 Z" fill="#fff" stroke="#111214" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <div id="al-conf-stage" class="al-stage">
+        <img id="al-conf" src="assets/media/confirmed.jpg" alt="" />
+        <div id="al-mask"></div>
+        <div id="al-ring"></div>
+      </div>
+    </div>
+    <div id="al-red"></div>
+    <div id="al-dip"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const at = (cx, cy, s) => ({ scale: s, x: -cx * s, y: -cy * s });
+      const A = at(596, -66, 1.45), B = at(1150, 560, 2.63), C0 = at(1150, 70, 2.5), C1 = at(1175, 84, 2.58);
+      // the red takeover slams in over a red flash, with a 4-frame shake
+      tl.fromTo("#al-red", { opacity: 0.55 }, { opacity: 0, duration: 0.32, ease: "power2.out" }, 0);
+      tl.fromTo("#al-stage", { ...at(596 - 20, -66 - 10, 1.45 * 1.04) }, { ...A, duration: 1.4, ease: "power2.out" }, 0);
+      [[8, -5], [-6, 4], [3, -2], [0, 0]].forEach(([x, y], i) => tl.to("#al-shake", { x, y, duration: 0.033, ease: "none" }, 0.02 + i * 0.033));
+      // down to the decision buttons
+      tl.to("#al-stage", { ...B, duration: 0.75, ease: "power2.inOut" }, 1.5);
+      tl.fromTo("#al-cursor", { x: 1440, y: 990, opacity: 0 }, { x: 1655, y: 818, opacity: 1, duration: 0.55, ease: "power3.out" }, 1.95);
+      tl.fromTo("#al-hover", { opacity: 0 }, { opacity: 1, duration: 0.06 }, 2.42);
+      // click «Подтвердить»
+      tl.fromTo("#al-press", { opacity: 0 }, { opacity: 1, duration: 0.04 }, 2.66);
+      tl.to("#al-press", { opacity: 0, duration: 0.12 }, 2.8);
+      tl.fromTo("#al-cursor", { scale: 1 }, { scale: 0.86, duration: 0.06, yoyo: true, repeat: 1, ease: "power2.out" }, 2.66);
+      // dip cut onto the confirmed card
+      tl.fromTo("#al-dip", { opacity: 0 }, { opacity: 0.45, duration: 0.1, ease: "none" }, 2.88);
+      tl.set("#al-dip", { opacity: 0 }, 2.98);
+      tl.set("#al-conf-stage", { opacity: 1 }, 2.98);
+      tl.fromTo("#al-conf-stage", { ...C0 }, { ...C1, duration: 1.1, ease: "power2.out" }, 2.98);
+      tl.fromTo("#al-ring", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 3.35);
+      window.__timelines["alarm-k"] = tl;
+    })();
+  </script>
+</template>

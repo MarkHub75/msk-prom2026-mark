@@ -1,0 +1,51 @@
+<template>
+  <style>
+    @font-face { font-family: "Source Sans Pro"; font-weight: 600; src: url("assets/fonts/SourceSansPro-Semibold.ttf"); }
+    @font-face { font-family: "Source Sans Pro"; font-weight: 700; src: url("assets/fonts/SourceSansPro-Bold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #111214; font-family: "Source Sans Pro", sans-serif; }
+    #dash-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    /* the monitor well of the screenshot, 3840×2160 → 1920 space: (178, 117.5) 1042×586 */
+    #dash-well { position: absolute; left: 178px; top: 117.5px; width: 1042px; height: 586px; overflow: hidden; background: #0a0a0b; }
+    #dash-video { position: absolute; left: 0; top: 0; width: 1042px; height: 586px; object-fit: fill; }
+    #dash-crop { position: absolute; left: 0; top: 0; width: 1042px; height: 586px; transform: scale(1.1); transform-origin: 100% 100%; }
+    #dash-hud { position: absolute; inset: 0; }
+    #dash-shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #dash-stamp { position: absolute; right: 708px; top: 126px; padding: 4px 8px; border-radius: 3px; background: rgba(0,0,0,.62);
+      color: #fff; font: 500 14px/1.3 "Source Code Pro", monospace; letter-spacing: .02em; white-space: nowrap; }
+    #dash-kick { position: absolute; left: 96px; top: 930px; display: flex; align-items: center; gap: 16px; padding: 14px 24px 14px 20px;
+      background: rgba(17,18,20,.92); border-left: 4px solid #3d84f0; color: #eceef1; font-weight: 700; font-size: 40px; }
+  </style>
+  <div id="root" data-composition-id="dash-k" data-width="1920" data-height="1080">
+    <div id="dash-stage">
+      <div id="dash-well">
+        <div id="dash-crop">
+        <video id="dash-video" class="clip" data-start="0" data-duration="2.2" data-media-start="12.4" data-track-index="0" muted playsinline src="assets/media/cam13.mp4"></video>
+        <div id="dash-hud"></div>
+        </div>
+      </div>
+      <img id="dash-shot" src="assets/media/dash-cutout.png" alt="" />
+      <div id="dash-stamp">03:56:17 · 00:11 / 00:20</div>
+    </div>
+  </div>
+  <script src="assets/js/hud-cam13.js"></script>
+  <script src="assets/js/hud.js"></script>
+  <script>
+    (function () {
+      const MEDIA = 12.4, DUR = 2.2;
+      const draw = window.ArgusHud.create(document.getElementById("dash-hud"), { stroke: 1.0, font: 5.5, hideLabelsOf: [2] });
+      const stamp = document.getElementById("dash-stamp");
+      const clock = (m) => { const s = 3 * 3600 + 56 * 60 + 6 + Math.floor(m); return [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map((v) => String(v).padStart(2, "0")).join(":"); };
+      const render = (t) => { const m = MEDIA + t; draw(m); stamp.textContent = `${clock(m)} · ${window.ArgusHud.mmss(m)} / 00:20`; };
+      const tl = gsap.timeline({ paused: true });
+      const p = { t: 0 };
+      tl.fromTo(p, { t: 0 }, { t: DUR, duration: DUR, ease: "none", onUpdate: () => render(p.t) }, 0);
+      render(0);
+      // camera: crop (20,40) 1280×720 → into the aisle part of the monitor (615.4,166.3) 604.6 wide
+      const at = (cx, cy, s) => ({ scale: s, x: -cx * s, y: -cy * s });
+      tl.fromTo("#dash-stage", { ...at(20, 40, 1.5), opacity: 0 }, { ...at(40, 50, 1.53), opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+      tl.to("#dash-stage", { ...at(60, 60, 1.56), duration: 0.5, ease: "none" }, 0.5);
+      tl.to("#dash-stage", { ...at(615.4, 166.3, 3.1756), duration: 1.2, ease: "power2.in" }, 1.0);
+      window.__timelines["dash-k"] = tl;
+    })();
+  </script>
+</template>
