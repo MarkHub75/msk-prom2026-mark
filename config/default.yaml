@@ -182,7 +182,7 @@ escalation:
 
 broadcast:
   tick_ms: 250
-  loop_default: true
+  loop_default: false
   autostart: true
 
 feed:

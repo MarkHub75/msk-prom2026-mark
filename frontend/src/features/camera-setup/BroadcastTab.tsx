@@ -11,7 +11,7 @@ const STATUS: Record<Broadcast["status"], string> = { playing: "Идёт", stopp
 export function BroadcastTab({ camera, videos, broadcast, onChange }: { camera: Camera; videos: Video[]; broadcast: Broadcast | null; onChange: () => void }) {
   const ready = videos.filter((v) => v.active_analysis_id !== null).sort((a, b) => b.id - a.id);
   const [videoId, setVideoId] = useState<number>();
-  const [loop, setLoop] = useState(broadcast?.loop ?? true);
+  const [loop, setLoop] = useState(broadcast?.loop ?? false);
   const [error, setError] = useState<ApiFailure>();
   const [busy, setBusy] = useState<"start" | "stop">();
   const chosen = ready.find((v) => v.id === videoId) ?? ready.find((v) => v.id === broadcast?.video_id) ?? ready[0];
