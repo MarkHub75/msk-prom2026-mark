@@ -45,6 +45,8 @@ const DEFAULTS: CalculatorDefaults = {
   measured: [{ key: "throughput", title: "Пропускная способность", value: 12.4, unit: "кадр/с", source: "замер приложения: 3 задачи", editable: false }],
   v2: DEFAULTS_V2_EXAMPLE,
 };
+// These tests cover the legacy screen: a backend whose defaults carry no v2 block keeps it (with v2 /calculator opens calculator v2).
+const LEGACY_DEFAULTS = { ...DEFAULTS, v2: undefined };
 const tier = (t: TierResult["tier"], payback: number | null): TierResult => ({ tier: t, title: { base: "Базовый", extended: "Расширенный", max: "Максимальный" }[t], capex_rub: 1_150_000, opex_rub_year: 172_500, savings_rub_year: 1_200_000, payback_months: payback, accelerators: 2, servers: 1, items: [{ label: "Ускорители LinQ", value: "2 × 500 000 ₽" }] });
 const ROLLOUT: RolloutResult = { incident_cost_rub: 1_500_000, incidents_per_1000_workers: 20, events_per_operator_shift: 3.5, assumptions: DEFAULTS.assumptions, tiers: [tier("base", 13.4), tier("extended", 9), tier("max", null)] };
 const SCALE: ScaleResult = { cameras_total: 16, accelerators_now: 2, accelerators_total: 3, servers_total: 1, capex_rub: 980_000, capacity_fps: 12.4, capacity_source: "замер приложения: 3 задачи", analysis_fps: 5, assumptions: DEFAULTS.assumptions, items: [] };
@@ -52,7 +54,7 @@ const SCALE: ScaleResult = { cameras_total: 16, accelerators_now: 2, accelerator
 describe("calculator (tech.md 8.25)", () => {
   function calcServer() {
     serve(r => {
-      if (path(r) === "/api/calculator/defaults") return Response.json(DEFAULTS);
+      if (path(r) === "/api/calculator/defaults") return Response.json(LEGACY_DEFAULTS);
       if (path(r) === "/api/calculator/rollout") return Response.json(ROLLOUT);
       if (path(r) === "/api/calculator/scale") return Response.json(SCALE);
     });
@@ -82,7 +84,7 @@ describe("calculator (tech.md 8.25)", () => {
 
   it("a 422 with details.field marks that assumption and keeps the last result (live backend, slice 24)", async () => {
     serve(async r => {
-      if (path(r) === "/api/calculator/defaults") return Response.json(DEFAULTS);
+      if (path(r) === "/api/calculator/defaults") return Response.json(LEGACY_DEFAULTS);
       if (path(r) === "/api/calculator/rollout") {
         const body = await r.json() as { overrides: Record<string, number> };
         if (body.overrides["accelerator.price_rub"] === 0) return Response.json({ code: "validation", message: "Неверное значение: overrides.accelerator.price_rub", details: { field: "overrides.accelerator.price_rub" } }, { status: 422 });

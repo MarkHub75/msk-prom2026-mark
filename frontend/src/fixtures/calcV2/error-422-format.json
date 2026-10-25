@@ -1,0 +1,8 @@
+{
+  "code": "validation",
+  "message": "Неверный формат запроса",
+  "details": {
+    "field": "format",
+    "reason": "SCHEMA_MISMATCH"
+  }
+}
