@@ -1,5 +1,32 @@
 # ML handoff for Mark — final contract and Phone candidate
 
+## P0 final delivery — 25 October
+
+Current handoff: [LINQ_FINAL_LIVE_HANDOFF_20261025.md](handoffs/LINQ_FINAL_LIVE_HANDOFF_20261025.md)
+and [FINAL_MODEL_STATUS.md](handoffs/FINAL_MODEL_STATUS.md). Main94213c5f/techv9
+was reviewed read-only. Captain confirms S28/R32 live LinQ; no repeat run or
+additional integration stand was started. S28/S29 have implemented the older
+nc/input_name, optional-tail, providers, timeout, importer and extra-fallback gaps
+listed in the historical434b review below.
+
+PRIVATE payload: `/workspace/artifacts/matvey-release-final/mark-private-v1/`.
+Existing runner ZIP and original producing-agent handoff were found and hashed.
+Five unique checkpoints, six ModelSpecs and twelve ONNX files are present; all
+ONNX files pass static checks without inference. The separate local stable
+profile is `ml/pipeline.matvey.stable.yaml`; the older default Matvey YAML remains
+an explicit fire evaluation profile. Phone and rejected Forklift/PPE replacements
+remain inactive.
+
+Critical missing file: captain's baseline three-output Pose640 tail is not
+available here. Its expected path is
+`models/linq/pose640_cut_ap9999/pose640_cut_ap9999_tail.onnx`.
+Our608-byte four-input Split-Pose tail is incompatible with that program.
+Keep captain's already-working baseline pair. No replacement/recompile or
+unverified remote placement is claimed. Exact per-model hashes, source metrics
+and missing dependencies are in the new handoff. No public media upload occurred.
+
+The previous434b evidence and measurements below remain historical records.
+
 Latest verified main: **434b0f75d66a46b5fc15294562e8d69ed170d175**, tech.md **v6**.
 Read `/workspace/shared/contracts/MATVEY_CONTRACT_v1.md` in full; its SHA256 is
 9893f941a8e1c1ea4adf1343218c75edfe05d9735c77ffce63548c1f366f0ac1.

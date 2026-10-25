@@ -1,3 +1,15 @@
+## P0 FINAL ML HANDOFF TO MARK — 25 October
+
+Read docs/handoffs/LINQ_FINAL_LIVE_HANDOFF_20261025.md and FINAL_MODEL_STATUS.md.
+PRIVATE payload /workspace/artifacts/matvey-release-final/mark-private-v1/.
+Existing runnerZIP verified;5unique checkpoints/6ModelSpecs/12staticONNX checks.
+Captain confirmsS28/R32live;do NOTrepeatLinQresearch orstartanotherintegrationstand.
+Main94213c5f/techv9 read-only. Criticalmissing: captainbaseline3-outputPose640tail;
+our608B4-inputSplitPosetail isINCOMPATIBLE. Keepworkingcaptainpair.
+Phone/Forklift/PPEreplacementsexperimentalinactive;firelocal/source-onlywithFPs.
+No source/main/backend/foreignworktree changes. No authorizedoffhostbinaryremote
+verified;useexistingprivatefiletransfer. Oldreleases/checkpoints preserved.
+
 ## ISSUED FINAL CONTRACT + PHONE PACKAGE
 
 Read docs/handoffs/FINAL_CONTRACT_PHONE_CHECKPOINT_20261025.md first.

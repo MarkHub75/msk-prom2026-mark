@@ -1,0 +1,11 @@
+# LOCAL stable baseline only. INFERENCE_BACKEND=local SAFEWATCH_FAKE=0.
+# Helmet is additional. Independent industrial/event quality is not established.
+pipeline:
+  target_analysis_fps: 12
+  min_analysis_fps: 5
+  detector: coco-reference-yolov8n@640-v1-a6a8c37f7e45
+  pose: matvey-pose-yolov8n@640-v1-acc5f51228b9
+  extra:
+  - matvey-helmet-yolov8n@640-v1-5c3af1f3b855
+local:
+  threads: 1

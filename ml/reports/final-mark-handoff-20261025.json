@@ -1,0 +1,57 @@
+{
+  "schema": "matvey-final-Mark-P0-handoff-summary-v1",
+  "status": "PRIVATE_BUNDLE_VERIFIED_WITH_EXPLICIT_MISSING_CAPTAIN_BASELINE_TAIL",
+  "archive": {
+    "path": "/workspace/artifacts/matvey-release-final/matvey_final_private_handoff_20261025_v1.zip",
+    "bytes": 176139796,
+    "sha256": "3640159067ce7b4526c78fe8bd0eb8671f5ea1704ac3409f99c9607579a6036a"
+  },
+  "verified_members": 95,
+  "software_tests": {
+    "run": 528,
+    "skipped": 4,
+    "status": "PASS"
+  },
+  "model_spec_records": 6,
+  "unique_delivered_checkpoints": 5,
+  "ONNX_files_static_PASS": 12,
+  "status_table_records_including_missing_and_research": 27,
+  "hand_off_directory": "/workspace/artifacts/matvey-release-final/mark-private-v1",
+  "requested_files": {
+    "runner": "/workspace/artifacts/matvey-release-final/matvey_final_live_smoke_runner.zip",
+    "handoff": "/workspace/artifacts/matvey-release-final/LINQ_FINAL_LIVE_HANDOFF_20261025.md",
+    "final_model_status": "/workspace/artifacts/matvey-release-final/FINAL_MODEL_STATUS.md",
+    "original_mp4": "/workspace/artifacts/matvey-release-final/mark-private-v1/original.mp4",
+    "Matvey_Split_Pose_tail": {
+      "path": "/workspace/artifacts/matvey-release-final/matvey_split_pose640_tail.onnx",
+      "sha256": "23cdfe907f058713b6a617cb2230d52148eb46d508d8f809c8bb186e73615699",
+      "compatible_with_captain_baseline": false
+    },
+    "captain_baseline_Pose_tail": {
+      "status": "MISSING_LOCALLY",
+      "expected_path": "models/linq/pose640_cut_ap9999/pose640_cut_ap9999_tail.onnx",
+      "sha256": null
+    }
+  },
+  "captain_LinQ_route": "S28_R32_CONFIRMED;DO_NOT_REPEAT",
+  "new_root_NN_GPU_TPU_or_stands": 0,
+  "stable_local_models": [
+    "coco-reference-yolov8n@640-v1-a6a8c37f7e45",
+    "matvey-pose-yolov8n@640-v1-acc5f51228b9",
+    "matvey-helmet-yolov8n@640-v1-5c3af1f3b855"
+  ],
+  "experimental_inactive": [
+    "Phone",
+    "Forklift",
+    "PPE replacements",
+    "GMD offline heads"
+  ],
+  "fire_smoke": "LOCAL_SOURCE_EVALUATED;FALSE_ALERTS;NO_TPU_PROGRAM",
+  "S08": "ARGUS_SKELETON_NOT_IMPLEMENTED",
+  "no_public_upload": true,
+  "offhost_remote": "NO_AUTHORIZED_BINARY_DESTINATION_CONFIGURED_OR_VERIFIED",
+  "recipient_ACK": "NOT_VERIFIED",
+  "main_readonly": "94213c5f8177b0fa4a402ebf948a892198d9a4e7",
+  "source_baseline": "6fae3331814e271f9f180ab8adb96f609aaf5ec7",
+  "git_branch": "matvey_cv"
+}
