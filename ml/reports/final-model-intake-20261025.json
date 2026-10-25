@@ -1,6 +1,6 @@
 {
   "schema": "matvey-final-model-intake-summary-v1",
-  "observed_utc": "2026-10-25T02:10:48.260142+00:00",
+  "observed_utc": "2026-10-25T02:19:21.017089+00:00",
   "main": "94213c5f8177b0fa4a402ebf948a892198d9a4e7",
   "new_accepted_models": [],
   "first_pretrained_received": 5,
@@ -21,8 +21,8 @@
     "private_payload_files": 93,
     "status": "PASS_AFTER_DOCUMENT_RESTORATION"
   },
-  "intake_report": "/workspace/artifacts/matvey-release-final/model-intake-v1/INTAKE_STATUS.v3.json",
-  "handoff": "/workspace/artifacts/matvey-release-final/model-intake-v1/MODEL_INTAKE_HANDOFF.v2.md",
+  "intake_report": "/workspace/artifacts/matvey-release-final/model-intake-v1/INTAKE_STATUS.v4.json",
+  "handoff": "/workspace/artifacts/matvey-release-final/model-intake-v1/MODEL_INTAKE_HANDOFF.v3.md",
   "root_new_NN_GPU_TPU_calls": 0,
   "freeze_architecture_UTC": "2026-10-25T05:00:00+00:00",
   "task_status": "INTAKE_OPEN_WAITING_QUALIFIED_TRAINING_HANDOFF",
@@ -31,5 +31,26 @@
     "helmet-evxi3",
     "factory-ms6xz",
     "factory-u8ib6"
-  ]
+  ],
+  "provider_final_manifest": {
+    "path": "/workspace/shared/dataset-handoff/pretrained-five-20261025/WEIGHTS_MANIFEST.json",
+    "sha256": "aac5da6c1a54cc7cd3643f31dd5c7e1590a7887c0650ebd79b25051afbcfac70",
+    "bytes": 67426
+  },
+  "data_final_train_manifest": {
+    "path": "/workspace/shared/dataset-handoff/pretrained-five-20261025/TRAIN_READY.json",
+    "sha256": "47b0700e9f4811457e361a9a5d432ab1d9b07bba48db3da50d2565c7b138cfeb",
+    "bytes": 6449
+  },
+  "NVIDIA_synthetic": {
+    "train": 38,
+    "DEV": 40,
+    "objects": 156,
+    "class_map": {
+      "0": "person",
+      "1": "forklift"
+    },
+    "original_MP4s": 2,
+    "independent_industrial_test": false
+  }
 }

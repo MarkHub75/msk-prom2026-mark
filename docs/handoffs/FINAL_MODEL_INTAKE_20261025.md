@@ -20,7 +20,7 @@ RESEARCH_TRAIN_READY inputs, not trained model releases. Their validation is
 source DEV with only8forklift GT boxes; no proximity-event GT or independent
 industrial accuracy. Preserve native forklift/helmet/jacket/person IDs; jacket
 is not vest, helmet absence is not no_helmet. NVIDIA source synthetic metrics
-remain separate; await a new versioned bounded-subset/model handoff.
+remain separate; final Data wrapper now supplies38train/40DEV images from2existing original syntheticMP4s. Its IDs are0person/1forklift, reversed relative to pretrained0forklift/1person; explicit head reorder/reset and a new model classmap are required. No new independent industrial test or trained model is supplied.
 
 ## Verified stable evidence and integration
 
@@ -61,7 +61,7 @@ Root consumer ACKs and requirements are under
 `FINAL_MODEL_INTAKE_ACK.v1.json`, `FINAL_MODEL_INTAKE_REQUEST.v1.json`,
 `PRETRAINED_FIRST_CONSUMER_ACK.v1.json`, `PRETRAINED_FIVE_CONSUMER_ACK.v2.json`.
 
-Latest provider snapshot is WEIGHTS_FIRST_READY.v3.json. Its CPU forwards are
+Final provider release is WEIGHTS_MANIFEST.json plus TRAIN_READY.json(02:13UTC), acknowledged in PRETRAINED_FINAL_DATA_CONSUMER_ACK.v1.json. All five checkpoint hashes were checked; no accepted Training model is implied. Earlier CPU snapshot is WEIGHTS_FIRST_READY.v3.json. Its CPU forwards are
 Data operations, not root model inference, ONNX parity, measured quality or TPU
 qualification. Latest Data retractions override prior READY: helmet-evxi3 and
 factory-ms6xz are now NEEDS_FIX, as is factory-u8ib6. Do not use the retracted
