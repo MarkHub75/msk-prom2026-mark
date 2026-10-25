@@ -78,7 +78,10 @@ describe("red alarm flood", () => {
     await waitFor(() => expect(posts).toEqual(["view", "confirm"]));
     act(() => release?.());
     await waitFor(() => expect(screen.queryByRole("alertdialog")).toBeNull());
-    expect(screen.getByTestId("where").textContent).toBe("/events/41?takeover=1");
     expect(posts).toEqual(["view", "confirm"]);
+    // The closed takeover leaves the address: the next independent red takes over instead of queuing.
+    await waitFor(() => expect(screen.getByTestId("where").textContent).toBe("/events/41"));
+    red(45);
+    await waitFor(() => expect(screen.getByTestId("where").textContent).toBe("/events/45?takeover=1"));
   });
 });
