@@ -1,0 +1,16 @@
+# NVIDIA SYNTHETIC DEMO ONLY. Native2model;not production replacement or TPU READY.
+models:
+- id: matvey-nvidia-fit-a-native-yolov8n
+  version: 640-c035-native2-demo-v1-7afb8fd728a4
+  task: detect
+  input_size: 640
+  conf: 0.35
+  iou: 0.45
+  classes:
+    0: forklift
+    1: person
+  linq_program: null
+  linq_tail: null
+  local_onnx: models/matvey/matvey-nvidia-fit-a-native-yolov8n/640-c035-native2-demo-v1-7afb8fd728a4/source_model.onnx
+  nc: 2
+  input_name: images

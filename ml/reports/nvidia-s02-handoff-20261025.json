@@ -1,0 +1,100 @@
+{
+  "status": "ML_FILES_VERIFIED;OFFLINE_ARGUS_RUN25_EVENT1_RUN10_EVENT0;MARK_API_CONFIRMATION_PENDING",
+  "artifact_root": "/workspace/artifacts/matvey-nvidia-s02-handoff-20261025-v1",
+  "source_main": "94213c5f8177b0fa4a402ebf948a892198d9a4e7",
+  "class_map": {
+    "0": "forklift",
+    "1": "person"
+  },
+  "model": {
+    "id": "matvey-nvidia-fit-a-native-yolov8n",
+    "version": "640-c035-native2-demo-v1-7afb8fd728a4",
+    "task": "detect",
+    "input_size": 640,
+    "conf": 0.35,
+    "iou": 0.45,
+    "classes": {
+      "0": "forklift",
+      "1": "person"
+    },
+    "linq_program": null,
+    "linq_tail": null,
+    "local_onnx": "models/matvey/matvey-nvidia-fit-a-native-yolov8n/640-c035-native2-demo-v1-7afb8fd728a4/source_model.onnx",
+    "nc": 2,
+    "input_name": "images"
+  },
+  "checkpoint": {
+    "path": "/workspace/artifacts/training/final-five-model-benchmark/matvey_forklift_export_v1/best.pt",
+    "bytes": 6504106,
+    "sha256": "7afb8fd728a474fdd08f93b86606ee4512e27dc40535bcf06ee367ea0734f157"
+  },
+  "ONNX": {
+    "path": "/workspace/artifacts/matvey-nvidia-s02-handoff-20261025-v1/models/matvey/matvey-nvidia-fit-a-native-yolov8n/640-c035-native2-demo-v1-7afb8fd728a4/source_model.onnx",
+    "bytes": 12747140,
+    "sha256": "f1c5b921e2cb3f2d840dd02378406a807fe38f3777349a603d996adf6c073048"
+  },
+  "model_fingerprint": "88cf31ba162cbde7d783da5b923fa41e2b0e471d145a380f945c8b478d0c91c8",
+  "source_originals": {
+    "run25": {
+      "path": "/workspace/artifacts/matvey-nvidia-s02-handoff-20261025-v1/run25/original.mp4",
+      "bytes": 16229482,
+      "sha256": "14d7b0dd8ab53529151ca49cf2c9d2e741900f077384148a017eacaa8a504f2a"
+    },
+    "run10": {
+      "path": "/workspace/artifacts/matvey-nvidia-s02-handoff-20261025-v1/run10/original.mp4",
+      "bytes": 16743695,
+      "sha256": "802f70b61ac677b13168acf80e07469b7b94684ef724ef7b60b3da3111957344"
+    }
+  },
+  "readiness": {
+    "native_model": "EXPERIMENTAL_SYNTHETIC_DEMO_ONLY",
+    "GPU_captures": "READY_ALL600",
+    "ONNX_CPU_parity": "PASS6",
+    "new_LinQ": "NOT_RUN",
+    "Mark_confirmed_events": "NOT_RECEIVED",
+    "run25_offline_proximity_events": 1,
+    "run10_offline_proximity_events": 0
+  },
+  "verification": {
+    "source_frames_RGB_and_PTS": 600,
+    "real_GPU_capture_frames": 600,
+    "producer_new_GPU": 580,
+    "producer_reused_GPU": 20,
+    "raw_GPU_tensor_samples": 12,
+    "root_new_CPU_parity": 6,
+    "root_new_GPU": 0,
+    "root_new_LinQ": 0,
+    "software_tests": 531,
+    "skipped_tests": 4,
+    "doctor": "PASS_LOCAL"
+  },
+  "event_status": {
+    "run25_offline_episode": 1,
+    "run10_offline_episode": 0,
+    "Mark_API_confirmed": false,
+    "new_live_LinQ": false
+  },
+  "stable_registry_changed": false,
+  "backend_src_main_changed": false,
+  "experimental_capture_floor_check": "No event gain; not promoted",
+  "metric_scope": "partial synthetic known-agent bbox GT only; full precision/F1/event quality NOT_MEASURED",
+  "private_archive": {
+    "status": "PASS_PRIVATE_ZIP_CRC_AND_ALL_PAYLOAD_SHA256",
+    "verified_utc": "2026-10-25T04:52:26.037355+00:00",
+    "archive": "/workspace/artifacts/matvey_nvidia_s02_nightshift_20261025_v1_PRIVATE.zip",
+    "bytes": 90492183,
+    "sha256": "b4684fc6568781fe997c9edbd6eb9dbbaec0434d04cc029f275e3c9c19c97011",
+    "members": 93,
+    "SHA256_verified_members": 92,
+    "secret_signature_text_files_scanned": 64,
+    "secret_signature_matches": 0,
+    "runtime_or_credential_files": 0,
+    "uploaded": false,
+    "confirmed_Mark_events": "PENDING",
+    "run25_offline_proximity_events": 1,
+    "run10_offline_proximity_events": 0,
+    "new_LinQ_calls": 0
+  },
+  "shared_final_notice": "/workspace/shared/ml-handoff/matvey-final-20261025/NVIDIA_S02_FILES_READY.v3_FINAL.json",
+  "independent_cached_prediction_rows_checked": 20
+}

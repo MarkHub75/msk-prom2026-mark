@@ -1,5 +1,14 @@
 # ML handoff for Mark — final contract and Phone candidate
 
+## P0 NVIDIA S02 addition — 25 October
+
+See [NVIDIA Night Shift handoff](handoffs/NVIDIA_S02_NIGHTSHIFT_HANDOFF_20261025.md).
+Native FitA `{0: forklift, 1: person}` demo-only ModelSpec and 600 true GPU frame
+observations are ready; stable registry unchanged. Unmodified Argus offline:
+run25 proximity1, run10 proximity0. Mark-confirmed API events/overlays pending.
+Review run10 person tracking gap, driver exclusion and moving/hold diagnostics;
+ML did not change any rule/backend. No fresh LinQ on these clips.
+
 ## Final integration configuration — 25 October
 
 Use [FINAL_INTEGRATION_READINESS_20261025.md](handoffs/FINAL_INTEGRATION_READINESS_20261025.md)

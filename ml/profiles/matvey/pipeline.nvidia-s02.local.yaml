@@ -1,0 +1,19 @@
+# Explicit native head nc2 on Argus S29;keeps globalstableprofile unchanged.
+pipeline:
+  detector: matvey-nvidia-fit-a-native-yolov8n@640-c035-native2-demo-v1-7afb8fd728a4
+  pose: null
+  extra: []
+  vehicle_classes:
+  - car
+  - bus
+  - truck
+  - train
+  - forklift
+  target_analysis_fps: 30
+  min_analysis_fps: 5
+class_conf:
+  forklift: 0.35
+local:
+  threads: 1
+  providers:
+  - CPUExecutionProvider

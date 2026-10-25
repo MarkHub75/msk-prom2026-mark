@@ -1,3 +1,15 @@
+## P0 NVIDIA S02 NIGHT SHIFT — 25 October
+
+Read docs/handoffs/NVIDIA_S02_NIGHTSHIFT_HANDOFF_20261025.md and
+ml/reports/nvidia-s02-handoff-20261025.json. Artifactroot:
+/workspace/artifacts/matvey-nvidia-s02-handoff-20261025-v1/.
+Two clean originalceiling00MP4/600actualGPUframes,12rawsamples,6CPUparityPASS.
+Separate nativeFitA2classdemo profile0forklift/1person; stable registry untouched.
+OfficialArgusdemo_importpackready; unchangedmain94213c5f offline run25event1,
+run10event0(persongap156..237/driverexclusion/intermittentP). MarkAPI/events
+PENDING;no fakewarning/GTinjection/newLinQ.531testsPASS4skip/doctorPASS.
+Do not promote FitAindustrial or alter Markbackend/rules. See exactpaths/limits.
+
 ## FINAL INTEGRATION READINESS — 25 October, before07:30MSK
 
 Read docs/handoffs/FINAL_INTEGRATION_READINESS_20261025.md and
