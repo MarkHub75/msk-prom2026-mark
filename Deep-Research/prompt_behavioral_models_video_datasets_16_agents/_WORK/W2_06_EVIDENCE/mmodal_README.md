@@ -1,1 +1,0 @@
-# MultiModal-fire-detection

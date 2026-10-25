@@ -1,8 +1,0 @@
-Overriding model.yaml nc=80 with nc=4
-WARNING no model scale passed. Assuming scale='n'.
-Transferred 451/457 items from pretrained weights
-Overriding model.yaml nc=80 with nc=4
-a) C2PSA->Identity (indices kept): ['Transferred 451/457 items from pretrained weights'] | params 2355884 vs 2590620
-Overriding model.yaml nc=80 with nc=4
-Transferred 493/499 items from pretrained weights
-b) SiLU->ReLU (Conv.default_act): ['Transferred 493/499 items from pretrained weights'] | act in model.0: ReLU

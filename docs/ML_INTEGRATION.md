@@ -329,7 +329,7 @@ uv run safewatch eval config/eval.ml.yaml --out data/app/eval/fire-v1
 
 ## 7. Правила работы на LinQ для ML-части
 
-Из `tech.md` 3.1 и `CLAUDE.md`:
+Из `tech.md` 3.1 и правил параллельной работы команды на LinQ:
 
 - Аккаунт Jupyter один на команду. Обычная папка ML-части — `~/work/matvey/`, свои скрипты и артефакты — с префиксом `matvey_`. Для **TPU-программ через существующий загрузчик** действует исключение из раздела 1.2: уникальные `mosprom_matvey_*`, staging `~/work/mosprom_work/programs/`, итог `/auto/cache/<login>/`. Имя `matvey_*` без `mosprom_` не сохранится в таком виде. Папка приложения — `~/work/baseline/`, файлы `baseline_*`: не трогать, приложение само туда грузит хвосты и видео.
 - Общие программы `mosprom_*_cut_ap9999*.tpu` не перезаписывать и не удалять; готовый проверенный baseline допустимо использовать без изменения. Новые байты — только новое уникальное имя `mosprom_matvey_*`, без `--force` (`upload_program.py:29-47`).

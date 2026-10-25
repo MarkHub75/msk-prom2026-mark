@@ -1,6 +1,0 @@
-Overriding model.yaml nc=80 with nc=4
-BEFORE strip: {'keys': ['best_fitness', 'date', 'docs', 'ema', 'epoch', 'git', 'license', 'model', 'modelopt', 'optimizer', 'scaler', 'stopper', 'train_args', 'train_metrics', 'train_results', 'updates', 'version'], 'model_is_None': True, 'ema_is_None': False, 'epoch': 1, 'weights_dtype': 'torch.float16', 'optimizer_is_None': False, 'requires_grad_any': True, 'n_train_args': 113, 'size_MB': 10.7}
-Optimizer stripped from C:\Users\User\AppData\Local\Temp\claude\C--Users-User-Documents-mosprom2026-hack-research-model-stack-claude\adce1a1a-fbbd-4ab7-b3bb-2b61dbc9d01b\scratchpad\exp-W1-07\ckpt_out\best_stripped.pt, 5.4MB
-AFTER  strip: {'keys': ['best_fitness', 'date', 'docs', 'ema', 'epoch', 'git', 'license', 'model', 'modelopt', 'optimizer', 'scaler', 'stopper', 'train_args', 'train_metrics', 'train_results', 'updates', 'version'], 'model_is_None': False, 'ema_is_None': True, 'epoch': -1, 'weights_dtype': 'torch.float16', 'optimizer_is_None': True, 'requires_grad_any': False, 'n_train_args': 113, 'size_MB': 5.44}
-load_checkpoint -> DetectionModel torch.float32 names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'} stride: [8.0, 16.0, 32.0]
-load_checkpoint(unstripped) -> dtype torch.float32 names: {0: 'person', 1: 'helmet', 2: 'head', 3: 'vest'}
